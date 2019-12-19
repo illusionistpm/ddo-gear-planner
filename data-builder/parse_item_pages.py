@@ -46,7 +46,7 @@ def get_items_from_page(itemPageURL):
 
                 affixName = affix.find('a').getText() if affix.find('a') else affix.getText()
 
-                affixNameSearch = re.search('(.*) \+([0-9]+)%?', affixName)
+                affixNameSearch = re.search(r'(.*) \+([0-9]+)%?', affixName)
                 if affixNameSearch:
                     aff['name'] = affixNameSearch.group(1)
                     aff['value'] = affixNameSearch.group(2)

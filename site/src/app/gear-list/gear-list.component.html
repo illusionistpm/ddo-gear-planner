@@ -1,3 +1,4 @@
 <div class="form-group" *ngFor="let gear of gearList.getGearList() | keyvalue">
-    <app-gear name="{{ gear.key }}" [data]=gear.value></app-gear>
+    <app-gear name="{{ gear.key }}" [data]=gear.value [model]=equipped.getSlot(gear)></app-gear>
+    <!-- <app-gear-description [slot]=equipped.getSlot(gear)></app-gear-description> -->
 </div>

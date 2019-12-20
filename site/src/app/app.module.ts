@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { GearListComponent } from './gear-list/gear-list.component';
 import { GearComponent } from './gear/gear.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
+import { GearDescriptionComponent } from './gear-description/gear-description.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GearListComponent,
     GearComponent,
-    TypeaheadComponent
+    TypeaheadComponent,
+    GearDescriptionComponent
   ],
   imports: [
     NgbModule,

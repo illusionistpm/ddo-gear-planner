@@ -9,8 +9,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class TypeaheadComponent implements OnInit {
   @Input() source;
-
-  public model: any;
+  @Input() model;
 
   formatter = (x: {name: string}) => x.name;
 
@@ -18,9 +17,8 @@ export class TypeaheadComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-//        : this.source.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-          : this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+      map(term =>
+          this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
 
   constructor() { }

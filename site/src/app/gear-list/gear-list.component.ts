@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GearDbService } from '../gear-db.service';
+import { EquippedService } from '../equipped.service';
 
 @Component({
   selector: 'app-gear-list',
@@ -10,7 +11,8 @@ import { GearDbService } from '../gear-db.service';
 export class GearListComponent implements OnInit {
 
   constructor(
-    public gearList: GearDbService
+    public gearList: GearDbService,
+    public equipped: EquippedService
   ) {
   }
 

@@ -30,14 +30,6 @@ def download_page(url):
     return True
 
 
-def get_items_from_page(itemPageURL):
-    page = requests.get(itemPageURL)
-
-    soup = BeautifulSoup(page.content, 'html.parser')
-
-    title = soup.find(id='firstHeading').getText()
-
-
 itemPageURLs = get_item_page_urls()
 for url in set(itemPageURLs):
     if download_page(url):

@@ -8,6 +8,7 @@ import { Input } from '@angular/core';
 })
 export class GearComponent implements OnInit {
   @Input() name;
+  @Input() data;
 
   constructor() { }
 

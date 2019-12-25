@@ -1,8 +1,8 @@
-<div class="form-group">
+<div class="form-group" *ngIf="curItem">
     <label>ML: {{curItem.ml}}</label>
-    <label>Affixes:</label>
-    <div class="form-group" *ngFor="let affix of curItem.affixes">
-        <label>{{affix.name}}</label>
-        <label>{{affix.value}} {{affix.type}}</label>
+    <div class="form-group row col-6" *ngFor="let affix of curItem.affixes">
+        <label class='col-4'>{{affix.name}}</label>
+        <label class='col text-right' *ngIf="affix.value">{{affix.value}}</label>
+        <label class='col' *ngIf="affix.type">{{affix.type}}</label>
     </div>
 </div>

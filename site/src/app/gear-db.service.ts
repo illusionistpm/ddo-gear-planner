@@ -14,10 +14,10 @@ export class GearDbService {
     this.gear = new Map<string, Array<Item>>();
 
     for (const item of items) {
-      if (!this.gear.has(item.category)) {
-        this.gear.set(item.category, new Array<Item>());
+      if (!this.gear.has(item.slot)) {
+        this.gear.set(item.slot, new Array<Item>());
       }
-      this.gear.get(item.category).push(new Item(item));
+      this.gear.get(item.slot).push(new Item(item));
     }
   }
 

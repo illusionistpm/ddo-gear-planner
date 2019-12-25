@@ -9,7 +9,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class TypeaheadComponent implements OnInit {
   @Input() source;
-  @Input() onChange;
+  @Input() onChange: (val: string) => any;
 
   formatter = (x: {name: string}) => x.name;
 
@@ -24,6 +24,10 @@ export class TypeaheadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSelectItemMine(e) {
+    this.onChange(e.item);
   }
 
 }

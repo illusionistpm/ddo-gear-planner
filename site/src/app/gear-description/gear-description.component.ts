@@ -10,12 +10,11 @@ import { Observable } from 'rxjs';
 })
 export class GearDescriptionComponent implements OnInit {
   @Input() item: Observable<Item>;
-  curItem: Item = new Item(null);
+  curItem: Item = null;
 
   constructor(
   ) {
-    this.curItem = new Item(null);
-   }
+  }
 
   ngOnInit() {
     this.item.subscribe(val => {

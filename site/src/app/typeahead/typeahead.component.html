@@ -1,5 +1,5 @@
 <input type="text" class="form-control" 
-    (ngModelChange)="onChange($event)" 
+    (selectItem)="onSelectItemMine($event)" 
     [ngbTypeahead]="search" 
     [inputFormatter]="formatter" 
     [resultFormatter]="formatter"

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-gear-list',
@@ -20,10 +21,13 @@ export class GearListComponent implements OnInit {
   }
 
   onChange(slot) {
-    return (newVal: string) => {
-      const item = this.gearList.findGearBySlot(slot, newVal);
-      this.equipped.set(slot, item);
-    }
+    return (newVal: any) => {
+      if (newVal instanceof Item) {
+        this.equipped.set(slot, newVal);
+      } else {
+        const item = this.gearList.findGearBySlot(slot, newVal);
+        this.equipped.set(slot, item);
+      }
+    };
   }
-
 }

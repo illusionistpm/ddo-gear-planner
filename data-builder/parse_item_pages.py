@@ -3,6 +3,31 @@ import requests
 import os
 import re
 import json
+import collections
+
+def add_cat_to_map(catMap, slot, array):
+    for category in array:
+        catMap[category] = slot
+
+def build_cat_map():
+    catMap = collections.defaultdict(lambda: 'Weapon')
+
+    add_cat_to_map(catMap, 'Armor', ['Cloth armor', 'Heavy armor', 'Medium armor', 'Light armor', 'Cloth armor', 'Docents'])
+    add_cat_to_map(catMap, 'Offhand', ['Bucklers', 'Small shields', 'Large shields', 'Tower shields', 'Orbs', 'Rune arms'])
+    add_cat_to_map(catMap, 'Helm', ['Head items'])
+    add_cat_to_map(catMap, 'Goggles', ['Eye items'])
+    add_cat_to_map(catMap, 'Cloak', ['Back items'])
+    add_cat_to_map(catMap, 'Belt', ['Waist items'])
+    add_cat_to_map(catMap, 'Boots', ['Feet items'])
+    add_cat_to_map(catMap, 'Bracers', ['Wrist items'])
+    add_cat_to_map(catMap, 'Gloves', ['Hand items'])
+    add_cat_to_map(catMap, 'Necklace', ['Neck  items'])
+    add_cat_to_map(catMap, 'Ring', ['Finger items'])
+    add_cat_to_map(catMap, 'Trinket', ['Trinket items'])
+    add_cat_to_map(catMap, 'Collar', ['Collars'])
+
+    return catMap
+
         
 def get_items_from_page(itemPageURL):
     print("Parsing " + itemPageURL)
@@ -26,9 +51,12 @@ def get_items_from_page(itemPageURL):
     # For some reason, the header is showing up as a row
     rows.pop(0)
 
+    catMap = build_cat_map()
+
     for row in rows:
         item = {}
         item['category'] = category
+        item['slot'] = catMap[category]
 
         fields = row.find_all('td', recursive=False)
 
@@ -81,4 +109,4 @@ for file in os.listdir(cachePath):
     items.extend(get_items_from_page(cachePath + file))
 
 out = json.dumps(items, sort_keys=True, indent=4)
-open("items.json", 'w', encoding='utf8').write(out)
+open("../site/src/assets/items.json", 'w', encoding='utf8').write(out)

@@ -18,8 +18,12 @@ export class EquippedService {
     this.dummyItem = new Item(null);
     this.slots = new Map();
     for (const slot of gearList.getSlots()) {
-      this.slots.set(slot, new BehaviorSubject(this.dummyItem));
+      this.slots.set(slot, new BehaviorSubject(null));
     }
+
+    // TEST CODE
+    const item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
+    this.set('Cloak', item);
   }
 
   set(slot: string, item: Item) {

@@ -5,16 +5,17 @@ export class Item {
     slot: string;
     type: string;
     ml: number;
-    affixes: Array<Affix>;
+    affixes: Array<Affix> = Array<Affix>();
 
     constructor(json) {
-        this.name = json.name;
-        this.slot = json.slot ? json.slot : json.category;
-        this.type = json.category;
-        this.ml = Number(json.ml);
-        this.affixes = Array<Affix>();
-        for(const affixJSON of json.affixes) {
-            this.affixes.push(new Affix(affixJSON));
+        if (json) {
+            this.name = json.name;
+            this.slot = json.slot ? json.slot : json.category;
+            this.type = json.category;
+            this.ml = Number(json.ml);
+            for (const affixJSON of json.affixes) {
+                this.affixes.push(new Affix(affixJSON));
+            }
         }
     }
 }

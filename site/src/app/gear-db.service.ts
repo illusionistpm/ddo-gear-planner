@@ -25,11 +25,15 @@ export class GearDbService {
     return this.gear;
   }
 
-  getGearBySlot(type) {
-    return this.gear[type];
+  getGearBySlot(type: string) {
+    return this.gear.get(type);
   }
 
   getSlots() {
     return Array.from(this.gear.keys());
+  }
+
+  findGearBySlot(type: string, name: string) {
+    return this.getGearBySlot(type).find(e => e.name === name);
   }
 }

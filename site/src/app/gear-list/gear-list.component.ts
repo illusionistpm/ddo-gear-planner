@@ -19,4 +19,11 @@ export class GearListComponent implements OnInit {
   ngOnInit() {
   }
 
+  onChange(slot) {
+    return (newVal: string) => {
+      const item = this.gearList.findGearBySlot(slot, newVal);
+      this.equipped.set(slot, item);
+    }
+  }
+
 }

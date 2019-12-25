@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { EquippedService } from '../equipped.service';
+import { Item } from '../item';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-gear-description',
@@ -8,13 +9,18 @@ import { EquippedService } from '../equipped.service';
   styleUrls: ['./gear-description.component.css']
 })
 export class GearDescriptionComponent implements OnInit {
-  @Input() slot: string;
+  @Input() item: Observable<Item>;
+  curItem: Item = new Item(null);
 
   constructor(
-    public equipped: EquippedService
-  ) { }
+  ) {
+    this.curItem = new Item(null);
+   }
 
   ngOnInit() {
+    this.item.subscribe(val => {
+      this.curItem = val;
+    });
   }
 
 }

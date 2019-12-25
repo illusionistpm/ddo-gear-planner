@@ -1,5 +1,5 @@
 <input type="text" class="form-control" 
-    [(ngModel)]="model" 
+    (ngModelChange)="onChange($event)" 
     [ngbTypeahead]="search" 
     [inputFormatter]="formatter" 
     [resultFormatter]="formatter"

@@ -11,7 +11,7 @@ import { Item } from '../item';
 export class GearComponent implements OnInit {
   @Input() name: string;
   @Input() data: Array<Item>;
-  @Input() model: string;
+  @Input() onChange;
 
   constructor() { }
 

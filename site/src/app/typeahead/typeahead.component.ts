@@ -9,7 +9,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class TypeaheadComponent implements OnInit {
   @Input() source;
-  @Input() model;
+  @Input() onChange;
 
   formatter = (x: {name: string}) => x.name;
 

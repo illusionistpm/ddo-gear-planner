@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 
 import { Item } from './item';
 
@@ -22,8 +22,10 @@ export class EquippedService {
     }
 
     // TEST CODE
-    const item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
-    this.set('Cloak', item);
+    if (isDevMode()) {
+      const item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
+      this.set('Cloak', item);
+    }
   }
 
   set(slot: string, item: Item) {

@@ -1,0 +1,11 @@
+<div>
+    <div class="row" *ngFor="let effect of effects.keys()">
+        <div class="col">{{effect}}</div>
+        <div class="col" *ngFor="let types of effects.get(effect)">
+            <div class="col bonus-type-found" *ngIf="types.value; else noValue">{{types.bonusType}}: {{types.value}}</div>
+            <ng-template #noValue>
+                <div class="col bonus-type-not-found">{{types.bonusType}}</div>
+            </ng-template>
+        </div>
+    </div>
+</div>

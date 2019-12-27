@@ -1,0 +1,8 @@
+.bonus-type-found {
+    color: 	#006400;
+    font-weight: bold;
+}
+
+.bonus-type-not-found {
+    color: 	#B22222;
+}

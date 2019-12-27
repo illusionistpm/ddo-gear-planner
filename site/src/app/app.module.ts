@@ -8,6 +8,7 @@ import { GearListComponent } from './gear-list/gear-list.component';
 import { GearComponent } from './gear/gear.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
+import { EffectsTableComponent } from './effects-table/effects-table.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { GearDescriptionComponent } from './gear-description/gear-description.co
     GearListComponent,
     GearComponent,
     TypeaheadComponent,
-    GearDescriptionComponent
+    GearDescriptionComponent,
+    EffectsTableComponent
   ],
   imports: [
     NgbModule,

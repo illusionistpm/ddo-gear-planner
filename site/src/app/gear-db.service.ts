@@ -2,23 +2,41 @@ import { Injectable } from '@angular/core';
 
 import { Item } from './item';
 
-import items from 'src/assets/items.json';
+import itemsList from 'src/assets/items.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
+  private affixToBonusTypes: Map<string, Set<string>>;
+  private importantAffixes: Set<string>;
 
   constructor() {
     this.gear = new Map<string, Array<Item>>();
+    this.affixToBonusTypes = new Map<string, Set<string>>();
+    this.importantAffixes = new Set<string>();
 
-    for (const item of items) {
+    for (const item of itemsList) {
       if (!this.gear.has(item.slot)) {
         this.gear.set(item.slot, new Array<Item>());
       }
       this.gear.get(item.slot).push(new Item(item));
     }
+
+    for (const items of this.gear.values()) {
+      for (const item of items) {
+        for (const affix of item.affixes) {
+          if (!this.affixToBonusTypes.has(affix.name)) {
+            this.affixToBonusTypes.set(affix.name, new Set<string>());
+          }
+
+          this.affixToBonusTypes.get(affix.name).add(affix.type);
+        }
+      }
+    }
+
+    this.importantAffixes = new Set(['Constitution', 'Intelligence', 'Nullification', 'Spell Penetration']);
   }
 
   getGearList() {
@@ -35,5 +53,13 @@ export class GearDbService {
 
   findGearBySlot(type: string, name: string) {
     return this.getGearBySlot(type).find(e => e.name === name);
+  }
+
+  getImportantAffixes() {
+    const important = new Map<string, Set<string>>();
+    for (const affixName of this.importantAffixes) {
+      important.set(affixName, this.affixToBonusTypes.get(affixName));
+    }
+    return important;
   }
 }

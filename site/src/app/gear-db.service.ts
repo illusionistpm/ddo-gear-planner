@@ -9,13 +9,11 @@ import itemsList from 'src/assets/items.json';
 })
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
-  private affixToBonusTypes: Map<string, Set<string>>;
-  private importantAffixes: Set<string>;
+  affixToBonusTypes: Map<string, Set<string>>;
 
   constructor() {
     this.gear = new Map<string, Array<Item>>();
     this.affixToBonusTypes = new Map<string, Set<string>>();
-    this.importantAffixes = new Set<string>();
 
     for (const item of itemsList) {
       if (!this.gear.has(item.slot)) {
@@ -35,8 +33,6 @@ export class GearDbService {
         }
       }
     }
-
-    this.importantAffixes = new Set(['Constitution', 'Intelligence', 'Nullification', 'Spell Penetration']);
   }
 
   getGearList() {
@@ -55,11 +51,7 @@ export class GearDbService {
     return this.getGearBySlot(type).find(e => e.name === name);
   }
 
-  getImportantAffixes() {
-    const important = new Map<string, Set<string>>();
-    for (const affixName of this.importantAffixes) {
-      important.set(affixName, this.affixToBonusTypes.get(affixName));
-    }
-    return important;
+  getAllAffixes() {
+    return this.affixToBonusTypes.keys();
   }
 }

@@ -12,6 +12,7 @@ import { Affix } from './affix';
 export class EquippedService {
   private slots: Map<string, BehaviorSubject<Item>>;
   private dummyItem: Item;
+  private importantAffixes: Set<string>;
 
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
 
@@ -19,6 +20,9 @@ export class EquippedService {
     private gearList: GearDbService
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
+
+    this.importantAffixes = new Set(['Constitution', 'Intelligence', 'Nullification', 'Spell Penetration']);
+
 
     this.dummyItem = new Item(null);
     this.slots = new Map();
@@ -74,10 +78,28 @@ export class EquippedService {
     return max;
   }
 
+  getImportantAffixes() {
+    const important = new Map<string, Set<string>>();
+    for (const affixName of this.importantAffixes) {
+      important.set(affixName, this.gearList.affixToBonusTypes.get(affixName));
+    }
+    return important;
+  }
+
+  addImportantAffix(affix) {
+    this.importantAffixes.add(affix);
+    this.updateCoveredAffixes();
+  }
+
+  removeImportantAffix(affix) {
+    this.importantAffixes.delete(affix);
+    this.updateCoveredAffixes();
+  }
+
   private updateCoveredAffixes() {
     const newMap = new Map<string, Array<any>>();
 
-    const importantAffixes = this.gearList.getImportantAffixes();
+    const importantAffixes = this.getImportantAffixes();
     for (const affix of importantAffixes) {
       const affixName = affix[0];
       const affixTypes = affix[1];

@@ -4,6 +4,7 @@ import os
 import re
 import json
 import collections
+from roman_numerals import int_from_roman_numeral
 
 def add_cat_to_map(catMap, slot, array):
     for category in array:
@@ -28,7 +29,22 @@ def build_cat_map():
 
     return catMap
 
-        
+def convert_roman_numerals(name):
+    search = re.search(r'^(.*) ([IVXCMDL]+)$', name)
+    if search:
+        return search.group(1) + " " + str(int_from_roman_numeral(search.group(2)))
+
+    return name
+
+
+def strip_bonus_types(name):
+    for type in ['Insightful', 'Exceptional', 'Enhanced', 'Quality', 'Profane']:
+        if name.startswith(type):
+            name = name[len(type)+1:]
+
+    return name
+
+
 def get_items_from_page(itemPageURL):
     print("Parsing " + itemPageURL)
     page = open(itemPageURL, "r", encoding='utf-8').read()
@@ -74,12 +90,15 @@ def get_items_from_page(itemPageURL):
 
                 affixName = affix.find('a').getText() if affix.find('a') else affix.getText()
 
-                affixNameSearch = re.search(r'(.*) \+([0-9]+)%?', affixName)
+                affixName = convert_roman_numerals(affixName)
+                affixName = strip_bonus_types(affixName)
+
+                affixNameSearch = re.search(r'^(.*) \+?([0-9]+)\%?$', affixName)
                 if affixNameSearch:
-                    aff['name'] = affixNameSearch.group(1)
-                    aff['value'] = affixNameSearch.group(2)
+                    aff['name'] = affixNameSearch.group(1).strip()
+                    aff['value'] = affixNameSearch.group(2).strip()
                 else:
-                    aff['name'] = affixName
+                    aff['name'] = affixName.strip()
 
                 # Ignore the tooltip for augment slots
                 if not 'Augment Slot' in aff['name']:
@@ -88,7 +107,7 @@ def get_items_from_page(itemPageURL):
                         words = str(tooltip)
                         bonusTypeSearch = re.search('([a-z]+) bonus', words, re.IGNORECASE)
                         if bonusTypeSearch:
-                            aff['bonusType'] = bonusTypeSearch.group(1)
+                            aff['bonusType'] = bonusTypeSearch.group(1).strip()
 
                 item['affixes'].append(aff)
         else:

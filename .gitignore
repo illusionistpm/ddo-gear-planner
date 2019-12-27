@@ -1,3 +1,4 @@
 .vscode/
 data-builder/cache/
 data-builder/items.json
+data-builder/__pycache__/

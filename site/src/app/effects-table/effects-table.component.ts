@@ -34,7 +34,7 @@ export class EffectsTableComponent implements OnInit {
   onChange() {
     return (affix: any) => {
       this.equipped.addImportantAffix(affix.name);
-    }
+    };
   }
 
   removeAffix(affixName) {

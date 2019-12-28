@@ -3,11 +3,11 @@
         <label for="effect-search" class="col-2">Attribute to add:</label>
         <app-typeahead id="effect-search" class="col-3" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
     </div>
-    <div class="row" *ngFor="let effect of effectKeys">
+    <div class="card col-sm-12 col-md-6 float-left" *ngFor="let effect of effectKeys">
         
-        <div class="col">
-            <button (click)=removeAffix(effect.name)>X</button>
-            {{effect.name}}
+        <div>
+            <span class="h4">{{effect.name}}</span>
+            <button class="btn btn-danger float-right" (click)=removeAffix(effect.name)>X</button>
         </div>
         <div class="col" *ngFor="let types of effects.get(effect.name)">
             <div class="col bonus-type-found" *ngIf="types.value; else noValue">{{types.bonusType}}: {{types.value}}</div>

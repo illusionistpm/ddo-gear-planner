@@ -13997,141 +13997,6 @@
         "affixes": [
             {
                 "bonusType": "Enhancement",
-                "name": "+3 Enhancement Bonus"
-            },
-            {
-                "name": "Fire Vulnerability"
-            },
-            {
-                "name": "Fire Guard",
-                "value": "2"
-            },
-            {
-                "name": "Flaming",
-                "value": "2"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Fire Resistance",
-                "value": "10"
-            }
-        ],
-        "category": "Collars",
-        "ml": "7",
-        "name": "Thrall of the Fire Temple",
-        "slot": "Collar"
-    },
-    {
-        "affixes": [
-            {
-                "bonusType": "Enhancement",
-                "name": "+5 Enhancement Bonus"
-            },
-            {
-                "name": "Frostbite"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Speed",
-                "value": "15"
-            },
-            {
-                "bonusType": "Competence",
-                "name": "Deadly",
-                "value": "5"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Doublestrike",
-                "value": "6"
-            },
-            {
-                "name": "Empty Red Augment Slot"
-            },
-            {
-                "name": "Empty Purple Augment Slot"
-            }
-        ],
-        "category": "Collars",
-        "ml": "10",
-        "name": "Hound of the Night",
-        "slot": "Collar"
-    },
-    {
-        "affixes": [
-            {
-                "bonusType": "Enhancement",
-                "name": "+7 Enhancement Bonus"
-            },
-            {
-                "name": "Fire Vulnerability"
-            },
-            {
-                "bonusType": "Competence",
-                "name": "Deadly",
-                "value": "9"
-            },
-            {
-                "name": "Flaming",
-                "value": "10"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Speed",
-                "value": "15"
-            },
-            {
-                "name": "Greater Flaming Blast"
-            },
-            {
-                "name": "Empty Purple Augment Slot"
-            }
-        ],
-        "category": "Collars",
-        "ml": "22",
-        "name": "Epic Thrall of the Fire Temple",
-        "slot": "Collar"
-    },
-    {
-        "affixes": [
-            {
-                "bonusType": "Enhancement",
-                "name": "+15 Enhancement Bonus"
-            },
-            {
-                "name": "Frostbite"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Speed",
-                "value": "30"
-            },
-            {
-                "bonusType": "Competence",
-                "name": "Deadly",
-                "value": "16"
-            },
-            {
-                "bonusType": "Enhancement",
-                "name": "Doublestrike",
-                "value": "22"
-            },
-            {
-                "name": "Empty Red Augment Slot"
-            },
-            {
-                "name": "Empty Purple Augment Slot"
-            }
-        ],
-        "category": "Collars",
-        "ml": "29",
-        "name": "Legendary Hound of the Night",
-        "slot": "Collar"
-    },
-    {
-        "affixes": [
-            {
-                "bonusType": "Enhancement",
                 "name": "+1 Enhancement Bonus"
             },
             {
@@ -74252,7 +74117,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Adherent's Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74275,7 +74140,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Alchemist's Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74293,7 +74158,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Amulet of Inner Focus",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74306,7 +74171,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Amulet of Natural Armor",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74325,7 +74190,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Amulet of the Brute",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74356,7 +74221,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Amulet of the Makers",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74378,7 +74243,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Amulet of the Stormreaver",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74400,7 +74265,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Anger's Gift",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74422,7 +74287,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Arcane Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74436,7 +74301,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Archivist's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74452,7 +74317,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Azure Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74473,7 +74338,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Beholder Optic Nerves",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74496,7 +74361,7 @@
         "category": "Neck items",
         "ml": "2",
         "name": "Bellow's Ring",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74513,7 +74378,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Bluefire Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74531,7 +74396,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Certainty",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74558,7 +74423,7 @@
         "category": "Neck items",
         "ml": "8",
         "name": "Chains",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74589,7 +74454,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Choker of the Silver Tongue",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74602,7 +74467,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Cloven Jaw War Beads",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74632,7 +74497,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Conduit of the Soul",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74653,7 +74518,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Connor's Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74683,7 +74548,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Cracked Core",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74699,7 +74564,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Creation Forge Gorget",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74715,7 +74580,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Crimson Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74729,7 +74594,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Crystal Prism",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74761,7 +74626,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Dark Diversion",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74793,7 +74658,7 @@
         "category": "Neck items",
         "ml": "10",
         "name": "Dawn's Herald-Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74807,7 +74672,7 @@
         "category": "Neck items",
         "ml": "12",
         "name": "Death's Locket (Level 12)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74821,7 +74686,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Death's Locket (Level 13)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74838,7 +74703,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Death's Locket (Level 14)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74857,7 +74722,7 @@
         "category": "Neck items",
         "ml": "23",
         "name": "Death's Locket (Level 23)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74879,7 +74744,7 @@
         "category": "Neck items",
         "ml": "24",
         "name": "Death's Locket (Level 24)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74901,7 +74766,7 @@
         "category": "Neck items",
         "ml": "25",
         "name": "Death's Locket (Level 25)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74915,7 +74780,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Death's Locket (historic)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74937,7 +74802,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Devoted Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74974,7 +74839,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Doctor LeRoux's Curious Implant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -74994,7 +74859,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Draconic Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75013,7 +74878,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Dragonmarked Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75039,7 +74904,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Elder's Focus",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75050,7 +74915,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Elegant Diamond Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75080,7 +74945,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Elyd Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75096,7 +74961,7 @@
         "category": "Neck items",
         "ml": "5",
         "name": "Emerald Claw Amulet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75117,7 +74982,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Emerald Claw Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75141,7 +75006,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Emerald Claw Talisman",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75165,7 +75030,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Adherent's Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75184,7 +75049,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Azure Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75203,7 +75068,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Crimson Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75226,7 +75091,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Elder's Focus",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75260,7 +75125,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Golden Guile",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75281,7 +75146,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Grim's Bracelet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75300,7 +75165,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Hruvayah's Medallion",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75326,7 +75191,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Hyena Claw Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75364,7 +75229,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Epic Lion's Mane",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75401,7 +75266,7 @@
         "category": "Neck items",
         "ml": "27",
         "name": "Epic Locus of Vol",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75423,7 +75288,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Necklace of Venom",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75454,7 +75319,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Epic Noxious Embers",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75485,7 +75350,7 @@
         "category": "Neck items",
         "ml": "21",
         "name": "Epic Platinum Prayer Beads",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75511,7 +75376,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Shaman's Beads",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75540,7 +75405,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Shimmering Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75559,7 +75424,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Silver Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75579,7 +75444,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Siren's Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75603,7 +75468,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Torc of Prince Raiyum-de II",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75619,7 +75484,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Twisted Talisman",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75647,7 +75512,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Epic Vim and Vigor",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75676,7 +75541,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Vulkoorim Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75703,7 +75568,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Epic Wolf Whistle",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75734,7 +75599,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Family Recruit Sigil",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75749,7 +75614,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Finger Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75783,7 +75648,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Fleetfoot Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75805,7 +75670,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Gilvaenor's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75821,7 +75686,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Golden Cartouche",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75846,7 +75711,7 @@
         "category": "Neck items",
         "ml": "17",
         "name": "Golden Guile",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75857,7 +75722,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Green Steel Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75880,7 +75745,7 @@
         "category": "Neck items",
         "ml": "4",
         "name": "Grim's Bracelet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75893,7 +75758,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Guardian's Locket (Level 15)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75911,7 +75776,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Guardian's Locket (Level 26)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75933,7 +75798,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Hruvayah's Medallion",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75954,7 +75819,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Hyena Claw Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -75981,7 +75846,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Hypnotic Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76002,7 +75867,7 @@
         "category": "Neck items",
         "ml": "12",
         "name": "Iron Beads (Level 12)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76023,7 +75888,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Iron Beads (Level 13)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76044,7 +75909,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Iron Beads (Level 14)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76065,7 +75930,7 @@
         "category": "Neck items",
         "ml": "23",
         "name": "Iron Beads (Level 23)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76086,7 +75951,7 @@
         "category": "Neck items",
         "ml": "24",
         "name": "Iron Beads (Level 24)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76110,7 +75975,7 @@
         "category": "Neck items",
         "ml": "25",
         "name": "Iron Beads (Level 25)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76128,7 +75993,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Iron Beads (historic)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76145,7 +76010,7 @@
         "category": "Neck items",
         "ml": "12",
         "name": "Jorgundal's Collar (Level 12)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76165,7 +76030,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Jorgundal's Collar (Level 13)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76185,7 +76050,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Jorgundal's Collar (Level 14)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76205,7 +76070,7 @@
         "category": "Neck items",
         "ml": "23",
         "name": "Jorgundal's Collar (Level 23)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76228,7 +76093,7 @@
         "category": "Neck items",
         "ml": "24",
         "name": "Jorgundal's Collar (Level 24)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76251,7 +76116,7 @@
         "category": "Neck items",
         "ml": "25",
         "name": "Jorgundal's Collar (Level 25)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76264,7 +76129,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Jorgundal's Collar (historic)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76301,7 +76166,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Key of Rhukaan Draal",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76323,7 +76188,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Kilau's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76356,7 +76221,7 @@
         "category": "Neck items",
         "ml": "10",
         "name": "Kindred Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76374,7 +76239,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Knight's Gorget",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76405,7 +76270,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Legendary Amulet of the Makers",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76432,7 +76297,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Legendary Chains",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76462,7 +76327,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Conduit of the Soul",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76494,7 +76359,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Dawn's Herald-Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76525,7 +76390,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Family Recruit Sigil",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76552,7 +76417,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Legendary Hypnotic Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76585,7 +76450,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Kindred Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76616,7 +76481,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Pendant of Apparition",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76646,7 +76511,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Legendary Pendant of Hidden Tools",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76680,7 +76545,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Pendant of the Azure Sea",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76714,7 +76579,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Pendant of the Azure Sky",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76745,7 +76610,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Pendant of the Warrior's Focus",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76780,7 +76645,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Reflective Bloodstone",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76809,7 +76674,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Rose Quartz Sigil Stone",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76844,7 +76709,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Standard Issue Sigil",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76875,7 +76740,7 @@
         "category": "Neck items",
         "ml": "27",
         "name": "Legendary Utilitarian Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76910,7 +76775,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Legendary Ward-Inscribed Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76921,7 +76786,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Lesser Pendant of Travel",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76959,7 +76824,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Lion's Mane",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -76981,7 +76846,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Locus of Vol",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77007,7 +76872,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Lorrik's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77021,7 +76886,7 @@
         "category": "Neck items",
         "ml": "3",
         "name": "Marguerite's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77037,7 +76902,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Melri's Breath",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77053,7 +76918,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Mysterious Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77081,7 +76946,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Mythic Vim and Vigor",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77102,7 +76967,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Necklace of Contemplation",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77113,7 +76978,7 @@
         "category": "Neck items",
         "ml": "5",
         "name": "Necklace of Fireballs",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77139,7 +77004,7 @@
         "category": "Neck items",
         "ml": "12",
         "name": "Necklace of Glib Tongue (Level 12)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77165,7 +77030,7 @@
         "category": "Neck items",
         "ml": "16",
         "name": "Necklace of Glib Tongue (Level 16)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77191,7 +77056,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Necklace of Glib Tongue (Level 20)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77217,7 +77082,7 @@
         "category": "Neck items",
         "ml": "24",
         "name": "Necklace of Glib Tongue (Level 24)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77243,7 +77108,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Necklace of Glib Tongue (Level 28)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77269,7 +77134,7 @@
         "category": "Neck items",
         "ml": "4",
         "name": "Necklace of Glib Tongue (Level 4)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77295,7 +77160,7 @@
         "category": "Neck items",
         "ml": "8",
         "name": "Necklace of Glib Tongue (Level 8)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77329,7 +77194,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Necklace of Mystic Eidolons",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77360,7 +77225,7 @@
         "category": "Neck items",
         "ml": "21",
         "name": "Necklace of Tranquility",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77381,7 +77246,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Necklace of Venom",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77397,7 +77262,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Nightforge Gorget",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77419,7 +77284,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Nimble Brooch",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77447,7 +77312,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Noxious Embers",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77467,7 +77332,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Nyoko's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77487,7 +77352,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Oremi's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77509,7 +77374,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Pathfinder's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77540,7 +77405,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Pendant of Apparition",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77571,7 +77436,7 @@
         "category": "Neck items",
         "ml": "21",
         "name": "Pendant of Combat",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77601,7 +77466,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Pendant of Hidden Tools",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77630,7 +77495,7 @@
         "category": "Neck items",
         "ml": "13",
         "name": "Pendant of Quiet Movements (level 13)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77659,7 +77524,7 @@
         "category": "Neck items",
         "ml": "28",
         "name": "Pendant of Quiet Movements (level 28)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77693,7 +77558,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Pendant of the Azure Sea",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77727,7 +77592,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Pendant of the Azure Sky",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77749,7 +77614,7 @@
         "category": "Neck items",
         "ml": "25",
         "name": "Pendant of the Stormreaver",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77780,7 +77645,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Pendant of the Warrior's Focus",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77793,7 +77658,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Periapt of Health",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77806,7 +77671,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Periapt of Wisdom",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77837,7 +77702,7 @@
         "category": "Neck items",
         "ml": "6",
         "name": "Platinum Prayer Beads",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77868,7 +77733,7 @@
         "category": "Neck items",
         "ml": "21",
         "name": "Poisonclasp",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77890,7 +77755,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Protector's Brooch",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77913,7 +77778,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Rattle Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77948,7 +77813,7 @@
         "category": "Neck items",
         "ml": "10",
         "name": "Reflective Bloodstone",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -77980,7 +77845,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Resonation",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78009,7 +77874,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Rose Quartz Sigil Stone",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78022,7 +77887,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Sage's Locket (Level 15)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78040,7 +77905,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Sage's Locket (Level 26)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78056,7 +77921,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Scarf of Warmth",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78073,7 +77938,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Scourge Choker",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78095,7 +77960,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Shaman's Beads",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78118,7 +77983,7 @@
         "category": "Neck items",
         "ml": "4",
         "name": "Shimmering Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78140,7 +78005,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Shintao Cord",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78161,7 +78026,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Shiona's Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78196,7 +78061,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Shroud of Ardent",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78212,7 +78077,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Shrunken Head",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78249,7 +78114,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "Sigil of Regalport",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78275,7 +78140,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Sign of Xoriat",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78286,7 +78151,7 @@
         "category": "Neck items",
         "ml": "5",
         "name": "Silver Flame Amulet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78300,7 +78165,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Silver Flame Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78317,7 +78182,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Silver Flame Talisman",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78333,7 +78198,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Silver Necklace of Prophecy",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78355,7 +78220,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Siren's Charm",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78368,7 +78233,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Skirmisher's Locket (Level 15)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78386,7 +78251,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Skirmisher's Locket (Level 26)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78407,7 +78272,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Smedgar's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78427,7 +78292,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Stalwart Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78462,7 +78327,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Standard Issue Sigil",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78483,7 +78348,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Stolen Necklace (Level 14)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78504,7 +78369,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Stolen Necklace (Level 15)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78525,7 +78390,7 @@
         "category": "Neck items",
         "ml": "16",
         "name": "Stolen Necklace (Level 16)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78546,7 +78411,7 @@
         "category": "Neck items",
         "ml": "25",
         "name": "Stolen Necklace (Level 25)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78567,7 +78432,7 @@
         "category": "Neck items",
         "ml": "26",
         "name": "Stolen Necklace (Level 26)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78588,7 +78453,7 @@
         "category": "Neck items",
         "ml": "27",
         "name": "Stolen Necklace (Level 27)",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78606,7 +78471,7 @@
         "category": "Neck items",
         "ml": "15",
         "name": "Subtle Amulet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78632,7 +78497,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "Symbol of the Shining Sun",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78669,7 +78534,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "The Family\u2019s Blessing",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78706,7 +78571,7 @@
         "category": "Neck items",
         "ml": "29",
         "name": "The Zarash'ak Ward",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78727,7 +78592,7 @@
         "category": "Neck items",
         "ml": "11",
         "name": "Torc of Prince Raiyum-de II",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78748,7 +78613,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Torin's Choker",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78770,7 +78635,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Troubleshooter's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78786,7 +78651,7 @@
         "category": "Neck items",
         "ml": "7",
         "name": "Twisted Talisman",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78817,7 +78682,7 @@
         "category": "Neck items",
         "ml": "14",
         "name": "Utilitarian Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78833,7 +78698,7 @@
         "category": "Neck items",
         "ml": "3",
         "name": "Venn's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78853,7 +78718,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Verik's Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78881,7 +78746,7 @@
         "category": "Neck items",
         "ml": "18",
         "name": "Vim and Vigor",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78905,7 +78770,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Vulkoorim Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78931,7 +78796,7 @@
         "category": "Neck items",
         "ml": "20",
         "name": "War Wizard's Amulet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78966,7 +78831,7 @@
         "category": "Neck items",
         "ml": "10",
         "name": "Ward-Inscribed Pendant",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78979,7 +78844,7 @@
         "category": "Neck items",
         "ml": "None",
         "name": "Wazul's Amulet",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -78996,7 +78861,7 @@
         "category": "Neck items",
         "ml": "9",
         "name": "Wolf Whistle",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [
@@ -79012,7 +78877,7 @@
         "category": "Neck items",
         "ml": "5",
         "name": "Zulkash's Bone Necklace",
-        "slot": "Weapon"
+        "slot": "Necklace"
     },
     {
         "affixes": [

@@ -6,9 +6,14 @@ import json
 import collections
 from roman_numerals import int_from_roman_numeral
 
+def include_page(fileName):
+    return not fileName.startswith('Collars')
+
+
 def add_cat_to_map(catMap, slot, array):
     for category in array:
         catMap[category] = slot
+
 
 def build_cat_map():
     catMap = collections.defaultdict(lambda: 'Weapon')
@@ -22,12 +27,13 @@ def build_cat_map():
     add_cat_to_map(catMap, 'Boots', ['Feet items'])
     add_cat_to_map(catMap, 'Bracers', ['Wrist items'])
     add_cat_to_map(catMap, 'Gloves', ['Hand items'])
-    add_cat_to_map(catMap, 'Necklace', ['Neck  items'])
+    add_cat_to_map(catMap, 'Necklace', ['Neck items'])
     add_cat_to_map(catMap, 'Ring', ['Finger items'])
     add_cat_to_map(catMap, 'Trinket', ['Trinket items'])
     add_cat_to_map(catMap, 'Collar', ['Collars'])
 
     return catMap
+
 
 def convert_roman_numerals(name):
     search = re.search(r'^(.*) ([IVXCMDL]+)$', name)
@@ -125,7 +131,8 @@ def get_items_from_page(itemPageURL):
 cachePath = "./cache/"
 items = []
 for file in os.listdir(cachePath):
-    items.extend(get_items_from_page(cachePath + file))
+    if include_page(file):
+        items.extend(get_items_from_page(cachePath + file))
 
 out = json.dumps(items, sort_keys=True, indent=4)
 open("../site/src/assets/items.json", 'w', encoding='utf8').write(out)

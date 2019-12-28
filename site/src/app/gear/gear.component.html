@@ -1,4 +1,7 @@
-<div class="row">
-    <label class="col-md-1" for="input-{{name}}">{{ name }}</label>
-    <app-typeahead id="input-{{name}}" class="col-md-3" type="text" [source]=data [onChange]=onChange></app-typeahead>
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">{{ name }}</span>
+    </div>
+    
+    <app-typeahead id="input-{{name}}" type="text" [source]=data [onChange]=onChange></app-typeahead>
 </div>

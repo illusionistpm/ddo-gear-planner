@@ -1,4 +1,5 @@
+<button class='button' (click)=loadDummy()>Test Button</button>
 <div class="form-group col-sm-12 col-md-6 float-left" *ngFor="let slot of gearList.getSlots()">
-    <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [onChange]=onChange(slot)></app-gear>
+    <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [item]=equipped.getSlot(slot) [onChange]=onChange(slot)></app-gear>
     <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
 </div>

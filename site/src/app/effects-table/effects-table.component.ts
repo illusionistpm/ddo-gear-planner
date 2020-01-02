@@ -45,10 +45,10 @@ export class EffectsTableComponent implements OnInit {
     this.equipped.removeImportantAffix(affixName);
   }
 
-  showItemsWithBonusType(effectName, bonusType) {
+  showItemsWithBonusType(affixName, bonusType) {
     const dlg = this.modalService.open(ItemsWithBonusTypeComponent, {ariaLabelledBy: 'modal-basic-title'});
 
-    dlg.componentInstance.effectName = effectName;
+    dlg.componentInstance.affixName = affixName;
     dlg.componentInstance.bonusType = bonusType;
 
     dlg.result.then((result) => {

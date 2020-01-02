@@ -12,7 +12,7 @@ import { Item } from '../item';
 })
 export class ItemsWithBonusTypeComponent implements OnInit {
 
-  @Input() effectName: string;
+  @Input() affixName: string;
   @Input() bonusType: string;
 
   matches: Array<Item>;
@@ -25,7 +25,16 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.matches = this.gearDB.findGearWithAffixAndType(this.effectName, this.bonusType);
+    this.matches = this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType).sort((a, b) => b.ml - a.ml);
+  }
+
+  findMatchingValue(item: Item) {
+    for (const affix of item.affixes) {
+      if (affix.name === this.affixName && affix.type === this.bonusType) {
+        return affix.value;
+      }
+    }
+    return '';
   }
 
   viewItem(item: Item) {

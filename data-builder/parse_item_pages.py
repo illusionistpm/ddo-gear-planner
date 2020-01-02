@@ -82,9 +82,15 @@ def get_items_from_page(itemPageURL):
 
         fields = row.find_all('td', recursive=False)
 
-        item['name'] = fields[cols['Item']].find('a').getText().strip()
+        itemLink = fields[cols['Item']].find('a')
+
+        item['name'] = itemLink.getText().strip()
+        item['url'] = itemLink['href'].strip()
         item['ml'] = fields[cols['ML']].getText().strip()
         item['affixes'] = []
+
+        if item['ml'] == 'None':
+            item['ml'] = 1
 
         affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
         cell = fields[affixesIdx]

@@ -36,12 +36,16 @@ export class EquippedService {
 
     // TEST CODE
     if (isDevMode()) {
-      let item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
-      this.set('Cloak', item);
-
-      item = this.gearList.findGearBySlot('Offhand', 'Legendary Stygian Wrath');
-      this.set('Offhand', item);
+      this.loadDefaults();
     }
+  }
+
+  loadDefaults() {
+    let item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
+    this.set('Cloak', item);
+
+    item = this.gearList.findGearBySlot('Offhand', 'Legendary Stygian Wrath');
+    this.set('Offhand', item);
   }
 
   set(slot: string, item: Item) {

@@ -30,4 +30,8 @@ export class GearListComponent implements OnInit {
       }
     };
   }
+
+  loadDummy() {
+    this.equipped.loadDefaults();
+  }
 }

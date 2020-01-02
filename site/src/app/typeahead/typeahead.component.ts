@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-typeahead',
@@ -9,9 +9,12 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class TypeaheadComponent implements OnInit {
   @Input() source;
+  @Input() item;
   @Input() onChange: (val: string) => any;
 
-  formatter = (x: {name: string}) => x.name;
+  itemName: string;
+
+  formatter = (x: { name: string }) => x.name;
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -23,6 +26,13 @@ export class TypeaheadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.item) {
+      this.item.subscribe(v => {
+        if (v) {
+          this.itemName = v.name;
+        }
+      });
+    }
   }
 
   onSelectItemMine(e) {

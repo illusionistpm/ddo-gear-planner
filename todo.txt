@@ -1,0 +1,8 @@
+2nd ring slot
+way to add augments
+way to add nearly finished
+level range
+hover on bonus to see where it's coming from
+shrink gear attributes by default
+load & save
+understand set bonuses

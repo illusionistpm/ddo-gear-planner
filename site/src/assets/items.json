@@ -9653,7 +9653,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -9693,7 +9693,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -11284,7 +11284,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -11463,7 +11463,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -11565,7 +11565,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Spot -5"
+                "name": "Spot",
+                "value": "5"
             },
             {
                 "bonusType": "Competence",
@@ -16419,7 +16420,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {
@@ -21045,7 +21046,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             },
             {
                 "name": "Suppressed Power"
@@ -23142,7 +23144,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Search -7"
+                "name": "Search",
+                "value": "7"
             }
         ],
         "category": "Eye items",
@@ -23155,7 +23158,8 @@
         "affixes": [
             {
                 "bonusType": "Competence",
-                "name": "Spot -5"
+                "name": "Spot",
+                "value": "5"
             },
             {
                 "name": "Blindness Immunity"
@@ -25546,7 +25550,8 @@
         "affixes": [
             {
                 "bonusType": "Competence",
-                "name": "Spot -7"
+                "name": "Spot",
+                "value": "7"
             },
             {
                 "bonusType": "Competence",
@@ -26586,7 +26591,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Reflex Save -2"
+                "name": "Reflex Save",
+                "value": "2"
             }
         ],
         "category": "Feet items",
@@ -30301,7 +30307,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             }
         ],
         "category": "Finger items",
@@ -30324,7 +30331,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Move Silently -10"
+                "name": "Move Silently",
+                "value": "10"
             }
         ],
         "category": "Finger items",
@@ -30533,7 +30541,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             },
             {
                 "name": "Empty Yellow Augment Slot"
@@ -33131,7 +33140,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             }
         ],
         "category": "Finger items",
@@ -43522,7 +43532,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "60"
             }
         ],
@@ -44648,7 +44658,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipped Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "15"
             },
             {
@@ -44673,7 +44683,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "60"
             },
             {
@@ -45040,7 +45050,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipped Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {
@@ -45731,7 +45741,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "60"
             },
             {
@@ -47059,7 +47069,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "29"
             },
             {
@@ -47667,7 +47677,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "43"
             },
             {
@@ -48072,11 +48082,13 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Spot -5"
+                "name": "Spot",
+                "value": "5"
             },
             {
                 "bonusType": "Competence",
-                "name": "Listen -5"
+                "name": "Listen",
+                "value": "5"
             }
         ],
         "category": "Head items",
@@ -49092,7 +49104,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "80"
             },
             {
@@ -49668,7 +49680,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "16"
             },
             {
@@ -51547,7 +51559,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -51637,7 +51649,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -52204,7 +52216,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -53510,7 +53522,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -53550,7 +53562,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -53590,7 +53602,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -53786,7 +53798,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -54739,7 +54751,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -60424,7 +60436,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "20"
             },
             {
@@ -61458,7 +61470,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {
@@ -61499,7 +61511,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {
@@ -61540,7 +61552,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "60"
             },
             {
@@ -61581,7 +61593,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "60"
             },
             {
@@ -63536,7 +63548,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "33"
             },
             {
@@ -63952,7 +63964,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Reflex Save -2"
+                "name": "Reflex Save",
+                "value": "2"
             },
             {
                 "name": "Empty Blue Augment Slot"
@@ -64297,7 +64310,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -64445,7 +64458,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -64484,7 +64497,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -64524,7 +64537,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -64934,7 +64947,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Move Silently -10"
+                "name": "Move Silently",
+                "value": "10"
             }
         ],
         "category": "Light armor",
@@ -65690,7 +65704,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -65730,7 +65744,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -68853,7 +68867,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Move Silently -5"
+                "name": "Move Silently",
+                "value": "5"
             }
         ],
         "category": "Long Bows",
@@ -68965,7 +68980,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Move Silently -5"
+                "name": "Move Silently",
+                "value": "5"
             }
         ],
         "category": "Long Bows",
@@ -69852,7 +69868,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Move Silently -10"
+                "name": "Move Silently",
+                "value": "10"
             }
         ],
         "category": "Long Bows",
@@ -72039,7 +72056,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Balance -5"
+                "name": "Balance",
+                "value": "5"
             },
             {
                 "name": "Empty Red Augment Slot"
@@ -73143,7 +73161,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -73859,7 +73877,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -74734,7 +74752,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -3"
+                "name": "Will Save",
+                "value": "3"
             }
         ],
         "category": "Medium armor",
@@ -74953,7 +74972,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -75033,7 +75052,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -77829,7 +77848,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipped Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "47"
             },
             {
@@ -78372,7 +78391,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "34"
             },
             {
@@ -79556,7 +79575,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "56"
             },
             {
@@ -80516,7 +80535,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -80819,7 +80838,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "16"
             },
             {
@@ -81185,7 +81204,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "72"
             },
             {
@@ -81284,7 +81303,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             }
         ],
         "category": "Neck items",
@@ -92848,7 +92868,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {
@@ -92965,7 +92985,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             },
             {
                 "name": "Craftable Rune Arm"
@@ -102067,7 +102088,7 @@
         "affixes": [
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "83"
             },
             {
@@ -102107,7 +102128,8 @@
                 "name": "Rage"
             },
             {
-                "name": "Constitution -2"
+                "name": "Constitution",
+                "value": "2"
             },
             {
                 "name": "DR"
@@ -102119,7 +102141,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             },
             {
                 "bonusType": "Enhancement",
@@ -104792,7 +104815,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "75"
             },
             {
@@ -104835,11 +104858,13 @@
                 "value": "6"
             },
             {
-                "name": "Constitution -2"
+                "name": "Constitution",
+                "value": "2"
             },
             {
                 "bonusType": "Resistance",
-                "name": "Fortitude Save -2"
+                "name": "Fortitude Save",
+                "value": "2"
             }
         ],
         "category": "Trinket items",
@@ -106226,7 +106251,8 @@
             },
             {
                 "bonusType": "Resistance",
-                "name": "Will Save -2"
+                "name": "Will Save",
+                "value": "2"
             }
         ],
         "category": "Trinket items",
@@ -106756,7 +106782,8 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Listen -7"
+                "name": "Listen",
+                "value": "7"
             }
         ],
         "category": "Trinket items",
@@ -107677,7 +107704,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -108373,10 +108400,12 @@
                 "name": "Empty Yellow Augment Slot"
             },
             {
-                "name": "Wisdom -3"
+                "name": "Wisdom",
+                "value": "3"
             },
             {
-                "name": "Intelligence -3"
+                "name": "Intelligence",
+                "value": "3"
             }
         ],
         "category": "Waist items",
@@ -108396,10 +108425,12 @@
                 "name": "Empty Yellow Augment Slot"
             },
             {
-                "name": "Intelligence -2"
+                "name": "Intelligence",
+                "value": "2"
             },
             {
-                "name": "Wisdom -2"
+                "name": "Wisdom",
+                "value": "2"
             }
         ],
         "category": "Waist items",
@@ -108596,7 +108627,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "25"
             },
             {
@@ -108628,7 +108659,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "32"
             },
             {
@@ -108660,7 +108691,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "38"
             },
             {
@@ -108692,7 +108723,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "45"
             },
             {
@@ -108724,7 +108755,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "51"
             },
             {
@@ -108756,7 +108787,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "12"
             },
             {
@@ -108788,7 +108819,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "19"
             },
             {
@@ -108965,7 +108996,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "85"
             },
             {
@@ -112349,7 +112380,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "30"
             },
             {
@@ -114059,7 +114090,7 @@
             },
             {
                 "bonusType": "Competence",
-                "name": "Competence Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "80"
             },
             {
@@ -114465,7 +114496,7 @@
             },
             {
                 "bonusType": "Equipment",
-                "name": "Equipment Healing Amplification",
+                "name": "Healing Amplification",
                 "value": "40"
             },
             {

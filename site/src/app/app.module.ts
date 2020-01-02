@@ -9,6 +9,7 @@ import { GearComponent } from './gear/gear.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
 import { EffectsTableComponent } from './effects-table/effects-table.component';
+import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { EffectsTableComponent } from './effects-table/effects-table.component';
     GearComponent,
     TypeaheadComponent,
     GearDescriptionComponent,
-    EffectsTableComponent
+    EffectsTableComponent,
+    ItemsWithBonusTypeComponent
   ],
   imports: [
     NgbModule,
@@ -25,6 +27,7 @@ import { EffectsTableComponent } from './effects-table/effects-table.component';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ItemsWithBonusTypeComponent]
 })
 export class AppModule { }

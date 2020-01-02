@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
+import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with-bonus-type.component';
 
 @Component({
   selector: 'app-effects-table',
@@ -15,7 +18,8 @@ export class EffectsTableComponent implements OnInit {
 
   constructor(
     public equipped: EquippedService,
-    public gearDB: GearDbService
+    public gearDB: GearDbService,
+    private modalService: NgbModal
   ) {
     this.effectKeys = new Array<object>();
     this.allAffixes = Array.from(this.gearDB.getAllAffixes()).map(e => ({name: e}));
@@ -40,4 +44,17 @@ export class EffectsTableComponent implements OnInit {
   removeAffix(affixName) {
     this.equipped.removeImportantAffix(affixName);
   }
+
+  showItemsWithBonusType(effectName, bonusType) {
+    const dlg = this.modalService.open(ItemsWithBonusTypeComponent, {ariaLabelledBy: 'modal-basic-title'});
+
+    dlg.componentInstance.effectName = effectName;
+    dlg.componentInstance.bonusType = bonusType;
+
+    dlg.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    }
 }

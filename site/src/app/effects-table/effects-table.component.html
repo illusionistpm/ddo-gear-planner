@@ -1,8 +1,4 @@
 <div>
-    <div class="row">
-        <label for="effect-search" class="col-2">Attribute to add:</label>
-        <app-typeahead id="effect-search" class="col-3" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
-    </div>
     <div class="card col-sm-12 col-md-6 float-left" *ngFor="let effect of effectKeys">
         <div>
             <span class="h4">{{effect.name}}</span>
@@ -11,14 +7,19 @@
         <div class="col" *ngFor="let types of effects.get(effect.name)">
             <button class="col bonus-type-found" *ngIf="types.value; else noValue" 
                 (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                    {{types.bonusType}}: {{types.value}}
+                    {{types.bonusType ? types.bonusType : "Untyped"}}: {{types.value}}
             </button>
             <ng-template #noValue>
                 <button class="col bonus-type-not-found" 
                     (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                        {{types.bonusType}}
+                        {{types.bonusType ? types.bonusType : "Untyped"}}
                 </button>
             </ng-template>
         </div>
+    </div>
+    <hr>
+    <div class="row">
+        <label for="effect-search" class="col-4"><h4>Track additional attribute:</h4></label>
+        <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
     </div>
 </div>

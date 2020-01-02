@@ -44,7 +44,7 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    for type in ['Insightful', 'Exceptional', 'Enhanced', 'Quality', 'Profane']:
+    for type in ['Insightful', 'Exceptional', 'Enhanced', 'Quality', 'Profane', 'Competence', 'Equipment', 'Equipped']:
         if name.startswith(type):
             name = name[len(type)+1:]
 
@@ -105,7 +105,7 @@ def get_items_from_page(itemPageURL):
                 affixName = convert_roman_numerals(affixName)
                 affixName = strip_bonus_types(affixName)
 
-                affixNameSearch = re.search(r'^(.*) \+?([0-9]+)\%?$', affixName)
+                affixNameSearch = re.search(r'^(.*) [\+\-]?([0-9]+)\%?$', affixName)
                 if affixNameSearch:
                     aff['name'] = affixNameSearch.group(1).strip()
                     aff['value'] = affixNameSearch.group(2).strip()

@@ -1,7 +1,7 @@
 <div>
     <div class="card col-sm-12 col-md-6 float-left" *ngFor="let effect of effectKeys">
         <div>
-            <span class="h4">{{effect.name}}</span>
+        <span class="h4">{{effect.name}}: {{totalBonus(effect.name)}}</span>
             <button class="btn btn-danger float-right" (click)=removeAffix(effect.name)>X</button>
         </div>
         <div class="col" *ngFor="let types of effects.get(effect.name)">

@@ -45,6 +45,14 @@ export class EffectsTableComponent implements OnInit {
     this.equipped.removeImportantAffix(affixName);
   }
 
+  totalBonus(affixName) {
+    let total = 0;
+    for (const type of this.effects.get(affixName)) {
+      total += type.value;
+    }
+    return total;
+  }
+
   showItemsWithBonusType(affixName, bonusType) {
     const dlg = this.modalService.open(ItemsWithBonusTypeComponent, {ariaLabelledBy: 'modal-basic-title'});
 

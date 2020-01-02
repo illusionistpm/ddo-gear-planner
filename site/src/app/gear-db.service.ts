@@ -12,10 +12,18 @@ export class GearDbService {
   affixToBonusTypes: Map<string, Set<string>>;
 
   constructor() {
+    this.filterByLevelRange(1, 30);
+  }
+
+  filterByLevelRange(minLevel: number, maxLevel: number) {
     this.gear = new Map<string, Array<Item>>();
     this.affixToBonusTypes = new Map<string, Set<string>>();
 
     for (const item of itemsList) {
+      if (Number(item.ml) < minLevel || Number(item.ml) > maxLevel) {
+        continue;
+      }
+
       if (!this.gear.has(item.slot)) {
         this.gear.set(item.slot, new Array<Item>());
       }

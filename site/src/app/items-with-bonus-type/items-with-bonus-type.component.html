@@ -1,0 +1,8 @@
+<h1>{{effectName}} - {{bonusType}}</h1>
+
+<div *ngFor="let item of matches">
+    <div class="row">
+        <div class="col">{{item.name}}</div>
+        <button class="float-right" (click)="equipItem(item)">Equip</button>
+    </div>
+</div>

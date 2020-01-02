@@ -51,6 +51,22 @@ export class GearDbService {
     return this.getGearBySlot(type).find(e => e.name === name);
   }
 
+  findGearWithAffixAndType(affixName, bonusType) {
+    const results = [];
+    for (const items of this.gear.values()) {
+      for (const item of items) {
+        for (const affix of item.affixes) {
+          if (affix.name === affixName && affix.type === bonusType) {
+            results.push(item);
+            break;
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
   getAllAffixes() {
     return this.affixToBonusTypes.keys();
   }

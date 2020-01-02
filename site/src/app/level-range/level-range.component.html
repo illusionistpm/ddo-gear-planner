@@ -1,11 +1,11 @@
 <div class="row">
-    <label class="col-1">Level range:</label>
-    <input type="number" min=1 max=30 class="form-control col-1" 
+    <label class="col-3">Level range:</label>
+    <input type="number" min=1 max=30 class="form-control col-2" 
         (change)="onChange()" 
         [(ngModel)]="minLevel"
         >
-    <label class="col-1">-</label>
-    <input type="number" class="form-control col-1" 
+    <label class="col-1 text-center">-</label>
+    <input type="number" class="form-control col-2" 
         (change)="onChange()" 
         [(ngModel)]="maxLevel"
         >

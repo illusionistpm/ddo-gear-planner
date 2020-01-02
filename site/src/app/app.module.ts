@@ -10,6 +10,7 @@ import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
 import { EffectsTableComponent } from './effects-table/effects-table.component';
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
+import { LevelRangeComponent } from './level-range/level-range.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-
     TypeaheadComponent,
     GearDescriptionComponent,
     EffectsTableComponent,
-    ItemsWithBonusTypeComponent
+    ItemsWithBonusTypeComponent,
+    LevelRangeComponent
   ],
   imports: [
     NgbModule,

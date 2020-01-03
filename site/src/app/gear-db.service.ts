@@ -24,11 +24,15 @@ export class GearDbService {
         continue;
       }
 
-      if (!this.gear.has(item.slot)) {
-        this.gear.set(item.slot, new Array<Item>());
+      const slot = item.slot === 'Ring' ? 'Ring1' : item.slot;
+
+      if (!this.gear.has(slot)) {
+        this.gear.set(slot, new Array<Item>());
       }
-      this.gear.get(item.slot).push(new Item(item));
+      this.gear.get(slot).push(new Item(item));
     }
+
+    this.gear.set('Ring2', this.gear.get('Ring1'));
 
     for (const items of this.gear.values()) {
       for (const item of items) {
@@ -51,8 +55,26 @@ export class GearDbService {
     return this.gear.get(type);
   }
 
+  private getSortIndex(slot: string) {
+    switch(slot) {
+      case 'Weapon': return 1;
+      case 'Offhand': return 2;
+      default: return 3;
+    }
+  }
+
   getSlots() {
-    return Array.from(this.gear.keys());
+    return Array.from(this.gear.keys()).sort((a, b) => {
+      const idxA = this.getSortIndex(a);
+      const idxB = this.getSortIndex(b);
+
+      if(idxA === idxB) {
+        return a.localeCompare(b);
+      } else {
+        return idxA - idxB;
+      }
+
+    });
   }
 
   findGearBySlot(type: string, name: string) {

@@ -1,10 +1,10 @@
 import { Injectable, isDevMode } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Item } from './item';
 
 import { GearDbService } from './gear-db.service';
 import { BehaviorSubject } from 'rxjs';
-import { Affix } from './affix';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class EquippedService {
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
 
   constructor(
-    private gearList: GearDbService
+    private gearList: GearDbService,
+    private readonly router: Router
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
 
     this.importantAffixes = new Set(['Constitution', 'Intelligence', 'Nullification', 'Spell Penetration']);
-
 
     this.dummyItem = new Item(null);
     this.slots = new Map();
@@ -31,25 +31,55 @@ export class EquippedService {
     }
 
     for (const slot of this.slots) {
-      slot[1].subscribe(v => { this.updateCoveredAffixes(); });
-    }
-
-    // TEST CODE
-    if (isDevMode()) {
-      this.loadDefaults();
+      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
     }
   }
 
   loadDefaults() {
     let item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
-    this.set('Cloak', item);
+    this.set(item);
 
     item = this.gearList.findGearBySlot('Offhand', 'Legendary Stygian Wrath');
-    this.set('Offhand', item);
+    this.set(item);
   }
 
-  set(slot: string, item: Item) {
-    this.slots.get(slot).next(item);
+  updateFromParams(params) {
+    for (const key of Object.keys(params)) {
+      if (key === 'tracked') {
+        this.setImportantAffixes(params[key]);
+      } else {
+        const itemName = params[key];
+        const item = this.gearList.findGearBySlot(key, itemName);
+        if (item) {
+          this._set(item);
+        } else {
+          console.log('Can\'t find ' + itemName + ' for slot ' + key);
+        }
+      }
+    }
+  }
+
+  _set(item: Item) {
+    this.slots.get(item.slot).next(item);
+  }
+
+  _updateRouterState() {
+    const params = {};
+    for (const kv of this.slots) {
+      if (kv[1].getValue()) {
+        params[kv[0]] = kv[1].getValue().name;
+      }
+    }
+
+    params['tracked'] = Array.from(this.importantAffixes);
+
+    this.router.navigate([], { queryParams: params });
+  }
+
+  set(item: Item) {
+    this._set(item);
+
+    this._updateRouterState();
   }
 
   getSlot(slot: string) {
@@ -90,17 +120,22 @@ export class EquippedService {
     return important;
   }
 
+  setImportantAffixes(affixes) {
+    this.importantAffixes = new Set(affixes);
+    this._updateCoveredAffixes();
+  }
+
   addImportantAffix(affix) {
     this.importantAffixes.add(affix);
-    this.updateCoveredAffixes();
+    this._updateCoveredAffixes();
   }
 
   removeImportantAffix(affix) {
     this.importantAffixes.delete(affix);
-    this.updateCoveredAffixes();
+    this._updateCoveredAffixes();
   }
 
-  private updateCoveredAffixes() {
+  private _updateCoveredAffixes() {
     const newMap = new Map<string, Array<any>>();
 
     const importantAffixes = this.getImportantAffixes();
@@ -111,11 +146,12 @@ export class EquippedService {
       const array = new Array<object>();
       for (const type of affixTypes) {
         const bestVal = this.getBestValue(affixName, type);
-        array.push({bonusType: type, value: bestVal});
+        array.push({ bonusType: type, value: bestVal });
       }
       newMap.set(affixName, array);
     }
 
     this.coveredAffixes.next(newMap);
+    this._updateRouterState();
   }
 }

@@ -23,10 +23,10 @@ export class GearListComponent implements OnInit {
   onChange(slot) {
     return (newVal: any) => {
       if (newVal instanceof Item) {
-        this.equipped.set(slot, newVal);
+        this.equipped.set(newVal);
       } else {
         const item = this.gearList.findGearBySlot(slot, newVal);
-        this.equipped.set(slot, item);
+        this.equipped.set(item);
       }
     };
   }

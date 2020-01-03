@@ -42,7 +42,7 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   }
 
   equipItem(item: Item) {
-    this.equipped.set(item.slot, item);
+    this.equipped.set(item);
     this.modalService.dismissAll();
   }
 

@@ -11,8 +11,8 @@ export class Item {
     constructor(json) {
         if (json) {
             this.name = json.name;
-            this.slot = json.slot ? json.slot : json.category;
-            this.type = json.category;
+            this.slot = json.slot;
+            this.type = json.type;
             this.ml = Number(json.ml);
             for (const affixJSON of json.affixes) {
                 this.affixes.push(new Affix(affixJSON));

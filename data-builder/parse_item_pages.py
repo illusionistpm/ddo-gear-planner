@@ -77,7 +77,7 @@ def get_items_from_page(itemPageURL):
 
     for row in rows:
         item = {}
-        item['category'] = category
+        item['type'] = category
         item['slot'] = catMap[category]
 
         fields = row.find_all('td', recursive=False)
@@ -119,7 +119,7 @@ def get_items_from_page(itemPageURL):
                         words = str(tooltip)
                         bonusTypeSearch = re.search('([a-z]+) bonus', words, re.IGNORECASE)
                         if bonusTypeSearch:
-                            aff['bonusType'] = bonusTypeSearch.group(1).strip()
+                            aff['type'] = bonusTypeSearch.group(1).strip()
 
                 item['affixes'].append(aff)
         else:

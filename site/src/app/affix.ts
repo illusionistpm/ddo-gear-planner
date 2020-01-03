@@ -6,5 +6,5 @@ export class Affix {
     constructor(json) {
         this.name = json.name;
         this.value = Number(json.value);
-        this.type = json.bonusType;
+        this.type = json.type;
     }}

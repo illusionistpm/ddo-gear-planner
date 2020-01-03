@@ -22,7 +22,7 @@ export class EquippedService {
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
 
-    this.importantAffixes = new Set(['Constitution', 'Intelligence', 'Nullification', 'Spell Penetration']);
+    this.importantAffixes = new Set(['Constitution']);
 
     this.dummyItem = new Item(null);
     this.slots = new Map();
@@ -71,7 +71,7 @@ export class EquippedService {
       }
     }
 
-    params['tracked'] = Array.from(this.importantAffixes);
+    params.tracked = Array.from(this.importantAffixes);
 
     this.router.navigate([], { queryParams: params });
   }

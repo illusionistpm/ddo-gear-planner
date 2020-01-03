@@ -24,15 +24,23 @@ export class GearDbService {
         continue;
       }
 
-      const slot = item.slot === 'Ring' ? 'Ring1' : item.slot;
-
-      if (!this.gear.has(slot)) {
-        this.gear.set(slot, new Array<Item>());
+      if (item.slot === 'Ring') {
+        item.slot = 'Ring1';
       }
-      this.gear.get(slot).push(new Item(item));
+
+      if (!this.gear.has(item.slot)) {
+        this.gear.set(item.slot, new Array<Item>());
+      }
+      this.gear.get(item.slot).push(new Item(item));
     }
 
-    this.gear.set('Ring2', this.gear.get('Ring1'));
+    const ring2 = [];
+    for (const item of this.gear.get('Ring1')) {
+      const newItem = new Item(item);
+      newItem.slot = 'Ring2';
+      ring2.push(newItem);
+    }
+    this.gear.set('Ring2', ring2);
 
     for (const items of this.gear.values()) {
       for (const item of items) {

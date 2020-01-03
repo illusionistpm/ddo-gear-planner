@@ -1,9 +1,18 @@
 <div class='col-12'>
     <h1>{{affixName}} - {{bonusType}}</h1>
 
+    <div class="row">
+        <div class="col-1"><b>ML</b></div>
+        <div class="col-2"><b>Slot</b></div>
+        <div class="col-6"><b>Name</b></div>
+        <div class="col-1"><b>Value</b></div>
+        <div class="col-2"></div>
+    </div>
+
     <div class="row" *ngFor="let item of matches">
-        <div class="col-2">ML: {{item.ml}}</div>
-        <div class="col-7"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
+        <div class="col-1">{{item.ml}}</div>
+        <div class="col-2">{{item.slot}}</div>
+        <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
         <div class="col-1">{{findMatchingValue(item)}}</div>
         <button class="col-2" (click)="equipItem(item)">Equip</button>
     </div>

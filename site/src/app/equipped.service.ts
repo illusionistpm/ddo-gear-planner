@@ -29,10 +29,6 @@ export class EquippedService {
     for (const slot of gearList.getSlots()) {
       this.slots.set(slot, new BehaviorSubject(null));
     }
-
-    for (const slot of this.slots) {
-      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
-    }
   }
 
   loadDefaults() {
@@ -44,11 +40,11 @@ export class EquippedService {
   }
 
   updateFromParams(params) {
-    for (const key of Object.keys(params)) {
+    for (const key of params.keys) {
       if (key === 'tracked') {
-        this.setImportantAffixes(params[key]);
+        this.setImportantAffixes(params.getAll(key));
       } else {
-        const itemName = params[key];
+        const itemName = params.get(key);
         const item = this.gearList.findGearBySlot(key, itemName);
         if (item) {
           this._set(item);
@@ -56,6 +52,11 @@ export class EquippedService {
           console.log('Can\'t find ' + itemName + ' for slot ' + key);
         }
       }
+    }
+
+    // Don't subscribe until after we've parsed the URL; otherwise we just overwrite what the user gave us.
+    for (const slot of this.slots) {
+      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
     }
   }
 
@@ -71,7 +72,7 @@ export class EquippedService {
       }
     }
 
-    params.tracked = Array.from(this.importantAffixes);
+    params['tracked'] = Array.from(this.importantAffixes);
 
     this.router.navigate([], { queryParams: params });
   }

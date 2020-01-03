@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { EquippedService } from '../equipped.service';
 
@@ -13,14 +13,13 @@ export class MainComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private equipped: EquippedService
   ) {
   }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-      this.equipped.updateFromParams(params.params);
+      this.equipped.updateFromParams(params);
     });
   }
 

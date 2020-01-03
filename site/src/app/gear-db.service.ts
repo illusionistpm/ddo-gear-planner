@@ -56,7 +56,7 @@ export class GearDbService {
   }
 
   private getSortIndex(slot: string) {
-    switch(slot) {
+    switch (slot) {
       case 'Weapon': return 1;
       case 'Offhand': return 2;
       default: return 3;
@@ -68,7 +68,7 @@ export class GearDbService {
       const idxA = this.getSortIndex(a);
       const idxB = this.getSortIndex(b);
 
-      if(idxA === idxB) {
+      if (idxA === idxB) {
         return a.localeCompare(b);
       } else {
         return idxA - idxB;

@@ -11565,8 +11565,8 @@
             },
             {
                 "name": "Spot",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             },
             {
                 "name": "Command",
@@ -21046,8 +21046,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Suppressed Power"
@@ -23144,8 +23144,8 @@
             },
             {
                 "name": "Search",
-                "type": "Competence",
-                "value": "7"
+                "type": "Penalty",
+                "value": "-7"
             }
         ],
         "ml": "11",
@@ -23158,8 +23158,8 @@
         "affixes": [
             {
                 "name": "Spot",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             },
             {
                 "name": "Blindness Immunity"
@@ -25550,8 +25550,8 @@
         "affixes": [
             {
                 "name": "Spot",
-                "type": "Competence",
-                "value": "7"
+                "type": "Penalty",
+                "value": "-7"
             },
             {
                 "name": "Concentration",
@@ -26591,8 +26591,8 @@
             },
             {
                 "name": "Reflex Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "9",
@@ -30307,8 +30307,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "9",
@@ -30331,8 +30331,8 @@
             },
             {
                 "name": "Move Silently",
-                "type": "Competence",
-                "value": "10"
+                "type": "Penalty",
+                "value": "-10"
             }
         ],
         "ml": "9",
@@ -30541,8 +30541,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Empty Yellow Augment Slot"
@@ -33140,8 +33140,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "9",
@@ -48082,13 +48082,13 @@
             },
             {
                 "name": "Spot",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             },
             {
                 "name": "Listen",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             }
         ],
         "ml": "7",
@@ -63964,8 +63964,8 @@
             },
             {
                 "name": "Reflex Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Empty Blue Augment Slot"
@@ -64947,8 +64947,8 @@
             },
             {
                 "name": "Move Silently",
-                "type": "Competence",
-                "value": "10"
+                "type": "Penalty",
+                "value": "-10"
             }
         ],
         "ml": "8",
@@ -68867,8 +68867,8 @@
             },
             {
                 "name": "Move Silently",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             }
         ],
         "ml": "7",
@@ -68980,8 +68980,8 @@
             },
             {
                 "name": "Move Silently",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             }
         ],
         "ml": "7",
@@ -69868,8 +69868,8 @@
             },
             {
                 "name": "Move Silently",
-                "type": "Competence",
-                "value": "10"
+                "type": "Penalty",
+                "value": "-10"
             }
         ],
         "ml": "20",
@@ -72056,8 +72056,8 @@
             },
             {
                 "name": "Balance",
-                "type": "Competence",
-                "value": "5"
+                "type": "Penalty",
+                "value": "-5"
             },
             {
                 "name": "Empty Red Augment Slot"
@@ -74752,8 +74752,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "3"
+                "type": "Penalty",
+                "value": "-3"
             }
         ],
         "ml": "10",
@@ -81303,8 +81303,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "9",
@@ -92985,8 +92985,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Craftable Rune Arm"
@@ -102129,7 +102129,8 @@
             },
             {
                 "name": "Constitution",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "DR"
@@ -102141,8 +102142,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Proof Against Disease",
@@ -104859,12 +104860,13 @@
             },
             {
                 "name": "Constitution",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Fortitude Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "15",
@@ -106251,8 +106253,8 @@
             },
             {
                 "name": "Will Save",
-                "type": "Resistance",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "9",
@@ -106782,8 +106784,8 @@
             },
             {
                 "name": "Listen",
-                "type": "Competence",
-                "value": "7"
+                "type": "Penalty",
+                "value": "-7"
             }
         ],
         "ml": "18",
@@ -108401,11 +108403,13 @@
             },
             {
                 "name": "Wisdom",
-                "value": "3"
+                "type": "Penalty",
+                "value": "-3"
             },
             {
                 "name": "Intelligence",
-                "value": "3"
+                "type": "Penalty",
+                "value": "-3"
             }
         ],
         "ml": "12",
@@ -108426,11 +108430,13 @@
             },
             {
                 "name": "Intelligence",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             },
             {
                 "name": "Wisdom",
-                "value": "2"
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "13",

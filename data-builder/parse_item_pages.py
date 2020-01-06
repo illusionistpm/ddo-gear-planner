@@ -105,7 +105,7 @@ def get_items_from_page(itemPageURL):
                 affixName = convert_roman_numerals(affixName)
                 affixName = strip_bonus_types(affixName)
 
-                affixNameSearch = re.search(r'^(.*) [\+\-]?([0-9]+)\%?$', affixName)
+                affixNameSearch = re.search(r'^(.*) \+?(-?[0-9]+)\%?$', affixName)
                 if affixNameSearch:
                     aff['name'] = affixNameSearch.group(1).strip()
                     aff['value'] = affixNameSearch.group(2).strip()
@@ -120,6 +120,9 @@ def get_items_from_page(itemPageURL):
                         bonusTypeSearch = re.search('([a-z]+) bonus', words, re.IGNORECASE)
                         if bonusTypeSearch:
                             aff['type'] = bonusTypeSearch.group(1).strip()
+
+                if 'value' in aff and int(aff['value']) < 0:
+                    aff['type'] = 'Penalty'
 
                 item['affixes'].append(aff)
         else:

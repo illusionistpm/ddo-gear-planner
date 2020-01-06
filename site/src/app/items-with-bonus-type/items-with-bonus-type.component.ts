@@ -46,4 +46,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  close() {
+    this.modalService.dismissAll();
+  }
+
 }

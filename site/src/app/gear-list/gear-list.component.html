@@ -1,4 +1,7 @@
-<div class="form-group col-sm-12 col-md-6" *ngFor="let slot of gearList.getSlots()">
-    <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [item]=equipped.getSlot(slot) [onChange]=onChange(slot)></app-gear>
-    <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
+<div class="row">
+    <div class="form-group col-sm-12 col-md-6 col-lg-4" *ngFor="let slot of gearList.getSlots()">
+        <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [item]=equipped.getSlot(slot)
+            [onChange]=onChange(slot)></app-gear>
+        <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
+    </div>
 </div>

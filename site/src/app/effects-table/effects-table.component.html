@@ -1,5 +1,5 @@
-<div>
-    <div class="card col-sm-12 col-md-6 float-left" *ngFor="let effect of effectKeys">
+<div class="row">
+    <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let effect of effectKeys">
         <div>
         <span class="h4">{{effect.name}}: {{totalBonus(effect.name)}}</span>
             <button class="btn btn-danger float-right" (click)=removeAffix(effect.name)>X</button>
@@ -17,9 +17,8 @@
             </ng-template>
         </div>
     </div>
-    <hr>
-    <div class="row">
-        <label for="effect-search" class="col-4"><h4>Track additional attribute:</h4></label>
-        <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
-    </div>
+</div>
+<div class="row">
+    <label for="effect-search" class="col-4"><h4>Track additional attribute:</h4></label>
+    <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
 </div>

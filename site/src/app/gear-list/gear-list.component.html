@@ -1,7 +1,15 @@
 <div class="row">
     <div class="form-group col-sm-12 col-md-6 col-lg-4" *ngFor="let slot of gearList.getSlots()">
-        <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [item]=equipped.getSlot(slot)
-            [onChange]=onChange(slot)></app-gear>
+        <div class="row">
+            <app-gear name="{{ slot }}" [data]=gearList.getGearBySlot(slot) [item]=equipped.getSlot(slot)
+                [onChange]=onChange(slot)></app-gear>
+            <button type="button" class="btn btn-default" (click)="equipped.toggleLock(slot)">
+                <span *ngIf="equipped.isLocked(slot); else unlocked" class="fas fa-lock"></span>
+                <ng-template #unlocked>
+                    <span class="fas fa-lock-open"></span>
+                </ng-template>
+            </button>
+        </div>
         <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
     </div>
 </div>

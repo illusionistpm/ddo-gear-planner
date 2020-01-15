@@ -21,4 +21,19 @@
         <div class="col-1">{{findMatchingValue(item)}}</div>
         <button class="col-2" (click)="equipItem(item)">Equip</button>
     </div>
+
+    <div *ngIf="lockedMatches.length > 0">
+        <div class="row">&nbsp;</div>
+        <h3>Locked items</h3>
+        <i>
+
+        <div class="row" *ngFor="let item of lockedMatches">
+            <div class="col-1">{{item.ml}}</div>
+            <div class="col-2">{{item.slot}}</div>
+            <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
+            <div class="col-1">{{findMatchingValue(item)}}</div>
+            <button class="col-2" (click)="equipItem(item)">Equip</button>
+        </div>
+    </i>
+    </div>
 </div>

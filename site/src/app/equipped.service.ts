@@ -11,8 +11,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class EquippedService {
   private slots: Map<string, BehaviorSubject<Item>>;
-  private dummyItem: Item;
   private importantAffixes: Set<string>;
+
+  private unlockedSlots: Set<string>;
 
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
 
@@ -20,11 +21,11 @@ export class EquippedService {
     private gearList: GearDbService,
     private readonly router: Router
   ) {
+    this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
 
     this.importantAffixes = new Set(['Constitution']);
 
-    this.dummyItem = new Item(null);
     this.slots = new Map();
     for (const slot of gearList.getSlots()) {
       this.slots.set(slot, new BehaviorSubject(null));
@@ -111,6 +112,23 @@ export class EquippedService {
       }
     }
     return max;
+  }
+
+  toggleLock(slot: string) {
+    if (this.unlockedSlots.has(slot)) {
+      this.unlockedSlots.delete(slot);
+    } else {
+      this.unlockedSlots.add(slot);
+    }
+
+  }
+
+  isLocked(slot: string) {
+    return !this.unlockedSlots.has(slot);
+  }
+
+  getUnlockedSlots() {
+    return this.unlockedSlots;
   }
 
   getImportantAffixes() {

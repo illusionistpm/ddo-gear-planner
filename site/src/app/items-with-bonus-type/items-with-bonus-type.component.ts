@@ -16,6 +16,7 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   @Input() bonusType: string;
 
   matches: Array<Item>;
+  lockedMatches: Array<Item>;
 
   constructor(
     public gearDB: GearDbService,
@@ -25,7 +26,20 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.matches = this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType).sort((a, b) => b.ml - a.ml);
+    this.matches = [];
+    this.lockedMatches = [];
+
+    const matchingGear = this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType);
+    for (const item of matchingGear) {
+      if (this.equipped.getUnlockedSlots().has(item.slot)) {
+        this.matches.push(item);
+      } else {
+        this.lockedMatches.push(item);
+      }
+    }
+    
+    this.matches = this.matches.sort((a, b) => b.ml - a.ml);
+    this.lockedMatches = this.lockedMatches.sort((a, b) => b.ml - a.ml);
   }
 
   findMatchingValue(item: Item) {

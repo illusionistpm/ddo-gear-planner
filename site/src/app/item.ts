@@ -1,4 +1,6 @@
 import { Affix } from './affix';
+import { SlicePipe } from '@angular/common';
+import { Craftable } from './craftable';
 
 export class Item {
     name: string;
@@ -7,6 +9,9 @@ export class Item {
     ml: number;
     affixes: Array<Affix> = Array<Affix>();
     url: string;
+    crafting: Array<Craftable>;
+
+    rawCrafting: Array<string> = Array<string>();
 
     constructor(json) {
         if (json) {
@@ -18,10 +23,21 @@ export class Item {
                 this.affixes.push(new Affix(affixJSON));
             }
             this.url = json.url;
+            this.rawCrafting = json.crafting;
         }
     }
 
     getURL() {
         return 'http://ddowiki.com' + this.url;
+    }
+
+    getActiveAffixes() {
+        const activeAffixes = this.affixes.slice();
+        for (const craftable of this.crafting) {
+            if (craftable.selected) {
+                activeAffixes.concat(craftable.selected.affixes);
+            }
+        }
+        return activeAffixes;
     }
 }

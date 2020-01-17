@@ -75,6 +75,8 @@ def get_items_from_page(itemPageURL):
 
     catMap = build_cat_map()
 
+    craftingSystems = set(['Nearly Finished', 'Almost There', 'Empty Blue Augment Slot', 'Empty Red Augment Slot', 'Empty Yellow Augment Slot', 'Empty Green Augment Slot', 'Empty Purple Augment Slot', 'Empty Orange Augment Slot', 'Empty Colorless Augment Slot'])
+
     for row in rows:
         item = {}
         item['type'] = category
@@ -127,7 +129,17 @@ def get_items_from_page(itemPageURL):
                 item['affixes'].append(aff)
         else:
             item['affixes'].append({'name': cell.getText()})
-            
+
+        remove = []
+        for affix in item['affixes']:
+            if affix['name'] in craftingSystems:
+                if 'crafting' not in item.keys():
+                    item['crafting'] = []
+                item['crafting'].append(affix['name'])
+                remove.append(affix)
+
+        for affix in remove:
+            item['affixes'].remove(affix)
 
         items.append(item)
 

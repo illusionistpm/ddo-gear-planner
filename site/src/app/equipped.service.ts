@@ -101,7 +101,7 @@ export class EquippedService {
     let max = null;
     for (const slot of this.slots) {
       if (slot[1].getValue()) {
-        for (const affix of slot[1].getValue().affixes) {
+        for (const affix of slot[1].getValue().getActiveAffixes()) {
           if (affix.name === affixName && affix.type === bonusType) {
             if (affix.value > max) {
               max = affix.value;
@@ -155,7 +155,25 @@ export class EquippedService {
   }
 
   private _updateCoveredAffixes() {
+    // affixName => Array of {bonusType, Array of {slot: value}}
     const newMap = new Map<string, Array<any>>();
+
+    // for (const item of this.slots.values()) {
+    //   if (item.getValue()) {
+    //     for (const affix of item.getValue().affixes) {
+    //       if (!newMap.has(affix.name)) {
+    //         newMap.set(affix.name, []);
+    //       }
+    //       const bonusList = newMap.get(affix.name);
+    //       if (!bonusList.includes(affix.type)) {
+    //         bonusList.push({ type: affix.type, slots: [] });
+    //       }
+    //       let listForBonusType = bonusList.find(affix.type);
+    //       if (listForBonusType.)
+
+    //     }
+    //   }
+    // }
 
     const importantAffixes = this.getImportantAffixes();
     for (const affix of importantAffixes) {

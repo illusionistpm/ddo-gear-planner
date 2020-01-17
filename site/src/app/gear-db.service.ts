@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Item } from './item';
 
 import itemsList from 'src/assets/items.json';
+import craftingList from 'src/assets/crafting.json';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,23 @@ export class GearDbService {
       if (!this.gear.has(item.slot)) {
         this.gear.set(item.slot, new Array<Item>());
       }
-      this.gear.get(item.slot).push(new Item(item));
+
+      const newItem = new Item(item)
+      if (newItem.rawCrafting) {
+        const craftingOptions = []
+        for (const craftingSystem of newItem.rawCrafting) {
+          if (craftingSystem === 'Nearly Finished' || craftingSystem === 'Almost There') {
+            const options = craftingList[craftingSystem][item.name]
+            craftingOptions.push({ name: craftingSystem, options: options })
+          } else {
+            // Not-yet-implemented crafting systems
+            craftingOptions.push({ name: craftingSystem, options: [] })
+          }
+        }
+        newItem.crafting = craftingOptions;
+      }
+
+      this.gear.get(item.slot).push(newItem);
     }
 
     const ring2 = [];

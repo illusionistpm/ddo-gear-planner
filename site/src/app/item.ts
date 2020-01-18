@@ -32,10 +32,10 @@ export class Item {
     }
 
     getActiveAffixes() {
-        const activeAffixes = this.affixes.slice();
+        let activeAffixes = this.affixes.slice();
         for (const craftable of this.crafting) {
-            if (craftable.selected) {
-                activeAffixes.concat(craftable.selected.affixes);
+            if (craftable.selected && craftable.selected.affixes) {
+                activeAffixes = activeAffixes.concat(craftable.selected.affixes);
             }
         }
         return activeAffixes;

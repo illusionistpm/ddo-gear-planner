@@ -7,8 +7,8 @@
     <div class="form-group row mb-0 ml-2 table-striped table-condensed small" *ngFor="let craft of curItem.crafting">
         <div class="col">{{craft.name}}</div>
         <div class="col">
-            <select>
-               <option *ngFor="let option of craft.options">{{option.affixes[0].name}} +{{option.affixes[0].value}} {{option.affixes[0].type}}</option> 
+            <select [(ngModel)]="craft.selected" (change)="updateItem()">
+               <option *ngFor="let option of craft.options" [ngValue]="option">{{describe(option)}}</option> 
             </select>
         </div>
     </div>

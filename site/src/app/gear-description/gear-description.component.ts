@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { EquippedService } from '../equipped.service';
+
 import { Item } from '../item';
 import { Observable } from 'rxjs';
 
@@ -13,6 +15,7 @@ export class GearDescriptionComponent implements OnInit {
   curItem: Item = null;
 
   constructor(
+    public equipped: EquippedService
   ) {
   }
 
@@ -20,6 +23,18 @@ export class GearDescriptionComponent implements OnInit {
     this.item.subscribe(val => {
       this.curItem = val;
     });
+  }
+
+  describe(option) {
+    if (option && option.affixes && option.affixes.length) {
+      return option.affixes[0].name + " +" + option.affixes[0].value + " " + option.affixes[0].type;
+    } else {
+      return "";
+    }
+  }
+
+  updateItem() {
+    this.equipped.set(this.curItem);
   }
 
 }

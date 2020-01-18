@@ -24,6 +24,7 @@ export class Item {
             }
             this.url = json.url;
             this.rawCrafting = json.crafting;
+            this.crafting = json.crafting;
         }
     }
 

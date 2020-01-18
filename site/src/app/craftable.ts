@@ -1,11 +1,13 @@
 import { CraftableOption } from './craftable-option';
 
 export class Craftable {
-    options: Array<CraftableOption>
-    selected: CraftableOption
+    name: string;
+    options: Array<CraftableOption>;
+    selected: CraftableOption;
 
-    constructor(json) {
-        this.options = json.options;
+    constructor(name: string, options: Array<CraftableOption>) {
+        this.name = name;
+        this.options = options;
         this.selected = null;
     }
 }

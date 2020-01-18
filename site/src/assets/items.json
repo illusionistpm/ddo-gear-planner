@@ -8755,12 +8755,12 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "10"
             },
             {
                 "name": "Wizardry",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "5"
             },
             {
@@ -10329,12 +10329,12 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "5"
             },
             {
                 "name": "Wizardry",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "2"
             },
             {
@@ -18037,12 +18037,12 @@
             },
             {
                 "name": "Wizardry",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "2"
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "5"
             }
         ],
@@ -18957,7 +18957,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "10"
             }
         ],
@@ -23020,7 +23020,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "30"
             },
             {
@@ -24053,7 +24053,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "77"
             },
             {
@@ -27936,7 +27936,7 @@
         "affixes": [
             {
                 "name": "Corrosion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "107"
             },
             {
@@ -27975,7 +27975,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "77"
             },
             {
@@ -28941,7 +28941,7 @@
         "affixes": [
             {
                 "name": "Corrosion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "47"
             },
             {
@@ -28980,7 +28980,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "32"
             },
             {
@@ -44282,7 +44282,7 @@
             },
             {
                 "name": "Heal",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "7"
             },
             {
@@ -44674,7 +44674,7 @@
             },
             {
                 "name": "Heal",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "11"
             },
             {
@@ -47888,7 +47888,7 @@
             },
             {
                 "name": "Heal",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "2"
             },
             {
@@ -48315,7 +48315,7 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "57"
             },
             {
@@ -48357,7 +48357,7 @@
             },
             {
                 "name": "Doubleshot",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "7"
             },
             {
@@ -48878,7 +48878,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "65"
             },
             {
@@ -49766,7 +49766,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "31"
             },
             {
@@ -80259,7 +80259,7 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "57"
             },
             {
@@ -81487,7 +81487,7 @@
             },
             {
                 "name": "Corrosion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "38"
             }
         ],
@@ -81564,7 +81564,7 @@
             },
             {
                 "name": "Magnetism",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "38"
             }
         ],
@@ -81740,7 +81740,7 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "57"
             },
             {
@@ -81966,7 +81966,7 @@
             },
             {
                 "name": "Combustion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "38"
             }
         ],
@@ -82007,7 +82007,7 @@
             },
             {
                 "name": "Glaciation",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "38"
             }
         ],
@@ -82178,7 +82178,7 @@
             },
             {
                 "name": "Corrosion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "92"
             }
         ],
@@ -82219,7 +82219,7 @@
             },
             {
                 "name": "Magnetism",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "92"
             }
         ],
@@ -82373,7 +82373,7 @@
             },
             {
                 "name": "Combustion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "92"
             }
         ],
@@ -82414,7 +82414,7 @@
             },
             {
                 "name": "Glaciation",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "92"
             }
         ],
@@ -82552,12 +82552,12 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "107"
             },
             {
                 "name": "Void Lore",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "18"
             },
             {
@@ -83324,12 +83324,12 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "47"
             },
             {
                 "name": "Void Lore",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "9"
             },
             {
@@ -87371,7 +87371,7 @@
             },
             {
                 "name": "Impulse",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "104"
             },
             {
@@ -92123,7 +92123,7 @@
             },
             {
                 "name": "Concentration",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "7"
             }
         ],
@@ -92441,7 +92441,7 @@
             },
             {
                 "name": "Concentration",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "9"
             }
         ],
@@ -98093,7 +98093,7 @@
             },
             {
                 "name": "Nullification",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "104"
             },
             {
@@ -104765,7 +104765,7 @@
             },
             {
                 "name": "Potency",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "14"
             }
         ],
@@ -108293,7 +108293,7 @@
             },
             {
                 "name": "Devotion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "92"
             },
             {
@@ -108643,7 +108643,7 @@
             },
             {
                 "name": "Devotion",
-                "type": "Insightful",
+                "type": "Insight",
                 "value": "38"
             },
             {

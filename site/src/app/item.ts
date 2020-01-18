@@ -33,11 +33,38 @@ export class Item {
 
     getActiveAffixes() {
         let activeAffixes = this.affixes.slice();
-        for (const craftable of this.crafting) {
-            if (craftable.selected && craftable.selected.affixes) {
-                activeAffixes = activeAffixes.concat(craftable.selected.affixes);
+
+        if (this.crafting) {
+            for (const craftable of this.crafting) {
+                if (craftable.selected && craftable.selected.affixes) {
+                    activeAffixes = activeAffixes.concat(craftable.selected.affixes);
+                }
             }
         }
+
         return activeAffixes;
+    }
+
+    canHaveBonusType(affixName, bonusType) {
+        return this.getMatchingBonusType(affixName, bonusType) != null;
+    }
+
+    getMatchingBonusType(affixName, bonusType) {
+        for (const affix of this.affixes) {
+            if (affix.name === affixName && affix.type === bonusType) {
+                return [null, affix.value];
+            }
+        }
+
+        if (this.crafting) {
+            for (const craftable of this.crafting) {
+                const value = craftable.getMatchingBonusType(affixName, bonusType);
+                if (value) {
+                    return [craftable.name, value];
+                }
+            }
+        }
+
+        return null;
     }
 }

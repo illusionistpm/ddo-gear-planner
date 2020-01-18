@@ -17,8 +17,8 @@
     <div class="row" *ngFor="let item of matches">
         <div class="col-1">{{item.ml}}</div>
         <div class="col-2">{{item.slot}}</div>
-        <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
-        <div class="col-1">{{findMatchingValue(item)}}</div>
+        <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+        <div class="col-1">{{findMatchingValue(item)[1]}}</div>
         <button class="col-2" (click)="equipItem(item)">Equip</button>
     </div>
 
@@ -31,7 +31,7 @@
             <div class="col-1">{{item.ml}}</div>
             <div class="col-2">{{item.slot}}</div>
             <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
-            <div class="col-1">{{findMatchingValue(item)}}</div>
+            <div class="col-1">{{findMatchingValue(item)[1]}}</div>
             <button class="col-2" (click)="equipItem(item)">Equip</button>
         </div>
     </i>

@@ -7,8 +7,19 @@ export class Craftable {
 
     constructor(name: string, options: Array<CraftableOption>) {
         this.name = name;
-        let emptyOption = new CraftableOption();
+        let emptyOption = new CraftableOption(null);
         this.options = [emptyOption].concat(options);
         this.selected = emptyOption;
+    }
+
+    getMatchingBonusType(affixName, bonusType) {
+        for (const option of this.options) {
+            const value = option.getMatchingBonusType(affixName, bonusType);
+            if (value) {
+                return value;
+            }
+        }
+
+        return null;
     }
 }

@@ -37,18 +37,20 @@ export class ItemsWithBonusTypeComponent implements OnInit {
         this.lockedMatches.push(item);
       }
     }
-    
+
     this.matches = this.matches.sort((a, b) => b.ml - a.ml);
     this.lockedMatches = this.lockedMatches.sort((a, b) => b.ml - a.ml);
   }
 
   findMatchingValue(item: Item) {
-    for (const affix of item.affixes) {
-      if (affix.name === this.affixName && affix.type === this.bonusType) {
-        return affix.value;
-      }
+    const ret = item.getMatchingBonusType(this.affixName, this.bonusType);
+    let crafting = ret[0] || '';
+    if(crafting) {
+      crafting = " (" + crafting + ")";
     }
-    return '';
+    let value = ret[1] || '';
+
+    return [crafting, value];
   }
 
   viewItem(item: Item) {

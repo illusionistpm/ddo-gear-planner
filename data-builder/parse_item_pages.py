@@ -122,6 +122,9 @@ def get_items_from_page(itemPageURL):
                         bonusTypeSearch = re.search('([a-z]+) bonus', words, re.IGNORECASE)
                         if bonusTypeSearch:
                             aff['type'] = bonusTypeSearch.group(1).strip()
+                            if aff['type'] == 'Insightful':
+                                aff['type'] = 'Insight'
+
 
                 if 'value' in aff and int(aff['value']) < 0:
                     aff['type'] = 'Penalty'

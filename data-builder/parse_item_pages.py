@@ -132,6 +132,9 @@ def get_items_from_page(itemPageURL):
                             if aff['type'] == 'Insightful':
                                 aff['type'] = 'Insight'
 
+                # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
+                if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
+                    aff['type'] = 'Enhancement'
 
                 if 'value' in aff and int(aff['value']) < 0:
                     aff['type'] = 'Penalty'

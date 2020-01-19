@@ -12,7 +12,7 @@ def get_item_page_urls():
 
     table = soup.find(id='mw-content-text').contents[0].contents[0]
     links = table.find_all('a', href=True)
-    itemPages = [s['href'] for s in links if '/page/Category' in s['href']]
+    itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
     return itemPages
 
 
@@ -23,12 +23,15 @@ def download_page(url):
         print(filename + " already exists")
         return False
 
+    #https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Category:Cloth_armor
     print("Downloading " + filename)
-    page = requests.get("http://ddowiki.com" + url)
+    page = requests.get("http://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url)
     open(path, 'w', encoding='utf8').write(page.text)
 
     return True
 
+if not os.path.exists('cache'):
+    os.makedirs('cache')
 
 itemPageURLs = get_item_page_urls()
 for url in set(itemPageURLs):

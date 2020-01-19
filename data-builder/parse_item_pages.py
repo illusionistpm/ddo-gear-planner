@@ -34,12 +34,19 @@ def build_cat_map():
 
     return catMap
 
-def clean_up_spaces(name):
-    return name.strip().replace('\u00a0', ' ')
+def cleanup_unicode(name):
+    name = name.strip().replace('\u00a0', ' ')
+    name = name.strip().replace('\u2014', '-')
+    name = name.strip().replace('\u2019', '\'')
+    return name
+
+
+def cleanup_whitespace(name):
+    return re.sub('\s+', ' ', name).strip()
 
 
 def convert_roman_numerals(name):
-    search = re.search(r'^(.*) ([IVXCMDL]+)$', name)
+    search = re.search(r'^(.*) ([IVXCMDL]+) *$', name)
     if search:
         return search.group(1) + " " + str(int_from_roman_numeral(search.group(2)))
 
@@ -51,6 +58,58 @@ def strip_bonus_types(name):
         if name.startswith(type):
             name = name[len(type)+1:]
 
+    return name
+
+
+def strip_charges(name):
+    name = re.sub(r'-? \d+ Charges( *\(Recharged/Day: *?(\d+|None)\))?', '', name)
+    return name
+    
+
+def strip_necro4_upgrades(name):
+    search = re.search(r'^(Upgradeable - [A-Za-z]+ Augment)', name)
+    if search:
+        return search.group(1)
+
+    return name
+    
+
+def clean_up_old_augments(name):
+    search = re.search(r'^([A-Za-z]+) Slot', name)
+    if search:
+        return "Empty " + search.group(1) + " Augment Slot"
+
+    return name
+
+
+def strip_preslotted_augments(name):
+    search = re.search(r'^(Empty [A-Za-z]+ Augment Slot)', name)
+    if search:
+        return search.group(1)
+
+    return name
+
+
+def strip_fixed_suffixes(name):
+    for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1", "Visibility 2", "Jet Propulsion", "A Mysterious Effect", "Haggle +3 ", "Vampirism 1 ", "Unholy 9 ", "Cannith Combat Infusion", "Chitinous Covering"]:
+        if name.startswith(prefix):
+            return prefix
+
+    return name
+
+
+#JAK: FIXME!! This should technically be a crafting system...
+def cleanup_one_of_the_following(name):
+    for match in ["One of the following", "Random effect, for example", "Contains a Random pair from the following"]:
+        if name.startswith(match):
+            return "<Multiple effects available>"
+
+    return name
+
+
+def strip_trailing_colon(name):
+    if len(name) > 0 and name[-1] == ':':
+        return name[:-1]
     return name
 
 
@@ -95,6 +154,10 @@ def get_items_from_page(itemPageURL):
         item['ml'] = fields[cols['ML']].getText().strip()
         item['affixes'] = []
 
+        # Uncomment and edit to stop at a particular item
+        # if item['name'] == "Diabolist's Robe":
+        #     a = 1
+
         if item['ml'] == 'None':
             item['ml'] = 1
 
@@ -106,11 +169,29 @@ def get_items_from_page(itemPageURL):
             for affix in affixes:
                 aff = {}
 
-                affixName = affix.find('a').getText() if affix.find('a') else affix.getText()
+                tooltipSpan = affix.find('span', {'class': 'tooltip'})
+                tooltip = tooltipSpan.extract() if tooltipSpan else None
 
-                affixName = clean_up_spaces(affixName)
-                affixName = convert_roman_numerals(affixName)
+                # Ignore child lists, which are typically lists of possible attributes,
+                # such as for https://ddowiki.com/page/Item:The_Admiral_of_Bling
+                for child in affix.findChildren('li'):
+                    child.decompose()
+
+                affixName = affix.getText()
+
+                affixName = cleanup_unicode(affixName)
+                affixName = cleanup_whitespace(affixName)
                 affixName = strip_bonus_types(affixName)
+                affixName = strip_charges(affixName)
+                affixName = strip_necro4_upgrades(affixName)
+                affixName = strip_fixed_suffixes(affixName)
+                affixName = strip_preslotted_augments(affixName)
+                affixName = strip_trailing_colon(affixName)
+                affixName = convert_roman_numerals(affixName)
+                affixName = clean_up_old_augments(affixName)
+                affixName = cleanup_one_of_the_following(affixName)
+                
+                affixName = affixName.strip()
 
                 affixNameSearch = re.search(r'^(.*) \+?(-?[0-9]+)\%?$', affixName)
                 if affixNameSearch:
@@ -119,18 +200,25 @@ def get_items_from_page(itemPageURL):
                 else:
                     aff['name'] = affixName.strip()
 
-                # Ignore the tooltip for augment slots
-                if not 'Augment Slot' in aff['name']:
-                    tooltip = affix.find('span', class_='tooltip')
-                    if tooltip:
-                        words = str(tooltip)
-                        bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
-                        bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
+                aff['name'] = strip_trailing_colon(aff['name'])
 
-                        if bonusTypeSearch:
-                            aff['type'] = bonusTypeSearch[0].strip()
-                            if aff['type'] == 'Insightful':
-                                aff['type'] = 'Insight'
+                if aff['name'].startswith('DR '):
+                    drGroup = re.search(r'^DR (\d+)/([A-Za-z\-]+)', aff['name'])
+                    if drGroup:
+                        aff['value'] = drGroup.group(1)
+                        aff['type'] = drGroup.group(2)
+                        aff['name'] = 'DR'
+
+                # Ignore the tooltip for augment slots
+                elif not 'Augment Slot' in aff['name'] and tooltip:
+                    words = str(tooltip)
+                    bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
+                    bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
+
+                    if bonusTypeSearch:
+                        aff['type'] = bonusTypeSearch[0].strip()
+                        if aff['type'] == 'Insightful':
+                            aff['type'] = 'Insight'
 
                 # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
                 if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:

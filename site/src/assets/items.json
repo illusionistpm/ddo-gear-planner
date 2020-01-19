@@ -7990,6 +7990,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -8182,6 +8183,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -8417,6 +8419,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             }
         ],
@@ -8962,6 +8965,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -9132,6 +9136,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             }
         ],
@@ -10072,6 +10077,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -11312,6 +11318,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -17630,6 +17637,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -17917,6 +17925,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             }
         ],
@@ -18460,6 +18469,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -19402,6 +19412,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -19516,6 +19527,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             }
         ],
@@ -20362,6 +20374,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -20889,6 +20902,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -21523,6 +21537,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -31464,6 +31479,7 @@
         "affixes": [
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -31544,7 +31560,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -31567,7 +31583,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -44848,7 +44864,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -44874,7 +44890,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -49327,6 +49343,7 @@
         "affixes": [
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             }
         ],
@@ -50531,7 +50548,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -50552,7 +50569,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -51463,6 +51480,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -51508,6 +51526,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -52595,6 +52614,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -52748,6 +52768,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             }
         ],
@@ -53753,6 +53774,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -53822,6 +53844,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -54195,6 +54218,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -61416,6 +61440,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -61520,6 +61545,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -62989,6 +63015,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -63066,6 +63093,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             },
             {
@@ -64237,6 +64265,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -64909,6 +64938,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -72745,6 +72775,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -72835,6 +72866,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -73644,6 +73676,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -73766,6 +73799,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             },
             {
@@ -74484,6 +74518,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -75405,6 +75440,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -91007,6 +91043,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -100227,7 +100264,7 @@
             },
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -101023,7 +101060,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Competence",
+                "type": "Damage",
                 "value": "1"
             },
             {
@@ -101248,6 +101285,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             },
             {
@@ -102599,7 +102637,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Competence",
+                "type": "Damage",
                 "value": "1"
             },
             {
@@ -102856,6 +102894,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             },
             {
@@ -103469,7 +103508,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Competence",
+                "type": "Damage",
                 "value": "1"
             }
         ],
@@ -106186,6 +106225,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "75"
             }
         ],
@@ -106428,6 +106468,7 @@
         "affixes": [
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             }
         ],
@@ -106723,7 +106764,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -106742,7 +106783,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -106761,7 +106802,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -106779,7 +106820,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -106797,7 +106838,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -106819,7 +106860,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -106841,7 +106882,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Dex",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -106950,6 +106991,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             },
             {
@@ -107152,6 +107194,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "25"
             }
         ],
@@ -112175,6 +112218,7 @@
             },
             {
                 "name": "Fortification",
+                "type": "Enhancement",
                 "value": "100"
             }
         ],

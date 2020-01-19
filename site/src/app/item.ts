@@ -68,4 +68,13 @@ export class Item {
 
         return null;
     }
+
+    getValue(affixName, bonusType) {
+        const ret = this.getMatchingBonusType(affixName, bonusType);
+        if (ret) {
+            return ret[1];
+        } else {
+            return null;
+        }
+    }
 }

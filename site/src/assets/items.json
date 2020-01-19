@@ -23402,7 +23402,7 @@
             },
             {
                 "name": "Nimble Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Lesser Displacement"
@@ -28261,7 +28261,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Resistance"
+                "type": "Deflection"
             }
         ],
         "ml": "9",
@@ -46803,7 +46803,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Alchemical"
+                "type": "Insight"
             },
             {
                 "name": "Intelligence",
@@ -77334,7 +77334,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Alchemical"
+                "type": "Insight"
             },
             {
                 "name": "Efficient Metamagic - Extend",
@@ -79489,7 +79489,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79516,7 +79516,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79543,7 +79543,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79570,7 +79570,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79597,7 +79597,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79624,7 +79624,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79651,7 +79651,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -81445,7 +81445,7 @@
             },
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Corrosion",
@@ -81481,7 +81481,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Sheltering",
@@ -81522,7 +81522,7 @@
             },
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Magnetism",
@@ -81558,7 +81558,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Combustion",
@@ -81586,7 +81586,7 @@
         "affixes": [
             {
                 "name": "+3 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Charisma",
@@ -81595,7 +81595,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Radiance",
@@ -81621,7 +81621,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -81658,7 +81658,7 @@
             },
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -81703,7 +81703,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Void Lore",
@@ -81739,7 +81739,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Negative Amplification",
@@ -81783,7 +81783,7 @@
             },
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Intelligence",
@@ -81818,7 +81818,7 @@
         "affixes": [
             {
                 "name": "+8 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Sheltering",
@@ -81854,7 +81854,7 @@
         "affixes": [
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Charisma",
@@ -81863,7 +81863,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Insight"
             },
             {
                 "name": "Radiance",
@@ -81889,7 +81889,7 @@
         "affixes": [
             {
                 "name": "+12 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Wizardry",
@@ -81924,7 +81924,7 @@
             },
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Combustion",
@@ -81965,7 +81965,7 @@
             },
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Glaciation",
@@ -82006,7 +82006,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Healing Lore",
@@ -82039,7 +82039,7 @@
         "affixes": [
             {
                 "name": "+10 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Elemental Absorption",
@@ -82070,7 +82070,7 @@
         "affixes": [
             {
                 "name": "+3 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Elemental Absorption",
@@ -82101,7 +82101,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Wizardry",
@@ -82136,7 +82136,7 @@
             },
             {
                 "name": "+13 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Corrosion",
@@ -82177,7 +82177,7 @@
             },
             {
                 "name": "+13 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Magnetism",
@@ -82213,7 +82213,7 @@
         "affixes": [
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -82250,7 +82250,7 @@
             },
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82290,7 +82290,7 @@
         "affixes": [
             {
                 "name": "+9 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Negative Amplification",
@@ -82331,7 +82331,7 @@
             },
             {
                 "name": "+13 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Combustion",
@@ -82372,7 +82372,7 @@
             },
             {
                 "name": "+13 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Glaciation",
@@ -82408,7 +82408,7 @@
         "affixes": [
             {
                 "name": "+13 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -82453,7 +82453,7 @@
             },
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Radiance",
@@ -82488,7 +82488,7 @@
             },
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -82525,7 +82525,7 @@
             },
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82555,7 +82555,7 @@
         "affixes": [
             {
                 "name": "+8 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Potency",
@@ -82596,7 +82596,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82618,7 +82618,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82640,7 +82640,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82662,7 +82662,7 @@
         "affixes": [
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82684,7 +82684,7 @@
         "affixes": [
             {
                 "name": "+7 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82706,7 +82706,7 @@
         "affixes": [
             {
                 "name": "+7 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -82728,7 +82728,7 @@
         "affixes": [
             {
                 "name": "+3 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -82768,7 +82768,7 @@
         "affixes": [
             {
                 "name": "+8 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Sheltering",
@@ -82809,7 +82809,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82839,7 +82839,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82869,7 +82869,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82899,7 +82899,7 @@
         "affixes": [
             {
                 "name": "+7 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82929,7 +82929,7 @@
         "affixes": [
             {
                 "name": "+8 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82959,7 +82959,7 @@
         "affixes": [
             {
                 "name": "+8 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Lore",
@@ -82989,7 +82989,7 @@
         "affixes": [
             {
                 "name": "+2 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Potency",
@@ -83022,7 +83022,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Acid Lore",
@@ -83063,7 +83063,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Lightning Lore",
@@ -83104,7 +83104,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Fire Lore",
@@ -83145,7 +83145,7 @@
             },
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Ice Lore",
@@ -83186,7 +83186,7 @@
             },
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Radiance",
@@ -83221,7 +83221,7 @@
             },
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Enchantment Focus",
@@ -83297,7 +83297,7 @@
             },
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Nullification",
@@ -83327,7 +83327,7 @@
         "affixes": [
             {
                 "name": "+15 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Mystic Diversion",
@@ -83363,7 +83363,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Mystic Diversion",
@@ -83418,7 +83418,7 @@
         "affixes": [
             {
                 "name": "+4 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -83451,7 +83451,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -83484,7 +83484,7 @@
         "affixes": [
             {
                 "name": "+5 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -83517,7 +83517,7 @@
         "affixes": [
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -83550,7 +83550,7 @@
         "affixes": [
             {
                 "name": "+6 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -83583,7 +83583,7 @@
         "affixes": [
             {
                 "name": "+7 Orb Bonus",
-                "type": "Enhancement"
+                "type": "Orb"
             },
             {
                 "name": "Spell Focus",
@@ -100481,7 +100481,7 @@
             },
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -106970,7 +106970,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -106989,7 +106989,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -107008,7 +107008,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             }
         ],
@@ -107025,7 +107025,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             }
         ],
@@ -107042,7 +107042,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "3"
             }
         ],
@@ -107060,7 +107060,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "3"
             }
         ],
@@ -107078,7 +107078,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "4"
             }
         ],
@@ -108690,7 +108690,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Resistance"
+                "type": "Deflection"
             }
         ],
         "ml": "9",
@@ -112047,7 +112047,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Resistance"
+                "type": "Deflection"
             },
             {
                 "name": "Dodge",

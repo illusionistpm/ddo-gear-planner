@@ -34,6 +34,9 @@ def build_cat_map():
 
     return catMap
 
+def clean_up_spaces(name):
+    return name.strip().replace('\u00a0', ' ')
+
 
 def convert_roman_numerals(name):
     search = re.search(r'^(.*) ([IVXCMDL]+)$', name)
@@ -76,6 +79,7 @@ def get_items_from_page(itemPageURL):
     catMap = build_cat_map()
 
     craftingSystems = set(['Nearly Finished', 'Almost There', 'Empty Blue Augment Slot', 'Empty Red Augment Slot', 'Empty Yellow Augment Slot', 'Empty Green Augment Slot', 'Empty Purple Augment Slot', 'Empty Orange Augment Slot', 'Empty Colorless Augment Slot'])
+    fakeBonuses = set(['dodge', 'attack', 'combat', 'strength'])
 
     for row in rows:
         item = {}
@@ -104,6 +108,7 @@ def get_items_from_page(itemPageURL):
 
                 affixName = affix.find('a').getText() if affix.find('a') else affix.getText()
 
+                affixName = clean_up_spaces(affixName)
                 affixName = convert_roman_numerals(affixName)
                 affixName = strip_bonus_types(affixName)
 
@@ -119,9 +124,11 @@ def get_items_from_page(itemPageURL):
                     tooltip = affix.find('span', class_='tooltip')
                     if tooltip:
                         words = str(tooltip)
-                        bonusTypeSearch = re.search('([a-z]+) bonus', words, re.IGNORECASE)
+                        bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
+                        bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
+
                         if bonusTypeSearch:
-                            aff['type'] = bonusTypeSearch.group(1).strip()
+                            aff['type'] = bonusTypeSearch[0].strip()
                             if aff['type'] == 'Insightful':
                                 aff['type'] = 'Insight'
 

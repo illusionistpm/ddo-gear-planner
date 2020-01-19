@@ -89,12 +89,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -515,7 +515,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             }
         ],
@@ -542,7 +542,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -572,7 +572,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -602,7 +602,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "18"
             },
             {
@@ -1272,7 +1272,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             }
         ],
@@ -1472,8 +1471,7 @@
                 "name": "Greater Poison Guard"
             },
             {
-                "name": "Greater Might of the Abishai",
-                "type": "profane"
+                "name": "Greater Might of the Abishai"
             },
             {
                 "name": "Constitution",
@@ -2036,12 +2034,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -2495,7 +2493,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "19"
             },
             {
@@ -2801,7 +2799,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -2865,7 +2863,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -3202,12 +3200,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "3"
             },
             {
@@ -4174,7 +4172,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "4"
             }
         ],
@@ -4347,7 +4345,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "21"
             },
             {
@@ -4687,7 +4685,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -4763,7 +4761,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             },
             {
@@ -4884,8 +4881,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Human Bane",
-                "type": "enhancement"
+                "name": "Lesser Human Bane"
             },
             {
                 "name": "Hemorrhaging"
@@ -5348,8 +5344,7 @@
                 "name": "Disintegration"
             },
             {
-                "name": "Chimera's Ferocity",
-                "type": "extra"
+                "name": "Chimera's Ferocity"
             }
         ],
         "crafting": [
@@ -5727,8 +5722,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Human Bane",
-                "type": "enhancement"
+                "name": "Greater Human Bane"
             },
             {
                 "name": "Greater Bleeding"
@@ -6721,7 +6715,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -7030,7 +7024,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "2"
             },
             {
@@ -7061,7 +7055,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "10"
             },
             {
@@ -7098,7 +7092,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -7545,7 +7539,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "10"
             },
             {
@@ -7621,8 +7615,7 @@
                 "value": "9"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Silver"
@@ -7821,8 +7814,7 @@
                 "value": "10"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Greater Acid Resistance"
@@ -7962,8 +7954,7 @@
                 "value": "10"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             }
         ],
         "ml": "23",
@@ -8281,7 +8272,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             }
         ],
@@ -8898,8 +8889,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -9121,8 +9111,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "10",
@@ -9161,7 +9150,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -10147,8 +10136,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "23",
@@ -10650,7 +10638,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "19"
             },
             {
@@ -10923,7 +10911,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "4"
             },
             {
@@ -11505,8 +11493,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Ooze Bane",
-                "type": "enhancement"
+                "name": "Lesser Ooze Bane"
             }
         ],
         "crafting": [
@@ -11766,8 +11753,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Ooze Bane",
-                "type": "enhancement"
+                "name": "Ooze Bane"
             }
         ],
         "crafting": [
@@ -11786,8 +11772,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Goblinoid Bane",
-                "type": "enhancement"
+                "name": "Lesser Goblinoid Bane"
             },
             {
                 "name": "Intimidate",
@@ -11849,8 +11834,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Elemental Bane",
-                "type": "enhancement"
+                "name": "Lesser Elemental Bane"
             },
             {
                 "name": "Vampirism"
@@ -13902,8 +13886,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Elemental Bane",
-                "type": "enhancement"
+                "name": "Greater Elemental Bane"
             },
             {
                 "name": "Vampirism"
@@ -14490,8 +14473,7 @@
                 "name": "Ghost Touch"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             },
             {
                 "name": "Silver"
@@ -14556,8 +14538,7 @@
                 "value": "1"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             }
         ],
         "crafting": [
@@ -14816,8 +14797,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Finesse",
-                "type": "enhancement"
+                "name": "Finesse"
             }
         ],
         "crafting": [
@@ -14922,12 +14902,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Incorporeal Bane",
-                "type": "enhancement"
+                "name": "Lesser Incorporeal Bane"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Greater Dispelling"
@@ -15112,8 +15090,7 @@
                 "name": "Ghost Touch"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Adamantine"
@@ -15266,8 +15243,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Giant Bane",
-                "type": "enhancement"
+                "name": "Greater Giant Bane"
             },
             {
                 "name": "Giant Slayer"
@@ -15561,12 +15537,10 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Curse Vector"
@@ -15615,8 +15589,8 @@
                 "value": "15"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "2"
             },
             {
@@ -16036,8 +16010,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Epic Giant Bane",
-                "type": "enhancement"
+                "name": "Epic Giant Bane"
             },
             {
                 "name": "Giant Slayer"
@@ -16124,8 +16097,7 @@
                 "name": "Acid Burst"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Dusk"
@@ -16254,16 +16226,13 @@
                 "name": "Incandescence"
             },
             {
-                "name": "Ooze Bane",
-                "type": "enhancement"
+                "name": "Ooze Bane"
             },
             {
-                "name": "Aberration Bane",
-                "type": "enhancement"
+                "name": "Aberration Bane"
             },
             {
-                "name": "Magical Beast Bane",
-                "type": "enhancement"
+                "name": "Magical Beast Bane"
             },
             {
                 "name": "Acidic Reaping"
@@ -16446,8 +16415,7 @@
                 "name": "Disintegration"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Attuned to Heroism"
@@ -16711,12 +16679,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Incorporeal Bane",
-                "type": "enhancement"
+                "name": "Greater Incorporeal Bane"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Greater Dispelling"
@@ -16854,8 +16820,8 @@
                 "value": "20"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "6"
             },
             {
@@ -16889,8 +16855,7 @@
                 "name": "Fetters of Unreality"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Sovereign Vorpal"
@@ -17508,8 +17473,7 @@
                 "value": "10"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Greater Acid Resistance"
@@ -17631,8 +17595,7 @@
                 "value": "10"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             }
         ],
         "ml": "23",
@@ -17817,7 +17780,8 @@
     {
         "affixes": [
             {
-                "name": "Summon Monster III"
+                "name": "Summon Monster",
+                "value": "3"
             },
             {
                 "name": "Intelligence",
@@ -17907,8 +17871,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Blood",
-                "type": "enhancement"
+                "name": "Blood"
             }
         ],
         "crafting": [
@@ -18353,7 +18316,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "15"
             },
             {
@@ -18410,7 +18373,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -19368,8 +19331,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -19534,8 +19496,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "10",
@@ -20990,8 +20951,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "23",
@@ -22776,12 +22736,12 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "19"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "4"
             },
             {
@@ -23229,8 +23189,7 @@
     {
         "affixes": [
             {
-                "name": "Greater Raven's Eye",
-                "type": "hit"
+                "name": "Greater Raven's Eye"
             },
             {
                 "name": "Wisdom",
@@ -23306,7 +23265,7 @@
         "affixes": [
             {
                 "name": "Nimble Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Nimble Skills Bonus",
@@ -23520,7 +23479,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -23534,7 +23493,6 @@
         "affixes": [
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             }
         ],
@@ -23551,7 +23509,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -23891,7 +23849,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "22"
             },
             {
@@ -24162,7 +24120,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -24363,8 +24321,7 @@
                 "name": "Anthem"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Adherent of the Mists Set (Legendary)",
@@ -24411,7 +24368,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             },
             {
@@ -24450,7 +24406,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "3"
             },
             {
@@ -24516,7 +24472,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "3"
             },
             {
@@ -25132,8 +25088,7 @@
                 "name": "Anthem"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Adherent of the Mists Set (Heroic)",
@@ -25153,7 +25108,6 @@
         "affixes": [
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
@@ -25468,8 +25422,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Dragon Bane",
-                "type": "enhancement"
+                "name": "Lesser Dragon Bane"
             },
             {
                 "name": "Tidal"
@@ -25676,8 +25629,7 @@
                 "name": "Bleed"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -25721,8 +25673,7 @@
                 "name": "Bleed"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -25763,8 +25714,7 @@
                 "name": "Bleed"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -25789,8 +25739,7 @@
                 "name": "Bleed"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -25843,8 +25792,7 @@
                 "name": "Bleed"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -25869,8 +25817,7 @@
                 "name": "Screaming"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -25892,8 +25839,7 @@
                 "name": "Screaming"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -25949,8 +25895,7 @@
                 "name": "Shrieking"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -26051,8 +25996,7 @@
                 "name": "Cacophony"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -26109,8 +26053,7 @@
                 "name": "Cacophony"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -26135,8 +26078,7 @@
                 "name": "Cacophony"
             },
             {
-                "name": "Weapon Focus: Falchion",
-                "type": "attack"
+                "name": "Weapon Focus: Falchion"
             }
         ],
         "crafting": [
@@ -26427,7 +26369,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "9"
             },
             {
@@ -26515,12 +26457,12 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "17"
             },
             {
                 "name": "Armor Mastery",
-                "type": "Quality",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -26940,7 +26882,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -26989,8 +26931,7 @@
                 "value": "90"
             },
             {
-                "name": "Greater Might of the Abishai",
-                "type": "profane"
+                "name": "Greater Might of the Abishai"
             },
             {
                 "name": "Acid Resistance",
@@ -27226,7 +27167,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "10"
             },
             {
@@ -27290,7 +27231,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -27717,7 +27658,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -27806,7 +27747,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "9"
             },
             {
@@ -28186,7 +28127,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             }
         ],
         "ml": "9",
@@ -28508,7 +28449,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "2"
             },
             {
@@ -28895,7 +28836,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -29093,8 +29034,7 @@
                 "value": "30"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             }
         ],
         "crafting": [
@@ -29118,8 +29058,7 @@
                 "value": "30"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             }
         ],
         "crafting": [
@@ -29143,8 +29082,7 @@
                 "value": "30"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             }
         ],
         "crafting": [
@@ -29881,7 +29819,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "3"
             }
         ],
@@ -30002,12 +29940,11 @@
     {
         "affixes": [
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -30083,7 +30020,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -30182,7 +30119,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -30919,7 +30856,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             }
         ],
@@ -31182,7 +31118,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -31301,8 +31237,7 @@
                 "value": "1"
             },
             {
-                "name": "Arcane Archer",
-                "type": "enhancement"
+                "name": "Arcane Archer"
             },
             {
                 "name": "Incredible Potential"
@@ -31609,7 +31544,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             }
         ],
         "ml": "13",
@@ -31632,7 +31567,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             },
             {
                 "name": "Battle-Scarred"
@@ -31954,7 +31889,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "6"
             }
         ],
@@ -32049,12 +31984,11 @@
     {
         "affixes": [
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "21"
             },
             {
@@ -32278,8 +32212,7 @@
                 "value": "22"
             },
             {
-                "name": "Soul of the Elements",
-                "type": "a"
+                "name": "Soul of the Elements"
             },
             {
                 "name": "Adherent of the Mists Set (Legendary)",
@@ -32627,8 +32560,7 @@
                 "value": "1"
             },
             {
-                "name": "Ninja Spy",
-                "type": "exceptional"
+                "name": "Ninja Spy"
             },
             {
                 "name": "Incredible Potential"
@@ -32666,8 +32598,7 @@
                 "type": "Insight"
             },
             {
-                "name": "Resistance +2 (Reflex)",
-                "type": "other"
+                "name": "Resistance +2 (Reflex)"
             },
             {
                 "name": "Fortification (+25%)",
@@ -32721,8 +32652,7 @@
                 "value": "6"
             },
             {
-                "name": "Soul of the Elements",
-                "type": "a"
+                "name": "Soul of the Elements"
             },
             {
                 "name": "Adherent of the Mists Set (Heroic)",
@@ -32943,8 +32873,7 @@
                 "value": "13"
             },
             {
-                "name": "Stability",
-                "type": "deflection"
+                "name": "Stability"
             }
         ],
         "crafting": [
@@ -33091,8 +33020,7 @@
                 "value": "8"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Attuned to Heroism"
@@ -33243,8 +33171,7 @@
                 "value": "10"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Hidden Effect: Increases spellcasting, melee, and ranged threat by",
@@ -34362,8 +34289,7 @@
     {
         "affixes": [
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Deception",
@@ -34419,7 +34345,6 @@
         "affixes": [
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "1"
             },
             {
@@ -34682,17 +34607,15 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "3"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             }
         ],
         "ml": "21",
@@ -34710,7 +34633,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -34756,7 +34679,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "3"
             },
             {
@@ -35137,7 +35060,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Potency",
@@ -35335,7 +35258,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "10"
             }
         ],
@@ -35363,7 +35286,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "3"
             }
         ],
@@ -35381,7 +35304,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -35570,8 +35493,7 @@
     {
         "affixes": [
             {
-                "name": "Lesser Monstrous Humanoid Bane",
-                "type": "enhancement"
+                "name": "Lesser Monstrous Humanoid Bane"
             }
         ],
         "ml": "1",
@@ -35765,12 +35687,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "ml": "4",
@@ -36042,8 +35962,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Construct Bane",
-                "type": "enhancement"
+                "name": "Construct Bane"
             },
             {
                 "name": "Shatter",
@@ -36070,8 +35989,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Humanoid Bane",
-                "type": "enhancement"
+                "name": "Humanoid Bane"
             },
             {
                 "name": "Demon Fever"
@@ -36156,8 +36074,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Humanoid Bane",
-                "type": "enhancement"
+                "name": "Humanoid Bane"
             },
             {
                 "name": "Stone Prison"
@@ -36179,8 +36096,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Humanoid Bane",
-                "type": "enhancement"
+                "name": "Humanoid Bane"
             },
             {
                 "name": "Malleable"
@@ -36249,8 +36165,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Humanoid Bane",
-                "type": "enhancement"
+                "name": "Humanoid Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -36272,8 +36187,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Humanoid Bane",
-                "type": "enhancement"
+                "name": "Humanoid Bane"
             },
             {
                 "name": "Destruction"
@@ -36426,8 +36340,7 @@
                 "name": "Adamantine"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             }
         ],
         "crafting": [
@@ -37925,8 +37838,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Human Bane",
-                "type": "enhancement"
+                "name": "Lesser Human Bane"
             },
             {
                 "name": "Heartseeker",
@@ -37936,8 +37848,8 @@
                 "name": "Frostbite"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "2"
             }
         ],
@@ -38227,8 +38139,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Human Bane",
-                "type": "enhancement"
+                "name": "Greater Human Bane"
             },
             {
                 "name": "Heartseeker",
@@ -38238,8 +38149,8 @@
                 "name": "Frostbite"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "6"
             }
         ],
@@ -38526,8 +38437,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             }
         ],
         "crafting": [
@@ -38615,8 +38525,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             }
         ],
         "crafting": [
@@ -38855,8 +38764,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Medusa Fury",
-                "type": "morale"
+                "name": "Medusa Fury"
             },
             {
                 "name": "Demon Fever"
@@ -39222,16 +39130,13 @@
                 "name": "Disintegration"
             },
             {
-                "name": "Greater Ooze Bane",
-                "type": "enhancement"
+                "name": "Greater Ooze Bane"
             },
             {
-                "name": "Greater Aberration Bane",
-                "type": "enhancement"
+                "name": "Greater Aberration Bane"
             },
             {
-                "name": "Greater Magical Beast Bane",
-                "type": "enhancement"
+                "name": "Greater Magical Beast Bane"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -39715,8 +39620,7 @@
                 "name": "Silver"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "crafting": [
@@ -39776,8 +39680,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Dragon Bane",
-                "type": "enhancement"
+                "name": "Lesser Dragon Bane"
             },
             {
                 "name": "Tidal"
@@ -39796,8 +39699,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             },
             {
                 "name": "Incandescence"
@@ -39996,8 +39898,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Human Bane",
-                "type": "enhancement"
+                "name": "Human Bane"
             }
         ],
         "crafting": [
@@ -40045,8 +39946,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Incandescence"
@@ -40228,8 +40128,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -40579,12 +40478,10 @@
                 "name": "Axiomatic Burst"
             },
             {
-                "name": "Lawful Outsider Bane",
-                "type": "enhancement"
+                "name": "Lawful Outsider Bane"
             },
             {
-                "name": "Chaotic Outsider Bane",
-                "type": "enhancement"
+                "name": "Chaotic Outsider Bane"
             },
             {
                 "name": "Mind Turbulence"
@@ -40628,8 +40525,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -40820,8 +40716,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -41031,8 +40926,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Coruscating"
@@ -41481,8 +41375,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Coruscating"
@@ -41912,8 +41805,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Finesse",
-                "type": "enhancement"
+                "name": "Finesse"
             },
             {
                 "name": "True Chaos"
@@ -42237,12 +42129,10 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             }
         ],
         "ml": "12",
@@ -42260,12 +42150,10 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             }
         ],
         "ml": "13",
@@ -42283,12 +42171,10 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             }
         ],
         "crafting": [
@@ -42309,17 +42195,15 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "1"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             }
         ],
         "crafting": [
@@ -42340,17 +42224,15 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "2"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             }
         ],
         "crafting": [
@@ -42371,17 +42253,15 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "3"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             }
         ],
         "crafting": [
@@ -42402,7 +42282,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             }
         ],
@@ -42779,7 +42658,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -42931,7 +42810,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "1"
             }
         ],
@@ -42982,7 +42861,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             }
         ],
@@ -43011,7 +42889,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             }
         ],
@@ -43111,8 +42988,7 @@
                 "name": "Greater Shocking Blow"
             },
             {
-                "name": "Greater Might of the Abishai",
-                "type": "profane"
+                "name": "Greater Might of the Abishai"
             },
             {
                 "name": "Strength",
@@ -43255,8 +43131,7 @@
     {
         "affixes": [
             {
-                "name": "Greater Raven's Eye",
-                "type": "hit"
+                "name": "Greater Raven's Eye"
             },
             {
                 "name": "Dexterity",
@@ -43313,7 +43188,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             }
         ],
@@ -43382,7 +43257,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -43692,7 +43567,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -43714,7 +43589,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -43736,7 +43611,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "3"
             }
         ],
@@ -43763,7 +43638,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             }
         ],
@@ -43791,7 +43666,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             }
         ],
@@ -43819,7 +43694,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             }
         ],
@@ -44115,7 +43990,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Insight",
                 "value": "4"
             },
             {
@@ -44380,7 +44255,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -44875,12 +44750,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "21"
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "21"
             },
             {
@@ -44973,7 +44848,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             },
             {
                 "name": "Battle-Scarred"
@@ -44999,7 +44874,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             }
         ],
         "ml": "13",
@@ -45870,7 +45745,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -45892,7 +45767,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -46053,12 +45928,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "8"
             },
             {
@@ -46256,7 +46131,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -46336,7 +46211,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "4"
             }
         ],
@@ -46411,7 +46286,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Use Magic Device",
@@ -46637,8 +46512,7 @@
     {
         "affixes": [
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Deception",
@@ -46713,7 +46587,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Insight"
+                "type": "Alchemical"
             },
             {
                 "name": "Intelligence",
@@ -46898,7 +46772,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -47101,8 +46975,7 @@
                 "value": "30"
             },
             {
-                "name": "Greater Might of the Abishai",
-                "type": "profane"
+                "name": "Greater Might of the Abishai"
             },
             {
                 "name": "Charisma",
@@ -47651,8 +47524,7 @@
                 "value": "1"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Seeker",
@@ -47920,7 +47792,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -48663,7 +48535,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Use Magic Device",
@@ -48724,8 +48596,7 @@
                 "value": "7"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Seeker",
@@ -48777,7 +48648,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "17"
             },
             {
@@ -48808,7 +48679,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "19"
             },
             {
@@ -48952,7 +48823,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "21"
             },
             {
@@ -48988,7 +48859,7 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Trace of Madness"
@@ -49194,7 +49065,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "7"
             },
             {
@@ -49970,7 +49841,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "1"
             },
             {
@@ -50535,7 +50406,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "8"
             },
             {
@@ -50660,7 +50531,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             }
         ],
         "ml": "13",
@@ -50681,7 +50552,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Equipment"
+                "type": "Artifact"
             },
             {
                 "name": "Battle-Scarred"
@@ -50741,7 +50612,7 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Wizardry",
@@ -50970,8 +50841,7 @@
                 "value": "9"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Doubleshot",
@@ -51097,8 +50967,7 @@
                 "value": "10"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Greater Acid Resistance"
@@ -51559,8 +51428,7 @@
                 "value": "10"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             }
         ],
         "ml": "23",
@@ -52619,8 +52487,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -52855,8 +52722,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Adamantine"
@@ -53990,8 +53856,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Adamantine"
@@ -54512,7 +54377,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -54546,7 +54411,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -54710,8 +54575,7 @@
     {
         "affixes": [
             {
-                "name": "Lesser Monstrous Humanoid Bane",
-                "type": "enhancement"
+                "name": "Lesser Monstrous Humanoid Bane"
             }
         ],
         "ml": "1",
@@ -54803,8 +54667,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             }
         ],
         "ml": "2",
@@ -55133,8 +54996,7 @@
                 "name": "Sun Burst"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
                 "name": "Coruscating"
@@ -56001,8 +55863,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Construct Bane",
-                "type": "enhancement"
+                "name": "Lesser Construct Bane"
             },
             {
                 "name": "Adamantine"
@@ -56296,8 +56157,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Construct Bane",
-                "type": "enhancement"
+                "name": "Greater Construct Bane"
             },
             {
                 "name": "Adamantine"
@@ -56932,8 +56792,7 @@
                 "value": "1"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Cold Iron"
@@ -57308,8 +57167,7 @@
                 "value": "5"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Cold Iron"
@@ -57662,8 +57520,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -57792,8 +57649,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -57828,8 +57684,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -57875,8 +57730,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Elf Bane",
-                "type": "enhancement"
+                "name": "Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -58135,8 +57989,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Elf Bane",
-                "type": "enhancement"
+                "name": "Greater Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -58158,8 +58011,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Elf Bane",
-                "type": "enhancement"
+                "name": "Greater Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -58200,8 +58052,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Elf Bane",
-                "type": "enhancement"
+                "name": "Greater Elf Bane"
             },
             {
                 "name": "Proficiency"
@@ -58535,8 +58386,7 @@
                 "value": "2"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             }
         ],
         "crafting": [
@@ -58555,8 +58405,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Unraveling Enchantments"
@@ -58575,8 +58424,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Giant Bane",
-                "type": "enhancement"
+                "name": "Greater Giant Bane"
             }
         ],
         "crafting": [
@@ -58845,12 +58693,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
-                "name": "Finesse",
-                "type": "enhancement"
+                "name": "Finesse"
             },
             {
                 "name": "Disintegration"
@@ -58864,8 +58710,7 @@
                 "name": "Improved Paralyzing"
             },
             {
-                "name": "Clever Strike",
-                "type": "enhancement"
+                "name": "Clever Strike"
             }
         ],
         "crafting": [
@@ -59163,8 +59008,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Silver Flame"
@@ -59799,7 +59643,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "17"
             },
             {
@@ -59998,8 +59842,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Flaming Burst"
@@ -60030,8 +59873,7 @@
                 "name": "Twilight"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Wizardry"
@@ -60098,7 +59940,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "7"
             },
             {
@@ -60307,7 +60149,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -60345,8 +60187,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior Stability",
-                "type": "deflection"
+                "name": "Superior Stability"
             },
             {
                 "name": "Protection",
@@ -60365,8 +60206,7 @@
                 "name": "Adamantine"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Suppressed Power"
@@ -60650,8 +60490,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Twilight"
@@ -60741,7 +60580,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -60834,8 +60672,7 @@
     {
         "affixes": [
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "1",
@@ -60851,8 +60688,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Incite",
@@ -60869,7 +60705,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             }
         ],
@@ -60892,7 +60727,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "4"
             },
             {
@@ -60902,7 +60737,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -60933,7 +60767,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "4"
             },
             {
@@ -60943,7 +60777,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -60974,7 +60807,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -60984,7 +60817,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -61015,7 +60847,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -61025,7 +60857,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -61056,7 +60887,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -61066,7 +60897,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -61097,7 +60927,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -61107,7 +60937,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -61132,8 +60961,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Flaming"
@@ -61267,7 +61095,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             },
             {
@@ -61293,7 +61120,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             },
             {
@@ -61319,7 +61145,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             },
             {
@@ -61367,8 +61192,7 @@
                 "value": "10"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Greater Acid Resistance"
@@ -61418,8 +61242,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Protection",
@@ -61443,8 +61266,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Dexterity",
@@ -61484,8 +61306,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Protection",
@@ -61517,8 +61338,7 @@
                 "value": "30"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -61561,8 +61381,7 @@
                 "value": "10"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             }
         ],
         "ml": "23",
@@ -61626,8 +61445,7 @@
                 "value": "5"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "12",
@@ -61825,8 +61643,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -61839,12 +61656,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -61865,8 +61682,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Superior Nimbleness",
@@ -61879,12 +61695,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -61905,8 +61721,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -61931,8 +61746,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -61957,8 +61771,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -61972,7 +61785,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             }
         ],
@@ -61992,8 +61805,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62007,7 +61819,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             }
         ],
@@ -62027,8 +61839,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62042,7 +61853,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "3"
             }
         ],
@@ -62062,8 +61873,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62077,7 +61887,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "5"
             }
         ],
@@ -62097,8 +61907,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -62133,8 +61942,7 @@
                 "value": "40"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "10",
@@ -62178,8 +61986,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Arcane Lore"
@@ -62202,8 +62009,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Arcane Lore"
@@ -62226,8 +62032,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -62353,8 +62158,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62367,12 +62171,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -62393,8 +62197,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62407,12 +62210,12 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "3"
             }
         ],
@@ -62429,8 +62232,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62444,7 +62246,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "9"
             }
         ],
@@ -62464,8 +62266,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62479,7 +62280,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "11"
             }
         ],
@@ -62499,8 +62300,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Balance",
@@ -62514,7 +62314,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "18"
             }
         ],
@@ -62618,8 +62418,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Silent Moves",
@@ -62772,7 +62571,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -62841,8 +62640,7 @@
                 "value": "3"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -62932,7 +62730,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -62942,7 +62740,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             }
         ],
@@ -63084,8 +62881,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -63225,8 +63021,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -63251,8 +63046,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "10",
@@ -63321,7 +63115,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "1"
             },
             {
@@ -63535,8 +63329,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Move Silently",
@@ -63667,7 +63460,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "15"
             },
             {
@@ -63834,7 +63627,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "4"
             },
             {
@@ -64178,8 +63971,7 @@
                 "name": "Fire Resistance"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "8",
@@ -64332,8 +64124,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Symbiotic Flexibility",
-                "type": "dexterity"
+                "name": "Symbiotic Flexibility"
             },
             {
                 "name": "Diehard"
@@ -64487,8 +64278,7 @@
                 "value": "72"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "23",
@@ -64540,8 +64330,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             }
         ],
         "ml": "23",
@@ -64578,12 +64367,11 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -64632,8 +64420,7 @@
                 "value": "3"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -65003,8 +64790,8 @@
                 "name": "Greater False Life"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "2"
             },
             {
@@ -65035,8 +64822,8 @@
                 "name": "Superior False Life"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "3"
             },
             {
@@ -65067,8 +64854,8 @@
                 "name": "Superior False Life"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "5"
             },
             {
@@ -65099,8 +64886,8 @@
                 "name": "Superior False Life"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "5"
             },
             {
@@ -65437,8 +65224,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Vermin Bane",
-                "type": "enhancement"
+                "name": "Vermin Bane"
             }
         ],
         "crafting": [
@@ -66608,12 +66394,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "ml": "4",
@@ -66769,8 +66553,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Construct Bane",
-                "type": "enhancement"
+                "name": "Greater Construct Bane"
             },
             {
                 "name": "Adamantine"
@@ -66797,8 +66580,7 @@
                 "value": "10"
             },
             {
-                "name": "Orc Bane",
-                "type": "enhancement"
+                "name": "Orc Bane"
             }
         ],
         "ml": "12",
@@ -67305,8 +67087,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             },
             {
                 "name": "Incandescence"
@@ -67505,8 +67286,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Incandescence"
@@ -67525,8 +67305,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -67615,8 +67394,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -67638,8 +67416,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Brilliance"
@@ -67683,8 +67460,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Coruscating"
@@ -67860,8 +67636,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Undead Bane",
-                "type": "enhancement"
+                "name": "Greater Undead Bane"
             },
             {
                 "name": "Coruscating"
@@ -67939,12 +67714,10 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Striding",
@@ -68010,8 +67783,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Human Bane",
-                "type": "enhancement"
+                "name": "Lesser Human Bane"
             }
         ],
         "crafting": [
@@ -68049,12 +67821,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Halfling Bane",
-                "type": "enhancement"
+                "name": "Lesser Halfling Bane"
             },
             {
-                "name": "Lesser Dwarf Bane",
-                "type": "enhancement"
+                "name": "Lesser Dwarf Bane"
             }
         ],
         "crafting": [
@@ -68234,8 +68004,7 @@
                 "name": "Ghost Touch"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             }
         ],
         "crafting": [
@@ -68331,8 +68100,7 @@
                 "name": "Screaming"
             },
             {
-                "name": "Construct Bane",
-                "type": "enhancement"
+                "name": "Construct Bane"
             },
             {
                 "name": "Move Silently",
@@ -68391,8 +68159,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Human Bane",
-                "type": "enhancement"
+                "name": "Lesser Human Bane"
             },
             {
                 "name": "Destruction"
@@ -68444,8 +68211,7 @@
                 "name": "Screaming"
             },
             {
-                "name": "Greater Construct Bane",
-                "type": "enhancement"
+                "name": "Greater Construct Bane"
             },
             {
                 "name": "Move Silently",
@@ -68638,8 +68404,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Feat",
-                "type": "Strength"
+                "name": "Feat"
             },
             {
                 "name": "Stone Prison"
@@ -68689,8 +68454,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Feat",
-                "type": "Strength"
+                "name": "Feat"
             },
             {
                 "name": "Demon Fever"
@@ -68760,8 +68524,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Feat",
-                "type": "Strength"
+                "name": "Feat"
             },
             {
                 "name": "Malleable"
@@ -68799,8 +68562,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Feat",
-                "type": "Strength"
+                "name": "Feat"
             },
             {
                 "name": "Life Shield"
@@ -68856,8 +68618,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Feat",
-                "type": "Strength"
+                "name": "Feat"
             },
             {
                 "name": "Destruction"
@@ -69273,8 +69034,7 @@
                 "name": "Weaken Undead"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             },
             {
                 "name": "Blunted Ammunition"
@@ -69330,8 +69090,7 @@
                 "name": "Improved Destruction"
             },
             {
-                "name": "Greater Construct Bane",
-                "type": "enhancement"
+                "name": "Greater Construct Bane"
             },
             {
                 "name": "Move Silently",
@@ -69668,8 +69427,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Human Bane",
-                "type": "enhancement"
+                "name": "Greater Human Bane"
             },
             {
                 "name": "Improved Destruction"
@@ -70025,8 +69783,7 @@
                 "name": "Ghost Touch"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             },
             {
                 "name": "Silver"
@@ -70099,12 +69856,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "ml": "4",
@@ -70533,8 +70288,7 @@
                 "name": "Acid Burst"
             },
             {
-                "name": "Dragon Bane",
-                "type": "enhancement"
+                "name": "Dragon Bane"
             }
         ],
         "crafting": [
@@ -70559,8 +70313,7 @@
                 "name": "Absolute Law"
             },
             {
-                "name": "Evil Outsider Bane",
-                "type": "enhancement"
+                "name": "Evil Outsider Bane"
             },
             {
                 "name": "Upgradeable Item (Black Abbot)"
@@ -70876,8 +70629,7 @@
                 "name": "Freezing Ice"
             },
             {
-                "name": "Greater Dragon Bane",
-                "type": "enhancement"
+                "name": "Greater Dragon Bane"
             },
             {
                 "name": "Underwater Action"
@@ -71273,8 +71025,7 @@
                 "value": "2"
             },
             {
-                "name": "Lesser Animal Bane",
-                "type": "enhancement"
+                "name": "Lesser Animal Bane"
             }
         ],
         "ml": "4",
@@ -71290,12 +71041,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "ml": "4",
@@ -71534,8 +71283,7 @@
                 "value": "4"
             },
             {
-                "name": "Animal Bane",
-                "type": "enhancement"
+                "name": "Animal Bane"
             }
         ],
         "ml": "8",
@@ -71563,8 +71311,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Incorporeal Bane",
-                "type": "enhancement"
+                "name": "Greater Incorporeal Bane"
             },
             {
                 "name": "Ghost Touch"
@@ -71590,7 +71337,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "2"
             },
             {
@@ -71629,8 +71376,7 @@
                 "value": "6"
             },
             {
-                "name": "Animal Bane",
-                "type": "enhancement"
+                "name": "Animal Bane"
             },
             {
                 "name": "Unbalancing"
@@ -71831,8 +71577,7 @@
                 "value": "8"
             },
             {
-                "name": "Greater Animal Bane",
-                "type": "enhancement"
+                "name": "Greater Animal Bane"
             },
             {
                 "name": "Unbalancing"
@@ -71992,8 +71737,7 @@
                 "value": "8"
             },
             {
-                "name": "Greater Animal Bane",
-                "type": "enhancement"
+                "name": "Greater Animal Bane"
             },
             {
                 "name": "Unbalancing"
@@ -72022,7 +71766,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -72198,8 +71942,7 @@
                 "value": "12"
             },
             {
-                "name": "Greater Animal Bane",
-                "type": "enhancement"
+                "name": "Greater Animal Bane"
             },
             {
                 "name": "Unbalancing"
@@ -72516,8 +72259,7 @@
                 "value": "30"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -72575,8 +72317,7 @@
                 "value": "10"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Greater Acid Resistance"
@@ -72820,8 +72561,7 @@
                 "value": "4"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "16",
@@ -72970,8 +72710,7 @@
                 "value": "10"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             }
         ],
         "ml": "23",
@@ -73169,8 +72908,7 @@
                 "value": "40"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "10",
@@ -73186,8 +72924,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Arcane Lore"
@@ -73214,7 +72951,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -73228,8 +72965,7 @@
                 "value": "10"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Resistance",
@@ -73257,12 +72993,11 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "crafting": [
@@ -73361,8 +73096,7 @@
                 "value": "5"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "20",
@@ -73396,8 +73130,7 @@
                 "value": "7"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "24",
@@ -73732,8 +73465,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "DR"
@@ -73766,8 +73498,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "DR"
@@ -73805,8 +73536,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Superior Acid Resistance"
@@ -73976,8 +73706,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Fortification",
@@ -73986,7 +73715,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -74014,8 +73743,7 @@
                 "name": "Vengeful"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Adamantine"
@@ -74147,8 +73875,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Lightning Resistance"
@@ -74170,8 +73897,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Devotion",
@@ -74621,8 +74347,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "4",
@@ -74638,8 +74363,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Melee Alacrity",
@@ -74732,12 +74456,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Intimidate",
@@ -74803,8 +74525,7 @@
                 "value": "72"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "23",
@@ -74828,8 +74549,7 @@
                 "value": "15"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Adamantine"
@@ -75281,8 +75001,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "DR"
@@ -75737,8 +75456,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Elemental Bane",
-                "type": "enhancement"
+                "name": "Lesser Elemental Bane"
             }
         ],
         "crafting": [
@@ -75896,8 +75614,7 @@
                 "name": "Holy"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             }
         ],
         "crafting": [
@@ -76549,8 +76266,7 @@
                 "name": "Alchemical Conservation"
             },
             {
-                "name": "Greater Elemental Energy",
-                "type": "all"
+                "name": "Greater Elemental Energy"
             }
         ],
         "crafting": [
@@ -76585,7 +76301,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "1"
             }
         ],
@@ -77331,7 +77047,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Insight"
+                "type": "Alchemical"
             },
             {
                 "name": "Efficient Metamagic - Extend",
@@ -77565,8 +77281,7 @@
                 "value": "20"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Charisma Skills - Exceptional Bonus",
@@ -77592,7 +77307,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             }
         ],
@@ -77665,7 +77380,7 @@
             },
             {
                 "name": "Natural Armor Bonus",
-                "type": "armor",
+                "type": "Armor",
                 "value": "5"
             },
             {
@@ -77803,7 +77518,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "9"
             }
         ],
@@ -77972,7 +77687,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "9"
             }
         ],
@@ -78056,8 +77771,7 @@
                 "value": "6"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Part of the Family",
@@ -78099,7 +77813,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "20"
             },
             {
@@ -78131,12 +77845,11 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
-                "name": "Arcane Archer",
-                "type": "enhancement"
+                "name": "Arcane Archer"
             }
         ],
         "ml": "18",
@@ -78178,8 +77891,7 @@
                 "value": "15"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             }
         ],
         "ml": "17",
@@ -78209,7 +77921,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "3"
             },
             {
@@ -78228,7 +77940,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "8"
             }
         ],
@@ -78242,7 +77954,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "9"
             },
             {
@@ -78868,8 +78580,7 @@
                 "value": "17"
             },
             {
-                "name": "Relentless Fury",
-                "type": "damage"
+                "name": "Relentless Fury"
             },
             {
                 "name": "Legendary Part of the Family",
@@ -79013,8 +78724,7 @@
     {
         "affixes": [
             {
-                "name": "Sea Attunement",
-                "type": "gain"
+                "name": "Sea Attunement"
             },
             {
                 "name": "Glaciation",
@@ -79048,8 +78758,7 @@
     {
         "affixes": [
             {
-                "name": "Sky Attunement",
-                "type": "gain"
+                "name": "Sky Attunement"
             },
             {
                 "name": "Combustion",
@@ -79265,7 +78974,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -79307,7 +79016,7 @@
             },
             {
                 "name": "Natural Armor Bonus",
-                "type": "armor",
+                "type": "Armor",
                 "value": "2"
             },
             {
@@ -79446,7 +79155,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "10"
             }
         ],
@@ -79471,7 +79180,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -79497,7 +79206,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79524,7 +79233,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79551,7 +79260,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79578,7 +79287,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79605,7 +79314,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79632,7 +79341,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79659,7 +79368,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Alluring Skills Bonus",
@@ -79851,8 +79560,7 @@
                 "value": "6"
             },
             {
-                "name": "Ninja Spy",
-                "type": "exceptional"
+                "name": "Ninja Spy"
             }
         ],
         "ml": "18",
@@ -80007,7 +79715,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -80037,7 +79745,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "11"
             },
             {
@@ -80063,8 +79771,7 @@
     {
         "affixes": [
             {
-                "name": "Sea Attunement",
-                "type": "gain"
+                "name": "Sea Attunement"
             },
             {
                 "name": "Glaciation",
@@ -80098,8 +79805,7 @@
     {
         "affixes": [
             {
-                "name": "Sky Attunement",
-                "type": "gain"
+                "name": "Sky Attunement"
             },
             {
                 "name": "Combustion",
@@ -80232,7 +79938,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -80785,7 +80491,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             }
         ],
@@ -80799,7 +80505,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -81311,7 +81017,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             }
         ],
@@ -81362,8 +81068,7 @@
                 "value": "1"
             },
             {
-                "name": "Greater Elemental Spell Power",
-                "type": "all"
+                "name": "Greater Elemental Spell Power"
             },
             {
                 "name": "Battle Arcanist",
@@ -81395,7 +81100,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "6"
             },
             {
@@ -83644,8 +83349,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Halfling Bane",
-                "type": "enhancement"
+                "name": "Lesser Halfling Bane"
             },
             {
                 "name": "Curse of Weakness"
@@ -83960,7 +83664,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -83970,7 +83674,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             },
             {
@@ -84109,8 +83812,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Elemental Bane",
-                "type": "enhancement"
+                "name": "Lesser Elemental Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -84373,8 +84075,7 @@
                 "name": "Adamantine"
             },
             {
-                "name": "Elemental Bane",
-                "type": "enhancement"
+                "name": "Elemental Bane"
             },
             {
                 "name": "Spot",
@@ -85456,8 +85157,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Power Store",
-                "type": "enhancement"
+                "name": "Power Store"
             },
             {
                 "name": "Enchantment Focus",
@@ -85496,8 +85196,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Evil Outsider Bane",
-                "type": "enhancement"
+                "name": "Greater Evil Outsider Bane"
             },
             {
                 "name": "Life Stealing"
@@ -85832,15 +85531,13 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Aberration Bane",
-                "type": "enhancement"
+                "name": "Greater Aberration Bane"
             },
             {
                 "name": "Sun Burst"
             },
             {
-                "name": "Greater Stability",
-                "type": "deflection"
+                "name": "Greater Stability"
             },
             {
                 "name": "Densewood"
@@ -85911,8 +85608,7 @@
                 "name": "Improved Destruction"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Axiomatic"
@@ -86261,7 +85957,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -86271,7 +85967,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             }
         ],
@@ -86852,8 +86547,7 @@
                 "name": "Greater Good"
             },
             {
-                "name": "Greater Evil Outsider Bane",
-                "type": "enhancement"
+                "name": "Greater Evil Outsider Bane"
             },
             {
                 "name": "Life Stealing"
@@ -87123,8 +86817,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Elemental Bane",
-                "type": "enhancement"
+                "name": "Greater Elemental Bane"
             },
             {
                 "name": "Bodyfeeder"
@@ -87736,8 +87429,7 @@
     {
         "affixes": [
             {
-                "name": "Lesser Monstrous Humanoid Bane",
-                "type": "enhancement"
+                "name": "Lesser Monstrous Humanoid Bane"
             }
         ],
         "ml": "1",
@@ -87787,8 +87479,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Vermin Bane",
-                "type": "enhancement"
+                "name": "Lesser Vermin Bane"
             }
         ],
         "crafting": [
@@ -87807,8 +87498,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Dragon Bane",
-                "type": "enhancement"
+                "name": "Lesser Dragon Bane"
             },
             {
                 "name": "Tidal"
@@ -88242,12 +87932,10 @@
     {
         "affixes": [
             {
-                "name": "Greater Giant Bane",
-                "type": "enhancement"
+                "name": "Greater Giant Bane"
             },
             {
-                "name": "Masterwork",
-                "type": "enhancement"
+                "name": "Masterwork"
             }
         ],
         "ml": "12",
@@ -88564,7 +88252,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -89179,8 +88867,7 @@
                 "name": "Blunted Ammunition"
             },
             {
-                "name": "Undead Bane",
-                "type": "enhancement"
+                "name": "Undead Bane"
             }
         ],
         "crafting": [
@@ -89570,8 +89257,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Dragon Bane",
-                "type": "enhancement"
+                "name": "Lesser Dragon Bane"
             },
             {
                 "name": "Tidal"
@@ -89870,8 +89556,8 @@
                 "name": "Constitution Poison, Virulent"
             },
             {
-                "name": "Insightful\u00a0Sneak Attack Bonus",
-                "type": "Attack",
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
                 "value": "3"
             }
         ],
@@ -89916,7 +89602,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -90201,7 +89887,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "7"
             },
             {
@@ -90328,7 +90014,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -90432,7 +90118,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -90623,7 +90309,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -90688,7 +90374,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -90753,7 +90439,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -90913,7 +90599,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -91056,7 +90742,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -91088,7 +90774,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -91158,7 +90844,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -91537,7 +91223,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Combustion",
@@ -91657,7 +91343,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Combustion",
@@ -92584,7 +92270,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "15"
             },
             {
@@ -92756,8 +92442,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Dragon Bane",
-                "type": "enhancement"
+                "name": "Lesser Dragon Bane"
             },
             {
                 "name": "Tidal"
@@ -92817,8 +92502,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Aberration Bane",
-                "type": "enhancement"
+                "name": "Lesser Aberration Bane"
             },
             {
                 "name": "Keen",
@@ -92908,8 +92592,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Evil Outsider Bane",
-                "type": "enhancement"
+                "name": "Lesser Evil Outsider Bane"
             },
             {
                 "name": "Silver"
@@ -93092,8 +92775,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Ghost Touch"
@@ -93632,15 +93314,13 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Ghost Touch"
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             },
             {
@@ -94167,8 +93847,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Evil Outsider Bane",
-                "type": "enhancement"
+                "name": "Greater Evil Outsider Bane"
             },
             {
                 "name": "Silver"
@@ -94620,7 +94299,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             }
         ],
@@ -94776,7 +94454,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             }
         ],
@@ -94818,8 +94495,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
                 "name": "Undead Bane",
@@ -94903,8 +94579,7 @@
                 "name": "Flametouched Iron"
             },
             {
-                "name": "+2 vs Evil",
-                "type": "enhancement"
+                "name": "+2 vs Evil"
             },
             {
                 "name": "Extra damage vs Undead"
@@ -95226,7 +94901,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             }
         ],
@@ -95269,8 +94943,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Medusa Fury",
-                "type": "morale"
+                "name": "Medusa Fury"
             },
             {
                 "name": "Demon Fever"
@@ -95412,8 +95085,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Medusa Fury",
-                "type": "morale"
+                "name": "Medusa Fury"
             },
             {
                 "name": "Demon Fever"
@@ -95438,8 +95110,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Medusa Fury",
-                "type": "morale"
+                "name": "Medusa Fury"
             },
             {
                 "name": "Demon Fever"
@@ -95464,12 +95135,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "3"
             },
             {
@@ -95798,8 +95467,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Finesse",
-                "type": "enhancement"
+                "name": "Finesse"
             }
         ],
         "crafting": [
@@ -96111,7 +95779,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
@@ -96120,8 +95787,7 @@
                 "value": "15"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Attuned to Heroism"
@@ -96500,8 +96166,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deception",
-                "type": "enhancement"
+                "name": "Deception"
             },
             {
                 "name": "Returning"
@@ -98608,7 +98273,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "11"
             },
             {
@@ -98642,7 +98307,7 @@
             },
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "3"
             },
             {
@@ -99657,8 +99322,7 @@
                 "name": "Sovereign Vorpal"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Metalline"
@@ -99898,8 +99562,7 @@
                 "name": "Knee Cracker"
             },
             {
-                "name": "Thunderbane",
-                "type": "enhancement"
+                "name": "Thunderbane"
             },
             {
                 "name": "Forged Lightning"
@@ -99965,7 +99628,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -99994,7 +99656,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -100023,7 +99684,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -100052,7 +99712,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "10"
             },
             {
@@ -100081,7 +99740,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -100110,7 +99768,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -100240,8 +99897,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Inherent Fire Resistance -",
@@ -100401,8 +100057,7 @@
                 "name": "Sonic Guard"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             }
         ],
         "ml": "14",
@@ -100422,7 +100077,6 @@
             },
             {
                 "name": "Shield Bashing -",
-                "type": "with",
                 "value": "20"
             },
             {
@@ -100573,7 +100227,7 @@
             },
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -100779,8 +100433,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Mithral",
-                "type": "dexterity"
+                "name": "Mithral"
             },
             {
                 "name": "Inherent (5) Fire Resistance"
@@ -101151,7 +100804,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -101370,7 +101023,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -101988,8 +101641,7 @@
                 "value": "20"
             },
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Adherent of the Mists Set (Legendary)",
@@ -102272,8 +101924,7 @@
                 "type": "Insight"
             },
             {
-                "name": "Greater Raven's Eye",
-                "type": "hit"
+                "name": "Greater Raven's Eye"
             },
             {
                 "name": "Greater Marshwalker"
@@ -102298,11 +101949,11 @@
             },
             {
                 "name": "Litany of the Dead II - Ability Bonus",
-                "type": "Ability"
+                "type": "Profane"
             },
             {
                 "name": "Litany of the Dead II - Combat Bonus",
-                "type": "Combat"
+                "type": "Profane"
             },
             {
                 "name": "Light of Dawn"
@@ -102448,11 +102099,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "True Seeing"
@@ -102476,11 +102127,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "True Seeing"
@@ -102504,11 +102155,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "True Seeing"
@@ -102948,7 +102599,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -103016,12 +102667,12 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -103041,8 +102692,7 @@
                 "value": "3"
             },
             {
-                "name": "Pirate Vitality",
-                "type": "all"
+                "name": "Pirate Vitality"
             },
             {
                 "name": "Fortification (+10%)",
@@ -103315,7 +102965,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -103819,7 +103469,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -103853,7 +103503,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -103870,8 +103520,7 @@
                 "value": "1"
             },
             {
-                "name": "Pirate Vitality",
-                "type": "all"
+                "name": "Pirate Vitality"
             }
         ],
         "ml": "4",
@@ -103887,14 +103536,14 @@
             },
             {
                 "name": "Litany of the Dead - Ability Bonus",
-                "type": "Ability"
+                "type": "Profane"
             },
             {
                 "name": "Taint of Evil"
             },
             {
                 "name": "Litany of the Dead - Combat Bonus",
-                "type": "Combat"
+                "type": "Profane"
             },
             {
                 "name": "Upgradeable Item (Black Abbot)"
@@ -104187,12 +103836,12 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "2"
             }
         ],
@@ -105131,12 +104780,11 @@
         "affixes": [
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "4"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -105158,7 +104806,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -105216,8 +104864,7 @@
                 "value": "2"
             },
             {
-                "name": "Pirate Vitality",
-                "type": "all"
+                "name": "Pirate Vitality"
             },
             {
                 "name": "Fortification (+10%)",
@@ -105292,7 +104939,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "20"
             },
             {
@@ -105678,11 +105325,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "True Seeing"
@@ -105706,11 +105353,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "True Seeing"
@@ -105737,11 +105384,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             }
         ],
         "crafting": [
@@ -105765,11 +105412,11 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Skills"
+                "type": "Exceptional"
             }
         ],
         "crafting": [
@@ -106019,7 +105666,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -106816,7 +106463,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "1"
             },
             {
@@ -107076,7 +106723,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -107095,7 +106742,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -107114,7 +106761,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -107132,7 +106779,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "2"
             },
             {
@@ -107150,7 +106797,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "3"
             },
             {
@@ -107172,7 +106819,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "3"
             },
             {
@@ -107194,7 +106841,7 @@
         "affixes": [
             {
                 "name": "Armor Mastery",
-                "type": "Enhancement",
+                "type": "Dex",
                 "value": "4"
             },
             {
@@ -107275,7 +106922,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "11"
             },
             {
@@ -108051,7 +107698,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "17"
             },
             {
@@ -108100,7 +107747,7 @@
         "affixes": [
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Quality",
                 "value": "4"
             },
             {
@@ -108743,7 +108390,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             },
             {
@@ -108816,7 +108463,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             }
         ],
         "ml": "9",
@@ -109780,12 +109427,10 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Righteous",
-                "type": "attack"
+                "name": "Righteous"
             },
             {
-                "name": "Lesser Undead Bane",
-                "type": "enhancement"
+                "name": "Lesser Undead Bane"
             }
         ],
         "ml": "4",
@@ -111126,7 +110771,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "19"
             },
             {
@@ -111164,7 +110809,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -111196,7 +110841,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "11"
             },
             {
@@ -111290,7 +110935,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -111466,8 +111111,7 @@
                 "value": "6"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Tumble",
@@ -111990,7 +111634,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "2"
             },
             {
@@ -112191,11 +111834,11 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -112296,7 +111939,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -112414,7 +112057,7 @@
         "affixes": [
             {
                 "name": "Natural Armor",
-                "type": "armor",
+                "type": "Armor",
                 "value": "17"
             },
             {
@@ -112452,7 +112095,7 @@
             },
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "10"
             },
             {
@@ -112485,8 +112128,7 @@
                 "value": "8"
             },
             {
-                "name": "Feat",
-                "type": "dexterity"
+                "name": "Feat"
             },
             {
                 "name": "Tumble",
@@ -112495,7 +112137,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -112581,7 +112223,6 @@
             },
             {
                 "name": "Sneak Attack Bonus",
-                "type": "Attack",
                 "value": "5"
             },
             {
@@ -112696,7 +112337,7 @@
             },
             {
                 "name": "Tet-zik, The Enlightened Change",
-                "type": "insight"
+                "type": "Insight"
             }
         ],
         "crafting": [
@@ -112747,8 +112388,7 @@
                 "value": "30"
             },
             {
-                "name": "Greater Might of the Abishai",
-                "type": "profane"
+                "name": "Greater Might of the Abishai"
             },
             {
                 "name": "Armor Bonus",
@@ -112832,8 +112472,7 @@
     {
         "affixes": [
             {
-                "name": "Improved Deception",
-                "type": "enhancement"
+                "name": "Improved Deception"
             },
             {
                 "name": "Deception",
@@ -112892,7 +112531,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "10"
             }
         ],
@@ -113043,8 +112682,7 @@
     {
         "affixes": [
             {
-                "name": "Tet-zik, The Enlightened Change",
-                "type": "a"
+                "name": "Tet-zik, The Enlightened Change"
             },
             {
                 "name": "Armor Bonus",
@@ -114345,7 +113983,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -114364,7 +114002,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -114381,7 +114019,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "2"
             }
         ],
@@ -114398,7 +114036,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -114421,7 +114059,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -114444,7 +114082,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "4"
             },
             {
@@ -114467,7 +114105,7 @@
         "affixes": [
             {
                 "name": "Attack Bonus",
-                "type": "Attack",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -114560,7 +114198,7 @@
             },
             {
                 "name": "Dodge",
-                "type": "Dodge",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -114709,12 +114347,10 @@
                 "value": "3"
             },
             {
-                "name": "Elemental Spell Power",
-                "type": "all"
+                "name": "Elemental Spell Power"
             },
             {
-                "name": "Greater Elemental Energy",
-                "type": "all"
+                "name": "Greater Elemental Energy"
             },
             {
                 "name": "Battle Arcanist",

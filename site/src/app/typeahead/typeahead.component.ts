@@ -20,7 +20,7 @@ export class TypeaheadComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+      map(term => this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).sort(this._sortResults(term)).slice(0, 6))
     )
 
   constructor() { }
@@ -37,6 +37,31 @@ export class TypeaheadComponent implements OnInit {
 
   onSelectItemMine(e) {
     this.onChange(e.item);
+    this.itemName = '';
+  }
+
+  _getSortIndex(term: string, str) {
+    const split = str.name.split(' ');
+
+    const matches = split.filter(v => v.toLowerCase().startsWith(term.toLowerCase()));
+    let index = split.indexOf(matches[0]);
+    if (index < 0) {
+      index = 999;
+    }
+    return index;
+  }
+
+  _sortResults(term: string) {
+    return (a, b) => {
+      const aIndex = this._getSortIndex(term, a);
+      const bIndex = this._getSortIndex(term, b);
+
+      if (aIndex !== bIndex) {
+        return aIndex - bIndex;
+      } else {
+        return a.name.toLowerCase() > b.name.toLowerCase();
+      }
+    }
   }
 
 }

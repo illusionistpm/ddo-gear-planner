@@ -22,7 +22,7 @@ export class EffectsTableComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.effectKeys = new Array<object>();
-    this.allAffixes = Array.from(this.gearDB.getAllAffixes()).map(e => ({name: e}));
+    this.allAffixes = Array.from(this.gearDB.getAllAffixes()).map(e => ({ name: e }));
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class EffectsTableComponent implements OnInit {
     this.equipped.removeImportantAffix(affixName);
   }
 
-  totalBonus(affixName) {
+  currentBonus(affixName) {
     let total = 0;
     for (const type of this.effects.get(affixName)) {
       total += type.value;
@@ -53,8 +53,16 @@ export class EffectsTableComponent implements OnInit {
     return total;
   }
 
+  maxBonus(affixName) {
+    let total = 0;
+    for (const type of this.effects.get(affixName)) {
+      total += this.gearDB.getBestValueForAffixType(affixName, type.bonusType)
+    }
+    return total;
+  }
+
   showItemsWithBonusType(affixName, bonusType) {
-    const dlg = this.modalService.open(ItemsWithBonusTypeComponent, {ariaLabelledBy: 'modal-basic-title'});
+    const dlg = this.modalService.open(ItemsWithBonusTypeComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.affixName = affixName;
     dlg.componentInstance.bonusType = bonusType;
@@ -64,5 +72,14 @@ export class EffectsTableComponent implements OnInit {
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  getClassForValue(affixName, type) {
+    const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
+    if (type.value >= maxValue) {
+      return 'max-value';
+    } else {
+      return 'has-value';
     }
+  }
 }

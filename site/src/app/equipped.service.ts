@@ -147,8 +147,8 @@ export class EquippedService {
     return this.unlockedSlots;
   }
 
-  getImportantAffixes() {
-    const important = new Map<string, Set<string>>();
+  private _getImportantAffixes() {
+    const important = new Map<string, Map<string, number>>();
     for (const affixName of this.importantAffixes) {
       important.set(affixName, this.gearList.affixToBonusTypes.get(affixName));
     }
@@ -214,13 +214,13 @@ export class EquippedService {
     //   }
     // }
 
-    const importantAffixes = this.getImportantAffixes();
+    const importantAffixes = this._getImportantAffixes();
     for (const affix of importantAffixes) {
       const affixName = affix[0];
       const affixTypes = affix[1];
 
       const array = new Array<object>();
-      for (const type of affixTypes) {
+      for (const type of affixTypes.keys()) {
         const bestVal = this._getBestValue(affixName, type);
         array.push({ bonusType: type, value: bestVal });
       }

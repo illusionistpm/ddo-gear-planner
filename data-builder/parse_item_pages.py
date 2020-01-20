@@ -42,7 +42,7 @@ def cleanup_unicode(name):
 
 
 def cleanup_whitespace(name):
-    return re.sub('\s+', ' ', name).strip()
+    return re.sub(r'\s+', ' ', name).strip()
 
 
 def convert_roman_numerals(name):
@@ -223,6 +223,37 @@ def get_items_from_page(itemPageURL):
                 # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
                 if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
                     aff['type'] = 'Enhancement'
+
+                if aff['name'].endswith('False Life') and 'value' not in aff:
+                    aff['type'] = 'Insight' if 'Insightful' in aff['name'] else 'Enhancement'
+                    switch = {
+                        'Lesser False Life': 5,
+                        'False Life': 10,
+                        'Improved False Life': 20,
+                        'Greater False Life': 30,
+                        'Superior False Life': 40,
+                        'Epic False Life': 45,
+                        'Improved Insightful False Life': 20
+                    }
+                    aff['value'] = str(switch.get(aff['name'], 99999))
+                    aff['name'] = 'False Life'
+
+                if aff['name'].endswith(' Resistance') and 'value' not in aff:
+                    aff['type'] = 'Enhancement'
+                    aff['name'] = aff['name'].replace('Inherent ', '')
+                    resistanceGroup = re.search(r'^(([A-Za-z]*) )?([A-Za-z]+) Resistance$', aff['name'])
+                    if resistanceGroup:
+                        switch = {
+                            'Lesser': 3,
+                            None: 10,
+                            'Improved': 20,
+                            'Greater': 30,
+                            'Superior': 40,
+                            'Sovereign': 40
+                        }
+
+                        aff['value'] = str(switch.get(resistanceGroup.group(2), 99997))
+                        aff['name'] = resistanceGroup.group(3) + ' Resistance'
 
                 if 'value' in aff and int(aff['value']) < 0:
                     aff['type'] = 'Penalty'

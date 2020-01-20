@@ -77,13 +77,13 @@ def strip_necro4_upgrades(name):
 def clean_up_old_augments(name):
     search = re.search(r'^([A-Za-z]+) Slot', name)
     if search:
-        return "Empty " + search.group(1) + " Augment Slot"
+        return search.group(1) + " Augment Slot"
 
     return name
 
 
 def strip_preslotted_augments(name):
-    search = re.search(r'^(Empty [A-Za-z]+ Augment Slot)', name)
+    search = re.search(r'^Empty ([A-Za-z]+ Augment Slot)', name)
     if search:
         return search.group(1)
 
@@ -137,7 +137,7 @@ def get_items_from_page(itemPageURL):
 
     catMap = build_cat_map()
 
-    craftingSystems = set(['Nearly Finished', 'Almost There', 'Empty Blue Augment Slot', 'Empty Red Augment Slot', 'Empty Yellow Augment Slot', 'Empty Green Augment Slot', 'Empty Purple Augment Slot', 'Empty Orange Augment Slot', 'Empty Colorless Augment Slot'])
+    craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot'])
     fakeBonuses = set(['dodge', 'attack', 'combat', 'strength'])
 
     for row in rows:

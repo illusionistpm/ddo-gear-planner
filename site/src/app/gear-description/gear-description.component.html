@@ -1,14 +1,18 @@
 <div class="form-group col" *ngIf="curItem">
     <div><b>ML: {{curItem.ml}}</b></div>
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" [ngClass]="getClassForAffix(affix)" *ngFor="let affix of curItem.affixes">
+    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" [ngClass]="getClassForAffix(affix)"
+        *ngFor="let affix of curItem.affixes">
         <div class="col">{{affix.name}}</div>
-        <div class="col">{{affix.value ? "+" + affix.value : ""}}  {{affix.type}}</div>
+        <div class="col">{{affix.value ? "+" + affix.value : ""}} {{affix.type}}</div>
     </div>
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" [ngClass]="getClassForAffix(affix)" *ngFor="let craft of curItem.crafting">
-        <div class="col">{{craft.name}}</div>
+    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" *ngFor="let craft of curItem.crafting">
+        <div class="col" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
         <div class="col">
-            <select [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForAffix(affix)">
-               <option *ngFor="let option of craft.options" [ngValue]="option">{{describe(option)}}</option> 
+            <select [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)">
+                <option *ngFor="let option of craft.options" [ngValue]="option"
+                    [ngClass]="getClassForCraftingOption(option)">
+                    {{describe(option)}}
+                </option>
             </select>
         </div>
     </div>

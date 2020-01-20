@@ -155,7 +155,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "15",
@@ -1393,7 +1395,9 @@
     {
         "affixes": [
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Shield (Cold)"
@@ -1548,7 +1552,9 @@
                 "value": "30"
             },
             {
-                "name": "Greater Light Resistance"
+                "name": "Light Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Spell Absorption"
@@ -2219,7 +2225,9 @@
                 "value": "5"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "15",
@@ -4240,10 +4248,14 @@
     {
         "affixes": [
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "3",
@@ -6162,7 +6174,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -7786,7 +7800,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -7818,7 +7834,9 @@
                 "value": "52"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -7904,7 +7922,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -7944,7 +7964,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Absorption",
@@ -7979,7 +8001,9 @@
                 "name": "Dampened"
             },
             {
-                "name": "Lesser Sonic Resistance"
+                "name": "Sonic Resistance",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Sonic Guard"
@@ -8609,7 +8633,9 @@
                 "value": "8"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Eternal Fire"
@@ -8645,7 +8671,9 @@
     {
         "affixes": [
             {
-                "name": "Greater Sonic Resistance"
+                "name": "Sonic Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Potency",
@@ -8686,7 +8714,9 @@
                 "value": "72"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Incineration Guard"
@@ -8777,7 +8807,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Efficient Metamagic - Maximize",
@@ -8900,7 +8932,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -8942,7 +8976,9 @@
                 "value": "80"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -8984,7 +9020,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -9009,10 +9047,14 @@
                 "value": "4"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "12",
@@ -9758,7 +9800,9 @@
                 "value": "3"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             },
             {
                 "name": "Power",
@@ -9785,13 +9829,19 @@
                 "name": "Magical Null"
             },
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "10",
@@ -10280,7 +10330,9 @@
     {
         "affixes": [
             {
-                "name": "Sonic Resistance"
+                "name": "Sonic Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Sonic Guard"
@@ -10310,7 +10362,9 @@
                 "value": "3"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Arcane Augmentation",
@@ -10339,7 +10393,9 @@
                 "value": "1"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Combustion",
@@ -10453,7 +10509,9 @@
                 "value": "4"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Necromancy Focus",
@@ -10483,7 +10541,9 @@
                 "value": "5"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Necromancy Focus",
@@ -10513,7 +10573,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -10546,7 +10608,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -10579,7 +10643,9 @@
                 "value": "27"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -10609,7 +10675,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             }
         ],
         "ml": "4",
@@ -10634,7 +10702,9 @@
                 "value": "3"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "8",
@@ -10665,7 +10735,9 @@
                 "value": "5"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -10843,7 +10915,9 @@
                 "value": "3"
             },
             {
-                "name": "Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -11019,7 +11093,9 @@
                 "value": "5"
             },
             {
-                "name": "Improved Light Resistance"
+                "name": "Light Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Upgradeable Item (Black Abbot)"
@@ -11412,7 +11488,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -13079,7 +13157,9 @@
                 "value": "6"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "16",
@@ -13182,7 +13262,9 @@
                 "value": "6"
             },
             {
-                "name": "Improved Light Resistance"
+                "name": "Light Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "20",
@@ -13367,7 +13449,9 @@
                 "value": "1"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -17606,7 +17690,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -17664,7 +17750,9 @@
                 "value": "2"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -17707,7 +17795,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -17746,7 +17836,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Absorption",
@@ -18068,13 +18160,19 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
-                "name": "Improved Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Hidden effect (Defiance)"
@@ -18196,7 +18294,9 @@
                 "value": "4"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Necromancy Focus"
@@ -18224,7 +18324,9 @@
                 "value": "5"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Necromancy Focus"
@@ -18252,7 +18354,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -18285,7 +18389,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -18318,7 +18424,9 @@
                 "value": "27"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Necromancy Focus",
@@ -18348,7 +18456,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             }
         ],
         "ml": "4",
@@ -18373,7 +18483,9 @@
                 "value": "3"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "8",
@@ -18914,7 +19026,9 @@
                 "type": "Insight"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Vertigo",
@@ -19191,7 +19305,9 @@
                 "type": "Insight"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Eternal Fire"
@@ -19473,7 +19589,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -19514,7 +19632,9 @@
                 "value": "80"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -19555,7 +19675,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -19610,10 +19732,14 @@
                 "value": "4"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "12",
@@ -20903,7 +21029,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -21006,7 +21134,9 @@
                 "value": "6"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Will Save",
@@ -21682,7 +21812,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -23407,7 +23539,7 @@
         "affixes": [
             {
                 "name": "Nimble Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "11"
             },
             {
@@ -23681,7 +23813,9 @@
                 "name": "Shield"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             }
         ],
         "crafting": [
@@ -24874,7 +25008,7 @@
         "affixes": [
             {
                 "name": "Raven's Eye",
-                "type": "Artifact"
+                "type": "Competence"
             },
             {
                 "name": "Wisdom",
@@ -26638,7 +26772,9 @@
                 "value": "48"
             },
             {
-                "name": "Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Might of the Abishai",
@@ -27184,7 +27320,9 @@
     {
         "affixes": [
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Fire Absorption",
@@ -28278,7 +28416,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             }
         ],
         "ml": "9",
@@ -29465,7 +29603,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": 1,
@@ -31562,7 +31702,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Resistance",
@@ -31570,7 +31712,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "2",
@@ -31703,7 +31847,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -31726,7 +31870,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -34226,7 +34370,9 @@
                 "value": "20"
             },
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "DR",
@@ -34248,7 +34394,9 @@
                 "value": "20"
             },
             {
-                "name": "Improved Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "DR",
@@ -34270,7 +34418,9 @@
                 "value": "20"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "DR",
@@ -34292,7 +34442,9 @@
                 "value": "33"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "DR",
@@ -34314,7 +34466,9 @@
                 "value": "33"
             },
             {
-                "name": "Sovereign Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "DR",
@@ -34336,7 +34490,9 @@
                 "value": "33"
             },
             {
-                "name": "Sovereign Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "DR",
@@ -34854,7 +35010,9 @@
                 "value": "3"
             },
             {
-                "name": "Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "11",
@@ -35252,7 +35410,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "11"
             },
             {
@@ -35934,7 +36092,9 @@
                 "name": "Flaming"
             },
             {
-                "name": "Lesser Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "4",
@@ -38899,7 +39059,9 @@
                 "name": "Frost"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -39363,7 +39525,9 @@
                 "name": "Greater Magical Beast Bane"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -42891,7 +43055,9 @@
                 "value": "2"
             },
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Might of the Abishai",
@@ -45096,7 +45262,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -45122,7 +45288,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -45524,7 +45690,7 @@
         "affixes": [
             {
                 "name": "Raven's Eye",
-                "type": "Artifact"
+                "type": "Competence"
             },
             {
                 "name": "Dexterity",
@@ -46383,7 +46549,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "2",
@@ -46534,7 +46702,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "4"
             },
             {
@@ -46705,7 +46873,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "15",
@@ -46836,7 +47006,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Insight"
+                "type": "Alchemical"
             },
             {
                 "name": "Intelligence",
@@ -47646,7 +47816,9 @@
                 "value": "3"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "ml": "26",
@@ -47835,7 +48007,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             }
         ],
         "ml": 1,
@@ -48143,7 +48317,9 @@
                 "name": "Frost Lance"
             },
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Might of the Abishai",
@@ -48776,7 +48952,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "10"
             },
             {
@@ -49101,7 +49277,7 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "10"
             },
             {
@@ -49628,7 +49804,9 @@
                 "value": "1"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "7",
@@ -50769,7 +50947,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             }
         ],
         "ml": "13",
@@ -50790,7 +50968,7 @@
             },
             {
                 "name": "Wrath of Sora Kell",
-                "type": "Artifact"
+                "type": "Equipment"
             },
             {
                 "name": "Battle-Scarred"
@@ -50850,7 +51028,7 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "4"
             },
             {
@@ -51133,7 +51311,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -51209,7 +51389,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -51299,7 +51481,9 @@
                 "value": "52"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -51386,7 +51570,9 @@
                 "name": "Life Shield"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "DR",
@@ -51419,7 +51605,9 @@
                 "name": "Life Shield"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             },
             {
                 "name": "Resistance",
@@ -51447,7 +51635,9 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Resistance",
@@ -51659,7 +51849,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -51698,7 +51890,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Absorption",
@@ -51738,7 +51932,9 @@
                 "value": "1"
             },
             {
-                "name": "Lesser Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Dampened"
@@ -52222,7 +52418,9 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Cold Absorption",
@@ -52349,7 +52547,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Eternal Fire"
@@ -52548,7 +52748,9 @@
                 "value": "15"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Resistance",
@@ -52580,7 +52782,9 @@
                 "value": "15"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Resistance",
@@ -52612,7 +52816,9 @@
                 "value": "20"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Resistance",
@@ -52644,7 +52850,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Resistance",
@@ -52676,7 +52884,9 @@
                 "value": "33"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Resistance",
@@ -52708,7 +52918,9 @@
                 "value": "33"
             },
             {
-                "name": "Sovereign Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Resistance",
@@ -52753,7 +52965,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -52794,7 +53008,9 @@
                 "value": "80"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -52872,7 +53088,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -52895,7 +53113,9 @@
                 "value": "2"
             },
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "6",
@@ -54025,7 +54245,9 @@
                 "value": "100"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "DR",
@@ -54366,10 +54588,14 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
-                "name": "Lesser Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -54485,7 +54711,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -56859,7 +57087,9 @@
                 "name": "Absolute Law"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -56897,7 +57127,9 @@
                 "name": "Holy"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -57533,7 +57765,9 @@
                 "name": "Frost"
             },
             {
-                "name": "Lesser Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "4",
@@ -59992,7 +60226,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "1",
@@ -60152,7 +60388,9 @@
                 "name": "Archmagi"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -61472,7 +61710,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -61503,7 +61743,9 @@
                 "value": "52"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -61640,7 +61882,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -61679,7 +61923,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Absorption",
@@ -61739,7 +61985,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Improved Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Proof Against Poison",
@@ -62408,7 +62656,9 @@
                 "value": "15"
             },
             {
-                "name": "Improved Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Proof Against Poison",
@@ -62871,7 +63121,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Eternal Fire"
@@ -63006,7 +63258,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Attack Bonus",
@@ -63164,7 +63418,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -63205,7 +63461,9 @@
                 "value": "80"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -63283,7 +63541,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -63367,7 +63627,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Lesser Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -64248,10 +64510,14 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Mithral"
@@ -64534,7 +64800,9 @@
                 "name": "Sonic Guard"
             },
             {
-                "name": "Improved Sonic Resistance"
+                "name": "Sonic Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Move Silently",
@@ -64713,7 +64981,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Spearblock",
@@ -65101,7 +65371,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Hide",
@@ -65147,7 +65419,9 @@
                 "name": "Ethereal"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Sneak Attack Bonus",
@@ -65179,7 +65453,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Sneak Attack Bonus",
@@ -65211,7 +65487,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Sneak Attack Bonus",
@@ -65243,7 +65521,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Sneak Attack Bonus",
@@ -65283,7 +65563,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -68226,7 +68508,9 @@
                 "name": "Acid"
             },
             {
-                "name": "Lesser Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "4",
@@ -72668,7 +72952,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -72739,7 +73025,9 @@
                 "value": "52"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -72898,7 +73186,9 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "DR",
@@ -73040,7 +73330,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Acid Absorption",
@@ -73079,7 +73371,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Fire Absorption",
@@ -73118,10 +73412,14 @@
                 "name": "Adamantine"
             },
             {
-                "name": "Improved Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -73435,7 +73733,9 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "DR",
@@ -73471,7 +73771,9 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "DR",
@@ -73559,7 +73861,9 @@
                 "value": "5"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Vertigo",
@@ -73674,7 +73978,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Eternal Fire"
@@ -73899,7 +74205,9 @@
                 "name": "Relentless Fury"
             },
             {
-                "name": "Superior Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -73940,7 +74248,9 @@
                 "value": "80"
             },
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -74018,7 +74328,9 @@
                 "value": "6"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             }
         ],
         "crafting": [
@@ -74240,7 +74552,9 @@
                 "name": "Mithral"
             },
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Lightning Bolt Ward"
@@ -75779,7 +76093,9 @@
                 "value": "4"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "14",
@@ -76729,7 +77045,9 @@
                 "name": "Chain Lightning"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Protection",
@@ -76815,7 +77133,9 @@
                 "value": "48"
             },
             {
-                "name": "Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "9",
@@ -76876,7 +77196,9 @@
                 "name": "Fire Shield (fire version)"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -77088,7 +77410,9 @@
                 "value": "48"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "9",
@@ -77406,7 +77730,7 @@
         "affixes": [
             {
                 "name": "Elder's Knowledge",
-                "type": "Insight"
+                "type": "Alchemical"
             },
             {
                 "name": "Efficient Metamagic - Extend",
@@ -77566,7 +77890,9 @@
                 "value": "84"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -77586,7 +77912,9 @@
                 "value": "84"
             },
             {
-                "name": "Greater Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -77728,8 +78056,9 @@
     {
         "affixes": [
             {
-                "name": "Improved Insightful False Life",
-                "type": "Insight"
+                "name": "False Life",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Constitution",
@@ -77805,7 +78134,9 @@
     {
         "affixes": [
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Protection",
@@ -77954,7 +78285,9 @@
                 "value": "84"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -77978,7 +78311,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater Sonic Resistance"
+                "name": "Sonic Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "20",
@@ -78036,7 +78371,9 @@
                 "value": "11"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Greater Heroism",
@@ -79359,7 +79696,8 @@
         "affixes": [
             {
                 "name": "False Life",
-                "type": "Insight"
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Constitution",
@@ -79444,7 +79782,9 @@
     {
         "affixes": [
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -79459,7 +79799,9 @@
     {
         "affixes": [
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Constitution",
@@ -79498,7 +79840,9 @@
                 "value": "11"
             },
             {
-                "name": "Epic False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "45"
             },
             {
                 "name": "Greater Heroism",
@@ -79527,7 +79871,9 @@
                 "value": "5"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Attack Bonus",
@@ -79557,7 +79903,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "4"
             },
             {
@@ -79588,7 +79934,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
@@ -79619,7 +79965,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
@@ -79650,7 +79996,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "6"
             },
             {
@@ -79681,7 +80027,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "7"
             },
             {
@@ -79712,7 +80058,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             },
             {
@@ -79743,7 +80089,7 @@
         "affixes": [
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             },
             {
@@ -80218,7 +80564,9 @@
     {
         "affixes": [
             {
-                "name": "Superior Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Protection",
@@ -80832,7 +81180,9 @@
                 "value": "54"
             },
             {
-                "name": "Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": "9",
@@ -81376,7 +81726,9 @@
                 "value": "7"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Greater Heroism",
@@ -84471,7 +84823,9 @@
                 "name": "Shock"
             },
             {
-                "name": "Lesser Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -87876,7 +88230,9 @@
                 "name": "Shock"
             },
             {
-                "name": "Lesser Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": "4",
@@ -90168,7 +90524,9 @@
                 "value": "48"
             },
             {
-                "name": "False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Craftable Rune Arm: (+3)"
@@ -91413,7 +91771,9 @@
                 "name": "Fire Blast"
             },
             {
-                "name": "Lesser Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Reflex Save",
@@ -91698,7 +92058,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
@@ -91829,7 +92189,7 @@
             },
             {
                 "name": "Alluring Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "10"
             },
             {
@@ -92009,7 +92369,9 @@
                 "name": "Lesser Undead Guard"
             },
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             },
             {
                 "name": "Craftable Rune Arm: (+2)"
@@ -98754,7 +99116,9 @@
                 "name": "Densewood"
             },
             {
-                "name": "Greater Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Spearblock",
@@ -99141,7 +99505,9 @@
                 "name": "Densewood"
             },
             {
-                "name": "Improved Lightning Resistance"
+                "name": "Lightning Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -101548,7 +101914,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -101768,7 +102134,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             },
             {
                 "name": "Fortification",
@@ -102069,7 +102437,9 @@
     {
         "affixes": [
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Dusk"
@@ -102368,7 +102738,9 @@
                 "name": "Death Ward, Mass"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Dusk"
@@ -102498,7 +102870,9 @@
                 "name": "Jerky"
             },
             {
-                "name": "Superior False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Heal",
@@ -102620,12 +102994,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
@@ -102650,12 +103024,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "6"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "6"
             },
             {
@@ -102680,12 +103054,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "9"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "9"
             },
             {
@@ -103124,7 +103498,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             },
             {
@@ -103994,7 +104368,7 @@
             },
             {
                 "name": "Damage Bonus",
-                "type": "Damage",
+                "type": "Competence",
                 "value": "1"
             }
         ],
@@ -104824,7 +105198,9 @@
                 "name": "Jerky"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Heal",
@@ -105510,7 +105886,9 @@
     {
         "affixes": [
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Suppress Madness"
@@ -105843,12 +106221,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "4"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "4"
             },
             {
@@ -105873,12 +106251,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "5"
             },
             {
@@ -105906,12 +106284,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             }
         ],
@@ -105936,12 +106314,12 @@
             },
             {
                 "name": "Astute Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             },
             {
                 "name": "Prudent Skills Bonus",
-                "type": "Exceptional",
+                "type": "Skills",
                 "value": "3"
             }
         ],
@@ -106387,7 +106765,7 @@
             },
             {
                 "name": "Vengeful Fury",
-                "type": "Rage"
+                "type": "Enhancement"
             },
             {
                 "name": "Spike Guard"
@@ -106532,7 +106910,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "9",
@@ -106690,7 +107070,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Defender of Siberys"
@@ -107395,7 +107777,9 @@
                 "value": "100"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "crafting": [
@@ -108161,7 +108545,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Frenzied Berserker"
@@ -108830,7 +109216,9 @@
                 "value": "6"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Mechanic",
@@ -108967,7 +109355,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             }
         ],
         "ml": "9",
@@ -109057,7 +109445,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "5"
             }
         ],
         "ml": 1,
@@ -109867,7 +110257,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Occult Slayer",
@@ -111094,7 +111486,9 @@
                 "value": "13"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "12",
@@ -111114,7 +111508,9 @@
                 "value": "15"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -111137,7 +111533,9 @@
                 "value": "15"
             },
             {
-                "name": "Greater Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             },
             {
                 "name": "Swim like a Fish"
@@ -111163,7 +111561,9 @@
                 "value": "17"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Swim like a Fish"
@@ -111189,7 +111589,9 @@
                 "value": "20"
             },
             {
-                "name": "Superior Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Swim like a Fish"
@@ -111215,7 +111617,9 @@
                 "value": "20"
             },
             {
-                "name": "Sovereign Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Swim like a Fish"
@@ -111242,7 +111646,9 @@
                 "value": "13"
             },
             {
-                "name": "Improved Cold Resistance"
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "11",
@@ -112323,7 +112729,7 @@
             },
             {
                 "name": "Chaos Guard",
-                "type": "Deflection"
+                "type": "Resistance"
             },
             {
                 "name": "Dodge",
@@ -112783,7 +113189,9 @@
                 "value": "11"
             },
             {
-                "name": "Superior Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "40"
             },
             {
                 "name": "Combustion",
@@ -112992,7 +113400,9 @@
                 "value": "6"
             },
             {
-                "name": "Greater Acid Resistance"
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
         ],
         "ml": "15",
@@ -114132,7 +114542,9 @@
                 "name": "Heroism"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -114303,7 +114715,9 @@
                 "name": "Undead Guard"
             },
             {
-                "name": "Improved False Life"
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": "7",
@@ -114351,7 +114765,9 @@
                 "name": "Fireball"
             },
             {
-                "name": "Fire Resistance"
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Armor Bonus",

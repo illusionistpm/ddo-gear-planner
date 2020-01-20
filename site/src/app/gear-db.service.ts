@@ -12,7 +12,8 @@ import craftingList from 'src/assets/crafting.json';
 })
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
-  affixToBonusTypes: Map<string, Set<string>>;
+  affixToBonusTypes: Map<string, Map<string, number>>;
+  bestValues: Map<any, number>;
 
   constructor() {
     this.filterByLevelRange(1, 30);
@@ -20,7 +21,7 @@ export class GearDbService {
 
   filterByLevelRange(minLevel: number, maxLevel: number) {
     this.gear = new Map<string, Array<Item>>();
-    this.affixToBonusTypes = new Map<string, Set<string>>();
+    this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
     for (const item of itemsList) {
       if (Number(item.ml) < minLevel || Number(item.ml) > maxLevel) {
@@ -71,10 +72,15 @@ export class GearDbService {
       for (const item of items) {
         for (const affix of item.affixes) {
           if (!this.affixToBonusTypes.has(affix.name)) {
-            this.affixToBonusTypes.set(affix.name, new Set<string>());
+            this.affixToBonusTypes.set(affix.name, new Map<string, number>());
           }
 
-          this.affixToBonusTypes.get(affix.name).add(affix.type);
+          const typeMap = this.affixToBonusTypes.get(affix.name);
+
+          const bestVal = typeMap.get(affix.type);
+          if(!bestVal || bestVal < affix.value) {
+            typeMap.set(affix.type, affix.value);
+          }
         }
       }
     }
@@ -129,5 +135,13 @@ export class GearDbService {
 
   getAllAffixes() {
     return this.affixToBonusTypes.keys();
+  }
+
+  getBestValueForAffixType(affixName: string, affixType: string) {
+    const outermap = this.affixToBonusTypes.get(affixName)
+    if (!outermap) {
+      return 0;
+    }
+    return outermap.get(affixType);
   }
 }

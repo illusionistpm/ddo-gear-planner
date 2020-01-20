@@ -1,8 +1,18 @@
-.bonus-type-found {
-    color: 	#006400;
+.max-available {
+    color: gray;
+    font-weight: normal;
+}
+
+.max-value {
+    color: green;
     font-weight: bold;
 }
 
-.bonus-type-not-found {
+.has-value {
+    color: darkorange;
+    font-weight: bold;
+}
+
+.no-value {
     color: 	#B22222;
 }

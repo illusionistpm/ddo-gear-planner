@@ -38,9 +38,13 @@ export class ItemsWithBonusTypeComponent implements OnInit {
       }
     }
 
-    this.matches = this.matches.sort((a, b) => 
+    this.matches = this._sortByValue(this.matches);
+    this.lockedMatches = this._sortByValue(this.lockedMatches);
+  }
+
+  _sortByValue(array: Array<Item>) {
+    return array.sort((a, b) =>
       Number(b.getValue(this.affixName, this.bonusType)) - Number(a.getValue(this.affixName, this.bonusType)));
-    this.lockedMatches = this.lockedMatches.sort((a, b) => b.ml - a.ml);
   }
 
   findMatchingValue(item: Item) {

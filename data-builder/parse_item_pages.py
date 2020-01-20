@@ -106,6 +106,9 @@ def cleanup_one_of_the_following(name):
 
     return name
 
+def fix_necromancy_focus(name):
+    return name + " 1" if name == "Necromancy Focus" else name
+
 
 def strip_trailing_colon(name):
     if len(name) > 0 and name[-1] == ':':
@@ -138,7 +141,7 @@ def get_items_from_page(itemPageURL):
     catMap = build_cat_map()
 
     craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot'])
-    fakeBonuses = set(['dodge', 'attack', 'combat', 'strength'])
+    fakeBonuses = set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
     for row in rows:
         item = {}
@@ -190,6 +193,7 @@ def get_items_from_page(itemPageURL):
                 affixName = convert_roman_numerals(affixName)
                 affixName = clean_up_old_augments(affixName)
                 affixName = cleanup_one_of_the_following(affixName)
+                affixName = fix_necromancy_focus(affixName)
                 
                 affixName = affixName.strip()
 
@@ -214,6 +218,7 @@ def get_items_from_page(itemPageURL):
                     words = str(tooltip)
                     bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
                     bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
+                    bonusTypeSearch.sort()
 
                     if bonusTypeSearch:
                         aff['type'] = bonusTypeSearch[0].strip()

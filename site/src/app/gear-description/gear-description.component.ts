@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 
+import { Affix } from '../affix';
+import { AffixRank } from '../affix-rank.enum';
 import { Item } from '../item';
 import { Observable } from 'rxjs';
 
@@ -27,14 +29,19 @@ export class GearDescriptionComponent implements OnInit {
 
   describe(option) {
     if (option && option.affixes && option.affixes.length) {
-      return option.affixes[0].name + " +" + option.affixes[0].value + " " + option.affixes[0].type;
+      return option.affixes[0].name + ' +' + option.affixes[0].value + ' ' + option.affixes[0].type;
     } else {
-      return "";
+      return '';
     }
   }
 
   updateItem() {
     this.equipped.set(this.curItem);
+  }
+
+  getClassForAffix(affix: Affix) {
+    const affixRank = this.equipped.getAffixRanking(affix);
+    return AffixRank[affixRank];
   }
 
 }

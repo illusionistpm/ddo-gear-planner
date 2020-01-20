@@ -38,7 +38,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
       }
     }
 
-    this.matches = this.matches.sort((a, b) => Number(b.getValue(this.affixName, this.bonusType)) - Number(a.getValue(this.affixName, this.bonusType)));
+    this.matches = this.matches.sort((a, b) => 
+      Number(b.getValue(this.affixName, this.bonusType)) - Number(a.getValue(this.affixName, this.bonusType)));
     this.lockedMatches = this.lockedMatches.sort((a, b) => b.ml - a.ml);
   }
 
@@ -46,9 +47,9 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     const ret = item.getMatchingBonusType(this.affixName, this.bonusType);
     let crafting = ret[0] || '';
     if(crafting) {
-      crafting = " (" + crafting + ")";
+      crafting = ' (' + crafting + ')';
     }
-    let value = ret[1] || '';
+    const value = ret[1] || '';
 
     return [crafting, value];
   }

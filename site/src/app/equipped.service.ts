@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Item } from './item';
+import { Affix } from './affix';
+import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService } from './gear-db.service';
 import { BehaviorSubject } from 'rxjs';
@@ -97,7 +99,21 @@ export class EquippedService {
     return this.coveredAffixes.asObservable();
   }
 
-  private getBestValue(affixName: string, bonusType: string) {
+  private getValuesForAffixType(affixName: string, bonusType: string) {
+    const values = [];
+    for (const slot of this.slots) {
+      if (slot[1].getValue()) {
+        for (const affix of slot[1].getValue().getActiveAffixes()) {
+          if (affix.name === affixName && affix.type === bonusType) {
+            values.push({slot: slot, value: affix.value});
+          }
+        }
+      }
+    }
+    return values.sort((a, b) => a - b);
+  }
+
+  private _getBestValue(affixName: string, bonusType: string) {
     let max = null;
     for (const slot of this.slots) {
       if (slot[1].getValue()) {
@@ -154,6 +170,29 @@ export class EquippedService {
     this._updateCoveredAffixes();
   }
 
+  getAffixRanking(affix: Affix) {
+    // The crafting guys are being passed in too, and they aren't actually affixes. Will have to sort that out.
+    if(!affix) {
+      return AffixRank.Irrelevant;
+    }
+
+    if (!this.importantAffixes.has(affix.name)) {
+      return AffixRank.Irrelevant;
+    }
+
+    const values = this.getValuesForAffixType(affix.name, affix.type);
+
+    if (affix.value === values[0].value) {
+      if (values.length === 1 || values[1] < affix.value) {
+        return AffixRank.Best;
+      } else {
+        return AffixRank.BestTied;
+      }
+    } else {
+      return AffixRank.Outranked;
+    }
+  }
+
   private _updateCoveredAffixes() {
     // affixName => Array of {bonusType, Array of {slot: value}}
     const newMap = new Map<string, Array<any>>();
@@ -182,7 +221,7 @@ export class EquippedService {
 
       const array = new Array<object>();
       for (const type of affixTypes) {
-        const bestVal = this.getBestValue(affixName, type);
+        const bestVal = this._getBestValue(affixName, type);
         array.push({ bonusType: type, value: bestVal });
       }
       newMap.set(affixName, array);

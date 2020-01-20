@@ -4,3 +4,23 @@ background-color:antiquewhite;
 .row:nth-child(even) {
 background: #FFFFFF;
 }
+
+.Best {
+    font-weight: bold;
+    color: green;
+}
+
+.BestTied {
+    font-style: italic;
+    font-weight: bold;
+    color: blue;
+}
+
+.Outranked {
+    font-weight: bold;
+    color: darkorange;
+}
+
+.Irrelevant {
+    color: black;
+}

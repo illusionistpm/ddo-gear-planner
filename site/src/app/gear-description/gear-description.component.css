@@ -5,6 +5,11 @@ background-color:antiquewhite;
 background: #FFFFFF;
 }
 
+.BetterThanBest {
+    font-weight: bold;
+    color: purple;
+}
+
 .Best {
     font-weight: bold;
     color: green;

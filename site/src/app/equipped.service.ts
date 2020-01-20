@@ -182,7 +182,9 @@ export class EquippedService {
 
     const values = this.getValuesForAffixType(affix.name, affix.type);
 
-    if (affix.value === values[0].value) {
+    if (values.length == 0 || affix.value > values[0].value) {
+      return AffixRank.BetterThanBest;
+    } else if (affix.value === values[0].value) {
       if (values.length === 1 || values[1] < affix.value) {
         return AffixRank.Best;
       } else {

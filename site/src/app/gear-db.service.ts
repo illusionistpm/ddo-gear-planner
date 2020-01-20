@@ -78,7 +78,7 @@ export class GearDbService {
           const typeMap = this.affixToBonusTypes.get(affix.name);
 
           const bestVal = typeMap.get(affix.type);
-          if(!bestVal || bestVal < affix.value) {
+          if (!bestVal || bestVal < affix.value) {
             typeMap.set(affix.type, affix.value);
           }
         }
@@ -138,7 +138,7 @@ export class GearDbService {
   }
 
   getBestValueForAffixType(affixName: string, affixType: string) {
-    const outermap = this.affixToBonusTypes.get(affixName)
+    const outermap = this.affixToBonusTypes.get(affixName);
     if (!outermap) {
       return 0;
     }

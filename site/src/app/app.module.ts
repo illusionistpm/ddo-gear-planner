@@ -13,6 +13,7 @@ import { EffectsTableComponent } from './effects-table/effects-table.component';
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
 import { LevelRangeComponent } from './level-range/level-range.component';
 import { MainComponent } from './main/main.component';
+import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MainComponent } from './main/main.component';
     EffectsTableComponent,
     ItemsWithBonusTypeComponent,
     LevelRangeComponent,
-    MainComponent
+    MainComponent,
+    ItemSuggestionsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -34,6 +36,6 @@ import { MainComponent } from './main/main.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ItemsWithBonusTypeComponent]
+  entryComponents: [ItemsWithBonusTypeComponent, ItemSuggestionsComponent]
 })
 export class AppModule { }

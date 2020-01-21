@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./gear-description.component.css']
 })
 export class GearDescriptionComponent implements OnInit {
-  @Input() item: Observable<Item>;
+  @Input() item: Observable<Item> | Item;
   curItem: Item = null;
 
   constructor(
@@ -24,9 +24,13 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.item.subscribe(val => {
-      this.curItem = val;
-    });
+    if (this.item instanceof Observable) {
+      this.item.subscribe(val => {
+        this.curItem = val;
+      });
+    } else {
+      this.curItem = this.item;
+    }
   }
 
   describe(option: CraftableOption) {

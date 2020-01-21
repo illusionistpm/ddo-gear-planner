@@ -144,4 +144,18 @@ export class GearDbService {
     }
     return outermap.get(affixType);
   }
+
+  getBestValueForAffix(affixName: string) {
+    const outermap = this.affixToBonusTypes.get(affixName);
+    if (!outermap) {
+      return 0;
+    }
+
+    let totalVal = 0;
+    for (const type of outermap.keys()) { 
+      totalVal += this.getBestValueForAffixType(affixName, type)
+    }
+
+    return totalVal;
+  }
 }

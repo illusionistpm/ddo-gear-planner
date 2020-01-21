@@ -105,7 +105,7 @@ export class EquippedService {
       if (slot[1].getValue()) {
         for (const affix of slot[1].getValue().getActiveAffixes()) {
           if (affix.name === affixName && affix.type === bonusType) {
-            values.push({slot: slot, value: affix.value});
+            values.push({ slot: slot, value: affix.value });
           }
         }
       }
@@ -147,6 +147,18 @@ export class EquippedService {
     return this.unlockedSlots;
   }
 
+  getScore(item: Item) {
+    let score = 0;
+    for (const affix of item.getActiveAffixes()) {
+      if (this.importantAffixes.has(affix.name)) {
+        const bestVal = this.gearList.getBestValueForAffix(affix.name);
+        score += affix.value / bestVal;
+      }
+    }
+
+    return score;
+  }
+
   private _getImportantAffixes() {
     const important = new Map<string, Map<string, number>>();
     for (const affixName of this.importantAffixes) {
@@ -172,7 +184,7 @@ export class EquippedService {
 
   getAffixRanking(affix: Affix) {
     // The crafting guys are being passed in too, and they aren't actually affixes. Will have to sort that out.
-    if(!affix) {
+    if (!affix) {
       return AffixRank.Irrelevant;
     }
 
@@ -196,25 +208,11 @@ export class EquippedService {
   }
 
   private _updateCoveredAffixes() {
+    // const newMap = new AffixToSlotMap(Array.from(this.slots.values()).map(elem => elem.getValue()));
+    // newMap.prune(this.importantAffixes);
+
     // affixName => Array of {bonusType, Array of {slot: value}}
     const newMap = new Map<string, Array<any>>();
-
-    // for (const item of this.slots.values()) {
-    //   if (item.getValue()) {
-    //     for (const affix of item.getValue().affixes) {
-    //       if (!newMap.has(affix.name)) {
-    //         newMap.set(affix.name, []);
-    //       }
-    //       const bonusList = newMap.get(affix.name);
-    //       if (!bonusList.includes(affix.type)) {
-    //         bonusList.push({ type: affix.type, slots: [] });
-    //       }
-    //       let listForBonusType = bonusList.find(affix.type);
-    //       if (listForBonusType.)
-
-    //     }
-    //   }
-    // }
 
     const importantAffixes = this._getImportantAffixes();
     for (const affix of importantAffixes) {

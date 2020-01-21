@@ -1,0 +1,9 @@
+<div class="modal-body" *ngFor="let item of gear">
+    <div class="row">
+        <span class="col">{{item.name}}</span>
+        <button class="col-2" (click)="equipItem(item)">Equip</button>
+    </div>
+    <div class="row">
+        <app-gear-description class="col" [item]=item></app-gear-description>
+    </div>
+</div>

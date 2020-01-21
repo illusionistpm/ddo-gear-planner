@@ -50,7 +50,7 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   findMatchingValue(item: Item) {
     const ret = item.getMatchingBonusType(this.affixName, this.bonusType);
     let crafting = ret[0] || '';
-    if(crafting) {
+    if (crafting) {
       crafting = ' (' + crafting + ')';
     }
     const value = ret[1] || '';

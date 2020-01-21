@@ -54,11 +54,7 @@ export class EffectsTableComponent implements OnInit {
   }
 
   maxBonus(affixName) {
-    let total = 0;
-    for (const type of this.effects.get(affixName)) {
-      total += this.gearDB.getBestValueForAffixType(affixName, type.bonusType)
-    }
-    return total;
+    return this.gearDB.getBestValueForAffix(affixName);
   }
 
   showItemsWithBonusType(affixName, bonusType) {
@@ -78,8 +74,10 @@ export class EffectsTableComponent implements OnInit {
     const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
     if (type.value >= maxValue) {
       return 'max-value';
+    } else if (type.value >= maxValue / 2) {
+      return 'mid-value';
     } else {
-      return 'has-value';
+      return 'low-value';
     }
   }
 }

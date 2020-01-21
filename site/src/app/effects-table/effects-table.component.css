@@ -8,11 +8,16 @@
     font-weight: bold;
 }
 
-.has-value {
+.mid-value {
     color: darkorange;
     font-weight: bold;
 }
 
+.low-value {
+    color: red;
+    font-weight: bold;
+}
+
 .no-value {
-    color: 	#B22222;
+    color: 	grey;
 }

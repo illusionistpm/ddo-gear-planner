@@ -134,7 +134,11 @@ export class GearDbService {
   }
 
   getAllAffixes() {
-    return this.affixToBonusTypes.keys();
+    return Array.from(this.affixToBonusTypes.keys());
+  }
+
+  getTypesForAffix(affixName: string) {
+    return Array.from(this.affixToBonusTypes.get(affixName).keys());
   }
 
   getBestValueForAffixType(affixName: string, affixType: string) {

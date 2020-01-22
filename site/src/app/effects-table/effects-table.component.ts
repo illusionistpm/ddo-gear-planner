@@ -22,7 +22,7 @@ export class EffectsTableComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.effectKeys = new Array<object>();
-    this.allAffixes = Array.from(this.gearDB.getAllAffixes()).map(e => ({ name: e }));
+    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e }));
   }
 
   ngOnInit() {

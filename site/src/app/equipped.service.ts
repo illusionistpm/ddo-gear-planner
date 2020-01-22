@@ -123,7 +123,7 @@ export class EquippedService {
     return values.sort((a, b) => a - b);
   }
 
-  private _getBestValue(affixName: string, bonusType: string) {
+  private _getBestValueForAffixType(affixName: string, bonusType: string) {
     let max = null;
     for (const slot of this.slots) {
       if (slot[1].getValue()) {
@@ -139,6 +139,30 @@ export class EquippedService {
     }
     return max;
   }
+
+  private _getTotalValueForAffixIgnoringSlot(affixName: string, ignoredSlot: string) {
+    const map = new Map<string, number>();
+    for(const type of this.gearList.getTypesForAffix(affixName)) {
+      map.set(type, 0);
+    }
+
+    for (const slot of this.slots) {
+      if (slot[1].getValue() && slot[0] !== ignoredSlot) {
+        for (const affix of slot[1].getValue().getActiveAffixes()) {
+          if (affix.name === affixName) {
+            if (map.get(affix.type) < affix.value) {
+              map.set(affix.type, affix.value);
+            }
+            break;
+          }
+        }
+      }
+    }
+
+    const total = Array.from(map.values()).reduce((acc, val) => acc + val, 0);
+    return total;
+  }
+
 
   toggleLock(slot: string) {
     if (this.unlockedSlots.has(slot)) {
@@ -161,8 +185,13 @@ export class EquippedService {
     let score = 0;
     for (const affix of item.getActiveAffixes()) {
       if (this.importantAffixes.has(affix.name)) {
+        const valWithNewItem = this._getTotalValueForAffixIgnoringSlot(affix.name, item.slot);
+        const valWithCurItem = this._getTotalValueForAffixIgnoringSlot(affix.name, null);
+
+        const improvement = valWithNewItem - valWithCurItem;
+
         const bestVal = this.gearList.getBestValueForAffix(affix.name);
-        score += affix.value / bestVal;
+        score += improvement / bestVal;
       }
     }
 
@@ -231,7 +260,7 @@ export class EquippedService {
 
       const array = new Array<object>();
       for (const type of affixTypes.keys()) {
-        const bestVal = this._getBestValue(affixName, type);
+        const bestVal = this._getBestValueForAffixType(affixName, type);
         array.push({ bonusType: type, value: bestVal });
       }
       newMap.set(affixName, array);

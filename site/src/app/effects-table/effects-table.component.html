@@ -1,4 +1,7 @@
 <div class="row">
+    <h3>Tracked Affixes</h3>
+</div>
+<div class="row">
     <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let effect of effectKeys">
         <div>
             <span class="h4">{{effect.name}}: {{currentBonus(effect.name)}}<span
@@ -26,9 +29,9 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-2">
     <label for="effect-search" class="col-4">
-        <h4>Track additional attribute:</h4>
+        <h4>Track new affix:</h4>
     </label>
     <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()>
     </app-typeahead>

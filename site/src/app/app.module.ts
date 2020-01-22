@@ -14,6 +14,7 @@ import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-
 import { LevelRangeComponent } from './level-range/level-range.component';
 import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
+import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.co
     ItemsWithBonusTypeComponent,
     LevelRangeComponent,
     MainComponent,
-    ItemSuggestionsComponent
+    ItemSuggestionsComponent,
+    AffixCloudComponent
   ],
   imports: [
     AppRoutingModule,

@@ -140,7 +140,8 @@ def get_items_from_page(itemPageURL):
 
     catMap = build_cat_map()
 
-    craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot'])
+    craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
+        'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential'])
     fakeBonuses = set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
     for row in rows:

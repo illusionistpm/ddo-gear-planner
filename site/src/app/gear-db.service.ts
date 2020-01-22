@@ -153,7 +153,7 @@ export class GearDbService {
 
     let totalVal = 0;
     for (const type of outermap.keys()) { 
-      totalVal += this.getBestValueForAffixType(affixName, type)
+      totalVal += this.getBestValueForAffixType(affixName, type);
     }
 
     return totalVal;

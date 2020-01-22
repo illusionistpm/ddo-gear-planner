@@ -13,26 +13,24 @@ import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions
   styleUrls: ['./gear-list.component.css']
 })
 export class GearListComponent implements OnInit {
+  itemNameMap: Map<string, string>;
 
   constructor(
     public gearList: GearDbService,
     public equipped: EquippedService,
     private modalService: NgbModal
   ) {
+    this.itemNameMap = new Map<string, string>();
   }
 
   ngOnInit() {
-  }
-
-  onChange(slot) {
-    return (newVal: any) => {
-      if (newVal instanceof Item) {
-        this.equipped.set(newVal);
-      } else {
-        const item = this.gearList.findGearBySlot(slot, newVal);
-        this.equipped.set(item);
-      }
-    };
+    for (const item of this.equipped.getSlots().values()) {
+      item.subscribe(newItem => {
+        if (newItem) {
+          this.itemNameMap.set(newItem.slot, newItem.name);
+        }
+      });
+    }
   }
 
   loadDummy() {
@@ -49,5 +47,14 @@ export class GearListComponent implements OnInit {
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  getItemName(slot: string) {
+    const itemName = this.itemNameMap.get(slot);
+    if (itemName) {
+      return itemName;
+    }
+
+    return '';
   }
 }

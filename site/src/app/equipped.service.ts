@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Item } from './item';
 import { Affix } from './affix';
@@ -93,6 +94,15 @@ export class EquippedService {
     }
 
     return null;
+  }
+
+  getSlots() {
+    const slots = new Map<string, Observable<Item>>();
+    for (const pair of this.slots.entries()) {
+      slots.set(pair[0], pair[1].asObservable());
+    }
+
+    return slots;
   }
 
   getCoveredAffixes() {
@@ -194,7 +204,7 @@ export class EquippedService {
 
     const values = this.getValuesForAffixType(affix.name, affix.type);
 
-    if (values.length == 0 || affix.value > values[0].value) {
+    if (values.length === 0 || affix.value > values[0].value) {
       return AffixRank.BetterThanBest;
     } else if (affix.value === values[0].value) {
       if (values.length === 1 || values[1] < affix.value) {

@@ -61,7 +61,7 @@ export class TypeaheadComponent implements OnInit {
       } else {
         return a.name.toLowerCase() > b.name.toLowerCase();
       }
-    }
+    };
   }
 
 }

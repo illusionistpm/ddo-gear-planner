@@ -1,26 +1,35 @@
 <div class="row">
     <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let effect of effectKeys">
         <div>
-        <span class="h4">{{effect.name}}: {{currentBonus(effect.name)}}<span class="max-available">/{{maxBonus(effect.name)}}</span></span>
-            <button class="btn btn-danger float-right" (click)=removeAffix(effect.name)>X</button>
+            <span class="h4">{{effect.name}}: {{currentBonus(effect.name)}}<span
+                    class="max-available">/{{maxBonus(effect.name)}}</span></span>
+            <button type="button" class="close float-right" aria-label="Close" (click)="removeAffix(effect.name)">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="col" *ngFor="let types of effects.get(effect.name)">
-            <button class="col" *ngIf="types.value; else noValue" 
+            <button class="col" *ngIf="types.value; else noValue"
                 (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                    <span [ngClass]="getClassForValue(effect.name, types)">{{types.bonusType ? types.bonusType : "Untyped"}}: {{types.value}} </span>
-                    <span class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
+                <span
+                    [ngClass]="getClassForValue(effect.name, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
+                    {{types.value}} </span>
+                <span
+                    class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
             </button>
             <ng-template #noValue>
-                <button class="col no-value" 
-                    (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                        {{types.bonusType ? types.bonusType : "Untyped"}} 
-                        <span class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
+                <button class="col no-value" (click)="showItemsWithBonusType(effect.name, types.bonusType)">
+                    {{types.bonusType ? types.bonusType : "Untyped"}}
+                    <span
+                        class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
                 </button>
             </ng-template>
         </div>
     </div>
 </div>
 <div class="row">
-    <label for="effect-search" class="col-4"><h4>Track additional attribute:</h4></label>
-    <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()></app-typeahead>
+    <label for="effect-search" class="col-4">
+        <h4>Track additional attribute:</h4>
+    </label>
+    <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()>
+    </app-typeahead>
 </div>

@@ -26,9 +26,9 @@ export class ItemSuggestionsComponent implements OnInit {
   ngOnInit() {
     this.current = this.equipped.getSlot(this.slot);
 
-    const shortlist = []
+    const shortlist = [];
     for (const gear of this.gearDB.getGearBySlot(this.slot)) {
-      shortlist.push(gear)
+      shortlist.push(gear);
     }
 
     shortlist.sort((a, b) => this.equipped.getScore(b) - this.equipped.getScore(a));
@@ -39,6 +39,16 @@ export class ItemSuggestionsComponent implements OnInit {
   equipItem(item: Item) {
     this.equipped.set(item);
     this.modalService.dismissAll();
+  }
+
+  onChange(slot: string) {
+    return (newVal: any) => {
+      if (newVal instanceof Item) {
+        this.gear = [newVal];
+      } else {
+        this.gear = [this.gearDB.findGearBySlot(slot, newVal)];
+      }
+    };
   }
 
   close() {

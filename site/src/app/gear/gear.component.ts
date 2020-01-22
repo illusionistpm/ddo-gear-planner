@@ -9,10 +9,8 @@ import { Item } from '../item';
   styleUrls: ['./gear.component.css']
 })
 export class GearComponent implements OnInit {
-  @Input() name: string;
   @Input() data: Array<Item>;
   @Input() onChange;
-  @Input() onClick;
   @Input() item;
 
   constructor() { }

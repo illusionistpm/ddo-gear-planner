@@ -1,0 +1,23 @@
+.item-name {
+    font-weight: bold;
+}
+
+.flat-left {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.flat-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.locked {
+    color: gold;
+    font-size: 14px;
+}
+
+.unlocked {
+    color: lightgray;
+    font-size: 14px;
+}

@@ -1,15 +1,11 @@
 <div class="row">
-    <div class="form-group col-sm-6 col-md-3 col-lg-2" *ngFor="let result of topResults">
-        <div class="row">
-            <button class="btn btn-primary" (click)="add(result[0])">{{result[0]}} ({{result[1]}})</button>
-        </div>
+    <div class="form-group" *ngFor="let result of topResults">
+            <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)" (click)="add(result[0])">{{result[0]}}</button>
     </div>
 </div>
 
 <div class="row">
-    <div class="form-group col-sm-6 col-md-3 col-lg-2" *ngFor="let result of savedSet">
-        <div class="row">
-            <button class="btn btn-danger" (click)="remove(result)">{{result}}</button>
-        </div>
+    <div class="form-group" *ngFor="let result of savedSet">
+            <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
     </div>
 </div>

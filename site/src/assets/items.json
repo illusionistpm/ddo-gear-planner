@@ -1515,7 +1515,7 @@
                 "value": "6"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -1973,7 +1973,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -2079,7 +2079,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2099,7 +2099,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2119,7 +2119,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2140,7 +2140,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -2161,7 +2161,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -2182,7 +2182,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -6678,7 +6678,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -7900,7 +7900,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -9045,7 +9045,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -10372,7 +10372,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -16088,7 +16088,7 @@
                 "name": "Maiming"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -17362,7 +17362,7 @@
                 "name": "Greater Maiming"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -18036,7 +18036,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -19935,7 +19935,7 @@
                 "value": "7"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -19989,7 +19989,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -21665,7 +21665,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -22628,7 +22628,7 @@
                 "value": "3"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "11"
             },
@@ -23157,7 +23157,7 @@
                 "value": "9"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "31"
             },
@@ -28368,7 +28368,7 @@
                 "value": "4"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             },
@@ -28519,7 +28519,7 @@
                 "value": "8"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "28"
             },
@@ -31591,22 +31591,22 @@
                 "value": "90"
             },
             {
-                "name": "Inherent Fire Resistance -",
+                "name": "Inherent Fire Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -33153,7 +33153,7 @@
                 "value": "15"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "13"
             },
@@ -34159,7 +34159,7 @@
                 "value": "10"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "3"
             },
@@ -37833,7 +37833,7 @@
                 "name": "Improved Destruction"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "15"
             },
@@ -37926,7 +37926,7 @@
                 "value": "4"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -38169,7 +38169,7 @@
                 "value": "6"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "8"
             }
@@ -38234,7 +38234,7 @@
                 "value": "7"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -38291,7 +38291,7 @@
                 "value": "9"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             }
@@ -38401,7 +38401,7 @@
                 "value": "10"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             }
@@ -38545,7 +38545,7 @@
                 "value": "12"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "17"
             }
@@ -38734,7 +38734,7 @@
                 "value": "19"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "28"
             }
@@ -41810,7 +41810,7 @@
                 "name": "Nightmares"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -44678,7 +44678,7 @@
                 "value": "21"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "14"
             },
@@ -46204,7 +46204,7 @@
                 "value": "23"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "32"
             },
@@ -49907,7 +49907,7 @@
                 "value": "19"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "31"
             },
@@ -50294,7 +50294,7 @@
                 "value": "7"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "11"
             },
@@ -52191,7 +52191,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -53117,7 +53117,7 @@
                 "value": "30"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -53815,7 +53815,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -55250,7 +55250,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -56381,7 +56381,7 @@
                 "name": "Disruption"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "11"
             },
@@ -56418,7 +56418,7 @@
                 "name": "Metalline"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "5"
             },
@@ -57060,7 +57060,7 @@
                 "name": "Sovereign Disruption"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "31"
             },
@@ -57160,7 +57160,7 @@
                 "name": "Metalline"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "15"
             },
@@ -62265,7 +62265,7 @@
                 "name": "Spikes"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -62391,7 +62391,7 @@
                 "name": "Holy Burst"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             }
         ],
@@ -62424,7 +62424,7 @@
                 "value": "20"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -62467,7 +62467,7 @@
                 "value": "20"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -62510,7 +62510,7 @@
                 "value": "40"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -62553,7 +62553,7 @@
                 "value": "40"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -62596,7 +62596,7 @@
                 "value": "60"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -62639,7 +62639,7 @@
                 "value": "60"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -62809,7 +62809,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -62835,7 +62835,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -62861,7 +62861,7 @@
                 "value": "3"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -62901,7 +62901,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -64666,7 +64666,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -66218,7 +66218,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -70913,7 +70913,7 @@
                 "value": "4"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             }
@@ -71790,7 +71790,7 @@
                 "value": "9"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "33"
             }
@@ -72954,7 +72954,7 @@
                 "value": "8"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "28"
             },
@@ -74564,7 +74564,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -75461,7 +75461,7 @@
                 "value": "30"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -75854,7 +75854,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -76909,7 +76909,7 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -77425,7 +77425,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -80206,7 +80206,7 @@
                 "name": "True Seeing"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             },
@@ -81013,7 +81013,7 @@
                 "name": "True Seeing"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "33"
             },
@@ -81243,7 +81243,7 @@
                 "value": "7"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "21"
             },
@@ -82349,7 +82349,7 @@
                 "value": "3"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             },
@@ -82555,7 +82555,7 @@
                 "value": "3"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "15"
             },
@@ -83255,7 +83255,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "16"
             },
@@ -88233,7 +88233,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Elemental Resistance -",
+                "name": "Inherent Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -90664,7 +90664,7 @@
                 "value": "5"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "13"
             },
@@ -91041,7 +91041,7 @@
                 "value": "13"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "29"
             },
@@ -91276,7 +91276,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -91332,7 +91332,7 @@
                 "value": "5"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "5"
             },
@@ -91736,7 +91736,7 @@
                 "value": "3"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -91770,7 +91770,7 @@
                 "value": "13"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "13"
             },
@@ -92075,7 +92075,7 @@
                 "value": "5"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "11"
             },
@@ -92152,7 +92152,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -92180,7 +92180,7 @@
                 "name": "Crippling"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -92359,7 +92359,7 @@
                 "value": "15"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "31"
             },
@@ -92450,7 +92450,7 @@
                 "value": "10"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -92514,7 +92514,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -92610,7 +92610,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -92642,7 +92642,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -92674,12 +92674,12 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Insight",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Competence",
                 "value": "10"
             }
@@ -92778,7 +92778,7 @@
                 "value": "28"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -92834,7 +92834,7 @@
                 "value": "2"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93039,7 +93039,7 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -93110,7 +93110,7 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93181,12 +93181,12 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93357,7 +93357,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93508,7 +93508,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -93542,7 +93542,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93573,7 +93573,7 @@
                 "value": "114"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -93616,12 +93616,12 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93844,7 +93844,7 @@
                 "name": "Disrupting Weapons"
             },
             {
-                "name": "Inherent Fire Resistance -",
+                "name": "Inherent Fire Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93963,7 +93963,7 @@
                 "value": "20"
             },
             {
-                "name": "Inherent Fire Resistance -",
+                "name": "Inherent Fire Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -98082,7 +98082,7 @@
                 "name": "Treason"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -98169,7 +98169,7 @@
                 "name": "Paralyzing"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -98559,7 +98559,7 @@
                 "name": "Improved Paralyzing"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -98739,7 +98739,7 @@
                 "value": "5"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -99742,7 +99742,7 @@
                 "value": "2"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "6"
             }
@@ -100028,7 +100028,7 @@
                 "value": "3"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "9"
             }
@@ -100245,7 +100245,7 @@
                 "value": "4"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             }
@@ -100441,7 +100441,7 @@
                 "value": "4"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             }
@@ -100652,7 +100652,7 @@
                 "value": "5"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "18"
             }
@@ -101018,7 +101018,7 @@
                 "value": "16"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "23"
             }
@@ -102722,7 +102722,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -102753,7 +102753,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -102784,7 +102784,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -102815,7 +102815,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "10"
             },
             {
@@ -102846,7 +102846,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -102877,7 +102877,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -102915,7 +102915,7 @@
                 "value": "20"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -102951,7 +102951,7 @@
                 "value": "40"
             },
             {
-                "name": "Armor-Piercing -",
+                "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -103016,22 +103016,22 @@
                 "name": "Mithral"
             },
             {
-                "name": "Inherent Fire Resistance -",
+                "name": "Inherent Fire Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -103197,7 +103197,7 @@
                 "name": "Improved Bashing"
             },
             {
-                "name": "Shield Bashing -",
+                "name": "Shield Bashing",
                 "value": "20"
             },
             {
@@ -103570,22 +103570,22 @@
                 "name": "Mithral"
             },
             {
-                "name": "Inherent Fire Resistance -",
+                "name": "Inherent Fire Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance -",
+                "name": "Inherent Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance -",
+                "name": "Inherent Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -104537,7 +104537,7 @@
                 "value": "15"
             },
             {
-                "name": "Inherent Light Resistance -",
+                "name": "Inherent Light Resistance",
                 "type": "Insight",
                 "value": "13"
             },
@@ -106428,7 +106428,7 @@
                 "value": "40"
             },
             {
-                "name": "Inherent Light Resistance -",
+                "name": "Inherent Light Resistance",
                 "type": "Insight",
                 "value": "37"
             },
@@ -112247,7 +112247,7 @@
                 "value": "73"
             },
             {
-                "name": "Inherent Electric Resistance -",
+                "name": "Inherent Electric Resistance",
                 "type": "Insight",
                 "value": "36"
             }

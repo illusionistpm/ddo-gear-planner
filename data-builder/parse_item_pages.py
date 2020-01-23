@@ -91,7 +91,9 @@ def strip_preslotted_augments(name):
 
 
 def strip_fixed_suffixes(name):
-    for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1", "Visibility 2", "Jet Propulsion", "A Mysterious Effect", "Haggle +3 ", "Vampirism 1 ", "Unholy 9 ", "Cannith Combat Infusion", "Chitinous Covering"]:
+    for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1", 
+        "Visibility 2", "Jet Propulsion", "A Mysterious Effect", "Haggle +3 ", "Vampirism 1 ", "Unholy 9 ",
+         "Cannith Combat Infusion", "Chitinous Covering", 'Upgradeable Item']:
         if name.startswith(prefix):
             return prefix
 
@@ -141,7 +143,8 @@ def get_items_from_page(itemPageURL):
     catMap = build_cat_map()
 
     craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
-        'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential'])
+        'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential',
+        'Upgradeable - Tier', 'Upgradeable Item'])
     fakeBonuses = set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
     for row in rows:
@@ -207,11 +210,11 @@ def get_items_from_page(itemPageURL):
 
                 aff['name'] = strip_trailing_colon(aff['name'])
 
-                enhancementBonusSearch = re.search(r'^\+(\d+) Enhancement Bonus$', affixName)
+                enhancementBonusSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)
                 if enhancementBonusSearch:
-                    aff['name'] = 'Enhancement Bonus'
+                    aff['name'] = enhancementBonusSearch.group(2) + ' Bonus'
                     aff['value'] = enhancementBonusSearch.group(1)
-                    aff['type'] = 'Enhancement'
+                    aff['type'] = enhancementBonusSearch.group(2)
 
                 elif aff['name'].startswith('DR '):
                     drGroup = re.search(r'^DR (\d+)/([A-Za-z\-]+)', aff['name'])

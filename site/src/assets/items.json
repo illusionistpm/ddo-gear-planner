@@ -2079,7 +2079,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2099,7 +2099,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2119,7 +2119,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -2140,7 +2140,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -2161,7 +2161,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -2182,7 +2182,7 @@
     {
         "affixes": [
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -6678,7 +6678,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -19935,7 +19935,7 @@
                 "value": "7"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -31591,22 +31591,22 @@
                 "value": "90"
             },
             {
-                "name": "Inherent Fire Resistance",
+                "name": "Fire Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -41810,7 +41810,7 @@
                 "name": "Nightmares"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -53117,7 +53117,7 @@
                 "value": "30"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -75461,7 +75461,7 @@
                 "value": "30"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -77425,7 +77425,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -82555,7 +82555,7 @@
                 "value": "3"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "15"
             },
@@ -88233,7 +88233,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Elemental Resistance",
+                "name": "Elemental Resistance",
                 "type": "Competence",
                 "value": "5"
             },
@@ -92450,7 +92450,7 @@
                 "value": "10"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -92514,7 +92514,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -92610,7 +92610,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -92642,7 +92642,7 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -92674,12 +92674,12 @@
                 "name": "Freezing Ice Guard"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Insight",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Competence",
                 "value": "10"
             }
@@ -92778,7 +92778,7 @@
                 "value": "28"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -92834,7 +92834,7 @@
                 "value": "2"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93039,7 +93039,7 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -93110,7 +93110,7 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93181,12 +93181,12 @@
                 "value": "4"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93357,7 +93357,7 @@
                 "value": "6"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93508,7 +93508,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -93542,7 +93542,7 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93573,7 +93573,7 @@
                 "value": "114"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             },
@@ -93616,12 +93616,12 @@
                 "value": "8"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -93844,7 +93844,7 @@
                 "name": "Disrupting Weapons"
             },
             {
-                "name": "Inherent Fire Resistance",
+                "name": "Fire Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -93963,7 +93963,7 @@
                 "value": "20"
             },
             {
-                "name": "Inherent Fire Resistance",
+                "name": "Fire Resistance",
                 "type": "Insight",
                 "value": "5"
             },
@@ -103016,22 +103016,22 @@
                 "name": "Mithral"
             },
             {
-                "name": "Inherent Fire Resistance",
+                "name": "Fire Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Insight",
                 "value": "10"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "10"
             }
@@ -103570,22 +103570,22 @@
                 "name": "Mithral"
             },
             {
-                "name": "Inherent Fire Resistance",
+                "name": "Fire Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Cold Resistance",
+                "name": "Cold Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Acid Resistance",
+                "name": "Acid Resistance",
                 "type": "Competence",
                 "value": "5"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Competence",
                 "value": "5"
             }
@@ -104537,7 +104537,7 @@
                 "value": "15"
             },
             {
-                "name": "Inherent Light Resistance",
+                "name": "Light Resistance",
                 "type": "Insight",
                 "value": "13"
             },
@@ -106428,7 +106428,7 @@
                 "value": "40"
             },
             {
-                "name": "Inherent Light Resistance",
+                "name": "Light Resistance",
                 "type": "Insight",
                 "value": "37"
             },
@@ -112247,7 +112247,7 @@
                 "value": "73"
             },
             {
-                "name": "Inherent Electric Resistance",
+                "name": "Electric Resistance",
                 "type": "Insight",
                 "value": "36"
             }

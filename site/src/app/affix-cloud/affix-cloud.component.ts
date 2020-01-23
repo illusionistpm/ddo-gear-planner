@@ -16,6 +16,8 @@ export class AffixCloudComponent implements OnInit {
   savedSet: Set<string>;
   topResults: Array<any>;
 
+  ignoredSet: Set<string>;
+
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
@@ -23,6 +25,7 @@ export class AffixCloudComponent implements OnInit {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
     this.topResults = new Array<any>();
+    this.ignoredSet = new Set<string>();
 
     const gearList = gearDB.getGearList();
 
@@ -33,11 +36,33 @@ export class AffixCloudComponent implements OnInit {
 
     this.cloud = new AffixCloud(flatList);
 
+    this.ignoredSet.add('Enhancement Bonus');
+
+    this._initTopResults();
+  }
+
+  ngOnInit() {
+  }
+
+  _initTopResults() {
     const seed = ['Strength', 'Dexterity', 'Intelligence', 'Wisdom', 'Charisma'];
     this.topResults = seed.map(a => [a, 0]);
   }
 
-  ngOnInit() {
+  getBtnSize(result: string) {
+    const sortedResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]);
+    if (!sortedResults.length) {
+      return 'btn';
+    }
+    const maxVal = sortedResults[0][1];
+    const myVal = this.workingMap.get(result[0]);
+    if (myVal < maxVal / 3) {
+      return 'btn-sm';
+    } else if (myVal > 2 / 3 * maxVal) {
+      return 'btn-lg';
+    } else {
+      return 'btn';
+    }
   }
 
   add(affix: string) {
@@ -48,7 +73,7 @@ export class AffixCloudComponent implements OnInit {
 
     this.workingMap = this.cloud.merge(this.workingMap, map);
     for (const entry of this.workingMap) {
-      if (this.savedSet.has(entry[0])) {
+      if (this.savedSet.has(entry[0]) || this.ignoredSet.has(entry[0])) {
         this.workingMap.delete(entry[0]);
       }
     }
@@ -59,5 +84,9 @@ export class AffixCloudComponent implements OnInit {
   remove(affix: string) {
     this.savedSet.delete(affix);
     this.equipped.removeImportantAffix(affix);
+
+    this._initTopResults();
+    this.workingMap.clear();
+    this.savedSet.forEach((a, b, s) => this.add(a));
   }
 }

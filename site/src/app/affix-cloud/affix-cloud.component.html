@@ -1,11 +1,19 @@
-<div class="row">
-    <div class="form-group" *ngFor="let result of topResults">
-            <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)" (click)="add(result[0])">{{result[0]}}</button>
+<div class="container">
+    <h3>Choose some affixes</h3>
+    <div class="row">
+        <div class="form-group" *ngFor="let result of topResults">
+            <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
+                (click)="add(result[0])">{{result[0]}}</button>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="form-group" *ngFor="let result of savedSet">
+    <div class="row">
+        <div class="form-group" *ngFor="let result of savedSet">
             <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <a class="btn btn-success" routerLink="/main" routerLinkActive="active">Done</a>
     </div>
 </div>

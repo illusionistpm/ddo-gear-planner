@@ -89,4 +89,8 @@ export class AffixCloudComponent implements OnInit {
     this.workingMap.clear();
     this.savedSet.forEach((a, b, s) => this.add(a));
   }
+
+  next() {
+    
+  }
 }

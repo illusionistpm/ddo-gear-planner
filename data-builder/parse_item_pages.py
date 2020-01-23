@@ -207,7 +207,13 @@ def get_items_from_page(itemPageURL):
 
                 aff['name'] = strip_trailing_colon(aff['name'])
 
-                if aff['name'].startswith('DR '):
+                enhancementBonusSearch = re.search(r'^\+(\d+) Enhancement Bonus$', affixName)
+                if enhancementBonusSearch:
+                    aff['name'] = 'Enhancement Bonus'
+                    aff['value'] = enhancementBonusSearch.group(1)
+                    aff['type'] = 'Enhancement'
+
+                elif aff['name'].startswith('DR '):
                     drGroup = re.search(r'^DR (\d+)/([A-Za-z\-]+)', aff['name'])
                     if drGroup:
                         aff['value'] = drGroup.group(1)

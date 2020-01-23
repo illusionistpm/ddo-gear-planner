@@ -198,10 +198,10 @@ def get_items_from_page(itemPageURL):
                 
                 affixName = affixName.strip()
 
-                affixNameSearch = re.search(r'^(.*) \+?(-?[0-9]+)\%?$', affixName)
+                affixNameSearch = re.search(r'^(.*?) (- )?\+?(-?[0-9]+)\%?$', affixName)
                 if affixNameSearch:
                     aff['name'] = affixNameSearch.group(1).strip()
-                    aff['value'] = affixNameSearch.group(2).strip()
+                    aff['value'] = affixNameSearch.group(3).strip()
                 else:
                     aff['name'] = affixName.strip()
 

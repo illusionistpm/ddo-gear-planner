@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
+import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent }
+  { path: '', component: AffixCloudComponent },
+  { path: 'main', component: MainComponent }
 ];
 
 @NgModule({

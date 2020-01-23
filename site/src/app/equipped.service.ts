@@ -140,15 +140,16 @@ export class EquippedService {
     return max;
   }
 
-  private _getTotalValueForAffixIgnoringSlot(affixName: string, ignoredSlot: string) {
+  private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {
     const map = new Map<string, number>();
-    for(const type of this.gearList.getTypesForAffix(affixName)) {
+    for (const type of this.gearList.getTypesForAffix(affixName)) {
       map.set(type, 0);
     }
 
     for (const slot of this.slots) {
-      if (slot[1].getValue() && slot[0] !== ignoredSlot) {
-        for (const affix of slot[1].getValue().getActiveAffixes()) {
+      const item = (testItem && (slot[0] === testItem.slot)) ? testItem : slot[1].getValue();
+      if (item) {
+        for (const affix of item.getActiveAffixes()) {
           if (affix.name === affixName) {
             if (map.get(affix.type) < affix.value) {
               map.set(affix.type, affix.value);
@@ -185,8 +186,9 @@ export class EquippedService {
     let score = 0;
     for (const affix of item.getActiveAffixes()) {
       if (this.importantAffixes.has(affix.name)) {
-        const valWithNewItem = this._getTotalValueForAffixIgnoringSlot(affix.name, item.slot);
-        const valWithCurItem = this._getTotalValueForAffixIgnoringSlot(affix.name, null);
+
+        const valWithNewItem = this._getTotalValueForAffixTestingItem(affix.name, item);
+        const valWithCurItem = this._getTotalValueForAffixTestingItem(affix.name, null);
 
         const improvement = valWithNewItem - valWithCurItem;
 
@@ -236,7 +238,7 @@ export class EquippedService {
     if (values.length === 0 || affix.value > values[0].value) {
       return AffixRank.BetterThanBest;
     } else if (affix.value === values[0].value) {
-      if (values.length === 1 || values[1] < affix.value) {
+      if (values.length === 1 || affix.value > values[1].value) {
         return AffixRank.Best;
       } else {
         return AffixRank.BestTied;

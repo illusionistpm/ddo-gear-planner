@@ -7,7 +7,7 @@ export class Craftable {
 
     constructor(name: string, options: Array<CraftableOption>) {
         this.name = name;
-        let emptyOption = new CraftableOption(null);
+        const emptyOption = new CraftableOption(null);
         this.options = [emptyOption].concat(options);
         this.selected = emptyOption;
     }

@@ -1,7 +1,9 @@
 <div class="form-group col" *ngIf="curItem">
     <div><b>ML: {{curItem.ml}}</b></div>
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" [ngClass]="getClassForAffix(affix)"
+    <div class="form-group row mb-0 ml-2 table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
         *ngFor="let affix of curItem.affixes">
+        <span class="show-on-hover fas fa-heart heart" *ngIf="equipped.isImportantAffix(affix.name)" (click)="equipped.toggleImportantAffix(affix.name)"></span>
+        <span class="show-on-hover far fa-heart heart" *ngIf="!equipped.isImportantAffix(affix.name)" (click)="equipped.toggleImportantAffix(affix.name)"></span>
         <div class="col">{{affix.name}}</div>
         <div class="col">{{affix.value ? "+" + affix.value : ""}} {{affix.type}}</div>
     </div>

@@ -33,7 +33,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
     shortlist.sort((a, b) => this.equipped.getScore(b) - this.equipped.getScore(a));
 
-    this.gear = shortlist.slice(0, 6);
+    this.gear = shortlist.slice(0, 20);
   }
 
   equipItem(item: Item) {

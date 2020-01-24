@@ -29,3 +29,16 @@ background: #FFFFFF;
 .Irrelevant {
     color: black;
 }
+
+.hover-helper:hover .show-on-hover {
+    visibility: visible;
+
+}
+
+.hover-helper .show-on-hover {
+    visibility: hidden;
+}
+
+.heart {
+    color: red;
+}

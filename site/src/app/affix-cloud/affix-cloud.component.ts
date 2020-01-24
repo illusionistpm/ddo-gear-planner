@@ -16,16 +16,20 @@ export class AffixCloudComponent implements OnInit {
   savedSet: Set<string>;
   topResults: Array<any>;
 
+  public allAffixes: Array<any>; // is really Array<{name:string}>
+
   ignoredSet: Set<string>;
 
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
-  ) { 
+  ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
     this.topResults = new Array<any>();
     this.ignoredSet = new Set<string>();
+
+    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e }));
 
     const gearList = gearDB.getGearList();
 
@@ -42,10 +46,13 @@ export class AffixCloudComponent implements OnInit {
   }
 
   ngOnInit() {
+    for (const affix of this.equipped.getImportantAffixes()) {
+      this.add(affix);
+    }
   }
 
   _initTopResults() {
-    const seed = ['Strength', 'Dexterity', 'Intelligence', 'Wisdom', 'Charisma'];
+    const seed = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
     this.topResults = seed.map(a => [a, 0]);
   }
 
@@ -90,7 +97,9 @@ export class AffixCloudComponent implements OnInit {
     this.savedSet.forEach((a, b, s) => this.add(a));
   }
 
-  next() {
-    
+  onChange() {
+    return (affix: any) => {
+      this.add(affix.name);
+    };
   }
 }

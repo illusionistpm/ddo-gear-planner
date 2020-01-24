@@ -14,7 +14,6 @@ export class EffectsTableComponent implements OnInit {
 
   public effects: Map<string, Array<any>>;
   public effectKeys: Array<any>;
-  public allAffixes: Array<any>; // is really Array<string>
 
   constructor(
     public equipped: EquippedService,
@@ -22,7 +21,6 @@ export class EffectsTableComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.effectKeys = new Array<object>();
-    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e }));
   }
 
   ngOnInit() {
@@ -33,12 +31,6 @@ export class EffectsTableComponent implements OnInit {
         this.effectKeys.push({ name: key });
       }
     });
-  }
-
-  onChange() {
-    return (affix: any) => {
-      this.equipped.addImportantAffix(affix.name);
-    };
   }
 
   removeAffix(affixName) {

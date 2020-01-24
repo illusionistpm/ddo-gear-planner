@@ -115,7 +115,7 @@ export class EquippedService {
       if (slot[1].getValue()) {
         for (const affix of slot[1].getValue().getActiveAffixes()) {
           if (affix.name === affixName && affix.type === bonusType) {
-            values.push({ slot: slot, value: affix.value });
+            values.push({ slot, value: affix.value });
           }
         }
       }
@@ -200,12 +200,16 @@ export class EquippedService {
     return score;
   }
 
-  private _getImportantAffixes() {
+  private _getImportantAffixesToTypes() {
     const important = new Map<string, Map<string, number>>();
     for (const affixName of this.importantAffixes) {
       important.set(affixName, this.gearList.affixToBonusTypes.get(affixName));
     }
     return important;
+  }
+
+  getImportantAffixes() {
+    return this.importantAffixes;
   }
 
   setImportantAffixes(affixes) {
@@ -221,6 +225,18 @@ export class EquippedService {
   removeImportantAffix(affix) {
     this.importantAffixes.delete(affix);
     this._updateCoveredAffixes();
+  }
+
+  toggleImportantAffix(affix) {
+    if (this.isImportantAffix(affix)) {
+      this.removeImportantAffix(affix);
+    } else {
+      this.addImportantAffix(affix);
+    }
+  }
+
+  isImportantAffix(affix) {
+    return this.importantAffixes.has(affix);
   }
 
   getAffixRanking(affix: Affix) {
@@ -255,7 +271,7 @@ export class EquippedService {
     // affixName => Array of {bonusType, Array of {slot: value}}
     const newMap = new Map<string, Array<any>>();
 
-    const importantAffixes = this._getImportantAffixes();
+    const importantAffixes = this._getImportantAffixesToTypes();
     for (const affix of importantAffixes) {
       const affixName = affix[0];
       const affixTypes = affix[1];

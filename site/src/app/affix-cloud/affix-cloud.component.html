@@ -1,5 +1,5 @@
 <div class="container">
-    <h3>Choose some affixes</h3>
+    <h3 class="row">Pick some affixes:</h3>
     <div class="row">
         <div class="form-group" *ngFor="let result of topResults">
             <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
@@ -7,13 +7,20 @@
         </div>
     </div>
 
+    <h4 class="row mt-2">Or enter one:</h4>
+    <div class="row mt-2">
+        <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()>
+        </app-typeahead>
+    </div>
+
+    <h4 class="row mt-2" *ngIf="savedSet.size">Saved affixes:</h4>
     <div class="row">
         <div class="form-group" *ngFor="let result of savedSet">
             <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-2">
         <a class="btn btn-success" routerLink="/main" routerLinkActive="active">Done</a>
     </div>
 </div>

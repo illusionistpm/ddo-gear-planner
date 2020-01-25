@@ -118,7 +118,7 @@ def strip_trailing_colon(name):
     return name
 
 
-def get_items_from_page(itemPageURL):
+def get_items_from_page(itemPageURL, sets):
     print("Parsing " + itemPageURL)
     page = open(itemPageURL, "r", encoding='utf-8').read()
 
@@ -210,6 +210,10 @@ def get_items_from_page(itemPageURL):
 
                 aff['name'] = strip_trailing_colon(aff['name'])
 
+                if aff['name'] in sets:
+                    item['set'] = aff['name']
+                    continue
+
                 enhancementBonusSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)
                 if enhancementBonusSearch:
                     aff['name'] = enhancementBonusSearch.group(2) + ' Bonus'
@@ -294,13 +298,14 @@ def get_items_from_page(itemPageURL):
 
 
 
-
-
+with open("../site/src/assets/sets.json", 'r', encoding='utf8') as file:
+    sets = json.load(file)
+    
 cachePath = "./cache/"
 items = []
 for file in os.listdir(cachePath):
     if include_page(file):
-        items.extend(get_items_from_page(cachePath + file))
+        items.extend(get_items_from_page(cachePath + file, sets))
 
 out = json.dumps(items, sort_keys=True, indent=4)
 open("../site/src/assets/items.json", 'w', encoding='utf8').write(out)

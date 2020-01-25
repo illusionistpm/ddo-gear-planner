@@ -17,4 +17,18 @@
         </div>
         <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
     </div>
+
+
+
 </div>
+
+<h5>Set Bonuses</h5>
+<div class="col">
+    <div class="form-group row mb-0 ml-2 table-striped table-condensed small hover-helper"
+        *ngFor="let affix of equipped.getActiveSetBonuses()">
+        <span class="show-on-hover fas fa-heart heart" *ngIf="equipped.isImportantAffix(affix.name)" (click)="equipped.toggleImportantAffix(affix.name)"></span>
+        <span class="show-on-hover far fa-heart heart" *ngIf="!equipped.isImportantAffix(affix.name)" (click)="equipped.toggleImportantAffix(affix.name)"></span>
+        <div class="col">{{affix.name}}</div>
+        <div class="col">{{affix.value ? "+" + affix.value : ""}} {{affix.type}}</div>
+    </div>
+    </div>

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { Item } from './item';
+import { Affix } from './affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
 import craftingList from 'src/assets/crafting.json';
+import setList from 'src/assets/sets.json';
 
 @Injectable({
   providedIn: 'root'
@@ -161,5 +163,19 @@ export class GearDbService {
     }
 
     return totalVal;
+  }
+
+  getSetBonus(set: string, numPieces: number) {
+    const bonuses = new Array<Affix>();
+    if (setList[set]) {
+      for (const data of setList[set]) {
+        if (Number(data.threshold) <= numPieces) {
+          for (const affix of data.affixes) {
+            bonuses.push(new Affix(affix));
+          }
+        }
+      }
+    }
+    return bonuses;
   }
 }

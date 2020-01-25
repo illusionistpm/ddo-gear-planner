@@ -6,6 +6,35 @@ import json
 from copy import deepcopy
 import collections
 
+def split_list(affix, affixes):
+    str = affix['name']
+    if str in ['hit and damage vs. Evil creatures',
+        'threat decrease with both melee and ranged attacks',
+        'times, and each stack lasts 30 seconds',
+        'threat generation with melee and ranged attacks']:
+        return False
+
+    if not ' and ' in str:
+        return False
+
+    words = str.split(',')
+    words = map(lambda a: a.split(' and '), words)
+    words = [item.strip() for sublist in words for item in sublist]    
+    while("" in words) : 
+        words.remove("")     
+
+    for suffix in ['Healing Amplification', 'Spell Power', 'Spell Crit Chance', 'Absorption']:
+        if words[-1].endswith(suffix):
+            for idx, word in enumerate(words[0:-1], 0):
+                words[idx] = word + " " + suffix
+
+    for word in words:
+        aff = deepcopy(affix)
+        aff['name'] = word
+        affixes.append(aff)
+
+    return True
+
 
 def get_sets_from_page(soup):
     sets = {}
@@ -68,9 +97,6 @@ def get_sets_from_page(soup):
 
                 listItems = bonusCell.find_all('li')
 
-                if setName == 'Legendary Silent Avenger':
-                    a = 1
-
                 if listItems:
                     for entry in listItems:
                         if 'bonus to' in entry.getText().lower():
@@ -81,18 +107,19 @@ def get_sets_from_page(soup):
                         if(search):
                             affix = {}
                             affix['value'] = search.group(1).strip()
-                            affix['type'] = search.group(2).strip()
+                            affix['type'] = search.group(2).strip().title()
                             affix['name'] = search.group(3).strip()
 
                             if affix['name'][-1:] == '.':
-                                affix['name'] = affix['name'][:-1]                                
+                                affix['name'] = affix['name'][:-1]
 
                             if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
                                 newAffix = deepcopy(affix)
                                 newAffix['name'] = 'Melee Power'
                                 affix['name'] = 'Ranged Power'
                                 affixes.append(newAffix)
-
+                            elif split_list(affix, affixes):
+                                continue
 
                             affixes.append(affix)
                 # else:

@@ -8,7 +8,17 @@
                     "value": "5"
                 },
                 {
-                    "name": "Positive, Negative, and Repair Healing Amplification",
+                    "name": "Positive Healing Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Healing Amplification",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -40,12 +50,42 @@
         {
             "affixes": [
                 {
-                    "name": "Electric, Fire, Force, and Repair Spell Power",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Electric, Fire, Force, and Repair Spell Crit Chance",
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Electric Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Repair Spell Crit Chance",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -225,7 +265,17 @@
                     "value": "25"
                 },
                 {
-                    "name": "Intelligence, Wisdom, and Charisma",
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Charisma",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -250,17 +300,52 @@
         {
             "affixes": [
                 {
-                    "name": "Fire, Force, Light and Positive Spell Power",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Fire, Force, Light and Positive Spell Crit Chance",
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Light Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Wisdom and Charisma",
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Light Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Charisma",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -314,7 +399,22 @@
                     "value": "75"
                 },
                 {
-                    "name": "Fire, Cold, Acid, and Electric Absorption",
+                    "name": "Fire Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Electric Absorption",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -331,7 +431,12 @@
                     "value": "5"
                 },
                 {
-                    "name": "Doublestrike and Offhand Doublestrike",
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Offhand Doublestrike",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -348,7 +453,12 @@
                     "value": "15"
                 },
                 {
-                    "name": "Doublestrike and Offhand Doublestrike",
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Offhand Doublestrike",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -361,12 +471,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire, Cold, Lightning, and Positive Spell Power",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Fire, Cold, Lightning, and Positive Spell Crit Chance",
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Lightning Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Cold Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Lightning Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -389,7 +529,12 @@
         {
             "affixes": [
                 {
-                    "name": "PRR and MRR",
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "MRR",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -416,7 +561,17 @@
                     "value": "20"
                 },
                 {
-                    "name": "Positive, Negative, and Repair Healing Amplification",
+                    "name": "Positive Healing Amplification",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Healing Amplification",
                     "type": "Profane",
                     "value": "20"
                 },
@@ -443,12 +598,42 @@
         {
             "affixes": [
                 {
-                    "name": "Electric, Fire, Force, and Repair Spell Power",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "50"
                 },
                 {
-                    "name": "Electric, Fire, Force, and Repair Spell Crit Chance",
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Electric Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Spell Crit Chance",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -530,7 +715,17 @@
                     "value": "50"
                 },
                 {
-                    "name": "Intelligence, Wisdom, and Charisma",
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Charisma",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -553,17 +748,52 @@
         {
             "affixes": [
                 {
-                    "name": "Fire, Force, Light and Positive Spell Power",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "50"
                 },
                 {
-                    "name": "Fire, Force, Light and Positive Spell Crit Chance",
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Light Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Wisdom and Charisma",
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Light Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Charisma",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -600,7 +830,22 @@
                     "value": "75"
                 },
                 {
-                    "name": "Fire, Cold, Acid, and Electric Absorption",
+                    "name": "Fire Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Electric Absorption",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -612,12 +857,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire, Cold, Lightning, and Positive Spell Power",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "50"
                 },
                 {
-                    "name": "Fire, Cold, Lightning, and Positive Spell Crit Chance",
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Lightning Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Lightning Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -639,7 +914,12 @@
         {
             "affixes": [
                 {
-                    "name": "PRR and MRR",
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "MRR",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -689,7 +969,12 @@
         {
             "affixes": [
                 {
-                    "name": "Doublestrike and Doubleshot",
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -851,7 +1136,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire and Cold Spell Power",
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -868,7 +1158,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire and Cold Spell Power",
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -886,7 +1181,12 @@
         {
             "affixes": [
                 {
-                    "name": "Doublestrike and Doubleshot",
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -915,72 +1215,82 @@
             "affixes": [
                 {
                     "name": "Melee Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Deadly",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
-                    "name": "Strength and Dexterity",
-                    "type": "artifact",
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Melee Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Deadly",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Melee Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Deadly",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Strength and Dexterity",
-                    "type": "artifact",
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Melee Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 },
                 {
                     "name": "Deadly",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 }
             ],
@@ -992,52 +1302,52 @@
             "affixes": [
                 {
                     "name": "Spell Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Spell Focus Mastery",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Int/Wis/Cha",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Spell Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "5"
                 },
                 {
                     "name": "Spell Focus Mastery",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Spell Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "5"
                 },
                 {
                     "name": "Spell Focus Mastery",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Int/Wis/Cha",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Spell Power",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
                     "name": "Spell Focus Mastery",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 }
             ],
@@ -1049,72 +1359,72 @@
             "affixes": [
                 {
                     "name": "MRR/PRR",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Resistance",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Spell Saves",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "Constitution",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
                     "name": "MRR/PRR",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Resistance",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Spell Saves",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "MRR/PRR",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Resistance",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Spell Saves",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Constitution",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "MRR/PRR",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 },
                 {
                     "name": "Resistance",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 },
                 {
                     "name": "Spell Saves",
-                    "type": "artifact",
+                    "type": "Artifact",
                     "value": "4"
                 }
             ],

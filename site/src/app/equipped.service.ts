@@ -109,6 +109,31 @@ export class EquippedService {
     return this.coveredAffixes.asObservable();
   }
 
+  getActiveSets() {
+    const setCounts = new Map<string, number>();
+    for (const slot of this.slots.values()) {
+      const item = slot.getValue();
+      if (item && item.set) {
+        let val = setCounts.get(item.set);
+        if (!val) {
+          val = 0;
+        }
+        setCounts.set(item.set, val + 1);
+      }
+    }
+    return setCounts;
+  }
+
+  getActiveSetBonuses() {
+    let affixes = new Array<Affix>();
+    for (const pair of this.getActiveSets().entries()) {
+      const aff = this.gearList.getSetBonus(pair[0], pair[1]);
+      affixes = affixes.concat(aff);
+    }
+
+    return affixes;
+  }
+
   private getValuesForAffixType(affixName: string, bonusType: string) {
     const values = [];
     for (const slot of this.slots) {

@@ -30,6 +30,10 @@ background: #FFFFFF;
     color: black;
 }
 
+.Penalty {
+    color: red;
+}
+
 .hover-helper:hover .show-on-hover {
     visibility: visible;
 

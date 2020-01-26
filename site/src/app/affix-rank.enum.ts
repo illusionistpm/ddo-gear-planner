@@ -3,5 +3,6 @@ export enum AffixRank {
     Best,
     BestTied,
     Outranked,
-    Irrelevant
+    Irrelevant,
+    Penalty
 }

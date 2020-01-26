@@ -18,6 +18,11 @@
     font-weight: bold;
 }
 
+.penalty-value {
+    color: red;
+    font-weight: bold;
+}
+
 .no-value {
     color: 	grey;
 }

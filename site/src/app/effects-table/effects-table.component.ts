@@ -63,7 +63,12 @@ export class EffectsTableComponent implements OnInit {
   }
 
   getClassForValue(affixName, type) {
+    if (type.bonusType === 'Penalty') {
+      return 'penalty-value';
+    }
+
     const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
+    
     if (type.value >= maxValue) {
       return 'max-value';
     } else if (type.value >= maxValue / 2) {

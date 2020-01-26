@@ -45,6 +45,13 @@ export class GearDescriptionComponent implements OnInit {
     this.equipped.set(this.curItem);
   }
 
+  getAffixValue(affix: Affix) {
+    if (affix.value) {
+      return (affix.value > 0 ? '+' : '') + affix.value;
+    }
+    return '';
+  }
+
   getClassForAffix(affix: Affix) {
     const affixRank = this.equipped.getAffixRanking(affix);
     return AffixRank[affixRank];

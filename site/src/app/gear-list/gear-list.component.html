@@ -22,7 +22,7 @@
 
 </div>
 
-<h5>Set Bonuses</h5>
+<h5 *ngIf="equipped.getActiveSetBonuses().length">Set Bonuses</h5>
 <div class="col">
     <div class="form-group row mb-0 ml-2 table-striped table-condensed small hover-helper"
         *ngFor="let affix of equipped.getActiveSetBonuses()">

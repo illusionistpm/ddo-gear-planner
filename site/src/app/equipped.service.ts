@@ -154,7 +154,7 @@ export class EquippedService {
       if (slot[1].getValue()) {
         for (const affix of slot[1].getValue().getActiveAffixes()) {
           if (affix.name === affixName && affix.type === bonusType) {
-            if (affix.value > max) {
+            if (!max || affix.value > max) {
               max = affix.value;
             }
             break;
@@ -167,16 +167,13 @@ export class EquippedService {
 
   private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {
     const map = new Map<string, number>();
-    for (const type of this.gearList.getTypesForAffix(affixName)) {
-      map.set(type, 0);
-    }
 
     for (const slot of this.slots) {
       const item = (testItem && (slot[0] === testItem.slot)) ? testItem : slot[1].getValue();
       if (item) {
         for (const affix of item.getActiveAffixes()) {
           if (affix.name === affixName) {
-            if (map.get(affix.type) < affix.value) {
+            if (!map.get(affix.type) || map.get(affix.type) < affix.value) {
               map.set(affix.type, affix.value);
             }
             break;
@@ -268,6 +265,10 @@ export class EquippedService {
     // The crafting guys are being passed in too, and they aren't actually affixes. Will have to sort that out.
     if (!affix) {
       return AffixRank.Irrelevant;
+    }
+
+    if (affix.type === 'Penalty') {
+      return AffixRank.Penalty;
     }
 
     if (!this.importantAffixes.has(affix.name)) {

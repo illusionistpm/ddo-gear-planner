@@ -72,18 +72,28 @@ export class GearDbService {
 
     for (const items of this.gear.values()) {
       for (const item of items) {
-        for (const affix of item.affixes) {
-          if (!this.affixToBonusTypes.has(affix.name)) {
-            this.affixToBonusTypes.set(affix.name, new Map<string, number>());
-          }
+        this._addAffixesToMap(item.affixes);
+      }
+    }
 
-          const typeMap = this.affixToBonusTypes.get(affix.name);
+    for (const setName of Object.getOwnPropertyNames(setList)) {
+      for (const threshold of setList[setName]) {
+        this._addAffixesToMap(threshold.affixes);
+      }
+    }
+  }
 
-          const bestVal = typeMap.get(affix.type);
-          if (!bestVal || bestVal < affix.value) {
-            typeMap.set(affix.type, affix.value);
-          }
-        }
+  private _addAffixesToMap(affixes: Array<Affix>) {
+    for (const affix of affixes) {
+      if (!this.affixToBonusTypes.has(affix.name)) {
+        this.affixToBonusTypes.set(affix.name, new Map<string, number>());
+      }
+
+      const typeMap = this.affixToBonusTypes.get(affix.name);
+
+      const bestVal = typeMap.get(affix.type);
+      if (!bestVal || bestVal < affix.value) {
+        typeMap.set(affix.type, Number(affix.value));
       }
     }
   }
@@ -159,7 +169,10 @@ export class GearDbService {
 
     let totalVal = 0;
     for (const type of outermap.keys()) {
-      totalVal += this.getBestValueForAffixType(affixName, type);
+      const val = this.getBestValueForAffixType(affixName, type);
+      if (val > 0) {
+        totalVal += val;
+      }
     }
 
     return totalVal;

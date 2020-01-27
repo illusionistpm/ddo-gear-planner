@@ -125,13 +125,13 @@ export class EquippedService {
   }
 
   getActiveSetBonuses() {
-    let affixes = new Array<Affix>();
+    const setToAffixes = new Array<[string, Array<Affix>]>();
     for (const pair of this.getActiveSets().entries()) {
       const aff = this.gearList.getSetBonus(pair[0], pair[1]);
-      affixes = affixes.concat(aff);
+      setToAffixes.push([pair[0], aff]);
     }
 
-    return affixes;
+    return setToAffixes;
   }
 
   private getValuesForAffixType(affixName: string, bonusType: string) {
@@ -162,6 +162,18 @@ export class EquippedService {
         }
       }
     }
+
+    for (const setToAffixes of this.getActiveSetBonuses()) {
+      for (const affix of setToAffixes[1]) {
+        if (affix.name === affixName && affix.type === bonusType) {
+          if (!max || affix.value > max) {
+            max = affix.value;
+          }
+          break;
+        }
+      }
+    }
+
     return max;
   }
 

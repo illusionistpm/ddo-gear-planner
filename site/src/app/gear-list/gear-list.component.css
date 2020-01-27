@@ -21,3 +21,43 @@
     color: lightgray;
     font-size: 14px;
 }
+
+/* JK: FIXME!! BEGIN: These are duplicated from gear-description and you should feel bad */
+.hover-helper:hover .show-on-hover {
+    visibility: visible;
+}
+
+.hover-helper .show-on-hover {
+    visibility: hidden;
+}
+
+
+.BetterThanBest {
+    font-weight: bold;
+    color: purple;
+}
+
+.Best {
+    font-weight: bold;
+    color: green;
+}
+
+.BestTied {
+    font-style: italic;
+    font-weight: bold;
+    color: blue;
+}
+
+.Outranked {
+    font-weight: bold;
+    color: darkorange;
+}
+
+.Irrelevant {
+    color: black;
+}
+
+.Penalty {
+    color: red;
+}
+/* JK: FIXME!! END: These are duplicated from gear-description and you should feel bad */

@@ -108,8 +108,8 @@ def cleanup_one_of_the_following(name):
 
     return name
 
-def fix_necromancy_focus(name):
-    return name + " 1" if name == "Necromancy Focus" else name
+def add_default_one(name):
+    return name + " 1" if name in ["Necromancy Focus", "Deathblock"] else name
 
 
 def strip_trailing_colon(name):
@@ -202,7 +202,7 @@ def get_items_from_page(itemPageURL, sets):
                 affixName = convert_roman_numerals(affixName)
                 affixName = clean_up_old_augments(affixName)
                 affixName = cleanup_one_of_the_following(affixName)
-                affixName = fix_necromancy_focus(affixName)
+                affixName = add_default_one(affixName)
                 
                 affixName = affixName.strip()
 
@@ -281,6 +281,9 @@ def get_items_from_page(itemPageURL, sets):
 
                 if 'value' in aff and int(aff['value']) < 0:
                     aff['type'] = 'Penalty'
+
+                if aff['name'] == 'Deathblock' and 'type' not in aff:
+                    aff['type'] = 'Enhancement'
 
                 item['affixes'].append(aff)
         else:

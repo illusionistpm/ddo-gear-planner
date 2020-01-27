@@ -490,7 +490,9 @@
                 "name": "Dusk"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "ml": "12",
@@ -509,7 +511,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Nightmare Guard"
@@ -536,7 +540,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Nightmare Guard"
@@ -568,7 +574,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Nightmare Guard"
@@ -600,7 +608,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Nightmare Guard"
@@ -794,7 +804,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -827,7 +839,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -860,7 +874,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -893,7 +909,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -926,7 +944,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -959,7 +979,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -987,7 +1009,9 @@
                 "name": "Sticky Goo Guard"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -9719,7 +9743,9 @@
                 "value": "15"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -10013,7 +10039,9 @@
                 "value": "15"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -10777,7 +10805,9 @@
                 "name": "Blurry"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -10937,7 +10967,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -10980,7 +11012,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -11300,7 +11334,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Armor Bonus",
@@ -21068,7 +21104,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -21531,7 +21569,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -30905,7 +30945,9 @@
                 "value": "3"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "crafting": [
@@ -30921,7 +30963,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Devotion",
@@ -31609,7 +31653,9 @@
                 "name": "Absorb Doomsphere Spells"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "ml": "13",
@@ -32511,7 +32557,9 @@
                 "value": "12"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "crafting": [
@@ -32527,7 +32575,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Healing Lore",
@@ -35121,7 +35171,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Proof Against Disease",
@@ -35232,7 +35284,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Proof Against Disease",
@@ -47038,7 +47092,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Disable Device",
@@ -48069,7 +48125,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Eternal Faith"
@@ -48126,7 +48184,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Devotion",
@@ -50467,7 +50527,9 @@
                 "name": "Negative Energy Absorption"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Eternal Faith"
@@ -50753,7 +50815,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Devotion",
@@ -51626,7 +51690,9 @@
                 "value": "5"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "crafting": [
@@ -53238,7 +53304,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -54284,7 +54352,9 @@
                 "value": "15"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -60557,7 +60627,9 @@
                 "value": "5"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Negative Energy Spike"
@@ -64012,7 +64084,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -65901,7 +65975,9 @@
                 "value": "15"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -74074,7 +74150,9 @@
                 "value": "15"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Ghostly",
@@ -75140,7 +75218,9 @@
                 "value": "11"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",
@@ -78318,7 +78398,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Wisdom",
@@ -78430,7 +78512,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Negative Energy Absorption"
@@ -78445,7 +78529,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Negative Energy Absorption"
@@ -78460,7 +78546,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Negative Energy Absorption"
@@ -78478,7 +78566,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Resistance",
@@ -78498,7 +78588,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Resistance",
@@ -78521,7 +78613,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Resistance",
@@ -78547,7 +78641,9 @@
                 "name": "Cause Fear"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "ml": "11",
@@ -80686,7 +80782,9 @@
     {
         "affixes": [
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Intelligence",
@@ -80994,7 +81092,9 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Constitution",
@@ -81987,7 +82087,9 @@
                 "name": "Negative Energy Absorption"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "ml": "9",
@@ -82002,7 +82104,9 @@
                 "name": "Negative Energy Absorption"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Protection from Evil"
@@ -93783,7 +93887,9 @@
                 "value": "40"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Tira's Splendor"
@@ -102369,7 +102475,9 @@
                 "name": "Shield Proficiency: Tower Shield"
             },
             {
-                "name": "Deathblock"
+                "name": "Deathblock",
+                "type": "Enhancement",
+                "value": "1"
             },
             {
                 "name": "Fortification",

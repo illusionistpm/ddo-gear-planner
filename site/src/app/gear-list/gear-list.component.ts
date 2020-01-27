@@ -3,7 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
+import { Affix } from '../affix';
+import { AffixRank } from '../affix-rank.enum';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
 
@@ -56,5 +57,19 @@ export class GearListComponent implements OnInit {
     }
 
     return '';
+  }
+
+  // JAK: FIXME!! This is duplicated and awful
+  getAffixValue(affix: Affix) {
+    if (affix.value) {
+      return (affix.value > 0 ? '+' : '') + affix.value;
+    }
+    return '';
+  }
+
+  // JAK: FIXME!! This is duplicated and awful
+  getClassForAffix(affix: Affix) {
+    const affixRank = this.equipped.getAffixRanking(affix);
+    return AffixRank[affixRank];
   }
 }

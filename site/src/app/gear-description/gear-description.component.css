@@ -43,6 +43,10 @@ background: #FFFFFF;
     visibility: hidden;
 }
 
+.show-never {
+    visibility: hidden;
+}
+
 .heart {
     color: red;
 }

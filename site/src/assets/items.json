@@ -103787,9 +103787,6 @@
             },
             {
                 "name": "Improved Deception"
-            },
-            {
-                "name": "* Legendary Adherent of the Mists"
             }
         ],
         "crafting": [
@@ -103798,6 +103795,7 @@
         ],
         "ml": "28",
         "name": "Echo of Ravenkind",
+        "set": "Legendary Adherent of the Mists",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Echo_of_Ravenkind"

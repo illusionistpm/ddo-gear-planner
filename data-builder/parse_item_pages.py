@@ -117,6 +117,10 @@ def strip_trailing_colon(name):
         return name[:-1]
     return name
 
+def strip_leading_asterisk(name):
+    if len(name) > 0 and name[0] == '*':
+        return name[1:]
+    return name
 
 def get_items_from_page(itemPageURL, sets):
     print("Parsing " + itemPageURL)
@@ -194,6 +198,7 @@ def get_items_from_page(itemPageURL, sets):
                 affixName = strip_fixed_suffixes(affixName)
                 affixName = strip_preslotted_augments(affixName)
                 affixName = strip_trailing_colon(affixName)
+                affixName = strip_leading_asterisk(affixName)
                 affixName = convert_roman_numerals(affixName)
                 affixName = clean_up_old_augments(affixName)
                 affixName = cleanup_one_of_the_following(affixName)

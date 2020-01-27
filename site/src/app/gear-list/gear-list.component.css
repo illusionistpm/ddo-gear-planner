@@ -20,6 +20,7 @@
 .unlocked {
     color: lightgray;
     font-size: 14px;
+    position: relative;
 }
 
 /* JK: FIXME!! BEGIN: These are duplicated from gear-description and you should feel bad */

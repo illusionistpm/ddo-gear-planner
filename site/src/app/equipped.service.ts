@@ -145,36 +145,26 @@ export class EquippedService {
         }
       }
     }
-    return values.sort((a, b) => a - b);
-  }
-
-  private _getBestValueForAffixType(affixName: string, bonusType: string) {
-    let max = null;
-    for (const slot of this.slots) {
-      if (slot[1].getValue()) {
-        for (const affix of slot[1].getValue().getActiveAffixes()) {
-          if (affix.name === affixName && affix.type === bonusType) {
-            if (!max || affix.value > max) {
-              max = affix.value;
-            }
-            break;
-          }
-        }
-      }
-    }
 
     for (const setToAffixes of this.getActiveSetBonuses()) {
       for (const affix of setToAffixes[1]) {
         if (affix.name === affixName && affix.type === bonusType) {
-          if (!max || affix.value > max) {
-            max = affix.value;
-          }
-          break;
+          values.push({ slot: 'set', value: affix.value });
         }
       }
     }
 
-    return max;
+    return values.sort((a, b) => a - b);
+  }
+
+  private _getBestValueForAffixType(affixName: string, bonusType: string) {
+
+    const arr = this.getValuesForAffixType(affixName, bonusType);
+    if (arr.length) {
+      return arr[0].value;
+    }
+
+    return 0;
   }
 
   private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {

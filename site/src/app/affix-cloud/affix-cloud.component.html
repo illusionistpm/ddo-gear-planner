@@ -1,5 +1,7 @@
 <div class="container">
-    <h3 class="row">Pick some affixes:</h3>
+    <!-- Affix Cloud -->
+    <h3 class="row">Pick some affixes</h3>
+    <p>What affixes are important to your build?</p>
     <div class="row">
         <div class="form-group" *ngFor="let result of topResults">
             <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
@@ -7,12 +9,14 @@
         </div>
     </div>
 
-    <h4 class="row mt-2">Or enter one:</h4>
+    <!-- Manual Entry -->
+    <h4 class="row mt-2">Enter affixes manually:</h4>
     <div class="row mt-2">
-        <app-typeahead id="effect-search" class="col-8" type="text" [source]=allAffixes [onChange]=onChange()>
+        <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes [onChange]=onChange()>
         </app-typeahead>
     </div>
 
+    <!-- Saved Affixes -->
     <h4 class="row mt-2" *ngIf="savedSet.size">Saved affixes:</h4>
     <div class="row">
         <div class="form-group" *ngFor="let result of savedSet">
@@ -20,6 +24,7 @@
         </div>
     </div>
 
+    <!-- Done -->
     <div class="row mt-2">
         <a class="btn btn-success" routerLink="/main" routerLinkActive="active">Done</a>
     </div>

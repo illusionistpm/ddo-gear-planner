@@ -11,6 +11,7 @@ export class TypeaheadComponent implements OnInit {
   @Input() source;
   @Input() item;
   @Input() onChange: (val: string) => any;
+  @Input() placeholder: string;
 
   itemName: string;
 

@@ -1,34 +1,35 @@
-<div class="row">
-    <h3 class="col-sm-7 col-md-6 col-lg-3">Tracked Affixes</h3>
-    <a class="btn btn-success col-sm-4 col-md-4 col-lg-2" routerLink="/affixes" routerLinkActive="active">Add
-        More...</a>
-
+<div class="row section-header">
+    <h3>Tracked Affixes</h3>
 </div>
 <div class="row">
     <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let effect of effectKeys">
         <div>
-            <span class="h4">{{effect.name}}: {{currentBonus(effect.name)}}<span
+            <span class="h5">{{effect.name}}: {{currentBonus(effect.name)}}<span
                     class="max-available">/{{maxBonus(effect.name)}}</span></span>
             <button type="button" class="close float-right" aria-label="Close" (click)="removeAffix(effect.name)">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="col" *ngFor="let types of effects.get(effect.name)">
-                <button class="col" *ngIf="types.value; else noValue"
+            <button class="col" *ngIf="types.value; else noValue"
+                (click)="showItemsWithBonusType(effect.name, types.bonusType)">
+                <span
+                    [ngClass]="getClassForValue(effect.name, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
+                    {{types.value}} </span>
+                <span
+                    class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
+            </button>
+            <ng-template #noValue>
+                <button [hidden]="types.bonusType === 'Penalty'" class="col no-value"
                     (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                    <span
-                        [ngClass]="getClassForValue(effect.name, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
-                        {{types.value}} </span>
+                    {{types.bonusType ? types.bonusType : "Untyped"}}
                     <span
                         class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
                 </button>
-                <ng-template #noValue>
-                    <button [hidden]="types.bonusType === 'Penalty'" class="col no-value" (click)="showItemsWithBonusType(effect.name, types.bonusType)">
-                        {{types.bonusType ? types.bonusType : "Untyped"}}
-                        <span
-                            class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
-                    </button>
-                </ng-template>
-            </div>
+            </ng-template>
+        </div>
     </div>
+</div>
+<div class="row">
+    <a class="btn btn-success col-sm-4 col-md-4 col-lg-2 mt-1 mb-2" routerLink="/affixes" routerLinkActive="active">Add Affixes...</a>
 </div>

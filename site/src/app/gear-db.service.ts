@@ -145,6 +145,22 @@ export class GearDbService {
     return results;
   }
 
+  findSetsWithAffixAndType(affixName, bonusType) {
+    const results = [];
+
+    for (const setName of Object.getOwnPropertyNames(setList)) {
+      for (const threshold of setList[setName]) {
+        for (const affix of threshold.affixes) {
+          if (affix.name === affixName && affix.type === bonusType) {
+            results.push(setName);
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
   getAllAffixes() {
     return Array.from(this.affixToBonusTypes.keys());
   }

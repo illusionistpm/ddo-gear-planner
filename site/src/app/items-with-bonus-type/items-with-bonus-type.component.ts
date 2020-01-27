@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
+import { Affix } from '../affix';
 
 @Component({
   selector: 'app-items-with-bonus-type',
@@ -17,6 +18,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
 
   matches: Array<Item>;
   lockedMatches: Array<Item>;
+
+  setMatches: Array<[string, Array<Affix>, Array<Item>]>;
 
   constructor(
     public gearDB: GearDbService,
@@ -37,6 +40,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
         this.lockedMatches.push(item);
       }
     }
+
+    const sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);

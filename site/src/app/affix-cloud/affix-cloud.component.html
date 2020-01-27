@@ -1,6 +1,8 @@
 <div class="container">
     <!-- Affix Cloud -->
-    <h3 class="row">Pick some affixes</h3>
+    <div class="row section-header">
+        <h3>Choose affixes</h3>
+    </div>
     <p>What affixes are important to your build?</p>
     <div class="row">
         <div class="form-group" *ngFor="let result of topResults">
@@ -10,22 +12,30 @@
     </div>
 
     <!-- Manual Entry -->
-    <h4 class="row mt-2">Enter affixes manually:</h4>
     <div class="row mt-2">
-        <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes [onChange]=onChange()>
+        <p class="col-sm-12 col-md-4">Enter affixes manually:</p>
+        <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes
+            [onChange]=onChange()>
         </app-typeahead>
     </div>
 
     <!-- Saved Affixes -->
-    <h4 class="row mt-2" *ngIf="savedSet.size">Saved affixes:</h4>
-    <div class="row">
-        <div class="form-group" *ngFor="let result of savedSet">
-            <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
+    <div *ngIf="savedSet.size">
+        <div class="row section-header my-2">
+            <h4>Saved affixes</h4>
+        </div>
+        <div class="row">
+            <p>Tap to remove</p>
+        </div>
+        <div class="row">
+            <div class="form-group" *ngFor="let result of savedSet">
+                <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
+            </div>
         </div>
     </div>
 
     <!-- Done -->
     <div class="row mt-2">
-        <a class="btn btn-success" routerLink="/main" routerLinkActive="active">Done</a>
+        <a class="btn btn-success col-4" routerLink="/main" routerLinkActive="active">Done</a>
     </div>
 </div>

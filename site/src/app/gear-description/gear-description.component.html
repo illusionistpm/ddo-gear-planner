@@ -1,17 +1,17 @@
-<div class="form-group col" *ngIf="curItem">
+<div class="col" *ngIf="curItem">
     <div><b>ML: {{curItem.ml}}</b></div>
     <!-- Main Affixes -->
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small hover-helper"
+    <div class="row table-striped table-condensed small hover-helper"
         [ngClass]="getClassForAffix(affix)" *ngFor="let affix of curItem.affixes">
-        <span class="show-on-hover fas fa-heart heart" *ngIf="equipped.isImportantAffix(affix.name)"
-            (click)="equipped.toggleImportantAffix(affix.name)"></span>
-        <span class="show-on-hover far fa-heart heart" *ngIf="!equipped.isImportantAffix(affix.name)"
-            (click)="equipped.toggleImportantAffix(affix.name)"></span>
-        <div class="col">{{affix.name}}</div>
+        <button class="show-on-hover fas fa-heart heart pr-1" *ngIf="equipped.isImportantAffix(affix.name)"
+            (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        <button class="show-on-hover far fa-heart heart pr-1" *ngIf="!equipped.isImportantAffix(affix.name)"
+            (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        <div class="col pl-1">{{affix.name}}</div>
         <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
     </div>
     <!-- Crafting -->
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small" *ngFor="let craft of curItem.crafting">
+    <div class="row table-striped table-condensed small" *ngFor="let craft of curItem.crafting">
         <span class="show-never fas fa-heart heart"></span>
         <div class="col" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
         <div class="col">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <!-- Sets -->
-    <div class="form-group row mb-0 ml-2 table-striped table-condensed small">
+    <div class="row table-striped table-condensed small">
         <span class="show-never fas fa-heart heart"></span>
         <div class="col" *ngIf="curItem.set">
             Set: {{curItem.set}} ({{equipped.getActiveSets().get(curItem.set)}})

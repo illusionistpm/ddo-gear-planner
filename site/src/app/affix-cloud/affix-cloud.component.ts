@@ -41,6 +41,10 @@ export class AffixCloudComponent implements OnInit {
     this.cloud = new AffixCloud(flatList);
 
     this.ignoredSet.add('Enhancement Bonus');
+    this.ignoredSet.add('Orb Bonus');
+    this.ignoredSet.add('Spellcasting Implement');
+    this.ignoredSet.add('Upgradeable - Primary Augment');
+    this.ignoredSet.add('Upgradeable - Secondary Augment');
 
     this._initTopResults();
   }
@@ -85,7 +89,7 @@ export class AffixCloudComponent implements OnInit {
       }
     }
 
-    this.topResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 20);
+    this.topResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 30);
   }
 
   remove(affix: string) {

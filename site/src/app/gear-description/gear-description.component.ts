@@ -2,6 +2,7 @@ import { CraftableOption } from './../craftable-option';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
+import { CannithService } from '../cannith.service';
 
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
@@ -17,9 +18,11 @@ import { Observable } from 'rxjs';
 export class GearDescriptionComponent implements OnInit {
   @Input() item: Observable<Item> | Item;
   curItem: Item = null;
+  cannithML: number;
 
   constructor(
-    public equipped: EquippedService
+    public equipped: EquippedService,
+    public cannith: CannithService
   ) {
   }
 
@@ -42,6 +45,11 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   updateItem() {
+    this.equipped.set(this.curItem);
+  }
+
+  updateML() {
+    this.cannith.setItemToML(this.curItem, this.cannithML)
     this.equipped.set(this.curItem);
   }
 

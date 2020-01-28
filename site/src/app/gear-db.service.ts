@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { CannithService } from './cannith.service';
+
 import { Item } from './item';
 import { Affix } from './affix';
 import { Craftable } from './craftable';
@@ -18,7 +20,9 @@ export class GearDbService {
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
 
-  constructor() {
+  constructor(
+    public cannith: CannithService
+  ) {
     this.filterByLevelRange(1, 30);
   }
 
@@ -71,31 +75,7 @@ export class GearDbService {
     }
     this.gear.set('Ring2', ring2);
 
-    for (const slot of this.gear.keys()) {
-      const locations = cannithList['itemTypes'][slot];
-      if (locations) {
-        const craftingOptions = new Array<Craftable>();
-
-        for (const location of ['Prefix', 'Suffix', 'Extra']) {
-          const newOptions = [];
-          for (const affix of locations[location]) {
-            const option = new CraftableOption(null);
-            const ml = 34;
-            const value = cannithList['progression'][affix][ml-1];
-            option.affixes.push(new Affix({name: affix, value: value, type: 'BogusType'}))
-            newOptions.push(new CraftableOption(option));
-          }
-          craftingOptions.push(new Craftable(location, newOptions));
-        }
-
-        const cannithBlank = new Item(null);
-        cannithBlank.ml = 34;
-        cannithBlank.slot = slot;
-        cannithBlank.name = 'Cannith ' + slot + ' (' + cannithBlank.ml + ')';
-        cannithBlank.crafting = craftingOptions;
-        this.gear.get(cannithBlank.slot).push(cannithBlank);
-      }
-    }
+    this._buildCannithItems();
 
     for (const items of this.gear.values()) {
       for (const item of items) {
@@ -106,6 +86,23 @@ export class GearDbService {
     for (const setName of Object.getOwnPropertyNames(setList)) {
       for (const threshold of setList[setName]) {
         this._addAffixesToMap(threshold.affixes);
+      }
+    }
+  }
+
+  private _buildCannithItems() {
+    for (const slot of this.gear.keys()) {
+      const locations = cannithList['itemTypes'][slot];
+      if (locations) {
+        const ml = 34;
+        const craftingOptions = this.cannith.getValuesForML(slot, ml);
+
+        const cannithBlank = new Item(null);
+        cannithBlank.ml = ml;
+        cannithBlank.slot = slot;
+        cannithBlank.name = 'Cannith ' + slot;
+        cannithBlank.crafting = craftingOptions;
+        this.gear.get(cannithBlank.slot).push(cannithBlank);
       }
     }
   }

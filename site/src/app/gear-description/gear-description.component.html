@@ -1,8 +1,18 @@
 <div class="col" *ngIf="curItem">
-    <div><b>ML: {{curItem.ml}}</b></div>
+    <div class="row pl-2" *ngIf="!curItem.name.startsWith('Cannith'); else cannithMLTemp"><b>ML: {{curItem.ml}}</b></div>
+    <ng-template #cannithMLTemp>
+        <div class="row pl-2">
+            <div><b>ML:&nbsp;</b></div>
+            <select [(ngModel)]="cannithML" (change)="updateML()">
+                <option *ngFor="let ml of cannith.levels">{{ml}}</option>
+            </select>
+        </div>
+    </ng-template>
+
+
     <!-- Main Affixes -->
-    <div class="row table-striped table-condensed small hover-helper"
-        [ngClass]="getClassForAffix(affix)" *ngFor="let affix of curItem.affixes">
+    <div class="row table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
+        *ngFor="let affix of curItem.affixes">
         <button class="show-on-hover fas fa-heart heart pr-1" *ngIf="equipped.isImportantAffix(affix.name)"
             (click)="equipped.toggleImportantAffix(affix.name)"></button>
         <button class="show-on-hover far fa-heart heart pr-1" *ngIf="!equipped.isImportantAffix(affix.name)"

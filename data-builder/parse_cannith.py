@@ -39,6 +39,10 @@ next(rows)
 for row in rows:
     affix = row[0].value
     affix = affix.replace('Ins.', 'Insightful')
+    affix = affix.title()
+
+    if affix == 'Spell Resistance (Sr)':
+        affix = 'Spell Resistance'
 
     progVals = []
     for val in range(levelStart, levelEnd + 1):

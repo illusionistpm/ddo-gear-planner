@@ -211,8 +211,11 @@ export class EquippedService {
     for (const affix of item.getActiveAffixes()) {
       if (this.importantAffixes.has(affix.name)) {
 
+        const dummyItem = new Item(null);
+        dummyItem.slot = item.slot;
+
         const valWithNewItem = this._getTotalValueForAffixTestingItem(affix.name, item);
-        const valWithCurItem = this._getTotalValueForAffixTestingItem(affix.name, null);
+        const valWithCurItem = this._getTotalValueForAffixTestingItem(affix.name, dummyItem);
 
         const improvement = valWithNewItem - valWithCurItem;
 

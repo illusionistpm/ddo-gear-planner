@@ -420,8 +420,9 @@
                 "value": "8"
             },
             {
-                "name": "Heightened Awareness (1)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "1"
             }
         ],
         "ml": "3",
@@ -464,8 +465,9 @@
                 "name": "Invisibility"
             },
             {
-                "name": "Invisibility (Protection +2)",
-                "type": "Deflection"
+                "name": "Invisibility (Protection",
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostly",
@@ -4334,8 +4336,9 @@
                 "value": "28"
             },
             {
-                "name": "Shining Silver Scales (Cold Absorption 51%)",
-                "type": "Enhancement"
+                "name": "Shining Silver Scales (Cold Absorption",
+                "type": "Enhancement",
+                "value": "51"
             }
         ],
         "crafting": [
@@ -5411,7 +5414,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -5834,7 +5837,8 @@
                 "name": "Ghostbane 9 (if Paladin)"
             },
             {
-                "name": "Weapon's Coruscating Effect +9 (if Paladin 20)"
+                "name": "Weapon's Coruscating Effect +9 (if Paladin",
+                "value": "20"
             },
             {
                 "name": "Metalline (if Paladin)"
@@ -6337,7 +6341,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -10828,7 +10832,8 @@
     {
         "affixes": [
             {
-                "name": "Class Required: Wizard, Sorcerer, Bard (UMD: 0)"
+                "name": "Class Required: Wizard, Sorcerer, Bard (UMD",
+                "value": "0"
             },
             {
                 "name": "Armor Bonus",
@@ -13560,7 +13565,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -13580,7 +13585,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -16780,7 +16785,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -17664,7 +17669,7 @@
                 "name": "Returning"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -18851,8 +18856,9 @@
                 "value": "5"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Attack Bonus",
@@ -18881,8 +18887,9 @@
                 "value": "5"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -18997,8 +19004,9 @@
                 "value": "5"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Dragontouched"
@@ -19271,8 +19279,9 @@
                 "value": "5"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "False Life",
@@ -19367,8 +19376,9 @@
                 "value": "6"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Dexterity",
@@ -19547,8 +19557,9 @@
                 "value": "6"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Fire Resistance",
@@ -20822,8 +20833,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "ml": "15",
@@ -20850,8 +20862,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "ml": "16",
@@ -20878,8 +20891,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             }
         ],
         "ml": "17",
@@ -20906,8 +20920,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             },
             {
                 "name": "Constitution",
@@ -20944,8 +20959,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             },
             {
                 "name": "Constitution",
@@ -20982,8 +20998,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+50%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "50"
             },
             {
                 "name": "Constitution",
@@ -21351,8 +21368,9 @@
                 "value": "5"
             },
             {
-                "name": "Construct Fortification (10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Constitution",
@@ -22655,7 +22673,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -26483,7 +26501,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -28637,7 +28655,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Lawful (UMD: 20)"
+                "name": "Required Trait: Lawful (UMD",
+                "value": "20"
             },
             {
                 "name": "Striding",
@@ -33054,15 +33073,17 @@
     {
         "affixes": [
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             },
             {
                 "name": "Resistance +2 (Reflex)"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             }
         ],
         "ml": "20",
@@ -34252,7 +34273,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Good (UMD: 0)"
+                "name": "Required Trait: Good (UMD",
+                "value": "0"
             },
             {
                 "name": "Raise Dead"
@@ -37031,7 +37053,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -38073,7 +38095,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -38703,7 +38725,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -39645,7 +39667,9 @@
                 "name": "Unbalancing"
             },
             {
-                "name": "Unwieldy ( Dexterity -2)"
+                "name": "Unwieldy ( Dexterity",
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "14",
@@ -39837,7 +39861,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -40108,10 +40132,12 @@
                 "value": "9"
             },
             {
-                "name": "Weapon's Coruscating Effect +9 (if Paladin 20)"
+                "name": "Weapon's Coruscating Effect +9 (if Paladin",
+                "value": "20"
             },
             {
-                "name": "Metalline (if Paladin 20)"
+                "name": "Metalline (if Paladin",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -41521,7 +41547,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -42634,7 +42660,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -43878,8 +43904,9 @@
                 "value": "7"
             },
             {
-                "name": "Heightened Awareness (2)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -52295,8 +52322,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "DR",
@@ -52592,8 +52620,9 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Fortification (+50%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "50"
             },
             {
                 "name": "Greater Nimbleness",
@@ -55260,7 +55289,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -55449,7 +55478,8 @@
                 "name": "Fire Touch"
             },
             {
-                "name": "Craftable (+5)"
+                "name": "Craftable",
+                "value": "5"
             }
         ],
         "ml": "1",
@@ -56040,7 +56070,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -57007,7 +57037,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -57817,7 +57847,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -58903,7 +58933,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -59716,7 +59746,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -63684,8 +63714,9 @@
                 "value": "3"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             },
             {
                 "name": "Superior Nimbleness",
@@ -65356,8 +65387,9 @@
                 "value": "3"
             },
             {
-                "name": "Heightened Awareness (2)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "2"
             },
             {
                 "name": "Greater Nimbleness",
@@ -66073,8 +66105,9 @@
                 "value": "2"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             }
         ],
         "ml": "18",
@@ -66108,8 +66141,9 @@
                 "value": "3"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             }
         ],
         "ml": "23",
@@ -66143,8 +66177,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             }
         ],
         "ml": "24",
@@ -66178,8 +66213,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (5)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "5"
             }
         ],
         "ml": "25",
@@ -66762,7 +66798,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -67467,7 +67503,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -68119,7 +68155,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -68831,7 +68867,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -70628,7 +70664,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -71867,8 +71903,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             },
             {
                 "name": "Improved Cursespewing"
@@ -72109,7 +72146,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -73398,7 +73435,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -74983,8 +75020,9 @@
                 "name": "Haste Guard"
             },
             {
-                "name": "Fortification (+50%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "50"
             },
             {
                 "name": "Greater Nimbleness",
@@ -75569,8 +75607,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "ml": "15",
@@ -75597,8 +75636,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "ml": "16",
@@ -75625,8 +75665,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             }
         ],
         "ml": "17",
@@ -75653,8 +75694,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             },
             {
                 "name": "Constitution",
@@ -75691,8 +75733,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+25%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "25"
             },
             {
                 "name": "Constitution",
@@ -75729,8 +75772,9 @@
                 "value": "100"
             },
             {
-                "name": "Fortification (+50%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "50"
             },
             {
                 "name": "Constitution",
@@ -77610,7 +77654,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -77928,7 +77972,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Paladin (UMD: 12)"
+                "name": "Required Trait: Paladin (UMD",
+                "value": "12"
             },
             {
                 "name": "Devotion",
@@ -78167,7 +78212,7 @@
                 "value": "7"
             },
             {
-                "name": "Absorb Beholder Spells  (Recharged/day: 8)"
+                "name": "Absorb Beholder Spells"
             }
         ],
         "ml": "7",
@@ -82044,7 +82089,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Chaotic (UMD: 20)"
+                "name": "Required Trait: Chaotic (UMD",
+                "value": "20"
             },
             {
                 "name": "Shout"
@@ -84823,7 +84869,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -87886,7 +87932,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -90066,7 +90112,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -90784,7 +90830,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -91466,7 +91512,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -91646,7 +91692,8 @@
                 "name": "Cold Bolts"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -91679,7 +91726,8 @@
                 "value": "10"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -91712,7 +91760,8 @@
                 "value": "10"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "7",
@@ -91743,7 +91792,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -91766,7 +91816,8 @@
                 "name": "Cold Bolts"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -91968,7 +92019,8 @@
                 "name": "Acid Shot"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -92001,7 +92053,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "7",
@@ -92024,7 +92077,8 @@
                 "name": "Acid Shot"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -92057,7 +92111,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -92192,7 +92247,8 @@
                 "name": "Taint of Chaos"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "17",
@@ -92442,7 +92498,8 @@
                 "value": "2"
             },
             {
-                "name": "Craftable Rune Arm: (+2)"
+                "name": "Craftable Rune Arm",
+                "value": "2"
             }
         ],
         "ml": "3",
@@ -92471,7 +92528,8 @@
                 "name": "Diehard"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -92494,7 +92552,8 @@
                 "name": "Electrical Blast"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -92520,11 +92579,13 @@
                 "name": "Smiting Weapons"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
-                "name": "Craftable Rune Arm: (+4)"
+                "name": "Craftable Rune Arm",
+                "value": "4"
             }
         ],
         "ml": "9",
@@ -92547,7 +92608,8 @@
                 "name": "Electrical Blast"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -92580,7 +92642,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -92691,14 +92754,16 @@
                 "value": "48"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Missing Parts"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "19",
@@ -92958,7 +93023,8 @@
                 "value": "1"
             },
             {
-                "name": "Craftable Rune Arm: (+2)"
+                "name": "Craftable Rune Arm",
+                "value": "2"
             }
         ],
         "ml": "1",
@@ -92981,7 +93047,8 @@
                 "name": "Fire Blast"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -93009,7 +93076,8 @@
                 "value": "75"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -93036,7 +93104,8 @@
                 "value": "2"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -93067,7 +93136,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+4)"
+                "name": "Craftable Rune Arm",
+                "value": "4"
             }
         ],
         "ml": "9",
@@ -93182,7 +93252,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+4)"
+                "name": "Craftable Rune Arm",
+                "value": "4"
             }
         ],
         "ml": "11",
@@ -93205,7 +93276,8 @@
                 "name": "Fire Blast"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -93272,7 +93344,8 @@
                 "name": "Taint of Evil"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "19",
@@ -93292,7 +93365,9 @@
                 "value": "5"
             },
             {
-                "name": "Fortification Penalty (-25%)"
+                "name": "Fortification",
+                "type": "Penalty",
+                "value": "-25"
             }
         ],
         "ml": "24",
@@ -93312,7 +93387,9 @@
                 "value": "5"
             },
             {
-                "name": "Fortification Penalty (-25%)"
+                "name": "Fortification",
+                "type": "Penalty",
+                "value": "-25"
             }
         ],
         "crafting": [
@@ -93335,7 +93412,9 @@
                 "value": "5"
             },
             {
-                "name": "Fortification Penalty (-25%)"
+                "name": "Fortification",
+                "type": "Penalty",
+                "value": "-25"
             }
         ],
         "ml": "24",
@@ -93483,7 +93562,8 @@
                 "value": "1"
             },
             {
-                "name": "Craftable Rune Arm: (+2)"
+                "name": "Craftable Rune Arm",
+                "value": "2"
             }
         ],
         "ml": "1",
@@ -93511,7 +93591,8 @@
                 "name": "Starter"
             },
             {
-                "name": "Craftable Rune Arm: (+2)"
+                "name": "Craftable Rune Arm",
+                "value": "2"
             }
         ],
         "ml": "1",
@@ -93542,7 +93623,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+2)"
+                "name": "Craftable Rune Arm",
+                "value": "2"
             }
         ],
         "ml": "3",
@@ -93565,7 +93647,8 @@
                 "name": "Light Spirals"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -93588,7 +93671,8 @@
                 "name": "Force Shot"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "5",
@@ -93617,7 +93701,8 @@
                 "name": "Coronach"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "7",
@@ -93639,7 +93724,8 @@
                 "name": "Life Shield"
             },
             {
-                "name": "Craftable Rune Arm: (+3)"
+                "name": "Craftable Rune Arm",
+                "value": "3"
             }
         ],
         "ml": "7",
@@ -93707,7 +93793,8 @@
                 "name": "Anathema"
             },
             {
-                "name": "Craftable Rune Arm: (+4)"
+                "name": "Craftable Rune Arm",
+                "value": "4"
             }
         ],
         "ml": "9",
@@ -93740,7 +93827,8 @@
                 "value": "5"
             },
             {
-                "name": "Craftable Rune Arm: (+4)"
+                "name": "Craftable Rune Arm",
+                "value": "4"
             }
         ],
         "ml": "11",
@@ -93796,7 +93884,8 @@
                 "name": "Light Spirals"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -93819,7 +93908,8 @@
                 "name": "Force Shot"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "13",
@@ -93898,7 +93988,8 @@
                 "name": "Embodiment of Law"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "15",
@@ -94012,7 +94103,8 @@
                 "value": "-2"
             },
             {
-                "name": "Craftable Rune Arm: (+5)"
+                "name": "Craftable Rune Arm",
+                "value": "5"
             }
         ],
         "ml": "19",
@@ -94119,7 +94211,9 @@
                 "value": "11"
             },
             {
-                "name": "Fortification Penalty (-25%)"
+                "name": "Fortification",
+                "type": "Penalty",
+                "value": "-25"
             }
         ],
         "crafting": [
@@ -95555,7 +95649,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -96370,7 +96464,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -97750,7 +97844,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -98588,7 +98682,7 @@
                 "name": "Returning"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -99666,7 +99760,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -100916,7 +101010,7 @@
                 "name": "Returning"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -101412,7 +101506,7 @@
                 "name": "Returning"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -101726,7 +101820,7 @@
                 "name": "Returning"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -103992,13 +104086,16 @@
                 "name": "Dark Chocolate 'Magma' Truffle (3 minutes)"
             },
             {
-                "name": "Nut-hull Toffee Surprise (CL 10)"
+                "name": "Nut-hull Toffee Surprise (CL",
+                "value": "10"
             },
             {
-                "name": "Choco-Bacon-Berry Dream Bar (+4 enhancement, +2 store bonus. CL 10)"
+                "name": "Choco-Bacon-Berry Dream Bar (+4 enhancement, +2 store bonus. CL",
+                "value": "10"
             },
             {
-                "name": "Glacial Mint Bon Bon (CL 12)"
+                "name": "Glacial Mint Bon Bon (CL",
+                "value": "12"
             }
         ],
         "ml": 1,
@@ -104879,8 +104976,9 @@
                 "name": "Pirate Vitality"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             },
             {
                 "name": "Earthen Guard"
@@ -105262,8 +105360,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (2)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "2"
             }
         ],
         "ml": "12",
@@ -105280,8 +105379,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (3)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "3"
             }
         ],
         "ml": "13",
@@ -105298,8 +105398,9 @@
                 "value": "5"
             },
             {
-                "name": "Heightened Awareness (4)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
             }
         ],
         "ml": "14",
@@ -105316,8 +105417,9 @@
                 "value": "7"
             },
             {
-                "name": "Heightened Awareness (5)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "5"
             }
         ],
         "crafting": [
@@ -105337,8 +105439,9 @@
                 "value": "7"
             },
             {
-                "name": "Heightened Awareness (6)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "6"
             }
         ],
         "crafting": [
@@ -105358,8 +105461,9 @@
                 "value": "8"
             },
             {
-                "name": "Heightened Awareness (6)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "6"
             }
         ],
         "crafting": [
@@ -107028,8 +107132,9 @@
                 "name": "Pirate Vitality"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -107165,8 +107270,9 @@
                 "value": "1"
             },
             {
-                "name": "Fortification (+10%)",
-                "type": "Insight"
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "10"
             }
         ],
         "ml": "15",
@@ -107597,7 +107703,8 @@
     {
         "affixes": [
             {
-                "name": "Craftable (+5)"
+                "name": "Craftable",
+                "value": "5"
             }
         ],
         "ml": 1,
@@ -108496,7 +108603,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait:: Lawful (UMD: 24)"
+                "name": "Required Trait:: Lawful (UMD",
+                "value": "24"
             },
             {
                 "name": "Potency",
@@ -110391,8 +110499,9 @@
                 "value": "6"
             },
             {
-                "name": "Heightened Awareness (1)",
-                "type": "Insight"
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "1"
             },
             {
                 "name": "Knight of the Chalice"
@@ -112172,7 +112281,9 @@
                 "name": "Maiming"
             },
             {
-                "name": "Unwieldy ( Dexterity -2)"
+                "name": "Unwieldy ( Dexterity",
+                "type": "Penalty",
+                "value": "-2"
             }
         ],
         "ml": "16",
@@ -112251,7 +112362,7 @@
                 "value": "9"
             },
             {
-                "name": "Thunder-Forged (Tier 0)"
+                "name": "Thunder-Forged"
             }
         ],
         "crafting": [
@@ -113956,7 +114067,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Lawful (UMD: 20)"
+                "name": "Required Trait: Lawful (UMD",
+                "value": "20"
             },
             {
                 "name": "Heroism",
@@ -114784,7 +114896,8 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Chaotic (UMD: 20)"
+                "name": "Required Trait: Chaotic (UMD",
+                "value": "20"
             },
             {
                 "name": "Protection",

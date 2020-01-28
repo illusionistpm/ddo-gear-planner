@@ -62,7 +62,7 @@ def strip_bonus_types(name):
 
 
 def strip_charges(name):
-    name = re.sub(r'-? \d+ Charges( *\(Recharged/Day: *?(\d+|None)\))?', '', name)
+    name = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
     return name
     
 
@@ -93,7 +93,7 @@ def strip_preslotted_augments(name):
 def strip_fixed_suffixes(name):
     for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1", 
         "Visibility 2", "Jet Propulsion", "A Mysterious Effect", "Haggle +3 ", "Vampirism 1 ", "Unholy 9 ",
-         "Cannith Combat Infusion", "Chitinous Covering", 'Upgradeable Item']:
+         "Cannith Combat Infusion", "Chitinous Covering", 'Upgradeable Item', 'Thunder-Forged']:
         if name.startswith(prefix):
             return prefix
 
@@ -108,8 +108,19 @@ def cleanup_one_of_the_following(name):
 
     return name
 
+
 def add_default_one(name):
     return name + " 1" if name in ["Necromancy Focus", "Deathblock"] else name
+
+
+def sub_name(name):
+    for pair in [
+        ['Fortification Penalty', 'Fortification'],
+        ['Construct Fortification', 'Fortification']
+        ]:
+        if name == pair[0]:
+            return pair[1]
+    return name
 
 
 def strip_trailing_colon(name):
@@ -117,10 +128,12 @@ def strip_trailing_colon(name):
         return name[:-1]
     return name
 
+
 def strip_leading_asterisk(name):
     if len(name) > 0 and name[0] == '*':
         return name[1:]
     return name
+
 
 def get_items_from_page(itemPageURL, sets):
     print("Parsing " + itemPageURL)
@@ -206,7 +219,7 @@ def get_items_from_page(itemPageURL, sets):
                 
                 affixName = affixName.strip()
 
-                affixNameSearch = re.search(r'^(.*?) (- )?\+?(-?[0-9]+)\%?$', affixName)
+                affixNameSearch = re.search(r'^(.*?) (- )?\(?\+?(-?[0-9]+)\%?\)?$', affixName)
                 if affixNameSearch:
                     aff['name'] = affixNameSearch.group(1).strip()
                     aff['value'] = affixNameSearch.group(3).strip()
@@ -214,6 +227,8 @@ def get_items_from_page(itemPageURL, sets):
                     aff['name'] = affixName.strip()
 
                 aff['name'] = strip_trailing_colon(aff['name'])
+                aff['name'] = sub_name(aff['name'])
+
 
                 if aff['name'] in sets:
                     item['set'] = aff['name']

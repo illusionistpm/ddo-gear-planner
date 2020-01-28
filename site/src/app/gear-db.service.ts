@@ -7,6 +7,7 @@ import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
 import craftingList from 'src/assets/crafting.json';
+import cannithList from 'src/assets/cannith.json';
 import setList from 'src/assets/sets.json';
 
 @Injectable({
@@ -69,6 +70,32 @@ export class GearDbService {
       ring2.push(newItem);
     }
     this.gear.set('Ring2', ring2);
+
+    for (const slot of this.gear.keys()) {
+      const locations = cannithList['itemTypes'][slot];
+      if (locations) {
+        const craftingOptions = new Array<Craftable>();
+
+        for (const location of ['Prefix', 'Suffix', 'Extra']) {
+          const newOptions = [];
+          for (const affix of locations[location]) {
+            const option = new CraftableOption(null);
+            const ml = 34;
+            const value = cannithList['progression'][affix][ml-1];
+            option.affixes.push(new Affix({name: affix, value: value, type: 'BogusType'}))
+            newOptions.push(new CraftableOption(option));
+          }
+          craftingOptions.push(new Craftable(location, newOptions));
+        }
+
+        const cannithBlank = new Item(null);
+        cannithBlank.ml = 34;
+        cannithBlank.slot = slot;
+        cannithBlank.name = 'Cannith ' + slot + ' (' + cannithBlank.ml + ')';
+        cannithBlank.crafting = craftingOptions;
+        this.gear.get(cannithBlank.slot).push(cannithBlank);
+      }
+    }
 
     for (const items of this.gear.values()) {
       for (const item of items) {

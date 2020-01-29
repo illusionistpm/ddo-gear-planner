@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GearDbService } from '../gear-db.service';
+import { FiltersService } from '../filters.service';
 
 @Component({
   selector: 'app-level-range',
@@ -12,23 +13,21 @@ export class LevelRangeComponent implements OnInit {
   maxLevel: number;
 
   constructor(
-    public gearDB: GearDbService
+    public gearDB: GearDbService,
+    public filters: FiltersService,
   ) {
-    this.minLevel = 1;
-    this.maxLevel = 30;
+    filters.getLevelRange().subscribe(val => {
+      this.minLevel = val[0];
+      this.maxLevel = val[1];
+    });
   }
 
   ngOnInit() {
   }
 
   onChange() {
-    if (!this.minLevel || this.minLevel < 1) {
-      this.minLevel = 1;
-    }
+    this.filters.setLevelRange(this.minLevel, this.maxLevel);
 
-    if (!this.maxLevel || this.maxLevel > 30) {
-      this.maxLevel = 30;
-    }
     this.gearDB.filterByLevelRange(this.minLevel, this.maxLevel);
   }
 

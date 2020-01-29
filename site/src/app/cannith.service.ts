@@ -23,7 +23,7 @@ export class CannithService {
   setItemToML(item: Item, ml: number) {
     const indexes = [];
     for(const craftable of item.crafting) {
-      indexes.push(craftable.options.findIndex(a => a == craftable.selected));
+      indexes.push(craftable.options.findIndex(a => a === craftable.selected));
     }
 
     item.ml = ml;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { CannithService } from './cannith.service';
+import { FiltersService } from './filters.service';
 
 import { Item } from './item';
 import { Affix } from './affix';
@@ -21,9 +22,10 @@ export class GearDbService {
   bestValues: Map<any, number>;
 
   constructor(
-    public cannith: CannithService
+    public cannith: CannithService,
+    public filters: FiltersService
   ) {
-    this.filterByLevelRange(1, 30);
+    this.filters.getLevelRange().subscribe(val => this.filterByLevelRange(val[0], val[1]));
   }
 
   filterByLevelRange(minLevel: number, maxLevel: number) {
@@ -92,17 +94,35 @@ export class GearDbService {
 
   private _buildCannithItems() {
     for (const slot of this.gear.keys()) {
-      const locations = cannithList['itemTypes'][slot];
-      if (locations) {
-        const ml = 34;
-        const craftingOptions = this.cannith.getValuesForML(slot, ml);
+      let cannithSlots = null;
+      switch (slot) {
+        case 'Ring1':
+        case 'Ring2':
+          cannithSlots = ['Ring'];
+          break;
+        case 'Weapon':
+          cannithSlots = ['Melee', 'Ranged'];
+          break;
+        case 'Offhand':
+          cannithSlots = ['Shield', 'Rune Arm', 'Orb'];
+          break;
+        default:
+          cannithSlots = [slot];
+      }
 
-        const cannithBlank = new Item(null);
-        cannithBlank.ml = ml;
-        cannithBlank.slot = slot;
-        cannithBlank.name = 'Cannith ' + slot;
-        cannithBlank.crafting = craftingOptions;
-        this.gear.get(cannithBlank.slot).push(cannithBlank);
+      for (const cannithSlot of cannithSlots) {
+        const locations = cannithList['itemTypes'][cannithSlot];
+        if (locations) {
+          const ml = 34;
+          const craftingOptions = this.cannith.getValuesForML(cannithSlot, ml);
+
+          const cannithBlank = new Item(null);
+          cannithBlank.ml = ml;
+          cannithBlank.slot = slot;
+          cannithBlank.name = 'Cannith ' + cannithSlot;
+          cannithBlank.crafting = craftingOptions;
+          this.gear.get(cannithBlank.slot).push(cannithBlank);
+        }
       }
     }
   }

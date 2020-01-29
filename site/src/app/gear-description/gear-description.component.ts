@@ -30,9 +30,11 @@ export class GearDescriptionComponent implements OnInit {
     if (this.item instanceof Observable) {
       this.item.subscribe(val => {
         this.curItem = val;
+        this.cannithML = this.curItem ? this.curItem.ml : null;
       });
     } else {
       this.curItem = this.item;
+      this.cannithML = this.curItem ? this.curItem.ml : null;
     }
   }
 
@@ -49,7 +51,7 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   updateML() {
-    this.cannith.setItemToML(this.curItem, this.cannithML)
+    this.cannith.setItemToML(this.curItem, this.cannithML);
     this.equipped.set(this.curItem);
   }
 

@@ -1,6 +1,9 @@
 import openpyxl 
 import json
-  
+from get_most_common_bonus_type import get_most_common_bonus_type
+
+assumedBonusTypeMap = get_most_common_bonus_type()
+
 wb = openpyxl.load_workbook('cannith-crafting.xlsx') 
   
 for s in range(len(wb.sheetnames)):
@@ -33,6 +36,7 @@ progression = {}
 itemTypes = {}
 output['progression'] = progression
 output['itemTypes'] = itemTypes
+output['bonusTypes'] = assumedBonusTypeMap
 
 rows = ws.iter_rows()
 next(rows)
@@ -60,6 +64,15 @@ for row in rows:
                 itemTypes[itemInfo['itemType']][itemInfo['affixLoc']] = []
 
             itemTypes[itemInfo['itemType']][itemInfo['affixLoc']].append(affix)
+
+delKeys = []
+for k,v in assumedBonusTypeMap.items():
+    if k not in progression:
+        print("delete " + k)
+        delKeys.append(k)
+
+for k in delKeys:
+    del assumedBonusTypeMap[k]
 
 
 out = json.dumps(output, sort_keys=True, indent=4)

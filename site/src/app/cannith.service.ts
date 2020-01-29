@@ -49,6 +49,12 @@ export class CannithService {
         if (affix.startsWith('Insightful')) {
           affix = affix.replace('Insightful ', '');
           type = 'Insight';
+        } else {
+          const bonusType = cannithList['bonusTypes'][affix];
+          if (bonusType) {
+            type = bonusType;
+          }
+
         }
         option.affixes.push(new Affix({ name: affix, value, type }));
         newOptions.push(new CraftableOption(option));

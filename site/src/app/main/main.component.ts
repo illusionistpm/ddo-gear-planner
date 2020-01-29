@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
-import { EquippedService } from '../equipped.service';
+import { QueryParamsService } from '../query-params.service';
 
 @Component({
   selector: 'app-main',
@@ -9,17 +9,15 @@ import { EquippedService } from '../equipped.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  params;
-
   constructor(
     private readonly route: ActivatedRoute,
-    private equipped: EquippedService
+    private queryParams: QueryParamsService
   ) {
   }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-      this.equipped.updateFromParams(params);
+      this.queryParams.updateFromParams(params);
     });
   }
 

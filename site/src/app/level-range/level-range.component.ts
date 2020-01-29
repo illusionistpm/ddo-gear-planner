@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GearDbService } from '../gear-db.service';
 import { FiltersService } from '../filters.service';
 
 @Component({
@@ -13,7 +12,6 @@ export class LevelRangeComponent implements OnInit {
   maxLevel: number;
 
   constructor(
-    public gearDB: GearDbService,
     public filters: FiltersService,
   ) {
     filters.getLevelRange().subscribe(val => {
@@ -27,8 +25,5 @@ export class LevelRangeComponent implements OnInit {
 
   onChange() {
     this.filters.setLevelRange(this.minLevel, this.maxLevel);
-
-    this.gearDB.filterByLevelRange(this.minLevel, this.maxLevel);
   }
-
 }

@@ -27,7 +27,7 @@ export class ItemSuggestionsComponent implements OnInit {
     this.current = this.equipped.getSlot(this.slot);
 
     const shortlist = [];
-    for (const gear of this.gearDB.getGearBySlot(this.slot)) {
+    for (const gear of this.gearDB.getFilteredGearBySlot(this.slot)) {
       shortlist.push(gear);
     }
 

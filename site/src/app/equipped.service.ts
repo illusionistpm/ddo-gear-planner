@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Item } from './item';
 import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService } from './gear-db.service';
-import { BehaviorSubject } from 'rxjs';
+import { QueryParamsService } from './query-params.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +19,11 @@ export class EquippedService {
 
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
 
+  private params: BehaviorSubject<any>;
+
   constructor(
     private gearList: GearDbService,
-    private readonly router: Router
+    private queryParams: QueryParamsService
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
@@ -33,14 +34,11 @@ export class EquippedService {
     for (const slot of gearList.getSlots()) {
       this.slots.set(slot, new BehaviorSubject(null));
     }
-  }
 
-  loadDefaults() {
-    let item = this.gearList.findGearBySlot('Cloak', 'Accomplice');
-    this.set(item);
+    this.params = new BehaviorSubject<any>(null);
 
-    item = this.gearList.findGearBySlot('Offhand', 'Legendary Stygian Wrath');
-    this.set(item);
+    this.queryParams.register(this, this.params);
+    this.queryParams.subscribe(this);
   }
 
   updateFromParams(params) {
@@ -48,12 +46,14 @@ export class EquippedService {
       if (key === 'tracked') {
         this.setImportantAffixes(params.getAll(key));
       } else {
-        const itemName = params.get(key);
-        const item = this.gearList.findGearBySlot(key, itemName);
-        if (item) {
-          this._set(item);
-        } else {
-          console.log('Can\'t find ' + itemName + ' for slot ' + key);
+        if (this.gearList.getSlots().find(v => v === key)) {
+          const itemName = params.get(key);
+          const item = this.gearList.findGearBySlot(key, itemName);
+          if (item) {
+            this._set(item);
+          } else {
+            console.log('Can\'t find ' + itemName + ' for slot ' + key);
+          }
         }
       }
     }
@@ -78,7 +78,7 @@ export class EquippedService {
 
     params['tracked'] = Array.from(this.importantAffixes);
 
-    this.router.navigate([], { queryParams: params });
+    this.params.next(params);
   }
 
   set(item: Item) {
@@ -296,9 +296,6 @@ export class EquippedService {
   }
 
   private _updateCoveredAffixes() {
-    // const newMap = new AffixToSlotMap(Array.from(this.slots.values()).map(elem => elem.getValue()));
-    // newMap.prune(this.importantAffixes);
-
     // affixName => Array of {bonusType, Array of {slot: value}}
     const newMap = new Map<string, Array<any>>();
 

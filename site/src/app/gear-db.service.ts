@@ -18,6 +18,7 @@ import setList from 'src/assets/sets.json';
 })
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
+  private allGear: Map<string, Array<Item>>;
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
 
@@ -25,11 +26,17 @@ export class GearDbService {
     public cannith: CannithService,
     public filters: FiltersService
   ) {
-    this.filters.getLevelRange().subscribe(val => this.filterByLevelRange(val[0], val[1]));
+    this.gear = new Map<string, Array<Item>>();
+    this.allGear = this.filterByLevelRange(1, 30);
+
+    this.filters.getLevelRange().subscribe(val => {
+      this.gear = this.filterByLevelRange(val[0], val[1])
+    });
   }
 
   filterByLevelRange(minLevel: number, maxLevel: number) {
-    this.gear = new Map<string, Array<Item>>();
+    const gear = new Map<string, Array<Item>>();
+
     this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
     for (const item of itemsList) {
@@ -41,8 +48,8 @@ export class GearDbService {
         item.slot = 'Ring1';
       }
 
-      if (!this.gear.has(item.slot)) {
-        this.gear.set(item.slot, new Array<Item>());
+      if (!gear.has(item.slot)) {
+        gear.set(item.slot, new Array<Item>());
       }
 
       const newItem = new Item(item);
@@ -66,20 +73,20 @@ export class GearDbService {
         newItem.crafting = craftingOptions;
       }
 
-      this.gear.get(item.slot).push(newItem);
+      gear.get(item.slot).push(newItem);
     }
 
     const ring2 = [];
-    for (const item of this.gear.get('Ring1')) {
+    for (const item of gear.get('Ring1')) {
       const newItem = new Item(item);
       newItem.slot = 'Ring2';
       ring2.push(newItem);
     }
-    this.gear.set('Ring2', ring2);
+    gear.set('Ring2', ring2);
 
-    this._buildCannithItems();
+    this._buildCannithItems(gear, maxLevel);
 
-    for (const items of this.gear.values()) {
+    for (const items of gear.values()) {
       for (const item of items) {
         this._addAffixesToMap(item.affixes);
       }
@@ -90,10 +97,12 @@ export class GearDbService {
         this._addAffixesToMap(threshold.affixes);
       }
     }
+
+    return gear;
   }
 
-  private _buildCannithItems() {
-    for (const slot of this.gear.keys()) {
+  private _buildCannithItems(gear, maxLevel) {
+    for (const slot of gear.keys()) {
       let cannithSlots = null;
       switch (slot) {
         case 'Ring1':
@@ -113,7 +122,7 @@ export class GearDbService {
       for (const cannithSlot of cannithSlots) {
         const locations = cannithList['itemTypes'][cannithSlot];
         if (locations) {
-          const ml = 34;
+          const ml = maxLevel == 30 ? 34 : maxLevel;
           const craftingOptions = this.cannith.getValuesForML(cannithSlot, ml);
 
           const cannithBlank = new Item(null);
@@ -121,7 +130,7 @@ export class GearDbService {
           cannithBlank.slot = slot;
           cannithBlank.name = 'Cannith ' + cannithSlot;
           cannithBlank.crafting = craftingOptions;
-          this.gear.get(cannithBlank.slot).push(cannithBlank);
+          gear.get(cannithBlank.slot).push(cannithBlank);
         }
       }
     }
@@ -146,8 +155,12 @@ export class GearDbService {
     return this.gear;
   }
 
-  getGearBySlot(type: string) {
+  getFilteredGearBySlot(type: string) {
     return this.gear.get(type);
+  }
+
+  getGearBySlot(type: string) {
+    return this.allGear.get(type);
   }
 
   private getSortIndex(slot: string) {

@@ -154,11 +154,10 @@ export class EquippedService {
       }
     }
 
-    return values.sort((a, b) => a - b);
+    return values.sort((a, b) => b.value - a.value);
   }
 
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
-
     const arr = this.getValuesForAffixType(affixName, bonusType);
     if (arr.length) {
       return arr[0].value;

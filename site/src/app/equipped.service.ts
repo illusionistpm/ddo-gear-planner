@@ -28,7 +28,7 @@ export class EquippedService {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
 
-    this.importantAffixes = new Set(['Constitution']);
+    this.importantAffixes = new Set();
 
     this.slots = new Map();
     for (const slot of gearList.getSlots()) {

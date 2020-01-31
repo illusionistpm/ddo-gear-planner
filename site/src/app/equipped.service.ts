@@ -94,6 +94,10 @@ export class EquippedService {
       }
     }
 
+    for (const lockedSlot of params.getAll('locked')) {
+      this.setLock(lockedSlot, true);
+    }
+
     // Don't subscribe until after we've parsed the URL; otherwise we just overwrite what the user gave us.
     for (const slot of this.slots) {
       slot[1].subscribe(v => { this._updateCoveredAffixes(); });
@@ -121,6 +125,8 @@ export class EquippedService {
         }
       }
     }
+
+    params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
 
@@ -150,6 +156,15 @@ export class EquippedService {
     const slots = new Map<string, Observable<Item>>();
     for (const pair of this.slots.entries()) {
       slots.set(pair[0], pair[1].asObservable());
+    }
+
+    return slots;
+  }
+
+  getSlotNames() {
+    const slots = new Array<string>();
+    for (const slot of this.slots.keys()) {
+      slots.push(slot);
     }
 
     return slots;
@@ -244,17 +259,40 @@ export class EquippedService {
     return item.name === this.slots.get(item.slot).getValue().name;
   }
 
+  setLock(slot: string, lock: boolean) {
+    if (this.unlockedSlots.has(slot)) {
+      if (lock) {
+        this.unlockedSlots.delete(slot);
+      }
+    } else if (!lock) {
+      this.unlockedSlots.add(slot);
+    }
+    
+    this._updateRouterState();
+  }
+
   toggleLock(slot: string) {
     if (this.unlockedSlots.has(slot)) {
       this.unlockedSlots.delete(slot);
     } else {
       this.unlockedSlots.add(slot);
     }
-
+    
+    this._updateRouterState();
   }
 
   isLocked(slot: string) {
     return !this.unlockedSlots.has(slot);
+  }
+
+  getLockedSlots() {
+    const lockedSlots = [];
+    for (const slot of this.getSlotNames()) {
+      if (!this.unlockedSlots.has(slot)) {
+        lockedSlots.push(slot);
+      }
+    }
+    return lockedSlots;
   }
 
   getUnlockedSlots() {

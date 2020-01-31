@@ -26,7 +26,7 @@ def get_most_common_bonus_type():
         maxCount = 0
 
         for bonusType, count in v.items():
-            if count > maxCount:
+            if count > maxCount and bonusType not in ['Profane', 'Insight']:
                 maxCount = count
                 bestBonus = bonusType
 

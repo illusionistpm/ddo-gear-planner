@@ -45,25 +45,41 @@ for row in rows:
     affix = affix.replace('Ins.', 'Insightful')
     affix = affix.title()
 
+    affixes = []
+
+    if affix == 'Universal Spell Lore':
+        for lore in ['Acid Lore', 'Cold Lore', 'Electricity Lore', 'Fire Lore', 'Force Lore', 'Light Lore', 'Negative Lore', 'Positive Lore', 'Repair Lore', 'Sonic Lore', 'Spell Lore']:
+            affixes.append(lore)
+
     if affix == 'Spell Resistance (Sr)':
         affix = 'Spell Resistance'
+
+    if affix == 'Resistance (Save)':
+        affix = 'Resistance'
+
+    if affix.startswith('Spell Focus: '):
+        affix = affix.replace('Spell Focus: ', '') + ' Focus'
+
+    if len(affixes) == 0:
+        affixes.append(affix)
 
     progVals = []
     for val in range(levelStart, levelEnd + 1):
         progVals.append(row[val].value)
-    
-    progression[affix] = progVals
 
-    for itemInfo in itemTypeInfoList:
-        isMarked = row[itemInfo['col']].value
-        if isMarked and len(isMarked) > 0:
-            if itemInfo['itemType'] not in itemTypes:
-                itemTypes[itemInfo['itemType']] = {}
+    for affix in affixes:
+        progression[affix] = progVals
 
-            if itemInfo['affixLoc'] not in itemTypes[itemInfo['itemType']]:
-                itemTypes[itemInfo['itemType']][itemInfo['affixLoc']] = []
+        for itemInfo in itemTypeInfoList:
+            isMarked = row[itemInfo['col']].value
+            if isMarked and len(isMarked) > 0:
+                if itemInfo['itemType'] not in itemTypes:
+                    itemTypes[itemInfo['itemType']] = {}
 
-            itemTypes[itemInfo['itemType']][itemInfo['affixLoc']].append(affix)
+                if itemInfo['affixLoc'] not in itemTypes[itemInfo['itemType']]:
+                    itemTypes[itemInfo['itemType']][itemInfo['affixLoc']] = []
+
+                itemTypes[itemInfo['itemType']][itemInfo['affixLoc']].append(affix)
 
 delKeys = []
 for k,v in assumedBonusTypeMap.items():

@@ -42,19 +42,55 @@ export class EquippedService {
   }
 
   updateFromParams(params) {
+    const craftingParams = new Array<any>();
+
     for (const key of params.keys) {
       if (key === 'tracked') {
         this.setImportantAffixes(params.getAll(key));
-      } else {
-        if (this.gearList.getSlots().find(v => v === key)) {
-          const itemName = params.get(key);
-          const item = this.gearList.findGearBySlot(key, itemName);
-          if (item) {
-            this._set(item);
-          } else {
-            console.log('Can\'t find ' + itemName + ' for slot ' + key);
-          }
+      } else if (key.startsWith('craft_')) {
+        const parts = key.split('_');
+        if (parts.length !== 3) {
+          console.log('Bad crafting key: ' + key);
+          continue;
         }
+        const index = Number(parts[1]);
+        if (craftingParams.length <= index) {
+          craftingParams.length = index + 1;
+        }
+        let craftingParam = craftingParams[index];
+        if (!craftingParam) {
+          craftingParam = new Object();
+          craftingParams[index] = craftingParam;
+        }
+        craftingParam[parts[2]] = params.get(key);
+
+
+      } else if (this.gearList.getSlots().find(v => v === key)) {
+        const itemName = params.get(key);
+        const item = this.gearList.findGearBySlot(key, itemName);
+        if (item) {
+          this._set(item);
+        } else {
+          console.log('Can\'t find ' + itemName + ' for slot ' + key);
+        }
+      }
+    }
+
+    for (const craftingParam of craftingParams) {
+      const itemSubj = this.slots.get(craftingParam['slot']);
+      const item = itemSubj.getValue();
+      if (!item) {
+        console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
+        continue;
+      }
+      const crafting = item.getCraftingByName(craftingParam['system']);
+      if (!crafting) {
+        console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
+        continue;
+      }
+      if(!crafting.selectByFirstAffixName(craftingParam['selected'])) {
+        console.log('Couldn\'t set craftable. Couldn\'t find affix called ' + craftingParam['selected']);
+        continue;
       }
     }
 
@@ -64,21 +100,35 @@ export class EquippedService {
     }
   }
 
-  _set(item: Item) {
-    this.slots.get(item.slot).next(item);
-  }
-
   _updateRouterState() {
     const params = {};
+    let craftingIdx = 0;
     for (const kv of this.slots) {
-      if (kv[1].getValue()) {
-        params[kv[0]] = kv[1].getValue().name;
+      const slot = kv[0];
+      const item = kv[1].getValue();
+      if (item) {
+        params[slot] = item.name;
+
+        if (item.crafting) {
+          for (const crafting of item.crafting) {
+            if (crafting.selected.affixes.length) {
+              params['craft_' + craftingIdx + "_slot"] = slot;
+              params['craft_' + craftingIdx + "_system"] = crafting.name;
+              params['craft_' + craftingIdx + "_selected"] = crafting.selected.affixes[0].name;
+              craftingIdx++;
+            }
+          }
+        }
       }
     }
 
     params['tracked'] = Array.from(this.importantAffixes);
 
     this.params.next(params);
+  }
+
+  _set(item: Item) {
+    this.slots.get(item.slot).next(item);
   }
 
   set(item: Item) {

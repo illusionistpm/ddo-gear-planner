@@ -63,11 +63,10 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     return [crafting, value];
   }
 
-  viewItem(item: Item) {
-
-  }
-
   equipItem(item: Item) {
+    // Apply the relevant crafting option, if any
+    item.selectMatchingBonusType(this.affixName, this.bonusType);
+
     this.equipped.set(item);
     this.modalService.dismissAll();
   }

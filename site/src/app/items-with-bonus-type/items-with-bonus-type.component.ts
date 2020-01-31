@@ -6,6 +6,8 @@ import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 import { Affix } from '../affix';
 
+import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
+
 @Component({
   selector: 'app-items-with-bonus-type',
   templateUrl: './items-with-bonus-type.component.html',
@@ -18,6 +20,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
 
   matches: Array<Item>;
   lockedMatches: Array<Item>;
+
+  sets: Array<[string, number, number]>;
 
   setMatches: Array<[string, Array<Affix>, Array<Item>]>;
 
@@ -42,7 +46,7 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     }
 
     // JAK: FIXME!! I need to add sets to the bonus type list
-    const sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);
+    this.sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);
@@ -70,6 +74,19 @@ export class ItemsWithBonusTypeComponent implements OnInit {
 
     this.equipped.set(item);
     this.modalService.dismissAll();
+  }
+
+  // Duplicated from gear-craftingList
+  showItemsInSet(setName: string) {
+    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
+
+    dlg.componentInstance.setName = setName;
+
+    dlg.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   close() {

@@ -3,23 +3,42 @@
         {{affixName}} - {{bonusType}}
         <button type="button" class="close float-right" aria-label="Close" (click)="close()">
             <span aria-hidden="true">&times;</span>
-          </button>
+        </button>
     </h1>
 
-    <div class="row">
-        <div class="col-1"><b>ML</b></div>
-        <div class="col-2"><b>Slot</b></div>
-        <div class="col-6"><b>Name</b></div>
-        <div class="col-1"><b>Value</b></div>
-        <div class="col-2"></div>
+    <div *ngIf="sets.length">
+        <div class="row">
+            <div class="col-2"><b>Pieces</b></div>
+            <div class="col-6"><b>Set</b></div>
+            <div class="col-2"><b>Value</b></div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="row" *ngFor="let set of sets">
+            <div class="col-2">{{set[1]}}</div>
+            <div class="col-6">{{set[0]}}</div>
+            <div class="col-2">{{set[2]}}</div>
+            <button class="col-2" (click)="showItemsInSet(set[0])">View</button>
+        </div>
     </div>
 
-    <div class="row" *ngFor="let item of matches">
-        <div class="col-1">{{item.ml}}</div>
-        <div class="col-2">{{item.slot}}</div>
-        <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
-        <div class="col-1">{{findMatchingValue(item)[1]}}</div>
-        <button class="col-2" (click)="equipItem(item)">Equip</button>
+    <div *ngIf="matches.length">
+        <div class="row">
+            <div class="col-1"><b>ML</b></div>
+            <div class="col-2"><b>Slot</b></div>
+            <div class="col-6"><b>Name</b></div>
+            <div class="col-1"><b>Value</b></div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="row" *ngFor="let item of matches">
+            <div class="col-1">{{item.ml}}</div>
+            <div class="col-2">{{item.slot}}</div>
+            <div class="col-6"><a href="{{item.getURL()}}"
+                    target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+            <div class="col-1">{{findMatchingValue(item)[1]}}</div>
+            <button class="col-2" (click)="equipItem(item)">Equip</button>
+        </div>
     </div>
 
     <div *ngIf="lockedMatches.length > 0">
@@ -27,13 +46,13 @@
         <h3>Locked items</h3>
         <i>
 
-        <div class="row" *ngFor="let item of lockedMatches">
-            <div class="col-1">{{item.ml}}</div>
-            <div class="col-2">{{item.slot}}</div>
-            <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
-            <div class="col-1">{{findMatchingValue(item)[1]}}</div>
-            <button class="col-2" (click)="equipItem(item)">Equip</button>
-        </div>
-    </i>
+            <div class="row" *ngFor="let item of lockedMatches">
+                <div class="col-1">{{item.ml}}</div>
+                <div class="col-2">{{item.slot}}</div>
+                <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
+                <div class="col-1">{{findMatchingValue(item)[1]}}</div>
+                <button class="col-2" (click)="equipItem(item)">Equip</button>
+            </div>
+        </i>
     </div>
 </div>

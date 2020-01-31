@@ -16,6 +16,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
   current: Observable<Item>;
   gear: Array<Item>;
+  cannith: Array<Item>;
 
   constructor(
     public gearDB: GearDbService,
@@ -34,6 +35,8 @@ export class ItemSuggestionsComponent implements OnInit {
     shortlist.sort((a, b) => this.equipped.getScore(b) - this.equipped.getScore(a));
 
     this.gear = shortlist.slice(0, 20);
+
+    this.cannith = this.gearDB.getGearBySlot(this.slot).filter(item => item.crafting && item.crafting.find(opt => opt.name === 'Prefix'));
   }
 
   equipItem(item: Item) {

@@ -26,7 +26,7 @@
 
     <!-- Describe Sets -->
     <div class="form-group col-sm-12 col-md-6 col-lg-4" *ngFor="let setToAffixes of equipped.getActiveSetBonuses()">
-        <div class="row" *ngIf="setToAffixes[1].length">
+        <div class="row">
             <button type="button" class="btn btn-info flat-right col-12 text-center"
                 (click)="showItemsInSet(setToAffixes[0])">
                 <div class='row'>

@@ -1,16 +1,31 @@
 <div class="modal-body">
     <h1>
-        {{gear[0].slot}} Suggestions
+        {{gear[0].slot}} Choices
         <button type="button" class="close float-right" aria-label="Close" (click)="close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </h1>
 
     <div class="row">
-        <span class="col">Search by name: </span>
-        <app-typeahead type="text" class="col-8" [source]=gearDB.getGearBySlot(slot) [onChange]=onChange(slot)></app-typeahead>
+        <span>Search by name: </span>
+        <app-typeahead type="text" placeholder="Enter an item name" class="col-8" [source]=gearDB.getGearBySlot(slot)
+            [onChange]=onChange(slot)></app-typeahead>
     </div>
+
     <hr>
+
+    <div class="row">
+        <span>Crafted items: </span>
+        <div *ngFor="let item of cannith">
+            <button class="btn btn-primary m-1" (click)="equipItem(item)">{{item.name}}</button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <span>Suggested items: </span>
+    </div>
 
     <div class="container" *ngFor="let item of gear">
         <div class="row">

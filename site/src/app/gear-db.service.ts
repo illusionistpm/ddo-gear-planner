@@ -113,7 +113,7 @@ export class GearDbService {
           cannithSlots = ['Melee', 'Ranged'];
           break;
         case 'Offhand':
-          cannithSlots = ['Shield', 'Rune Arm', 'Orb'];
+          cannithSlots = ['Melee', 'Ranged', 'Shield', 'Rune Arm', 'Orb'];
           break;
         default:
           cannithSlots = [slot];
@@ -208,7 +208,7 @@ export class GearDbService {
     if (!setName) {
       return results;
     }
-    
+
     for (const items of this.gear.values()) {
       for (const item of items) {
         if (item.set === setName) {
@@ -227,7 +227,7 @@ export class GearDbService {
       for (const threshold of setList[setName]) {
         for (const affix of threshold.affixes) {
           if (affix.name === affixName && affix.type === bonusType) {
-            results.push(setName);
+            results.push([setName, threshold.threshold, affix.value]);
           }
         }
       }
@@ -281,5 +281,16 @@ export class GearDbService {
       }
     }
     return bonuses;
+  }
+
+  getSetBonusThresholds(set: string) {
+    const thresholds = new Array<number>();
+    if (setList[set]) {
+      for (const data of setList[set]) {
+        thresholds.push(data.threshold);
+      }
+      thresholds.sort((a,b) => a - b);
+    }
+    return thresholds;
   }
 }

@@ -7,6 +7,7 @@ import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
+import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 
 @Component({
   selector: 'app-gear-list',
@@ -38,6 +39,18 @@ export class GearListComponent implements OnInit {
     const dlg = this.modalService.open(ItemSuggestionsComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.slot = slot;
+
+    dlg.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  showItemsInSet(setName: string) {
+    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
+
+    dlg.componentInstance.setName = setName;
 
     dlg.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;

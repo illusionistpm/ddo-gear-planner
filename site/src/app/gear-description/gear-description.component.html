@@ -37,7 +37,7 @@
     <div class="row table-striped table-condensed small">
         <span class="show-never fas fa-heart heart"></span>
         <div class="col" *ngIf="curItem.set">
-            Set: {{curItem.set}} ({{equipped.getActiveSets().get(curItem.set)}})
+            Set: <a href='javascript:;' (click)="showItemsInSet(curItem.set)">{{curItem.set}}</a> ({{equipped.getActiveSets().get(curItem.set)}})
         </div>
     </div>
 </div>

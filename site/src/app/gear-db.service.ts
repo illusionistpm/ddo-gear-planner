@@ -202,6 +202,24 @@ export class GearDbService {
     return results;
   }
 
+  findGearInSet(setName: string) {
+    const results = [];
+
+    if (!setName) {
+      return results;
+    }
+    
+    for (const items of this.gear.values()) {
+      for (const item of items) {
+        if (item.set === setName) {
+          results.push(item);
+        }
+      }
+    }
+
+    return results;
+  }
+
   findSetsWithAffixAndType(affixName, bonusType) {
     const results = [];
 

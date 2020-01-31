@@ -237,6 +237,12 @@ export class EquippedService {
     return total;
   }
 
+  isEquipped(item: Item) {
+    if (!item || !this.slots.get(item.slot).getValue()) {
+      return false;
+    }
+    return item.name === this.slots.get(item.slot).getValue().name;
+  }
 
   toggleLock(slot: string) {
     if (this.unlockedSlots.has(slot)) {

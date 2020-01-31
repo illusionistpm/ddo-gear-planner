@@ -41,6 +41,7 @@ export class ItemsWithBonusTypeComponent implements OnInit {
       }
     }
 
+    // JAK: FIXME!! I need to add sets to the bonus type list
     const sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);
 
     this.matches = this._sortByValue(this.matches);

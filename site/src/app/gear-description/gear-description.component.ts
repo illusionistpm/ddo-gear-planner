@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CraftableOption } from './../craftable-option';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -9,6 +10,8 @@ import { AffixRank } from '../affix-rank.enum';
 import { Craftable } from '../craftable';
 import { Item } from '../item';
 import { Observable } from 'rxjs';
+
+import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 
 @Component({
   selector: 'app-gear-description',
@@ -22,7 +25,8 @@ export class GearDescriptionComponent implements OnInit {
 
   constructor(
     public equipped: EquippedService,
-    public cannith: CannithService
+    public cannith: CannithService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -80,4 +84,18 @@ export class GearDescriptionComponent implements OnInit {
       return AffixRank[affixRank];
     }
   }
+
+  // Duplicated from gear-craftingList
+  showItemsInSet(setName: string) {
+    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
+
+    dlg.componentInstance.setName = setName;
+
+    dlg.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
 }

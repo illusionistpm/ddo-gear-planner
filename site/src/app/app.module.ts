@@ -16,6 +16,7 @@ import { LevelRangeComponent } from './level-range/level-range.component';
 import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
+import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
     LevelRangeComponent,
     MainComponent,
     ItemSuggestionsComponent,
-    AffixCloudComponent
+    AffixCloudComponent,
+    ItemsInSetComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,6 +43,6 @@ import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
     {provide : LocationStrategy , useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ItemsWithBonusTypeComponent, ItemSuggestionsComponent]
+  entryComponents: [ItemsWithBonusTypeComponent, ItemSuggestionsComponent, ItemsInSetComponent]
 })
 export class AppModule { }

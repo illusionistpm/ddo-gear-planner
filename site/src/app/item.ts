@@ -1,5 +1,4 @@
 import { Affix } from './affix';
-import { SlicePipe } from '@angular/common';
 import { Craftable } from './craftable';
 
 export class Item {
@@ -71,12 +70,30 @@ export class Item {
         return null;
     }
 
+    selectMatchingBonusType(affixName, bonusType) {
+        if (this.crafting) {
+            for (const craftable of this.crafting) {
+                if (craftable.selectMatchingBonusType(affixName, bonusType)) {
+                    break;
+                }
+            }
+        }
+    }
+
     getValue(affixName, bonusType) {
         const ret = this.getMatchingBonusType(affixName, bonusType);
         if (ret) {
             return ret[1];
         } else {
             return null;
+        }
+    }
+
+    getCraftingByName(name: string) {
+        for (const crafting of this.crafting) {
+            if (crafting.name == name) {
+                return crafting;
+            }
         }
     }
 }

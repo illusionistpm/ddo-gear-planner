@@ -22,4 +22,29 @@ export class Craftable {
 
         return null;
     }
+
+    selectMatchingBonusType(affixName, bonusType) {
+        for (const option of this.options) {
+            const value = option.getMatchingBonusType(affixName, bonusType);
+            if (value) {
+                this.selected = option;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    selectByFirstAffixName(affixName: string) {
+        for (const option of this.options) {
+            if (option.affixes) {
+                for (const affix of option.affixes) {
+                    if (affix.name === affixName) {
+                        this.selected = option;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

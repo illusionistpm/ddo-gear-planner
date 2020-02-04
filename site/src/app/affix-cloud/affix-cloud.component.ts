@@ -65,7 +65,8 @@ export class AffixCloudComponent implements OnInit {
 
   _initPackages() {
     for (const affix of ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 'Fortification', 'Hit Points']) {
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 
+      'Fortification', 'Hit Points', 'Vitality', 'False Life']) {
         this.add(affix);
       }
   }
@@ -91,6 +92,10 @@ export class AffixCloudComponent implements OnInit {
     this.equipped.addImportantAffix(affix);
 
     const map = this.cloud.get(affix);
+    if (!map) {
+      console.log('Couldn\'t find ' + affix + ' in affix cloud');
+      return;
+    }
 
     this.workingMap = this.cloud.merge(this.workingMap, map);
     for (const entry of this.workingMap) {

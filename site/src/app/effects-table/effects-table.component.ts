@@ -62,8 +62,9 @@ export class EffectsTableComponent implements OnInit {
     });
   }
 
-  sortTypes(types: Array<any>) {
-    const order = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact'];
+  sortTypes(affixName: string) {
+    const types = this.effects.get(affixName);
+    const order = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
     return types.sort((a, b) => {
       let aIndex = order.indexOf(a.bonusType);
       if (aIndex === -1) {

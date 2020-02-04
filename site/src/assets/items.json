@@ -8918,7 +8918,7 @@
             },
             {
                 "name": "Sheltering",
-                "type": "Physical",
+                "type": "Enhancement",
                 "value": "21"
             },
             {
@@ -65419,7 +65419,7 @@
             },
             {
                 "name": "Sheltering",
-                "type": "Physical",
+                "type": "Enhancement",
                 "value": "21"
             },
             {

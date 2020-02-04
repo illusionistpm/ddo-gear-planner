@@ -263,6 +263,9 @@ def get_items_from_page(itemPageURL, sets):
                 if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
                     aff['type'] = 'Enhancement'
 
+                if aff['name'] == 'Sheltering' and aff['type'] == 'Physical':
+                    aff['type'] = 'Enhancement'
+
                 if aff['name'].endswith('False Life') and 'value' not in aff:
                     aff['type'] = 'Insight' if 'Insightful' in aff['name'] else 'Enhancement'
                     switch = {

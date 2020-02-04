@@ -62,6 +62,28 @@ export class EffectsTableComponent implements OnInit {
     });
   }
 
+  sortTypes(types: Array<any>) {
+    const order = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact'];
+    return types.sort((a, b) => {
+      let aIndex = order.indexOf(a.bonusType);
+      if (aIndex === -1) {
+        aIndex = order.indexOf('DUMMY');
+      }
+
+      let bIndex = order.indexOf(b.bonusType);
+      if (bIndex === -1) {
+        bIndex = order.indexOf('DUMMY');
+      }
+
+      const diff = aIndex - bIndex;
+      if (diff !== 0) {
+        return diff;
+      }
+
+      return a.bonusType.localeCompare(b.bonusType);
+    });
+  }
+
   getClassForValue(affixName, type) {
     if (type.bonusType === 'Penalty') {
       return 'penalty-value';

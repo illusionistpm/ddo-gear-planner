@@ -10,7 +10,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="col" *ngFor="let types of effects.get(effect.name)">
+        <div class="col" *ngFor="let types of sortTypes(effects.get(effect.name))">
             <button class="col" *ngIf="types.value; else noValue"
                 (click)="showItemsWithBonusType(effect.name, types.bonusType)">
                 <span

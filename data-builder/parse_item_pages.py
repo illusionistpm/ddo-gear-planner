@@ -115,6 +115,8 @@ def add_default_one(name):
 
 def sub_name(name):
     for pair in [
+        ['Vitality', 'Hit Points'],
+        ['Hit Points', 'False Life'],
         ['Fortification Penalty', 'Fortification'],
         ['Construct Fortification', 'Fortification']
         ]:
@@ -299,6 +301,10 @@ def get_items_from_page(itemPageURL, sets):
 
                 if aff['name'] == 'Deathblock' and 'type' not in aff:
                     aff['type'] = 'Enhancement'
+
+                # HACK: Need to collapse False Life / Vitality / Hit Points, but False Life has special logic above for Improved/Greater/etc
+                if aff['name'] == 'False Life':
+                    aff['name'] = 'Hit Points'
 
                 item['affixes'].append(aff)
         else:

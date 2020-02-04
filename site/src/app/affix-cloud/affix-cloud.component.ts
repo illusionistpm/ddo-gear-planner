@@ -47,6 +47,7 @@ export class AffixCloudComponent implements OnInit {
     this.ignoredSet.add('Upgradeable - Secondary Augment');
 
     this._initTopResults();
+    this._initPackages();
   }
 
   ngOnInit() {
@@ -57,7 +58,16 @@ export class AffixCloudComponent implements OnInit {
 
   _initTopResults() {
     const seed = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-    this.topResults = seed.map(a => [a, 0]);
+    for (const affix of seed) {
+      this.workingMap.set(affix, 500);
+    }
+  }
+
+  _initPackages() {
+    for (const affix of ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 'Fortification', 'Hit Points']) {
+        this.add(affix);
+      }
   }
 
   getBtnSize(result: string) {

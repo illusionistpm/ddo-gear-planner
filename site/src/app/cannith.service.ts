@@ -38,6 +38,11 @@ export class CannithService {
   getValuesForML(itemType: string, ml: number) {
     const craftingOptions = new Array<Craftable>();
 
+    //JAK: FIXME!! Hack - Weapon and Offhand will have the same issue, but aren't as trivial to fix
+    if (itemType === 'Ring1' || itemType === 'Ring2') {
+      itemType = 'Ring';
+    }
+
     const locations = cannithList['itemTypes'][itemType];
 
     for (const location of ['Prefix', 'Suffix', 'Extra']) {

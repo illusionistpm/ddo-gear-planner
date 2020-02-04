@@ -155,7 +155,7 @@
                 "value": "4"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -1611,7 +1611,7 @@
                 "value": "11"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -1628,7 +1628,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "23"
             },
@@ -2753,7 +2753,7 @@
                 "value": "4"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -2775,7 +2775,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "33"
             },
@@ -3471,7 +3471,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "15"
             }
@@ -4436,7 +4436,7 @@
                 "value": "1"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "25"
             },
@@ -4458,7 +4458,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "8"
             },
@@ -7945,7 +7945,7 @@
                 "value": "9"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -7987,7 +7987,7 @@
                 "value": "9"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -9821,7 +9821,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             },
@@ -10385,7 +10385,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -10533,7 +10533,7 @@
                 "value": "4"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -10565,7 +10565,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -10597,7 +10597,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -10632,7 +10632,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -10667,7 +10667,7 @@
                 "value": "27"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -10699,7 +10699,7 @@
                 "value": "2"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -10726,7 +10726,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -11263,7 +11263,7 @@
                 "value": "15"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -11309,7 +11309,7 @@
                 "value": "15"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -11382,7 +11382,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -18013,7 +18013,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -18055,7 +18055,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -18102,7 +18102,7 @@
                 "name": "Thorn Guard"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -18533,7 +18533,7 @@
                 "value": "4"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -18564,7 +18564,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -18595,7 +18595,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -18630,7 +18630,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -18665,7 +18665,7 @@
                 "value": "27"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -18697,7 +18697,7 @@
                 "value": "2"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -18724,7 +18724,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -19031,7 +19031,7 @@
                 "value": "14"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -19284,7 +19284,7 @@
                 "value": "10"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -19647,7 +19647,7 @@
                 "value": "3"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             }
@@ -20216,7 +20216,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -20244,7 +20244,7 @@
                 "value": "50"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -20508,7 +20508,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -20640,7 +20640,7 @@
                 "value": "4"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -20677,7 +20677,7 @@
                 "value": "8"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -20800,7 +20800,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -21271,7 +21271,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -21345,7 +21345,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -21378,7 +21378,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -21515,7 +21515,7 @@
                 "value": "1"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -21552,7 +21552,7 @@
                 "value": "2"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -21743,7 +21743,7 @@
                 "value": "1"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "35"
             }
@@ -21775,7 +21775,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -22111,7 +22111,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -24088,7 +24088,7 @@
                 "name": "Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -24176,7 +24176,7 @@
     {
         "affixes": [
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "35"
             }
@@ -24193,7 +24193,7 @@
     {
         "affixes": [
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             },
@@ -28739,7 +28739,7 @@
                 "value": "3"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -28758,7 +28758,7 @@
                 "value": "5"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             }
@@ -30701,7 +30701,7 @@
                 "value": "14"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -30954,7 +30954,7 @@
                 "value": "2"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -32566,7 +32566,7 @@
                 "value": "7"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -32726,7 +32726,7 @@
                 "value": "76"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -33600,7 +33600,7 @@
                 "value": "29"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "25"
             },
@@ -44099,12 +44099,12 @@
                 "value": "15"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "33"
             }
@@ -45001,7 +45001,7 @@
                 "value": "60"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             },
@@ -45464,7 +45464,7 @@
                 "value": "17"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "72"
             },
@@ -46433,7 +46433,7 @@
                 "value": "7"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "28"
             },
@@ -46902,7 +46902,7 @@
                 "value": "1"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "4"
             }
@@ -47904,7 +47904,7 @@
                 "value": "30"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "36"
             },
@@ -48052,7 +48052,7 @@
                 "value": "150"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             },
@@ -48138,7 +48138,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             }
@@ -48327,7 +48327,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -49615,7 +49615,7 @@
                 "value": "19"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -49836,7 +49836,7 @@
                 "value": "17"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "13"
             },
@@ -50085,7 +50085,7 @@
                 "value": "1"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -50175,7 +50175,7 @@
                 "value": "150"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "45"
             },
@@ -51401,7 +51401,7 @@
                 "value": "7"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "24"
             },
@@ -51694,7 +51694,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -51839,7 +51839,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -51874,7 +51874,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             },
@@ -51904,7 +51904,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -51934,7 +51934,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "24"
             },
@@ -51969,7 +51969,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -52004,7 +52004,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "12"
             },
@@ -52039,7 +52039,7 @@
                 "name": "Life Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "18"
             },
@@ -52123,7 +52123,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -52165,7 +52165,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -52307,7 +52307,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -52419,7 +52419,7 @@
                 "type": "Profane"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "36"
             },
@@ -52455,7 +52455,7 @@
                 "type": "Profane"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "42"
             },
@@ -52491,7 +52491,7 @@
                 "type": "Profane"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "69"
             },
@@ -53945,7 +53945,7 @@
                 "value": "4"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -54565,7 +54565,7 @@
                 "value": "100"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -54723,7 +54723,7 @@
                 "value": "1"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -60116,7 +60116,7 @@
                 "value": "100"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -60947,7 +60947,7 @@
                 "name": "Archmagi"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -61016,7 +61016,7 @@
                 "value": "7"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "24"
             },
@@ -61226,7 +61226,7 @@
                 "value": "19"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -61542,7 +61542,7 @@
                 "name": "Eternal Faith"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -62468,7 +62468,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -62510,7 +62510,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -64011,7 +64011,7 @@
                 "value": "33"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "32"
             }
@@ -64360,7 +64360,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -64466,7 +64466,7 @@
                 "value": "14"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -64785,7 +64785,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -64855,7 +64855,7 @@
                 "value": "50"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -65644,7 +65644,7 @@
                 "value": "4"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -65897,7 +65897,7 @@
                 "value": "33"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "32"
             }
@@ -65935,7 +65935,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -66095,7 +66095,7 @@
                 "name": "Ethereal"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -66131,7 +66131,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -66167,7 +66167,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -66203,7 +66203,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -66298,7 +66298,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -74127,7 +74127,7 @@
                 "value": "2"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -74152,7 +74152,7 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -74296,7 +74296,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -74338,7 +74338,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -74711,7 +74711,7 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -74749,7 +74749,7 @@
                 "name": "Demonic Shield"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -74841,7 +74841,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -75956,7 +75956,7 @@
                 "value": "8"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -76380,7 +76380,7 @@
                 "value": "2"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -76733,7 +76733,7 @@
                 "type": "Enhancement"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -76784,7 +76784,7 @@
                 "value": "33"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "32"
             }
@@ -76822,7 +76822,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -78083,7 +78083,7 @@
                 "value": "47"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "25"
             },
@@ -78229,7 +78229,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "12"
             },
@@ -79098,7 +79098,7 @@
                 "value": "7"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -79115,7 +79115,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "20"
             },
@@ -79165,7 +79165,7 @@
                 "name": "Manslayer"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             },
@@ -79190,7 +79190,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -79419,7 +79419,7 @@
                 "value": "11"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -80186,7 +80186,7 @@
                 "value": "92"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "60"
             },
@@ -80714,7 +80714,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -80791,7 +80791,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -80851,7 +80851,7 @@
                 "value": "11"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "45"
             },
@@ -80882,7 +80882,7 @@
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -81204,7 +81204,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "17"
             }
@@ -82703,7 +82703,7 @@
                 "value": "7"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -83185,7 +83185,7 @@
                 "value": "2"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -83749,7 +83749,7 @@
                 "value": "3"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "53"
             }
@@ -91755,7 +91755,7 @@
                 "value": "48"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -93242,7 +93242,7 @@
                 "name": "Fire Blast"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -93618,7 +93618,7 @@
                 "name": "Lesser Undead Guard"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             },
@@ -102127,7 +102127,7 @@
                 "value": "30"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -102163,7 +102163,7 @@
                 "value": "50"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             },
@@ -103600,7 +103600,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             },
@@ -103746,7 +103746,7 @@
                 "value": "13"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "24"
             },
@@ -103897,7 +103897,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -104190,7 +104190,7 @@
                 "name": "Death Ward, Mass"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -104291,7 +104291,7 @@
                 "name": "Jerky"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -105561,7 +105561,7 @@
                 "value": "37"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -105589,7 +105589,7 @@
                 "value": "4"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "68"
             },
@@ -106206,7 +106206,7 @@
                 "name": "Heroic Inspiration"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "40"
             }
@@ -106571,7 +106571,7 @@
                 "name": "Jerky"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -107257,7 +107257,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -107980,7 +107980,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -107997,7 +107997,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -108017,7 +108017,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -108037,7 +108037,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -108058,7 +108058,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -108079,7 +108079,7 @@
                 "name": "Reinforced Fists"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -108148,7 +108148,7 @@
     {
         "affixes": [
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -108182,7 +108182,7 @@
                 "value": "25"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -108253,7 +108253,7 @@
                 "value": "25"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -108275,7 +108275,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -108304,7 +108304,7 @@
                 "value": "25"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -108336,7 +108336,7 @@
                 "value": "25"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -108413,7 +108413,7 @@
                 "value": "25"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "38"
             }
@@ -108435,7 +108435,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -108776,7 +108776,7 @@
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "14"
             },
@@ -109137,7 +109137,7 @@
                 "value": "100"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -109207,7 +109207,7 @@
                 "value": "100"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -109654,17 +109654,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "24"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "11"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "5"
             },
@@ -109686,17 +109686,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "14"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "7"
             },
@@ -109718,17 +109718,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "36"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "17"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "8"
             },
@@ -109750,17 +109750,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "42"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "20"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "10"
             },
@@ -109782,17 +109782,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "48"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "23"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "11"
             },
@@ -109814,17 +109814,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "12"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "5"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "2"
             },
@@ -109846,17 +109846,17 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "18"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "8"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Quality",
                 "value": "4"
             },
@@ -109878,7 +109878,7 @@
     {
         "affixes": [
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },
@@ -109902,7 +109902,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -110039,7 +110039,7 @@
                 "value": "85"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Insight",
                 "value": "40"
             },
@@ -110446,7 +110446,7 @@
                 "value": "22"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "67"
             },
@@ -110785,7 +110785,7 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -111558,7 +111558,7 @@
                 "value": "6"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "19"
             },
@@ -111586,7 +111586,7 @@
                 "value": "6"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -114801,7 +114801,7 @@
                 "value": "100"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             }
@@ -115856,7 +115856,7 @@
                 "name": "Heroism"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -116029,7 +116029,7 @@
                 "name": "Undead Guard"
             },
             {
-                "name": "False Life",
+                "name": "Hit Points",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -116400,7 +116400,7 @@
                 "name": "Acid Breath"
             },
             {
-                "name": "Vitality",
+                "name": "Hit Points",
                 "type": "Vitality",
                 "value": "20"
             },

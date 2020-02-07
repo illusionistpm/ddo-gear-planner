@@ -20,6 +20,10 @@ export class AffixCloudComponent implements OnInit {
 
   ignoredSet: Set<string>;
 
+  attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+  packages = new Map<string, Array<string>>();
+  packageKeys = [];
+
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
@@ -47,11 +51,7 @@ export class AffixCloudComponent implements OnInit {
     this.ignoredSet.add('Upgradeable - Primary Augment');
     this.ignoredSet.add('Upgradeable - Secondary Augment');
 
-    this._initTopResults();
-
-    if (this.equipped.getImportantAffixes().size === 0) {
-      this._initPackages();
-    }
+    this._initPackages();
   }
 
   ngOnInit() {
@@ -60,19 +60,17 @@ export class AffixCloudComponent implements OnInit {
     }
   }
 
-  _initTopResults() {
-    const seed = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-    for (const affix of seed) {
-      this.workingMap.set(affix, 500);
-    }
-  }
-
   _initPackages() {
-    for (const affix of ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 
-      'Fortification', 'Hit Points', 'Vitality', 'False Life', 'Speed']) {
-        this.add(affix);
-      }
+    this.packages.set('Basic', ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly',
+      'Fortification', 'Hit Points', 'Vitality', 'False Life', 'Speed']);
+    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy', 'Armor-Piercing']);
+    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy', 'Armor-Piercing']);
+    this.packages.set('Caster', ['Universal Spell Power', 'Universal Spell Lore', 'Spellcraft', 'Wizardry']);
+    this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
+    this.packages.set('Healing', ['Devotion', 'Healing Lore', 'Heal']);
+
+    this.packageKeys = Array.from(this.packages.keys());
   }
 
   getBtnSize(result: string) {
@@ -88,6 +86,12 @@ export class AffixCloudComponent implements OnInit {
       return 'btn-lg';
     } else {
       return 'btn';
+    }
+  }
+
+  addPackage(pkg: string) {
+    for (const affix of this.packages.get(pkg)) {
+      this.add(affix);
     }
   }
 

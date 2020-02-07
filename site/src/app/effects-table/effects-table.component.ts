@@ -35,7 +35,7 @@ export class EffectsTableComponent implements OnInit {
       this.boolAffixMap = new Map<string, Array<any>>();
       this.affixNames = [];
       this.boolAffixNames = [];
-  
+
       for (const entry of map.entries()) {
         if (this._isBoolAffix(entry)) {
           this.boolAffixMap.set(entry[0], entry[1]);

@@ -18,7 +18,7 @@
         <button class="show-on-hover far fa-heart heart pr-1" *ngIf="!equipped.isImportantAffix(affix.name)"
             (click)="equipped.toggleImportantAffix(affix.name)"></button>
         <div class="col pl-1">{{affix.name}}</div>
-        <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
+        <div class="col" *ngIf="affix.hasRealType()">{{getAffixValue(affix)}} {{affix.type}}</div>
     </div>
     <!-- Crafting -->
     <div class="row table-striped table-condensed small hover-helper" *ngFor="let craft of curItem.crafting">

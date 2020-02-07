@@ -112,6 +112,7 @@ export class EquippedService {
         console.log('Couldn\'t set craftable. Couldn\'t find affix called ' + craftingParam['selected']);
         continue;
       }
+      this._set(item);
     }
 
     for (const lockedSlot of params.getAll('locked')) {

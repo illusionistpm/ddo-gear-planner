@@ -52,6 +52,10 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     this.lockedMatches = this._sortByValue(this.lockedMatches);
   }
 
+  isRealType(bonusType) {
+    return Affix.isRealType(bonusType);
+  }
+
   _sortByValue(array: Array<Item>) {
     return array.sort((a, b) =>
       Number(b.getValue(this.affixName, this.bonusType)) - Number(a.getValue(this.affixName, this.bonusType)));

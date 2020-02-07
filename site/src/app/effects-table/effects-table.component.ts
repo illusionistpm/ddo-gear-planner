@@ -15,6 +15,8 @@ export class EffectsTableComponent implements OnInit {
   public effects: Map<string, Array<any>>;
   public effectKeys: Array<any>;
 
+  public sortOrder = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
+
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
@@ -64,16 +66,15 @@ export class EffectsTableComponent implements OnInit {
 
   sortTypes(affixName: string) {
     const types = this.effects.get(affixName);
-    const order = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
     return types.sort((a, b) => {
-      let aIndex = order.indexOf(a.bonusType);
+      let aIndex = this.sortOrder.indexOf(a.bonusType);
       if (aIndex === -1) {
-        aIndex = order.indexOf('DUMMY');
+        aIndex = this.sortOrder.indexOf('DUMMY');
       }
 
-      let bIndex = order.indexOf(b.bonusType);
+      let bIndex = this.sortOrder.indexOf(b.bonusType);
       if (bIndex === -1) {
-        bIndex = order.indexOf('DUMMY');
+        bIndex = this.sortOrder.indexOf('DUMMY');
       }
 
       const diff = aIndex - bIndex;

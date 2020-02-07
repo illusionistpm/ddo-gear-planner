@@ -300,6 +300,10 @@ def get_items_from_page(itemPageURL, sets):
                 if 'value' in aff and int(aff['value']) < 0:
                     aff['type'] = 'Penalty'
 
+                if 'value' not in aff:
+                    aff['value'] = 1
+                    aff['type'] = 'bool'
+
                 if aff['name'] == 'Deathblock' and 'type' not in aff:
                     aff['type'] = 'Enhancement'
 

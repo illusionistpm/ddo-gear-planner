@@ -2,34 +2,55 @@
     <h3>Tracked Affixes</h3>
 </div>
 <div class="row">
-    <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let effect of effectKeys">
+    <div class="card col-sm-12 col-md-6 col-lg-4">
         <div>
-            <span class="h5">{{effect.name}}: {{currentBonus(effect.name)}}<span
-                    class="max-available">/{{maxBonus(effect.name)}}</span></span>
-            <button type="button" class="close float-right" aria-label="Close" (click)="removeAffix(effect.name)">
+            <span class="h5">Checklist Affixes</span>
+        </div>
+        <div class="col" *ngFor="let affixName of boolAffixNames">
+            <button class="col" *ngIf="boolAffixMap.get(affixName)[0].value; else noValue"
+                (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                <span class="max-value">{{affixName}}</span>
+                <span class="far fa-check-square max-value float-right pt-1"></span>
+            </button>
+            <ng-template #noValue>
+                <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="col no-value"
+                    (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                    {{affixName}}
+                    <span class="far fa-square no-value float-right pt-1"></span>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let affixName of affixNames">
+        <div>
+            <span class="h5">{{affixName}}: {{currentBonus(affixName)}}<span
+                    class="max-available">/{{maxBonus(affixName)}}</span></span>
+            <button type="button" class="close float-right" aria-label="Close" (click)="removeAffix(affixName)">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="col" *ngFor="let types of sortTypes(effect.name)">
+        <div class="col" *ngFor="let types of sortTypes(affixName)">
             <button class="col" *ngIf="types.value; else noValue"
-                (click)="showItemsWithBonusType(effect.name, types.bonusType)">
+                (click)="showItemsWithBonusType(affixName, types.bonusType)">
                 <span
-                    [ngClass]="getClassForValue(effect.name, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
+                    [ngClass]="getClassForValue(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
                     {{types.value}} </span>
                 <span
-                    class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
+                    class="max-available float-right">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
             </button>
             <ng-template #noValue>
                 <button [hidden]="types.bonusType === 'Penalty'" class="col no-value"
-                    (click)="showItemsWithBonusType(effect.name, types.bonusType)">
+                    (click)="showItemsWithBonusType(affixName, types.bonusType)">
                     {{types.bonusType ? types.bonusType : "Untyped"}}
                     <span
-                        class="max-available float-right">[{{gearDB.getBestValueForAffixType(effect.name, types.bonusType)}}]</span>
+                        class="max-available float-right">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
                 </button>
             </ng-template>
         </div>
     </div>
 </div>
+
 <div class="row">
     <a class="btn btn-success col-sm-4 col-md-4 col-lg-2 mt-1 mb-2" routerLink="/affixes" routerLinkActive="active">Add Affixes...</a>
 </div>

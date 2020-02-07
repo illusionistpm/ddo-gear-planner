@@ -12,8 +12,11 @@ import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with
 })
 export class EffectsTableComponent implements OnInit {
 
-  public effects: Map<string, Array<any>>;
-  public effectKeys: Array<any>;
+  public affixMap: Map<string, Array<any>>;
+  public affixNames: Array<string>;
+
+  public boolAffixMap: Map<string, Array<any>>;
+  public boolAffixNames: Array<string>;
 
   public sortOrder = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
 
@@ -22,15 +25,25 @@ export class EffectsTableComponent implements OnInit {
     public gearDB: GearDbService,
     private modalService: NgbModal
   ) {
-    this.effectKeys = new Array<object>();
+    this.affixNames = [];
+    this.boolAffixNames = [];
   }
 
   ngOnInit() {
     this.equipped.getCoveredAffixes().subscribe(map => {
-      this.effects = map;
-      this.effectKeys = [];
-      for (const key of this.effects.keys()) {
-        this.effectKeys.push({ name: key });
+      this.affixMap = new Map<string, Array<any>>();
+      this.boolAffixMap = new Map<string, Array<any>>();
+      this.affixNames = [];
+      this.boolAffixNames = [];
+  
+      for (const entry of map.entries()) {
+        if (this._isBoolAffix(entry)) {
+          this.boolAffixMap.set(entry[0], entry[1]);
+          this.boolAffixNames.push(entry[0]);
+        } else {
+          this.affixMap.set(entry[0], entry[1]);
+          this.affixNames.push(entry[0]);
+        }
       }
     });
   }
@@ -41,7 +54,7 @@ export class EffectsTableComponent implements OnInit {
 
   currentBonus(affixName) {
     let total = 0;
-    for (const type of this.effects.get(affixName)) {
+    for (const type of this.affixMap.get(affixName)) {
       total += type.value;
     }
     return total;
@@ -65,7 +78,7 @@ export class EffectsTableComponent implements OnInit {
   }
 
   sortTypes(affixName: string) {
-    const types = this.effects.get(affixName);
+    const types = this.affixMap.get(affixName);
     return types.sort((a, b) => {
       let aIndex = this.sortOrder.indexOf(a.bonusType);
       if (aIndex === -1) {
@@ -84,6 +97,10 @@ export class EffectsTableComponent implements OnInit {
 
       return a.bonusType.localeCompare(b.bonusType);
     });
+  }
+
+  private _isBoolAffix(entry) {
+    return entry[1].length === 1 && entry[1][0].bonusType === 'bool';
   }
 
   getClassForValue(affixName, type) {

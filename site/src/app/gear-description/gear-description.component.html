@@ -21,11 +21,15 @@
         <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
     </div>
     <!-- Crafting -->
-    <div class="row table-striped table-condensed small" *ngFor="let craft of curItem.crafting">
-        <span class="show-never fas fa-heart heart"></span>
-        <div class="col" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
-        <div class="col">
-            <select [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)">
+    <div class="row table-striped table-condensed small hover-helper" *ngFor="let craft of curItem.crafting">
+        <span class="show-never fas fa-heart heart pr-2" *ngIf="!craft.selected.affixes.length"></span>
+        <button class="show-on-hover fas fa-heart heart pr-1" *ngIf="craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)"
+            (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+        <button class="show-on-hover far fa-heart heart pr-1" *ngIf="craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)"
+            (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+        <div class="col-3 pl-1 pr-0" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
+        <div class="col-8">
+            <select class="col pl-0 pr-1" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)">
                 <option *ngFor="let option of craft.options" [ngValue]="option"
                     [ngClass]="getClassForCraftingOption(option)">
                     {{describe(option)}}

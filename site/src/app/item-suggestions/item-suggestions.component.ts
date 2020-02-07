@@ -39,6 +39,11 @@ export class ItemSuggestionsComponent implements OnInit {
     this.cannith = this.gearDB.getGearBySlot(this.slot).filter(item => item.crafting && item.crafting.find(opt => opt.name === 'Prefix'));
   }
 
+  clearSlot() {
+    this.equipped.clearSlot(this.gear[0].slot);
+    this.modalService.dismissAll();
+  }
+
   equipItem(item: Item) {
     this.equipped.set(item);
     this.modalService.dismissAll();

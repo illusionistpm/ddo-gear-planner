@@ -29,6 +29,10 @@ export class Item {
         }
     }
 
+    isValid() {
+        return this.name !== undefined;
+    }
+
     getURL() {
         return 'http://ddowiki.com' + this.url;
     }

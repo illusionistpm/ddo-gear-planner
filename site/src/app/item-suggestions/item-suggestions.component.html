@@ -1,10 +1,13 @@
 <div class="modal-body">
-    <h1>
-        {{gear[0].slot}} Choices
-        <button type="button" class="close float-right" aria-label="Close" (click)="close()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </h1>
+        <h1>
+            {{gear[0].slot}} Choices
+            <div class="float-right">
+                <button class="btn btn-danger mr-2" (click)="clearSlot()">Clear Slot</button>
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                </h1>
 
     <div class="row">
         <span>Search by name: </span>

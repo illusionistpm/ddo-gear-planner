@@ -143,6 +143,13 @@ export class EquippedService {
     this._updateRouterState();
   }
 
+  clearSlot(slot: string) {
+    const dummy = new Item(null);
+    dummy.slot = slot;
+    this.slots.get(slot).next(dummy);
+    this._updateRouterState();
+  }
+
   getSlot(slot: string) {
     const val = this.slots.get(slot);
     if (val) {

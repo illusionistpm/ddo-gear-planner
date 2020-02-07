@@ -1,4 +1,4 @@
-<div class="col" *ngIf="curItem">
+<div class="col" *ngIf="curItem && curItem.isValid()">
     <div class="row pl-2" *ngIf="!curItem.name.startsWith('Cannith'); else cannithMLTemp"><b>ML: {{curItem.ml}}</b></div>
     <ng-template #cannithMLTemp>
         <div class="row pl-2">

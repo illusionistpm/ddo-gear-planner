@@ -36,7 +36,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
     this.gear = shortlist.slice(0, 20);
 
-    this.cannith = this.gearDB.getGearBySlot(this.slot).filter(item => item.crafting && item.crafting.find(opt => opt.name === 'Prefix'));
+    this.cannith = this.gearDB.getFilteredGearBySlot(this.slot).filter(item => item.isCannithCrafted());
   }
 
   clearSlot() {

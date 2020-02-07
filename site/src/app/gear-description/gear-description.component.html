@@ -1,9 +1,9 @@
 <div class="col" *ngIf="curItem && curItem.isValid()">
-    <div class="row pl-2" *ngIf="!curItem.name.startsWith('Cannith'); else cannithMLTemp"><b>ML: {{curItem.ml}}</b></div>
+    <div class="row pl-2" *ngIf="!curItem.isCannithCrafted(); else cannithMLTemp"><b>ML: {{curItem.ml}}</b></div>
     <ng-template #cannithMLTemp>
         <div class="row pl-2">
             <div><b>ML:&nbsp;</b></div>
-            <select [(ngModel)]="cannithML" (change)="updateML()">
+            <select [(ngModel)]="cannithML" (change)="updateML()" [value]="curItem.ml">
                 <option *ngFor="let ml of cannith.levels">{{ml}}</option>
             </select>
         </div>

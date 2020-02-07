@@ -33,6 +33,10 @@ export class Item {
         return this.name !== undefined;
     }
 
+    isCannithCrafted() {
+        return this.crafting && this.crafting.find(opt => opt.name === 'Prefix');
+    }
+
     getURL() {
         return 'http://ddowiki.com' + this.url;
     }

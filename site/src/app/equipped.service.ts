@@ -39,10 +39,15 @@ export class EquippedService {
 
     this.queryParams.register(this, this.params);
     this.queryParams.subscribe(this);
+
+    for (const slot of this.slots) {
+      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
+    }
   }
 
   updateFromParams(params) {
-    const craftingParams = new Array<any>();
+    const craftingParams = [];
+    const minLevels = new Map<string, number>();
 
     for (const key of params.keys) {
       if (key === 'tracked') {
@@ -73,6 +78,21 @@ export class EquippedService {
         } else {
           console.log('Can\'t find ' + itemName + ' for slot ' + key);
         }
+      } else if (key.startsWith('ml_')) {
+        const parts = key.split('_');
+        if (parts.length !== 2) {
+          console.log('Bad ml key: ' + key);
+          continue;
+        }
+        minLevels.set(parts[1], +params.get(key));
+      }
+    }
+
+    for (const entries of minLevels.entries()) {
+      const item = this.slots.get(entries[0]).getValue();
+      if (item) {
+        item.ml = entries[1];
+        this._set(item);
       }
     }
 
@@ -97,11 +117,6 @@ export class EquippedService {
     for (const lockedSlot of params.getAll('locked')) {
       this.setLock(lockedSlot, true);
     }
-
-    // Don't subscribe until after we've parsed the URL; otherwise we just overwrite what the user gave us.
-    for (const slot of this.slots) {
-      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
-    }
   }
 
   _updateRouterState() {
@@ -112,6 +127,10 @@ export class EquippedService {
       const item = kv[1].getValue();
       if (item) {
         params[slot] = item.name;
+
+        if (item.isCannithCrafted()) {
+          params["ml_" + slot] = item.ml;
+        }
 
         if (item.crafting) {
           for (const crafting of item.crafting) {

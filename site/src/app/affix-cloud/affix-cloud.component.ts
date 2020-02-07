@@ -20,6 +20,10 @@ export class AffixCloudComponent implements OnInit {
 
   ignoredSet: Set<string>;
 
+  attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+  packages = new Map<string, Array<string>>();
+  packageKeys = [];
+
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
@@ -49,9 +53,7 @@ export class AffixCloudComponent implements OnInit {
 
     this._initTopResults();
 
-    if (this.equipped.getImportantAffixes().size === 0) {
-      this._initPackages();
-    }
+    this._initPackages();
   }
 
   ngOnInit() {
@@ -68,11 +70,14 @@ export class AffixCloudComponent implements OnInit {
   }
 
   _initPackages() {
-    for (const affix of ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 
-      'Fortification', 'Hit Points', 'Vitality', 'False Life', 'Speed']) {
-        this.add(affix);
-      }
+    this.packages.set('Basic', ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly',
+      'Fortification', 'Hit Points', 'Vitality', 'False Life', 'Speed']);
+    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy']);
+    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy']);
+    this.packages.set('Caster', ['Universal Spell Power', 'Universal Spell Lore', 'Spellcraft', 'Wizardry']);
+
+    this.packageKeys = Array.from(this.packages.keys());
   }
 
   getBtnSize(result: string) {
@@ -88,6 +93,12 @@ export class AffixCloudComponent implements OnInit {
       return 'btn-lg';
     } else {
       return 'btn';
+    }
+  }
+
+  addPackage(pkg: string) {
+    for (const affix of this.packages.get(pkg)) {
+      this.add(affix);
     }
   }
 

@@ -338,13 +338,17 @@ export class EquippedService {
   }
 
   addImportantAffix(affix) {
-    this.importantAffixes.add(affix);
-    this._updateCoveredAffixes();
+    if (!this.importantAffixes.has(affix)) {
+      this.importantAffixes.add(affix);
+      this._updateCoveredAffixes();
+    }
   }
 
   removeImportantAffix(affix) {
-    this.importantAffixes.delete(affix);
-    this._updateCoveredAffixes();
+    if (this.importantAffixes.has(affix)) {
+      this.importantAffixes.delete(affix);
+      this._updateCoveredAffixes();
+    }
   }
 
   toggleImportantAffix(affix) {

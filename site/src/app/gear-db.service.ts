@@ -30,7 +30,7 @@ export class GearDbService {
     this.allGear = this.filterByLevelRange(1, 30);
 
     this.filters.getLevelRange().subscribe(val => {
-      this.gear = this.filterByLevelRange(val[0], val[1])
+      this.gear = this.filterByLevelRange(val[0], val[1]);
     });
   }
 

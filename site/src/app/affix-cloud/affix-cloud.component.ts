@@ -40,6 +40,7 @@ export class AffixCloudComponent implements OnInit {
 
     this.cloud = new AffixCloud(flatList);
 
+    // This can still be added if you click on the heart. Should be stored somewhere better
     this.ignoredSet.add('Enhancement Bonus');
     this.ignoredSet.add('Orb Bonus');
     this.ignoredSet.add('Spellcasting Implement');
@@ -47,7 +48,10 @@ export class AffixCloudComponent implements OnInit {
     this.ignoredSet.add('Upgradeable - Secondary Augment');
 
     this._initTopResults();
-    this._initPackages();
+
+    if (this.equipped.getImportantAffixes().size === 0) {
+      this._initPackages();
+    }
   }
 
   ngOnInit() {
@@ -66,7 +70,7 @@ export class AffixCloudComponent implements OnInit {
   _initPackages() {
     for (const affix of ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
       'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly', 
-      'Fortification', 'Hit Points', 'Vitality', 'False Life']) {
+      'Fortification', 'Hit Points', 'Vitality', 'False Life', 'Speed']) {
         this.add(affix);
       }
   }

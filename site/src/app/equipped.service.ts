@@ -205,12 +205,12 @@ export class EquippedService {
     const setCounts = new Map<string, number>();
     for (const slot of this.slots.values()) {
       const item = slot.getValue();
-      if (item && item.set) {
-        let val = setCounts.get(item.set);
+      if (item && item.getSet()) {
+        let val = setCounts.get(item.getSet());
         if (!val) {
           val = 0;
         }
-        setCounts.set(item.set, val + 1);
+        setCounts.set(item.getSet(), val + 1);
       }
     }
     return setCounts;

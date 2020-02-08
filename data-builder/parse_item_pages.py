@@ -115,6 +115,9 @@ def add_default_one(name):
 
 def sub_name(name):
     for pair in [
+        ['Against the Slave Lords Set Bonus', 'Slaver\'s Set Bonus'],
+        ['Slaver\'s Augment Slot', 'Green Augment Slot'],
+        ['Legendary Slaver\'s Augment Slot', 'Green Augment Slot'],
         ['Fortification Penalty', 'Fortification'],
         ['Construct Fortification', 'Fortification']
         ]:
@@ -161,7 +164,9 @@ def get_items_from_page(itemPageURL, sets):
 
     craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
         'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential',
-        'Upgradeable - Tier', 'Upgradeable Item'])
+        'Upgradeable - Tier', 'Upgradeable Item', "Slaver's Prefix Slot", "Legendary Slaver's Prefix Slot", "Slaver's Suffix Slot",
+        "Legendary Slaver's Suffix Slot", "Slaver's Extra Slot", "Legendary Slaver's Extra Slot", "Slaver's Bonus Slot",
+        "Legendary Slaver's Bonus Slot", "Slaver's Set Bonus", "Legendary Slaver's Set Bonus"])
     fakeBonuses = set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
     for row in rows:
@@ -262,6 +267,9 @@ def get_items_from_page(itemPageURL, sets):
                 # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
                 if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
                     aff['type'] = 'Enhancement'
+
+                if aff['name'] == 'Slaver\'s Set Bonus' and item['ml'] == '28':
+                    aff['name'] = 'Legendary Slaver\'s Set Bonus'
 
                 if aff['name'] == 'Sheltering' and aff['type'] == 'Physical':
                     aff['type'] = 'Enhancement'

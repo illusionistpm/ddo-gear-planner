@@ -997,6 +997,162 @@
             "threshold": 3
         }
     ],
+    "Legendary Slave Lord's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Legendary Slave Lord's Sorcery": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": 5
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": 10
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Legendary Slave's Endurance": [
+        {
+            "affixes": [
+                {
+                    "name": "MRR",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "MRR",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 4
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Legendary Wallwatch": [
         {
             "affixes": [
@@ -1214,87 +1370,52 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
                     "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Deadly",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Strength",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Dexterity",
-                    "type": "Artifact",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": 1
                 },
                 {
                     "name": "Deadly",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Deadly",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Strength",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Dexterity",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Deadly",
-                    "type": "Artifact",
-                    "value": "4"
+                    "value": 1
                 }
             ],
             "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": 1
+                }
+            ],
+            "threshold": 5
         }
     ],
     "Slave Lord's Sorcery": [
@@ -1303,132 +1424,102 @@
                 {
                     "name": "Spell Power",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": 2
                 },
                 {
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Int/Wis/Cha",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Spell Power",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Power",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Int/Wis/Cha",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "4"
+                    "value": 1
                 }
             ],
             "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": 5
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": 1
+                }
+            ],
+            "threshold": 5
         }
     ],
     "Slave's Endurance": [
         {
             "affixes": [
                 {
-                    "name": "MRR/PRR",
+                    "name": "MRR",
                     "type": "Artifact",
-                    "value": "1"
+                    "value": 1
+                },
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": 1
                 },
                 {
                     "name": "Resistance",
                     "type": "Artifact",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Spell Saves",
                     "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "MRR/PRR",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "MRR/PRR",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "MRR/PRR",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": "4"
+                    "value": 1
                 }
             ],
             "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "MRR",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 5
         }
     ],
     "Slice 'n Dice": [

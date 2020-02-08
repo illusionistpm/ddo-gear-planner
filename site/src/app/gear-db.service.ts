@@ -56,11 +56,14 @@ export class GearDbService {
       if (newItem.rawCrafting) {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
-          if (craftingSystem === 'Nearly Finished' || craftingSystem === 'Almost There') {
+          if (craftingSystem === 'Nearly Finished' || craftingSystem === 'Almost There' || craftingSystem.includes('Slaver\'s')) {
             const newOptions = [];
-            const options = craftingList[craftingSystem][item.name];
+            let options = craftingList[craftingSystem][item.name];
+            if (!options) {
+              options = craftingList[craftingSystem]['*'];
+            }
             if (options) {
-              for (const option of craftingList[craftingSystem][item.name]) {
+              for (const option of options) {
                 newOptions.push(new CraftableOption(option));
               }
               craftingOptions.push(new Craftable(craftingSystem, newOptions));
@@ -211,7 +214,7 @@ export class GearDbService {
 
     for (const items of this.gear.values()) {
       for (const item of items) {
-        if (item.set === setName) {
+        if (item.getSet() === setName) {
           results.push(item);
         }
       }

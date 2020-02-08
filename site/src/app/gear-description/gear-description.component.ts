@@ -43,6 +43,9 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   describe(option: CraftableOption) {
+    if (option && option.set && option.set.length) {
+      return option.set;
+    }
     if (option && option.affixes && option.affixes.length) {
       return option.affixes[0].name + ' +' + option.affixes[0].value + ' ' + option.affixes[0].type;
     } else {

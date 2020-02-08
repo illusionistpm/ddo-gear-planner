@@ -4709,15 +4709,11 @@
                 "name": "Resistance",
                 "type": "Insight",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Slave Master's Cloak",
@@ -11837,15 +11833,11 @@
             {
                 "name": "Diversion",
                 "value": "8"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Slave Rags",
@@ -20971,15 +20963,11 @@
                 "name": "Accuracy",
                 "type": "Quality",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Executioner's Docent",
@@ -29988,37 +29976,14 @@
         "url": "/page/Item:Legendary_Knife_Toed_Boots"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Shackles",
@@ -30734,37 +30699,14 @@
         "url": "/page/Item:Severlin%27s_Leaden_Boots_(level_5)"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Shackles",
@@ -33601,37 +33543,14 @@
         "url": "/page/Item:Eye_of_the_Beholder"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Five Rings",
@@ -34576,37 +34495,14 @@
         "url": "/page/Item:Legendary_Deathwarden"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Five Rings",
@@ -34766,15 +34662,11 @@
                 "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "13"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Ring of Power",
@@ -34868,15 +34760,11 @@
                 "name": "Spell Penetration",
                 "type": "Equipment",
                 "value": "7"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Spinneret",
@@ -35821,15 +35709,11 @@
                 "name": "Armor-Piercing",
                 "type": "Insight",
                 "value": "3"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Ring of Power",
@@ -37636,15 +37520,11 @@
                 "name": "Spell Penetration",
                 "type": "Equipment",
                 "value": "2"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Spinneret",
@@ -51561,15 +51441,11 @@
                 "name": "Combat Mastery",
                 "type": "Quality",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Executioner's Helm",
@@ -51833,15 +51709,11 @@
                 "name": "Constitution",
                 "type": "Quality",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Hardened Hide Helm",
@@ -52634,15 +52506,11 @@
                 "name": "Combat Mastery",
                 "type": "Quality",
                 "value": "4"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Executioner's Helm",
@@ -52685,15 +52553,11 @@
                 "name": "Constitution",
                 "type": "Quality",
                 "value": "4"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Hardened Hide",
@@ -56556,15 +56420,11 @@
                 "name": "Accuracy",
                 "type": "Quality",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Executioner's Platemail",
@@ -57480,15 +57340,11 @@
                 "name": "Accuracy",
                 "type": "Quality",
                 "value": "6"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Executioner's Platemail",
@@ -64615,15 +64471,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "2"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Purple Augment Slot"
+            "Purple Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Breaker of Bodies",
@@ -65474,15 +65326,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "8"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Purple Augment Slot"
+            "Purple Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Breaker of Bodies",
@@ -83974,37 +83822,14 @@
         "url": "/page/Item:Certainty"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Chains",
@@ -86014,37 +85839,14 @@
         "url": "/page/Item:Legendary_Amulet_of_the_Makers"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Chains",
@@ -89796,15 +89598,11 @@
                 "name": "Spell Focus Mastery",
                 "type": "Quality",
                 "value": "2"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Mutilator of Minds",
@@ -90134,15 +89932,11 @@
                 "name": "Spell Focus Mastery",
                 "type": "Quality",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Mutilator of Minds",
@@ -91827,15 +91621,11 @@
                 "name": "Conjuration Focus",
                 "type": "Insight",
                 "value": "1"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Slave Master's Staff",
@@ -95084,15 +94874,11 @@
                 "name": "Conjuration Focus",
                 "type": "Insight",
                 "value": "4"
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Slave Master's Staff",
@@ -112244,37 +112030,14 @@
         "url": "/page/Item:Eye_of_Vol"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Five Rings",
@@ -113401,37 +113164,14 @@
         "url": "/page/Item:Legendary_Empowered_Dragonscale"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Five Rings",
@@ -113519,16 +113259,12 @@
                 "name": "Lesser Displacement",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
             "Green Augment Slot",
-            "Blue Augment Slot"
+            "Blue Augment Slot",
+            "Legendary Slaver's Set Bonus"
         ],
         "ml": "28",
         "name": "Legendary Symbol of the Slave Lords",
@@ -115211,16 +114947,12 @@
                 "name": "Dusk",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
             "Green Augment Slot",
-            "Blue Augment Slot"
+            "Blue Augment Slot",
+            "Slaver's Set Bonus"
         ],
         "ml": "8",
         "name": "Symbol of the Slave Lords",
@@ -116868,37 +116600,14 @@
         "url": "/page/Item:Calitomes%27_Sash"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Chains",
@@ -118158,37 +117867,14 @@
         "url": "/page/Item:Legendary_Burnscar_Sash"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Chains",
@@ -123776,37 +123462,14 @@
         "url": "/page/Item:Legendary_Necromancer%27s_Bracers"
     },
     {
-        "affixes": [
-            {
-                "name": "Legendary Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Legendary Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Legendary Slaver's Prefix Slot",
+            "Legendary Slaver's Suffix Slot",
+            "Legendary Slaver's Extra Slot",
+            "Legendary Slaver's Bonus Slot",
+            "Legendary Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "28",
         "name": "Legendary Shackles",
@@ -124552,37 +124215,14 @@
         "url": "/page/Item:Scorched_Bracers"
     },
     {
-        "affixes": [
-            {
-                "name": "Slaver's Prefix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Suffix Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Extra Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Bonus Slot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Against the Slave Lords Set Bonus",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Slaver's Augment Slot",
-                "type": "bool",
-                "value": 1
-            }
+        "affixes": [],
+        "crafting": [
+            "Slaver's Prefix Slot",
+            "Slaver's Suffix Slot",
+            "Slaver's Extra Slot",
+            "Slaver's Bonus Slot",
+            "Slaver's Set Bonus",
+            "Green Augment Slot"
         ],
         "ml": "8",
         "name": "Shackles",

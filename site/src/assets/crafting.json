@@ -113,6 +113,863 @@
             }
         ]
     },
+    "Legendary Slaver's Bonus Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Quality",
+                        "value": 16
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Quality",
+                        "value": 45.0
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Resistance Rating",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Quality",
+                        "value": 11
+                    }
+                ]
+            }
+        ]
+    },
+    "Legendary Slaver's Extra Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 22
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tendon Slice",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ]
+            }
+        ]
+    },
+    "Legendary Slaver's Prefix Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": 68
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": 185.0
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 45
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 371
+                    }
+                ]
+            }
+        ]
+    },
+    "Legendary Slaver's Set Bonus": {
+        "*": [
+            {
+                "set": "Legendary Slave Lord's Might"
+            },
+            {
+                "set": "Legendary Slave Lord's Sorcery"
+            },
+            {
+                "set": "Legendary Slave Lord's Endurance"
+            }
+        ]
+    },
+    "Legendary Slaver's Suffix Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Enhancement",
+                        "value": 28
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Piercing",
+                        "type": "Enhancement",
+                        "value": 28
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": 17
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Lore",
+                        "type": "Equipment",
+                        "value": 27
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 185
+                    }
+                ]
+            }
+        ]
+    },
     "Nearly Finished": {
         "Black Satin Waist": [
             {
@@ -1034,6 +1891,863 @@
                         "name": "Intelligence",
                         "type": "Insight",
                         "value": 3
+                    }
+                ]
+            }
+        ]
+    },
+    "Slaver's Bonus Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Quality",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Quality",
+                        "value": 17.0
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Resistance Rating",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Quality",
+                        "value": 2
+                    }
+                ]
+            }
+        ]
+    },
+    "Slaver's Extra Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tendon Slice",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ]
+            }
+        ]
+    },
+    "Slaver's Prefix Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": 18
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": 70.0
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 12
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 96
+                    }
+                ]
+            }
+        ]
+    },
+    "Slaver's Set Bonus": {
+        "*": [
+            {
+                "set": "Slave Lord's Might"
+            },
+            {
+                "set": "Slave Lord's Sorcery"
+            },
+            {
+                "set": "Slave Lord's Endurance"
+            }
+        ]
+    },
+    "Slaver's Suffix Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Piercing",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 70
                     }
                 ]
             }

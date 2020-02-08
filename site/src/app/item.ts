@@ -8,7 +8,7 @@ export class Item {
     ml: number;
     affixes: Array<Affix> = Array<Affix>();
     url: string;
-    set: string;
+    private set: string;
     crafting: Array<Craftable>;
 
     rawCrafting: Array<string> = Array<string>();
@@ -27,6 +27,17 @@ export class Item {
             this.rawCrafting = json.crafting;
             this.crafting = json.crafting;
         }
+    }
+
+    getSet() {
+        if (this.crafting) {
+            for (const craftable of this.crafting) {
+                if (craftable.selected.set) {
+                    return craftable.selected.set;
+                }
+            }
+        }
+        return this.set;
     }
 
     isValid() {

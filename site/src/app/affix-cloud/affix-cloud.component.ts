@@ -107,7 +107,7 @@ export class AffixCloudComponent implements OnInit {
 
     this.workingMap = this.cloud.merge(this.workingMap, map);
     for (const entry of this.workingMap) {
-      if (this.savedSet.has(entry[0]) || this.ignoredSet.has(entry[0])) {
+      if (this.savedSet.has(entry[0]) || this.ignoredSet.has(entry[0]) || this.attributes.includes(entry[0])) {
         this.workingMap.delete(entry[0]);
       }
     }
@@ -119,7 +119,6 @@ export class AffixCloudComponent implements OnInit {
     this.savedSet.delete(affix);
     this.equipped.removeImportantAffix(affix);
 
-    this._initTopResults();
     this.workingMap.clear();
     this.savedSet.forEach((a, b, s) => this.add(a));
   }

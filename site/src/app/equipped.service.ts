@@ -279,6 +279,11 @@ export class EquippedService {
     return total;
   }
 
+  hasItem(slot: string) {
+    const item = this.slots.get(slot).getValue();
+    return item && item.isValid();
+  }
+
   isEquipped(item: Item) {
     if (!item || !this.slots.get(item.slot).getValue()) {
       return false;
@@ -309,13 +314,14 @@ export class EquippedService {
   }
 
   isLocked(slot: string) {
-    return !this.unlockedSlots.has(slot);
+    //return !this.unlockedSlots.has(slot);
+    return this.hasItem(slot);
   }
 
   getLockedSlots() {
     const lockedSlots = [];
     for (const slot of this.getSlotNames()) {
-      if (!this.unlockedSlots.has(slot)) {
+      if (this.isLocked(slot)) {
         lockedSlots.push(slot);
       }
     }
@@ -323,7 +329,14 @@ export class EquippedService {
   }
 
   getUnlockedSlots() {
-    return this.unlockedSlots;
+    //return this.unlockedSlots;
+    const unlockedSlots = new Set<string>();
+    for (const slot of this.getSlotNames()) {
+      if (!this.isLocked(slot)) {
+        unlockedSlots.add(slot);
+      }
+    }
+    return unlockedSlots;
   }
 
   getScore(item: Item) {

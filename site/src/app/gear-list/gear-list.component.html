@@ -14,12 +14,13 @@
                 </div>
             </button>
 
-            <button type="button" class="btn btn-secondary flat-left col-1" (click)="equipped.toggleLock(slot)">
-                <span *ngIf="equipped.isLocked(slot); else unlocked" class="fas fa-lock locked"></span>
-                <ng-template #unlocked>
-                    <span class="fas fa-lock-open unlocked"></span>
-                </ng-template>
+            <button type="button" class="btn btn-secondary flat-left col-1 font-weight-bold"
+                *ngIf="equipped.hasItem(slot); else unlocked" (click)="equipped.clearSlot(slot)">
+                &times;
             </button>
+            <ng-template #unlocked>
+                <span class="btn btn-secondary flat-left col-1"></span>
+            </ng-template>
         </div>
         <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
     </div>

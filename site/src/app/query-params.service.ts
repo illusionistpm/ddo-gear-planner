@@ -12,7 +12,7 @@ export class QueryParamsService {
 
   private updateListeners: Array<any>;
 
-  private firstTimeSubscribe = true;
+  private initialPageLoad = true;
 
   constructor(
     private readonly router: Router
@@ -40,17 +40,17 @@ export class QueryParamsService {
 
   // Called by the app when the page is loaded
   updateFromParams(params) {
-    for(const listener of this.updateListeners) {
-      listener.updateFromParams(params);
-    }
+    if (this.initialPageLoad) {
+      this.initialPageLoad = false;
+
+      for (const listener of this.updateListeners) {
+        listener.updateFromParams(params);
+      }
 
     // Don't start listening to the observables until after we've applied the query parameters.
     // Otherwise we just end up overwriting everything.
-    if (this.firstTimeSubscribe) {
       for (const pair of this.observables) {
         pair[1].subscribe(this._makeNavigateFn(pair));
-
-        this.firstTimeSubscribe = false;
       }
     }
   }
@@ -59,7 +59,7 @@ export class QueryParamsService {
   register(source: any, obs: Observable<any>) {
     this.observables.push([source, obs]);
 
-    if (!this.firstTimeSubscribe) {
+    if (!this.initialPageLoad) {
       obs.subscribe(this._makeNavigateFn([source, obs]));
     }
   }

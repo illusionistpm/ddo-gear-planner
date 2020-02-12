@@ -565,7 +565,8 @@
                 ],
                 "ml": 28
             }
-        ]
+        ],
+        "hiddenFromAffixSearch": true
     },
     "Colorless Augment Slot": {
         "*": [
@@ -2671,7 +2672,8 @@
                 "ml": 25,
                 "name": "Globe of True Imperial Blood"
             }
-        ]
+        ],
+        "hiddenFromAffixSearch": true
     },
     "Legendary Slaver's Bonus Slot": {
         "*": [
@@ -5658,7 +5660,8 @@
                 ],
                 "ml": 28
             }
-        ]
+        ],
+        "hiddenFromAffixSearch": true
     },
     "Slaver's Bonus Slot": {
         "*": [
@@ -6942,7 +6945,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromany Focus",
+                        "name": "Necromancy Focus",
                         "type": "Augment",
                         "value": 1
                     }
@@ -7172,7 +7175,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromany Focus",
+                        "name": "Necromancy Focus",
                         "type": "Augment",
                         "value": 2
                     }
@@ -7305,6 +7308,7 @@
                 ],
                 "ml": 20
             }
-        ]
+        ],
+        "hiddenFromAffixSearch": true
     }
 }

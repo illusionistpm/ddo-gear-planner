@@ -4,19 +4,23 @@ export class Craftable {
     name: string;
     options: Array<CraftableOption>;
     selected: CraftableOption;
+    hiddenFromAffixSearch: boolean;
 
-    constructor(name: string, options: Array<CraftableOption>) {
+    constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean) {
         this.name = name;
         const emptyOption = new CraftableOption(null);
         this.options = [emptyOption].concat(options);
         this.selected = emptyOption;
+        this.hiddenFromAffixSearch = (hiddenFromAffixSearch === undefined) || hiddenFromAffixSearch;
     }
 
     getMatchingBonusType(affixName, bonusType) {
-        for (const option of this.options) {
-            const value = option.getMatchingBonusType(affixName, bonusType);
-            if (value) {
-                return value;
+        if (!this.hiddenFromAffixSearch) {
+            for (const option of this.options) {
+                const value = option.getMatchingBonusType(affixName, bonusType);
+                if (value) {
+                    return value;
+                }
             }
         }
 
@@ -24,13 +28,16 @@ export class Craftable {
     }
 
     selectMatchingBonusType(affixName, bonusType) {
-        for (const option of this.options) {
-            const value = option.getMatchingBonusType(affixName, bonusType);
-            if (value) {
-                this.selected = option;
-                return true;
+        if (!this.hiddenFromAffixSearch) {
+            for (const option of this.options) {
+                const value = option.getMatchingBonusType(affixName, bonusType);
+                if (value) {
+                    this.selected = option;
+                    return true;
+                }
             }
         }
+        
         return false;
     }
 

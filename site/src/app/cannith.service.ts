@@ -64,7 +64,7 @@ export class CannithService {
         option.affixes.push(new Affix({ name: affix, value, type }));
         newOptions.push(new CraftableOption(option));
       }
-      craftingOptions.push(new Craftable(location, newOptions));
+      craftingOptions.push(new Craftable(location, newOptions, false));
     }
 
     return craftingOptions;

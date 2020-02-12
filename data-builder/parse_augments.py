@@ -17,6 +17,8 @@ def parse_augments():
         if system not in systems:
             systems[system] = {}
             systems[system]['*'] = []
+            # We don't want the augments polluting the affix search
+            systems[system]['hiddenFromAffixSearch'] = True
 
         rows = ws.iter_rows()
         next(rows) # skip header

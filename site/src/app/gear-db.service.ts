@@ -111,11 +111,11 @@ export class GearDbService {
               for (const option of options) {
                 newOptions.push(new CraftableOption(option));
               }
-              craftingOptions.push(new Craftable(craftingSystem, newOptions));
+              craftingOptions.push(new Craftable(craftingSystem, newOptions, this.craftingList[craftingSystem]['hiddenFromAffixSearch']));
             }
           } else {
             // Not-yet-implemented crafting systems
-            craftingOptions.push(new Craftable(craftingSystem, []));
+            craftingOptions.push(new Craftable(craftingSystem, [], false));
           }
         }
         newItem.crafting = craftingOptions;
@@ -143,6 +143,18 @@ export class GearDbService {
     for (const setName of Object.getOwnPropertyNames(setList)) {
       for (const threshold of setList[setName]) {
         this._addAffixesToMap(threshold.affixes);
+      }
+    }
+
+    for (const system of Object.values(this.craftingList)) {
+      for (const item of Object.values(system)) {
+        for (const option of Object.values(item)) {
+          if (option['affixes']) {
+            for (const affix of Object.values(option['affixes'])) {
+              this._addAffixesToMap([new Affix(affix)]);
+            }
+          }
+        }
       }
     }
 

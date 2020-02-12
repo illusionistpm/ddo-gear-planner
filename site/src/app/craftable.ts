@@ -34,15 +34,11 @@ export class Craftable {
         return false;
     }
 
-    selectByFirstAffixName(affixName: string) {
+    selectByParamDescription(desc: string) {
         for (const option of this.options) {
-            if (option.affixes) {
-                for (const affix of option.affixes) {
-                    if (affix.name === affixName) {
-                        this.selected = option;
-                        return true;
-                    }
-                }
+            if (option.matchesParamDescription(desc)) {
+                this.selected = option;
+                return true;
             }
         }
         return false;

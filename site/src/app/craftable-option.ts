@@ -3,6 +3,8 @@ import { Affix } from './affix';
 export class CraftableOption {
     affixes: Array<Affix>;
     set: string;
+    name: string;
+    ml: number;
 
     constructor(json) {
         this.affixes = new Array<Affix>();
@@ -15,7 +17,30 @@ export class CraftableOption {
             }
 
             this.set = json.set;
+
+            if (json.name) {
+                this.name = json.name;
+            }
+
+            if (json.ml) {
+                this.ml = json.ml;
+            }
         }
+    }
+
+    matchesParamDescription(desc: string) {
+        return desc === this.getParamDescription();
+    }
+
+    getParamDescription() {
+        if (this.name) {
+            return this.name;
+        } else if (this.set) {
+            return this.set;
+        } else if (this.affixes && this.affixes.length) {
+            return this.affixes[0].name + this.affixes[0].value;
+        }
+        return '';
     }
 
     getMatchingBonusType(affixName, bonusType) {

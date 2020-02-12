@@ -9,7 +9,7 @@ import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
-import craftingList from 'src/assets/crafting.json';
+import craftingListOrig from 'src/assets/crafting.json';
 import cannithList from 'src/assets/cannith.json';
 import setList from 'src/assets/sets.json';
 
@@ -19,6 +19,8 @@ import setList from 'src/assets/sets.json';
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
   private allGear: Map<string, Array<Item>>;
+  private craftingList;
+
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
 
@@ -26,12 +28,55 @@ export class GearDbService {
     public cannith: CannithService,
     public filters: FiltersService
   ) {
+    this._buildAugmentOptions();
     this.gear = new Map<string, Array<Item>>();
     this.allGear = this.filterByLevelRange(1, 30);
 
     this.filters.getLevelRange().subscribe(val => {
       this.gear = this.filterByLevelRange(val[0], val[1]);
     });
+  }
+
+  _mergeAugmentLists(left, right) {
+    left = left + ' Augment Slot';
+    right = right + ' Augment Slot';
+
+    if (!this.craftingList[left]) {
+      this.craftingList[left] = { '*': [] };
+    }
+
+    this.craftingList[left]['*'] = this.craftingList[left]['*'].concat(this.craftingList[right]['*']);
+  }
+
+  private _sortAugmentList(name) {
+    name = name + ' Augment Slot';
+    this.craftingList[name]['*'] = this.craftingList[name]['*'].sort((a,b) => {
+      const aStr = a.name ? a.name : a.affixes[0].name;
+      const bStr = b.name ? b.name : b.affixes[0].name;
+      return aStr.localeCompare(bStr)
+    });
+  }
+
+  private _buildAugmentOptions() {
+    this.craftingList = craftingListOrig;
+
+    this._mergeAugmentLists('Purple', 'Blue');
+    this._mergeAugmentLists('Purple', 'Red');
+    this._mergeAugmentLists('Purple', 'Colorless');
+
+    this._mergeAugmentLists('Orange', 'Yellow');
+    this._mergeAugmentLists('Orange', 'Red');
+    this._mergeAugmentLists('Orange', 'Colorless');
+
+    this._mergeAugmentLists('Green', 'Yellow');
+    this._mergeAugmentLists('Green', 'Blue');
+    this._mergeAugmentLists('Green', 'Colorless');
+
+    this._mergeAugmentLists('Blue', 'Colorless');
+    this._mergeAugmentLists('Red', 'Colorless');
+    this._mergeAugmentLists('Yellow', 'Colorless');
+
+    ['Blue', 'Yellow', 'Red', 'Green', 'Purple', 'Orange', 'Colorless'].map(e => this._sortAugmentList(e));
   }
 
   filterByLevelRange(minLevel: number, maxLevel: number) {
@@ -56,11 +101,11 @@ export class GearDbService {
       if (newItem.rawCrafting) {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
-          if (craftingSystem === 'Nearly Finished' || craftingSystem === 'Almost There' || craftingSystem.includes('Slaver\'s')) {
+          if (craftingSystem && this.craftingList[craftingSystem]) {
             const newOptions = [];
-            let options = craftingList[craftingSystem][item.name];
+            let options = this.craftingList[craftingSystem][item.name];
             if (!options) {
-              options = craftingList[craftingSystem]['*'];
+              options = this.craftingList[craftingSystem]['*'];
             }
             if (options) {
               for (const option of options) {

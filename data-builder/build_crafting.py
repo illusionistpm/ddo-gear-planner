@@ -1,5 +1,6 @@
 import json
 from parse_slavers import parse_slavers_crafting
+from parse_augments import parse_augments
 
 outFile = "../site/src/assets/crafting.json"
 
@@ -7,9 +8,12 @@ nearlyFinished = json.load(open('nearly-finished.json', "r", encoding='utf-8'))
 
 slavers = parse_slavers_crafting()
 
+augments = parse_augments()
+
 combined = {}
 combined.update(nearlyFinished)
 combined.update(slavers)
+combined.update(augments)
 
 out = json.dumps(combined, sort_keys=True, indent=4)
 open(outFile, 'w', encoding='utf8').write(out)

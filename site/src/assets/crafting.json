@@ -113,6 +113,2566 @@
             }
         ]
     },
+    "Blue Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": 25.0
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": 75.0
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": 100
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 12
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 35
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Armor",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Protection",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Resistance Rating",
+                        "type": "Enhancement",
+                        "value": 16
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hit Points",
+                        "type": "Enhancement",
+                        "value": 40
+                    }
+                ],
+                "ml": 28
+            }
+        ]
+    },
+    "Colorless Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Festive",
+                        "value": 2
+                    }
+                ],
+                "ml": 22
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Festive",
+                        "value": 2
+                    }
+                ],
+                "ml": 22
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vitality",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 11
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 14,
+                "name": "Globe of Imperial Blood"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 25,
+                "name": "Globe of True Imperial Blood"
+            }
+        ]
+    },
     "Legendary Slaver's Bonus Slot": {
         "*": [
             {
@@ -1896,6 +4456,1210 @@
             }
         ]
     },
+    "Red Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 30
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d2"
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d2"
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d2"
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d2"
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 42
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d3"
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d3"
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d3"
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d3"
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Byeshk",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Law",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Chaos",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 54
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d4"
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d4"
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d4"
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d4"
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adamantine",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 66
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d6"
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d6"
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d6"
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d6"
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Iron",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Alchemical Silver",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 78
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d8"
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d8"
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d8"
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d8"
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 90
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "1d10"
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "1d10"
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "1d10"
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "1d10"
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 114
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Damage",
+                        "type": "Enhancement",
+                        "value": "2d6"
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Damage",
+                        "type": "Enhancement",
+                        "value": "2d6"
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Damage",
+                        "type": "Enhancement",
+                        "value": "2d6"
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Damage",
+                        "type": "Enhancement",
+                        "value": "2d6"
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": 138
+                    }
+                ],
+                "ml": 28
+            }
+        ]
+    },
     "Slaver's Bonus Slot": {
         "*": [
             {
@@ -2750,6 +6514,796 @@
                         "value": 70
                     }
                 ]
+            }
+        ]
+    },
+    "Yellow Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 5.0
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Underwater Action",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Feather Falling",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Poison",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 10.0
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 50
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Poison",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Blindness Immunity",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fear Immunity",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 15.0
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 20
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 75
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Poison",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 20.0
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 25
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 100
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromany Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Augment",
+                        "value": 1
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Poison",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 25.0
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 150
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Poison",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Striding",
+                        "type": "Enhancement",
+                        "value": 30.0
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 35
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 35
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 35
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 35
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 200
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromany Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Augment",
+                        "value": 2
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 40
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 40
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 40
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 40
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 250
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 30
+                    }
+                ],
+                "ml": 25,
+                "name": "Draconic Soul Gem"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Anthem",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
             }
         ]
     }

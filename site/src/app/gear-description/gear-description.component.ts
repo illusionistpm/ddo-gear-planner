@@ -43,11 +43,18 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   describe(option: CraftableOption) {
+    if (option && option.name && option.name.length) {
+      return option.name;
+    }
     if (option && option.set && option.set.length) {
       return option.set;
     }
     if (option && option.affixes && option.affixes.length) {
-      return option.affixes[0].name + ' +' + option.affixes[0].value + ' ' + option.affixes[0].type;
+      let str = option.affixes[0].name + ' +' + option.affixes[0].value + ' ' + option.affixes[0].type;
+      if (option.ml) {
+        str += ' (ML ' + option.ml + ')';
+      }
+      return str;
     } else {
       return '';
     }

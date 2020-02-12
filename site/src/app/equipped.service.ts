@@ -108,16 +108,16 @@ export class EquippedService {
         console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
         continue;
       }
-      if(!crafting.selectByFirstAffixName(craftingParam['selected'])) {
-        console.log('Couldn\'t set craftable. Couldn\'t find affix called ' + craftingParam['selected']);
+      if(!crafting.selectByParamDescription(craftingParam['selected'])) {
+        console.log('Couldn\'t set craftable. Couldn\'t find option matching ' + craftingParam['selected']);
         continue;
       }
       this._set(item);
     }
 
-    for (const lockedSlot of params.getAll('locked')) {
-      this.setLock(lockedSlot, true);
-    }
+    // for (const lockedSlot of params.getAll('locked')) {
+    //   this.setLock(lockedSlot, true);
+    // }
   }
 
   _updateRouterState() {
@@ -138,7 +138,7 @@ export class EquippedService {
             if (crafting.selected.affixes.length) {
               params['craft_' + craftingIdx + "_slot"] = slot;
               params['craft_' + craftingIdx + "_system"] = crafting.name;
-              params['craft_' + craftingIdx + "_selected"] = crafting.selected.affixes[0].name;
+              params['craft_' + craftingIdx + "_selected"] = crafting.selected.getParamDescription();
               craftingIdx++;
             }
           }
@@ -146,7 +146,7 @@ export class EquippedService {
       }
     }
 
-    params['locked'] = this.getLockedSlots();
+    //params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
 

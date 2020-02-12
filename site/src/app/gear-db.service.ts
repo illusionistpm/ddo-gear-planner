@@ -50,10 +50,10 @@ export class GearDbService {
 
   private _sortAugmentList(name) {
     name = name + ' Augment Slot';
-    this.craftingList[name]['*'] = this.craftingList[name]['*'].sort((a,b) => {
+    this.craftingList[name]['*'] = this.craftingList[name]['*'].sort((a, b) => {
       const aStr = a.name ? a.name : a.affixes[0].name;
       const bStr = b.name ? b.name : b.affixes[0].name;
-      return aStr.localeCompare(bStr)
+      return aStr.localeCompare(bStr);
     });
   }
 
@@ -349,7 +349,7 @@ export class GearDbService {
       for (const data of setList[set]) {
         thresholds.push(data.threshold);
       }
-      thresholds.sort((a,b) => a - b);
+      thresholds.sort((a, b) => a - b);
     }
     return thresholds;
   }

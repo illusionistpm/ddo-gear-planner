@@ -7,6 +7,7 @@ import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
+import { AffixService } from './affix.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class EquippedService {
 
   constructor(
     private gearList: GearDbService,
-    private queryParams: QueryParamsService
+    private queryParams: QueryParamsService,
+    private affixSvc: AffixService
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
@@ -230,7 +232,7 @@ export class EquippedService {
     const values = [];
     for (const slot of this.slots) {
       if (slot[1].getValue()) {
-        for (const affix of slot[1].getValue().getActiveAffixes()) {
+        for (const affix of this.affixSvc.getActiveAffixes(slot[1].getValue())) {
           if (affix.name === affixName && affix.type === bonusType) {
             values.push({ slot, value: affix.value });
           }
@@ -264,7 +266,7 @@ export class EquippedService {
     for (const slot of this.slots) {
       const item = (testItem && (slot[0] === testItem.slot)) ? testItem : slot[1].getValue();
       if (item) {
-        for (const affix of item.getActiveAffixes()) {
+        for (const affix of this.affixSvc.getActiveAffixes(item)) {
           if (affix.name === affixName) {
             if (!map.get(affix.type) || map.get(affix.type) < affix.value) {
               map.set(affix.type, affix.value);
@@ -341,7 +343,7 @@ export class EquippedService {
 
   getScore(item: Item) {
     let score = 0;
-    for (const affix of item.getActiveAffixes()) {
+    for (const affix of this.affixSvc.getActiveAffixes(item)) {
       if (this.importantAffixes.has(affix.name)) {
 
         const dummyItem = new Item(null);

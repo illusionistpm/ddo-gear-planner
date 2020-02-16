@@ -4,5 +4,6 @@ export enum AffixRank {
     BestTied,
     Outranked,
     Irrelevant,
-    Penalty
+    Penalty,
+    Mixed
 }

@@ -1,0 +1,41 @@
+[
+    {
+        "affixes": [
+            "Will Save",
+            "Fortitude Save",
+            "Reflex Save"
+        ],
+        "name": "Resistance"
+    },
+    {
+        "affixes": [
+            "Will Save",
+            "Fortitude Save",
+            "Reflex Save",
+            "Armor Class"
+        ],
+        "name": "Parrying"
+    },
+    {
+        "affixes": [
+            "Physical Sheltering",
+            "Magical Sheltering"
+        ],
+        "name": "Sheltering"
+    },
+    {
+        "affixes": [
+            "Nullification",
+            "Radiance",
+            "Devotion",
+            "Corrosion",
+            "Combustion",
+            "Magnetic",
+            "Glaciation",
+            "Reconstruction",
+            "Impulse",
+            "Resonance"
+        ],
+        "name": "Potency"
+    }
+]

@@ -61,4 +61,10 @@
 .Penalty {
     color: red;
 }
+
+.Mixed {
+    font-style: italic;
+    font-weight: bold;
+    color: darkorange;
+}
 /* JK: FIXME!! END: These are duplicated from gear-description and you should feel bad */

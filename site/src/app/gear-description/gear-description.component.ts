@@ -4,6 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 import { CannithService } from '../cannith.service';
+import { AffixService } from '../affix.service';
 
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
@@ -26,6 +27,7 @@ export class GearDescriptionComponent implements OnInit {
   constructor(
     public equipped: EquippedService,
     public cannith: CannithService,
+    private affixSvc: AffixService,
     private modalService: NgbModal
   ) {
   }
@@ -77,8 +79,27 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   getClassForAffix(affix: Affix) {
-    const affixRank = this.equipped.getAffixRanking(affix);
+    let affixRank = this.equipped.getAffixRanking(affix);
+    if (affixRank === AffixRank.Irrelevant) {
+      if (this.affixSvc.isAffixGroup(affix)) {
+        affixRank = this._getClassForAffixGroup(affix);
+      }
+    }
     return AffixRank[affixRank];
+  }
+
+  private _getClassForAffixGroup(affixGroup: Affix) {
+    let affixRank = AffixRank.Irrelevant;
+    const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
+    for (const aff of affixes) {
+      const curRank = this.equipped.getAffixRanking(aff);
+      if (affixRank === AffixRank.Irrelevant) {
+        affixRank = curRank;
+      } else if (affixRank !== curRank) {
+        return AffixRank.Mixed;
+      }
+    }
+    return affixRank;
   }
 
   getClassForCraftable(craft: Craftable) {

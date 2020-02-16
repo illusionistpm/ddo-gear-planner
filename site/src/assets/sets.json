@@ -1,5 +1,5 @@
 {
-    "Adherent of the Mists": [
+    "Adherent of the Mists Set (Heroic)": [
         {
             "affixes": [
                 {
@@ -36,6 +36,48 @@
                     "name": "Universal Spell Power",
                     "type": "Profane",
                     "value": "10"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Adherent of the Mists Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Positive Healing Amplification",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Healing Amplification",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Profane",
+                    "value": "20"
                 }
             ],
             "threshold": 5
@@ -104,7 +146,7 @@
         }
     ],
     "Assassin": [],
-    "Beacon of Magic": [
+    "Beacon of Magic Set (Heroic)": [
         {
             "affixes": [
                 {
@@ -131,6 +173,33 @@
             "threshold": 3
         }
     ],
+    "Beacon of Magic Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "all Spell DCs",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Missile Deflection",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Brilliant Crescents": [
         {
             "affixes": [
@@ -150,7 +219,7 @@
         }
     ],
     "Corsair's Cunning [ML:5]": [],
-    "Crypt Raider": [
+    "Crypt Raider Set (Heroic)": [
         {
             "affixes": [
                 {
@@ -167,6 +236,33 @@
                     "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "5"
+                },
+                {
+                    "name": "threat decrease with both melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Crypt Raider Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "hit and damage vs. Evil creatures",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "20"
                 },
                 {
                     "name": "threat decrease with both melee and ranged attacks",
@@ -525,7 +621,7 @@
         }
     ],
     "Kensai": [],
-    "Knight of the Shadows": [
+    "Knight of the Shadows Set (Heroic)": [
         {
             "affixes": [
                 {
@@ -552,46 +648,31 @@
             "threshold": 3
         }
     ],
-    "Legendary Adherent of the Mists": [
+    "Knight of the Shadows Set (Legendary)": [
         {
             "affixes": [
                 {
-                    "name": "Physical Resistance Rating",
-                    "type": "Profane",
+                    "name": "PRR",
+                    "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Positive Healing Amplification",
-                    "type": "Profane",
+                    "name": "MRR",
+                    "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Negative Healing Amplification",
-                    "type": "Profane",
-                    "value": "20"
+                    "name": "threat generation with melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "50"
                 },
                 {
-                    "name": "Repair Healing Amplification",
-                    "type": "Profane",
-                    "value": "20"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Profane",
+                    "name": "Armor Class",
+                    "type": "Artifact",
                     "value": "10"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Profane",
-                    "value": "10"
-                },
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Profane",
-                    "value": "20"
                 }
             ],
-            "threshold": 5
+            "threshold": 3
         }
     ],
     "Legendary Arcsteel Battlemage": [
@@ -646,60 +727,6 @@
                     "name": "Spell DCs",
                     "type": "Artifact",
                     "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Beacon of Magic": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "50"
-                },
-                {
-                    "name": "all Spell DCs",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Missile Deflection",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Crypt Raider": [
-        {
-            "affixes": [
-                {
-                    "name": "hit and damage vs. Evil creatures",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "threat decrease with both melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "20"
                 }
             ],
             "threshold": 3
@@ -910,33 +937,6 @@
             "threshold": 3
         }
     ],
-    "Legendary Knight of the Shadows": [
-        {
-            "affixes": [
-                {
-                    "name": "PRR",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "MRR",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "threat generation with melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "50"
-                },
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -965,38 +965,6 @@
         }
     ],
     "Legendary Profane Experiment": [],
-    "Legendary Silent Avenger": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
-                    "name": "Fortification Bypass",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Damage vs. Helpless Opponents",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -1333,7 +1301,7 @@
         }
     ],
     "Shaman's Fury": [],
-    "Silent Avenger": [
+    "Silent Avenger Set (Heroic)": [
         {
             "affixes": [
                 {
@@ -1360,6 +1328,38 @@
                     "name": "Damage vs. Helpless Opponents",
                     "type": "Artifact",
                     "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Silent Avenger Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "Fortification Bypass",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Damage vs. Helpless Opponents",
+                    "type": "Artifact",
+                    "value": "10"
                 }
             ],
             "threshold": 3

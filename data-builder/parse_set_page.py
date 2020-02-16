@@ -69,11 +69,11 @@ def get_sets_from_page(soup):
 
             setName = cells[setNameIdx].getText().strip()
 
-            legendarySearch = re.search(r'(.*) Set \((Heroic|Legendary)\)', setName)
-            if legendarySearch:
-                setName = legendarySearch.group(1)
-                if legendarySearch.group(2) == 'Legendary':
-                    setName = 'Legendary ' + setName
+            # legendarySearch = re.search(r'(.*) Set \((Heroic|Legendary)\)', setName)
+            # if legendarySearch:
+            #     setName = legendarySearch.group(1)
+            #     if legendarySearch.group(2) == 'Legendary':
+            #         setName = 'Legendary ' + setName
 
             if not setName in sets:
                 sets[setName] = []

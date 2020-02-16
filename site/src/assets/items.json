@@ -205,38 +205,6 @@
         "url": "/page/Item:Black_Velvet_Capelet"
     },
     {
-        "affixes": [
-            {
-                "name": "Negative Amplification",
-                "type": "Insight",
-                "value": "15"
-            },
-            {
-                "name": "Well Rounded",
-                "type": "Profane",
-                "value": "1"
-            },
-            {
-                "name": "Intelligence",
-                "type": "Enhancement",
-                "value": "8"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Blue Augment Slot"
-        ],
-        "ml": "15",
-        "name": "Black Velvet Cloak",
-        "slot": "Cloak",
-        "type": "Back items",
-        "url": "/page/Item:Black_Velvet_Cloak"
-    },
-    {
         "affixes": [],
         "crafting": [
             "Green Augment Slot",
@@ -804,7 +772,13 @@
         "url": "/page/Item:Cloak_of_Troll%27s_Resistance"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Will Save",
+                "type": "Resistance",
+                "value": "3"
+            }
+        ],
         "crafting": [
             "Colorless Augment Slot"
         ],
@@ -2703,7 +2677,7 @@
         ],
         "ml": "29",
         "name": "Legendary Mantle of Fury",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Mantle_of_Fury"
@@ -2768,7 +2742,7 @@
         ],
         "ml": "29",
         "name": "Legendary Phasecloak",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Phasecloak"
@@ -2801,7 +2775,7 @@
         ],
         "ml": "29",
         "name": "Legendary Scarlet Scale Cloak",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Scarlet_Scale_Cloak"
@@ -2834,7 +2808,7 @@
         ],
         "ml": "29",
         "name": "Legendary Shadowhail Cloak",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Shadowhail_Cloak"
@@ -2899,7 +2873,7 @@
         ],
         "ml": "29",
         "name": "Legendary Silverthread Cloak",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Silverthread_Cloak"
@@ -2995,7 +2969,7 @@
         ],
         "ml": "29",
         "name": "Legendary Twisthallow Cloak",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Twisthallow_Cloak"
@@ -3060,7 +3034,7 @@
         ],
         "ml": "10",
         "name": "Mantle of Fury",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Mantle_of_Fury"
@@ -3627,7 +3601,7 @@
         ],
         "ml": "10",
         "name": "Phasecloak",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Phasecloak"
@@ -4468,7 +4442,7 @@
         ],
         "ml": "10",
         "name": "Scarlet Scale Cloak",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Scarlet_Scale_Cloak"
@@ -4520,7 +4494,7 @@
         ],
         "ml": "10",
         "name": "Shadowhail Cloak",
-        "set": "Silent Avenger",
+        "set": "Silent Avenger Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Shadowhail_Cloak"
@@ -4614,7 +4588,7 @@
         ],
         "ml": "10",
         "name": "Silverthread Cloak",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Silverthread_Cloak"
@@ -4863,7 +4837,7 @@
         ],
         "ml": "28",
         "name": "The Invisible Cloak of Strahd",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:The_Invisible_Cloak_of_Strahd"
@@ -4913,7 +4887,7 @@
         ],
         "ml": "10",
         "name": "Twisthallow Cloak",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Twisthallow_Cloak"
@@ -6202,11 +6176,11 @@
                 "value": "15"
             },
             {
-                "name": "Weapon's Holy Effect",
+                "name": "Holy",
                 "value": "9"
             },
             {
-                "name": "Weapon's Axiomatic Effect",
+                "name": "Axiomatic",
                 "value": "9"
             },
             {
@@ -8149,7 +8123,7 @@
         ],
         "ml": "10",
         "name": "Van Richten's Cane",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Van_Richten%27s_Cane"
@@ -8191,7 +8165,7 @@
         ],
         "ml": "29",
         "name": "Van Richten's Legendary Cane",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Van_Richten%27s_Legendary_Cane"
@@ -8313,7 +8287,7 @@
         ],
         "ml": "10",
         "name": "Barovian Nobles' Regalia",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Barovian_Nobles%27_Regalia"
@@ -8692,7 +8666,7 @@
         ],
         "ml": "10",
         "name": "Disciple of the Dawn",
-        "set": "Silent Avenger",
+        "set": "Silent Avenger Set (Heroic)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Disciple_of_the_Dawn"
@@ -9152,8 +9126,8 @@
                 "value": "7"
             },
             {
-                "name": "Epic Will Save",
-                "type": "Resistance",
+                "name": "Will Save",
+                "type": "Epic",
                 "value": "3"
             },
             {
@@ -9954,7 +9928,7 @@
         ],
         "ml": "29",
         "name": "Legendary Barovian Nobles' Regalia",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Barovian_Nobles%27_Regalia"
@@ -10029,7 +10003,7 @@
         ],
         "ml": "29",
         "name": "Legendary Disciple of the Dawn",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Disciple_of_the_Dawn"
@@ -10369,7 +10343,7 @@
         ],
         "ml": "28",
         "name": "Mantle of Escher",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Mantle_of_Escher"
@@ -10676,7 +10650,7 @@
         ],
         "ml": "28",
         "name": "Patience Through Peril",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Patience_Through_Peril"
@@ -12661,6 +12635,28 @@
                 "value": "3"
             },
             {
+                "name": "Ooze Bane",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "6",
+        "name": "Muck's Doom",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Muck%27s_Doom"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
                 "name": "Lesser Goblinoid Bane",
                 "type": "bool",
                 "value": 1
@@ -12679,28 +12675,6 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Fist_of_Daarguul"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Ooze Bane",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "6",
-        "name": "Muck's Doom",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Muck%27s_Doom"
     },
     {
         "affixes": [
@@ -12856,6 +12830,82 @@
                 "value": "3"
             },
             {
+                "name": "Cold Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "7",
+        "name": "+3 Quenched Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:%2B3_Quenched_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "9"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Glaciation",
+                "type": "Equipment",
+                "value": "54"
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "7",
+        "name": "+3 Glaciation Doused Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:%2B3_Glaciation_Doused_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "9"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Equipment",
+                "value": "54"
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "7",
+        "name": "Caustic Club",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Caustic_Club"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
                 "name": "Fire Vulnerability",
                 "type": "bool",
                 "value": 1
@@ -12891,82 +12941,6 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Smoldering_Club"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Cold Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "7",
-        "name": "+3 Quenched Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:%2B3_Quenched_Sceptre"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "9"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Corrosion",
-                "type": "Equipment",
-                "value": "54"
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "7",
-        "name": "Caustic Club",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Caustic_Club"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "9"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Glaciation",
-                "type": "Equipment",
-                "value": "54"
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "7",
-        "name": "+3 Glaciation Doused Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:%2B3_Glaciation_Doused_Sceptre"
     },
     {
         "affixes": [
@@ -13014,37 +12988,37 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "5"
+                "value": "4"
             },
             {
-                "name": "Spell Focus Mastery",
+                "name": "Combustion",
                 "type": "Equipment",
-                "value": "2"
+                "value": "77"
             },
             {
-                "name": "Spell Focus Mastery",
-                "type": "Insight",
-                "value": "1"
-            },
-            {
-                "name": "Spell Penetration",
+                "name": "Fire Lore",
                 "type": "Equipment",
-                "value": "3"
+                "value": "11"
             },
             {
-                "name": "Spell Penetration",
+                "name": "Evocation Focus",
                 "type": "Insight",
                 "value": "2"
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "112"
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Purple Augment Slot"
         ],
         "ml": "10",
-        "name": "Macabre Sceptre",
+        "name": "Flaming Forum Post (level 10)",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Macabre_Sceptre"
+        "url": "/page/Item:Flaming_Forum_Post_(level_10)"
     },
     {
         "affixes": [
@@ -13128,43 +13102,6 @@
                 "value": "4"
             },
             {
-                "name": "Resonance",
-                "type": "Equipment",
-                "value": "77"
-            },
-            {
-                "name": "Sonic Lore",
-                "type": "Equipment",
-                "value": "11"
-            },
-            {
-                "name": "Evocation Focus",
-                "type": "Insight",
-                "value": "2"
-            },
-            {
-                "name": "Wizardry",
-                "type": "Enhancement",
-                "value": "112"
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot"
-        ],
-        "ml": "10",
-        "name": "Clamorous Forum Post (level 10)",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Clamorous_Forum_Post_(level_10)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "4"
-            },
-            {
                 "name": "Corrosion",
                 "type": "Equipment",
                 "value": "77"
@@ -13193,6 +13130,85 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Caustic_Forum_Post_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Magnetism",
+                "type": "Equipment",
+                "value": "77"
+            },
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "11"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "112"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "10",
+        "name": "Shocking Forum Post (level 10)",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Shocking_Forum_Post_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "10"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "46"
+            },
+            {
+                "name": "Potency",
+                "type": "Insight",
+                "value": "23"
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Competence",
+                "value": "12"
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Insight",
+                "value": "6"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "10",
+        "name": "Barovian's Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Barovian%27s_Sceptre"
     },
     {
         "affixes": [
@@ -13265,59 +13281,17 @@
     {
         "affixes": [
             {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "10"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "46"
-            },
-            {
-                "name": "Potency",
-                "type": "Insight",
-                "value": "23"
-            },
-            {
-                "name": "Spellcraft",
-                "type": "Competence",
-                "value": "12"
-            },
-            {
-                "name": "Spellcraft",
-                "type": "Insight",
-                "value": "6"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "10",
-        "name": "Barovian's Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Barovian%27s_Sceptre"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "4"
             },
             {
-                "name": "Combustion",
+                "name": "Resonance",
                 "type": "Equipment",
                 "value": "77"
             },
             {
-                "name": "Fire Lore",
+                "name": "Sonic Lore",
                 "type": "Equipment",
                 "value": "11"
             },
@@ -13336,88 +13310,47 @@
             "Purple Augment Slot"
         ],
         "ml": "10",
-        "name": "Flaming Forum Post (level 10)",
+        "name": "Clamorous Forum Post (level 10)",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Flaming_Forum_Post_(level_10)"
+        "url": "/page/Item:Clamorous_Forum_Post_(level_10)"
     },
     {
         "affixes": [
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "4"
+                "value": "5"
             },
             {
-                "name": "Magnetism",
+                "name": "Spell Focus Mastery",
                 "type": "Equipment",
-                "value": "77"
-            },
-            {
-                "name": "Lightning Lore",
-                "type": "Equipment",
-                "value": "11"
-            },
-            {
-                "name": "Evocation Focus",
-                "type": "Insight",
                 "value": "2"
             },
             {
-                "name": "Wizardry",
-                "type": "Enhancement",
-                "value": "112"
+                "name": "Spell Focus Mastery",
+                "type": "Insight",
+                "value": "1"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Equipment",
+                "value": "3"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Insight",
+                "value": "2"
             }
         ],
         "crafting": [
-            "Purple Augment Slot"
+            "Orange Augment Slot"
         ],
         "ml": "10",
-        "name": "Shocking Forum Post (level 10)",
+        "name": "Macabre Sceptre",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Shocking_Forum_Post_(level_10)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Anti-Magic Runes",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot"
-        ],
-        "ml": "12",
-        "name": "Runed Ogre Femur",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Runed_Ogre_Femur"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "12",
-        "name": "Alchemical Scepter",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Alchemical_Scepter"
+        "url": "/page/Item:Macabre_Sceptre"
     },
     {
         "affixes": [
@@ -13452,25 +13385,6 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Crystalline_Scepter_(Level_12)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Green Steel",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "12",
-        "name": "Green Steel Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Green_Steel_Sceptre"
     },
     {
         "affixes": [
@@ -13510,6 +13424,66 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Scepter_of_the_Ogre_Magi"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Alchemical (Prototype)",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "12",
+        "name": "Alchemical Scepter",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Alchemical_Scepter"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Green Steel",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "12",
+        "name": "Green Steel Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Green_Steel_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Anti-Magic Runes",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "12",
+        "name": "Runed Ogre Femur",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Runed_Ogre_Femur"
     },
     {
         "affixes": [
@@ -13595,6 +13569,7 @@
         "affixes": [
             {
                 "name": "Spellcasting Implement",
+                "type": "Implement",
                 "value": "14"
             },
             {
@@ -14467,6 +14442,43 @@
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "21"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Combustion",
+                "type": "Equipment",
+                "value": "120"
+            },
+            {
+                "name": "Fire Lore",
+                "type": "Equipment",
+                "value": "6"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Equipment",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Crystalline Scepter (Level 25)",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Crystalline_Scepter_(Level_25)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "7"
@@ -14580,39 +14592,81 @@
     {
         "affixes": [
             {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "21"
-            },
-            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "7"
             },
             {
-                "name": "Combustion",
+                "name": "Glaciation",
                 "type": "Equipment",
-                "value": "120"
+                "value": "128"
             },
             {
-                "name": "Fire Lore",
+                "name": "Ice Lore",
                 "type": "Equipment",
-                "value": "6"
+                "value": "19"
             },
             {
                 "name": "Evocation Focus",
-                "type": "Equipment",
+                "type": "Insight",
                 "value": "3"
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "236"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Icy Forum Post (level 25)",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Icy_Forum_Post_(level_25)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "25"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Perform",
+                "type": "Competence",
+                "value": "19"
+            },
+            {
+                "name": "Sonic Lore",
+                "type": "Equipment",
+                "value": "19"
+            },
+            {
+                "name": "Resonance",
+                "type": "Equipment",
+                "value": "128"
+            },
+            {
+                "name": "Control Undead",
+                "type": "bool",
+                "value": 1
             }
         ],
         "crafting": [
             "Orange Augment Slot"
         ],
         "ml": "25",
-        "name": "Crystalline Scepter (Level 25)",
+        "name": "Epic Boneshard Flute",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Crystalline_Scepter_(Level_25)"
+        "url": "/page/Item:Epic_Boneshard_Flute"
     },
     {
         "affixes": [
@@ -14733,92 +14787,6 @@
                 "value": "7"
             },
             {
-                "name": "Glaciation",
-                "type": "Equipment",
-                "value": "128"
-            },
-            {
-                "name": "Ice Lore",
-                "type": "Equipment",
-                "value": "19"
-            },
-            {
-                "name": "Evocation Focus",
-                "type": "Insight",
-                "value": "3"
-            },
-            {
-                "name": "Wizardry",
-                "type": "Enhancement",
-                "value": "236"
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot"
-        ],
-        "ml": "25",
-        "name": "Icy Forum Post (level 25)",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Icy_Forum_Post_(level_25)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Cold Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "26",
-        "name": "+7 Epic Quenched Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:%2B7_Epic_Quenched_Sceptre"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "21"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Magnetism",
-                "type": "Equipment",
-                "value": "156"
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "26",
-        "name": "+7 Magnetism Epic Electrified Sceptre",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:%2B7_Magnetism_Epic_Electrified_Sceptre"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
                 "name": "Greater Elemental Bane",
                 "type": "bool",
                 "value": 1
@@ -14851,6 +14819,25 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "14"
+            },
+            {
+                "name": "Legendary Green Steel",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "26",
+        "name": "Legendary Green Steel Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Legendary_Green_Steel_Sceptre"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
                 "value": "21"
@@ -14874,6 +14861,33 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Epic_Caustic_Club"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "21"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Glaciation",
+                "type": "Equipment",
+                "value": "156"
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "26",
+        "name": "Epic Doused Club",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Epic_Doused_Club"
     },
     {
         "affixes": [
@@ -14932,7 +14946,7 @@
                 "value": "7"
             },
             {
-                "name": "Glaciation",
+                "name": "Magnetism",
                 "type": "Equipment",
                 "value": "156"
             }
@@ -14941,29 +14955,54 @@
             "Upgradeable Item"
         ],
         "ml": "26",
-        "name": "+7 Glaciation Epic Doused Sceptre",
+        "name": "+7 Magnetism Epic Electrified Sceptre",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:%2B7_Glaciation_Epic_Doused_Sceptre"
+        "url": "/page/Item:%2B7_Magnetism_Epic_Electrified_Sceptre"
     },
     {
         "affixes": [
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "14"
+                "value": "7"
             },
             {
-                "name": "Legendary Green Steel",
+                "name": "Electric Vulnerability",
                 "type": "bool",
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
         "ml": "26",
-        "name": "Legendary Green Steel Sceptre",
+        "name": "+7 Epic Energized Sceptre",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Legendary_Green_Steel_Sceptre"
+        "url": "/page/Item:%2B7_Epic_Energized_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Cold Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "26",
+        "name": "+7 Epic Quenched Sceptre",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:%2B7_Epic_Quenched_Sceptre"
     },
     {
         "affixes": [
@@ -14987,32 +15026,56 @@
             "Upgradeable Item"
         ],
         "ml": "26",
-        "name": "Epic Doused Club",
+        "name": "+7 Glaciation Epic Doused Sceptre",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:Epic_Doused_Club"
+        "url": "/page/Item:%2B7_Glaciation_Epic_Doused_Sceptre"
     },
     {
         "affixes": [
             {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "36"
             },
             {
-                "name": "Electric Vulnerability",
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "12"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Equipment",
+                "value": "5"
+            },
+            {
+                "name": "Kinetic Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Impulse",
+                "type": "Equipment",
+                "value": "150"
+            },
+            {
+                "name": "Wizardry",
+                "value": "11"
+            },
+            {
+                "name": "Flametouched Iron",
                 "type": "bool",
                 "value": 1
             }
         ],
         "crafting": [
-            "Upgradeable Item"
+            "Orange Augment Slot"
         ],
-        "ml": "26",
-        "name": "+7 Epic Energized Sceptre",
+        "ml": "28",
+        "name": "Epic Rod of Mythant",
         "slot": "Weapon",
         "type": "Clubs",
-        "url": "/page/Item:%2B7_Epic_Energized_Sceptre"
+        "url": "/page/Item:Epic_Rod_of_Mythant"
     },
     {
         "affixes": [
@@ -15067,52 +15130,6 @@
             {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
-                "value": "36"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "12"
-            },
-            {
-                "name": "Evocation Focus",
-                "type": "Equipment",
-                "value": "5"
-            },
-            {
-                "name": "Kinetic Lore",
-                "type": "Equipment",
-                "value": "10"
-            },
-            {
-                "name": "Impulse",
-                "type": "Equipment",
-                "value": "150"
-            },
-            {
-                "name": "Wizardry",
-                "value": "11"
-            },
-            {
-                "name": "Flametouched Iron",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Orange Augment Slot"
-        ],
-        "ml": "28",
-        "name": "Epic Rod of Mythant",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Epic_Rod_of_Mythant"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
                 "value": "29"
             },
             {
@@ -15154,6 +15171,48 @@
         "affixes": [
             {
                 "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "29"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Radiance",
+                "type": "Equipment",
+                "value": "202"
+            },
+            {
+                "name": "Radiance Lore",
+                "type": "Equipment",
+                "value": "29"
+            },
+            {
+                "name": "Hallowed",
+                "value": "19"
+            },
+            {
+                "name": "Magical Efficiency",
+                "type": "Enhancement",
+                "value": "10"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Celestial Beacon",
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Legendary_Celestial_Beacon"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
                 "value": "29"
             },
             {
@@ -15195,47 +15254,6 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Legendary_Lilting_Song"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "29"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "15"
-            },
-            {
-                "name": "Radiance",
-                "type": "Equipment",
-                "value": "202"
-            },
-            {
-                "name": "Radiance Lore",
-                "type": "Equipment",
-                "value": "29"
-            },
-            {
-                "name": "Hallowed",
-                "value": "19"
-            },
-            {
-                "name": "Magical Efficiency",
-                "type": "Enhancement",
-                "value": "10"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "29",
-        "name": "Legendary Celestial Beacon",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Legendary_Celestial_Beacon"
     },
     {
         "affixes": [
@@ -16049,28 +16067,6 @@
                 "value": "3"
             },
             {
-                "name": "Acid Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "7",
-        "name": "+3 Etched Dagger",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:%2B3_Etched_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
                 "name": "Fire Vulnerability",
                 "type": "bool",
                 "value": 1
@@ -16084,43 +16080,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:%2B3_Smoldering_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Lesser Incorporeal Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Deception",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Dispelling",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Assassination",
-                "type": "Enhancement",
-                "value": "2"
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot"
-        ],
-        "ml": "7",
-        "name": "Assassin's Kiss",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Assassin%27s_Kiss"
     },
     {
         "affixes": [
@@ -16179,6 +16138,28 @@
                 "value": "3"
             },
             {
+                "name": "Acid Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "7",
+        "name": "+3 Etched Dagger",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:%2B3_Etched_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
                 "name": "Electric Vulnerability",
                 "type": "bool",
                 "value": 1
@@ -16198,21 +16179,37 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "4"
+                "value": "3"
             },
             {
-                "name": "Keen",
-                "value": "1"
+                "name": "Lesser Incorporeal Bane",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Dispelling",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Assassination",
+                "type": "Enhancement",
+                "value": "2"
             }
         ],
         "crafting": [
-            "Red Augment Slot"
+            "Purple Augment Slot"
         ],
-        "ml": "8",
-        "name": "Sheridan's Wrack",
+        "ml": "7",
+        "name": "Assassin's Kiss",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Sheridan%27s_Wrack"
+        "url": "/page/Item:Assassin%27s_Kiss"
     },
     {
         "affixes": [
@@ -16235,6 +16232,143 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Nightforge_Stiletto"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "10"
+            },
+            {
+                "name": "Fire Lore",
+                "value": "10"
+            },
+            {
+                "name": "Ice Lore",
+                "value": "10"
+            },
+            {
+                "name": "Lightning Lore",
+                "value": "10"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "8",
+        "name": "Ornamented Dagger (level 8)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Ornamented_Dagger_(level_8)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Disruption",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "2"
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Undead Bane",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "8",
+        "name": "Flotsam (Level 8)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Flotsam_(Level_8)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "6"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "7"
+            },
+            {
+                "name": "Combustion",
+                "type": "Equipment",
+                "value": "48"
+            },
+            {
+                "name": "Glaciation",
+                "type": "Equipment",
+                "value": "48"
+            },
+            {
+                "name": "Magnetism",
+                "type": "Equipment",
+                "value": "48"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Equipment",
+                "value": "48"
+            }
+        ],
+        "crafting": [
+            "Upgradeable - Tier"
+        ],
+        "ml": "8",
+        "name": "Ornamented Dagger (Level 8)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Ornamented_Dagger_(Level_8)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Keen",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "8",
+        "name": "Sheridan's Wrack",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Sheridan%27s_Wrack"
     },
     {
         "affixes": [
@@ -16354,122 +16488,6 @@
     {
         "affixes": [
             {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "6"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "7"
-            },
-            {
-                "name": "Combustion",
-                "type": "Equipment",
-                "value": "48"
-            },
-            {
-                "name": "Glaciation",
-                "type": "Equipment",
-                "value": "48"
-            },
-            {
-                "name": "Magnetism",
-                "type": "Equipment",
-                "value": "48"
-            },
-            {
-                "name": "Corrosion",
-                "type": "Equipment",
-                "value": "48"
-            }
-        ],
-        "crafting": [
-            "Upgradeable - Tier"
-        ],
-        "ml": "8",
-        "name": "Ornamented Dagger (Level 8)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Ornamented_Dagger_(Level_8)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Disruption",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Bludgeoning",
-                "value": "2"
-            },
-            {
-                "name": "Corrosive Salt",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Undead Bane",
-                "value": "2"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "8",
-        "name": "Flotsam (Level 8)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Flotsam_(Level_8)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "10"
-            },
-            {
-                "name": "Fire Lore",
-                "value": "10"
-            },
-            {
-                "name": "Ice Lore",
-                "value": "10"
-            },
-            {
-                "name": "Lightning Lore",
-                "value": "10"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "8",
-        "name": "Ornamented Dagger (level 8)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Ornamented_Dagger_(level_8)"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "5"
@@ -16494,6 +16512,29 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Ancient_Vulkoorim_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Shocking Burst",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Red Augment Slot"
+        ],
+        "ml": "10",
+        "name": "Flint",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Flint"
     },
     {
         "affixes": [
@@ -16536,42 +16577,19 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "4"
-            },
-            {
-                "name": "Shocking Burst",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Orange Augment Slot",
-            "Red Augment Slot"
-        ],
-        "ml": "10",
-        "name": "Flint",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Flint"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
                 "value": "5"
             },
             {
-                "name": "Alchemical (Prototype)",
+                "name": "Green Steel",
                 "type": "bool",
                 "value": 1
             }
         ],
         "ml": "12",
-        "name": "Alchemical Dagger",
+        "name": "Green Steel Dagger",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Alchemical_Dagger"
+        "url": "/page/Item:Green_Steel_Dagger"
     },
     {
         "affixes": [
@@ -16611,6 +16629,51 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Bleed",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Heartseeker",
+                "value": "4"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "12",
+        "name": "Guardian of the Liturgy",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Guardian_of_the_Liturgy"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Alchemical (Prototype)",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "12",
+        "name": "Alchemical Dagger",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Alchemical_Dagger"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
                 "value": "9"
@@ -16639,37 +16702,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Ornamented_Dagger_(Level_12)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "4"
-            },
-            {
-                "name": "Ghostbane",
-                "value": "3"
-            },
-            {
-                "name": "Evil Outsider Bane",
-                "value": "3"
-            },
-            {
-                "name": "Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Crushing",
-                "value": "7"
-            }
-        ],
-        "ml": "12",
-        "name": "Spectral Dagger (level 12)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Spectral_Dagger_(level_12)"
     },
     {
         "affixes": [
@@ -16713,45 +16745,31 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Green Steel",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "12",
-        "name": "Green Steel Dagger",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Green_Steel_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Bleed",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Heartseeker",
                 "value": "4"
+            },
+            {
+                "name": "Ghostbane",
+                "value": "3"
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "value": "7"
             }
         ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
         "ml": "12",
-        "name": "Guardian of the Liturgy",
+        "name": "Spectral Dagger (level 12)",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Guardian_of_the_Liturgy"
+        "url": "/page/Item:Spectral_Dagger_(level_12)"
     },
     {
         "affixes": [
@@ -16791,6 +16809,48 @@
     {
         "affixes": [
             {
+                "name": "Phlebotomizing",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Heartseeker",
+                "value": "4"
+            },
+            {
+                "name": "Seeker",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Destruction",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Slice 'n Dice Set",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "14",
+        "name": "Slice",
+        "set": "The Devil's Handiwork",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Slice"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "5"
@@ -16825,28 +16885,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Polycurse_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "1"
-            },
-            {
-                "name": "Improved Vorpal",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "14",
-        "name": "Fell Shiv (Level 14)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Fell_Shiv_(Level_14)"
     },
     {
         "affixes": [
@@ -16894,44 +16932,83 @@
     {
         "affixes": [
             {
-                "name": "Phlebotomizing",
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "1"
+            },
+            {
+                "name": "Improved Vorpal",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Heartseeker",
-                "value": "4"
-            },
-            {
-                "name": "Seeker",
-                "type": "Insight",
-                "value": "3"
-            },
-            {
-                "name": "Destruction",
-                "type": "bool",
-                "value": 1
-            },
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "14",
+        "name": "Fell Shiv (Level 14)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Fell_Shiv_(Level_14)"
+    },
+    {
+        "affixes": [
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "5"
             },
             {
-                "name": "Slice 'n Dice Set",
+                "name": "Coruscating",
+                "value": "4"
+            },
+            {
+                "name": "Fiery",
+                "value": "4"
+            },
+            {
+                "name": "Banishing",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Insight",
+                "value": "3"
             }
         ],
         "crafting": [
-            "Purple Augment Slot"
+            "Red Augment Slot"
         ],
-        "ml": "14",
-        "name": "Slice",
-        "set": "The Devil's Handiwork",
+        "ml": "15",
+        "name": "Sunslice",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Slice"
+        "url": "/page/Item:Sunslice"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bloodletter",
+                "value": "3"
+            }
+        ],
+        "ml": "15",
+        "name": "Reward",
+        "set": "Risk and Reward",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Reward"
     },
     {
         "affixes": [
@@ -17022,65 +17099,6 @@
                 "value": "5"
             },
             {
-                "name": "Coruscating",
-                "value": "4"
-            },
-            {
-                "name": "Fiery",
-                "value": "4"
-            },
-            {
-                "name": "Banishing",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Deception",
-                "type": "Insight",
-                "value": "3"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "15",
-        "name": "Sunslice",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Sunslice"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
-                "name": "Vampirism",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Bloodletter",
-                "value": "3"
-            }
-        ],
-        "ml": "15",
-        "name": "Reward",
-        "set": "Risk and Reward",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Reward"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
                 "name": "Intelligence",
                 "type": "Enhancement",
                 "value": "8"
@@ -17109,6 +17127,40 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Deep_Demise"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "16"
+            },
+            {
+                "name": "Fire Lore",
+                "value": "14"
+            },
+            {
+                "name": "Ice Lore",
+                "value": "14"
+            },
+            {
+                "name": "Lightning Lore",
+                "value": "14"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "16",
+        "name": "Ornamented Dagger (level 16)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Ornamented_Dagger_(level_16)"
     },
     {
         "affixes": [
@@ -17155,31 +17207,50 @@
                 "value": "5"
             },
             {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "16"
+                "name": "Ghostbane",
+                "value": "4"
             },
             {
-                "name": "Fire Lore",
-                "value": "14"
+                "name": "Evil Outsider Bane",
+                "value": "4"
             },
             {
-                "name": "Ice Lore",
-                "value": "14"
+                "name": "Improved Vorpal",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Lightning Lore",
-                "value": "14"
+                "name": "Crushing",
+                "value": "9"
+            }
+        ],
+        "ml": "16",
+        "name": "Spectral Dagger (level 16)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Spectral_Dagger_(level_16)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Improved Vorpal",
+                "type": "bool",
+                "value": 1
             }
         ],
         "crafting": [
             "Red Augment Slot"
         ],
         "ml": "16",
-        "name": "Ornamented Dagger (level 16)",
+        "name": "Fell Shiv (Level 16)",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Ornamented_Dagger_(level_16)"
+        "url": "/page/Item:Fell_Shiv_(Level_16)"
     },
     {
         "affixes": [
@@ -17221,94 +17292,78 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "6"
             },
             {
-                "name": "Improved Vorpal",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "16",
-        "name": "Fell Shiv (Level 16)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Fell_Shiv_(Level_16)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Ghostbane",
-                "value": "4"
-            },
-            {
-                "name": "Evil Outsider Bane",
-                "value": "4"
-            },
-            {
-                "name": "Improved Vorpal",
+                "name": "Poison Burst",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Crushing",
-                "value": "9"
-            }
-        ],
-        "ml": "16",
-        "name": "Spectral Dagger (level 16)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Spectral_Dagger_(level_16)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "15"
+                "name": "<Multiple effects available>",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
+                "name": "Negative Energy Spike",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "15"
+                "name": "Life Stealing",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "48"
-            },
-            {
-                "name": "Efficient Metamagic - Maximize",
-                "value": "2"
-            },
-            {
-                "name": "Lesser Maximize",
+                "name": "Lesser Vampirism",
                 "type": "bool",
                 "value": 1
             }
-        ],
-        "crafting": [
-            "Upgradeable - Tier"
         ],
         "ml": "20",
-        "name": "Epic Ornamented Dagger (Level 20)",
+        "name": "Sacrificial Dagger",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Epic_Ornamented_Dagger_(Level_20)"
+        "url": "/page/Item:Sacrificial_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Incandescence",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Ooze Bane",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Aberration Bane",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Magical Beast Bane",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic Reaping",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "20",
+        "name": "Earthcarver Shard",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Earthcarver_Shard"
     },
     {
         "affixes": [
@@ -17350,72 +17405,94 @@
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "18"
+            },
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "6"
             },
             {
-                "name": "Ghostbane",
-                "value": "4"
-            },
-            {
-                "name": "Evil Outsider Bane",
-                "value": "4"
-            },
-            {
-                "name": "Improved Vorpal",
+                "name": "Shocking Burst",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Crushing",
-                "value": "10"
+                "name": "Magnetism",
+                "type": "Equipment",
+                "value": "78"
+            },
+            {
+                "name": "Lightning Strike",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Lightning Storm Guard",
+                "type": "bool",
+                "value": 1
             }
         ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
         "ml": "20",
-        "name": "Spectral Dagger (level 20)",
+        "name": "Epic Flint",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Spectral_Dagger_(level_20)"
+        "url": "/page/Item:Epic_Flint"
     },
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "18"
+            },
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "6"
             },
             {
-                "name": "Poison Burst",
+                "name": "Thundering",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "<Multiple effects available>",
-                "type": "bool",
-                "value": 1
+                "name": "Keen",
+                "value": "1"
             },
             {
-                "name": "Negative Energy Spike",
-                "type": "bool",
-                "value": 1
+                "name": "Resonance",
+                "type": "Equipment",
+                "value": "90"
             },
             {
-                "name": "Life Stealing",
-                "type": "bool",
-                "value": 1
+                "name": "Devotion",
+                "type": "Equipment",
+                "value": "90"
             },
             {
-                "name": "Lesser Vampirism",
-                "type": "bool",
-                "value": 1
+                "name": "Efficient Metamagic - Empower Healing",
+                "value": "2"
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Equipment",
+                "value": "40"
             }
         ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
         "ml": "20",
-        "name": "Sacrificial Dagger",
+        "name": "Epic Bejeweled Letter Opener",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Sacrificial_Dagger"
+        "url": "/page/Item:Epic_Bejeweled_Letter_Opener"
     },
     {
         "affixes": [
@@ -17504,6 +17581,78 @@
                 "value": "6"
             },
             {
+                "name": "Ghostbane",
+                "value": "4"
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "value": "4"
+            },
+            {
+                "name": "Improved Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "value": "10"
+            }
+        ],
+        "ml": "20",
+        "name": "Spectral Dagger (level 20)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Spectral_Dagger_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "15"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "15"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "48"
+            },
+            {
+                "name": "Efficient Metamagic - Maximize",
+                "value": "2"
+            },
+            {
+                "name": "Lesser Maximize",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable - Tier"
+        ],
+        "ml": "20",
+        "name": "Epic Ornamented Dagger (Level 20)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Epic_Ornamented_Dagger_(Level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
                 "name": "Greater Disruption",
                 "type": "bool",
                 "value": 1
@@ -17530,161 +17679,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Flotsam_(Level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "18"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Shocking Burst",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Magnetism",
-                "type": "Equipment",
-                "value": "78"
-            },
-            {
-                "name": "Lightning Strike",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Lightning Storm Guard",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "20",
-        "name": "Epic Flint",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Epic_Flint"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Incandescence",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Ooze Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Aberration Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Magical Beast Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Acidic Reaping",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "20",
-        "name": "Earthcarver Shard",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Earthcarver_Shard"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "18"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Thundering",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Keen",
-                "value": "1"
-            },
-            {
-                "name": "Resonance",
-                "type": "Equipment",
-                "value": "90"
-            },
-            {
-                "name": "Devotion",
-                "type": "Equipment",
-                "value": "90"
-            },
-            {
-                "name": "Efficient Metamagic - Empower Healing",
-                "value": "2"
-            },
-            {
-                "name": "Healing Amplification",
-                "type": "Equipment",
-                "value": "40"
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "20",
-        "name": "Epic Bejeweled Letter Opener",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Epic_Bejeweled_Letter_Opener"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Maiming",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "<Multiple effects available>",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "21",
-        "name": "Drow Dagger of the Weapon Master",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Drow_Dagger_of_the_Weapon_Master"
     },
     {
         "affixes": [
@@ -17770,6 +17764,30 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Maiming",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "<Multiple effects available>",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "21",
+        "name": "Drow Dagger of the Weapon Master",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Drow_Dagger_of_the_Weapon_Master"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -17835,103 +17853,34 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "7"
+                "value": "6"
             },
             {
-                "name": "Ghostbane",
+                "name": "Holy",
                 "value": "5"
             },
             {
-                "name": "Evil Outsider Bane",
+                "name": "Unnatural Bane",
                 "value": "5"
             },
             {
-                "name": "Greater Vorpal",
+                "name": "Ghost Bane",
+                "value": "5"
+            },
+            {
+                "name": "Silver, Alchemical",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Crushing",
-                "value": "12"
-            }
-        ],
-        "ml": "24",
-        "name": "Spectral Dagger (level 24)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Spectral_Dagger_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Greater Disruption",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Bludgeoning",
-                "value": "5"
-            },
-            {
-                "name": "Corrosive Salt",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Undead Bane",
-                "value": "5"
             }
         ],
         "crafting": [
             "Red Augment Slot"
         ],
-        "ml": "24",
-        "name": "Flotsam (Level 24)",
+        "ml": "23",
+        "name": "Epic Dagger of Inquisition",
         "slot": "Weapon",
         "type": "Daggers",
-        "url": "/page/Item:Flotsam_(Level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "18"
-            },
-            {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "84"
-            },
-            {
-                "name": "Spell Lore",
-                "type": "Equipment",
-                "value": "10"
-            },
-            {
-                "name": "Lesser Maximize",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Orange Augment Slot"
-        ],
-        "ml": "24",
-        "name": "Epic Ornamented Dagger (level 24)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Epic_Ornamented_Dagger_(level_24)"
+        "url": "/page/Item:Epic_Dagger_of_Inquisition"
     },
     {
         "affixes": [
@@ -17984,6 +17933,109 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "18"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "84"
+            },
+            {
+                "name": "Spell Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Lesser Maximize",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
+        "ml": "24",
+        "name": "Epic Ornamented Dagger (level 24)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Epic_Ornamented_Dagger_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Greater Disruption",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "5"
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Undead Bane",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "24",
+        "name": "Flotsam (Level 24)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Flotsam_(Level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Ghostbane",
+                "value": "5"
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "value": "5"
+            },
+            {
+                "name": "Greater Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "value": "12"
+            }
+        ],
+        "ml": "24",
+        "name": "Spectral Dagger (level 24)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Spectral_Dagger_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -18005,104 +18057,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Fell_Shiv_(Level_25)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "4"
-            },
-            {
-                "name": "Greater Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "<Multiple effects available>",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": "26",
-        "name": "Fell Shiv (Level 26)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Fell_Shiv_(Level_26)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Acid Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "26",
-        "name": "+7 Epic Etched Dagger",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:%2B7_Epic_Etched_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Fire Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "26",
-        "name": "+7 Epic Smoldering Dagger",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:%2B7_Epic_Smoldering_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "21"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "7"
-            },
-            {
-                "name": "Glaciation",
-                "type": "Equipment",
-                "value": "156"
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "26",
-        "name": "+7 Glaciation Epic Doused Dagger",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:%2B7_Glaciation_Epic_Doused_Dagger"
     },
     {
         "affixes": [
@@ -18164,6 +18118,104 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Legendary_Green_Steel_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Greater Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "<Multiple effects available>",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "26",
+        "name": "Fell Shiv (Level 26)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Fell_Shiv_(Level_26)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Acid Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "26",
+        "name": "+7 Epic Etched Dagger",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:%2B7_Epic_Etched_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "21"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Glaciation",
+                "type": "Equipment",
+                "value": "156"
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "26",
+        "name": "+7 Glaciation Epic Doused Dagger",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:%2B7_Glaciation_Epic_Doused_Dagger"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Fire Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "26",
+        "name": "+7 Epic Smoldering Dagger",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:%2B7_Epic_Smoldering_Dagger"
     },
     {
         "affixes": [
@@ -18259,129 +18311,6 @@
     {
         "affixes": [
             {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "12"
-            },
-            {
-                "name": "Greater Maiming",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Armor-Piercing",
-                "type": "Enhancement",
-                "value": "20"
-            },
-            {
-                "name": "Sneak Attack Bonus",
-                "type": "Insight",
-                "value": "6"
-            },
-            {
-                "name": "Sovereign Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Epic Slice 'n Dice Set",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Epic The Devil's Handiwork",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot"
-        ],
-        "ml": "28",
-        "name": "Epic Dice",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Epic_Dice"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "15"
-            },
-            {
-                "name": "Fetters of Unreality",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Improved Deception",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Sovereign Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Deception",
-                "type": "Enhancement",
-                "value": "17"
-            }
-        ],
-        "crafting": [
-            "Purple Augment Slot",
-            "Red Augment Slot"
-        ],
-        "ml": "28",
-        "name": "Pain, the Half of Whole",
-        "set": "Pain and Suffering",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Pain,_the_Half_of_Whole"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "12"
-            },
-            {
-                "name": "Concentration",
-                "type": "Competence",
-                "value": "22"
-            },
-            {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "132"
-            },
-            {
-                "name": "Spell Lore",
-                "type": "Equipment",
-                "value": "15"
-            },
-            {
-                "name": "Lesser Maximize",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Orange Augment Slot"
-        ],
-        "ml": "28",
-        "name": "Epic Ornamented Dagger (level 28)",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Epic_Ornamented_Dagger_(level_28)"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Greater Bleeding",
                 "type": "bool",
                 "value": 1
@@ -18433,6 +18362,53 @@
                 "value": "12"
             },
             {
+                "name": "Greater Maiming",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "20"
+            },
+            {
+                "name": "Sneak Attack Bonus",
+                "type": "Insight",
+                "value": "6"
+            },
+            {
+                "name": "Sovereign Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Epic Slice 'n Dice Set",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Epic The Devil's Handiwork",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "28",
+        "name": "Epic Dice",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Epic_Dice"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "12"
+            },
+            {
                 "name": "Ghostbane",
                 "value": "8"
             },
@@ -18455,6 +18431,43 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_28)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "12"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "22"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "132"
+            },
+            {
+                "name": "Spell Lore",
+                "type": "Equipment",
+                "value": "15"
+            },
+            {
+                "name": "Lesser Maximize",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
+        "ml": "28",
+        "name": "Epic Ornamented Dagger (level 28)",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Epic_Ornamented_Dagger_(level_28)"
     },
     {
         "affixes": [
@@ -18527,6 +18540,45 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Legendary_Deep_Demise"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Fetters of Unreality",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Deception",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Sovereign Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "17"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot",
+            "Red Augment Slot"
+        ],
+        "ml": "28",
+        "name": "Pain, the Half of Whole",
+        "set": "Pain and Suffering",
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Pain,_the_Half_of_Whole"
     },
     {
         "affixes": [
@@ -18939,7 +18991,9 @@
     {
         "affixes": [
             {
-                "name": "\n"
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "1"
             }
         ],
         "ml": "1",
@@ -21556,7 +21610,7 @@
             {
                 "name": "Spell Lore",
                 "type": "Exceptional",
-                "value": "15"
+                "value": "10"
             }
         ],
         "crafting": [
@@ -21784,7 +21838,7 @@
         ],
         "ml": "29",
         "name": "Legendary Memory of Fine Regalia",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Memory_of_Fine_Regalia"
@@ -21817,7 +21871,7 @@
         ],
         "ml": "29",
         "name": "Legendary Memory of Hiding in Darkness",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Memory_of_Hiding_in_Darkness"
@@ -22313,7 +22367,7 @@
         ],
         "ml": "10",
         "name": "Memory of Fine Regalia",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Memory_of_Fine_Regalia"
@@ -22346,7 +22400,7 @@
         ],
         "ml": "10",
         "name": "Memory of Hiding in Darkness",
-        "set": "Silent Avenger",
+        "set": "Silent Avenger Set (Heroic)",
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Memory_of_Hiding_in_Darkness"
@@ -22385,7 +22439,7 @@
         ],
         "ml": "28",
         "name": "Memory of a Tailor's Duress",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Memory_of_a_Tailor%27s_Duress"
@@ -25052,6 +25106,38 @@
     {
         "affixes": [
             {
+                "name": "Anger",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "18"
+            },
+            {
+                "name": "Strength",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "101"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Goggles of the Inquisition",
+        "slot": "Goggles",
+        "type": "Eye items",
+        "url": "/page/Item:Epic_Goggles_of_the_Inquisition"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Blindness Immunity",
                 "type": "bool",
                 "value": 1
@@ -25320,7 +25406,7 @@
         ],
         "ml": "10",
         "name": "Feargaze",
-        "set": "Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Heroic)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Feargaze"
@@ -25385,7 +25471,7 @@
         ],
         "ml": "10",
         "name": "Garstone's Lenses",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Garstone%27s_Lenses"
@@ -26025,22 +26111,22 @@
             {
                 "name": "Search",
                 "type": "Competence",
-                "value": "0"
+                "value": "22"
             },
             {
                 "name": "Spot",
                 "type": "Competence",
-                "value": "0"
+                "value": "22"
             },
             {
                 "name": "Open Lock",
                 "type": "Competence",
-                "value": "0"
+                "value": "22"
             },
             {
                 "name": "Disable Device",
                 "type": "Competence",
-                "value": "0"
+                "value": "22"
             }
         ],
         "crafting": [
@@ -26080,7 +26166,7 @@
         ],
         "ml": "29",
         "name": "Legendary Feargaze",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Legendary_Feargaze"
@@ -26113,7 +26199,7 @@
         ],
         "ml": "29",
         "name": "Legendary Garstone's Lenses",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Legendary_Garstone%27s_Lenses"
@@ -26223,7 +26309,7 @@
         ],
         "ml": "29",
         "name": "Legendary Negotiator's Spectacles",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Legendary_Negotiator%27s_Spectacles"
@@ -26320,7 +26406,7 @@
         ],
         "ml": "29",
         "name": "Legendary Summoner's Spectacles",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Legendary_Summoner%27s_Spectacles"
@@ -26353,7 +26439,7 @@
         ],
         "ml": "29",
         "name": "Legendary Symphonic Lenses",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Legendary_Symphonic_Lenses"
@@ -26651,7 +26737,7 @@
         ],
         "ml": "10",
         "name": "Negotiator's Spectacles",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Negotiator%27s_Spectacles"
@@ -27125,7 +27211,7 @@
         ],
         "ml": "10",
         "name": "Summoner's Spectacles",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Summoner%27s_Spectacles"
@@ -27158,7 +27244,7 @@
         ],
         "ml": "10",
         "name": "Symphonic Lenses",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Symphonic_Lenses"
@@ -27221,7 +27307,7 @@
         ],
         "ml": "28",
         "name": "The Masque",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:The_Masque"
@@ -27326,7 +27412,7 @@
         ],
         "ml": "28",
         "name": "Van Richten's Spectacles",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Van_Richten%27s_Spectacles"
@@ -29175,6 +29261,38 @@
     {
         "affixes": [
             {
+                "name": "Jump",
+                "type": "Competence",
+                "value": "18"
+            },
+            {
+                "name": "Speed",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Feather Falling",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Web Immunity",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Boots of Faith",
+        "slot": "Boots",
+        "type": "Feet items",
+        "url": "/page/Item:Epic_Boots_of_Faith"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Resistance",
                 "type": "Resistance",
                 "value": "11"
@@ -29426,6 +29544,38 @@
     {
         "affixes": [
             {
+                "name": "Bluff",
+                "type": "Competence",
+                "value": "19"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "9"
+            },
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": "15"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Switchblade Boots",
+        "slot": "Boots",
+        "type": "Feet items",
+        "url": "/page/Item:Epic_Switchblade_Boots"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Expeditious Retreat",
                 "type": "bool",
                 "value": 1
@@ -29482,7 +29632,7 @@
         ],
         "ml": "10",
         "name": "Flightfoot Greaves",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Flightfoot_Greaves"
@@ -29939,7 +30089,7 @@
         ],
         "ml": "29",
         "name": "Legendary Flightfoot Greaves",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Legendary_Flightfoot_Greaves"
@@ -30019,7 +30169,7 @@
         ],
         "ml": "29",
         "name": "Legendary Shadow's Footsteps",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Legendary_Shadow%27s_Footsteps"
@@ -30084,7 +30234,7 @@
         ],
         "ml": "29",
         "name": "Legendary Softsole Slippers",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Legendary_Softsole_Slippers"
@@ -30742,7 +30892,7 @@
         ],
         "ml": "10",
         "name": "Shadow's Footsteps",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Shadow%27s_Footsteps"
@@ -30915,7 +31065,7 @@
         ],
         "ml": "10",
         "name": "Softsole Slippers",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Softsole_Slippers"
@@ -31681,7 +31831,7 @@
         ],
         "ml": "10",
         "name": "Adversion",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Adversion"
@@ -32782,7 +32932,7 @@
         ],
         "ml": "10",
         "name": "Cursebane Ring",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Cursebane_Ring"
@@ -32814,7 +32964,7 @@
         ],
         "ml": "10",
         "name": "Deathwarden",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Deathwarden"
@@ -33220,6 +33370,38 @@
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Epic_Ring_of_Venom"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "220"
+            },
+            {
+                "name": "Heal",
+                "type": "Competence",
+                "value": "18"
+            },
+            {
+                "name": "Healing Lore",
+                "type": "Equipment",
+                "value": "18"
+            },
+            {
+                "name": "Devotion",
+                "type": "Equipment",
+                "value": "122"
+            }
+        ],
+        "crafting": [
+            "Colorless Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Ring of the Archbishop",
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Epic_Ring_of_the_Archbishop"
     },
     {
         "affixes": [
@@ -33964,7 +34146,7 @@
         ],
         "ml": "10",
         "name": "Keylock Ring",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Keylock_Ring"
@@ -34189,7 +34371,7 @@
         ],
         "ml": "29",
         "name": "Legendary Adversion",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Adversion"
@@ -34457,7 +34639,7 @@
         ],
         "ml": "29",
         "name": "Legendary Cursebane Ring",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Cursebane_Ring"
@@ -34489,7 +34671,7 @@
         ],
         "ml": "29",
         "name": "Legendary Deathwarden",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Deathwarden"
@@ -34538,7 +34720,7 @@
         ],
         "ml": "29",
         "name": "Legendary Keylock Ring",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Keylock_Ring"
@@ -34571,7 +34753,7 @@
         ],
         "ml": "29",
         "name": "Legendary Perfect Pinnacle",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Perfect_Pinnacle"
@@ -34636,7 +34818,7 @@
         ],
         "ml": "29",
         "name": "Legendary Ring of Nightfall",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Ring_of_Nightfall"
@@ -34734,7 +34916,7 @@
         ],
         "ml": "29",
         "name": "Legendary Skulled Ring",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Skulled_Ring"
@@ -35010,7 +35192,7 @@
         ],
         "ml": "10",
         "name": "Perfect Pinnacle",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Perfect_Pinnacle"
@@ -35683,7 +35865,7 @@
         ],
         "ml": "10",
         "name": "Ring of Nightfall",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Ring_of_Nightfall"
@@ -37445,7 +37627,7 @@
         ],
         "ml": "10",
         "name": "Skulled Ring",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Skulled_Ring"
@@ -42623,11 +42805,11 @@
                 "value": "15"
             },
             {
-                "name": "Weapon's Holy Effect",
+                "name": "Holy",
                 "value": "9"
             },
             {
-                "name": "Weapon's Axiomatic Effect",
+                "name": "Axiomatic",
                 "value": "9"
             },
             {
@@ -46102,7 +46284,7 @@
         ],
         "ml": "10",
         "name": "Blurfingered Gloves",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Blurfingered_Gloves"
@@ -46463,7 +46645,7 @@
         ],
         "ml": "10",
         "name": "Crumbling Gloves",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Crumbling_Gloves"
@@ -47227,7 +47409,7 @@
         ],
         "ml": "10",
         "name": "Gauntlets of Innate Arcanum",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Gauntlets_of_Innate_Arcanum"
@@ -48045,7 +48227,7 @@
         ],
         "ml": "10",
         "name": "Knifepalm",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Knifepalm"
@@ -48160,7 +48342,7 @@
         ],
         "ml": "29",
         "name": "Legendary Blurfingered Gloves",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Legendary_Blurfingered_Gloves"
@@ -48193,7 +48375,7 @@
         ],
         "ml": "29",
         "name": "Legendary Crumbling Gloves",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Legendary_Crumbling_Gloves"
@@ -48291,7 +48473,7 @@
         ],
         "ml": "29",
         "name": "Legendary Gauntlets of Innate Arcanum",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Legendary_Gauntlets_of_Innate_Arcanum"
@@ -48394,7 +48576,7 @@
         ],
         "ml": "29",
         "name": "Legendary Knifepalm",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Legendary_Knifepalm"
@@ -48792,7 +48974,7 @@
         ],
         "ml": "28",
         "name": "Molten Silver Gauntlets",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Molten_Silver_Gauntlets"
@@ -50997,6 +51179,38 @@
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Epic_Mask_of_Tragedy"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Wisdom",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Charisma",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "18"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Mask of the Asylum",
+        "slot": "Helm",
+        "type": "Head items",
+        "url": "/page/Item:Epic_Mask_of_the_Asylum"
     },
     {
         "affixes": [
@@ -54856,7 +55070,7 @@
             "Blue Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "28",
         "name": "Wind Howler Mask",
         "slot": "Helm",
         "type": "Head items",
@@ -57385,7 +57599,7 @@
         ],
         "ml": "29",
         "name": "Legendary Platemail of the Barovian Lord",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Legendary_Platemail_of_the_Barovian_Lord"
@@ -57883,7 +58097,7 @@
         ],
         "ml": "28",
         "name": "Platemail of Strahd",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Platemail_of_Strahd"
@@ -57921,7 +58135,7 @@
         ],
         "ml": "10",
         "name": "Platemail of the Barovian Lord",
-        "set": "Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Heroic)",
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Platemail_of_the_Barovian_Lord"
@@ -64249,6 +64463,223 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "77"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "5"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Quality",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "10",
+        "name": "Artemist's Aegis (level 10)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "94"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "6"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Quality",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "15",
+        "name": "Artemist's Aegis (level 15)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_15)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "111"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "8"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Quality",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "20",
+        "name": "Artemist's Aegis (level 20)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "128"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "9"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Quality",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Artemist's Aegis (level 25)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_25)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "14"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "146"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "11"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "5"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Quality",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "30",
+        "name": "Artemist's Aegis (level 30)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_30)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "59"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": "3"
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Artemist's Aegis (level 5)",
+        "slot": "Offhand",
+        "type": "Large shields",
+        "url": "/page/Item:Artemist%27s_Aegis_(level_5)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -65915,7 +66346,7 @@
         ],
         "ml": "10",
         "name": "The Best Defense",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Offhand",
         "type": "Large shields",
         "url": "/page/Item:The_Best_Defense"
@@ -65951,7 +66382,7 @@
         ],
         "ml": "29",
         "name": "The Legendary Best Defense",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Offhand",
         "type": "Large shields",
         "url": "/page/Item:The_Legendary_Best_Defense"
@@ -69304,7 +69735,7 @@
         ],
         "ml": "29",
         "name": "Legendary Mist-laden Vestment",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Legendary_Mist-laden_Vestment"
@@ -69546,7 +69977,7 @@
         ],
         "ml": "10",
         "name": "Mist-laden Vestment",
-        "set": "Silent Avenger",
+        "set": "Silent Avenger Set (Heroic)",
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Mist-laden_Vestment"
@@ -70484,7 +70915,7 @@
         ],
         "ml": "28",
         "name": "Vestments of Ravenloft",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Vestments_of_Ravenloft"
@@ -70949,28 +71380,6 @@
                 "value": "3"
             },
             {
-                "name": "Fire Vulnerability",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Upgradeable Item"
-        ],
-        "ml": "7",
-        "name": "Smoldering Light Crossbow",
-        "slot": "Weapon",
-        "type": "Light Crossbows",
-        "url": "/page/Item:Smoldering_Light_Crossbow"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "3"
-            },
-            {
                 "name": "Acid Vulnerability",
                 "type": "bool",
                 "value": 1
@@ -70984,6 +71393,28 @@
         "slot": "Weapon",
         "type": "Light Crossbows",
         "url": "/page/Item:Etched_Light_Crossbow"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Fire Vulnerability",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Upgradeable Item"
+        ],
+        "ml": "7",
+        "name": "Smoldering Light Crossbow",
+        "slot": "Weapon",
+        "type": "Light Crossbows",
+        "url": "/page/Item:Smoldering_Light_Crossbow"
     },
     {
         "affixes": [
@@ -71132,32 +71563,32 @@
                 "value": "5"
             },
             {
-                "name": "Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Poisonous",
+                "name": "Bleeding",
                 "value": "4"
             },
             {
-                "name": "Nightshade Venom",
-                "type": "bool",
-                "value": 1
+                "name": "Impactful",
+                "value": "4"
             },
             {
-                "name": "Wounding",
-                "value": "2"
+                "name": "Distant Diversion",
+                "type": "Enhancement",
+                "value": "12"
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Competence",
+                "value": "16"
             }
         ],
         "crafting": [
-            "Red Augment Slot"
+            "Orange Augment Slot"
         ],
         "ml": "15",
-        "name": "Nightshade Shooter",
+        "name": "The Diplomancer (level 15)",
         "slot": "Weapon",
         "type": "Light Crossbows",
-        "url": "/page/Item:Nightshade_Shooter"
+        "url": "/page/Item:The_Diplomancer_(level_15)"
     },
     {
         "affixes": [
@@ -71190,32 +71621,32 @@
                 "value": "5"
             },
             {
-                "name": "Bleeding",
+                "name": "Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Poisonous",
                 "value": "4"
             },
             {
-                "name": "Impactful",
-                "value": "4"
+                "name": "Nightshade Venom",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Distant Diversion",
-                "type": "Enhancement",
-                "value": "12"
-            },
-            {
-                "name": "Diplomacy",
-                "type": "Competence",
-                "value": "16"
+                "name": "Wounding",
+                "value": "2"
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Red Augment Slot"
         ],
         "ml": "15",
-        "name": "The Diplomancer (level 15)",
+        "name": "Nightshade Shooter",
         "slot": "Weapon",
         "type": "Light Crossbows",
-        "url": "/page/Item:The_Diplomancer_(level_15)"
+        "url": "/page/Item:Nightshade_Shooter"
     },
     {
         "affixes": [
@@ -71308,6 +71739,40 @@
         "slot": "Weapon",
         "type": "Light Crossbows",
         "url": "/page/Item:Thunder-Forged_Alloy_Light_Crossbow"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Holy",
+                "value": "5"
+            },
+            {
+                "name": "Ghost Bane",
+                "value": "5"
+            },
+            {
+                "name": "Unnatural Bane",
+                "value": "5"
+            },
+            {
+                "name": "Silver, alchemical",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Guidance",
+        "slot": "Weapon",
+        "type": "Light Crossbows",
+        "url": "/page/Item:Epic_Guidance"
     },
     {
         "affixes": [
@@ -73045,6 +73510,7 @@
         "affixes": [
             {
                 "name": "Spellcasting Implement",
+                "type": "Implement",
                 "value": "28"
             },
             {
@@ -74251,6 +74717,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Dampened",
+                "type": "bool",
+                "value": 1
+            },
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
@@ -79474,7 +79945,7 @@
         ],
         "ml": "28",
         "name": "Coat of Van Richten",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Armor",
         "type": "Medium armor",
         "url": "/page/Item:Coat_of_Van_Richten"
@@ -79512,7 +79983,7 @@
         ],
         "ml": "10",
         "name": "Coat of the Traveler",
-        "set": "Crypt Raider",
+        "set": "Crypt Raider Set (Heroic)",
         "slot": "Armor",
         "type": "Medium armor",
         "url": "/page/Item:Coat_of_the_Traveler"
@@ -81251,7 +81722,7 @@
         ],
         "ml": "29",
         "name": "Legendary Coat of the Traveler",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Armor",
         "type": "Medium armor",
         "url": "/page/Item:Legendary_Coat_of_the_Traveler"
@@ -84085,7 +84556,7 @@
         ],
         "ml": "10",
         "name": "Dawn's Herald-Charm",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Dawn%27s_Herald-Charm"
@@ -84585,6 +85056,28 @@
     {
         "affixes": [
             {
+                "name": "??",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Competence",
+                "value": "19"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Golden Cartouche",
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:Epic_Golden_Cartouche"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Ghostly",
                 "type": "bool",
                 "value": 1
@@ -84776,6 +85269,38 @@
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Epic_Locus_of_Vol"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Constitution",
+                "type": "Quality",
+                "value": "2"
+            },
+            {
+                "name": "Lifeforce",
+                "type": "Profane",
+                "value": "36"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "41"
+            },
+            {
+                "name": "Vitality",
+                "type": "Vitality",
+                "value": "36"
+            }
+        ],
+        "crafting": [
+            "Colorless Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Marguerite's Necklace",
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:Epic_Marguerite%27s_Necklace"
     },
     {
         "affixes": [
@@ -85186,7 +85711,7 @@
         ],
         "ml": "28",
         "name": "Fleetfoot Necklace",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Fleetfoot_Necklace"
@@ -85782,7 +86307,7 @@
         ],
         "ml": "10",
         "name": "Kindred Pendant",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Kindred_Pendant"
@@ -85911,7 +86436,7 @@
         ],
         "ml": "29",
         "name": "Legendary Dawn's Herald-Charm",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Legendary_Dawn%27s_Herald-Charm"
@@ -85930,6 +86455,7 @@
             },
             {
                 "name": "Deadly",
+                "type": "Competence",
                 "value": "17"
             },
             {
@@ -86008,7 +86534,7 @@
         ],
         "ml": "29",
         "name": "Legendary Kindred Pendant",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Legendary_Kindred_Pendant"
@@ -86202,7 +86728,7 @@
         ],
         "ml": "29",
         "name": "Legendary Reflective Bloodstone",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Legendary_Reflective_Bloodstone"
@@ -86332,7 +86858,7 @@
         ],
         "ml": "29",
         "name": "Legendary Ward-Inscribed Pendant",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Legendary_Ward-Inscribed_Pendant"
@@ -87447,7 +87973,7 @@
         ],
         "ml": "10",
         "name": "Reflective Bloodstone",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Reflective_Bloodstone"
@@ -88202,6 +88728,7 @@
             },
             {
                 "name": "Deadly",
+                "type": "Competence",
                 "value": "17"
             },
             {
@@ -88524,7 +89051,7 @@
         ],
         "ml": "10",
         "name": "Ward-Inscribed Pendant",
-        "set": "Crypt Raider",
+        "set": "Crypt Raider Set (Heroic)",
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Ward-Inscribed_Pendant"
@@ -90557,7 +91084,7 @@
         ],
         "ml": "29",
         "name": "The Legendary Mistfallen",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Offhand",
         "type": "Orbs",
         "url": "/page/Item:The_Legendary_Mistfallen"
@@ -90593,7 +91120,7 @@
         ],
         "ml": "10",
         "name": "The Mistfallen",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Offhand",
         "type": "Orbs",
         "url": "/page/Item:The_Mistfallen"
@@ -95249,6 +95776,7 @@
         "affixes": [
             {
                 "name": "Spellcasting Implement",
+                "type": "Implement",
                 "value": "29"
             },
             {
@@ -98420,7 +98948,7 @@
         "affixes": [
             {
                 "name": "Maximum Charge Tier",
-                "value": "0"
+                "value": "4"
             },
             {
                 "name": "Rune Arm Imbue: Acid",
@@ -99598,7 +100126,7 @@
         ],
         "ml": "10",
         "name": "Blight Inferno",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Weapon",
         "type": "Rune Arms",
         "url": "/page/Item:Blight_Inferno"
@@ -99644,7 +100172,7 @@
         ],
         "ml": "10",
         "name": "Suppressive Fire",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Weapon",
         "type": "Rune Arms",
         "url": "/page/Item:Suppressive_Fire"
@@ -99937,7 +100465,7 @@
         ],
         "ml": "29",
         "name": "Legendary Suppressive Fire",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Weapon",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Suppressive_Fire"
@@ -99983,7 +100511,7 @@
         ],
         "ml": "29",
         "name": "Legendary Blight Inferno",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Weapon",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Blight_Inferno"
@@ -106738,7 +107266,7 @@
                 "value": "6"
             },
             {
-                "name": "Weapon's Bleed Effect",
+                "name": "Bleeding",
                 "value": "4"
             },
             {
@@ -107769,7 +108297,7 @@
         ],
         "ml": "29",
         "name": "Legendary Warsword Shield",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Offhand",
         "type": "Small shields",
         "url": "/page/Item:Legendary_Warsword_Shield"
@@ -108046,7 +108574,7 @@
         ],
         "ml": "10",
         "name": "Warsword Shield",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Offhand",
         "type": "Small shields",
         "url": "/page/Item:Warsword_Shield"
@@ -109664,7 +110192,7 @@
         ],
         "ml": "29",
         "name": "Legendary Mirrorplate Tower",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Offhand",
         "type": "Tower shields",
         "url": "/page/Item:Legendary_Mirrorplate_Tower"
@@ -109823,7 +110351,7 @@
         ],
         "ml": "10",
         "name": "Mirrorplate Tower",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Offhand",
         "type": "Tower shields",
         "url": "/page/Item:Mirrorplate_Tower"
@@ -110622,7 +111150,7 @@
         ],
         "ml": "28",
         "name": "Bell of Warding",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Bell_of_Warding"
@@ -110746,7 +111274,7 @@
         ],
         "ml": "28",
         "name": "Bloodrage Chrism",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Bloodrage_Chrism"
@@ -111130,7 +111658,7 @@
         ],
         "ml": "10",
         "name": "Cursebane Focus",
-        "set": "Crypt Raider",
+        "set": "Crypt Raider Set (Heroic)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Cursebane_Focus"
@@ -111455,7 +111983,7 @@
         ],
         "ml": "28",
         "name": "Echo of Ravenkind",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Echo_of_Ravenkind"
@@ -111489,7 +112017,7 @@
         ],
         "ml": "28",
         "name": "Echo of the Icon",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Echo_of_the_Icon"
@@ -111834,6 +112362,38 @@
     {
         "affixes": [
             {
+                "name": "Search",
+                "type": "Competence",
+                "value": "19"
+            },
+            {
+                "name": "Spot",
+                "type": "Competence",
+                "value": "19"
+            },
+            {
+                "name": "Open Lock",
+                "type": "Competence",
+                "value": "19"
+            },
+            {
+                "name": "Disable Device",
+                "type": "Competence",
+                "value": "19"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Skeleton Key",
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Epic_Skeleton_Key"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spot",
                 "type": "Competence",
                 "value": "15"
@@ -112000,6 +112560,34 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Epic_Treasure_Hunter%27s_Spyglass_(level_28)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Heroic Inspiration",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Good Luck",
+                "type": "Luck",
+                "value": "3"
+            },
+            {
+                "name": "Striding",
+                "value": "30"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot",
+            "Green Augment Slot",
+            "Blue Augment Slot"
+        ],
+        "ml": "20",
+        "name": "Epic Voice of the Master",
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Epic_Voice_of_the_Master"
     },
     {
         "affixes": [
@@ -112656,7 +113244,7 @@
         ],
         "ml": "28",
         "name": "Hands of the Dawn Healer",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Hands_of_the_Dawn_Healer"
@@ -113093,7 +113681,7 @@
         ],
         "ml": "29",
         "name": "Legendary Cursebane Focus",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Legendary_Cursebane_Focus"
@@ -113385,6 +113973,20 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Litany_of_the_Dead"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Order's Wrath",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "TBD",
+        "name": "Lozimir's To-Do List",
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Lozimir%27s_To-Do_List"
     },
     {
         "affixes": [
@@ -114853,7 +115455,7 @@
         ],
         "ml": "28",
         "name": "Storm in a Bottle",
-        "set": "Legendary Crypt Raider",
+        "set": "Crypt Raider Set (Legendary)",
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Storm_in_a_Bottle"
@@ -116479,7 +117081,7 @@
         ],
         "ml": "10",
         "name": "Braided Cutcord",
-        "set": "Silent Avenger",
+        "set": "Silent Avenger Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Braided_Cutcord"
@@ -116571,7 +117173,7 @@
         ],
         "ml": "10",
         "name": "Burnscar Sash",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Burnscar_Sash"
@@ -117796,7 +118398,7 @@
         ],
         "ml": "29",
         "name": "Legendary Braided Cutcord",
-        "set": "Legendary Silent Avenger",
+        "set": "Silent Avenger Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Braided_Cutcord"
@@ -117861,7 +118463,7 @@
         ],
         "ml": "29",
         "name": "Legendary Burnscar Sash",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Burnscar_Sash"
@@ -118038,7 +118640,7 @@
         ],
         "ml": "29",
         "name": "Legendary Plateshard Belt",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Plateshard_Belt"
@@ -118071,7 +118673,7 @@
         ],
         "ml": "29",
         "name": "Legendary Rune-Sigiled Belt",
-        "set": "Legendary Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Rune-Sigiled_Belt"
@@ -118168,7 +118770,7 @@
         ],
         "ml": "29",
         "name": "Legendary Silverthread Belt",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Silverthread_Belt"
@@ -118201,7 +118803,7 @@
         ],
         "ml": "29",
         "name": "Legendary Thrummingspark Cord",
-        "set": "Legendary Beacon of Magic",
+        "set": "Beacon of Magic Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Thrummingspark_Cord"
@@ -118234,7 +118836,7 @@
         ],
         "ml": "29",
         "name": "Legendary Vistani Fighter's Sash",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Vistani_Fighter%27s_Sash"
@@ -118524,7 +119126,7 @@
         ],
         "ml": "10",
         "name": "Plateshard Belt",
-        "set": "Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Plateshard_Belt"
@@ -118622,7 +119224,7 @@
         ],
         "ml": "10",
         "name": "Rune-Sigiled Belt",
-        "set": "Knight of the Shadows",
+        "set": "Knight of the Shadows Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Rune-Sigiled_Belt"
@@ -118751,7 +119353,7 @@
         ],
         "ml": "10",
         "name": "Silverthread Belt",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Silverthread_Belt"
@@ -119215,11 +119817,6 @@
                 "name": "Deception",
                 "type": "Enhancement",
                 "value": "18"
-            },
-            {
-                "name": "",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -119293,7 +119890,7 @@
         ],
         "ml": "10",
         "name": "Thrummingspark Cord",
-        "set": "Beacon of Magic",
+        "set": "Beacon of Magic Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Thrummingspark_Cord"
@@ -119401,7 +119998,7 @@
         ],
         "ml": "10",
         "name": "Vistani Fighter's Sash",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Vistani_Fighter%27s_Sash"
@@ -121781,7 +122378,7 @@
         ],
         "ml": "10",
         "name": "Bracers of the Fallen Hero",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Bracers_of_the_Fallen_Hero"
@@ -122602,6 +123199,38 @@
     {
         "affixes": [
             {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "9"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Enhancement",
+                "value": "29"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Quality",
+                "value": "7"
+            },
+            {
+                "name": "Greater Reinforced Fists",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Colorless Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Iron Manacles",
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Epic_Iron_Manacles"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Bonus",
                 "type": "Armor",
                 "value": "8"
@@ -122690,6 +123319,38 @@
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Epic_Scorched_Bracers"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Restoration",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "9"
+            },
+            {
+                "name": "Radiance Lore",
+                "type": "Equipment",
+                "value": "18"
+            },
+            {
+                "name": "Radiance",
+                "type": "Equipment",
+                "value": "122"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Silver Flame Bracers",
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Epic_Silver_Flame_Bracers"
     },
     {
         "affixes": [
@@ -123171,7 +123832,7 @@
         ],
         "ml": "29",
         "name": "Legendary Bracers of the Fallen Hero",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Legendary_Bracers_of_the_Fallen_Hero"
@@ -123329,7 +123990,7 @@
         ],
         "ml": "29",
         "name": "Legendary Lore-Fueled Packbanner",
-        "set": "Legendary Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Legendary)",
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Legendary_Lore-Fueled_Packbanner"
@@ -123553,7 +124214,7 @@
         ],
         "ml": "10",
         "name": "Lore-Fueled Packbanner",
-        "set": "Adherent of the Mists",
+        "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Lore-Fueled_Packbanner"

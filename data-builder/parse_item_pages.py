@@ -184,6 +184,9 @@ def get_items_from_page(itemPageURL, sets):
         item['ml'] = fields[cols['ML']].getText().strip()
         item['affixes'] = []
 
+        if 'Drops on leaving adventure' in fields[cols['Bind']].getText():
+            continue
+
         # Uncomment and edit to stop at a particular item
         # if item['name'] == "Diabolist's Robe":
         #     a = 1

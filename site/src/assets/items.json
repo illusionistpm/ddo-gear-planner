@@ -13683,50 +13683,6 @@
     {
         "affixes": [
             {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "15"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Everbright",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Archmagi",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "56"
-            },
-            {
-                "name": "Metalline",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Blinding Flash",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "14",
-        "name": "Radiant Arc",
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Radiant_Arc"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "5"
@@ -17325,45 +17281,6 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Sacrificial_Dagger"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Incandescence",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Ooze Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Aberration Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Magical Beast Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Acidic Reaping",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "20",
-        "name": "Earthcarver Shard",
-        "slot": "Weapon",
-        "type": "Daggers",
-        "url": "/page/Item:Earthcarver_Shard"
     },
     {
         "affixes": [
@@ -24474,24 +24391,6 @@
     {
         "affixes": [
             {
-                "name": "Visibility",
-                "value": "1"
-            },
-            {
-                "name": "Drops on leaving adventure, Drops on death: Temporary raid-only item.",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Alpha Phase Goggles",
-        "slot": "Goggles",
-        "type": "Eye items",
-        "url": "/page/Item:Alpha_Phase_Goggles"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Concentration",
                 "type": "Competence",
                 "value": "3"
@@ -24559,24 +24458,6 @@
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Attunement%27s_Gaze"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Visibility",
-                "value": "2"
-            },
-            {
-                "name": "Drops on leaving adventure, Drops on death: Temporary raid-only item.",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Beta Phase Goggles",
-        "slot": "Goggles",
-        "type": "Eye items",
-        "url": "/page/Item:Beta_Phase_Goggles"
     },
     {
         "affixes": [
@@ -28853,29 +28734,6 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Boots_of_Faith"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Electric Resistance",
-                "type": "Enhancement",
-                "value": "100"
-            },
-            {
-                "name": "Striding",
-                "value": "30"
-            },
-            {
-                "name": "Grounded",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "28",
-        "name": "Boots of Grounding",
-        "slot": "Boots",
-        "type": "Feet items",
-        "url": "/page/Item:Boots_of_Grounding"
     },
     {
         "affixes": [
@@ -38237,35 +38095,6 @@
     {
         "affixes": [
             {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Strength",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Maiming",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "1",
-        "name": "Axe of the Scarlet Warrior",
-        "slot": "Weapon",
-        "type": "Great Axes",
-        "url": "/page/Item:Axe_of_the_Scarlet_Warrior"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Lesser Monstrous Humanoid Bane",
                 "type": "bool",
                 "value": 1
@@ -38295,39 +38124,6 @@
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Rusty_Great_Axe"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Flaming Burst",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Keen",
-                "value": "1"
-            },
-            {
-                "name": "Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Adamantine",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "1",
-        "name": "Oath of Droaam",
-        "slot": "Weapon",
-        "type": "Great Axes",
-        "url": "/page/Item:Oath_of_Droaam"
     },
     {
         "affixes": [
@@ -42495,60 +42291,6 @@
         "slot": "Weapon",
         "type": "Great Swords",
         "url": "/page/Item:Epic_Sword_of_Shadow"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "10"
-            },
-            {
-                "name": "Brilliance",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Radiant Blast",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Disintegration",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Ooze Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Aberration Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Magical Beast Bane",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Acid Resistance",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Acid Absorption",
-                "type": "Enhancement",
-                "value": "20"
-            }
-        ],
-        "ml": "20",
-        "name": "Earthcarver",
-        "slot": "Weapon",
-        "type": "Great Swords",
-        "url": "/page/Item:Earthcarver"
     },
     {
         "affixes": [
@@ -74296,52 +74038,6 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Dexterity",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Keen",
-                "value": "1"
-            },
-            {
-                "name": "Ranged Alacrity",
-                "type": "Enhancement",
-                "value": "10"
-            },
-            {
-                "name": "Feat: Precise Shot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Sneak Attack Bonus",
-                "value": "5"
-            },
-            {
-                "name": "Deception",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Striding",
-                "value": "25"
-            }
-        ],
-        "ml": "1",
-        "name": "Bow of the Jade Elf",
-        "slot": "Weapon",
-        "type": "Long Bows",
-        "url": "/page/Item:Bow_of_the_Jade_Elf"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
                 "value": "1"
             },
             {
@@ -77207,35 +76903,6 @@
         "slot": "Weapon",
         "type": "Long Swords",
         "url": "/page/Item:Sirocco"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Cold Iron",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Vorpal",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Pure Good",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "10",
-        "name": "Tesyus",
-        "slot": "Weapon",
-        "type": "Long Swords",
-        "url": "/page/Item:Tesyus"
     },
     {
         "affixes": [
@@ -91415,29 +91082,6 @@
     {
         "affixes": [
             {
-                "name": "Giant Slayer",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "1"
-            },
-            {
-                "name": "Summon Monster",
-                "value": "3"
-            }
-        ],
-        "ml": "1",
-        "name": "Ionna's Ancestral Staff",
-        "slot": "Weapon",
-        "type": "Quarterstaffs",
-        "url": "/page/Item:Ionna%27s_Ancestral_Staff"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Flaming Sphere",
                 "type": "bool",
                 "value": 1
@@ -91467,55 +91111,6 @@
         "slot": "Weapon",
         "type": "Quarterstaffs",
         "url": "/page/Item:Moldy_Quarterstaff"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Spellcasting Implement",
-                "type": "Implement",
-                "value": "15"
-            },
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Spell Penetration",
-                "type": "Equipment",
-                "value": "3"
-            },
-            {
-                "name": "Spell Lore",
-                "type": "Equipment",
-                "value": "6"
-            },
-            {
-                "name": "Charisma",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Intelligence",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "Potency",
-                "type": "Equipment",
-                "value": "60"
-            },
-            {
-                "name": "Fireball",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "1",
-        "name": "Staff of the Golden Wizard",
-        "slot": "Weapon",
-        "type": "Quarterstaffs",
-        "url": "/page/Item:Staff_of_the_Golden_Wizard"
     },
     {
         "affixes": [
@@ -105770,44 +105365,6 @@
                 "value": "15"
             },
             {
-                "name": "Coruscating",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Blazing",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Undead Bane",
-                "value": "9"
-            },
-            {
-                "name": "Brazen Brilliance",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Sunsword's Power",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "29",
-        "name": "Sunsword",
-        "slot": "Weapon",
-        "type": "Short Swords",
-        "url": "/page/Item:Sunsword"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "15"
-            },
-            {
                 "name": "Cursed Maelstrom",
                 "type": "bool",
                 "value": 1
@@ -110477,50 +110034,6 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "5"
-            },
-            {
-                "name": "Armor Mastery",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Shield Proficiency: Tower Shield",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Deathblock",
-                "type": "Enhancement",
-                "value": "1"
-            },
-            {
-                "name": "Fortification",
-                "type": "Enhancement",
-                "value": "100"
-            },
-            {
-                "name": "Regeneration",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "True Seeing",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "1",
-        "name": "Shield of the Azure Valkyrie",
-        "slot": "Offhand",
-        "type": "Tower shields",
-        "url": "/page/Item:Shield_of_the_Azure_Valkyrie"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -111568,20 +111081,6 @@
     {
         "affixes": [
             {
-                "name": "Cold Fire",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Cold Fire",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Cold_Fire"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Wizardry",
                 "value": "2"
             }
@@ -111807,20 +111306,6 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Dark_Blue_Ioun_Stone_(unsuppressed)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Dimension Door",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Death's Door (trinket)",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Death%27s_Door_(trinket)"
     },
     {
         "affixes": [
@@ -112641,20 +112126,6 @@
         "url": "/page/Item:Experienced_Evil"
     },
     {
-        "affixes": [
-            {
-                "name": "Sight of Vol",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Eye of Vol",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Eye_of_Vol"
-    },
-    {
         "affixes": [],
         "crafting": [
             "Slaver's Prefix Slot",
@@ -113001,20 +112472,6 @@
     {
         "affixes": [
             {
-                "name": "Golem Figurine",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Golem Gem",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Golem_Gem"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Damage Bonus",
                 "type": "Competence",
                 "value": "1"
@@ -113351,34 +112808,6 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Holy_Symbol_of_Lolth"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Dispel the Grip of Strahd",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Holy Symbol of Ravenkind",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Holy_Symbol_of_Ravenkind"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Dispel the Grip of Strahd",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Icon of Ravenloft",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Icon_of_Ravenloft"
     },
     {
         "affixes": [
@@ -116059,20 +115488,6 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Trinket_of_Freewill"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Bane of the Undead Flame",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Urthullz Petrified Stalk",
-        "slot": "Trinket",
-        "type": "Trinket items",
-        "url": "/page/Item:Urthullz_Petrified_Stalk"
     },
     {
         "affixes": [

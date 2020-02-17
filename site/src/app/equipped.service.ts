@@ -458,4 +458,24 @@ export class EquippedService {
     this.coveredAffixes.next(newMap);
     this._updateRouterState();
   }
+
+  public getGearDescription() {
+    let msg = '';
+    for (const itemSubj of this.slots.values()) {
+      const item = itemSubj && itemSubj.getValue();
+      if (item) {
+        msg += item.slot + ': ' + item.name + "\n";
+        if (item.crafting) {
+          for (const crafting of item.crafting) {
+            msg += ' - ' + crafting.name + ': ';
+            if (crafting.selected) {
+               msg += crafting.selected.describe();
+            }
+            msg += "\n";
+          }
+        }
+      }
+    }
+    return msg;
+  }
 }

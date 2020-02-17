@@ -53,4 +53,22 @@ export class CraftableOption {
         }
         return null;
     }
+
+    describe() {
+        if (this.name && this.name.length) {
+            return this.name;
+        }
+        if (this.set && this.set.length) {
+            return this.set;
+        }
+        if (this.affixes && this.affixes.length) {
+            let str = this.affixes[0].name + ' +' + this.affixes[0].value + ' ' + this.affixes[0].type;
+            if (this.ml) {
+                str += ' (ML ' + this.ml + ')';
+            }
+            return str;
+        } else {
+            return '';
+        }
+    }
 }

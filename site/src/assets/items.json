@@ -20739,6 +20739,43 @@
         "url": "/page/Item:Epic_Etched_Temple_Docent"
     },
     {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Command",
+                "type": "Insight",
+                "value": "6"
+            },
+            {
+                "name": "Repair Amplification",
+                "type": "Enhancement",
+                "value": "43"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "18"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "122"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Flamekeep Docent",
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Epic_Flamekeep_Docent"
+    },
+    {
         "affixes": [],
         "crafting": [
             "Upgradeable - Tier",

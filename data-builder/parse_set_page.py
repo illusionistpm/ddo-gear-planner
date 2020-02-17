@@ -6,6 +6,7 @@ import json
 from copy import deepcopy
 import collections
 from parse_slavers import parse_slavers_sets
+from write_json import write_json
 
 def split_list(affix, affixes):
     str = affix['name']
@@ -69,12 +70,6 @@ def get_sets_from_page(soup):
 
             setName = cells[setNameIdx].getText().strip()
 
-            # legendarySearch = re.search(r'(.*) Set \((Heroic|Legendary)\)', setName)
-            # if legendarySearch:
-            #     setName = legendarySearch.group(1)
-            #     if legendarySearch.group(2) == 'Legendary':
-            #         setName = 'Legendary ' + setName
-
             if not setName in sets:
                 sets[setName] = []
 
@@ -130,28 +125,23 @@ def get_sets_from_page(soup):
                                 continue
 
                             affixes.append(affix)
-                # else:
-                #     bonusText = bonusCell.getText().split("you gain:",1)[1]
-
 
     return sets
-                        
 
 
+def parse_set_page():
+    page = open('./cache/sets/Named_item_sets.html', "r", encoding='utf-8').read()
 
-    
+    soup = BeautifulSoup(page, 'html.parser')
+
+    sets = get_sets_from_page(soup)
+
+    slaversSets = parse_slavers_sets()
+
+    sets = {**sets, **slaversSets}
+
+    write_json(sets, 'sets')
 
 
-
-page = requests.get('https://ddowiki.com/page/Named_item_sets')
-
-soup = BeautifulSoup(page.content, 'html.parser')
-
-sets = get_sets_from_page(soup)
-
-slaversSets = parse_slavers_sets()
-
-sets = {**sets, **slaversSets}
-
-out = json.dumps(sets, sort_keys=True, indent=4)
-open("../site/src/assets/sets.json", 'w', encoding='utf8').write(out)
+if __name__ == "__main__":
+    parse_set_page()

@@ -1,19 +1,22 @@
 import json
 from parse_slavers import parse_slavers_crafting
 from parse_augments import parse_augments
+from write_json import write_json
 
-outFile = "../site/src/assets/crafting.json"
+def build_crafting():
+    nearlyFinished = json.load(open('nearly-finished.json', "r", encoding='utf-8'))
 
-nearlyFinished = json.load(open('nearly-finished.json', "r", encoding='utf-8'))
+    slavers = parse_slavers_crafting()
 
-slavers = parse_slavers_crafting()
+    augments = parse_augments()
 
-augments = parse_augments()
+    combined = {}
+    combined.update(nearlyFinished)
+    combined.update(slavers)
+    combined.update(augments)
 
-combined = {}
-combined.update(nearlyFinished)
-combined.update(slavers)
-combined.update(augments)
+    write_json(combined, 'crafting')
 
-out = json.dumps(combined, sort_keys=True, indent=4)
-open(outFile, 'w', encoding='utf8').write(out)
+
+if __name__ == "__main__":
+    build_crafting()

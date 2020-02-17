@@ -5,6 +5,7 @@ import re
 import json
 import collections
 from roman_numerals import int_from_roman_numeral
+from write_json import write_json
 
 def include_page(fileName):
     return not fileName.startswith('Collars')
@@ -335,15 +336,18 @@ def get_items_from_page(itemPageURL, sets):
     return items
 
 
+def parse_item_pages():
+    with open("../site/src/assets/sets.json", 'r', encoding='utf8') as file:
+        sets = json.load(file)
+        
+    cachePath = "./cache/items/"
+    items = []
+    for file in os.listdir(cachePath):
+        if include_page(file):
+            items.extend(get_items_from_page(cachePath + file, sets))
 
-with open("../site/src/assets/sets.json", 'r', encoding='utf8') as file:
-    sets = json.load(file)
-    
-cachePath = "./cache/"
-items = []
-for file in os.listdir(cachePath):
-    if include_page(file):
-        items.extend(get_items_from_page(cachePath + file, sets))
+    write_json(items, 'items')
 
-out = json.dumps(items, sort_keys=True, indent=4)
-open("../site/src/assets/items.json", 'w', encoding='utf8').write(out)
+
+if __name__ == "__main__":
+    parse_item_pages()

@@ -37,11 +37,14 @@ export class AffixService {
     return affixes;
   }
 
-  flattenAffixGroups(affixes: Array<Affix>) {
+  flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
     let flattened = [];
     for (const affix of affixes) {
       const ungroup = this.ungroupAffix(affix);
       if (ungroup) {
+        if (includeOriginal) {
+          flattened.push(affix);
+        }
         flattened = flattened.concat(ungroup);
       } else {
         flattened.push(affix);
@@ -57,6 +60,6 @@ export class AffixService {
 
   getActiveAffixes(item: Item) {
     const affixes = item.getActiveAffixes();
-    return this.flattenAffixGroups(affixes);
+    return this.flattenAffixGroups(affixes, true);
   }
 }

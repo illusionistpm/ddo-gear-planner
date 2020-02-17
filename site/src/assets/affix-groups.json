@@ -37,5 +37,74 @@
             "Resonance"
         ],
         "name": "Potency"
+    },
+    {
+        "affixes": [
+            "Vertigo",
+            "Stunning",
+            "Dazing",
+            "Sundering",
+            "Shatter"
+        ],
+        "name": "Combat Mastery"
+    },
+    {
+        "affixes": [
+            "Bluff",
+            "Diplomacy",
+            "Haggle",
+            "Intimidate",
+            "Perform"
+        ],
+        "name": "Alluring Skills Bonus"
+    },
+    {
+        "affixes": [
+            "Bluff",
+            "Diplomacy",
+            "Haggle",
+            "Intimidate",
+            "Perform"
+        ],
+        "name": "Charisma Skills"
+    },
+    {
+        "affixes": [
+            "Disable Device",
+            "Repair",
+            "Search",
+            "Spellcraft"
+        ],
+        "name": "Intelligence Skills"
+    },
+    {
+        "affixes": [
+            "Balance",
+            "Hide",
+            "Move Silently",
+            "Open Locks",
+            "Tumble"
+        ],
+        "name": "Dexterity Skills"
+    },
+    {
+        "affixes": [
+            "Jump"
+        ],
+        "name": "Strength Skills"
+    },
+    {
+        "affixes": [
+            "Heal",
+            "Listen",
+            "Spot"
+        ],
+        "name": "Wisdom Skills"
+    },
+    {
+        "affixes": [
+            "Concentration"
+        ],
+        "name": "Constitution Skills"
     }
 ]

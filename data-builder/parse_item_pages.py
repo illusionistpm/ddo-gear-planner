@@ -114,13 +114,21 @@ def add_default_one(name):
     return name + " 1" if name in ["Necromancy Focus", "Deathblock"] else name
 
 
+def x_skills_exceptional_bonus(name):
+    search = re.search(r'^([A-Za-z]+ Skills) - Exceptional Bonus (.*)', name)
+    if search:
+        return search.group(1) + " " + search.group(2)
+
+    return name
+
+
 def sub_name(name):
     for pair in [
         ['Against the Slave Lords Set Bonus', 'Slaver\'s Set Bonus'],
         ['Slaver\'s Augment Slot', 'Green Augment Slot'],
         ['Legendary Slaver\'s Augment Slot', 'Green Augment Slot'],
         ['Fortification Penalty', 'Fortification'],
-        ['Construct Fortification', 'Fortification']
+        ['Construct Fortification', 'Fortification'],
         ]:
         if name == pair[0]:
             return pair[1]
@@ -225,6 +233,7 @@ def get_items_from_page(itemPageURL, sets):
                 affixName = clean_up_old_augments(affixName)
                 affixName = cleanup_one_of_the_following(affixName)
                 affixName = add_default_one(affixName)
+                affixName = x_skills_exceptional_bonus(affixName)
                 
                 affixName = affixName.strip()
 

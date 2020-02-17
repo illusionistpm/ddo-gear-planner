@@ -84802,7 +84802,7 @@
                 "value": 1
             },
             {
-                "name": "Charisma Skills - Exceptional Bonus",
+                "name": "Charisma Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -111334,7 +111334,7 @@
                 "value": "6"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -112884,7 +112884,7 @@
                 "value": "6"
             },
             {
-                "name": "Wisdom Skills - Exceptional Bonus",
+                "name": "Wisdom Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -113481,12 +113481,12 @@
                 "value": "2"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
@@ -113834,7 +113834,7 @@
                 "value": "6"
             },
             {
-                "name": "Strength Skills - Exceptional Bonus",
+                "name": "Strength Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -114104,7 +114104,7 @@
                 "value": "6"
             },
             {
-                "name": "Constitution Skills - Exceptional Bonus",
+                "name": "Constitution Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -114142,7 +114142,7 @@
                 "value": "6"
             },
             {
-                "name": "Charisma Skills - Exceptional Bonus",
+                "name": "Charisma Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -114437,7 +114437,7 @@
                 "value": "6"
             },
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "2"
             }
@@ -118889,12 +118889,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "2"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "2"
             },
@@ -118916,12 +118916,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "2"
             },
@@ -118943,12 +118943,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
@@ -118970,12 +118970,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
@@ -118997,12 +118997,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "6"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "4"
             },
@@ -119024,12 +119024,12 @@
     {
         "affixes": [
             {
-                "name": "Intelligence Skills - Exceptional Bonus",
+                "name": "Intelligence Skills",
                 "type": "Exceptional",
                 "value": "6"
             },
             {
-                "name": "Dexterity Skills - Exceptional Bonus",
+                "name": "Dexterity Skills",
                 "type": "Exceptional",
                 "value": "6"
             },

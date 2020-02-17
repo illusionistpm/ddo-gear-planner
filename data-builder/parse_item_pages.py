@@ -20,7 +20,7 @@ def build_cat_map():
     catMap = collections.defaultdict(lambda: 'Weapon')
 
     add_cat_to_map(catMap, 'Armor', ['Cloth armor', 'Heavy armor', 'Medium armor', 'Light armor', 'Cloth armor', 'Docents'])
-    add_cat_to_map(catMap, 'Offhand', ['Bucklers', 'Small shields', 'Large shields', 'Tower shields', 'Orbs', 'Rune arms'])
+    add_cat_to_map(catMap, 'Offhand', ['Bucklers', 'Small shields', 'Large shields', 'Tower shields', 'Orbs', 'Rune Arms'])
     add_cat_to_map(catMap, 'Helm', ['Head items'])
     add_cat_to_map(catMap, 'Goggles', ['Eye items'])
     add_cat_to_map(catMap, 'Cloak', ['Back items'])

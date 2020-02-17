@@ -98181,7 +98181,7 @@
         ],
         "ml": "5",
         "name": "Ice Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Ice_Rune_Arm"
     },
@@ -98217,7 +98217,7 @@
         ],
         "ml": "5",
         "name": "Chulchannad's Claw",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chulchannad%27s_Claw"
     },
@@ -98253,7 +98253,7 @@
         ],
         "ml": "7",
         "name": "The Devourer's Hunger",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Devourer%27s_Hunger"
     },
@@ -98289,7 +98289,7 @@
         ],
         "ml": "13",
         "name": "Chill of Winter (Level 13)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chill_of_Winter_(Level_13)"
     },
@@ -98315,7 +98315,7 @@
         ],
         "ml": "13",
         "name": "Greater Ice Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Ice_Rune_Arm"
     },
@@ -98356,7 +98356,7 @@
         "ml": "14",
         "name": "Quarantine",
         "set": "Renegade Champion",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Quarantine"
     },
@@ -98392,7 +98392,7 @@
         ],
         "ml": "23",
         "name": "Chill of Winter (Level 23)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chill_of_Winter_(Level_23)"
     },
@@ -98428,7 +98428,7 @@
         ],
         "ml": "24",
         "name": "Chill of Winter (Level 24)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chill_of_Winter_(Level_24)"
     },
@@ -98469,7 +98469,7 @@
         ],
         "ml": "25",
         "name": "Chill of Winter (Level 25)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chill_of_Winter_(Level_25)"
     },
@@ -98510,7 +98510,7 @@
         "ml": "29",
         "name": "Legendary Quarantine",
         "set": "Renegade Champion (Legendary)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Quarantine"
     },
@@ -98536,7 +98536,7 @@
         ],
         "ml": "5",
         "name": "Acid Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Acid_Rune_Arm"
     },
@@ -98572,7 +98572,7 @@
         ],
         "ml": "7",
         "name": "The Pea Shooter",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Pea_Shooter"
     },
@@ -98598,7 +98598,7 @@
         ],
         "ml": "13",
         "name": "Greater Acid Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Acid_Rune_Arm"
     },
@@ -98634,7 +98634,7 @@
         ],
         "ml": "13",
         "name": "The Turmoil Within (Level 13)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Turmoil_Within_(Level_13)"
     },
@@ -98666,7 +98666,7 @@
         ],
         "ml": "15",
         "name": "Corruption of Nature (Level 15)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(Level_15)"
     },
@@ -98698,7 +98698,7 @@
         ],
         "ml": "16",
         "name": "Corruption of Nature (Level 16)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(Level_16)"
     },
@@ -98730,7 +98730,7 @@
         ],
         "ml": "17",
         "name": "Corruption of Nature (Level 17)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(Level_17)"
     },
@@ -98776,7 +98776,7 @@
         ],
         "ml": "17",
         "name": "Glorious Obscenity",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Glorious_Obscenity"
     },
@@ -98813,7 +98813,7 @@
         ],
         "ml": "22",
         "name": "Corruption of Nature (level 22)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(level_22)"
     },
@@ -98849,7 +98849,7 @@
         ],
         "ml": "23",
         "name": "The Turmoil Within (Level 23)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Turmoil_Within_(Level_23)"
     },
@@ -98886,7 +98886,7 @@
         ],
         "ml": "23",
         "name": "Corruption of Nature (level 23)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(level_23)"
     },
@@ -98922,7 +98922,7 @@
         ],
         "ml": "24",
         "name": "The Turmoil Within (Level 24)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Turmoil_Within_(Level_24)"
     },
@@ -98959,7 +98959,7 @@
         ],
         "ml": "24",
         "name": "Corruption of Nature (level 24)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Corruption_of_Nature_(level_24)"
     },
@@ -99000,7 +99000,7 @@
         ],
         "ml": "25",
         "name": "The Turmoil Within (Level 25)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Turmoil_Within_(Level_25)"
     },
@@ -99035,7 +99035,7 @@
         ],
         "ml": "3",
         "name": "Flicker",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Flicker"
     },
@@ -99071,7 +99071,7 @@
         ],
         "ml": "5",
         "name": "Chimera's Breath",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Chimera%27s_Breath"
     },
@@ -99097,7 +99097,7 @@
         ],
         "ml": "5",
         "name": "Lightning Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Lightning_Rune_Arm"
     },
@@ -99133,7 +99133,7 @@
         ],
         "ml": "9",
         "name": "The Disciplinator",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Disciplinator"
     },
@@ -99159,7 +99159,7 @@
         ],
         "ml": "13",
         "name": "Greater Lightning Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Lightning_Rune_Arm"
     },
@@ -99195,7 +99195,7 @@
         ],
         "ml": "13",
         "name": "Arcing Sky (Level 13)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Arcing_Sky_(Level_13)"
     },
@@ -99235,7 +99235,7 @@
         ],
         "ml": "15",
         "name": "The Arc Welder (long range)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Arc_Welder_(long_range)"
     },
@@ -99275,7 +99275,7 @@
         ],
         "ml": "15",
         "name": "The Arc Welder (close range)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Arc_Welder_(close_range)"
     },
@@ -99321,7 +99321,7 @@
         ],
         "ml": "19",
         "name": "Toven's Hammer",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Toven%27s_Hammer"
     },
@@ -99357,7 +99357,7 @@
         ],
         "ml": "23",
         "name": "Arcing Sky (Level 23)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Arcing_Sky_(Level_23)"
     },
@@ -99393,7 +99393,7 @@
         ],
         "ml": "24",
         "name": "Arcing Sky (Level 24)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Arcing_Sky_(Level_24)"
     },
@@ -99433,7 +99433,7 @@
         ],
         "ml": "24",
         "name": "St. Mu'Ray's Fire",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:St._Mu%27Ray%27s_Fire"
     },
@@ -99474,7 +99474,7 @@
         ],
         "ml": "25",
         "name": "Arcing Sky (Level 25)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Arcing_Sky_(Level_25)"
     },
@@ -99514,7 +99514,7 @@
         ],
         "ml": "28",
         "name": "The Legendary Arc Welder (close range)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Legendary_Arc_Welder_(close_range)"
     },
@@ -99554,7 +99554,7 @@
         ],
         "ml": "28",
         "name": "The Legendary Arc Welder (long range)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Legendary_Arc_Welder_(long_range)"
     },
@@ -99590,7 +99590,7 @@
         ],
         "ml": "1",
         "name": "Flame Warden",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Flame_Warden"
     },
@@ -99616,7 +99616,7 @@
         ],
         "ml": "5",
         "name": "Fire Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Fire_Rune_Arm"
     },
@@ -99647,7 +99647,7 @@
         ],
         "ml": "5",
         "name": "Khyber's Fury",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Khyber%27s_Fury"
     },
@@ -99677,7 +99677,7 @@
         ],
         "ml": "5",
         "name": "Strinati's Hand Cannon",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Strinati%27s_Hand_Cannon"
     },
@@ -99713,7 +99713,7 @@
         ],
         "ml": "9",
         "name": "Hand of the Tombs",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Hand_of_the_Tombs"
     },
@@ -99759,7 +99759,7 @@
         "ml": "10",
         "name": "Blight Inferno",
         "set": "Adherent of the Mists Set (Heroic)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Blight_Inferno"
     },
@@ -99805,7 +99805,7 @@
         "ml": "10",
         "name": "Suppressive Fire",
         "set": "Adherent of the Mists Set (Heroic)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Suppressive_Fire"
     },
@@ -99841,7 +99841,7 @@
         ],
         "ml": "11",
         "name": "Trial by Fire",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Trial_by_Fire"
     },
@@ -99867,7 +99867,7 @@
         ],
         "ml": "13",
         "name": "Greater Fire Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Fire_Rune_Arm"
     },
@@ -99907,7 +99907,7 @@
         ],
         "ml": "15",
         "name": "Breaking the Bank",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Breaking_the_Bank"
     },
@@ -99943,7 +99943,7 @@
         ],
         "ml": "19",
         "name": "Animus",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Animus"
     },
@@ -99965,7 +99965,7 @@
         ],
         "ml": "24",
         "name": "Glass Cannon (tier 3)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Glass_Cannon_(tier_3)"
     },
@@ -99990,7 +99990,7 @@
         ],
         "ml": "24",
         "name": "Glass Cannon (tier 1)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Glass_Cannon_(tier_1)"
     },
@@ -100012,7 +100012,7 @@
         ],
         "ml": "24",
         "name": "Glass Cannon (tier 2)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Glass_Cannon_(tier_2)"
     },
@@ -100052,7 +100052,7 @@
         ],
         "ml": "29",
         "name": "Legendary Breaking the Bank",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Breaking_the_Bank"
     },
@@ -100098,7 +100098,7 @@
         "ml": "29",
         "name": "Legendary Suppressive Fire",
         "set": "Adherent of the Mists Set (Legendary)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Suppressive_Fire"
     },
@@ -100144,7 +100144,7 @@
         "ml": "29",
         "name": "Legendary Blight Inferno",
         "set": "Adherent of the Mists Set (Legendary)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Blight_Inferno"
     },
@@ -100175,7 +100175,7 @@
         ],
         "ml": "1",
         "name": "Thought Spike",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Thought_Spike"
     },
@@ -100206,7 +100206,7 @@
         ],
         "ml": "1",
         "name": "Thought Spike (starter)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Thought_Spike_(starter)"
     },
@@ -100242,7 +100242,7 @@
         ],
         "ml": "3",
         "name": "Candlelight",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Candlelight"
     },
@@ -100268,7 +100268,7 @@
         ],
         "ml": "5",
         "name": "Radiant Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Radiant_Rune_Arm"
     },
@@ -100294,7 +100294,7 @@
         ],
         "ml": "5",
         "name": "Force Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Force_Rune_Arm"
     },
@@ -100330,7 +100330,7 @@
         ],
         "ml": "7",
         "name": "Coronach",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Coronach"
     },
@@ -100357,7 +100357,7 @@
         ],
         "ml": "7",
         "name": "Coronach (historic)",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Coronach_(historic)"
     },
@@ -100397,7 +100397,7 @@
         ],
         "ml": "7",
         "name": "The Astral Projector",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Astral_Projector"
     },
@@ -100433,7 +100433,7 @@
         ],
         "ml": "9",
         "name": "Recoyle",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Recoyle"
     },
@@ -100469,7 +100469,7 @@
         ],
         "ml": "11",
         "name": "Titan's Fist",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Titan%27s_Fist"
     },
@@ -100504,7 +100504,7 @@
         ],
         "ml": "13",
         "name": "Arm of the Archons",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Arm_of_the_Archons"
     },
@@ -100530,7 +100530,7 @@
         ],
         "ml": "13",
         "name": "Greater Radiant Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Radiant_Rune_Arm"
     },
@@ -100556,7 +100556,7 @@
         ],
         "ml": "13",
         "name": "Greater Force Rune Arm",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Greater_Force_Rune_Arm"
     },
@@ -100596,7 +100596,7 @@
         ],
         "ml": "14",
         "name": "Whirling Words",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Whirling_Words"
     },
@@ -100642,7 +100642,7 @@
         ],
         "ml": "15",
         "name": "Tira's Splendor",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Tira%27s_Splendor"
     },
@@ -100677,7 +100677,7 @@
         ],
         "ml": "15",
         "name": "The Dumpster Fire",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Dumpster_Fire"
     },
@@ -100717,7 +100717,7 @@
         ],
         "ml": "18",
         "name": "Resplendence",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Resplendence"
     },
@@ -100768,7 +100768,7 @@
         ],
         "ml": "19",
         "name": "Lucid Dreams",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Lucid_Dreams"
     },
@@ -100805,7 +100805,7 @@
         ],
         "ml": "20",
         "name": "Archaic Device",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Archaic_Device"
     },
@@ -100845,7 +100845,7 @@
         ],
         "ml": "21",
         "name": "The Epic Astral Projector",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Epic_Astral_Projector"
     },
@@ -100885,7 +100885,7 @@
         ],
         "ml": "24",
         "name": "Glass Cannon",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Glass_Cannon"
     },
@@ -100925,7 +100925,7 @@
         ],
         "ml": "26",
         "name": "Epic Resplendence",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Epic_Resplendence"
     },
@@ -100965,7 +100965,7 @@
         ],
         "ml": "27",
         "name": "Epic Whirling Words",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Epic_Whirling_Words"
     },
@@ -101012,7 +101012,7 @@
         ],
         "ml": "28",
         "name": "Knives Eternal",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Knives_Eternal"
     },
@@ -101057,7 +101057,7 @@
         ],
         "ml": "28",
         "name": "Epic Arm of the Archons",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Epic_Arm_of_the_Archons"
     },
@@ -101092,7 +101092,7 @@
         ],
         "ml": "29",
         "name": "The Legendary Dumpster Fire",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Legendary_Dumpster_Fire"
     },
@@ -101143,7 +101143,7 @@
         ],
         "ml": "29",
         "name": "Machination of Madness",
-        "slot": "Weapon",
+        "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Machination_of_Madness"
     },

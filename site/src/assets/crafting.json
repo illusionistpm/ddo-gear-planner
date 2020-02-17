@@ -148,7 +148,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 2
                     }
@@ -208,7 +208,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 4
                     }
@@ -268,7 +268,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 6
                     }
@@ -328,7 +328,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 8
                     }
@@ -388,7 +388,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 10
                     }
@@ -438,7 +438,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 12
                     }
@@ -498,7 +498,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 14
                     }
@@ -548,7 +548,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Physical Resistance Rating",
+                        "name": "Physical Sheltering",
                         "type": "Enhancement",
                         "value": 16
                     }
@@ -570,2006 +570,6 @@
     },
     "Colorless Augment Slot": {
         "*": [
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 1
-                    }
-                ],
-                "ml": 1
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 2
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 4
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 3
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 8
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 4
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 12
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 5
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 9
-                    }
-                ],
-                "ml": 16
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 6
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Exceptional",
-                        "value": 1
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 11
-                    }
-                ],
-                "ml": 20
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 7
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Insight",
-                        "value": 2
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 13
-                    }
-                ],
-                "ml": 24
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": 8
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Balance",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Bluff",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Concentration",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Diplomacy",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Disable Device",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Haggle",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Hide",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intimidate",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Jump",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Listen",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Move Silently",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Open Lock",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Perform",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Search",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spellcraft",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spot",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Swim",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Tumble",
-                        "type": "Enhancement",
-                        "value": 15
-                    }
-                ],
-                "ml": 28
-            },
             {
                 "affixes": [
                     {
@@ -2603,12 +603,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": 3
-                    },
-                    {
-                        "name": "Dexterity",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": 3
                     },
@@ -2618,17 +613,22 @@
                         "value": 3
                     },
                     {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 3
+                    },
+                    {
                         "name": "Intelligence",
                         "type": "Enhancement",
                         "value": 3
                     },
                     {
-                        "name": "Wisdom",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": 3
                     },
                     {
-                        "name": "Charisma",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": 3
                     }
@@ -2639,12 +639,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Strength",
-                        "type": "Exceptional",
-                        "value": 1
-                    },
-                    {
-                        "name": "Dexterity",
+                        "name": "Charisma",
                         "type": "Exceptional",
                         "value": 1
                     },
@@ -2654,7 +649,17 @@
                         "value": 1
                     },
                     {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
                         "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": 1
+                    },
+                    {
+                        "name": "Strength",
                         "type": "Exceptional",
                         "value": 1
                     },
@@ -2662,15 +667,2010 @@
                         "name": "Wisdom",
                         "type": "Exceptional",
                         "value": 1
-                    },
+                    }
+                ],
+                "ml": 25,
+                "name": "Globe of True Imperial Blood"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Bluff",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intimidate",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Move Silently",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Perform",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcraft",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spot",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Swim",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 3
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 5
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 7
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 9
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 11
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 13
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Tumble",
+                        "type": "Competence",
+                        "value": 15
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 1
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 4
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 3
+                    }
+                ],
+                "ml": 8
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 4
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 6
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 7
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": 2
+                    }
+                ],
+                "ml": 24
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 8
+                    }
+                ],
+                "ml": 28
+            },
+            {
+                "affixes": [
                     {
                         "name": "Charisma",
                         "type": "Exceptional",
                         "value": 1
                     }
                 ],
-                "ml": 25,
-                "name": "Globe of True Imperial Blood"
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": 1
+                    }
+                ],
+                "ml": 20
             }
         ],
         "hiddenFromAffixSearch": true
@@ -2955,7 +2955,7 @@
                 "affixes": [
                     {
                         "name": "Balance",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -2964,7 +2964,7 @@
                 "affixes": [
                     {
                         "name": "Bluff",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -2973,7 +2973,7 @@
                 "affixes": [
                     {
                         "name": "Concentration",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -2982,7 +2982,7 @@
                 "affixes": [
                     {
                         "name": "Diplomacy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -2991,7 +2991,7 @@
                 "affixes": [
                     {
                         "name": "Disable Device",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3000,7 +3000,7 @@
                 "affixes": [
                     {
                         "name": "Haggle",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3009,7 +3009,7 @@
                 "affixes": [
                     {
                         "name": "Heal",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3018,7 +3018,7 @@
                 "affixes": [
                     {
                         "name": "Hide",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3027,7 +3027,7 @@
                 "affixes": [
                     {
                         "name": "Intimidate",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3036,7 +3036,7 @@
                 "affixes": [
                     {
                         "name": "Jump",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3045,7 +3045,7 @@
                 "affixes": [
                     {
                         "name": "Listen",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3054,7 +3054,7 @@
                 "affixes": [
                     {
                         "name": "Move Silently",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3063,7 +3063,7 @@
                 "affixes": [
                     {
                         "name": "Open Lock",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3072,7 +3072,7 @@
                 "affixes": [
                     {
                         "name": "Perform",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3081,7 +3081,7 @@
                 "affixes": [
                     {
                         "name": "Repair",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3090,7 +3090,7 @@
                 "affixes": [
                     {
                         "name": "Search",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3099,7 +3099,7 @@
                 "affixes": [
                     {
                         "name": "Spellcraft",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3108,7 +3108,7 @@
                 "affixes": [
                     {
                         "name": "Spot",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3117,7 +3117,7 @@
                 "affixes": [
                     {
                         "name": "Swim",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3126,7 +3126,7 @@
                 "affixes": [
                     {
                         "name": "Tumble",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 22
                     }
                 ]
@@ -3135,7 +3135,7 @@
                 "affixes": [
                     {
                         "name": "Use Magic Device",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 7
                     }
                 ]
@@ -3309,7 +3309,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 28
                     }
                 ]
@@ -3327,7 +3327,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 14
                     }
                 ]
@@ -5943,7 +5943,7 @@
                 "affixes": [
                     {
                         "name": "Balance",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5952,7 +5952,7 @@
                 "affixes": [
                     {
                         "name": "Bluff",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5961,7 +5961,7 @@
                 "affixes": [
                     {
                         "name": "Concentration",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5970,7 +5970,7 @@
                 "affixes": [
                     {
                         "name": "Diplomacy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5979,7 +5979,7 @@
                 "affixes": [
                     {
                         "name": "Disable Device",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5988,7 +5988,7 @@
                 "affixes": [
                     {
                         "name": "Haggle",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -5997,7 +5997,7 @@
                 "affixes": [
                     {
                         "name": "Heal",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6006,7 +6006,7 @@
                 "affixes": [
                     {
                         "name": "Hide",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6015,7 +6015,7 @@
                 "affixes": [
                     {
                         "name": "Intimidate",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6024,7 +6024,7 @@
                 "affixes": [
                     {
                         "name": "Jump",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6033,7 +6033,7 @@
                 "affixes": [
                     {
                         "name": "Listen",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6042,7 +6042,7 @@
                 "affixes": [
                     {
                         "name": "Move Silently",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6051,7 +6051,7 @@
                 "affixes": [
                     {
                         "name": "Open Lock",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6060,7 +6060,7 @@
                 "affixes": [
                     {
                         "name": "Perform",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6069,7 +6069,7 @@
                 "affixes": [
                     {
                         "name": "Repair",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6078,7 +6078,7 @@
                 "affixes": [
                     {
                         "name": "Search",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6087,7 +6087,7 @@
                 "affixes": [
                     {
                         "name": "Spellcraft",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6096,7 +6096,7 @@
                 "affixes": [
                     {
                         "name": "Spot",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6105,7 +6105,7 @@
                 "affixes": [
                     {
                         "name": "Swim",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6114,7 +6114,7 @@
                 "affixes": [
                     {
                         "name": "Tumble",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ]
@@ -6123,7 +6123,7 @@
                 "affixes": [
                     {
                         "name": "Use Magic Device",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 1
                     }
                 ]
@@ -6297,7 +6297,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 8
                     }
                 ]
@@ -6315,7 +6315,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 4
                     }
                 ]

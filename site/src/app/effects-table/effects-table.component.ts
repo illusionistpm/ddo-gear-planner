@@ -18,7 +18,7 @@ export class EffectsTableComponent implements OnInit {
   public boolAffixMap: Map<string, Array<any>>;
   public boolAffixNames: Array<string>;
 
-  public sortOrder = ['Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
+  public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
 
   constructor(
     public equipped: EquippedService,

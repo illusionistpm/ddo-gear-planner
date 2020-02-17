@@ -30,7 +30,7 @@ export class GearDbService {
   ) {
     this._buildAugmentOptions();
     this.gear = new Map<string, Array<Item>>();
-    this.allGear = this.filterByLevelRange(1, 30);
+    this.allGear = this._loadAllItems();
 
     this.filters.getLevelRange().subscribe(val => {
       this.gear = this.filterByLevelRange(val[0], val[1]);
@@ -79,16 +79,12 @@ export class GearDbService {
     ['Blue', 'Yellow', 'Red', 'Green', 'Purple', 'Orange', 'Colorless'].map(e => this._sortAugmentList(e));
   }
 
-  filterByLevelRange(minLevel: number, maxLevel: number) {
+  _loadAllItems() {
     const gear = new Map<string, Array<Item>>();
 
     this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
     for (const item of itemsList) {
-      if (Number(item.ml) < minLevel || Number(item.ml) > maxLevel) {
-        continue;
-      }
-
       if (item.slot === 'Ring') {
         item.slot = 'Ring1';
       }
@@ -132,6 +128,19 @@ export class GearDbService {
     }
     gear.set('Ring2', ring2);
 
+    return gear;
+  }
+
+  filterByLevelRange(minLevel: number, maxLevel: number) {
+    const gear = new Map<string, Array<Item>>();
+
+    this.affixToBonusTypes = new Map<string, Map<string, number>>();
+
+    for (const [slot, items] of this.allGear.entries()) {
+      const myItems = items.filter(i => Number(i.ml) >= minLevel && Number(i.ml) <= maxLevel);
+      gear.set(slot, myItems);
+    }
+
     this._buildCannithItems(gear, maxLevel);
 
     for (const items of gear.values()) {
@@ -157,6 +166,9 @@ export class GearDbService {
         }
       }
     }
+
+    const cannithAffixes = this.cannith.getAllAffixesForML(maxLevel);
+    this._addAffixesToMap(cannithAffixes);
 
     return gear;
   }

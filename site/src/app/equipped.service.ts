@@ -365,7 +365,11 @@ export class EquippedService {
   private _getImportantAffixesToTypes() {
     const important = new Map<string, Map<string, number>>();
     for (const affixName of this.importantAffixes) {
-      important.set(affixName, this.gearList.affixToBonusTypes.get(affixName));
+      let bonusTypes = this.gearList.affixToBonusTypes.get(affixName);
+      if (!bonusTypes) {
+        bonusTypes = new Map<string, number>();
+      }
+      important.set(affixName, bonusTypes);
     }
     return important;
   }

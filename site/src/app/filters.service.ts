@@ -18,7 +18,7 @@ export class FiltersService {
   constructor(
     private queryParams: QueryParamsService
   ) {
-    this.levelRange = new BehaviorSubject<[number, number]>(null);
+    this.levelRange = new BehaviorSubject<[number, number]>([this.MIN_LEVEL, this.MAX_LEVEL]);
     this.params = new BehaviorSubject<any>(null);
 
     this.setLevelRange(this.MIN_LEVEL, this.MAX_LEVEL);
@@ -32,8 +32,21 @@ export class FiltersService {
   }
 
   setLevelRange(min: number, max: number) {
+    const curMin = this.levelRange.getValue()[0];
+    const curMax = this.levelRange.getValue()[1];
+
     min = Math.max(this.MIN_LEVEL, min);
     max = Math.min(this.MAX_LEVEL, max);
+
+    // Fix backwards ranges by bringing the one that didn't move to the one that did.
+    if (min > max) {
+      if (min !== curMin) {
+        max = min;
+      } else {
+        min = max;
+      }
+    }
+
     this.levelRange.next([min, max]);
 
     this._updateRouterState(min, max);

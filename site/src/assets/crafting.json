@@ -564,6 +564,56 @@
                     }
                 ],
                 "ml": 28
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Arcane Spell Failure",
+                        "type": "Enhancement",
+                        "value": 5
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Arcane Spell Failure",
+                        "type": "Enhancement",
+                        "value": 10
+                    }
+                ],
+                "ml": 16
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Arcane Spell Failure",
+                        "type": "Enhancement",
+                        "value": 15
+                    }
+                ],
+                "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Max Dex Bonus",
+                        "type": "Enhancement",
+                        "value": 1
+                    }
+                ],
+                "ml": 12
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Max Dex Bonus",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 20
             }
         ],
         "hiddenFromAffixSearch": true
@@ -578,7 +628,8 @@
                         "value": 2
                     }
                 ],
-                "ml": 22
+                "ml": 22,
+                "name": "Diamond of Festive Intelligence +2"
             },
             {
                 "affixes": [
@@ -588,7 +639,8 @@
                         "value": 2
                     }
                 ],
-                "ml": 22
+                "ml": 22,
+                "name": "Diamond of Festive Wisdom +2"
             },
             {
                 "affixes": [
@@ -598,7 +650,8 @@
                         "value": 20
                     }
                 ],
-                "ml": 11
+                "ml": 11,
+                "name": "Diamond of Vitality +20"
             },
             {
                 "affixes": [
@@ -2671,6 +2724,17 @@
                     }
                 ],
                 "ml": 20
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heroic Inspiration",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": null,
+                "name": "The Master's Gift"
             }
         ],
         "hiddenFromAffixSearch": true
@@ -3317,7 +3381,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Armor Piercing",
+                        "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": 28
                     }
@@ -6421,7 +6485,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Armor Piercing",
+                        "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": 8
                     }
@@ -6693,7 +6757,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 5.0
+                        "value": 5
                     }
                 ],
                 "ml": 1
@@ -6793,7 +6857,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 10.0
+                        "value": 10
                     }
                 ],
                 "ml": 4
@@ -6893,7 +6957,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 15.0
+                        "value": 15
                     }
                 ],
                 "ml": 8
@@ -6983,7 +7047,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 20.0
+                        "value": 20
                     }
                 ],
                 "ml": 12
@@ -7133,7 +7197,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 25.0
+                        "value": 25
                     }
                 ],
                 "ml": 16
@@ -7213,7 +7277,7 @@
                     {
                         "name": "Striding",
                         "type": "Enhancement",
-                        "value": 30.0
+                        "value": 30
                     }
                 ],
                 "ml": 20
@@ -7276,7 +7340,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7286,7 +7350,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7296,7 +7360,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7306,7 +7370,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7316,7 +7380,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7326,7 +7390,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7336,7 +7400,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 16
+                "ml": 24
             },
             {
                 "affixes": [
@@ -7422,7 +7486,8 @@
                         "value": 1
                     }
                 ],
-                "ml": 20
+                "ml": 20,
+                "name": "Topaz of Anthem"
             }
         ],
         "hiddenFromAffixSearch": true

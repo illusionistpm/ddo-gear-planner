@@ -42,7 +42,7 @@ export class GearDbService {
     right = right + ' Augment Slot';
 
     if (!this.craftingList[left]) {
-      this.craftingList[left] = { '*': [] };
+      this.craftingList[left] = { '*': [], 'hiddenFromAffixSearch': true };
     }
 
     this.craftingList[left]['*'] = this.craftingList[left]['*'].concat(this.craftingList[right]['*']);
@@ -107,6 +107,7 @@ export class GearDbService {
               for (const option of options) {
                 newOptions.push(new CraftableOption(option));
               }
+
               craftingOptions.push(new Craftable(craftingSystem, newOptions, this.craftingList[craftingSystem]['hiddenFromAffixSearch']));
             }
           } else {

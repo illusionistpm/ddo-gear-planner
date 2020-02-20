@@ -30,6 +30,7 @@ def build_affix_groups():
     add(groups, 'Strength Skills', ['Jump'])
     add(groups, 'Wisdom Skills', ['Heal', 'Listen', 'Spot'])
     add(groups, 'Constitution Skills', ['Concentration'])
+    add(groups, 'Well Rounded', ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'])
 
     write_json(groups, 'affix-groups')
 

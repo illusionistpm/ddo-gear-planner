@@ -129,6 +129,7 @@ def sub_name(name):
         ['Legendary Slaver\'s Augment Slot', 'Green Augment Slot'],
         ['Fortification Penalty', 'Fortification'],
         ['Construct Fortification', 'Fortification'],
+        ['all Spell DCs', 'Spell DCs'],
         ]:
         if name == pair[0]:
             return pair[1]
@@ -326,6 +327,9 @@ def get_items_from_page(itemPageURL, sets):
                     aff['type'] = 'bool'
 
                 if aff['name'] == 'Deathblock' and 'type' not in aff:
+                    aff['type'] = 'Enhancement'
+
+                if aff['name'] == 'Striding' and 'type' not in aff:
                     aff['type'] = 'Enhancement'
 
                 item['affixes'].append(aff)

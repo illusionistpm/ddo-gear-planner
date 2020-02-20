@@ -11,7 +11,7 @@ export class Craftable {
         const emptyOption = new CraftableOption(null);
         this.options = [emptyOption].concat(options);
         this.selected = emptyOption;
-        this.hiddenFromAffixSearch = (hiddenFromAffixSearch === undefined) || hiddenFromAffixSearch;
+        this.hiddenFromAffixSearch = hiddenFromAffixSearch;
     }
 
     getMatchingBonusType(affixName, bonusType) {

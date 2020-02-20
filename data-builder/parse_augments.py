@@ -37,7 +37,7 @@ def parse_augments():
             affix['value'] = value
             affix['type'] = bonusType
 
-            if affix['name'] in ['Fortification', 'Striding']:
+            if affix['name'] in ['Fortification']:
                 affix['value'] = 100 * affix['value']
 
             if len(systems[system]['*']) and 'name' in systems[system]['*'][-1] and augmentName == systems[system]['*'][-1]['name']:
@@ -46,7 +46,7 @@ def parse_augments():
                 option = {}
                 option['affixes'] = [affix]
                 option['ml'] = level
-                if augmentName in ['Globe of Imperial Blood', 'Globe of True Imperial Blood', 'Draconic Soul Gem']:
+                if augmentName:
                     option['name'] = augmentName
 
                 systems[system]['*'].append(option)

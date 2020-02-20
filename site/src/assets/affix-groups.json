@@ -106,5 +106,16 @@
             "Concentration"
         ],
         "name": "Constitution Skills"
+    },
+    {
+        "affixes": [
+            "Strength",
+            "Dexterity",
+            "Constitution",
+            "Intelligence",
+            "Wisdom",
+            "Charisma"
+        ],
+        "name": "Well Rounded"
     }
 ]

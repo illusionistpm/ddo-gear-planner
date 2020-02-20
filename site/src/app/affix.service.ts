@@ -31,8 +31,6 @@ export class AffixService {
         affix.name = affixName;
         affixes.push(affix);
       }
-    } else {
-      affixes.push(affixGroup);
     }
     return affixes;
   }

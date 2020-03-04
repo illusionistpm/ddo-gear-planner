@@ -3409,7 +3409,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 14
                     }
                 ]
@@ -6321,7 +6321,7 @@
                 "affixes": [
                     {
                         "name": "Spell Focus Mastery",
-                        "type": "Enhancement",
+                        "type": "Equipment",
                         "value": 2
                     }
                 ]
@@ -6330,7 +6330,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": "Enhancement",
+                        "type": "Equipment",
                         "value": 2
                     }
                 ]

@@ -4,6 +4,7 @@ from parse_item_pages import parse_item_pages
 from parse_cannith import parse_cannith
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
+from build_synonyms import build_synonyms
 
 download_wiki_pages()
 
@@ -13,4 +14,5 @@ parse_item_pages()
 parse_cannith()
 
 build_affix_groups()
+build_synonyms()
 build_crafting()

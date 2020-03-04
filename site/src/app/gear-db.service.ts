@@ -82,8 +82,6 @@ export class GearDbService {
   _loadAllItems() {
     const gear = new Map<string, Array<Item>>();
 
-    this.affixToBonusTypes = new Map<string, Map<string, number>>();
-
     for (const item of itemsList) {
       if (item.slot === 'Ring') {
         item.slot = 'Ring1';
@@ -144,6 +142,8 @@ export class GearDbService {
 
     this._buildCannithItems(gear, maxLevel);
 
+
+    //// FIXME!! Move this to its own function, attach it to the level range change so that affixes update with level range
     for (const items of gear.values()) {
       for (const item of items) {
         this._addAffixesToMap(item.affixes);
@@ -159,6 +159,9 @@ export class GearDbService {
     for (const system of Object.values(this.craftingList)) {
       for (const item of Object.values(system)) {
         for (const option of Object.values(item)) {
+          if (option['ml'] && option['ml'] > maxLevel) {
+            continue;
+          }
           if (option['affixes']) {
             for (const affix of Object.values(option['affixes'])) {
               this._addAffixesToMap([new Affix(affix)]);

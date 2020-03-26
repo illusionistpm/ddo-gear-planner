@@ -35,6 +35,10 @@ export class GearDbService {
     this.filters.getLevelRange().subscribe(val => {
       this.gear = this.filterByLevelRange(val[0], val[1]);
     });
+
+    this.filters.getShowRaidItems().subscribe(val => {
+      this.gear = this.filterByLevelRange();
+    });
   }
 
   _mergeAugmentLists(left, right) {

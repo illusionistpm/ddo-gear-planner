@@ -10,5 +10,7 @@
             <span class="col-1 text-center">-</span>
             <input type="number" min="1" max="30" class="form-control col-2" (change)="onChange()" [(ngModel)]="maxLevel">
         </div>
+        <input type="checkbox" class="form-check-input" id="raidItems" (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
+        <label class="form-check-label" for="raidItems">Show Raid Items</label>
     </div>
 </div>

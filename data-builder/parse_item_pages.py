@@ -167,6 +167,10 @@ def get_items_from_page(itemPageURL, sets):
 
     rows = table.find_all('tr', recursive=False)
 
+    for q in ['Location', 'Quest', 'Quests']:
+        if q in cols:
+            questIdx = cols[q]
+
     # For some reason, the header is showing up as a row
     rows.pop(0)
 
@@ -202,6 +206,13 @@ def get_items_from_page(itemPageURL, sets):
 
         if item['ml'] == 'None':
             item['ml'] = 1
+
+        questsCell = fields[questIdx]
+        questsTooltipSpan = questsCell.find('a')
+        questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
+        if questsTooltip:
+            quests = str(questsTooltip)
+            item['quests'] = [quests]
 
         affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
         cell = fields[affixesIdx]

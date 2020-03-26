@@ -52,9 +52,18 @@ def download_set_page():
     download_page('Named_item_sets', cacheDir)
 
 
+def download_quest_pages():
+    cacheDir = 'cache/quests/'
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    download_page('Raids', cacheDir)
+
+
 def download_wiki_pages():
     download_item_pages()
     download_set_page()
+    download_quest_pages()
 
 
 if __name__ == "__main__":

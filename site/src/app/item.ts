@@ -10,6 +10,7 @@ export class Item {
     url: string;
     private set: string;
     crafting: Array<Craftable>;
+    quests: Array<string>;
 
     rawCrafting: Array<string> = Array<string>();
 
@@ -26,6 +27,7 @@ export class Item {
             this.url = json.url;
             this.rawCrafting = json.crafting;
             this.crafting = json.crafting;
+            this.quests = json.quests;
         }
     }
 

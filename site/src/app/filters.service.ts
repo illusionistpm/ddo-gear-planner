@@ -12,6 +12,8 @@ export class FiltersService {
 
   private levelRange: BehaviorSubject<[number, number]>;
 
+  private showRaidItems: BehaviorSubject<boolean>;
+
   private MIN_LEVEL = 1;
   private MAX_LEVEL = 30;
 
@@ -20,6 +22,7 @@ export class FiltersService {
   ) {
     this.levelRange = new BehaviorSubject<[number, number]>([this.MIN_LEVEL, this.MAX_LEVEL]);
     this.params = new BehaviorSubject<any>(null);
+    this.showRaidItems = new BehaviorSubject<boolean>(true);
 
     this.setLevelRange(this.MIN_LEVEL, this.MAX_LEVEL);
 
@@ -29,6 +32,16 @@ export class FiltersService {
 
   getLevelRange() {
     return this.levelRange.asObservable();
+  }
+
+  getShowRaidItems() {
+    return this.showRaidItems.asObservable();
+  }
+
+  setShowRaidItems(bShow: boolean) {
+    this.showRaidItems.next(bShow);
+
+    this._updateRouterState();
   }
 
   setLevelRange(min: number, max: number) {
@@ -49,7 +62,7 @@ export class FiltersService {
 
     this.levelRange.next([min, max]);
 
-    this._updateRouterState(min, max);
+    this._updateRouterState();
   }
 
   updateFromParams(params) {
@@ -57,13 +70,16 @@ export class FiltersService {
       if (key === 'levelrange') {
         const vals = params.get(key).split(',');
         this.setLevelRange(vals[0], vals[1]);
+      } else if (key === 'raids') {
+        this.setShowRaidItems(params.get(key) === 'true');
       }
     }
   }
 
-  _updateRouterState(min, max) {
+  _updateRouterState() {
     const params = {};
-    params['levelrange'] = [min, max].join(',');
+    params['levelrange'] = this.levelRange.getValue().join(',');
+    params['raids'] = this.showRaidItems.getValue();
     this.params.next(params);
   }
 }

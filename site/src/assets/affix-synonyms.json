@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Armor Class",
+        "synonyms": [
+            "AC"
+        ]
+    },
+    {
+        "name": "Armor-Piercing",
+        "synonyms": [
+            "Fortification Bypass"
+        ]
+    },
+    {
+        "name": "False Life",
+        "synonyms": [
+            "Hit Points"
+        ]
+    },
+    {
+        "name": "Physical Sheltering",
+        "synonyms": [
+            "Physical Resistance Rating",
+            "PRR"
+        ]
+    },
+    {
+        "name": "Magical Sheltering",
+        "synonyms": [
+            "Magical Resistance Rating",
+            "MRR"
+        ]
+    }
+]

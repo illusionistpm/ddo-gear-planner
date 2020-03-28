@@ -373,6 +373,9 @@ def parse_item_pages():
         if include_page(file):
             items.extend(get_items_from_page(cachePath + file, sets))
 
+    items.sort(key=lambda x: x['name'])
+
+
     write_json(items, 'items')
 
 

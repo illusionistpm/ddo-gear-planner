@@ -15,12 +15,11 @@ export class LevelRangeComponent implements OnInit {
   constructor(
     public filters: FiltersService,
   ) {
-    filters.getLevelRange().subscribe(val => {
-      this.minLevel = val[0];
-      this.maxLevel = val[1];
+    filters.getItemFilters().subscribe(itemFilters => {
+      this.minLevel = itemFilters.levelRange[0];
+      this.maxLevel = itemFilters.levelRange[1];
+      this.showRaidItems = itemFilters.showRaidItems;
     });
-
-    filters.getShowRaidItems().subscribe(val => this.showRaidItems = val);
   }
 
   ngOnInit() {

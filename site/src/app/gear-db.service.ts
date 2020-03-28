@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { CannithService } from './cannith.service';
 import { FiltersService } from './filters.service';
+import { QuestService } from './quest.service';
 
 import { Item } from './item';
+import { ItemFilters } from './item-filters';
 import { Affix } from './affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
@@ -26,18 +28,15 @@ export class GearDbService {
 
   constructor(
     public cannith: CannithService,
-    public filters: FiltersService
+    public filters: FiltersService,
+    public quests: QuestService
   ) {
     this._buildAugmentOptions();
     this.gear = new Map<string, Array<Item>>();
     this.allGear = this._loadAllItems();
 
-    this.filters.getLevelRange().subscribe(val => {
-      this.gear = this.filterByLevelRange(val[0], val[1]);
-    });
-
-    this.filters.getShowRaidItems().subscribe(val => {
-      this.gear = this.filterByLevelRange();
+    this.filters.getItemFilters().subscribe(itemFilters => {
+      this.gear = this.applyItemFilters(itemFilters);
     });
   }
 
@@ -134,13 +133,20 @@ export class GearDbService {
     return gear;
   }
 
-  filterByLevelRange(minLevel: number, maxLevel: number) {
+  applyItemFilters(filters: ItemFilters) {
+    const minLevel = filters.levelRange[0];
+    const maxLevel = filters.levelRange[1];
+    const showRaidItems = filters.showRaidItems;
+
     const gear = new Map<string, Array<Item>>();
 
     this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
     for (const [slot, items] of this.allGear.entries()) {
-      const myItems = items.filter(i => Number(i.ml) >= minLevel && Number(i.ml) <= maxLevel);
+      const myItems = items.filter(i => 
+        Number(i.ml) >= minLevel &&
+        Number(i.ml) <= maxLevel &&
+        (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))));
       gear.set(slot, myItems);
     }
 

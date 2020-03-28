@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
+import { ItemFilters } from './item-filters';
+
 import { QueryParamsService } from './query-params.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,46 +13,47 @@ import { QueryParamsService } from './query-params.service';
 export class FiltersService {
   private params: BehaviorSubject<any>;
 
-  private levelRange: BehaviorSubject<[number, number]>;
-
-  private showRaidItems: BehaviorSubject<boolean>;
-
-  private MIN_LEVEL = 1;
-  private MAX_LEVEL = 30;
+  private itemFilters = new BehaviorSubject<ItemFilters>(new ItemFilters());
 
   constructor(
     private queryParams: QueryParamsService
   ) {
-    this.levelRange = new BehaviorSubject<[number, number]>([this.MIN_LEVEL, this.MAX_LEVEL]);
     this.params = new BehaviorSubject<any>(null);
-    this.showRaidItems = new BehaviorSubject<boolean>(true);
 
-    this.setLevelRange(this.MIN_LEVEL, this.MAX_LEVEL);
+    this.setLevelRange(ItemFilters.MIN_LEVEL(), ItemFilters.MAX_LEVEL());
 
     this.queryParams.register(this, this.params);
     this.queryParams.subscribe(this);
   }
 
-  getLevelRange() {
-    return this.levelRange.asObservable();
-  }
-
-  getShowRaidItems() {
-    return this.showRaidItems.asObservable();
+  getItemFilters() {
+    return this.itemFilters.asObservable();
   }
 
   setShowRaidItems(bShow: boolean) {
-    this.showRaidItems.next(bShow);
+    const newFilters = new ItemFilters(this.itemFilters.getValue());
+
+    if (bShow == newFilters.showRaidItems) {
+      return;
+    }
+
+    newFilters.showRaidItems = bShow;
+    this.itemFilters.next(newFilters);
 
     this._updateRouterState();
   }
 
   setLevelRange(min: number, max: number) {
-    const curMin = this.levelRange.getValue()[0];
-    const curMax = this.levelRange.getValue()[1];
+    const newFilters = new ItemFilters(this.itemFilters.getValue());
 
-    min = Math.max(this.MIN_LEVEL, min);
-    max = Math.min(this.MAX_LEVEL, max);
+    if (min == newFilters.levelRange[0] && max == newFilters.levelRange[1]) {
+      return;
+    }
+
+    const curMin = newFilters.levelRange[0];
+
+    min = Math.max(ItemFilters.MIN_LEVEL(), min);
+    max = Math.min(ItemFilters.MAX_LEVEL(), max);
 
     // Fix backwards ranges by bringing the one that didn't move to the one that did.
     if (min > max) {
@@ -60,7 +64,9 @@ export class FiltersService {
       }
     }
 
-    this.levelRange.next([min, max]);
+    newFilters.levelRange = [min, max];
+
+    this.itemFilters.next(newFilters);
 
     this._updateRouterState();
   }
@@ -78,8 +84,8 @@ export class FiltersService {
 
   _updateRouterState() {
     const params = {};
-    params['levelrange'] = this.levelRange.getValue().join(',');
-    params['raids'] = this.showRaidItems.getValue();
+    params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
+    params['raids'] = this.itemFilters.getValue().showRaidItems;
     this.params.next(params);
   }
 }

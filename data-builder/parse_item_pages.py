@@ -6,6 +6,7 @@ import json
 import collections
 from roman_numerals import int_from_roman_numeral
 from write_json import write_json
+from read_json import read_json
 
 def include_page(fileName):
     return not fileName.startswith('Collars')
@@ -147,8 +148,19 @@ def strip_leading_asterisk(name):
         return name[1:]
     return name
 
+def get_inverted_synonym_map():
+    synData = read_json('affix-synonyms')
+
+    out = {}
+    for syn in synData:
+        for name in syn['synonyms']:
+            out[name] = syn['name']
+    return out
+
 
 def get_items_from_page(itemPageURL, sets):
+    synonymMap = get_inverted_synonym_map()
+
     print("Parsing " + itemPageURL)
     page = open(itemPageURL, "r", encoding='utf-8').read()
 
@@ -342,6 +354,9 @@ def get_items_from_page(itemPageURL, sets):
 
                 if aff['name'] == 'Striding' and 'type' not in aff:
                     aff['type'] = 'Enhancement'
+
+                if aff['name'] in synonymMap:
+                    aff['name'] = synonymMap[aff['name']]
 
                 item['affixes'].append(aff)
         else:

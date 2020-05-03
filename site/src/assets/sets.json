@@ -3,7 +3,7 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Resistance Rating",
+                    "name": "Physical Sheltering",
                     "type": "Profane",
                     "value": "5"
                 },
@@ -45,7 +45,7 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Resistance Rating",
+                    "name": "Physical Sheltering",
                     "type": "Profane",
                     "value": "20"
                 },
@@ -137,7 +137,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -155,12 +155,12 @@
                     "value": "20"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "1"
                 },
                 {
-                    "name": "Magical Resistance Rating",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -182,12 +182,12 @@
                     "value": "50"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Magical Resistance Rating",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -376,7 +376,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -446,7 +446,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -480,12 +480,12 @@
                     "value": "10"
                 },
                 {
-                    "name": "Physical Resistance Rating",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Magical Resistance Rating",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -612,7 +612,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -724,7 +724,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -757,7 +757,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -825,7 +825,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -842,12 +842,12 @@
                     "value": "10"
                 },
                 {
-                    "name": "Physical Resistance Rating",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": "15"
                 },
                 {
-                    "name": "Magical Resistance Rating",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -929,7 +929,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Spell DCs",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -956,7 +956,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Fortification Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -1130,7 +1130,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Fortification Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -1196,7 +1196,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Fortification Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -1320,7 +1320,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Fortification Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1352,7 +1352,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Fortification Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "25"
                 },

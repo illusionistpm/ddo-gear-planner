@@ -4,12 +4,14 @@ import { Affix } from './affix';
 import { Item } from './item';
 
 import affixGroupsList from 'src/assets/affix-groups.json';
+import affixSynonymsList from 'src/assets/affix-synonyms.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AffixService {
   affixGroups = new Map<string, Array<string>>();
+  affixSynonyms = new Map<string, string>();
 
   constructor() {
     for (const group of affixGroupsList) {
@@ -18,6 +20,12 @@ export class AffixService {
         affixNames.push(affix);
       }
       this.affixGroups.set(group['name'], affixNames);
+    }
+
+    for (const synonymGroup of affixSynonymsList) {
+      for (const syn of synonymGroup['synonyms']) {
+        this.affixSynonyms[syn] = synonymGroup['name'];
+      }
     }
   }
 
@@ -59,5 +67,9 @@ export class AffixService {
   getActiveAffixes(item: Item) {
     const affixes = item.getActiveAffixes();
     return this.flattenAffixGroups(affixes, true);
+  }
+
+  getCanonicalName(affixName: string) {
+    return this.affixSynonyms[affixName] || affixName;
   }
 }

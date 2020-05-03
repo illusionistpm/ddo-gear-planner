@@ -7,6 +7,16 @@ from copy import deepcopy
 import collections
 from parse_slavers import parse_slavers_sets
 from write_json import write_json
+from read_json import read_json
+
+def get_inverted_synonym_map():
+    synData = read_json('affix-synonyms')
+
+    out = {}
+    for syn in synData:
+        for name in syn['synonyms']:
+            out[name] = syn['name']
+    return out
 
 def sub_name(name):
     for pair in [
@@ -47,6 +57,8 @@ def split_list(affix, affixes):
 
 
 def get_sets_from_page(soup):
+    synMap = get_inverted_synonym_map()
+
     sets = {}
 
     tables = soup.find(id='bodyContent').find(id='mw-content-text').contents[0].find_all('table', class_="wikitable")
@@ -133,6 +145,9 @@ def get_sets_from_page(soup):
                                 continue
 
                             affix['name'] = sub_name(affix['name'])
+
+                            if affix['name'] in synMap:
+                                affix['name'] = synMap[affix['name']]
 
                             affixes.append(affix)
 

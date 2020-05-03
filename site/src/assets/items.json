@@ -9581,7 +9581,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "10"
             },
@@ -13759,7 +13759,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -17662,7 +17662,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -18902,7 +18902,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -18958,7 +18958,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -19070,7 +19070,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -19110,7 +19110,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -22037,7 +22037,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -23397,7 +23397,7 @@
                 "value": 1
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "8"
             },
@@ -23418,7 +23418,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -26509,7 +26509,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -29902,7 +29902,7 @@
                 "value": "5"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -34881,7 +34881,7 @@
                 "value": "5"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             },
@@ -37745,7 +37745,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -40217,7 +40217,7 @@
                 "value": "1"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "32"
             },
@@ -40652,7 +40652,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -40693,7 +40693,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -45234,7 +45234,7 @@
                 "value": 1
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -47135,7 +47135,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -52798,7 +52798,7 @@
                 "value": "3"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -55100,7 +55100,7 @@
                 "value": "3"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -64916,7 +64916,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -67367,7 +67367,7 @@
     {
         "affixes": [
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "40"
             }
@@ -67384,7 +67384,7 @@
     {
         "affixes": [
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "50"
             },
@@ -67836,7 +67836,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -67863,7 +67863,7 @@
                 "value": "8"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -73214,7 +73214,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             }
@@ -73236,7 +73236,7 @@
                 "value": "11"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             }
@@ -73261,7 +73261,7 @@
                 "value": "12"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -73286,7 +73286,7 @@
                 "value": "13"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -73311,7 +73311,7 @@
                 "value": "14"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -73337,7 +73337,7 @@
                 "value": "15"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -74599,7 +74599,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "10"
             }
@@ -76153,7 +76153,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -76194,7 +76194,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -76898,7 +76898,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -78981,7 +78981,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -79022,7 +79022,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -83278,7 +83278,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -83561,7 +83561,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -86416,7 +86416,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -86609,7 +86609,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -86912,7 +86912,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -87119,7 +87119,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -87237,7 +87237,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -87278,7 +87278,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -87560,7 +87560,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -89807,7 +89807,7 @@
                 "value": "48"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -92977,7 +92977,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "15"
             }
@@ -97957,7 +97957,7 @@
                 "value": "3"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -100074,7 +100074,7 @@
                 "value": "3"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "5"
             }
@@ -104207,7 +104207,7 @@
                 "value": "5"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             },
@@ -105579,7 +105579,7 @@
                 "value": "20"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -110932,7 +110932,7 @@
                 "value": "10"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "35"
             }
@@ -123481,7 +123481,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             },
@@ -125425,7 +125425,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -125450,7 +125450,7 @@
                 "value": "11"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             }
@@ -125475,7 +125475,7 @@
                 "value": "13"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             }
@@ -125500,7 +125500,7 @@
                 "value": "17"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -125530,7 +125530,7 @@
                 "value": "20"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -125560,7 +125560,7 @@
                 "value": "20"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -125590,7 +125590,7 @@
                 "value": "10"
             },
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "20"
             }
@@ -129437,7 +129437,7 @@
                 "value": "85"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "81"
             }
@@ -129649,7 +129649,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -134307,7 +134307,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "25"
             },
@@ -134339,7 +134339,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -134371,7 +134371,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -134403,7 +134403,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -134435,7 +134435,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -134467,7 +134467,7 @@
     {
         "affixes": [
             {
-                "name": "Striding",
+                "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -135582,7 +135582,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -137938,7 +137938,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -139061,7 +139061,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }
@@ -139102,7 +139102,7 @@
                 "value": "30"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
                 "value": "29"
             }

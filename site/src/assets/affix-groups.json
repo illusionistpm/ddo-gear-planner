@@ -117,5 +117,24 @@
             "Charisma"
         ],
         "name": "Well Rounded"
+    },
+    {
+        "affixes": [
+            "Deathblock",
+            "Negative Energy Absorption"
+        ],
+        "name": "Lifesealed"
+    },
+    {
+        "affixes": [
+            "Evocation Focus",
+            "Necromancy Focus",
+            "Transmutation Focus",
+            "Enchantment Focus",
+            "Conjuration Focus",
+            "Abjuration Focus",
+            "Illusion Focus"
+        ],
+        "name": "Spell Focus Mastery"
     }
 ]

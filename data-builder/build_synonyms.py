@@ -14,8 +14,10 @@ def build_synonyms():
     add(data, 'Armor Class', ['AC'])
     add(data, 'Armor-Piercing', ['Fortification Bypass'])
     add(data, 'False Life', ['Hit Points'])
+    add(data, 'Speed', ['Striding'])
     add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])
     add(data, 'Magical Sheltering', ['Magical Resistance Rating', 'MRR'])
+    add(data, 'Spell Focus Mastery', ['Spell DCs'])
 
     write_json(data, 'affix-synonyms')
 

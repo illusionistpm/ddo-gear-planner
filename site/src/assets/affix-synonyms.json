@@ -18,6 +18,12 @@
         ]
     },
     {
+        "name": "Speed",
+        "synonyms": [
+            "Striding"
+        ]
+    },
+    {
         "name": "Physical Sheltering",
         "synonyms": [
             "Physical Resistance Rating",
@@ -29,6 +35,12 @@
         "synonyms": [
             "Magical Resistance Rating",
             "MRR"
+        ]
+    },
+    {
+        "name": "Spell Focus Mastery",
+        "synonyms": [
+            "Spell DCs"
         ]
     }
 ]

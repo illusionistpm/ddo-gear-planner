@@ -8,6 +8,14 @@ import collections
 from parse_slavers import parse_slavers_sets
 from write_json import write_json
 
+def sub_name(name):
+    for pair in [
+        ['all Spell DCs', 'Spell DCs'],
+        ]:
+        if name == pair[0]:
+            return pair[1]
+    return name
+
 def split_list(affix, affixes):
     str = affix['name']
     if str in ['hit and damage vs. Evil creatures',
@@ -123,6 +131,8 @@ def get_sets_from_page(soup):
                                 affixes.append(newAffix)
                             elif split_list(affix, affixes):
                                 continue
+
+                            affix['name'] = sub_name(affix['name'])
 
                             affixes.append(affix)
 

@@ -15519,6 +15519,31 @@
     {
         "affixes": [
             {
+                "name": "Charisma",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Heroism",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Battleworn Medal",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Battleworn_Medal"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Masterwork",
                 "type": "bool",
                 "value": 1
@@ -16214,6 +16239,31 @@
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Belt_of_Subtle_Villainy"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Magical Sheltering",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Belt of Sure Strikes",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Belt",
+        "type": "Waist items",
+        "url": "/page/Item:Belt_of_Sure_Strikes"
     },
     {
         "affixes": [
@@ -18599,6 +18649,31 @@
     {
         "affixes": [
             {
+                "name": "Strength",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Evil Absorption",
+                "type": "Enhancement",
+                "value": "11"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Bone Figurine",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Bone_Figurine"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "2"
@@ -18688,6 +18763,26 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Book_of_Amaunator"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Ethereal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Book of Spirits",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Book_of_Spirits"
     },
     {
         "affixes": [
@@ -18784,7 +18879,12 @@
             {
                 "name": "Jump",
                 "type": "Competence",
-                "value": "7"
+                "value": "5"
+            },
+            {
+                "name": "Feather Falling",
+                "type": "bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -18793,7 +18893,7 @@
         "ml": "3",
         "name": "Boots of Faith",
         "quests": [
-            "Catacombs"
+            "The Crypt of Gerard Dryden"
         ],
         "slot": "Boots",
         "type": "Feet items",
@@ -19053,6 +19153,46 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Bottle_of_Air"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Well Rounded",
+                "type": "Profane",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Bottle of Shadows",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Bottle_of_Shadows"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Smoke Screen",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Bottle of Smoke",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Bottle_of_Smoke"
     },
     {
         "affixes": [
@@ -21385,6 +21525,43 @@
     {
         "affixes": [
             {
+                "name": "Charisma",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Speed",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "36"
+            },
+            {
+                "name": "Extra Smites",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Brightlord, the Sigil of the Flame",
+        "quests": [
+            "The Lost Gatekeepers"
+        ],
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Brightlord,_the_Sigil_of_the_Flame"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Proof Against Poison",
                 "type": "Enhancement",
                 "value": "6"
@@ -23351,7 +23528,12 @@
             {
                 "name": "Diplomacy",
                 "type": "Competence",
-                "value": "7"
+                "value": "5"
+            },
+            {
+                "name": "Bluff",
+                "type": "Competence",
+                "value": "5"
             }
         ],
         "crafting": [
@@ -23360,7 +23542,7 @@
         "ml": "3",
         "name": "Cardinal's Gloves",
         "quests": [
-            "Catacombs"
+            "Endgame: The Archbishop's Fate"
         ],
         "slot": "Gloves",
         "type": "Hand items",
@@ -23381,7 +23563,7 @@
         "ml": "4",
         "name": "Carnifex",
         "quests": [
-            "Delera's Tomb"
+            "Free Delera"
         ],
         "slot": "Weapon",
         "type": "Great Axes",
@@ -24956,6 +25138,42 @@
         "slot": "Weapon",
         "type": "Bastard Swords",
         "url": "/page/Item:Charoush%27s_Inferno_(historic)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Strength",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Seeker",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "36"
+            },
+            {
+                "name": "Raging Strength",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot",
+            "Yellow Augment Slot",
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Charune, Grand Burden of Fury",
+        "quests": [
+            "The Lost Gatekeepers"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Charune,_Grand_Burden_of_Fury"
     },
     {
         "affixes": [
@@ -27318,6 +27536,31 @@
     {
         "affixes": [
             {
+                "name": "Intelligence",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Shatter",
+                "type": "Enhancement",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Clockwork Boots",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Boots",
+        "type": "Feet items",
+        "url": "/page/Item:Clockwork_Boots"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Bonus",
                 "type": "Armor",
                 "value": "7"
@@ -29267,6 +29510,31 @@
         "slot": "Offhand",
         "type": "Large shields",
         "url": "/page/Item:Coronation_Shield"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Stunning",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Corroded Iron Figurine",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Corroded_Iron_Figurine"
     },
     {
         "affixes": [
@@ -33269,14 +33537,19 @@
     {
         "affixes": [
             {
+                "name": "Armor Bonus",
+                "type": "Armor",
+                "value": "3"
+            },
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "4"
             },
             {
-                "name": "Armor Bonus",
-                "type": "Armor",
-                "value": "5"
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "36"
             }
         ],
         "crafting": [
@@ -33285,7 +33558,7 @@
         "ml": "6",
         "name": "Delera's Vestment",
         "quests": [
-            "Delera's Tomb"
+            "The Mystery of Delera's Tomb"
         ],
         "slot": "Armor",
         "type": "Cloth armor",
@@ -33795,7 +34068,7 @@
             {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
-                "value": "9"
+                "value": "6"
             },
             {
                 "name": "Enhancement Bonus",
@@ -33804,13 +34077,12 @@
             },
             {
                 "name": "Holy",
-                "type": "bool",
-                "value": 1
+                "value": "2"
             },
             {
                 "name": "Devotion",
                 "type": "Equipment",
-                "value": "48"
+                "value": "63"
             }
         ],
         "crafting": [
@@ -33819,7 +34091,7 @@
         "ml": "6",
         "name": "Devotion (Handwraps)",
         "quests": [
-            "Delera's Tomb"
+            "The Missing Party"
         ],
         "slot": "Weapon",
         "type": "Handwraps",
@@ -35097,22 +35369,22 @@
             {
                 "name": "Spot",
                 "type": "Competence",
-                "value": "7"
+                "value": "8"
             },
             {
                 "name": "Listen",
                 "type": "Competence",
-                "value": "7"
+                "value": "8"
             },
             {
                 "name": "Search",
                 "type": "Competence",
-                "value": "7"
+                "value": "8"
             },
             {
                 "name": "Balance",
                 "type": "Competence",
-                "value": "7"
+                "value": "8"
             }
         ],
         "crafting": [
@@ -35121,7 +35393,7 @@
         "ml": "6",
         "name": "Docent of the Tomb",
         "quests": [
-            "Delera's Tomb"
+            "Free Delera"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -47136,6 +47408,41 @@
     {
         "affixes": [
             {
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "44"
+            },
+            {
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "44"
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "44"
+            },
+            {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "44"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Hellfire Cloak",
+        "quests": [
+            "Delera's Tomb chain (Unverified) (page does not exist)"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Epic_Hellfire_Cloak"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "6"
@@ -54144,6 +54451,46 @@
             "Blue Augment Slot"
         ],
         "ml": "23",
+        "name": "Epic Templar's Leather",
+        "quests": [
+            "Return to the Sanctuary"
+        ],
+        "slot": "Armor",
+        "type": "Light armor",
+        "url": "/page/Item:Epic_Templar%27s_Leather"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Enhancement",
+                "value": "27"
+            },
+            {
+                "name": "Superior Undead Guard",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Competence",
+                "value": "43"
+            },
+            {
+                "name": "Spell Resistance",
+                "type": "Enhancement",
+                "value": "24"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "23",
         "name": "Epic Templar's Mail",
         "quests": [
             "The Old Archives"
@@ -61074,14 +61421,22 @@
                 "value": "2"
             },
             {
-                "name": "Flaming",
-                "type": "bool",
-                "value": 1
+                "name": "Fiery",
+                "value": "2"
             },
             {
-                "name": "Sneak Attack Bonus",
-                "value": "3"
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "4"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "4",
         "name": "Garos' Malice",
@@ -62552,6 +62907,42 @@
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Giantcrafted_Robe"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Wisdom",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Exceptional",
+                "value": "24"
+            },
+            {
+                "name": "Divine Augmentation",
+                "value": "9"
+            },
+            {
+                "name": "Spell Focus Mastery",
+                "type": "Quality",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Gilded Gloves of Sanctity",
+        "quests": [
+            "The Lost Gatekeepers"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Gilded_Gloves_of_Sanctity"
     },
     {
         "affixes": [
@@ -64445,9 +64836,14 @@
     {
         "affixes": [
             {
+                "name": "Anger",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Intimidate",
                 "type": "Competence",
-                "value": "7"
+                "value": "5"
             }
         ],
         "crafting": [
@@ -64456,7 +64852,7 @@
         "ml": "3",
         "name": "Goggles of the Inquisition",
         "quests": [
-            "Catacombs"
+            "The Friar's Niece"
         ],
         "slot": "Goggles",
         "type": "Eye items",
@@ -68454,7 +68850,7 @@
         "ml": "7",
         "name": "Hellfire Cloak",
         "quests": [
-            "Delera's Tomb"
+            "The Missing Party"
         ],
         "slot": "Cloak",
         "type": "Back items",
@@ -71961,6 +72357,31 @@
     {
         "affixes": [
             {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "2"
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Competence",
+                "value": "8"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Ironclad Armbands",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Ironclad_Armbands"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "5"
@@ -75463,6 +75884,41 @@
     {
         "affixes": [
             {
+                "name": "Action Boost Enhancement",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Charisma",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Greater Heroism",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Battleworn Medal",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Battleworn_Medal"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "15"
@@ -75537,6 +75993,41 @@
         "slot": "Weapon",
         "type": "Heavy Maces",
         "url": "/page/Item:Legendary_Beacon_of_Night"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Magical Sheltering",
+                "type": "Enhancement",
+                "value": "54"
+            },
+            {
+                "name": "Seeker",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Accuracy",
+                "type": "Quality",
+                "value": "8"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Belt of Sure Strikes",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Belt",
+        "type": "Waist items",
+        "url": "/page/Item:Legendary_Belt_of_Sure_Strikes"
     },
     {
         "affixes": [
@@ -75853,6 +76344,75 @@
     {
         "affixes": [
             {
+                "name": "Strength",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "23"
+            },
+            {
+                "name": "Seeker",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Evil Absorption",
+                "type": "Enhancement",
+                "value": "30"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Bone Figurine",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Bone_Figurine"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Ghostly",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Diversion",
+                "type": "Enhancement",
+                "value": "33"
+            },
+            {
+                "name": "True Seeing",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Protection from Evil",
+                "value": "10"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Book of Spirits",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Book_of_Spirits"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Physical Sheltering",
                 "type": "Quality",
                 "value": "8"
@@ -75884,6 +76444,75 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Legendary_Boots_of_the_Devil_Commander"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Well Rounded",
+                "type": "Profane",
+                "value": "2"
+            },
+            {
+                "name": "Law Absorption",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Good Absorption",
+                "value": "30"
+            },
+            {
+                "name": "Lesser Displacement",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Bottle of Shadows",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Bottle_of_Shadows"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Dexterity",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Smoke Screen",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Speed",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "17"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Bottle of Smoke",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Bottle_of_Smoke"
     },
     {
         "affixes": [
@@ -76290,6 +76919,41 @@
     {
         "affixes": [
             {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "187"
+            },
+            {
+                "name": "Incite",
+                "type": "Insight",
+                "value": "86"
+            },
+            {
+                "name": "Magical Sheltering",
+                "type": "Enhancement",
+                "value": "54"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "10"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Bronze Figurine",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Bronze_Figurine"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Corrosion",
                 "type": "Enhancement",
                 "value": "202"
@@ -76663,6 +77327,41 @@
     {
         "affixes": [
             {
+                "name": "Intelligence",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Shatter",
+                "type": "Enhancement",
+                "value": "23"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "31"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "214"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Clockwork Boots",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Boots",
+        "type": "Feet items",
+        "url": "/page/Item:Legendary_Clockwork_Boots"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "14"
@@ -76807,6 +77506,38 @@
     {
         "affixes": [
             {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "440"
+            },
+            {
+                "name": "Efficient Metamagic - Maximize",
+                "value": "2"
+            },
+            {
+                "name": "Efficient Metamagic - Empower",
+                "value": "2"
+            },
+            {
+                "name": "Efficient Metamagic - Intensify",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Conduit of the Arcane",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Conduit_of_the_Arcane"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Divine Augmentation",
                 "value": "9"
             },
@@ -76908,6 +77639,41 @@
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Construct%27s_Mantle"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Stunning",
+                "type": "Enhancement",
+                "value": "23"
+            },
+            {
+                "name": "Stunning",
+                "type": "Insight",
+                "value": "11"
+            },
+            {
+                "name": "Sheltering",
+                "type": "Insight",
+                "value": "27"
+            },
+            {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "17"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Corroded Iron Figurine",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Corroded_Iron_Figurine"
     },
     {
         "affixes": [
@@ -77273,6 +78039,46 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Relentless Fury",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bloodrage",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Blood Rage",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Sovereign Vorpal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Dagger of the Liturgist",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Legendary_Dagger_of_the_Liturgist"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Resonance",
                 "type": "Equipment",
                 "value": "185"
@@ -77493,6 +78299,41 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Legendary_Deep_Demise"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Insight",
+                "value": "43"
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Quality",
+                "value": "22"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "81"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Deep Promise Onyx",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Deep_Promise_Onyx"
     },
     {
         "affixes": [
@@ -80639,6 +81480,41 @@
     {
         "affixes": [
             {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "17"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Equipment",
+                "value": "43"
+            },
+            {
+                "name": "Devotion",
+                "type": "Equipment",
+                "value": "214"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Ironclad Armbands",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Legendary_Ironclad_Armbands"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "15"
@@ -82747,6 +83623,38 @@
     {
         "affixes": [
             {
+                "name": "Intelligence",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Transmutation Focus",
+                "type": "Insight",
+                "value": "5"
+            },
+            {
+                "name": "Spell Resistance",
+                "type": "Enhancement",
+                "value": "47"
+            },
+            {
+                "name": "Resistance",
+                "type": "Quality",
+                "value": "4"
+            }
+        ],
+        "ml": "29",
+        "name": "Legendary Ring of Changes",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Legendary_Ring_of_Changes"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Electric Absorption",
                 "type": "Enhancement",
                 "value": "47"
@@ -83400,8 +84308,8 @@
         "quests": [
             "Assault on the Aerie of the Slave Lords"
         ],
-        "slot": "Bracers",
-        "type": "Wrist items",
+        "slot": "Boots",
+        "type": "Feet items",
         "url": "/page/Item:Legendary_Shackles"
     },
     {
@@ -83419,8 +84327,8 @@
         "quests": [
             "Assault on the Aerie of the Slave Lords"
         ],
-        "slot": "Boots",
-        "type": "Feet items",
+        "slot": "Bracers",
+        "type": "Wrist items",
         "url": "/page/Item:Legendary_Shackles"
     },
     {
@@ -83599,6 +84507,89 @@
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Shimmer"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "29"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Void Lore",
+                "value": "31"
+            },
+            {
+                "name": "Nullification",
+                "type": "Equipment",
+                "value": "214"
+            },
+            {
+                "name": "Conjuration Focus",
+                "type": "Equipment",
+                "value": "9"
+            },
+            {
+                "name": "Transmutation Focus",
+                "type": "Equipment",
+                "value": "9"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Sickle of Vile Attunement",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Weapon",
+        "type": "Sickles",
+        "url": "/page/Item:Legendary_Sickle_of_Vile_Attunement"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Template:Favored Weapon",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "value": "9"
+            },
+            {
+                "name": "Silver",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Silver Blade of the Flame",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Weapon",
+        "type": "Long Swords",
+        "url": "/page/Item:Legendary_Silver_Blade_of_the_Flame"
     },
     {
         "affixes": [
@@ -84144,6 +85135,44 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Improved Deception",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bleeding",
+                "value": "9"
+            },
+            {
+                "name": "Piercing",
+                "value": "9"
+            },
+            {
+                "name": "Ghost Touch",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Spectre Striker",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Weapon",
+        "type": "Darts",
+        "url": "/page/Item:Legendary_Spectre_Striker"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spell Lore",
                 "type": "Equipment",
                 "value": "15"
@@ -84293,6 +85322,41 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Legendary_Stone_Shoes"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Conjuration Focus",
+                "type": "Equipment",
+                "value": "9"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "31"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Equipment",
+                "value": "214"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Insight",
+                "value": "107"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Stone-forged Gauntlet",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Legendary_Stone-forged_Gauntlet"
     },
     {
         "affixes": [
@@ -84449,6 +85513,41 @@
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Legendary_Stormreach_Guardian%27s_Hammer"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Prudent Skills Bonus",
+                "type": "Exceptional",
+                "value": "11"
+            },
+            {
+                "name": "Wisdom",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "21"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary String of Ears",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:Legendary_String_of_Ears"
     },
     {
         "affixes": [
@@ -87593,6 +88692,9 @@
         ],
         "ml": "15",
         "name": "Lockup Property Log",
+        "quests": [
+            "Advance to level 15"
+        ],
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Lockup_Property_Log"
@@ -89869,7 +90971,7 @@
         "ml": "10",
         "name": "Mantle of Fury",
         "quests": [
-            "Fresh-baked Dreams"
+            "Into the Mists"
         ],
         "set": "Adherent of the Mists Set (Heroic)",
         "slot": "Cloak",
@@ -90303,9 +91405,13 @@
     {
         "affixes": [
             {
-                "name": "False Life",
+                "name": "Deathblock",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "1"
+            },
+            {
+                "name": "Life Force",
+                "value": "7"
             }
         ],
         "crafting": [
@@ -90314,7 +91420,7 @@
         "ml": "3",
         "name": "Marguerite's Necklace",
         "quests": [
-            "Catacombs"
+            "The Crypt of Gerard Dryden"
         ],
         "slot": "Necklace",
         "type": "Neck items",
@@ -104539,12 +105645,12 @@
             {
                 "name": "Healing Amplification",
                 "type": "Competence",
-                "value": "0"
+                "value": "33"
             },
             {
-                "name": "Hit Points",
+                "name": "False Life",
                 "type": "Enhancement",
-                "value": "0"
+                "value": "32"
             },
             {
                 "name": "Experiment",
@@ -104553,7 +105659,7 @@
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Blue Augment Slot"
         ],
         "ml": "17",
         "name": "Researcher's Leathers",
@@ -108682,6 +109788,28 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "1"
+            },
+            {
+                "name": "Heal Light Wounds",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "1",
+        "name": "Rod of Heal Light Wounds",
+        "quests": [
+            "DDO Store"
+        ],
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Rod_of_Heal_Light_Wounds"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
                 "value": "15"
@@ -111369,6 +112497,9 @@
         ],
         "ml": "15",
         "name": "Scoundrel's Lenses",
+        "quests": [
+            "Advance to level 15"
+        ],
         "slot": "Goggles",
         "type": "Eye items",
         "url": "/page/Item:Scoundrel%27s_Lenses"
@@ -112384,8 +113515,8 @@
         "quests": [
             "Assault on the Aerie of the Slave Lords"
         ],
-        "slot": "Bracers",
-        "type": "Wrist items",
+        "slot": "Boots",
+        "type": "Feet items",
         "url": "/page/Item:Shackles"
     },
     {
@@ -112403,8 +113534,8 @@
         "quests": [
             "Assault on the Aerie of the Slave Lords"
         ],
-        "slot": "Boots",
-        "type": "Feet items",
+        "slot": "Bracers",
+        "type": "Wrist items",
         "url": "/page/Item:Shackles"
     },
     {
@@ -115062,6 +116193,35 @@
         "slot": "Weapon",
         "type": "Sickles",
         "url": "/page/Item:Sickle_of_Sypheros"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Void Lore",
+                "value": "7"
+            },
+            {
+                "name": "Nullification",
+                "type": "Equipment",
+                "value": "47"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Sickle of Vile Attunement",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Weapon",
+        "type": "Sickles",
+        "url": "/page/Item:Sickle_of_Vile_Attunement"
     },
     {
         "affixes": [
@@ -119115,7 +120275,7 @@
                 "value": "2"
             }
         ],
-        "ml": "13",
+        "ml": "11",
         "name": "Spectral Gloves",
         "quests": [
             "An Offering of Blood"
@@ -120509,6 +121669,41 @@
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Spectre_Deflector_(level_8)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Deception",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Ghost Touch",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Returning",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Spectre Striker",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Weapon",
+        "type": "Darts",
+        "url": "/page/Item:Spectre_Striker"
     },
     {
         "affixes": [
@@ -122817,6 +124012,31 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Stone_of_Good_Luck"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Equipment",
+                "value": "47"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Stone-forged Gauntlet",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Stone-forged_Gauntlet"
     },
     {
         "affixes": [
@@ -127286,6 +128506,39 @@
     {
         "affixes": [
             {
+                "name": "Maximum Charge Tier",
+                "value": "2"
+            },
+            {
+                "name": "Rune Arm Imbue: Fire",
+                "value": "1"
+            },
+            {
+                "name": "Fire Blast",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Combustion",
+                "type": "Equipment",
+                "value": "30"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "1",
+        "name": "The Dragon Keeper",
+        "quests": [
+            "Morten Edgewright"
+        ],
+        "slot": "Offhand",
+        "type": "Rune Arms",
+        "url": "/page/Item:The_Dragon_Keeper"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Lifesealed",
                 "type": "Enhancement",
                 "value": "28"
@@ -127672,7 +128925,7 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "15"
+                "value": "5"
             },
             {
                 "name": "Fortification",
@@ -129423,6 +130676,43 @@
     {
         "affixes": [
             {
+                "name": "Dexterity",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Ghostly",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Dodge",
+                "type": "Quality",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "The Shrouded Steps of the Beyond",
+        "quests": [
+            "The Lost Gatekeepers"
+        ],
+        "slot": "Boots",
+        "type": "Feet items",
+        "url": "/page/Item:The_Shrouded_Steps_of_the_Beyond"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "15"
@@ -129646,6 +130936,36 @@
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:The_Wide_Open_Sky"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Shattermantle",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bewildering",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "3",
+        "name": "The Willbreaker",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:The_Willbreaker"
     },
     {
         "affixes": [

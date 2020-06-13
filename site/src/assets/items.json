@@ -12053,12 +12053,7 @@
                 "value": "4"
             },
             {
-                "name": "Exploding Fire Shot",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Banishing Weapons",
+                "name": "Template:Banishing Weapons",
                 "type": "bool",
                 "value": 1
             },
@@ -18540,7 +18535,7 @@
             {
                 "name": "Magnetism",
                 "type": "Quality",
-                "value": "46"
+                "value": "48"
             }
         ],
         "crafting": [
@@ -22054,6 +22049,31 @@
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Bronze_Dragonscale_Plate"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "31"
+            },
+            {
+                "name": "Magical Sheltering",
+                "type": "Enhancement",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Bronze Figurine",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Bronze_Figurine"
     },
     {
         "affixes": [
@@ -28202,6 +28222,30 @@
     {
         "affixes": [
             {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "41"
+            },
+            {
+                "name": "Efficient Metamagic - Maximize",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Conduit of the Arcane",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Conduit_of_the_Arcane"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Lesser Divine Augmentation",
                 "value": "9"
             },
@@ -32223,6 +32267,41 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Relentless Fury",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bloodrage",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Manslayer",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Dagger of the Liturgist",
+        "quests": [
+            "The Sacred Bounty"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Dagger_of_the_Liturgist"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Mastery",
                 "type": "Enhancement",
                 "value": "2"
@@ -33425,6 +33504,41 @@
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Deep_Demise"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Quality",
+                "value": "22"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "8"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Deep Promise Onyx",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Deep_Promise_Onyx"
     },
     {
         "affixes": [
@@ -41484,6 +41598,43 @@
                 "value": "6"
             },
             {
+                "name": "Holy",
+                "value": "5"
+            },
+            {
+                "name": "Unnatural Bane",
+                "value": "5"
+            },
+            {
+                "name": "Ghostbane",
+                "value": "5"
+            },
+            {
+                "name": "Silver, Alchemical",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Blade of Inquisition",
+        "quests": [
+            "The Friar's Niece"
+        ],
+        "slot": "Weapon",
+        "type": "Long Swords",
+        "url": "/page/Item:Epic_Blade_of_Inquisition"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
                 "name": "Life Shield",
                 "type": "bool",
                 "value": 1
@@ -41902,7 +42053,7 @@
         "ml": "20",
         "name": "Epic Boots of the Mire",
         "quests": [
-            "The Red Fens"
+            "Altar of Epic Rituals"
         ],
         "set": "Greater Marshwalker",
         "slot": "Boots",
@@ -42048,6 +42199,9 @@
         ],
         "ml": "20",
         "name": "Epic Bracers of the Claw",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Vulkoor's Might",
         "slot": "Bracers",
         "type": "Wrist items",
@@ -43550,6 +43704,41 @@
     {
         "affixes": [
             {
+                "name": "Will Save",
+                "type": "Resistance",
+                "value": "9"
+            },
+            {
+                "name": "Magical Sheltering",
+                "type": "Enhancement",
+                "value": "27"
+            },
+            {
+                "name": "Hide",
+                "type": "Competence",
+                "value": "18"
+            },
+            {
+                "name": "Move Silently",
+                "type": "Competence",
+                "value": "18"
+            }
+        ],
+        "crafting": [
+            "Colorless Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Cloak of the Asylum",
+        "quests": [
+            "Setting the Wards: The Patriarchs' Crypt"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Epic_Cloak_of_the_Asylum"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "7"
@@ -44183,6 +44372,44 @@
         "slot": "Weapon",
         "type": "Short Swords",
         "url": "/page/Item:Epic_Cutthroat%27s_Smallblade_(level_28)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Transmuted Platinum (epic)",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "5"
+            },
+            {
+                "name": "Metalline",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Weapon's Critical Slashing Effect",
+                "value": "11"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "21",
+        "name": "Epic Cutting Currency",
+        "quests": [
+            "Another Man's Treasure"
+        ],
+        "slot": "Weapon",
+        "type": "Bastard Swords",
+        "url": "/page/Item:Epic_Cutting_Currency"
     },
     {
         "affixes": [
@@ -45352,6 +45579,9 @@
         ],
         "ml": "20",
         "name": "Epic Elder's Cap",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Elder's Knowledge",
         "slot": "Helm",
         "type": "Head items",
@@ -45376,6 +45606,9 @@
         ],
         "ml": "20",
         "name": "Epic Elder's Focus",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Elder's Knowledge",
         "slot": "Necklace",
         "type": "Neck items",
@@ -46386,6 +46619,43 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Holy",
+                "value": "5"
+            },
+            {
+                "name": "Unnatural Bane",
+                "value": "5"
+            },
+            {
+                "name": "Ghostbane",
+                "value": "5"
+            },
+            {
+                "name": "Silver, Alchemical",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Eternal Rest",
+        "quests": [
+            "Return to the Sanctuary"
+        ],
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Epic_Eternal_Rest"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Dexterity",
                 "type": "Enhancement",
                 "value": "11"
@@ -46776,6 +47046,9 @@
         ],
         "ml": "20",
         "name": "Epic Frozen Plate",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Epic_Frozen_Plate"
@@ -46921,6 +47194,9 @@
         ],
         "ml": "20",
         "name": "Epic Gem of Many Facets",
+        "quests": [
+            "Devil Assault"
+        ],
         "set": "Greater Marshwalker",
         "slot": "Trinket",
         "type": "Trinket items",
@@ -47003,6 +47279,9 @@
         ],
         "ml": "20",
         "name": "Epic Gloves of the Claw",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Vulkoor's Might",
         "slot": "Gloves",
         "type": "Hand items",
@@ -47221,6 +47500,9 @@
         ],
         "ml": "20",
         "name": "Epic Greatclub of the Scrag",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Epic_Greatclub_of_the_Scrag"
@@ -47473,6 +47755,9 @@
         ],
         "ml": "20",
         "name": "Epic Hellfire Crossbow",
+        "quests": [
+            "Devil Assault"
+        ],
         "slot": "Weapon",
         "type": "Repeating Heavy Crossbows",
         "url": "/page/Item:Epic_Hellfire_Crossbow"
@@ -47549,6 +47834,9 @@
         ],
         "ml": "20",
         "name": "Epic Helm of Frost",
+        "quests": [
+            "Devil Assault"
+        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Epic_Helm_of_Frost"
@@ -48028,6 +48316,9 @@
         ],
         "ml": "20",
         "name": "Epic Jidz-Tet'ka",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Epic_Jidz-Tet%27ka"
@@ -49632,6 +49923,9 @@
         ],
         "ml": "20",
         "name": "Epic Necklace of Venom",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Vulkoor's Cunning",
         "slot": "Necklace",
         "type": "Neck items",
@@ -50735,6 +51029,9 @@
         ],
         "ml": "20",
         "name": "Epic Raven's Sight",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Raven's Eye",
         "slot": "Goggles",
         "type": "Eye items",
@@ -50755,6 +51052,9 @@
         ],
         "ml": "20",
         "name": "Epic Raven's Talons",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Raven's Eye",
         "slot": "Gloves",
         "type": "Hand items",
@@ -51377,6 +51677,9 @@
         ],
         "ml": "20",
         "name": "Epic Ring of Venom",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Vulkoor's Cunning",
         "slot": "Ring",
         "type": "Finger items",
@@ -51622,7 +51925,7 @@
         "ml": "20",
         "name": "Epic Ring of the Mire",
         "quests": [
-            "Into the Deep"
+            "Altar of Epic Rituals"
         ],
         "set": "Greater Marshwalker",
         "slot": "Ring",
@@ -51704,6 +52007,9 @@
         ],
         "ml": "20",
         "name": "Epic Robe of Dissonance",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Epic_Robe_of_Dissonance"
@@ -51888,12 +52194,14 @@
             },
             {
                 "name": "Sacred",
-                "type": "bool",
-                "value": 1
+                "value": "2"
             }
         ],
         "ml": "20",
         "name": "Epic Sacred Band",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Divine Blessing",
         "slot": "Ring",
         "type": "Finger items",
@@ -51919,6 +52227,9 @@
         ],
         "ml": "20",
         "name": "Epic Sacred Helm",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Divine Blessing",
         "slot": "Helm",
         "type": "Head items",
@@ -52122,6 +52433,9 @@
         ],
         "ml": "20",
         "name": "Epic Scorched Bracers",
+        "quests": [
+            "Devil Assault"
+        ],
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Epic_Scorched_Bracers"
@@ -52489,6 +52803,9 @@
         ],
         "ml": "20",
         "name": "Epic Shaman's Band",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Shaman's Fury",
         "slot": "Ring",
         "type": "Finger items",
@@ -52513,6 +52830,9 @@
         ],
         "ml": "20",
         "name": "Epic Shaman's Beads",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Shaman's Fury",
         "slot": "Necklace",
         "type": "Neck items",
@@ -52576,6 +52896,9 @@
         ],
         "ml": "20",
         "name": "Epic Shatterbow",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Epic_Shatterbow"
@@ -52972,6 +53295,9 @@
         ],
         "ml": "20",
         "name": "Epic Siren's Belt",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Siren's Ward",
         "slot": "Belt",
         "type": "Waist items",
@@ -52992,6 +53318,9 @@
         ],
         "ml": "20",
         "name": "Epic Siren's Charm",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "set": "Greater Siren's Ward",
         "slot": "Necklace",
         "type": "Neck items",
@@ -53362,7 +53691,7 @@
         "ml": "20",
         "name": "Epic Souleater",
         "quests": [
-            "Epic Crafting"
+            "Altar of Epic Rituals"
         ],
         "slot": "Weapon",
         "type": "Quarterstaffs",
@@ -54351,6 +54680,46 @@
                 "value": "6"
             },
             {
+                "name": "Physical Sheltering",
+                "type": "Enhancement",
+                "value": "27"
+            },
+            {
+                "name": "Superior Undead Guard",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Competence",
+                "value": "43"
+            },
+            {
+                "name": "Spell Resistance",
+                "type": "Enhancement",
+                "value": "24"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "23",
+        "name": "Epic Templar's Chain",
+        "quests": [
+            "The Friar's Niece"
+        ],
+        "slot": "Armor",
+        "type": "Medium armor",
+        "url": "/page/Item:Epic_Templar%27s_Chain"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
                 "name": "DR",
                 "type": "Evil",
                 "value": "5"
@@ -54927,6 +55296,9 @@
         ],
         "ml": "20",
         "name": "Epic Twisted Talisman",
+        "quests": [
+            "Altar of Epic Rituals"
+        ],
         "slot": "Necklace",
         "type": "Neck items",
         "url": "/page/Item:Epic_Twisted_Talisman"
@@ -59770,7 +60142,7 @@
             {
                 "name": "Speed",
                 "type": "Enhancement",
-                "value": "15"
+                "value": "20"
             },
             {
                 "name": "Natural Armor",
@@ -65563,7 +65935,7 @@
                 "value": "3"
             },
             {
-                "name": "Anarchic",
+                "name": "",
                 "type": "bool",
                 "value": 1
             },
@@ -68702,7 +69074,7 @@
             {
                 "name": "Intimidate",
                 "type": "Competence",
-                "value": "7"
+                "value": "9"
             }
         ],
         "crafting": [
@@ -68711,7 +69083,7 @@
         "ml": "7",
         "name": "Headman's Hood",
         "quests": [
-            "Delera's Tomb"
+            "The Mystery of Delera's Tomb"
         ],
         "slot": "Helm",
         "type": "Head items",
@@ -73872,6 +74244,41 @@
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Kindred_Spirit"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "3"
+            },
+            {
+                "name": "Orb Bonus",
+                "type": "Orb",
+                "value": "1"
+            },
+            {
+                "name": "Kinetic Lore",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Impulse",
+                "type": "Equipment",
+                "value": "47"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Kinetic Sphere",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Offhand",
+        "type": "Orbs",
+        "url": "/page/Item:Kinetic_Sphere"
     },
     {
         "affixes": [
@@ -81668,6 +82075,50 @@
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "29"
+            },
+            {
+                "name": "Orb Bonus",
+                "type": "Orb",
+                "value": "15"
+            },
+            {
+                "name": "Kinetic Lore",
+                "type": "Equipment",
+                "value": "31"
+            },
+            {
+                "name": "Impulse",
+                "type": "Equipment",
+                "value": "214"
+            },
+            {
+                "name": "Energy Siphon",
+                "value": "10"
+            },
+            {
+                "name": "Force Absorption",
+                "type": "Enhancement",
+                "value": "20"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Kinetic Sphere",
+        "quests": [
+            "Rosemary's Ballad"
+        ],
+        "slot": "Offhand",
+        "type": "Orbs",
+        "url": "/page/Item:Legendary_Kinetic_Sphere"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Thorn Guard",
                 "value": "8"
             },
@@ -82970,6 +83421,7 @@
         "affixes": [
             {
                 "name": "Search",
+                "type": "Competence",
                 "value": "22"
             },
             {
@@ -91410,7 +91862,8 @@
                 "value": "1"
             },
             {
-                "name": "Life Force",
+                "name": "Lifeforce",
+                "type": "Profane",
                 "value": "7"
             }
         ],
@@ -93826,7 +94279,7 @@
         "ml": "2",
         "name": "Morningstar of the Heretic",
         "quests": [
-            "Catacombs"
+            "The Crypt of Gerard Dryden"
         ],
         "slot": "Weapon",
         "type": "Morningstars",
@@ -100410,6 +100863,7 @@
         "affixes": [
             {
                 "name": "Search",
+                "type": "Competence",
                 "value": "16"
             },
             {
@@ -106855,6 +107309,31 @@
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Ring_of_Brutal_Force"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Spell Resistance",
+                "type": "Enhancement",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Ring of Changes",
+        "quests": [
+            "The Home of Memory"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Ring_of_Changes"
     },
     {
         "affixes": [
@@ -116607,6 +117086,36 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Template:Favored Weapon",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Silver",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "3",
+        "name": "Silver Blade of the Flame",
+        "quests": [
+            "Housekeeping"
+        ],
+        "slot": "Weapon",
+        "type": "Long Swords",
+        "url": "/page/Item:Silver_Blade_of_the_Flame"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Dodge",
                 "type": "Enhancement",
                 "value": "21"
@@ -116699,7 +117208,7 @@
         "ml": "3",
         "name": "Silver Flame Bracers",
         "quests": [
-            "Catacombs"
+            "Setting the Wards: The Lower Cathedral"
         ],
         "slot": "Bracers",
         "type": "Wrist items",
@@ -124796,6 +125305,31 @@
     {
         "affixes": [
             {
+                "name": "Prudent Skills Bonus",
+                "type": "Exceptional",
+                "value": "2"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "2"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "3",
+        "name": "String of Ears",
+        "quests": [
+            "Heart of the Problem"
+        ],
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:String_of_Ears"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
                 "value": "15"
@@ -128128,6 +128662,43 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:The_Blood_Stone"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Quality",
+                "value": "5"
+            },
+            {
+                "name": "Deception",
+                "type": "Quality",
+                "value": "4"
+            },
+            {
+                "name": "Deadly",
+                "type": "Quality",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "The Bloodsigil Ring",
+        "quests": [
+            "The Lost Gatekeepers"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:The_Bloodsigil_Ring"
     },
     {
         "affixes": [
@@ -133022,7 +133593,7 @@
             {
                 "name": "Astute Skills Bonus",
                 "type": "Exceptional",
-                "value": "4"
+                "value": "7"
             },
             {
                 "name": "Wizardry",
@@ -137894,10 +138465,10 @@
             {
                 "name": "Incite",
                 "type": "Enhancement",
-                "value": "19"
+                "value": "59"
             },
             {
-                "name": "Parrying",
+                "name": "Riposte",
                 "type": "Insight",
                 "value": "2"
             }
@@ -139783,6 +140354,11 @@
                 "name": "Bless",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Healing Amplification",
+                "type": "Competence",
+                "value": "8"
             }
         ],
         "crafting": [
@@ -139791,7 +140367,7 @@
         "ml": "3",
         "name": "Wooden Prayer Beads",
         "quests": [
-            "Catacombs"
+            "Endgame: The Archbishop's Fate"
         ],
         "slot": "Trinket",
         "type": "Trinket items",

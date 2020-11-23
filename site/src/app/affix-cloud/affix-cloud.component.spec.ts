@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AffixCloudComponent } from './affix-cloud.component';
 
@@ -6,7 +6,7 @@ describe('AffixCloudComponent', () => {
   let component: AffixCloudComponent;
   let fixture: ComponentFixture<AffixCloudComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AffixCloudComponent ]
     })

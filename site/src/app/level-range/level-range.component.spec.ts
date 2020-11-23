@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LevelRangeComponent } from './level-range.component';
 
@@ -6,7 +6,7 @@ describe('LevelRangeComponent', () => {
   let component: LevelRangeComponent;
   let fixture: ComponentFixture<LevelRangeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LevelRangeComponent ]
     })

@@ -39,7 +39,7 @@ def download_item_pages():
     itemPageURLs = get_item_page_urls()
     for url in set(itemPageURLs):
         if download_page(url, cacheDir):
-            pause = random.random() * 10
+            pause = random.random() * 2
             print("Sleeping for " + str(pause) + " seconds")
             time.sleep(pause)
 

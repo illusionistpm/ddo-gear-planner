@@ -84,6 +84,7 @@
         }
     ],
     "Alchemist's Lore": [],
+    "Anger of the Avalanche": [],
     "Anger's Wrath": [],
     "Arcane Archer": [],
     "Arcane Mind": [],
@@ -146,6 +147,7 @@
         }
     ],
     "Assassin": [],
+    "Astute Alchemist": [],
     "Beacon of Magic Set (Heroic)": [
         {
             "affixes": [
@@ -218,6 +220,8 @@
             "threshold": 2
         }
     ],
+    "Chained Elementals": [],
+    "Conduit of the Titans": [],
     "Corsair's Cunning [ML:5]": [],
     "Crypt Raider Set (Heroic)": [
         {
@@ -322,6 +326,10 @@
     "Dragonmark Heir": [],
     "Dreadkeeper": [],
     "Elder's Knowledge": [],
+    "Eminence of Autumn": [],
+    "Eminence of Spring": [],
+    "Eminence of Summer": [],
+    "Eminence of Winter": [],
     "Epic Captain's Set": [
         {
             "affixes": [],
@@ -391,6 +399,7 @@
     ],
     "Exorcist of the Silver Flame": [],
     "Fabricator's Ingenuity": [],
+    "Fastidious Fabricator": [],
     "Feywild Dreamer": [],
     "Flamecleansed Fury": [
         {
@@ -675,6 +684,9 @@
             "threshold": 3
         }
     ],
+    "Legacy of Levikk": [],
+    "Legacy of Lorikk": [],
+    "Legacy of Tharne": [],
     "Legendary Arcsteel Battlemage": [
         {
             "affixes": [
@@ -1151,8 +1163,11 @@
     "Levik's Defender": [],
     "Lorikk's Champion": [],
     "Magewright's Expertise": [],
+    "Mantle of Suulomades": [],
     "Marshwalker": [],
+    "Masterful Magewright": [],
     "Might of the Abishai [ML:5]": [],
+    "Mind and Matter": [],
     "Mountainskin Set": [
         {
             "affixes": [
@@ -1171,6 +1186,7 @@
         }
     ],
     "Nimble Hand": [],
+    "One with the Swarm": [],
     "Pain and Suffering": [
         {
             "affixes": [],
@@ -1300,6 +1316,7 @@
             "threshold": 2
         }
     ],
+    "Seasons of the Feywild": [],
     "Shaman's Fury": [],
     "Silent Avenger Set (Heroic)": [
         {
@@ -1538,6 +1555,7 @@
     ],
     "Tinker's Finesse": [],
     "Troubleshooter": [],
+    "Tyrannical Tinkerer": [],
     "Unbreakable Adamancy": [],
     "Vulkoor's Cunning": [],
     "Vulkoor's Might": [],
@@ -1550,7 +1568,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Fortifiction Bypass",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "15"
                 },

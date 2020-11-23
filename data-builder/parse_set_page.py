@@ -95,7 +95,7 @@ def get_sets_from_page(soup):
 
             bonusCell = cells[setBonusIdx]
 
-            numItemsSearch = re.search(r'While wearing ((any )?([a-z]+)|both) items', bonusCell.getText())
+            numItemsSearch = re.search(r'While wearing ((any )?([a-z]+)|both) (items|pieces)', bonusCell.getText())
             if numItemsSearch:
                 numStr = numItemsSearch.group(3).strip()
 

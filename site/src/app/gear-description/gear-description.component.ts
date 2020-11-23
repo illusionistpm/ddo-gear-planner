@@ -21,6 +21,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 })
 export class GearDescriptionComponent implements OnInit {
   @Input() item: Observable<Item> | Item;
+  @Input() readonly = false;
   curItem: Item = null;
   cannithML: number;
 

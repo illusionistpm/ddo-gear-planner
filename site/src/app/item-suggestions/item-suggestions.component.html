@@ -35,7 +35,7 @@
             <button class="col-2" (click)="equipItem(item)">Equip</button>
         </div>
         <div class="row">
-            <app-gear-description class="col" [item]=item></app-gear-description>
+            <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
         </div>
         <hr>
     </div>

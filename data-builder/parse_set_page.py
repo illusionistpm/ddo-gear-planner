@@ -56,6 +56,43 @@ def split_list(affix, affixes):
     return True
 
 
+def list_items_to_affixes(listItems, synMap):
+    affixes = []
+
+    if listItems:
+        for entry in listItems:
+            if 'bonus to' in entry.getText().lower():
+                search = re.search(r'\+?(\d+)%? ([A-Za-z]+) [b|B]onus to (.*)', entry.getText())
+            else:
+                search = re.search(r'\+?(\d+)%?( )(.*)', entry.getText())
+
+            if(search):
+                affix = {}
+                affix['value'] = search.group(1).strip()
+                affix['type'] = search.group(2).strip().title()
+                affix['name'] = search.group(3).strip()
+
+                if affix['name'][-1:] == '.':
+                    affix['name'] = affix['name'][:-1]
+
+                if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
+                    newAffix = deepcopy(affix)
+                    newAffix['name'] = 'Melee Power'
+                    affix['name'] = 'Ranged Power'
+                    affixes.append(newAffix)
+                elif split_list(affix, affixes):
+                    continue
+
+                affix['name'] = sub_name(affix['name'])
+
+                if affix['name'] in synMap:
+                    affix['name'] = synMap[affix['name']]
+
+                affixes.append(affix)
+
+    return affixes
+
+
 def get_sets_from_page(soup):
     synMap = get_inverted_synonym_map()
 
@@ -106,50 +143,20 @@ def get_sets_from_page(soup):
                     'three': 3,
                     'four': 4,
                     'five': 5,
-                    'six': 6
+                    'six': 6,
+                    'seven': 7
                 }
                 num = switch.get(numStr, 99999)
 
-                affixes = []
+                listItems = bonusCell.find_all('li')
+
+                affixes = list_items_to_affixes(listItems, synMap)
 
                 threshold = {}
                 threshold['threshold'] = num
                 threshold['affixes'] = affixes
 
                 sets[setName].append(threshold)
-
-                listItems = bonusCell.find_all('li')
-
-                if listItems:
-                    for entry in listItems:
-                        if 'bonus to' in entry.getText().lower():
-                            search = re.search(r'\+?(\d+)%? ([A-Za-z]+) [b|B]onus to (.*)', entry.getText())
-                        else:
-                            search = re.search(r'\+?(\d+)%?( )(.*)', entry.getText())
-
-                        if(search):
-                            affix = {}
-                            affix['value'] = search.group(1).strip()
-                            affix['type'] = search.group(2).strip().title()
-                            affix['name'] = search.group(3).strip()
-
-                            if affix['name'][-1:] == '.':
-                                affix['name'] = affix['name'][:-1]
-
-                            if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
-                                newAffix = deepcopy(affix)
-                                newAffix['name'] = 'Melee Power'
-                                affix['name'] = 'Ranged Power'
-                                affixes.append(newAffix)
-                            elif split_list(affix, affixes):
-                                continue
-
-                            affix['name'] = sub_name(affix['name'])
-
-                            if affix['name'] in synMap:
-                                affix['name'] = synMap[affix['name']]
-
-                            affixes.append(affix)
 
     return sets
 

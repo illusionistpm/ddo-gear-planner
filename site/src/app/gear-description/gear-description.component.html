@@ -1,7 +1,7 @@
 <div class="col" *ngIf="curItem && curItem.isValid()">
     <div class="row pl-2" *ngIf="!curItem.isCannithCrafted(); else cannithMLTemp">
         <div class="col-4"><b>ML: {{curItem.ml}}</b></div>
-        <div class="col-8 text-right"><i>{{curItem.quests[0] || ''}}</i></div>
+        <div class="col-8 text-right"><i>{{curItem.quests ? curItem.quests[0] : ''}}</i></div>
     </div>
     <ng-template #cannithMLTemp>
         <div class="row pl-2">

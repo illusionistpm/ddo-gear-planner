@@ -19869,6 +19869,38 @@
     {
         "affixes": [
             {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "32"
+            },
+            {
+                "name": "Corrosion",
+                "type": "Equipment",
+                "value": "219"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Equipment",
+                "value": "9"
+            },
+            {
+                "name": "Alchemical Earth Attunement",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "29",
+        "name": "Bound Elemental Ring of Acid",
+        "quests": [
+            "Legendary Lord of Blades"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Bound_Elemental_Ring_of_Acid"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Fire Lore",
                 "type": "Equipment",
                 "value": "32"
@@ -19888,19 +19920,78 @@
                 "value": 1
             }
         ],
-        "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot"
-        ],
         "ml": "29",
         "name": "Bound Elemental Ring of Flames",
         "quests": [
             "Legendary Lord of Blades"
         ],
-        "set": "Chained Elementals",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Bound_Elemental_Ring_of_Flames"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Ice Lore",
+                "type": "Equipment",
+                "value": "32"
+            },
+            {
+                "name": "Glaciation",
+                "type": "Equipment",
+                "value": "219"
+            },
+            {
+                "name": "Legendary Elemental Energy",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Alchemical Water Attunement",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "29",
+        "name": "Bound Elemental Ring of Frost",
+        "quests": [
+            "Legendary Lord of Blades"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Bound_Elemental_Ring_of_Frost"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "32"
+            },
+            {
+                "name": "Magnetism",
+                "type": "Equipment",
+                "value": "219"
+            },
+            {
+                "name": "Spell Focus Mastery",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Alchemical Air Attunement",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "ml": "29",
+        "name": "Bound Elemental Ring of Lightning",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Bound_Elemental_Ring_of_Lightning"
     },
     {
         "affixes": [
@@ -27699,7 +27790,7 @@
                 "value": "1"
             },
             {
-                "name": "Feat: Wind Through the Trees",
+                "name": "Feat: Wind through the Trees",
                 "type": "bool",
                 "value": 1
             },
@@ -61061,7 +61152,7 @@
         "quests": [
             "The Feywild"
         ],
-        "set": "Eminence of Spring",
+        "set": "Eminence of Summer",
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Firefly_Garb"
@@ -63022,7 +63113,7 @@
                 "value": 1
             },
             {
-                "name": "Feat: Wind Through The Trees",
+                "name": "Feat: Wind through the Trees",
                 "type": "bool",
                 "value": 1
             },
@@ -81725,7 +81816,7 @@
                 "value": "10"
             },
             {
-                "name": "Feat: Wind Through the Trees",
+                "name": "Feat: Wind through the Trees",
                 "type": "bool",
                 "value": 1
             },
@@ -87665,6 +87756,39 @@
     {
         "affixes": [
             {
+                "name": "Illusion Focus",
+                "type": "Equipment",
+                "value": "9"
+            },
+            {
+                "name": "Illusion Focus",
+                "type": "Insight",
+                "value": "5"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Equipment",
+                "value": "9"
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Green Augment Slot",
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Magewright's Spectacles",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "set": "Masterful Magewright",
+        "slot": "Goggles",
+        "type": "Eye items",
+        "url": "/page/Item:Legendary_Magewright%27s_Spectacles"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Use Magic Device",
                 "type": "Competence",
                 "value": "7"
@@ -92835,6 +92959,83 @@
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Legendary_Tiara_of_Madness"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Deception",
+                "type": "Insight",
+                "value": "9"
+            },
+            {
+                "name": "Deception",
+                "type": "Quality",
+                "value": "4"
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Yellow Augment Slot",
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Tinkerer's Goggles",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "set": "Tyrannical Tinkerer",
+        "slot": "Goggles",
+        "type": "Eye items",
+        "url": "/page/Item:Legendary_Tinkerer%27s_Goggles"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Maximum Charge Tier",
+                "value": "5"
+            },
+            {
+                "name": "Rune Arm Imbue: Electrical",
+                "value": "6"
+            },
+            {
+                "name": "Insight Intelligence",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Lightning Strike",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Rune Arm Charge Rate",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Transform Kinetic Energy",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Toven's Hammer",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "set": "Conduit of the Titans",
+        "slot": "Offhand",
+        "type": "Rune Arms",
+        "url": "/page/Item:Legendary_Toven%27s_Hammer"
     },
     {
         "affixes": [
@@ -143287,6 +143488,40 @@
         "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Tira%27s_Splendor"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Kinetic Lore",
+                "type": "Equipment",
+                "value": "34"
+            },
+            {
+                "name": "Impulse",
+                "type": "Insight",
+                "value": "115"
+            },
+            {
+                "name": "Magical Sheltering",
+                "type": "Quality",
+                "value": "14"
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Titan Control Matrix",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "set": "Conduit of the Titans",
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Titan_Control_Matrix"
     },
     {
         "affixes": [

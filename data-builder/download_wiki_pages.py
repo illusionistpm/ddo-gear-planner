@@ -65,6 +65,10 @@ def download_wiki_pages():
     download_set_page()
     download_quest_pages()
 
+def clear_wiki_cache():
+    shutil.rmtree('cache')
+
+
 
 if __name__ == "__main__":
     download_wiki_pages()

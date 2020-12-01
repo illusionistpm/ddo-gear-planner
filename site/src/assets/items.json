@@ -24596,6 +24596,9 @@
                 "value": "1"
             }
         ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
         "ml": "4",
         "name": "Carnifex",
         "quests": [
@@ -28353,6 +28356,42 @@
     {
         "affixes": [
             {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "16"
+            },
+            {
+                "name": "Strength",
+                "type": "Insight",
+                "value": "1"
+            },
+            {
+                "name": "Strength",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "4"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Cloak of Summer",
+        "quests": [
+            "Wake Me Up Inside"
+        ],
+        "set": "Seasons of the Feywild",
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Cloak_of_Summer"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Sonic Resistance",
                 "type": "Enhancement",
                 "value": "10"
@@ -28934,7 +28973,7 @@
     {
         "affixes": [
             {
-                "name": "Spell Lore",
+                "name": "Universal Spell Lore",
                 "type": "Exceptional",
                 "value": "10"
             },
@@ -50336,7 +50375,7 @@
                 "value": "2"
             },
             {
-                "name": "Spell Focus",
+                "name": "Spell Focus Mastery",
                 "type": "Quality",
                 "value": "2"
             }
@@ -67544,7 +67583,7 @@
     {
         "affixes": [
             {
-                "name": "Sacred Spell Focus",
+                "name": "Sacred Spell Focus Mastery",
                 "type": "Sacred",
                 "value": "2"
             },
@@ -79885,7 +79924,7 @@
     {
         "affixes": [
             {
-                "name": "Spell Focus",
+                "name": "Spell Focus Mastery",
                 "type": "Profane",
                 "value": "2"
             },
@@ -79929,6 +79968,7 @@
             },
             {
                 "name": "Physical Sheltering",
+                "type": "Enhancement",
                 "value": "54"
             },
             {
@@ -79967,7 +80007,7 @@
                 "value": "4"
             },
             {
-                "name": "Necromacy Focus",
+                "name": "Necromancy Focus",
                 "type": "Quality",
                 "value": "2"
             },
@@ -81962,6 +82002,9 @@
         ],
         "ml": "29",
         "name": "Legendary Cloak of Winter",
+        "quests": [
+            "Combatting Corruption"
+        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Cloak_of_Winter"
@@ -82844,7 +82887,6 @@
             },
             {
                 "name": "Negative Amplification",
-                "type": "Profane",
                 "value": "80"
             }
         ],
@@ -83046,7 +83088,7 @@
     {
         "affixes": [
             {
-                "name": "Spell Focus",
+                "name": "Spell Focus Mastery",
                 "type": "Profane",
                 "value": "2"
             },
@@ -84360,6 +84402,72 @@
     {
         "affixes": [
             {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "193"
+            },
+            {
+                "name": "Deadly",
+                "type": "Competence",
+                "value": "17"
+            },
+            {
+                "name": "Cannith Combat Infusion",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Fabricator's Bracers",
+        "quests": [
+            "Legendary Lord of Blades"
+        ],
+        "set": "Fastidious Fabricator",
+        "slot": "Bracers",
+        "type": "Wrist items",
+        "url": "/page/Item:Legendary_Fabricator%27s_Bracers"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "17"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Insight",
+                "value": "27"
+            },
+            {
+                "name": "Enchantment Fortification",
+                "type": "Enchantment",
+                "value": "219"
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Yellow Augment Slot",
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Fabricator's Gauntlets",
+        "quests": [
+            "Legendary Master Artificer"
+        ],
+        "set": "Fastidious Fabricator",
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Legendary_Fabricator%27s_Gauntlets"
+    },
+    {
+        "affixes": [
+            {
                 "name": "True Seeing",
                 "type": "bool",
                 "value": 1
@@ -84576,6 +84684,82 @@
         "slot": "Weapon",
         "type": "Great Swords",
         "url": "/page/Item:Legendary_Ferrocrystal_Greatsword"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Fey Bane",
+                "value": "9"
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Maiming",
+                "value": "9"
+            },
+            {
+                "name": "Crystal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Ferrocrystal Hand Axe",
+        "quests": [
+            "Fables of the Feywild"
+        ],
+        "slot": "Weapon",
+        "type": "Hand Axes",
+        "url": "/page/Item:Legendary_Ferrocrystal_Hand_Axe"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Fey Bane",
+                "value": "9"
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Maiming",
+                "value": "9"
+            },
+            {
+                "name": "Crystal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Ferrocrystal Heavy Crossbow",
+        "quests": [
+            "Fables of the Feywild"
+        ],
+        "slot": "Weapon",
+        "type": "Heavy Crossbows",
+        "url": "/page/Item:Legendary_Ferrocrystal_Heavy_Crossbow"
     },
     {
         "affixes": [
@@ -87425,7 +87609,7 @@
             },
             {
                 "name": "Healing Amplification",
-                "type": "Enhancement",
+                "type": "Competence",
                 "value": "88"
             },
             {
@@ -87749,6 +87933,7 @@
         "quests": [
             "Legendary Lord of Blades"
         ],
+        "set": "Masterful Magewright",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Magewright%27s_Cloak"
@@ -92963,6 +93148,39 @@
     {
         "affixes": [
             {
+                "name": "Reflex Save",
+                "type": "Resistance",
+                "value": "17"
+            },
+            {
+                "name": "Seeker",
+                "type": "Insight",
+                "value": "10"
+            },
+            {
+                "name": "Seeker",
+                "type": "Quality",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Nearly Finished",
+            "Green Augment Slot",
+            "Blue Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Tinkerer's Gloves",
+        "quests": [
+            "Legendary Lord of Blades"
+        ],
+        "set": "Tyrannical Tinkerer",
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Legendary_Tinkerer%27s_Gloves"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Melee Alacrity",
                 "type": "Enhancement",
                 "value": "15"
@@ -94113,6 +94331,9 @@
         ],
         "ml": "29",
         "name": "Legendary Winter Court Necklace",
+        "quests": [
+            "A Frosty Reception"
+        ],
         "set": "Eminence of Winter",
         "slot": "Necklace",
         "type": "Neck items",
@@ -130451,7 +130672,7 @@
                 "value": "54"
             },
             {
-                "name": "Eminence of Summer / Eminence of WinterEminence of Winter",
+                "name": "Eminence of Autumn / Eminence of SummerEminence of Summer: / Eminence of WinterEminence of Winter",
                 "type": "bool",
                 "value": 1
             }
@@ -139453,7 +139674,47 @@
     {
         "affixes": [
             {
-                "name": "Spell Focus",
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Spell Focus Mastery",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Spell Focus Mastery",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Equipment",
+                "value": "9"
+            },
+            {
+                "name": "Spell Penetration",
+                "type": "Insight",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "The Legendary Prince's Sceptre",
+        "quests": [
+            "Make Believe"
+        ],
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:The_Legendary_Prince%27s_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spell Focus Mastery",
                 "type": "Profane",
                 "value": "2"
             },
@@ -147163,7 +147424,7 @@
             {
                 "name": "Dodge",
                 "type": "Insight",
-                "value": "2"
+                "value": "1"
             }
         ],
         "crafting": [

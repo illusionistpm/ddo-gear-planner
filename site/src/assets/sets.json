@@ -1660,7 +1660,7 @@
                 {
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "3"
+                    "value": "4"
                 },
                 {
                     "name": "Intelligence",
@@ -1941,7 +1941,7 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "5"
+                    "value": "10"
                 },
                 {
                     "name": "Damage vs. Helpless Opponents",

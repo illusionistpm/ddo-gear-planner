@@ -17514,13 +17514,32 @@
                 "name": "Blackscale Ferocity",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Relentless Fury",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "14"
             }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
         ],
         "ml": "5",
         "name": "Black Dragonscale Tasset",
         "quests": [
             "Wake Me Up Inside"
         ],
+        "set": "Seasons of the Feywild",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Black_Dragonscale_Tasset"
@@ -18856,7 +18875,23 @@
                 "name": "Transmuted Platinum",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "2"
+            },
+            {
+                "name": "Metalline",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Smashing",
+                "value": "5"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "6",
         "name": "Bludgeoning Bankroll",
@@ -19889,11 +19924,16 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
         "ml": "29",
         "name": "Bound Elemental Ring of Acid",
         "quests": [
             "Legendary Lord of Blades"
         ],
+        "set": "Chained Elementals",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Bound_Elemental_Ring_of_Acid"
@@ -19920,11 +19960,16 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
         "ml": "29",
         "name": "Bound Elemental Ring of Flames",
         "quests": [
             "Legendary Lord of Blades"
         ],
+        "set": "Chained Elementals",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Bound_Elemental_Ring_of_Flames"
@@ -19952,11 +19997,16 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
         "ml": "29",
         "name": "Bound Elemental Ring of Frost",
         "quests": [
             "Legendary Lord of Blades"
         ],
+        "set": "Chained Elementals",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Bound_Elemental_Ring_of_Frost"
@@ -19984,11 +20034,16 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
         "ml": "29",
         "name": "Bound Elemental Ring of Lightning",
         "quests": [
             "Legendary Master Artificer"
         ],
+        "set": "Chained Elementals",
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Bound_Elemental_Ring_of_Lightning"
@@ -28426,13 +28481,22 @@
                 "name": "Ice Barrier",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Lifesealed",
+                "type": "Enhancement",
+                "value": "16"
             }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
         ],
         "ml": "5",
         "name": "Cloak of Winter",
         "quests": [
             "Combatting Corruption"
         ],
+        "set": "Seasons of the Feywild",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Cloak_of_Winter"
@@ -32365,7 +32429,23 @@
                 "name": "Transmuted Platinum",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "2"
+            },
+            {
+                "name": "Metalline",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Smashing",
+                "value": "5"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "6",
         "name": "Crushing Capital",
@@ -33613,7 +33693,23 @@
                 "name": "Transmuted Platinum",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "2"
+            },
+            {
+                "name": "Metalline",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Gashing",
+                "value": "5"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "6",
         "name": "Cutting Currency",
@@ -59059,7 +59155,23 @@
                 "name": "Transmuted Platinum",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "value": "2"
+            },
+            {
+                "name": "Metalline",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Gashing",
+                "value": "5"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "6",
         "name": "Eviscerating Expenses",
@@ -59578,13 +59690,31 @@
                 "name": "Faeryfire Curse",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Illusory Death",
+                "value": "3"
+            },
+            {
+                "name": "Wizardry",
+                "type": "Quality",
+                "value": "110"
+            },
+            {
+                "name": "Magical Efficiency",
+                "type": "Enhancement",
+                "value": "10"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Faedark Faerielights",
         "quests": [
             "The Feywild"
         ],
+        "set": "Eminence of Autumn",
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Faedark_Faerielights"
@@ -63711,13 +63841,32 @@
                 "name": "Nymph's Healing Empowerment",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Healing Lore",
+                "type": "Equipment",
+                "value": "31"
+            },
+            {
+                "name": "Devotion",
+                "type": "Quality",
+                "value": "53"
+            },
+            {
+                "name": "Elemental Resistance",
+                "type": "Enhancement",
+                "value": "45"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Flower Boots",
         "quests": [
             "The Feywild"
         ],
+        "set": "Eminence of Spring",
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Flower_Boots"
@@ -67350,6 +67499,9 @@
                 "value": "6"
             }
         ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
         "ml": "21",
         "name": "Globe of Incandescence",
         "quests": [
@@ -67595,13 +67747,22 @@
                 "name": "Temperance of Spirit",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Resistance",
+                "type": "Quality",
+                "value": "4"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Gloryborne Gloves",
         "quests": [
             "The Feywild"
         ],
+        "set": "Eminence of Autumn",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Gloryborne_Gloves"
@@ -80481,13 +80642,32 @@
                 "name": "Blackscale Ferocity",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "33"
+            },
+            {
+                "name": "Relentless Fury",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "81"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Legendary Black Dragonscale Tasset",
         "quests": [
             "Wake Me Up Inside"
         ],
+        "set": "Eminence of Spring",
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Black_Dragonscale_Tasset"
@@ -81998,13 +82178,22 @@
                 "name": "Legendary Ice Barrier",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Lifesealed",
+                "type": "Enhancement",
+                "value": "50"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Legendary Cloak of Winter",
         "quests": [
             "Combatting Corruption"
         ],
+        "set": "Eminence of Winter",
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Cloak_of_Winter"
@@ -88736,13 +88925,27 @@
                 "name": "Legendary Trap the Soul",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Shatter",
+                "type": "Insight",
+                "value": "11"
+            },
+            {
+                "name": "Lifeforce",
+                "type": "Profane",
+                "value": "72"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Legendary Necronomicannon",
         "quests": [
             "The Feywild"
         ],
+        "set": "Eminence of Winter",
         "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Legendary_Necronomicannon"
@@ -96525,7 +96728,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Greatsword",
@@ -96621,7 +96839,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Heavy Pick",
@@ -96717,7 +96950,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Light Mace",
@@ -96739,7 +96987,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Longsword",
@@ -96761,7 +97024,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Morningstar",
@@ -96783,7 +97061,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Rapier",
@@ -96845,7 +97138,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Scimitar",
@@ -96867,7 +97175,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Shuriken",
@@ -96889,7 +97212,22 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "3"
+            },
+            {
+                "name": "Vampirism",
+                "value": "1"
+            },
+            {
+                "name": "Chilling",
+                "value": "3"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "10",
         "name": "Macabre Sickle",
@@ -97707,10 +98045,31 @@
                 "name": "Alchemical Fire Attunement",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Speed",
+                "type": "Enhancement",
+                "value": "30"
+            },
+            {
+                "name": "Accuracy",
+                "type": "Competence",
+                "value": "36"
+            },
+            {
+                "name": "Deadly",
+                "type": "Competence",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "29",
         "name": "Magmatic Grasp",
+        "set": "Eminence of Summer",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Magmatic_Grasp"
@@ -103625,13 +103984,27 @@
                 "name": "Trap the Soul",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Shatter",
+                "type": "Insight",
+                "value": "1"
+            },
+            {
+                "name": "Lifeforce",
+                "type": "Profane",
+                "value": "12"
             }
+        ],
+        "crafting": [
+            "Green Augment Slot"
         ],
         "ml": "5",
         "name": "Necronimicannon",
         "quests": [
             "The Feywild"
         ],
+        "set": "Seasons of the Feywild",
         "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:Necronimicannon"
@@ -105160,7 +105533,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Dagger",
@@ -105182,7 +105571,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Heavy Mace",
@@ -105204,7 +105609,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Light Crossbow",
@@ -105226,7 +105647,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Light Mace",
@@ -105248,7 +105685,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Morningstar",
@@ -105270,7 +105723,23 @@
                 "name": "Mother Night's Embrace",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Human Bane",
+                "value": "9"
+            },
+            {
+                "name": "Vampirism 4 not per hit, one second hidden timer",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Chilling",
+                "value": "9"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Nightmother's Repeating Heavy Crossbow",
@@ -105943,7 +106412,40 @@
                 "name": "Necromancy Focus",
                 "type": "Insight",
                 "value": "4"
+            },
+            {
+                "name": "Devotion",
+                "type": "Equipment",
+                "value": "208"
+            },
+            {
+                "name": "Devotion",
+                "type": "Insight",
+                "value": "104"
+            },
+            {
+                "name": "Healing Lore",
+                "type": "Equipment",
+                "value": "30"
+            },
+            {
+                "name": "Efficient Metamagic - Empower Healing",
+                "value": "2"
+            },
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "28"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
             }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Red Augment Slot"
         ],
         "ml": "28",
         "name": "Null, the Darkness Without",
@@ -128882,7 +129384,25 @@
                 "name": "Touch of the Mournlands",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Fetters of Unreality",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Keen",
+                "value": "5"
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Red Augment Slot",
+            "Orange Augment Slot"
         ],
         "ml": "29",
         "name": "Spear of the Mournlands",
@@ -131903,6 +132423,36 @@
             },
             {
                 "name": "Brilliance",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Fiery Detonation",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Flaming Burst",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Radiance",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Disruption",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Holy Burst",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Good",
                 "type": "bool",
                 "value": 1
             }
@@ -136187,7 +136737,25 @@
                 "name": "Harnessed Lightning",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Keen",
+                "value": "5"
+            },
+            {
+                "name": "Sovereign Vorpal",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Aligned",
+                "type": "bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Red Augment Slot",
+            "Purple Augment Slot"
         ],
         "ml": "29",
         "name": "Tail of Suulomades",
@@ -138903,7 +139471,27 @@
                 "name": "The Golden Curse",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "204"
+            },
+            {
+                "name": "Protection",
+                "type": "Deflection",
+                "value": "18"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Insight",
+                "value": "29"
             }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "29",
         "name": "The Golden Idol",
@@ -139039,13 +139627,31 @@
                 "name": "Lifeblood of the Undead Prince",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Constitution",
+                "type": "Enhancement",
+                "value": "21"
+            },
+            {
+                "name": "Energy Siphon",
+                "value": "10"
+            },
+            {
+                "name": "Ghostly",
+                "type": "bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
         ],
         "ml": "29",
         "name": "The Heart of the Prince",
         "quests": [
             "The Feywild"
         ],
+        "set": "Eminence of Winter",
         "slot": "Offhand",
         "type": "Orbs",
         "url": "/page/Item:The_Heart_of_the_Prince"
@@ -140834,13 +141440,34 @@
                 "name": "Lifeblood of the Undead Prince",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Constitution",
+                "type": "Enhancement",
+                "value": "22"
+            },
+            {
+                "name": "Resistance",
+                "type": "Quality",
+                "value": "4"
+            },
+            {
+                "name": "Sheltering",
+                "type": "Quality",
+                "value": "15"
             }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "29",
         "name": "The Prince's Gauntlet",
         "quests": [
             "Fables of the Feywild"
         ],
+        "set": "Eminence of Winter",
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:The_Prince%27s_Gauntlet"

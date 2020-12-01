@@ -14,7 +14,9 @@
     {
         "name": "False Life",
         "synonyms": [
-            "Hit Points"
+            "Hit Points",
+            "Vitality",
+            "Lifeforce"
         ]
     },
     {

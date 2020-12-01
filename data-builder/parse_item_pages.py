@@ -230,7 +230,10 @@ def get_items_from_page(itemPageURL, sets):
         cell = fields[affixesIdx]
 
         if cell.find('ul'):
-            affixes = cell.find('ul').find_all('li', recursive=False)
+            affixes = cell.find_all('ul', recursive=False)
+            affixes = [ul.find_all('li', recursive=False) for ul in affixes]
+            affixes = [item for sublist in affixes for item in sublist]
+
             for affix in affixes:
                 aff = {}
 

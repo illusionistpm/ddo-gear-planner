@@ -44,5 +44,17 @@
         "synonyms": [
             "Spell DCs"
         ]
+    },
+    {
+        "name": "Void Lore",
+        "synonyms": [
+            "Negative Spell Crit Chance"
+        ]
+    },
+{
+        "name": "Nullification",
+        "synonyms": [
+            "Negative Spell Power"
+        ]
     }
 ]

@@ -2,7 +2,11 @@
     {
         "name": "Armor Class",
         "synonyms": [
-            "AC"
+            "AC",
+            "Protection",
+            "Natural Armor"
+            "Shield"
+            "Armor Bonus"
         ]
     },
     {

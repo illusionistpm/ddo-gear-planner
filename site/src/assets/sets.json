@@ -2233,7 +2233,7 @@
         {
             "affixes": [
                 {
-                    "name": "Natural Armor",
+                    "name": "Armor Class",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -2250,7 +2250,7 @@
         {
             "affixes": [
                 {
-                    "name": "Natural Armor",
+                    "name": "Armor Class",
                     "type": "Artifact",
                     "value": "5"
                 },

@@ -56,7 +56,7 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    for type in ['Insightful', 'Exceptional', 'Enhanced', 'Quality', 'Profane', 'Competence', 'Equipment', 'Equipped', 'Inherent','Sacred']:
+    for type in ['Insightful', 'Exceptional', 'Enhanced', 'Quality', 'Profane', 'Competence', 'Equipment', 'Equipped', 'Inherent', 'Sacred']:
         if name.startswith(type):
             name = name[len(type)+1:]
 
@@ -64,8 +64,8 @@ def strip_bonus_types(name):
 
 
 def strip_charges(name):
-    name = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
-    return name
+    newName = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
+    return newName.strip() + " clicky" if newName != name else name
     
 
 def strip_necro4_upgrades(name):
@@ -219,6 +219,23 @@ def get_items_from_page(itemPageURL, sets):
         if item['ml'] == 'None':
             item['ml'] = 1
 
+        # If we're doing an Armor page, add an entry for the Armor Class
+        if 'AC' in cols:
+            acBonus = fields[cols['AC']].getText().strip()
+            if acBonus.startswith('+'):
+                acBonus = acBonus[1:]
+
+            # Robes have 0 AC - no need to include them in the list.
+            # Docents have a more complicated expression that I'm not parsing, so if it's not a simple
+            # number, just skip it.
+            if acBonus != '0' and acBonus.isnumeric():
+                aff = {
+                    'name': 'Armor Class',
+                    'value': acBonus,
+                    'type': 'Armor'
+                }
+                item['affixes'].append(aff)
+
         questsCell = fields[questIdx]
         questsTooltipSpan = questsCell.find('a')
         questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
@@ -295,7 +312,15 @@ def get_items_from_page(itemPageURL, sets):
                 # Ignore the tooltip for augment slots
                 elif not 'Augment Slot' in aff['name'] and tooltip:
                     words = str(tooltip)
-                    bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
+
+                    # Sometimes the tooltip has a hyperlink title. Those are convenient for picking up multi-word
+                    # bonuses like "Natural Armor"
+                    bonusTypeSearch = re.findall('title="([a-z ]+) bonus"', words, re.IGNORECASE)
+
+                    # Otherwise, fall back on just grabbing the previous word before "bonus"
+                    if not bonusTypeSearch:
+                        bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
+
                     bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
                     bonusTypeSearch.sort()
 

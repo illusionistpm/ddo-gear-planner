@@ -17,12 +17,13 @@ def build_data(clearCache):
     download_wiki_pages()
 
     print('#### Download complete. Beginning data build')
+    build_synonyms()
+
     parse_set_page()
     parse_item_pages()
     parse_cannith()
 
     build_affix_groups()
-    build_synonyms()
     build_crafting()
 
     newStats = get_data_stats()

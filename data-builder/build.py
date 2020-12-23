@@ -6,6 +6,7 @@ from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description
+import argparse
 
 def build_data(clearCache):
     oldStats = get_data_stats()
@@ -35,4 +36,8 @@ def build_data(clearCache):
 
 
 if __name__ == "__main__":
-    build_data(True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--clear-cache', default=False, action=argparse.BooleanOptionalAction)
+    args = parser.parse_args()
+
+    build_data(args.clear_cache)

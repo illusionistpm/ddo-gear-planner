@@ -1,3 +1,4 @@
 .vscode/
 data-builder/__pycache__/
+data-builder/cache/
 ~$*.xlsx

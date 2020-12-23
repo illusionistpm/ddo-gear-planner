@@ -502,7 +502,12 @@
                     "value": "25"
                 },
                 {
-                    "name": "Negative. Poison Spell Crit Chance",
+                    "name": "Negative Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Poison Spell Crit Chance",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1658,9 +1663,9 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Focus Mastery",
+                    "name": "all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Intelligence",

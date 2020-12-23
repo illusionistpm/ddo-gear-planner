@@ -4,6 +4,7 @@ import os
 import shutil
 import random
 import time
+from pathlib import Path
 
 def get_item_page_urls():
     page = requests.get('https://ddowiki.com/page/Items')
@@ -66,8 +67,9 @@ def download_wiki_pages():
     download_quest_pages()
 
 def clear_wiki_cache():
-    shutil.rmtree('cache')
-
+    path = Path('cache')
+    if path.exists() and path.is_dir():
+        shutil.rmtree('cache')
 
 
 if __name__ == "__main__":

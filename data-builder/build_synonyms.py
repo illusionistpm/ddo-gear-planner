@@ -18,6 +18,8 @@ def build_synonyms():
     add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])
     add(data, 'Magical Sheltering', ['Magical Resistance Rating', 'MRR'])
     add(data, 'Spell Focus Mastery', ['Spell DCs'])
+    add(data, 'Void Lore', ['Negative Spell Crit Chance'])
+    add(data, 'Nullification', ['Negative Spell Power'])
 
     write_json(data, 'affix-synonyms')
 

@@ -21,6 +21,13 @@ def get_inverted_synonym_map():
 def sub_name(name):
     for pair in [
         ['all Spell DCs', 'Spell DCs'],
+        ['all spell DCs', 'Spell DCs'],
+        ['your Magical Resistance Rating', 'Magical Resistance Rating'],
+        ['your Tactical Abilities', 'Tactical Abilities'],
+        ['maximum hitpoints', 'Hit Points'],
+        ['your maximum hit points', 'Hit Points'],
+        ['your maximum Spell Points', 'Spell Points'],
+        ['all of your Ability Scores', 'Well-Rounded']
         ]:
         if name == pair[0]:
             return pair[1]
@@ -43,10 +50,11 @@ def split_list(affix, affixes):
     while("" in words) : 
         words.remove("")     
 
-    for suffix in ['Healing Amplification', 'Spell Power', 'Spell Crit Chance', 'Absorption']:
+    for suffix in ['Healing Amplification', 'Spell Power', 'Spell Crit Chance', 'Absorption', 'Amplification', 'Resistance Rating']:
         if words[-1].endswith(suffix):
             for idx, word in enumerate(words[0:-1], 0):
                 words[idx] = word + " " + suffix
+            break
 
     for word in words:
         aff = deepcopy(affix)
@@ -132,31 +140,55 @@ def get_sets_from_page(soup):
 
             bonusCell = cells[setBonusIdx]
 
-            numItemsSearch = re.search(r'While wearing ((any )?([a-z]+)|both) (items|pieces)', bonusCell.getText())
-            if numItemsSearch:
-                numStr = numItemsSearch.group(3).strip()
+            # Look for Feywild-style sets, with an additional bonus with each item
+            bFoundSetParagraph = False
+            paragraphs = bonusCell.find_all('p')
+            for p in paragraphs:
+                bonusSearch = re.search(r'([1-9]) Pieces Equipped:', p.getText())
+                if bonusSearch:
+                    bFoundSetParagraph = True
+                    num = int(bonusSearch.group(1))
 
-                switch = {
-                    'one': 1,
-                    'both': 2,
-                    'two': 2,
-                    'three': 3,
-                    'four': 4,
-                    'five': 5,
-                    'six': 6,
-                    'seven': 7
-                }
-                num = switch.get(numStr, 99999)
+                    ul = p.findNext('ul')
 
-                listItems = bonusCell.find_all('li')
+                    listItems = ul.find_all('li')
 
-                affixes = list_items_to_affixes(listItems, synMap)
+                    affixes = list_items_to_affixes(listItems, synMap)
 
-                threshold = {}
-                threshold['threshold'] = num
-                threshold['affixes'] = affixes
+                    threshold = {}
+                    threshold['threshold'] = num
+                    threshold['affixes'] = affixes
 
-                sets[setName].append(threshold)
+                    sets[setName].append(threshold)
+                
+
+            # Look for older, more standard sets, where bonuses are all-or-nothing
+            if not bFoundSetParagraph:
+                numItemsSearch = re.search(r'While wearing ((any )?([a-z]+)|both) (items|pieces)', bonusCell.getText())
+                if numItemsSearch:
+                    numStr = numItemsSearch.group(3).strip()
+
+                    switch = {
+                        'one': 1,
+                        'both': 2,
+                        'two': 2,
+                        'three': 3,
+                        'four': 4,
+                        'five': 5,
+                        'six': 6,
+                        'seven': 7
+                    }
+                    num = switch.get(numStr, 99999)
+
+                    listItems = bonusCell.find_all('li')
+
+                    affixes = list_items_to_affixes(listItems, synMap)
+
+                    threshold = {}
+                    threshold['threshold'] = num
+                    threshold['affixes'] = affixes
+
+                    sets[setName].append(threshold)
 
     return sets
 

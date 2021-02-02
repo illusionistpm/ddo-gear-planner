@@ -11538,6 +11538,7 @@
             },
             {
                 "name": "Physical Sheltering",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -13346,7 +13347,7 @@
             {
                 "name": "Incite",
                 "type": "Insight",
-                "value": "26"
+                "value": "78"
             },
             {
                 "name": "Intimidate",
@@ -15905,7 +15906,8 @@
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Blue Augment Slot"
         ],
         "ml": "26",
         "name": "Battlerager's Harness",
@@ -18441,6 +18443,11 @@
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "29"
+            },
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "15"
@@ -20116,7 +20123,7 @@
         "ml": "29",
         "name": "Bound Elemental Ring of Acid",
         "quests": [
-            "Legendary Lord of Blades"
+            "Legendary Master Artificer"
         ],
         "set": "Chained Elementals",
         "slot": "Ring",
@@ -22139,17 +22146,17 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "28"
+                "value": "29"
             },
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "13"
+                "value": "14"
             },
             {
                 "name": "Fortification",
                 "type": "Enhancement",
-                "value": "159"
+                "value": "196"
             },
             {
                 "name": "Speed",
@@ -22159,22 +22166,22 @@
             {
                 "name": "Doublestrike",
                 "type": "Enhancement",
-                "value": "17"
+                "value": "21"
             },
             {
                 "name": "Sheltering",
                 "type": "Enhancement",
-                "value": "38"
+                "value": "49"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "9"
             },
             {
                 "name": "Blurry",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Parrying",
-                "type": "Insight",
-                "value": "7"
             },
             {
                 "name": "Deathblock",
@@ -22191,7 +22198,7 @@
             "Yellow Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "27",
         "name": "Breastplate of the Celestial Avenger",
         "quests": [
             "Legendary Hound of Xoriat"
@@ -22607,8 +22614,7 @@
             },
             {
                 "name": "Extra Smites",
-                "type": "bool",
-                "value": 1
+                "value": "3"
             }
         ],
         "crafting": [
@@ -26640,9 +26646,9 @@
             }
         ],
         "crafting": [
+            "Blue Augment Slot",
             "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Yellow Augment Slot"
         ],
         "ml": "29",
         "name": "Charune, Grand Burden of Fury",
@@ -27638,7 +27644,7 @@
             {
                 "name": "Incite",
                 "type": "Enhancement",
-                "value": "64"
+                "value": "193"
             },
             {
                 "name": "Intimidate",
@@ -29276,14 +29282,14 @@
     {
         "affixes": [
             {
-                "name": "Armor Class",
-                "type": "Armor",
-                "value": "7"
-            },
-            {
                 "name": "Nightshield clicky",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "7"
             },
             {
                 "name": "Wizardry",
@@ -31318,14 +31324,14 @@
     {
         "affixes": [
             {
-                "name": "Enhancement Bonus",
-                "type": "Enhancement",
-                "value": "5"
-            },
-            {
                 "name": "Blinding Flash clicky",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
             },
             {
                 "name": "Blinding",
@@ -31450,17 +31456,17 @@
             },
             {
                 "name": "Rune Arm Imbue: Acid",
-                "value": "3"
+                "value": "4"
             },
             {
                 "name": "Corrosion",
                 "type": "Equipment",
-                "value": "78"
+                "value": "84"
             },
             {
                 "name": "Potency",
                 "type": "Equipment",
-                "value": "52"
+                "value": "56"
             },
             {
                 "name": "Rough Hide",
@@ -31540,7 +31546,7 @@
             {
                 "name": "Intelligence",
                 "type": "Insight",
-                "value": "2"
+                "value": "3"
             }
         ],
         "ml": "22",
@@ -34094,7 +34100,8 @@
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": "26",
         "name": "Cyran Guard (Level 26)",
@@ -35881,7 +35888,7 @@
                 "value": "5"
             },
             {
-                "name": "Lightning Resistance",
+                "name": "Electric Resistance",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -37002,13 +37009,13 @@
                 "value": "9"
             },
             {
-                "name": "Weapon's Coruscating Effect +9 (if Paladin",
-                "value": "20"
-            },
-            {
-                "name": "Metalline (if Paladin)",
+                "name": "Coruscating 9 (if Paladin)",
                 "type": "bool",
                 "value": 1
+            },
+            {
+                "name": "Metalline (if Paladin",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -37302,13 +37309,14 @@
             },
             {
                 "name": "Necromancy Focus",
+                "type": "Equipment",
                 "value": "1"
             }
         ],
         "ml": "12",
         "name": "Docent of Shadow (level 12)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37338,13 +37346,14 @@
             },
             {
                 "name": "Necromancy Focus",
+                "type": "Equipment",
                 "value": "1"
             }
         ],
         "ml": "16",
         "name": "Docent of Shadow (level 16)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37386,7 +37395,7 @@
         "ml": "20",
         "name": "Docent of Shadow (level 20)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37428,7 +37437,7 @@
         "ml": "24",
         "name": "Docent of Shadow (level 24)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37497,7 +37506,7 @@
         "ml": "4",
         "name": "Docent of Shadow (level 4)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37529,7 +37538,7 @@
         "ml": "8",
         "name": "Docent of Shadow (level 8)",
         "quests": [
-            "Mabar Endless Night Festival"
+            "The Night Revels"
         ],
         "slot": "Armor",
         "type": "Docents",
@@ -37563,14 +37572,14 @@
                 "value": "49"
             },
             {
-                "name": "Blurry",
-                "type": "bool",
-                "value": 1
-            },
-            {
                 "name": "Parrying",
                 "type": "Insight",
                 "value": "9"
+            },
+            {
+                "name": "Blurry",
+                "type": "bool",
+                "value": 1
             },
             {
                 "name": "Deathblock",
@@ -37601,37 +37610,37 @@
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "13"
+                "value": "14"
             },
             {
                 "name": "Fortification",
                 "type": "Enhancement",
-                "value": "159"
+                "value": "196"
             },
             {
                 "name": "Dodge",
                 "type": "Enhancement",
-                "value": "15"
+                "value": "19"
             },
             {
                 "name": "Potency",
                 "type": "Quality",
-                "value": "27"
+                "value": "34"
             },
             {
                 "name": "Sheltering",
                 "type": "Enhancement",
-                "value": "38"
+                "value": "49"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "9"
             },
             {
                 "name": "Blurry",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Parrying",
-                "type": "Insight",
-                "value": "7"
             },
             {
                 "name": "Deathblock",
@@ -37645,10 +37654,10 @@
             }
         ],
         "crafting": [
-            "Yellow Augment Slot",
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Yellow Augment Slot"
         ],
-        "ml": "29",
+        "ml": "27",
         "name": "Docent of the Celestial Sage",
         "quests": [
             "Legendary Hound of Xoriat"
@@ -37793,9 +37802,9 @@
             }
         ],
         "crafting": [
-            "Blue Augment Slot",
             "Green Augment Slot",
-            "Yellow Augment Slot"
+            "Yellow Augment Slot",
+            "Blue Augment Slot"
         ],
         "ml": "29",
         "name": "Doctor LeRoux's Curious Implant",
@@ -41090,7 +41099,7 @@
         "ml": 1,
         "name": "Elegant Diamond Necklace",
         "quests": [
-            "Random"
+            "DDO Store"
         ],
         "slot": "Necklace",
         "type": "Neck items",
@@ -41539,7 +41548,7 @@
             {
                 "name": "Acid Resistance",
                 "type": "Enhancement",
-                "value": "3"
+                "value": "11"
             }
         ],
         "ml": "4",
@@ -42204,7 +42213,7 @@
                 "value": "104"
             },
             {
-                "name": "Anthem Melody: Imperial Resonance",
+                "name": "Melody: Imperial Resonance",
                 "type": "bool",
                 "value": 1
             }
@@ -43554,6 +43563,10 @@
     {
         "affixes": [
             {
+                "name": "Required Class: Paladin (UMD",
+                "value": "16"
+            },
+            {
                 "name": "Devotion",
                 "type": "Equipment",
                 "value": "54"
@@ -44643,12 +44656,12 @@
                 "value": 1
             },
             {
-                "name": "Undead Bane",
+                "name": "Blunted Ammunition",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Blunted Ammunition",
+                "name": "Undead Bane",
                 "type": "bool",
                 "value": 1
             }
@@ -46161,7 +46174,8 @@
             },
             {
                 "name": "Vampirism",
-                "value": "1"
+                "type": "bool",
+                "value": 1
             },
             {
                 "name": "Vorpal",
@@ -46688,12 +46702,17 @@
     {
         "affixes": [
             {
+                "name": "Blinding Flash clicky",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "6"
             },
             {
-                "name": "Blinding Flash clicky",
+                "name": "Blinding",
                 "type": "bool",
                 "value": 1
             },
@@ -47426,12 +47445,12 @@
                 "value": "20"
             },
             {
-                "name": "Cold Absorption",
+                "name": "Acid Absorption",
                 "type": "Enhancement",
                 "value": "15"
             },
             {
-                "name": "Acid Absorption",
+                "name": "Cold Absorption",
                 "type": "Enhancement",
                 "value": "15"
             },
@@ -47441,7 +47460,7 @@
                 "value": "15"
             },
             {
-                "name": "Lightning Resistance",
+                "name": "Electric Resistance",
                 "type": "Enhancement",
                 "value": "20"
             },
@@ -49892,8 +49911,8 @@
             }
         ],
         "crafting": [
-            "Yellow Augment Slot",
-            "Colorless Augment Slot"
+            "Colorless Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "20",
         "name": "Epic Firestorm Greaves",
@@ -50579,12 +50598,12 @@
             {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
-                "value": "21"
+                "value": "18"
             },
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "7"
+                "value": "6"
             },
             {
                 "name": "Force Burst",
@@ -50606,6 +50625,9 @@
                 "type": "Equipment",
                 "value": "3"
             }
+        ],
+        "crafting": [
+            "Red Augment Slot"
         ],
         "ml": "20",
         "name": "Epic Green Blade",
@@ -51415,7 +51437,7 @@
                 "value": "7"
             },
             {
-                "name": "Will Save",
+                "name": "Epic Will Save",
                 "type": "Epic",
                 "value": "3"
             },
@@ -51717,6 +51739,11 @@
                 "value": 1
             },
             {
+                "name": "Lightning Strike",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Maiming",
                 "type": "bool",
                 "value": 1
@@ -51724,11 +51751,6 @@
             {
                 "name": "Keen",
                 "value": "1"
-            },
-            {
-                "name": "Lightning Strike",
-                "type": "bool",
-                "value": 1
             },
             {
                 "name": "Improved Destruction",
@@ -52550,7 +52572,7 @@
             {
                 "name": "Nullification",
                 "type": "Equipment",
-                "value": "78"
+                "value": "90"
             },
             {
                 "name": "Potency",
@@ -53039,7 +53061,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "10"
+                "value": "19"
             },
             {
                 "name": "See the item description page for details.",
@@ -53061,7 +53083,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "15"
+                "value": "14"
             },
             {
                 "name": "See the item description page for details.",
@@ -53096,27 +53118,11 @@
         "url": "/page/Item:Epic_Mournlode_Docent"
     },
     {
-        "affixes": [],
-        "crafting": [
-            "Upgradeable - Tier",
-            "Upgradeable - Tier",
-            "Upgradeable - Tier"
-        ],
-        "ml": "20",
-        "name": "Epic Mournlode Docent (Level 20)",
-        "quests": [
-            "Vaults of the Artificers"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Epic_Mournlode_Docent_(Level_20)"
-    },
-    {
         "affixes": [
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "15"
+                "value": "29"
             },
             {
                 "name": "See the item description page for details.",
@@ -53287,7 +53293,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "7"
+                "value": "12"
             },
             {
                 "name": "Enhancement Bonus",
@@ -53305,9 +53311,9 @@
                 "value": 1
             },
             {
-                "name": "Disease Immunity",
-                "type": "bool",
-                "value": 1
+                "name": "Proof Against Disease",
+                "type": "Enhancement",
+                "value": "6"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -53358,6 +53364,11 @@
     {
         "affixes": [
             {
+                "name": "Proof Against Poison",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
                 "name": "False Life",
                 "type": "Enhancement",
                 "value": "40"
@@ -53366,11 +53377,6 @@
                 "name": "Armor Class",
                 "type": "Deflection",
                 "value": "5"
-            },
-            {
-                "name": "Proof Against Poison",
-                "type": "bool",
-                "value": 1
             }
         ],
         "ml": "20",
@@ -53442,7 +53448,7 @@
                 "value": 1
             },
             {
-                "name": "Fortitude Save",
+                "name": "Epic Fortitude Save",
                 "type": "Epic",
                 "value": "3"
             },
@@ -53465,6 +53471,51 @@
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Epic_Noxious_Fang"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "25"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Void Lore",
+                "type": "Equipment",
+                "value": "19"
+            },
+            {
+                "name": "Nullification",
+                "type": "Equipment",
+                "value": "128"
+            },
+            {
+                "name": "False Life",
+                "type": "Profane",
+                "value": "39"
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Quality",
+                "value": "12"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Obsidian Dagger",
+        "quests": [
+            "The Mystery of Delera's Tomb"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Epic_Obsidian_Dagger"
     },
     {
         "affixes": [
@@ -54525,7 +54576,7 @@
                 "value": "2"
             },
             {
-                "name": "Will Save",
+                "name": "Epic Will Save",
                 "type": "Epic",
                 "value": "3"
             },
@@ -55009,6 +55060,11 @@
     {
         "affixes": [
             {
+                "name": "Bestow Curse clicky",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Curse of Foolishness",
                 "type": "bool",
                 "value": 1
@@ -55019,9 +55075,9 @@
                 "value": 1
             },
             {
-                "name": "Strength",
-                "type": "Insight",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "15"
             },
             {
                 "name": "Constitution",
@@ -55029,14 +55085,9 @@
                 "value": "2"
             },
             {
-                "name": "Intimidate",
-                "type": "Competence",
-                "value": "15"
-            },
-            {
-                "name": "Bestow Curse clicky",
-                "type": "bool",
-                "value": 1
+                "name": "Strength",
+                "type": "Insight",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -55436,7 +55487,7 @@
                 "value": "5"
             },
             {
-                "name": "Fortitude Save",
+                "name": "Epic Fortitude Save",
                 "type": "Epic",
                 "value": "3"
             },
@@ -55597,7 +55648,7 @@
             {
                 "name": "Combustion",
                 "type": "Equipment",
-                "value": "72"
+                "value": "90"
             },
             {
                 "name": "Fire Resistance",
@@ -56468,7 +56519,7 @@
             {
                 "name": "Radiance",
                 "type": "Equipment",
-                "value": "90"
+                "value": "84"
             },
             {
                 "name": "Hidden Effect: Radiance Blindness Guard",
@@ -56499,12 +56550,12 @@
                 "value": 1
             },
             {
-                "name": "Improved Destruction",
+                "name": "Greater Construct Bane",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Greater Construct Bane",
+                "name": "Improved Destruction",
                 "type": "bool",
                 "value": 1
             },
@@ -56908,9 +56959,9 @@
                 "value": "8"
             },
             {
-                "name": "Disease Immunity",
-                "type": "bool",
-                "value": 1
+                "name": "Proof Against Disease",
+                "type": "Enhancement",
+                "value": "6"
             },
             {
                 "name": "Armor Class",
@@ -57318,12 +57369,12 @@
                 "value": 1
             },
             {
-                "name": "Vampirism",
+                "name": "Demonic Might",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Demonic Might",
+                "name": "Vampirism",
                 "type": "bool",
                 "value": 1
             }
@@ -57356,6 +57407,44 @@
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Epic_Spare_Hand"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Electrifying",
+                "value": "5"
+            },
+            {
+                "name": "Jolting",
+                "value": "12"
+            },
+            {
+                "name": "Seeker",
+                "type": "Insight",
+                "value": "5"
+            },
+            {
+                "name": "Adamantine",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
+        "ml": "25",
+        "name": "Epic Sparkstriker",
+        "quests": [
+            "The Mystery of Delera's Tomb"
+        ],
+        "slot": "Weapon",
+        "type": "Heavy Picks",
+        "url": "/page/Item:Epic_Sparkstriker"
     },
     {
         "affixes": [
@@ -57537,8 +57626,8 @@
             }
         ],
         "crafting": [
-            "Yellow Augment Slot",
-            "Colorless Augment Slot"
+            "Colorless Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "20",
         "name": "Epic Spiked Turban",
@@ -57667,7 +57756,7 @@
                 "value": "6"
             },
             {
-                "name": "Silver",
+                "name": "Silver, Alchemical",
                 "type": "bool",
                 "value": 1
             },
@@ -57805,8 +57894,8 @@
             },
             {
                 "name": "Proof Against Poison",
-                "type": "bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "6"
             }
         ],
         "crafting": [
@@ -58443,6 +58532,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
         "ml": "20",
         "name": "Epic Templar's Docent",
         "slot": "Armor",
@@ -58690,6 +58782,11 @@
     {
         "affixes": [
             {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "18"
+            },
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "6"
@@ -58697,7 +58794,7 @@
             {
                 "name": "Combustion",
                 "type": "Equipment",
-                "value": "78"
+                "value": "90"
             },
             {
                 "name": "Incineration Guard",
@@ -58791,7 +58888,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "13"
+                "value": "25"
             },
             {
                 "name": "Enhancement Bonus",
@@ -59088,7 +59185,7 @@
                 "value": 1
             },
             {
-                "name": "Eat Jerky clicky",
+                "name": "Jerky clicky",
                 "type": "bool",
                 "value": 1
             }
@@ -59286,6 +59383,9 @@
         ],
         "ml": "20",
         "name": "Epic Vulkoorim Dervish Robe",
+        "quests": [
+            "Epic Crafting"
+        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Epic_Vulkoorim_Dervish_Robe"
@@ -59339,6 +59439,11 @@
                 "name": "Devotion",
                 "type": "Equipment",
                 "value": "72"
+            },
+            {
+                "name": "Nullification",
+                "type": "Equipment",
+                "value": "78"
             },
             {
                 "name": "Devotion",
@@ -59427,7 +59532,7 @@
                 "value": 1
             },
             {
-                "name": "Lightning Resistance",
+                "name": "Electric Resistance",
                 "type": "Enhancement",
                 "value": "30"
             },
@@ -59660,7 +59765,7 @@
             {
                 "name": "Combustion",
                 "type": "Equipment",
-                "value": "84"
+                "value": "90"
             },
             {
                 "name": "Incineration",
@@ -62030,6 +62135,82 @@
         "slot": "Weapon",
         "type": "Kukris",
         "url": "/page/Item:Ferrocrystal_Kukri"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Fey Bane",
+                "value": "2"
+            },
+            {
+                "name": "Destruction",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Maiming",
+                "value": "2"
+            },
+            {
+                "name": "Crystal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Ferrocrystal Morningstar",
+        "quests": [
+            "Fables of the Feywild"
+        ],
+        "slot": "Weapon",
+        "type": "Morningstars",
+        "url": "/page/Item:Ferrocrystal_Morningstar"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "2"
+            },
+            {
+                "name": "Fey Bane",
+                "value": "2"
+            },
+            {
+                "name": "Destruction",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Maiming",
+                "value": "2"
+            },
+            {
+                "name": "Crystal",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Ferrocrystal Repeating Heavy Crossbow",
+        "quests": [
+            "Fables of the Feywild"
+        ],
+        "slot": "Weapon",
+        "type": "Repeating Heavy Crossbows",
+        "url": "/page/Item:Ferrocrystal_Repeating_Heavy_Crossbow"
     },
     {
         "affixes": [
@@ -66429,12 +66610,12 @@
             {
                 "name": "Glaciation",
                 "type": "Equipment",
-                "value": "36"
+                "value": "54"
             },
             {
                 "name": "Ice Lore",
                 "type": "Equipment",
-                "value": "2"
+                "value": "8"
             },
             {
                 "name": "Minor Freezing Ice",
@@ -66503,7 +66684,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "29"
+                "value": "25"
             },
             {
                 "name": "Enhancement Bonus",
@@ -67097,12 +67278,12 @@
             {
                 "name": "Incite",
                 "type": "Enhancement",
-                "value": "57"
+                "value": "171"
             },
             {
                 "name": "Incite",
                 "type": "Quality",
-                "value": "13"
+                "value": "39"
             }
         ],
         "crafting": [
@@ -67180,7 +67361,7 @@
             "Yellow Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "28",
         "name": "Gauntlets of the Stormreaver",
         "quests": [
             "Killing Time"
@@ -69404,6 +69585,23 @@
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Gloves_of_Deceit"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Dexterity",
+                "type": "Enhancement",
+                "value": "4"
+            }
+        ],
+        "ml": "9",
+        "name": "Gloves of Dexterity",
+        "quests": [
+            "Random"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Gloves_of_Dexterity"
     },
     {
         "affixes": [
@@ -73352,8 +73550,9 @@
                 "value": "15"
             },
             {
-                "name": "Unholy",
-                "value": "9"
+                "name": "Choked by Mother Night",
+                "type": "bool",
+                "value": 1
             },
             {
                 "name": "Animal Bane",
@@ -74171,8 +74370,7 @@
             },
             {
                 "name": "Acid Blast",
-                "type": "bool",
-                "value": 1
+                "value": "10"
             },
             {
                 "name": "Legendary Acid Torrent",
@@ -74593,7 +74791,7 @@
             "Red Augment Slot",
             "Orange Augment Slot"
         ],
-        "ml": "29",
+        "ml": "28",
         "name": "Hellstroke Heavy Mace",
         "quests": [
             "Killing Time"
@@ -76220,7 +76418,8 @@
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": "24",
         "name": "Hunter's Slayer (Level 24)",
@@ -76254,7 +76453,8 @@
             }
         ],
         "crafting": [
-            "Orange Augment Slot"
+            "Orange Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": "25",
         "name": "Hunter's Slayer (Level 25)",
@@ -81123,8 +81323,7 @@
             },
             {
                 "name": "Flaming Blast",
-                "type": "bool",
-                "value": 1
+                "value": "10"
             },
             {
                 "name": "Lights Out",
@@ -81312,7 +81511,7 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "21"
+                "value": "22"
             },
             {
                 "name": "Enhancement Bonus",
@@ -81372,37 +81571,37 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "21"
+                "value": "22"
             },
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "13"
+                "value": "14"
             },
             {
                 "name": "Fortification",
                 "type": "Enhancement",
-                "value": "159"
+                "value": "196"
             },
             {
                 "name": "Dodge",
                 "type": "Enhancement",
-                "value": "15"
+                "value": "19"
             },
             {
                 "name": "Potency",
                 "type": "Quality",
-                "value": "27"
+                "value": "34"
             },
             {
                 "name": "Sheltering",
                 "type": "Enhancement",
-                "value": "38"
+                "value": "49"
             },
             {
                 "name": "Parrying",
                 "type": "Insight",
-                "value": "7"
+                "value": "9"
             },
             {
                 "name": "Blurry",
@@ -81424,7 +81623,7 @@
             "Blue Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "27",
         "name": "Leathers of the Celestial Sage",
         "quests": [
             "Legendary Hound of Xoriat"
@@ -82512,6 +82711,48 @@
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:Legendary_Belt_of_the_Ram"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "214"
+            },
+            {
+                "name": "Enhancement Repair Amplification",
+                "type": "Enhancement",
+                "value": "85"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Enhancement",
+                "value": "54"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "10"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Bittersnow",
+        "quests": [
+            "Wake Me Up Inside"
+        ],
+        "set": "Eminence of Winter",
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Legendary_Bittersnow"
     },
     {
         "affixes": [
@@ -83914,6 +84155,48 @@
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Chieftain"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Fortification",
+                "type": "Enhancement",
+                "value": "214"
+            },
+            {
+                "name": "Enhancement Repair Amplification",
+                "type": "Enhancement",
+                "value": "85"
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Resistance",
+                "value": "17"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "21"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot",
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Clearwater",
+        "quests": [
+            "The Knight Who Cried Windmill"
+        ],
+        "set": "Eminence of Spring",
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Legendary_Clearwater"
     },
     {
         "affixes": [
@@ -86540,6 +86823,11 @@
     {
         "affixes": [
             {
+                "name": "Cannith Combat Infusion",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Incite",
                 "type": "Enhancement",
                 "value": "193"
@@ -86548,17 +86836,12 @@
                 "name": "Deadly",
                 "type": "Competence",
                 "value": "17"
-            },
-            {
-                "name": "Cannith Combat Infusion",
-                "type": "bool",
-                "value": 1
             }
         ],
         "crafting": [
             "Nearly Finished",
-            "Green Augment Slot",
-            "Yellow Augment Slot"
+            "Yellow Augment Slot",
+            "Green Augment Slot"
         ],
         "ml": "29",
         "name": "Legendary Fabricator's Bracers",
@@ -89876,7 +90159,7 @@
                 "value": "16"
             },
             {
-                "name": "Ins Constitution",
+                "name": "Constitution",
                 "type": "Insight",
                 "value": "10"
             }
@@ -90004,6 +90287,59 @@
     {
         "affixes": [
             {
+                "name": "Maximum Charge Tier",
+                "value": "5"
+            },
+            {
+                "name": "Rune Arm Imbue: Force",
+                "value": "6"
+            },
+            {
+                "name": "Force Shot",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Spell Lore",
+                "type": "Equipment",
+                "value": "19"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "158"
+            },
+            {
+                "name": "Sovereign Nightmares",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Legendary Nightmare Guard",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Mind Drain",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": "29",
+        "name": "Legendary Lucid Dreams",
+        "quests": [
+            "Legendary Lord of Blades"
+        ],
+        "slot": "Offhand",
+        "type": "Rune Arms",
+        "url": "/page/Item:Legendary_Lucid_Dreams"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
                 "value": "15"
@@ -90059,7 +90395,9 @@
             }
         ],
         "crafting": [
-            "Nearly Finished"
+            "Nearly Finished",
+            "Blue Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": "29",
         "name": "Legendary Magewright's Cloak",
@@ -90801,7 +91139,7 @@
     {
         "affixes": [
             {
-                "name": "Good Hope",
+                "name": "Good Hope clicky",
                 "type": "bool",
                 "value": 1
             },
@@ -92552,7 +92890,7 @@
         "ml": "29",
         "name": "Legendary Rockslide Ring",
         "quests": [
-            "The Icemount Curse"
+            "The Knight Who Cried Windmill"
         ],
         "set": "Eminence of Spring",
         "slot": "Ring",
@@ -97588,6 +97926,42 @@
     {
         "affixes": [
             {
+                "name": "Stunning",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "Minor Action Boost Enhancement",
+                "type": "bool",
+                "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Constitution",
+                "type": "Insight",
+                "value": "1"
+            }
+        ],
+        "crafting": [
+            "Yellow Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Lionheart Ring",
+        "quests": [
+            "The Thornwright"
+        ],
+        "set": "Seasons of the Feywild",
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Lionheart_Ring"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Dodge",
                 "type": "Enhancement",
                 "value": "6"
@@ -99368,29 +99742,29 @@
             {
                 "name": "Impulse",
                 "type": "Equipment",
-                "value": "159"
+                "value": "196"
             },
             {
                 "name": "Armor Class",
                 "type": "Natural Armor",
-                "value": "15"
+                "value": "19"
             },
             {
                 "name": "Repair Amplification",
                 "type": "Insight",
-                "value": "31"
+                "value": "39"
             },
             {
                 "name": "Evocation Focus",
                 "type": "Insight",
-                "value": "3"
+                "value": "4"
             }
         ],
         "crafting": [
             "Yellow Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "27",
         "name": "Machination of Madness",
         "quests": [
             "Legendary Hound of Xoriat"
@@ -102764,9 +103138,8 @@
                 "value": 1
             },
             {
-                "name": "Screaming",
-                "type": "bool",
-                "value": 1
+                "name": "Shrieking",
+                "value": "6"
             },
             {
                 "name": "Anarchic",
@@ -103853,11 +104226,12 @@
         "url": "/page/Item:Mournlode_Chain_(level_8)"
     },
     {
-        "affixes": [],
-        "crafting": [
-            "Upgradeable - Tier",
-            "Upgradeable - Tier",
-            "Upgradeable - Tier"
+        "affixes": [
+            {
+                "name": "See the item description page for details.",
+                "type": "bool",
+                "value": 1
+            }
         ],
         "ml": "12",
         "name": "Mournlode Docent (Level 12)",
@@ -103869,11 +104243,12 @@
         "url": "/page/Item:Mournlode_Docent_(Level_12)"
     },
     {
-        "affixes": [],
-        "crafting": [
-            "Upgradeable - Tier",
-            "Upgradeable - Tier",
-            "Upgradeable - Tier"
+        "affixes": [
+            {
+                "name": "See the item description page for details.",
+                "type": "bool",
+                "value": 1
+            }
         ],
         "ml": "16",
         "name": "Mournlode Docent (Level 16)",
@@ -103917,57 +104292,6 @@
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Mournlode_Docent_(Level_8)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "See the item description page for details.",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "12",
-        "name": "Mournlode Docent (level 12)",
-        "quests": [
-            "Vaults of the Artificers"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Mournlode_Docent_(level_12)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "See the item description page for details.",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "16",
-        "name": "Mournlode Docent (level 16)",
-        "quests": [
-            "Vaults of the Artificers"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Mournlode_Docent_(level_16)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "See the item description page for details.",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "8",
-        "name": "Mournlode Docent (level 8)",
-        "quests": [
-            "Vaults of the Artificers"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Mournlode_Docent_(level_8)"
     },
     {
         "affixes": [
@@ -105658,7 +105982,7 @@
     {
         "affixes": [
             {
-                "name": "Good Hope",
+                "name": "Good Hope clicky",
                 "type": "bool",
                 "value": 1
             },
@@ -108491,7 +108815,7 @@
             {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
-                "value": "45"
+                "value": "28"
             },
             {
                 "name": "Enhancement Bonus",
@@ -108758,7 +109082,7 @@
             "Blue Augment Slot",
             "Green Augment Slot"
         ],
-        "ml": "29",
+        "ml": "28",
         "name": "Nullscale Armor",
         "quests": [
             "Killing Time"
@@ -109940,37 +110264,37 @@
             {
                 "name": "Armor Class",
                 "type": "Armor",
-                "value": "20"
+                "value": "21"
             },
             {
                 "name": "Enhancement Bonus",
                 "type": "Enhancement",
-                "value": "13"
+                "value": "14"
             },
             {
                 "name": "Fortification",
                 "type": "Enhancement",
-                "value": "159"
+                "value": "196"
             },
             {
                 "name": "Doublestrike",
                 "type": "Quality",
-                "value": "4"
+                "value": "5"
             },
             {
                 "name": "Deadly",
                 "type": "Quality",
-                "value": "3"
+                "value": "4"
             },
             {
                 "name": "Sheltering",
                 "type": "Enhancement",
-                "value": "38"
+                "value": "49"
             },
             {
                 "name": "Parrying",
                 "type": "Insight",
-                "value": "7"
+                "value": "9"
             },
             {
                 "name": "Blurry",
@@ -109992,7 +110316,7 @@
             "Green Augment Slot",
             "Yellow Augment Slot"
         ],
-        "ml": "29",
+        "ml": "27",
         "name": "Outfit of the Celestial Guardian",
         "quests": [
             "Legendary Hound of Xoriat"
@@ -111102,6 +111426,23 @@
     {
         "affixes": [
             {
+                "name": "Proof Against Poison",
+                "type": "Enhancement",
+                "value": "6"
+            }
+        ],
+        "ml": "5",
+        "name": "Periapt of Proof Against Poison",
+        "quests": [
+            "Random"
+        ],
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:Periapt_of_Proof_Against_Poison"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Wisdom",
                 "type": "Enhancement",
                 "value": "2"
@@ -112021,7 +112362,7 @@
                 "value": "21"
             },
             {
-                "name": "Fulcrum Shift",
+                "name": "Kick 'Em While They're Down",
                 "type": "bool",
                 "value": 1
             },
@@ -112509,6 +112850,11 @@
                 "value": "5"
             },
             {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "9"
+            },
+            {
                 "name": "Sheltering",
                 "type": "Enhancement",
                 "value": "49"
@@ -112517,11 +112863,6 @@
                 "name": "Blurry",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Parrying",
-                "type": "Insight",
-                "value": "9"
             },
             {
                 "name": "Deathblock",
@@ -112580,14 +112921,14 @@
                 "value": "49"
             },
             {
-                "name": "Blurry",
-                "type": "bool",
-                "value": 1
-            },
-            {
                 "name": "Parrying",
                 "type": "Insight",
                 "value": "9"
+            },
+            {
+                "name": "Blurry",
+                "type": "bool",
+                "value": 1
             },
             {
                 "name": "Deathblock",
@@ -114819,6 +115160,11 @@
     {
         "affixes": [
             {
+                "name": "Quori Mind Shield",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Constitution",
                 "type": "Enhancement",
                 "value": "22"
@@ -114830,11 +115176,6 @@
             },
             {
                 "name": "Eversight",
-                "type": "bool",
-                "value": 1
-            },
-            {
-                "name": "Quori Mind Shield",
                 "type": "bool",
                 "value": 1
             }
@@ -115640,6 +115981,28 @@
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Raven%27s_Talons"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": "10"
+            },
+            {
+                "name": "Physical Sheltering",
+                "type": "Quality",
+                "value": "3"
+            }
+        ],
+        "ml": "15",
+        "name": "Razorclaw's Lenses",
+        "quests": [
+            "Advance to level 15"
+        ],
+        "slot": "Goggles",
+        "type": "Eye items",
+        "url": "/page/Item:Razorclaw%27s_Lenses"
     },
     {
         "affixes": [
@@ -117907,17 +118270,18 @@
             },
             {
                 "name": "Wizardry",
-                "value": "2"
+                "type": "Enhancement",
+                "value": "57"
             },
             {
                 "name": "Reconstruction",
                 "type": "Equipment",
-                "value": "36"
+                "value": "54"
             },
             {
                 "name": "Repair Lore",
                 "type": "Equipment",
-                "value": "2"
+                "value": "8"
             },
             {
                 "name": "Auto-Repair",
@@ -120858,23 +121222,6 @@
     {
         "affixes": [
             {
-                "name": "Mastery over Earth Elementals",
-                "type": "bool",
-                "value": 1
-            }
-        ],
-        "ml": "1",
-        "name": "Romag's Club of Earthen Dominion",
-        "quests": [
-            "Temple of Elemental Evil Part One"
-        ],
-        "slot": "Weapon",
-        "type": "Clubs",
-        "url": "/page/Item:Romag%27s_Club_of_Earthen_Dominion"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Echoes of 2006: Take a trip into the past!",
                 "type": "bool",
                 "value": 1
@@ -122591,14 +122938,14 @@
                 "value": "49"
             },
             {
-                "name": "Blurry",
-                "type": "bool",
-                "value": 1
-            },
-            {
                 "name": "Parrying",
                 "type": "Insight",
                 "value": "9"
+            },
+            {
+                "name": "Blurry",
+                "type": "bool",
+                "value": 1
             },
             {
                 "name": "Deathblock",
@@ -123911,6 +124258,7 @@
             },
             {
                 "name": "Physical Sheltering",
+                "type": "Enhancement",
                 "value": "15"
             },
             {
@@ -123932,6 +124280,7 @@
         "affixes": [
             {
                 "name": "Magical Sheltering",
+                "type": "Enhancement",
                 "value": "15"
             },
             {
@@ -125684,7 +126033,7 @@
                 "value": "6"
             },
             {
-                "name": "Twilight",
+                "name": "Greater Twilight",
                 "type": "bool",
                 "value": 1
             },
@@ -125725,7 +126074,7 @@
                 "value": "7"
             },
             {
-                "name": "Twilight",
+                "name": "Greater Twilight",
                 "type": "bool",
                 "value": 1
             },
@@ -131794,29 +132143,14 @@
     {
         "affixes": [
             {
-                "name": "Riposte",
-                "type": "Insight",
-                "value": "2"
-            },
-            {
-                "name": "Combat Mastery",
-                "type": "Insight",
-                "value": "3"
-            },
-            {
-                "name": "Staggering Blow",
+                "name": "",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Disable Device",
-                "type": "Competence",
-                "value": "14"
-            },
-            {
-                "name": "Open Lock",
-                "type": "Competence",
-                "value": "14"
+                "name": "See the item description page for details.",
+                "type": "bool",
+                "value": 1
             }
         ],
         "ml": "11",
@@ -131831,29 +132165,14 @@
     {
         "affixes": [
             {
-                "name": "Riposte",
-                "type": "Insight",
-                "value": "3"
-            },
-            {
-                "name": "Combat Mastery",
-                "type": "Insight",
-                "value": "3"
-            },
-            {
-                "name": "Staggering Blow",
+                "name": "",
                 "type": "bool",
                 "value": 1
             },
             {
-                "name": "Disable Device",
-                "type": "Competence",
-                "value": "16"
-            },
-            {
-                "name": "Open Lock",
-                "type": "Competence",
-                "value": "16"
+                "name": "See the item description page for details.",
+                "type": "bool",
+                "value": 1
             }
         ],
         "ml": "15",
@@ -131900,24 +132219,14 @@
     {
         "affixes": [
             {
-                "name": "Riposte",
-                "type": "Insight",
-                "value": "2"
+                "name": "",
+                "type": "bool",
+                "value": 1
             },
             {
-                "name": "Combat Mastery",
-                "type": "Insight",
-                "value": "2"
-            },
-            {
-                "name": "Disable Device",
-                "type": "Competence",
-                "value": "10"
-            },
-            {
-                "name": "Open Lock",
-                "type": "Competence",
-                "value": "10"
+                "name": "See the item description page for details.",
+                "type": "bool",
+                "value": 1
             }
         ],
         "ml": "7",
@@ -133103,7 +133412,7 @@
                 "value": "4"
             },
             {
-                "name": "Vorpal",
+                "name": "Improved Vorpal",
                 "type": "bool",
                 "value": 1
             },
@@ -134570,6 +134879,11 @@
                 "value": "8"
             },
             {
+                "name": "Rune Arm Charge Rate",
+                "type": "Enhancement",
+                "value": "25"
+            },
+            {
                 "name": "Lightning Lore",
                 "type": "Equipment",
                 "value": "7"
@@ -134691,7 +135005,7 @@
             {
                 "name": "Spellcasting Implement",
                 "type": "Implement",
-                "value": "29"
+                "value": "28"
             },
             {
                 "name": "Enhancement Bonus",
@@ -134733,7 +135047,7 @@
             "Red Augment Slot",
             "Orange Augment Slot"
         ],
-        "ml": "29",
+        "ml": "28",
         "name": "Staff of Irian",
         "quests": [
             "Killing Time"
@@ -136539,7 +136853,7 @@
                 "value": "5"
             },
             {
-                "name": "Shocking 12d6",
+                "name": "Shocking",
                 "type": "bool",
                 "value": 1
             },
@@ -136549,7 +136863,7 @@
                 "value": 1
             },
             {
-                "name": "Shocking Blast 12d120",
+                "name": "Shocking Blast",
                 "type": "bool",
                 "value": 1
             },
@@ -139391,6 +139705,43 @@
             "Red Augment Slot"
         ],
         "ml": "15",
+        "name": "Syranian Greatsword",
+        "quests": [
+            "Syranian Forged Weaponry"
+        ],
+        "slot": "Weapon",
+        "type": "Great Swords",
+        "url": "/page/Item:Syranian_Greatsword"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Electrifying",
+                "value": "4"
+            },
+            {
+                "name": "Holy",
+                "value": "4"
+            },
+            {
+                "name": "Construct Bane",
+                "value": "4"
+            },
+            {
+                "name": "Adamantine",
+                "type": "bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "15",
         "name": "Syranian Handwraps",
         "quests": [
             "Syranian Forged Weaponry"
@@ -140684,6 +141035,11 @@
                 "value": "5"
             },
             {
+                "name": "True Seeing",
+                "type": "bool",
+                "value": 1
+            },
+            {
                 "name": "Search",
                 "type": "Competence",
                 "value": "15"
@@ -140692,11 +141048,6 @@
                 "name": "Spot",
                 "type": "Competence",
                 "value": "15"
-            },
-            {
-                "name": "True Seeing",
-                "type": "bool",
-                "value": 1
             }
         ],
         "ml": "13",
@@ -142144,8 +142495,8 @@
             },
             {
                 "name": "Hound's Bones",
-                "type": "bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "31"
             }
         ],
         "crafting": [
@@ -142373,8 +142724,8 @@
             },
             {
                 "name": "Devil's Bones",
-                "type": "bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "31"
             }
         ],
         "crafting": [
@@ -143117,11 +143468,56 @@
         "ml": "29",
         "name": "The Legendary Prince's Sceptre",
         "quests": [
-            "Make Believe"
+            "Fables of the Feywild"
         ],
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:The_Legendary_Prince%27s_Sceptre"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Spellcasting Implement",
+                "type": "Implement",
+                "value": "29"
+            },
+            {
+                "name": "Enhancement Bonus",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "154"
+            },
+            {
+                "name": "Potency",
+                "type": "Insight",
+                "value": "77"
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Competence",
+                "value": "22"
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Insight",
+                "value": "11"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": "29",
+        "name": "The Legendary Queen's Sceptre",
+        "quests": [
+            "The Feywild"
+        ],
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:The_Legendary_Queen%27s_Sceptre"
     },
     {
         "affixes": [
@@ -144443,7 +144839,7 @@
     {
         "affixes": [
             {
-                "name": "Use this item to activate the air elemental bound within, thus propelling you forward at great speeds. It takes five minutes to recharge between uses.",
+                "name": "Jet Propulsion",
                 "type": "bool",
                 "value": 1
             },
@@ -144453,11 +144849,13 @@
                 "value": "30"
             },
             {
-                "name": "Template:Insightful Mighty Skills Bonus",
+                "name": "Mighty Skills Bonus",
+                "type": "Insight",
                 "value": "11"
             },
             {
-                "name": "Template:Quality Mighty Skills Bonus",
+                "name": "Mighty Skills Bonus",
+                "type": "Quality",
                 "value": "5"
             },
             {
@@ -147337,8 +147735,8 @@
             "Legendary Master Artificer"
         ],
         "set": "Conduit of the Titans",
-        "slot": "Trinket",
-        "type": "Trinket items",
+        "slot": "Bracers",
+        "type": "Wrist items",
         "url": "/page/Item:Titan_Control_Matrix"
     },
     {
@@ -148883,8 +149281,7 @@
     {
         "affixes": [
             {
-                "name": "Craftable",
-                "value": "5"
+                "name": "\n"
             }
         ],
         "ml": 1,
@@ -152263,14 +152660,14 @@
                 "value": "5"
             },
             {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "20"
+            },
+            {
                 "name": "Densewood",
                 "type": "bool",
                 "value": 1
-            },
-            {
-                "name": "Lightning Resistance",
-                "type": "Enhancement",
-                "value": "20"
             }
         ],
         "crafting": [
@@ -153744,6 +154141,37 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:Winter_Boots"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Negative Amplification",
+                "type": "Profane",
+                "value": "14"
+            },
+            {
+                "name": "Spell Focus Mastery",
+                "type": "Profane",
+                "value": "1"
+            },
+            {
+                "name": "False Life",
+                "type": "Profane",
+                "value": "12"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": "5",
+        "name": "Winter Court Necklace",
+        "quests": [
+            "A Frosty Reception"
+        ],
+        "set": "Seasons of the Feywild",
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:Winter_Court_Necklace"
     },
     {
         "affixes": [

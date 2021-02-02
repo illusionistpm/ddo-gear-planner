@@ -1754,7 +1754,18 @@
     "Nimble Hand": [],
     "One with the Swarm": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "that lasts 6 seconds",
+                    "type": "",
+                    "value": "4"
+                },
+                {
+                    "name": "ticks every 2 seconds while being able to stack up to 20 times.)",
+                    "type": "",
+                    "value": "4"
+                }
+            ],
             "threshold": 2
         }
     ],

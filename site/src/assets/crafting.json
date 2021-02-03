@@ -619,7 +619,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 2
                     }
                 ],
@@ -629,7 +629,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 5
                     }
                 ],
@@ -639,7 +639,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 8
                     }
                 ],
@@ -649,7 +649,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 10
                     }
                 ],
@@ -659,7 +659,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 12
                     }
                 ],
@@ -669,7 +669,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 15
                     }
                 ],
@@ -679,7 +679,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 17
                     }
                 ],
@@ -689,7 +689,7 @@
                 "affixes": [
                     {
                         "name": "Accuracy",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": 20
                     }
                 ],
@@ -2517,8 +2517,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 22,
-                "name": "Diamond of Festive Intelligence +2"
+                "ml": 22
             },
             {
                 "affixes": [
@@ -2528,8 +2527,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 22,
-                "name": "Diamond of Festive Charisma +2"
+                "ml": 22
             },
             {
                 "affixes": [
@@ -2539,8 +2537,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 22,
-                "name": "Diamond of Festive Wisdom +2"
+                "ml": 22
             },
             {
                 "affixes": [
@@ -2550,8 +2547,7 @@
                         "value": 2
                     }
                 ],
-                "ml": 22,
-                "name": "Diamond of Festive Dexterity +2"
+                "ml": 22
             },
             {
                 "affixes": [
@@ -7953,7 +7949,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 5
                     }
                 ],
@@ -7963,7 +7959,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 10
                     }
                 ],
@@ -7973,7 +7969,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 15
                     }
                 ],
@@ -7983,7 +7979,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 20
                     }
                 ],
@@ -7993,7 +7989,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 25
                     }
                 ],
@@ -8003,7 +7999,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 30
                     }
                 ],
@@ -8013,7 +8009,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 35
                     }
                 ],
@@ -8023,7 +8019,7 @@
                 "affixes": [
                     {
                         "name": "Sonic Resistance",
-                        "type": null,
+                        "type": "Enhancement",
                         "value": 40
                     }
                 ],
@@ -8033,7 +8029,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 1
                     }
                 ],
@@ -8043,7 +8039,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 3
                     }
                 ],
@@ -8053,7 +8049,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 4
                     }
                 ],
@@ -8063,7 +8059,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 5
                     }
                 ],
@@ -8073,7 +8069,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 6
                     }
                 ],
@@ -8083,7 +8079,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 8
                     }
                 ],
@@ -8093,7 +8089,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 9
                     }
                 ],
@@ -8103,7 +8099,7 @@
                 "affixes": [
                     {
                         "name": "Deadly",
-                        "type": null,
+                        "type": "Competence",
                         "value": 10
                     }
                 ],
@@ -8113,7 +8109,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": null,
+                        "type": "Equipment",
                         "value": 1
                     }
                 ],
@@ -8123,7 +8119,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": null,
+                        "type": "Equipment",
                         "value": 2
                     }
                 ],
@@ -8133,7 +8129,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": null,
+                        "type": "Equipment",
                         "value": 3
                     }
                 ],
@@ -8143,7 +8139,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": null,
+                        "type": "Equipment",
                         "value": 4
                     }
                 ],
@@ -8153,7 +8149,7 @@
                 "affixes": [
                     {
                         "name": "Spell Penetration",
-                        "type": null,
+                        "type": "Equipment",
                         "value": 5
                     }
                 ],

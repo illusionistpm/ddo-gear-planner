@@ -391,6 +391,11 @@
                     "value": "2"
                 },
                 {
+                    "name": "Saves vs. Evil Creatures",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
                     "name": "Melee Power",
                     "type": "Artifact",
                     "value": "5"
@@ -416,6 +421,11 @@
                     "name": "hit and damage vs. Evil creatures",
                     "type": "Artifact",
                     "value": "5"
+                },
+                {
+                    "name": "Saves vs. Evil Creatures",
+                    "type": "Artifact",
+                    "value": "2"
                 },
                 {
                     "name": "Melee Power",
@@ -1885,7 +1895,7 @@
             "affixes": [
                 {
                     "name": "Sneak Attack Die",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "3"
                 },
                 {
@@ -2568,7 +2578,7 @@
             "affixes": [
                 {
                     "name": "Sneak Attack Die",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {

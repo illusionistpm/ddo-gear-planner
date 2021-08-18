@@ -469,7 +469,17 @@
                 {
                     "name": "Negative Amplification",
                     "type": "Artifact",
-                    "value": "15"
+                    "value": "30"
+                },
+                {
+                    "name": "Void Lore",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Nullification",
+                    "type": "Artifact",
+                    "value": "30"
                 },
                 {
                     "name": "times, and each stack lasts 30 seconds",
@@ -846,12 +856,14 @@
             "threshold": 2
         }
     ],
+    "Epic Draconic Prophecy [ML:20]": [],
     "Epic Griffon Set": [
         {
             "affixes": [],
             "threshold": 2
         }
     ],
+    "Epic Might of the Abishai [ML:20]": [],
     "Epic Slice 'n Dice": [
         {
             "affixes": [],
@@ -1337,47 +1349,47 @@
                 {
                     "name": "Electric Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Force Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Repair Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Electric Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Fire Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Force Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Repair Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -1446,32 +1458,32 @@
                 {
                     "name": "Universal Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "25"
                 },
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Charisma",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Magical Resistance Rating Cap",
                     "type": "",
-                    "value": "20"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -1510,52 +1522,52 @@
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Force Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Light Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Positive Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Fire Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Force Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Light Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Positive Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Charisma",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -1572,12 +1584,12 @@
                 {
                     "name": "Armor Class",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "15"
+                    "value": "30"
                 },
                 {
                     "name": "Magical Sheltering",
@@ -1619,47 +1631,47 @@
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Cold Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Lightning Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Positive Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Fire Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Cold Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Lightning Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Positive Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -1681,7 +1693,7 @@
                 {
                     "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "15"
                 },
                 {
                     "name": "damage vs the Helpless",
@@ -1691,7 +1703,7 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -1901,17 +1913,17 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Doubleshot",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "15"
                 },
                 {
                     "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -2039,7 +2051,7 @@
                 {
                     "name": "Acid Spell Lore",
                     "type": "Exceptional",
-                    "value": "15"
+                    "value": "6"
                 }
             ],
             "threshold": 2
@@ -2172,12 +2184,12 @@
                 {
                     "name": "Rune Arm DCs",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Repair Amplification",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -2531,6 +2543,7 @@
             "threshold": 5
         }
     ],
+    "The Epic Desert's Writhing Storm [ML:20]": [],
     "Tinker's Finesse": [],
     "Troubleshooter": [],
     "Tyrannical Tinkerer": [

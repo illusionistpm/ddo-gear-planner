@@ -160,6 +160,12 @@ def get_sets_from_page(soup):
                     threshold['affixes'] = affixes
 
                     sets[setName].append(threshold)
+
+                #FIXME!! Need to finish implementing this
+                # if not bonusSearch:
+                #     bonusSearch = re.search(r'([1-9]) Item version:', p.getText())
+                #     if bonusSearch:
+                #         bFoundSetParagraph = True
                 
 
             # Look for older, more standard sets, where bonuses are all-or-nothing

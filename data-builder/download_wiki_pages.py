@@ -44,6 +44,8 @@ def download_item_pages():
             print("Sleeping for " + str(pause) + " seconds")
             time.sleep(pause)
 
+    download_page('Minor_Artifact', 'cache/')
+
 
 def download_set_page():
     cacheDir = 'cache/sets/'

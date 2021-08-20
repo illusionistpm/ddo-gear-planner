@@ -11,6 +11,7 @@ export class Item {
     private sets: Array<string>;
     crafting: Array<Craftable>;
     quests: Array<string>;
+    artifact: boolean;
 
     rawCrafting: Array<string> = Array<string>();
 
@@ -28,6 +29,7 @@ export class Item {
             this.rawCrafting = json.crafting;
             this.crafting = json.crafting;
             this.quests = json.quests;
+            this.artifact = json.artifact;
         }
     }
 

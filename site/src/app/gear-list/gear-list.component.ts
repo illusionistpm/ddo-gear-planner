@@ -6,6 +6,7 @@ import { EquippedService } from '../equipped.service';
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
 import { Clipboard } from '../clipboard';
+import { Item } from '../item';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
@@ -81,6 +82,14 @@ export class GearListComponent implements OnInit {
   getClassForAffix(affix: Affix) {
     const affixRank = this.equipped.getAffixRanking(affix);
     return AffixRank[affixRank];
+  }
+
+  getClassForSlot(slot: string) {
+    const itemName = this.getItemName(slot);
+    const item = this.gearList.findGearBySlot(slot, itemName);
+    if (item && item.artifact) {
+      return 'MinorArtifact';
+    }
   }
 
   copyGearToClipboard() {

@@ -32,6 +32,9 @@
     visibility: hidden;
 }
 
+.MinorArtifact {
+    color: gold;
+}
 
 .BetterThanBest {
     font-weight: bold;

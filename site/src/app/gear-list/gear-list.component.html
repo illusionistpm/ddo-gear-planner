@@ -8,7 +8,7 @@
     <div class="form-group card col-sm-12 col-md-6 col-lg-4" *ngFor="let slot of gearList.getSlots()">
 
         <div class="row">
-            <button type="button" class="btn btn-secondary flat-right col-11 text-center"
+            <button type="button" class="btn btn-secondary flat-right col-11 text-center" [ngClass]="getClassForSlot(slot)"
                 (click)="showSuggestedItems(slot)">
                 <div class='row'>
                     <div class='col-4 text-left'>{{slot}}</div>

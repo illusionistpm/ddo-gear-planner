@@ -62,7 +62,7 @@
                     {
                         "name": "Strength",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -71,7 +71,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -80,7 +80,7 @@
                     {
                         "name": "Constitution",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -89,7 +89,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -98,7 +98,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -107,7 +107,7 @@
                     {
                         "name": "Charisma",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -4337,7 +4337,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4346,7 +4346,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4355,7 +4355,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4366,7 +4366,7 @@
                     {
                         "name": "Strength",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4375,7 +4375,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4384,7 +4384,7 @@
                     {
                         "name": "Charisma",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4395,7 +4395,7 @@
                     {
                         "name": "Constitution",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4404,7 +4404,7 @@
                     {
                         "name": "Strength",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4413,7 +4413,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4424,7 +4424,7 @@
                     {
                         "name": "Strength",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4433,7 +4433,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4442,7 +4442,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4453,7 +4453,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4462,7 +4462,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4471,7 +4471,7 @@
                     {
                         "name": "Constitution",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4482,7 +4482,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4491,7 +4491,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4500,7 +4500,7 @@
                     {
                         "name": "Charisma",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4511,7 +4511,7 @@
                     {
                         "name": "Strength",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4520,7 +4520,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4529,7 +4529,7 @@
                     {
                         "name": "Constitution",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4540,7 +4540,7 @@
                     {
                         "name": "Strength",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4549,7 +4549,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4558,7 +4558,7 @@
                     {
                         "name": "Constitution",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4567,7 +4567,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4576,7 +4576,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -4585,7 +4585,7 @@
                     {
                         "name": "Charisma",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }
@@ -4596,7 +4596,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4605,7 +4605,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4614,7 +4614,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4625,7 +4625,7 @@
                     {
                         "name": "Charisma",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4634,7 +4634,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4643,7 +4643,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -4654,7 +4654,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4663,7 +4663,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4672,7 +4672,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4683,7 +4683,7 @@
                     {
                         "name": "Charisma",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4692,7 +4692,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4701,7 +4701,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -4712,7 +4712,7 @@
                     {
                         "name": "Strength",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4721,7 +4721,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4730,7 +4730,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4741,7 +4741,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4750,7 +4750,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4759,7 +4759,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -4799,7 +4799,7 @@
                     {
                         "name": "Strength",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4808,7 +4808,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4817,7 +4817,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -4828,7 +4828,7 @@
                     {
                         "name": "Strength",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4837,7 +4837,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -4846,7 +4846,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -4973,7 +4973,7 @@
                     {
                         "name": "Strength",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4982,7 +4982,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             },
@@ -4991,7 +4991,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 5
+                        "value": 3
                     }
                 ]
             }
@@ -5002,7 +5002,7 @@
                     {
                         "name": "Charisma",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -5011,7 +5011,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             },
@@ -5020,7 +5020,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
-                        "value": 10
+                        "value": 6
                     }
                 ]
             }
@@ -5060,7 +5060,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -5069,7 +5069,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             },
@@ -5078,7 +5078,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Enhancement",
-                        "value": 21
+                        "value": 13
                     }
                 ]
             }

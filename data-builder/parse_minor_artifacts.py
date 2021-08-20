@@ -32,7 +32,7 @@ def get_artifacts_from_page(soup):
     return artifacts
 
 # Modify the existing items list to add the artifact tag
-def parse_item_pages():
+def parse_minor_artifacts():
     with open("../site/src/assets/items.json", 'r', encoding='utf8') as file:
         items = json.load(file)
         
@@ -50,4 +50,4 @@ def parse_item_pages():
 
 
 if __name__ == "__main__":
-    parse_item_pages()
+    parse_minor_artifacts()

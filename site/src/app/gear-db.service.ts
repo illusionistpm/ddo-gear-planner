@@ -297,7 +297,7 @@ export class GearDbService {
 
     for (const items of this.gear.values()) {
       for (const item of items) {
-        if (item.getSet() === setName) {
+        if (item.getSets() && item.getSets().includes(setName)) {
           results.push(item);
         }
       }

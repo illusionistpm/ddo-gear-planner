@@ -41,10 +41,8 @@
         </div>
     </div>
     <!-- Sets -->
-    <div class="row table-striped table-condensed small">
+    <div class="row table-striped table-condensed small"  *ngFor="let set of curItem.getSets()">
         <span class="show-never fas fa-heart heart"></span>
-        <div class="col" *ngIf="curItem.getSet()">
-            Set: <a href='javascript:;' (click)="showItemsInSet(curItem.getSet())">{{curItem.getSet()}}</a> ({{equipped.getActiveSets().get(curItem.getSet())}})
-        </div>
+        Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set)">{{set}}</a> ({{equipped.getActiveSets().get(set)}})
     </div>
 </div>

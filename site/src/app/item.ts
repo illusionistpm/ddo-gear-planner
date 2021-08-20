@@ -8,7 +8,7 @@ export class Item {
     ml: number;
     affixes: Array<Affix> = Array<Affix>();
     url: string;
-    private set: string;
+    private sets: Array<string>;
     crafting: Array<Craftable>;
     quests: Array<string>;
 
@@ -23,7 +23,7 @@ export class Item {
             for (const affixJSON of json.affixes) {
                 this.affixes.push(new Affix(affixJSON));
             }
-            this.set = json.set;
+            this.sets = json.sets;
             this.url = json.url;
             this.rawCrafting = json.crafting;
             this.crafting = json.crafting;
@@ -31,15 +31,15 @@ export class Item {
         }
     }
 
-    getSet() {
+    getSets() {
         if (this.crafting) {
             for (const craftable of this.crafting) {
                 if (craftable.selected.set) {
-                    return craftable.selected.set;
+                    return [craftable.selected.set];
                 }
             }
         }
-        return this.set;
+        return this.sets;
     }
 
     isValid() {

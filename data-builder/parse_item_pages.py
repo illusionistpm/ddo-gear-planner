@@ -293,7 +293,9 @@ def get_items_from_page(itemPageURL, sets):
 
 
                 if aff['name'] in sets:
-                    item['set'] = aff['name']
+                    if 'sets' not in item:
+                        item['sets'] = []
+                    item['sets'].append(aff['name'])
                     continue
 
                 enhancementBonusSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)

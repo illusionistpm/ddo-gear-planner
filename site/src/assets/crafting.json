@@ -3797,13 +3797,19 @@
     "Legendary Slaver's Set Bonus": {
         "*": [
             {
-                "set": "Legendary Slave Lord's Might"
+                "sets": [
+                    "Legendary Slave Lord's Might"
+                ]
             },
             {
-                "set": "Legendary Slave Lord's Sorcery"
+                "sets": [
+                    "Legendary Slave Lord's Sorcery"
+                ]
             },
             {
-                "set": "Legendary Slave Lord's Endurance"
+                "sets": [
+                    "Legendary Slave Lord's Endurance"
+                ]
             }
         ]
     },
@@ -6917,13 +6923,19 @@
     "Slaver's Set Bonus": {
         "*": [
             {
-                "set": "Slave Lord's Might"
+                "sets": [
+                    "Slave Lord's Might"
+                ]
             },
             {
-                "set": "Slave Lord's Sorcery"
+                "sets": [
+                    "Slave Lord's Sorcery"
+                ]
             },
             {
-                "set": "Slave Lord's Endurance"
+                "sets": [
+                    "Slave Lord's Endurance"
+                ]
             }
         ]
     },

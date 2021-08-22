@@ -1,8 +1,8 @@
 name: Data Auto Updater
-on: [push]
-  #schedule:
-  #  # Run at 5:18 UTC daily 
-  #  - cron:  '18 5 * * *'
+on: #[push]
+  schedule:
+    # Run at 5:18 UTC daily 
+    - cron:  '18 5 * * *'
 
 jobs:
   build-data:

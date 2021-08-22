@@ -1,8 +1,8 @@
-import tempfile
 from pathlib import Path
+import os
 
 def get_output_path():
-    path = f"{tempfile.gettempdir()}/ddo-gear-planner-data-build"
+    path = f"{os.path.dirname(__file__)}/../site/src/assets"
 
     Path(path).mkdir(parents=True, exist_ok=True)
 

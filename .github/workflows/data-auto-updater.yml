@@ -1,0 +1,20 @@
+name: Data Auto Updater
+on: [push]
+jobs:
+  build-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Run script 
+        run: |
+          python data-builder/build.py
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Commit latest data
+          commit_user_name: Data Auto Updater

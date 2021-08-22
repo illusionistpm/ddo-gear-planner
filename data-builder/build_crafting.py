@@ -4,7 +4,7 @@ from parse_augments import parse_augments
 from write_json import write_json
 
 def build_crafting():
-    nearlyFinished = json.load(open('nearly-finished.json', "r", encoding='utf-8'))
+    nearlyFinished = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
 
     slavers = parse_slavers_crafting()
 

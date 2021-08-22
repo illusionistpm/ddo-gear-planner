@@ -2,10 +2,10 @@ import json
 from parse_slavers import parse_slavers_crafting
 from parse_augments import parse_augments
 from write_json import write_json
-from read_json import read_json
+import os
 
 def build_crafting():
-    nearlyFinished = read_json('nearly-finished')
+    nearlyFinished = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
 
     slavers = parse_slavers_crafting()
 

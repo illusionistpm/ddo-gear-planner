@@ -11,7 +11,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
-          token: ${{ AUTO_UPDATER_REPO_ACCESS_TOKEN }}
+          token: ${{ secrets.AUTO_UPDATER_REPO_ACCESS_TOKEN }}
       - name: Setup Python
         uses: actions/setup-python@v2
         with:

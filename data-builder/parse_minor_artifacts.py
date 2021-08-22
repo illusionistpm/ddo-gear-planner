@@ -33,8 +33,7 @@ def get_artifacts_from_page(soup):
 
 # Modify the existing items list to add the artifact tag
 def parse_minor_artifacts():
-    with open("../site/src/assets/items.json", 'r', encoding='utf8') as file:
-        items = json.load(file)
+    items = read_json('items')
         
     page = open('./cache/Minor_Artifact.html', "r", encoding='utf-8').read()
 

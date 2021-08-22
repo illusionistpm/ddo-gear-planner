@@ -409,8 +409,7 @@ def get_items_from_page(itemPageURL, sets):
 
 
 def parse_item_pages():
-    with open("../site/src/assets/sets.json", 'r', encoding='utf8') as file:
-        sets = json.load(file)
+    sets = read_json('sets')
         
     cachePath = "./cache/items/"
     items = []

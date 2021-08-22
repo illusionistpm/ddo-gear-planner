@@ -32,35 +32,62 @@ def diff_data_stats(newStats, oldStats):
 def get_data_stats():
     stats = {}
 
-    affixGroups = read_json('affix-groups')
+    try:
+        affixGroups = read_json('affix-groups')
+    except FileNotFoundError:
+        affixGroups = []
     stats['groups'] = {'items': len(affixGroups)}
 
-    affixSynonyms = read_json('affix-synonyms')
+    try:
+        affixSynonyms = read_json('affix-synonyms')
+    except FileNotFoundError:
+        affixSynonyms = []
     stats['synonyms'] = {'items': len(affixSynonyms)}
 
-    cannith = read_json('cannith')
+    try:
+        cannith = read_json('cannith')
+    except FileNotFoundError:
+        cannith = {
+            'bonusTypes': [],
+            'itemTypes': [],
+            'progression': []
+        }
     stats['cannith'] = {
         'bonus types': len(cannith['bonusTypes']),
         'item types': len(cannith['itemTypes']),
         'progressions': len(cannith['progression']),
     }
 
-    crafting = read_json('crafting')
+    try:
+        crafting = read_json('crafting')
+    except FileNotFoundError:
+        crafting = {}
     stats['crafting'] = {
         'systems': len(crafting),
         'items': reduce(lambda x, v: x + len(v), crafting.values(), 0)
     }
 
-    quests = read_json('quests')
+    try:
+        quests = read_json('quests')
+    except FileNotFoundError:
+        quests = {
+            'raids': []
+        }
     stats['quests'] = {'raids': len(quests['raids'])}
 
-    sets = read_json('sets')
+    try:
+        sets = read_json('sets')
+    except FileNotFoundError:
+        sets = {}
     stats['sets'] = {
         'count': len(sets),
         'affixes': reduce(lambda x, v: x + reduce(lambda x2, v2: x2 + len(v2['affixes']), v, 0), sets.values(), 0)
     }
     
-    items = read_json('items')
+    try:
+        items = read_json('items')
+    except FileNotFoundError:
+        items = []
     stats['items'] = {
         'items': len(items),
         'affixes': reduce(lambda x, v: x + len(v['affixes']), items, 0)

@@ -8,6 +8,7 @@ from build_crafting import build_crafting
 from build_synonyms import build_synonyms
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description
 import argparse
+from get_output_path import get_output_path
 
 def build_data(clearCache):
     oldStats = get_data_stats()
@@ -18,6 +19,7 @@ def build_data(clearCache):
     download_wiki_pages()
 
     print('#### Download complete. Beginning data build')
+    print(f"### Writing to '{get_output_path()}")
     build_synonyms()
 
     parse_set_page()

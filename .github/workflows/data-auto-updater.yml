@@ -1,11 +1,17 @@
 name: Data Auto Updater
 on: [push]
+  #schedule:
+  #  # Run at 5:18 UTC daily 
+  #  - cron:  '18 5 * * *'
+
 jobs:
   build-data:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          token: ${{ AUTO_UPDATER_REPO_ACCESS_TOKEN }}
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -22,3 +28,5 @@ jobs:
         with:
           commit_message: Commit latest data
           commit_user_name: Data Auto Updater
+          file_pattern: site/src/assets/*.json
+          

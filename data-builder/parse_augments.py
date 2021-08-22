@@ -2,7 +2,7 @@ import openpyxl
 import json
 
 def parse_augments():
-    wb = openpyxl.load_workbook('augments.xlsx') 
+    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/augments.xlsx") 
 
     systems = {}
     

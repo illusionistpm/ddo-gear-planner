@@ -9,8 +9,9 @@ from build_synonyms import build_synonyms
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description
 import argparse
 from get_output_path import get_output_path
+import requests
 
-def build_data(clearCache):
+def build_data(clearCache, discordURL):
     oldStats = get_data_stats()
 
     if clearCache:
@@ -36,13 +37,20 @@ def build_data(clearCache):
 
     diffStr = get_data_stats_description(newStats, diffStats)
 
-    print("\nData Changes:\n")
-    print(diffStr)
+    message = "Data Changes:\n"
+    message += diffStr
+    discordURL
+
+    requests.post(discordURL, data = 
+    {
+        'content': message
+    })
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--clear-cache', default=False, action=argparse.BooleanOptionalAction)
+    parser.add_argument('--discord')
     args = parser.parse_args()
 
-    build_data(args.clear_cache)
+    build_data(args.clear_cache, args.discord)

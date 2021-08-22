@@ -2,7 +2,7 @@ import openpyxl
 import json
 
 def parse_slavers_sets():
-    wb = openpyxl.load_workbook('slavers.xlsx') 
+    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 
     
     for s in range(len(wb.sheetnames)):
         if wb.sheetnames[s] == 'Set':
@@ -46,7 +46,7 @@ def parse_slavers_sets():
 
 
 def parse_slavers_crafting():
-    wb = openpyxl.load_workbook('slavers.xlsx') 
+    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 
 
     systems = {}
     

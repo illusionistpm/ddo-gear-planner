@@ -16,7 +16,7 @@ jobs:
           pip install -r data-builder/requirements.txt
       - name: Run script 
         run: |
-          python data-builder/build.py
+          python data-builder/build.py --discord ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:

@@ -2,11 +2,12 @@ import openpyxl
 import json
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
+import os
 
 def parse_cannith():
     assumedBonusTypeMap = get_most_common_bonus_type()
 
-    wb = openpyxl.load_workbook('cannith-crafting.xlsx') 
+    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/cannith-crafting.xlsx") 
     
     for s in range(len(wb.sheetnames)):
         if wb.sheetnames[s] == 'Sheet1':

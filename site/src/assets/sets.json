@@ -863,10 +863,140 @@
             "threshold": 2
         }
     ],
+    "Epic Menechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Might of the Abishai [ML:20]": [],
+    "Epic Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Slice 'n Dice": [
         {
             "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Epic The Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic The Desert's Burning Sun": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Fire Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic The Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Poison Spellcrit",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Poison Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Damage vs. the Helpless",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -876,6 +1006,8 @@
             "threshold": 5
         }
     ],
+    "Epic Vulkoor's Chosen": [],
+    "Epic Windlasher's Ferocity": [],
     "Esoteric Initiate": [
         {
             "affixes": [
@@ -1682,6 +1814,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Menechtarun Scavenger": [],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -1902,6 +2035,8 @@
             "threshold": 5
         }
     ],
+    "Legendary The Desert's Biting Sands": [],
+    "Legendary Vulkoor's Chosen": [],
     "Legendary Wallwatch": [
         {
             "affixes": [
@@ -1929,6 +2064,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Windlasher's Ferocity": [],
     "Levik's Defender": [],
     "Lorikk's Champion": [],
     "Magewright's Expertise": [],
@@ -2002,6 +2138,38 @@
             "threshold": 2
         }
     ],
+    "Menechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Might of the Abishai [ML:5]": [],
     "Mind and Matter": [
         {
@@ -2058,6 +2226,28 @@
         }
     ],
     "Nimble Hand": [],
+    "Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "One with the Swarm": [
         {
             "affixes": [
@@ -2537,13 +2727,116 @@
     ],
     "Spell Singer": [],
     "Tharne's Wrath": [],
+    "The Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Desert's Burning Sun": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Fire Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Poison Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Negative Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Desert's Writhing Storm": [
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Electric Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Devil's Handiwork": [
         {
             "affixes": [],
             "threshold": 5
         }
     ],
+    "The Epic Desert's Writhing Storm": [],
     "The Epic Desert's Writhing Storm [ML:20]": [],
+    "The Legendary Desert's Burning Sun": [],
+    "The Legendary Desert's Starless Nights": [],
+    "The Legendary Desert's Writhing Storm": [],
+    "The Legendary Oasis of Morality": [],
     "Tinker's Finesse": [],
     "Troubleshooter": [],
     "Tyrannical Tinkerer": [
@@ -2584,6 +2877,38 @@
         }
     ],
     "Unbreakable Adamancy": [],
+    "Vulkoor's Chosen": [
+        {
+            "affixes": [
+                {
+                    "name": "Poison Resistance",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Sneak Attack Die",
+                    "type": "",
+                    "value": "1"
+                },
+                {
+                    "name": "Saving Throws",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Vulkoor's Cunning": [],
     "Vulkoor's Might": [],
     "Wallwatch": [
@@ -2642,6 +2967,33 @@
                     "name": "Constitution",
                     "type": "Artifact",
                     "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Windlasher's Ferocity": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
                 }
             ],
             "threshold": 2

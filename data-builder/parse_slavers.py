@@ -1,5 +1,6 @@
 import openpyxl 
 import json
+import os
 
 def parse_slavers_sets():
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 

@@ -90,32 +90,32 @@
                 {
                     "name": "Cold",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Sonic",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Electric Spell Critical Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Cold Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Sonic Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Electric Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -189,32 +189,32 @@
                 {
                     "name": "Fire",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Poison",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Acid Spell Critical Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Poison Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Acid Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -298,42 +298,42 @@
                 {
                     "name": "Fire",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Cold",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Acid",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Electric Spell Critical Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Cold Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Acid Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Electric Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -345,37 +345,37 @@
                 {
                     "name": "Rune Arm DCs",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Electric",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Repair",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Force Spell Critical Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Electric Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Repair Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Force Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -1051,19 +1051,14 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
                     "name": "Magical Sheltering",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "MRR Cap",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 },
                 {
                     "name": "Balance",
@@ -1395,12 +1390,12 @@
                 {
                     "name": "Armor Class",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Melee Threat Generation",
@@ -1417,22 +1412,22 @@
                 {
                     "name": "Positive Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Light/Alignment Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Positive Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Light/Alignment Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 }
             ],
             "threshold": 2
@@ -1444,17 +1439,12 @@
                 {
                     "name": "Doublestrike",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Doubleshot",
                     "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "bonus damage to the Helpless",
-                    "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Sneak Attack Dice",
@@ -2072,29 +2062,24 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
                     "name": "Doublestrike",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Doubleshot",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 },
                 {
                     "name": "Physical Resistance Rating",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "30"
                 },
                 {
                     "name": "Magical Resistance Rating",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -2112,17 +2097,17 @@
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Charisma",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Perform",
@@ -2177,32 +2162,17 @@
                 {
                     "name": "Physical Resistance Rating",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 },
                 {
                     "name": "Magical Resistance Rating",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 },
                 {
                     "name": "MRR Cap",
                     "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Positive Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -2843,11 +2813,6 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
                     "name": "Melee Power",
                     "type": "Artifact",
                     "value": "15"
@@ -2860,7 +2825,7 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Open Lock",

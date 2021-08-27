@@ -46,38 +46,38 @@
             "affixes": [
                 {
                     "name": "Physical Sheltering",
-                    "type": "Profane",
-                    "value": "20"
+                    "type": "Artifact",
+                    "value": "30"
                 },
                 {
                     "name": "Positive Healing Amplification",
-                    "type": "Profane",
-                    "value": "20"
+                    "type": "Artifact",
+                    "value": "30"
                 },
                 {
                     "name": "Negative Healing Amplification",
-                    "type": "Profane",
-                    "value": "20"
+                    "type": "Artifact",
+                    "value": "30"
                 },
                 {
                     "name": "Repair Healing Amplification",
-                    "type": "Profane",
-                    "value": "20"
+                    "type": "Artifact",
+                    "value": "30"
                 },
                 {
                     "name": "Melee Power",
-                    "type": "Profane",
-                    "value": "10"
+                    "type": "Artifact",
+                    "value": "15"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "Profane",
-                    "value": "10"
+                    "type": "Artifact",
+                    "value": "15"
                 },
                 {
                     "name": "Universal Spell Power",
-                    "type": "Profane",
-                    "value": "20"
+                    "type": "Artifact",
+                    "value": "15"
                 }
             ],
             "threshold": 5
@@ -562,7 +562,7 @@
                 {
                     "name": "Universal Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "25"
                 }
             ],
             "threshold": 2
@@ -572,7 +572,7 @@
                 {
                     "name": "Universal Spell Critical Chance",
                     "type": "Artifact",
-                    "value": "5"
+                    "value": "6"
                 }
             ],
             "threshold": 3
@@ -582,7 +582,7 @@
                 {
                     "name": "Maximum Spellpoints",
                     "type": "Legendary",
-                    "value": "20"
+                    "value": "10"
                 }
             ],
             "threshold": 4
@@ -592,17 +592,17 @@
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Charisma",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 }
             ],
             "threshold": 5
@@ -689,12 +689,12 @@
                 {
                     "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "15"
                 },
                 {
                     "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "15"
                 }
             ],
             "threshold": 7
@@ -706,7 +706,7 @@
                 {
                     "name": "Magical Sheltering",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -716,7 +716,7 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -761,12 +761,12 @@
                 {
                     "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "15"
                 },
                 {
                     "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "15"
                 }
             ],
             "threshold": 7
@@ -778,7 +778,7 @@
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 }
             ],
             "threshold": 2
@@ -788,17 +788,17 @@
                 {
                     "name": "Healing Amplification",
                     "type": "Artifact",
-                    "value": "15"
+                    "value": "30"
                 },
                 {
                     "name": "Repair Amplification",
                     "type": "Artifact",
-                    "value": "15"
+                    "value": "30"
                 },
                 {
                     "name": "Negative Amplification",
                     "type": "Artifact",
-                    "value": "15"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -808,7 +808,7 @@
                 {
                     "name": "False Life",
                     "type": "Legendary",
-                    "value": "20"
+                    "value": "10"
                 }
             ],
             "threshold": 4
@@ -1529,42 +1529,42 @@
                 {
                     "name": "Negative Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Poison Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Force Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Negative Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Poison Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Force Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "40"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -1618,17 +1618,17 @@
                 {
                     "name": "Sonic, Force, Light, Acid Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "30"
                 },
                 {
                     "name": "Sonic, Force, Light, Acid Spell Crit Chance",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "6"
                 },
                 {
                     "name": "Charisma",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -1854,17 +1854,17 @@
                 {
                     "name": "Constitution",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "3"
                 },
                 {
                     "name": "Universal Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "25"
                 }
             ],
             "threshold": 3

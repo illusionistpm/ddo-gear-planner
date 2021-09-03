@@ -866,8 +866,63 @@
         }
     ],
     "Epic Marshwalker": [],
+    "Epic Menechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Might of the Abishai [ML:20]": [],
+    "Epic Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Raven's Eye": [],
+    "Epic Saltmarsh Explorer": [],
     "Epic Shaman's Fury": [],
     "Epic Siren's Ward": [],
     "Epic Slice 'n Dice": [
@@ -920,13 +975,47 @@
             "threshold": 2
         }
     ],
+    "Epic The Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Poison Spellcrit",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Poison Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Damage vs. the Helpless",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic The Devil's Handiwork Set": [
         {
             "affixes": [],
             "threshold": 5
         }
     ],
+    "Epic Vulkoor's Chosen": [],
     "Epic Vulkoor's Cunning": [],
+    "Epic Windlasher's Ferocity": [],
     "Esoteric Initiate": [
         {
             "affixes": [
@@ -1723,6 +1812,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Menechtarun Scavenger": [],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -1787,6 +1877,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Saltmarsh Explorer": [],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -1943,6 +2034,8 @@
             "threshold": 5
         }
     ],
+    "Legendary The Desert's Biting Sands": [],
+    "Legendary Vulkoor's Chosen": [],
     "Legendary Wallwatch": [
         {
             "affixes": [
@@ -1970,6 +2063,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Windlasher's Ferocity": [],
     "Levik's Defender": [],
     "Lorikk's Champion": [],
     "Magewright's Expertise": [],
@@ -2271,6 +2365,7 @@
         }
     ],
     "Risk and Reward": [],
+    "Saltmarsh Explorer": [],
     "Seasons of Change": [
         {
             "affixes": [
@@ -2611,106 +2706,6 @@
         }
     ],
     "Spell Singer": [],
-    "Template:AnchorEpic Menechtarun Scavenger": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Positive Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Template:AnchorEpic Oasis of Morality": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Positive Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Template:AnchorEpic Saltmarsh Explorer": [],
-    "Template:AnchorEpic The Desert's Starless Nights": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Poison Spellcrit",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Poison Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Damage vs. the Helpless",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Template:AnchorEpic Vulkoor's Chosen": [],
-    "Template:AnchorEpic Windlasher's Ferocity": [],
-    "Template:AnchorLegendary Menechtarun Scavenger": [],
-    "Template:AnchorLegendary Saltmarsh Explorer": [],
-    "Template:AnchorLegendary The Desert's Biting Sands": [],
-    "Template:AnchorLegendary Vulkoor's Chosen": [],
-    "Template:AnchorLegendary Windlasher's Ferocity": [],
-    "Template:AnchorSaltmarsh Explorer": [],
-    "Template:AnchorThe Epic Desert's Writhing Storm": [],
-    "Template:AnchorThe Legendary Desert's Burning Sun": [],
-    "Template:AnchorThe Legendary Desert's Starless Nights": [],
-    "Template:AnchorThe Legendary Desert's Writhing Storm": [],
-    "Template:AnchorThe Legendary Oasis of Morality": [],
     "Tharne's Wrath": [],
     "The Desert's Biting Sands": [
         {
@@ -2816,7 +2811,12 @@
             "threshold": 5
         }
     ],
+    "The Epic Desert's Writhing Storm": [],
     "The Epic Desert's Writhing Storm [ML:20]": [],
+    "The Legendary Desert's Burning Sun": [],
+    "The Legendary Desert's Starless Nights": [],
+    "The Legendary Desert's Writhing Storm": [],
+    "The Legendary Oasis of Morality": [],
     "Tinker's Finesse": [],
     "Troubleshooter": [],
     "Tyrannical Tinkerer": [

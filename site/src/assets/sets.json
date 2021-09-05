@@ -1371,12 +1371,12 @@
                 {
                     "name": "PRR",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "30"
                 },
                 {
                     "name": "MRR",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "30"
                 },
                 {
                     "name": "threat generation with melee and ranged attacks",
@@ -1386,7 +1386,7 @@
                 {
                     "name": "Armor Class",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 }
             ],
             "threshold": 3

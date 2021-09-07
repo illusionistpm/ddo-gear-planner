@@ -1,1176 +1,27 @@
 {
-    "Adherent of the Mists Set (Heroic)": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Profane",
-                    "value": "5"
-                },
-                {
-                    "name": "Positive Healing Amplification",
-                    "type": "Profane",
-                    "value": "10"
-                },
-                {
-                    "name": "Negative Healing Amplification",
-                    "type": "Profane",
-                    "value": "10"
-                },
-                {
-                    "name": "Repair Healing Amplification",
-                    "type": "Profane",
-                    "value": "10"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Profane",
-                    "value": "5"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Profane",
-                    "value": "5"
-                },
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Profane",
-                    "value": "10"
-                }
-            ],
-            "threshold": 5
-        }
-    ],
-    "Adherent of the Mists Set (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Positive Healing Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Negative Healing Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Repair Healing Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 5
-        }
-    ],
     "Alchemist's Lore": [],
-    "Anger of the Avalanche": [
-        {
-            "affixes": [
-                {
-                    "name": "Cold",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Sonic",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Electric Spell Critical Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Sonic Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Electric Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Anger's Wrath": [],
     "Arcane Archer": [],
     "Arcane Mind": [],
     "Archivist": [],
-    "Arcsteel Battlemage": [
-        {
-            "affixes": [
-                {
-                    "name": "Electric Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Repair Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Electric Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Repair Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Assassin": [],
-    "Astute Alchemist": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Poison",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Acid Spell Critical Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Poison Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Acid Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Beacon of Magic Set (Heroic)": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Missile Deflection",
-                    "type": "Artifact",
-                    "value": "2"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Beacon of Magic Set (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "50"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Missile Deflection",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Brilliant Crescents": [
-        {
-            "affixes": [
-                {
-                    "name": "Offhand Strike Chance",
-                    "type": "",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Captain's Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
-    "Chained Elementals": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Cold",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Acid",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Electric Spell Critical Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Acid Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Electric Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Conduit of the Titans": [
-        {
-            "affixes": [
-                {
-                    "name": "Rune Arm DCs",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Electric",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Repair",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spell Critical Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Electric Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Repair Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Corsair's Cunning [ML:5]": [],
-    "Crypt Raider Set (Heroic)": [
-        {
-            "affixes": [
-                {
-                    "name": "hit and damage vs. Evil creatures",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Saves vs. Evil Creatures",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "threat decrease with both melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Crypt Raider Set (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "hit and damage vs. Evil creatures",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Saves vs. Evil Creatures",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "threat decrease with both melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Curse Necromancer": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "times, and each stack lasts 30 seconds",
-                    "type": "",
-                    "value": "3"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Curse Necromancer (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Void Lore",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Nullification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "times, and each stack lasts 30 seconds",
-                    "type": "",
-                    "value": "6"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Defender of Siberys": [],
     "Devoted Heart": [],
     "Divine Blessing": [],
-    "Double Helix Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
-    "Draconic Ferocity": [],
-    "Draconic Mind": [],
-    "Draconic Resilience": [],
     "Dragonmark Heir": [],
-    "Dreadkeeper": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Poison Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Negative Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Poison Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Elder's Knowledge": [],
-    "Eminence of Autumn": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                }
-            ],
-            "threshold": 2
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Critical Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Maximum Spellpoints",
-                    "type": "Legendary",
-                    "value": "10"
-                }
-            ],
-            "threshold": 4
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 5
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 6
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Critical Damage",
-                    "type": "Legendary",
-                    "value": "15"
-                }
-            ],
-            "threshold": 7
-        }
-    ],
-    "Eminence of Spring": [
-        {
-            "affixes": [
-                {
-                    "name": "Missile Deflection",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        },
-        {
-            "affixes": [
-                {
-                    "name": "damage versus the Helpless",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Dodge Cap",
-                    "type": "Legendary",
-                    "value": "3"
-                }
-            ],
-            "threshold": 4
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                }
-            ],
-            "threshold": 5
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 6
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 7
-        }
-    ],
-    "Eminence of Summer": [
-        {
-            "affixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Tactical Abilities",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 4
-        },
-        {
-            "affixes": [
-                {
-                    "name": "damage versus the Helpless",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 5
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 6
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 7
-        }
-    ],
-    "Eminence of Winter": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Healing Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "False Life",
-                    "type": "Legendary",
-                    "value": "10"
-                }
-            ],
-            "threshold": 4
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Threat Generation",
-                    "type": "Artifact",
-                    "value": "100"
-                }
-            ],
-            "threshold": 5
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": "4"
-                }
-            ],
-            "threshold": 6
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 7
-        }
-    ],
-    "Epic Captain's Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
     "Epic Divine Blessing": [],
-    "Epic Double Helix Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
     "Epic Draconic Prophecy [ML:20]": [],
     "Epic Elder's Knowledge": [],
-    "Epic Griffon Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
     "Epic Marshwalker": [],
-    "Epic Menechtarun Scavenger": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Positive Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Epic Might of the Abishai [ML:20]": [],
-    "Epic Oasis of Morality": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Positive Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Epic Raven's Eye": [],
-    "Epic Saltmarsh Explorer": [],
     "Epic Shaman's Fury": [],
     "Epic Siren's Ward": [],
-    "Epic Slice 'n Dice": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
-    "Epic The Desert's Biting Sands": [
-        {
-            "affixes": [
-                {
-                    "name": "Force Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Force Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Magical Resistance Rating Cap",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Epic The Desert's Burning Sun": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Fire Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Epic The Desert's Starless Nights": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Poison Spellcrit",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Poison Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Damage vs. the Helpless",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Epic The Devil's Handiwork Set": [
-        {
-            "affixes": [],
-            "threshold": 5
-        }
-    ],
-    "Epic Vulkoor's Chosen": [],
     "Epic Vulkoor's Cunning": [],
-    "Epic Windlasher's Ferocity": [],
-    "Esoteric Initiate": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Magical Resistance Rating Cap",
-                    "type": "",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Exorcist of the Silver Flame": [],
     "Fabricator's Ingenuity": [],
-    "Fastidious Fabricator": [
-        {
-            "affixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "MRR Cap",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Balance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Repair",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Feywild Dreamer": [
-        {
-            "affixes": [
-                {
-                    "name": "Sonic, Force, Light, Acid Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Flamecleansed Fury": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Positive Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Light Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Positive Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Frenzied Berserker": [],
     "Glacial Assault": [],
     "Greater Divine Blessing": [],
@@ -1182,702 +33,8 @@
     "Greater Siren's Ward": [],
     "Greater Vulkoor's Cunning": [],
     "Greater Vulkoor's Might": [],
-    "Griffon Set": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
-    "Guardian of the Gates": [
-        {
-            "affixes": [
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Melee Threat Generation",
-                    "type": "Artifact",
-                    "value": "75"
-                },
-                {
-                    "name": "Fire Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Cold Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Acid Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Electric Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Heavy Warfare": [
-        {
-            "affixes": [
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Offhand Doublestrike",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Heavy Warfare (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Melee Power ",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Offhand Doublestrike",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Henshin Mystic": [],
-    "Hruit's Influence": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Lightning Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Positive Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Cold Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Lightning Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Positive Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Kensai": [],
-    "Knight of the Shadows Set (Heroic)": [
-        {
-            "affixes": [
-                {
-                    "name": "PRR",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "MRR",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "threat generation with melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "50"
-                },
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Knight of the Shadows Set (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "PRR",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "MRR",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "threat generation with melee and ranged attacks",
-                    "type": "Artifact",
-                    "value": "50"
-                },
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legacy of Levikk": [
-        {
-            "affixes": [
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Melee Threat Generation",
-                    "type": "Artifact",
-                    "value": "75"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Legacy of Lorikk": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Light/Alignment Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Positive Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Light/Alignment Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Legacy of Tharne": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
-                    "name": "Spot",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Search",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Legendary Arcsteel Battlemage": [
-        {
-            "affixes": [
-                {
-                    "name": "Electric Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Repair Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Electric Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Repair Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Dreadkeeper": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Poison Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Negative Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Poison Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "40"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Esoteric Initiate": [
-        {
-            "affixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Magical Resistance Rating Cap",
-                    "type": "",
-                    "value": "30"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Feywild Dreamer": [
-        {
-            "affixes": [
-                {
-                    "name": "Sonic, Force, Light, Acid Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Flamecleansed Fury": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Positive Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Light Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Positive Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Guardian of the Gates": [
-        {
-            "affixes": [
-                {
-                    "name": "Armor Class",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Melee Threat Generation",
-                    "type": "Artifact",
-                    "value": "75"
-                },
-                {
-                    "name": "Fire Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Cold Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Acid Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Electric Absorption",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Hruit's Influence": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Lightning Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Positive Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Fire Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Cold Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Lightning Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Positive Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "3"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Menechtarun Scavenger": [],
-    "Legendary Part of the Family": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Profane Experiment": [
-        {
-            "affixes": [
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Saltmarsh Explorer": [],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -2034,514 +191,19 @@
             "threshold": 5
         }
     ],
-    "Legendary The Desert's Biting Sands": [],
-    "Legendary Vulkoor's Chosen": [],
-    "Legendary Wallwatch": [
-        {
-            "affixes": [
-                {
-                    "name": "Sneak Attack Die",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Ranged Power",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Legendary Windlasher's Ferocity": [],
     "Levik's Defender": [],
     "Lorikk's Champion": [],
     "Magewright's Expertise": [],
-    "Mantle of Suulomades": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Marshwalker": [],
-    "Masterful Magewright": [
-        {
-            "affixes": [
-                {
-                    "name": "all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Wisdom",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Charisma",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Perform",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Concentration",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Menechtarun Scavenger": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Positive Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Negative Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Might of the Abishai [ML:5]": [],
-    "Mind and Matter": [
-        {
-            "affixes": [
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "MRR Cap",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Mountainskin Set": [
-        {
-            "affixes": [
-                {
-                    "name": "Acid Spell Power",
-                    "type": "Exceptional",
-                    "value": "30"
-                },
-                {
-                    "name": "Acid Spell Lore",
-                    "type": "Exceptional",
-                    "value": "6"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Nimble Hand": [],
-    "Oasis of Morality": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Positive Spellpower",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "One with the Swarm": [
-        {
-            "affixes": [
-                {
-                    "name": "that lasts 6 seconds",
-                    "type": "",
-                    "value": "4"
-                },
-                {
-                    "name": "ticks every 2 seconds while being able to stack up to 20 times.)",
-                    "type": "",
-                    "value": "4"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Pain and Suffering": [
-        {
-            "affixes": [],
-            "threshold": 2
-        }
-    ],
-    "Part of the Family": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Melee Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Pathfinders": [],
     "Planar Focus: Erudition": [],
     "Planar Focus: Prowess": [],
     "Planar Focus: Subterfuge": [],
-    "Profane Experiment": [
-        {
-            "affixes": [
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "2"
-                },
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Intelligence",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Protector's Heart": [],
     "Raven's Eye": [],
-    "Renegade Champion": [
-        {
-            "affixes": [
-                {
-                    "name": "Critical Multiplier on a 19-20",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Rune Arm DCs",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Renegade Champion (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Critical Multiplier on a 19-20",
-                    "type": "Artifact",
-                    "value": "1"
-                },
-                {
-                    "name": "Rune Arm DCs",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Repair Amplification",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Risk and Reward": [],
-    "Saltmarsh Explorer": [],
-    "Seasons of Change": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Evocation Spell DCs",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Seasons of Change (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Cold Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Evocation Spell DCs",
-                    "type": "Artifact",
-                    "value": "2"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Seasons of the Feywild": [
-        {
-            "affixes": [
-                {
-                    "name": "False Life",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Spell Points",
-                    "type": "Artifact",
-                    "value": "50"
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Well-Rounded",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 4
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Dodge",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 5
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Spell Focus Mastery",
-                    "type": "Artifact",
-                    "value": "1"
-                }
-            ],
-            "threshold": 6
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Magical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 7
-        }
-    ],
     "Shaman's Fury": [],
-    "Silent Avenger Set (Heroic)": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "1"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Damage vs. Helpless Opponents",
-                    "type": "Artifact",
-                    "value": "5"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
-    "Silent Avenger Set (Legendary)": [
-        {
-            "affixes": [
-                {
-                    "name": "Doublestrike",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Doubleshot",
-                    "type": "Artifact",
-                    "value": "15"
-                },
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Damage vs. Helpless Opponents",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 3
-        }
-    ],
     "Siren's Ward": [],
     "Slave Lord's Might": [
         {
@@ -2699,15 +361,2573 @@
             "threshold": 5
         }
     ],
-    "Slice 'n Dice": [
+    "Spell Singer": [],
+    "Template:Anchor Heavy Warfare": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Offhand Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorAdherent of the Mists Set (Heroic)": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Healing Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Healing Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Profane",
+                    "value": "10"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Template:AnchorAdherent of the Mists Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Healing Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Healing Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Template:AnchorAnger of the Avalanche": [
+        {
+            "affixes": [
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Sonic",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Electric Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Sonic Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorArcsteel Battlemage": [
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Electric Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Repair Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorAstute Alchemist": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Poison",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Acid Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorBeacon of Magic Set (Heroic)": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Missile Deflection",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorBeacon of Magic Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Missile Deflection",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorBrilliant Crescents": [
+        {
+            "affixes": [
+                {
+                    "name": "Offhand Strike Chance",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorCaptain's Set": [
         {
             "affixes": [],
             "threshold": 2
         }
     ],
-    "Spell Singer": [],
-    "Tharne's Wrath": [],
-    "The Desert's Biting Sands": [
+    "Template:AnchorChained Elementals": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Acid",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Electric Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorConduit of the Titans": [
+        {
+            "affixes": [
+                {
+                    "name": "Rune Arm DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Repair",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorCrypt Raider Set (Heroic)": [
+        {
+            "affixes": [
+                {
+                    "name": "hit and damage vs. Evil creatures",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Saves vs. Evil Creatures",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "threat decrease with both melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorCrypt Raider Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "hit and damage vs. Evil creatures",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Saves vs. Evil Creatures",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "threat decrease with both melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorCurse Necromancer": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "times, and each stack lasts 30 seconds",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorCurse Necromancer (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Void Lore",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Nullification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "times, and each stack lasts 30 seconds",
+                    "type": "",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorDouble Helix Set": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorDraconic Ferocity": [],
+    "Template:AnchorDraconic Mind": [],
+    "Template:AnchorDraconic Resilience": [],
+    "Template:AnchorDreadkeeper": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Negative Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Poison Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorEminence of Autumn": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Maximum Spellpoints",
+                    "type": "Legendary",
+                    "value": "10"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 5
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 6
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "15"
+                }
+            ],
+            "threshold": 7
+        }
+    ],
+    "Template:AnchorEminence of Spring": [
+        {
+            "affixes": [
+                {
+                    "name": "Missile Deflection",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "damage versus the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dodge Cap",
+                    "type": "Legendary",
+                    "value": "3"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 5
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 6
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 7
+        }
+    ],
+    "Template:AnchorEminence of Summer": [
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Tactical Abilities",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "damage versus the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 5
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 6
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 7
+        }
+    ],
+    "Template:AnchorEminence of Winter": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Healing Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "False Life",
+                    "type": "Legendary",
+                    "value": "10"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Threat Generation",
+                    "type": "Artifact",
+                    "value": "100"
+                }
+            ],
+            "threshold": 5
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "4"
+                }
+            ],
+            "threshold": 6
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 7
+        }
+    ],
+    "Template:AnchorEpic Captain's Set": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic Double Helix Set": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic Griffon Set": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic Menechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic Saltmarsh Explorer": [],
+    "Template:AnchorEpic Slice 'n Dice": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic The Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic The Desert's Burning Sun": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Fire Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic The Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Poison Spellcrit",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Poison Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Damage vs. the Helpless",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorEpic The Devil's Handiwork Set": [
+        {
+            "affixes": [],
+            "threshold": 5
+        }
+    ],
+    "Template:AnchorEpic Vulkoor's Chosen": [],
+    "Template:AnchorEpic Windlasher's Ferocity": [],
+    "Template:AnchorEsoteric Initiate": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorFastidious Fabricator": [
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "MRR Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Balance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Repair",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorFeywild Dreamer": [
+        {
+            "affixes": [
+                {
+                    "name": "Sonic, Force, Light, Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorFlamecleansed Fury": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Light Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Light Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorGriffon Set": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorGuardian of the Gates": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Melee Threat Generation",
+                    "type": "Artifact",
+                    "value": "75"
+                },
+                {
+                    "name": "Fire Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Electric Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorHeavy Warfare (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power ",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Offhand Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorHruit's Influence": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Lightning Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Cold Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Lightning Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorKnight of the Shadows Set (Heroic)": [
+        {
+            "affixes": [
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "MRR",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "threat generation with melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorKnight of the Shadows Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "PRR",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "MRR",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "threat generation with melee and ranged attacks",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegacy of Levikk": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Threat Generation",
+                    "type": "Artifact",
+                    "value": "75"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorLegacy of Lorikk": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Light/Alignment Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Light/Alignment Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorLegacy of Tharne": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Search",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorLegendary Arcsteel Battlemage": [
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Electric Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Repair Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Dreadkeeper": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Poison Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "40"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Esoteric Initiate": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Feywild Dreamer": [
+        {
+            "affixes": [
+                {
+                    "name": "Sonic, Force, Light, Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Flamecleansed Fury": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Force Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Light Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Light Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Guardian of the Gates": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Threat Generation",
+                    "type": "Artifact",
+                    "value": "75"
+                },
+                {
+                    "name": "Fire Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Electric Absorption",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Hruit's Influence": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Lightning Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Fire Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Cold Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Lightning Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spell Crit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Menechtarun Scavenger": [],
+    "Template:AnchorLegendary Part of the Family": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Profane Experiment": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Saltmarsh Explorer": [],
+    "Template:AnchorLegendary The Desert's Biting Sands": [],
+    "Template:AnchorLegendary Vulkoor's Chosen": [],
+    "Template:AnchorLegendary Wallwatch": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Die",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorLegendary Windlasher's Ferocity": [],
+    "Template:AnchorMantle of Suulomades": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorMasterful Magewright": [
+        {
+            "affixes": [
+                {
+                    "name": "all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Perform",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Concentration",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorMenechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorMind and Matter": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "MRR Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorMountainskin Set": [
+        {
+            "affixes": [
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Exceptional",
+                    "value": "30"
+                },
+                {
+                    "name": "Acid Spell Lore",
+                    "type": "Exceptional",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorOasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorOne with the Swarm": [
+        {
+            "affixes": [
+                {
+                    "name": "that lasts 6 seconds",
+                    "type": "",
+                    "value": "4"
+                },
+                {
+                    "name": "ticks every 2 seconds while being able to stack up to 20 times.)",
+                    "type": "",
+                    "value": "4"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorPain and Suffering": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorPart of the Family": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorProfane Experiment": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Intelligence",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorRenegade Champion": [
+        {
+            "affixes": [
+                {
+                    "name": "Critical Multiplier on a 19-20",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Rune Arm DCs",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorRenegade Champion (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Critical Multiplier on a 19-20",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Rune Arm DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorRisk and Reward": [],
+    "Template:AnchorSaltmarsh Explorer": [],
+    "Template:AnchorSeasons of Change": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Evocation Spell DCs",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorSeasons of Change (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Evocation Spell DCs",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorSeasons of the Feywild": [
+        {
+            "affixes": [
+                {
+                    "name": "False Life",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Points",
+                    "type": "Artifact",
+                    "value": "50"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dodge",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 5
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 6
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 7
+        }
+    ],
+    "Template:AnchorSilent Avenger Set (Heroic)": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "1"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Damage vs. Helpless Opponents",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorSilent Avenger Set (Legendary)": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Damage vs. Helpless Opponents",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorSlave Lord's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Artifact",
+                    "value": "4"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorSlave Lord's Sorcery": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Int/Wis/Cha",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Int/Wis/Cha",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "4"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorSlave's Endurance": [
+        {
+            "affixes": [
+                {
+                    "name": "MRR/PRR",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "MRR/PRR",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "MRR/PRR",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "MRR/PRR",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": "4"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Template:AnchorSlice 'n Dice": [
+        {
+            "affixes": [],
+            "threshold": 2
+        }
+    ],
+    "Template:AnchorThe Desert's Biting Sands": [
         {
             "affixes": [
                 {
@@ -2729,7 +2949,7 @@
             "threshold": 2
         }
     ],
-    "The Desert's Burning Sun": [
+    "Template:AnchorThe Desert's Burning Sun": [
         {
             "affixes": [
                 {
@@ -2751,7 +2971,7 @@
             "threshold": 2
         }
     ],
-    "The Desert's Starless Nights": [
+    "Template:AnchorThe Desert's Starless Nights": [
         {
             "affixes": [
                 {
@@ -2783,7 +3003,7 @@
             "threshold": 2
         }
     ],
-    "The Desert's Writhing Storm": [
+    "Template:AnchorThe Desert's Writhing Storm": [
         {
             "affixes": [
                 {
@@ -2805,21 +3025,18 @@
             "threshold": 2
         }
     ],
-    "The Devil's Handiwork": [
+    "Template:AnchorThe Devil's Handiwork": [
         {
             "affixes": [],
             "threshold": 5
         }
     ],
-    "The Epic Desert's Writhing Storm": [],
-    "The Epic Desert's Writhing Storm [ML:20]": [],
-    "The Legendary Desert's Burning Sun": [],
-    "The Legendary Desert's Starless Nights": [],
-    "The Legendary Desert's Writhing Storm": [],
-    "The Legendary Oasis of Morality": [],
-    "Tinker's Finesse": [],
-    "Troubleshooter": [],
-    "Tyrannical Tinkerer": [
+    "Template:AnchorThe Epic Desert's Writhing Storm": [],
+    "Template:AnchorThe Legendary Desert's Burning Sun": [],
+    "Template:AnchorThe Legendary Desert's Starless Nights": [],
+    "Template:AnchorThe Legendary Desert's Writhing Storm": [],
+    "Template:AnchorThe Legendary Oasis of Morality": [],
+    "Template:AnchorTyrannical Tinkerer": [
         {
             "affixes": [
                 {
@@ -2851,8 +3068,8 @@
             "threshold": 2
         }
     ],
-    "Unbreakable Adamancy": [],
-    "Vulkoor's Chosen": [
+    "Template:AnchorUnbreakable Adamancy": [],
+    "Template:AnchorVulkoor's Chosen": [
         {
             "affixes": [
                 {
@@ -2884,9 +3101,7 @@
             "threshold": 2
         }
     ],
-    "Vulkoor's Cunning": [],
-    "Vulkoor's Might": [],
-    "Wallwatch": [
+    "Template:AnchorWallwatch": [
         {
             "affixes": [
                 {
@@ -2913,7 +3128,7 @@
             "threshold": 3
         }
     ],
-    "Wayward Warrior": [
+    "Template:AnchorWayward Warrior": [
         {
             "affixes": [
                 {
@@ -2930,7 +3145,7 @@
             "threshold": 2
         }
     ],
-    "Wayward Warrior (Legendary)": [
+    "Template:AnchorWayward Warrior (Legendary)": [
         {
             "affixes": [
                 {
@@ -2947,7 +3162,7 @@
             "threshold": 2
         }
     ],
-    "Windlasher's Ferocity": [
+    "Template:AnchorWindlasher's Ferocity": [
         {
             "affixes": [
                 {
@@ -2973,5 +3188,11 @@
             ],
             "threshold": 2
         }
-    ]
+    ],
+    "Tharne's Wrath": [],
+    "The Epic Desert's Writhing Storm [ML:20]": [],
+    "Tinker's Finesse": [],
+    "Troubleshooter": [],
+    "Vulkoor's Cunning": [],
+    "Vulkoor's Might": []
 }

@@ -46,37 +46,37 @@
             "affixes": [
                 {
                     "name": "Physical Sheltering",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "30"
                 },
                 {
                     "name": "Positive Healing Amplification",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "30"
                 },
                 {
                     "name": "Negative Healing Amplification",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "30"
                 },
                 {
                     "name": "Repair Healing Amplification",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "30"
                 },
                 {
                     "name": "Melee Power",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "15"
                 },
                 {
                     "name": "Ranged Power",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "15"
                 },
                 {
                     "name": "Universal Spell Power",
-                    "type": "Artifact",
+                    "type": "Profane",
                     "value": "15"
                 }
             ],
@@ -253,17 +253,17 @@
                 {
                     "name": "Universal Spell Power",
                     "type": "Artifact",
-                    "value": "50"
+                    "value": "25"
                 },
                 {
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 },
                 {
                     "name": "Magical Sheltering",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "30"
                 },
                 {
                     "name": "Missile Deflection",

@@ -2532,12 +2532,12 @@
                 {
                     "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Damage vs. Helpless Opponents",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 }
             ],
             "threshold": 3

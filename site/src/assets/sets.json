@@ -501,6 +501,7 @@
     ],
     "Draconic Ferocity": [],
     "Draconic Mind": [],
+    "Draconic Prophecy": [],
     "Draconic Resilience": [],
     "Dragonmark Heir": [],
     "Dreadkeeper": [
@@ -857,6 +858,7 @@
             "threshold": 2
         }
     ],
+    "Epic Draconic Prophecy": [],
     "Epic Draconic Prophecy [ML:20]": [],
     "Epic Elder's KnowledgeMinimum level: 20": [],
     "Epic Griffon Set": [
@@ -865,6 +867,7 @@
             "threshold": 2
         }
     ],
+    "Epic Kundarak Delving Equipment": [],
     "Epic MarshwalkerMinimum level: 20": [],
     "Epic Menechtarun Scavenger": [
         {
@@ -899,6 +902,7 @@
         }
     ],
     "Epic Might of the Abishai [ML:20]": [],
+    "Epic Mroranon's Might": [],
     "Epic Oasis of Morality": [
         {
             "affixes": [
@@ -924,6 +928,7 @@
     "Epic Raven's EyeMinimum level: 20": [],
     "Epic Saltmarsh Explorer": [],
     "Epic Shaman's FuryMinimum level: 20": [],
+    "Epic Silver Concord's Subtlety": [],
     "Epic Siren's WardMinimum level: 20": [],
     "Epic Slice 'n Dice": [
         {
@@ -931,6 +936,7 @@
             "threshold": 2
         }
     ],
+    "Epic Soul of the Red Dragon": [],
     "Epic The Desert's Biting Sands": [
         {
             "affixes": [
@@ -1016,6 +1022,7 @@
     "Epic Vulkoor's Chosen": [],
     "Epic Vulkoor's CunningMinimum level: 20": [],
     "Epic Vulkoor's MightMinimum level: 20": [],
+    "Epic Wards of House Kundarak": [],
     "Epic Windlasher's Ferocity": [],
     "Esoteric Initiate": [
         {
@@ -1385,6 +1392,7 @@
             "threshold": 3
         }
     ],
+    "Kundarak Delving Equipment": [],
     "Legacy of Levikk": [
         {
             "affixes": [
@@ -1524,6 +1532,7 @@
         }
     ],
     "Legendary Divine BlessingMinimum level: 30": [],
+    "Legendary Draconic Prophecy": [],
     "Legendary Dreadkeeper": [
         {
             "affixes": [
@@ -1807,8 +1816,10 @@
             "threshold": 3
         }
     ],
+    "Legendary Kundarak Delving Equipment": [],
     "Legendary MarshwalkerMinimum level: 30": [],
     "Legendary Menechtarun Scavenger": [],
+    "Legendary Mroranon's Might": [],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -1876,6 +1887,7 @@
     "Legendary Raven's EyeMinimum level: 30": [],
     "Legendary Saltmarsh Explorer": [],
     "Legendary Shaman's FuryMinimum level: 30": [],
+    "Legendary Silver Concord's Subtlety": [],
     "Legendary Siren's WardMinimum level: 30": [],
     "Legendary Slave Lord's Might": [
         {
@@ -2033,6 +2045,7 @@
             "threshold": 5
         }
     ],
+    "Legendary Soul of the Red Dragon": [],
     "Legendary The Desert's Biting Sands": [],
     "Legendary Vulkoor's Chosen": [],
     "Legendary Vulkoor's CunningMinimum level: 30": [],
@@ -2064,6 +2077,7 @@
             "threshold": 3
         }
     ],
+    "Legendary Wards of House Kundarak": [],
     "Legendary Windlasher's Ferocity": [],
     "Levik's Defender": [],
     "Lorikk's Champion": [],
@@ -2205,6 +2219,7 @@
             "threshold": 2
         }
     ],
+    "Mroranon's Might": [],
     "Nimble Hand": [],
     "Oasis of Morality": [
         {
@@ -2543,6 +2558,7 @@
             "threshold": 3
         }
     ],
+    "Silver Concord's Subtlety": [],
     "Siren's WardMinimum level: 7": [],
     "Slave Lord's Might": [
         {
@@ -2914,6 +2930,7 @@
             "threshold": 3
         }
     ],
+    "Wards of House Kundarak": [],
     "Wayward Warrior": [
         {
             "affixes": [

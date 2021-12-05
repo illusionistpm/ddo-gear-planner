@@ -231,7 +231,7 @@
                 {
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "1"
+                    "value": "2"
                 },
                 {
                     "name": "Magical Sheltering",
@@ -2411,17 +2411,17 @@
                 {
                     "name": "Fire Spell Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Cold Spell Power",
                     "type": "Artifact",
-                    "value": "25"
+                    "value": "30"
                 },
                 {
                     "name": "Evocation Spell DCs",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 2
@@ -2960,7 +2960,7 @@
                 {
                     "name": "Constitution",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 2

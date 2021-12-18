@@ -430,12 +430,12 @@
                 {
                     "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "15"
                 },
                 {
                     "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "20"
+                    "value": "15"
                 },
                 {
                     "name": "threat decrease with both melee and ranged attacks",

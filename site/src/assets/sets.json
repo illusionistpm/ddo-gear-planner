@@ -975,7 +975,7 @@
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "10"
+                    "value": "20"
                 }
             ],
             "threshold": 2
@@ -1019,11 +1019,68 @@
             "threshold": 5
         }
     ],
-    "Epic Vulkoor's Chosen": [],
+    "Epic Vulkoor's Chosen": [
+        {
+            "affixes": [
+                {
+                    "name": "Poison Resistance",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Sneak Dice",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "Saving Throws",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Vulkoor's CunningMinimum level: 20": [],
     "Epic Vulkoor's MightMinimum level: 20": [],
     "Epic Wards of House Kundarak": [],
-    "Epic Windlasher's Ferocity": [],
+    "Epic Windlasher's Ferocity": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Esoteric Initiate": [
         {
             "affixes": [
@@ -1818,7 +1875,38 @@
     ],
     "Legendary Kundarak Delving Equipment": [],
     "Legendary MarshwalkerMinimum level: 30": [],
-    "Legendary Menechtarun Scavenger": [],
+    "Legendary Menechtarun Scavenger": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Might of the Abishai [ML:30]": [],
     "Legendary Mroranon's Might": [],
     "Legendary Part of the Family": [
@@ -2047,7 +2135,28 @@
         }
     ],
     "Legendary Soul of the Red Dragon": [],
-    "Legendary The Desert's Biting Sands": [],
+    "Legendary The Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Vulkoor's Chosen": [],
     "Legendary Vulkoor's CunningMinimum level: 30": [],
     "Legendary Vulkoor's MightMinimum level: 30": [],
@@ -2079,7 +2188,33 @@
         }
     ],
     "Legendary Wards of House Kundarak": [],
-    "Legendary Windlasher's Ferocity": [],
+    "Legendary Windlasher's Ferocity": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Levik's Defender": [],
     "Lorikk's Champion": [],
     "Magewright's Expertise": [],
@@ -2763,7 +2898,7 @@
                 {
                     "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "5"
+                    "value": "10"
                 }
             ],
             "threshold": 2
@@ -2829,11 +2964,53 @@
             "threshold": 5
         }
     ],
-    "The Epic Desert's Writhing Storm": [],
+    "The Epic Desert's Writhing Storm": [
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Electric Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Epic Desert's Writhing Storm [ML:20]": [],
     "The Legendary Desert's Burning Sun": [],
     "The Legendary Desert's Starless Nights": [],
-    "The Legendary Desert's Writhing Storm": [],
+    "The Legendary Desert's Writhing Storm": [
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Electric Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Legendary Oasis of Morality": [],
     "Tinker's Finesse": [],
     "Troubleshooter": [],

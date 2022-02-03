@@ -2135,28 +2135,6 @@
         }
     ],
     "Legendary Soul of the Red Dragon": [],
-    "Legendary The Desert's Biting Sands": [
-        {
-            "affixes": [
-                {
-                    "name": "Force Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spellpower",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Magical Resistance Rating Cap",
-                    "type": "Artifact",
-                    "value": "30"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Legendary Vulkoor's Chosen": [],
     "Legendary Vulkoor's CunningMinimum level: 30": [],
     "Legendary Vulkoor's MightMinimum level: 30": [],
@@ -2987,6 +2965,28 @@
         }
     ],
     "The Epic Desert's Writhing Storm [ML:20]": [],
+    "The Legendary Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Legendary Desert's Burning Sun": [],
     "The Legendary Desert's Starless Nights": [],
     "The Legendary Desert's Writhing Storm": [

@@ -37,19 +37,19 @@ def build_data(clearCache, discordURL):
 
     diffStr = get_data_stats_description(newStats, diffStats)
 
-    message = "Data Changes:\n"
-    message += diffStr
-    discordURL
+    if discordURL:
+        message = "Data Changes:\n"
+        message += diffStr
 
-    requests.post(discordURL, data = 
-    {
-        'content': message
-    })
+        requests.post(discordURL, data = 
+        {
+            'content': message
+        })
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--clear-cache', default=False, action=argparse.BooleanOptionalAction)
+    parser.add_argument('--clear-cache', default=False, action='store_true')
     parser.add_argument('--discord')
     args = parser.parse_args()
 

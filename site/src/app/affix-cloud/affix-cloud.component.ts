@@ -63,7 +63,7 @@ export class AffixCloudComponent implements OnInit {
   _initPackages() {
     this.packages.set('Basic', ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
       'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly',
-      'Fortification', 'False Life', 'Speed']);
+      'Fortification', 'False Life', 'Speed', 'Freedom of Movement']);
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
     this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy', 'Armor-Piercing']);
     this.packages.set('Caster', ['Universal Spell Power', 'Universal Spell Lore', 'Spellcraft', 'Wizardry']);

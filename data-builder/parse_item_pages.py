@@ -89,6 +89,11 @@ def strip_preslotted_augments(name):
     if search:
         return search.group(1)
 
+    # The format switched to "{Color} Augment Slot: Empty"
+    search = re.search(r'^([A-Za-z]+ Augment Slot)', name)
+    if search:
+        return search.group(1)
+
     return name
 
 

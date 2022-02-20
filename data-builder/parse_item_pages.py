@@ -136,6 +136,7 @@ def sub_name(name):
         ['Fortification Penalty', 'Fortification'],
         ['Construct Fortification', 'Fortification'],
         ['all Spell DCs', 'Spell DCs'],
+        ['all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)', 'Spell DCs'],
         ]:
         if name == pair[0]:
             return pair[1]

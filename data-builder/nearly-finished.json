@@ -1153,6 +1153,267 @@
                     }
                 ]
             }
+        ],
+        "Legendary Tinkerer's Gloves": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Alchemist's Crown": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Fabricator's Bracers": [
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Magewright's Cloak": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Tinkerer's Goggles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Magewright's Spectacles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Fabricator's Gauntlets": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Alchemist's Pendant": [
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Titan Control Matrix": [
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
         ]
     }
 }

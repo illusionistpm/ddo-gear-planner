@@ -2,3 +2,4 @@
 data-builder/__pycache__/
 data-builder/cache/
 ~$*.xlsx
+*:Zone.Identifier

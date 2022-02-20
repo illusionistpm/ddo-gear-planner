@@ -1031,11 +1031,27 @@
                     {
                         "name": "Greater Heroism",
                         "type": "bool",
-                        "value": 2
+                        "value": 1
                     }
                 ],
                 "ml": 28,
                 "name": "Sapphire of Greater Heroism"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% chance on your being hit to heal you for 20 to 120 Hit Points",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2% chance on your being hit to deal 50 to 300 Electric damage to your surrounding enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 28,
+                "name": "Golem's Heart"
             }
         ],
         "hiddenFromAffixSearch": true
@@ -3186,7 +3202,7 @@
                     {
                         "name": "Strength",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3195,7 +3211,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3204,7 +3220,7 @@
                     {
                         "name": "Constitution",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3213,7 +3229,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3222,7 +3238,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3231,7 +3247,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": 4
+                        "value": 3
                     }
                 ]
             },
@@ -3240,7 +3256,7 @@
                     {
                         "name": "False Life",
                         "type": "Quality",
-                        "value": 16
+                        "value": 12
                     }
                 ]
             },
@@ -3460,7 +3476,7 @@
                     {
                         "name": "Balance",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3469,7 +3485,7 @@
                     {
                         "name": "Bluff",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3478,7 +3494,7 @@
                     {
                         "name": "Concentration",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3487,7 +3503,7 @@
                     {
                         "name": "Diplomacy",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3496,7 +3512,7 @@
                     {
                         "name": "Disable Device",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3505,7 +3521,7 @@
                     {
                         "name": "Haggle",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3514,7 +3530,7 @@
                     {
                         "name": "Heal",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3523,7 +3539,7 @@
                     {
                         "name": "Hide",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3532,7 +3548,7 @@
                     {
                         "name": "Intimidate",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3541,7 +3557,7 @@
                     {
                         "name": "Jump",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3550,7 +3566,7 @@
                     {
                         "name": "Listen",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3559,7 +3575,7 @@
                     {
                         "name": "Move Silently",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3568,7 +3584,7 @@
                     {
                         "name": "Open Lock",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3577,7 +3593,7 @@
                     {
                         "name": "Perform",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3586,7 +3602,7 @@
                     {
                         "name": "Repair",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3595,7 +3611,7 @@
                     {
                         "name": "Search",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3604,7 +3620,7 @@
                     {
                         "name": "Spellcraft",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3613,7 +3629,7 @@
                     {
                         "name": "Spot",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3622,7 +3638,7 @@
                     {
                         "name": "Swim",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3631,7 +3647,7 @@
                     {
                         "name": "Tumble",
                         "type": "Competence",
-                        "value": 22
+                        "value": 20
                     }
                 ]
             },
@@ -3640,7 +3656,7 @@
                     {
                         "name": "Use Magic Device",
                         "type": "Competence",
-                        "value": 7
+                        "value": 5
                     }
                 ]
             },
@@ -3649,7 +3665,7 @@
                     {
                         "name": "Shatter",
                         "type": "Enhancement",
-                        "value": 20
+                        "value": 15
                     }
                 ]
             },
@@ -3658,7 +3674,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": 6
+                        "value": 4
                     }
                 ]
             },
@@ -3667,7 +3683,7 @@
                     {
                         "name": "Spell Penetration",
                         "type": "Equipment",
-                        "value": 7
+                        "value": 8
                     }
                 ]
             },
@@ -3676,7 +3692,7 @@
                     {
                         "name": "Stunning",
                         "type": "Enhancement",
-                        "value": 20
+                        "value": 15
                     }
                 ]
             },
@@ -3685,7 +3701,7 @@
                     {
                         "name": "Tendon Slice",
                         "type": "Enhancement",
-                        "value": 14
+                        "value": 10
                     }
                 ]
             },
@@ -3694,7 +3710,7 @@
                     {
                         "name": "Vertigo",
                         "type": "Enhancement",
-                        "value": 20
+                        "value": 15
                     }
                 ]
             }
@@ -3707,7 +3723,7 @@
                     {
                         "name": "Strength",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3716,7 +3732,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3725,7 +3741,7 @@
                     {
                         "name": "Constitution",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3734,7 +3750,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3743,7 +3759,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3752,7 +3768,7 @@
                     {
                         "name": "Charisma",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3761,7 +3777,7 @@
                     {
                         "name": "False Life",
                         "type": "Enhancement",
-                        "value": 68
+                        "value": 50
                     }
                 ]
             },
@@ -3770,7 +3786,7 @@
                     {
                         "name": "Fortification",
                         "type": "Enhancement",
-                        "value": 185.0
+                        "value": 142.0
                     }
                 ]
             },
@@ -3779,7 +3795,7 @@
                     {
                         "name": "Sheltering",
                         "type": "Enhancement",
-                        "value": 45
+                        "value": 33
                     }
                 ]
             },
@@ -3788,7 +3804,7 @@
                     {
                         "name": "Wizardry",
                         "type": "Enhancement",
-                        "value": 371
+                        "value": 269
                     }
                 ]
             }
@@ -3820,7 +3836,7 @@
                     {
                         "name": "Accuracy",
                         "type": "Competence",
-                        "value": 28
+                        "value": 20
                     }
                 ]
             },
@@ -3829,7 +3845,7 @@
                     {
                         "name": "Armor-Piercing",
                         "type": "Enhancement",
-                        "value": 28
+                        "value": 20
                     }
                 ]
             },
@@ -3838,7 +3854,7 @@
                     {
                         "name": "Deadly",
                         "type": "Competence",
-                        "value": 14
+                        "value": 10
                     }
                 ]
             },
@@ -3847,7 +3863,7 @@
                     {
                         "name": "Deception",
                         "type": "Enhancement",
-                        "value": 14
+                        "value": 10
                     }
                 ]
             },
@@ -3856,7 +3872,7 @@
                     {
                         "name": "Resistance",
                         "type": "Resistance",
-                        "value": 14
+                        "value": 10
                     }
                 ]
             },
@@ -3865,7 +3881,7 @@
                     {
                         "name": "Seeker",
                         "type": "Enhancement",
-                        "value": 17
+                        "value": 13
                     }
                 ]
             },
@@ -3874,7 +3890,7 @@
                     {
                         "name": "Acid Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3883,7 +3899,7 @@
                     {
                         "name": "Fire Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3892,7 +3908,7 @@
                     {
                         "name": "Ice Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3901,7 +3917,7 @@
                     {
                         "name": "Lightning Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3910,7 +3926,7 @@
                     {
                         "name": "Healing Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3919,7 +3935,7 @@
                     {
                         "name": "Radiance Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3928,7 +3944,7 @@
                     {
                         "name": "Repair Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3937,7 +3953,7 @@
                     {
                         "name": "Sonic Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3946,7 +3962,7 @@
                     {
                         "name": "Void Lore",
                         "type": "Equipment",
-                        "value": 27
+                        "value": 21
                     }
                 ]
             },
@@ -3955,7 +3971,7 @@
                     {
                         "name": "Combustion",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -3964,7 +3980,7 @@
                     {
                         "name": "Corrosion",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -3973,7 +3989,7 @@
                     {
                         "name": "Devotion",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -3982,7 +3998,7 @@
                     {
                         "name": "Glaciation",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -3991,7 +4007,7 @@
                     {
                         "name": "Impulse",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -4000,7 +4016,7 @@
                     {
                         "name": "Magnetism",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -4009,7 +4025,7 @@
                     {
                         "name": "Nullification",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -4018,7 +4034,7 @@
                     {
                         "name": "Radiance Lore",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -4027,7 +4043,7 @@
                     {
                         "name": "Reconstruction",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             },
@@ -4036,7 +4052,7 @@
                     {
                         "name": "Resonance",
                         "type": "Equipment",
-                        "value": 185
+                        "value": 142
                     }
                 ]
             }
@@ -4331,6 +4347,64 @@
                 ]
             }
         ],
+        "Legendary Alchemist's Crown": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Alchemist's Pendant": [
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
         "Legendary Black Satin Waist": [
             {
                 "affixes": [
@@ -4619,6 +4693,122 @@
                 ]
             }
         ],
+        "Legendary Fabricator's Bracers": [
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Fabricator's Gauntlets": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Magewright's Cloak": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Magewright's Spectacles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
         "Legendary Resplendant Fury": [
             {
                 "affixes": [
@@ -4758,6 +4948,64 @@
                 "affixes": [
                     {
                         "name": "Charisma",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Tinkerer's Gloves": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Legendary Tinkerer's Goggles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Enhancement",
+                        "value": 13
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Inteligence",
                         "type": "Quality",
                         "value": 3
                     }
@@ -5049,6 +5297,35 @@
                     {
                         "name": "Intelligence",
                         "type": "Insight",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "Titan Control Matrix": [
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
                         "value": 3
                     }
                 ]

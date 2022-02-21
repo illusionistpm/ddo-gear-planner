@@ -139,7 +139,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 1
                     }
                 ],
@@ -199,7 +199,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 3
                     }
                 ],
@@ -259,7 +259,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 5
                     }
                 ],
@@ -319,7 +319,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 6
                     }
                 ],
@@ -379,7 +379,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 7
                     }
                 ],
@@ -429,7 +429,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 8
                     }
                 ],
@@ -489,7 +489,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 9
                     }
                 ],
@@ -539,7 +539,7 @@
                 "affixes": [
                     {
                         "name": "Resistance",
-                        "type": "Enhancement",
+                        "type": "Resistance",
                         "value": 10
                     }
                 ],

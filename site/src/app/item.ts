@@ -1,4 +1,5 @@
 import { Affix } from './affix';
+import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
 
 export class Item {
@@ -70,14 +71,19 @@ export class Item {
         return activeAffixes;
     }
 
-    canHaveBonusType(affixName, bonusType) {
-        return this.getMatchingBonusType(affixName, bonusType) != null;
+    canHaveBonusType(affixName, bonusType, affixSvc: AffixService) {
+        return this.getMatchingBonusType(affixName, bonusType, affixSvc) != null;
     }
 
-    getMatchingBonusType(affixName, bonusType) {
+    getMatchingBonusType(affixName, bonusType, affixSvc: AffixService) {
         for (const affix of this.affixes) {
-            if (affix.name === affixName && affix.type === bonusType) {
-                return [null, affix.value];
+            let ungroupedAffixes = affixSvc.ungroupAffix(affix);
+            ungroupedAffixes.concat(affix);
+
+            for (const ungroupedAffix of ungroupedAffixes) {
+                if (ungroupedAffix.name === affixName && ungroupedAffix.type === bonusType) {
+                    return [null, ungroupedAffix.value];
+                }
             }
         }
 
@@ -103,8 +109,8 @@ export class Item {
         }
     }
 
-    getValue(affixName, bonusType) {
-        const ret = this.getMatchingBonusType(affixName, bonusType);
+    getValue(affixName, bonusType, affixSvc: AffixService) {
+        const ret = this.getMatchingBonusType(affixName, bonusType, affixSvc);
         if (ret) {
             return ret[1];
         } else {

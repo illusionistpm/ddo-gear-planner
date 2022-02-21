@@ -7,6 +7,7 @@ import { Item } from '../item';
 import { Affix } from '../affix';
 
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
+import { AffixService } from '../affix.service';
 
 @Component({
   selector: 'app-items-with-bonus-type',
@@ -28,7 +29,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private affixSvc: AffixService
   ) {
   }
 
@@ -58,11 +60,11 @@ export class ItemsWithBonusTypeComponent implements OnInit {
 
   _sortByValue(array: Array<Item>) {
     return array.sort((a, b) =>
-      Number(b.getValue(this.affixName, this.bonusType)) - Number(a.getValue(this.affixName, this.bonusType)));
+      Number(b.getValue(this.affixName, this.bonusType, this.affixSvc)) - Number(a.getValue(this.affixName, this.bonusType, this.affixSvc)));
   }
 
   findMatchingValue(item: Item) {
-    const ret = item.getMatchingBonusType(this.affixName, this.bonusType);
+    const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
     let crafting = ret[0] || '';
     if (crafting) {
       crafting = ' (' + crafting + ')';

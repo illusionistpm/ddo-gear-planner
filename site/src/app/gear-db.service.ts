@@ -14,6 +14,7 @@ import itemsList from 'src/assets/items.json';
 import craftingListOrig from 'src/assets/crafting.json';
 import cannithList from 'src/assets/cannith.json';
 import setList from 'src/assets/sets.json';
+import { AffixService } from './affix.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class GearDbService {
   constructor(
     public cannith: CannithService,
     public filters: FiltersService,
-    public quests: QuestService
+    public quests: QuestService,
+    private affixSvc: AffixService
   ) {
     this._buildAugmentOptions();
     this.gear = new Map<string, Array<Item>>();
@@ -223,6 +225,15 @@ export class GearDbService {
   }
 
   private _addAffixesToMap(affixes: Array<Affix>) {
+    this._addAffixesToMap_helper(affixes);
+
+    for (const affix of affixes) {
+      const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
+      this._addAffixesToMap_helper(ungroupedAffixes);
+    }
+  }
+
+  private _addAffixesToMap_helper(affixes: Array<Affix>) {
     for (const affix of affixes) {
       if (!this.affixToBonusTypes.has(affix.name)) {
         this.affixToBonusTypes.set(affix.name, new Map<string, number>());
@@ -234,8 +245,8 @@ export class GearDbService {
       if (!bestVal || bestVal < affix.value) {
         typeMap.set(affix.type, Number(affix.value));
       }
-    }
-  }
+    } 
+  } 
 
   getGearList() {
     return this.gear;
@@ -279,7 +290,7 @@ export class GearDbService {
     const results = [];
     for (const items of this.gear.values()) {
       for (const item of items) {
-        if (item.canHaveBonusType(affixName, bonusType)) {
+        if (item.canHaveBonusType(affixName, bonusType, this.affixSvc)) {
           results.push(item);
         }
       }

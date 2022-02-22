@@ -78,7 +78,7 @@ export class Item {
     getMatchingBonusType(affixName, bonusType, affixSvc: AffixService) {
         for (const affix of this.affixes) {
             let ungroupedAffixes = affixSvc.ungroupAffix(affix);
-            ungroupedAffixes.concat(affix);
+            ungroupedAffixes = ungroupedAffixes.concat(affix);
 
             for (const ungroupedAffix of ungroupedAffixes) {
                 if (ungroupedAffix.name === affixName && ungroupedAffix.type === bonusType) {

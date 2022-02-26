@@ -1394,6 +1394,20 @@
             "threshold": 3
         }
     ],
+    "Huntmaster's Favor": [
+        {
+            "affixes": [],
+            "threshold": 2
+        },
+        {
+            "affixes": [],
+            "threshold": 3
+        },
+        {
+            "affixes": [],
+            "threshold": 4
+        }
+    ],
     "Kensai": [],
     "Knight of the Shadows Set (Heroic)": [
         {
@@ -2965,6 +2979,28 @@
         }
     ],
     "The Epic Desert's Writhing Storm [ML:20]": [],
+    "The Labyrinthian Inferno": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Legendary Desert's Biting Sands": [
         {
             "affixes": [

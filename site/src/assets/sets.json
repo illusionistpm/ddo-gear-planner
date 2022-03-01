@@ -1304,11 +1304,6 @@
                     "name": "Doublestrike",
                     "type": "Artifact",
                     "value": "5"
-                },
-                {
-                    "name": "Offhand Doublestrike",
-                    "type": "Artifact",
-                    "value": "5"
                 }
             ],
             "threshold": 2
@@ -1325,12 +1320,7 @@
                 {
                     "name": "Doublestrike",
                     "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Offhand Doublestrike",
-                    "type": "Artifact",
-                    "value": "10"
+                    "value": "15"
                 }
             ],
             "threshold": 2

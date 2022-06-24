@@ -492,6 +492,43 @@
     ],
     "Defender of Siberys": [],
     "Devoted Heart": [],
+    "Devotion of the Firemouth": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Threat Generation",
+                    "type": "Artifact",
+                    "value": "100"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Divine BlessingMinimum level: 7": [],
     "Double Helix Set": [
         {
@@ -504,6 +541,33 @@
     "Draconic Prophecy": [],
     "Draconic Resilience": [],
     "Dragonmark Heir": [],
+    "Dread Stalker": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "damage vs. helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Dreadkeeper": [
         {
             "affixes": [
@@ -3033,6 +3097,53 @@
                 }
             ],
             "threshold": 2
+        }
+    ],
+    "The Legendary Dread Isle's Curse": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Profane",
+                    "value": "15"
+                },
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Profane",
+                    "value": "25"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Profane",
+                    "value": "30"
+                },
+                {
+                    "name": "Spell DC's",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "All Ability Scores",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "hit",
+                    "type": "Profane",
+                    "value": "3"
+                },
+                {
+                    "name": "damage",
+                    "type": "Profane",
+                    "value": "3"
+                }
+            ],
+            "threshold": 5
         }
     ],
     "The Legendary Oasis of Morality": [],

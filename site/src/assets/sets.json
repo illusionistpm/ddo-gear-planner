@@ -490,7 +490,66 @@
             "threshold": 2
         }
     ],
+    "Deacon of the Auricular Sacrarium": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Defender of Siberys": [],
+    "Defender of Tanaroa": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Universal Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Devoted Heart": [],
     "Devotion of the Firemouth": [
         {
@@ -3006,6 +3065,38 @@
     "The Devil's Handiwork": [
         {
             "affixes": [],
+            "threshold": 5
+        }
+    ],
+    "The Dread Isle's Curse": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee And Ranged Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "1"
+                },
+                {
+                    "name": "all Ability Scores",
+                    "type": "Profane",
+                    "value": "1"
+                }
+            ],
             "threshold": 5
         }
     ],

@@ -609,6 +609,16 @@
                     "value": "3"
                 },
                 {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
                     "name": "Doublestrike",
                     "type": "Artifact",
                     "value": "15"
@@ -674,6 +684,33 @@
                     "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Echoes of the Walking Ancestors": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "all Tactical DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Assassinate",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "all Ability Scores",
+                    "type": "Artifact",
+                    "value": "3"
                 }
             ],
             "threshold": 3

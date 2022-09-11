@@ -2298,6 +2298,114 @@
         }
     ],
     "Legendary Soul of the Red Dragon": [],
+    "Legendary Temple's Inferno": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Temple's Monolith": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Temple's Tempest": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Temple's Tide": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Threat Reduction from all sources",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Vulkoor's Chosen": [],
     "Legendary Vulkoor's CunningMinimum level: 30": [],
     "Legendary Vulkoor's MightMinimum level: 30": [],

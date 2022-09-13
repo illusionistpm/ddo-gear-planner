@@ -3108,6 +3108,114 @@
         }
     ],
     "Spell Singer": [],
+    "Temple's Inferno": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Temple's Monolith": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Temple's Tempest": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Temple's Tide": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Threat Reduction from all sources",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Tharne's Wrath": [],
     "The Desert's Biting Sands": [
         {

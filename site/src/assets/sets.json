@@ -1097,50 +1097,6 @@
         }
     ],
     "Epic Soul of the Red Dragon": [],
-    "Epic The Desert's Biting Sands": [
-        {
-            "affixes": [
-                {
-                    "name": "Force Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Force Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Magical Resistance Rating Cap",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
-    "Epic The Desert's Burning Sun": [
-        {
-            "affixes": [
-                {
-                    "name": "Fire Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Fire Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "20"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Epic The Desert's Starless Nights": [
         {
             "affixes": [
@@ -3351,6 +3307,50 @@
                 }
             ],
             "threshold": 5
+        }
+    ],
+    "The Epic Desert's Biting Sands": [
+        {
+            "affixes": [
+                {
+                    "name": "Force Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Force Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Epic Desert's Burning Sun": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Fire Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "The Epic Desert's Writhing Storm": [

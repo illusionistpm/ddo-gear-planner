@@ -409,6 +409,11 @@
                     "name": "threat decrease with both melee and ranged attacks",
                     "type": "Artifact",
                     "value": "20"
+                },
+                {
+                    "name": "imbue dice",
+                    "type": "Artifact",
+                    "value": "1"
                 }
             ],
             "threshold": 3
@@ -441,6 +446,11 @@
                     "name": "threat decrease with both melee and ranged attacks",
                     "type": "Artifact",
                     "value": "20"
+                },
+                {
+                    "name": "imbue dice",
+                    "type": "Artifact",
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -709,6 +719,11 @@
                 },
                 {
                     "name": "all Ability Scores",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "imbue dice",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -2087,6 +2102,11 @@
                     "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "25"
+                },
+                {
+                    "name": "imbue dice",
+                    "type": "Artifact",
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -2670,6 +2690,11 @@
                     "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "25"
+                },
+                {
+                    "name": "imbue dice",
+                    "type": "Artifact",
+                    "value": "1"
                 }
             ],
             "threshold": 3

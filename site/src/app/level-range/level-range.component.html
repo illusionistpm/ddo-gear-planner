@@ -6,9 +6,9 @@
     <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="row">
             <span class="align-bottom col-4">Level range:</span>
-            <input type="number" min="1" max="30" class="form-control col-2" (change)="onChange()" [(ngModel)]="minLevel">
+            <input type="number" min="1" class="form-control col-2" (change)="onChange()" [(ngModel)]="minLevel">
             <span class="col-1 text-center">-</span>
-            <input type="number" min="1" max="30" class="form-control col-2" (change)="onChange()" [(ngModel)]="maxLevel">
+            <input type="number" min="1" class="form-control col-2" (change)="onChange()" [(ngModel)]="maxLevel">
         </div>
         <input type="checkbox" class="form-check-input" id="raidItems" (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
         <label class="form-check-label" for="raidItems">Show Raid Items</label>

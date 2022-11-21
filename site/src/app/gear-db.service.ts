@@ -87,9 +87,15 @@ export class GearDbService {
   _loadAllItems() {
     const gear = new Map<string, Array<Item>>();
 
+    let maxLevel = 0;
+
     for (const item of itemsList) {
       if (item.slot === 'Ring') {
         item.slot = 'Ring1';
+      }
+
+      if (parseInt(item.ml) > maxLevel) {
+        maxLevel = item.ml;
       }
 
       if (!gear.has(item.slot)) {
@@ -131,6 +137,8 @@ export class GearDbService {
       ring2.push(newItem);
     }
     gear.set('Ring2', ring2);
+
+    this.filters.setMaxLevel(maxLevel);
 
     return gear;
   }
@@ -246,7 +254,7 @@ export class GearDbService {
         typeMap.set(affix.type, Number(affix.value));
       }
     } 
-  } 
+  }
 
   getGearList() {
     return this.gear;

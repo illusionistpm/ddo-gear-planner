@@ -14,6 +14,9 @@ def get_item_page_urls():
     table = soup.find(id='mw-content-text').contents[0].contents[0]
     links = table.find_all('a', href=True)
     itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
+
+    itemPages.append('Category:Quiver_items')
+
     return itemPages
 
 
@@ -25,7 +28,7 @@ def download_page(url, cacheDir):
         return False
 
     #https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Category:Cloth_armor
-    print("Downloading " + filename)
+    print(f"Downloading {filename} from {url}")
     page = requests.get("http://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url)
     open(path, 'w', encoding='utf8').write(page.text)
 

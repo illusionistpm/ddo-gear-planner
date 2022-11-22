@@ -33,6 +33,7 @@ def build_cat_map():
     add_cat_to_map(catMap, 'Ring', ['Finger items'])
     add_cat_to_map(catMap, 'Trinket', ['Trinket items'])
     add_cat_to_map(catMap, 'Collar', ['Collars'])
+    add_cat_to_map(catMap, 'Quiver', ['Quiver items'])
 
     return catMap
 

@@ -273,6 +273,7 @@ export class GearDbService {
       case 'Weapon': return 1;
       case 'Offhand': return 2;
       default: return 3;
+      case 'Quiver': return 4;
     }
   }
 

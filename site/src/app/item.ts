@@ -28,7 +28,12 @@ export class Item {
             this.sets = json.sets;
             this.url = json.url;
             this.rawCrafting = json.crafting;
-            this.crafting = json.crafting;
+            if (json.crafting) {
+                this.crafting = Array<Craftable>();
+                for (const craftingJSON of json.crafting) {
+                    this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch));
+                }
+            }
             this.quests = json.quests;
             this.artifact = json.artifact;
         }

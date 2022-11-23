@@ -138,6 +138,14 @@ export class GearDbService {
     }
     gear.set('Ring2', ring2);
 
+    const offhand = [];
+    for (const item of gear.get('Weapon')) {
+      const newItem = new Item(item);
+      newItem.slot = 'Offhand';
+      offhand.push(newItem);
+    }
+    gear.set('Offhand', gear.get('Offhand').concat(offhand));
+
     this.filters.setMaxLevel(maxLevel);
 
     return gear;

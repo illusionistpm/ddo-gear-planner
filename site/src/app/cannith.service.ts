@@ -15,6 +15,7 @@ export class CannithService {
 
   constructor() {
     this.levels = [];
+    // FIXME!! This should be based on the maximum level, not the old hard-coded 34 
     for (let ml = 34; ml >= 1; ml--) {
       this.levels.push(ml);
     }

@@ -218,7 +218,7 @@ export class GearDbService {
       for (const cannithSlot of cannithSlots) {
         const locations = cannithList['itemTypes'][cannithSlot];
         if (locations) {
-          const ml = maxLevel === 30 ? 34 : maxLevel;
+          const ml = maxLevel;
           const craftingOptions = this.cannith.getValuesForML(cannithSlot, ml);
 
           const cannithBlank = new Item(null);

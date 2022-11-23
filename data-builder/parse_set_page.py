@@ -23,6 +23,7 @@ def sub_name(name):
         ['all Spell DCs', 'Spell DCs'],
         ['all spell DCs', 'Spell DCs'],
         ['DCs', 'Spell DCs'],
+        ['Evocation Spell DCs', 'Evocation Focus'],
         ['your Magical Resistance Rating', 'Magical Resistance Rating'],
         ['your Tactical Abilities', 'Tactical Abilities'],
         ['maximum hitpoints', 'Hit Points'],

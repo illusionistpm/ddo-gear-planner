@@ -65,11 +65,18 @@ def download_quest_pages():
 
     download_page('Raids', cacheDir)
 
+def download_crafting_pages():
+    cacheDir = 'cache/crafting/'
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    download_page('Dinosaur_Bone_crafting', cacheDir)
 
 def download_wiki_pages():
     download_item_pages()
     download_set_page()
     download_quest_pages()
+    download_crafting_pages()
 
 def clear_wiki_cache():
     path = Path('cache')

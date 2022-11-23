@@ -2,6 +2,7 @@ import json
 from parse_slavers import parse_slavers_crafting
 from parse_augments import parse_augments
 from write_json import write_json
+from parse_dinosaur_bone_crafting import parse_dinosaur_bone_crafting
 import os
 
 def build_crafting():
@@ -9,11 +10,14 @@ def build_crafting():
 
     slavers = parse_slavers_crafting()
 
+    #dino_bone = parse_dinosaur_bone_crafting()
+
     augments = parse_augments()
 
     combined = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
+    #combined.update(dino_bone)
     combined.update(augments)
 
     write_json(combined, 'crafting')

@@ -8,15 +8,7 @@ import collections
 from parse_slavers import parse_slavers_sets
 from write_json import write_json
 from read_json import read_json
-
-def get_inverted_synonym_map():
-    synData = read_json('affix-synonyms')
-
-    out = {}
-    for syn in synData:
-        for name in syn['synonyms']:
-            out[name] = syn['name']
-    return out
+from get_inverted_synonym_map import get_inverted_synonym_map
 
 def sub_name(name):
     for pair in [

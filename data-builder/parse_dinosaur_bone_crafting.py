@@ -7,53 +7,54 @@ import collections
 from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
+from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
+from get_inverted_synonym_map import get_inverted_synonym_map
+from pprint import pprint
 
-def get_systems_from_page(itemPageURL, sets):
+def get_systems_from_page(soup):
     synonymMap = get_inverted_synonym_map()
 
-    print("Parsing " + itemPageURL)
-    page = open(itemPageURL, "r", encoding='utf-8').read()
-
-    soup = BeautifulSoup(page, 'html.parser')
-
-    tables = soup.find(id='bodyContent').find(id='mw-content-text').find('div').find_all('table', class_="wikitable").find('tbody')
+    tables = soup.find(id='bodyContent').find(id='mw-content-text').find_all('table', class_="wikitable")
+  
+    fake_bonuses = get_fake_bonuses()
 
     systems = {}
 
     for table in tables:
         headers = table.find_all('th')
+
         # Skip any tables that don't include Effects
-        if headers[1] != 'Effect':
+        if headers[1].getText().strip() != 'Effect':
             continue
 
-        system_name = headers[0]
+        body = table.find('tbody')
+
+        system_name = headers[0].getText()
 
         systems[system_name] = {'*': []}
 
-        rows = table.find_all('tr', recursive=False)
-        rows.pop()
+        rows = body.find_all('tr', recursive=False)
 
-        for row in rows:
-            fields = row.find_all('td', recursive=False)            
+        for row in rows[1:]:
+            fields = row.find_all('td', recursive=False)
 
-            affix = {}
-            affix['name'] = fields[0]
-            affix['value'] = value
-            affix['type'] = bonusType
+            affixes = parse_affixes_from_cell(fields[1], synonymMap, fake_bonuses, None)
 
             option = {}
-            option['affixes'] = [affix]
+            option['affixes'] = affixes
 
             systems[system_name]['*'].append(option)
 
-def parse_dinosaur_bone_crafting():
-    items = read_json('items')
-        
+    return systems
+
+def parse_dinosaur_bone_crafting():        
     page = open('./cache/crafting/Dinosaur_Bone_crafting.html', "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 
     systems = get_systems_from_page(soup)
-
     return systems
 
+if __name__ == "__main__":
+    system = parse_dinosaur_bone_crafting()
+    pprint(system)

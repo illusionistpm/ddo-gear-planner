@@ -23,14 +23,14 @@ def build_data(clearCache, discordURL):
     print(f"### Writing to '{get_output_path()}")
     build_synonyms()
 
-    parse_set_page()
-    parse_item_pages()
-    parse_minor_artifacts()
     parse_cannith()
-
     build_affix_groups()
     build_crafting()
 
+    parse_set_page()
+    parse_item_pages()
+    parse_minor_artifacts()
+ 
     newStats = get_data_stats()
 
     diffStats = diff_data_stats(newStats, oldStats)

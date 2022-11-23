@@ -10,14 +10,14 @@ def build_crafting():
 
     slavers = parse_slavers_crafting()
 
-    #dino_bone = parse_dinosaur_bone_crafting()
+    dino_bone = parse_dinosaur_bone_crafting()
 
     augments = parse_augments()
 
     combined = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
-    #combined.update(dino_bone)
+    combined.update(dino_bone)
     combined.update(augments)
 
     write_json(combined, 'crafting')

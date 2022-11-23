@@ -1056,6 +1056,311 @@
         ],
         "hiddenFromAffixSearch": true
     },
+    "Claw (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning DCs",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Trip DCs",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sunder DCs",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate DCs",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ]
+            }
+        ]
+    },
+    "Claw (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            }
+        ]
+    },
     "Colorless Augment Slot": {
         "*": [
             {
@@ -3194,6 +3499,386 @@
             }
         ],
         "hiddenFromAffixSearch": true
+    },
+    "Fang (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Healing Amplification",
+                        "type": "Competence",
+                        "value": "56"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Healing Amplification",
+                        "type": "Profane",
+                        "value": "56"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "56"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "21"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": "11"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ]
+            }
+        ]
+    },
+    "Fang (Armor)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "+2d6 Profane bonus to your Sneak Attack Dice.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Exceptional",
+                        "value": "15"
+                    }
+                ]
+            }
+        ]
+    },
+    "Fang (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Dmg ~80 per stack; doesn't refresh stacks until all 10 expire; decays 1 stack per 5 sec)",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (6d6+6 every 2 sec; 1:17 duration; seems to scale off SP or MP)",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    },
+    "Horn (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Saving Throws",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Relentless Fury",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Enhancement",
+                        "value": "21"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Maximum SP",
+                        "type": "Enhancement",
+                        "value": "286"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Sacred",
+                        "value": "2"
+                    }
+                ]
+            }
+        ]
+    },
+    "Horn (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical Resistance Rating and Positive Healing Amplification.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
     },
     "Legendary Slaver's Bonus Slot": {
         "*": [
@@ -6602,6 +7287,270 @@
             }
         ],
         "hiddenFromAffixSearch": true
+    },
+    "Scale (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Maximum HP",
+                        "type": "Enhancement",
+                        "value": "53"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ]
+            }
+        ]
+    },
+    "Scale (Armor)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "You have Deathblock and are Ghostly.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "150"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "each Amplification",
+                        "type": "Enhancement",
+                        "value": "56"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Lore",
+                        "type": "Exceptional",
+                        "value": "5"
+                    }
+                ]
+            }
+        ]
+    },
+    "Scale (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Adamantine material type. On hit: 15d6 Fire Damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Cold Iron material type. On hit: 15d6 Cold Damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Crystal and Byeshk material type. On hit: 15d6 Acid Damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Cost Reduction",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adds Silver material type. On hit: 15d6 Electric Damage.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
     },
     "Slaver's Bonus Slot": {
         "*": [

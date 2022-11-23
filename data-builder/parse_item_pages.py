@@ -7,7 +7,8 @@ import collections
 from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
-from parse_affixes_from_cell import parse_affixes_from_cell
+from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
+from get_inverted_synonym_map import get_inverted_synonym_map
 
 def include_page(fileName):
     return not fileName.startswith('Collars')
@@ -37,16 +38,6 @@ def build_cat_map():
     add_cat_to_map(catMap, 'Quiver', ['Quiver items'])
 
     return catMap
-
-
-def get_inverted_synonym_map():
-    synData = read_json('affix-synonyms')
-
-    out = {}
-    for syn in synData:
-        for name in syn['synonyms']:
-            out[name] = syn['name']
-    return out
 
 
 def get_items_from_page(itemPageURL, sets):
@@ -79,12 +70,14 @@ def get_items_from_page(itemPageURL, sets):
 
     catMap = build_cat_map()
 
-    craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
-        'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential',
-        'Upgradeable - Tier', 'Upgradeable Item', "Slaver's Prefix Slot", "Legendary Slaver's Prefix Slot", "Slaver's Suffix Slot",
-        "Legendary Slaver's Suffix Slot", "Slaver's Extra Slot", "Legendary Slaver's Extra Slot", "Slaver's Bonus Slot",
-        "Legendary Slaver's Bonus Slot", "Slaver's Set Bonus", "Legendary Slaver's Set Bonus"])
-    fakeBonuses = set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
+    craftingSystems = read_json('crafting').keys()
+
+    # craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
+    #     'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential',
+    #     'Upgradeable - Tier', 'Upgradeable Item', "Slaver's Prefix Slot", "Legendary Slaver's Prefix Slot", "Slaver's Suffix Slot",
+    #     "Legendary Slaver's Suffix Slot", "Slaver's Extra Slot", "Legendary Slaver's Extra Slot", "Slaver's Bonus Slot",
+    #     "Legendary Slaver's Bonus Slot", "Slaver's Set Bonus", "Legendary Slaver's Set Bonus"])
+    fakeBonuses = get_fake_bonuses()
 
     for row in rows:
         item = {}

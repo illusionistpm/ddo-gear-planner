@@ -22,12 +22,14 @@ def sub_name(name):
     for pair in [
         ['all Spell DCs', 'Spell DCs'],
         ['all spell DCs', 'Spell DCs'],
+        ['DCs', 'Spell DCs'],
         ['your Magical Resistance Rating', 'Magical Resistance Rating'],
         ['your Tactical Abilities', 'Tactical Abilities'],
         ['maximum hitpoints', 'Hit Points'],
         ['your maximum hit points', 'Hit Points'],
         ['your maximum Spell Points', 'Spell Points'],
-        ['all of your Ability Scores', 'Well-Rounded']
+        ['all of your Ability Scores', 'Well-Rounded'],
+        ['all Ability Scores', 'Well-Rounded']
         ]:
         if name == pair[0]:
             return pair[1]
@@ -70,7 +72,8 @@ def list_items_to_affixes(listItems, synMap):
     if listItems:
         for entry in listItems:
             if 'bonus to' in entry.getText().lower():
-                search = re.search(r'\+?(\d+)%? ([A-Za-z]+) [b|B]onus to (.*)', entry.getText())
+                # Sometimes there's a redundant "bonus" (bonus bonus) 
+                search = re.search(r'\+?(\d+)%? ([A-Za-z]+)(?: bonus)? [Bb]onus to (.*)', entry.getText())
             else:
                 search = re.search(r'\+?(\d+)%?( )(.*)', entry.getText())
 
@@ -133,7 +136,11 @@ def get_sets_from_page(soup):
             if len(cells) != expectedCols:
                 continue
 
-            setName = cells[setNameIdx].getText().strip()
+            setName = cells[setNameIdx].find_all("b")[0].getText().strip()
+
+            # Some set names have their ML in their title
+            if '[ML:' in setName:
+                setName = setName.split('[ML:')[0].strip()
 
             if not setName in sets:
                 sets[setName] = []
@@ -144,7 +151,7 @@ def get_sets_from_page(soup):
             bFoundSetParagraph = False
             paragraphs = bonusCell.find_all('p')
             for p in paragraphs:
-                bonusSearch = re.search(r'([1-9]) Pieces Equipped:', p.getText())
+                bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', p.getText())
                 if bonusSearch:
                     bFoundSetParagraph = True
                     num = int(bonusSearch.group(1))
@@ -161,40 +168,66 @@ def get_sets_from_page(soup):
 
                     sets[setName].append(threshold)
 
-                #FIXME!! Need to finish implementing this
-                # if not bonusSearch:
-                #     bonusSearch = re.search(r'([1-9]) Item version:', p.getText())
-                #     if bonusSearch:
-                #         bFoundSetParagraph = True
-                
+            if not bFoundSetParagraph and len(bonusCell.find_all('br')) != 0:
+                # Sometimes the bonuses are just separated with <br> (e.g., Raven's Eye)
+                td = bonusCell.find('td')
+                if td:
+                    brBlocks = td.get_text(strip=True, separator='\n').splitlines()
+                    bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', brBlocks[0])
+                    if bonusSearch:
+                        bFoundSetParagraph = True
+                        num = int(bonusSearch.group(1))
+
+                        affixes = list_items_to_affixes(brBlocks[1:], synMap)
+
+                        threshold = {}
+                        threshold['threshold'] = num
+                        threshold['affixes'] = affixes
+
+                        sets[setName].append(threshold)
 
             # Look for older, more standard sets, where bonuses are all-or-nothing
             if not bFoundSetParagraph:
-                numItemsSearch = re.search(r'While wearing ((any )?([a-z]+)|both) (items|pieces)', bonusCell.getText())
+                numItemsSearch = re.search(r'While wearing ((any )?([a-z]+|both|[1-9])) (items|pieces)', bonusCell.getText())
                 if numItemsSearch:
                     numStr = numItemsSearch.group(3).strip()
 
-                    switch = {
-                        'one': 1,
-                        'both': 2,
-                        'two': 2,
-                        'three': 3,
-                        'four': 4,
-                        'five': 5,
-                        'six': 6,
-                        'seven': 7
-                    }
-                    num = switch.get(numStr, 99999)
+                    if numStr.isnumeric():
+                        num = int(numStr)
+                    else:
+                        switch = {
+                            'one': 1,
+                            'both': 2,
+                            'two': 2,
+                            'three': 3,
+                            'four': 4,
+                            'five': 5,
+                            'six': 6,
+                            'seven': 7
+                        }
+                        num = switch.get(numStr, 99999)
 
                     listItems = bonusCell.find_all('li')
 
-                    affixes = list_items_to_affixes(listItems, synMap)
+                    if len(listItems) > 0:
+                        affixes = list_items_to_affixes(listItems, synMap)
 
-                    threshold = {}
-                    threshold['threshold'] = num
-                    threshold['affixes'] = affixes
+                        threshold = {}
+                        threshold['threshold'] = num
+                        threshold['affixes'] = affixes
 
-                    sets[setName].append(threshold)
+                        sets[setName].append(threshold)
+                    else:
+                        # Sets like Griffon Set where the bonus(es) are simple paragraphs
+                        paragraphs = bonusCell.find_all('p')
+
+                        affixes = list_items_to_affixes(paragraphs[1:], synMap)
+
+                        threshold = {}
+                        threshold['threshold'] = num
+                        threshold['affixes'] = affixes
+
+                        sets[setName].append(threshold)
 
     return sets
 

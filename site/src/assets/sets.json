@@ -288,7 +288,13 @@
     ],
     "Captain's Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Quality",
+                    "value": "1"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -381,7 +387,7 @@
             "threshold": 2
         }
     ],
-    "Corsair's Cunning [ML:5]": [],
+    "Corsair's Cunning": [],
     "Crypt Raider Set (Heroic)": [
         {
             "affixes": [
@@ -598,10 +604,16 @@
             "threshold": 3
         }
     ],
-    "Divine BlessingMinimum level: 7": [],
+    "Divine Blessing": [],
     "Double Helix Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Insightful",
+                    "value": "2"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -718,7 +730,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "all Ability Scores",
+                    "name": "Well-Rounded",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -731,7 +743,7 @@
             "threshold": 3
         }
     ],
-    "Elder's KnowledgeMinimum level: 7": [],
+    "Elder's Knowledge": [],
     "Eminence of Autumn": [
         {
             "affixes": [
@@ -1022,28 +1034,46 @@
     ],
     "Epic Captain's Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Quality",
+                    "value": "2"
+                }
+            ],
             "threshold": 2
         }
     ],
-    "Epic Divine BlessingMinimum level: 20": [],
+    "Epic Divine Blessing": [],
     "Epic Double Helix Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Insightful",
+                    "value": "5"
+                }
+            ],
             "threshold": 2
         }
     ],
     "Epic Draconic Prophecy": [],
-    "Epic Elder's KnowledgeMinimum level: 20": [],
+    "Epic Elder's Knowledge": [],
     "Epic Elemental Evil Set": [],
     "Epic Griffon Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Quality",
+                    "value": "2"
+                }
+            ],
             "threshold": 2
         }
     ],
     "Epic Kundarak Delving Equipment": [],
-    "Epic MarshwalkerMinimum level: 20": [],
+    "Epic Marshwalker": [],
     "Epic Menechtarun Scavenger": [
         {
             "affixes": [
@@ -1076,7 +1106,58 @@
             "threshold": 2
         }
     ],
-    "Epic Might of the Abishai [ML:20]": [],
+    "Epic Might of the Abishai": [
+        {
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "2"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Profane",
+                    "value": "15"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "8"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "2"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Epic Mroranon's Might": [],
     "Epic Oasis of Morality": [
         {
@@ -1100,14 +1181,76 @@
             "threshold": 2
         }
     ],
-    "Epic Raven's EyeMinimum level: 20": [],
-    "Epic Saltmarsh Explorer": [],
-    "Epic Shaman's FuryMinimum level: 20": [],
+    "Epic Raven's Eye": [],
+    "Epic Saltmarsh Explorer": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Spell Power",
+                    "type": "",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Spell Power",
+                    "type": "",
+                    "value": "10"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "",
+                    "value": "10"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Epic Shaman's Fury": [],
     "Epic Silver Concord's Subtlety": [],
-    "Epic Siren's WardMinimum level: 20": [],
+    "Epic Siren's Ward": [],
     "Epic Slice 'n Dice": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Seeker",
+                    "type": "Quality",
+                    "value": "2"
+                },
+                {
+                    "name": "Sneak Attack",
+                    "type": "Quality",
+                    "value": "2"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -1146,7 +1289,13 @@
     ],
     "Epic The Devil's Handiwork": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Ability stats",
+                    "type": "Quality",
+                    "value": "3"
+                }
+            ],
             "threshold": 5
         }
     ],
@@ -1182,8 +1331,8 @@
             "threshold": 2
         }
     ],
-    "Epic Vulkoor's CunningMinimum level: 20": [],
-    "Epic Vulkoor's MightMinimum level: 20": [],
+    "Epic Vulkoor's Cunning": [],
+    "Epic Vulkoor's Might": [],
     "Epic Wards of House Kundarak": [],
     "Epic Windlasher's Ferocity": [
         {
@@ -1371,7 +1520,13 @@
     "Glacial Assault": [],
     "Griffon Set": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Quality",
+                    "value": "1"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -1722,7 +1877,7 @@
             "threshold": 3
         }
     ],
-    "Legendary Divine BlessingMinimum level: 30": [],
+    "Legendary Divine Blessing": [],
     "Legendary Draconic Prophecy": [],
     "Legendary Dreadkeeper": [
         {
@@ -1776,7 +1931,7 @@
             "threshold": 3
         }
     ],
-    "Legendary Elder's KnowledgeMinimum level: 30": [],
+    "Legendary Elder's Knowledge": [],
     "Legendary Esoteric Initiate": [
         {
             "affixes": [
@@ -2008,7 +2163,7 @@
         }
     ],
     "Legendary Kundarak Delving Equipment": [],
-    "Legendary MarshwalkerMinimum level: 30": [],
+    "Legendary Marshwalker": [],
     "Legendary Menechtarun Scavenger": [
         {
             "affixes": [
@@ -2041,7 +2196,88 @@
             "threshold": 2
         }
     ],
-    "Legendary Might of the Abishai [ML:30]": [],
+    "Legendary Might of the Abishai": [
+        {
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Profane",
+                    "value": "20"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Profane",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Sheltering",
+                    "type": "Profane",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "3"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Profane",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Profane",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Profane",
+                    "value": "30"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Legendary Mroranon's Might": [],
     "Legendary Part of the Family": [
         {
@@ -2112,11 +2348,62 @@
             "threshold": 3
         }
     ],
-    "Legendary Raven's EyeMinimum level: 30": [],
-    "Legendary Saltmarsh Explorer": [],
-    "Legendary Shaman's FuryMinimum level: 30": [],
+    "Legendary Raven's Eye": [],
+    "Legendary Saltmarsh Explorer": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Spell Power",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Spell Power",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
+    "Legendary Shaman's Fury": [],
     "Legendary Silver Concord's Subtlety": [],
-    "Legendary Siren's WardMinimum level: 30": [],
+    "Legendary Siren's Ward": [],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -2383,8 +2670,8 @@
         }
     ],
     "Legendary Vulkoor's Chosen": [],
-    "Legendary Vulkoor's CunningMinimum level: 30": [],
-    "Legendary Vulkoor's MightMinimum level: 30": [],
+    "Legendary Vulkoor's Cunning": [],
+    "Legendary Vulkoor's Might": [],
     "Legendary Wallwatch": [
         {
             "affixes": [
@@ -2470,7 +2757,7 @@
             "threshold": 2
         }
     ],
-    "MarshwalkerMinimum level: 7": [],
+    "Marshwalker": [],
     "Masterful Magewright": [
         {
             "affixes": [
@@ -2540,7 +2827,48 @@
             "threshold": 2
         }
     ],
-    "Might of the Abishai [ML:5]": [],
+    "Might of the Abishai": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "3"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "2"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Mind and Matter": [
         {
             "affixes": [
@@ -2701,7 +3029,7 @@
         }
     ],
     "Protector's Heart": [],
-    "Raven's EyeMinimum level: 7": [],
+    "Raven's Eye": [],
     "Renegade Champion": [
         {
             "affixes": [
@@ -2747,7 +3075,28 @@
         }
     ],
     "Risk and Reward": [],
-    "Saltmarsh Explorer": [],
+    "Saltmarsh Explorer": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Seasons of Change": [
         {
             "affixes": [
@@ -2859,7 +3208,7 @@
             "threshold": 7
         }
     ],
-    "Shaman's FuryMinimum level: 7": [],
+    "Shaman's Fury": [],
     "Silent Avenger Set (Heroic)": [
         {
             "affixes": [
@@ -2925,7 +3274,7 @@
         }
     ],
     "Silver Concord's Subtlety": [],
-    "Siren's WardMinimum level: 7": [],
+    "Siren's Ward": [],
     "Slave Lord's Might": [
         {
             "affixes": [
@@ -3084,7 +3433,18 @@
     ],
     "Slice 'n Dice": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Seeker",
+                    "type": "Quality",
+                    "value": "1"
+                },
+                {
+                    "name": "Sneak Attack",
+                    "type": "Quality",
+                    "value": "1"
+                }
+            ],
             "threshold": 2
         }
     ],
@@ -3298,7 +3658,13 @@
     ],
     "The Devil's Handiwork": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Ability stats",
+                    "type": "Quality",
+                    "value": "2"
+                }
+            ],
             "threshold": 5
         }
     ],
@@ -3326,7 +3692,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "all Ability Scores",
+                    "name": "Well-Rounded",
                     "type": "Profane",
                     "value": "1"
                 }
@@ -3583,8 +3949,8 @@
             "threshold": 2
         }
     ],
-    "Vulkoor's CunningMinimum level: 7": [],
-    "Vulkoor's MightMinimum level: 7": [],
+    "Vulkoor's Cunning": [],
+    "Vulkoor's Might": [],
     "Wallwatch": [
         {
             "affixes": [

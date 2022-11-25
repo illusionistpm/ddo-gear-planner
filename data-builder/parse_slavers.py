@@ -111,11 +111,11 @@ def parse_slavers_crafting():
 
     for setName in ["Slave Lord's Might", "Slave Lord's Sorcery", "Slave Lord's Endurance"]:
         option = {}
-        option['sets'] = [setName]
+        option['set'] = setName
         systems["Slaver's Set Bonus"]['*'].append(option)
 
         option = {}
-        option['sets'] = ['Legendary ' + setName]
+        option['set'] = 'Legendary ' + setName
         systems["Legendary Slaver's Set Bonus"]['*'].append(option)
 
     return systems

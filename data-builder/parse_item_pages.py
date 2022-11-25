@@ -70,13 +70,9 @@ def get_items_from_page(itemPageURL, sets):
 
     catMap = build_cat_map()
 
-    craftingSystems = read_json('crafting').keys()
+    craftingSystems = list(read_json('crafting').keys())
+    craftingSystems.extend(['Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot'])
 
-    # craftingSystems = set(['Nearly Finished', 'Almost There', 'Blue Augment Slot', 'Red Augment Slot', 'Yellow Augment Slot', 
-    #     'Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot', 'Colorless Augment Slot', 'Incredible Potential',
-    #     'Upgradeable - Tier', 'Upgradeable Item', "Slaver's Prefix Slot", "Legendary Slaver's Prefix Slot", "Slaver's Suffix Slot",
-    #     "Legendary Slaver's Suffix Slot", "Slaver's Extra Slot", "Legendary Slaver's Extra Slot", "Slaver's Bonus Slot",
-    #     "Legendary Slaver's Bonus Slot", "Slaver's Set Bonus", "Legendary Slaver's Set Bonus"])
     fakeBonuses = get_fake_bonuses()
 
     for row in rows:

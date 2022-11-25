@@ -113,6 +113,7 @@ def sub_name(name):
         ['Construct Fortification', 'Fortification'],
         ['all Spell DCs', 'Spell DCs'],
         ['all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)', 'Spell DCs'],
+        ['+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.', '+102 Equipment bonus to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.']
         ]:
         if name == pair[0]:
             return pair[1]
@@ -134,7 +135,6 @@ def strip_leading_asterisk(name):
     if len(name) > 0 and name[0] == '*':
         return name[1:]
     return name
-
 
 def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
     ret = []

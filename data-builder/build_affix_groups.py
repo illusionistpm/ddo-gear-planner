@@ -33,6 +33,7 @@ def build_affix_groups():
     add(groups, 'Well Rounded', ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'])
     add(groups, 'Lifesealed', ['Deathblock', 'Negative Energy Absorption'])
     add(groups, 'Spell Focus Mastery', ['Evocation Focus', 'Necromancy Focus', 'Transmutation Focus', 'Enchantment Focus', 'Conjuration Focus', 'Abjuration Focus', 'Illusion Focus'])
+    add(groups, 'each Amplification', ['Healing Amplification', 'Negative Amplification', 'Repair Amplification'])
 
     write_json(groups, 'affix-groups')
 

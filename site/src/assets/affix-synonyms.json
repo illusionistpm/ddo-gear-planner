@@ -60,5 +60,23 @@
         "synonyms": [
             "Negative Spell Power"
         ]
+    },
+    {
+        "name": "Healing Amplification",
+        "synonyms": [
+            "Positive Healing Amplification"
+        ]
+    },
+    {
+        "name": "Negative Amplification",
+        "synonyms": [
+            "Negative Healing Amplification"
+        ]
+    },
+    {
+        "name": "Repair Amplification",
+        "synonyms": [
+            "Repair Healing Amplification"
+        ]
     }
 ]

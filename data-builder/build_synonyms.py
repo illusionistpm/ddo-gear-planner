@@ -20,6 +20,9 @@ def build_synonyms():
     add(data, 'Spell Focus Mastery', ['Spell DCs'])
     add(data, 'Void Lore', ['Negative Spell Crit Chance'])
     add(data, 'Nullification', ['Negative Spell Power'])
+    add(data, 'Healing Amplification', ['Positive Healing Amplification'])
+    add(data, 'Negative Amplification', ['Negative Healing Amplification'])
+    add(data, 'Repair Amplification', ['Repair Healing Amplification'])
 
     write_json(data, 'affix-synonyms')
 

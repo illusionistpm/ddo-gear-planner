@@ -13,7 +13,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 def sub_name(name):
     for pair in [
         ['all Spell DCs', 'Spell DCs'],
-        ['all spell DCs', 'Spell DCs'],
+        ['Spell DC\'s', 'Spell DCs'],
         ['DCs', 'Spell DCs'],
         ['Evocation Spell DCs', 'Evocation Focus'],
         ['your Magical Resistance Rating', 'Magical Resistance Rating'],
@@ -24,7 +24,7 @@ def sub_name(name):
         ['all of your Ability Scores', 'Well-Rounded'],
         ['all Ability Scores', 'Well-Rounded']
         ]:
-        if name == pair[0]:
+        if name.lower() == pair[0].lower():
             return pair[1]
     return name
 

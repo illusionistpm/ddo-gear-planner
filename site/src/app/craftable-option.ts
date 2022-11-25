@@ -62,7 +62,14 @@ export class CraftableOption {
             return this.set;
         }
         if (this.affixes && this.affixes.length) {
-            let str = this.affixes[0].name + ' +' + this.affixes[0].value + ' ' + this.affixes[0].type;
+            const affix = this.affixes[0];
+
+            let str = this.affixes[0].name
+            if (affix.hasRealType()) {
+                str += ' +' + this.affixes[0].value + ' ' + this.affixes[0].type;
+
+            }
+
             if (this.ml) {
                 str += ' (ML ' + this.ml + ')';
             }

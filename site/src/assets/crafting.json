@@ -3505,7 +3505,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Healing Amplification",
+                        "name": "Healing Amplification",
                         "type": "Competence",
                         "value": "56"
                     }
@@ -3514,7 +3514,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Healing Amplification",
+                        "name": "Negative Amplification",
                         "type": "Profane",
                         "value": "56"
                     }

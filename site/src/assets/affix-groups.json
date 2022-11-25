@@ -136,5 +136,13 @@
             "Illusion Focus"
         ],
         "name": "Spell Focus Mastery"
+    },
+    {
+        "affixes": [
+            "Healing Amplification",
+            "Negative Amplification",
+            "Repair Amplification"
+        ],
+        "name": "each Amplification"
     }
 ]

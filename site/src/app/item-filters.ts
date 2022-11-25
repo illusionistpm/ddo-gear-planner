@@ -7,13 +7,17 @@ export class ItemFilters {
 
     showRaidItems: boolean;
 
+    hiddenItemTypes: Set<string>;
+
     constructor(oldFilters: ItemFilters = null) {
         this.levelRange = [ItemFilters.MIN_LEVEL(), ItemFilters.MAX_LEVEL()];
         this.showRaidItems = true;
+        this.hiddenItemTypes = new Set<string>();
 
         if (oldFilters) {
             this.levelRange = oldFilters.levelRange;
             this.showRaidItems = oldFilters.showRaidItems;
+            this.hiddenItemTypes = oldFilters.hiddenItemTypes;
         }
     }
 }

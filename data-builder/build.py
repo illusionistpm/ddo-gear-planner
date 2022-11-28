@@ -1,6 +1,6 @@
 from download_wiki_pages import download_wiki_pages, clear_wiki_cache
 from parse_set_page import parse_set_page
-from parse_item_pages import parse_item_pages
+from parse_items import parse_items
 from parse_minor_artifacts import parse_minor_artifacts
 from parse_cannith import parse_cannith
 from build_affix_groups import build_affix_groups
@@ -9,6 +9,7 @@ from build_synonyms import build_synonyms
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description
 import argparse
 from get_output_path import get_output_path
+from parse_item_types import parse_item_types
 import requests
 
 def build_data(clearCache, discordURL):
@@ -28,8 +29,10 @@ def build_data(clearCache, discordURL):
     build_crafting()
 
     parse_set_page()
-    parse_item_pages()
+    parse_items()
     parse_minor_artifacts()
+
+    parse_item_types()
  
     newStats = get_data_stats()
 

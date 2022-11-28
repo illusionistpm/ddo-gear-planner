@@ -2,15 +2,106 @@
     <h3>Filters</h3>
 </div>
 
+
 <div class="row pb-2">
     <div class="col-sm-12 col-md-6 col-lg-4">
-        <div class="row">
-            <span class="align-bottom col-4">Level range:</span>
-            <input type="number" min="1" class="form-control col-2" (change)="onChange()" [(ngModel)]="minLevel">
-            <span class="col-1 text-center">-</span>
-            <input type="number" min="1" class="form-control col-2" (change)="onChange()" [(ngModel)]="maxLevel">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <span class="align-bottom col-5">Level range:</span>
+                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                        [(ngModel)]="minLevel">
+                    <span class="col-1 text-center">-</span>
+                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                        [(ngModel)]="maxLevel">
+                </div>
+                <input type="checkbox" class="form-check form-check-inline" id="raidItems"
+                    (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
+                <label class="form-check-label" for="raidItems">Show Raid Items</label>
+            </div>
         </div>
-        <input type="checkbox" class="form-check-input" id="raidItems" (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
-        <label class="form-check-label" for="raidItems">Show Raid Items</label>
     </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <ngb-accordion #acc="ngbAccordion" closeOthers="true">
+            <ngb-panel title="One-handed melee">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let type of getTypesWithAttribute(['one-handed', 'melee'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Two-handed melee">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let type of getTypesWithAttribute(['two-handed', 'melee'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Offhand">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let type of getTypesWithAttribute(['offhand'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Ranged">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let type of getTypesWithAttribute(['ranged'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Thrown">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let type of getTypesWithAttribute(['thrown'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Armor">
+                <ng-template ngbPanelContent>
+                    <div class="card-body">
+                        <div class="form-check form-check-inline" *ngFor="let type of getTypesWithAttribute(['armor'])">
+                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
+                                [ngModel]="!hiddenTypes.has(type)"
+                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
+                            <label class="form-check-label">{{type}}</label>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+
 </div>

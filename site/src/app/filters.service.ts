@@ -82,23 +82,9 @@ export class FiltersService {
     this._updateRouterState();
   }
 
-  setHiddenTypes(hiddenTypes) {
+  setHiddenTypes(hiddenTypes: Set<string>) {
     const newFilters = new ItemFilters(this.itemFilters.getValue());
     newFilters.hiddenItemTypes = hiddenTypes;
-    this.itemFilters.next(newFilters);
-    this._updateRouterState();
-  }
-
-  hideItemType(itemType: string) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-    newFilters.hiddenItemTypes.add(itemType);
-    this.itemFilters.next(newFilters);
-    this._updateRouterState();
-  }
-
-  showItemType(itemType: string) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-    newFilters.hiddenItemTypes.delete(itemType);
     this.itemFilters.next(newFilters);
     this._updateRouterState();
   }

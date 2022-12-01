@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <h6>Filter by Item Type</h6>
+        </div>
+        <form>
+            <div class="form-group">
+                <app-expanding-checkboxes [invert]="true" title="One-handed melee"
+                    [list]="getTypesWithAttribute(['one-handed', 'melee'])" (newSetEvent)="onChangeFilteredTypes($event, 'one-handed melee')">
+                </app-expanding-checkboxes>
+                <app-expanding-checkboxes [invert]="true" title="Two-handed melee"
+                    [list]="getTypesWithAttribute(['two-handed', 'melee'])" (newSetEvent)="onChangeFilteredTypes($event, 'two-handed melee')">
+                </app-expanding-checkboxes>
+                <app-expanding-checkboxes [invert]="true" title="Offhand" [list]="getTypesWithAttribute(['offhand'])" (newSetEvent)="onChangeFilteredTypes($event, 'offhand')">
+                </app-expanding-checkboxes>
+                <app-expanding-checkboxes [invert]="true" title="Ranged" [list]="getTypesWithAttribute(['ranged'])" (newSetEvent)="onChangeFilteredTypes($event, 'ranged')">
+                </app-expanding-checkboxes>
+                <app-expanding-checkboxes [invert]="true" title="Thrown" [list]="getTypesWithAttribute(['thrown'])" (newSetEvent)="onChangeFilteredTypes($event, 'thrown')">
+                </app-expanding-checkboxes>
+                <app-expanding-checkboxes [invert]="true" title="Armor" [list]="getTypesWithAttribute(['armor'])" (newSetEvent)="onChangeFilteredTypes($event, 'armor')">
+                </app-expanding-checkboxes>
+            </div>
+        </form>
+    </div>
+</div>

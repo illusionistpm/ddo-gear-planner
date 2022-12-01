@@ -155,6 +155,7 @@ export class GearDbService {
     const minLevel = filters.levelRange[0];
     const maxLevel = filters.levelRange[1];
     const showRaidItems = filters.showRaidItems;
+    const hiddenItemTypes = filters.hiddenItemTypes;
 
     const gear = new Map<string, Array<Item>>();
 
@@ -164,7 +165,9 @@ export class GearDbService {
       const myItems = items.filter(i => 
         Number(i.ml) >= minLevel &&
         Number(i.ml) <= maxLevel &&
-        (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))));
+        (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
+        !hiddenItemTypes.has(i.type)
+      );
       gear.set(slot, myItems);
     }
 

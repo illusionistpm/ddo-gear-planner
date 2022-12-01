@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../filters.service';
 
 @Component({
-  selector: 'app-level-range',
-  templateUrl: './level-range.component.html',
-  styleUrls: ['./level-range.component.css']
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.css']
 })
-export class LevelRangeComponent implements OnInit {
+export class FiltersComponent implements OnInit {
   minLevel: number;
   maxLevel: number;
   showRaidItems: boolean;
@@ -25,10 +25,10 @@ export class LevelRangeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onChange() {
+  onChangeLevelRange() {
     this.filters.setLevelRange(this.minLevel, this.maxLevel);
   }
-
+  
   onChangeShowRaidItems() {
     this.filters.setShowRaidItems(this.showRaidItems);
   }

@@ -1,0 +1,28 @@
+<div class="row section-header">
+    <h3>Filters</h3>
+</div>
+
+<div class="row pb-2">
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <span class="align-bottom col-5">Level range:</span>
+                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                        [(ngModel)]="minLevel">
+                    <span class="col-1 text-center">-</span>
+                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                        [(ngModel)]="maxLevel">
+                </div>
+                <input type="checkbox" class="form-check form-check-inline" id="raidItems"
+                    (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
+                <label class="form-check-label" for="raidItems">Show Raid Items</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <app-filter-item-type></app-filter-item-type>
+    </div>
+
+</div>

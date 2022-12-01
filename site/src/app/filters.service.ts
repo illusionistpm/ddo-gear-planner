@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
+import { Item } from './item';
 
 import { ItemFilters } from './item-filters';
 
@@ -81,6 +82,13 @@ export class FiltersService {
     this._updateRouterState();
   }
 
+  setHiddenTypes(hiddenTypes: Set<string>) {
+    const newFilters = new ItemFilters(this.itemFilters.getValue());
+    newFilters.hiddenItemTypes = hiddenTypes;
+    this.itemFilters.next(newFilters);
+    this._updateRouterState();
+  }
+
   updateFromParams(params) {
     for (const key of params.keys) {
       if (key === 'levelrange') {
@@ -88,6 +96,13 @@ export class FiltersService {
         this.setLevelRange(vals[0], vals[1]);
       } else if (key === 'raids') {
         this.setShowRaidItems(params.get(key) === 'true');
+      } else if (key === 'hiddentypes') {
+        const vals = params.get(key).split(',');
+        const hiddenTypes = new Set<string>();
+        vals.forEach(element => {
+          hiddenTypes.add(element);
+        });
+        this.setHiddenTypes(hiddenTypes);
       }
     }
   }
@@ -96,6 +111,7 @@ export class FiltersService {
     const params = {};
     params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
     params['raids'] = this.itemFilters.getValue().showRaidItems;
+    params['hiddentypes'] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');
     this.params.next(params);
   }
 }

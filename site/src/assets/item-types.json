@@ -1,0 +1,346 @@
+{
+    "Bastard Swords": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Battle Axes": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Bucklers": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "Cloth armor": {
+        "attributes": [
+            "armor"
+        ]
+    },
+    "Clubs": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Daggers": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Darts": {
+        "attributes": [
+            "thrown",
+            "one-handed",
+            "weapon"
+        ]
+    },
+    "Docents": {
+        "attributes": [
+            "armor"
+        ]
+    },
+    "Dwarven War Axes": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Falchions": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Great Axes": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Great Clubs": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Great Crossbows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Great Swords": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Hand Axes": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Handwraps": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Heavy Crossbows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Heavy Maces": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Heavy Picks": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Heavy armor": {
+        "attributes": [
+            "armor"
+        ]
+    },
+    "Kamas": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Khopeshes": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Kukris": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Large shields": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "Light Crossbows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Light Hammers": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Light Maces": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Light Picks": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Light armor": {
+        "attributes": [
+            "armor"
+        ]
+    },
+    "Long Bows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Long Swords": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Mauls": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Medium armor": {
+        "attributes": [
+            "armor"
+        ]
+    },
+    "Morningstars": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Orbs": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "Quarterstaffs": {
+        "attributes": [
+            "two-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Rapiers": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Repeating Heavy Crossbows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Repeating Light Crossbows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Rune Arms": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "Scimitars": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Short Bows": {
+        "attributes": [
+            "ranged",
+            "two-handed",
+            "weapon"
+        ]
+    },
+    "Short Swords": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Shurikens": {
+        "attributes": [
+            "thrown",
+            "one-handed",
+            "weapon"
+        ]
+    },
+    "Sickles": {
+        "attributes": [
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    },
+    "Small shields": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "Throwing Axes": {
+        "attributes": [
+            "thrown",
+            "one-handed",
+            "weapon"
+        ]
+    },
+    "Throwing Daggers": {
+        "attributes": [
+            "thrown",
+            "one-handed",
+            "weapon"
+        ]
+    },
+    "Throwing Hammers": {
+        "attributes": [
+            "thrown",
+            "one-handed",
+            "weapon"
+        ]
+    },
+    "Tower shields": {
+        "attributes": [
+            "offhand"
+        ]
+    },
+    "War Hammers": {
+        "attributes": [
+            "one-handed",
+            "melee",
+            "weapon"
+        ]
+    }
+}

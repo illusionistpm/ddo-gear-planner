@@ -12,11 +12,13 @@ import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
 import { EffectsTableComponent } from './effects-table/effects-table.component';
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
-import { LevelRangeComponent } from './level-range/level-range.component';
+import { FiltersComponent } from './filters/filters.component';
 import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
+import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
+import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
     GearDescriptionComponent,
     EffectsTableComponent,
     ItemsWithBonusTypeComponent,
-    LevelRangeComponent,
+    FiltersComponent,
     MainComponent,
     ItemSuggestionsComponent,
     AffixCloudComponent,
-    ItemsInSetComponent
+    ItemsInSetComponent,
+    ExpandingCheckboxesComponent,
+    FilterItemTypeComponent
   ],
   imports: [
     AppRoutingModule,

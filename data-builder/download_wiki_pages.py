@@ -19,6 +19,14 @@ def get_item_page_urls():
 
     return itemPages
 
+def get_item_type_urls():
+    return [
+        'Basic_light_weapons',
+        'Basic_one-handed_weapons',
+        'Basic_two-handed_weapons',
+        'Basic_ranged_weapons',
+        'Basic_thrown_weapons'
+        ]
 
 def download_page(url, cacheDir):
     filename = url.split(':')[-1]
@@ -49,6 +57,17 @@ def download_item_pages():
 
     download_page('Minor_Artifact', 'cache/')
 
+def download_item_type_pages():
+    cacheDir = 'cache/item_types/'
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    itemPageURLs = get_item_type_urls()
+    for url in set(itemPageURLs):
+        if download_page(url, cacheDir):
+            pause = random.random()
+            print("Sleeping for " + str(pause) + " seconds")
+            time.sleep(pause)
 
 def download_set_page():
     cacheDir = 'cache/sets/'
@@ -74,6 +93,7 @@ def download_crafting_pages():
 
 def download_wiki_pages():
     download_item_pages()
+    download_item_type_pages()
     download_set_page()
     download_quest_pages()
     download_crafting_pages()

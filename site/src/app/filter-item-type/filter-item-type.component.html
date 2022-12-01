@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <h6>Filter by Item Type</h6>
+        </div>
+        <form>
+            <div class="form-group">
+                <app-expanding-checkboxes *ngFor="let group of groups" [invert]="true" title="{{group.name}}"
+                    [list]="getTypesWithAttribute(group.attributes) | async" [onChangeFn]="makeOnChangeFn(group.name.toLowerCase())">
+                </app-expanding-checkboxes>
+            </div>
+        </form>
+    </div>
+</div>

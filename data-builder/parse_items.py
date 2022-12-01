@@ -160,7 +160,7 @@ def get_items_from_page(itemPageURL, sets):
     return items
 
 
-def parse_item_pages():
+def parse_items():
     sets = read_json('sets')
         
     cachePath = "./cache/items/"
@@ -176,4 +176,4 @@ def parse_item_pages():
 
 
 if __name__ == "__main__":
-    parse_item_pages()
+    parse_items()

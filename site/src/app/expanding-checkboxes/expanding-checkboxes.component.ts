@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-expanding-checkboxes',
@@ -7,12 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ExpandingCheckboxesComponent implements OnInit {
   @Input() title: string;
-  @Input() list: Array<string>;
+  @Input() list: Array<{name: string, value: boolean}>;
   @Input() invert: boolean;
-
-  @Output() newSetEvent = new EventEmitter<Set<string>>();
-
-  checkedItems = new Set<string>();
+  @Input() onChangeFn: (list: Array<{name: string, value: boolean}>) => void;
 
   constructor() { }
 
@@ -20,11 +17,11 @@ export class ExpandingCheckboxesComponent implements OnInit {
   }
 
   isTopLevelIndeterminate(): boolean {
-    return this.checkedItems.size != this.list.length && this.checkedItems.size != 0;
+    return this.list.some(e => e.value) && this.list.some(e => !e.value);
   }
   
   isTopLevelChecked(): boolean {
-    let b = this.checkedItems.size == this.list.length;
+    let b = this.list.every(e => e.value);
     return this.invert ? !b : b;
   }
   
@@ -32,32 +29,26 @@ export class ExpandingCheckboxesComponent implements OnInit {
     let clearAll = this.isTopLevelChecked();
     if (this.invert) { clearAll = !clearAll; }
 
-    if (clearAll) {
-      // Clear all
-      this.checkedItems.clear();
-    } else {
-      // Enable all
-      this.list.forEach(item => this.checkedItems.add(item));
-    }
+    this.list.forEach(e => e.value = !clearAll);
 
     this._notifyListeners();
   }
 
-  isChecked(elem): boolean {
-    let b = this.checkedItems.has(elem);
+  isChecked(index: number): boolean {
+    let b = this.list[index].value;
     return this.invert ? !b : b;
   }
 
-  toggle(event, elem): void {
+  toggle(event: boolean, index: number): void {
     let b = event;
     if (this.invert) { b = !b }
 
-    b ? this.checkedItems.add(elem) : this.checkedItems.delete(elem)
+    this.list[index].value = b;
 
     this._notifyListeners();
   }
 
   _notifyListeners(): void {
-    this.newSetEvent.emit(this.checkedItems);
+    this.onChangeFn(this.list);
   }
 }

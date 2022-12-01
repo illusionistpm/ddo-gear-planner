@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { FiltersService } from '../filters.service';
 
@@ -13,17 +13,33 @@ import itemTypesList from 'src/assets/item-types.json';
 export class FilterItemTypeComponent implements OnInit {
   typeToGroup = new Map<string, string>();
   hiddenTypesMap = new Map<string, Array<string>>();
-  groupsMap = new Map<string, BehaviorSubject<Array<string>>>();
+  optionsMap = new Map<string, BehaviorSubject<Array<{name: string, value: boolean}>>>();
+  groups = new Array<{name: string, attributes: Array<string>}>();
 
   constructor(
     public filters: FiltersService,
   ) {
+
+    this.groups.push({name: "One-handed melee", attributes: ['one-handed', 'melee']});
+    this.groups.push({name: "Two-handed melee", attributes: ['two-handed', 'melee']});
+    this.groups.push({name: "Offhand", attributes: ['offhand']});
+    this.groups.push({name: "Ranged", attributes: ['ranged']});
+    this.groups.push({name: "Thrown", attributes: ['thrown']});
+    this.groups.push({name: "Armor", attributes: ['armor']});
+
+    // Preload the groups so they're ready when we need them
+    for (let group of this.groups) {
+      this.getTypesWithAttribute(group.attributes);
+    }
+
     filters.getItemFilters().subscribe(itemFilters => {
       const groups = this.splitTypeSetIntoGroups(itemFilters.hiddenItemTypes);
       for (let key of groups.keys()) {
-        if (this.groupsMap.has(key)) {
-          this.groupsMap.get(key).next(groups.get(key))
-        }
+        const options = this.getTypesWithAttribute([key]).getValue();
+        options.forEach(e => e.value = groups.get(key).includes(e.name));
+        this.getTypesWithAttribute([key]).next(options);
+
+        this.hiddenTypesMap.set(key, options.map(e => e.name));
       }
     });    
    }
@@ -32,33 +48,42 @@ export class FilterItemTypeComponent implements OnInit {
   }
 
   getTypesWithAttribute(searchAttributes: Array<string>) {
-    const key = searchAttributes.sort().join(' ');
+    const key = searchAttributes.join(' ');
 
-    const types = new Array<string>();
+    if (this.optionsMap.has(key)) {
+      return this.optionsMap.get(key);
+    }
+
+    const types = new Array<{name: string, value: boolean}>();
     
     for (let type in itemTypesList) {
       const attributes = itemTypesList[type]['attributes'];
       if (searchAttributes.every(e => attributes.includes(e))) {
-        types.push(type);
+        types.push({name: type, value: false});
       }
     }
 
     // Build a mapping of type ("long sword") back to group ("one-handed melee")
-    types.forEach(t => this.typeToGroup.set(t, key));
+    types.forEach(t => this.typeToGroup.set(t.name, key));
 
-    return types;
+    const subject = new BehaviorSubject<Array<{name: string, value: boolean}>>(types);
+    this.optionsMap.set(key, subject);
+
+    return subject;
   }
 
-  onChangeFilteredTypes(event: Set<string>, groupName: string) {
-    const combinedItems = new Set<string>();
+  makeOnChangeFn(groupName: string) {
+    return (items: Array<{name: string, value: boolean}>): void => {
+      const combinedItems = new Set<string>();
 
-    this.hiddenTypesMap.set(groupName, Array.from(event));
-    
-    for (let key of this.hiddenTypesMap.keys()) {
-        this.hiddenTypesMap.get(key).forEach(e => combinedItems.add(e));
-    }
-
-    this.filters.setHiddenTypes(combinedItems);
+      this.hiddenTypesMap.set(groupName, items.filter(e => e.value).map(e => e.name));
+      
+      for (let key of this.hiddenTypesMap.keys()) {
+          this.hiddenTypesMap.get(key).forEach(e => combinedItems.add(e));
+      }
+  
+      this.filters.setHiddenTypes(combinedItems);
+    };
   }
 
   splitTypeSetIntoGroups(list: Set<string>) {

@@ -2,7 +2,6 @@
     <h3>Filters</h3>
 </div>
 
-
 <div class="row pb-2">
     <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="card">
@@ -23,85 +22,31 @@
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-4">
-        <ngb-accordion #acc="ngbAccordion" closeOthers="true">
-            <ngb-panel title="One-handed melee">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline"
-                            *ngFor="let type of getTypesWithAttribute(['one-handed', 'melee'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h6>Filter by Item Type</h6>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <app-expanding-checkboxes [invert]="true" title="One-handed melee"
+                            [list]="getTypesWithAttribute(['one-handed', 'melee'])" (newSetEvent)="onChangeFilteredTypes($event, 'one-handed melee')">
+                        </app-expanding-checkboxes>
+                        <app-expanding-checkboxes [invert]="true" title="Two-handed melee"
+                            [list]="getTypesWithAttribute(['two-handed', 'melee'])" (newSetEvent)="onChangeFilteredTypes($event, 'two-handed melee')">
+                        </app-expanding-checkboxes>
+                        <app-expanding-checkboxes [invert]="true" title="Offhand" [list]="getTypesWithAttribute(['offhand'])" (newSetEvent)="onChangeFilteredTypes($event, 'offhand')">
+                        </app-expanding-checkboxes>
+                        <app-expanding-checkboxes [invert]="true" title="Ranged" [list]="getTypesWithAttribute(['ranged'])" (newSetEvent)="onChangeFilteredTypes($event, 'ranged')">
+                        </app-expanding-checkboxes>
+                        <app-expanding-checkboxes [invert]="true" title="Thrown" [list]="getTypesWithAttribute(['thrown'])" (newSetEvent)="onChangeFilteredTypes($event, 'thrown')">
+                        </app-expanding-checkboxes>
+                        <app-expanding-checkboxes [invert]="true" title="Armor" [list]="getTypesWithAttribute(['armor'])" (newSetEvent)="onChangeFilteredTypes($event, 'armor')">
+                        </app-expanding-checkboxes>
                     </div>
-                </ng-template>
-            </ngb-panel>
-            <ngb-panel title="Two-handed melee">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline"
-                            *ngFor="let type of getTypesWithAttribute(['two-handed', 'melee'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-            <ngb-panel title="Offhand">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline"
-                            *ngFor="let type of getTypesWithAttribute(['offhand'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-            <ngb-panel title="Ranged">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline"
-                            *ngFor="let type of getTypesWithAttribute(['ranged'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-            <ngb-panel title="Thrown">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline"
-                            *ngFor="let type of getTypesWithAttribute(['thrown'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-            <ngb-panel title="Armor">
-                <ng-template ngbPanelContent>
-                    <div class="card-body">
-                        <div class="form-check form-check-inline" *ngFor="let type of getTypesWithAttribute(['armor'])">
-                            <input type="checkbox" class="form-check-input" (change)="onChangeFilteredTypes()"
-                                [ngModel]="!hiddenTypes.has(type)"
-                                (ngModelChange)="$event ? hiddenTypes.delete(type) : hiddenTypes.add(type)">
-                            <label class="form-check-label">{{type}}</label>
-                        </div>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                </form>
+            </div>
+        </div>
     </div>
 
 </div>

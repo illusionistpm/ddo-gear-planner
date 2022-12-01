@@ -1,0 +1,15 @@
+<div>
+    <input type="checkbox" [indeterminate]="isTopLevelIndeterminate()" 
+    [checked]="isTopLevelChecked()" (click)="toggleTopLevel()">
+
+    <ng-template #popContent>
+        <div class="form-check form-check-inline" *ngFor="let elem of list">
+            <input type="checkbox" class="form-check-input" [ngModel]="isChecked(elem)"
+                (ngModelChange)="toggle($event, elem)">
+            <label class="form-check-label">{{elem}}</label>
+        </div>
+    </ng-template>
+    <a href="" onclick="return false;" [ngbPopover]="popContent" [autoClose]="'outside'">
+        {{title}}
+    </a>
+</div>

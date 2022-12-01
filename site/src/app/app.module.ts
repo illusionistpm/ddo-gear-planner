@@ -17,6 +17,7 @@ import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
+import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
     MainComponent,
     ItemSuggestionsComponent,
     AffixCloudComponent,
-    ItemsInSetComponent
+    ItemsInSetComponent,
+    ExpandingCheckboxesComponent
   ],
   imports: [
     AppRoutingModule,

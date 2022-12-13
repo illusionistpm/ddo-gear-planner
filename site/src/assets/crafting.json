@@ -7546,6 +7546,64 @@
             }
         ]
     },
+    "Set (Armor)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Dread Stalker set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Devotion of the Firemouth set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Defender of Tanaroa set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    },
     "Slaver's Bonus Slot": {
         "*": [
             {

@@ -392,12 +392,7 @@
         {
             "affixes": [
                 {
-                    "name": "hit and damage vs. Evil creatures",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Saves vs. Evil Creatures",
+                    "name": "imbue dice",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -415,11 +410,6 @@
                     "name": "threat decrease with both melee and ranged attacks",
                     "type": "Artifact",
                     "value": "20"
-                },
-                {
-                    "name": "imbue dice",
-                    "type": "Artifact",
-                    "value": "1"
                 }
             ],
             "threshold": 3

@@ -2886,12 +2886,12 @@
             "affixes": [
                 {
                     "name": "Acid Spell Power",
-                    "type": "Exceptional",
+                    "type": "Artifact",
                     "value": "30"
                 },
                 {
                     "name": "Acid Spell Lore",
-                    "type": "Exceptional",
+                    "type": "Artifact",
                     "value": "6"
                 }
             ],

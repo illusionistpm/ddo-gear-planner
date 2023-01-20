@@ -3532,36 +3532,36 @@
             {
                 "affixes": [
                     {
-                        "name": "Accuracy",
-                        "type": "Competence",
-                        "value": "21"
+                        "name": "Accuracy +21 (+23 in a Minor Artifact)",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Deadly",
-                        "type": "Competence",
-                        "value": "11"
+                        "name": "Deadly +11 (+12 in a Minor Artifact)",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Deception",
-                        "type": "Enhancement",
-                        "value": "11"
+                        "name": "Deception +11 (+12 in a Minor Artifact)",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Seeker",
-                        "type": "Enhancement",
-                        "value": "14"
+                        "name": "Seeker +14 (+15 in a Minor Artifact)",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -3760,8 +3760,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Saving Throws",
-                        "type": "Enhancement",
+                        "name": "+12 Enhancement bonus to Saving Throws. (Received value is only +11, not",
                         "value": "12"
                     }
                 ]

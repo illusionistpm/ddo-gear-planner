@@ -2300,11 +2300,6 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "3"
-                },
-                {
                     "name": "Doublestrike",
                     "type": "Artifact",
                     "value": "15"
@@ -2979,11 +2974,6 @@
     "Profane Experiment": [
         {
             "affixes": [
-                {
-                    "name": "Sneak Attack Dice",
-                    "type": "",
-                    "value": "2"
-                },
                 {
                     "name": "Doublestrike",
                     "type": "Artifact",

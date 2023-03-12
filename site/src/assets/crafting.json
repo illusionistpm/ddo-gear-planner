@@ -1056,7 +1056,7 @@
         ],
         "hiddenFromAffixSearch": true
     },
-    "Claw (Accessory)": {
+    "Claw (Accessory)\n": {
         "*": [
             {
                 "affixes": [
@@ -1213,149 +1213,59 @@
             }
         ]
     },
-    "Claw (Weapon)": {
+    "Claw (Weapon)\n": {
         "*": [
             {
                 "affixes": [
                     {
-                        "name": "Intelligence",
-                        "type": "Exceptional",
-                        "value": "2"
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Strength",
-                        "type": "Exceptional",
-                        "value": "2"
+                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Wisdom",
-                        "type": "Exceptional",
-                        "value": "2"
+                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Constitution",
-                        "type": "Exceptional",
-                        "value": "2"
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Dexterity",
-                        "type": "Exceptional",
-                        "value": "2"
+                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Charisma",
-                        "type": "Exceptional",
-                        "value": "2"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Acid Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Cold Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Electric Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Fire Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Force Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Light Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Negative Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Positive Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Sonic Spellpower",
-                        "type": "Equipment",
-                        "value": "149"
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             }
@@ -3500,7 +3410,7 @@
         ],
         "hiddenFromAffixSearch": true
     },
-    "Fang (Accessory)": {
+    "Fang (Accessory)\n": {
         "*": [
             {
                 "affixes": [
@@ -3657,12 +3567,12 @@
             }
         ]
     },
-    "Fang (Armor)": {
+    "Fang (Armor)\n": {
         "*": [
             {
                 "affixes": [
                     {
-                        "name": "+2d6 Profane bonus to your Sneak Attack Dice.",
+                        "name": "Counts as part of the Dread Stalker set",
                         "type": "bool",
                         "value": 1
                     }
@@ -3671,34 +3581,52 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Focus Mastery",
-                        "type": "Profane",
-                        "value": "2"
+                        "name": "Counts as part of the Devotion of the Firemouth set",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Universal Spell Power",
-                        "type": "Exceptional",
-                        "value": "15"
+                        "name": "Counts as part of the Defender of Tanaroa set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             }
         ]
     },
-    "Fang (Weapon)": {
+    "Fang (Weapon)\n": {
         "*": [
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
             {
                 "affixes": [
                     {
@@ -3711,7 +3639,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Dmg ~80 per stack; doesn't refresh stacks until all 10 expire; decays 1 stack per 5 sec)",
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time.",
                         "type": "bool",
                         "value": 1
                     }
@@ -3720,9 +3648,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Focus Mastery",
-                        "type": "Equipment",
-                        "value": "5"
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -3738,7 +3666,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (6d6+6 every 2 sec; 1:17 duration; seems to scale off SP or MP)",
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage.",
                         "type": "bool",
                         "value": 1
                     }
@@ -3747,15 +3675,24 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage.",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time.",
                         "type": "bool",
                         "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ]
             }
         ]
     },
-    "Horn (Accessory)": {
+    "Horn (Accessory)\n": {
         "*": [
             {
                 "affixes": [
@@ -3816,64 +3753,6 @@
                         "name": "Spell Focus Mastery",
                         "type": "Sacred",
                         "value": "2"
-                    }
-                ]
-            }
-        ]
-    },
-    "Horn (Weapon)": {
-        "*": [
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical Resistance Rating and Positive Healing Amplification.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
-                        "type": "bool",
-                        "value": 1
                     }
                 ]
             }
@@ -7281,7 +7160,7 @@
         ],
         "hiddenFromAffixSearch": true
     },
-    "Scale (Accessory)": {
+    "Scale (Accessory)\n": {
         "*": [
             {
                 "affixes": [
@@ -7438,7 +7317,7 @@
             }
         ]
     },
-    "Scale (Armor)": {
+    "Scale (Armor)\n": {
         "*": [
             {
                 "affixes": [
@@ -7478,17 +7357,8 @@
             }
         ]
     },
-    "Scale (Weapon)": {
+    "Scale (Weapon)\n": {
         "*": [
-            {
-                "affixes": [
-                    {
-                        "name": "Spell Penetration",
-                        "type": "Enhancement",
-                        "value": "9"
-                    }
-                ]
-            },
             {
                 "affixes": [
                     {
@@ -7510,7 +7380,7 @@
             {
                 "affixes": [
                     {
-                        "name": "+102 Equipment bonus to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.",
+                        "name": "Adds Silver material type. On hit: 15d6 Electric Damage.",
                         "type": "bool",
                         "value": 1
                     }
@@ -7528,6 +7398,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Spell Cost Reduction",
                         "type": "Enhancement",
                         "value": "10"
@@ -7537,65 +7416,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Silver material type. On hit: 15d6 Electric Damage.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            }
-        ]
-    },
-    "Set (Armor)": {
-        "*": [
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Dread Stalker set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Devotion of the Firemouth set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Defender of Tanaroa set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
+                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers.If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
                         "type": "bool",
                         "value": 1
                     }

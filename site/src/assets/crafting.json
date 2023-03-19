@@ -1218,54 +1218,144 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spellpower",
+                        "type": "Equipment",
+                        "value": "149"
                     }
                 ]
             }
@@ -3753,6 +3843,64 @@
                         "name": "Spell Focus Mastery",
                         "type": "Sacred",
                         "value": "2"
+                    }
+                ]
+            }
+        ]
+    },
+    "Horn (Weapon)\n": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR.",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             }

@@ -3662,7 +3662,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Counts as part of the Dread Stalker set",
+                        "name": "+2d6 Profane bonus to your Sneak Attack Dice.",
                         "type": "bool",
                         "value": 1
                     }
@@ -3671,45 +3671,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Counts as part of the Devotion of the Firemouth set",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Counts as part of the Defender of Tanaroa set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Universal Spell Power",
+                        "type": "Exceptional",
+                        "value": "15"
                     }
                 ]
             }
@@ -7565,6 +7538,64 @@
                 "affixes": [
                     {
                         "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers.If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    },
+    "Set Bonus Augment (Armor, Cloak, and Helm)\n": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Dread Stalker set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Devotion of the Firemouth set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Defender of Tanaroa set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
                         "type": "bool",
                         "value": 1
                     }

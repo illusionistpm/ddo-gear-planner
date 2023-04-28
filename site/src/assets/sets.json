@@ -2296,6 +2296,23 @@
             "threshold": 3
         }
     ],
+    "Legendary Perfected Wrath": [
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Legendary Profane Experiment": [
         {
             "affixes": [
@@ -2710,6 +2727,28 @@
                 }
             ],
             "threshold": 2
+        }
+    ],
+    "Legendary Wrath of Sora Kell": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Arfifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "type": "Arfifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
         }
     ],
     "Levik's Defender": [],
@@ -4018,6 +4057,33 @@
                 }
             ],
             "threshold": 2
+        }
+    ],
+    "Wrath of Sora Kell": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Arfifact",
+                    "value": "5"
+                },
+                {
+                    "name": "hit",
+                    "type": "Arfifact",
+                    "value": "3"
+                },
+                {
+                    "name": "damage",
+                    "type": "Arfifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
         }
     ]
 }

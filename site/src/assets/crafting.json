@@ -6065,9 +6065,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "1d6"
+                        "value": 1
                     }
                 ],
                 "ml": 1
@@ -6075,9 +6075,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "1d6"
+                        "value": 1
                     }
                 ],
                 "ml": 1
@@ -6085,9 +6085,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "1d6"
+                        "value": 1
                     }
                 ],
                 "ml": 1
@@ -6095,9 +6095,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "1d6"
+                        "value": 1
                     }
                 ],
                 "ml": 1
@@ -6205,9 +6205,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "2d6"
+                        "value": 2
                     }
                 ],
                 "ml": 4
@@ -6215,9 +6215,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "2d6"
+                        "value": 2
                     }
                 ],
                 "ml": 4
@@ -6225,9 +6225,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "2d6"
+                        "value": 2
                     }
                 ],
                 "ml": 4
@@ -6235,9 +6235,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "2d6"
+                        "value": 2
                     }
                 ],
                 "ml": 4
@@ -6345,9 +6345,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "3d6"
+                        "value": 3
                     }
                 ],
                 "ml": 8
@@ -6355,9 +6355,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "3d6"
+                        "value": 3
                     }
                 ],
                 "ml": 8
@@ -6365,9 +6365,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "3d6"
+                        "value": 3
                     }
                 ],
                 "ml": 8
@@ -6375,9 +6375,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "3d6"
+                        "value": 3
                     }
                 ],
                 "ml": 8
@@ -6525,9 +6525,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "4d6"
+                        "value": 4
                     }
                 ],
                 "ml": 12
@@ -6535,9 +6535,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "4d6"
+                        "value": 4
                     }
                 ],
                 "ml": 12
@@ -6545,9 +6545,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "4d6"
+                        "value": 4
                     }
                 ],
                 "ml": 12
@@ -6555,9 +6555,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "4d6"
+                        "value": 4
                     }
                 ],
                 "ml": 12
@@ -6685,9 +6685,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "5d6"
+                        "value": 5
                     }
                 ],
                 "ml": 16
@@ -6695,9 +6695,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "5d6"
+                        "value": 5
                     }
                 ],
                 "ml": 16
@@ -6705,9 +6705,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "5d6"
+                        "value": 5
                     }
                 ],
                 "ml": 16
@@ -6715,9 +6715,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "5d6"
+                        "value": 5
                     }
                 ],
                 "ml": 16
@@ -6845,9 +6845,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "6d6"
+                        "value": 6
                     }
                 ],
                 "ml": 20
@@ -6855,9 +6855,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "6d6"
+                        "value": 6
                     }
                 ],
                 "ml": 20
@@ -6865,9 +6865,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "6d6"
+                        "value": 6
                     }
                 ],
                 "ml": 20
@@ -6875,9 +6875,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "6d6"
+                        "value": 6
                     }
                 ],
                 "ml": 20
@@ -6985,9 +6985,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "7d6"
+                        "value": 7
                     }
                 ],
                 "ml": 24
@@ -6995,9 +6995,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "7d6"
+                        "value": 7
                     }
                 ],
                 "ml": 24
@@ -7005,9 +7005,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "7d6"
+                        "value": 7
                     }
                 ],
                 "ml": 24
@@ -7015,9 +7015,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "7d6"
+                        "value": 7
                     }
                 ],
                 "ml": 24
@@ -7125,9 +7125,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Damage",
+                        "name": "Acid Damage [d6]",
                         "type": "Enhancement",
-                        "value": "8d6"
+                        "value": 8
                     }
                 ],
                 "ml": 28
@@ -7135,9 +7135,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Damage",
+                        "name": "Cold Damage [d6]",
                         "type": "Enhancement",
-                        "value": "8d6"
+                        "value": 8
                     }
                 ],
                 "ml": 28
@@ -7145,9 +7145,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Damage",
+                        "name": "Electric Damage [d6]",
                         "type": "Enhancement",
-                        "value": "8d6"
+                        "value": 8
                     }
                 ],
                 "ml": 28
@@ -7155,9 +7155,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage",
+                        "name": "Fire Damage [d6]",
                         "type": "Enhancement",
-                        "value": "8d6"
+                        "value": 8
                     }
                 ],
                 "ml": 28

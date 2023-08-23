@@ -3889,12 +3889,12 @@
                 {
                     "name": "hit",
                     "type": "Profane",
-                    "value": "3"
+                    "value": "4"
                 },
                 {
                     "name": "damage",
                     "type": "Profane",
-                    "value": "3"
+                    "value": "4"
                 }
             ],
             "threshold": 5

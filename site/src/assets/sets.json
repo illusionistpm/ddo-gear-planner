@@ -182,6 +182,33 @@
             "threshold": 3
         }
     ],
+    "Armaments of the Archons": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Maximum Hit Points",
+                    "type": "Legendary",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Assassin": [],
     "Astute Alchemist": [
         {
@@ -551,6 +578,70 @@
                     "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Delight of the Devourer": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "5"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Devils' Infernal Dance": [
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
                 }
             ],
             "threshold": 3
@@ -1506,6 +1597,63 @@
             "threshold": 3
         }
     ],
+    "Forbidden Knowledge": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Profane",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "1"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Profane",
+                    "value": "1"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Profane",
+                    "value": "1"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Profane",
+                    "value": "10"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "1"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Frenzied Berserker": [],
     "Glacial Assault": [],
     "Griffon Set": [
@@ -1562,6 +1710,43 @@
                     "name": "Electric Absorption",
                     "type": "Artifact",
                     "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Heart of Blades": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Strikethrough Chance",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
                 }
             ],
             "threshold": 3
@@ -1867,6 +2052,97 @@
             "threshold": 3
         }
     ],
+    "Legendary Armaments of the Archons": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Maximum Hit Points",
+                    "type": "Legendary",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Delight of the Devourer": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "15"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Devils' Infernal Dance": [
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Legendary Divine Blessing": [],
     "Legendary Draconic Prophecy": [],
     "Legendary Dreadkeeper": [
@@ -2048,6 +2324,63 @@
             "threshold": 3
         }
     ],
+    "Legendary Forbidden Knowledge": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Profane",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "type": "Profane",
+                    "value": "3"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Profane",
+                    "value": "4"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Profane",
+                    "value": "4"
+                }
+            ],
+            "threshold": 4
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Profane",
+                    "value": "15"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Profane",
+                    "value": "25"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Profane",
+                    "value": "3"
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Legendary Guardian of the Gates": [
         {
             "affixes": [
@@ -2090,6 +2423,43 @@
                     "name": "Electric Absorption",
                     "type": "Artifact",
                     "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Heart of Blades": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Strikethrough Chance",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -2266,6 +2636,38 @@
                 }
             ],
             "threshold": 5
+        }
+    ],
+    "Legendary Minion of the Mockery": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Assassinate DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
         }
     ],
     "Legendary Mroranon's Might": [],
@@ -2671,6 +3073,161 @@
             "threshold": 2
         }
     ],
+    "Legendary The Fury's Rage": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Threat from Melee Attacks",
+                    "type": "Artifact",
+                    "value": "100"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary The Keeper's Coffin": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary The Shadow's Emptiness": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary The Traveler's Guidance": [
+        {
+            "affixes": [
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Tactical Feat DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Vol's Influence": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "15"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Legendary Vulkoor's Chosen": [],
     "Legendary Vulkoor's Cunning": [],
     "Legendary Vulkoor's Might": [],
@@ -2739,12 +3296,12 @@
                 },
                 {
                     "name": "Physical Sheltering",
-                    "type": "Arfifact",
+                    "type": "Artifact",
                     "value": "30"
                 },
                 {
                     "name": "Imbue Dice",
-                    "type": "Arfifact",
+                    "type": "Artifact",
                     "value": "3"
                 }
             ],
@@ -2913,6 +3470,38 @@
                 }
             ],
             "threshold": 2
+        }
+    ],
+    "Minion of the Mockery": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Assassinate DCs",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
         }
     ],
     "Mountainskin Set": [
@@ -3785,6 +4374,70 @@
             "threshold": 2
         }
     ],
+    "The Fury's Rage": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Threat from Melee Attacks",
+                    "type": "Artifact",
+                    "value": "50"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "The Keeper's Coffin": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Positive Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Negative Amplification",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "The Labyrinthian Inferno": [
         {
             "affixes": [
@@ -3901,6 +4554,70 @@
         }
     ],
     "The Legendary Oasis of Morality": [],
+    "The Shadow's Emptiness": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "The Traveler's Guidance": [
+        {
+            "affixes": [
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Tactical Feat DCs",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Tinker's Finesse": [],
     "Troubleshooter": [],
     "Tyrannical Tinkerer": [
@@ -3936,6 +4653,33 @@
         }
     ],
     "Unbreakable Adamancy": [],
+    "Vol's Influence": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "5"
+                },
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Vulkoor's Chosen": [
         {
             "affixes": [
@@ -4069,17 +4813,17 @@
                 },
                 {
                     "name": "Physical Sheltering",
-                    "type": "Arfifact",
+                    "type": "Artifact",
                     "value": "5"
                 },
                 {
                     "name": "hit",
-                    "type": "Arfifact",
+                    "type": "Artifact",
                     "value": "3"
                 },
                 {
                     "name": "damage",
-                    "type": "Arfifact",
+                    "type": "Artifact",
                     "value": "3"
                 }
             ],

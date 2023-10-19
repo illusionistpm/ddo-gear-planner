@@ -7461,8 +7461,8 @@
             {
                 "affixes": [
                     {
-                        "name": "each Amplification",
-                        "type": "Enhancement",
+                        "name": "Healing Amplification",
+                        "type": "Competence",
                         "value": "56"
                     }
                 ]

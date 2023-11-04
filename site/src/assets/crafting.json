@@ -7537,7 +7537,7 @@
             {
                 "affixes": [
                     {
-                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers.If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
+                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
                         "type": "bool",
                         "value": 1
                     }

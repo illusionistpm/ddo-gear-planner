@@ -3716,6 +3716,16 @@
                     "value": "30"
                 },
                 {
+                    "name": "Hit",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
                     "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "3"

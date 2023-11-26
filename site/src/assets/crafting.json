@@ -3738,7 +3738,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time.",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (20-30 damage per tick, duration and chance unknown.)",
                         "type": "bool",
                         "value": 1
                     }

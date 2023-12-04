@@ -146,6 +146,9 @@ def get_items_from_page(itemPageURL, sets):
 
         remove = []
         for affix in item['affixes']:
+            affix = change_dino_item_affix_name(affix, item)
+            affix = change_lost_purpose_affix_name(affix, item)
+
             if affix['name'] in craftingSystems:
                 if 'crafting' not in item.keys():
                     item['crafting'] = []
@@ -173,6 +176,50 @@ def parse_items():
 
 
     write_json(items, 'items')
+
+def change_dino_item_affix_name(affix, item):
+    affixName = affix['name']
+    itemName = item['name']
+
+    if affixName == 'Scale (Weapon)' and (itemName == "Dinosaur Bone Quarterstaff" or itemName == "Attuned Bone Quarterstaff"):
+        affix['name'] = "Scale (Weapon - Quarterstaff)"
+
+    if affixName == 'Fang (Weapon)' and (itemName == "Dinosaur Bone Quarterstaff" or itemName == "Attuned Bone Quarterstaff"):
+        affix['name'] = "Fang (Weapon - Quarterstaff)"
+
+    if is_artifact(item):
+        if affixName == "Scale (Accessory)":
+            affix['name'] = "Scale (Accessory - Artifact)"
+        elif affixName == "Fang (Accessory)":
+            affix['name'] = "Fang (Accessory - Artifact)"
+        elif affixName == "Claw (Accessory)":
+            affix['name'] = "Claw (Accessory - Artifact)"
+        elif affixName == "Horn (Accessory)":
+            affix['name'] = "Horn (Accessory - Artifact)"
+    
+    return affix
+
+def change_lost_purpose_affix_name(affix, item):
+    if int(item['ml']) > 29 and affix['name'] == "Lost Purpose":
+        affix['name'] = "Legendary Lost Purpose"
+
+    return affix
+
+def is_artifact(item):
+    hasBlueSlot = False
+    hasGreenSlot = False
+    hasYellowSlot = False
+
+    for affix in item['affixes']:
+        if affix['name'] == "Blue Augment Slot":
+            hasBlueSlot = True
+        elif affix['name'] == "Yellow Augment Slot":
+            hasYellowSlot = True
+        elif affix['name'] == "Green Augment Slot":
+            hasGreenSlot = True
+
+    # This may not be perfect but it's the simplest way I can figure for now...
+    return hasBlueSlot and hasGreenSlot and hasYellowSlot
 
 
 if __name__ == "__main__":

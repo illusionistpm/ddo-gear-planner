@@ -2,6 +2,7 @@ export class Affix {
     name: string;
     value: number;
     type: string;
+    description: string;
 
     static isRealType(type: string) {
         return type !== 'bool';

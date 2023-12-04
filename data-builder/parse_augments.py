@@ -29,14 +29,19 @@ def parse_augments():
             level = row[0].value
             value = row[3].value
             bonusType = row[4].value
+            description = row[5].value
 
             if level == 0:
                 level = 1
+
+            if augmentName is None and name is None and level is None and value is None:
+                continue
         
             affix = {}
             affix['name'] = name
             affix['value'] = value
             affix['type'] = bonusType
+            affix['description'] = description
 
             if affix['name'] in ['Fortification']:
                 affix['value'] = 100 * affix['value']
@@ -50,6 +55,11 @@ def parse_augments():
                 if augmentName:
                     option['name'] = augmentName
 
+                if 'name' in option and option['name'].startswith("Set Augment: "):
+                    option['set'] = option['name'].replace("Set Augment: ", "")
+
                 systems[system]['*'].append(option)
+                
+
 
     return systems

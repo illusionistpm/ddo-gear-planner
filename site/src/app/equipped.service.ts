@@ -137,7 +137,7 @@ export class EquippedService {
 
         if (item.crafting) {
           for (const crafting of item.crafting) {
-            if (crafting.selected.affixes.length) {
+            if (crafting.selected.affixes.length || crafting.selected.set) {
               params['craft_' + craftingIdx + "_slot"] = slot;
               params['craft_' + craftingIdx + "_system"] = crafting.name;
               params['craft_' + craftingIdx + "_selected"] = crafting.selected.getParamDescription();
@@ -205,23 +205,30 @@ export class EquippedService {
 
   getActiveSets() {
     const setCounts = new Map<string, number>();
+
     for (const slot of this.slots.values()) {
       const item = slot.getValue();
+
       if (item && item.getSets()) {
         for (const set of item.getSets()) {
+
           let val = setCounts.get(set);
+
           if (!val) {
             val = 0;
           }
+
           setCounts.set(set, val + 1);
         }
       }
     }
+
     return setCounts;
   }
 
   getActiveSetBonuses() {
     const setToAffixes = new Array<[string, Array<Affix>]>();
+
     for (const pair of this.getActiveSets().entries()) {
       const aff = this.gearList.getSetBonus(pair[0], pair[1]);
       setToAffixes.push([pair[0], aff]);
@@ -244,7 +251,7 @@ export class EquippedService {
 
     for (const setToAffixes of this.getActiveSetBonuses()) {
       for (const affix of setToAffixes[1]) {
-        if (affix.name === affixName && affix.type === bonusType) {
+        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
           values.push({ slot: 'set', value: affix.value });
         }
       }
@@ -269,7 +276,7 @@ export class EquippedService {
       const item = (testItem && (slot[0] === testItem.slot)) ? testItem : slot[1].getValue();
       if (item) {
         for (const affix of this.affixSvc.getActiveAffixes(item)) {
-          if (affix.name === affixName) {
+          if (this.affixSvc.resolvesToAffix(affix.name, affixName)) {
             if (!map.get(affix.type) || map.get(affix.type) < affix.value) {
               map.set(affix.type, affix.value);
             }
@@ -303,7 +310,7 @@ export class EquippedService {
     } else if (!lock) {
       this.unlockedSlots.add(slot);
     }
-    
+
     this._updateRouterState();
   }
 
@@ -313,7 +320,7 @@ export class EquippedService {
     } else {
       this.unlockedSlots.add(slot);
     }
-    
+
     this._updateRouterState();
   }
 

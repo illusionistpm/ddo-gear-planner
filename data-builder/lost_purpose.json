@@ -1,0 +1,712 @@
+{
+    "heroicSets": [
+        {
+            "name": "Heart of Blades",
+            "affixes": [
+                {
+                    "name": "Positive Healing Amplification",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Strikethrough Chance",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "5",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Vol's Influence",
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "value": "20",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "value": "2",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "value": "5",
+                    "type": "Legendary"
+                },
+                {
+                    "name": "Spell DCs",
+                    "value": "1",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Fury's Rage",
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Threat from Melee Attacks",
+                    "value": "50",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "5",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Delight of the Devourer",
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "value": "20",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "value": "2",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "value": "5",
+                    "type": "Legendary"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "5",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Minion of the Mockery",
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Assassinate DCs",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Dodge",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "value": "1",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Keeper's Coffin",
+            "affixes": [
+                {
+                    "name": "Spell DCs",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Positive Healing Amplification",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "value": "1",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Shadow's Emptiness",
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doubleshot",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "value": "20",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "value": "10",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Traveler's Guidance",
+            "affixes": [
+                {
+                    "name": "Resistance",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Tactical Feat DCs",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "5",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Devils' Infernal Dance",
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "value": "1",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doubleshot",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doublestrike",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Fortification Bypass",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "5",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "5",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Armaments of the Archons",
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Armor Class",
+                    "value": "5%",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Maximum Hit Points",
+                    "value": "5%",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Forbidden Knowledge",
+            "thresholds": {
+                "3": {
+                    "affixes": [
+                        {
+                            "name": "Physical Resistance Rating",
+                            "value": "10",
+                            "type": "Profane"
+                        }
+
+                    ]
+                },
+                "4": {
+                    "affixes": [
+                        {
+                            "name": "Well-Rounded",
+                            "value": "1",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Attack",
+                            "value": "1",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Damage",
+                            "value": "1",
+                            "type": "Profane"
+                        }
+                    ]
+                },
+                "5": {
+                    "affixes": [
+                        {
+                            "name": "Melee Power",
+                            "value": "5",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Ranged Power",
+                            "value": "5",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Universal Spell Power",
+                            "value": "10",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Spell DCs",
+                            "value": "1",
+                            "type": "Profane"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "legendarySets": [
+        {
+            "name": "Heart of Blades",
+            "affixes": [
+                {
+                    "name": "Positive Healing Amplification",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Repair Spell Power",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Strikethrough Chance",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "15",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Vol's Influence",
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "value": "25",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "value": "6",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "value": "15",
+                    "type": "Legendary"
+                },
+                {
+                    "name": "Spell DCs",
+                    "value": "3",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Fury's Rage",
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Threat from Melee Attacks",
+                    "value": "100",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "15",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Delight of the Devourer",
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "value": "25",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "value": "6",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "value": "15",
+                    "type": "Legendary"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "15",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Minion of the Mockery",
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Assassinate DCs",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Dodge",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "value": "3",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Keeper's Coffin",
+            "affixes": [
+                {
+                    "name": "Spell DCs",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "value": "10",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Positive Healing Amplification",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Negative Healing Amplification",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Well-Rounded",
+                    "value": "3",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Shadow's Emptiness",
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doubleshot",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "value": "25",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "value": "30",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "The Traveler's Guidance",
+            "affixes": [
+                {
+                    "name": "Resistance",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Tactical Feat DCs",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Additional Damage to Helpless Targets",
+                    "value": "15",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Devils' Infernal Dance",
+            "affixes": [
+                {
+                    "name": "Well-Rounded",
+                    "value": "3",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doubleshot",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Doublestrike",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Fortification Bypass",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Melee Power",
+                    "value": "15",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Ranged Power",
+                    "value": "15",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Armaments of the Archons",
+            "affixes": [
+                {
+                    "name": "Physical Resistance Rating",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Magical Resistance Rating",
+                    "value": "30",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Armor Class",
+                    "value": "15%",
+                    "type": "Artifact"
+                },
+                {
+                    "name": "Maximum Hit Points",
+                    "value": "10%",
+                    "type": "Artifact"
+                }
+            ]
+        },
+        {
+            "name": "Legendary Forbidden Knowledge",
+            "thresholds": {
+                "3": {
+                    "affixes": [
+                        {
+                            "name": "Physical Resistance Rating",
+                            "value": "30",
+                            "type": "Profane"
+                        }
+
+                    ]
+                },
+                "4": {
+                    "affixes": [
+                        {
+                            "name": "Well-Rounded",
+                            "value": "3",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Attack",
+                            "value": "4",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Damage",
+                            "value": "4",
+                            "type": "Profane"
+                        }
+                    ]
+                },
+                "5": {
+                    "affixes": [
+                        {
+                            "name": "Melee Power",
+                            "value": "15",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Ranged Power",
+                            "value": "15",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Universal Spell Power",
+                            "value": "25",
+                            "type": "Profane"
+                        },
+                        {
+                            "name": "Spell DCs",
+                            "value": "3",
+                            "type": "Profane"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

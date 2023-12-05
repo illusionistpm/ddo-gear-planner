@@ -9,6 +9,7 @@ from parse_slavers import parse_slavers_sets
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
+from get_lost_purpose import get_lost_purpose_sets
 
 def sub_name(name):
     for pair in [
@@ -143,17 +144,25 @@ def get_sets_from_page(soup):
             # Look for Feywild-style sets, with an additional bonus with each item
             bFoundSetParagraph = False
             paragraphs = bonusCell.find_all('p')
+
+            # Not all sets have paragraphs that contain their effect descriptions:
+
             for p in paragraphs:
                 bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', p.getText())
                 if bonusSearch:
                     bFoundSetParagraph = True
                     num = int(bonusSearch.group(1))
 
-                    ul = p.findNext('ul')
+                    ul = p.findNextSibling('ul')
 
-                    listItems = ul.find_all('li')
 
-                    affixes = list_items_to_affixes(listItems, synMap)
+                    if ul is None:
+                        # this is likely an augment-based set bonus that just has a single line contained within the 'p'
+                        affixes = list_items_to_affixes(p, synMap)
+                    else:
+                        listItems = ul.find_all('li')
+
+                        affixes = list_items_to_affixes(listItems, synMap)
 
                     threshold = {}
                     threshold['threshold'] = num
@@ -222,6 +231,31 @@ def get_sets_from_page(soup):
 
                         sets[setName].append(threshold)
 
+            if not bFoundSetParagraph:
+                if (len(paragraphs) == 0):
+                    bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', bonusCell.getText())
+                    if bonusSearch:
+                        bFoundSetParagraph = True
+                        num = int(bonusSearch.group(1))
+
+                        ul = bonusCell.findChildren('ul')
+
+                        if len(ul) == 0:
+                            continue
+
+                        if len(ul) > 1:
+                            continue
+
+                        listItems = ul[0].find_all('li')
+
+                        affixes = list_items_to_affixes(listItems, synMap)
+
+                        threshold = {}
+                        threshold['threshold'] = num
+                        threshold['affixes'] = affixes
+
+                        sets[setName].append(threshold)
+
     return sets
 
 
@@ -233,6 +267,8 @@ def parse_set_page():
     sets = get_sets_from_page(soup)
 
     slaversSets = parse_slavers_sets()
+
+    lostPurposeSets = get_lost_purpose_sets()
 
     sets = {**sets, **slaversSets}
 

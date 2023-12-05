@@ -20,7 +20,8 @@
         "synonyms": [
             "Hit Points",
             "Vitality",
-            "Lifeforce"
+            "Lifeforce",
+            "Maximum HP"
         ]
     },
     {
@@ -77,6 +78,12 @@
         "name": "Repair Amplification",
         "synonyms": [
             "Repair Healing Amplification"
+        ]
+    },
+    {
+        "name": "Well Rounded",
+        "synonyms": [
+            "Well-Rounded"
         ]
     }
 ]

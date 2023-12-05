@@ -88,49 +88,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Charisma",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -179,49 +139,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "name": "Pieces Equipped: +30 Magical Resistance Rating Cap",
+                    "type": "",
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -231,49 +151,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -525,49 +405,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Strength",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -679,49 +519,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "damage vs the Helpless",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -795,49 +595,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Dexterity",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -990,7 +750,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -1172,49 +932,14 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Melee Power",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 },
                 {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
+                    "name": "Ranged Power",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -1239,7 +964,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -1641,7 +1366,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "2"
                 },
@@ -1666,7 +1391,7 @@
                     "value": "8"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "2"
                 },
@@ -1732,7 +1457,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -1923,49 +1648,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -2103,7 +1788,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "1"
                 },
@@ -2338,15 +2023,33 @@
     ],
     "Huntmaster's Favor": [
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
             "threshold": 2
         },
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
             "threshold": 3
         },
         {
-            "affixes": [],
+            "affixes": [
+                {
+                    "name": "damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
             "threshold": 4
         }
     ],
@@ -2718,7 +2421,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -2946,7 +2649,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "3"
                 },
@@ -3178,7 +2881,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "2"
                 },
@@ -3218,7 +2921,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "3"
                 },
@@ -3310,7 +3013,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3390,7 +3093,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3737,7 +3440,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -3836,7 +3539,38 @@
             "threshold": 3
         }
     ],
-    "Legendary Vulkoor's Chosen": [],
+    "Legendary Vulkoor's Chosen": [
+        {
+            "affixes": [
+                {
+                    "name": "Poison Resistance",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Sneak Dice",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Vulkoor's Cunning": [],
     "Legendary Vulkoor's Might": [],
     "Legendary Wallwatch": [
@@ -4035,7 +3769,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "1"
                 },
@@ -4055,7 +3789,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "2"
                 },
@@ -4190,49 +3924,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Armor Class",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -4270,49 +3964,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Sneak Attack Dice",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -4322,49 +3976,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -4415,49 +4029,14 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Doublestrike",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 },
                 {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
+                    "name": "Doubleshot",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -4523,7 +4102,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -4599,7 +4178,7 @@
         {
             "affixes": [
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -5178,7 +4757,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "1"
                 }
@@ -5308,7 +4887,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -5360,8 +4939,60 @@
             "threshold": 2
         }
     ],
-    "The Legendary Desert's Burning Sun": [],
-    "The Legendary Desert's Starless Nights": [],
+    "The Legendary Desert's Burning Sun": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Legendary Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Poison Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Poison Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Damage vs the Helpless",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Legendary Desert's Writhing Storm": [
         {
             "affixes": [
@@ -5413,7 +5044,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Well-Rounded",
+                    "name": "Well Rounded",
                     "type": "Profane",
                     "value": "2"
                 },
@@ -5431,7 +5062,28 @@
             "threshold": 5
         }
     ],
-    "The Legendary Oasis of Morality": [],
+    "The Legendary Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Shadow's Emptiness": [
         {
             "affixes": [
@@ -5501,49 +5153,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "25"
                 }
             ],
             "threshold": 3
@@ -5553,49 +5165,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -5606,49 +5178,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "15"
                 }
             ],
             "threshold": 3
@@ -5691,49 +5223,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Wisdom",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3
@@ -5866,49 +5358,9 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance+10 Artifact bonus to Force Spellpower+10 Artifact bonus to Magical Resistance Rating Cap",
+                    "name": "Constitution",
                     "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Burning SunThe Desert's Burning Sun: 2 Pieces Equipped:+2% Artifact bonus to Fire Spellcrit Chance+10 Artifact bonus to Fire Spellpower+5 Artifact bonus to Physical Resistance Rating",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "The Desert's Starless NightsThe Desert's Starless Nights: 2 Pieces Equipped:+2% Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance+10 Artifact bonus to Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellpower+5% Artifact bonus to Damage vs the Helpless",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "or The Desert's Writhing StormThe Desert's Writhing Storm: 2 Pieces Equipped:+2% Artifact bonus to Electric Spellcrit Chance+10 Artifact bonus to Electric Spellpower+10 Artifact bonus to Magical Resistance Rating. The other three sets are not represented. There is no Epic or Legendary version of this ring",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "nor can it be rerolled; however",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "it can be Cannith Crafted",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "any Minimum Level assigned",
-                    "type": "Artifact",
-                    "value": "2"
+                    "value": "3"
                 }
             ],
             "threshold": 3

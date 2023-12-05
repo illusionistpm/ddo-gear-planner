@@ -11,6 +11,7 @@ import argparse
 from get_output_path import get_output_path
 from parse_item_types import parse_item_types
 import requests
+from parse_quests import parse_quests
 
 def build_data(clearCache, discordURL):
     oldStats = get_data_stats()
@@ -33,6 +34,8 @@ def build_data(clearCache, discordURL):
     parse_minor_artifacts()
 
     parse_item_types()
+
+    parse_quests()
  
     newStats = get_data_stats()
 

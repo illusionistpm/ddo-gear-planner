@@ -43,6 +43,32 @@ export class AffixService {
     return affixes;
   }
 
+  resolvesToAffix(givenAffixName, targetAffixName): boolean {
+    if (givenAffixName === targetAffixName) {
+      return true;
+    }
+
+    const resolvedName = this.getResolvedAffixName(givenAffixName);
+
+    if (!this.affixGroups.has(resolvedName)) {
+      return false;
+    }
+
+    const affixNames = this.affixGroups.get(resolvedName);
+
+    for (const affixName of affixNames) {
+      if (affixName === targetAffixName) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  getResolvedAffixName(affixName): string {
+    return this.affixSynonyms.has(affixName) ? this.affixSynonyms.get(affixName) : affixName;
+  }
+
   flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
     let flattened = [];
     for (const affix of affixes) {

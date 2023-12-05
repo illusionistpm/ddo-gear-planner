@@ -162,7 +162,7 @@ export class GearDbService {
     this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
     for (const [slot, items] of this.allGear.entries()) {
-      const myItems = items.filter(i => 
+      const myItems = items.filter(i =>
         Number(i.ml) >= minLevel &&
         Number(i.ml) <= maxLevel &&
         (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
@@ -254,6 +254,10 @@ export class GearDbService {
 
   private _addAffixesToMap_helper(affixes: Array<Affix>) {
     for (const affix of affixes) {
+      if (!affix.name) {
+        continue;
+      }
+
       if (!this.affixToBonusTypes.has(affix.name)) {
         this.affixToBonusTypes.set(affix.name, new Map<string, number>());
       }
@@ -264,7 +268,7 @@ export class GearDbService {
       if (!bestVal || bestVal < affix.value) {
         typeMap.set(affix.type, Number(affix.value));
       }
-    } 
+    }
   }
 
   getGearList() {
@@ -388,6 +392,7 @@ export class GearDbService {
 
   getSetBonus(set: string, numPieces: number) {
     const bonuses = new Array<Affix>();
+
     if (setList[set]) {
       for (const data of setList[set]) {
         if (Number(data.threshold) <= numPieces) {

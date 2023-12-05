@@ -148,7 +148,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
         copiedAffixes.append(create_affix("Spell Focus Master", "Exceptional", "2"))
 
         systems["Scale " + quarterstaffSystemName]['*'].append({
-            'affixes': [copiedAffixes],
+            'affixes': copiedAffixes,
             'name': augmentName
         })
     elif systemName == "Scale (Weapon)":
@@ -161,7 +161,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
         copiedAffixes.append(create_affix("Spell Lore", "Exceptional", "5"))
 
         systems["Fang " + quarterstaffSystemName]['*'].append({
-            'affixes': [copiedAffixes],
+            'affixes': copiedAffixes,
             'name': augmentName
         })
     elif systemName == "Fang (Weapon)":
@@ -208,7 +208,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             })
         else:
             systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [copiedAffixes],
+                'affixes': copiedAffixes,
                 'name': augmentName
             })
 
@@ -250,7 +250,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             })
         else:
             systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [copiedAffixes],
+                'affixes': copiedAffixes,
                 'name': augmentName
             })            
             
@@ -292,7 +292,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             })
         else:
             systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [copiedAffixes],
+                'affixes': copiedAffixes,
                 'name': augmentName
             })    
 
@@ -304,7 +304,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             })   
         else:
             systems["Horn " + artifactSystemName]['*'].append({
-                'affixes': [copiedAffixes],
+                'affixes': copiedAffixes,
                 'name': augmentName
             })    
 

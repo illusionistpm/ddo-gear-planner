@@ -1569,6 +1569,28 @@
                 "affixes": [
                     {
                         "description": null,
+                        "name": "Good Luck",
+                        "type": "Luck",
+                        "value": 2.0
+                    }
+                ],
+                "ml": 20.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Good Luck",
+                        "type": "Luck",
+                        "value": 3.0
+                    }
+                ],
+                "ml": 28.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
                         "name": "Striding",
                         "type": "Enhancement",
                         "value": 30.0
@@ -1695,17 +1717,6 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Good Luck",
-                        "type": "Enhancement",
-                        "value": 3.0
-                    }
-                ],
-                "ml": 28.0
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
                         "name": "Armor Class",
                         "type": "Insight",
                         "value": 6.0
@@ -1772,7 +1783,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Fortitude Saves",
+                        "name": "Fortitude Save",
                         "type": "Enhancement",
                         "value": 12.0
                     }
@@ -1784,7 +1795,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Reflex Saves",
+                        "name": "Reflex Save",
                         "type": "Enhancement",
                         "value": 12.0
                     }
@@ -1796,7 +1807,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Will Saves",
+                        "name": "Will Save",
                         "type": "Enhancement",
                         "value": 12.0
                     }
@@ -1815,6 +1826,60 @@
                 ],
                 "ml": 32.0,
                 "name": "How to Cast Faster"
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 3.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 8.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 12.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 16.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 20.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 24.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 28.0
+                    },
+                    {
+                        "description": null,
+                        "name": "Sheltering",
+                        "type": "Enhancement",
+                        "value": 32.0
+                    }
+                ],
+                "ml": 1.0,
+                "name": "Sapphire of Defense"
             }
         ],
         "hiddenFromAffixSearch": true
@@ -1900,121 +1965,101 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Acid Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Acid Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Cold Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Cold Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Electric Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Electric Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Fire Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Fire Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Force Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Force Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Light Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Light Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Negative Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Negative Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Positive Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Positive Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Repair Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Repair Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Sonic Spell Crit Damage",
-                            "type": "Quality",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "5"
+                    }
                 ],
                 "name": "Claw: Sonic Spell Crit Damage"
             }
@@ -5385,121 +5430,101 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Acid Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Acid Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Cold Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Cold Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Electric Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Electric Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Fire Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Fire Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Force Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Force Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Light Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Light Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Negative Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Negative Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Positive Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Positive Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Repair Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Repair Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Sonic Spell Crit Damage",
-                            "type": "Insight",
-                            "value": "10"
-                        }
-                    ]
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "10"
+                    }
                 ],
                 "name": "Fang: Sonic Spell Crit Damage"
             }
@@ -5777,19 +5802,17 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Spell Focus Mastery",
-                            "type": "Equipment",
-                            "value": "5"
-                        },
-                        {
-                            "description": null,
-                            "name": "Spell Lore",
-                            "type": "Exceptional",
-                            "value": "5"
-                        }
-                    ]
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "5"
+                    },
+                    {
+                        "description": null,
+                        "name": "Spell Lore",
+                        "type": "Exceptional",
+                        "value": "5"
+                    }
                 ],
                 "name": "Iridiscent Fang"
             }
@@ -6094,37 +6117,31 @@
         "*": [
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Resistance",
-                            "type": "Enhancement",
-                            "value": "11"
-                        }
-                    ]
+                    {
+                        "name": "Resistance",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
                 ],
                 "name": "Horn: Resistance"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Enhanced Ghostly",
-                            "type": "bool",
-                            "value": 1
-                        }
-                    ]
+                    {
+                        "name": "Enhanced Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
                 ],
                 "name": "Horn: Enhanced Ghostly"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Relentless Fury",
-                            "type": "bool",
-                            "value": 1
-                        }
-                    ]
+                    {
+                        "name": "Relentless Fury",
+                        "type": "bool",
+                        "value": 1
+                    }
                 ],
                 "name": "Horn: Relentless Fury"
             },
@@ -6141,37 +6158,31 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Wizardry",
-                            "type": "Enhancement",
-                            "value": "286"
-                        }
-                    ]
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "286"
+                    }
                 ],
                 "name": "Horn: Wizardry"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Spell Focus Mastery",
-                            "type": "Profane",
-                            "value": "2"
-                        }
-                    ]
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    }
                 ],
                 "name": "Horn: Profane DCs"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Spell Focus Mastery",
-                            "type": "Sacred",
-                            "value": "2"
-                        }
-                    ]
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Sacred",
+                        "value": "2"
+                    }
                 ],
                 "name": "Horn: Sacred DCs"
             }
@@ -8594,10 +8605,10 @@
             {
                 "affixes": [
                     {
-                        "description": null,
-                        "name": "Deals +4 to 24 Bane damage to Outsiders on hit. On Vorpal Hit: If an outsider struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the outsider has above 1000 hit points, it takes 100 damage.",
-                        "type": null,
-                        "value": null
+                        "description": "Deals +4 to 24 Bane damage to Outsiders on hit. On Vorpal Hit: If an outsider struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the outsider has above 1000 hit points, it takes 100 damage.",
+                        "name": "Scourge of the Outsiders",
+                        "type": "bool",
+                        "value": 1.0
                     }
                 ],
                 "ml": 28.0,
@@ -8608,8 +8619,8 @@
                     {
                         "description": null,
                         "name": "Improved Shattermantle",
-                        "type": null,
-                        "value": null
+                        "type": "bool",
+                        "value": 1.0
                     }
                 ],
                 "ml": 28.0,
@@ -8619,9 +8630,9 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "=\"+1 charge of greater dragonmarks.\"",
-                        "type": null,
-                        "value": null
+                        "name": "Greater Dragonmark Charges",
+                        "type": "Enhancement",
+                        "value": 1.0
                     }
                 ],
                 "ml": 28.0,
@@ -8632,8 +8643,8 @@
                     {
                         "description": null,
                         "name": "Touch of the Mournlands",
-                        "type": null,
-                        "value": null
+                        "type": "bool",
+                        "value": 1.0
                     }
                 ],
                 "ml": 30.0,
@@ -8644,8 +8655,8 @@
                     {
                         "description": null,
                         "name": "Improved Destruction",
-                        "type": null,
-                        "value": null
+                        "type": "bool",
+                        "value": 1.0
                     }
                 ],
                 "ml": 30.0,
@@ -8656,8 +8667,8 @@
                     {
                         "description": null,
                         "name": "Immunity to Fear",
-                        "type": null,
-                        "value": null
+                        "type": "bool",
+                        "value": 1.0
                     },
                     {
                         "description": null,
@@ -8679,9 +8690,9 @@
                     },
                     {
                         "description": null,
-                        "name": "item becomes a Spellcasting Implement",
-                        "type": null,
-                        "value": null
+                        "name": "Item becomes a Spellcasting Implement",
+                        "type": "bool",
+                        "value": 1.0
                     },
                     {
                         "description": null,
@@ -10951,121 +10962,101 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Acid Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Acid Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Cold Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Cold Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Electric Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Electric Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Fire Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Fire Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Force Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Force Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Light Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Light Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Negative Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Negative Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Positive Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Positive Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Repair Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Repair Spell Crit Damage"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Sonic Spell Crit Damage",
-                            "type": "Enhancement",
-                            "value": "20"
-                        }
-                    ]
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
                 ],
                 "name": "Scale: Sonic Spell Crit Damage"
             }
@@ -11345,55 +11336,49 @@
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Spell Penetration",
-                            "type": "Enhancement",
-                            "value": "9"
-                        },
-                        {
-                            "description": null,
-                            "name": "Spell Focus Master",
-                            "type": "Exceptional",
-                            "value": "2"
-                        }
-                    ]
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Enhancement",
+                        "value": "9"
+                    },
+                    {
+                        "description": null,
+                        "name": "Spell Focus Master",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
                 ],
                 "name": "Brightscale"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "Spell Cost Reduction",
-                            "type": "Enhancement",
-                            "value": "10"
-                        },
-                        {
-                            "description": null,
-                            "name": "Spell Focus Master",
-                            "type": "Exceptional",
-                            "value": "2"
-                        }
-                    ]
+                    {
+                        "name": "Spell Cost Reduction",
+                        "type": "Enhancement",
+                        "value": "10"
+                    },
+                    {
+                        "description": null,
+                        "name": "Spell Focus Master",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
                 ],
                 "name": "Shadowscale"
             },
             {
                 "affixes": [
-                    [
-                        {
-                            "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
-                            "type": "bool",
-                            "value": 1
-                        },
-                        {
-                            "description": null,
-                            "name": "Spell Focus Master",
-                            "type": "Exceptional",
-                            "value": "2"
-                        }
-                    ]
+                    {
+                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "description": null,
+                        "name": "Spell Focus Master",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
                 ],
                 "name": "Iridiscent Scale"
             }
@@ -13853,6 +13838,226 @@
                 ],
                 "ml": 32.0,
                 "name": "Legendary Guide to Animal Handling"
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": 294.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Sonic Resistance",
+                        "type": "Enhancement",
+                        "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 11.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": 9.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 2.0
+                    }
+                ],
+                "ml": 12.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 4.0
+                    }
+                ],
+                "ml": 16.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 6.0
+                    }
+                ],
+                "ml": 20.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 8.0
+                    }
+                ],
+                "ml": 24.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 10.0
+                    }
+                ],
+                "ml": 28.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Melee Power",
+                        "type": "Enhancement",
+                        "value": 12.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 2.0
+                    }
+                ],
+                "ml": 12.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 4.0
+                    }
+                ],
+                "ml": 16.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 6.0
+                    }
+                ],
+                "ml": 20.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 8.0
+                    }
+                ],
+                "ml": 24.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 10.0
+                    }
+                ],
+                "ml": 28.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Ranged Power",
+                        "type": "Enhancement",
+                        "value": 12.0
+                    }
+                ],
+                "ml": 32.0
             }
         ],
         "hiddenFromAffixSearch": true

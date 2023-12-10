@@ -479,7 +479,7 @@
         {
             "affixes": [
                 {
-                    "name": "imbue dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -531,7 +531,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "imbue dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -917,7 +917,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "imbue dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -2899,7 +2899,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "imbue dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -3421,7 +3421,7 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Die",
+                    "name": "Sneak Attack Dice",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3860,7 +3860,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "imbue dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -5059,7 +5059,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Sneak Attack Die",
+                    "name": "Sneak Attack Dice",
                     "type": "",
                     "value": "1"
                 },
@@ -5088,7 +5088,7 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Die",
+                    "name": "Sneak Attack Dice",
                     "type": "Artifact",
                     "value": "1"
                 },

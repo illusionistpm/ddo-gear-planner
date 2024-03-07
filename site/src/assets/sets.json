@@ -337,6 +337,18 @@
             "threshold": 3
         }
     ],
+    "Bold Tactician": [
+        {
+            "affixes": [
+                {
+                    "name": "Tactical DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Brilliant Crescents": [
         {
             "affixes": [
@@ -2001,6 +2013,18 @@
             "threshold": 4
         }
     ],
+    "Imbued Infusion": [
+        {
+            "affixes": [
+                {
+                    "name": "bonus Imbue Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Kensai": [],
     "Knight of the Shadows Set (Heroic)": [
         {
@@ -2213,6 +2237,18 @@
                     "type": "Artifact",
                     "value": "15"
                 },
+                {
+                    "name": "Maximum Hit Points",
+                    "type": "Legendary",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Bulwark": [
+        {
+            "affixes": [
                 {
                     "name": "Maximum Hit Points",
                     "type": "Legendary",
@@ -4306,6 +4342,18 @@
         }
     ],
     "Spell Singer": [],
+    "Subtle Blade": [
+        {
+            "affixes": [
+                {
+                    "name": "Assassinate DCs",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Temple's Inferno": [
         {
             "affixes": [

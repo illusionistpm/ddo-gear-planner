@@ -6265,7 +6265,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power. 50% chance to inflict 1 stack of Ash for 12 seconds. Stacks up to 3 times, -7 MRR and -20 USP per stack.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6295,7 +6295,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification. 50% chance to inflict 1 stack of Dust for 12 seconds. Stacks up to 5 times, -7 PRR and -20 Amplification per stack.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6315,7 +6315,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR. Chance to inflict 1 stack of Melted Armor, reducing enemy PRR and MRR by 10 for 12 seconds.",
                         "type": "bool",
                         "value": 1
                     }

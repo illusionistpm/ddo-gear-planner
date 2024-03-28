@@ -474,6 +474,48 @@
             "threshold": 2
         }
     ],
+    "Cooking by the Book": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Legendary",
+                    "value": "5"
+                }
+            ],
+            "threshold": 4
+        }
+    ],
     "Corsair's Cunning": [],
     "Cruel Cut": [
         {
@@ -605,6 +647,33 @@
                 }
             ],
             "threshold": 2
+        }
+    ],
+    "Date with a Mind Flayer": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Saving Throws",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
         }
     ],
     "Deacon of the Auricular Sacrarium": [
@@ -3923,6 +3992,53 @@
         }
     ],
     "Raven's Eye": [],
+    "Remodeling Renegade": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Damage vs. Helpless opponents",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 4
+        }
+    ],
     "Renegade Champion": [
         {
             "affixes": [

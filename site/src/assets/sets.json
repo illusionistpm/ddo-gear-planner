@@ -1861,6 +1861,23 @@
         }
     ],
     "Frenzied Berserker": [],
+    "Fried & Frozen Frenzy": [
+        {
+            "affixes": [
+                {
+                    "name": "Well Rounded",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Critical Multiplier on a roll of 19-20",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Glacial Assault": [],
     "Griffon Set": [
         {
@@ -2327,6 +2344,75 @@
             "threshold": 3
         }
     ],
+    "Legendary Cooking by the Book": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Imbue Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Legendary",
+                    "value": "15"
+                }
+            ],
+            "threshold": 4
+        }
+    ],
+    "Legendary Date with a Mind Flayer": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spell Penetration",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Resistance Rating Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Legendary Deadly Diabolist": [
         {
             "affixes": [
@@ -2639,6 +2725,23 @@
                 }
             ],
             "threshold": 5
+        }
+    ],
+    "Legendary Fried & Frozen Frenzy": [
+        {
+            "affixes": [
+                {
+                    "name": "Well Rounded",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Multiplier on a roll of 19-20",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "Legendary Guardian of the Gates": [
@@ -3013,6 +3116,53 @@
         }
     ],
     "Legendary Raven's Eye": [],
+    "Legendary Remodeling Renegade": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Damage vs. Helpless opponents",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 4
+        }
+    ],
     "Legendary Saltmarsh Explorer": [
         {
             "affixes": [

@@ -5743,7 +5743,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage.",
+                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (Grants Alchemical Fire Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5753,7 +5753,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time.",
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Grants Alchemical Water Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5763,7 +5763,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage.",
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (Grants Alchemical Air Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5773,7 +5773,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time.",
+                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (Grants Alchemical Earth Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5783,7 +5783,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage.",
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (Grants Legendary Steam)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5793,7 +5793,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1min 25 sec.)",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5823,7 +5823,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage.",
+                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (Grants Alchemical Fire Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5833,7 +5833,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time.",
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Grants Alchemical Water Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5843,7 +5843,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage.",
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (Grants Alchemical Air Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5853,7 +5853,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time.",
+                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (Grants Alchemical Earth Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5863,7 +5863,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage.",
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (Grants Legendary Steam)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5873,7 +5873,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1min 25 sec.)",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6265,7 +6265,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power. 50% chance to inflict 1 stack of Ash for 12 seconds. Stacks up to 3 times, -7 MRR and -20 USP per stack.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power. (Grants Legendary Ash)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6275,7 +6275,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice.",
+                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice. (Grants Legendary Ice)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6285,7 +6285,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability.",
+                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability. (Grants Legendary Vacuum)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6295,7 +6295,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification. 50% chance to inflict 1 stack of Dust for 12 seconds. Stacks up to 5 times, -7 PRR and -20 Amplification per stack.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification. (Grants Legendary Dust)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6315,7 +6315,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR. Chance to inflict 1 stack of Melted Armor, reducing enemy PRR and MRR by 10 for 12 seconds.",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR. (Grants Legendary Ooze without summoning effect)",
                         "type": "bool",
                         "value": 1
                     }

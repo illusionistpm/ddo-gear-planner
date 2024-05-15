@@ -6265,7 +6265,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power. (Grants Legendary Ash)",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy MRR and Universal Spell Power. (Grants Legendary Ash)",
                         "type": "bool",
                         "value": 1
                     }

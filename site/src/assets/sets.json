@@ -1472,17 +1472,17 @@
                 },
                 {
                     "name": "Melee Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
                     "name": "Ranged Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
                     "name": "Universal Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
@@ -3178,17 +3178,17 @@
                 },
                 {
                     "name": "Melee Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {
                     "name": "Ranged Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {
                     "name": "Universal Spell Power",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {

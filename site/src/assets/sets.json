@@ -2126,7 +2126,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "threat generation with melee and ranged attacks",
+                    "name": "threat generation with melee attacks",
                     "type": "Artifact",
                     "value": "50"
                 },
@@ -2153,7 +2153,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "threat generation with melee and ranged attacks",
+                    "name": "threat generation with melee attacks",
                     "type": "Artifact",
                     "value": "50"
                 },

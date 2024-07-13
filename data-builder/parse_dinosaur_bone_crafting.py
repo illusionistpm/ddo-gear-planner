@@ -13,6 +13,8 @@ from pprint import pprint
 
 quarterstaffSystemName = "(Weapon - Quarterstaff)"
 artifactSystemName = "(Accessory - Artifact)"
+dreadSetSystemTableHeaderValue = "Set Bonus Augment (Armor, Cloak, and Helm)"
+dreadSetSystemName = "Isle of Dread: Set Bonus Slot: Empty"
 
 def get_systems_from_page(soup):
     synonymMap = get_inverted_synonym_map()
@@ -59,6 +61,16 @@ def get_systems_from_page(soup):
 
 
             systems[system_name]['*'].append(option)
+
+    # Rename systems key to compensate for wiki drift
+    if dreadSetSystemTableHeaderValue in systems:
+        systems[dreadSetSystemName] = systems.pop(dreadSetSystemTableHeaderValue)
+        for key,value in enumerate(systems[dreadSetSystemName]['*']):
+            # parser reads effect column as affix -- drop those from set bonus
+            if 'affixes' in systems[dreadSetSystemName]['*'][key]:
+                del systems[dreadSetSystemName]['*'][key]['affixes']
+            # this is a craftable set, include entry to treat property as set
+            systems[dreadSetSystemName]['*'][key]['set'] = systems[dreadSetSystemName]['*'][key]['name']
 
     return systems
 

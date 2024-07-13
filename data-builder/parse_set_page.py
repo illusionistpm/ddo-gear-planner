@@ -42,9 +42,9 @@ def split_list(affix, affixes):
 
     words = str.split(',')
     words = map(lambda a: a.split(' and '), words)
-    words = [item.strip() for sublist in words for item in sublist]    
-    while("" in words) : 
-        words.remove("")     
+    words = [item.strip() for sublist in words for item in sublist]
+    while("" in words) :
+        words.remove("")
 
     for suffix in ['Healing Amplification', 'Spell Power', 'Spell Crit Chance', 'Absorption', 'Amplification', 'Resistance Rating']:
         if words[-1].endswith(suffix):
@@ -66,7 +66,7 @@ def list_items_to_affixes(listItems, synMap):
     if listItems:
         for entry in listItems:
             if 'bonus to' in entry.getText().lower():
-                # Sometimes there's a redundant "bonus" (bonus bonus) 
+                # Sometimes there's a redundant "bonus" (bonus bonus)
                 search = re.search(r'\+?(\d+)%? ([A-Za-z]+)(?: bonus)? [Bb]onus to (.*)', entry.getText())
             else:
                 search = re.search(r'\+?(\d+)%?( )(.*)', entry.getText())
@@ -79,6 +79,9 @@ def list_items_to_affixes(listItems, synMap):
 
                 if affix['name'][-1:] == '.':
                     affix['name'] = affix['name'][:-1]
+
+                if affix['name'] in synMap:
+                    affix['name'] = synMap[affix['name']]
 
                 if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
                     newAffix = deepcopy(affix)
@@ -122,7 +125,7 @@ def get_sets_from_page(soup):
         if setNameIdx == -1 or setBonusIdx == -1:
             print("Skipping table")
             continue
-        
+
         for row in rows[1:]:
             cells = row.find_all('td')
 

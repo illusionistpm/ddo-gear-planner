@@ -6324,34 +6324,6 @@
             }
         ]
     },
-    "Isle of Dread: Set Bonus Slot: Empty": {
-        "*": [
-            {
-                "name": "Dread Stalker",
-                "set": "Dread Stalker"
-            },
-            {
-                "name": "Devotion of the Firemouth",
-                "set": "Devotion of the Firemouth"
-            },
-            {
-                "name": "Defender of Tanaroa",
-                "set": "Defender of Tanaroa"
-            },
-            {
-                "name": "Deacon of the Auricular Sacrarium",
-                "set": "Deacon of the Auricular Sacrarium"
-            },
-            {
-                "name": "Echoes of the Walking Ancestors",
-                "set": "Echoes of the Walking Ancestors"
-            },
-            {
-                "name": "The Legendary Dread Isle's Curse",
-                "set": "The Legendary Dread Isle's Curse"
-            }
-        ]
-    },
     "Legendary Lost Purpose": {
         "*": [
             {
@@ -11493,6 +11465,70 @@
                     }
                 ],
                 "name": "Iridiscent Scale"
+            }
+        ]
+    },
+    "Set Bonus Augment (Armor, Cloak, and Helm)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Dread Stalker set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Dread Stalker"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Devotion of the Firemouth set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Devotion of the Firemouth"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Defender of Tanaroa set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Defender of Tanaroa"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Deacon of the Auricular Sacrarium set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Deacon of the Auricular Sacrarium"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the Echoes of the Walking Ancestors set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Echoes of the Walking Ancestors"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Counts as part of the The Legendary Dread Isle's Curse set",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "name": "The Legendary Dread Isle's Curse"
             }
         ]
     },

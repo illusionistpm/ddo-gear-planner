@@ -25,8 +25,15 @@ def build_synonyms():
     add(data, 'Repair Amplification', ['Repair Healing Amplification'])
     add(data, 'Well Rounded', ['Well-Rounded'])
 
+    add(data, ['Combustion', 'Radiance'], ['Power of the Flames of Purity'])
+    add(data, ['Combustion', 'Radiance'], ['Purifying Flame Lore'])
+    add(data, ['Glaciation', 'Magnetism'], ['Frozen Storm Lore'])
+    add(data, ['Glaciation', 'Magnetism'], ['Power of the Frozen Storm'])
+    add(data, ['Glaciation', 'Nullification', 'Poison'], ['Frozen Depths Lore'])
+    add(data, ['Glaciation', 'Nullification', 'Poison'], ['Power of the Frozen Depths'])
+
     write_json(data, 'affix-synonyms')
 
-    
+
 if __name__ == "__main__":
     build_synonyms()

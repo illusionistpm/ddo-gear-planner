@@ -42,7 +42,7 @@ def strip_bonus_types(name):
 def strip_charges(name):
     newName = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
     return newName.strip() + " clicky" if newName != name else name
-    
+
 
 def strip_necro4_upgrades(name):
     search = re.search(r'^(Upgradeable - [A-Za-z]+ Augment)', name)
@@ -50,7 +50,7 @@ def strip_necro4_upgrades(name):
         return search.group(1)
 
     return name
-    
+
 
 def clean_up_old_augments(name):
     search = re.search(r'^([A-Za-z]+) Slot', name)
@@ -121,7 +121,7 @@ def sub_name(name):
         dino_crafting_search = re.search(r'^Isle of Dread: ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
         if dino_crafting_search:
             return f"{dino_crafting_search.group(1)} {dino_crafting_search.group(2)}"
-        
+
     return name
 
 
@@ -143,7 +143,7 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
         affixes = cell.find_all('ul', recursive=False)
         affixes = [ul.find_all('li', recursive=False) for ul in affixes]
         affixes = [item for sublist in affixes for item in sublist]
-    
+
     else:
         affixes = [cell]
 
@@ -174,7 +174,7 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
         affixName = cleanup_one_of_the_following(affixName)
         affixName = add_default_one(affixName)
         affixName = x_skills_exceptional_bonus(affixName)
-        
+
         affixName = affixName.strip()
 
         affixNameSearch = re.search(r'^(.*?) (- )?\(?\+?(-?[0-9]+)\%?\)?$', affixName)
@@ -283,6 +283,14 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
         if aff['name'] in synonymMap:
             aff['name'] = synonymMap[aff['name']]
 
-        ret.append(aff)
+        # explode affix if determined that a single affix is a representation of multiple effects
+        if type(aff['name']) is list:
+            for key, value in enumerate(aff['name']):
+                 # replace name of current affix based on loop iteration
+                 aff['name'] = value
+                 # add a copy of the current affix map to the return list
+                 ret.append(aff.copy())
+        else:
+            ret.append(aff)
 
     return ret

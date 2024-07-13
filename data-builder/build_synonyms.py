@@ -17,6 +17,10 @@ def build_synonyms():
     add(data, 'Speed', ['Striding'])
     add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])
     add(data, 'Magical Sheltering', ['Magical Resistance Rating', 'MRR'])
+    add(data, 'Sheltering', ['Physical and Magical Resistance Rating'])
+    add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])
+    add(data, 'Magical Sheltering', ['Magical Resistance Rating', 'MRR'])
+    add(data, 'Magical Sheltering Cap', ['Magical Resistance Rating Cap', 'MRR Cap'])
     add(data, 'Spell Focus Mastery', ['Spell DCs'])
     add(data, 'Void Lore', ['Negative Spell Crit Chance'])
     add(data, 'Nullification', ['Negative Spell Power'])
@@ -27,6 +31,6 @@ def build_synonyms():
 
     write_json(data, 'affix-synonyms')
 
-    
+
 if __name__ == "__main__":
     build_synonyms()

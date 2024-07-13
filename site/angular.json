@@ -112,6 +112,9 @@
           }
         }
       }
-    }},
-  "defaultProject": "site"
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
 }

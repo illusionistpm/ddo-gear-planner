@@ -45,6 +45,19 @@
         ]
     },
     {
+        "name": "Sheltering",
+        "synonyms": [
+            "Physical and Magical Resistance Rating"
+        ]
+    },
+    {
+        "name": "Magical Sheltering Cap",
+        "synonyms": [
+            "Magical Resistance Rating Cap",
+            "MRR Cap"
+        ]
+    },
+    {
         "name": "Spell Focus Mastery",
         "synonyms": [
             "Spell DCs"

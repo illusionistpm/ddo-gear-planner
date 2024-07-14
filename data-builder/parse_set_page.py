@@ -60,43 +60,50 @@ def split_list(affix, affixes):
     return True
 
 
+def string_to_affixes(affixStr, synMap):
+    affixes = []
+    if 'bonus to' in affixStr.lower():
+        # Sometimes there's a redundant "bonus" (bonus bonus)
+        search = re.search(r'\+?(\d+)%? ([A-Za-z]+)(?: bonus)? [Bb]onus to (.*)', affixStr)
+    else:
+        search = re.search(r'\+?(\d+)%?( )(.*)', affixStr)
+
+    if(search):
+        affix = {}
+        affix['value'] = search.group(1).strip()
+        affix['type'] = search.group(2).strip().title()
+        affix['name'] = search.group(3).strip()
+
+        if affix['name'][-1:] == '.':
+            affix['name'] = affix['name'][:-1]
+
+        if affix['name'] in synMap:
+            affix['name'] = synMap[affix['name']]
+
+        if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
+            newAffix = deepcopy(affix)
+            newAffix['name'] = 'Melee Power'
+            affix['name'] = 'Ranged Power'
+            affixes.append(newAffix)
+        elif split_list(affix, affixes):
+            return affixes
+
+        affix['name'] = sub_name(affix['name'])
+
+        if affix['name'] in synMap:
+            affix['name'] = synMap[affix['name']]
+
+        affixes.append(affix)
+
+    return affixes
+
+
 def list_items_to_affixes(listItems, synMap):
     affixes = []
 
     if listItems:
         for entry in listItems:
-            if 'bonus to' in entry.getText().lower():
-                # Sometimes there's a redundant "bonus" (bonus bonus)
-                search = re.search(r'\+?(\d+)%? ([A-Za-z]+)(?: bonus)? [Bb]onus to (.*)', entry.getText())
-            else:
-                search = re.search(r'\+?(\d+)%?( )(.*)', entry.getText())
-
-            if(search):
-                affix = {}
-                affix['value'] = search.group(1).strip()
-                affix['type'] = search.group(2).strip().title()
-                affix['name'] = search.group(3).strip()
-
-                if affix['name'][-1:] == '.':
-                    affix['name'] = affix['name'][:-1]
-
-                if affix['name'] in synMap:
-                    affix['name'] = synMap[affix['name']]
-
-                if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
-                    newAffix = deepcopy(affix)
-                    newAffix['name'] = 'Melee Power'
-                    affix['name'] = 'Ranged Power'
-                    affixes.append(newAffix)
-                elif split_list(affix, affixes):
-                    continue
-
-                affix['name'] = sub_name(affix['name'])
-
-                if affix['name'] in synMap:
-                    affix['name'] = synMap[affix['name']]
-
-                affixes.append(affix)
+            affixes = affixes + string_to_affixes(entry.get_text(), synMap)
 
     return affixes
 
@@ -158,10 +165,9 @@ def get_sets_from_page(soup):
 
                     ul = p.findNextSibling('ul')
 
-
                     if ul is None:
                         # this is likely an augment-based set bonus that just has a single line contained within the 'p'
-                        affixes = list_items_to_affixes(p, synMap)
+                        affixes = string_to_affixes(p.string, synMap)
                     else:
                         listItems = ul.find_all('li')
 

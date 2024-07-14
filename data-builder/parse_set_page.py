@@ -101,8 +101,6 @@ def string_to_affixes(affixStr, synMap):
 def list_items_to_affixes(listItems, synMap):
     affixes = []
 
-    print(listItems)
-
     if listItems:
         for entry in listItems:
             affixes = affixes + string_to_affixes(entry.get_text(), synMap)

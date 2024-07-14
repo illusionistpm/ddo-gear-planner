@@ -9,7 +9,7 @@ def get_lost_purpose_crafting():
     systems['Legendary Lost Purpose'] = { '*': []}
     systems['Legendary Lost Purpose']['*'] = lostPurposeLegendaryOptions
 
-    lostPurposeSetsData = open('./data-builder/lost_purpose.json',)
+    lostPurposeSetsData = open('./lost_purpose.json',)
 
     lostPurposeSets = json.load(lostPurposeSetsData)
 
@@ -53,7 +53,7 @@ def get_lost_purpose_sets():
     systems['Legendary Lost Purpose'] = { '*': []}
     systems['Legendary Lost Purpose']['*'] = lostPurposeLegendaryOptions
 
-    lostPurposeSetsData = open('./data-builder/lost_purpose.json',)
+    lostPurposeSetsData = open('./lost_purpose.json',)
 
     lostPurposeSets = json.load(lostPurposeSetsData)
 

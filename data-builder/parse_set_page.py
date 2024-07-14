@@ -11,24 +11,7 @@ from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from get_lost_purpose import get_lost_purpose_sets
 
-def sub_name(name):
-    for pair in [
-        ['all Spell DCs', 'Spell DCs'],
-        ['Spell DC\'s', 'Spell DCs'],
-        ['DCs', 'Spell DCs'],
-        ['Evocation Spell DCs', 'Evocation Focus'],
-        ['your Magical Resistance Rating', 'Magical Resistance Rating'],
-        ['your Tactical Abilities', 'Tactical Abilities'],
-        ['maximum hitpoints', 'Hit Points'],
-        ['your maximum hit points', 'Hit Points'],
-        ['your maximum Spell Points', 'Spell Points'],
-        ['all of your Ability Scores', 'Well-Rounded'],
-        ['all Ability Scores', 'Well-Rounded']
-        ]:
-        if name.lower() == pair[0].lower():
-            return pair[1]
-    return name
-
+# attempt to split out elements in a string if that string contains the word 'and'
 def split_list(affix, affixes):
     str = affix['name']
     if str in ['hit and damage vs. Evil creatures',
@@ -46,7 +29,8 @@ def split_list(affix, affixes):
     while("" in words) :
         words.remove("")
 
-    for suffix in ['Healing Amplification', 'Spell Power', 'Spell Crit Chance', 'Absorption', 'Amplification', 'Resistance Rating']:
+    # important -- 'Power' must be parsed AFTER 'Spell Power' otherwise the Power loop will catch both
+    for suffix in ['Healing Amplification', 'Spell Power', 'Power', 'Spell Crit Chance', 'Absorption', 'Amplification', 'Resistance Rating']:
         if words[-1].endswith(suffix):
             for idx, word in enumerate(words[0:-1], 0):
                 words[idx] = word + " " + suffix
@@ -77,23 +61,24 @@ def string_to_affixes(affixStr, synMap):
         if affix['name'][-1:] == '.':
             affix['name'] = affix['name'][:-1]
 
+        # check to see if we have any already defined synonyms for this affix
+        # important this is done prior to splitting so we can prevent splitting of known synonyms
+        # such as Physical and Magical Sheltering --> Sheltering
         if affix['name'] in synMap:
             affix['name'] = synMap[affix['name']]
+            affixes.append(affix)
 
-        if affix['name'] in ['Melee Power/Ranged Power', "Melee and Ranged Power"]:
-            newAffix = deepcopy(affix)
-            newAffix['name'] = 'Melee Power'
-            affix['name'] = 'Ranged Power'
-            affixes.append(newAffix)
-        elif split_list(affix, affixes):
-            return affixes
+        else:
+            split_list(affix, affixes)
 
-        affix['name'] = sub_name(affix['name'])
+            # if split_list function did not populate the exisitng affixes hash, we add the affix to the list manually
+            if not(len(affixes)):
+                affixes.append(affix)
 
-        if affix['name'] in synMap:
-            affix['name'] = synMap[affix['name']]
-
-        affixes.append(affix)
+            # loop through entries in affix list and update names based on synonym map
+            for entry in affixes:
+                if entry['name'] in synMap:
+                    entry['name'] = synMap[entry['name']]
 
     return affixes
 

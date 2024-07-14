@@ -21,32 +21,31 @@ import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-c
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GearListComponent,
-    GearComponent,
-    TypeaheadComponent,
-    GearDescriptionComponent,
-    EffectsTableComponent,
-    ItemsWithBonusTypeComponent,
-    FiltersComponent,
-    MainComponent,
-    ItemSuggestionsComponent,
-    AffixCloudComponent,
-    ItemsInSetComponent,
-    ExpandingCheckboxesComponent,
-    FilterItemTypeComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    NgbModule,
-    BrowserModule,
-    FormsModule
-  ],
-  providers: [
-    {provide : LocationStrategy , useClass: HashLocationStrategy}
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [ItemsWithBonusTypeComponent, ItemSuggestionsComponent, ItemsInSetComponent]
+    declarations: [
+        AppComponent,
+        GearListComponent,
+        GearComponent,
+        TypeaheadComponent,
+        GearDescriptionComponent,
+        EffectsTableComponent,
+        ItemsWithBonusTypeComponent,
+        FiltersComponent,
+        MainComponent,
+        ItemSuggestionsComponent,
+        AffixCloudComponent,
+        ItemsInSetComponent,
+        ExpandingCheckboxesComponent,
+        FilterItemTypeComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        NgbModule,
+        BrowserModule,
+        FormsModule
+    ],
+    providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

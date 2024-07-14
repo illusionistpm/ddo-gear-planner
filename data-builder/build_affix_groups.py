@@ -25,8 +25,14 @@ def build_affix_groups():
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
     add(groups, 'Alluring Skills Bonus', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Charisma Skills', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
+    add(groups, 'Frozen Depths Lore', ['Ice Lore', 'Poison Lore', 'Void Lore'])
+    add(groups, 'Frozen Storm Lore', ['Ice Lore', 'Lightning Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
+    add(groups, 'Power of the Frozen Storm', ['Glaciation', 'Magnetism'])
+    add(groups, 'Power of the Frozen Depths', ['Glaciation', 'Nullification', 'Poison'])
+    add(groups, 'Power of the Flames of Purity', ['Combustion', 'Radiance'])
+    add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Radiance Lore'])
     add(groups, 'Strength Skills', ['Jump'])
     add(groups, 'Wisdom Skills', ['Heal', 'Listen', 'Spot'])
     add(groups, 'Constitution Skills', ['Concentration'])
@@ -37,6 +43,6 @@ def build_affix_groups():
 
     write_json(groups, 'affix-groups')
 
-    
+
 if __name__ == "__main__":
     build_affix_groups()

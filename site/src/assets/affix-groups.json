@@ -70,6 +70,21 @@
     },
     {
         "affixes": [
+            "Ice Lore",
+            "Poison Lore",
+            "Void Lore"
+        ],
+        "name": "Frozen Depths Lore"
+    },
+    {
+        "affixes": [
+            "Ice Lore",
+            "Lightning Lore"
+        ],
+        "name": "Frozen Storm Lore"
+    },
+    {
+        "affixes": [
             "Disable Device",
             "Repair",
             "Search",
@@ -86,6 +101,35 @@
             "Tumble"
         ],
         "name": "Dexterity Skills"
+    },
+    {
+        "affixes": [
+            "Glaciation",
+            "Magnetism"
+        ],
+        "name": "Power of the Frozen Storm"
+    },
+    {
+        "affixes": [
+            "Glaciation",
+            "Nullification",
+            "Poison"
+        ],
+        "name": "Power of the Frozen Depths"
+    },
+    {
+        "affixes": [
+            "Combustion",
+            "Radiance"
+        ],
+        "name": "Power of the Flames of Purity"
+    },
+    {
+        "affixes": [
+            "Fire Lore",
+            "Radiance Lore"
+        ],
+        "name": "Purifying Flame Lore"
     },
     {
         "affixes": [

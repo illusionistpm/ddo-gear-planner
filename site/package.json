@@ -26,7 +26,6 @@
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.2.3",
-    "popper.js": "^1.16.0",
     "rxjs": "~6.6.3",
     "service": "^0.1.4",
     "tslib": "^2.0.0",
@@ -48,7 +47,6 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~5.4.5"

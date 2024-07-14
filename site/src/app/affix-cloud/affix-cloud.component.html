@@ -5,16 +5,16 @@
     </div>
 
     <p>What attributes do you care about?</p>
-    <div class="row">
-        <div class="form-group" *ngFor="let attr of attributes">
+    <div class="row d-flex justify-content-start">
+        <div class="col-auto m-0 mb-2 p-0" *ngFor="let attr of attributes">
             <button class="btn btn-primary mx-1"
                 (click)="add(attr)">{{attr}}</button>
         </div>
     </div>
 
     <p>Pick a bundle of affixes to save time:</p>
-    <div class="row">
-        <div class="form-group" *ngFor="let pkg of packageKeys">
+    <div class="row d-flex justify-content-start">
+        <div class="col-auto m-0 mb-2 p-0" *ngFor="let pkg of packageKeys">
             <button class="btn btn-primary mx-1"
                 (click)="addPackage(pkg)">{{pkg}}</button>
         </div>
@@ -22,8 +22,8 @@
 
     <div *ngIf="topResults.length">
         <p>What other affixes are important to your build?</p>
-        <div class="row">
-            <div class="form-group" *ngFor="let result of topResults">
+        <div class="row d-flex justify-content-start">
+            <div class="col-auto m-0 mb-2 p-0" *ngFor="let result of topResults">
                 <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
                     (click)="add(result[0])">{{result[0]}}</button>
             </div>
@@ -46,8 +46,8 @@
         <div class="row">
             <p>Tap to remove</p>
         </div>
-        <div class="row">
-            <div class="form-group" *ngFor="let result of savedSet">
+        <div class="row d-flex justify-content-start">
+            <div class="col-auto m-0 mb-2 p-0" *ngFor="let result of savedSet">
                 <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
             </div>
         </div>

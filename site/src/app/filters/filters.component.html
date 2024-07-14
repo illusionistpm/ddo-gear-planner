@@ -8,15 +8,17 @@
             <div class="card-body">
                 <div class="row">
                     <span class="align-bottom col-5">Level range:</span>
-                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                    <input type="number" min="1" class="col-2" (change)="onChangeLevelRange()"
                         [(ngModel)]="minLevel">
                     <span class="col-1 text-center">-</span>
-                    <input type="number" min="1" class="form-control col-2" (change)="onChangeLevelRange()"
+                    <input type="number" min="1" class="col-2" (change)="onChangeLevelRange()"
                         [(ngModel)]="maxLevel">
                 </div>
-                <input type="checkbox" class="form-check form-check-inline" id="raidItems"
-                    (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
-                <label class="form-check-label" for="raidItems">Show Raid Items</label>
+                <div class="row">
+                    <input type="checkbox" class="form-check form-check-inline col-1" id="raidItems"
+                        (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
+                    <label class="form-check-label col-6" for="raidItems">Show Raid Items</label>
+                </div>
             </div>
         </div>
     </div>

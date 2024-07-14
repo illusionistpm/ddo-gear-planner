@@ -1,10 +1,10 @@
 <div class="col" *ngIf="curItem && curItem.isValid()">
-    <div class="row pl-2" *ngIf="!curItem.isCannithCrafted(); else cannithMLTemp">
+    <div class="row ps-2" *ngIf="!curItem.isCannithCrafted(); else cannithMLTemp">
         <div class="col-4"><b>ML: {{curItem.ml}}</b></div>
-        <div class="col-8 text-right"><i>{{curItem.quests ? curItem.quests[0] : ''}}</i></div>
+        <div class="col-8 text-end"><i>{{curItem.quests ? curItem.quests[0] : ''}}</i></div>
     </div>
     <ng-template #cannithMLTemp>
-        <div class="row pl-2">
+        <div class="row ps-2">
             <div><b>ML:&nbsp;</b></div>
             <select [(ngModel)]="cannithML" (change)="updateML()" [value]="curItem.ml">
                 <option *ngFor="let ml of cannith.levels">{{ml}}</option>
@@ -16,23 +16,23 @@
     <!-- Main Affixes -->
     <div class="row table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
         *ngFor="let affix of curItem.affixes">
-        <button class="show-on-hover fas fa-heart heart pr-1" *ngIf="equipped.isImportantAffix(affix.name)"
+        <button class="show-on-hover fas fa-heart heart col-1" *ngIf="equipped.isImportantAffix(affix.name)"
             (click)="equipped.toggleImportantAffix(affix.name)"></button>
-        <button class="show-on-hover far fa-heart heart pr-1" *ngIf="!equipped.isImportantAffix(affix.name)"
+        <button class="show-on-hover far fa-heart heart col-1" *ngIf="!equipped.isImportantAffix(affix.name)"
             (click)="equipped.toggleImportantAffix(affix.name)"></button>
-        <div class="col pl-1">{{affix.name}}</div>
+        <div class="col ps-1">{{affix.name}}</div>
         <div class="col" *ngIf="affix.hasRealType()">{{getAffixValue(affix)}} {{affix.type}}</div>
     </div>
     <!-- Crafting -->
     <div class="row table-striped table-condensed small hover-helper" *ngFor="let craft of curItem.crafting">
-        <span class="show-never fas fa-heart heart pr-2" *ngIf="!craft.selected.affixes.length"></span>
-        <button class="show-on-hover fas fa-heart heart pr-1" *ngIf="craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)"
+        <span class="show-never fas fa-heart heart col-1" *ngIf="!craft.selected.affixes.length"></span>
+        <button class="show-on-hover fas fa-heart heart col-1" *ngIf="craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)"
             (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
-        <button class="show-on-hover far fa-heart heart pr-1" *ngIf="craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)"
+        <button class="show-on-hover far fa-heart heart col-1" *ngIf="craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)"
             (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
-        <div class="col-3 pl-1 pr-0" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
+        <div class="col-3 ps-1 pe-0" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
         <div class="col-8" *ngIf="!readonly">
-            <select class="col pl-0 pr-1" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)" [hidden]="craft.options.length < 2">
+            <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)" [hidden]="craft.options.length < 2">
                 <option *ngFor="let option of craft.options" [ngValue]="option"
                     [ngClass]="getClassForCraftingOption(option)">
                     {{describe(option)}}
@@ -42,7 +42,6 @@
     </div>
     <!-- Sets -->
     <div class="row table-striped table-condensed small"  *ngFor="let set of curItem.getSets()">
-        <span class="show-never fas fa-heart heart"></span>
-        Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set)">{{set}}</a> ({{equipped.getActiveSets().get(set)}})
+        <span class="col">Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set)">{{set}}</a> ({{equipped.getActiveSets().get(set)}})</span>
     </div>
 </div>

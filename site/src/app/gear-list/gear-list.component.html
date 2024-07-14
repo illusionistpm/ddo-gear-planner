@@ -1,22 +1,21 @@
 <div class="row section-header">
-    <h3>Equipment</h3>
-    <span class="col-7"></span>
-    <button class="btn btn-primary float-right" (click)="copyGearToClipboard()">Copy Equipment to Clipboard</button>
+    <span class="col-8"><h3>Equipment</h3></span>
+    <button class="btn btn-primary float-end col-3" (click)="copyGearToClipboard()">Copy Equipment to Clipboard</button>
 </div>
 
 <div class="row">
-    <div class="form-group card col-sm-12 col-md-6 col-lg-4" *ngFor="let slot of gearList.getSlots()">
+    <div class="mb-3 card col-sm-12 col-md-6 col-lg-4" *ngFor="let slot of gearList.getSlots()">
 
         <div class="row">
             <button type="button" class="btn btn-secondary flat-right col-11 text-center" [ngClass]="getClassForSlot(slot)"
                 (click)="showSuggestedItems(slot)">
                 <div class='row'>
-                    <div class='col-4 text-left'>{{slot}}</div>
-                    <div class="col-8 text-right item-name">{{getItemName(slot)}}</div>
+                    <div class='col-4 text-start'>{{slot}}</div>
+                    <div class="col-8 text-end item-name">{{getItemName(slot)}}</div>
                 </div>
             </button>
 
-            <button type="button" class="btn btn-secondary flat-left col-1 font-weight-bold"
+            <button type="button" class="btn btn-secondary flat-left col-1 fw-bold"
                 *ngIf="equipped.hasItem(slot); else unlocked" (click)="equipped.clearSlot(slot)">
                 &times;
             </button>
@@ -28,26 +27,26 @@
     </div>
 
     <!-- Describe Sets -->
-    <div class="form-group col-sm-12 col-md-6 col-lg-4" *ngFor="let setToAffixes of equipped.getActiveSetBonuses()">
+    <div class="mb-3 col-sm-12 col-md-6 col-lg-4" *ngFor="let setToAffixes of equipped.getActiveSetBonuses()">
         <div class="row">
             <button type="button" class="btn btn-info flat-right col-12 text-center"
                 (click)="showItemsInSet(setToAffixes[0])">
                 <div class='row'>
-                    <div class='col-2 text-left'>Set</div>
-                    <div class="col-9 text-right item-name">{{setToAffixes[0]}}</div>
+                    <div class='col-2 text-start'>Set</div>
+                    <div class="col-9 text-end item-name">{{setToAffixes[0]}}</div>
                     <div class="col-1"></div>
                 </div>
             </button>
 
-            <div class="form-group col">
-                <div class="form-group row mb-0 ml-2 table-striped table-condensed small hover-helper"
+            <div class="mb-3 col">
+                <div class="row table-striped table-condensed small hover-helper"
                     [ngClass]="getClassForAffix(affix)" *ngFor="let affix of setToAffixes[1]">
-                    <span class="show-on-hover fas fa-heart heart" *ngIf="equipped.isImportantAffix(affix.name)"
+                    <span class="show-on-hover fas fa-heart heart col-1" *ngIf="equipped.isImportantAffix(affix.name)"
                         (click)="equipped.toggleImportantAffix(affix.name)"></span>
-                    <span class="show-on-hover far fa-heart heart" *ngIf="!equipped.isImportantAffix(affix.name)"
+                    <span class="show-on-hover far fa-heart heart col-1" *ngIf="!equipped.isImportantAffix(affix.name)"
                         (click)="equipped.toggleImportantAffix(affix.name)"></span>
-                    <div class="col">{{affix.name}}</div>
-                    <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
+                    <div class="col-7">{{affix.name}}</div>
+                    <div class="col-4">{{getAffixValue(affix)}} {{affix.type}}</div>
                 </div>
             </div>
         </div>

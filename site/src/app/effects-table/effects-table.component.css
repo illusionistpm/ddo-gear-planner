@@ -26,3 +26,16 @@
 .no-value {
     color: 	grey;
 }
+
+.custom-close {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    background: none;
+    color: inherit;
+  }
+  
+.custom-close span {
+    display: inline-block;
+    line-height: 1;
+}

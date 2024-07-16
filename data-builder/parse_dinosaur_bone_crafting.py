@@ -20,7 +20,7 @@ def get_systems_from_page(soup):
     synonymMap = get_inverted_synonym_map()
 
     tables = soup.find(id='bodyContent').find(id='mw-content-text').find_all('table', class_="wikitable")
-  
+
     fake_bonuses = get_fake_bonuses()
 
     systems = {}
@@ -47,7 +47,9 @@ def get_systems_from_page(soup):
 
             augment_name = fields[0].contents[0].rstrip()
 
-            affixes = parse_affixes_from_cell(fields[1], synonymMap, fake_bonuses, None)
+            # no need to feed item name, crafting, or set values because dinosaur bone crafting
+            # will not be adding to the crafting dict, and will not be associated with other sets
+            affixes = parse_affixes_from_cell('', fields[1], synonymMap, fake_bonuses, None, {}, {})
 
             affixes = fix_affixes_from_parse(affixes)
 

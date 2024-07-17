@@ -15,7 +15,7 @@ def build_synonyms():
     add(data, 'Armor-Piercing', ['Fortification Bypass'])
     add(data, 'Devotion', ['Positive Spell Power', 'Positive Spellpower'])
     add(data, 'Evocation Focus', ['Evocation Spell DCs'])
-    add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])
+    add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'Maximum Hit Points', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])
     add(data, 'Healing Lore', ['Positive Spell Crit Chance', 'Positive Spellcrit Chance'])
     add(data, 'Speed', ['Striding'])
     add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])

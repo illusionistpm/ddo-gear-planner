@@ -850,7 +850,43 @@
             "threshold": 3
         }
     ],
-    "Divine Blessing": [],
+    "Divine Blessing": [
+        {
+            "affixes": [
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Double Helix Set": [
         {
             "affixes": [
@@ -865,7 +901,23 @@
     ],
     "Draconic Ferocity": [],
     "Draconic Mind": [],
-    "Draconic Prophecy": [],
+    "Draconic Prophecy": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Draconic Resilience": [],
     "Dragonmark Heir": [],
     "Dread Stalker": [
@@ -1006,7 +1058,23 @@
             "threshold": 3
         }
     ],
-    "Elder's Knowledge": [],
+    "Elder's Knowledge": [
+        {
+            "affixes": [
+                {
+                    "name": "spell critical chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "spell crit damage",
+                    "type": "Legendary",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Eminence of Autumn": [
         {
             "affixes": [
@@ -1319,7 +1387,48 @@
             "threshold": 2
         }
     ],
-    "Epic Divine Blessing": [],
+    "Epic Divine Blessing": [
+        {
+            "affixes": [
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "to spell powers",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Double Helix Set": [
         {
             "affixes": [
@@ -1332,8 +1441,40 @@
             "threshold": 2
         }
     ],
-    "Epic Draconic Prophecy": [],
-    "Epic Elder's Knowledge": [],
+    "Epic Draconic Prophecy": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic Elder's Knowledge": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Elemental Evil Set": [],
     "Epic Griffon Set": [
         {
@@ -1347,8 +1488,60 @@
             "threshold": 2
         }
     ],
-    "Epic Kundarak Delving Equipment": [],
-    "Epic Marshwalker": [],
+    "Epic Kundarak Delving Equipment": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Epic Marshwalker": [
+        {
+            "affixes": [
+                {
+                    "name": "movement speed",
+                    "type": "Enhancement",
+                    "value": "30"
+                },
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Jump",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Tumble",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Menechtarun Scavenger": [
         {
             "affixes": [
@@ -1428,7 +1621,28 @@
             "threshold": 5
         }
     ],
-    "Epic Mroranon's Might": [],
+    "Epic Mroranon's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Oasis of Morality": [
         {
             "affixes": [
@@ -1451,7 +1665,43 @@
             "threshold": 2
         }
     ],
-    "Epic Raven's Eye": [],
+    "Epic Raven's Eye": [
+        {
+            "affixes": [
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Confirmation",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Search",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Saltmarsh Explorer": [
         {
             "affixes": [
@@ -1499,9 +1749,97 @@
             "threshold": 5
         }
     ],
-    "Epic Shaman's Fury": [],
-    "Epic Silver Concord's Subtlety": [],
-    "Epic Siren's Ward": [],
+    "Epic Shaman's Fury": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Acid Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Acid Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic Silver Concord's Subtlety": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic Siren's Ward": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Shield Armor Class",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Slice 'n Dice": [
         {
             "affixes": [
@@ -1519,7 +1857,28 @@
             "threshold": 2
         }
     ],
-    "Epic Soul of the Red Dragon": [],
+    "Epic Soul of the Red Dragon": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic The Desert's Starless Nights": [
         {
             "affixes": [
@@ -1596,9 +1955,77 @@
             "threshold": 2
         }
     ],
-    "Epic Vulkoor's Cunning": [],
-    "Epic Vulkoor's Might": [],
-    "Epic Wards of House Kundarak": [],
+    "Epic Vulkoor's Cunning": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Threat Reduction",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic Vulkoor's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Threat Generation",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Confirmation",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Epic Wards of House Kundarak": [
+        {
+            "affixes": [
+                {
+                    "name": "Artifact bonus Armor Class",
+                    "type": "",
+                    "value": "10"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Windlasher's Ferocity": [
         {
             "affixes": [
@@ -2156,7 +2583,33 @@
             "threshold": 3
         }
     ],
-    "Kundarak Delving Equipment": [],
+    "Kundarak Delving Equipment": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Legacy of Levikk": [
         {
             "affixes": [
@@ -2479,8 +2932,60 @@
             "threshold": 3
         }
     ],
-    "Legendary Divine Blessing": [],
-    "Legendary Draconic Prophecy": [],
+    "Legendary Divine Blessing": [
+        {
+            "affixes": [
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Light",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Alignment",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Draconic Prophecy": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spellpower",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Dreadkeeper": [
         {
             "affixes": [
@@ -2533,7 +3038,23 @@
             "threshold": 3
         }
     ],
-    "Legendary Elder's Knowledge": [],
+    "Legendary Elder's Knowledge": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Legendary",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Esoteric Initiate": [
         {
             "affixes": [
@@ -2875,8 +3396,70 @@
             "threshold": 3
         }
     ],
-    "Legendary Kundarak Delving Equipment": [],
-    "Legendary Marshwalker": [],
+    "Legendary Kundarak Delving Equipment": [
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Helplessness Damage",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Legendary Marshwalker": [
+        {
+            "affixes": [
+                {
+                    "name": "movement speed",
+                    "type": "Enhancement",
+                    "value": "30"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Jump",
+                    "type": "Artifact",
+                    "value": "7"
+                },
+                {
+                    "name": "Tumble",
+                    "type": "Artifact",
+                    "value": "7"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Menechtarun Scavenger": [
         {
             "affixes": [
@@ -3018,7 +3601,28 @@
             "threshold": 3
         }
     ],
-    "Legendary Mroranon's Might": [],
+    "Legendary Mroranon's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -3100,7 +3704,53 @@
             "threshold": 3
         }
     ],
-    "Legendary Raven's Eye": [],
+    "Legendary Raven's Eye": [
+        {
+            "affixes": [
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Confirmation",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Sneak Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Search",
+                    "type": "Artifact",
+                    "value": "7"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Artifact",
+                    "value": "7"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Remodeling Renegade": [
         {
             "affixes": [
@@ -3195,9 +3845,97 @@
             "threshold": 5
         }
     ],
-    "Legendary Shaman's Fury": [],
-    "Legendary Silver Concord's Subtlety": [],
-    "Legendary Siren's Ward": [],
+    "Legendary Shaman's Fury": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Acid Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Acid Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Silver Concord's Subtlety": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Siren's Ward": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Shield Armor Class",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -3354,7 +4092,28 @@
             "threshold": 5
         }
     ],
-    "Legendary Soul of the Red Dragon": [],
+    "Legendary Soul of the Red Dragon": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Temple's Inferno": [
         {
             "affixes": [
@@ -3650,8 +4409,70 @@
             "threshold": 2
         }
     ],
-    "Legendary Vulkoor's Cunning": [],
-    "Legendary Vulkoor's Might": [],
+    "Legendary Vulkoor's Cunning": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Threat Reduction",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "15"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Vulkoor's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Threat Generation",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Confirmation",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Critical Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Sneak Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Wallwatch": [
         {
             "affixes": [
@@ -3679,7 +4500,23 @@
             "threshold": 3
         }
     ],
-    "Legendary Wards of House Kundarak": [],
+    "Legendary Wards of House Kundarak": [
+        {
+            "affixes": [
+                {
+                    "name": "Artifact bonus Armor Class",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Windlasher's Ferocity": [
         {
             "affixes": [
@@ -3764,7 +4601,28 @@
             "threshold": 2
         }
     ],
-    "Marshwalker": [],
+    "Marshwalker": [
+        {
+            "affixes": [
+                {
+                    "name": "movement speed",
+                    "type": "Enhancement",
+                    "value": "30"
+                },
+                {
+                    "name": "Jump",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Tumble",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Masterful Magewright": [
         {
             "affixes": [
@@ -3937,7 +4795,28 @@
             "threshold": 2
         }
     ],
-    "Mroranon's Might": [],
+    "Mroranon's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Artifact",
+                    "value": "1"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Nimble Hand": [],
     "Oasis of Morality": [
         {
@@ -4106,7 +4985,33 @@
             "threshold": 3
         }
     ],
-    "Raven's Eye": [],
+    "Raven's Eye": [
+        {
+            "affixes": [
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Search",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Remodeling Renegade": [
         {
             "affixes": [
@@ -4322,7 +5227,53 @@
             "threshold": 7
         }
     ],
-    "Shaman's Fury": [],
+    "Shaman's Fury": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Acid Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "Fire",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Cold",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Electric",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Acid Spellpower",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Silent Avenger Set (Heroic)": [
         {
             "affixes": [
@@ -4387,8 +5338,45 @@
             "threshold": 3
         }
     ],
-    "Silver Concord's Subtlety": [],
-    "Siren's Ward": [],
+    "Silver Concord's Subtlety": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Siren's Ward": [
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "all Saving Throws",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Slave Lord's Might": [
         {
             "affixes": [
@@ -5351,8 +6339,50 @@
             "threshold": 2
         }
     ],
-    "Vulkoor's Cunning": [],
-    "Vulkoor's Might": [],
+    "Vulkoor's Cunning": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Threat Reduction",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Melee Power",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Vulkoor's Might": [
+        {
+            "affixes": [
+                {
+                    "name": "Threat Generation",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Wallwatch": [
         {
             "affixes": [
@@ -5380,7 +6410,23 @@
             "threshold": 3
         }
     ],
-    "Wards of House Kundarak": [],
+    "Wards of House Kundarak": [
+        {
+            "affixes": [
+                {
+                    "name": "Artifact bonus Armor Class",
+                    "type": "",
+                    "value": "5"
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Wayward Warrior": [
         {
             "affixes": [

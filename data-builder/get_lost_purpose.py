@@ -1,4 +1,5 @@
 import json
+import os
 
 def get_lost_purpose_crafting():
     systems = {}
@@ -9,7 +10,7 @@ def get_lost_purpose_crafting():
     systems['Legendary Lost Purpose'] = { '*': []}
     systems['Legendary Lost Purpose']['*'] = lostPurposeLegendaryOptions
 
-    lostPurposeSetsData = open('./lost_purpose.json',)
+    lostPurposeSetsData = open(f'{os.path.dirname(__file__)}/lost_purpose.json',)
 
     lostPurposeSets = json.load(lostPurposeSetsData)
 
@@ -53,7 +54,7 @@ def get_lost_purpose_sets():
     systems['Legendary Lost Purpose'] = { '*': []}
     systems['Legendary Lost Purpose']['*'] = lostPurposeLegendaryOptions
 
-    lostPurposeSetsData = open('./lost_purpose.json',)
+    lostPurposeSetsData = open(f'{os.path.dirname(__file__)}/lost_purpose.json',)
 
     lostPurposeSets = json.load(lostPurposeSetsData)
 
@@ -79,5 +80,5 @@ def get_lost_purpose_sets():
     return systems
 
 if __name__ == "__main__":
-    system = get_lost_purpose()
-    pprint(system)
+    system = get_lost_purpose_sets()
+    print(system)

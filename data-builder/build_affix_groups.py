@@ -32,6 +32,7 @@ def build_affix_groups():
     add(groups, 'Power of the Frozen Storm', ['Glaciation', 'Magnetism'])
     add(groups, 'Power of the Frozen Depths', ['Glaciation', 'Nullification', 'Poison'])
     add(groups, 'Power of the Flames of Purity', ['Combustion', 'Radiance'])
+    add(groups, 'Power of the Silver Flame', ['Devotion', 'Radiance'])
     add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Radiance Lore'])
     add(groups, 'Strength Skills', ['Jump'])
     add(groups, 'Wisdom Skills', ['Heal', 'Listen', 'Spot'])

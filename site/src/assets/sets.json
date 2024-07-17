@@ -3623,6 +3623,28 @@
             "threshold": 2
         }
     ],
+    "Legendary Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor-Piercing",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legendary Part of the Family": [
         {
             "affixes": [
@@ -6109,28 +6131,6 @@
                 }
             ],
             "threshold": 5
-        }
-    ],
-    "The Legendary Oasis of Morality": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Positive Spellpower",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 2
         }
     ],
     "The Shadow's Emptiness": [

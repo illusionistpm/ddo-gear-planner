@@ -2013,8 +2013,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
@@ -4526,8 +4526,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {
@@ -6414,8 +6414,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class",
+                    "type": "Artifact",
                     "value": "5"
                 },
                 {

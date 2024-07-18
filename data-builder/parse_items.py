@@ -116,6 +116,20 @@ def get_items_from_page(itemPageURL, sets):
                 }
                 item['affixes'].append(aff)
 
+        # If we're doing a Shield page, add an entry for the (Shield) Armor Class bonus
+        if 'SB' in cols:
+            acBonus = fields[cols['SB']].getText().strip()
+            if acBonus.startswith('+'):
+                acBonus = acBonus[1:]
+
+            if acBonus != '0' and acBonus.isnumeric():
+                aff = {
+                    'name': 'Armor Class',
+                    'value': acBonus,
+                    'type': 'Shield'
+                }
+                item['affixes'].append(aff)
+
         questsCell = fields[questIdx]
         questsTooltipSpan = questsCell.find('a')
         questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None

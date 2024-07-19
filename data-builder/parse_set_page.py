@@ -103,6 +103,10 @@ def string_to_affixes(affixStr, synMap):
         if affix['name'] in synMap:
             affix['name'] = synMap[affix['name']]
 
+        # treat armor class % increase bonus as a uniquely new affix (for now)
+        if ((affix['name'] == 'Armor Class') and ('%' in affixStr)):
+            affix['name'] = affix['name']+' (%)'
+
         affixes.append(affix)
 
     return affixes

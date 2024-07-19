@@ -169,6 +169,22 @@ def get_items_from_page(itemPageURL, sets):
                 item['crafting'].append(affix['name'])
                 remove.append(affix)
 
+            # if enhancement bonus found on item we need to translate that enhancement bonus to something else
+            if affix['name'] == 'Enhancement Bonus':
+
+                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to armor class
+                if ((item['slot'] == 'Armor') or (item['slot'] == 'Offhand')):
+                    affix['name'] = 'Armor Class'
+
+                # for weapon items - enhancement bonus becomes enhancement type bonus to accuracy and damage
+                if item['slot'] == 'Weapon':
+                    affix['name'] = 'Accuracy'
+                    item['affixes'].append({
+                        'name'  : 'Damage',
+                        'type'  : 'Enhancement',
+                        'value' : affix['value']
+                    })
+
         for affix in remove:
             item['affixes'].remove(affix)
 
@@ -179,7 +195,7 @@ def get_items_from_page(itemPageURL, sets):
 
 def parse_items():
     sets = read_json('sets')
-        
+
     cachePath = "./cache/items/"
     items = []
     for file in os.listdir(cachePath):
@@ -210,7 +226,7 @@ def change_dino_item_affix_name(affix, item):
             affix['name'] = "Claw (Accessory - Artifact)"
         elif affixName == "Horn (Accessory)":
             affix['name'] = "Horn (Accessory - Artifact)"
-    
+
     return affix
 
 def change_lost_purpose_affix_name(affix, item):

@@ -181,26 +181,24 @@ def get_items_from_page(itemPageURL, sets):
                 if item['slot'] == 'Armor':
                     isArmor = True
 
+                # identify shield items based on item type
                 if ((item['type'] == 'Bucklers') or \
                     (item['type'] == 'Large shields') or \
                     (item['type'] == 'Small shields') or \
                     (item['type'] == 'Tower shields')):
                     isShield = True
 
-                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to armor class
+                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
+                # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
                 if isArmor or isShield:
-                    affix['name'] = 'Armor Class'
+                    affix['name'] = 'Enhancement Bonus (Armor)'
 
                 # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
-                # for weapon items - enhancement bonus becomes an enhancement type bonus to accuracy and damage
+                # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
+                # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
                 if ((item['slot'] == 'Weapon') or (item['slot'] == 'Offhand')) \
                     and not (isShield or item['type'] == 'Orbs'):
-                    affix['name'] = 'Accuracy'
-                    item['affixes'].append({
-                        'name'  : 'Damage',
-                        'type'  : 'Enhancement',
-                        'value' : affix['value']
-                    })
+                    affix['name'] = 'Enhancement Bonus (Weapon)'
 
         for affix in remove:
             item['affixes'].remove(affix)

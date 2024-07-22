@@ -18,6 +18,8 @@ def build_affix_groups():
     parrying = get_all_saves()
     parrying.append('Armor Class')
 
+    add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
+    add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Damage'])
     add(groups, 'Resistance', get_all_saves())
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])

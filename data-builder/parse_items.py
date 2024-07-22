@@ -169,15 +169,32 @@ def get_items_from_page(itemPageURL, sets):
                 item['crafting'].append(affix['name'])
                 remove.append(affix)
 
-            # if enhancement bonus found on item we need to translate that enhancement bonus to something else
+            # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
             if affix['name'] == 'Enhancement Bonus':
 
+                # create some booleans to reduce duplication and increase readability
+                isArmor = False
+                isShield = False
+                isWeapon = False
+
+                # assume that all item types that go in to the armor slot are armors
+                if item['slot'] == 'Armor':
+                    isArmor = True
+
+                if ((item['type'] == 'Bucklers') or \
+                    (item['type'] == 'Large shields') or \
+                    (item['type'] == 'Small shields') or \
+                    (item['type'] == 'Tower shields')):
+                    isShield = True
+
                 # for armor and shield items - enhancement bonus becomes an enhancement type bonus to armor class
-                if ((item['slot'] == 'Armor') or (item['slot'] == 'Offhand')):
+                if isArmor or isShield:
                     affix['name'] = 'Armor Class'
 
-                # for weapon items - enhancement bonus becomes enhancement type bonus to accuracy and damage
-                if item['slot'] == 'Weapon':
+                # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
+                # for weapon items - enhancement bonus becomes an enhancement type bonus to accuracy and damage
+                if ((item['slot'] == 'Weapon') or (item['slot'] == 'Offhand')) \
+                    and not (isShield or item['type'] == 'Orbs'):
                     affix['name'] = 'Accuracy'
                     item['affixes'].append({
                         'name'  : 'Damage',

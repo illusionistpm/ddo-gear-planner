@@ -126,6 +126,13 @@
     },
     {
         "affixes": [
+            "Devotion",
+            "Radiance"
+        ],
+        "name": "Power of the Silver Flame"
+    },
+    {
+        "affixes": [
             "Fire Lore",
             "Radiance Lore"
         ],

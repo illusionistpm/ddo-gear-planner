@@ -11,7 +11,7 @@ def add(data, mainName, synonyms):
 def build_synonyms():
     data = []
 
-    add(data, 'Armor Class', ['AC', 'Natural Armor', 'Protection', 'Shield', 'Armor Bonus'])
+    add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield'])
     add(data, 'Armor-Piercing', ['Fortification Bypass'])
     add(data, 'Devotion', ['Positive Spell Power', 'Positive Spellpower'])
     add(data, 'Evocation Focus', ['Evocation Spell DCs'])

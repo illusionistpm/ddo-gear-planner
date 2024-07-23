@@ -42,7 +42,7 @@ def strip_bonus_types(name):
 def strip_charges(name):
     newName = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
     return newName.strip() + " clicky" if newName != name else name
-    
+
 
 def strip_necro4_upgrades(name):
     search = re.search(r'^(Upgradeable - [A-Za-z]+ Augment)', name)
@@ -50,7 +50,7 @@ def strip_necro4_upgrades(name):
         return search.group(1)
 
     return name
-    
+
 
 def clean_up_old_augments(name):
     search = re.search(r'^([A-Za-z]+) Slot', name)
@@ -74,7 +74,7 @@ def strip_preslotted_augments(name):
 
 
 def strip_fixed_suffixes(name):
-    for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1", 
+    for prefix in ["Attuned to Heroism", "Nearly Finished", "Hidden effect (Defiance)", "Visibility 1",
         "Visibility 2", "Jet Propulsion", "A Mysterious Effect", "Haggle +3 ", "Vampirism 1 ", "Unholy 9 ",
          "Cannith Combat Infusion", "Chitinous Covering", 'Upgradeable Item', 'Thunder-Forged']:
         if name.startswith(prefix):
@@ -121,7 +121,7 @@ def sub_name(name):
         dino_crafting_search = re.search(r'^Isle of Dread: ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
         if dino_crafting_search:
             return f"{dino_crafting_search.group(1)} {dino_crafting_search.group(2)}"
-        
+
     return name
 
 
@@ -143,7 +143,7 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
         affixes = cell.find_all('ul', recursive=False)
         affixes = [ul.find_all('li', recursive=False) for ul in affixes]
         affixes = [item for sublist in affixes for item in sublist]
-    
+
     else:
         affixes = [cell]
 
@@ -174,8 +174,9 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
         affixName = cleanup_one_of_the_following(affixName)
         affixName = add_default_one(affixName)
         affixName = x_skills_exceptional_bonus(affixName)
-        
+
         affixName = affixName.strip()
+
 
         affixNameSearch = re.search(r'^(.*?) (- )?\(?\+?(-?[0-9]+)\%?\)?$', affixName)
         if affixNameSearch:
@@ -225,6 +226,9 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
                 aff['type'] = bonusTypeSearch[0].strip()
                 if aff['type'] == 'Insightful':
                     aff['type'] = 'Insight'
+                if aff['type'] == 'Natural Armor':
+                    aff['type'] = 'Natural'
+
 
         # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
         if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
@@ -282,6 +286,17 @@ def parse_affixes_from_cell(cell, synonymMap, fakeBonuses, ml):
 
         if aff['name'] in synonymMap:
             aff['name'] = synonymMap[aff['name']]
+
+        # unique cases exist where text in description does not correspond to bonus type
+        # need to manually compensate
+        if affix.getText().startswith('Insightful Natural Armor Bonus'):
+            aff['type'] = 'Insight Natural'
+
+        if affix.getText().startswith('Quality Armor Bonus'):
+            aff['type'] = 'Quality'
+
+        if affix.getText().startswith('Rough Hide'):
+            aff['type'] = 'Primal Natural'
 
         ret.append(aff)
 

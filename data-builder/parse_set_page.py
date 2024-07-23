@@ -44,6 +44,7 @@ def split_list(affix, affixes):
     return True
 
 
+# convert a string in to a list of affixes
 def string_to_affixes(affixStr, synMap):
     affixes = []
     if 'bonus to' in affixStr.lower():
@@ -62,23 +63,34 @@ def string_to_affixes(affixStr, synMap):
             affix['name'] = affix['name'][:-1]
 
         # check to see if we have any already defined synonyms for this affix
-        # important this is done prior to splitting so we can prevent splitting of known synonyms
+        # important this is done alternatively to splitting so we can prevent splitting of known synonyms
         # such as Physical and Magical Sheltering --> Sheltering
-        if affix['name'] in synMap:
-            affix['name'] = synMap[affix['name']]
-            affixes.append(affix)
-
-        else:
+        if affix['name'] not in synMap:
+            # attempt to automatically determine multiple affixes on a single line
+            # split_list function will update affixes if multiple affixes are detected
             split_list(affix, affixes)
 
-            # if split_list function did not populate the exisitng affixes hash, we add the affix to the list manually
-            if not(len(affixes)):
-                affixes.append(affix)
+        # if split_list function did not populate the exisitng affixes hash, we add the affix to the list manually
+        if not(len(affixes)):
+            affixes.append(affix)
 
-            # loop through entries in affix list and update names based on synonym map
-            for entry in affixes:
-                if entry['name'] in synMap:
-                    entry['name'] = synMap[entry['name']]
+        # loop through entries in affix list and update names based on synonym map
+        for entry in affixes:
+            if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Artifact')):
+                affix['type'] = 'Artifact Natural'
+
+            if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Profane')):
+                affix['type'] = 'Profane Natural'
+
+            if ((affix['name'] == 'Shield Armor Class') and (affix['type'] == 'Artifact')):
+                affix['type'] = 'Artifact Shield'
+
+            if entry['name'] in synMap:
+                entry['name'] = synMap[entry['name']]
+
+            # treat armor class % increase bonus as a uniquely new affix (for now)
+            if ((affix['name'] == 'Armor Class') and ('%' in affixStr)):
+                affix['name'] = affix['name']+' (%)'
 
     return affixes
 

@@ -6,12 +6,12 @@ def parse_augments():
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/augments.xlsx") 
 
     systems = {}
-    
+
     for s in range(len(wb.sheetnames)):
         group = wb.sheetnames[s]
 
         wb.active = s
-        ws = wb.active 
+        ws = wb.active
 
         system = group + ' Augment Slot'
 
@@ -31,12 +31,20 @@ def parse_augments():
             bonusType = row[4].value
             description = row[5].value
 
-            if level == 0:
-                level = 1
-
             if augmentName is None and name is None and level is None and value is None:
                 continue
-        
+
+            # update level value if no value detected
+            if ((level == 0) or (level is None)):
+                level = 1.0
+            else:
+                # force type conversion to float if excel saves value as int
+                level = float(level)
+
+            if value is not None:
+                # force type conversion to float if excel saves value as int
+                value = float(value)
+
             affix = {}
             affix['name'] = name
             affix['value'] = value
@@ -59,7 +67,7 @@ def parse_augments():
                     option['set'] = option['name'].replace("Set Augment: ", "")
 
                 systems[system]['*'].append(option)
-                
+
 
 
     return systems

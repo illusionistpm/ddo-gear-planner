@@ -26,7 +26,7 @@ def build_crafting():
     combined.update(augments)
     combined.update(lost_purpose)
 
-    # loop through all entries to identify effect names that need to be transformed
+    # loop through all Crafting map entries to identify effect names that need to be transformed
     for CraftingSystemName, CraftingSystemMap in combined.items():
         for itemName, CraftingSelectionList in CraftingSystemMap.items():
             # sometimes there is a non list entry inside the Crafting::Item element
@@ -41,6 +41,18 @@ def build_crafting():
                 if 'affixes' in craftingEntry:
                     for affixEntry in craftingEntry['affixes']:
                         if affixEntry['name'] in synonymMap:
+                            # if the entry does not have a 'name' property at the root level (this is generally limited to augments)
+                            # generate what the name should be based on values inside the affix (prior to changing values inside the entry)
+                            if 'name' not in craftingEntry:
+                                # generation of the parent name property depends on minimum level value
+                                # so we populate the value with a default if value is not set
+                                if 'ml' not in craftingEntry:
+                                    minimumLevel = 1
+                                else:
+                                    minimumLevel = craftingEntry['ml']
+
+                                craftingEntry['name'] = '%s +%d %s (%d)' % (affixEntry['name'], affixEntry['value'], affixEntry['type'], minimumLevel)
+
                             affixEntry['name'] = synonymMap[affixEntry['name']]
 
     write_json(combined, 'crafting')

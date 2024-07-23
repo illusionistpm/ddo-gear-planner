@@ -1,6 +1,19 @@
 [
     {
         "affixes": [
+            "Armor Class"
+        ],
+        "name": "Enhancement Bonus (Armor)"
+    },
+    {
+        "affixes": [
+            "Accuracy",
+            "Damage"
+        ],
+        "name": "Enhancement Bonus (Weapon)"
+    },
+    {
+        "affixes": [
             "Will Save",
             "Fortitude Save",
             "Reflex Save"

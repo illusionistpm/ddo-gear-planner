@@ -14,6 +14,7 @@ from get_lost_purpose import get_lost_purpose_sets
 def sub_name(name):
     for pair in [
         ['all Spell DCs', 'Spell DCs'],
+        ['Shield Armor Class', 'Armor Class'],
         ['Spell DC\'s', 'Spell DCs'],
         ['DCs', 'Spell DCs'],
         ['Evocation Spell DCs', 'Evocation Focus'],
@@ -77,6 +78,15 @@ def string_to_affixes(affixStr, synMap):
         if affix['name'][-1:] == '.':
             affix['name'] = affix['name'][:-1]
 
+        if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Artifact')):
+            affix['type'] = 'Artifact Natural'
+
+        if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Profane')):
+            affix['type'] = 'Profane Natural'
+
+        if ((affix['name'] == 'Shield Armor Class') and (affix['type'] == 'Artifact')):
+            affix['type'] = 'Artifact Shield'
+
         if affix['name'] in synMap:
             affix['name'] = synMap[affix['name']]
 
@@ -92,6 +102,10 @@ def string_to_affixes(affixStr, synMap):
 
         if affix['name'] in synMap:
             affix['name'] = synMap[affix['name']]
+
+        # treat armor class % increase bonus as a uniquely new affix (for now)
+        if ((affix['name'] == 'Armor Class') and ('%' in affixStr)):
+            affix['name'] = affix['name']+' (%)'
 
         affixes.append(affix)
 

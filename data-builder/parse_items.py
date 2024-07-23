@@ -116,6 +116,20 @@ def get_items_from_page(itemPageURL, sets):
                 }
                 item['affixes'].append(aff)
 
+        # If we're doing a Shield page, add an entry for the (Shield) Armor Class bonus
+        if 'SB' in cols:
+            acBonus = fields[cols['SB']].getText().strip()
+            if acBonus.startswith('+'):
+                acBonus = acBonus[1:]
+
+            if acBonus != '0' and acBonus.isnumeric():
+                aff = {
+                    'name': 'Armor Class',
+                    'value': acBonus,
+                    'type': 'Shield'
+                }
+                item['affixes'].append(aff)
+
         questsCell = fields[questIdx]
         questsTooltipSpan = questsCell.find('a')
         questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
@@ -155,6 +169,37 @@ def get_items_from_page(itemPageURL, sets):
                 item['crafting'].append(affix['name'])
                 remove.append(affix)
 
+            # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
+            if affix['name'] == 'Enhancement Bonus':
+
+                # create some booleans to reduce duplication and increase readability
+                isArmor = False
+                isShield = False
+                isWeapon = False
+
+                # assume that all item types that go in to the armor slot are armors
+                if item['slot'] == 'Armor':
+                    isArmor = True
+
+                # identify shield items based on item type
+                if ((item['type'] == 'Bucklers') or \
+                    (item['type'] == 'Large shields') or \
+                    (item['type'] == 'Small shields') or \
+                    (item['type'] == 'Tower shields')):
+                    isShield = True
+
+                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
+                # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
+                if isArmor or isShield:
+                    affix['name'] = 'Enhancement Bonus (Armor)'
+
+                # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
+                # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
+                # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
+                if ((item['slot'] == 'Weapon') or (item['slot'] == 'Offhand')) \
+                    and not (isShield or item['type'] == 'Orbs'):
+                    affix['name'] = 'Enhancement Bonus (Weapon)'
+
         for affix in remove:
             item['affixes'].remove(affix)
 
@@ -165,7 +210,7 @@ def get_items_from_page(itemPageURL, sets):
 
 def parse_items():
     sets = read_json('sets')
-        
+
     cachePath = "./cache/items/"
     items = []
     for file in os.listdir(cachePath):
@@ -196,7 +241,7 @@ def change_dino_item_affix_name(affix, item):
             affix['name'] = "Claw (Accessory - Artifact)"
         elif affixName == "Horn (Accessory)":
             affix['name'] = "Horn (Accessory - Artifact)"
-    
+
     return affix
 
 def change_lost_purpose_affix_name(affix, item):

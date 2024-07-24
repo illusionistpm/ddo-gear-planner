@@ -18,6 +18,8 @@ def build_affix_groups():
     parrying = get_all_saves()
     parrying.append('Armor Class')
 
+    add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
+    add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Damage'])
     add(groups, 'Resistance', get_all_saves())
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
@@ -32,6 +34,7 @@ def build_affix_groups():
     add(groups, 'Power of the Frozen Storm', ['Glaciation', 'Magnetism'])
     add(groups, 'Power of the Frozen Depths', ['Glaciation', 'Nullification', 'Poison'])
     add(groups, 'Power of the Flames of Purity', ['Combustion', 'Radiance'])
+    add(groups, 'Power of the Silver Flame', ['Devotion', 'Radiance'])
     add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Radiance Lore'])
     add(groups, 'Strength Skills', ['Jump'])
     add(groups, 'Wisdom Skills', ['Heal', 'Listen', 'Spot'])

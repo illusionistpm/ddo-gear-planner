@@ -232,7 +232,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -837,7 +837,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -1355,7 +1355,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -1579,7 +1579,7 @@
                 },
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "5"
                 },
                 {
@@ -1604,7 +1604,7 @@
                 },
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "8"
                 },
                 {
@@ -1822,7 +1822,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1832,8 +1832,8 @@
                     "value": "3"
                 },
                 {
-                    "name": "Shield Armor Class",
-                    "type": "Artifact",
+                    "name": "Armor Class",
+                    "type": "Artifact Shield",
                     "value": "3"
                 }
             ],
@@ -2013,8 +2013,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class (%)",
+                    "type": "Artifact",
                     "value": "10"
                 },
                 {
@@ -2312,7 +2312,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -2548,7 +2548,7 @@
                     "value": "50"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -2575,7 +2575,7 @@
                     "value": "50"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -2614,7 +2614,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -2762,7 +2762,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3259,7 +3259,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3497,7 +3497,7 @@
                 },
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "10"
                 },
                 {
@@ -3537,7 +3537,7 @@
                 },
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "10"
                 },
                 {
@@ -3616,6 +3616,28 @@
                 },
                 {
                     "name": "Ranged Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Legendary Oasis of Morality": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive Spellcrit Chance",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Positive Spellpower",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -3918,7 +3940,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3928,8 +3950,8 @@
                     "value": "3"
                 },
                 {
-                    "name": "Shield Armor Class",
-                    "type": "Artifact",
+                    "name": "Armor Class",
+                    "type": "Artifact Shield",
                     "value": "3"
                 }
             ],
@@ -4504,8 +4526,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class (%)",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {
@@ -4692,7 +4714,7 @@
             "affixes": [
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "3"
                 },
                 {
@@ -4712,7 +4734,7 @@
             "affixes": [
                 {
                     "name": "Armor Class",
-                    "type": "Profane",
+                    "type": "Profane Natural",
                     "value": "5"
                 },
                 {
@@ -4867,7 +4889,7 @@
         {
             "affixes": [
                 {
-                    "name": "Armor Class",
+                    "name": "Armor Class (%)",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -6111,28 +6133,6 @@
             "threshold": 5
         }
     ],
-    "The Legendary Oasis of Morality": [
-        {
-            "affixes": [
-                {
-                    "name": "Positive Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Positive Spellpower",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Armor-Piercing",
-                    "type": "Artifact",
-                    "value": "15"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "The Shadow's Emptiness": [
         {
             "affixes": [
@@ -6414,8 +6414,8 @@
         {
             "affixes": [
                 {
-                    "name": "Artifact bonus Armor Class",
-                    "type": "",
+                    "name": "Armor Class (%)",
+                    "type": "Artifact",
                     "value": "5"
                 },
                 {
@@ -6432,7 +6432,7 @@
             "affixes": [
                 {
                     "name": "Armor Class",
-                    "type": "Artifact",
+                    "type": "Artifact Natural",
                     "value": "2"
                 },
                 {
@@ -6449,7 +6449,7 @@
             "affixes": [
                 {
                     "name": "Armor Class",
-                    "type": "Artifact",
+                    "type": "Artifact Natural",
                     "value": "5"
                 },
                 {

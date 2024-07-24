@@ -1,6 +1,19 @@
 [
     {
         "affixes": [
+            "Armor Class"
+        ],
+        "name": "Enhancement Bonus (Armor)"
+    },
+    {
+        "affixes": [
+            "Accuracy",
+            "Damage"
+        ],
+        "name": "Enhancement Bonus (Weapon)"
+    },
+    {
+        "affixes": [
             "Will Save",
             "Fortitude Save",
             "Reflex Save"
@@ -123,6 +136,13 @@
             "Radiance"
         ],
         "name": "Power of the Flames of Purity"
+    },
+    {
+        "affixes": [
+            "Devotion",
+            "Radiance"
+        ],
+        "name": "Power of the Silver Flame"
     },
     {
         "affixes": [

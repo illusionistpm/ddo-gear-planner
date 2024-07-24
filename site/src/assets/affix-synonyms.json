@@ -3,10 +3,12 @@
         "name": "Armor Class",
         "synonyms": [
             "AC",
+            "Armor Bonus",
             "Natural Armor",
+            "Natural Armor Bonus",
             "Protection",
-            "Shield",
-            "Armor Bonus"
+            "Rough Hide",
+            "Shield"
         ]
     },
     {

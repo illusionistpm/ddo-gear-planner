@@ -169,10 +169,21 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
                     for listEntry in (tag.find('ul')).find_all('li', recursive=False):
                         parsed_affix = translate_list_tag_to_affix_map(itemName, listEntry, synonymMap, fakeBonuses, ml, craftingSystems, sets)
-                        discoveredCraftingSystem[keyName].append(parsed_affix)
+
+                        # if the affix name was detected as being a set, add the entry to the parent crafting key
+                        if parsed_affix['name'] in sets:
+                            discoveredCraftingSystem[keyName].append(parsed_affix)
+
+                        # if the affix name was NOT detected as being a set, create a sub "affixes" key with list entry and add THAT parent crafting key
+                        else:
+                            affixMap = {}
+                            affixMap['affixes'] = []
+                            affixMap['affixes'].append(parsed_affix)
+                            discoveredCraftingSystem[keyName].append(affixMap)
 
                     if keyName not in craftingSystems:
                         craftingSystems[keyName] = {}
+
                     craftingSystems[keyName][itemName] = discoveredCraftingSystem[keyName]
 
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
@@ -250,10 +261,15 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             aff['type'] = bonusTypeSearch[0].strip()
             if aff['type'] == 'Insightful':
                 aff['type'] = 'Insight'
+            if aff['type'] == 'Natural Armor':
+                aff['type'] = 'Natural'
 
     # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
     if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
         aff['type'] = 'Enhancement'
+
+    if aff['name'] == 'Rough Hide':
+        aff['type'] = 'Primal Natural'
 
     if aff['name'] == 'Slaver\'s Set Bonus' and ml == '28':
         aff['name'] = 'Legendary Slaver\'s Set Bonus'
@@ -307,6 +323,17 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
+
+    # unique cases exist where text in description does not correspond to bonus type
+    # need to manually compensate
+    if tag.getText().startswith('Insightful Natural Armor Bonus'):
+        aff['type'] = 'Insight Natural'
+
+    if tag.getText().startswith('Quality Armor Bonus'):
+        aff['type'] = 'Quality'
+
+    if tag.getText().startswith('Rough Hide'):
+        aff['type'] = 'Primal Natural'
 
     # case exsits where affix is detected as being associated with a set
     # in those cases, add the set value and remove the value value and type value

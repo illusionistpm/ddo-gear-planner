@@ -95,9 +95,9 @@ def fix_affixes_from_parse(affixes):
         affix['name'] = "Wizardry"
 
     return affixes
-    
 
-def parse_dinosaur_bone_crafting():        
+
+def parse_dinosaur_bone_crafting():
     page = open('./cache/crafting/Dinosaur_Bone_crafting.html', "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
@@ -107,20 +107,20 @@ def parse_dinosaur_bone_crafting():
 
 def create_slot_specific_systems(system_name, systems):
     if system_name == "Scale (Weapon)":
-        systems['Scale (Weapon - Quarterstaff)'] = {'*': []} 
+        systems['Scale (Weapon - Quarterstaff)'] = {'*': []}
 
     if system_name == "Fang (Weapon)":
         systems['Fang (Weapon - Quarterstaff)'] = {'*': []}
 
     if system_name == "Scale (Accessory)":
         systems['Scale (Accessory - Artifact)'] = {'*': []}
-        
+
     if system_name == "Fang (Accessory)":
         systems['Fang (Accessory - Artifact)'] = {'*': []}
-        
+
     if system_name == "Claw (Accessory)":
         systems['Claw (Accessory - Artifact)'] = {'*': []}
-        
+
     if system_name == "Horn (Accessory)":
         systems['Horn (Accessory - Artifact)'] = {'*': []}
 
@@ -128,7 +128,7 @@ def parse_affixes_from_dino_weapon(affixes):
     affixName = affixes[0]['name']
     if affixName.find("On hit") == -1:
         return affixes
-    
+
     description = affixName
     returnAffixes = []
 
@@ -266,8 +266,8 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             systems["Fang " + artifactSystemName]['*'].append({
                 'affixes': copiedAffixes,
                 'name': augmentName
-            })            
-            
+            })
+
     if systemName == "Claw (Accessory)":
         if augmentName == "Claw: Physical Resistance Rating":
             systems["Claw " + artifactSystemName]['*'].append({
@@ -308,19 +308,19 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             systems["Claw " + artifactSystemName]['*'].append({
                 'affixes': copiedAffixes,
                 'name': augmentName
-            })    
+            })
 
     if systemName == "Horn (Accessory)":
         if augmentName == "Horn: Armor Piercing":
             systems["Horn " + artifactSystemName]['*'].append({
                 'affixes': [create_affix("Armor Piercing", "Enhancement", "23")],
                 'name': augmentName
-            })   
+            })
         else:
             systems["Horn " + artifactSystemName]['*'].append({
                 'affixes': copiedAffixes,
                 'name': augmentName
-            })    
+            })
 
 def create_affix(name, type, value):
     affix = {
@@ -333,7 +333,7 @@ def create_affix(name, type, value):
         affix['type'] = type
 
     return affix
-    
+
 def create_bool_affix(affixName):
     return {
         'name': affixName,

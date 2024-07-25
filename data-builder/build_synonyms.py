@@ -11,8 +11,11 @@ def add(data, mainName, synonyms):
 def build_synonyms():
     data = []
 
-    add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield'])
-    add(data, 'Armor-Piercing', ['Fortification Bypass'])
+    add(data, 'Accuracy', ['Hit', 'hit'])
+    add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield', 'Shield Armor Class'])
+    # probably want to standardize on 'Armor Piercing' as the name, but re-work needs to be done on cannith crafting to remove drift
+    add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass'])
+    add(data, 'Damage', ['Damage Bonus', 'Deadly'])
     add(data, 'Devotion', ['Positive Spell Power', 'Positive Spellpower'])
     add(data, 'Evocation Focus', ['Evocation Spell DCs'])
     add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'Maximum Hit Points', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])
@@ -26,11 +29,13 @@ def build_synonyms():
     add(data, 'Spell Points', ['your maximum Spell Points'])
     add(data, 'Tactical Abilities', ['your Tactical Abilities'])
     add(data, 'Void Lore', ['Negative Spell Crit Chance'])
+    add(data, 'Universal Spell Lore', ['Spell Lore'])
+    add(data, 'Universal Spell Power', ['Spellcasting Implement', 'Universal Spellpower'])
     add(data, 'Nullification', ['Negative Spell Power'])
     add(data, 'Healing Amplification', ['Positive Healing Amplification'])
     add(data, 'Negative Amplification', ['Negative Healing Amplification'])
     add(data, 'Repair Amplification', ['Repair Healing Amplification'])
-    add(data, 'Well Rounded', ['All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'Well-Rounded'])
+    add(data, 'Well Rounded', ['All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'Litany of the Dead - Ability Bonus', 'Well-Rounded'])
 
     write_json(data, 'affix-synonyms')
 

@@ -40,7 +40,7 @@ def build_cat_map():
     return catMap
 
 
-def get_items_from_page(itemPageURL, sets):
+def get_items_from_page(itemPageURL, craftingSystems, sets):
     synonymMap = get_inverted_synonym_map()
 
     print("Parsing " + itemPageURL)
@@ -69,9 +69,6 @@ def get_items_from_page(itemPageURL, sets):
     rows.pop(0)
 
     catMap = build_cat_map()
-
-    craftingSystems = list(read_json('crafting').keys())
-    craftingSystems.extend(['Green Augment Slot', 'Purple Augment Slot', 'Orange Augment Slot'])
 
     fakeBonuses = get_fake_bonuses()
 
@@ -140,7 +137,7 @@ def get_items_from_page(itemPageURL, sets):
         affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
         cell = fields[affixesIdx]
 
-        affixes = parse_affixes_from_cell(cell, synonymMap, fakeBonuses, item['ml'])
+        affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
 
         # Detect all the sets that we picked up as affixes
         set_names_in_affixes = []
@@ -159,6 +156,7 @@ def get_items_from_page(itemPageURL, sets):
         item['affixes'].extend(affixes)
 
         remove = []
+
         for affix in item['affixes']:
             affix = change_dino_item_affix_name(affix, item)
             affix = change_lost_purpose_affix_name(affix, item)
@@ -209,17 +207,18 @@ def get_items_from_page(itemPageURL, sets):
 
 
 def parse_items():
+    crafting = read_json('crafting')
     sets = read_json('sets')
 
     cachePath = "./cache/items/"
     items = []
     for file in os.listdir(cachePath):
         if include_page(file):
-            items.extend(get_items_from_page(cachePath + file, sets))
+            items.extend(get_items_from_page(cachePath + file, crafting, sets))
 
     items.sort(key=lambda x: x['name'])
 
-
+    write_json(crafting, 'crafting')
     write_json(items, 'items')
 
 def change_dino_item_affix_name(affix, item):

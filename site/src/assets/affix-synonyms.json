@@ -18,12 +18,35 @@
         ]
     },
     {
+        "name": "Devotion",
+        "synonyms": [
+            "Positive Spell Power",
+            "Positive Spellpower"
+        ]
+    },
+    {
+        "name": "Evocation Focus",
+        "synonyms": [
+            "Evocation Spell DCs"
+        ]
+    },
+    {
         "name": "False Life",
         "synonyms": [
             "Hit Points",
-            "Vitality",
             "Lifeforce",
-            "Maximum HP"
+            "Maximum HP",
+            "Maximum Hit Points",
+            "maximum hitpoints",
+            "Vitality",
+            "your maximum hit points"
+        ]
+    },
+    {
+        "name": "Healing Lore",
+        "synonyms": [
+            "Positive Spell Crit Chance",
+            "Positive Spellcrit Chance"
         ]
     },
     {
@@ -43,13 +66,8 @@
         "name": "Magical Sheltering",
         "synonyms": [
             "Magical Resistance Rating",
-            "MRR"
-        ]
-    },
-    {
-        "name": "Sheltering",
-        "synonyms": [
-            "Physical and Magical Resistance Rating"
+            "MRR",
+            "your Magical Resistance Rating"
         ]
     },
     {
@@ -60,9 +78,31 @@
         ]
     },
     {
+        "name": "Sheltering",
+        "synonyms": [
+            "Physical and Magical Resistance Rating"
+        ]
+    },
+    {
         "name": "Spell Focus Mastery",
         "synonyms": [
+            "all Spell DCs",
+            "all spell DCs",
+            "DCs",
+            "Spell DC's",
             "Spell DCs"
+        ]
+    },
+    {
+        "name": "Spell Points",
+        "synonyms": [
+            "your maximum Spell Points"
+        ]
+    },
+    {
+        "name": "Tactical Abilities",
+        "synonyms": [
+            "your Tactical Abilities"
         ]
     },
     {
@@ -98,6 +138,9 @@
     {
         "name": "Well Rounded",
         "synonyms": [
+            "All Ability Scores",
+            "all Ability Scores",
+            "all of your Ability Scores",
             "Well-Rounded"
         ]
     }

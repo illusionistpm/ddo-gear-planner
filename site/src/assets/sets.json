@@ -8,17 +8,17 @@
                     "value": "5"
                 },
                 {
-                    "name": "Positive Healing Amplification",
+                    "name": "Healing Amplification",
                     "type": "Profane",
                     "value": "10"
                 },
                 {
-                    "name": "Negative Healing Amplification",
+                    "name": "Negative Amplification",
                     "type": "Profane",
                     "value": "10"
                 },
                 {
-                    "name": "Repair Healing Amplification",
+                    "name": "Repair Amplification",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -50,17 +50,17 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Healing Amplification",
+                    "name": "Healing Amplification",
                     "type": "Profane",
                     "value": "30"
                 },
                 {
-                    "name": "Negative Healing Amplification",
+                    "name": "Negative Amplification",
                     "type": "Profane",
                     "value": "30"
                 },
                 {
-                    "name": "Repair Healing Amplification",
+                    "name": "Repair Amplification",
                     "type": "Profane",
                     "value": "30"
                 },
@@ -237,7 +237,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Maximum Hit Points",
+                    "name": "False Life",
                     "type": "Legendary",
                     "value": "5"
                 }
@@ -864,7 +864,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -879,7 +879,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -961,7 +961,7 @@
         {
             "affixes": [
                 {
-                    "name": "Negative Spell Power",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -976,7 +976,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Negative Spell Crit Chance",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1401,7 +1401,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -1416,7 +1416,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -1647,12 +1647,12 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -1832,7 +1832,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Shield Armor Class",
                     "type": "Artifact Shield",
                     "value": "3"
                 }
@@ -2177,7 +2177,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Positive Spell Power",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2197,7 +2197,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Positive Spell Crit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2446,7 +2446,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Positive Spell Power",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2466,7 +2466,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Positive Spell Crit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2533,12 +2533,12 @@
         {
             "affixes": [
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2560,12 +2560,12 @@
         {
             "affixes": [
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -2636,7 +2636,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Spell Power",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -2646,7 +2646,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Spell Crit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -2767,7 +2767,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Maximum Hit Points",
+                    "name": "False Life",
                     "type": "Legendary",
                     "value": "10"
                 }
@@ -2779,7 +2779,7 @@
         {
             "affixes": [
                 {
-                    "name": "Maximum Hit Points",
+                    "name": "False Life",
                     "type": "Legendary",
                     "value": "10"
                 }
@@ -2946,7 +2946,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -2961,7 +2961,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -2990,7 +2990,7 @@
         {
             "affixes": [
                 {
-                    "name": "Negative Spell Power",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3005,7 +3005,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Negative Spell Crit Chance",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3138,7 +3138,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Spell Power",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3158,7 +3158,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Positive Spell Crit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3358,7 +3358,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Positive Spell Power",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3378,7 +3378,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Positive Spell Crit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3627,12 +3627,12 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3950,7 +3950,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Armor Class",
+                    "name": "Shield Armor Class",
                     "type": "Artifact Shield",
                     "value": "3"
                 }
@@ -4844,12 +4844,12 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Spellcrit Chance",
+                    "name": "Healing Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Positive Spellpower",
+                    "name": "Devotion",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -5752,7 +5752,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Negative Spell Power",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "10"
                 },

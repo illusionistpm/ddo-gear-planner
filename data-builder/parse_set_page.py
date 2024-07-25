@@ -76,21 +76,24 @@ def string_to_affixes(affixStr, synMap):
 
         # loop through entries in affix list and update names based on synonym map
         for entry in affixes:
-            if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Artifact')):
-                affix['type'] = 'Artifact Natural'
+            if ((entry['name'] == 'Natural Armor') and (entry['type'] == 'Artifact')):
+                entry['type'] = 'Artifact Natural'
 
-            if ((affix['name'] == 'Natural Armor') and (affix['type'] == 'Profane')):
-                affix['type'] = 'Profane Natural'
+            if ((entry['name'] == 'Natural Armor') and (entry['type'] == 'Profane')):
+                entry['type'] = 'Profane Natural'
 
-            if ((affix['name'] == 'Shield Armor Class') and (affix['type'] == 'Artifact')):
-                affix['type'] = 'Artifact Shield'
+            if ((entry['name'] == 'Shield Armor Class') and (entry['type'] == 'Artifact')):
+                entry['type'] = 'Artifact Shield'
+
+            if entry['type'] == 'Insightful':
+                entry['type'] = 'Insight'
 
             if entry['name'] in synMap:
                 entry['name'] = synMap[entry['name']]
 
             # treat armor class % increase bonus as a uniquely new affix (for now)
-            if ((affix['name'] == 'Armor Class') and ('%' in affixStr)):
-                affix['name'] = affix['name']+' (%)'
+            if ((entry['name'] == 'Armor Class') and ('%' in affixStr)):
+                entry['name'] = entry['name']+' (%)'
 
     return affixes
 

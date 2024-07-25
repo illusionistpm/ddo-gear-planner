@@ -339,8 +339,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     # in those cases, add the set value and remove the value value and type value
     if aff['name'] in sets:
         aff['set'] = aff['name']
-        del(aff['value'])
-        del(aff['type'])
+        if 'type' in aff:
+            del(aff['type'])
+        if 'value' in aff:
+            del(aff['value'])
 
     return aff
 

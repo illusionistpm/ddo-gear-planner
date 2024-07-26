@@ -5827,7 +5827,7 @@
                     },
                     {
                         "description": null,
-                        "name": "Spell Lore",
+                        "name": "Universal Spell Lore",
                         "type": "Exceptional",
                         "value": "5"
                     }
@@ -6048,7 +6048,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Spell Lore",
+                        "name": "Universal Spell Lore",
                         "type": "Insight",
                         "value": 5.0
                     }
@@ -6166,7 +6166,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Armor Piercing",
+                        "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -7071,11 +7071,12 @@
             {
                 "affixes": [
                     {
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 10
                     }
-                ]
+                ],
+                "name": "Deadly +10 Competence (1)"
             },
             {
                 "affixes": [
@@ -16854,7 +16855,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -23824,11 +23825,12 @@
             {
                 "affixes": [
                     {
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 4
                     }
-                ]
+                ],
+                "name": "Deadly +4 Competence (1)"
             },
             {
                 "affixes": [
@@ -24994,89 +24996,97 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 1.0
                     }
                 ],
-                "ml": 1.0
+                "ml": 1.0,
+                "name": "Deadly +1 Competence (1)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 3.0
                     }
                 ],
-                "ml": 4.0
+                "ml": 4.0,
+                "name": "Deadly +3 Competence (4)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 4.0
                     }
                 ],
-                "ml": 8.0
+                "ml": 8.0,
+                "name": "Deadly +4 Competence (8)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 5.0
                     }
                 ],
-                "ml": 12.0
+                "ml": 12.0,
+                "name": "Deadly +5 Competence (12)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 6.0
                     }
                 ],
-                "ml": 16.0
+                "ml": 16.0,
+                "name": "Deadly +6 Competence (16)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 8.0
                     }
                 ],
-                "ml": 20.0
+                "ml": 20.0,
+                "name": "Deadly +8 Competence (20)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 9.0
                     }
                 ],
-                "ml": 24.0
+                "ml": 24.0,
+                "name": "Deadly +9 Competence (24)"
             },
             {
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 10.0
                     }
                 ],
-                "ml": 28.0
+                "ml": 28.0,
+                "name": "Deadly +10 Competence (28)"
             },
             {
                 "affixes": [
@@ -25551,12 +25561,13 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Deadly",
+                        "name": "Damage",
                         "type": "Competence",
                         "value": 11.0
                     }
                 ],
-                "ml": 32.0
+                "ml": 32.0,
+                "name": "Deadly +11 Competence (32)"
             },
             {
                 "affixes": [

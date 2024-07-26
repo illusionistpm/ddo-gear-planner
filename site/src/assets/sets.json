@@ -685,7 +685,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -735,7 +735,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -892,7 +892,7 @@
             "affixes": [
                 {
                     "name": "Sheltering",
-                    "type": "Insightful",
+                    "type": "Insight",
                     "value": "2"
                 }
             ],
@@ -905,7 +905,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1434,7 +1434,7 @@
             "affixes": [
                 {
                     "name": "Sheltering",
-                    "type": "Insightful",
+                    "type": "Insight",
                     "value": "5"
                 }
             ],
@@ -1445,7 +1445,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1832,7 +1832,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Shield Armor Class",
+                    "name": "Armor Class",
                     "type": "Artifact Shield",
                     "value": "3"
                 }
@@ -2973,7 +2973,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3950,7 +3950,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Shield Armor Class",
+                    "name": "Armor Class",
                     "type": "Artifact Shield",
                     "value": "3"
                 }
@@ -4580,7 +4580,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Hit",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -5813,7 +5813,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -6100,7 +6100,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Universal Spellpower",
+                    "name": "Universal Spell Power",
                     "type": "Profane",
                     "value": "25"
                 },
@@ -6120,7 +6120,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "hit",
+                    "name": "Accuracy",
                     "type": "Profane",
                     "value": "4"
                 },
@@ -6514,7 +6514,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "hit",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },

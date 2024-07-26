@@ -1,5 +1,12 @@
 [
     {
+        "name": "Accuracy",
+        "synonyms": [
+            "Hit",
+            "hit"
+        ]
+    },
+    {
         "name": "Armor Class",
         "synonyms": [
             "AC",
@@ -8,13 +15,22 @@
             "Natural Armor Bonus",
             "Protection",
             "Rough Hide",
-            "Shield"
+            "Shield",
+            "Shield Armor Class"
         ]
     },
     {
         "name": "Armor-Piercing",
         "synonyms": [
+            "Armor Piercing",
             "Fortification Bypass"
+        ]
+    },
+    {
+        "name": "Damage",
+        "synonyms": [
+            "Damage Bonus",
+            "Deadly"
         ]
     },
     {
@@ -112,6 +128,19 @@
         ]
     },
     {
+        "name": "Universal Spell Lore",
+        "synonyms": [
+            "Spell Lore"
+        ]
+    },
+    {
+        "name": "Universal Spell Power",
+        "synonyms": [
+            "Spellcasting Implement",
+            "Universal Spellpower"
+        ]
+    },
+    {
         "name": "Nullification",
         "synonyms": [
             "Negative Spell Power"
@@ -141,6 +170,7 @@
             "All Ability Scores",
             "all Ability Scores",
             "all of your Ability Scores",
+            "Litany of the Dead - Ability Bonus",
             "Well-Rounded"
         ]
     }

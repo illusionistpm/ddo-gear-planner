@@ -35,7 +35,7 @@ def build_synonyms():
     add(data, 'Healing Amplification', ['Positive Healing Amplification'])
     add(data, 'Negative Amplification', ['Negative Healing Amplification'])
     add(data, 'Repair Amplification', ['Repair Healing Amplification'])
-    add(data, 'Well Rounded', ['All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'Litany of the Dead - Ability Bonus', 'Well-Rounded'])
+    add(data, 'Well Rounded', ['All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'Well-Rounded'])
 
     write_json(data, 'affix-synonyms')
 

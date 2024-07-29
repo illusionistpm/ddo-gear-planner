@@ -83,6 +83,12 @@ def strip_fixed_suffixes(name):
     return name
 
 
+def strip_text_commentary(name):
+    for needle in ["(if Paladin)", "(if Paladin 20)"]:
+        name = name.replace(needle, '')
+    return name
+
+
 #JAK: FIXME!! This should technically be a crafting system...
 def cleanup_one_of_the_following(name):
     for match in ["Random effect, for example", "Contains a Random pair from the following"]:
@@ -188,6 +194,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
     tooltip = tooltipSpan.extract() if tooltipSpan else None
+    words = str(tooltip)
 
     # Ignore child lists, which are typically lists of possible attributes,
     # such as for https://ddowiki.com/page/Item:The_Admiral_of_Bling
@@ -202,6 +209,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     affixName = strip_charges(affixName)
     affixName = strip_necro4_upgrades(affixName)
     affixName = strip_fixed_suffixes(affixName)
+    affixName = strip_text_commentary(affixName)
     affixName = strip_preslotted_augments(affixName)
     affixName = strip_trailing_colon(affixName)
     affixName = strip_leading_asterisk(affixName)
@@ -213,39 +221,55 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     affixName = affixName.strip()
 
+    # begin logic to determine properties based on affix name
+
+    # ex: +5% Quality bonus to Light and Alignment Spell Crit Damage.
+    affixNameSearch = re.search(r'^(?:You have a )?\+?([0-9]+)%? ([A-Za-z]+) bonus to ([A-Za-z ]+).', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(3).strip()
+        aff['type'] = affixNameSearch.group(2).strip()
+        aff['value'] = affixNameSearch.group(1).strip()
+
+    # ex: +2d6 Profane bonus to your Sneak Attack Dice.
+    affixNameSearch = re.search(r'^\+([0-9]+)(?:d6)? (.*?)(?: bonus to your )(.*)\.$', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(3).strip()
+        aff['type'] = affixNameSearch.group(2).strip()
+        aff['value'] = affixNameSearch.group(1).strip()
+
+    # ex: +15 Enhancement Bonus
+    affixNameSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(2) + ' Bonus'
+        aff['type'] = affixNameSearch.group(2)
+        aff['value'] = affixNameSearch.group(1)
+
+    # ex: Doublestrike 16%
     affixNameSearch = re.search(r'^(.*?) (- )?\(?\+?(-?[0-9]+)\%?\)?$', affixName)
-    if affixNameSearch:
+    if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(1).strip()
         aff['value'] = affixNameSearch.group(3).strip()
-    else:
-        affixNameSearch = re.search(r'^(?:You have a )?\+?([0-9]+)%? ([A-Za-z]+) bonus to ([A-Za-z ]+).', affixName)
-        if affixNameSearch:
-            aff['name'] = affixNameSearch.group(3).strip()
-            aff['type'] = affixNameSearch.group(2).strip()
-            aff['value'] = affixNameSearch.group(1).strip()
-        else:
-            aff['name'] = affixName.strip()
+
+    # ex: DR 15/Lawful
+    affixNameSearch = re.search(r'^(DR) (\d+)/([A-Za-z\-]+)', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(1)
+        aff['type'] = affixNameSearch.group(3)
+        aff['value'] = affixNameSearch.group(2)
+
+    # if previous pass did not populate a name, then just put the full value of the enchantment name as the affix name
+    if 'name' not in aff:
+        aff['name'] = affixName.strip()
 
     aff['name'] = strip_trailing_colon(aff['name'])
+
+    # *** must rework this to leverage synonym map at some point ***
     aff['name'] = sub_name(aff['name'])
 
-    enhancementBonusSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)
-    if enhancementBonusSearch:
-        aff['name'] = enhancementBonusSearch.group(2) + ' Bonus'
-        aff['value'] = enhancementBonusSearch.group(1)
-        aff['type'] = enhancementBonusSearch.group(2)
 
-    elif aff['name'].startswith('DR '):
-        drGroup = re.search(r'^DR (\d+)/([A-Za-z\-]+)', aff['name'])
-        if drGroup:
-            aff['value'] = drGroup.group(1)
-            aff['type'] = drGroup.group(2)
-            aff['name'] = 'DR'
+    # begin logic to determine properties based on tooltip
 
-    # Ignore the tooltip for augment slots
-    elif not 'Augment Slot' in aff['name'] and tooltip:
-        words = str(tooltip)
-
+    if (('type' not in aff) and (tooltip) and ('Augment Slot' not in aff['name'])):
         # Sometimes the tooltip has a hyperlink title. Those are convenient for picking up multi-word
         # bonuses like "Natural Armor"
         bonusTypeSearch = re.findall('title="([a-z ]+) bonus"', words, re.IGNORECASE)
@@ -259,23 +283,56 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
         if bonusTypeSearch:
             aff['type'] = bonusTypeSearch[0].strip()
-            if aff['type'] == 'Insightful':
-                aff['type'] = 'Insight'
-            if aff['type'] == 'Natural Armor':
-                aff['type'] = 'Natural'
+
+    # ex: Increases the damage of your 4th level and lower spells by 20%. ...
+    tooltipSearch = re.search(r'^.*?damage.*spells.*?([0-9]+)%.*$', words)
+    if ((tooltipSearch) and ('type' not in aff)):
+        aff['type'] = 'Equipment'
+        aff['value'] = tooltipSearch.group(1)
+
+    # ex: ... Grants a +2 Profane bonus to all abilities.
+    tooltipSearch = re.search(r'^.*?Grants a \+([0-9]+).*?bonus.*$', words)
+    if ((tooltipSearch) and ('value' not in aff)):
+        aff['value'] = tooltipSearch.group(1)
+
+
+    # begin logic for name and type translations
+
+    # unique cases exist where text in (tooltip) description does not correspond to bonus type
+    # need to manually compensate
+    if tag.getText().startswith('Insightful Natural Armor Bonus'):
+        aff['type'] = 'Insight Natural'
+
+    if tag.getText().startswith('Quality Armor Bonus'):
+        aff['type'] = 'Quality'
+
+    if tag.getText().startswith('Rough Hide'):
+        aff['type'] = 'Primal Natural'
+
+    if aff['name'] == 'Deathblock' and 'type' not in aff:
+        aff['type'] = 'Enhancement'
 
     # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
     if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
         aff['type'] = 'Enhancement'
 
-    if aff['name'] == 'Rough Hide':
-        aff['type'] = 'Primal Natural'
+    if aff['name'] == 'Sheltering' and (('type' in aff) and (aff['type'] == 'Physical')):
+        aff['type'] = 'Enhancement'
+
+    if aff['name'] == 'Striding' and 'type' not in aff:
+        aff['type'] = 'Enhancement'
+
+    if 'value' in aff and int(aff['value']) < 0:
+        aff['type'] = 'Penalty'
 
     if aff['name'] == 'Slaver\'s Set Bonus' and ml == '28':
         aff['name'] = 'Legendary Slaver\'s Set Bonus'
 
-    if aff['name'] == 'Sheltering' and aff['type'] == 'Physical':
-        aff['type'] = 'Enhancement'
+    if (('type' in aff) and (aff['type'] == 'Insightful')):
+        aff['type'] = 'Insight'
+
+    if (('type' in aff) and (aff['type'] == 'Natural Armor')):
+        aff['type'] = 'Natural'
 
     if aff['name'].endswith('False Life') and 'value' not in aff:
         aff['type'] = 'Insight' if 'Insightful' in aff['name'] else 'Enhancement'
@@ -292,8 +349,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['name'] = 'False Life'
 
     if aff['name'].endswith(' Resistance') and 'value' not in aff:
-        aff['type'] = 'Enhancement'
         aff['name'] = aff['name'].replace('Inherent ', '')
+        aff['type'] = 'Enhancement'
         resistanceGroup = re.search(r'^(([A-Za-z]*) )?([A-Za-z]+) Resistance$', aff['name'])
         if resistanceGroup:
             switch = {
@@ -308,32 +365,15 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             aff['value'] = str(switch.get(resistanceGroup.group(2), 99997))
             aff['name'] = resistanceGroup.group(3) + ' Resistance'
 
-    if 'value' in aff and int(aff['value']) < 0:
-        aff['type'] = 'Penalty'
-
+    # if all the work is done and we still dont have a value defined, treat value as 1 and type as boolean
     if 'value' not in aff:
-        aff['value'] = 1
         aff['type'] = 'bool'
+        aff['value'] = 1
 
-    if aff['name'] == 'Deathblock' and 'type' not in aff:
-        aff['type'] = 'Enhancement'
-
-    if aff['name'] == 'Striding' and 'type' not in aff:
-        aff['type'] = 'Enhancement'
 
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
 
-    # unique cases exist where text in description does not correspond to bonus type
-    # need to manually compensate
-    if tag.getText().startswith('Insightful Natural Armor Bonus'):
-        aff['type'] = 'Insight Natural'
-
-    if tag.getText().startswith('Quality Armor Bonus'):
-        aff['type'] = 'Quality'
-
-    if tag.getText().startswith('Rough Hide'):
-        aff['type'] = 'Primal Natural'
 
     # case exsits where affix is detected as being associated with a set
     # in those cases, add the set value and remove the value value and type value

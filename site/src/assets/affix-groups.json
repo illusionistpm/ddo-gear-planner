@@ -22,6 +22,32 @@
     },
     {
         "affixes": [
+            "Well Rounded"
+        ],
+        "name": "Litany of the Dead - Ability Bonus"
+    },
+    {
+        "affixes": [
+            "Well Rounded"
+        ],
+        "name": "Litany of the Dead II - Ability Bonus"
+    },
+    {
+        "affixes": [
+            "Accuracy",
+            "Damage"
+        ],
+        "name": "Litany of the Dead - Combat Bonus"
+    },
+    {
+        "affixes": [
+            "Accurary",
+            "Damage"
+        ],
+        "name": "Litany of the Dead II - Combat Bonus"
+    },
+    {
+        "affixes": [
             "Will Save",
             "Fortitude Save",
             "Reflex Save",

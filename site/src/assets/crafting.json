@@ -5727,9 +5727,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+2d6 Profane bonus to your Sneak Attack Dice.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
                     }
                 ],
                 "name": "Goldfang"
@@ -6136,7 +6136,8 @@
             {
                 "affixes": [
                     {
-                        "name": "+12 Resistance bonus to all Saving Throws. (Received value is only +11, not",
+                        "name": "all Saving Throws",
+                        "type": "Resistance",
                         "value": "12"
                     }
                 ],
@@ -6210,7 +6211,8 @@
             {
                 "affixes": [
                     {
-                        "name": "+12 Resistance bonus to all Saving Throws. (Received value is only +11, not",
+                        "name": "all Saving Throws",
+                        "type": "Resistance",
                         "value": "12"
                     }
                 ],

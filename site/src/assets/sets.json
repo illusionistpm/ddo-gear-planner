@@ -1879,38 +1879,6 @@
             "threshold": 2
         }
     ],
-    "Epic The Desert's Starless Nights": [
-        {
-            "affixes": [
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Poison Spellcrit",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Poison Spellpower",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Damage vs. the Helpless",
-                    "type": "Artifact",
-                    "value": "10"
-                }
-            ],
-            "threshold": 2
-        }
-    ],
     "Epic The Devil's Handiwork": [
         {
             "affixes": [
@@ -5873,6 +5841,38 @@
                 },
                 {
                     "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "The Epic Desert's Starless Nights": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Poison Spellcrit",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "Negative",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Poison Spellpower",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "10"
                 }

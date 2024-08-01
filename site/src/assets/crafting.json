@@ -120,12 +120,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 1.0
                     }
                 ],
                 "ml": 1.0,
-                "name": "Natural Armor +1 Natural Armor (1)"
+                "name": "Natural Armor +1 Natural (1)"
             },
             {
                 "affixes": [
@@ -188,12 +188,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 3.0
                     }
                 ],
                 "ml": 4.0,
-                "name": "Natural Armor +3 Natural Armor (4)"
+                "name": "Natural Armor +3 Natural (4)"
             },
             {
                 "affixes": [
@@ -256,12 +256,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 5.0
                     }
                 ],
                 "ml": 8.0,
-                "name": "Natural Armor +5 Natural Armor (8)"
+                "name": "Natural Armor +5 Natural (8)"
             },
             {
                 "affixes": [
@@ -324,12 +324,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 6.0
                     }
                 ],
                 "ml": 12.0,
-                "name": "Natural Armor +6 Natural Armor (12)"
+                "name": "Natural Armor +6 Natural (12)"
             },
             {
                 "affixes": [
@@ -392,12 +392,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 8.0
                     }
                 ],
                 "ml": 16.0,
-                "name": "Natural Armor +8 Natural Armor (16)"
+                "name": "Natural Armor +8 Natural (16)"
             },
             {
                 "affixes": [
@@ -449,12 +449,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 9.0
                     }
                 ],
                 "ml": 20.0,
-                "name": "Natural Armor +9 Natural Armor (20)"
+                "name": "Natural Armor +9 Natural (20)"
             },
             {
                 "affixes": [
@@ -517,12 +517,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 11.0
                     }
                 ],
                 "ml": 24.0,
-                "name": "Natural Armor +11 Natural Armor (24)"
+                "name": "Natural Armor +11 Natural (24)"
             },
             {
                 "affixes": [
@@ -574,12 +574,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 12.0
                     }
                 ],
                 "ml": 28.0,
-                "name": "Natural Armor +12 Natural Armor (28)"
+                "name": "Natural Armor +12 Natural (28)"
             },
             {
                 "affixes": [
@@ -1223,12 +1223,12 @@
                     {
                         "description": null,
                         "name": "Armor Class",
-                        "type": "Natural Armor",
+                        "type": "Natural",
                         "value": 14.0
                     }
                 ],
                 "ml": 32.0,
-                "name": "Natural Armor +14 Natural Armor (32)"
+                "name": "Natural Armor +14 Natural (32)"
             },
             {
                 "affixes": [
@@ -5583,9 +5583,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Accuracy +21 (+23 in a Minor Artifact)",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Attack",
+                        "type": "Competence",
+                        "value": "21"
                     }
                 ],
                 "name": "Fang: Accuracy"
@@ -5593,9 +5593,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Deadly +11 (+12 in a Minor Artifact)",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Damage",
+                        "type": "Competence",
+                        "value": "11"
                     }
                 ],
                 "name": "Fang: Damage"
@@ -5603,9 +5603,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Deception +11 (+12 in a Minor Artifact)",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attacks",
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ],
                 "name": "Fang: Deception"
@@ -5613,9 +5613,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Seeker +14 (+15 in a Minor Artifact)",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Critical Confirmation and Critical Damage",
+                        "type": "Enhancement",
+                        "value": "14"
                     }
                 ],
                 "name": "Fang: Seeker"
@@ -5761,7 +5761,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (Grants Alchemical Fire Attunement)",
+                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (undocumented) (Grants Alchemical Fire Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5771,7 +5771,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Grants Alchemical Water Attunement)",
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (undocumented) (Grants Alchemical Water Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5781,7 +5781,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (Grants Alchemical Air Attunement)",
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (undocumented) (Grants Alchemical Air Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5791,7 +5791,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (Grants Alchemical Earth Attunement)",
+                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (undocumented) (Grants Alchemical Earth Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5801,7 +5801,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (Grants Legendary Steam)",
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (undocumented) (Grants Legendary Steam)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5811,7 +5811,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (undocumented) (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5841,7 +5841,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (Grants Alchemical Fire Attunement)",
+                        "name": "Adds Good alignment bypass. Your attacks and spells have a small chance to deal a large amount of Fire damage. (undocumented) (Grants Alchemical Fire Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5851,7 +5851,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (Grants Alchemical Water Attunement)",
+                        "name": "Adds Chaotic alignment bypass. Your attacks and spells have a chance to inflict ten stacks of Cold damage over time. (undocumented) (Grants Alchemical Water Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5861,7 +5861,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (Grants Alchemical Air Attunement)",
+                        "name": "Adds Lawful alignment bypass. Your attacks and spells have a small chance to deal a massive amount of Electric damage. (undocumented) (Grants Alchemical Air Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5871,7 +5871,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (Grants Alchemical Earth Attunement)",
+                        "name": "Adds Evil alignment bypass. Your attacks and spells deal a large amount of stacking Acid damage over time. (undocumented) (Grants Alchemical Earth Attunement)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5881,7 +5881,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (Grants Legendary Steam)",
+                        "name": "Your attacks and offensive spells have a chance to deal Untyped damage. (undocumented) (Grants Legendary Steam)",
                         "type": "bool",
                         "value": 1
                     }
@@ -5891,7 +5891,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time. (undocumented) (Like Legendary Steam with 6d6+6 damage every 2 seconds for 12 sec, consecutive attacks extend duration to 1 min 25 sec)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6146,7 +6146,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhanced Ghostly",
+                        "name": "Equipping this item causes you to become partially incorporeal. Your melee and missile attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 15% chance to miss you due to your incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6156,7 +6156,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Relentless Fury",
+                        "name": "While this item is equipped, any killing blows you strike against enemies may drive you into a furious rage, providing a 5% Enhancement damage bonus to your melee, ranged, and unarmed attacks for 30 seconds. Slaying weaker opponents has a reduced chance of producing this effect.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6221,7 +6221,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhanced Ghostly",
+                        "name": "Equipping this item causes you to become partially incorporeal. Your melee and missile attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 15% chance to miss you due to your incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6231,7 +6231,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Relentless Fury",
+                        "name": "While this item is equipped, any killing blows you strike against enemies may drive you into a furious rage, providing a 5% Enhancement damage bonus to your melee, ranged, and unarmed attacks for 30 seconds. Slaying weaker opponents has a reduced chance of producing this effect.",
                         "type": "bool",
                         "value": 1
                     }
@@ -6241,7 +6241,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Armor-Piercing",
+                        "name": "Fortification bypass",
                         "type": "Enhancement",
                         "value": "21"
                     }
@@ -6285,7 +6285,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy MRR and Universal Spell Power. (Grants Legendary Ash)",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Magical Resistance Rating and Universal Spell Power. (undocumented) (Grants Legendary Ash)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6295,7 +6295,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice. (Grants Legendary Ice)",
+                        "name": "Your attacks and offensive spells have a chance to freeze your target in a block of ice. (undocumented) (Grants Legendary Ice)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6305,7 +6305,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability. (Grants Legendary Vacuum)",
+                        "name": "Your attacks and offensive spells have a chance to inflict multiple stacks of Vulnerability. (undocumented) (Grants Legendary Vacuum)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6315,7 +6315,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and Positive Healing Amplification. (Grants Legendary Dust)",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical Resistance Rating and Positive Healing Amplification. (undocumented) (Grants Legendary Dust)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6325,7 +6325,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (Grants Legendary Affirmation)",
+                        "name": "Your attacks and offensive spells have a chance to grant you 1,000 Temporary HP. (undocumented) (Grants Legendary Affirmation)",
                         "type": "bool",
                         "value": 1
                     }
@@ -6335,7 +6335,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy PRR and MRR. (Grants Legendary Ooze without summoning effect)",
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating. (undocumented) (Grants Legendary Ooze without summoning effect)",
                         "type": "bool",
                         "value": 1
                     }
@@ -23073,9 +23073,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "all Spellpowers",
+                        "type": "Equipment",
+                        "value": "102"
                     },
                     {
                         "description": null,
@@ -23165,9 +23165,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs and makes the Quarterstaff an Implement.",
-                        "type": "bool",
-                        "value": 1
+                        "name": "all Spellpowers",
+                        "type": "Equipment",
+                        "value": "102"
                     }
                 ],
                 "name": "Iridiscent Scale"

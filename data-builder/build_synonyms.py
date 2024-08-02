@@ -11,15 +11,18 @@ def add(data, mainName, synonyms):
 def build_synonyms():
     data = []
 
-    add(data, 'Accuracy', ['Hit', 'hit'])
+    add(data, 'Accuracy', ['Attack', 'Hit', 'hit'])
     add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield', 'Shield Armor Class'])
     # probably want to standardize on 'Armor Piercing' as the name, but re-work needs to be done on cannith crafting to remove drift
-    add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass'])
+    add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass', 'Fortification bypass'])
+    add(data, 'Assassinate', ['Assassinate DCs'])
     add(data, 'Damage', ['Damage Bonus', 'Deadly'])
     add(data, 'Devotion', ['Positive Spell Power', 'Positive Spellpower'])
     add(data, 'Evocation Focus', ['Evocation Spell DCs'])
     add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'Maximum Hit Points', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])
     add(data, 'Healing Lore', ['Positive Spell Crit Chance', 'Positive Spellcrit Chance'])
+    add(data, 'Seeker', ['Critical Confirmation and Critical Damage'])
+    add(data, 'Deception', ['Sneak Attacks'])
     add(data, 'Speed', ['Striding'])
     add(data, 'Physical Sheltering', ['Physical Resistance Rating', 'PRR'])
     add(data, 'Magical Sheltering', ['Magical Resistance Rating', 'MRR', 'your Magical Resistance Rating'])
@@ -27,7 +30,10 @@ def build_synonyms():
     add(data, 'Sheltering', ['Physical and Magical Resistance Rating'])
     add(data, 'Spell Focus Mastery', ['all Spell DCs', 'all spell DCs', 'DCs', 'Spell DC\'s', 'Spell DCs'])
     add(data, 'Spell Points', ['your maximum Spell Points'])
+    add(data, 'Stunning', ['Stunning DCs'])
+    add(data, 'Sunder', ['Sunder DCs'])
     add(data, 'Tactical Abilities', ['your Tactical Abilities'])
+    add(data, 'Trip', ['Trip DCs'])
     add(data, 'Void Lore', ['Negative Spell Crit Chance'])
     add(data, 'Universal Spell Lore', ['Spell Lore'])
     add(data, 'Universal Spell Power', ['Spellcasting Implement', 'Universal Spellpower'])

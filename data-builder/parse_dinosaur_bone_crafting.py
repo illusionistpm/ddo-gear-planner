@@ -55,7 +55,7 @@ def get_systems_from_page(soup):
 
             affixes = parse_affixes_from_dino_weapon(affixes)
 
-            add_specific_slot_affixes_to_systems(affixes, system_name, systems, augment_name)
+            add_specific_slot_affixes_to_systems(affixes, system_name, systems, augment_name, fields[1])
 
             option = {}
             option['affixes'] = affixes
@@ -155,10 +155,10 @@ def parse_affixes_from_dino_weapon(affixes):
 
     return returnAffixes
 
-def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentName):
+def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentName, cell):
     copiedAffixes = affixes[::]
 
-    if systemName == "Scale (Weapon)" and (augmentName == "Brightscale" or augmentName == "Shadowscale" or augmentName == "Iridiscent Scale" or augmentName == "Iridescent Scale"):
+    if systemName == "Scale (Weapon)" and (augmentName == "Brightscale" or augmentName == "Shadowscale" or augmentName == "Iridiscent Scale"):
         copiedAffixes.append(create_affix("Spell Focus Master", "Exceptional", "2"))
 
         systems["Scale " + quarterstaffSystemName]['*'].append({
@@ -171,7 +171,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             'name': augmentName
         })
 
-    if systemName == "Fang (Weapon)" and (augmentName == "Iridiscent Fang" or augmentName == "Iridescent Fang"): # adding the correct spelling here assuming someday someone will correct this on the wiki
+    if ((systemName == "Fang (Weapon)") and (augmentName == "Iridiscent Fang")):
         copiedAffixes.append(create_affix("Spell Lore", "Exceptional", "5"))
 
         systems["Fang " + quarterstaffSystemName]['*'].append({
@@ -184,143 +184,31 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
             'name': augmentName
         })
 
-    if systemName == "Scale (Accessory)":
-        if augmentName == "Scale: False Life":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("False Life", "Enhancement", "58")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Charisma":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Charisma", "Enhancement", "15")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Constitution":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Constitution", "Enhancement", "15")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Dexterity":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Dexterity", "Enhancement", "15")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Intelligence":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Intelligence", "Enhancement", "15")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Strength":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Strength", "Enhancement", "15")],
-                'name': augmentName
-            })
-        elif augmentName == "Scale: Wisdom":
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Wisdom", "Enhancement", "15")],
-                'name': augmentName
-            })
-        else:
-            systems["Scale " + artifactSystemName]['*'].append({
-                'affixes': copiedAffixes,
-                'name': augmentName
-            })
+    # case exists for some systems to add in the artifact version of the slot
+    if systemName in ['Claw (Accessory)', 'Fang (Accessory)', 'Horn (Accessory)', 'Scale (Accessory)']:
+        slotName = systemName.replace('(Accessory)', artifactSystemName)
 
-    if systemName == "Fang (Accessory)":
-        if augmentName == "Fang: Healing Amplification":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Healing Amplification", "Competence", "61")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Negative Amplification":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Negative Amplification", "Profane", "61")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Repair Amplification":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Negative Amplification", "Enhancement", "61")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Accuracy":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Accuracy", "Competence", "23")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Damage":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Damage", "Competence", "12")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Deception":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Deception", "Enhancement", "12")],
-                'name': augmentName
-            })
-        elif augmentName == "Fang: Seeker":
-            systems["Fang " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Seeker", "Enhancement", "15")],
-                'name': augmentName
-            })
+        artifactValueSearch = re.search(r'^.*? into a Minor Artifact.*?\+([0-9]+).*?(?:\+[0-9]+)?.*$', cell.getText())
+        if artifactValueSearch:
+            artifactAffixMap = {
+                'affixes' : [
+                    {
+                        'description' : None,
+                        'name' : affixes[0]['name'],
+                        'type' : affixes[0]['type'],
+                        'value' : artifactValueSearch.group(1).strip(),
+                    },
+                ],
+            }
         else:
-            systems["Fang " + artifactSystemName]['*'].append({
+            artifactAffixMap = {
                 'affixes': copiedAffixes,
-                'name': augmentName
-            })
+            }
 
-    if systemName == "Claw (Accessory)":
-        if augmentName == "Claw: Physical Resistance Rating":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Physical Resistance Rating", "Enhancement", "38")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Magical Resistance Rating":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Magical Resistance Rating", "Enhancement", "38")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Stunning":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Stunning", "Enhancement", "17")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Trip":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Trip", "Enhancement", "17")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Sunder":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Sunder", "Enhancement", "17")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Assassinate":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Assassinate", "Enhancement", "17")],
-                'name': augmentName
-            })
-        elif augmentName == "Claw: Spell Penetration":
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Spell Penetration", "Enhancement", "10")],
-                'name': augmentName
-            })
-        else:
-            systems["Claw " + artifactSystemName]['*'].append({
-                'affixes': copiedAffixes,
-                'name': augmentName
-            })
+        artifactAffixMap['name'] = augmentName
+        # artifactAffixMap['name'] = 'name' : '%s +%s %s' % (copiedAffixes[0]['name'], copiedAffixes[0]['value'], copiedAffixes[0]['type'])
 
-    if systemName == "Horn (Accessory)":
-        if augmentName == "Horn: Armor Piercing":
-            systems["Horn " + artifactSystemName]['*'].append({
-                'affixes': [create_affix("Armor Piercing", "Enhancement", "23")],
-                'name': augmentName
-            })
-        else:
-            systems["Horn " + artifactSystemName]['*'].append({
-                'affixes': copiedAffixes,
-                'name': augmentName
-            })
+        systems[slotName]['*'].append(artifactAffixMap)
 
 def create_affix(name, type, value):
     affix = {

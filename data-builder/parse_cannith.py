@@ -1,4 +1,4 @@
-import openpyxl 
+import openpyxl
 import json
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
@@ -7,14 +7,14 @@ import os
 def parse_cannith():
     assumedBonusTypeMap = get_most_common_bonus_type()
 
-    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/cannith-crafting.xlsx") 
-    
+    wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/cannith-crafting.xlsx")
+
     for s in range(len(wb.sheetnames)):
         if wb.sheetnames[s] == 'Sheet1':
             break
     wb.active = s
 
-    ws = wb.active 
+    ws = wb.active
 
     itemTypeInfoList = []
 
@@ -49,7 +49,7 @@ def parse_cannith():
         affixes = []
 
         if affix == 'Universal Spell Lore':
-            for lore in ['Acid Lore', 'Cold Lore', 'Electricity Lore', 'Fire Lore', 'Force Lore', 'Light Lore', 'Negative Lore', 'Positive Lore', 'Repair Lore', 'Sonic Lore', 'Spell Lore']:
+            for lore in ['Acid Lore', 'Cold Lore', 'Electricity Lore', 'Fire Lore', 'Force Lore', 'Light Lore', 'Negative Lore', 'Positive Lore', 'Repair Lore', 'Sonic Lore']:
                 affixes.append(lore)
 
         if affix == 'Spell Resistance (Sr)':

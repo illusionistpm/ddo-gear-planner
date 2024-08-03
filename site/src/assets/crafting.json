@@ -1929,10 +1929,9 @@
             {
                 "affixes": [
                     {
-                        "description": null,
                         "name": "Stunning",
                         "type": "Enhancement",
-                        "value": "17"
+                        "value": "15"
                     }
                 ],
                 "name": "Claw: Stunning"
@@ -1940,10 +1939,9 @@
             {
                 "affixes": [
                     {
-                        "description": null,
                         "name": "Trip",
                         "type": "Enhancement",
-                        "value": "17"
+                        "value": "15"
                     }
                 ],
                 "name": "Claw: Trip"
@@ -1951,10 +1949,9 @@
             {
                 "affixes": [
                     {
-                        "description": null,
                         "name": "Sunder",
                         "type": "Enhancement",
-                        "value": "17"
+                        "value": "15"
                     }
                 ],
                 "name": "Claw: Sunder"
@@ -1975,7 +1972,7 @@
                     {
                         "description": null,
                         "name": "Spell Penetration",
-                        "type": "Enhancement",
+                        "type": "Equipment",
                         "value": "10"
                     }
                 ],
@@ -2108,7 +2105,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Stunning DCs",
+                        "name": "Stunning",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2118,7 +2115,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Trip DCs",
+                        "name": "Trip",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2128,7 +2125,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sunder DCs",
+                        "name": "Sunder",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2138,7 +2135,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Assassinate DCs",
+                        "name": "Assassinate",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -5395,7 +5392,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Negative Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "61"
                     }
@@ -5583,7 +5580,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Attack",
+                        "name": "Accuracy",
                         "type": "Competence",
                         "value": "21"
                     }
@@ -5603,7 +5600,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sneak Attacks",
+                        "name": "Deception",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -5613,7 +5610,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Critical Confirmation and Critical Damage",
+                        "name": "Seeker",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -6169,7 +6166,7 @@
                         "description": null,
                         "name": "Armor-Piercing",
                         "type": "Enhancement",
-                        "value": "23"
+                        "value": "24"
                     }
                 ],
                 "name": "Horn: Armor Piercing"
@@ -6241,7 +6238,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fortification bypass",
+                        "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": "21"
                     }
@@ -20340,6 +20337,294 @@
             }
         ]
     },
+    "Random set 1 (Legendary Vault of Night or Legendary Red Fens)": {
+        "Legendary Gem of Many Facets": [
+            {
+                "name": "Legendary Divine Blessing",
+                "set": "Legendary Divine Blessing"
+            },
+            {
+                "name": "Legendary Elder's Knowledge",
+                "set": "Legendary Elder's Knowledge"
+            },
+            {
+                "name": "Legendary Marshwalker",
+                "set": "Legendary Marshwalker"
+            },
+            {
+                "name": "Legendary Raven's Eye",
+                "set": "Legendary Raven's Eye"
+            },
+            {
+                "name": "Legendary Shaman's Fury",
+                "set": "Legendary Shaman's Fury"
+            },
+            {
+                "name": "Legendary Siren's Ward",
+                "set": "Legendary Siren's Ward"
+            },
+            {
+                "name": "Legendary Vulkoor's Cunning",
+                "set": "Legendary Vulkoor's Cunning"
+            },
+            {
+                "name": "Legendary Vulkoor's Might",
+                "set": "Legendary Vulkoor's Might"
+            },
+            {
+                "name": "Legendary Kundarak Delving Equipment",
+                "set": "Legendary Kundarak Delving Equipment"
+            },
+            {
+                "name": "Legendary Mroranon's Might",
+                "set": "Legendary Mroranon's Might"
+            },
+            {
+                "name": "Legendary Silver Concord's Subtlety",
+                "set": "Legendary Silver Concord's Subtlety"
+            },
+            {
+                "name": "Legendary Wards of House Kundarak",
+                "set": "Legendary Wards of House Kundarak"
+            },
+            {
+                "name": "Legendary Draconic Prophecy",
+                "set": "Legendary Draconic Prophecy"
+            }
+        ]
+    },
+    "Random set 1 (from Epic Vault of Night or Epic Red Fens)": {
+        "Epic Gem of Many Facets": [
+            {
+                "name": "Epic Divine Blessing",
+                "set": "Epic Divine Blessing"
+            },
+            {
+                "name": "Epic Elder's Knowledge",
+                "set": "Epic Elder's Knowledge"
+            },
+            {
+                "name": "Epic Marshwalker",
+                "set": "Epic Marshwalker"
+            },
+            {
+                "name": "Epic Raven's Eye",
+                "set": "Epic Raven's Eye"
+            },
+            {
+                "name": "Epic Shaman's Fury",
+                "set": "Epic Shaman's Fury"
+            },
+            {
+                "name": "Epic Siren's Ward",
+                "set": "Epic Siren's Ward"
+            },
+            {
+                "name": "Epic Vulkoor's Cunning",
+                "set": "Epic Vulkoor's Cunning"
+            },
+            {
+                "name": "Epic Vulkoor's Might",
+                "set": "Epic Vulkoor's Might"
+            },
+            {
+                "name": "Epic Kundarak Delving Equipment",
+                "set": "Epic Kundarak Delving Equipment"
+            },
+            {
+                "name": "Epic Mroranon's Might",
+                "set": "Epic Mroranon's Might"
+            },
+            {
+                "name": "Epic Silver Concord's Subtlety",
+                "set": "Epic Silver Concord's Subtlety"
+            },
+            {
+                "name": "Epic Wards of House Kundarak",
+                "set": "Epic Wards of House Kundarak"
+            },
+            {
+                "name": "Epic Draconic Prophecy",
+                "set": "Epic Draconic Prophecy"
+            }
+        ]
+    },
+    "Random set 1 (from Red Fens or Vault of Night)": {
+        "Gem of Many Facets": [
+            {
+                "name": "Divine Blessing",
+                "set": "Divine Blessing"
+            },
+            {
+                "name": "Elder's Knowledge",
+                "set": "Elder's Knowledge"
+            },
+            {
+                "name": "Marshwalker",
+                "set": "Marshwalker"
+            },
+            {
+                "name": "Raven's Eye",
+                "set": "Raven's Eye"
+            },
+            {
+                "name": "Shaman's Fury",
+                "set": "Shaman's Fury"
+            },
+            {
+                "name": "Siren's Ward",
+                "set": "Siren's Ward"
+            },
+            {
+                "name": "Vulkoor's Cunning",
+                "set": "Vulkoor's Cunning"
+            },
+            {
+                "name": "Vulkoor's Might",
+                "set": "Vulkoor's Might"
+            },
+            {
+                "name": "Kundarak Delving Equipment",
+                "set": "Kundarak Delving Equipment"
+            },
+            {
+                "name": "Mroranon's Might",
+                "set": "Mroranon's Might"
+            },
+            {
+                "name": "Silver Concord's Subtlety",
+                "set": "Silver Concord's Subtlety"
+            },
+            {
+                "name": "Wards of House Kundarak",
+                "set": "Wards of House Kundarak"
+            },
+            {
+                "name": "Draconic Prophecy",
+                "set": "Draconic Prophecy"
+            }
+        ]
+    },
+    "Random set 2 (Legendary Chronoscope or Legendary Sands of Menechtarun)": {
+        "Legendary Gem of Many Facets": [
+            {
+                "name": "Legendary Might of the Abishai",
+                "set": "Legendary Might of the Abishai"
+            },
+            {
+                "name": "The Legendary Desert's Biting Sands",
+                "set": "The Legendary Desert's Biting Sands"
+            },
+            {
+                "name": "The Legendary Desert's Burning Sun",
+                "set": "The Legendary Desert's Burning Sun"
+            },
+            {
+                "name": "The Legendary Desert's Starless Nights",
+                "set": "The Legendary Desert's Starless Nights"
+            },
+            {
+                "name": "The Legendary Desert's Writhing Storm",
+                "set": "The Legendary Desert's Writhing Storm"
+            },
+            {
+                "name": "Legendary Menechtarun Scavenger",
+                "set": "Legendary Menechtarun Scavenger"
+            },
+            {
+                "name": "Legendary Oasis of Morality",
+                "set": "Legendary Oasis of Morality"
+            },
+            {
+                "name": "Legendary Vulkoor's Chosen",
+                "set": "Legendary Vulkoor's Chosen"
+            },
+            {
+                "name": "Legendary Windlasher's Ferocity",
+                "set": "Legendary Windlasher's Ferocity"
+            }
+        ]
+    },
+    "Random set 2 (from Chronoscope or Sands of Menechtarun)": {
+        "Gem of Many Facets": [
+            {
+                "name": "Might of the Abishai",
+                "set": "Might of the Abishai"
+            },
+            {
+                "name": "The Desert's Biting Sands",
+                "set": "The Desert's Biting Sands"
+            },
+            {
+                "name": "The Desert's Burning Sun",
+                "set": "The Desert's Burning Sun"
+            },
+            {
+                "name": "The Desert's Starless Nights",
+                "set": "The Desert's Starless Nights"
+            },
+            {
+                "name": "The Desert's Writhing Storm",
+                "set": "The Desert's Writhing Storm"
+            },
+            {
+                "name": "Menechtarun Scavenger",
+                "set": "Menechtarun Scavenger"
+            },
+            {
+                "name": "Oasis of Morality",
+                "set": "Oasis of Morality"
+            },
+            {
+                "name": "Vulkoor's Chosen",
+                "set": "Vulkoor's Chosen"
+            },
+            {
+                "name": "Windlasher's Ferocity",
+                "set": "Windlasher's Ferocity"
+            }
+        ]
+    },
+    "Random set 2 (from Epic Chronoscope or Epic Sands of Menechtarun)": {
+        "Epic Gem of Many Facets": [
+            {
+                "name": "Epic Might of the Abishai",
+                "set": "Epic Might of the Abishai"
+            },
+            {
+                "name": "The Epic Desert's Biting Sands",
+                "set": "The Epic Desert's Biting Sands"
+            },
+            {
+                "name": "The Epic Desert's Burning Sun",
+                "set": "The Epic Desert's Burning Sun"
+            },
+            {
+                "name": "The Epic Desert's Starless Nights",
+                "set": "The Epic Desert's Starless Nights"
+            },
+            {
+                "name": "The Epic Desert's Writhing Storm",
+                "set": "The Epic Desert's Writhing Storm"
+            },
+            {
+                "name": "Epic Menechtarun Scavenger",
+                "set": "Epic Menechtarun Scavenger"
+            },
+            {
+                "name": "Epic Oasis of Morality",
+                "set": "Epic Oasis of Morality"
+            },
+            {
+                "name": "Epic Vulkoor's Chosen",
+                "set": "Epic Vulkoor's Chosen"
+            },
+            {
+                "name": "Epic Windlasher's Ferocity",
+                "set": "Epic Windlasher's Ferocity"
+            }
+        ]
+    },
     "Red Augment Slot": {
         "*": [
             {
@@ -25079,7 +25364,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Assassinate DCs",
+                        "name": "Assassinate",
                         "type": "Enhancement",
                         "value": 10.0
                     }
@@ -25319,7 +25604,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Assassinate DCs",
+                        "name": "Assassinate",
                         "type": "Enhancement",
                         "value": 16.0
                     }

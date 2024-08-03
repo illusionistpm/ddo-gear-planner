@@ -1669,7 +1669,7 @@
         {
             "affixes": [
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -1679,12 +1679,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Critical Confirmation",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Critical Damage",
+                    "name": "Seeker",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -1954,7 +1949,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -2207,7 +2202,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Profane",
                     "value": "1"
                 },
@@ -3168,7 +3163,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Profane",
                     "value": "4"
                 },
@@ -3400,7 +3395,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3551,7 +3546,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Assassinate DCs",
+                    "name": "Assassinate",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3698,7 +3693,7 @@
         {
             "affixes": [
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -3708,12 +3703,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Critical Confirmation",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Critical Damage",
+                    "name": "Seeker",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4430,7 +4420,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4750,7 +4740,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Assassinate DCs",
+                    "name": "Assassinate",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -4979,7 +4969,7 @@
         {
             "affixes": [
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -5545,7 +5535,7 @@
         {
             "affixes": [
                 {
-                    "name": "Assassinate DCs",
+                    "name": "Assassinate",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -6370,7 +6360,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "3"
                 },

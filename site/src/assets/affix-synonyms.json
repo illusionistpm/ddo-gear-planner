@@ -2,6 +2,7 @@
     {
         "name": "Accuracy",
         "synonyms": [
+            "Attack",
             "Hit",
             "hit"
         ]
@@ -23,7 +24,14 @@
         "name": "Armor-Piercing",
         "synonyms": [
             "Armor Piercing",
-            "Fortification Bypass"
+            "Fortification Bypass",
+            "Fortification bypass"
+        ]
+    },
+    {
+        "name": "Assassinate",
+        "synonyms": [
+            "Assassinate DCs"
         ]
     },
     {
@@ -63,6 +71,18 @@
         "synonyms": [
             "Positive Spell Crit Chance",
             "Positive Spellcrit Chance"
+        ]
+    },
+    {
+        "name": "Seeker",
+        "synonyms": [
+            "Critical Confirmation and Critical Damage"
+        ]
+    },
+    {
+        "name": "Deception",
+        "synonyms": [
+            "Sneak Attacks"
         ]
     },
     {
@@ -116,9 +136,27 @@
         ]
     },
     {
+        "name": "Stunning",
+        "synonyms": [
+            "Stunning DCs"
+        ]
+    },
+    {
+        "name": "Sunder",
+        "synonyms": [
+            "Sunder DCs"
+        ]
+    },
+    {
         "name": "Tactical Abilities",
         "synonyms": [
             "your Tactical Abilities"
+        ]
+    },
+    {
+        "name": "Trip",
+        "synonyms": [
+            "Trip DCs"
         ]
     },
     {

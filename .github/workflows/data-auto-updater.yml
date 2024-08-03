@@ -1,5 +1,8 @@
 name: Data Auto Updater
-on: #[push]
+on:
+  push:
+    branches:
+      - master
   schedule:
     # Run at 5:18 UTC daily 
     - cron:  '18 5 * * *'

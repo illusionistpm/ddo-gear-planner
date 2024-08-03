@@ -390,6 +390,25 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 def parse_affixes_from_cell(itemName, cell, synonymMap, fakeBonuses, ml, craftingSystems, sets):
     ret = []
 
+    # some enhancements are starting to be modified to be wrapped in a collapsible class
+    # determine if this cell contains any collapsible divs
+    collapsibleDivList = cell.find_all('div', class_='mw-collapsible')
+    if collapsibleDivList:
+        for collapsibleDiv in collapsibleDivList:
+            unorderedList = collapsibleDiv.find('ul')
+            if unorderedList:
+                unorderedListInCollapsibleContentDiv = collapsibleDiv.find('div', class_='mw-collapsible-content').find('ul')
+                if unorderedListInCollapsibleContentDiv:
+                    listTag = unorderedList.li
+                    # start with limited scope and expand as data is updated
+                    if listTag.getText().startswith('Random set'):
+                        # create a tag which includes the proper formatting of the unordered list
+                        listTag.append(unorderedListInCollapsibleContentDiv.find('ul'))
+
+                        # add the newly created tag to the parent unordered list for processing in the next pass
+                        cell.find('ul').append(listTag)
+
+    # if the cell contains an unordered list (at any depth) collect list elements
     if cell.find('ul'):
         affixes = cell.find_all('ul', recursive=False)
         affixes = [ul.find_all('li', recursive=False) for ul in affixes]

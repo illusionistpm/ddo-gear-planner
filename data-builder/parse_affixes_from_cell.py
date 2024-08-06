@@ -119,14 +119,16 @@ def sub_name(name):
         ['Construct Fortification', 'Fortification'],
         ['all Spell DCs', 'Spell DCs'],
         ['all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)', 'Spell DCs'],
-        ['+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.', '+102 Equipment bonus to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.']
+        ['+102 Enhancement bonus (Typo, it is actually an Equipment bonus) to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.', '+102 Equipment bonus to all Spellpowers. If this is slotted in a Quarterstaff, also grants a +2 Exceptional bonus to Spell DCs.'],
         ]:
         if name == pair[0]:
             return pair[1]
 
-        dino_crafting_search = re.search(r'^Isle of Dread: ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
-        if dino_crafting_search:
-            return f"{dino_crafting_search.group(1)} {dino_crafting_search.group(2)}"
+    dino_crafting_search = re.search(r'^Isle of Dread: ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
+    if dino_crafting_search:
+        return f"{dino_crafting_search.group(1)} {dino_crafting_search.group(2)}"
+
+    name = name.replace('Spellcrit', 'Spell Crit')        
 
     return name
 

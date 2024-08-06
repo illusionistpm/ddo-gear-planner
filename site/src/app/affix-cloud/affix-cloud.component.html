@@ -20,6 +20,36 @@
         </div>
     </div>
 
+    <div *ngIf="showTactics">
+        <p>Which tactics will you use?</p>
+        <div class="row d-flex justify-content-start">
+            <div class="col-auto m-0 mb-2 p-0" *ngFor="let tactic of tactics">
+                <button class="btn btn-primary mx-1"
+                    (click)="addTactic(tactic)">{{tactic}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showSpellpowers">
+        <p>Which spellpowers do you care about?</p>
+        <div class="row d-flex justify-content-start">
+            <div class="col-auto m-0 mb-2 p-0" *ngFor="let spellpower of spellpowerPackageKeys">
+                <button class="btn btn-primary mx-1"
+                    (click)="addSpellpower(spellpower)">{{spellpower}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showSpellSchools">
+        <p>What spell schools will you use?</p>
+        <div class="row d-flex justify-content-start">
+            <div class="col-auto m-0 mb-2 p-0" *ngFor="let spellSchool of spellSchools">
+                <button class="btn btn-primary mx-1"
+                    (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
+            </div>
+        </div>
+    </div>
+    
     <div *ngIf="topResults.length">
         <p>What other affixes are important to your build?</p>
         <div class="row d-flex justify-content-start">

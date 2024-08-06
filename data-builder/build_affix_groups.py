@@ -30,6 +30,7 @@ def build_affix_groups():
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
     add(groups, 'Potency', ['Nullification', 'Radiance', 'Devotion', 'Corrosion', 'Combustion', 'Magnetic', 'Glaciation', 'Reconstruction', 'Impulse', 'Resonance'])
+    add(groups, 'Spell Lore', ['Nullification Lore', 'Radiance Lore', 'Devotion Lore', 'Corrosion Lore', 'Combustion Lore', 'Magnetic Lore', 'Glaciation Lore', 'Reconstruction Lore', 'Impulse Lore', 'Resonance'])
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
     add(groups, 'Alluring Skills Bonus', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Charisma Skills', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])

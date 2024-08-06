@@ -15,6 +15,12 @@ export class AffixCloudComponent implements OnInit {
   workingMap: Map<string, number>;
   savedSet: Set<string>;
   topResults: Array<any>;
+  spellSchools: Array<string>;
+  tactics: Array<string>;
+
+  showTactics: boolean = false;
+  showSpellpowers: boolean = false;
+  showSpellSchools: boolean = false;
 
   public allAffixes: Array<any>; // is really Array<{name:string}>
 
@@ -23,6 +29,9 @@ export class AffixCloudComponent implements OnInit {
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
   packages = new Map<string, Array<string>>();
   packageKeys = [];
+
+  spellpowerPackages = new Map<string, Array<string>>();
+  spellpowerPackageKeys = [];
 
   constructor(
     public equipped: EquippedService,
@@ -34,6 +43,9 @@ export class AffixCloudComponent implements OnInit {
     this.ignoredSet = new Set<string>();
 
     this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e }));
+
+    this.spellSchools = ['Evocation', 'Transmutation', 'Abjuration', 'Conjuration', 'Enchantment', 'Illusion', 'Necromancy'];
+    this.tactics = ['Stunning', 'Sundering', 'Vertigo'];
 
     const gearList = gearDB.getGearList();
 
@@ -69,9 +81,19 @@ export class AffixCloudComponent implements OnInit {
     this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy', 'Armor-Piercing']);
     this.packages.set('Caster', ['Universal Spell Power', 'Universal Spell Lore', 'Spellcraft', 'Wizardry', 'Spell Penetration', 'Spell Focus Mastery']);
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
-    this.packages.set('Healing', ['Devotion', 'Healing Lore', 'Heal']);
-
     this.packageKeys = Array.from(this.packages.keys());
+
+    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal']);
+    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Force Spell Crit Damage']);
+    this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Spell Crit Damage']);
+    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Ice Spell Crit Damage']);
+    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Lightning Spell Crit Damage']);
+    this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Spell Crit Damage']);
+    this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Negative Spell Crit Damage']);
+    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Radiance Spell Crit Damage']);
+    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore']);
+    this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Spell Crit Damage']);
+    this.spellpowerPackageKeys = Array.from(this.spellpowerPackages.keys());
   }
 
   getBtnSize(result: string) {
@@ -91,7 +113,27 @@ export class AffixCloudComponent implements OnInit {
   }
 
   addPackage(pkg: string) {
+    if (pkg == 'Melee') {
+      this.showTactics = true;
+    } else if (pkg == 'Caster') {
+      this.showSpellSchools = true;
+      this.showSpellpowers = true;
+    }
     for (const affix of this.packages.get(pkg)) {
+      this.add(affix);
+    }
+  }
+
+  addTactic(tactic: string) {
+    this.add(tactic);
+  }
+
+  addSpellSchool(spellSchool: string) {
+    this.add(spellSchool + ' Focus');
+  }
+
+  addSpellpower(spellpower: string) {
+    for (const affix of this.spellpowerPackages.get(spellpower)) {
       this.add(affix);
     }
   }

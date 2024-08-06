@@ -83,15 +83,15 @@ export class AffixCloudComponent implements OnInit {
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());
 
-    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal']);
-    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Force Spell Crit Damage']);
+    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal', 'Positive Spell Crit Damage']);
+    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Force and Physical Spell Crit Damage']);
     this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Spell Crit Damage']);
-    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Ice Spell Crit Damage']);
-    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Lightning Spell Crit Damage']);
+    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Cold Spell Crit Damage']);
+    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Electric Spell Crit Damage']);
     this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Spell Crit Damage']);
     this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Negative Spell Crit Damage']);
-    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Radiance Spell Crit Damage']);
-    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore']);
+    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Light and Alignment Spell Crit Damage']);
+    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore', 'Repair Spell Crit Damage']);
     this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Spell Crit Damage']);
     this.spellpowerPackageKeys = Array.from(this.spellpowerPackages.keys());
   }

@@ -114,6 +114,12 @@
         ]
     },
     {
+        "name": "Radiance Spell Crit Damage",
+        "synonyms": [
+            "Light and Alignment Spell Crit Damage"
+        ]
+    },
+    {
         "name": "Sheltering",
         "synonyms": [
             "Physical and Magical Resistance Rating"
@@ -162,13 +168,8 @@
     {
         "name": "Void Lore",
         "synonyms": [
-            "Negative Spell Crit Chance"
-        ]
-    },
-    {
-        "name": "Universal Spell Lore",
-        "synonyms": [
-            "Spell Lore"
+            "Negative Spell Crit Chance",
+            "Negative Lore"
         ]
     },
     {
@@ -209,6 +210,18 @@
             "all Ability Scores",
             "all of your Ability Scores",
             "Well-Rounded"
+        ]
+    },
+    {
+        "name": "Sundering",
+        "synonyms": [
+            "Sunder"
+        ]
+    },
+    {
+        "name": "Vertigo",
+        "synonyms": [
+            "Trip"
         ]
     }
 ]

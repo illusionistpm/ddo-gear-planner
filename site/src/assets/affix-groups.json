@@ -79,6 +79,21 @@
     },
     {
         "affixes": [
+            "Nullification Lore",
+            "Radiance Lore",
+            "Devotion Lore",
+            "Corrosion Lore",
+            "Combustion Lore",
+            "Magnetic Lore",
+            "Glaciation Lore",
+            "Reconstruction Lore",
+            "Impulse Lore",
+            "Resonance"
+        ],
+        "name": "Spell Lore"
+    },
+    {
+        "affixes": [
             "Vertigo",
             "Stunning",
             "Dazing",

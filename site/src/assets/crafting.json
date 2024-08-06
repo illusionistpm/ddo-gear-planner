@@ -1939,7 +1939,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Trip",
+                        "name": "Vertigo",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -1949,7 +1949,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sunder",
+                        "name": "Sundering",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2031,7 +2031,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2115,7 +2115,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Trip",
+                        "name": "Vertigo",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2125,7 +2125,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sunder",
+                        "name": "Sundering",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -2205,7 +2205,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -5496,7 +5496,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -5670,7 +5670,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -5824,7 +5824,7 @@
                     },
                     {
                         "description": null,
-                        "name": "Universal Spell Lore",
+                        "name": "Spell Lore",
                         "type": "Exceptional",
                         "value": "5"
                     }
@@ -6045,7 +6045,7 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Universal Spell Lore",
+                        "name": "Spell Lore",
                         "type": "Insight",
                         "value": 5.0
                     }
@@ -22860,7 +22860,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -23034,7 +23034,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light and Alignment Spell Crit Damage",
+                        "name": "Radiance Spell Crit Damage",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -23190,7 +23190,7 @@
                     },
                     {
                         "description": null,
-                        "name": "Spell Focus Master",
+                        "name": "Spell Focus Mastery",
                         "type": "Exceptional",
                         "value": "2"
                     }
@@ -23206,7 +23206,7 @@
                     },
                     {
                         "description": null,
-                        "name": "Spell Focus Master",
+                        "name": "Spell Focus Mastery",
                         "type": "Exceptional",
                         "value": "2"
                     }
@@ -23222,7 +23222,7 @@
                     },
                     {
                         "description": null,
-                        "name": "Spell Focus Master",
+                        "name": "Spell Focus Mastery",
                         "type": "Exceptional",
                         "value": "2"
                     }

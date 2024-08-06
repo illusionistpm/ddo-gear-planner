@@ -159,7 +159,7 @@ def add_specific_slot_affixes_to_systems(affixes, systemName, systems, augmentNa
     copiedAffixes = affixes[::]
 
     if systemName == "Scale (Weapon)" and (augmentName == "Brightscale" or augmentName == "Shadowscale" or augmentName == "Iridiscent Scale"):
-        copiedAffixes.append(create_affix("Spell Focus Master", "Exceptional", "2"))
+        copiedAffixes.append(create_affix("Spell Focus Mastery", "Exceptional", "2"))
 
         systems["Scale " + quarterstaffSystemName]['*'].append({
             'affixes': copiedAffixes,

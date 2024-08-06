@@ -2,9 +2,9 @@
     <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h1>
-        <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)"> - {{bonusType}}</span>
-    </h1>
+    <h2>
+        <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
+    </h2>
 
     <div *ngIf="sets.length">
         <div class="row">

@@ -5,3 +5,16 @@
     color: white;
     padding-left: 25px;
 }
+
+.custom-close {
+    font-size: 2rem;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    background: none;
+    color: inherit;
+  }
+  
+.custom-close span {
+    display: inline-block;
+    line-height: 1;
+}

@@ -1,10 +1,10 @@
 <div class='modal-body'>
-    <h1>
-        <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)"> - {{bonusType}}</span>
-        <button type="button" class="close float-end" aria-label="Close" (click)="close()">
-            
-        </button>
-    </h1>
+    <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h2>
+        <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
+    </h2>
 
     <div *ngIf="sets.length">
         <div class="row">
@@ -31,7 +31,7 @@
             <div class="col-2"></div>
         </div>
 
-        <div class="row" *ngFor="let item of matches">
+        <div class="row" *ngFor="let item of matches.slice(0,100)">
             <div class="col-1">{{item.ml}}</div>
             <div class="col-2">{{item.slot}}</div>
             <div class="col-6"><a href="{{item.getURL()}}"
@@ -46,7 +46,7 @@
         <h3>Already Filled Slots</h3>
         <i>
 
-            <div class="row" *ngFor="let item of lockedMatches">
+            <div class="row" *ngFor="let item of lockedMatches.slice(0,100)">
                 <div class="col-1">{{item.ml}}</div>
                 <div class="col-2">{{item.slot}}</div>
                 <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>

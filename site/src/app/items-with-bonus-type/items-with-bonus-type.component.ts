@@ -5,9 +5,11 @@ import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 import { Affix } from '../affix';
+import { Craftable } from '../craftable';
 
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { AffixService } from '../affix.service';
+import { CraftableOption } from '../craftable-option';
 
 @Component({
   selector: 'app-items-with-bonus-type',
@@ -21,6 +23,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
 
   matches: Array<Item>;
   lockedMatches: Array<Item>;
+
+  matchingAugments: Array<CraftableOption>;
 
   sets: Array<[string, number, number]>;
 
@@ -46,6 +50,8 @@ export class ItemsWithBonusTypeComponent implements OnInit {
         this.lockedMatches.push(item);
       }
     }
+
+    this.matchingAugments = this.gearDB.findAugmentsWithAffixAndType(this.affixName, this.bonusType) as Array<CraftableOption>;
 
     // JAK: FIXME!! I need to add sets to the bonus type list
     this.sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);

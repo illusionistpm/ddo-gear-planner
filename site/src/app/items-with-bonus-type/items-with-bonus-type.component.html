@@ -6,6 +6,20 @@
         <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
     </h2>
 
+    <div *ngIf="matchingAugments.length">
+        <div class="row">
+            <div class="col-2"><b>Pieces</b></div>
+            <div class="col-6"><b>Set</b></div>
+            <div class="col-2"><b>Value</b></div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="row" *ngFor="let augment of matchingAugments">
+            <div class="col-2">{{augment.describe()}}</div>
+            <button class="col-2" (click)="showItemsInSet(augment.name)">View</button>
+        </div>
+    </div>
+
     <div *ngIf="sets.length">
         <div class="row">
             <div class="col-2"><b>Pieces</b></div>

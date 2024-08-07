@@ -11,10 +11,12 @@ import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
-import craftingListOrig from 'src/assets/crafting.json';
+import craftingListOrigRaw from 'src/assets/crafting.json';
 import cannithList from 'src/assets/cannith.json';
 import setList from 'src/assets/sets.json';
 import { AffixService } from './affix.service';
+
+const craftingListOrig = craftingListOrigRaw as unknown as Map<string, Map<string, Array<CraftableOption>>>;
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ import { AffixService } from './affix.service';
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
   private allGear: Map<string, Array<Item>>;
-  private craftingList;
+  private craftingList: Map<string, Map<string, Array<CraftableOption>>>;
 
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
@@ -352,6 +354,18 @@ export class GearDbService {
           }
         }
       }
+    }
+
+    return results;
+  }
+
+  findAugmentsWithAffixAndType(affixName, bonusType): Array<CraftableOption> {
+    let results = [];
+    const augmentTypes = Object.keys(this.craftingList).filter(c => c.endsWith(' Augment Slot'));
+    for (const augmentType of augmentTypes) {
+      const augments = this.craftingList[augmentType]['*'];
+      const filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType));
+      results = results.concat(filteredAugments);
     }
 
     return results;

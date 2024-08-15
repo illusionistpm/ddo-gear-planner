@@ -16,6 +16,7 @@ def get_item_page_urls():
     itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
 
     itemPages.append('Category:Quiver_items')
+    itemPages.append('Category:Item_augments')
 
     return itemPages
 

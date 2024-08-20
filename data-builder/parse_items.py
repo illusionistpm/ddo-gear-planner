@@ -201,17 +201,62 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         for affix in remove:
             item['affixes'].remove(affix)
 
-        items.append(item)
+        # case exists if the item is really an item augment
+        # in those cases we add the augment to the crafting systems map instead of the items map
+        if category == 'Item augments':
+            itemAugmentMap            = {}
+            itemAugmentMap['ml']      = item['ml']
+            itemAugmentMap['name']    = item['name']
+            itemAugmentMap['affixes'] = item['affixes']
+
+            itemAugmentSlotType = fields[cols['Type']].getText().strip()
+
+            # *** temporary modification to only injest Sun and Moon augments
+            if ((itemAugmentSlotType != 'Moon augments') and (itemAugmentSlotType != 'Sun augments')):
+                continue
+
+            # *** probably want to create a map to transform these names at some point
+            if itemAugmentSlotType == 'Moon augments':
+                itemAugmentSlotType = 'Moon Augment Slot'
+            if itemAugmentSlotType == 'Sun augments':
+                itemAugmentSlotType = 'Sun Augment Slot'
+
+            if itemAugmentSlotType not in craftingSystems:
+                craftingSystems[itemAugmentSlotType]      = {}
+                craftingSystems[itemAugmentSlotType]['*'] = []
+
+            # add some logic to prevent adding duplicate entries to crafting set
+            # ideally, duplicates would not be encountered, but during testing, this can happen
+            augmentExistsInCraftingSystems = False
+            for itemAugment in craftingSystems[itemAugmentSlotType]['*']:
+                if itemAugmentMap['name'] == itemAugment['name']:
+                    augmentExistsInCraftingSystems = True
+
+            if not augmentExistsInCraftingSystems:
+                craftingSystems[itemAugmentSlotType]['*'].append(itemAugmentMap)
+
+        else:
+            items.append(item)
 
     return items
 
 
 def parse_items():
     crafting = read_json('crafting')
-    sets = read_json('sets')
+    sets     = read_json('sets')
+    items    = []
 
-    cachePath = "./cache/items/"
-    items = []
+    cachePath            = './cache/items/'
+    itemAugmentsFilename = 'Item_augments.html'
+
+    fileList = os.listdir(cachePath)
+
+    # we reposition the Item_augments page to be at the beginning
+    # so that proper crafting sets can be populuated
+    # before equippable items are processed
+    fileList.remove(itemAugmentsFilename)
+    fileList.insert(0, itemAugmentsFilename)
+
     for file in os.listdir(cachePath):
         if include_page(file):
             items.extend(get_items_from_page(cachePath + file, crafting, sets))

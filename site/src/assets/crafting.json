@@ -7325,6 +7325,428 @@
             }
         ]
     },
+    "Moon Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Accuracy (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Charisma (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Constitution (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Dexterity (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Profane",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Healing Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Intelligence (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Profane",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Magical Protection (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Profane",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Melee Power (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural armor",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Natural Armor (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Negative Amplification",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Negative Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Profane",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Physical Protection (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ranged Power",
+                        "type": "Profane",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Ranged Power (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Profane",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Repair Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Spell Difficulty (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Profane",
+                        "value": "15"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Spellpower (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Strength (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm Charge Rate",
+                        "type": "Profane",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Swift Charging (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Wisdom (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Damage",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Weapon Damage (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Charisma (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Constitution (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Dexterity (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Profane",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Healing Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Intelligence (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Profane",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Magical Protection (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Profane",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Melee Power (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural armor",
+                        "value": "10"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Natural Armor (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Negative Amplification",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Negative Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Profane",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Physical Protection (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ranged Power",
+                        "type": "Profane",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Ranged Power (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Profane",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Repair Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Spell Difficulty (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Profane",
+                        "value": "25"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Spellpower (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Strength (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm Charge Rate",
+                        "type": "Profane",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Swift Charging (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Wisdom (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Lunar Gem of Accuracy (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Damage",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Lunar Gem of Weapon Damage (Heroic)"
+            }
+        ]
+    },
     "Nearly Finished": {
         "Black Satin Waist": [
             {
@@ -24174,6 +24596,846 @@
                         "value": 70
                     }
                 ]
+            }
+        ]
+    },
+    "Sun Augment Slot": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "+5% Artifact Bonus to Armor Class",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Armor Layers (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Assassination (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Charisma (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Constitution (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+5% Artifact Bonus to Damage to helpless enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Cruelty (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Dexterity (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Dodge (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Artifact",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Doubleshot (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Artifact",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Doublestrike (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Conditioning",
+                        "type": "Legendary",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Enduring (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Fortification Bypass (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Fortitude (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Healing Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Imbue Dice",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Imbuement (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Intelligence (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+10 Artifact Bonus to Magical Resistance Rating Cap",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of MRR Cap (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Magical Resistance Rating (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Artifact",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Melee Power (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Negative Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Physical Resistance Rating (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ranged Power",
+                        "type": "Artifact",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Ranged Power (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Reflex (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Repair Amplification (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+1 Artifact Bonus to Sneak Attack Damage",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Sneak Attack Damage (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+1 Artifact Bonus to Sneak Attack Dice",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Sneak Attack Dice (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Spell Critical Chance (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Spell Crit Damage",
+                        "type": "Legendary",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Spell Critical Damage (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Spell DCs (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Spell Penetration (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Spellpower (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Strength (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+5% Artifact Bonus to Strikethrough",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Strikethrough (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm Charge Rate",
+                        "type": "Artifact",
+                        "value": "5"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Swift Charging (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Tactical DCs (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diversion",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Threat Decrease (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Incite",
+                        "type": "Artifact",
+                        "value": "50"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Threat Increase (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Will (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Solar Gem of Wisdom (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+15% Artifact Bonus to Armor Class",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Armor Layers (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Assassination (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Charisma (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Constitution (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+15% Artifact Bonus to Damage to helpless enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Cruelty (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Dexterity (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Dodge (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Doubleshot (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Doublestrike (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Conditioning",
+                        "type": "Legendary",
+                        "value": "10"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Enduring (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Fortification Bypass (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Fortitude (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Healing Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Imbue Dice",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Imbuement (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Intelligence (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+30 Artifact Bonus to Magical Resistance Rating Cap",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of MRR Cap (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Magical Resistance Rating (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Melee Power (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Negative Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Physical Resistance Rating (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ranged Power",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Ranged Power (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Reflex (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Artifact",
+                        "value": "30"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Repair Amplification (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+3 Artifact Bonus to Sneak Attack Damage",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Sneak Attack Damage (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+3 Artifact Bonus to Sneak Attack Dice",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Sneak Attack Dice (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Spell Critical Chance (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Spell Crit Damage",
+                        "type": "Legendary",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Spell Critical Damage (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Spell DCs (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Spell Penetration (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Artifact",
+                        "value": "25"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Spellpower (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Strength (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+15% Artifact Bonus to Strikethrough",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Strikethrough (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm Charge Rate",
+                        "type": "Artifact",
+                        "value": "15"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Swift Charging (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Tactical DCs (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diversion",
+                        "type": "Artifact",
+                        "value": "20"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Threat Decrease (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Incite",
+                        "type": "Artifact",
+                        "value": "100"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Threat Increase (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Will (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": "30",
+                "name": "Solar Gem of Wisdom (Legendary)"
             }
         ]
     },

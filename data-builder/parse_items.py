@@ -212,13 +212,13 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
             itemAugmentSlotType = fields[cols['Type']].getText().strip()
 
             # *** temporary modification to only injest Sun and Moon augments
-            if ((itemAugmentSlotType != 'Moon') and (itemAugmentSlotType != 'Sun')):
+            if ((itemAugmentSlotType != 'Moon augments') and (itemAugmentSlotType != 'Sun augments')):
                 continue
 
             # *** probably want to create a map to transform these names at some point
-            if itemAugmentSlotType == 'Moon':
+            if itemAugmentSlotType == 'Moon augments':
                 itemAugmentSlotType = 'Moon Augment Slot'
-            if itemAugmentSlotType == 'Sun':
+            if itemAugmentSlotType == 'Sun augments':
                 itemAugmentSlotType = 'Sun Augment Slot'
 
             if itemAugmentSlotType not in craftingSystems:

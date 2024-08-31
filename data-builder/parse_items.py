@@ -59,6 +59,9 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
     for idx, col in enumerate(table.find_all('th')):
         cols[col.getText().strip()] = idx
 
+    if 'Minimum level' in cols:
+        cols['ML'] = cols['Minimum level']
+
     rows = table.find_all('tr', recursive=False)
 
     for q in ['Location', 'Quest', 'Quests']:
@@ -203,22 +206,22 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
         # case exists if the item is really an item augment
         # in those cases we add the augment to the crafting systems map instead of the items map
-        if category == 'Item augments':
+        if category == 'Raw data/Item augments':
             itemAugmentMap            = {}
             itemAugmentMap['ml']      = item['ml']
             itemAugmentMap['name']    = item['name']
             itemAugmentMap['affixes'] = item['affixes']
 
-            itemAugmentSlotType = fields[cols['Type']].getText().strip()
+            itemAugmentSlotType = fields[cols['Augment type']].getText().strip()
 
             # *** temporary modification to only injest Sun and Moon augments
-            if ((itemAugmentSlotType != 'Moon augments') and (itemAugmentSlotType != 'Sun augments')):
+            if ((itemAugmentSlotType != 'Moon') and (itemAugmentSlotType != 'Sun')):
                 continue
 
             # *** probably want to create a map to transform these names at some point
-            if itemAugmentSlotType == 'Moon augments':
+            if itemAugmentSlotType == 'Moon':
                 itemAugmentSlotType = 'Moon Augment Slot'
-            if itemAugmentSlotType == 'Sun augments':
+            if itemAugmentSlotType == 'Sun':
                 itemAugmentSlotType = 'Sun Augment Slot'
 
             if itemAugmentSlotType not in craftingSystems:
@@ -247,17 +250,18 @@ def parse_items():
     items    = []
 
     cachePath            = './cache/items/'
-    itemAugmentsFilename = 'Item_augments.html'
+    itemAugmentsFilename = 'Raw_data_Item_augments.html'
 
     fileList = os.listdir(cachePath)
 
     # we reposition the Item_augments page to be at the beginning
     # so that proper crafting sets can be populuated
     # before equippable items are processed
-    fileList.remove(itemAugmentsFilename)
-    fileList.insert(0, itemAugmentsFilename)
+    if itemAugmentsFilename in fileList:
+        fileList.remove(itemAugmentsFilename)
+        fileList.insert(0, itemAugmentsFilename)
 
-    for file in os.listdir(cachePath):
+    for file in fileList:
         if include_page(file):
             items.extend(get_items_from_page(cachePath + file, crafting, sets))
 

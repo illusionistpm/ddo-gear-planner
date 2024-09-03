@@ -266,9 +266,15 @@ def parse_items():
             items.extend(get_items_from_page(cachePath + file, crafting, sets))
 
     items.sort(key=lambda x: x['name'])
-
-    write_json(crafting, 'crafting')
     write_json(items, 'items')
+
+    # add sorting to crafting system entries
+    for craftingSystemName in crafting.keys():
+        for craftingSystemItem in crafting[craftingSystemName]:
+            if isinstance(crafting[craftingSystemName][craftingSystemItem], list):
+                crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x.get('name', ''))
+     write_json(crafting, 'crafting')
+
 
 def change_dino_item_affix_name(affix, item):
     affixName = affix['name']

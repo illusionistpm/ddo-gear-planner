@@ -16,7 +16,7 @@ def get_item_page_urls():
     itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
 
     itemPages.append('Category:Quiver_items')
-    itemPages.append('Category:Item_augments')
+    itemPages.append('Raw_data/Item_augments')
 
     return itemPages
 
@@ -30,7 +30,7 @@ def get_item_type_urls():
         ]
 
 def download_page(url, cacheDir):
-    filename = url.split(':')[-1]
+    filename = url.split(':')[-1].replace("/","_")
     path = cacheDir + filename + '.html'
     if os.path.exists(path):
         print(filename + " already exists")

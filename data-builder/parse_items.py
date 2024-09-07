@@ -43,6 +43,34 @@ def build_cat_map():
 def get_items_from_page(itemPageURL, craftingSystems, sets):
     synonymMap = get_inverted_synonym_map()
 
+    augmentNameTransformMap = {
+        'Isle of Dread: Claw (Accessory)'  : 'Claw (Accessory)',
+        'Isle of Dread: Claw (Weapon)'     : 'Claw (Weapon)',
+        'Isle of Dread: Fang (Accessory)'  : 'Fang (Accessory)',
+        'Isle of Dread: Fang (Armor)'      : 'Fang (Armor)',
+        'Isle of Dread: Fang (Weapon)'     : 'Fang (Weapon)',
+        'Isle of Dread: Horn (Accessory)'  : 'Horn (Accessory)',
+        'Isle of Dread: Horn (Weapon)'     : 'Horn (Weapon)',
+        'Isle of Dread: Scale (Accessory)' : 'Scale (Accessory)',
+        'Isle of Dread: Scale (Armor)'     : 'Scale (Armor)',
+        'Isle of Dread: Scale (Weapon)'    : 'Scale (Weapon)',
+        'Isle of Dread: Set Bonus'         : 'Isle of Dread: Set Bonus Slot: Empty',
+        'Moon'                             : 'Moon Augment Slot',
+        'Sun'                              : 'Sun Augment Slot',
+    }
+
+    augmentsWithArtifactVariantList = [
+        'Claw (Accessory)',
+        'Fang (Accessory)',
+        'Horn (Accessory)',
+        'Scale (Accessory)',
+    ]
+
+    augmentsWithQuarterstaffVariantList = [
+        'Fang (Weapon)',
+        'Scale (Weapon)',
+    ]
+
     print("Parsing " + itemPageURL)
     page = open(itemPageURL, "r", encoding='utf-8').read()
 
@@ -58,6 +86,9 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
     table = soup.find(id='bodyContent').find(id='mw-content-text').find('div').find('table', class_="wikitable").find('tbody')
     for idx, col in enumerate(table.find_all('th')):
         cols[col.getText().strip()] = idx
+
+    if 'Minimum level' in cols:
+        cols['ML'] = cols['Minimum level']
 
     rows = table.find_all('tr', recursive=False)
 
@@ -158,12 +189,37 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         remove = []
 
         for affix in item['affixes']:
-            affix = change_dino_item_affix_name(affix, item)
             affix = change_lost_purpose_affix_name(affix, item)
 
             if affix['name'] in craftingSystems:
                 if 'crafting' not in item.keys():
                     item['crafting'] = []
+
+                # *** temporary solution until more long term solution can be built out
+                # *** using ddowiki artifact properties on items and item based crafting support in crafting system map
+                # unique case exists where we need to hard code support to use a custom crafting system for isle of dread quarterstaffs
+                if item['name'] in ['Attuned Bone Quarterstaff', 'Dinosaur Bone Quarterstaff']:
+                    if affix['name'] == 'Fang (Weapon)':
+                        affix['name'] = 'Fang (Weapon - Quarterstaff)'
+                    if affix['name'] == 'Scale (Weapon)':
+                        affix['name'] = 'Scale (Weapon - Quarterstaff)'
+                # unique case exists where we need to hard code support to use a custom crafting system for isle of dread artifacts
+                elif item['name'] in [
+                    'Dinosaur Bone Belt',
+                    'Dinosaur Bone Boots',
+                    'Dinosaur Bone Bracers',
+                    'Dinosaur Bone Gloves',
+                    'Dinosaur Bone Necklace',
+                    'Dinosaur Bone Ring']:
+                    if affix['name'] == 'Scale (Accessory)':
+                        affix['name'] = 'Scale (Accessory - Artifact)'
+                    if affix['name'] == 'Fang (Accessory)':
+                        affix['name'] = 'Fang (Accessory - Artifact)'
+                    if affix['name'] == 'Claw (Accessory)':
+                        affix['name'] = 'Claw (Accessory - Artifact)'
+                    if affix['name'] == 'Horn (Accessory)':
+                        affix['name'] = 'Horn (Accessory - Artifact)'
+
                 item['crafting'].append(affix['name'])
                 remove.append(affix)
 
@@ -203,43 +259,112 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
         # case exists if the item is really an item augment
         # in those cases we add the augment to the crafting systems map instead of the items map
-        if category == 'Item augments':
-            itemAugmentMap            = {}
-            itemAugmentMap['ml']      = item['ml']
-            itemAugmentMap['name']    = item['name']
-            itemAugmentMap['affixes'] = item['affixes']
+        if category == 'Raw data/Item augments':
+            # some properties that are specific to equippable items are not required/desired for items augments, so we remove them
+            item.pop('slot')
+            item.pop('type')
+            item.pop('url') # this may be helpful at some point in the future to add back in (?)
 
-            itemAugmentSlotType = fields[cols['Type']].getText().strip()
+            augmentType = augmentNameTransformMap[fields[cols['Augment type']].getText().strip()]
 
-            # *** temporary modification to only injest Sun and Moon augments
-            if ((itemAugmentSlotType != 'Moon augments') and (itemAugmentSlotType != 'Sun augments')):
-                continue
+            # unique case exists when processing set bonus augments
+            if (augmentType == 'Isle of Dread: Set Bonus Slot: Empty'):
+                # when an augment is going in to a set bonus slot, we can assume we only need to populate name and set values
+                setName = re.search(r'^.*Set Bonus: (.*)$', item['name']).group(1).strip()
+                item = {
+                    'name' : setName,
+                    'set'  : setName,
+                }
 
-            # *** probably want to create a map to transform these names at some point
-            if itemAugmentSlotType == 'Moon augments':
-                itemAugmentSlotType = 'Moon Augment Slot'
-            if itemAugmentSlotType == 'Sun augments':
-                itemAugmentSlotType = 'Sun Augment Slot'
+            # unique case exists when processing augments going in artifacts and quarterstaffs
+            # crafting logic doesnt support conventional approach so unique crafting systems are created
+            if (augmentType in (augmentsWithArtifactVariantList + augmentsWithQuarterstaffVariantList)):
+                # custom affix map for artifact version
+                augmentArtifactAffixList     = []
+                # custom affix map for quarterstaff version
+                augmentQuarterstaffAffixList = []
 
-            if itemAugmentSlotType not in craftingSystems:
-                craftingSystems[itemAugmentSlotType]      = {}
-                craftingSystems[itemAugmentSlotType]['*'] = []
+                # loop through each affix and
+                # - add affix to the respective artifact or quarterstaff affix list if the flag is set
+                # - add affix to both artifact and quarterstaff affix lists if no unique flag is set
+                # - do some checks to replace base (common) affix with custom affix if collission detected
+                for affix in item['affixes'][:]:
+                    if ('uniquePropertyRequired' in affix):
+                        if (affix['uniquePropertyRequired'] == 'Minor Artifact'):
+                            affixList = augmentArtifactAffixList
+                        elif (affix['uniquePropertyRequired'] == 'Quarterstaff'):
+                            affixList = augmentQuarterstaffAffixList
 
-            # add some logic to prevent adding duplicate entries to crafting set
-            # ideally, duplicates would not be encountered, but during testing, this can happen
-            augmentExistsInCraftingSystems = False
-            for itemAugment in craftingSystems[itemAugmentSlotType]['*']:
-                if itemAugmentMap['name'] == itemAugment['name']:
-                    augmentExistsInCraftingSystems = True
+                        # remove any duplicates found in custom affix list
+                        for i, val in enumerate(affixList[:]):
+                            if affixList[i]['name'] == affix['name']:
+                                affixList.pop(i)
 
-            if not augmentExistsInCraftingSystems:
-                craftingSystems[itemAugmentSlotType]['*'].append(itemAugmentMap)
+                        # remove property indicating unique property required
+                        affix.pop('uniquePropertyRequired')
+
+                        # add the affix to the custom affix list
+                        affixList.append(affix)
+
+                        # remove affix from the base item affix list
+                        item['affixes'].remove(affix)
+                    else:
+                        # add an unqualified affix to artifact affix list if not found
+                        affixAlreadyExists = False
+                        for augmentAffix in augmentArtifactAffixList:
+                            if augmentAffix['name'] == affix['name']:
+                                affixAlreadyExists = True
+                        if not affixAlreadyExists:
+                            augmentArtifactAffixList.append(affix)
+
+                        # add an unqualified affix to quarterstaff affix list if not found
+                        affixAlreadyExists = False
+                        for augmentAffix in augmentQuarterstaffAffixList:
+                            if augmentAffix['name'] == affix['name']:
+                                affixAlreadyExists = True
+                        if not affixAlreadyExists:
+                            augmentQuarterstaffAffixList.append(affix)
+
+                # after processing all affixes, add the custom artifact variant to the crafting system map
+                if (augmentType in augmentsWithArtifactVariantList):
+                    itemArtifactVariant = item.copy()
+                    itemArtifactVariant['affixes'] = augmentArtifactAffixList
+                    add_entry_to_crafting_map(augmentType.replace(')', ' - Artifact)'), itemArtifactVariant, craftingSystems)
+
+                # after processing all affixes, add the custom quarterstaff variant to the crafting system map
+                if (augmentType in augmentsWithQuarterstaffVariantList):
+                    itemQuarterstaffVariant = item.copy()
+                    itemQuarterstaffVariant['affixes'] = augmentQuarterstaffAffixList
+                    add_entry_to_crafting_map(augmentType.replace(')', ' - Quarterstaff)'), itemQuarterstaffVariant, craftingSystems)
+
+            # after processing all affixes, add the common augment variant to the crafting system map
+            # (earlier processing removed entries in affix map that required custom property
+            add_entry_to_crafting_map(augmentType, item, craftingSystems)
 
         else:
             items.append(item)
 
     return items
 
+def add_entry_to_crafting_map(craftingSystemName, augmentEntry, craftingSystems):
+    # check for existence of top level system name
+    # if not found create entry and create a child wildcard entry
+    if craftingSystemName not in craftingSystems:
+        craftingSystems[craftingSystemName]      = {}
+        craftingSystems[craftingSystemName]['*'] = []
+
+    # *** this code can (should) be removed once the crafting system pass is all done by parsing raw item augments data
+    # add some logic to prevent adding duplicate augment entries to crafting set
+    # ideally, duplicates would not be encountered, but during testing, this can happen
+    augmentEntryExistsInCraftingSystems = False
+    for craftingSystemEntry in craftingSystems[craftingSystemName]['*']:
+        if augmentEntry['name'] == craftingSystemEntry['name']:
+            augmentEntryExistsInCraftingSystems = True
+
+    if not augmentEntryExistsInCraftingSystems:
+        craftingSystems[craftingSystemName]['*'].append(augmentEntry)
+
+    return(True)
 
 def parse_items():
     crafting = read_json('crafting')
@@ -247,46 +372,30 @@ def parse_items():
     items    = []
 
     cachePath            = './cache/items/'
-    itemAugmentsFilename = 'Item_augments.html'
+    itemAugmentsFilename = 'Raw_data_Item_augments.html'
 
     fileList = os.listdir(cachePath)
 
     # we reposition the Item_augments page to be at the beginning
     # so that proper crafting sets can be populuated
     # before equippable items are processed
-    fileList.remove(itemAugmentsFilename)
-    fileList.insert(0, itemAugmentsFilename)
+    if itemAugmentsFilename in fileList:
+        fileList.remove(itemAugmentsFilename)
+        fileList.insert(0, itemAugmentsFilename)
 
-    for file in os.listdir(cachePath):
+    for file in fileList:
         if include_page(file):
             items.extend(get_items_from_page(cachePath + file, crafting, sets))
 
     items.sort(key=lambda x: x['name'])
-
-    write_json(crafting, 'crafting')
     write_json(items, 'items')
 
-def change_dino_item_affix_name(affix, item):
-    affixName = affix['name']
-    itemName = item['name']
-
-    if affixName == 'Scale (Weapon)' and (itemName == "Dinosaur Bone Quarterstaff" or itemName == "Attuned Bone Quarterstaff"):
-        affix['name'] = "Scale (Weapon - Quarterstaff)"
-
-    if affixName == 'Fang (Weapon)' and (itemName == "Dinosaur Bone Quarterstaff" or itemName == "Attuned Bone Quarterstaff"):
-        affix['name'] = "Fang (Weapon - Quarterstaff)"
-
-    if is_artifact(item):
-        if affixName == "Scale (Accessory)":
-            affix['name'] = "Scale (Accessory - Artifact)"
-        elif affixName == "Fang (Accessory)":
-            affix['name'] = "Fang (Accessory - Artifact)"
-        elif affixName == "Claw (Accessory)":
-            affix['name'] = "Claw (Accessory - Artifact)"
-        elif affixName == "Horn (Accessory)":
-            affix['name'] = "Horn (Accessory - Artifact)"
-
-    return affix
+    # add sorting to crafting system entries
+    for craftingSystemName in crafting.keys():
+        for craftingSystemItem in crafting[craftingSystemName]:
+            if isinstance(crafting[craftingSystemName][craftingSystemItem], list):
+                crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x.get('name', ''))
+    write_json(crafting, 'crafting')
 
 def change_lost_purpose_affix_name(affix, item):
     if int(item['ml']) > 29 and affix['name'] == "Lost Purpose":

@@ -225,6 +225,14 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # begin logic to determine properties based on affix name
 
+    # peel out string if this affix only applies to unique item property (Minor Artifact/Quarterstaff)
+    affixNameSearch = re.search(r'^(.*)\(if (Quarterstaff|Minor Artifact)\).*$', affixName)
+    if affixNameSearch:
+        # remove the (if <UNIQUE PROPERTY>) string if found
+        affixName = affixNameSearch.group(1).strip()
+        # add a value to indicate this affix applies to items with unique property only
+        aff['uniquePropertyRequired'] = affixNameSearch.group(2).strip()
+
     # ex: +5% Quality bonus to Light and Alignment Spell Crit Damage.
     affixNameSearch = re.search(r'^(?:You have a )?\+?([0-9]+)%? ([A-Za-z]+) bonus to ([A-Za-z ]+).', affixName)
     if ((affixNameSearch) and ('name' not in aff)):

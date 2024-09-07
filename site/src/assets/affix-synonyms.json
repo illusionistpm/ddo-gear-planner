@@ -67,6 +67,12 @@
         ]
     },
     {
+        "name": "Force Spell Crit Damage",
+        "synonyms": [
+            "Force and Physical Spell Crit Damage"
+        ]
+    },
+    {
         "name": "Healing Lore",
         "synonyms": [
             "Positive Spell Crit Chance",
@@ -74,9 +80,22 @@
         ]
     },
     {
+        "name": "Light Spell Crit Damage",
+        "synonyms": [
+            "Light and Alignment Spell Crit Damage"
+        ]
+    },
+    {
         "name": "Seeker",
         "synonyms": [
             "Critical Confirmation and Critical Damage"
+        ]
+    },
+    {
+        "name": "Void Lore",
+        "synonyms": [
+            "Negative Spell Crit Chance",
+            "Negative Lore"
         ]
     },
     {
@@ -111,12 +130,6 @@
         "synonyms": [
             "Magical Resistance Rating Cap",
             "MRR Cap"
-        ]
-    },
-    {
-        "name": "Radiance Spell Crit Damage",
-        "synonyms": [
-            "Light and Alignment Spell Crit Damage"
         ]
     },
     {
@@ -166,13 +179,6 @@
         ]
     },
     {
-        "name": "Void Lore",
-        "synonyms": [
-            "Negative Spell Crit Chance",
-            "Negative Lore"
-        ]
-    },
-    {
         "name": "Universal Spell Power",
         "synonyms": [
             "Spellcasting Implement",
@@ -215,13 +221,15 @@
     {
         "name": "Sundering",
         "synonyms": [
-            "Sunder"
+            "Sunder",
+            "Sunder DC"
         ]
     },
     {
         "name": "Vertigo",
         "synonyms": [
-            "Trip"
+            "Trip",
+            "Trip DC"
         ]
     }
 ]

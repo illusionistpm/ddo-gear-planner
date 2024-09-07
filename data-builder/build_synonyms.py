@@ -22,7 +22,6 @@ def build_synonyms():
     add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'Maximum Hit Points', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])
     add(data, 'Force Spell Crit Damage', ['Force and Physical Spell Crit Damage'])
     add(data, 'Healing Lore', ['Positive Spell Crit Chance', 'Positive Spellcrit Chance'])
-    add(data, 'Negative Spell Crit Damage', ['Negative and Poision Spell Crit Damage'])
     add(data, 'Light Spell Crit Damage', ['Light and Alignment Spell Crit Damage'])
     add(data, 'Seeker', ['Critical Confirmation and Critical Damage'])
     add(data, 'Void Lore', ['Negative Spell Crit Chance', 'Negative Lore'])

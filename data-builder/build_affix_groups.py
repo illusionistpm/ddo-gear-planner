@@ -20,6 +20,7 @@ def build_affix_groups():
 
     add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
     add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Damage'])
+    add(groups, 'Negative and Poison Spell Crit Damage', ['Negative Spell Crit Damage', 'Poison Spell Crit Damage'])
     add(groups, 'Resistance', get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
     # but we treat as an affix group to keep consistency with Litany of the Dead Combat Bonus affix

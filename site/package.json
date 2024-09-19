@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "^18.1.0",
-    "@angular-devkit/build-angular": "18.2.2",
+    "@angular-devkit/build-angular": "18.2.5",
     "@angular/cli": "^18.1.0",
     "@angular/compiler-cli": "^18.1.0",
     "@angular/language-service": "^18.1.0",

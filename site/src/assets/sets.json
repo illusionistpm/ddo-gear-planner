@@ -2573,6 +2573,18 @@
             "threshold": 3
         }
     ],
+    "Last Line of Defense": [
+        {
+            "affixes": [
+                {
+                    "name": "Critical Multiplier on a roll of 19-20",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Legacy of Levikk": [
         {
             "affixes": [
@@ -3395,12 +3407,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Accuracy",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Damage",
+                    "name": "Dexterity",
                     "type": "Artifact",
                     "value": "3"
                 },

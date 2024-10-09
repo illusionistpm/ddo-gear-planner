@@ -2649,7 +2649,7 @@
                 },
                 {
                     "name": "Sneak Attack Dice",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "3"
                 },
                 {
@@ -5276,7 +5276,7 @@
                 },
                 {
                     "name": "Sneak Attack Dice",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "1"
                 },
                 {
@@ -5308,7 +5308,7 @@
                 },
                 {
                     "name": "Sneak Attack Dice",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "3"
                 },
                 {

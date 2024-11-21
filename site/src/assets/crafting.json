@@ -11455,9 +11455,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Listen +20,",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Listen",
+                        "type": "Competence",
+                        "value": "20"
                     }
                 ]
             },

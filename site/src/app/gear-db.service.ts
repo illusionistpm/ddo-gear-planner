@@ -18,6 +18,12 @@ import { AffixService } from './affix.service';
 
 const craftingListOrig = craftingListOrigRaw as unknown as Map<string, Map<string, Array<CraftableOption>>>;
 
+const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+  arr.reduce((groups, item) => {
+    (groups[key(item)] ||= []).push(item);
+    return groups;
+  }, {} as Record<K, T[]>);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -364,8 +370,18 @@ export class GearDbService {
     const augmentTypes = Object.keys(this.craftingList).filter(c => c.endsWith(' Augment Slot'));
     for (const augmentType of augmentTypes) {
       const augments = this.craftingList[augmentType]['*'];
-      const filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType));
-      results = results.concat(filteredAugments);
+      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType))
+          .map(aug => new CraftableOption(aug));
+      const groupsDict = groupBy(filteredAugments, (aug => (aug as CraftableOption).affixes.map(aff => aff.name + aff.type).join(' ')));
+
+      // Go through the groups and keep the one entry from each group with the highest value
+      const bestResults = [];
+      for (const group of groupsDict.values()) {}
+        const max = group.reduce((a, b) => a.value > b.value ? a : b);
+        bestResults.push(max);
+      }
+
+      results = results.concat(bestResults);
     }
 
     return results;

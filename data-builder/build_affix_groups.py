@@ -27,7 +27,7 @@ def build_affix_groups():
     add(groups, 'Litany of the Dead - Ability Bonus', ['Well Rounded'])
     add(groups, 'Litany of the Dead II - Ability Bonus', ['Well Rounded'])
     add(groups, 'Litany of the Dead - Combat Bonus', ['Accuracy', 'Damage'])
-    add(groups, 'Litany of the Dead II - Combat Bonus', ['Accurary', 'Damage'])
+    add(groups, 'Litany of the Dead II - Combat Bonus', ['Accuracy', 'Damage'])
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
     add(groups, 'Potency', ['Nullification', 'Radiance', 'Devotion', 'Corrosion', 'Combustion', 'Magnetic', 'Glaciation', 'Reconstruction', 'Impulse', 'Resonance'])

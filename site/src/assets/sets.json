@@ -6122,7 +6122,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "damage",
+                    "name": "Damage",
                     "type": "Profane",
                     "value": "4"
                 }
@@ -6516,7 +6516,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "damage",
+                    "name": "Damage",
                     "type": "Artifact",
                     "value": "3"
                 },

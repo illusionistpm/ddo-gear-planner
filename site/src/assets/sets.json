@@ -1182,7 +1182,7 @@
             "affixes": [
                 {
                     "name": "Sneak Attack Dice",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "3"
                 }
             ],

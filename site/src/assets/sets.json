@@ -4614,7 +4614,7 @@
         {
             "affixes": [
                 {
-                    "name": "all Spell DCs (note items display +4 for this bonus, but only +3 is actually granted)",
+                    "name": "Spell Focus Mastery",
                     "type": "Artifact",
                     "value": "3"
                 },

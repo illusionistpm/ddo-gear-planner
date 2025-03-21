@@ -24973,6 +24973,17 @@
                     {
                         "name": "Constitution",
                         "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Constitution (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Artifact",
                         "value": "2"
                     }
                 ],

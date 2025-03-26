@@ -25380,6 +25380,17 @@
                     {
                         "name": "Reflex Save",
                         "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Reflex (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Artifact",
                         "value": "1"
                     }
                 ],
@@ -25638,6 +25649,17 @@
                 ],
                 "ml": "30",
                 "name": "Solar Gem of Swift Charging (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Tactical DCs (Epic)"
             },
             {
                 "affixes": [

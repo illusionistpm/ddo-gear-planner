@@ -25028,6 +25028,17 @@
                     {
                         "name": "Dexterity",
                         "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Dexterity (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Artifact",
                         "value": "2"
                     }
                 ],
@@ -25044,6 +25055,17 @@
                 ],
                 "ml": "30",
                 "name": "Solar Gem of Dexterity (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Artifact",
+                        "value": "7"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Dodge (Epic)"
             },
             {
                 "affixes": [
@@ -25138,6 +25160,17 @@
                     {
                         "name": "Armor-Piercing",
                         "type": "Artifact",
+                        "value": "20"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Fortification Bypass (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Artifact",
                         "value": "10"
                     }
                 ],
@@ -25220,6 +25253,17 @@
                 ],
                 "ml": "30",
                 "name": "Solar Gem of Imbuement (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Intelligence (Epic)"
             },
             {
                 "affixes": [
@@ -25589,6 +25633,17 @@
                     {
                         "name": "Strength",
                         "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Strength (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Artifact",
                         "value": "2"
                     }
                 ],
@@ -25605,6 +25660,17 @@
                 ],
                 "ml": "30",
                 "name": "Solar Gem of Strength (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "+10% Artifact Bonus to Strikethrough",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Strikethrough (Epic)"
             },
             {
                 "affixes": [

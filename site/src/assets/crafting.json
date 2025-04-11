@@ -25059,17 +25059,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Dexterity",
-                        "type": "Artifact",
-                        "value": "2"
-                    }
-                ],
-                "ml": "1",
-                "name": "Solar Gem of Dexterity/sandbox"
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dodge",
                         "type": "Artifact",
                         "value": "6"

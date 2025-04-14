@@ -54,10 +54,10 @@ export class ItemsWithBonusTypeComponent implements OnInit {
       }
     }
 
-    // I want to display a list of augments that looks something like
-    // ML | Diamond of Strength +14 | ComboBox of Eligible Item/Slot combinations | 14 | Equip button
-
     // This is a map of, e.g., Diamond of Str 14 -> Boots Of Innocence -> [Blue Augment, Colorless Augment]
+    // This allows me to build a list that looks something like
+    // ML | Diamond of Strength +14 | ComboBox of Eligible Item/Slot combinations | 14 | Equip button
+    // I feel like I've overcomplicated this, but it works.
     this.optionToEligibleGear = new Map<string, Map<Item, Array<Craftable>>>();
     this.stringToOption = new Map<string, CraftableOption>();
     

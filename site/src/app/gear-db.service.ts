@@ -52,7 +52,7 @@ export class GearDbService {
     left = left + ' Augment Slot';
     right = right + ' Augment Slot';
 
-    // remove the empty item from the RHS
+    // Remove the empty item from the RHS so we don't end up with 2 of them
     const rhsOptions = this.craftingList.get(right).get('*').options.slice(1)
 
     this.craftingList.get(left).get('*').options = this.craftingList.get(left).get('*').options.concat(rhsOptions);
@@ -68,6 +68,7 @@ export class GearDbService {
   }
 
   private _buildAugmentOptions() {
+    // The craftables come in as raw JSON, but we'd really like them as their proper types. Build that now.
     this.craftingList = new Map<string, Map<string, Craftable>>();
 
     Object.keys(craftingListRaw).forEach((key) => {

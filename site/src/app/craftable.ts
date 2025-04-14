@@ -8,7 +8,7 @@ export class Craftable {
     isColoredAugmentSystem: boolean = false;
 
     constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean, addEmptyOption: boolean = true) {
-        // name stats with "purple "
+        // Mark all of the traditional, "colored" augment systems. They're numerous and get filtered out sometimes.
         ['Blue ', 'Yellow ', 'Red ', 'Purple ', 'Orange ', 'Green ', 'Colorless '].forEach(color => {
             if (name && name.startsWith(color)) {
                 this.isColoredAugmentSystem = true;

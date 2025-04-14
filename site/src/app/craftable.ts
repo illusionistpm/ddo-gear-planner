@@ -5,12 +5,25 @@ export class Craftable {
     options: Array<CraftableOption>;
     selected: CraftableOption;
     hiddenFromAffixSearch: boolean;
+    isColoredAugmentSystem: boolean = false;
 
-    constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean) {
+    constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean, addEmptyOption: boolean = true) {
+        // name stats with "purple "
+        ['Blue ', 'Yellow ', 'Red ', 'Purple ', 'Orange ', 'Green ', 'Colorless '].forEach(color => {
+            if (name && name.startsWith(color)) {
+                this.isColoredAugmentSystem = true;
+            }
+        });
+
         this.name = name;
-        const emptyOption = new CraftableOption(null);
-        this.options = [emptyOption].concat(options);
-        this.selected = emptyOption;
+        if (addEmptyOption) {
+            const emptyOption = new CraftableOption(null);
+            this.options = [emptyOption].concat(options);
+            this.selected = emptyOption;
+        } else {
+            this.options = options;
+            this.selected = this.options[0];
+        }
         this.hiddenFromAffixSearch = hiddenFromAffixSearch;
     }
 

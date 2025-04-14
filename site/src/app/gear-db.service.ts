@@ -11,12 +11,10 @@ import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
-import craftingListOrigRaw from 'src/assets/crafting.json';
+import craftingListRaw from 'src/assets/crafting.json';
 import cannithList from 'src/assets/cannith.json';
 import setList from 'src/assets/sets.json';
 import { AffixService } from './affix.service';
-
-const craftingListOrig = craftingListOrigRaw as unknown as Map<string, Map<string, Array<CraftableOption>>>;
 
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
@@ -30,7 +28,7 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
 export class GearDbService {
   private gear: Map<string, Array<Item>>;
   private allGear: Map<string, Array<Item>>;
-  private craftingList: Map<string, Map<string, Array<CraftableOption>>>;
+  private craftingList: Map<string, Map<string, Craftable>>;
 
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
@@ -54,24 +52,38 @@ export class GearDbService {
     left = left + ' Augment Slot';
     right = right + ' Augment Slot';
 
-    if (!this.craftingList[left]) {
-      this.craftingList[left] = { '*': [], 'hiddenFromAffixSearch': true };
-    }
+    // remove the empty item from the RHS
+    const rhsOptions = this.craftingList.get(right).get('*').options.slice(1)
 
-    this.craftingList[left]['*'] = this.craftingList[left]['*'].concat(this.craftingList[right]['*']);
+    this.craftingList.get(left).get('*').options = this.craftingList.get(left).get('*').options.concat(rhsOptions);
   }
 
   private _sortAugmentList(name) {
     name = name + ' Augment Slot';
-    this.craftingList[name]['*'] = this.craftingList[name]['*'].sort((a, b) => {
-      const aStr = a.name ? a.name : a.affixes[0].name;
-      const bStr = b.name ? b.name : b.affixes[0].name;
+    this.craftingList.get(name).get('*').options = this.craftingList.get(name).get('*').options.sort((a, b) => {
+      const aStr = a.name ? a.name : a.affixes[0] ? a.affixes[0].name : '';
+      const bStr = b.name ? b.name : b.affixes[0] ? b.affixes[0].name : '';
       return aStr.localeCompare(bStr);
     });
   }
 
   private _buildAugmentOptions() {
-    this.craftingList = craftingListOrig;
+    this.craftingList = new Map<string, Map<string, Craftable>>();
+
+    Object.keys(craftingListRaw).forEach((key) => {
+      const innerMap = new Map<string, Craftable>();
+      Object.keys(craftingListRaw[key]).forEach((innerKey) => {
+        // HACK! I probably need to fix the JSON format to remove this
+        if (innerKey === 'hiddenFromAffixSearch') {
+          return;
+        }
+
+        const options = Array.prototype.map.call(craftingListRaw[key][innerKey], (option) => new CraftableOption(option));
+        const craftable = new Craftable(key, options, craftingListRaw[key][innerKey]['hiddenFromAffixSearch']);
+        innerMap.set(innerKey, craftable);
+      });
+      this.craftingList.set(key, innerMap);
+    });   
 
     this._mergeAugmentLists('Purple', 'Blue');
     this._mergeAugmentLists('Purple', 'Red');
@@ -114,18 +126,13 @@ export class GearDbService {
       if (newItem.rawCrafting) {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
-          if (craftingSystem && this.craftingList[craftingSystem]) {
-            const newOptions = [];
-            let options = this.craftingList[craftingSystem][item.name];
-            if (!options) {
-              options = this.craftingList[craftingSystem]['*'];
+          if (craftingSystem && this.craftingList.get(craftingSystem)) {
+            let craftable = this.craftingList.get(craftingSystem).get(item.name);
+            if (!craftable) {
+              craftable = this.craftingList.get(craftingSystem).get('*');
             }
-            if (options) {
-              for (const option of options) {
-                newOptions.push(new CraftableOption(option));
-              }
-
-              craftingOptions.push(new Craftable(craftingSystem, newOptions, this.craftingList[craftingSystem]['hiddenFromAffixSearch']));
+            if (craftable) {
+              craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
             }
           } else {
             // Not-yet-implemented crafting systems
@@ -195,9 +202,9 @@ export class GearDbService {
       }
     }
 
-    for (const system of Object.values(this.craftingList)) {
-      for (const item of Object.values(system)) {
-        for (const option of Object.values(item)) {
+    for (const itemNames of this.craftingList.values()) {
+      for (const craftable of itemNames.values()) {
+        for (const option of craftable.options) {
           if (option['ml'] && option['ml'] > maxLevel) {
             continue;
           }
@@ -365,23 +372,34 @@ export class GearDbService {
     return results;
   }
 
-  findAugmentsWithAffixAndType(affixName, bonusType): Array<CraftableOption> {
+  findAugmentsWithAffixAndType(affixName, bonusType): Array<Craftable> {
     let results = [];
-    const augmentTypes = Object.keys(this.craftingList).filter(c => c.endsWith(' Augment Slot'));
+    const augmentTypes = Array.from(this.craftingList.keys()).filter(c => c.endsWith(' Augment Slot'));
     for (const augmentType of augmentTypes) {
-      const augments = this.craftingList[augmentType]['*'];
-      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType))
-          .map(aug => new CraftableOption(aug));
-      const groupsDict = groupBy(filteredAugments, (aug => (aug as CraftableOption).affixes.map(aff => aff.name + aff.type).join(' ')));
+      const augments = this.craftingList.get(augmentType).get('*').options;
+
+      // Filter the augments to only those that have the affix and type we are looking for
+      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType)) as CraftableOption[];
+      
+      // Simplify the remaining augments to only the affix name and type
+      filteredAugments = filteredAugments.map(aug => {
+        const newAug = new CraftableOption(aug);
+        newAug.affixes = aug.affixes.filter(aff => aff.name === affixName && aff.type === bonusType);
+        return newAug;
+      });
+
+      // 
+      const groupsRecord = groupBy(filteredAugments, (aug => aug.affixes.map(aff => aff.name + aff.type).join(' ')));
 
       // Go through the groups and keep the one entry from each group with the highest value
       const bestResults = [];
-      for (const group of groupsDict.values()) {}
-        const max = group.reduce((a, b) => a.value > b.value ? a : b);
+      for (const key in groupsRecord) {
+        const group = groupsRecord[key];
+        const max = group.reduce((a, b) => a.affixes[0].value > b.affixes[0].value ? a : b);
         bestResults.push(max);
       }
 
-      results = results.concat(bestResults);
+      results = results.concat(new Craftable(augmentType, bestResults, true, false));
     }
 
     return results;

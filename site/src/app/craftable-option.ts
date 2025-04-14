@@ -54,7 +54,7 @@ export class CraftableOption {
         return null;
     }
 
-    describe() {
+    describe(includeValue: boolean = true, includeML: boolean = true) {
         if (this.name && this.name.length) {
             return this.name;
         }
@@ -66,11 +66,13 @@ export class CraftableOption {
 
             let str = this.affixes[0].name
             if (affix.hasRealType()) {
-                str += ' +' + this.affixes[0].value + ' ' + this.affixes[0].type;
-
+                if (includeValue) {
+                    str += ' +' + this.affixes[0].value;
+                }
+                str += ' ' + this.affixes[0].type;
             }
 
-            if (this.ml) {
+            if (this.ml && includeML) {
                 str += ' (ML ' + this.ml + ')';
             }
             return str;

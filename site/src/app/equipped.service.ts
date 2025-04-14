@@ -190,6 +190,15 @@ export class EquippedService {
     return slots;
   }
 
+  getSlotsSnapshot() : Map<string, Item> {
+    const slots = new Map<string, Item>();
+    for (const pair of this.slots.entries()) {
+      slots.set(pair[0], pair[1].value);
+    }
+
+    return slots;
+  }
+
   getSlotNames() {
     const slots = new Array<string>();
     for (const slot of this.slots.keys()) {

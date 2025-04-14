@@ -30,8 +30,9 @@ export class Item {
             this.rawCrafting = json.crafting;
             if (json.crafting) {
                 this.crafting = Array<Craftable>();
+                const addEmptyItem = !(json instanceof Craftable);
                 for (const craftingJSON of json.crafting) {
-                    this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch));
+                    this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch, addEmptyItem));
                 }
             }
             this.quests = json.quests;
@@ -76,11 +77,11 @@ export class Item {
         return activeAffixes;
     }
 
-    canHaveBonusType(affixName, bonusType, affixSvc: AffixService) {
-        return this.getMatchingBonusType(affixName, bonusType, affixSvc) != null;
+    canHaveBonusType(affixName, bonusType, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
+        return this.getMatchingBonusType(affixName, bonusType, affixSvc, allowColoredAugmentSystem) != null;
     }
 
-    getMatchingBonusType(affixName, bonusType, affixSvc: AffixService) {
+    getMatchingBonusType(affixName, bonusType, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
         for (const affix of this.affixes) {
             let ungroupedAffixes = affixSvc.ungroupAffix(affix);
             ungroupedAffixes = ungroupedAffixes.concat(affix);
@@ -94,6 +95,11 @@ export class Item {
 
         if (this.crafting) {
             for (const craftable of this.crafting) {
+                // We sometimes want to skip the colored augments because they're so ubiquitous.
+                if (!allowColoredAugmentSystem && craftable.isColoredAugmentSystem) {
+                    continue;
+                }
+
                 const value = craftable.getMatchingBonusType(affixName, bonusType);
                 if (value) {
                     return [craftable.name, value];

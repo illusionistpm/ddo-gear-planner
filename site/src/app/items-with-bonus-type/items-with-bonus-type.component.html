@@ -1,10 +1,48 @@
 <div class='modal-body'>
-    <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <h2>
-        <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
-    </h2>
+    <div class="row" style="background-color: white;">
+        <div class="col-10">
+            <h2>
+                <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
+            </h2>
+        </div>
+        <div class="col-2 ">
+            <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="optionToEligibleGear.size">
+        <div class="row">
+            <div class="col-1"><b>ML</b></div>
+            <div class="col-8"><b>Available Augment Slots</b></div>
+            <div class="col-1"><b>Value</b></div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="row" *ngFor="let elem of optionToEligibleGear | keyvalue">
+            <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
+            <!-- combo box for each item in entry.value-->
+            <div class="col-8">
+                <div class="row" style="background-color: transparent;">
+                    {{stringToOption.get(elem.key).describe(false, false)}} Augment
+                </div>
+                <div class="row" style="background-color: transparent;">
+                    <select [(ngModel)]="selectedAugmentSlot">
+                        <ng-container *ngFor="let innerElem of elem.value | keyvalue">
+                            <option *ngFor="let craftable of innerElem.value" [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
+                                {{innerElem.key.name}} - {{craftable.name}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+            <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
+            <button class="col-2" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
+        </div>
+
+        <hr/>
+    </div>
 
     <div *ngIf="sets.length">
         <div class="row">
@@ -20,6 +58,8 @@
             <div class="col-2">{{set[2]}}</div>
             <button class="col-2" (click)="showItemsInSet(set[0])">View</button>
         </div>
+
+        <hr/>
     </div>
 
     <div *ngIf="matches.length">

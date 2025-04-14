@@ -379,24 +379,37 @@ export class GearDbService {
       const augments = this.craftingList.get(augmentType).get('*').options;
 
       // Filter the augments to only those that have the affix and type we are looking for
-      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => aff.name === affixName && aff.type === bonusType)) as CraftableOption[];
+      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)) as CraftableOption[];
       
       // Simplify the remaining augments to only the affix name and type
       filteredAugments = filteredAugments.map(aug => {
         const newAug = new CraftableOption(aug);
-        newAug.affixes = aug.affixes.filter(aff => aff.name === affixName && aff.type === bonusType);
+        newAug.affixes = aug.affixes.filter(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType);
         return newAug;
       });
 
       // 
       const groupsRecord = groupBy(filteredAugments, (aug => aug.affixes.map(aff => aff.name + aff.type).join(' ')));
 
-      // Go through the groups and keep the one entry from each group with the highest value
+      // Go through the groups and keep all named entries, plus the unnamed one with the highest value
       const bestResults = [];
       for (const key in groupsRecord) {
         const group = groupsRecord[key];
-        const max = group.reduce((a, b) => a.affixes[0].value > b.affixes[0].value ? a : b);
-        bestResults.push(max);
+        let best = null;
+
+        for (const aug of group) {
+          if (aug.name) {
+            bestResults.push(aug);
+          } else {
+            if (!best || best.affixes[0].value < aug.affixes[0].value) {
+              best = aug;
+            }
+          }
+        }
+
+        if (best) {
+          bestResults.push(best);
+        }
       }
 
       results = results.concat(new Craftable(augmentType, bestResults, true, false));

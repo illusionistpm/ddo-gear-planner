@@ -15,7 +15,7 @@
     <div *ngIf="optionToEligibleGear.size">
         <div class="row">
             <div class="col-1"><b>ML</b></div>
-            <div class="col-8"><b>Augment Slots</b></div>
+            <div class="col-8"><b>Available Augment Slots</b></div>
             <div class="col-1"><b>Value</b></div>
             <div class="col-2"></div>
         </div>
@@ -25,7 +25,7 @@
             <!-- combo box for each item in entry.value-->
             <div class="col-8">
                 <div class="row" style="background-color: transparent;">
-                    {{stringToOption.get(elem.key).describe(false, false)}}
+                    {{stringToOption.get(elem.key).describe(false, false)}} Augment
                 </div>
                 <div class="row" style="background-color: transparent;">
                     <select [(ngModel)]="selectedAugmentSlot">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
-            <button class="col-2" (click)="equipAugment()" [disabled]="!selectedAugmentSlot">Equip</button>
+            <button class="col-2" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
         </div>
 
         <hr/>

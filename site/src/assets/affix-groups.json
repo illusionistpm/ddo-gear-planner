@@ -1,19 +1,6 @@
 [
     {
         "affixes": [
-            "Armor Class"
-        ],
-        "name": "Enhancement Bonus (Armor)"
-    },
-    {
-        "affixes": [
-            "Accuracy",
-            "Damage"
-        ],
-        "name": "Enhancement Bonus (Weapon)"
-    },
-    {
-        "affixes": [
             "Negative Spell Crit Damage",
             "Poison Spell Crit Damage"
         ],
@@ -42,14 +29,14 @@
     {
         "affixes": [
             "Accuracy",
-            "Damage"
+            "Deadly"
         ],
         "name": "Litany of the Dead - Combat Bonus"
     },
     {
         "affixes": [
-            "Accurary",
-            "Damage"
+            "Accuracy",
+            "Deadly"
         ],
         "name": "Litany of the Dead II - Combat Bonus"
     },

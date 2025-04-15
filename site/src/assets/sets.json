@@ -1674,7 +1674,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -1954,7 +1954,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -2207,7 +2207,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Profane",
                     "value": "1"
                 }
@@ -3180,7 +3180,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Profane",
                     "value": "4"
                 }
@@ -3705,7 +3705,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4026,12 +4026,12 @@
         {
             "affixes": [
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": 2
                 },
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": 2
                 },
@@ -4056,12 +4056,12 @@
                     "value": 2
                 },
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": 4
                 },
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": 4
                 },
@@ -4432,7 +4432,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4550,7 +4550,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4981,7 +4981,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -5467,12 +5467,12 @@
         {
             "affixes": [
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": 1
                 },
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": 1
                 },
@@ -5497,12 +5497,12 @@
                     "value": 1
                 },
                 {
-                    "name": "MRR",
+                    "name": "Magical Sheltering",
                     "type": "Artifact",
                     "value": 2
                 },
                 {
-                    "name": "PRR",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": 2
                 },
@@ -6122,7 +6122,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Profane",
                     "value": "4"
                 }
@@ -6372,7 +6372,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -6516,7 +6516,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Damage",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "3"
                 },

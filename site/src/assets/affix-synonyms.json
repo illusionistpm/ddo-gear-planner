@@ -35,10 +35,10 @@
         ]
     },
     {
-        "name": "Damage",
+        "name": "Deadly",
         "synonyms": [
-            "Damage Bonus",
-            "Deadly"
+            "Damage",
+            "Damage Bonus"
         ]
     },
     {

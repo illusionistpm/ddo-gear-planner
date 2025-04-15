@@ -1913,7 +1913,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Acid Spell Crit Damage"
+                "name": "Claw: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1924,7 +1927,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Assassinate"
+                "name": "Claw: Assassinate",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1935,7 +1941,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Cold Spell Crit Damage"
+                "name": "Claw: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1946,7 +1955,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Electric Spell Crit Damage"
+                "name": "Claw: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1957,7 +1969,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Fire Spell Crit Damage"
+                "name": "Claw: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1968,7 +1983,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Force Spell Crit Damage"
+                "name": "Claw: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1979,7 +1997,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Light Spell Crit Damage"
+                "name": "Claw: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -1990,7 +2011,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Magical Resistance Rating"
+                "name": "Claw: Magical Resistance Rating",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2001,7 +2025,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Negative Spell Crit Damage"
+                "name": "Claw: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2012,7 +2039,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Physical Resistance Rating"
+                "name": "Claw: Physical Resistance Rating",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2023,7 +2053,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Positive Spell Crit Damage"
+                "name": "Claw: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2034,7 +2067,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Repair Spell Crit Damage"
+                "name": "Claw: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2045,7 +2081,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Sonic Spell Crit Damage"
+                "name": "Claw: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2056,7 +2095,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Spell Penetration"
+                "name": "Claw: Spell Penetration",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2067,7 +2109,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Stunning"
+                "name": "Claw: Stunning",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2078,7 +2123,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Sunder"
+                "name": "Claw: Sunder",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2089,7 +2137,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Trip"
+                "name": "Claw: Trip",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -2104,7 +2155,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Acid Spell Crit Damage"
+                "name": "Claw: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2115,7 +2169,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Assassinate"
+                "name": "Claw: Assassinate",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2126,7 +2183,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Cold Spell Crit Damage"
+                "name": "Claw: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2137,7 +2197,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Electric Spell Crit Damage"
+                "name": "Claw: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2148,7 +2211,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Fire Spell Crit Damage"
+                "name": "Claw: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2159,7 +2225,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Force Spell Crit Damage"
+                "name": "Claw: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2170,7 +2239,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Light Spell Crit Damage"
+                "name": "Claw: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2181,7 +2253,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Magical Resistance Rating"
+                "name": "Claw: Magical Resistance Rating",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2192,7 +2267,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Negative Spell Crit Damage"
+                "name": "Claw: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2203,7 +2281,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Physical Resistance Rating"
+                "name": "Claw: Physical Resistance Rating",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2214,7 +2295,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Positive Spell Crit Damage"
+                "name": "Claw: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2225,7 +2309,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Repair Spell Crit Damage"
+                "name": "Claw: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2236,7 +2323,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Sonic Spell Crit Damage"
+                "name": "Claw: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2247,7 +2337,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Spell Penetration"
+                "name": "Claw: Spell Penetration",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2258,7 +2351,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Stunning"
+                "name": "Claw: Stunning",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2269,7 +2365,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Sunder"
+                "name": "Claw: Sunder",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2280,7 +2379,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Claw: Trip"
+                "name": "Claw: Trip",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -2295,7 +2397,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brightclaw"
+                "name": "Brightclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2306,7 +2411,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flameclaw"
+                "name": "Flameclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2317,7 +2425,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iceclaw"
+                "name": "Iceclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2328,7 +2439,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Acid"
+                "name": "Iridiscent Claw: Acid",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2339,7 +2453,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Cold"
+                "name": "Iridiscent Claw: Cold",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2350,7 +2467,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Electric"
+                "name": "Iridiscent Claw: Electric",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2361,7 +2481,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Fire"
+                "name": "Iridiscent Claw: Fire",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2372,7 +2495,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Force"
+                "name": "Iridiscent Claw: Force",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2383,7 +2509,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Light"
+                "name": "Iridiscent Claw: Light",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2394,7 +2523,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Negative"
+                "name": "Iridiscent Claw: Negative",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2405,7 +2537,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Positive"
+                "name": "Iridiscent Claw: Positive",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2416,7 +2551,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Repair"
+                "name": "Iridiscent Claw: Repair",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2427,7 +2565,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Claw: Sonic"
+                "name": "Iridiscent Claw: Sonic",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2438,7 +2579,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Meltclaw"
+                "name": "Meltclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2449,7 +2593,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowclaw"
+                "name": "Shadowclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -2460,7 +2607,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkclaw"
+                "name": "Sparkclaw",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -5421,7 +5571,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Accuracy"
+                "name": "Fang: Accuracy",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5432,7 +5585,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Acid Spell Crit Damage"
+                "name": "Fang: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5443,18 +5599,24 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Cold Spell Crit Damage"
+                "name": "Fang: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Damage",
+                        "name": "Deadly",
                         "type": "Competence",
                         "value": "12"
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Damage"
+                "name": "Fang: Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5465,7 +5627,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Deception"
+                "name": "Fang: Deception",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5476,7 +5641,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Electric Spell Crit Damage"
+                "name": "Fang: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5487,7 +5655,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Fire Spell Crit Damage"
+                "name": "Fang: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5498,7 +5669,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Force Spell Crit Damage"
+                "name": "Fang: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5509,7 +5683,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Healing Amplification"
+                "name": "Fang: Healing Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5520,7 +5697,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Light Spell Crit Damage"
+                "name": "Fang: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5531,7 +5711,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Negative Amplification"
+                "name": "Fang: Negative Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5542,7 +5725,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Negative Spell Crit Damage"
+                "name": "Fang: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5553,7 +5739,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Positive Spell Crit Damage"
+                "name": "Fang: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5564,7 +5753,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Repair Amplification"
+                "name": "Fang: Repair Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5575,7 +5767,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Repair Spell Crit Damage"
+                "name": "Fang: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5586,7 +5781,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Seeker"
+                "name": "Fang: Seeker",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5597,7 +5795,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Sonic Spell Crit Damage"
+                "name": "Fang: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -5612,7 +5813,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Accuracy"
+                "name": "Fang: Accuracy",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5623,7 +5827,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Acid Spell Crit Damage"
+                "name": "Fang: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5634,18 +5841,24 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Cold Spell Crit Damage"
+                "name": "Fang: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Damage",
+                        "name": "Deadly",
                         "type": "Competence",
                         "value": "11"
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Damage"
+                "name": "Fang: Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5656,7 +5869,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Deception"
+                "name": "Fang: Deception",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5667,7 +5883,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Electric Spell Crit Damage"
+                "name": "Fang: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5678,7 +5897,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Fire Spell Crit Damage"
+                "name": "Fang: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5689,7 +5911,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Force Spell Crit Damage"
+                "name": "Fang: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5700,7 +5925,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Healing Amplification"
+                "name": "Fang: Healing Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5711,7 +5939,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Light Spell Crit Damage"
+                "name": "Fang: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5722,7 +5953,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Negative Amplification"
+                "name": "Fang: Negative Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5733,7 +5967,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Negative Spell Crit Damage"
+                "name": "Fang: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5744,7 +5981,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Positive Spell Crit Damage"
+                "name": "Fang: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5755,7 +5995,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Repair Amplification"
+                "name": "Fang: Repair Amplification",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5766,7 +6009,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Repair Spell Crit Damage"
+                "name": "Fang: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5777,7 +6023,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Seeker"
+                "name": "Fang: Seeker",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5788,7 +6037,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fang: Sonic Spell Crit Damage"
+                "name": "Fang: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -5803,7 +6055,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Goldfang"
+                "name": "Goldfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5824,7 +6079,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Silverfang"
+                "name": "Silverfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5835,7 +6093,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Voidfang"
+                "name": "Voidfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -5850,7 +6111,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brightfang"
+                "name": "Brightfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5866,7 +6130,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flamefang"
+                "name": "Flamefang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5882,7 +6149,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Icefang"
+                "name": "Icefang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5903,7 +6173,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Fang"
+                "name": "Iridiscent Fang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5919,7 +6192,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Meltfang"
+                "name": "Meltfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5930,7 +6206,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowfang"
+                "name": "Shadowfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5946,7 +6225,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkfang"
+                "name": "Sparkfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -5961,7 +6243,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brightfang"
+                "name": "Brightfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5977,7 +6262,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flamefang"
+                "name": "Flamefang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -5993,7 +6281,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Icefang"
+                "name": "Icefang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6004,7 +6295,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Fang"
+                "name": "Iridiscent Fang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6020,7 +6314,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Meltfang"
+                "name": "Meltfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6031,7 +6328,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowfang"
+                "name": "Shadowfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6047,7 +6347,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkfang"
+                "name": "Sparkfang",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -6283,7 +6586,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Dimensional Horn"
+                "name": "Dimensional Horn",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6298,7 +6604,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fossilized Amber"
+                "name": "Fossilized Amber",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6309,7 +6618,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Armor Piercing"
+                "name": "Horn: Armor Piercing",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6320,7 +6632,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Enhanced Ghostly"
+                "name": "Horn: Enhanced Ghostly",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6331,7 +6646,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Profane DCs"
+                "name": "Horn: Profane DCs",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6342,7 +6660,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Relentless Fury"
+                "name": "Horn: Relentless Fury",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6353,7 +6674,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Resistance"
+                "name": "Horn: Resistance",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6364,7 +6688,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Sacred DCs"
+                "name": "Horn: Sacred DCs",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6375,7 +6702,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Wizardry"
+                "name": "Horn: Wizardry",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -6390,7 +6720,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Dimensional Horn"
+                "name": "Dimensional Horn",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6405,7 +6738,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fossilized Amber"
+                "name": "Fossilized Amber",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6416,7 +6752,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Armor Piercing"
+                "name": "Horn: Armor Piercing",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6427,7 +6766,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Enhanced Ghostly"
+                "name": "Horn: Enhanced Ghostly",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6438,7 +6780,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Profane DCs"
+                "name": "Horn: Profane DCs",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6449,7 +6794,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Relentless Fury"
+                "name": "Horn: Relentless Fury",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6460,7 +6808,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Resistance"
+                "name": "Horn: Resistance",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6471,7 +6822,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Sacred DCs"
+                "name": "Horn: Sacred DCs",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6482,7 +6836,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Horn: Wizardry"
+                "name": "Horn: Wizardry",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -6497,7 +6854,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Aspect of Tar"
+                "name": "Aspect of Tar",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6508,7 +6868,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Black Sands' Desire"
+                "name": "Black Sands' Desire",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -6519,7 +6882,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brighthorn"
+                "name": "Brighthorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6530,7 +6896,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flamehorn"
+                "name": "Flamehorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6541,7 +6910,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Icehorn"
+                "name": "Icehorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6552,7 +6924,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Melthorn"
+                "name": "Melthorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6563,7 +6938,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowhorn"
+                "name": "Shadowhorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -6574,7 +6952,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkhorn"
+                "name": "Sparkhorn",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -7307,6 +7688,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deception",
                         "type": "Enhancement",
                         "value": 10
@@ -7501,16 +7891,6 @@
                         "value": 142
                     }
                 ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 10
-                    }
-                ],
-                "name": "Deadly +10 Competence (1)"
             }
         ]
     },
@@ -7661,7 +8041,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Lunar Gem of Healing Amplification (Heroic)"
+                "name": "Lunar Gem of Healing Amplification (Heroic)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -7672,7 +8055,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Lunar Gem of Healing Amplification (Legendary)"
+                "name": "Lunar Gem of Healing Amplification (Legendary)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -7771,7 +8157,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Lunar Gem of Negative Amplification (Heroic)"
+                "name": "Lunar Gem of Negative Amplification (Heroic)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -7782,7 +8171,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Lunar Gem of Negative Amplification (Legendary)"
+                "name": "Lunar Gem of Negative Amplification (Legendary)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -7837,7 +8229,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Lunar Gem of Repair Amplification (Heroic)"
+                "name": "Lunar Gem of Repair Amplification (Heroic)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -7848,7 +8243,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Lunar Gem of Repair Amplification (Legendary)"
+                "name": "Lunar Gem of Repair Amplification (Legendary)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -7941,7 +8339,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Damage",
+                        "name": "Deadly",
                         "type": "Profane",
                         "value": "1"
                     }
@@ -7952,7 +8350,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Damage",
+                        "name": "Deadly",
                         "type": "Profane",
                         "value": "4"
                     }
@@ -17295,7 +17693,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Damage",
+                        "name": "Deadly",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -23322,7 +23720,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Acid Spell Crit Damage"
+                "name": "Scale: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23333,7 +23734,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Charisma"
+                "name": "Scale: Charisma",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23344,7 +23748,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Cold Spell Crit Damage"
+                "name": "Scale: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23355,7 +23762,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Constitution"
+                "name": "Scale: Constitution",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23366,7 +23776,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Dexterity"
+                "name": "Scale: Dexterity",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23377,7 +23790,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Electric Spell Crit Damage"
+                "name": "Scale: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23388,7 +23804,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: False Life"
+                "name": "Scale: False Life",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23399,7 +23818,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Fire Spell Crit Damage"
+                "name": "Scale: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23410,7 +23832,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Force Spell Crit Damage"
+                "name": "Scale: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23421,7 +23846,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Intelligence"
+                "name": "Scale: Intelligence",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23432,7 +23860,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Light Spell Crit Damage"
+                "name": "Scale: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23443,7 +23874,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Negative Spell Crit Damage"
+                "name": "Scale: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23454,7 +23888,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Positive Spell Crit Damage"
+                "name": "Scale: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23465,7 +23902,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Repair Spell Crit Damage"
+                "name": "Scale: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23476,7 +23916,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Sonic Spell Crit Damage"
+                "name": "Scale: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23487,7 +23930,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Strength"
+                "name": "Scale: Strength",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23498,7 +23944,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Wisdom"
+                "name": "Scale: Wisdom",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -23513,7 +23962,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Acid Spell Crit Damage"
+                "name": "Scale: Acid Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23524,7 +23976,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Charisma"
+                "name": "Scale: Charisma",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23535,7 +23990,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Cold Spell Crit Damage"
+                "name": "Scale: Cold Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23546,7 +24004,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Constitution"
+                "name": "Scale: Constitution",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23557,7 +24018,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Dexterity"
+                "name": "Scale: Dexterity",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23568,7 +24032,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Electric Spell Crit Damage"
+                "name": "Scale: Electric Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23579,7 +24046,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: False Life"
+                "name": "Scale: False Life",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23590,7 +24060,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Fire Spell Crit Damage"
+                "name": "Scale: Fire Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23601,7 +24074,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Force Spell Crit Damage"
+                "name": "Scale: Force Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23612,7 +24088,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Intelligence"
+                "name": "Scale: Intelligence",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23623,7 +24102,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Light Spell Crit Damage"
+                "name": "Scale: Light Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23634,7 +24116,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Negative Spell Crit Damage"
+                "name": "Scale: Negative Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23645,7 +24130,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Positive Spell Crit Damage"
+                "name": "Scale: Positive Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23656,7 +24144,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Repair Spell Crit Damage"
+                "name": "Scale: Repair Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23667,7 +24158,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Sonic Spell Crit Damage"
+                "name": "Scale: Sonic Spell Crit Damage",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23678,7 +24172,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Strength"
+                "name": "Scale: Strength",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23689,7 +24186,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Scale: Wisdom"
+                "name": "Scale: Wisdom",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -23709,7 +24209,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Bronzescale"
+                "name": "Bronzescale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23735,7 +24238,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fragment of Extraplanar Alignment"
+                "name": "Fragment of Extraplanar Alignment",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -23761,7 +24267,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Fragment of Extraplanar Shadow"
+                "name": "Fragment of Extraplanar Shadow",
+                "quests": [
+                    "Skeletons in the Closet"
+                ]
             },
             {
                 "affixes": [
@@ -23772,7 +24281,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Goldscale"
+                "name": "Goldscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23793,7 +24305,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Silverscale"
+                "name": "Silverscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23804,7 +24319,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Voidscale"
+                "name": "Voidscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -23829,7 +24347,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brightscale"
+                "name": "Brightscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23844,7 +24365,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flamescale"
+                "name": "Flamescale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23859,7 +24383,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Icescale"
+                "name": "Icescale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23880,7 +24407,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Scale"
+                "name": "Iridiscent Scale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23900,7 +24430,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Meltscale"
+                "name": "Meltscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23920,7 +24453,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowscale"
+                "name": "Shadowscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23935,7 +24471,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkscale"
+                "name": "Sparkscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -23950,7 +24489,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Brightscale"
+                "name": "Brightscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23965,7 +24507,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Flamescale"
+                "name": "Flamescale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23980,7 +24525,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Icescale"
+                "name": "Icescale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -23991,7 +24539,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Iridiscent Scale"
+                "name": "Iridiscent Scale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -24011,7 +24562,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Meltscale"
+                "name": "Meltscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -24021,7 +24575,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Shadowscale"
+                "name": "Shadowscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             },
             {
                 "affixes": [
@@ -24036,7 +24593,10 @@
                     }
                 ],
                 "ml": "31",
-                "name": "Sparkscale"
+                "name": "Sparkscale",
+                "quests": [
+                    "Village of Tanaroa"
+                ]
             }
         ]
     },
@@ -24693,6 +25253,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deception",
                         "type": "Enhancement",
                         "value": 3
@@ -24887,16 +25456,6 @@
                         "value": 70
                     }
                 ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 4
-                    }
-                ],
-                "name": "Deadly +4 Competence (1)"
             }
         ]
     },
@@ -25175,7 +25734,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Solar Gem of Fortification Bypass (Heroic)"
+                "name": "Solar Gem of Fortification Bypass (Heroic)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -25186,7 +25748,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Solar Gem of Fortification Bypass (Legendary)"
+                "name": "Solar Gem of Fortification Bypass (Legendary)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -25505,7 +26070,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Solar Gem of Sneak Attack Dice (Heroic)"
+                "name": "Solar Gem of Sneak Attack Dice (Heroic)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -25516,7 +26084,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Solar Gem of Sneak Attack Dice (Legendary)"
+                "name": "Solar Gem of Sneak Attack Dice (Legendary)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -25527,7 +26098,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Solar Gem of Spell Critical Chance (Heroic)"
+                "name": "Solar Gem of Spell Critical Chance (Heroic)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -25538,7 +26112,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Solar Gem of Spell Critical Chance (Legendary)"
+                "name": "Solar Gem of Spell Critical Chance (Legendary)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -25758,7 +26335,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Solar Gem of Threat Decrease (Heroic)"
+                "name": "Solar Gem of Threat Decrease (Heroic)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -25769,7 +26349,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Solar Gem of Threat Decrease (Legendary)"
+                "name": "Solar Gem of Threat Decrease (Legendary)",
+                "quests": [
+                    "Yegora"
+                ]
             },
             {
                 "affixes": [
@@ -25780,7 +26363,10 @@
                     }
                 ],
                 "ml": "1",
-                "name": "Solar Gem of Threat Increase (Heroic)"
+                "name": "Solar Gem of Threat Increase (Heroic)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -25791,7 +26377,10 @@
                     }
                 ],
                 "ml": "30",
-                "name": "Solar Gem of Threat Increase (Legendary)"
+                "name": "Solar Gem of Threat Increase (Legendary)",
+                "quests": [
+                    "Goranathanil"
+                ]
             },
             {
                 "affixes": [
@@ -26725,6 +27314,94 @@
                 "affixes": [
                     {
                         "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 1.0
+                    }
+                ],
+                "ml": 1.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 3.0
+                    }
+                ],
+                "ml": 4.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 4.0
+                    }
+                ],
+                "ml": 8.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 5.0
+                    }
+                ],
+                "ml": 12.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 6.0
+                    }
+                ],
+                "ml": 16.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 8.0
+                    }
+                ],
+                "ml": 20.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 9.0
+                    }
+                ],
+                "ml": 24.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 10.0
+                    }
+                ],
+                "ml": 28.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
                         "name": "Spell Penetration",
                         "type": "Equipment",
                         "value": 1.0
@@ -26838,6 +27515,17 @@
                         "name": "Sonic Resistance",
                         "type": "Enhancement",
                         "value": 45.0
+                    }
+                ],
+                "ml": 32.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": 11.0
                     }
                 ],
                 "ml": 32.0
@@ -27008,114 +27696,6 @@
                 ],
                 "ml": 28.0,
                 "name": "Crystallized Drop of Tea"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 1.0
-                    }
-                ],
-                "ml": 1.0,
-                "name": "Deadly +1 Competence (1)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 10.0
-                    }
-                ],
-                "ml": 28.0,
-                "name": "Deadly +10 Competence (28)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 11.0
-                    }
-                ],
-                "ml": 32.0,
-                "name": "Deadly +11 Competence (32)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 3.0
-                    }
-                ],
-                "ml": 4.0,
-                "name": "Deadly +3 Competence (4)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 4.0
-                    }
-                ],
-                "ml": 8.0,
-                "name": "Deadly +4 Competence (8)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 5.0
-                    }
-                ],
-                "ml": 12.0,
-                "name": "Deadly +5 Competence (12)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 6.0
-                    }
-                ],
-                "ml": 16.0,
-                "name": "Deadly +6 Competence (16)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 8.0
-                    }
-                ],
-                "ml": 20.0,
-                "name": "Deadly +8 Competence (20)"
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Damage",
-                        "type": "Competence",
-                        "value": 9.0
-                    }
-                ],
-                "ml": 24.0,
-                "name": "Deadly +9 Competence (24)"
             },
             {
                 "affixes": [

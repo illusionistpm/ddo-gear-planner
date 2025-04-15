@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
+import { AffixService } from '../affix.service';
 
 import { AffixCloud } from '../affix-cloud';
 
@@ -36,13 +37,14 @@ export class AffixCloudComponent implements OnInit {
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
+    private affixSvc: AffixService
   ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
     this.topResults = new Array<any>();
     this.ignoredSet = new Set<string>();
 
-    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e }));
+    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e, synonyms: this.affixSvc.getSynonyms(e) }));
 
     this.spellSchools = ['Evocation', 'Transmutation', 'Abjuration', 'Conjuration', 'Enchantment', 'Illusion', 'Necromancy'];
     this.tactics = ['Stunning', 'Sundering', 'Vertigo'];
@@ -168,7 +170,7 @@ export class AffixCloudComponent implements OnInit {
 
   onChange() {
     return (affix: any) => {
-      this.add(affix.name);
+      this.add(affix.original ? affix.original : affix.name);
     };
   }
 }

@@ -1,6 +1,7 @@
 import openpyxl 
 import json
 import os
+from get_inverted_synonym_map import get_inverted_synonym_map
 
 def parse_slavers_sets():
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 
@@ -11,6 +12,8 @@ def parse_slavers_sets():
             ws = wb.active 
 
     sets = {}
+
+    synMap = get_inverted_synonym_map()
 
     rows = ws.iter_rows()
     next(rows) # skip header
@@ -35,6 +38,9 @@ def parse_slavers_sets():
         
         if not 'affixes' in sets[name][-1]:
             sets[name][-1]['affixes'] = []
+
+        if affix in synMap:
+            affix = synMap[affix]
 
         aff = {}
         aff['name'] = affix

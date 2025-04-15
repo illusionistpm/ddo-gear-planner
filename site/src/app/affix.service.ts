@@ -12,6 +12,7 @@ import affixSynonymsList from 'src/assets/affix-synonyms.json';
 export class AffixService {
   affixGroups = new Map<string, Array<string>>();
   affixSynonyms = new Map<string, string>();
+  synonymsForAffix = new Map<string, Array<string>>();
 
   constructor() {
     for (const group of affixGroupsList) {
@@ -24,8 +25,10 @@ export class AffixService {
 
     for (const synonymGroup of affixSynonymsList) {
       for (const syn of synonymGroup['synonyms']) {
-        this.affixSynonyms[syn] = synonymGroup['name'];
+        this.affixSynonyms.set(syn, synonymGroup['name']);
       }
+
+      this.synonymsForAffix.set(synonymGroup['name'], synonymGroup['synonyms']);
     }
   }
 
@@ -69,6 +72,10 @@ export class AffixService {
     return this.affixSynonyms.has(affixName) ? this.affixSynonyms.get(affixName) : affixName;
   }
 
+  getSynonyms(affixName): Array<string> {
+    return this.synonymsForAffix.has(affixName) ? this.synonymsForAffix.get(affixName) : [];
+  }
+
   flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
     let flattened = [];
     for (const affix of affixes) {
@@ -96,6 +103,6 @@ export class AffixService {
   }
 
   getCanonicalName(affixName: string) {
-    return this.affixSynonyms[affixName] || affixName;
+    return this.affixSynonyms.get(affixName) || affixName;
   }
 }

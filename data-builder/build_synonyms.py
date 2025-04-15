@@ -16,7 +16,7 @@ def build_synonyms():
     # probably want to standardize on 'Armor Piercing' as the name, but re-work needs to be done on cannith crafting to remove drift
     add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass', 'Fortification bypass'])
     add(data, 'Assassinate', ['Assassinate DCs'])
-    add(data, 'Damage', ['Damage Bonus', 'Deadly'])
+    add(data, 'Deadly', ['Damage', 'Damage Bonus'])
     add(data, 'Devotion', ['Positive Spell Power', 'Positive Spellpower'])
     add(data, 'Evocation Focus', ['Evocation Spell DCs'])
     add(data, 'False Life', ['Hit Points', 'Lifeforce', 'Maximum HP', 'Maximum Hit Points', 'maximum hitpoints', 'Vitality', 'your maximum hit points'])

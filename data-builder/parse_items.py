@@ -92,7 +92,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
     rows = table.find_all('tr', recursive=False)
 
-    for q in ['Location', 'Quest', 'Quests']:
+    for q in ['Location', 'Locations', 'Quest', 'Quests']:
         if q in cols:
             questIdx = cols[q]
 

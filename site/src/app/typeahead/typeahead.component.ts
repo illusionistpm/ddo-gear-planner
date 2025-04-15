@@ -21,8 +21,14 @@ export class TypeaheadComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).sort(this._sortResults(term)).slice(0, 6))
-    )
+      map(term => {
+        return this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || v.synonyms.some(x => x.toLowerCase().indexOf(term.toLowerCase()) > -1))
+        // If the entry has any synonyms, search on them as well. If they match, we want to show an entry like "Canonical Text (Synonym)".
+        // If we matched on a synonym, we also add another field to the response, 'original', which is the canonical name.
+        .map(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ? v : {name: `${v.name} (${v.synonyms.find(x => x.toLowerCase().indexOf(term.toLowerCase()) > -1)})`, original: v.name })
+        .sort(this._sortResults(term)).slice(0, 6)
+      })
+      );
 
   constructor() { }
 

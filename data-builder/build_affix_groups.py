@@ -18,16 +18,18 @@ def build_affix_groups():
     parrying = get_all_saves()
     parrying.append('Armor Class')
 
-    add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
-    add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Damage'])
+    # Technically Armor/Weapon Enhancement Bonuses add to AC / Accuracy & Deadly, but we'd need to fake a channel for them
+    # and I don't really care about them.
+    #add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
+    #add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Deadly'])
     add(groups, 'Negative and Poison Spell Crit Damage', ['Negative Spell Crit Damage', 'Poison Spell Crit Damage'])
     add(groups, 'Resistance', get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
     # but we treat as an affix group to keep consistency with Litany of the Dead Combat Bonus affix
     add(groups, 'Litany of the Dead - Ability Bonus', ['Well Rounded'])
     add(groups, 'Litany of the Dead II - Ability Bonus', ['Well Rounded'])
-    add(groups, 'Litany of the Dead - Combat Bonus', ['Accuracy', 'Damage'])
-    add(groups, 'Litany of the Dead II - Combat Bonus', ['Accuracy', 'Damage'])
+    add(groups, 'Litany of the Dead - Combat Bonus', ['Accuracy', 'Deadly'])
+    add(groups, 'Litany of the Dead II - Combat Bonus', ['Accuracy', 'Deadly'])
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
     add(groups, 'Potency', ['Nullification', 'Radiance', 'Devotion', 'Corrosion', 'Combustion', 'Magnetic', 'Glaciation', 'Reconstruction', 'Impulse', 'Resonance'])

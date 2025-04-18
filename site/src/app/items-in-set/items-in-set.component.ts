@@ -6,9 +6,10 @@ import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 
 @Component({
-  selector: 'app-items-in-set',
-  templateUrl: './items-in-set.component.html',
-  styleUrls: ['./items-in-set.component.css']
+    selector: 'app-items-in-set',
+    templateUrl: './items-in-set.component.html',
+    styleUrls: ['./items-in-set.component.css'],
+    standalone: false
 })
 export class ItemsInSetComponent implements OnInit {
   @Input() setName: string;

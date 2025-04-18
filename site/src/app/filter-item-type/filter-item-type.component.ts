@@ -6,9 +6,10 @@ import { FiltersService } from '../filters.service';
 import itemTypesList from 'src/assets/item-types.json';
 
 @Component({
-  selector: 'app-filter-item-type',
-  templateUrl: './filter-item-type.component.html',
-  styleUrls: ['./filter-item-type.component.css']
+    selector: 'app-filter-item-type',
+    templateUrl: './filter-item-type.component.html',
+    styleUrls: ['./filter-item-type.component.css'],
+    standalone: false
 })
 export class FilterItemTypeComponent implements OnInit {
   typeToGroup = new Map<string, string>();

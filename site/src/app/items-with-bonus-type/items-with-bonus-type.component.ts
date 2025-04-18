@@ -12,9 +12,10 @@ import { AffixService } from '../affix.service';
 import { CraftableOption } from '../craftable-option';
 
 @Component({
-  selector: 'app-items-with-bonus-type',
-  templateUrl: './items-with-bonus-type.component.html',
-  styleUrls: ['./items-with-bonus-type.component.css']
+    selector: 'app-items-with-bonus-type',
+    templateUrl: './items-with-bonus-type.component.html',
+    styleUrls: ['./items-with-bonus-type.component.css'],
+    standalone: false
 })
 export class ItemsWithBonusTypeComponent implements OnInit {
 

@@ -7,9 +7,10 @@ import { AffixService } from '../affix.service';
 import { AffixCloud } from '../affix-cloud';
 
 @Component({
-  selector: 'app-affix-cloud',
-  templateUrl: './affix-cloud.component.html',
-  styleUrls: ['./affix-cloud.component.css']
+    selector: 'app-affix-cloud',
+    templateUrl: './affix-cloud.component.html',
+    styleUrls: ['./affix-cloud.component.css'],
+    standalone: false
 })
 export class AffixCloudComponent implements OnInit {
   cloud: AffixCloud;

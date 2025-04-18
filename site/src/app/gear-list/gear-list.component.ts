@@ -12,9 +12,10 @@ import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 
 @Component({
-  selector: 'app-gear-list',
-  templateUrl: './gear-list.component.html',
-  styleUrls: ['./gear-list.component.css']
+    selector: 'app-gear-list',
+    templateUrl: './gear-list.component.html',
+    styleUrls: ['./gear-list.component.css'],
+    standalone: false
 })
 export class GearListComponent implements OnInit {
   itemNameMap: Map<string, string>;

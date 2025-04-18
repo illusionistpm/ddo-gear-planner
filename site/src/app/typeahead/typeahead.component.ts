@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-typeahead',
-  templateUrl: './typeahead.component.html',
-  styleUrls: ['./typeahead.component.css']
+    selector: 'app-typeahead',
+    templateUrl: './typeahead.component.html',
+    styleUrls: ['./typeahead.component.css'],
+    standalone: false
 })
 export class TypeaheadComponent implements OnInit {
   @Input() source;

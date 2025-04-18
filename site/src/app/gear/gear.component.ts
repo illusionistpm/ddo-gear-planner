@@ -4,9 +4,10 @@ import { Input } from '@angular/core';
 import { Item } from '../item';
 
 @Component({
-  selector: 'app-gear',
-  templateUrl: './gear.component.html',
-  styleUrls: ['./gear.component.css']
+    selector: 'app-gear',
+    templateUrl: './gear.component.html',
+    styleUrls: ['./gear.component.css'],
+    standalone: false
 })
 export class GearComponent implements OnInit {
   @Input() data: Array<Item>;

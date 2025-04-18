@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../filters.service';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.css']
+    selector: 'app-filters',
+    templateUrl: './filters.component.html',
+    styleUrls: ['./filters.component.css'],
+    standalone: false
 })
 export class FiltersComponent implements OnInit {
   minLevel: number;

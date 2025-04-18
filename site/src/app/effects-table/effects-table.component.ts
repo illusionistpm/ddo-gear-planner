@@ -6,9 +6,10 @@ import { GearDbService } from '../gear-db.service';
 import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with-bonus-type.component';
 
 @Component({
-  selector: 'app-effects-table',
-  templateUrl: './effects-table.component.html',
-  styleUrls: ['./effects-table.component.css']
+    selector: 'app-effects-table',
+    templateUrl: './effects-table.component.html',
+    styleUrls: ['./effects-table.component.css'],
+    standalone: false
 })
 export class EffectsTableComponent implements OnInit {
 

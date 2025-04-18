@@ -7,9 +7,10 @@ import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 
 @Component({
-  selector: 'app-item-suggestions',
-  templateUrl: './item-suggestions.component.html',
-  styleUrls: ['./item-suggestions.component.css']
+    selector: 'app-item-suggestions',
+    templateUrl: './item-suggestions.component.html',
+    styleUrls: ['./item-suggestions.component.css'],
+    standalone: false
 })
 export class ItemSuggestionsComponent implements OnInit {
   @Input() slot: string;

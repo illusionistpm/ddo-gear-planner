@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-expanding-checkboxes',
-  templateUrl: './expanding-checkboxes.component.html',
-  styleUrls: ['./expanding-checkboxes.component.css']
+    selector: 'app-expanding-checkboxes',
+    templateUrl: './expanding-checkboxes.component.html',
+    styleUrls: ['./expanding-checkboxes.component.css'],
+    standalone: false
 })
 export class ExpandingCheckboxesComponent implements OnInit {
   @Input() title: string;

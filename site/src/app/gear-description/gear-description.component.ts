@@ -15,9 +15,10 @@ import { Observable } from 'rxjs';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 
 @Component({
-  selector: 'app-gear-description',
-  templateUrl: './gear-description.component.html',
-  styleUrls: ['./gear-description.component.css']
+    selector: 'app-gear-description',
+    templateUrl: './gear-description.component.html',
+    styleUrls: ['./gear-description.component.css'],
+    standalone: false
 })
 export class GearDescriptionComponent implements OnInit {
   @Input() item: Observable<Item> | Item;

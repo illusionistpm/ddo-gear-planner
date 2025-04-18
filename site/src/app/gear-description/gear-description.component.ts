@@ -85,6 +85,8 @@ export class GearDescriptionComponent implements OnInit {
       const curRank = this.equipped.getAffixRanking(aff);
       if (affixRank === AffixRank.Irrelevant) {
         affixRank = curRank;
+      } else if (curRank === AffixRank.Irrelevant) {
+        // Do nothing
       } else if (affixRank !== curRank) {
         return AffixRank.Mixed;
       }

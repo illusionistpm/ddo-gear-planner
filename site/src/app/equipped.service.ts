@@ -373,7 +373,10 @@ export class EquippedService {
         const improvement = valWithNewItem - valWithCurItem;
 
         const bestVal = this.gearList.getBestValueForAffix(affix.name);
-        score += improvement / bestVal;
+
+        const affixWeight = this.gearList.getAffixWeight(affix.name, bestVal);
+
+        score += improvement / bestVal * affixWeight;
       }
     }
 

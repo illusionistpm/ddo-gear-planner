@@ -53,6 +53,10 @@ export class AffixCloudComponent implements OnInit {
 
     let flatList = [];
     for (const entry of gearList.entries()) {
+      // Skip Weapon and Ring2 to avoid double counting since Offhand is offhand + weapon and ring2 is just ring1
+      if (entry[0] === 'Weapon' || entry[0] === 'Ring2') {
+        continue;
+      }
       flatList = flatList.concat(entry[1]);
     }
 
@@ -64,6 +68,9 @@ export class AffixCloudComponent implements OnInit {
     this.ignoredSet.add('Spellcasting Implement');
     this.ignoredSet.add('Upgradeable - Primary Augment');
     this.ignoredSet.add('Upgradeable - Secondary Augment');
+    this.ignoredSet.add('Enhancement Bonus (Armor)');
+    this.ignoredSet.add('Enhancement Bonus (Weapon)');
+    this.ignoredSet.add('Well Rounded');
 
     this._initPackages();
   }

@@ -452,6 +452,26 @@ export class GearDbService {
     return totalVal;
   }
 
+  getAffixWeight(affixName: string, bestVal: number) {
+    const attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+    const tacticalDCs = ['Stunning', 'Vertigo', 'Sundering'];
+    const spellDCs = ['Evocation Focus', 'Transmutation Focus', 'Abjuration Focus', 'Conjuration Focus', 
+                      'Enchantment Focus', 'Illusion Focus', 'Necromancy Focus'];
+
+    // Boolean affixes are overrepresented and are typically pretty easy to slot
+    if (bestVal == 1) {
+      return .5;
+    } else if (attributes.includes(affixName)) {
+      return 4;
+    } else if (tacticalDCs.includes(affixName)) {
+      return 3;
+    } else if (spellDCs.includes(affixName)) {
+      return 3;
+    }
+
+    return 1;
+  }
+
   getSetBonus(set: string, numPieces: number) {
     const bonuses = new Array<Affix>();
 

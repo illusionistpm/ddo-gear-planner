@@ -121,8 +121,10 @@ export class ItemsWithBonusTypeComponent implements OnInit {
   }
 
   equipItem(item: Item) {
-    // Apply the relevant crafting option, if any
-    item.selectMatchingBonusType(this.affixName, this.bonusType);
+      // Apply the relevant crafting option, if any
+      if (this.findMatchingValue(item)[0]) {
+      item.selectMatchingBonusType(this.affixName, this.bonusType);
+    }
 
     this.equipped.set(item);
     this.modalService.dismissAll();

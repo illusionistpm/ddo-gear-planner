@@ -2733,6 +2733,129 @@
             {
                 "affixes": [
                     {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Protection +1",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "10"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Protection +10",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "11"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Protection +11"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "3"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Protection +3",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "4"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Protection +4",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "5"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Protection +5",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Protection +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "8"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Protection +8",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "9"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Protection +9",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Enhancement Repair Amplification",
                         "type": "Enhancement",
                         "value": "11"

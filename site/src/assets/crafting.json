@@ -3123,6 +3123,129 @@
             {
                 "affixes": [
                     {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Shatter +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Shatter +12",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Shatter +14",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "16"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Shatter +16"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Shatter +2",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "4"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Shatter +4",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Shatter +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Shatter +7",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Shatter +9",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Speed",
                         "type": "Enhancement",
@@ -3131,6 +3254,294 @@
                 ],
                 "ml": 8.0,
                 "name": "Sapphire of Snowpeak's Speed"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "reduce your Arcane Spell Failure by",
+                        "value": "10"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Spell Agility +10%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "reduce your Arcane Spell Failure by",
+                        "value": "15"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Spell Agility +15%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "reduce your Arcane Spell Failure by",
+                        "value": "5"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Spell Agility +5%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Stunning +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Stunning +12",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Stunning +14",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "16"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Stunning +16"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Stunning +2",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "4"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Stunning +4",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Stunning +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Stunning +7",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Stunning +9",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Vertigo +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Vertigo +12",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Vertigo +14",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "16"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Vertigo +16",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Vertigo +2",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "4"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Vertigo +4",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Vertigo +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Vertigo +7",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Vertigo +9",
+                "quests": [
+                    "DDO Point"
+                ]
             },
             {
                 "affixes": [

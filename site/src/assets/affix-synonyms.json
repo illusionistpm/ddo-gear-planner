@@ -4,7 +4,8 @@
         "synonyms": [
             "Attack",
             "Hit",
-            "hit"
+            "hit",
+            "Attack Bonus"
         ]
     },
     {
@@ -141,11 +142,11 @@
     {
         "name": "Spell Focus Mastery",
         "synonyms": [
+            "DCs",
+            "Spell DCs",
             "all Spell DCs",
             "all spell DCs",
-            "DCs",
-            "Spell DC's",
-            "Spell DCs"
+            "Spell DC's"
         ]
     },
     {
@@ -194,7 +195,8 @@
     {
         "name": "Healing Amplification",
         "synonyms": [
-            "Positive Healing Amplification"
+            "Positive Healing Amplification",
+            "Positive Amplification"
         ]
     },
     {
@@ -230,6 +232,12 @@
         "synonyms": [
             "Trip",
             "Trip DC"
+        ]
+    },
+    {
+        "name": "Silver",
+        "synonyms": [
+            "Silver , Alchemical"
         ]
     }
 ]

@@ -817,7 +817,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -1551,7 +1551,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -1726,7 +1726,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -2322,7 +2322,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -3281,7 +3281,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3439,7 +3439,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3481,7 +3481,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -3521,7 +3521,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Profane",
                     "value": "30"
                 },
@@ -3814,7 +3814,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4255,7 +4255,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4656,7 +4656,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -5945,7 +5945,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Positive Amplification",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "10"
                 },

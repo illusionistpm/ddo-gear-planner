@@ -1686,6 +1686,157 @@
             {
                 "affixes": [
                     {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "10"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Accuracy +10",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "12"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Accuracy +12",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "15"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Accuracy +15",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "17"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Accuracy +17",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "2"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Accuracy +2",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "20"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Accuracy +20",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "22"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Accuracy +22"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "5"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Accuracy +5",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "8"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Accuracy +8",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "the Max Dex Bonu",
+                        "type": "Enhancement",
+                        "value": "1"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Armored Agility +1",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "the Max Dex Bonu",
+                        "type": "Enhancement",
+                        "value": "2"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Armored Agility +2",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": "This item stores the unstoppable force of the ocean's fury deep within. When the wearer of this item is successfully attacked in melee, this power occasionally comes to the surface, crushing enemies beneath a torrent of frigid water.",
                         "name": "Crushing Wave Guard",
                         "type": "bool",
@@ -1752,6 +1903,395 @@
             {
                 "affixes": [
                     {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Defense +12",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "16"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Defense +16",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Defense +20",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "24"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Defense +24",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "28"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Defense +28",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Defense +3",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "32"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Defense +32",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "36"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Defense +36"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Defense +8",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Dodge +1%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Dodge +11%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Dodge +12%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "14"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Dodge +14%",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "3"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Dodge +3%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Dodge +5%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Dodge +6%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Dodge +8%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Dodge +9%",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of False Life +12",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "18"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of False Life +18",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "24"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of False Life +24",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of False Life +30",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "36"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of False Life +36",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "4"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of False Life +4",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "42"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of False Life +42",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "48"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of False Life +48",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "54"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of False Life +54",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Luck",
+                        "value": "2"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Good Luck +2",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Greater Heroism",
                         "type": "bool",
@@ -1764,6 +2304,143 @@
             {
                 "affixes": [
                     {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "11"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Healing Amplification +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "18"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Healing Amplification +18",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "24"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Healing Amplification +24",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Healing Amplification +3",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "31"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Healing Amplification +31",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "37"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Healing Amplification +37",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "44"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Healing Amplification +44",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "50"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Healing Amplification +50",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "57"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Healing Amplification +57"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "100"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Heavy Fortification",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Heroism",
                         "type": "bool",
@@ -1772,6 +2449,535 @@
                 ],
                 "ml": 6.0,
                 "name": "Sapphire of Heroism"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "25"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Light Fortification",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "75"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Moderate Fortification",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Natural Armor +1",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "11"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Natural Armor +11",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "12"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Natural Armor +12",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "14"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Natural Armor +14",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "3"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Natural Armor +3",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "5"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Natural Armor +5",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "6"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Natural Armor +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "8"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Natural Armor +8",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Natural",
+                        "value": "9"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Natural Armor +9",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "11"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Negative Amplification +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "18"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Negative Amplification +18",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "24"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Negative Amplification +24",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Negative Amplification +3",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "31"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Negative Amplification +31",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "37"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Negative Amplification +37",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "44"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Negative Amplification +44",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "50"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Negative Amplification +50",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "57"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Negative Amplification +57",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Repair Amplification +11",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "18"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Repair Amplification +18",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "24"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Repair Amplification +24",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "3"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Repair Amplification +3",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "31"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Repair Amplification +31",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "37"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Repair Amplification +37",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "44"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Repair Amplification +44",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "50"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Repair Amplification +50",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "57"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Repair Amplification +57"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Sapphire of Resistance +1",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "10"
+                    }
+                ],
+                "ml": "28",
+                "name": "Sapphire of Resistance +10",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "11"
+                    }
+                ],
+                "ml": "32",
+                "name": "Sapphire of Resistance +11",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "3"
+                    }
+                ],
+                "ml": "4",
+                "name": "Sapphire of Resistance +3",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "4"
+                    }
+                ],
+                "ml": "8",
+                "name": "Sapphire of Resistance +4",
+                "quests": [
+                    "House Deneith"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "5"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Resistance +5",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    }
+                ],
+                "ml": "16",
+                "name": "Sapphire of Resistance +6",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "8"
+                    }
+                ],
+                "ml": "20",
+                "name": "Sapphire of Resistance +8",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "9"
+                    }
+                ],
+                "ml": "24",
+                "name": "Sapphire of Resistance +9",
+                "quests": [
+                    "Gianthold"
+                ]
             },
             {
                 "affixes": [

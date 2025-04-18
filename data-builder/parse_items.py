@@ -57,6 +57,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         'Isle of Dread: Set Bonus'         : 'Isle of Dread: Set Bonus Slot: Empty',
         'Moon'                             : 'Moon Augment Slot',
         'Sun'                              : 'Sun Augment Slot',
+        'Blue'                             : 'Blue Augment Slot',
     }
 
     augmentsWithArtifactVariantList = [
@@ -358,7 +359,7 @@ def add_entry_to_crafting_map(craftingSystemName, augmentEntry, craftingSystems)
     # ideally, duplicates would not be encountered, but during testing, this can happen
     augmentEntryExistsInCraftingSystems = False
     for craftingSystemEntry in craftingSystems[craftingSystemName]['*']:
-        if augmentEntry['name'] == craftingSystemEntry['name']:
+        if 'name' in craftingSystemEntry and augmentEntry['name'] == craftingSystemEntry['name']:
             augmentEntryExistsInCraftingSystems = True
 
     if not augmentEntryExistsInCraftingSystems:

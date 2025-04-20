@@ -9827,6 +9827,17 @@
                     {
                         "name": "Magical Sheltering",
                         "type": "Profane",
+                        "value": "20"
+                    }
+                ],
+                "ml": "20",
+                "name": "Lunar Gem of Magical Protection (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Profane",
                         "value": "10"
                     }
                 ],
@@ -9993,6 +10004,17 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": "20",
+                "name": "Lunar Gem of Spell Difficulty (Epic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
                         "value": "1"
                     }
                 ],
@@ -10009,6 +10031,17 @@
                 ],
                 "ml": "30",
                 "name": "Lunar Gem of Spell Difficulty (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Profane",
+                        "value": "20"
+                    }
+                ],
+                "ml": "20",
+                "name": "Lunar Gem of Spellpower (Epic)"
             },
             {
                 "affixes": [
@@ -25107,6 +25140,123 @@
             {
                 "affixes": [
                     {
+                        "name": "Acidic",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Acid (1d6)",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "2"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Acid (2d6)",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "3"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Acid (3d6)",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "4"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Acid (4d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "5"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Acid (5d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "6"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Acid (6d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "7"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Acid (7d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "8"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Acid (8d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "value": "9"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Acid (9d6)",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Acid Blast",
                         "type": "bool",
@@ -25115,6 +25265,412 @@
                 ],
                 "ml": 8.0,
                 "name": "Ruby of Acid Blast"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adamantine",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Adamantine Arms",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Chaotic Aligned",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Chaos",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Combustion 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Combustion 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Combustion 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Combustion 153",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Combustion 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Combustion 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Combustion 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Combustion 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Combustion 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Corrosion 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Corrosion 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Corrosion 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Corrosion 153",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Corrosion 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Corrosion 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Corrosion 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Corrosion 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Corrosion 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Devotion 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Devotion 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Devotion 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Devotion 153",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Devotion 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Devotion 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Devotion 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Devotion 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Devotion 97",
+                "quests": [
+                    "DDO Point"
+                ]
             },
             {
                 "affixes": [
@@ -25131,6 +25687,20 @@
             {
                 "affixes": [
                     {
+                        "name": "Evil Aligned",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Evil",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Additional 2d8 Bane Damage to Fey creatures on hit",
                         "type": "bool",
@@ -25143,6 +25713,123 @@
             {
                 "affixes": [
                     {
+                        "name": "Flaming",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Flame (1d6)",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "2"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Flame (2d6)",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "3"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Flame (3d6)",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "4"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Flame (4d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "5"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Flame (5d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "6"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Flame (6d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "7"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Flame (7d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "8"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Flame (8d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming",
+                        "value": "9"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Flame (9d6)",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Flaming Blast",
                         "type": "bool",
@@ -25151,6 +25838,120 @@
                 ],
                 "ml": 8.0,
                 "name": "Ruby of Flaming Blast"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Frost (1d6)",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "2"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Frost (2d6)",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "3"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Frost (3d6)",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "4"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Frost (4d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "5"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Frost (5d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "6"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Frost (6d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "7"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Frost (7d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "8"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Frost (8d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Frost",
+                        "value": "9"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Frost (9d6)"
             },
             {
                 "affixes": [
@@ -25169,6 +25970,143 @@
                 ],
                 "ml": 1.0,
                 "name": "Ruby of Ghostbane"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Glaciation 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Glaciation 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Glaciation 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Glaciation 153"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Glaciation 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Glaciation 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Glaciation 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Glaciation 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Glaciation 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Aligned",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Good",
+                "quests": [
+                    "DDO Point"
+                ]
             },
             {
                 "affixes": [
@@ -25257,6 +26195,266 @@
             {
                 "affixes": [
                     {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Impulse 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Impulse 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Impulse 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Impulse 153"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Impulse 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Impulse 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Impulse 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Impulse 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Impulse 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Iron",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Iron Blows",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Magnetism 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Magnetism 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Magnetism 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Magnetism 153"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Magnetism 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Magnetism 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Magnetism 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Magnetism 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Magnetism 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Maiming",
                         "type": "bool",
@@ -25269,6 +26467,632 @@
             {
                 "affixes": [
                     {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Nullification 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Nullification 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Nullification 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Nullification 153",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Nullification 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Nullification 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Nullification 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Nullification 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Nullification 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lawful Aligned",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Order",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Radiance 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Radiance 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Radiance 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Radiance 153",
+                "quests": [
+                    "Item:Astral Shard"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Radiance 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Radiance 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Radiance 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Radiance 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Radiance 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Reconstruction 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Reconstruction 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Reconstruction 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Reconstruction 153"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Reconstruction 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Reconstruction 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Reconstruction 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Reconstruction 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Reconstruction 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "111"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Resonance 111",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "125"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Resonance 125",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Resonance 139",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "153"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Resonance 153"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "38"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Resonance 38",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "55"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Resonance 55",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Resonance 70",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "84"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Resonance 84",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "97"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Resonance 97",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "1"
+                    }
+                ],
+                "ml": "1",
+                "name": "Ruby of Shock (1d6)",
+                "quests": [
+                    "The Harbor"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "2"
+                    }
+                ],
+                "ml": "4",
+                "name": "Ruby of Shock (2d6)",
+                "quests": [
+                    "The Marketplace"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "3"
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of Shock (3d6)",
+                "quests": [
+                    "House Phiarlan"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "4"
+                    }
+                ],
+                "ml": "12",
+                "name": "Ruby of Shock (4d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "5"
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Shock (5d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "6"
+                    }
+                ],
+                "ml": "20",
+                "name": "Ruby of Shock (6d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "7"
+                    }
+                ],
+                "ml": "24",
+                "name": "Ruby of Shock (7d6)",
+                "quests": [
+                    "Gianthold"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "8"
+                    }
+                ],
+                "ml": "28",
+                "name": "Ruby of Shock (8d6)",
+                "quests": [
+                    "DDO Point"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shock",
+                        "value": "9"
+                    }
+                ],
+                "ml": "32",
+                "name": "Ruby of Shock (9d6)"
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Shocking Blast",
                         "type": "bool",
@@ -25277,6 +27101,20 @@
                 ],
                 "ml": 8.0,
                 "name": "Ruby of Shocking Blast"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Silver",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "16",
+                "name": "Ruby of Silvered Strikes",
+                "quests": [
+                    "DDO Point"
+                ]
             },
             {
                 "affixes": [
@@ -25313,6 +27151,20 @@
                 ],
                 "ml": 1.0,
                 "name": "Ruby of the Endless Night"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Byeshk",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": "8",
+                "name": "Ruby of the Gatekeepers",
+                "quests": [
+                    "DDO Point"
+                ]
             },
             {
                 "affixes": [
@@ -27244,6 +29096,17 @@
                 ],
                 "ml": "30",
                 "name": "Solar Gem of Assassination (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": "20",
+                "name": "Solar Gem of Charisma (Epic)"
             },
             {
                 "affixes": [

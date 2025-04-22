@@ -62,7 +62,8 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         'Yellow'                           : 'Yellow Augment Slot',
         'Green'                            : 'Green Augment Slot',
         'Purple'                           : 'Purple Augment Slot',
-        'Black'                            : 'Black Augment Slot'
+        'Orange'                           : 'Orange Augment Slot',
+        'Colorless'                        : 'Colorless Augment Slot'
     }
 
     augmentsWithArtifactVariantList = [

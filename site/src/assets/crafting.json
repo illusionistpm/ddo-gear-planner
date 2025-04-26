@@ -2280,6 +2280,20 @@
                     {
                         "name": "Good Luck",
                         "type": "Luck",
+                        "value": "1"
+                    }
+                ],
+                "ml": "12",
+                "name": "Sapphire of Good Luck +1",
+                "quests": [
+                    "Ruskin Blackboot"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Luck",
                         "value": "2"
                     }
                 ],
@@ -2856,7 +2870,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -2870,7 +2884,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "18"
                     }
@@ -2884,7 +2898,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "24"
                     }
@@ -2898,7 +2912,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -2912,7 +2926,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "31"
                     }
@@ -2926,7 +2940,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "37"
                     }
@@ -2940,7 +2954,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "44"
                     }
@@ -2954,7 +2968,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "50"
                     }
@@ -2968,7 +2982,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Repair Amplification",
+                        "name": "Repair Amplification",
                         "type": "Enhancement",
                         "value": "57"
                     }
@@ -7099,7 +7113,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -7113,7 +7127,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -7127,7 +7141,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -7141,7 +7155,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -7152,7 +7166,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -7166,7 +7180,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -7180,7 +7194,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -7194,7 +7208,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -7208,7 +7222,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Charisma",
+                        "name": "Charisma",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -7310,7 +7324,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -7324,7 +7338,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -7338,7 +7352,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -7352,7 +7366,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -7363,7 +7377,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -7377,7 +7391,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -7391,7 +7405,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -7405,7 +7419,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -7419,7 +7433,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Constitution",
+                        "name": "Constitution",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -7433,7 +7447,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -7447,7 +7461,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -7461,7 +7475,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -7475,7 +7489,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -7486,7 +7500,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -7500,7 +7514,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -7514,7 +7528,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -7528,7 +7542,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -7542,7 +7556,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Dexterity",
+                        "name": "Dexterity",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -8095,7 +8109,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Charisma",
+                        "name": "Charisma",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8109,7 +8123,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Constitution",
+                        "name": "Constitution",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8123,7 +8137,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Dexterity",
+                        "name": "Dexterity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8137,7 +8151,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Intelligence",
+                        "name": "Intelligence",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8151,7 +8165,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Strength",
+                        "name": "Strength",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8165,7 +8179,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Insight Wisdom",
+                        "name": "Wisdom",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -8179,7 +8193,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -8193,7 +8207,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -8207,7 +8221,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -8221,7 +8235,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -8232,7 +8246,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -8246,7 +8260,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -8260,7 +8274,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -8274,7 +8288,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -8288,7 +8302,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Intelligence",
+                        "name": "Intelligence",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -9212,7 +9226,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -9226,7 +9240,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -9240,7 +9254,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -9254,7 +9268,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -9265,7 +9279,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -9279,7 +9293,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -9293,7 +9307,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -9307,7 +9321,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -9321,7 +9335,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Strength",
+                        "name": "Strength",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -9523,7 +9537,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -9537,7 +9551,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "11"
                     }
@@ -9551,7 +9565,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "12"
                     }
@@ -9565,7 +9579,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "14"
                     }
@@ -9576,7 +9590,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -9590,7 +9604,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "5"
                     }
@@ -9604,7 +9618,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "6"
                     }
@@ -9618,7 +9632,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "8"
                     }
@@ -9632,7 +9646,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Wisdom",
+                        "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "9"
                     }
@@ -30833,7 +30847,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Acid",
+                        "name": "Acidic",
                         "value": "15"
                     }
                 ],
@@ -30965,7 +30979,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Acid",
+                        "name": "Acidic",
                         "value": "15"
                     }
                 ],
@@ -34649,8 +34663,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Abjuration Focus",
-                        "type": "Enhancement",
+                        "name": "Abjuration Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -34962,8 +34976,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Conjuration Focus",
-                        "type": "Enhancement",
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -35263,8 +35277,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Enchantment Focus",
-                        "type": "Enhancement",
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -35277,8 +35291,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Evocation Focus",
-                        "type": "Enhancement",
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -35457,8 +35471,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Abjuration Focus",
-                        "type": "Enhancement",
+                        "name": "Abjuration Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35471,8 +35485,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Conjuration Focus",
-                        "type": "Enhancement",
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35485,8 +35499,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Enchantment Focus",
-                        "type": "Enhancement",
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35499,8 +35513,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Evocation Focus",
-                        "type": "Enhancement",
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35513,8 +35527,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Illusion Focus",
-                        "type": "Enhancement",
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35527,8 +35541,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Necromancy Focus",
-                        "type": "Enhancement",
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35541,8 +35555,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Transmutation Focus",
-                        "type": "Enhancement",
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
                         "value": "2"
                     }
                 ],
@@ -35555,8 +35569,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Illusion Focus",
-                        "type": "Enhancement",
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -35687,8 +35701,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Necromancy Focus",
-                        "type": "Enhancement",
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],
@@ -36265,8 +36279,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement Transmutation Focus",
-                        "type": "Enhancement",
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
                         "value": "1"
                     }
                 ],

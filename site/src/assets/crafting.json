@@ -34663,8 +34663,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Abjuration Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Abjuration Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -34976,8 +34976,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Conjuration Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Conjuration Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -35277,8 +35277,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enchantment Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Enchantment Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -35291,8 +35291,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Evocation Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Evocation Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -35471,8 +35471,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Abjuration Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Abjuration Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35485,8 +35485,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Conjuration Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Conjuration Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35499,8 +35499,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Enchantment Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Enchantment Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35513,8 +35513,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Evocation Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Evocation Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35527,8 +35527,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Illusion Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Illusion Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35541,8 +35541,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromancy Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Necromancy Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35555,8 +35555,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Transmutation Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Transmutation Focus",
+                        "type": "Enhancement",
                         "value": "2"
                     }
                 ],
@@ -35569,8 +35569,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Illusion Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Illusion Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -35701,8 +35701,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromancy Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Necromancy Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -36279,8 +36279,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Transmutation Focus",
-                        "type": "Equipment",
+                        "name": "Enhancement Transmutation Focus",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],

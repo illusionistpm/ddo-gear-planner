@@ -134,6 +134,10 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         if item['ml'] == 'None':
             item['ml'] = '1'
 
+        # if ml is a number, convert to string for consistency (why do i use strings here??)
+        if item['ml'].isnumeric():
+            item['ml'] = str(int(item['ml']))
+
         # If we're doing an Armor page, add an entry for the Armor Class
         if 'AC' in cols:
             acBonus = fields[cols['AC']].getText().strip()

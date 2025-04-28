@@ -1519,7 +1519,7 @@
         {
             "affixes": [
                 {
-                    "name": "movement speed",
+                    "name": "Speed",
                     "type": "Enhancement",
                     "value": "30"
                 },
@@ -1878,7 +1878,7 @@
         {
             "affixes": [
                 {
-                    "name": "Ability stats",
+                    "name": "Well Rounded",
                     "type": "Quality",
                     "value": "3"
                 }
@@ -3402,7 +3402,7 @@
         {
             "affixes": [
                 {
-                    "name": "movement speed",
+                    "name": "Speed",
                     "type": "Enhancement",
                     "value": "30"
                 },
@@ -4592,7 +4592,7 @@
         {
             "affixes": [
                 {
-                    "name": "movement speed",
+                    "name": "Speed",
                     "type": "Enhancement",
                     "value": "30"
                 },
@@ -5761,7 +5761,7 @@
         {
             "affixes": [
                 {
-                    "name": "Ability stats",
+                    "name": "Well Rounded",
                     "type": "Quality",
                     "value": "2"
                 }

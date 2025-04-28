@@ -108,7 +108,8 @@
     {
         "name": "Speed",
         "synonyms": [
-            "Striding"
+            "Striding",
+            "movement speed"
         ]
     },
     {
@@ -217,7 +218,8 @@
             "All Ability Scores",
             "all Ability Scores",
             "all of your Ability Scores",
-            "Well-Rounded"
+            "Well-Rounded",
+            "Ability stats"
         ]
     },
     {

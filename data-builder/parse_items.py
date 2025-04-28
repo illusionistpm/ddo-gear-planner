@@ -132,7 +132,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         #     a = 1
 
         if item['ml'] == 'None':
-            item['ml'] = 1
+            item['ml'] = '1'
 
         # If we're doing an Armor page, add an entry for the Armor Class
         if 'AC' in cols:

@@ -46,6 +46,7 @@ def build_synonyms():
     add(data, 'Sundering', ['Sunder', 'Sunder DC'])
     add(data, 'Vertigo', ['Trip', 'Trip DC'])
     add(data, 'Silver', ['Silver , Alchemical'])
+    add(data, 'Arcane Casting Dexterity', ['reduce your Arcane Spell Failure by', 'Arcane Spell Failure'])
 
     write_json(data, 'affix-synonyms')
 

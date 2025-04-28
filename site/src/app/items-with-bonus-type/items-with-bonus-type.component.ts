@@ -64,25 +64,27 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     
     const matchingAugments = this.gearDB.findAugmentsWithAffixAndType(this.affixName, this.bonusType);
     matchingAugments.forEach((matchingAugmentCraftable) => {
-      for (const item of this.equipped.getSlotsSnapshot().values()) {
-        if (!item || !item.crafting) {
-          continue;
+      for (const option of matchingAugmentCraftable.options) {
+
+        if (!this.optionToEligibleGear.has(option.describe())) {
+          this.stringToOption.set(option.describe(), option);
         }
 
-        for (const craftable of item.crafting) {
-          if (craftable.selected.affixes.length != 0) {
-            // This craftable is already committed to something; skip it.
+        if (!this.optionToEligibleGear.has(option.describe())) {
+          this.optionToEligibleGear.set(option.describe(), new Map<Item, Array<Craftable>>());
+        }
+
+        for (const item of this.equipped.getSlotsSnapshot().values()) {
+          if (!item || !item.crafting) {
             continue;
           }
-          if (matchingAugmentCraftable.name == craftable.name) {
-            for (const option of matchingAugmentCraftable.options) {
-              if (!this.optionToEligibleGear.has(option.describe())) {
-                this.stringToOption.set(option.describe(), option);
-              }
 
-              if (!this.optionToEligibleGear.has(option.describe())) {
-                this.optionToEligibleGear.set(option.describe(), new Map<Item, Array<Craftable>>());
-              }
+          for (const craftable of item.crafting) {
+            if (craftable.selected.affixes.length != 0) {
+              // This craftable is already committed to something; skip it.
+              continue;
+            }
+            if (matchingAugmentCraftable.name == craftable.name) {
               if (!this.optionToEligibleGear.get(option.describe()).has(item)) {
                 this.optionToEligibleGear.get(option.describe()).set(item, []);
               }

@@ -392,6 +392,10 @@ export class GearDbService {
       // 
       const groupsRecord = groupBy(filteredAugments, (aug => aug.affixes.map(aff => aff.name + aff.type).join(' ')));
 
+      // We want to prune the options to include only the best of each type - we don't need Str +1, Str +2, etc.
+      // It's trickier now because they all have names, so attempt to detect the less interesting ones and prune out all but the best.
+      const trivialNamePrefixes = ['Diamond of ', 'Sapphire of ', 'Ruby of ', 'Topaz of '];
+
       // Go through the groups and keep all named entries, plus the unnamed one with the highest value
       const bestResults = [];
       for (const key in groupsRecord) {
@@ -399,7 +403,8 @@ export class GearDbService {
         let best = null;
 
         for (const aug of group) {
-          if (aug.name) {
+          // Keep the augment if it has a name, unless it starts with one of the trivial prefixes
+          if (aug.name && !trivialNamePrefixes.some(p => aug.name.startsWith(p))) {
             bestResults.push(aug);
           } else {
             if (!best || best.affixes[0].value < aug.affixes[0].value) {

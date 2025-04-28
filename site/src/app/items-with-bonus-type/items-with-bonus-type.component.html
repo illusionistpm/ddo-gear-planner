@@ -15,7 +15,7 @@
     <div *ngIf="optionToEligibleGear.size">
         <div class="row">
             <div class="col-1"><b>ML</b></div>
-            <div class="col-8"><b>Available Augment Slots</b></div>
+            <div class="col-8"><b>Available Augments</b></div>
             <div class="col-1"><b>Value</b></div>
             <div class="col-2"></div>
         </div>
@@ -25,16 +25,21 @@
             <!-- combo box for each item in entry.value-->
             <div class="col-8">
                 <div class="row" style="background-color: transparent;">
-                    {{stringToOption.get(elem.key).describe(false, false)}} Augment
+                    {{stringToOption.get(elem.key).describe(false, false)}}
                 </div>
                 <div class="row" style="background-color: transparent;">
-                    <select [(ngModel)]="selectedAugmentSlot">
-                        <ng-container *ngFor="let innerElem of elem.value | keyvalue">
-                            <option *ngFor="let craftable of innerElem.value" [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
-                                {{innerElem.key.name}} - {{craftable.name}}
-                            </option>
-                        </ng-container>
-                    </select>
+                    <div *ngIf="elem.value.size > 0">
+                        <select [(ngModel)]="selectedAugmentSlot">
+                            <ng-container *ngFor="let innerElem of elem.value | keyvalue">
+                                <option *ngFor="let craftable of innerElem.value" [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
+                                    {{innerElem.key.name}} - {{craftable.name}}
+                                </option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div *ngIf="elem.value.size == 0">
+                        <span><i>No free slots available</i></span>
+                    </div>
                 </div>
             </div>
             <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>

@@ -438,39 +438,6 @@
                 "affixes": [
                     {
                         "description": null,
-                        "name": "Arcane Spell Failure",
-                        "type": "Enhancement",
-                        "value": 5.0
-                    }
-                ],
-                "ml": 12.0
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Arcane Spell Failure",
-                        "type": "Enhancement",
-                        "value": 10.0
-                    }
-                ],
-                "ml": 16.0
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
-                        "name": "Arcane Spell Failure",
-                        "type": "Enhancement",
-                        "value": 15.0
-                    }
-                ],
-                "ml": 20.0
-            },
-            {
-                "affixes": [
-                    {
-                        "description": null,
                         "name": "Armor Max Dex Bonus",
                         "type": "Enhancement",
                         "value": 1.0
@@ -1346,6 +1313,42 @@
                     }
                 ],
                 "ml": 28.0
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Arcane Casting Dexterity",
+                        "type": "Enhancement",
+                        "value": 10.0
+                    }
+                ],
+                "ml": 16.0,
+                "name": "Arcane Spell Failure +10 Enhancement (16)"
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Arcane Casting Dexterity",
+                        "type": "Enhancement",
+                        "value": 15.0
+                    }
+                ],
+                "ml": 20.0,
+                "name": "Arcane Spell Failure +15 Enhancement (20)"
+            },
+            {
+                "affixes": [
+                    {
+                        "description": null,
+                        "name": "Arcane Casting Dexterity",
+                        "type": "Enhancement",
+                        "value": 5.0
+                    }
+                ],
+                "ml": 12.0,
+                "name": "Arcane Spell Failure +5 Enhancement (12)"
             },
             {
                 "affixes": [
@@ -3272,7 +3275,7 @@
             {
                 "affixes": [
                     {
-                        "name": "reduce your Arcane Spell Failure by",
+                        "name": "Arcane Casting Dexterity",
                         "value": "10"
                     }
                 ],
@@ -3285,7 +3288,7 @@
             {
                 "affixes": [
                     {
-                        "name": "reduce your Arcane Spell Failure by",
+                        "name": "Arcane Casting Dexterity",
                         "value": "15"
                     }
                 ],
@@ -3298,7 +3301,7 @@
             {
                 "affixes": [
                     {
-                        "name": "reduce your Arcane Spell Failure by",
+                        "name": "Arcane Casting Dexterity",
                         "value": "5"
                     }
                 ],

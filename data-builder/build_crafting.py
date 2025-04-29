@@ -47,7 +47,7 @@ def build_crafting():
                                 else:
                                     minimumLevel = craftingEntry['ml']
 
-                                craftingEntry['name'] = '%s +%d %s (%d)' % (affixEntry['name'], affixEntry['value'], affixEntry['type'], minimumLevel)
+                                craftingEntry['name'] = '%s +%d %s (%s)' % (affixEntry['name'], affixEntry['value'], affixEntry['type'], minimumLevel)
 
                             affixEntry['name'] = synonymMap[affixEntry['name']]
 

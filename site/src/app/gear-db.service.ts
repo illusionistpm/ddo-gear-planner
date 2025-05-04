@@ -115,7 +115,7 @@ export class GearDbService {
         item.slot = 'Ring1';
       }
 
-      if (parseInt(item.ml) > maxLevel) {
+      if (item.ml > maxLevel) {
         maxLevel = item.ml;
       }
 
@@ -179,8 +179,8 @@ export class GearDbService {
 
     for (const [slot, items] of this.allGear.entries()) {
       const myItems = items.filter(i =>
-        Number(i.ml) >= minLevel &&
-        Number(i.ml) <= maxLevel &&
+        i.ml >= minLevel &&
+        i.ml <= maxLevel &&
         (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
         !hiddenItemTypes.has(i.type)
       );

@@ -36,9 +36,9 @@ def parse_augments():
 
             # update level value if no value detected
             if ((level == 0) or (level is None)):
-                level = '1'
+                level = 1
             else:
-                level = str(int(level))
+                level = int(level)
 
             if value is not None:
                 # force type conversion to float if excel saves value as int

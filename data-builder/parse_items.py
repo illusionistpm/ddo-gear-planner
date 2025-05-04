@@ -132,11 +132,10 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
         #     a = 1
 
         if item['ml'] == 'None':
-            item['ml'] = '1'
-
-        # if ml is a number, convert to string for consistency (why do i use strings here??)
-        if item['ml'].isnumeric():
-            item['ml'] = str(int(item['ml']))
+            item['ml'] = 1
+        else:
+            # convert ml to int
+            item['ml'] = int(item['ml'])
 
         # If we're doing an Armor page, add an entry for the Armor Class
         if 'AC' in cols:
@@ -409,7 +408,7 @@ def parse_items():
     write_json(crafting, 'crafting')
 
 def change_lost_purpose_affix_name(affix, item):
-    if int(item['ml']) > 29 and affix['name'] == "Lost Purpose":
+    if item['ml'] > 29 and affix['name'] == "Lost Purpose":
         affix['name'] = "Legendary Lost Purpose"
 
     return affix

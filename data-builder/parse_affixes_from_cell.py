@@ -335,7 +335,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
 
-    if aff['name'] == 'Slaver\'s Set Bonus' and ml == '28':
+    if aff['name'] == 'Slaver\'s Set Bonus' and ml == 28:
         aff['name'] = 'Legendary Slaver\'s Set Bonus'
 
     if (('type' in aff) and (aff['type'] == 'Insightful')):

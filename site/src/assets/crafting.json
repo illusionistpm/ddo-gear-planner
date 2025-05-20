@@ -1407,6 +1407,32 @@
             {
                 "affixes": [
                     {
+                        "name": "Efficient Metamagic - Quicken",
+                        "value": "1"
+                    }
+                ],
+                "ml": 18,
+                "name": "How To Cast Fast",
+                "quests": [
+                    "Vecna Unleashed"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Quicken",
+                        "value": "3"
+                    }
+                ],
+                "ml": 32,
+                "name": "How To Cast Faster",
+                "quests": [
+                    "Vecna Unleashed"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Efficient Metamagic - Quicken I",
                         "type": "bool",
@@ -2297,6 +2323,20 @@
                     {
                         "name": "Good Luck",
                         "type": "Luck",
+                        "value": "1"
+                    }
+                ],
+                "ml": 4,
+                "name": "Sapphire of Good Luck +1 (named)",
+                "quests": [
+                    "The Haunting of Saltmarsh"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Luck",
                         "value": "2"
                     }
                 ],
@@ -2304,6 +2344,20 @@
                 "name": "Sapphire of Good Luck +2",
                 "quests": [
                     "Broag Umber"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Luck",
+                        "type": "Luck",
+                        "value": "3"
+                    }
+                ],
+                "ml": 28,
+                "name": "Sapphire of Good Luck +3",
+                "quests": [
+                    "The Haunting of Saltmarsh"
                 ]
             },
             {
@@ -3271,6 +3325,20 @@
                 ],
                 "ml": 8,
                 "name": "Sapphire of Snowpeak's Speed"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Speed",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "ml": 8,
+                "name": "Sapphire of Snowpeaks Speed",
+                "quests": [
+                    "Flurry (NPC)"
+                ]
             },
             {
                 "affixes": [
@@ -7848,6 +7916,90 @@
             {
                 "affixes": [
                     {
+                        "name": "Festive Charisma",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Charisma +2",
+                "quests": [
+                    "Flurry (NPC)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Festive Constitution",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Constitution +2",
+                "quests": [
+                    "Joe Candymaker"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Festive Dexterity",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Dexterity +2",
+                "quests": [
+                    "Flurry (NPC)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Festive Intelligence",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Intelligence +2",
+                "quests": [
+                    "Joe Candymaker"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Festive Strength",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Strength +2",
+                "quests": [
+                    "Euphonia's Barter Box"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Festive Wisdom",
+                        "type": "Festive",
+                        "value": "2"
+                    }
+                ],
+                "ml": 22,
+                "name": "Diamond of Festive Wisdom +2",
+                "quests": [
+                    "Joe Candymaker"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Haggle",
                         "type": "Competence",
                         "value": "10"
@@ -9675,6 +9827,20 @@
             {
                 "affixes": [
                     {
+                        "name": "Litany of the Dead II - Ability Bonus",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 30,
+                "name": "Essence of the Epic Litany of the Dead",
+                "quests": [
+                    "Soulforge"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": null,
                         "name": "Well Rounded",
                         "type": "Enhancement",
@@ -9832,6 +9998,17 @@
                 "set": "Arcane Guardian"
             },
             {
+                "affixes": [],
+                "ml": 30,
+                "name": "Set Augment: Bold Tactician",
+                "quests": [
+                    "Cauldron of Cadence"
+                ],
+                "sets": [
+                    "Bold Tactician"
+                ]
+            },
+            {
                 "affixes": [
                     {
                         "description": null,
@@ -9897,6 +10074,28 @@
                 "set": "Esoterica"
             },
             {
+                "affixes": [],
+                "ml": 30,
+                "name": "Set Augment: Imbued Infusion",
+                "quests": [
+                    "Cauldron of Cadence"
+                ],
+                "sets": [
+                    "Imbued Infusion"
+                ]
+            },
+            {
+                "affixes": [],
+                "ml": 30,
+                "name": "Set Augment: Legendary Bulwark",
+                "quests": [
+                    "Cauldron of Cadence"
+                ],
+                "sets": [
+                    "Legendary Bulwark"
+                ]
+            },
+            {
                 "affixes": [
                     {
                         "description": null,
@@ -9947,6 +10146,17 @@
                 "ml": 30,
                 "name": "Set Augment: Quickblade",
                 "set": "Quickblade"
+            },
+            {
+                "affixes": [],
+                "ml": 30,
+                "name": "Set Augment: Subtle Blade",
+                "quests": [
+                    "Cauldron of Cadence"
+                ],
+                "sets": [
+                    "Subtle Blade"
+                ]
             },
             {
                 "affixes": [
@@ -25477,6 +25687,20 @@
             {
                 "affixes": [
                     {
+                        "name": "Improved Quelling Strikes",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 30,
+                "name": "Essence of the Cobalt Guard",
+                "quests": [
+                    "Soulforge"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "description": "On Vorpal Melee: applies a Quell effect to target enemy for six seconds, rendering them unable to cast divine spells. This has a 50% chance of preventing the target from casting all spells for three seconds (12 second cooldown).",
                         "name": "Improved Quelling Strikes",
                         "type": "bool",
@@ -30118,6 +30342,19 @@
                 ],
                 "ml": 30,
                 "name": "The Eye of Shavarath"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Construct Bane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 18,
+                "name": "The Finite Limits of Construction",
+                "quests": [
+                    "Vecna Unleashed"
+                ]
             },
             {
                 "affixes": [

@@ -28197,6 +28197,90 @@
             {
                 "affixes": [
                     {
+                        "name": "2% Chance On Hit to cause a blast of acid to corrode your target, dealing 3 to 18 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of Erosion",
+                "quests": [
+                    "DDO Store"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% Chance On Hit to cause a burst of magical force to strike your target, dealing 3 to 12 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of Force",
+                "quests": [
+                    "DDO Store"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% Chance On Hit to cause a blast of holy energy to smite your target, dealing 3 to 12 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of Righteousness",
+                "quests": [
+                    "DDO Store"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% Chance On Hit to cause a burst of glacial frost to chill your target, dealing 7 to 14 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of the Glacier",
+                "quests": [
+                    "Anniversary Card Collection"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% Chance On Hit to cause a blast of flame to scorch your target, dealing 4 to 16 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of the Inferno",
+                "quests": [
+                    "Anniversary Card Collection"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "2% Chance On Hit to cause a bolt of lightning to strike your target, dealing 1 to 20 damage per Minimum Level of the weapon to all nearby enemies",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 1,
+                "name": "Ruby Eye of the Tempest",
+                "quests": [
+                    "DDO Store"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Acidic",
                         "value": "1"
                     }
@@ -30172,6 +30256,17 @@
                 "quests": [
                     "DDO Store"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Upgrade a weapon with an additional 1 to 10 cold damage on hit.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 24,
+                "name": "Ruby of Sovereign Frost"
             },
             {
                 "affixes": [

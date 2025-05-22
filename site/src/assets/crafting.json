@@ -12633,7 +12633,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Accuracy (Heroic)",
                 "quests": [
-                    "Rats in a Cage"
+                    "The Safehold"
                 ]
             },
             {
@@ -12647,7 +12647,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Accuracy (Legendary)",
                 "quests": [
-                    "Rats in a Cage"
+                    "The Safehold"
                 ]
             },
             {
@@ -12717,7 +12717,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Dexterity (Heroic)",
                 "quests": [
-                    "The Knife's Edge"
+                    "Voices of the Dead"
                 ]
             },
             {
@@ -12731,7 +12731,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Dexterity (Legendary)",
                 "quests": [
-                    "The Knife's Edge"
+                    "Voices of the Dead"
                 ]
             },
             {
@@ -12745,7 +12745,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Healing Amplification (Heroic)",
                 "quests": [
-                    "The Darkness and the Light"
+                    "Ruins of Myth Drannor"
                 ]
             },
             {
@@ -12759,7 +12759,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Healing Amplification (Legendary)",
                 "quests": [
-                    "The Darkness and the Light"
+                    "Ruins of Myth Drannor"
                 ]
             },
             {
@@ -12773,7 +12773,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Intelligence (Heroic)",
                 "quests": [
-                    "Rats in a Cage"
+                    "The House of Gems"
                 ]
             },
             {
@@ -12787,7 +12787,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Intelligence (Legendary)",
                 "quests": [
-                    "Rats in a Cage"
+                    "The House of Gems"
                 ]
             },
             {
@@ -12955,7 +12955,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Ranged Power (Heroic)",
                 "quests": [
-                    "Sleeping with the Fishes"
+                    "Times Long Past"
                 ]
             },
             {
@@ -12969,7 +12969,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Ranged Power (Legendary)",
                 "quests": [
-                    "Sleeping with the Fishes"
+                    "Times Long Past"
                 ]
             },
             {
@@ -13095,7 +13095,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Strength (Heroic)",
                 "quests": [
-                    "Rats in a Cage"
+                    "Seeds of Decay"
                 ]
             },
             {
@@ -13109,7 +13109,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Strength (Legendary)",
                 "quests": [
-                    "Rats in a Cage"
+                    "Seeds of Decay"
                 ]
             },
             {
@@ -32453,7 +32453,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Dodge (Heroic)",
                 "quests": [
-                    "Dinosaur Crisis"
+                    "The House of Gems"
                 ]
             },
             {
@@ -32551,7 +32551,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Enduring (Heroic)",
                 "quests": [
-                    "Magic of Myth Drannor (Heroic)"
+                    "Secrets of the Red Wizards"
                 ]
             },
             {
@@ -32565,7 +32565,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Enduring (Legendary)",
                 "quests": [
-                    "Magic of Myth Drannor (Legendary)"
+                    "Secrets of the Red Wizards"
                 ]
             },
             {
@@ -32593,7 +32593,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Fortification Bypass (Heroic)",
                 "quests": [
-                    "Dinosaur Crisis"
+                    "Magic of Myth Drannor (Heroic)"
                 ]
             },
             {
@@ -32607,7 +32607,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Fortification Bypass (Legendary)",
                 "quests": [
-                    "The Knife's Edge"
+                    "Magic of Myth Drannor (Legendary)"
                 ]
             },
             {
@@ -32733,7 +32733,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Intelligence (Heroic)",
                 "quests": [
-                    "Dinosaur Crisis"
+                    "Oghma's Song"
                 ]
             },
             {
@@ -32803,7 +32803,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Magical Resistance Rating (Legendary)",
                 "quests": [
-                    "The Darkness and the Light"
+                    "The Safehold"
                 ]
             },
             {
@@ -32873,7 +32873,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Physical Resistance Rating (Heroic)",
                 "quests": [
-                    "The Darkness and the Light"
+                    "Secrets of the Red Wizards"
                 ]
             },
             {
@@ -32887,7 +32887,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Physical Resistance Rating (Legendary)",
                 "quests": [
-                    "The Darkness and the Light"
+                    "Secrets of the Red Wizards"
                 ]
             },
             {
@@ -33335,7 +33335,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Tactical DCs (Heroic)",
                 "quests": [
-                    "Dinosaur Crisis"
+                    "The Key to the Mythal"
                 ]
             },
             {

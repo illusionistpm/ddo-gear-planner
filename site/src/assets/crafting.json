@@ -30260,17 +30260,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Upgrade a weapon with an additional 1 to 10 cold damage on hit.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 24,
-                "name": "Ruby of Sovereign Frost"
-            },
-            {
-                "affixes": [
-                    {
                         "description": null,
                         "name": "Adamantine",
                         "type": "bool",

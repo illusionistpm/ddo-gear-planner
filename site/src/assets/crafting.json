@@ -15054,7 +15054,7 @@
                 ]
             }
         ],
-        "Fell Shiv (Level 25)": [
+        "Fell Shiv (level 25)": [
             {
                 "affixes": [
                     {
@@ -15121,7 +15121,7 @@
                 ]
             }
         ],
-        "Fell Shiv (Level 26)": [
+        "Fell Shiv (level 26)": [
             {
                 "affixes": [
                     {
@@ -15188,7 +15188,7 @@
                 ]
             }
         ],
-        "Fell Shiv (Level 27)": [
+        "Fell Shiv (level 27)": [
             {
                 "affixes": [
                     {
@@ -15255,7 +15255,7 @@
                 ]
             }
         ],
-        "Goatskin Boots (Level 26)": [
+        "Goatskin Boots (level 26)": [
             {
                 "affixes": [
                     {
@@ -15347,7 +15347,7 @@
                 ]
             }
         ],
-        "Goatskin Boots (Level 27)": [
+        "Goatskin Boots (level 27)": [
             {
                 "affixes": [
                     {
@@ -15439,7 +15439,7 @@
                 ]
             }
         ],
-        "Goatskin Boots (Level 28)": [
+        "Goatskin Boots (level 28)": [
             {
                 "affixes": [
                     {
@@ -15531,7 +15531,7 @@
                 ]
             }
         ],
-        "Magistrate's Scepter (Level 17)": [
+        "Magistrate's Scepter (level 17)": [
             {
                 "affixes": [
                     {
@@ -15590,7 +15590,7 @@
                 ]
             }
         ],
-        "Magistrate's Scepter (Level 18)": [
+        "Magistrate's Scepter (level 18)": [
             {
                 "affixes": [
                     {
@@ -15649,7 +15649,7 @@
                 ]
             }
         ],
-        "Magistrate's Scepter (Level 19)": [
+        "Magistrate's Scepter (level 19)": [
             {
                 "affixes": [
                     {
@@ -15708,84 +15708,7 @@
                 ]
             }
         ],
-        "Magistrate's Scepter (Level 26)": [
-            {
-                "affixes": [
-                    {
-                        "name": "Dazing",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deception",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Doublestrike",
-                        "type": "Enhancement",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Draining",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Feeding",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Ghostbane",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Greater Disruption",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Greater Smiting",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Humanoid Bane",
-                        "value": "8"
-                    }
-                ]
-            }
-        ],
-        "Magistrate's Scepter (Level 27)": [
+        "Magistrate's Scepter (level 26)": [
             {
                 "affixes": [
                     {
@@ -15862,7 +15785,7 @@
                 ]
             }
         ],
-        "Magistrate's Scepter (Level 28)": [
+        "Magistrate's Scepter (level 27)": [
             {
                 "affixes": [
                     {
@@ -15939,7 +15862,84 @@
                 ]
             }
         ],
-        "Nether Orb (Level 17)": [
+        "Magistrate's Scepter (level 28)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dazing",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Draining",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Feeding",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostbane",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Greater Disruption",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Greater Smiting",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Humanoid Bane",
+                        "value": "8"
+                    }
+                ]
+            }
+        ],
+        "Nether Orb (level 17)": [
             {
                 "affixes": [
                     {
@@ -15986,7 +15986,7 @@
                 ]
             }
         ],
-        "Nether Orb (Level 18)": [
+        "Nether Orb (level 18)": [
             {
                 "affixes": [
                     {
@@ -16033,7 +16033,7 @@
                 ]
             }
         ],
-        "Nether Orb (Level 19)": [
+        "Nether Orb (level 19)": [
             {
                 "affixes": [
                     {
@@ -16080,7 +16080,7 @@
                 ]
             }
         ],
-        "Nether Orb (Level 26)": [
+        "Nether Orb (level 26)": [
             {
                 "affixes": [
                     {
@@ -16127,7 +16127,7 @@
                 ]
             }
         ],
-        "Nether Orb (Level 27)": [
+        "Nether Orb (level 27)": [
             {
                 "affixes": [
                     {
@@ -16174,7 +16174,7 @@
                 ]
             }
         ],
-        "Nether Orb (Level 28)": [
+        "Nether Orb (level 28)": [
             {
                 "affixes": [
                     {
@@ -16221,7 +16221,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 17)": [
+        "Prismatic Cloak, Blue (level 17)": [
             {
                 "affixes": [
                     {
@@ -16348,7 +16348,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 18)": [
+        "Prismatic Cloak, Blue (level 18)": [
             {
                 "affixes": [
                     {
@@ -16475,7 +16475,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 19)": [
+        "Prismatic Cloak, Blue (level 19)": [
             {
                 "affixes": [
                     {
@@ -16602,7 +16602,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 26)": [
+        "Prismatic Cloak, Blue (level 26)": [
             {
                 "affixes": [
                     {
@@ -16729,7 +16729,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 27)": [
+        "Prismatic Cloak, Blue (level 27)": [
             {
                 "affixes": [
                     {
@@ -16856,7 +16856,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Blue (Level 28)": [
+        "Prismatic Cloak, Blue (level 28)": [
             {
                 "affixes": [
                     {
@@ -16983,7 +16983,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 17)": [
+        "Prismatic Cloak, Green (level 17)": [
             {
                 "affixes": [
                     {
@@ -17110,7 +17110,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 18)": [
+        "Prismatic Cloak, Green (level 18)": [
             {
                 "affixes": [
                     {
@@ -17237,7 +17237,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 19)": [
+        "Prismatic Cloak, Green (level 19)": [
             {
                 "affixes": [
                     {
@@ -17364,7 +17364,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 26)": [
+        "Prismatic Cloak, Green (level 26)": [
             {
                 "affixes": [
                     {
@@ -17491,7 +17491,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 27)": [
+        "Prismatic Cloak, Green (level 27)": [
             {
                 "affixes": [
                     {
@@ -17618,7 +17618,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Green (Level 28)": [
+        "Prismatic Cloak, Green (level 28)": [
             {
                 "affixes": [
                     {
@@ -17745,7 +17745,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 17)": [
+        "Prismatic Cloak, Grey (level 17)": [
             {
                 "affixes": [
                     {
@@ -17872,7 +17872,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 18)": [
+        "Prismatic Cloak, Grey (level 18)": [
             {
                 "affixes": [
                     {
@@ -17999,7 +17999,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 19)": [
+        "Prismatic Cloak, Grey (level 19)": [
             {
                 "affixes": [
                     {
@@ -18126,7 +18126,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 26)": [
+        "Prismatic Cloak, Grey (level 26)": [
             {
                 "affixes": [
                     {
@@ -18253,7 +18253,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 27)": [
+        "Prismatic Cloak, Grey (level 27)": [
             {
                 "affixes": [
                     {
@@ -18380,7 +18380,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Grey (Level 28)": [
+        "Prismatic Cloak, Grey (level 28)": [
             {
                 "affixes": [
                     {
@@ -18507,7 +18507,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 17)": [
+        "Prismatic Cloak, Red (level 17)": [
             {
                 "affixes": [
                     {
@@ -18634,7 +18634,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 18)": [
+        "Prismatic Cloak, Red (level 18)": [
             {
                 "affixes": [
                     {
@@ -18761,7 +18761,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 19)": [
+        "Prismatic Cloak, Red (level 19)": [
             {
                 "affixes": [
                     {
@@ -18888,7 +18888,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 26)": [
+        "Prismatic Cloak, Red (level 26)": [
             {
                 "affixes": [
                     {
@@ -19015,7 +19015,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 27)": [
+        "Prismatic Cloak, Red (level 27)": [
             {
                 "affixes": [
                     {
@@ -19142,7 +19142,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Red (Level 28)": [
+        "Prismatic Cloak, Red (level 28)": [
             {
                 "affixes": [
                     {
@@ -19269,7 +19269,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 17)": [
+        "Prismatic Cloak, Violet (level 17)": [
             {
                 "affixes": [
                     {
@@ -19396,7 +19396,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 18)": [
+        "Prismatic Cloak, Violet (level 18)": [
             {
                 "affixes": [
                     {
@@ -19523,7 +19523,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 19)": [
+        "Prismatic Cloak, Violet (level 19)": [
             {
                 "affixes": [
                     {
@@ -19650,7 +19650,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 26)": [
+        "Prismatic Cloak, Violet (level 26)": [
             {
                 "affixes": [
                     {
@@ -19777,7 +19777,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 27)": [
+        "Prismatic Cloak, Violet (level 27)": [
             {
                 "affixes": [
                     {
@@ -19904,7 +19904,7 @@
                 ]
             }
         ],
-        "Prismatic Cloak, Violet (Level 28)": [
+        "Prismatic Cloak, Violet (level 28)": [
             {
                 "affixes": [
                     {
@@ -20031,7 +20031,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 14)": [
+        "Prison Break (level 14)": [
             {
                 "affixes": [
                     {
@@ -20142,7 +20142,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 15)": [
+        "Prison Break (level 15)": [
             {
                 "affixes": [
                     {
@@ -20253,7 +20253,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 16)": [
+        "Prison Break (level 16)": [
             {
                 "affixes": [
                     {
@@ -20364,7 +20364,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 25)": [
+        "Prison Break (level 25)": [
             {
                 "affixes": [
                     {
@@ -20481,7 +20481,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 26)": [
+        "Prison Break (level 26)": [
             {
                 "affixes": [
                     {
@@ -20598,7 +20598,7 @@
                 ]
             }
         ],
-        "Prison Break (Level 27)": [
+        "Prison Break (level 27)": [
             {
                 "affixes": [
                     {
@@ -20715,7 +20715,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 14)": [
+        "Prisoner's Manacles (level 14)": [
             {
                 "affixes": [
                     {
@@ -20807,7 +20807,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 15)": [
+        "Prisoner's Manacles (level 15)": [
             {
                 "affixes": [
                     {
@@ -20899,7 +20899,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 16)": [
+        "Prisoner's Manacles (level 16)": [
             {
                 "affixes": [
                     {
@@ -20991,7 +20991,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 25)": [
+        "Prisoner's Manacles (level 25)": [
             {
                 "affixes": [
                     {
@@ -21083,7 +21083,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 26)": [
+        "Prisoner's Manacles (level 26)": [
             {
                 "affixes": [
                     {
@@ -21175,7 +21175,7 @@
                 ]
             }
         ],
-        "Prisoner's Manacles (Level 27)": [
+        "Prisoner's Manacles (level 27)": [
             {
                 "affixes": [
                     {
@@ -21427,7 +21427,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 14)": [
+        "Shade's Hood (level 14)": [
             {
                 "affixes": [
                     {
@@ -21474,7 +21474,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 15)": [
+        "Shade's Hood (level 15)": [
             {
                 "affixes": [
                     {
@@ -21521,7 +21521,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 16)": [
+        "Shade's Hood (level 16)": [
             {
                 "affixes": [
                     {
@@ -21568,7 +21568,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 25)": [
+        "Shade's Hood (level 25)": [
             {
                 "affixes": [
                     {
@@ -21615,7 +21615,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 26)": [
+        "Shade's Hood (level 26)": [
             {
                 "affixes": [
                     {
@@ -21662,7 +21662,7 @@
                 ]
             }
         ],
-        "Shade's Hood (Level 27)": [
+        "Shade's Hood (level 27)": [
             {
                 "affixes": [
                     {
@@ -21709,7 +21709,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 16)": [
+        "Shadowmail (level 16)": [
             {
                 "affixes": [
                     {
@@ -21756,7 +21756,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 17)": [
+        "Shadowmail (level 17)": [
             {
                 "affixes": [
                     {
@@ -21803,7 +21803,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 18)": [
+        "Shadowmail (level 18)": [
             {
                 "affixes": [
                     {
@@ -21850,7 +21850,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 23)": [
+        "Shadowmail (level 23)": [
             {
                 "affixes": [
                     {
@@ -21897,7 +21897,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 24)": [
+        "Shadowmail (level 24)": [
             {
                 "affixes": [
                     {
@@ -21944,7 +21944,7 @@
                 ]
             }
         ],
-        "Shadowmail (Level 25)": [
+        "Shadowmail (level 25)": [
             {
                 "affixes": [
                     {
@@ -21991,7 +21991,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 17)": [
+        "Shield of Morning (level 17)": [
             {
                 "affixes": [
                     {
@@ -22052,7 +22052,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 18)": [
+        "Shield of Morning (level 18)": [
             {
                 "affixes": [
                     {
@@ -22113,7 +22113,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 19)": [
+        "Shield of Morning (level 19)": [
             {
                 "affixes": [
                     {
@@ -22174,7 +22174,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 26)": [
+        "Shield of Morning (level 26)": [
             {
                 "affixes": [
                     {
@@ -22244,7 +22244,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 27)": [
+        "Shield of Morning (level 27)": [
             {
                 "affixes": [
                     {
@@ -22314,7 +22314,7 @@
                 ]
             }
         ],
-        "Shield of Morning (Level 28)": [
+        "Shield of Morning (level 28)": [
             {
                 "affixes": [
                     {
@@ -22527,7 +22527,7 @@
         ]
     },
     "One of the following Spell Power bonuses": {
-        "Wizard's Ward (Level 16)": [
+        "Wizard's Ward (level 16)": [
             {
                 "affixes": [
                     {
@@ -22574,7 +22574,7 @@
                 ]
             }
         ],
-        "Wizard's Ward (Level 17)": [
+        "Wizard's Ward (level 17)": [
             {
                 "affixes": [
                     {
@@ -22621,7 +22621,7 @@
                 ]
             }
         ],
-        "Wizard's Ward (Level 18)": [
+        "Wizard's Ward (level 18)": [
             {
                 "affixes": [
                     {
@@ -22668,7 +22668,7 @@
                 ]
             }
         ],
-        "Wizard's Ward (Level 23)": [
+        "Wizard's Ward (level 23)": [
             {
                 "affixes": [
                     {
@@ -22715,7 +22715,7 @@
                 ]
             }
         ],
-        "Wizard's Ward (Level 24)": [
+        "Wizard's Ward (level 24)": [
             {
                 "affixes": [
                     {
@@ -22762,7 +22762,7 @@
                 ]
             }
         ],
-        "Wizard's Ward (Level 25)": [
+        "Wizard's Ward (level 25)": [
             {
                 "affixes": [
                     {
@@ -22849,7 +22849,7 @@
                 ]
             }
         ],
-        "Helm of the Black Dragon (Level 23)": [
+        "Helm of the Black Dragon (level 23)": [
             {
                 "affixes": [
                     {
@@ -22905,7 +22905,7 @@
                 ]
             }
         ],
-        "Helm of the Black Dragon (Level 24)": [
+        "Helm of the Black Dragon (level 24)": [
             {
                 "affixes": [
                     {
@@ -22961,7 +22961,7 @@
                 ]
             }
         ],
-        "Helm of the Black Dragon (Level 25)": [
+        "Helm of the Black Dragon (level 25)": [
             {
                 "affixes": [
                     {
@@ -23017,7 +23017,7 @@
                 ]
             }
         ],
-        "Helm of the Blue Dragon (Level 23)": [
+        "Helm of the Blue Dragon (level 23)": [
             {
                 "affixes": [
                     {
@@ -23073,7 +23073,7 @@
                 ]
             }
         ],
-        "Helm of the Blue Dragon (Level 24)": [
+        "Helm of the Blue Dragon (level 24)": [
             {
                 "affixes": [
                     {
@@ -23129,7 +23129,7 @@
                 ]
             }
         ],
-        "Helm of the Blue Dragon (Level 25)": [
+        "Helm of the Blue Dragon (level 25)": [
             {
                 "affixes": [
                     {
@@ -23185,7 +23185,7 @@
                 ]
             }
         ],
-        "Helm of the White Dragon (Level 23)": [
+        "Helm of the White Dragon (level 23)": [
             {
                 "affixes": [
                     {
@@ -23241,7 +23241,7 @@
                 ]
             }
         ],
-        "Helm of the White Dragon (Level 24)": [
+        "Helm of the White Dragon (level 24)": [
             {
                 "affixes": [
                     {
@@ -23297,7 +23297,7 @@
                 ]
             }
         ],
-        "Helm of the White Dragon (Level 25)": [
+        "Helm of the White Dragon (level 25)": [
             {
                 "affixes": [
                     {
@@ -23409,7 +23409,7 @@
                 ]
             }
         ],
-        "Intricate Field Optics (Level 23)": [
+        "Intricate Field Optics (level 23)": [
             {
                 "affixes": [
                     {
@@ -23465,7 +23465,7 @@
                 ]
             }
         ],
-        "Intricate Field Optics (Level 24)": [
+        "Intricate Field Optics (level 24)": [
             {
                 "affixes": [
                     {
@@ -23521,7 +23521,7 @@
                 ]
             }
         ],
-        "Intricate Field Optics (Level 25)": [
+        "Intricate Field Optics (level 25)": [
             {
                 "affixes": [
                     {
@@ -23917,7 +23917,7 @@
         ]
     },
     "One of the following bonuses": {
-        "Skullduggery Kit (Level 14)": [
+        "Skullduggery Kit (level 14)": [
             {
                 "affixes": [
                     {
@@ -24054,7 +24054,7 @@
                 ]
             }
         ],
-        "Skullduggery Kit (Level 15)": [
+        "Skullduggery Kit (level 15)": [
             {
                 "affixes": [
                     {
@@ -24191,7 +24191,7 @@
                 ]
             }
         ],
-        "Skullduggery Kit (Level 16)": [
+        "Skullduggery Kit (level 16)": [
             {
                 "affixes": [
                     {
@@ -24328,7 +24328,7 @@
                 ]
             }
         ],
-        "Skullduggery Kit (Level 25)": [
+        "Skullduggery Kit (level 25)": [
             {
                 "affixes": [
                     {
@@ -24465,7 +24465,7 @@
                 ]
             }
         ],
-        "Skullduggery Kit (Level 26)": [
+        "Skullduggery Kit (level 26)": [
             {
                 "affixes": [
                     {
@@ -24602,7 +24602,7 @@
                 ]
             }
         ],
-        "Skullduggery Kit (Level 27)": [
+        "Skullduggery Kit (level 27)": [
             {
                 "affixes": [
                     {
@@ -24741,7 +24741,7 @@
         ]
     },
     "One of the following effects": {
-        "Master's Riposte (Level 17)": [
+        "Master's Riposte (level 17)": [
             {
                 "affixes": [
                     {
@@ -24876,7 +24876,7 @@
                 ]
             }
         ],
-        "Master's Riposte (Level 18)": [
+        "Master's Riposte (level 18)": [
             {
                 "affixes": [
                     {
@@ -25011,7 +25011,7 @@
                 ]
             }
         ],
-        "Master's Riposte (Level 19)": [
+        "Master's Riposte (level 19)": [
             {
                 "affixes": [
                     {
@@ -25146,7 +25146,7 @@
                 ]
             }
         ],
-        "Master's Riposte (Level 26)": [
+        "Master's Riposte (level 26)": [
             {
                 "affixes": [
                     {
@@ -25263,7 +25263,7 @@
                 ]
             }
         ],
-        "Master's Riposte (Level 27)": [
+        "Master's Riposte (level 27)": [
             {
                 "affixes": [
                     {
@@ -25380,7 +25380,7 @@
                 ]
             }
         ],
-        "Master's Riposte (Level 28)": [
+        "Master's Riposte (level 28)": [
             {
                 "affixes": [
                     {

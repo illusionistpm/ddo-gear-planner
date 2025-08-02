@@ -123,8 +123,9 @@ def sub_name(name):
         ]:
         if name == pair[0]:
             return pair[1]
-
-    dino_crafting_search = re.search(r'^Isle of Dread: ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
+        
+    # For Isle of Dread, Lamordia, etc crafting. Anything where the crafting slot is of the format "Expansion: SLOT_NAME Slot (MaybeEquipmentType): Empty"
+    dino_crafting_search = re.search(r'^(?:[A-Za-z \-\']+): ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
     if dino_crafting_search:
         return f"{dino_crafting_search.group(1)} {dino_crafting_search.group(2)}"
 
@@ -234,21 +235,21 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['uniquePropertyRequired'] = affixNameSearch.group(2).strip()
 
     # ex: +5% Quality bonus to Light and Alignment Spell Crit Damage.
-    affixNameSearch = re.search(r'^(?:You have a )?\+?([0-9]+)%? ([A-Za-z]+) bonus to ([A-Za-z ]+).', affixName)
+    affixNameSearch = re.search(r'^(?:You have a )?\+?([0-9]+)%? ([A-Za-z]+) [Bb]onus to (?:the )?([A-Za-z ]+)\.?$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(3).strip()
         aff['type'] = affixNameSearch.group(2).strip()
         aff['value'] = affixNameSearch.group(1).strip()
 
     # ex: +2d6 Profane bonus to your Sneak Attack Dice.
-    affixNameSearch = re.search(r'^\+([0-9]+)(?:d6)? (.*?)(?: bonus to your )(.*)\.$', affixName)
+    affixNameSearch = re.search(r'^\+([0-9]+)(?:d6)? (.*?)(?: [Bb]onus to )(?:your )?(.*)\.$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(3).strip()
         aff['type'] = affixNameSearch.group(2).strip()
         aff['value'] = affixNameSearch.group(1).strip()
 
     # ex: +15 Enhancement Bonus
-    affixNameSearch = re.search(r'^\+(\d+) (Enhancement|Orb) Bonus$', affixName)
+    affixNameSearch = re.search(r'^\+(\d+) (Enhancement|Orb) [Bb]onus$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(2) + ' Bonus'
         aff['type'] = affixNameSearch.group(2)

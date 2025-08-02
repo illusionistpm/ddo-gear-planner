@@ -40,31 +40,42 @@ def build_cat_map():
     return catMap
 
 
+def build_augment_name_transform_map():
+    augmentNameTransformMap = {
+        'Moon'           : 'Moon Augment Slot',
+        'Sun'            : 'Sun Augment Slot',
+        'Blue'           : 'Blue Augment Slot',
+        'Red'            : 'Red Augment Slot',
+        'Yellow'         : 'Yellow Augment Slot',
+        'Green'          : 'Green Augment Slot',
+        'Purple'         : 'Purple Augment Slot',
+        'Orange'         : 'Orange Augment Slot',
+        'Colorless'      : 'Colorless Augment Slot'
+    }
+
+    return augmentNameTransformMap
+
+
+def transform_augment_name(name, augmentNameTransformMap):
+    pack_name = None
+
+    # Drop the pack name if it exists for brevity
+    if ':' in name:
+        split = name.split(':')
+        pack_name = split[0].strip()
+        name = split[1].strip()
+
+    # If it's a set bonus, we tweak the name and restore the pack name since it's necessary to differentiate sets
+    if name == 'Set Bonus':
+        return f"{pack_name}: Set Bonus Slot: Empty" if pack_name else "Set Bonus Slot: Empty"
+    
+    return augmentNameTransformMap.get(name, name)
+    
+
 def get_items_from_page(itemPageURL, craftingSystems, sets):
     synonymMap = get_inverted_synonym_map()
 
-    augmentNameTransformMap = {
-        'Isle of Dread: Claw (Accessory)'  : 'Claw (Accessory)',
-        'Isle of Dread: Claw (Weapon)'     : 'Claw (Weapon)',
-        'Isle of Dread: Fang (Accessory)'  : 'Fang (Accessory)',
-        'Isle of Dread: Fang (Armor)'      : 'Fang (Armor)',
-        'Isle of Dread: Fang (Weapon)'     : 'Fang (Weapon)',
-        'Isle of Dread: Horn (Accessory)'  : 'Horn (Accessory)',
-        'Isle of Dread: Horn (Weapon)'     : 'Horn (Weapon)',
-        'Isle of Dread: Scale (Accessory)' : 'Scale (Accessory)',
-        'Isle of Dread: Scale (Armor)'     : 'Scale (Armor)',
-        'Isle of Dread: Scale (Weapon)'    : 'Scale (Weapon)',
-        'Isle of Dread: Set Bonus'         : 'Isle of Dread: Set Bonus Slot: Empty',
-        'Moon'                             : 'Moon Augment Slot',
-        'Sun'                              : 'Sun Augment Slot',
-        'Blue'                             : 'Blue Augment Slot',
-        'Red'                              : 'Red Augment Slot',
-        'Yellow'                           : 'Yellow Augment Slot',
-        'Green'                            : 'Green Augment Slot',
-        'Purple'                           : 'Purple Augment Slot',
-        'Orange'                           : 'Orange Augment Slot',
-        'Colorless'                        : 'Colorless Augment Slot'
-    }
+    augmentNameTransformMap = build_augment_name_transform_map()
 
     augmentsWithArtifactVariantList = [
         'Claw (Accessory)',
@@ -275,7 +286,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
             item.pop('type')
             item.pop('url') # this may be helpful at some point in the future to add back in (?)
 
-            augmentType = augmentNameTransformMap[fields[cols['Augment type']].getText().strip()]
+            augmentType = transform_augment_name(fields[cols['Augment type']].getText().strip(), augmentNameTransformMap)
 
             # unique case exists when processing set bonus augments
             if (augmentType == 'Isle of Dread: Set Bonus Slot: Empty'):
@@ -397,7 +408,8 @@ def parse_items():
         if include_page(file):
             items.extend(get_items_from_page(cachePath + file, crafting, sets))
 
-    items.sort(key=lambda x: x['name'])
+    # Sort by name then slot (for a stable sort with Slaver's items, which have entries in multiple slots)
+    items.sort(key=lambda x: (x['name'], x.get('slot', '')))
     write_json(items, 'items')
 
     # add sorting to crafting system entries

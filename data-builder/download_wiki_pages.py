@@ -2,8 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import shutil
-import random
-import time
 from pathlib import Path
 
 def get_item_page_urls():
@@ -20,6 +18,7 @@ def get_item_page_urls():
 
     return itemPages
 
+
 def get_item_type_urls():
     return [
         'Basic_light_weapons',
@@ -28,6 +27,7 @@ def get_item_type_urls():
         'Basic_ranged_weapons',
         'Basic_thrown_weapons'
         ]
+
 
 def download_page(url, cacheDir):
     filename = url.split(':')[-1].replace("/","_")
@@ -51,12 +51,10 @@ def download_item_pages():
 
     itemPageURLs = get_item_page_urls()
     for url in set(itemPageURLs):
-        if download_page(url, cacheDir):
-            pause = random.random()
-            print("Sleeping for " + str(pause) + " seconds")
-            time.sleep(pause)
+        download_page(url, cacheDir)
 
     download_page('Minor_Artifact', 'cache/')
+
 
 def download_item_type_pages():
     cacheDir = 'cache/item_types/'
@@ -65,10 +63,8 @@ def download_item_type_pages():
 
     itemPageURLs = get_item_type_urls()
     for url in set(itemPageURLs):
-        if download_page(url, cacheDir):
-            pause = random.random()
-            print("Sleeping for " + str(pause) + " seconds")
-            time.sleep(pause)
+        download_page(url, cacheDir)
+
 
 def download_set_page():
     cacheDir = 'cache/sets/'
@@ -85,6 +81,7 @@ def download_quest_pages():
 
     download_page('Raids', cacheDir)
 
+
 def download_crafting_pages():
     cacheDir = 'cache/crafting/'
     if not os.path.exists(cacheDir):
@@ -92,12 +89,14 @@ def download_crafting_pages():
 
     download_page('Dinosaur_Bone_crafting', cacheDir)
 
+
 def download_wiki_pages():
     download_item_pages()
     download_item_type_pages()
     download_set_page()
     download_quest_pages()
     download_crafting_pages()
+
 
 def clear_wiki_cache():
     path = Path('cache')

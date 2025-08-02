@@ -1,103 +1,121 @@
 <div class='modal-body'>
-    <div class="row" style="background-color: white;">
-        <div class="col-10">
-            <h2>
-                <span>{{affixName}}</span><span *ngIf="isRealType(bonusType)">: {{bonusType}}</span>
-            </h2>
-        </div>
-        <div class="col-2 ">
-            <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
+  <div class="row" style="background-color: white;">
+    <div class="col-10">
+      <h2>
+        <span>{{affixName}}</span>@if (isRealType(bonusType)) {
+        <span>: {{bonusType}}</span>
+      }
+    </h2>
+  </div>
+  <div class="col-2 ">
+    <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
 
-    <div *ngIf="optionToEligibleGear.size">
+@if (optionToEligibleGear.size) {
+  <div>
+    <div class="row">
+      <div class="col-1"><b>ML</b></div>
+      <div class="col-8"><b>Available Augments</b></div>
+      <div class="col-1"><b>Value</b></div>
+      <div class="col-2"></div>
+    </div>
+    @for (elem of optionToEligibleGear | keyvalue; track elem) {
+      <div class="row">
+        <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
+        <!-- combo box for each item in entry.value-->
+        <div class="col-8">
+          <div class="row" style="background-color: transparent;">
+            {{stringToOption.get(elem.key).describe(false, false)}}
+          </div>
+          <div class="row" style="background-color: transparent;">
+            @if (elem.value.size > 0) {
+              <div>
+                <select [(ngModel)]="selectedAugmentSlot">
+                  @for (innerElem of elem.value | keyvalue; track innerElem) {
+                    @for (craftable of innerElem.value; track craftable) {
+                      <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
+                        {{innerElem.key.name}} - {{craftable.name}}
+                      </option>
+                    }
+                  }
+                </select>
+              </div>
+            }
+            @if (elem.value.size == 0) {
+              <div>
+                <span><i>No free slots available</i></span>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
+        <button class="col-2" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
+      </div>
+    }
+    <hr/>
+  </div>
+}
+
+@if (sets.length) {
+  <div>
+    <div class="row">
+      <div class="col-2"><b>Pieces</b></div>
+      <div class="col-6"><b>Set</b></div>
+      <div class="col-2"><b>Value</b></div>
+      <div class="col-2"></div>
+    </div>
+    @for (set of sets; track set) {
+      <div class="row">
+        <div class="col-2">{{set[1]}}</div>
+        <div class="col-6">{{set[0]}}</div>
+        <div class="col-2">{{set[2]}}</div>
+        <button class="col-2" (click)="showItemsInSet(set[0])">View</button>
+      </div>
+    }
+    <hr/>
+  </div>
+}
+
+@if (matches.length) {
+  <div>
+    <div class="row">
+      <div class="col-1"><b>ML</b></div>
+      <div class="col-2"><b>Slot</b></div>
+      <div class="col-6"><b>Name</b></div>
+      <div class="col-1"><b>Value</b></div>
+      <div class="col-2"></div>
+    </div>
+    @for (item of matches.slice(0,100); track item) {
+      <div class="row">
+        <div class="col-1">{{item.ml}}</div>
+        <div class="col-2">{{item.slot}}</div>
+        <div class="col-6"><a href="{{item.getURL()}}"
+        target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+        <div class="col-1">{{findMatchingValue(item)[1]}}</div>
+        <button class="col-2" (click)="equipItem(item)">Equip</button>
+      </div>
+    }
+  </div>
+}
+
+@if (lockedMatches.length > 0) {
+  <div>
+    <div class="row">&nbsp;</div>
+    <h3>Already Filled Slots</h3>
+    <i>
+      @for (item of lockedMatches.slice(0,100); track item) {
         <div class="row">
-            <div class="col-1"><b>ML</b></div>
-            <div class="col-8"><b>Available Augments</b></div>
-            <div class="col-1"><b>Value</b></div>
-            <div class="col-2"></div>
+          <div class="col-1">{{item.ml}}</div>
+          <div class="col-2">{{item.slot}}</div>
+          <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+          <div class="col-1">{{findMatchingValue(item)[1]}}</div>
+          <button class="col-2" (click)="equipItem(item)">Equip</button>
         </div>
-
-        <div class="row" *ngFor="let elem of optionToEligibleGear | keyvalue">
-            <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
-            <!-- combo box for each item in entry.value-->
-            <div class="col-8">
-                <div class="row" style="background-color: transparent;">
-                    {{stringToOption.get(elem.key).describe(false, false)}}
-                </div>
-                <div class="row" style="background-color: transparent;">
-                    <div *ngIf="elem.value.size > 0">
-                        <select [(ngModel)]="selectedAugmentSlot">
-                            <ng-container *ngFor="let innerElem of elem.value | keyvalue">
-                                <option *ngFor="let craftable of innerElem.value" [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
-                                    {{innerElem.key.name}} - {{craftable.name}}
-                                </option>
-                            </ng-container>
-                        </select>
-                    </div>
-                    <div *ngIf="elem.value.size == 0">
-                        <span><i>No free slots available</i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
-            <button class="col-2" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
-        </div>
-
-        <hr/>
-    </div>
-
-    <div *ngIf="sets.length">
-        <div class="row">
-            <div class="col-2"><b>Pieces</b></div>
-            <div class="col-6"><b>Set</b></div>
-            <div class="col-2"><b>Value</b></div>
-            <div class="col-2"></div>
-        </div>
-
-        <div class="row" *ngFor="let set of sets">
-            <div class="col-2">{{set[1]}}</div>
-            <div class="col-6">{{set[0]}}</div>
-            <div class="col-2">{{set[2]}}</div>
-            <button class="col-2" (click)="showItemsInSet(set[0])">View</button>
-        </div>
-
-        <hr/>
-    </div>
-
-    <div *ngIf="matches.length">
-        <div class="row">
-            <div class="col-1"><b>ML</b></div>
-            <div class="col-2"><b>Slot</b></div>
-            <div class="col-6"><b>Name</b></div>
-            <div class="col-1"><b>Value</b></div>
-            <div class="col-2"></div>
-        </div>
-
-        <div class="row" *ngFor="let item of matches.slice(0,100)">
-            <div class="col-1">{{item.ml}}</div>
-            <div class="col-2">{{item.slot}}</div>
-            <div class="col-6"><a href="{{item.getURL()}}"
-                    target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
-            <div class="col-1">{{findMatchingValue(item)[1]}}</div>
-            <button class="col-2" (click)="equipItem(item)">Equip</button>
-        </div>
-    </div>
-
-    <div *ngIf="lockedMatches.length > 0">
-        <div class="row">&nbsp;</div>
-        <h3>Already Filled Slots</h3>
-        <i>
-
-            <div class="row" *ngFor="let item of lockedMatches.slice(0,100)">
-                <div class="col-1">{{item.ml}}</div>
-                <div class="col-2">{{item.slot}}</div>
-                <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
-                <div class="col-1">{{findMatchingValue(item)[1]}}</div>
-                <button class="col-2" (click)="equipItem(item)">Equip</button>
-            </div>
-        </i>
-    </div>
+      }
+    </i>
+  </div>
+}
 </div>

@@ -6,7 +6,7 @@ describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GearDbService = TestBed.get(GearDbService);
+    const service: GearDbService = TestBed.inject(GearDbService);
     expect(service).toBeTruthy();
   });
 });

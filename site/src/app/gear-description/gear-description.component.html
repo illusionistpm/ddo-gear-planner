@@ -1,47 +1,72 @@
-<div class="col" *ngIf="curItem && curItem.isValid()">
-    <div class="row ps-2" *ngIf="!curItem.isCannithCrafted(); else cannithMLTemp">
+@if (curItem && curItem.isValid()) {
+  <div class="col">
+    @if (!curItem.isCannithCrafted()) {
+      <div class="row ps-2">
         <div class="col-4"><b>ML: {{curItem.ml}}</b></div>
         <div class="col-8 text-end"><i>{{curItem.quests ? curItem.quests[0] : ''}}</i></div>
-    </div>
-    <ng-template #cannithMLTemp>
-        <div class="row ps-2">
-            <div><b>ML:&nbsp;</b></div>
-            <select [(ngModel)]="cannithML" (change)="updateML()" [value]="curItem.ml">
-                <option *ngFor="let ml of cannith.levels">{{ml}}</option>
-            </select>
-        </div>
-    </ng-template>
-
-
+      </div>
+    } @else {
+      <div class="row ps-2">
+        <div><b>ML:&nbsp;</b></div>
+        <select [(ngModel)]="cannithML" (change)="updateML()" [value]="curItem.ml">
+          @for (ml of cannith.levels; track ml) {
+            <option>{{ml}}</option>
+          }
+        </select>
+      </div>
+    }
     <!-- Main Affixes -->
-    <div class="row table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
-        *ngFor="let affix of curItem.affixes">
-        <button class="show-on-hover fas fa-heart heart col-1" *ngIf="equipped.isImportantAffix(affix.name)"
-            (click)="equipped.toggleImportantAffix(affix.name)"></button>
-        <button class="show-on-hover far fa-heart heart col-1" *ngIf="!equipped.isImportantAffix(affix.name)"
-            (click)="equipped.toggleImportantAffix(affix.name)"></button>
+    @for (affix of curItem.affixes; track affix) {
+      <div class="row table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
+        >
+        @if (equipped.isImportantAffix(affix.name)) {
+          <button class="show-on-hover fas fa-heart heart col-1"
+          (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        }
+        @if (!equipped.isImportantAffix(affix.name)) {
+          <button class="show-on-hover far fa-heart heart col-1"
+          (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        }
         <div class="col ps-1">{{affix.name}}</div>
-        <div class="col" *ngIf="affix.hasRealType()">{{getAffixValue(affix)}} {{affix.type}}</div>
-    </div>
+        @if (affix.hasRealType()) {
+          <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
+        }
+      </div>
+    }
     <!-- Crafting -->
-    <div class="row table-striped table-condensed small hover-helper" *ngFor="let craft of curItem.crafting">
-        <span class="show-never fas fa-heart heart col-1" *ngIf="!craft.selected.affixes.length"></span>
-        <button class="show-on-hover fas fa-heart heart col-1" *ngIf="craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)"
-            (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
-        <button class="show-on-hover far fa-heart heart col-1" *ngIf="craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)"
-            (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+    @for (craft of curItem.crafting; track craft) {
+      <div class="row table-striped table-condensed small hover-helper">
+        @if (!craft.selected.affixes.length) {
+          <span class="show-never fas fa-heart heart col-1"></span>
+        }
+        @if (craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)) {
+          <button class="show-on-hover fas fa-heart heart col-1"
+          (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+        }
+        @if (craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)) {
+          <button class="show-on-hover far fa-heart heart col-1"
+          (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+        }
         <div class="col-3 ps-1 pe-0" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
-        <div class="col-8" *ngIf="!readonly">
+        @if (!readonly) {
+          <div class="col-8">
             <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)" [hidden]="craft.options.length < 2">
-                <option *ngFor="let option of craft.options" [ngValue]="option"
-                    [ngClass]="getClassForCraftingOption(option)">
-                    {{describe(option)}}
+              @for (option of craft.options; track option) {
+                <option [ngValue]="option"
+                  [ngClass]="getClassForCraftingOption(option)">
+                  {{describe(option)}}
                 </option>
+              }
             </select>
-        </div>
-    </div>
+          </div>
+        }
+      </div>
+    }
     <!-- Sets -->
-    <div class="row table-striped table-condensed small"  *ngFor="let set of curItem.getSets()">
+    @for (set of curItem.getSets(); track set) {
+      <div class="row table-striped table-condensed small" >
         <span class="col">Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set)">{{set}}</a> ({{equipped.getActiveSets().get(set)}})</span>
-    </div>
-</div>
+      </div>
+    }
+  </div>
+}

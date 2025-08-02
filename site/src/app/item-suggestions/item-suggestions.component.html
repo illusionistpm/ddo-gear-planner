@@ -1,42 +1,46 @@
 <div class="modal-body">
-    <div class="col">
-        <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h1>
-            {{gear[0].slot}} Choices
-        </h1>
-    </div>
+  <div class="col">
+    <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h1>
+      {{gear[0].slot}} Choices
+    </h1>
+  </div>
+
+  <div class="row">
+    <span>Search by name: </span>
+    <app-typeahead type="text" placeholder="Enter an item name" class="col-8" [source]=gearDB.getGearBySlot(slot)
+    [onChange]=onChange(slot)></app-typeahead>
+  </div>
+
+  <hr>
 
     <div class="row">
-        <span>Search by name: </span>
-        <app-typeahead type="text" placeholder="Enter an item name" class="col-8" [source]=gearDB.getGearBySlot(slot)
-            [onChange]=onChange(slot)></app-typeahead>
-    </div>
-
-    <hr>
-
-    <div class="row">
-        <span>Crafted items: </span>
-        <div *ngFor="let item of cannith">
-            <button class="btn btn-primary m-1" (click)="equipItem(item)">{{item.name}}</button>
+      <span>Crafted items: </span>
+      @for (item of cannith; track item) {
+        <div>
+          <button class="btn btn-primary m-1" (click)="equipItem(item)">{{item.name}}</button>
         </div>
+      }
     </div>
 
     <hr>
 
-    <div class="row">
+      <div class="row">
         <span>Suggested items: </span>
-    </div>
+      </div>
 
-    <div class="container" *ngFor="let item of gear">
-        <div class="row">
+      @for (item of gear; track item) {
+        <div class="container">
+          <div class="row">
             <span class="col">{{item.name}}</span>
             <button class="col-2" (click)="equipItem(item)">Equip</button>
-        </div>
-        <div class="row">
+          </div>
+          <div class="row">
             <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
-        </div>
-        <hr>
-    </div>
-</div>
+          </div>
+          <hr>
+          </div>
+        }
+      </div>

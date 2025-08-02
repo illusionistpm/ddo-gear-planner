@@ -6,7 +6,7 @@ describe('AffixService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AffixService = TestBed.get(AffixService);
+    const service: AffixService = TestBed.inject(AffixService);
     expect(service).toBeTruthy();
   });
 });

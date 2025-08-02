@@ -6,7 +6,7 @@ describe('QueryParamsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: QueryParamsService = TestBed.get(QueryParamsService);
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
     expect(service).toBeTruthy();
   });
 });

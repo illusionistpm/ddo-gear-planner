@@ -1,15 +1,17 @@
 <div>
-    <input type="checkbox" [indeterminate]="isTopLevelIndeterminate()" 
+  <input type="checkbox" [indeterminate]="isTopLevelIndeterminate()"
     [checked]="isTopLevelChecked()" (click)="toggleTopLevel()">
 
     <ng-template #popContent>
-        <div class="form-check form-check-inline" *ngFor="let elem of list; let i = index">
-            <input type="checkbox" class="form-check-input" id="chk-{{elem.name}}" [ngModel]="isChecked(i)"
-                (ngModelChange)="toggle($event, i)">
+      @for (elem of list; track elem; let i = $index) {
+        <div class="form-check form-check-inline">
+          <input type="checkbox" class="form-check-input" id="chk-{{elem.name}}" [ngModel]="isChecked(i)"
+            (ngModelChange)="toggle($event, i)">
             <label class="form-check-label" for="chk-{{elem.name}}">{{elem.name}}</label>
-        </div>
-    </ng-template>
-    <a href="" onclick="return false;" [ngbPopover]="popContent" [autoClose]="'outside'">
+          </div>
+        }
+      </ng-template>
+      <a href="" onclick="return false;" [ngbPopover]="popContent" [autoClose]="'outside'">
         {{title}}
-    </a>
-</div>
+      </a>
+    </div>

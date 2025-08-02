@@ -6,7 +6,7 @@ describe('CannithService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CannithService = TestBed.get(CannithService);
+    const service: CannithService = TestBed.inject(CannithService);
     expect(service).toBeTruthy();
   });
 });

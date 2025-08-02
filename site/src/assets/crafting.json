@@ -1838,7 +1838,7 @@
             {
                 "affixes": [
                     {
-                        "name": "the Max Dex Bonu",
+                        "name": "Max Dex Bonus",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -1852,7 +1852,7 @@
             {
                 "affixes": [
                     {
-                        "name": "the Max Dex Bonu",
+                        "name": "Max Dex Bonus",
                         "type": "Enhancement",
                         "value": "2"
                     }
@@ -3942,7 +3942,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sundering",
+                        "name": "Sunder",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -3956,7 +3956,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Vertigo",
+                        "name": "Trip",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -4184,7 +4184,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sundering",
+                        "name": "Sunder",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -4198,7 +4198,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Vertigo",
+                        "name": "Trip",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -12620,8 +12620,342 @@
             }
         ]
     },
+    "Melancholic (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Byeshk",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Crystal",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Acidic",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Byeshk",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Crystal",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Acidic",
+                        "value": "16"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "41"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Arcana (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "111"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Arcana (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Iron",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Chilling",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Chill (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Iron",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Chilling",
+                        "value": "16"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Chill (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Dimlight (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Dimlight (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adamantine",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Fiery",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Flames (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Adamantine",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Fiery",
+                        "value": "16"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Flames (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Efficiency",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Shadows (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Efficiency",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Shadows (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Silver",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Electrifying",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Sparks (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Silver",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Electrifying",
+                        "value": "16"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Sparks (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            }
+        ]
+    },
     "Moon Augment Slot": {
         "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Abjuration (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Abjuration (Legendary)"
+            },
             {
                 "affixes": [
                     {
@@ -12653,6 +12987,60 @@
             {
                 "affixes": [
                     {
+                        "name": "Balance",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Tumble",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Balance and Tumble (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Tumble",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Balance and Tumble (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Eldritch Blast Dice",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Blast Dice (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Eldritch Blast Dice",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Blast Dice (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Charisma",
                         "type": "Profane",
                         "value": "2"
@@ -12677,6 +13065,28 @@
                 "quests": [
                     "Death Hosts This Banquet"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Conjuration (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Conjuration (Legendary)"
             },
             {
                 "affixes": [
@@ -12737,6 +13147,146 @@
             {
                 "affixes": [
                     {
+                        "name": "Disable Device",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Disable Device and Open Lock (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Disable Device and Open Lock (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Enchantment (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Enchantment (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Evocation (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Evocation (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Perform",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Haggle and Perform (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Perform",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Haggle and Perform (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Heal and Listen (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Heal and Listen (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Healing Amplification",
                         "type": "Profane",
                         "value": "10"
@@ -12765,6 +13315,60 @@
             {
                 "affixes": [
                     {
+                        "name": "Hide",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Move Silently",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Hide and Move Silently (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Move Silently",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Hide and Move Silently (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Illusion (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Illusion (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Intelligence",
                         "type": "Profane",
                         "value": "2"
@@ -12789,6 +13393,80 @@
                 "quests": [
                     "The House of Gems"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Swim",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Jump and Swim (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Swim",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Jump and Swim (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Intimidate",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Bluff",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Linguistics (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Intimidate",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Bluff",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Linguistics (Legendary)"
             },
             {
                 "affixes": [
@@ -12891,6 +13569,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Necromancy Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Necromancy (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Necromancy (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Enhancement Negative Amplification",
                         "type": "Enhancement",
                         "value": "10"
@@ -12915,6 +13615,28 @@
                 "quests": [
                     "Ruins of Myth Drannor"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Power in Pact",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Pact Dice (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Power in Pact",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Pact Dice (Legendary)"
             },
             {
                 "affixes": [
@@ -12999,6 +13721,70 @@
                 "quests": [
                     "Ruins of Myth Drannor"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Repair and Use Magic Device (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Repair and Use Magic Device (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spot",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Search and Spot (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Profane",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Spot",
+                        "type": "Profane",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Search and Spot (Legendary)"
             },
             {
                 "affixes": [
@@ -13139,6 +13925,28 @@
                 "quests": [
                     "Book Burning"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Transmutation (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Profane",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Transmutation (Legendary)"
             },
             {
                 "affixes": [
@@ -32210,9 +33018,53 @@
             {
                 "affixes": [
                     {
-                        "name": "+5% Artifact Bonus to Armor Class",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Abjuration Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Abjuration (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Abjuration (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Maximum Spell Points",
+                        "type": "Legendary",
+                        "value": "3"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Arcane Endurance (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Maximum Spell Points",
+                        "type": "Legendary",
+                        "value": "10"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Arcane Endurance (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Artifact",
+                        "value": "5"
                     }
                 ],
                 "ml": 1,
@@ -32224,9 +33076,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+15% Artifact Bonus to Armor Class",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Armor Class",
+                        "type": "Artifact",
+                        "value": "15"
                     }
                 ],
                 "ml": 30,
@@ -32262,6 +33114,28 @@
                 "quests": [
                     "Book Burning"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Eldritch Blast Dice",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Blast Dice (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Eldritch Blast Dice",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Blast Dice (Legendary)"
             },
             {
                 "affixes": [
@@ -32308,6 +33182,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Conjuration Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Conjuration (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Conjuration (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Constitution",
                         "type": "Artifact",
                         "value": "3"
@@ -32350,9 +33246,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+5% Artifact Bonus to Damage to helpless enemies",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Damage to helpless enemies",
+                        "type": "Artifact",
+                        "value": "5"
                     }
                 ],
                 "ml": 1,
@@ -32364,9 +33260,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+15% Artifact Bonus to Damage to helpless enemies",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Damage to helpless enemies",
+                        "type": "Artifact",
+                        "value": "15"
                     }
                 ],
                 "ml": 30,
@@ -32462,6 +33358,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Dodge Cap",
+                        "type": "Legendary",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Dodge Cap (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge Cap",
+                        "type": "Legendary",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Dodge Cap (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Doubleshot",
                         "type": "Artifact",
                         "value": "5"
@@ -32532,6 +33450,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Enchantment Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Enchantment (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Enchantment (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Legendary Conditioning",
                         "type": "Legendary",
                         "value": "5"
@@ -32556,6 +33496,50 @@
                 "quests": [
                     "Secrets of the Red Wizards"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Evocation (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Evocation (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Absorption",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Force Absorption (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Absorption",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Force Absorption (Legendary)"
             },
             {
                 "affixes": [
@@ -32658,6 +33642,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Illusion Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Illusion (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Illusion (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Imbue Dice",
                         "type": "Artifact",
                         "value": "2"
@@ -32742,9 +33748,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+10 Artifact Bonus to Magical Resistance Rating Cap",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Magical Sheltering Cap",
+                        "type": "Artifact",
+                        "value": "10"
                     }
                 ],
                 "ml": 1,
@@ -32756,9 +33762,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+30 Artifact Bonus to Magical Resistance Rating Cap",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Magical Sheltering Cap",
+                        "type": "Artifact",
+                        "value": "30"
                     }
                 ],
                 "ml": 30,
@@ -32826,6 +33832,28 @@
             {
                 "affixes": [
                     {
+                        "name": "Necromancy Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Necromancy (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Necromancy (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Negative Amplification",
                         "type": "Artifact",
                         "value": "10"
@@ -32850,6 +33878,28 @@
                 "quests": [
                     "Secrets of the Red Wizards"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Power in Pact",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Pact Dice (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Power in Pact",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Pact Dice (Legendary)"
             },
             {
                 "affixes": [
@@ -32980,9 +34030,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+1 Artifact Bonus to Sneak Attack Damage",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attack Damage",
+                        "type": "Artifact",
+                        "value": "1"
                     }
                 ],
                 "ml": 1,
@@ -32994,9 +34044,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+3 Artifact Bonus to Sneak Attack Damage",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attack Damage",
+                        "type": "Artifact",
+                        "value": "3"
                     }
                 ],
                 "ml": 30,
@@ -33008,9 +34058,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+1 Artifact Bonus to Sneak Attack Dice",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attack Dice",
+                        "type": "Artifact",
+                        "value": "1"
                     }
                 ],
                 "ml": 1,
@@ -33022,9 +34072,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+3 Artifact Bonus to Sneak Attack Dice",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Sneak Attack Dice",
+                        "type": "Artifact",
+                        "value": "3"
                     }
                 ],
                 "ml": 30,
@@ -33232,9 +34282,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+10% Artifact Bonus to Strikethrough",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Strikethrough",
+                        "type": "Artifact",
+                        "value": "10"
                     }
                 ],
                 "ml": 20,
@@ -33246,9 +34296,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+5% Artifact Bonus to Strikethrough",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Strikethrough",
+                        "type": "Artifact",
+                        "value": "5"
                     }
                 ],
                 "ml": 1,
@@ -33260,9 +34310,9 @@
             {
                 "affixes": [
                     {
-                        "name": "+15% Artifact Bonus to Strikethrough",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Strikethrough",
+                        "type": "Artifact",
+                        "value": "15"
                     }
                 ],
                 "ml": 30,
@@ -33396,6 +34446,28 @@
                 "quests": [
                     "Ruins of Myth Drannor"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Transmutation (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Transmutation (Legendary)"
             },
             {
                 "affixes": [
@@ -36564,9 +37636,9 @@
             {
                 "affixes": [
                     {
-                        "name": "your movement speed and a",
-                        "type": "Enhancement",
-                        "value": "30"
+                        "name": "+30% Enhancement bonus to your movement speed and a 10% Enhancement bonus to your attack speed",
+                        "type": "bool",
+                        "value": 1
                     }
                 ],
                 "ml": 16,
@@ -36578,9 +37650,9 @@
             {
                 "affixes": [
                     {
-                        "name": "your movement speed and a",
-                        "type": "Enhancement",
-                        "value": "30"
+                        "name": "+30% Enhancement bonus to your movement speed and a 15% Enhancement bonus to your attack speed",
+                        "type": "bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -36592,9 +37664,9 @@
             {
                 "affixes": [
                     {
-                        "name": "your movement speed and a",
-                        "type": "Enhancement",
-                        "value": "30"
+                        "name": "+30% Enhancement bonus to your movement speed and a 5% Enhancement bonus to your attack speed",
+                        "type": "bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,

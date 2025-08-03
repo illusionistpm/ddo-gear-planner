@@ -10238,6 +10238,222 @@
         ],
         "hiddenFromAffixSearch": true
     },
+    "Dolorous (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dreadful Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Lore",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dreadful Arcana (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Universal Spell Lore",
+                        "type": "Exceptional",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "uniquePropertyRequired": "Quarterstaff",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Arcana (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dreadful Chill (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Chaotic Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Water Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Chill (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Steam",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Dimlight",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dreadful Flames (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Flames (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to apply a Curse that deals significant Untyped damage over time.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Shadows",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dreadful Sparks (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lawful Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Air Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dreadful Sparks (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            }
+        ]
+    },
     "Fang (Accessory - Artifact)": {
         "*": [
             {
@@ -11624,7 +11840,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fetters of Unreality",
+                        "name": "Legendary Vacuum",
                         "type": "bool",
                         "value": 1
                     }
@@ -12926,6 +13142,733 @@
                 ],
                 "ml": 34,
                 "name": "Melancholic Sparks (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            }
+        ]
+    },
+    "Miserable (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Cold (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Cold (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Electric (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Electric (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Fire (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Fire (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Force (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Force (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Light (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Light (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Negative (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Negative (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Positive (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Positive (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Repair (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Repair (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Arcana: Sonic (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Equipment",
+                        "value": "149"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Arcana: Sonic (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Armor-Piercing (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Armor-Piercing (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Chill (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Chill (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Destruction",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Destruction",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Dimlight (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Dimlight (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Flames (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Flames (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Humanoid Bane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Humanoid Bane (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Humanoid Bane (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Destruction",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Improved Destruction",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Maiming",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Maiming (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Maiming (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Monstrous Humanoid Bane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Monstrous Humanoid Bane (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Monstrous Humanoid Bane (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Shadows (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Shadows (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Sparks (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Sparks (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Undead Bane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Undead Bane (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Undead Bane (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vermin Bane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Vermin Bane (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Vermin Bane (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Dust",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Acid",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ice",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Chill",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Affirmation",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Dimlight",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ash",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Flames",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Shadows",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Vacuum",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Sparks",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting (page does not exist)"
                 ]

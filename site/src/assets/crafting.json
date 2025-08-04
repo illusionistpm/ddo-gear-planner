@@ -10238,6 +10238,114 @@
         ],
         "hiddenFromAffixSearch": true
     },
+    "Dolorous (Armor)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Assassinate",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Invigorator (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Assassinate",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Invigorator (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Silencer (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Silencer (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Exceptional",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Voidwheel (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Exceptional",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Voidwheel (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                ]
+            }
+        ]
+    },
     "Dolorous (Weapon)": {
         "*": [
             {

@@ -10261,7 +10261,7 @@
                 "ml": 8,
                 "name": "Dolorous Invigorator (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10285,7 +10285,7 @@
                 "ml": 34,
                 "name": "Dolorous Invigorator (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10299,7 +10299,7 @@
                 "ml": 8,
                 "name": "Dolorous Silencer (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10313,7 +10313,7 @@
                 "ml": 34,
                 "name": "Dolorous Silencer (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10327,7 +10327,7 @@
                 "ml": 8,
                 "name": "Dolorous Voidwheel (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10341,7 +10341,7 @@
                 "ml": 34,
                 "name": "Dolorous Voidwheel (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -10359,7 +10359,7 @@
                 "ml": 8,
                 "name": "Dreadful Acid (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10378,7 +10378,7 @@
                 "ml": 34,
                 "name": "Dreadful Acid (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10404,7 +10404,7 @@
                 "ml": 8,
                 "name": "Dreadful Arcana (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10430,7 +10430,7 @@
                 "ml": 34,
                 "name": "Dreadful Arcana (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10444,7 +10444,7 @@
                 "ml": 8,
                 "name": "Dreadful Chill (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10463,7 +10463,7 @@
                 "ml": 34,
                 "name": "Dreadful Chill (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10477,7 +10477,7 @@
                 "ml": 34,
                 "name": "Dreadful Dimlight",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10491,7 +10491,7 @@
                 "ml": 8,
                 "name": "Dreadful Flames (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10510,7 +10510,7 @@
                 "ml": 34,
                 "name": "Dreadful Flames (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10524,7 +10524,7 @@
                 "ml": 34,
                 "name": "Dreadful Shadows",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10538,7 +10538,7 @@
                 "ml": 8,
                 "name": "Dreadful Sparks (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -10557,7 +10557,7 @@
                 "ml": 34,
                 "name": "Dreadful Sparks (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -12944,6 +12944,688 @@
             }
         ]
     },
+    "Melancholic (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Acid Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Acid Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Charisma (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Charisma (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Cold Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Cold Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Constitution (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Constitution (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Dexterity (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Dexterity (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Enhancement",
+                        "value": "3"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Doubleshot (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Doubleshot (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Doublestrike (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "17"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Doublestrike (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Electric Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Electric Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "18"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic False Life (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "57"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic False Life (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Fire Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Fire Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Force Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Force Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Intelligence (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Intelligence (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Light Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Light Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Negative Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Negative Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Positive Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Positive Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Repair Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Repair Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Sonic Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Sonic Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Strength (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Strength (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Wisdom (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Wisdom (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            }
+        ]
+    },
+    "Melancholic (Armor)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Lore",
+                        "type": "Exceptional",
+                        "value": "3"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Booster (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Lore",
+                        "type": "Exceptional",
+                        "value": "5"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Booster (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "19"
+                    },
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "19"
+                    },
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "19"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Converter (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "61"
+                    },
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "61"
+                    },
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "61"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Converter (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "Enhancement",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Device (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "Enhancement",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Device (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "70"
+                    }
+                ],
+                "ml": 8,
+                "name": "Melancholic Plating (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "160"
+                    }
+                ],
+                "ml": 34,
+                "name": "Melancholic Plating (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            }
+        ]
+    },
     "Melancholic (Weapon)": {
         "*": [
             {
@@ -12966,7 +13648,7 @@
                 "ml": 8,
                 "name": "Melancholic Acid (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -12989,7 +13671,7 @@
                 "ml": 34,
                 "name": "Melancholic Acid (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13015,7 +13697,7 @@
                 "ml": 8,
                 "name": "Melancholic Arcana (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13041,7 +13723,7 @@
                 "ml": 34,
                 "name": "Melancholic Arcana (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13059,7 +13741,7 @@
                 "ml": 8,
                 "name": "Melancholic Chill (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13077,7 +13759,7 @@
                 "ml": 34,
                 "name": "Melancholic Chill (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13103,7 +13785,7 @@
                 "ml": 8,
                 "name": "Melancholic Dimlight (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13129,7 +13811,7 @@
                 "ml": 34,
                 "name": "Melancholic Dimlight (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13147,7 +13829,7 @@
                 "ml": 8,
                 "name": "Melancholic Flames (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13165,7 +13847,7 @@
                 "ml": 34,
                 "name": "Melancholic Flames (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13190,7 +13872,7 @@
                 "ml": 8,
                 "name": "Melancholic Shadows (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13215,7 +13897,7 @@
                 "ml": 34,
                 "name": "Melancholic Shadows (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13233,7 +13915,7 @@
                 "ml": 8,
                 "name": "Melancholic Sparks (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13251,7 +13933,7 @@
                 "ml": 34,
                 "name": "Melancholic Sparks (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -13269,7 +13951,7 @@
                 "ml": 8,
                 "name": "Miserable Acid (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13283,7 +13965,7 @@
                 "ml": 34,
                 "name": "Miserable Acid (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13297,7 +13979,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Acid (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13311,7 +13993,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Acid (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13325,7 +14007,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Cold (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13339,7 +14021,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Cold (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13353,7 +14035,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Electric (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13367,7 +14049,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Electric (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13381,7 +14063,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Fire (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13395,7 +14077,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Fire (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13409,7 +14091,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Force (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13423,7 +14105,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Force (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13437,7 +14119,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Light (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13451,7 +14133,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Light (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13465,7 +14147,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Negative (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13479,7 +14161,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Negative (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13493,7 +14175,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Positive (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13507,7 +14189,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Positive (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13521,7 +14203,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Repair (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13535,7 +14217,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Repair (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13549,7 +14231,7 @@
                 "ml": 8,
                 "name": "Miserable Arcana: Sonic (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13563,7 +14245,7 @@
                 "ml": 34,
                 "name": "Miserable Arcana: Sonic (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13577,7 +14259,7 @@
                 "ml": 8,
                 "name": "Miserable Armor-Piercing (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13591,7 +14273,7 @@
                 "ml": 34,
                 "name": "Miserable Armor-Piercing (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13605,7 +14287,7 @@
                 "ml": 8,
                 "name": "Miserable Chill (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13619,7 +14301,7 @@
                 "ml": 34,
                 "name": "Miserable Chill (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13633,7 +14315,7 @@
                 "ml": 8,
                 "name": "Miserable Destruction",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13647,7 +14329,7 @@
                 "ml": 8,
                 "name": "Miserable Dimlight (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13661,7 +14343,7 @@
                 "ml": 34,
                 "name": "Miserable Dimlight (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13675,7 +14357,7 @@
                 "ml": 8,
                 "name": "Miserable Flames (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13689,7 +14371,7 @@
                 "ml": 34,
                 "name": "Miserable Flames (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13702,7 +14384,7 @@
                 "ml": 8,
                 "name": "Miserable Humanoid Bane (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13716,7 +14398,7 @@
                 "ml": 34,
                 "name": "Miserable Humanoid Bane (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13730,7 +14412,7 @@
                 "ml": 34,
                 "name": "Miserable Improved Destruction",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13743,7 +14425,7 @@
                 "ml": 8,
                 "name": "Miserable Maiming (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13757,7 +14439,7 @@
                 "ml": 34,
                 "name": "Miserable Maiming (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13770,7 +14452,7 @@
                 "ml": 8,
                 "name": "Miserable Monstrous Humanoid Bane (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13784,7 +14466,7 @@
                 "ml": 34,
                 "name": "Miserable Monstrous Humanoid Bane (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13798,7 +14480,7 @@
                 "ml": 8,
                 "name": "Miserable Shadows (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13812,7 +14494,7 @@
                 "ml": 34,
                 "name": "Miserable Shadows (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13826,7 +14508,7 @@
                 "ml": 8,
                 "name": "Miserable Sparks (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13840,7 +14522,7 @@
                 "ml": 34,
                 "name": "Miserable Sparks (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13853,7 +14535,7 @@
                 "ml": 8,
                 "name": "Miserable Undead Bane (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13867,7 +14549,7 @@
                 "ml": 34,
                 "name": "Miserable Undead Bane (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13880,7 +14562,7 @@
                 "ml": 8,
                 "name": "Miserable Vermin Bane (Heroic)",
                 "quests": [
-                    "Heroic Viktranium Experiment Crafting (page does not exist)"
+                    "Heroic Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13894,7 +14576,7 @@
                 "ml": 34,
                 "name": "Miserable Vermin Bane (Legendary)",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13908,7 +14590,7 @@
                 "ml": 34,
                 "name": "Woeful Acid",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13922,7 +14604,7 @@
                 "ml": 34,
                 "name": "Woeful Chill",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13936,7 +14618,7 @@
                 "ml": 34,
                 "name": "Woeful Dimlight",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13950,7 +14632,7 @@
                 "ml": 34,
                 "name": "Woeful Flames",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13964,7 +14646,7 @@
                 "ml": 34,
                 "name": "Woeful Shadows",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -13978,7 +14660,7 @@
                 "ml": 34,
                 "name": "Woeful Sparks",
                 "quests": [
-                    "Legendary Viktranium Experiment Crafting (page does not exist)"
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -35588,6 +36270,206 @@
                 "name": "Solar Gem of Wisdom (Legendary)",
                 "quests": [
                     "The Safehold"
+                ]
+            }
+        ]
+    },
+    "Woeful (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Armor Piercing (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor-Piercing",
+                        "type": "Enhancement",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Armor Piercing (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Enhanced Ghostly (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostly",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Enhanced Ghostly (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Profane DCs (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Profane DCs (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Relentless Fury",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Relentless Fury (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Relentless Fury",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Relentless Fury (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Resistance (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Resistance (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Sacred",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Sacred DCs (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Sacred",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Sacred DCs (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "96"
+                    }
+                ],
+                "ml": 8,
+                "name": "Woeful Wizardry (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "310"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Wizardry (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
                 ]
             }
         ]

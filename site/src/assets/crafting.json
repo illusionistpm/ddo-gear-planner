@@ -3942,7 +3942,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sunder",
+                        "name": "Shatter",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -3956,7 +3956,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Trip",
+                        "name": "Vertigo",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -4184,7 +4184,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sunder",
+                        "name": "Shatter",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -4198,7 +4198,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Trip",
+                        "name": "Vertigo",
                         "type": "Enhancement",
                         "value": "15"
                     }
@@ -10238,6 +10238,738 @@
         ],
         "hiddenFromAffixSearch": true
     },
+    "Dolorous (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "8"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Accuracy (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Competence",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Accuracy (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Acid Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Acid Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Cold Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Cold Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": "4"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Competence",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": "3"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Deception (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Deception (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Electric Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Electric Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Fire Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Fire Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Force Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Force Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "19"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Healing Amplification (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Amplification",
+                        "type": "Competence",
+                        "value": "61"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Healing Amplification (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Light Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Light Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "19"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Negative Amplification (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Amplification",
+                        "type": "Profane",
+                        "value": "61"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Negative Amplification (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Negative Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Negative Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Positive Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Positive Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Accuracy (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Accuracy (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Charisma (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Charisma (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Combat Mastery (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Combat Mastery (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Constitution (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Constitution (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Dexterity (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Dexterity (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Intelligence (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Intelligence (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Strength (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Strength (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": "1"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Quality Wisdom (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Quality Wisdom (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "19"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Repair Amplification (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Enhancement",
+                        "value": "61"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Repair Amplification (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Repair Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Repair Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Seeker (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Seeker (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Sonic Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Insight",
+                        "value": "12"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Sonic Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            }
+        ]
+    },
     "Dolorous (Armor)": {
         "*": [
             {
@@ -13932,6 +14664,482 @@
                 ],
                 "ml": 34,
                 "name": "Melancholic Sparks (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            }
+        ]
+    },
+    "Miserable (Accessory)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Acid Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Acid Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Assassinate (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Enhancement",
+                        "value": "17"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Assassinate (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Cold Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Cold Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Electric Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Electric Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Fire Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Fire Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Force Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Force Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Light Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Light Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Light Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "value": "12"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Magical Resistance Rating (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "value": "38"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Magical Resistance Rating (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Negative Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Negative Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "value": "12"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Physical Resistance Rating (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "value": "38"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Physical Resistance Rating (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Positive Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Positive Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Repair Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Repair Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Sonic Spell Crit Damage (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Crit Damage",
+                        "type": "Quality",
+                        "value": "6"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Sonic Spell Crit Damage (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "3"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Spell Penetration (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "10"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Spell Penetration (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Stunning (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "17"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Stunning (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Sunder (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "17"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Sunder (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Miserable Trip (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "17"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable Trip (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]

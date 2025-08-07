@@ -15786,90 +15786,6 @@
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Dust",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Acid",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Ice",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Chill",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Affirmation",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Dimlight",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Ash",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Flames",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Shadows",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Vacuum",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Sparks",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
             }
         ]
     },
@@ -36775,22 +36691,28 @@
                     {
                         "name": "Necromancy Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Necromancy (Heroic)"
+                "name": "Solar Gem of Necromancy (Heroic)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
                     {
                         "name": "Necromancy Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Necromancy (Legendary)"
+                "name": "Solar Gem of Necromancy (Legendary)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
@@ -37393,22 +37315,28 @@
                     {
                         "name": "Transmutation Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Transmutation (Heroic)"
+                "name": "Solar Gem of Transmutation (Heroic)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
                     {
                         "name": "Transmutation Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Transmutation (Legendary)"
+                "name": "Solar Gem of Transmutation (Legendary)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -37676,6 +37604,94 @@
                 ],
                 "ml": 34,
                 "name": "Woeful Wizardry (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            }
+        ]
+    },
+    "Woeful (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Dust",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Acid",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ice",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Chill",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Affirmation",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Dimlight",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ash",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Flames",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Shadows",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Vacuum",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Sparks",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]

@@ -10607,9 +10607,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Accuracy",
+                        "type": "Quality",
+                        "value": "1"
                     }
                 ],
                 "ml": 8,
@@ -10621,9 +10621,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Accuracy",
+                        "type": "Quality",
+                        "value": "5"
                     }
                 ],
                 "ml": 34,
@@ -10663,9 +10663,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Combat Mastery",
+                        "type": "Quality",
+                        "value": "1"
                     }
                 ],
                 "ml": 8,
@@ -10677,9 +10677,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Combat Mastery",
+                        "type": "Quality",
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10719,9 +10719,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Deadly",
+                        "type": "Quality",
+                        "value": "1"
                     }
                 ],
                 "ml": 8,
@@ -10733,9 +10733,9 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Deadly",
+                        "type": "Quality",
+                        "value": "4"
                     }
                 ],
                 "ml": 34,
@@ -11083,9 +11083,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Corroding",
+                        "value": "6"
                     }
                 ],
                 "ml": 8,
@@ -11168,9 +11167,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Freezing",
+                        "value": "6"
                     }
                 ],
                 "ml": 8,
@@ -11215,9 +11213,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Flaming",
+                        "value": "6"
                     }
                 ],
                 "ml": 8,
@@ -11262,9 +11259,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Jolting",
+                        "value": "6"
                     }
                 ],
                 "ml": 8,
@@ -14374,7 +14370,7 @@
                     },
                     {
                         "name": "Acidic",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 8,
@@ -14467,7 +14463,7 @@
                     },
                     {
                         "name": "Chilling",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 8,
@@ -14555,7 +14551,7 @@
                     },
                     {
                         "name": "Fiery",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 8,
@@ -14641,7 +14637,7 @@
                     },
                     {
                         "name": "Electrifying",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 8,
@@ -15195,7 +15191,7 @@
                     {
                         "name": "Corrosion",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15223,7 +15219,7 @@
                     {
                         "name": "Glaciation",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15251,7 +15247,7 @@
                     {
                         "name": "Magnetism",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15279,7 +15275,7 @@
                     {
                         "name": "Combustion",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15307,7 +15303,7 @@
                     {
                         "name": "Impulse",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15335,7 +15331,7 @@
                     {
                         "name": "Radiance",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15363,7 +15359,7 @@
                     {
                         "name": "Nullification",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15391,7 +15387,7 @@
                     {
                         "name": "Devotion",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15419,7 +15415,7 @@
                     {
                         "name": "Reconstruction",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15447,7 +15443,7 @@
                     {
                         "name": "Resonance",
                         "type": "Equipment",
-                        "value": "149"
+                        "value": "159"
                     }
                 ],
                 "ml": 34,
@@ -15598,9 +15594,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Humanoid Bane",
+                        "value": "7"
                     }
                 ],
                 "ml": 34,
@@ -15639,9 +15634,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Maiming",
+                        "value": "7"
                     }
                 ],
                 "ml": 34,
@@ -15666,9 +15660,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Monstrous Humanoid Bane",
+                        "value": "7"
                     }
                 ],
                 "ml": 34,
@@ -15749,9 +15742,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Undead Bane",
+                        "value": "7"
                     }
                 ],
                 "ml": 34,
@@ -15776,9 +15768,8 @@
             {
                 "affixes": [
                     {
-                        "name": "",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Vermin Bane",
+                        "value": "7"
                     }
                 ],
                 "ml": 34,
@@ -15796,7 +15787,7 @@
                     {
                         "name": "Abjuration Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -15807,7 +15798,7 @@
                     {
                         "name": "Abjuration Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -15862,12 +15853,12 @@
                     {
                         "name": "Balance",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Tumble",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -15928,7 +15919,7 @@
                     {
                         "name": "Conjuration Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -15939,7 +15930,7 @@
                     {
                         "name": "Conjuration Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -16022,12 +16013,12 @@
                     {
                         "name": "Disable Device",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Open Lock",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -16038,7 +16029,7 @@
                     {
                         "name": "Enchantment Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -16049,7 +16040,7 @@
                     {
                         "name": "Enchantment Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -16060,7 +16051,7 @@
                     {
                         "name": "Evocation Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -16071,7 +16062,7 @@
                     {
                         "name": "Evocation Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -16108,38 +16099,6 @@
                 ],
                 "ml": 30,
                 "name": "Lunar Gem of Haggle and Perform (Legendary)"
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Profane",
-                        "value": "2"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Profane",
-                        "value": "2"
-                    }
-                ],
-                "ml": 1,
-                "name": "Lunar Gem of Heal and Listen (Heroic)"
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Profane",
-                        "value": "4"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Profane",
-                        "value": "4"
-                    }
-                ],
-                "ml": 30,
-                "name": "Lunar Gem of Heal and Listen (Legendary)"
             },
             {
                 "affixes": [
@@ -16190,12 +16149,12 @@
                     {
                         "name": "Hide",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Move Silently",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -16206,7 +16165,7 @@
                     {
                         "name": "Illusion Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -16217,7 +16176,7 @@
                     {
                         "name": "Illusion Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -16272,12 +16231,12 @@
                     {
                         "name": "Jump",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Swim",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -16309,17 +16268,17 @@
                     {
                         "name": "Diplomacy",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Intimidate",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Bluff",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -16428,7 +16387,7 @@
                     {
                         "name": "Necromancy Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -16439,7 +16398,7 @@
                     {
                         "name": "Necromancy Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -16494,6 +16453,48 @@
                 ],
                 "ml": 30,
                 "name": "Lunar Gem of Pact Dice (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Peace (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Peace (Legendary)"
             },
             {
                 "affixes": [
@@ -16600,12 +16601,12 @@
                     {
                         "name": "Repair",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Use Magic Device",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
@@ -16625,23 +16626,29 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Search and Spot (Heroic)"
+                "name": "Lunar Gem of Search and Spot (Heroic)",
+                "quests": [
+                    "Snowfall and Sunlight (page does not exist)"
+                ]
             },
             {
                 "affixes": [
                     {
                         "name": "Search",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     },
                     {
                         "name": "Spot",
                         "type": "Profane",
-                        "value": "4"
+                        "value": "6"
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Search and Spot (Legendary)"
+                "name": "Lunar Gem of Search and Spot (Legendary)",
+                "quests": [
+                    "Snowfall and Sunlight (page does not exist)"
+                ]
             },
             {
                 "affixes": [
@@ -16788,7 +16795,7 @@
                     {
                         "name": "Transmutation Focus",
                         "type": "Profane",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -16799,7 +16806,7 @@
                     {
                         "name": "Transmutation Focus",
                         "type": "Profane",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -35877,7 +35884,7 @@
                     {
                         "name": "Abjuration Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -35888,7 +35895,7 @@
                     {
                         "name": "Abjuration Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -36041,7 +36048,7 @@
                     {
                         "name": "Conjuration Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -36052,7 +36059,7 @@
                     {
                         "name": "Conjuration Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -36099,6 +36106,28 @@
                 "quests": [
                     "Seeds of Decay"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Critical Confirmation (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Critical Confirmation (Legendary)"
             },
             {
                 "affixes": [
@@ -36307,9 +36336,61 @@
             {
                 "affixes": [
                     {
+                        "name": "Fire Absorption",
+                        "type": "Artifact",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Cold Absorption",
+                        "type": "Artifact",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Electric Absorption",
+                        "type": "Artifact",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Acid Absorption",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Elemental Absorption (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Artifact",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Cold Absorption",
+                        "type": "Artifact",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Electric Absorption",
+                        "type": "Artifact",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Acid Absorption",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Elemental Absorption (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Enchantment Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -36320,7 +36401,7 @@
                     {
                         "name": "Enchantment Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -36359,7 +36440,7 @@
                     {
                         "name": "Evocation Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -36370,7 +36451,7 @@
                     {
                         "name": "Evocation Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,
@@ -36501,7 +36582,7 @@
                     {
                         "name": "Illusion Focus",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -36512,7 +36593,7 @@
                     {
                         "name": "Illusion Focus",
                         "type": "Artifact",
-                        "value": "3"
+                        "value": "4"
                     }
                 ],
                 "ml": 30,

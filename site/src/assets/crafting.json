@@ -16006,7 +16006,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Disable Device and Open Lock (Heroic)"
+                "name": "Lunar Gem of Disable Device and Open Lock (Heroic)",
+                "quests": [
+                    "Beneath the City Streets (page does not exist)"
+                ]
             },
             {
                 "affixes": [
@@ -16391,7 +16394,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Necromancy (Heroic)"
+                "name": "Lunar Gem of Necromancy (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -35982,6 +35988,44 @@
             {
                 "affixes": [
                     {
+                        "name": "Balance",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Tumble",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Balance and Tumble (Heroic)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Balance",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Tumble",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Balance and Tumble (Legendary)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Eldritch Blast Dice",
                         "type": "Artifact",
                         "value": "1"
@@ -36198,6 +36242,38 @@
                 "quests": [
                     "Portal to Below"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Disable Device and Open Lock (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Disable Device and Open Lock (Legendary)"
             },
             {
                 "affixes": [
@@ -36552,6 +36628,38 @@
             {
                 "affixes": [
                     {
+                        "name": "Haggle",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Perform",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Haggle and Perform (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Haggle",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Perform",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Haggle and Perform (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Healing Amplification",
                         "type": "Artifact",
                         "value": "10"
@@ -36576,6 +36684,38 @@
                 "quests": [
                     "The Zulkir's Plan"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Move Silently",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Hide and Move Silently (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Hide",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Move Silently",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Hide and Move Silently (Legendary)"
             },
             {
                 "affixes": [
@@ -36682,6 +36822,80 @@
                 "quests": [
                     "Oghma's Song"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Swim",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Jump and Swim (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Jump",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Swim",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Jump and Swim (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Intimidate",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Bluff",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Linguistics (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Diplomacy",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Intimidate",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Bluff",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Linguistics (Legendary)"
             },
             {
                 "affixes": [
@@ -36848,6 +37062,48 @@
             {
                 "affixes": [
                     {
+                        "name": "Heal",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Peace (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Peace (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Physical Sheltering",
                         "type": "Artifact",
                         "value": "10"
@@ -36970,6 +37226,70 @@
                 "quests": [
                     "Voices of the Dead"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Repair and Use Magic Device (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Repair and Use Magic Device (Legendary)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spot",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Search and Spot (Heroic)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Search",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Spot",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Search and Spot (Legendary)"
             },
             {
                 "affixes": [

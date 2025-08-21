@@ -4708,7 +4708,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Spell Focus Mastery",
+                    "name": "DCs (Note: Tactical DCs are not affected, only Spell DCs)",
                     "type": "Profane",
                     "value": "2"
                 }

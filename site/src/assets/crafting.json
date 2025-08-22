@@ -10651,7 +10651,7 @@
                     {
                         "name": "Charisma",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10707,7 +10707,7 @@
                     {
                         "name": "Constitution",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10763,7 +10763,7 @@
                     {
                         "name": "Dexterity",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10791,7 +10791,7 @@
                     {
                         "name": "Intelligence",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10819,7 +10819,7 @@
                     {
                         "name": "Strength",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -10847,7 +10847,7 @@
                     {
                         "name": "Wisdom",
                         "type": "Quality",
-                        "value": "2"
+                        "value": "3"
                     }
                 ],
                 "ml": 34,
@@ -15846,7 +15846,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Balance and Tumble (Heroic)"
+                "name": "Lunar Gem of Balance and Tumble (Heroic)",
+                "quests": [
+                    "Locked Away (Part One)"
+                ]
             },
             {
                 "affixes": [
@@ -15862,7 +15865,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Balance and Tumble (Legendary)"
+                "name": "Lunar Gem of Balance and Tumble (Legendary)",
+                "quests": [
+                    "Locked Away (Part One)"
+                ]
             },
             {
                 "affixes": [
@@ -15923,7 +15929,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Conjuration (Heroic)"
+                "name": "Lunar Gem of Conjuration (Heroic)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -15934,7 +15943,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Conjuration (Legendary)"
+                "name": "Lunar Gem of Conjuration (Legendary)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -16008,7 +16020,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Disable Device and Open Lock (Heroic)",
                 "quests": [
-                    "Beneath the City Streets (page does not exist)"
+                    "Beneath the City Streets"
                 ]
             },
             {
@@ -16025,7 +16037,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Disable Device and Open Lock (Legendary)"
+                "name": "Lunar Gem of Disable Device and Open Lock (Legendary)",
+                "quests": [
+                    "Beneath the City Streets"
+                ]
             },
             {
                 "affixes": [
@@ -16085,7 +16100,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Haggle and Perform (Heroic)"
+                "name": "Lunar Gem of Haggle and Perform (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -16101,7 +16119,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Haggle and Perform (Legendary)"
+                "name": "Lunar Gem of Haggle and Perform (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -16145,7 +16166,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Hide and Move Silently (Heroic)"
+                "name": "Lunar Gem of Hide and Move Silently (Heroic)",
+                "quests": [
+                    "Ends and Means"
+                ]
             },
             {
                 "affixes": [
@@ -16161,7 +16185,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Hide and Move Silently (Legendary)"
+                "name": "Lunar Gem of Hide and Move Silently (Legendary)",
+                "quests": [
+                    "Ends and Means"
+                ]
             },
             {
                 "affixes": [
@@ -16172,7 +16199,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Illusion (Heroic)"
+                "name": "Lunar Gem of Illusion (Heroic)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -16183,7 +16213,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Illusion (Legendary)"
+                "name": "Lunar Gem of Illusion (Legendary)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -16227,7 +16260,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Jump and Swim (Heroic)"
+                "name": "Lunar Gem of Jump and Swim (Heroic)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -16243,7 +16279,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Jump and Swim (Legendary)"
+                "name": "Lunar Gem of Jump and Swim (Legendary)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -16264,7 +16303,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Linguistics (Heroic)"
+                "name": "Lunar Gem of Linguistics (Heroic)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
@@ -16285,7 +16327,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Linguistics (Legendary)"
+                "name": "Lunar Gem of Linguistics (Legendary)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
@@ -16408,7 +16453,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Necromancy (Legendary)"
+                "name": "Lunar Gem of Necromancy (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -16447,7 +16495,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Pact Dice (Heroic)"
+                "name": "Lunar Gem of Pact Dice (Heroic)",
+                "quests": [
+                    "Snowfall and Sunlight (page does not exist)"
+                ]
             },
             {
                 "affixes": [
@@ -16458,7 +16509,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Pact Dice (Legendary)"
+                "name": "Lunar Gem of Pact Dice (Legendary)",
+                "quests": [
+                    "Snowfall and Sunlight (page does not exist)"
+                ]
             },
             {
                 "affixes": [
@@ -16479,7 +16533,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Peace (Heroic)"
+                "name": "Lunar Gem of Peace (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -16500,7 +16557,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Peace (Legendary)"
+                "name": "Lunar Gem of Peace (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -16600,7 +16660,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Repair and Use Magic Device (Heroic)"
+                "name": "Lunar Gem of Repair and Use Magic Device (Heroic)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -16616,7 +16679,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Repair and Use Magic Device (Legendary)"
+                "name": "Lunar Gem of Repair and Use Magic Device (Legendary)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -16805,7 +16871,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Transmutation (Heroic)"
+                "name": "Lunar Gem of Transmutation (Heroic)",
+                "quests": [
+                    "Ends and Means"
+                ]
             },
             {
                 "affixes": [
@@ -16816,7 +16885,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Transmutation (Legendary)"
+                "name": "Lunar Gem of Transmutation (Legendary)",
+                "quests": [
+                    "Ends and Means"
+                ]
             },
             {
                 "affixes": [
@@ -37078,7 +37150,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Peace (Heroic)"
+                "name": "Solar Gem of Peace (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -37099,7 +37174,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Peace (Legendary)"
+                "name": "Solar Gem of Peace (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [

@@ -6,7 +6,7 @@ import { EquippedService } from '../equipped.service';
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
 import { Clipboard } from '../clipboard';
-import { Item } from '../item';
+import { UserGearService, UserItemLocation } from '../user-gear.service';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
@@ -23,9 +23,19 @@ export class GearListComponent implements OnInit {
   constructor(
     public gearList: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public userGear: UserGearService
   ) {
     this.itemNameMap = new Map<string, string>();
+  }
+  userOwnsItem(slot: string): boolean {
+    const itemName = this.getItemName(slot);
+    return !!itemName && this.userGear.hasItem(itemName);
+  }
+
+  getUserItemLocations(slot: string): UserItemLocation[] | undefined {
+    const itemName = this.getItemName(slot);
+    return itemName ? this.userGear.getItemLocations(itemName) : undefined;
   }
 
   ngOnInit() {

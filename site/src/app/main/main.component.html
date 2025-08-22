@@ -1,5 +1,5 @@
 <div class="container">
-    <app-filters></app-filters>
+    <app-filters (troveFileSelected)="onTroveFileSelected($event)" (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>
     <app-gear-list></app-gear-list>
-    <app-effects-table></app-effects-table>
+    <app-effects-table [sortOwnedToTop]="sortOwnedToTop"></app-effects-table>
 </div>

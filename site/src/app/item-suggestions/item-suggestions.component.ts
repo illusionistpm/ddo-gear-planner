@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
+import { UserGearService, UserItemLocation } from '../user-gear.service';
 
 @Component({
     selector: 'app-item-suggestions',
@@ -22,8 +23,17 @@ export class ItemSuggestionsComponent implements OnInit {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public userGear: UserGearService
   ) { }
+
+  userOwnsItem(item: Item): boolean {
+    return !!item?.name && this.userGear.hasItem(item.name);
+  }
+
+  getUserItemLocations(item: Item): UserItemLocation[] | undefined {
+    return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
+  }
 
   ngOnInit() {
     this.current = this.equipped.getSlot(this.slot);

@@ -19,6 +19,7 @@ import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
+import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.com
         AffixCloudComponent,
         ItemsInSetComponent,
         ExpandingCheckboxesComponent,
-        FilterItemTypeComponent
+        FilterItemTypeComponent,
+        UserItemLocationTooltipPipe
     ],
     imports: [
         AppRoutingModule,

@@ -27,4 +27,23 @@
         <app-filter-item-type></app-filter-item-type>
     </div>
 
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <label for="trove-upload" class="btn btn-success w-100 mb-2"
+                       data-bs-toggle="tooltip"
+                       data-bs-html="true"
+                       title="Users of Dungeon Helper Trove can show the planner what gear they have to help choose items they already own. Manually export the CSV file in Trove then load it here. After export, it typically lives in C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\. The data stays on your computer and will be used automatically until you clear it.">Load TroveExport.csv</label>
+                <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
+                <span class="text-success" *ngIf="userGearCount !== undefined">
+                    {{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded
+                    <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="onClearUserGear()">Clear</button>
+                </span>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="sortOwnedToTop" [(ngModel)]="sortOwnedToTop" (change)="onSortOwnedToTopChanged()">
+                    <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,3 +1,14 @@
+.user-owned-star {
+    color: gold;
+    font-size: 1.2em;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 1;
+    position: relative;
+    top: -4px;
+    display: inline-flex;
+    align-items: center;
+}
 .row:nth-child(odd) {
     background-color:antiquewhite;
 }

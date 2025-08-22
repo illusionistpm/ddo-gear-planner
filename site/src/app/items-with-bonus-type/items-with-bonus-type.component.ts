@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { UserGearService, UserItemLocation } from '../user-gear.service';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
@@ -17,7 +18,35 @@ import { CraftableOption } from '../craftable-option';
     styleUrls: ['./items-with-bonus-type.component.css'],
     standalone: false
 })
-export class ItemsWithBonusTypeComponent implements OnInit {
+export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
+  @Input() sortOwnedToTop: boolean = true;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['sortOwnedToTop'] && !changes['sortOwnedToTop'].firstChange) {
+      this.updateSorting();
+    }
+  }
+
+  private _sortItems(items: Item[]): Item[] {
+    const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
+    return [...items].sort((a, b) => {
+      if (this.sortOwnedToTop) {
+        if (userOwnsItem(a) && !userOwnsItem(b)) {
+          return -1; // a is owned, b is not, a comes first
+        } else if (!userOwnsItem(a) && userOwnsItem(b)) {
+          return 1; // b is owned, a is not, b comes first
+        }
+      }
+      
+      return Number(b.getValue(this.affixName, this.bonusType, this.affixSvc)) - 
+             Number(a.getValue(this.affixName, this.bonusType, this.affixSvc));
+    });
+  }
+
+  private updateSorting() {
+    this.matches = this._sortItems(this.matches);
+    this.lockedMatches = this._sortItems(this.lockedMatches);
+  }
 
   @Input() affixName: string;
   @Input() bonusType: string;
@@ -38,8 +67,17 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     public gearDB: GearDbService,
     public equipped: EquippedService,
     private modalService: NgbModal,
-    private affixSvc: AffixService
+    private affixSvc: AffixService,
+    public userGear: UserGearService
   ) {
+  }
+
+  userOwnsItem(item: Item): boolean {
+    return !!item?.name && this.userGear.hasItem(item.name);
+  }
+
+  getUserItemLocations(item: Item): UserItemLocation[] | undefined {
+    return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
   }
 
   ngOnInit() {
@@ -47,13 +85,19 @@ export class ItemsWithBonusTypeComponent implements OnInit {
     this.lockedMatches = [];
 
     const matchingGear = this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType);
+    const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
+    const unlocked: Item[] = [];
+    const locked: Item[] = [];
     for (const item of matchingGear) {
       if (this.equipped.getUnlockedSlots().has(item.slot)) {
-        this.matches.push(item);
+        unlocked.push(item);
       } else {
-        this.lockedMatches.push(item);
+        locked.push(item);
       }
     }
+    // Sort both lists by value and ownership
+    this.matches = this._sortItems(unlocked);
+    this.lockedMatches = this._sortItems(locked);
 
     // This is a map of, e.g., Diamond of Str 14 -> Boots Of Innocence -> [Blue Augment, Colorless Augment]
     // This allows me to build a list that looks something like

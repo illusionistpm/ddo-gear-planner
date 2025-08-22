@@ -92,8 +92,15 @@
       <div class="row">
         <div class="col-1">{{item.ml}}</div>
         <div class="col-2">{{item.slot}}</div>
-        <div class="col-6"><a href="{{item.getURL()}}"
-        target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+        <div class="col-6">
+          <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}
+          <ng-container *ngIf="userOwnsItem(item)">
+            <span class="user-owned-star" 
+                  [title]="getUserItemLocations(item) | userItemLocationTooltip">
+              ★
+            </span>
+          </ng-container>
+        </div>
         <div class="col-1">{{findMatchingValue(item)[1]}}</div>
         <button class="col-2" (click)="equipItem(item)">Equip</button>
       </div>
@@ -110,7 +117,15 @@
         <div class="row">
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
-          <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}</div>
+          <div class="col-6">
+            <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}
+            <ng-container *ngIf="userOwnsItem(item)">
+              <span class="user-owned-star" 
+                    [title]="getUserItemLocations(item) | userItemLocationTooltip">
+                ★
+              </span>
+            </ng-container>
+          </div>
           <div class="col-1">{{findMatchingValue(item)[1]}}</div>
           <button class="col-2" (click)="equipItem(item)">Equip</button>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EquippedService } from '../equipped.service';
@@ -20,6 +20,8 @@ export class EffectsTableComponent implements OnInit {
   public boolAffixNames: Array<string>;
 
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
+
+  @Input() sortOwnedToTop: boolean = true;
 
   constructor(
     public equipped: EquippedService,
@@ -70,6 +72,7 @@ export class EffectsTableComponent implements OnInit {
 
     dlg.componentInstance.affixName = affixName;
     dlg.componentInstance.bonusType = bonusType;
+    dlg.componentInstance.sortOwnedToTop = this.sortOwnedToTop;
 
     dlg.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;

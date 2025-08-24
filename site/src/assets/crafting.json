@@ -15879,7 +15879,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Blast Dice (Heroic)"
+                "name": "Lunar Gem of Blast Dice (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -15890,7 +15893,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Blast Dice (Legendary)"
+                "name": "Lunar Gem of Blast Dice (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -16051,7 +16057,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Enchantment (Heroic)"
+                "name": "Lunar Gem of Enchantment (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -16062,7 +16071,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Enchantment (Legendary)"
+                "name": "Lunar Gem of Enchantment (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -35988,7 +36000,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Arcane Endurance (Heroic)"
+                "name": "Solar Gem of Arcane Endurance (Heroic)",
+                "quests": [
+                    "A Miner Sacrifice"
+                ]
             },
             {
                 "affixes": [
@@ -35999,7 +36014,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Arcane Endurance (Legendary)"
+                "name": "Solar Gem of Arcane Endurance (Legendary)",
+                "quests": [
+                    "A Miner Sacrifice"
+                ]
             },
             {
                 "affixes": [
@@ -36104,7 +36122,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Blast Dice (Heroic)"
+                "name": "Solar Gem of Blast Dice (Heroic)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -36115,7 +36136,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Blast Dice (Legendary)"
+                "name": "Solar Gem of Blast Dice (Legendary)",
+                "quests": [
+                    "Cold Snap"
+                ]
             },
             {
                 "affixes": [
@@ -36168,7 +36192,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Conjuration (Heroic)"
+                "name": "Solar Gem of Conjuration (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -36179,7 +36206,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Conjuration (Legendary)"
+                "name": "Solar Gem of Conjuration (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -36345,7 +36375,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Disable Device and Open Lock (Legendary)"
+                "name": "Solar Gem of Disable Device and Open Lock (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -36505,7 +36538,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Elemental Absorption (Heroic)"
+                "name": "Solar Gem of Elemental Absorption (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -36531,7 +36567,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Elemental Absorption (Legendary)"
+                "name": "Solar Gem of Elemental Absorption (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -36614,7 +36653,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Force Absorption (Heroic)"
+                "name": "Solar Gem of Force Absorption (Heroic)",
+                "quests": [
+                    "Snowfall and Sunlight"
+                ]
             },
             {
                 "affixes": [
@@ -36625,7 +36667,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Force Absorption (Legendary)"
+                "name": "Solar Gem of Force Absorption (Legendary)",
+                "quests": [
+                    "Snowfall and Sunlight"
+                ]
             },
             {
                 "affixes": [
@@ -36711,7 +36756,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Haggle and Perform (Heroic)"
+                "name": "Solar Gem of Haggle and Perform (Heroic)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -36727,7 +36775,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Haggle and Perform (Legendary)"
+                "name": "Solar Gem of Haggle and Perform (Legendary)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -36771,7 +36822,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Hide and Move Silently (Heroic)"
+                "name": "Solar Gem of Hide and Move Silently (Heroic)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -36787,7 +36841,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Hide and Move Silently (Legendary)"
+                "name": "Solar Gem of Hide and Move Silently (Legendary)",
+                "quests": [
+                    "The Wish"
+                ]
             },
             {
                 "affixes": [
@@ -36909,7 +36966,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Jump and Swim (Heroic)"
+                "name": "Solar Gem of Jump and Swim (Heroic)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -36925,7 +36985,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Jump and Swim (Legendary)"
+                "name": "Solar Gem of Jump and Swim (Legendary)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -36946,7 +37009,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Linguistics (Heroic)"
+                "name": "Solar Gem of Linguistics (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -36967,7 +37033,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Linguistics (Legendary)"
+                "name": "Solar Gem of Linguistics (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -37118,7 +37187,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Pact Dice (Heroic)"
+                "name": "Solar Gem of Pact Dice (Heroic)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -37129,7 +37201,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Pact Dice (Legendary)"
+                "name": "Solar Gem of Pact Dice (Legendary)",
+                "quests": [
+                    "A Light in the Attic"
+                ]
             },
             {
                 "affixes": [
@@ -37319,7 +37394,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Repair and Use Magic Device (Heroic)"
+                "name": "Solar Gem of Repair and Use Magic Device (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -37335,7 +37413,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Repair and Use Magic Device (Legendary)"
+                "name": "Solar Gem of Repair and Use Magic Device (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -37351,7 +37432,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Search and Spot (Heroic)"
+                "name": "Solar Gem of Search and Spot (Heroic)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -37367,7 +37451,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Search and Spot (Legendary)"
+                "name": "Solar Gem of Search and Spot (Legendary)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [

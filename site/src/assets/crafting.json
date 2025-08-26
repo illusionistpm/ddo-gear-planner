@@ -15791,7 +15791,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Abjuration (Heroic)"
+                "name": "Lunar Gem of Abjuration (Heroic)",
+                "quests": [
+                    "The Proper Authorities"
+                ]
             },
             {
                 "affixes": [
@@ -15802,7 +15805,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Abjuration (Legendary)"
+                "name": "Lunar Gem of Abjuration (Legendary)",
+                "quests": [
+                    "The Proper Authorities"
+                ]
             },
             {
                 "affixes": [
@@ -36078,6 +36084,34 @@
             {
                 "affixes": [
                     {
+                        "name": "Accuracy",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Attack (Heroic)",
+                "quests": [
+                    "Zoo Creeper"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Attack (Legendary)",
+                "quests": [
+                    "Zoo Creeper"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Balance",
                         "type": "Artifact",
                         "value": "2"
@@ -37416,6 +37450,34 @@
                 "name": "Solar Gem of Repair and Use Magic Device (Legendary)",
                 "quests": [
                     "Land of Lamordia"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm DCs",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Rune Arm DCs (Heroic)",
+                "quests": [
+                    "Ends and Means"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rune Arm DCs",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Rune Arm DCs (Legendary)",
+                "quests": [
+                    "Ends and Means"
                 ]
             },
             {

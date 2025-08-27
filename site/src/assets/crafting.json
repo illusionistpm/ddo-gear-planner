@@ -36086,7 +36086,7 @@
                     {
                         "name": "Accuracy",
                         "type": "Artifact",
-                        "value": "1"
+                        "value": "2"
                     }
                 ],
                 "ml": 1,
@@ -36393,7 +36393,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Disable Device and Open Lock (Heroic)"
+                "name": "Solar Gem of Disable Device and Open Lock (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
             },
             {
                 "affixes": [
@@ -36465,7 +36468,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Dodge Cap (Heroic)"
+                "name": "Solar Gem of Dodge Cap (Heroic)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [
@@ -36476,7 +36482,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Dodge Cap (Legendary)"
+                "name": "Solar Gem of Dodge Cap (Legendary)",
+                "quests": [
+                    "Special Delivery"
+                ]
             },
             {
                 "affixes": [

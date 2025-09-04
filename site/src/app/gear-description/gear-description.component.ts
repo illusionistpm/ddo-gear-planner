@@ -79,6 +79,34 @@ export class GearDescriptionComponent implements OnInit {
     return AffixRank[affixRank];
   }
 
+  getAffixTooltip(affix: Affix): string {
+    if (!affix) return '';
+    
+    let affixRank = this.equipped.getAffixRanking(affix);
+    if (affixRank === AffixRank.Irrelevant) {
+      if (this.affixSvc.isAffixGroup(affix)) {
+        affixRank = this._getClassForAffixGroup(affix);
+      }
+    }
+
+    switch (affixRank) {
+      case AffixRank.BetterThanBest:
+        return 'Better than best equipped value';
+      case AffixRank.Best:
+        return 'Best equipped value';
+      case AffixRank.BestTied:
+        return 'Tied for best equipped value';
+      case AffixRank.Outranked:
+        return 'Overpowered by another affix';
+      case AffixRank.Mixed:
+        return 'Mixed effectiveness';
+      case AffixRank.Penalty:
+        return 'Penalty/negative effect';
+      default:
+        return '';
+    }
+  }
+
   private _getClassForAffixGroup(affixGroup: Affix) {
     let affixRank = AffixRank.Irrelevant;
     const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
@@ -96,17 +124,15 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   getClassForCraftable(craft: Craftable) {
-    for (const affix of craft.selected.affixes) {
-      const affixRank = this.equipped.getAffixRanking(affix);
-      return AffixRank[affixRank];
-    }
+    if (!craft?.selected?.affixes?.length) return 'Irrelevant';
+    const affixRank = this.equipped.getAffixRanking(craft.selected.affixes[0]);
+    return AffixRank[affixRank];
   }
 
   getClassForCraftingOption(option: CraftableOption) {
-    for (const affix of option.affixes) {
-      const affixRank = this.equipped.getAffixRanking(affix);
-      return AffixRank[affixRank];
-    }
+    if (!option?.affixes?.length) return 'Irrelevant';
+    const affixRank = this.equipped.getAffixRanking(option.affixes[0]);
+    return AffixRank[affixRank];
   }
 
   // Duplicated from gear-craftingList

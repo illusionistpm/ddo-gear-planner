@@ -18,7 +18,7 @@
     <!-- Main Affixes -->
     @for (affix of curItem.affixes; track affix) {
       <div class="row table-striped table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
-        >
+          [title]="getAffixTooltip(affix)">
         @if (equipped.isImportantAffix(affix.name)) {
           <button class="show-on-hover fas fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(affix.name)"></button>
@@ -47,13 +47,14 @@
           <button class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
         }
-        <div class="col-3 ps-1 pe-0" [ngClass]="getClassForCraftable(craft)">{{craft.name}}</div>
+        <div class="col-3 ps-1 pe-0" [ngClass]="getClassForCraftable(craft)" [title]="craft.selected?.affixes?.length ? getAffixTooltip(craft.selected.affixes[0]) : ''">{{craft.name}}</div>
         @if (!readonly) {
           <div class="col-8">
             <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForCraftable(craft)" [hidden]="craft.options.length < 2">
               @for (option of craft.options; track option) {
                 <option [ngValue]="option"
-                  [ngClass]="getClassForCraftingOption(option)">
+                  [ngClass]="getClassForCraftingOption(option)"
+                  [title]="getAffixTooltip(option.affixes[0])">
                   {{describe(option)}}
                 </option>
               }

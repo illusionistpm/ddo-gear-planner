@@ -107,6 +107,10 @@ export class EffectsTableComponent implements OnInit {
     return entry[1].length === 1 && entry[1][0].bonusType === 'bool';
   }
 
+  private getModerateThreshold(maxValue: number): number {
+    return maxValue * 3 / 4;
+  } 
+
   getClassForValue(affixName, type) {
     if (type.bonusType === 'Penalty') {
       return 'penalty-value';
@@ -116,10 +120,27 @@ export class EffectsTableComponent implements OnInit {
 
     if (type.value >= maxValue) {
       return 'max-value';
-    } else if (type.value >= maxValue / 2) {
+    } else if (type.value >= this.getModerateThreshold(maxValue)) {
       return 'mid-value';
     } else {
       return 'low-value';
+    }
+  }
+
+  getValueTooltip(affixName, type): string {
+    if (type.bonusType === 'Penalty') {
+      return 'Penalty effect';
+    }
+
+    const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
+    const shortBy = maxValue - type.value;
+
+    if (type.value >= maxValue) {
+      return 'Best possible value';
+    } else if (type.value >= this.getModerateThreshold(maxValue)) {
+      return `Moderate value (${shortBy} below max)`;
+    } else {
+      return `Low value (${shortBy} below max)`;
     }
   }
 }

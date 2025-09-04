@@ -32,7 +32,8 @@
         </div>
         <div class="col" *ngFor="let types of sortTypes(affixName)">
             <button class="w-100" *ngIf="types.value; else noValue"
-                (click)="showItemsWithBonusType(affixName, types.bonusType)">
+                (click)="showItemsWithBonusType(affixName, types.bonusType)"
+                [title]="getValueTooltip(affixName, types)">
                 <span
                     [ngClass]="getClassForValue(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
                     {{types.value}} </span>

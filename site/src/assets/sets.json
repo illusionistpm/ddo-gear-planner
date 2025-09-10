@@ -205,7 +205,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Intelligence",
+                    "name": "Intelligence Bug: Only gives +1 INT",
                     "type": "Artifact",
                     "value": "2"
                 },

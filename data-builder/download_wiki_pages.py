@@ -87,7 +87,7 @@ def download_crafting_pages():
     if not os.path.exists(cacheDir):
         os.makedirs(cacheDir)
 
-    download_page('Dinosaur_Bone_crafting', cacheDir)
+    download_page('Raw data/Item crafting enchantments', cacheDir)
 
 
 def download_wiki_pages():

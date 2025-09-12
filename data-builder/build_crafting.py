@@ -4,6 +4,8 @@ from parse_slavers import parse_slavers_crafting
 from parse_augments import parse_augments
 from write_json import write_json
 from get_lost_purpose import get_lost_purpose_crafting
+from get_item_crafting import get_item_crafting
+
 import os
 
 def build_crafting():
@@ -16,11 +18,14 @@ def build_crafting():
 
     augments = parse_augments()
 
+    item_crafting = get_item_crafting()
+
     combined = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
     combined.update(augments)
     combined.update(lost_purpose)
+    combined.update(item_crafting)
 
     # loop through all Crafting map entries to identify effect names that need to be transformed
     for CraftingSystemName, CraftingSystemMap in combined.items():

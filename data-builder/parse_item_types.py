@@ -23,7 +23,7 @@ def get_item_categories_from_page(soup):
     for row in rows:
         fields = row.find_all('td', recursive=False)
 
-        
+
         categories.append(fields[0].getText().strip())
 
     return categories
@@ -58,6 +58,10 @@ def parse_item_types():
 
             # Composite Long/Show bows aren't actually used it seems
             if cat.startswith('Composite'):
+                continue
+
+            # Add sanity check to help during development
+            if cat not in types:
                 continue
 
             types[cat]['attributes'].append(attribute)

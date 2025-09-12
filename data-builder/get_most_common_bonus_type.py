@@ -21,6 +21,9 @@ def get_most_common_bonus_type():
 
     bestBonusMap = {}
 
+    # set initial value to help with development
+    bestBonus = None
+
     for affix, v in affixes.items():
         maxCount = 0
 

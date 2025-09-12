@@ -35114,6 +35114,396 @@
             }
         ]
     },
+    "Sealed in Gloom": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            }
+        ]
+    },
+    "Sealed in Mist": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Dust",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ash",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Vacuum",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Ooze",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Salt",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Affirmation",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    },
+    "Sealed in Undeath": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ]
+            }
+        ]
+    },
     "Slaver's Bonus Slot": {
         "*": [
             {

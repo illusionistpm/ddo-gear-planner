@@ -68,9 +68,9 @@ def transform_augment_name(name, augmentNameTransformMap):
     # If it's a set bonus, we tweak the name and restore the pack name since it's necessary to differentiate sets
     if name == 'Set Bonus':
         return f"{pack_name}: Set Bonus Slot: Empty" if pack_name else "Set Bonus Slot: Empty"
-    
+
     return augmentNameTransformMap.get(name, name)
-    
+
 
 def get_items_from_page(itemPageURL, craftingSystems, sets):
     synonymMap = get_inverted_synonym_map()
@@ -358,6 +358,12 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                     itemQuarterstaffVariant['affixes'] = augmentQuarterstaffAffixList
                     add_entry_to_crafting_map(augmentType.replace(')', ' - Quarterstaff)'), itemQuarterstaffVariant, craftingSystems)
 
+            # for item augments, change the set element name from "sets" to "set"
+            # and transpose from list with one element to string
+            if 'sets' in item:
+                item['set'] = item['sets'][0]
+                del item['sets']
+
             # after processing all affixes, add the common augment variant to the crafting system map
             # (earlier processing removed entries in affix map that required custom property
             add_entry_to_crafting_map(augmentType, item, craftingSystems)
@@ -417,6 +423,18 @@ def parse_items():
         for craftingSystemItem in crafting[craftingSystemName]:
             if isinstance(crafting[craftingSystemName][craftingSystemItem], list):
                 crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x.get('name', ''))
+
+    # case exists where set systems can be used as part of crafting systems
+    # loop through crafting system map and identify which entries are related to set systems
+    # for each entry that correlates to a set, update the affix property from what was parsed during the set pass
+    for craftingSystemName, craftingSystemMap in crafting.items():
+        for craftingSystemItem, craftingSystemItemList in craftingSystemMap.items():
+            if isinstance(craftingSystemItemList, list):
+                for index, craftingItem in enumerate(craftingSystemItemList):
+                    if 'set' in craftingItem and 'affixes' in craftingItem and len(craftingItem['affixes']) == 0:
+                        setName = craftingItem['set']
+                        crafting[craftingSystemName][craftingSystemItem][index]['affixes'] = sets[setName][0]['affixes']
+
     write_json(crafting, 'crafting')
 
 def change_lost_purpose_affix_name(affix, item):

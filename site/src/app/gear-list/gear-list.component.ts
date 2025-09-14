@@ -38,6 +38,8 @@ export class GearListComponent implements OnInit {
     return itemName ? this.userGear.getItemLocations(itemName) : undefined;
   }
 
+  activeSetBonuses: Array<[string, Array<Affix>]> = [];
+
   ngOnInit() {
     for (const item of this.equipped.getSlots().values()) {
       item.subscribe(newItem => {
@@ -46,6 +48,10 @@ export class GearListComponent implements OnInit {
         }
       });
     }
+
+    this.equipped.getActiveSetBonusesObservable().subscribe(setBonuses => {
+      this.activeSetBonuses = setBonuses;
+    });
   }
 
   showSuggestedItems(slot) {

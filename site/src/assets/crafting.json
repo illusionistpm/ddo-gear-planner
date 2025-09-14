@@ -9998,15 +9998,19 @@
                 "set": "Arcane Guardian"
             },
             {
-                "affixes": [],
+                "affixes": [
+                    {
+                        "name": "Tactical DCs",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
                 "ml": 30,
                 "name": "Set Augment: Bold Tactician",
                 "quests": [
                     "Cauldron of Cadence"
                 ],
-                "sets": [
-                    "Bold Tactician"
-                ]
+                "set": "Bold Tactician"
             },
             {
                 "affixes": [
@@ -10074,26 +10078,34 @@
                 "set": "Esoterica"
             },
             {
-                "affixes": [],
+                "affixes": [
+                    {
+                        "name": "bonus Imbue Dice",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
                 "ml": 30,
                 "name": "Set Augment: Imbued Infusion",
                 "quests": [
                     "Cauldron of Cadence"
                 ],
-                "sets": [
-                    "Imbued Infusion"
-                ]
+                "set": "Imbued Infusion"
             },
             {
-                "affixes": [],
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Legendary",
+                        "value": "10"
+                    }
+                ],
                 "ml": 30,
                 "name": "Set Augment: Legendary Bulwark",
                 "quests": [
                     "Cauldron of Cadence"
                 ],
-                "sets": [
-                    "Legendary Bulwark"
-                ]
+                "set": "Legendary Bulwark"
             },
             {
                 "affixes": [
@@ -10148,15 +10160,19 @@
                 "set": "Quickblade"
             },
             {
-                "affixes": [],
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
                 "ml": 30,
                 "name": "Set Augment: Subtle Blade",
                 "quests": [
                     "Cauldron of Cadence"
                 ],
-                "sets": [
-                    "Subtle Blade"
-                ]
+                "set": "Subtle Blade"
             },
             {
                 "affixes": [

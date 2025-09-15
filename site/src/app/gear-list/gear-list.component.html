@@ -36,7 +36,7 @@
   }
 
   <!-- Describe Sets -->
-  @for (setToAffixes of equipped.getActiveSetBonuses(); track setToAffixes) {
+  @for (setToAffixes of activeSetBonuses; track setToAffixes[0]) {
     <div class="mb-3 col-sm-12 col-md-6 col-lg-4">
       <div class="row">
         <button type="button" class="btn btn-info flat-right col-12 text-center"
@@ -50,7 +50,8 @@
         <div class="mb-3 col">
           @for (affix of setToAffixes[1]; track affix) {
             <div class="row table-striped table-condensed small hover-helper"
-              [ngClass]="getClassForAffix(affix)">
+              [ngClass]="getClassForAffix(affix)"
+              [title]="getAffixTooltip(affix)">
               @if (equipped.isImportantAffix(affix.name)) {
                 <span class="show-on-hover fas fa-heart heart col-1"
                 (click)="equipped.toggleImportantAffix(affix.name)"></span>

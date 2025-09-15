@@ -19,6 +19,7 @@ export class EquippedService {
   private unlockedSlots: Set<string>;
 
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
+  private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
 
   private params: BehaviorSubject<any>;
 
@@ -43,7 +44,10 @@ export class EquippedService {
     this.queryParams.subscribe(this);
 
     for (const slot of this.slots) {
-      slot[1].subscribe(v => { this._updateCoveredAffixes(); });
+      slot[1].subscribe(v => { 
+        this._updateCoveredAffixes();
+        this._updateActiveSetBonuses();
+      });
     }
   }
 
@@ -235,15 +239,21 @@ export class EquippedService {
     return setCounts;
   }
 
-  getActiveSetBonuses() {
+  private _updateActiveSetBonuses() {
     const setToAffixes = new Array<[string, Array<Affix>]>();
-
     for (const pair of this.getActiveSets().entries()) {
       const aff = this.gearList.getSetBonus(pair[0], pair[1]);
       setToAffixes.push([pair[0], aff]);
     }
+    this.activeSetBonuses.next(setToAffixes);
+  }
 
-    return setToAffixes;
+  getActiveSetBonuses() {
+    return this.activeSetBonuses.getValue();
+  }
+
+  getActiveSetBonusesObservable() {
+    return this.activeSetBonuses.asObservable();
   }
 
   private getValuesForAffixType(affixName: string, bonusType: string) {

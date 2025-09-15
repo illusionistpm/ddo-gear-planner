@@ -5,6 +5,7 @@ import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
+import { AffixUiService } from '../affix-ui.service';
 import { Clipboard } from '../clipboard';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 
@@ -24,7 +25,8 @@ export class GearListComponent implements OnInit {
     public gearList: GearDbService,
     public equipped: EquippedService,
     private modalService: NgbModal,
-    public userGear: UserGearService
+    public userGear: UserGearService,
+    private affixUi: AffixUiService
   ) {
     this.itemNameMap = new Map<string, string>();
   }
@@ -87,18 +89,16 @@ export class GearListComponent implements OnInit {
     return '';
   }
 
-  // JAK: FIXME!! This is duplicated and awful
   getAffixValue(affix: Affix) {
-    if (affix.value) {
-      return (affix.value > 0 ? '+' : '') + affix.value;
-    }
-    return '';
+    return this.affixUi.getAffixValue(affix);
   }
 
-  // JAK: FIXME!! This is duplicated and awful
   getClassForAffix(affix: Affix) {
-    const affixRank = this.equipped.getAffixRanking(affix);
-    return AffixRank[affixRank];
+    return this.affixUi.getClassForAffix(affix);
+  }
+
+  getAffixTooltip(affix: Affix): string {
+    return this.affixUi.getAffixTooltip(affix);
   }
 
   getClassForSlot(slot: string) {
@@ -107,6 +107,7 @@ export class GearListComponent implements OnInit {
     if (item && item.artifact) {
       return 'MinorArtifact';
     }
+    return '';
   }
 
   copyGearToClipboard() {

@@ -50,7 +50,8 @@
         <div class="mb-3 col">
           @for (affix of setToAffixes[1]; track affix) {
             <div class="row table-striped table-condensed small hover-helper"
-              [ngClass]="getClassForAffix(affix)">
+              [ngClass]="getClassForAffix(affix)"
+              [title]="getAffixTooltip(affix)">
               @if (equipped.isImportantAffix(affix.name)) {
                 <span class="show-on-hover fas fa-heart heart col-1"
                 (click)="equipped.toggleImportantAffix(affix.name)"></span>

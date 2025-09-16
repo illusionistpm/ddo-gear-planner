@@ -32,7 +32,7 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    for type in [ 'Artifact', 'Competence', 'Enhanced', 'Equipment', 'Equipped', 'Exceptional', 'Inherent', 'Insightful', 'Profane', 'Quality', 'Sacred']:
+    for type in [ 'Artifact', 'Competence', 'Enhanced', 'Equipment', 'Equipped', 'Exceptional', 'Festive', 'Inherent', 'Insightful', 'Profane', 'Quality', 'Sacred']:
         if name.startswith(type):
             name = name[len(type)+1:]
 

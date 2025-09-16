@@ -65,13 +65,13 @@ export class GearDbService {
       const aStr = a.name ? a.name : a.affixes[0] ? a.affixes[0].name : '';
       const bStr = b.name ? b.name : b.affixes[0] ? b.affixes[0].name : '';
 
-      # regex instruction to grab the beginning of a string up to and including the first plus
+      // regex instruction to grab the beginning of a string up to and including the first plus
       const regexBeforePlus = /(.*\+)/
 
-      # regex instruction to grab all digits in string found immediately after the first plus
+      // regex instruction to grab all digits in string found immediately after the first plus
       const regexNumberAfterPlus = /.*\+([0-9]+)/
 
-      # if a plus is found in the string, insert some zeros at the beginning of the number for sorting purposes
+      // if a plus is found in the string, insert some zeros at the beginning of the number for sorting purposes
       const aStrPadded = aStr.match(regexBeforePlus) ? aStr.match(regexBeforePlus)[1] + aStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : aStr
       const bStrPadded = bStr.match(regexBeforePlus) ? bStr.match(regexBeforePlus)[1] + bStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : bStr
 

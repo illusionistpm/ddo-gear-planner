@@ -61,9 +61,22 @@ export class GearDbService {
   private _sortAugmentList(name) {
     name = name + ' Augment Slot';
     this.craftingList.get(name).get('*').options = this.craftingList.get(name).get('*').options.sort((a, b) => {
+
       const aStr = a.name ? a.name : a.affixes[0] ? a.affixes[0].name : '';
       const bStr = b.name ? b.name : b.affixes[0] ? b.affixes[0].name : '';
-      return aStr.localeCompare(bStr);
+
+      # regex instruction to grab the beginning of a string up to and including the first plus
+      const regexBeforePlus = /(.*\+)/
+
+      # regex instruction to grab all digits in string found immediately after the first plus
+      const regexNumberAfterPlus = /.*\+([0-9]+)/
+
+      # if a plus is found in the string, insert some zeros at the beginning of the number for sorting purposes
+      const aStrPadded = aStr.match(regexBeforePlus) ? aStr.match(regexBeforePlus)[1] + aStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : aStr
+      const bStrPadded = bStr.match(regexBeforePlus) ? bStr.match(regexBeforePlus)[1] + bStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : bStr
+
+      return aStrPadded.localeCompare(bStrPadded);
+
     });
   }
 
@@ -84,7 +97,7 @@ export class GearDbService {
         innerMap.set(innerKey, craftable);
       });
       this.craftingList.set(key, innerMap);
-    });   
+    });
 
     this._mergeAugmentLists('Purple', 'Blue');
     this._mergeAugmentLists('Purple', 'Red');
@@ -381,7 +394,7 @@ export class GearDbService {
 
       // Filter the augments to only those that have the affix and type we are looking for
       let filteredAugments = augments.filter(aug => aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)) as CraftableOption[];
-      
+
       // Simplify the remaining augments to only the affix name and type
       filteredAugments = filteredAugments.map(aug => {
         const newAug = new CraftableOption(aug);
@@ -389,7 +402,7 @@ export class GearDbService {
         return newAug;
       });
 
-      // 
+      //
       const groupsRecord = groupBy(filteredAugments, (aug => aug.affixes.map(aff => aff.name + aff.type).join(' ')));
 
       // We want to prune the options to include only the best of each type - we don't need Str +1, Str +2, etc.
@@ -460,7 +473,7 @@ export class GearDbService {
   getAffixWeight(affixName: string, bestVal: number) {
     const attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
     const tacticalDCs = ['Stunning', 'Vertigo', 'Sundering'];
-    const spellDCs = ['Evocation Focus', 'Transmutation Focus', 'Abjuration Focus', 'Conjuration Focus', 
+    const spellDCs = ['Evocation Focus', 'Transmutation Focus', 'Abjuration Focus', 'Conjuration Focus',
                       'Enchantment Focus', 'Illusion Focus', 'Necromancy Focus'];
 
     // Boolean affixes are overrepresented and are typically pretty easy to slot

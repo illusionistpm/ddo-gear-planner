@@ -7916,7 +7916,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Charisma",
+                        "name": "Charisma",
                         "type": "Festive",
                         "value": "2"
                     }
@@ -7930,7 +7930,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Constitution",
+                        "name": "Constitution",
                         "type": "Festive",
                         "value": "2"
                     }
@@ -7944,7 +7944,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Dexterity",
+                        "name": "Dexterity",
                         "type": "Festive",
                         "value": "2"
                     }
@@ -7958,7 +7958,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Intelligence",
+                        "name": "Intelligence",
                         "type": "Festive",
                         "value": "2"
                     }
@@ -7972,7 +7972,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Strength",
+                        "name": "Strength",
                         "type": "Festive",
                         "value": "2"
                     }
@@ -7986,7 +7986,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Festive Wisdom",
+                        "name": "Wisdom",
                         "type": "Festive",
                         "value": "2"
                     }

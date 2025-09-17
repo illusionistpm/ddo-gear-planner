@@ -32,7 +32,7 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    for type in [ 'Artifact', 'Competence', 'Enhanced', 'Equipment', 'Equipped', 'Exceptional', 'Festive', 'Inherent', 'Insightful', 'Profane', 'Quality', 'Sacred']:
+    for type in [ 'Artifact', 'Competence', 'Enhanced', 'Enhancement', 'Equipment', 'Equipped', 'Exceptional', 'Festive', 'Inherent', 'Insightful', 'Profane', 'Quality', 'Sacred']:
         if name.startswith(type):
             name = name[len(type)+1:]
 
@@ -268,6 +268,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['type'] = affixNameSearch.group(3)
         aff['value'] = affixNameSearch.group(2)
 
+    # ex: Action Boost Enhancement
+    affixNameSearch = re.search(r'^.*(Action Boost Enhancement).*$', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(1)
+
     # if previous pass did not populate a name, then just put the full value of the enchantment name as the affix name
     if 'name' not in aff:
         aff['name'] = affixName.strip()
@@ -306,6 +311,12 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if ((tooltipSearch) and ('value' not in aff)):
         aff['value'] = tooltipSearch.group(1)
 
+    # ex: ... will increase the total number of Action Boosts you can use by 3. ...
+    tooltipSearch = re.search(r'^.*?you can use by ([0-9]+).*$', words)
+    if ((tooltipSearch) and ('value' not in aff)):
+        aff['value'] = tooltipSearch.group(1)
+        if ('type' not in aff):
+            aff['type'] = 'Enhancement'
 
     # begin logic for name and type translations
 

@@ -12,6 +12,7 @@ def build_synonyms():
     data = []
 
     add(data, 'Accuracy', ['Attack', 'Hit', 'hit', 'Attack Bonus'])
+    add(data, 'Action Boost Charges', ['Action Boost Enhancement'])
     add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield', 'Shield Armor Class'])
     # probably want to standardize on 'Armor Piercing' as the name, but re-work needs to be done on cannith crafting to remove drift
     add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass', 'Fortification bypass'])
@@ -42,7 +43,7 @@ def build_synonyms():
     add(data, 'Healing Amplification', ['Positive Healing Amplification', 'Positive Amplification'])
     add(data, 'Negative Amplification', ['Negative Healing Amplification'])
     add(data, 'Repair Amplification', ['Repair Healing Amplification'])
-    add(data, 'Well Rounded', ['All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'Well-Rounded', 'Ability stats'])
+    add(data, 'Well Rounded', ['Ability stats', 'All Ability Scores', 'all Ability Scores', 'all of your Ability Scores', 'each Ability Score', 'Well-Rounded'])
     add(data, 'Sundering', ['Sunder', 'Sunder DC'])
     add(data, 'Vertigo', ['Trip', 'Trip DC'])
     add(data, 'Silver', ['Silver , Alchemical'])

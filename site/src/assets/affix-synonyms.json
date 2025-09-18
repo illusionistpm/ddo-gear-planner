@@ -9,6 +9,12 @@
         ]
     },
     {
+        "name": "Action Boost Charges",
+        "synonyms": [
+            "Action Boost Enhancement"
+        ]
+    },
+    {
         "name": "Armor Class",
         "synonyms": [
             "AC",
@@ -215,11 +221,12 @@
     {
         "name": "Well Rounded",
         "synonyms": [
+            "Ability stats",
             "All Ability Scores",
             "all Ability Scores",
             "all of your Ability Scores",
-            "Well-Rounded",
-            "Ability stats"
+            "each Ability Score",
+            "Well-Rounded"
         ]
     },
     {

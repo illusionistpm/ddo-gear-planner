@@ -41856,9 +41856,14 @@
             {
                 "affixes": [
                     {
-                        "name": "+30% Enhancement bonus to your movement speed and a 10% Enhancement bonus to your attack speed",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Speed",
+                        "type": "Enhancement",
+                        "value": "30"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ],
                 "ml": 16,
@@ -41870,9 +41875,14 @@
             {
                 "affixes": [
                     {
-                        "name": "+30% Enhancement bonus to your movement speed and a 15% Enhancement bonus to your attack speed",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Speed",
+                        "type": "Enhancement",
+                        "value": "30"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "15"
                     }
                 ],
                 "ml": 20,
@@ -41884,9 +41894,14 @@
             {
                 "affixes": [
                     {
-                        "name": "+30% Enhancement bonus to your movement speed and a 5% Enhancement bonus to your attack speed",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Speed",
+                        "type": "Enhancement",
+                        "value": "30"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "5"
                     }
                 ],
                 "ml": 12,

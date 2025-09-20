@@ -80,10 +80,22 @@
         ]
     },
     {
+        "name": "Greater Dragonmark Charges",
+        "synonyms": [
+            "Greater Dragonmark Enhancement"
+        ]
+    },
+    {
         "name": "Healing Lore",
         "synonyms": [
             "Positive Spell Crit Chance",
             "Positive Spellcrit Chance"
+        ]
+    },
+    {
+        "name": "Lesser Dragonmark Charges",
+        "synonyms": [
+            "Lesser Dragonmark Enhancement"
         ]
     },
     {
@@ -141,9 +153,22 @@
         ]
     },
     {
+        "name": "Rage Charges",
+        "synonyms": [
+            "Anger",
+            "Minor Anger"
+        ]
+    },
+    {
         "name": "Sheltering",
         "synonyms": [
             "Physical and Magical Resistance Rating"
+        ]
+    },
+    {
+        "name": "Smite Evil Charges",
+        "synonyms": [
+            "Extra Smites"
         ]
     },
     {

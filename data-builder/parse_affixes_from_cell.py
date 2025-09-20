@@ -123,7 +123,7 @@ def sub_name(name):
         ]:
         if name == pair[0]:
             return pair[1]
-        
+
     # For Isle of Dread, Lamordia, etc crafting. Anything where the crafting slot is of the format "Expansion: SLOT_NAME Slot (MaybeEquipmentType): Empty"
     dino_crafting_search = re.search(r'^(?:[A-Za-z \-\']+): ([A-Za-z]+) Slot (\([A-Za-z]+\))', name)
     if dino_crafting_search:
@@ -273,6 +273,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(1)
 
+    # ex: Lesser Dragonmark Enhancement/Greater Dragonmark Enhancement
+    affixNameSearch = re.search(r'^.*(Lesser|Greater)( Dragonmark Enhancement).*$', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = affixNameSearch.group(1) + affixNameSearch.group(2)
+
     # if previous pass did not populate a name, then just put the full value of the enchantment name as the affix name
     if 'name' not in aff:
         aff['name'] = affixName.strip()
@@ -317,6 +322,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['value'] = tooltipSearch.group(1)
         if ('type' not in aff):
             aff['type'] = 'Enhancement'
+
+    # prefix affix with "Feat:" string to create consistency for affixes that grant feats
+    tooltipSearch = re.search(r'^.*?grants you the (.*) feat.*$', words)
+    if (tooltipSearch):
+        aff['name'] = "Feat: " + tooltipSearch.group(1)
 
     # begin logic for name and type translations
 

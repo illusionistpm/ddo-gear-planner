@@ -2,7 +2,10 @@ import json
 from write_json import write_json
 
 def get_all_saves(bonusType = None):
-    return ['Will Save', 'Fortitude Save', 'Reflex Save']
+    return ['Fortitude Save', 'Reflex Save', 'Will Save']
+
+def get_all_skills(bonusType = None):
+    return ['Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Fortitude Save', 'Spot', 'Haggle', 'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform', 'Reflex Save', 'Repair', 'Resistance', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Will Save', 'Use Magic Device']
 
 
 def add(groups, name, list):
@@ -22,8 +25,10 @@ def build_affix_groups():
     # and I don't really care about them.
     #add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
     #add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Deadly'])
+    add(groups, 'Good Luck', ['Resistance'] + get_all_saves() + get_all_skills())
     add(groups, 'Negative and Poison Spell Crit Damage', ['Negative Spell Crit Damage', 'Poison Spell Crit Damage'])
     add(groups, 'Resistance', get_all_saves())
+    add(groups, 'Riposte', ['Armor Class', 'Resistance'] + get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
     # but we treat as an affix group to keep consistency with Litany of the Dead Combat Bonus affix
     add(groups, 'Litany of the Dead - Ability Bonus', ['Well Rounded'])

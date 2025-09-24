@@ -13,6 +13,7 @@ def build_synonyms():
 
     add(data, 'Accuracy', ['Attack', 'Hit', 'hit', 'Attack Bonus'])
     add(data, 'Action Boost Charges', ['Action Boost Enhancement'])
+    add(data, 'Arcane Casting Dexterity', ['Lesser Arcane Casting Dexterity', 'Greater Arcane Casting Dexterity'])
     add(data, 'Armor Class', ['AC', 'Armor Bonus', 'Natural Armor', 'Natural Armor Bonus', 'Protection', 'Rough Hide', 'Shield', 'Shield Armor Class'])
     # probably want to standardize on 'Armor Piercing' as the name, but re-work needs to be done on cannith crafting to remove drift
     add(data, 'Armor-Piercing', ['Armor Piercing', 'Fortification Bypass', 'Fortification bypass'])

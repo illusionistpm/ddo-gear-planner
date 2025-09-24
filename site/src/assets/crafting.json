@@ -3344,8 +3344,7 @@
                 "affixes": [
                     {
                         "name": "Arcane Casting Dexterity",
-                        "type": "bool",
-                        "value": 1
+                        "value": "10"
                     }
                 ],
                 "ml": 16,
@@ -3357,9 +3356,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Greater Arcane Casting Dexterity",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Arcane Casting Dexterity",
+                        "value": "15"
                     }
                 ],
                 "ml": 20,
@@ -3371,9 +3369,8 @@
             {
                 "affixes": [
                     {
-                        "name": "Lesser Arcane Casting Dexterity",
-                        "type": "bool",
-                        "value": 1
+                        "name": "Arcane Casting Dexterity",
+                        "value": "5"
                     }
                 ],
                 "ml": 12,

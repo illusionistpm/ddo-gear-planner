@@ -15,6 +15,13 @@
         ]
     },
     {
+        "name": "Arcane Casting Dexterity",
+        "synonyms": [
+            "Lesser Arcane Casting Dexterity",
+            "Greater Arcane Casting Dexterity"
+        ]
+    },
+    {
         "name": "Armor Class",
         "synonyms": [
             "AC",

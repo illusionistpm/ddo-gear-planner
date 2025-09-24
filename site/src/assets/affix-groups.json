@@ -1,6 +1,41 @@
 [
     {
         "affixes": [
+            "Resistance",
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Fortitude Save",
+            "Spot",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Reflex Save",
+            "Repair",
+            "Resistance",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Will Save",
+            "Use Magic Device"
+        ],
+        "name": "Good Luck"
+    },
+    {
+        "affixes": [
             "Negative Spell Crit Damage",
             "Poison Spell Crit Damage"
         ],
@@ -8,11 +43,21 @@
     },
     {
         "affixes": [
-            "Will Save",
             "Fortitude Save",
-            "Reflex Save"
+            "Reflex Save",
+            "Will Save"
         ],
         "name": "Resistance"
+    },
+    {
+        "affixes": [
+            "Armor Class",
+            "Resistance",
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save"
+        ],
+        "name": "Riposte"
     },
     {
         "affixes": [
@@ -42,9 +87,9 @@
     },
     {
         "affixes": [
-            "Will Save",
             "Fortitude Save",
             "Reflex Save",
+            "Will Save",
             "Armor Class"
         ],
         "name": "Parrying"

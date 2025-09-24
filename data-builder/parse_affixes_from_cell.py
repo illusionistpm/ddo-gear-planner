@@ -323,6 +323,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         if ('type' not in aff):
             aff['type'] = 'Enhancement'
 
+    # ex: ... reduces the arcane spell failure chance by -#%
+    tooltipSearch = re.search(r'^.*?reduces the.*arcane spell failure.*chance by -([0-9]+)%.*$', words)
+    if ((tooltipSearch) and ('value' not in aff)):
+        aff['value'] = tooltipSearch.group(1)
+
     # prefix affix with "Feat:" string to create consistency for affixes that grant feats
     tooltipSearch = re.search(r'^.*?grants you the (.*) feat.*$', words)
     if (tooltipSearch):

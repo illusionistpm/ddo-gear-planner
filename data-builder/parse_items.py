@@ -364,6 +364,11 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                 item['set'] = item['sets'][0]
                 del item['sets']
 
+            # strip prefix for common augments (diamond/ruby/sapphire/topaz)
+            augmentNamePrefixSearch = re.search(r'^(Diamond|Ruby|Sapphire|Topaz) of (.*)$', item['name'])
+            if (augmentNamePrefixSearch):
+                item['name'] = augmentNamePrefixSearch.group(2)
+
             # after processing all affixes, add the common augment variant to the crafting system map
             # (earlier processing removed entries in affix map that required custom property
             add_entry_to_crafting_map(augmentType, item, craftingSystems)

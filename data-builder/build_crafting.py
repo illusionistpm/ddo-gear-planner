@@ -1,7 +1,6 @@
 import json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_slavers import parse_slavers_crafting
-from parse_augments import parse_augments
 from write_json import write_json
 from get_lost_purpose import get_lost_purpose_crafting
 from get_item_crafting import get_item_crafting
@@ -16,14 +15,11 @@ def build_crafting():
 
     lost_purpose = get_lost_purpose_crafting()
 
-    augments = parse_augments()
-
     item_crafting = get_item_crafting()
 
     combined = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
-    combined.update(augments)
     combined.update(lost_purpose)
     combined.update(item_crafting)
 

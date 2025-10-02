@@ -99,7 +99,7 @@ def cleanup_one_of_the_following(name):
 
 
 def add_default_one(name):
-    return name + " 1" if name in ["Necromancy Focus", "Deathblock"] else name
+    return name + " 1" if name in ["Necromancy Focus"] else name
 
 
 def x_skills_exceptional_bonus(name):
@@ -146,6 +146,18 @@ def strip_leading_asterisk(name):
     return name
 
 
+def addAffixToCraftingSystem(affix, keyName, discoveredCraftingSystem, sets):
+    if affix['name'] in sets:
+        discoveredCraftingSystem[keyName].append(affix)
+
+    # if the affix name was NOT detected as being a set, create a sub "affixes" key with list entry and add THAT parent crafting key
+    else:
+        affixMap = {}
+        affixMap['affixes'] = []
+        affixMap['affixes'].append(affix)
+        discoveredCraftingSystem[keyName].append(affixMap)
+
+
 # recursive function to parse through a list tag
 # function will update crafting dict if a child list is detected in tag
 # itemName, craftingSystem, and sets are used to help identify if crafting dict needs to be updated
@@ -178,17 +190,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
                     for listEntry in (tag.find('ul')).find_all('li', recursive=False):
                         parsed_affix = translate_list_tag_to_affix_map(itemName, listEntry, synonymMap, fakeBonuses, ml, craftingSystems, sets)
-
-                        # if the affix name was detected as being a set, add the entry to the parent crafting key
-                        if parsed_affix['name'] in sets:
-                            discoveredCraftingSystem[keyName].append(parsed_affix)
-
-                        # if the affix name was NOT detected as being a set, create a sub "affixes" key with list entry and add THAT parent crafting key
+                        if isinstance(parsed_affix, list):
+                            for affixEntry in parsed_affix:
+                                addAffixToCraftingSystem(affixEntry, keyName, discoveredCraftingSystem, sets)
                         else:
-                            affixMap = {}
-                            affixMap['affixes'] = []
-                            affixMap['affixes'].append(parsed_affix)
-                            discoveredCraftingSystem[keyName].append(affixMap)
+                            addAffixToCraftingSystem(parsed_affix, keyName, discoveredCraftingSystem, sets)
 
                     if keyName not in craftingSystems:
                         craftingSystems[keyName] = {}
@@ -328,6 +334,13 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if ((tooltipSearch) and ('value' not in aff)):
         aff['value'] = tooltipSearch.group(1)
 
+    # case exists where Deathblock effect is previously detected, but really should be Negative Energy Absorption
+    tooltipSearch = re.search(r'^.*?([0-9]+)%.*?([A-Za-z]+) [bB]onus.*(Negative Energy Absorption).*$', words)
+    if (tooltipSearch):
+        aff['name']  = tooltipSearch.group(3)
+        aff['type']  = tooltipSearch.group(2)
+        aff['value'] = tooltipSearch.group(1)
+
     # prefix affix with "Feat:" string to create consistency for affixes that grant feats
     tooltipSearch = re.search(r'^.*?grants you the (.*) feat.*$', words)
     if (tooltipSearch):
@@ -345,9 +358,6 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     if tag.getText().startswith('Rough Hide'):
         aff['type'] = 'Primal Natural'
-
-    if aff['name'] == 'Deathblock' and 'type' not in aff:
-        aff['type'] = 'Enhancement'
 
     # Old fortification (heavy/moderate/light) items don't have a type listed, but it's always enhancement
     if aff['name'] == 'Fortification' and aff['value'] in ['25', '75', '100'] and 'type' not in aff:
@@ -421,6 +431,18 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         if 'value' in aff:
             del(aff['value'])
 
+    # case exists where deasthblock effect is added to other effects
+    # append the deathblock effect to the detected effect when returning to caller
+    tooltipSearch = re.search(r'^.*?immune to magical effects that can cause instant death.*$', words)
+    if (tooltipSearch):
+        affDeathblock = {
+            'name'  : 'Deathblock',
+            'type'  : 'bool',
+            'value' : 1,
+        }
+
+        aff = [ aff, affDeathblock ]
+
     return aff
 
 
@@ -456,6 +478,10 @@ def parse_affixes_from_cell(itemName, cell, synonymMap, fakeBonuses, ml, craftin
 
     for affix in affixes:
         itemAffixMap = translate_list_tag_to_affix_map(itemName, affix, synonymMap, fakeBonuses, ml, craftingSystems, sets)
-        ret.append(itemAffixMap)
+        if isinstance(itemAffixMap, list):
+            for affixEntry in itemAffixMap:
+                ret.append(affixEntry)
+        else:
+            ret.append(itemAffixMap)
 
     return ret

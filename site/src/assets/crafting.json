@@ -30962,7 +30962,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Abjuration (Heroic)"
+                "name": "Solar Gem of Abjuration (Heroic)",
+                "quests": [
+                    "The Chill of Ravenloft (Heroic)"
+                ]
             },
             {
                 "affixes": [
@@ -30973,7 +30976,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Abjuration (Legendary)"
+                "name": "Solar Gem of Abjuration (Legendary)",
+                "quests": [
+                    "The Chill of Ravenloft (Legendary)"
+                ]
             },
             {
                 "affixes": [
@@ -31602,7 +31608,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Enchantment (Heroic)"
+                "name": "Solar Gem of Enchantment (Heroic)",
+                "quests": [
+                    "The Chill of Ravenloft (Heroic)"
+                ]
             },
             {
                 "affixes": [
@@ -31613,7 +31622,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Enchantment (Legendary)"
+                "name": "Solar Gem of Enchantment (Legendary)",
+                "quests": [
+                    "The Chill of Ravenloft (Legendary)"
+                ]
             },
             {
                 "affixes": [
@@ -31652,7 +31664,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Evocation (Heroic)"
+                "name": "Solar Gem of Evocation (Heroic)",
+                "quests": [
+                    "The Chill of Ravenloft (Heroic)"
+                ]
             },
             {
                 "affixes": [
@@ -31663,7 +31678,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Evocation (Legendary)"
+                "name": "Solar Gem of Evocation (Legendary)",
+                "quests": [
+                    "The Chill of Ravenloft (Legendary)"
+                ]
             },
             {
                 "affixes": [
@@ -31876,7 +31894,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Illusion (Heroic)"
+                "name": "Solar Gem of Illusion (Heroic)",
+                "quests": [
+                    "The Chill of Ravenloft (Heroic)"
+                ]
             },
             {
                 "affixes": [
@@ -31887,7 +31908,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Solar Gem of Illusion (Legendary)"
+                "name": "Solar Gem of Illusion (Legendary)",
+                "quests": [
+                    "The Chill of Ravenloft (Legendary)"
+                ]
             },
             {
                 "affixes": [

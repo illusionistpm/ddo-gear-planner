@@ -7022,6 +7022,286 @@
             {
                 "affixes": [
                     {
+                        "name": "Corrosion",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Cold (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Cold (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Electric (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Electric (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Fire (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Fire (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Force (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Impulse",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Force (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Light (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Light (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Negative (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Negative (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Positive (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Positive (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Repair (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Repair (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Insight",
+                        "value": "35"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Arcana: Sonic (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resonance",
+                        "type": "Insight",
+                        "value": "79"
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Arcana: Sonic (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Evil Aligned",
                         "type": "bool",
                         "value": 1

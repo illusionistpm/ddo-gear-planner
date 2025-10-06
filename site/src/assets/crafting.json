@@ -7022,6 +7022,43 @@
             {
                 "affixes": [
                     {
+                        "name": "Evil Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Corroding",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Acid (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Acid (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Corrosion",
                         "type": "Insight",
                         "value": "35"
@@ -7302,17 +7339,17 @@
             {
                 "affixes": [
                     {
-                        "name": "Evil Aligned",
+                        "name": "Chaotic Aligned",
                         "type": "bool",
                         "value": 1
                     },
                     {
-                        "name": "Corroding",
+                        "name": "Freezing",
                         "value": "6"
                     }
                 ],
                 "ml": 8,
-                "name": "Dreadful Acid (Heroic)",
+                "name": "Dolorous Chill (Heroic)",
                 "quests": [
                     "Heroic Viktranium Experiment Crafting"
                 ]
@@ -7320,18 +7357,69 @@
             {
                 "affixes": [
                     {
-                        "name": "Evil Aligned",
+                        "name": "Chaotic Aligned",
                         "type": "bool",
                         "value": 1
                     },
                     {
-                        "name": "Alchemical Earth Attunement",
+                        "name": "Alchemical Water Attunement",
                         "type": "bool",
                         "value": 1
                     }
                 ],
                 "ml": 34,
-                "name": "Dreadful Acid (Legendary)",
+                "name": "Dolorous Chill (Legendary)",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Steam",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Dimlight",
+                "quests": [
+                    "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Flaming",
+                        "value": "6"
+                    }
+                ],
+                "ml": 8,
+                "name": "Dolorous Flames (Heroic)",
+                "quests": [
+                    "Heroic Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Aligned",
+                        "type": "bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Dolorous Flames (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]
@@ -7357,7 +7445,7 @@
                     }
                 ],
                 "ml": 8,
-                "name": "Dreadful Arcana (Heroic)",
+                "name": "Dolorous Focus (Heroic)",
                 "quests": [
                     "Heroic Viktranium Experiment Crafting"
                 ]
@@ -7383,95 +7471,7 @@
                     }
                 ],
                 "ml": 34,
-                "name": "Dreadful Arcana (Legendary)",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Chaotic Aligned",
-                        "type": "bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Freezing",
-                        "value": "6"
-                    }
-                ],
-                "ml": 8,
-                "name": "Dreadful Chill (Heroic)",
-                "quests": [
-                    "Heroic Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Chaotic Aligned",
-                        "type": "bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Alchemical Water Attunement",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Dreadful Chill (Legendary)",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Steam",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Dreadful Dimlight",
-                "quests": [
-                    "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Good Aligned",
-                        "type": "bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Flaming",
-                        "value": "6"
-                    }
-                ],
-                "ml": 8,
-                "name": "Dreadful Flames (Heroic)",
-                "quests": [
-                    "Heroic Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Good Aligned",
-                        "type": "bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Alchemical Fire Attunement",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Dreadful Flames (Legendary)",
+                "name": "Dolorous Focus (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]
@@ -7485,7 +7485,7 @@
                     }
                 ],
                 "ml": 34,
-                "name": "Dreadful Shadows",
+                "name": "Dolorous Shadows",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]
@@ -7503,7 +7503,7 @@
                     }
                 ],
                 "ml": 8,
-                "name": "Dreadful Sparks (Heroic)",
+                "name": "Dolorous Sparks (Heroic)",
                 "quests": [
                     "Heroic Viktranium Experiment Crafting"
                 ]
@@ -7522,7 +7522,7 @@
                     }
                 ],
                 "ml": 34,
-                "name": "Dreadful Sparks (Legendary)",
+                "name": "Dolorous Sparks (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]

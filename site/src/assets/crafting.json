@@ -12337,7 +12337,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Lunar Gem of Evocation (Heroic)"
+                "name": "Lunar Gem of Evocation (Heroic)",
+                "quests": [
+                    "The Proper Authorities"
+                ]
             },
             {
                 "affixes": [
@@ -12348,7 +12351,10 @@
                     }
                 ],
                 "ml": 30,
-                "name": "Lunar Gem of Evocation (Legendary)"
+                "name": "Lunar Gem of Evocation (Legendary)",
+                "quests": [
+                    "The Proper Authorities"
+                ]
             },
             {
                 "affixes": [
@@ -31244,7 +31250,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Abjuration (Heroic)",
                 "quests": [
-                    "The Chill of Ravenloft (Heroic)"
+                    "Locked Away (Part Two)"
                 ]
             },
             {
@@ -31258,7 +31264,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Abjuration (Legendary)",
                 "quests": [
-                    "The Chill of Ravenloft (Legendary)"
+                    "Locked Away (Part Two)"
                 ]
             },
             {
@@ -31560,7 +31566,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Critical Confirmation (Heroic)"
+                "name": "Solar Gem of Critical Confirmation (Heroic)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
@@ -31571,7 +31580,10 @@
                     }
                 ],
                 "ml": 1,
-                "name": "Solar Gem of Critical Confirmation (Legendary)"
+                "name": "Solar Gem of Critical Confirmation (Legendary)",
+                "quests": [
+                    "The Body Snatchers"
+                ]
             },
             {
                 "affixes": [
@@ -31890,7 +31902,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Enchantment (Heroic)",
                 "quests": [
-                    "The Chill of Ravenloft (Heroic)"
+                    "Beneath the City Streets"
                 ]
             },
             {
@@ -31904,7 +31916,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Enchantment (Legendary)",
                 "quests": [
-                    "The Chill of Ravenloft (Legendary)"
+                    "Beneath the City Streets"
                 ]
             },
             {
@@ -31946,7 +31958,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Evocation (Heroic)",
                 "quests": [
-                    "The Chill of Ravenloft (Heroic)"
+                    "Locked Away (Part One)"
                 ]
             },
             {
@@ -31960,7 +31972,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Evocation (Legendary)",
                 "quests": [
-                    "The Chill of Ravenloft (Legendary)"
+                    "Locked Away (Part One)"
                 ]
             },
             {
@@ -32176,7 +32188,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Illusion (Heroic)",
                 "quests": [
-                    "The Chill of Ravenloft (Heroic)"
+                    "Locked Away (Part Two)"
                 ]
             },
             {
@@ -32190,7 +32202,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Illusion (Legendary)",
                 "quests": [
-                    "The Chill of Ravenloft (Legendary)"
+                    "Locked Away (Part Two)"
                 ]
             },
             {

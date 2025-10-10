@@ -21,7 +21,7 @@
         "Constitution": "Enhancement",
         "Corrosion": "Equipment",
         "Deadly": "Competence",
-        "Deathblock": "Enhancement",
+        "Deathblock": "bool",
         "Devotion": "Equipment",
         "Dexterity": "Enhancement",
         "Diplomacy": "Competence",

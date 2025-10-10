@@ -10536,8 +10536,8 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "bool",
+                        "value": 1
                     },
                     {
                         "name": "Ghostly",
@@ -10555,8 +10555,8 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "bool",
+                        "value": 1
                     },
                     {
                         "name": "Ghostly",
@@ -22031,9 +22031,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "4"
+                        "value": "12"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -22092,9 +22101,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "4"
+                        "value": "12"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -22153,9 +22171,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "4"
+                        "value": "12"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -22214,9 +22241,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "7"
+                        "value": "21"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -22284,9 +22320,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "7"
+                        "value": "21"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -22354,9 +22399,18 @@
             {
                 "affixes": [
                     {
-                        "name": "Deathblock",
+                        "name": "Negative Energy Absorption",
                         "type": "Enhancement",
-                        "value": "7"
+                        "value": "21"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deathblock",
+                        "type": "bool",
+                        "value": 1
                     }
                 ]
             },
@@ -29587,8 +29641,8 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "bool",
+                        "value": 1
                     },
                     {
                         "name": "Ghostly",
@@ -34364,8 +34418,8 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,

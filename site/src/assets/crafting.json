@@ -12397,6 +12397,54 @@
             {
                 "affixes": [
                     {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Lunar Gem of Heal and Listen (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Profane",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Profane",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Lunar Gem of Heal and Listen (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Healing Amplification",
                         "type": "Profane",
                         "value": "10"
@@ -12782,54 +12830,6 @@
                 "name": "Lunar Gem of Pact Dice (Legendary)",
                 "quests": [
                     "Snowfall and Sunlight"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Profane",
-                        "value": "2"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Profane",
-                        "value": "2"
-                    },
-                    {
-                        "name": "Concentration",
-                        "type": "Profane",
-                        "value": "2"
-                    }
-                ],
-                "ml": 1,
-                "name": "Lunar Gem of Peace (Heroic)",
-                "quests": [
-                    "Land of Lamordia"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Profane",
-                        "value": "6"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Profane",
-                        "value": "6"
-                    },
-                    {
-                        "name": "Concentration",
-                        "type": "Profane",
-                        "value": "6"
-                    }
-                ],
-                "ml": 30,
-                "name": "Lunar Gem of Peace (Legendary)",
-                "quests": [
-                    "Land of Lamordia"
                 ]
             },
             {
@@ -32168,6 +32168,54 @@
             {
                 "affixes": [
                     {
+                        "name": "Heal",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Artifact",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Artifact",
+                        "value": "2"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Heal and Listen (Heroic)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Heal",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Listen",
+                        "type": "Artifact",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Concentration",
+                        "type": "Artifact",
+                        "value": "6"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Heal and Listen (Legendary)",
+                "quests": [
+                    "Land of Lamordia"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Healing Amplification",
                         "type": "Artifact",
                         "value": "10"
@@ -32595,54 +32643,6 @@
                 "name": "Solar Gem of Pact Dice (Legendary)",
                 "quests": [
                     "A Light in the Attic"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Artifact",
-                        "value": "2"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Artifact",
-                        "value": "2"
-                    },
-                    {
-                        "name": "Concentration",
-                        "type": "Artifact",
-                        "value": "2"
-                    }
-                ],
-                "ml": 1,
-                "name": "Solar Gem of Peace (Heroic)",
-                "quests": [
-                    "Land of Lamordia"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Heal",
-                        "type": "Artifact",
-                        "value": "6"
-                    },
-                    {
-                        "name": "Listen",
-                        "type": "Artifact",
-                        "value": "6"
-                    },
-                    {
-                        "name": "Concentration",
-                        "type": "Artifact",
-                        "value": "6"
-                    }
-                ],
-                "ml": 30,
-                "name": "Solar Gem of Peace (Legendary)",
-                "quests": [
-                    "Land of Lamordia"
                 ]
             },
             {

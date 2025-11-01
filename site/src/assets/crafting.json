@@ -31880,6 +31880,34 @@
             {
                 "affixes": [
                     {
+                        "name": "Deadly",
+                        "type": "Artifact",
+                        "value": "1"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Damage (Heroic)",
+                "quests": [
+                    "The Chill of Ravenloft (Heroic)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deadly",
+                        "type": "Artifact",
+                        "value": "4"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Damage (Legendary)",
+                "quests": [
+                    "The Chill of Ravenloft (Legendary)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Dexterity",
                         "type": "Artifact",
                         "value": "3"

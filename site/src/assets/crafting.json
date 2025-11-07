@@ -34090,6 +34090,20 @@
             {
                 "affixes": [
                     {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Exceptional Spell Focus Mastery",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Legendary Ash",
                         "type": "bool",
                         "value": 1
@@ -34139,6 +34153,20 @@
                 ],
                 "ml": 34,
                 "name": "Woeful Magma",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Salt",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful Salt",
                 "quests": [
                     "Wicked Viktranium Experiment Crafting"
                 ]

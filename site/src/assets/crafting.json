@@ -11057,20 +11057,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Absorption",
-                        "type": "Enhancement",
-                        "value": "11"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Force Absorption",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Force Spell Crit Damage",
                         "type": "Quality",
                         "value": "2"
@@ -11094,20 +11080,6 @@
                 "name": "Miserable Force Spell Crit Damage (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Legendary Armor-Piercing",
-                        "type": "Legendary",
-                        "value": "5"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Legendary Armor Piercing",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -11244,20 +11216,6 @@
                 "name": "Miserable Positive Spell Crit Damage (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Rebellion",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Rebellion",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -11427,6 +11385,48 @@
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Absorption",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Force Absorption",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Armor-Piercing",
+                        "type": "Legendary",
+                        "value": "5"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Legendary Armor Piercing",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Rebellion",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Rebellion",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
             }
         ]
     },
@@ -11458,20 +11458,6 @@
                 "name": "Miserable Acid (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Acid Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Acid Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -11813,20 +11799,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Ice Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Cold Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Destruction",
                         "type": "bool",
                         "value": 1
@@ -11869,34 +11841,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Lightning Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Electric Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Fire Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Fire Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Strength",
                         "type": "Exceptional",
                         "value": "1"
@@ -11920,20 +11864,6 @@
                 "name": "Miserable Flames (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Kinetic Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Force Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -11974,20 +11904,6 @@
                 "name": "Miserable Improved Destruction",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Radiance Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Light Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -12059,20 +11975,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Void Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Negative Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Aligned",
                         "type": "bool",
                         "value": 1
@@ -12080,34 +11982,6 @@
                 ],
                 "ml": 34,
                 "name": "Miserable Planar",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Healing Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Positive Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Repair Spell Crit Chance",
                 "quests": [
                     "Wicked Viktranium Experiment Crafting"
                 ]
@@ -12138,20 +12012,6 @@
                 "name": "Miserable Shadows (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Sonic Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Miserable Sonic Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -12232,6 +12092,146 @@
                 "name": "Miserable Vermin Bane (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Acid Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Cold Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Electric Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Fire Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Force Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Light Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Negative Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Positive Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Repair Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Miserable: Sonic Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -33638,20 +33638,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Acid Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": "8"
@@ -33675,34 +33661,6 @@
                 "name": "Woeful Armor Piercing (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Ice Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Cold Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Lightning Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Electric Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -33736,90 +33694,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Fire Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Kinetic Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Force Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Greater Marksmanship",
-                        "type": "bool",
-                        "value": 1
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Greater Marksmanship",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Radiance Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Light Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Void Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Negative Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Healing Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Positive Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Spell Focus Mastery",
                         "type": "Profane",
                         "value": "1"
@@ -33848,20 +33722,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Seeker",
-                        "type": "Quality",
-                        "value": "3"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Quality Seeker",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Relentless Fury",
                         "type": "bool",
                         "value": 1
@@ -33885,20 +33745,6 @@
                 "name": "Woeful Relentless Fury (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Repair Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Repair Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
                 ]
             },
             {
@@ -33960,20 +33806,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Lore",
-                        "type": "Equipment",
-                        "value": "23"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Sonic Spell Crit Chance",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Wizardry",
                         "type": "Enhancement",
                         "value": "96"
@@ -33997,6 +33829,174 @@
                 "name": "Woeful Wizardry (Legendary)",
                 "quests": [
                     "Legendary Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Acid Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Cold Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Electric Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Fire Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Force Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Greater Marksmanship",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Greater Marksmanship",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Light Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Negative Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Positive Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Quality",
+                        "value": "3"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Quality Seeker",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Repair Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "23"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Sonic Spell Crit Chance",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
                 ]
             }
         ]
@@ -34083,20 +34083,6 @@
                 ],
                 "ml": 34,
                 "name": "Woeful Energy",
-                "quests": [
-                    "Wicked Viktranium Experiment Crafting"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Spell Focus Mastery",
-                        "type": "Exceptional",
-                        "value": "2"
-                    }
-                ],
-                "ml": 34,
-                "name": "Woeful Exceptional Spell Focus Mastery",
                 "quests": [
                     "Wicked Viktranium Experiment Crafting"
                 ]
@@ -34238,6 +34224,48 @@
                 ],
                 "ml": 34,
                 "name": "Woeful Venom",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Exceptional Spell Focus Mastery",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Quality Spell Focus Mastery",
+                "quests": [
+                    "Wicked Viktranium Experiment Crafting"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength of Purpose",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 34,
+                "name": "Woeful: Strength of Purpose",
                 "quests": [
                     "Wicked Viktranium Experiment Crafting"
                 ]

@@ -22,9 +22,9 @@
         <div>
           <button class="btn btn-primary m-1" (click)="equipItem(item)">
             {{item.name}}
-            <ng-container *ngIf="userOwnsItem(item)">
+            @if (userOwnsItem(item)) {
               <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
-            </ng-container>
+            }
           </button>
         </div>
       }
@@ -40,9 +40,9 @@
         <div class="container">
           <div class="row">
             <span class="col">{{item.name}}
-              <ng-container *ngIf="userOwnsItem(item)">
+              @if (userOwnsItem(item)) {
                 <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
-              </ng-container>
+              }
             </span>
             <button class="col-2" (click)="equipItem(item)">Equip</button>
           </div>

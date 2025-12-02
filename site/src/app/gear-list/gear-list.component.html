@@ -13,12 +13,12 @@
             <div class='col-3 text-start'>{{slot}}</div>
             <div class="col-9 text-end item-name">
               {{getItemName(slot)}}
-              <ng-container *ngIf="userOwnsItem(slot)">
-                <span class="user-owned-star" 
-                      [title]="getUserItemLocations(slot) | userItemLocationTooltip">
+              @if (userOwnsItem(slot)) {
+                <span class="user-owned-star"
+                  [title]="getUserItemLocations(slot) | userItemLocationTooltip">
                   ★
                 </span>
-              </ng-container>
+              }
             </div>
           </div>
         </button>

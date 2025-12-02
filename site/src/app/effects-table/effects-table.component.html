@@ -7,12 +7,12 @@
             <span class="h5">Checklist Affixes</span>
         </div>
         <div class="col" *ngFor="let affixName of boolAffixNames">
-            <button class="w-100" *ngIf="boolAffixMap.get(affixName)[0].value; else noValue"
+            <button class="w-100" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
                 (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
                 <span class="max-value">{{affixName}}</span>
                 <span class="far fa-check-square max-value float-end pt-1"></span>
             </button>
-            <ng-template #noValue>
+            <ng-template #noValueBools>
                 <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="w-100 no-value"
                     (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
                     {{affixName}}

@@ -32,9 +32,9 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    for type in [ 'Artifact', 'Competence', 'Enhanced', 'Enhancement', 'Equipment', 'Equipped', 'Exceptional', 'Festive', 'Inherent', 'Insightful', 'Profane', 'Quality', 'Sacred']:
-        if name.startswith(type):
-            name = name[len(type)+1:]
+    search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
+    if search:
+        return search.group(2)
 
     return name
 

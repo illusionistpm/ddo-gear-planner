@@ -84,6 +84,7 @@
         "Repair Lore": "Equipment",
         "Resistance": "Resistance",
         "Resonance": "Equipment",
+        "Sacred": "bool",
         "Search": "Competence",
         "Seeker": "Enhancement",
         "Shatter": "Enhancement",

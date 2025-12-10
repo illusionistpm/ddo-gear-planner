@@ -36156,11 +36156,6 @@
                         "name": "Speed",
                         "type": "Enhancement",
                         "value": "30"
-                    },
-                    {
-                        "name": "Melee Alacrity",
-                        "type": "Enhancement",
-                        "value": "15"
                     }
                 ],
                 "ml": 20,

@@ -244,6 +244,7 @@
     },
     "Rapiers": {
         "attributes": [
+            "light",
             "one-handed",
             "melee",
             "weapon"
@@ -270,6 +271,7 @@
     },
     "Scimitars": {
         "attributes": [
+            "light",
             "one-handed",
             "melee",
             "weapon"

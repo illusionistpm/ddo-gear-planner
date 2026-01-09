@@ -140,7 +140,18 @@ def get_sets_from_page(soup):
             if len(cells) != expectedCols:
                 continue
 
-            setName = cells[setNameIdx].find_all("b")[0].getText().strip()
+            # Try to get set name from <b> tag, fall back to cell text if not found
+            bTags = cells[setNameIdx].find_all("b")
+            if len(bTags) > 0:
+                setName = bTags[0].getText().strip()
+            else:
+                # Some sets use <a> tags instead of <b> tags
+                aTags = cells[setNameIdx].find_all("a")
+                if len(aTags) > 0:
+                    setName = aTags[0].getText().strip()
+                else:
+                    # Fall back to all text content if neither <b> nor <a> found
+                    setName = cells[setNameIdx].get_text(strip=True)
 
             # Some set names have their ML in their title
             if '[ML:' in setName:

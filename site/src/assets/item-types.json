@@ -25,9 +25,7 @@
     },
     "Clubs": {
         "attributes": [
-            "one-handed",
-            "melee",
-            "weapon"
+            "offhand"
         ]
     },
     "Daggers": {
@@ -206,9 +204,7 @@
     },
     "Long Swords": {
         "attributes": [
-            "one-handed",
-            "melee",
-            "weapon"
+            "offhand"
         ]
     },
     "Mauls": {

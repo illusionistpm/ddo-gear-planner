@@ -32,7 +32,10 @@
     },
     "Daggers": {
         "attributes": [
-            "offhand"
+            "light",
+            "one-handed",
+            "melee",
+            "weapon"
         ]
     },
     "Darts": {

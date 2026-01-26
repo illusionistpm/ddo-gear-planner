@@ -25024,6 +25024,55 @@
             }
         ]
     },
+    "One of the following combinations": {
+        "Belashyrra's Cleansed Scepter": [
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcasting Implement +15, Radiance +84Radiance +84: Passive: +84 Equipment bonus to Light and Alignment Spell Power., Greater RegenerationGreater Regeneration: This item is imbued with an undeniable goodness that freely flows outward in a pleasant palpable current, constantly healing the wearer over time.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcasting Implement +15, Combustion +84Combustion +84: Passive: +84 Equipment bonus to Fire Spell Power., Fire Lore VFire Lore V: Passive: Your Fire spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spellcasting Implement +15, Glaciation +84Glaciation +84: Passive: +84 Equipment bonus to Cold Spell Power., Ice Lore VIce Lore V: Passive: Your Cold spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus +2, Kinetic Lore VKinetic Lore V: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus +2, Void Lore VVoid Lore V: Passive: Your Negative Energy and Poison spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "type": "bool",
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    },
     "One of the following effects": {
         "Master's Riposte (level 17)": [
             {

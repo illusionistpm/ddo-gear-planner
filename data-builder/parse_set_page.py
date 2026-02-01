@@ -269,7 +269,7 @@ def get_sets_from_page(soup):
 
 
 def parse_set_page():
-    page = open('./cache/sets/Named_item_sets.html', "r", encoding='utf-8').read()
+    page = open('./cache/sets/Raw data_Sets.html', "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

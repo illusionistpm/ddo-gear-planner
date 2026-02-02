@@ -71,7 +71,7 @@ def download_set_page():
     if not os.path.exists(cacheDir):
         os.makedirs(cacheDir)
 
-    download_page('Named_item_sets', cacheDir)
+    download_page('Raw data/Sets', cacheDir)
 
 
 def download_quest_pages():

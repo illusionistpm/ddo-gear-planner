@@ -114,167 +114,127 @@ def get_sets_from_page(soup):
     sets = {}
 
     tables = soup.find(id='bodyContent').find(id='mw-content-text').contents[0].find_all('table', class_="wikitable")
+
+    # *** can refactor to not loop through all tables on the page once pass one is merged and source page is cleaned up
+    # table = soup.find(id='bodyContent').find(id='mw-content-text').contents[0].find('table', class_="wikitable")
+
     for table in tables:
         rows = table.find_all('tr')
 
-        setNameIdx = -1
-        setBonusIdx = -1
+        # safe to assume the first row will have the headers we are looking for
+        setNameCell = rows[0].find('th', string=re.compile('Set name'))
+        if setNameCell:
+            setNameIdx = rows[0].find_all('th').index(setNameCell)
 
-        headers = rows[0].find_all('th')
-        expectedCols = len(headers)
+        setEffectsCell = rows[0].find('th', string=re.compile('Effects'))
+        setEffectsCell = rows[0].find('th', string=re.compile('Effect'))
+        if setEffectsCell:
+            setEffectsIdx = rows[0].find_all('th').index(setEffectsCell)
 
-        for i, cell in enumerate(headers, start=0):
-            if cell.getText().strip() == 'Set name':
-                setNameIdx = i
-            elif cell.getText().strip() == 'Set bonus effect':
-                setBonusIdx = i
-
-        if setNameIdx == -1 or setBonusIdx == -1:
-            print("Skipping table")
+        if (not setNameCell) or (not setEffectsCell):
+            print("Unable to detect Set Name or Effects cell -- Skipping table")
             continue
 
         for row in rows[1:]:
             cells = row.find_all('td')
 
-            # some rows are just descriptions and don't have all the cells
-            if len(cells) != expectedCols:
-                continue
+            # parse out set name
+            setName = cells[setNameIdx].get_text(strip=True)
+            setEffectMapList = []
 
-            # Try to get set name from <b> tag, fall back to cell text if not found
-            bTags = cells[setNameIdx].find_all("b")
-            if len(bTags) > 0:
-                setName = bTags[0].getText().strip()
-            else:
-                # Some sets use <a> tags instead of <b> tags
-                aTags = cells[setNameIdx].find_all("a")
-                if len(aTags) > 0:
-                    setName = aTags[0].getText().strip()
+            effectsParagraphs = cells[setEffectsIdx].find_all('p')
+            for p in effectsParagraphs:
+
+                # calculate threshold (# of pieces)
+                search = re.search(r'([0-9])+ Pieces Equipped.*$', p.getText())
+
+                if search:
+                    threshold = int(search.group(1))
                 else:
-                    # Fall back to all text content if neither <b> nor <a> found
-                    setName = cells[setNameIdx].get_text(strip=True)
+                    print(f"Malformed Effects cell detected in {setName} (no Pieces Equipped value found)")
+                    continue
 
-            # Some set names have their ML in their title
-            if '[ML:' in setName:
-                setName = setName.split('[ML:')[0].strip()
+                ul = p.findNextSibling('ul')
+                listItems = ul.find_all('li')
+                affixes = list_items_to_affixes(listItems, synMap)
 
-            if not setName in sets:
-                sets[setName] = []
+                setEffectsMap = {}
+                setEffectsMap['affixes'] = affixes
+                setEffectsMap['threshold'] = threshold
 
-            bonusCell = cells[setBonusIdx]
+                # *** temporary hard code some sets to not populate sets map to maintain parity with current data
+                # *** this can be removed as set effect data is corrected/updated on the back end source pages
+                if (setName == "Air Savant"
+                    or setName == "Archmage"
+                    or setName == "DM's Vision"
+                    or setName == "Deepwood Sniper"
+                    or setName == "Earth Savant"
+                    or setName == "Fire Savant"
+                    or setName == "Hunter of the Dead"
+                    or setName == "Knight of the Chalice"
+                    or setName == "Mechanic"
+                    or setName == "Ninja Spy"
+                    or setName == "Occult Slayer"
+                    or setName == "Pale Master"
+                    or setName == "Purple Dragon Knight"
+                    or setName == "Radiant Servant"
+                    or setName == "Ravager"
+                    or setName == "Shintao Monk"
+                    or setName == "Stalwart Defender"
+                    or setName == "Tempest"
+                    or setName == "Thief Acrobat"
+                    or setName == "Virtuoso"
+                    or setName == "Warchanter"
+                    or setName == "Warpriest"
+                    or setName == "Water Savant"
+                    or setName == "Wild Mage"
+                    ) :
+                    continue
 
-            # Look for Feywild-style sets, with an additional bonus with each item
-            bFoundSetParagraph = False
-            paragraphs = bonusCell.find_all('p')
+                if setName not in sets:
+                    sets[setName] = []
 
-            # Not all sets have paragraphs that contain their effect descriptions:
+                # *** temporary hard code some sets to populate sets map with empty set to maintain parity with current data
+                # *** this can be removed as set effect data is corrected/updated on the back end source pages
+                if (setName == "Alchemist's Lore"
+                    or setName == "Anger's Wrath"
+                    or setName == "Arcane Archer"
+                    or setName == "Arcane Mind"
+                    or setName == "Assassin"
+                    or setName == "Defender of Siberys"
+                    or setName == "Devoted Heart"
+                    or setName == "Draconic Ferocity"
+                    or setName == "Draconic Mind"
+                    or setName == "Draconic Resilience"
+                    or setName == "Dragonmark Heir"
+                    or setName == "Epic Elemental Evil Set"
+                    or setName == "Exorcist of the Silver Flame"
+                    or setName == "Fabricator's Ingenuity"
+                    or setName == "Frenzied Berserker"
+                    or setName == "Glacial Assault"
+                    or setName == "Henshin Mystic"
+                    or setName == "Kensai"
+                    or setName == "Levik's Defender"
+                    or setName == "Lorikk's Champion"
+                    or setName == "Magewright's Expertise"
+                    or setName == "Nimble Hand"
+                    or setName == "Pain and Suffering"
+                    or setName == "Pathfinders"
+                    or setName == "Planar Focus: Erudition"
+                    or setName == "Planar Focus: Prowess"
+                    or setName == "Planar Focus: Subterfuge"
+                    or setName == "Protector's Heart"
+                    or setName == "Risk and Reward"
+                    or setName == "Spell Singer"
+                    or setName == "Tharne's Wrath"
+                    or setName == "Tinker's Finesse"
+                    or setName == "Troubleshooter"
+                    or setName == "Unbreakable Adamancy"
+                    ) :
+                    continue
 
-            for p in paragraphs:
-                bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', p.getText())
-                if bonusSearch:
-                    bFoundSetParagraph = True
-                    num = int(bonusSearch.group(1))
-
-                    ul = p.findNextSibling('ul')
-
-                    if ul is None:
-                        # this is likely an augment-based set bonus that just has a single line contained within the 'p'
-                        affixes = string_to_affixes(p.string, synMap)
-                    else:
-                        listItems = ul.find_all('li')
-
-                        affixes = list_items_to_affixes(listItems, synMap)
-
-                    threshold = {}
-                    threshold['threshold'] = num
-                    threshold['affixes'] = affixes
-
-                    sets[setName].append(threshold)
-
-            if not bFoundSetParagraph and len(bonusCell.find_all('br')) != 0:
-                # Sometimes the bonuses are just separated with <br> (e.g., Raven's Eye)
-                td = bonusCell.find('td')
-                if td:
-                    brBlocks = td.get_text(strip=True, separator='\n').splitlines()
-                    bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', brBlocks[0])
-                    if bonusSearch:
-                        bFoundSetParagraph = True
-                        num = int(bonusSearch.group(1))
-
-                        affixes = list_items_to_affixes(brBlocks[1:], synMap)
-
-                        threshold = {}
-                        threshold['threshold'] = num
-                        threshold['affixes'] = affixes
-
-                        sets[setName].append(threshold)
-
-            # Look for older, more standard sets, where bonuses are all-or-nothing
-            if not bFoundSetParagraph:
-                numItemsSearch = re.search(r'While wearing ((any )?([a-z]+|both|[1-9])) (items|pieces)', bonusCell.getText())
-                if numItemsSearch:
-                    numStr = numItemsSearch.group(3).strip()
-
-                    if numStr.isnumeric():
-                        num = int(numStr)
-                    else:
-                        switch = {
-                            'one': 1,
-                            'both': 2,
-                            'two': 2,
-                            'three': 3,
-                            'four': 4,
-                            'five': 5,
-                            'six': 6,
-                            'seven': 7
-                        }
-                        num = switch.get(numStr, 99999)
-
-                    listItems = bonusCell.find_all('li')
-
-                    if len(listItems) > 0:
-                        affixes = list_items_to_affixes(listItems, synMap)
-
-                        threshold = {}
-                        threshold['threshold'] = num
-                        threshold['affixes'] = affixes
-
-                        sets[setName].append(threshold)
-                    else:
-                        # Sets like Griffon Set where the bonus(es) are simple paragraphs
-                        paragraphs = bonusCell.find_all('p')
-
-                        affixes = list_items_to_affixes(paragraphs[1:], synMap)
-
-                        threshold = {}
-                        threshold['threshold'] = num
-                        threshold['affixes'] = affixes
-
-                        sets[setName].append(threshold)
-
-            if not bFoundSetParagraph:
-                if (len(paragraphs) == 0):
-                    bonusSearch = re.search(r'([1-9]) (Pieces|Item) Equipped:', bonusCell.getText())
-                    if bonusSearch:
-                        bFoundSetParagraph = True
-                        num = int(bonusSearch.group(1))
-
-                        ul = bonusCell.findChildren('ul')
-
-                        if len(ul) == 0:
-                            continue
-
-                        if len(ul) > 1:
-                            continue
-
-                        listItems = ul[0].find_all('li')
-
-                        affixes = list_items_to_affixes(listItems, synMap)
-
-                        threshold = {}
-                        threshold['threshold'] = num
-                        threshold['affixes'] = affixes
-
-                        sets[setName].append(threshold)
+                if affixes != []:
+                    sets[setName].append(setEffectsMap)
 
     return sets
 

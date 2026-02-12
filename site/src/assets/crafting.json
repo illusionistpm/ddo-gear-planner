@@ -5854,9 +5854,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Pieces Equipped: +30 Magical Resistance Rating Cap",
+                        "name": "Magical Sheltering Cap",
                         "type": "",
-                        "value": "3"
+                        "value": "30"
                     }
                 ],
                 "ml": 30,

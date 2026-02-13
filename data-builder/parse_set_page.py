@@ -162,76 +162,8 @@ def get_sets_from_page(soup):
                 setEffectsMap['affixes'] = affixes
                 setEffectsMap['threshold'] = threshold
 
-                # *** temporary hard code some sets to not populate sets map to maintain parity with current data
-                # *** this can be removed as set effect data is corrected/updated on the back end source pages
-                if (setName == "Air Savant"
-                    or setName == "Archmage"
-                    or setName == "DM's Vision"
-                    or setName == "Deepwood Sniper"
-                    or setName == "Earth Savant"
-                    or setName == "Fire Savant"
-                    or setName == "Hunter of the Dead"
-                    or setName == "Knight of the Chalice"
-                    or setName == "Mechanic"
-                    or setName == "Ninja Spy"
-                    or setName == "Occult Slayer"
-                    or setName == "Pale Master"
-                    or setName == "Purple Dragon Knight"
-                    or setName == "Radiant Servant"
-                    or setName == "Ravager"
-                    or setName == "Shintao Monk"
-                    or setName == "Stalwart Defender"
-                    or setName == "Tempest"
-                    or setName == "Thief Acrobat"
-                    or setName == "Virtuoso"
-                    or setName == "Warchanter"
-                    or setName == "Warpriest"
-                    or setName == "Water Savant"
-                    or setName == "Wild Mage"
-                    ) :
-                    continue
-
                 if setName not in sets:
                     sets[setName] = []
-
-                # *** temporary hard code some sets to populate sets map with empty set to maintain parity with current data
-                # *** this can be removed as set effect data is corrected/updated on the back end source pages
-                if (setName == "Alchemist's Lore"
-                    or setName == "Anger's Wrath"
-                    or setName == "Arcane Archer"
-                    or setName == "Arcane Mind"
-                    or setName == "Assassin"
-                    or setName == "Defender of Siberys"
-                    or setName == "Devoted Heart"
-                    or setName == "Draconic Ferocity"
-                    or setName == "Draconic Mind"
-                    or setName == "Draconic Resilience"
-                    or setName == "Dragonmark Heir"
-                    or setName == "Epic Elemental Evil Set"
-                    or setName == "Exorcist of the Silver Flame"
-                    or setName == "Fabricator's Ingenuity"
-                    or setName == "Frenzied Berserker"
-                    or setName == "Glacial Assault"
-                    or setName == "Henshin Mystic"
-                    or setName == "Kensai"
-                    or setName == "Levik's Defender"
-                    or setName == "Lorikk's Champion"
-                    or setName == "Magewright's Expertise"
-                    or setName == "Nimble Hand"
-                    or setName == "Pain and Suffering"
-                    or setName == "Pathfinders"
-                    or setName == "Planar Focus: Erudition"
-                    or setName == "Planar Focus: Prowess"
-                    or setName == "Planar Focus: Subterfuge"
-                    or setName == "Protector's Heart"
-                    or setName == "Risk and Reward"
-                    or setName == "Spell Singer"
-                    or setName == "Tharne's Wrath"
-                    or setName == "Tinker's Finesse"
-                    or setName == "Troubleshooter"
-                    or setName == "Unbreakable Adamancy"
-                    ) :
-                    continue
 
                 if affixes != []:
                     sets[setName].append(setEffectsMap)

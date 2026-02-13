@@ -83,7 +83,35 @@
             "threshold": 5
         }
     ],
-    "Alchemist's Lore": [],
+    "Air Savant": [
+        {
+            "affixes": [
+                {
+                    "name": "your Electric Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Alchemist's Lore": [
+        {
+            "affixes": [
+                {
+                    "name": "SP",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "less when you're below 50%/25%/10% hp",
+                    "type": "",
+                    "value": "30"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Alluring Elocution": [
         {
             "affixes": [
@@ -133,8 +161,30 @@
             "threshold": 2
         }
     ],
-    "Anger's Wrath": [],
-    "Arcane Archer": [],
+    "Anger's Wrath": [
+        {
+            "affixes": [
+                {
+                    "name": "(untyped, fully stacks) temporarily removed",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Arcane Archer": [
+        {
+            "affixes": [
+                {
+                    "name": "(competence, stacks to enhancement bonuses such as Haste spell)",
+                    "type": "",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Arcane Barrier": [
         {
             "affixes": [
@@ -159,8 +209,31 @@
             "threshold": 3
         }
     ],
-    "Arcane Mind": [],
+    "Arcane Mind": [
+        {
+            "affixes": [
+                {
+                    "name": "each Spell Power",
+                    "type": "Equipment",
+                    "value": "24"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Archivist": [],
+    "Archmage": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Arcsteel Battlemage": [
         {
             "affixes": [
@@ -245,7 +318,18 @@
             "threshold": 3
         }
     ],
-    "Assassin": [],
+    "Assassin": [
+        {
+            "affixes": [
+                {
+                    "name": "less threat",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Astute Alchemist": [
         {
             "affixes": [
@@ -649,6 +733,7 @@
             "threshold": 2
         }
     ],
+    "DM's Vision": [],
     "Date With a Mind Flayer": [
         {
             "affixes": [
@@ -710,7 +795,35 @@
             "threshold": 2
         }
     ],
-    "Defender of Siberys": [],
+    "Deepwood Sniper": [
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Alacrity, +2 To-Hit",
+                    "type": "",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Defender of Siberys": [
+        {
+            "affixes": [
+                {
+                    "name": "additional threat from melee attacks",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "AC (stacking)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Defender of Tanaroa": [
         {
             "affixes": [
@@ -812,7 +925,18 @@
             "threshold": 3
         }
     ],
-    "Devoted Heart": [],
+    "Devoted Heart": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive (Healing) Spell Power",
+                    "type": "Equipment",
+                    "value": "36"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Devotion of the Firemouth": [
         {
             "affixes": [
@@ -899,8 +1023,45 @@
             "threshold": 2
         }
     ],
-    "Draconic Ferocity": [],
-    "Draconic Mind": [],
+    "Draconic Ferocity": [
+        {
+            "affixes": [
+                {
+                    "name": "Doublestrike",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "a +2 artifact bonus to Hit",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Damage with Ranged",
+                    "type": "Artifact",
+                    "value": "3"
+                },
+                {
+                    "name": "Thrown weapons",
+                    "type": "Artifact",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Draconic Mind": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Artifact",
+                    "value": "15"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Draconic Prophecy": [
         {
             "affixes": [
@@ -918,8 +1079,30 @@
             "threshold": 2
         }
     ],
-    "Draconic Resilience": [],
-    "Dragonmark Heir": [],
+    "Draconic Resilience": [
+        {
+            "affixes": [
+                {
+                    "name": "False Life",
+                    "type": "Artifact",
+                    "value": "50"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Dragonmark Heir": [
+        {
+            "affixes": [
+                {
+                    "name": "additional uses of Greater Dragonmark per rest",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Dread Stalker": [
         {
             "affixes": [
@@ -1024,6 +1207,18 @@
                 }
             ],
             "threshold": 3
+        }
+    ],
+    "Earth Savant": [
+        {
+            "affixes": [
+                {
+                    "name": "your Acid Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "Echoes of the Walking Ancestors": [
@@ -1470,7 +1665,18 @@
             "threshold": 2
         }
     ],
-    "Epic Elemental Evil Set": [],
+    "Epic Elemental Evil Set": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power+20 Quality bonus to Ranged Power+20 Quality bonus to Universal Spell Power",
+                    "type": "Quality",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Epic Griffon Set": [
         {
             "affixes": [
@@ -2060,8 +2266,50 @@
             "threshold": 3
         }
     ],
-    "Exorcist of the Silver Flame": [],
-    "Fabricator's Ingenuity": [],
+    "Exorcist of the Silver Flame": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Turn Undead attempts after resting (Additional turns do not stack with other items that grant additional turns)",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Fabricator's Ingenuity": [
+        {
+            "affixes": [
+                {
+                    "name": "stacking fortification (The fortification bonus did not stack with Exceptional Fortification (+10%)Exceptional Fortification (+10%): This item produces a magical force that protects vital areas of the wearer more effectively. When a critical hit or sneak attack is scored on the wearer",
+                    "type": "",
+                    "value": "25"
+                },
+                {
+                    "name": "there is a +10% chance that the critical hit or sneak attack is negated",
+                    "type": "",
+                    "value": "25"
+                },
+                {
+                    "name": "the damage is instead rolled normally. This ability is considered an Insight bonus when determining stacking with other sources of fortification until U14)",
+                    "type": "",
+                    "value": "25"
+                },
+                {
+                    "name": "attack bonus",
+                    "type": "Artifact",
+                    "value": "2"
+                },
+                {
+                    "name": "damage. (bonus to attack stacks with the airship buff \"Hours of Practice\" (artifact +2 to attack))",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Fastidious Fabricator": [
         {
             "affixes": [
@@ -2114,6 +2362,18 @@
                 }
             ],
             "threshold": 3
+        }
+    ],
+    "Fire Savant": [
+        {
+            "affixes": [
+                {
+                    "name": "your Fire Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "Flamecleansed Fury": [
@@ -2235,7 +2495,33 @@
             "threshold": 5
         }
     ],
-    "Frenzied Berserker": [],
+    "Frenzied Berserker": [
+        {
+            "affixes": [
+                {
+                    "name": "additional rage after resting",
+                    "type": "",
+                    "value": "1"
+                },
+                {
+                    "name": "damage per swing (stacking)",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "Strength",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "Constitution (stacking)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Fried & Frozen Frenzy": [
         {
             "affixes": [
@@ -2253,7 +2539,28 @@
             "threshold": 2
         }
     ],
-    "Glacial Assault": [],
+    "Glacial Assault": [
+        {
+            "affixes": [
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Equipment",
+                    "value": "72"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Equipment",
+                    "value": "78"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Griffon Set": [
         {
             "affixes": [
@@ -2384,7 +2691,18 @@
             "threshold": 2
         }
     ],
-    "Henshin Mystic": [],
+    "Henshin Mystic": [
+        {
+            "affixes": [
+                {
+                    "name": "Fire Damage per Attack, extra damage is also applied to glancing blows",
+                    "type": "",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Hruit's Influence": [
         {
             "affixes": [
@@ -2442,6 +2760,18 @@
             "threshold": 3
         }
     ],
+    "Hunter of the Dead": [
+        {
+            "affixes": [
+                {
+                    "name": "extra uses of Remove Disease per rest",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Huntmaster's Favor": [
         {
             "affixes": [
@@ -2486,7 +2816,35 @@
             "threshold": 3
         }
     ],
-    "Kensai": [],
+    "Kensai": [
+        {
+            "affixes": [
+                {
+                    "name": "Exceptional Melee To-Hit",
+                    "type": "",
+                    "value": "2"
+                },
+                {
+                    "name": "Confirm Criticals",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Knight of the Chalice": [
+        {
+            "affixes": [
+                {
+                    "name": "damage with weapons versus Evil Outsiders",
+                    "type": "",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Knight of the Shadows Set (Heroic)": [
         {
             "affixes": [
@@ -4558,9 +4916,52 @@
             "threshold": 3
         }
     ],
-    "Levik's Defender": [],
-    "Lorikk's Champion": [],
-    "Magewright's Expertise": [],
+    "Levik's Defender": [
+        {
+            "affixes": [
+                {
+                    "name": "insight AC, 30% Additional Melee Threat (Threat stacks, but only with non-like amounts)",
+                    "type": "",
+                    "value": "5"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Lorikk's Champion": [
+        {
+            "affixes": [
+                {
+                    "name": "Positive (Healing) Spell Power",
+                    "type": "Equipment",
+                    "value": "72"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Positive (Healing) Spell Power",
+                    "type": "Equipment",
+                    "value": "78"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
+    "Magewright's Expertise": [
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Alchemical",
+                    "value": "12"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Mantle of Suulomades": [
         {
             "affixes": [
@@ -4637,6 +5038,28 @@
                     "name": "Concentration",
                     "type": "Artifact",
                     "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Mechanic": [
+        {
+            "affixes": [
+                {
+                    "name": "competence bonus",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "competence bonus",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "all Dexterity based Skills",
+                    "type": "Exceptional",
+                    "value": "2"
                 }
             ],
             "threshold": 2
@@ -4799,7 +5222,40 @@
             "threshold": 2
         }
     ],
-    "Nimble Hand": [],
+    "Nimble Hand": [
+        {
+            "affixes": [
+                {
+                    "name": "Damage to Sneak Attacks (non-stacking)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Ninja Spy": [
+        {
+            "affixes": [
+                {
+                    "name": "Accuracy",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "+5 damage with sneak attacks (+5 damage from attacks typed backstabbing - [nonstacking])",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "less threat",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Oasis of Morality": [
         {
             "affixes": [
@@ -4817,6 +5273,23 @@
                     "name": "Armor-Piercing",
                     "type": "Artifact",
                     "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Occult Slayer": [
+        {
+            "affixes": [
+                {
+                    "name": "Will saves",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "Reflex saves",
+                    "type": "Exceptional",
+                    "value": "2"
                 }
             ],
             "threshold": 2
@@ -4840,6 +5313,33 @@
         }
     ],
     "Pain and Suffering": [],
+    "Pale Master": [
+        {
+            "affixes": [
+                {
+                    "name": "Negative (Necrotic) Spell Power",
+                    "type": "Equipment",
+                    "value": "78"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Equipment",
+                    "value": "78"
+                },
+                {
+                    "name": "Negative (Necrotic) Spell Power",
+                    "type": "Equipment",
+                    "value": "90"
+                },
+                {
+                    "name": "Poison Spell Power",
+                    "type": "Equipment",
+                    "value": "90"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Paragon Guard": [
         {
             "affixes": [
@@ -4879,7 +5379,18 @@
             "threshold": 3
         }
     ],
-    "Pathfinders": [],
+    "Pathfinders": [
+        {
+            "affixes": [
+                {
+                    "name": "(untyped, fully stacks)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Perfect Silence": [
         {
             "affixes": [
@@ -4904,9 +5415,52 @@
             "threshold": 3
         }
     ],
-    "Planar Focus: Erudition": [],
-    "Planar Focus: Prowess": [],
-    "Planar Focus: Subterfuge": [],
+    "Planar Focus: Erudition": [
+        {
+            "affixes": [
+                {
+                    "name": "Spell Penetration checks.,  Wizardry +250 Wizardry +250: +250 Enhancement bonus to spell points., +15 psionic bonus to Universal Spell Power",
+                    "type": "Equipment",
+                    "value": "9"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Planar Focus: Prowess": [
+        {
+            "affixes": [
+                {
+                    "name": "attack Resistance Rating",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "damage Resistance Rating",
+                    "type": "Artifact",
+                    "value": "4"
+                },
+                {
+                    "name": "+15 artifact bonus to Physical Resistance Rating",
+                    "type": "Artifact",
+                    "value": "4"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Planar Focus: Subterfuge": [
+        {
+            "affixes": [
+                {
+                    "name": "damage for any attack that would qualify as a Sneak Attack, even if the wielder is not a Rogue., True Seeing,  Dodge +3% Dodge +3%: +3% Enhancement bonus to Dodge",
+                    "type": "Insight",
+                    "value": "8"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Profane Experiment": [
         {
             "affixes": [
@@ -4944,7 +5498,30 @@
             "threshold": 3
         }
     ],
-    "Protector's Heart": [],
+    "Protector's Heart": [
+        {
+            "affixes": [
+                {
+                    "name": "reduced chance of taking critical damage on a critical hit., Insight AC Bonus +1 (non-stacking)",
+                    "type": "Enhancement",
+                    "value": "25"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Purple Dragon Knight": [
+        {
+            "affixes": [
+                {
+                    "name": "additional threat",
+                    "type": "",
+                    "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Quickblade": [
         {
             "affixes": [
@@ -4960,6 +5537,30 @@
                 }
             ],
             "threshold": 3
+        }
+    ],
+    "Radiant Servant": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Turn Undead attempt (Additional turns do not stack with other items that grant additional turns)",
+                    "type": "",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Ravager": [
+        {
+            "affixes": [
+                {
+                    "name": "slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended\u00a0ARCHIVE ME!.)",
+                    "type": "",
+                    "value": "6"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "Raven's Eye": [
@@ -5080,7 +5681,18 @@
             "threshold": 3
         }
     ],
-    "Risk and Reward": [],
+    "Risk and Reward": [
+        {
+            "affixes": [
+                {
+                    "name": "Chance on Hit to Bluff your target for four seconds. (Bluffed enemies can be affected by Sneak Attacks even while targeting you.)",
+                    "type": "",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Saltmarsh Explorer": [
         {
             "affixes": [
@@ -5246,6 +5858,33 @@
                     "name": "Acid Spellpower",
                     "type": "Artifact",
                     "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Shintao Monk": [
+        {
+            "affixes": [
+                {
+                    "name": "To-Hit",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "Enhancement, then additionally:",
+                    "type": "",
+                    "value": "3"
+                },
+                {
+                    "name": "additional melee threat generation (not in item description but shows in the buff bar when equipped)",
+                    "type": "",
+                    "value": "15"
                 }
             ],
             "threshold": 2
@@ -5527,7 +6166,35 @@
             "threshold": 2
         }
     ],
-    "Spell Singer": [],
+    "Spell Singer": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Bard songs per rest",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Stalwart Defender": [
+        {
+            "affixes": [
+                {
+                    "name": "additional threat from melee attacks",
+                    "type": "",
+                    "value": "15"
+                },
+                {
+                    "name": "AC Bonus (Stacks)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Subtle Blade": [
         {
             "affixes": [
@@ -5538,6 +6205,23 @@
                 }
             ],
             "threshold": 3
+        }
+    ],
+    "Tempest": [
+        {
+            "affixes": [
+                {
+                    "name": "Additional Slash Damage  (does not work with handwraps (WAI?))",
+                    "type": "",
+                    "value": "4"
+                },
+                {
+                    "name": "To-Hit Bonus",
+                    "type": "",
+                    "value": "3"
+                }
+            ],
+            "threshold": 2
         }
     ],
     "Temple's Inferno": [
@@ -5648,7 +6332,18 @@
             "threshold": 2
         }
     ],
-    "Tharne's Wrath": [],
+    "Tharne's Wrath": [
+        {
+            "affixes": [
+                {
+                    "name": "Melee Threat Reduction",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "The Desert's Biting Sands": [
         {
             "affixes": [
@@ -6184,7 +6879,40 @@
             "threshold": 3
         }
     ],
-    "Tinker's Finesse": [],
+    "Thief Acrobat": [
+        {
+            "affixes": [
+                {
+                    "name": "Jump",
+                    "type": "Competence",
+                    "value": "15"
+                },
+                {
+                    "name": "to AC",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Tinker's Finesse": [
+        {
+            "affixes": [
+                {
+                    "name": "to hit",
+                    "type": "",
+                    "value": "5"
+                },
+                {
+                    "name": "+8 to damage to any attack that would qualify as a sneak attack. (non-stacking)",
+                    "type": "",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Touch of Power": [
         {
             "affixes": [
@@ -6209,7 +6937,18 @@
             "threshold": 3
         }
     ],
-    "Troubleshooter": [],
+    "Troubleshooter": [
+        {
+            "affixes": [
+                {
+                    "name": "all saves, Open Lock +3, Disable Device +3 (saves typed insight, stacks with resistance, skills typed competence, thus non-stacking)",
+                    "type": "",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Truthful Blow": [
         {
             "affixes": [
@@ -6254,7 +6993,40 @@
             "threshold": 2
         }
     ],
-    "Unbreakable Adamancy": [],
+    "Unbreakable Adamancy": [
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Luck",
+                    "value": "5"
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Luck",
+                    "value": "5"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Virtuoso": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Bard Song per rest",
+                    "type": "",
+                    "value": "1"
+                },
+                {
+                    "name": "SP",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Visions of the Beyond": [
         {
             "affixes": [
@@ -6397,6 +7169,28 @@
             "threshold": 3
         }
     ],
+    "Warchanter": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Bard Song after resting",
+                    "type": "",
+                    "value": "1"
+                },
+                {
+                    "name": "SP",
+                    "type": "",
+                    "value": "4"
+                },
+                {
+                    "name": "SP",
+                    "type": "",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Wards of House Kundarak": [
         {
             "affixes": [
@@ -6409,6 +7203,30 @@
                     "name": "Physical Sheltering",
                     "type": "Artifact",
                     "value": "10"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Warpriest": [
+        {
+            "affixes": [
+                {
+                    "name": "additional Turn Undead per rest (Additional turns do not stack with other items that grant additional turns)",
+                    "type": "",
+                    "value": "2"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
+    "Water Savant": [
+        {
+            "affixes": [
+                {
+                    "name": "your Cold Spell Critical Chance",
+                    "type": "Artifact",
+                    "value": "2"
                 }
             ],
             "threshold": 2
@@ -6460,6 +7278,7 @@
             "threshold": 3
         }
     ],
+    "Wild Mage": [],
     "Windlasher's Ferocity": [
         {
             "affixes": [

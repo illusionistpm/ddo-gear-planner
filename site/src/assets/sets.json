@@ -165,8 +165,8 @@
         {
             "affixes": [
                 {
-                    "name": "(untyped, fully stacks) temporarily removed",
-                    "type": "",
+                    "name": "attack rolls",
+                    "type": "Competence",
                     "value": "2"
                 }
             ],
@@ -221,7 +221,23 @@
             "threshold": 2
         }
     ],
-    "Archivist": [],
+    "Archivist": [
+        {
+            "affixes": [
+                {
+                    "name": "maximum spell points. Favored Souls",
+                    "type": "",
+                    "value": "20"
+                },
+                {
+                    "name": "Sorcerers gain double spell points from this item",
+                    "type": "",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Archmage": [
         {
             "affixes": [
@@ -5226,9 +5242,14 @@
         {
             "affixes": [
                 {
-                    "name": "Damage to Sneak Attacks (non-stacking)",
-                    "type": "",
-                    "value": "2"
+                    "name": "Accuracy",
+                    "type": "Enhancement",
+                    "value": "1"
+                },
+                {
+                    "name": "+2 to damage for any hit that would qualify as a sneak attack",
+                    "type": "Enhancement",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5383,8 +5404,8 @@
         {
             "affixes": [
                 {
-                    "name": "(untyped, fully stacks)",
-                    "type": "",
+                    "name": "attack rolls",
+                    "type": "Competence",
                     "value": "2"
                 }
             ],
@@ -5502,9 +5523,14 @@
         {
             "affixes": [
                 {
-                    "name": "reduced chance of taking critical damage on a critical hit., Insight AC Bonus +1 (non-stacking)",
+                    "name": "reduced chance of taking critical damage on a critical hit",
                     "type": "Enhancement",
                     "value": "25"
+                },
+                {
+                    "name": "Armor Class, +1 Insight bonus to Saves",
+                    "type": "Insight",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -6941,9 +6967,29 @@
         {
             "affixes": [
                 {
-                    "name": "all saves, Open Lock +3, Disable Device +3 (saves typed insight, stacks with resistance, skills typed competence, thus non-stacking)",
-                    "type": "",
+                    "name": "Fortitude",
+                    "type": "Resistance",
                     "value": "1"
+                },
+                {
+                    "name": "Reflex",
+                    "type": "Resistance",
+                    "value": "1"
+                },
+                {
+                    "name": "Will Saving Throws",
+                    "type": "Resistance",
+                    "value": "1"
+                },
+                {
+                    "name": "the Open Lock skill",
+                    "type": "Competence",
+                    "value": "3"
+                },
+                {
+                    "name": "the Disable Device skill",
+                    "type": "Competence",
+                    "value": "3"
                 }
             ],
             "threshold": 2

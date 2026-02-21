@@ -34,8 +34,8 @@ def get_artifacts_from_page(soup):
 # Modify the existing items list to add the artifact tag
 def parse_minor_artifacts():
     items = read_json('items')
-        
-    page = open('./cache/Minor_Artifact.html', "r", encoding='utf-8').read()
+
+    page = open('./cache/minor_artifacts/Minor_Artifacts.html', "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

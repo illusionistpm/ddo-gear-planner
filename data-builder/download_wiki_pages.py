@@ -53,8 +53,6 @@ def download_item_pages():
     for url in set(itemPageURLs):
         download_page(url, cacheDir)
 
-    download_page('Minor_Artifact', 'cache/')
-
 
 def download_item_type_pages():
     cacheDir = 'cache/item_types/'
@@ -64,6 +62,14 @@ def download_item_type_pages():
     itemPageURLs = get_item_type_urls()
     for url in set(itemPageURLs):
         download_page(url, cacheDir)
+
+
+def download_minor_artifacts_page():
+    cacheDir = 'cache/minor_artifacts/'
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    download_page('Category:Minor_Artifacts', cacheDir)
 
 
 def download_set_page():
@@ -93,6 +99,7 @@ def download_crafting_pages():
 def download_wiki_pages():
     download_item_pages()
     download_item_type_pages()
+    download_minor_artifacts_page()
     download_set_page()
     download_quest_pages()
     download_crafting_pages()

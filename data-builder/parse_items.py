@@ -431,7 +431,7 @@ def parse_items():
         for craftingSystemItem, craftingSystemItemList in craftingSystemMap.items():
             if isinstance(craftingSystemItemList, list):
                 for index, craftingItem in enumerate(craftingSystemItemList):
-                    if 'set' in craftingItem and 'affixes' in craftingItem and len(craftingItem['affixes']) == 0 and len(sets[craftingItem['set']]) > 0:
+                    if 'set' in craftingItem and 'affixes' in craftingItem and len(craftingItem['affixes']) == 0:
                         setName = craftingItem['set']
                         crafting[craftingSystemName][craftingSystemItem][index]['affixes'] = sets[setName][0]['affixes']
 

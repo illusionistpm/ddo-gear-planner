@@ -27106,7 +27106,7 @@
             {
                 "affixes": [
                     {
-                        "name": "2% Chance On Hit to cause a blast of holy energy to smite your target, dealing 3 to 12 damage per Minimum Level of the weapon to all nearby enemies",
+                        "name": "2% Chance On Hit to cause a blast of holy energy to smite your target, dealing 3 to 12 good damage per Minimum Level of the weapon to all nearby enemies",
                         "type": "bool",
                         "value": 1
                     }
@@ -27148,7 +27148,7 @@
             {
                 "affixes": [
                     {
-                        "name": "2% Chance On Hit to cause a bolt of lightning to strike your target, dealing 1 to 20 damage per Minimum Level of the weapon to all nearby enemies",
+                        "name": "2% Chance On Hit to cause a bolt of lightning to strike your target, dealing 1 to 20 electricity damage per Minimum Level of the weapon to all nearby enemies",
                         "type": "bool",
                         "value": 1
                     }

@@ -5453,7 +5453,7 @@
         {
             "affixes": [
                 {
-                    "name": "damage for any attack that would qualify as a Sneak Attack, even if the wielder is not a Rogue., True Seeing,  Dodge +3% Dodge +3%: +3% Enhancement bonus to Dodge",
+                    "name": "damage for any attack that would qualify as a Sneak Attack, even if the wielder is not a Rogue. , True Seeing,  Dodge +3% Dodge +3%: +3% Enhancement bonus to Dodge",
                     "type": "Insight",
                     "value": "8"
                 }

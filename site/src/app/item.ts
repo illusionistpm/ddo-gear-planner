@@ -40,15 +40,13 @@ export class Item {
         }
     }
 
-    getSets() {
-        if (this.crafting) {
-            for (const craftable of this.crafting) {
-                if (craftable.selected.set) {
-                    return [craftable.selected.set];
-                }
-            }
+    getSets(): string[] {
+        const craftedSets: string[] = this.crafting?.map( (craftable) => craftable.selected.set ).filter( (set) => set ) ?? [];
+        if (craftedSets.length > 0) {
+            return craftedSets;
+        } else {
+            return this.sets;
         }
-        return this.sets;
     }
 
     isValid() {

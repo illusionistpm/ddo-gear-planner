@@ -87,7 +87,7 @@
         {
             "affixes": [
                 {
-                    "name": "your Electric Spell Critical Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "2"
                 }
@@ -99,14 +99,24 @@
         {
             "affixes": [
                 {
-                    "name": "SP",
-                    "type": "",
+                    "name": "Efficient Metamagic - Empower",
+                    "type": "Untyped",
                     "value": "2"
                 },
                 {
-                    "name": "less when you're below 50%/25%/10% hp",
-                    "type": "",
-                    "value": "30"
+                    "name": "Efficient Metamagic - Empower Heal",
+                    "type": "Untyped",
+                    "value": "2"
+                },
+                {
+                    "name": "Efficient Metamagic - Maximize",
+                    "type": "Untyped",
+                    "value": "4"
+                },
+                {
+                    "name": "Spells costs 10%/20%/30% less when you're below 50%/25%/10% hp.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -128,32 +138,32 @@
         {
             "affixes": [
                 {
-                    "name": "Cold",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Sonic",
+                    "name": "Sonic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Electric Spell Critical Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Sonic Spell Power",
+                    "name": "Resonance",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -165,8 +175,8 @@
         {
             "affixes": [
                 {
-                    "name": "(untyped, fully stacks) temporarily removed",
-                    "type": "",
+                    "name": "Accuracy",
+                    "type": "Competence",
                     "value": "2"
                 }
             ],
@@ -177,8 +187,8 @@
         {
             "affixes": [
                 {
-                    "name": "(competence, stacks to enhancement bonuses such as Haste spell)",
-                    "type": "",
+                    "name": "Ranged Alacrity",
+                    "type": "Competence",
                     "value": "10"
                 }
             ],
@@ -190,7 +200,7 @@
             "affixes": [
                 {
                     "name": "Magical Sheltering Cap",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "30"
                 }
             ],
@@ -213,7 +223,7 @@
         {
             "affixes": [
                 {
-                    "name": "each Spell Power",
+                    "name": "Potency",
                     "type": "Equipment",
                     "value": "24"
                 }
@@ -221,12 +231,23 @@
             "threshold": 2
         }
     ],
-    "Archivist": [],
+    "Archivist": [
+        {
+            "affixes": [
+                {
+                    "name": "Power",
+                    "type": "Untyped",
+                    "value": "20"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Archmage": [
         {
             "affixes": [
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -238,49 +259,49 @@
         {
             "affixes": [
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Repair Spell Power",
+                    "name": "Reconstruction",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Electric Spell Crit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Repair Spell Crit Chance",
+                    "name": "Repair Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Intelligence Bug: Only gives +1 INT",
+                    "name": "Intelligence",
                     "type": "Artifact",
-                    "value": "2"
+                    "value": "1"
                 },
                 {
                     "name": "Spell Focus Mastery",
@@ -295,12 +316,7 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Magical Sheltering",
+                    "name": "Sheltering",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -322,9 +338,29 @@
         {
             "affixes": [
                 {
-                    "name": "less threat",
-                    "type": "",
+                    "name": "Sneak Attack Bonus",
+                    "type": "Exceptional",
+                    "value": "2"
+                },
+                {
+                    "name": "Melee Diversion",
+                    "type": "Enhancement",
                     "value": "20"
+                },
+                {
+                    "name": "Mystic Diversion",
+                    "type": "Enhancement",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Diversion",
+                    "type": "Enhancement",
+                    "value": "20"
+                },
+                {
+                    "name": "If have Assassin III Enhancement: chance with weapons to apply a Level Drain effect.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -334,32 +370,32 @@
         {
             "affixes": [
                 {
-                    "name": "Fire",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Poison",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Acid Spell Critical Chance",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Poison Spell Power",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Acid Spell Power",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -382,6 +418,11 @@
                 },
                 {
                     "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Magical Sheltering Cap",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -413,6 +454,11 @@
                     "value": "30"
                 },
                 {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
                     "name": "Missile Deflection",
                     "type": "Artifact",
                     "value": "5"
@@ -425,7 +471,7 @@
         {
             "affixes": [
                 {
-                    "name": "Tactical DCs",
+                    "name": "Combat Mastery",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -438,7 +484,7 @@
             "affixes": [
                 {
                     "name": "Offhand Strike Chance",
-                    "type": "",
+                    "type": "Untyped",
                     "value": "20"
                 }
             ],
@@ -473,42 +519,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Acid",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Electric Spell Critical Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Acid Spell Power",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -525,32 +571,32 @@
                     "value": "3"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Repair",
+                    "name": "Repair Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Force Spell Critical Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Repair Spell Power",
+                    "name": "Reconstruction",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -567,7 +613,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -600,7 +646,28 @@
             "threshold": 4
         }
     ],
-    "Corsair's Cunning": [],
+    "Corsair's Cunning": [
+        {
+            "affixes": [
+                {
+                    "name": "Underwater Action",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Feather Falling",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
+        }
+    ],
     "Cruel Cut": [
         {
             "affixes": [
@@ -632,7 +699,12 @@
                     "value": "5"
                 },
                 {
-                    "name": "threat decrease with both melee and ranged attacks",
+                    "name": "Melee Diversion",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Diversion",
                     "type": "Artifact",
                     "value": "20"
                 }
@@ -664,7 +736,12 @@
                     "value": "15"
                 },
                 {
-                    "name": "threat decrease with both melee and ranged attacks",
+                    "name": "Melee Diversion",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Diversion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -698,9 +775,9 @@
                     "value": "5"
                 },
                 {
-                    "name": "times, and each stack lasts 30 seconds",
-                    "type": "",
-                    "value": "3"
+                    "name": "Whenever you cast a Negative spell, you have a chance to apply a stack of Dreadful Curse, reducing the enemy's Fortitude by 1. This can stack up to 3 times, and each stack lasts 30 seconds.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -725,15 +802,26 @@
                     "value": "30"
                 },
                 {
-                    "name": "times, and each stack lasts 30 seconds",
-                    "type": "",
-                    "value": "6"
+                    "name": "Whenever you cast a Negative spell, you have a chance to apply a stack of Legendary Dreadful Curse, reducing the enemy's Fortitude by 1. This can stack up to 6 times, and each stack lasts 30 seconds.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
         }
     ],
-    "DM's Vision": [],
+    "DM's Vision": [
+        {
+            "affixes": [
+                {
+                    "name": "True Seeing",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Date With a Mind Flayer": [
         {
             "affixes": [
@@ -765,7 +853,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -778,6 +866,11 @@
                     "name": "Spell Critical Damage",
                     "type": "Legendary",
                     "value": "15"
+                },
+                {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Artifact",
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -787,9 +880,9 @@
         {
             "affixes": [
                 {
-                    "name": "to all Ability Scores",
-                    "type": "",
-                    "value": "4"
+                    "name": "Your Summons, Charmed Monsters, and Hirelings gain +4 to all Ability Scores",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -799,8 +892,13 @@
         {
             "affixes": [
                 {
-                    "name": "Ranged Alacrity, +2 To-Hit",
-                    "type": "",
+                    "name": "Accuracy",
+                    "type": "Competence",
+                    "value": "2"
+                },
+                {
+                    "name": "Ranged Alacrity",
+                    "type": "Enhancement",
                     "value": "5"
                 }
             ],
@@ -811,14 +909,14 @@
         {
             "affixes": [
                 {
-                    "name": "additional threat from melee attacks",
-                    "type": "",
+                    "name": "Incite",
+                    "type": "Exceptional",
                     "value": "15"
                 },
                 {
-                    "name": "AC (stacking)",
-                    "type": "",
-                    "value": "2"
+                    "name": "If have Defender of Siberys III Enhancement: +2 AC (stacking)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -828,22 +926,22 @@
         {
             "affixes": [
                 {
-                    "name": "Positive",
+                    "name": "Healing Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Negative",
+                    "name": "Negative Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Repair amplification",
+                    "name": "Repair Amplification",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Universal Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -870,7 +968,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -929,7 +1027,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive (Healing) Spell Power",
+                    "name": "Devotion",
                     "type": "Equipment",
                     "value": "36"
                 }
@@ -966,7 +1064,17 @@
                     "value": "15"
                 },
                 {
-                    "name": "Threat Generation",
+                    "name": "Incite",
+                    "type": "Artifact",
+                    "value": "100"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "100"
+                },
+                {
+                    "name": "Distant Incite",
                     "type": "Artifact",
                     "value": "100"
                 }
@@ -978,12 +1086,7 @@
         {
             "affixes": [
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -993,12 +1096,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1016,7 +1114,7 @@
             "affixes": [
                 {
                     "name": "Sheltering",
-                    "type": "Insight",
+                    "type": "Insightful",
                     "value": "2"
                 }
             ],
@@ -1032,19 +1130,9 @@
                     "value": "3"
                 },
                 {
-                    "name": "a +2 artifact bonus to Hit",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Damage with Ranged",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Thrown weapons",
-                    "type": "Artifact",
-                    "value": "3"
+                    "name": "artifact bonus to Hit and Damage with Ranged and Thrown weapons",
+                    "type": "Untyped",
+                    "value": "2"
                 }
             ],
             "threshold": 2
@@ -1095,8 +1183,8 @@
         {
             "affixes": [
                 {
-                    "name": "additional uses of Greater Dragonmark per rest",
-                    "type": "",
+                    "name": "Greater Dragonmark Charge",
+                    "type": "Untyped",
                     "value": "2"
                 }
             ],
@@ -1149,12 +1237,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Poison Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -1164,12 +1247,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Poison Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1213,7 +1291,7 @@
         {
             "affixes": [
                 {
-                    "name": "your Acid Spell Critical Chance",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "2"
                 }
@@ -1230,7 +1308,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "all Tactical DCs",
+                    "name": "Combat Mastery",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -1257,7 +1335,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -1284,7 +1362,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 }
@@ -1438,7 +1516,7 @@
         {
             "affixes": [
                 {
-                    "name": "Tactical Abilities",
+                    "name": "Combat Mastery",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -1530,7 +1608,17 @@
         {
             "affixes": [
                 {
-                    "name": "Threat Generation",
+                    "name": "Incite",
+                    "type": "Artifact",
+                    "value": "100"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "100"
+                },
+                {
+                    "name": "Distant Incite",
                     "type": "Artifact",
                     "value": "100"
                 }
@@ -1574,9 +1662,9 @@
         {
             "affixes": [
                 {
-                    "name": "to all Ability Scores",
-                    "type": "",
-                    "value": "8"
+                    "name": "Your Summons, Charmed Monsters, and Hirelings gain +8 to all Ability Scores",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -1586,12 +1674,7 @@
         {
             "affixes": [
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -1601,12 +1684,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -1624,7 +1702,7 @@
             "affixes": [
                 {
                     "name": "Sheltering",
-                    "type": "Insight",
+                    "type": "Insightful",
                     "value": "5"
                 }
             ],
@@ -1652,7 +1730,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -1669,7 +1747,17 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Power+20 Quality bonus to Ranged Power+20 Quality bonus to Universal Spell Power",
+                    "name": "Melee Power",
+                    "type": "Quality",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Power",
+                    "type": "Quality",
+                    "value": "20"
+                },
+                {
+                    "name": "Universal Spell Power",
                     "type": "Quality",
                     "value": "20"
                 }
@@ -1907,12 +1995,12 @@
                     "value": "20"
                 },
                 {
-                    "name": "Melee Spell Power",
+                    "name": "Melee Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Ranged Spell Power",
+                    "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1949,42 +2037,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Acid Spellcrit Chance",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Fire",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Acid Spellpower",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "20"
                 }
@@ -2045,7 +2133,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Sneak Attack",
+                    "name": "Sneak Attack Bonus",
                     "type": "Quality",
                     "value": "2"
                 }
@@ -2123,7 +2211,7 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Threat Reduction",
+                    "name": "Melee Diversion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -2136,6 +2224,11 @@
                     "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "10"
+                },
+                {
+                    "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2145,7 +2238,17 @@
         {
             "affixes": [
                 {
-                    "name": "Threat Generation",
+                    "name": "Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Distant Incite",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -2160,12 +2263,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Critical Confirmation",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Critical Damage",
+                    "name": "Seeker",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -2247,7 +2345,7 @@
                 },
                 {
                     "name": "Magical Sheltering Cap",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "10"
                 }
             ],
@@ -2270,8 +2368,8 @@
         {
             "affixes": [
                 {
-                    "name": "additional Turn Undead attempts after resting (Additional turns do not stack with other items that grant additional turns)",
-                    "type": "",
+                    "name": "Turn Undead Charge",
+                    "type": "Untyped",
                     "value": "3"
                 }
             ],
@@ -2282,27 +2380,17 @@
         {
             "affixes": [
                 {
-                    "name": "stacking fortification (The fortification bonus did not stack with Exceptional Fortification (+10%)Exceptional Fortification (+10%): This item produces a magical force that protects vital areas of the wearer more effectively. When a critical hit or sneak attack is scored on the wearer",
-                    "type": "",
+                    "name": "Fortification",
+                    "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "there is a +10% chance that the critical hit or sneak attack is negated",
-                    "type": "",
-                    "value": "25"
-                },
-                {
-                    "name": "the damage is instead rolled normally. This ability is considered an Insight bonus when determining stacking with other sources of fortification until U14)",
-                    "type": "",
-                    "value": "25"
-                },
-                {
-                    "name": "attack bonus",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "damage. (bonus to attack stacks with the airship buff \"Hours of Practice\" (artifact +2 to attack))",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "2"
                 }
@@ -2341,12 +2429,42 @@
         {
             "affixes": [
                 {
-                    "name": "Sonic, Force, Light, Acid Spell Power",
+                    "name": "Resonance",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
+                    "name": "Impulse",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Radiance",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Corrosion",
+                    "type": "Artifact",
+                    "value": "25"
+                },
+                {
+                    "name": "Sonic Lore",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Kinetic Lore",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Radiance Lore",
+                    "type": "Artifact",
+                    "value": "5"
+                },
+                {
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2368,7 +2486,7 @@
         {
             "affixes": [
                 {
-                    "name": "your Fire Spell Critical Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "2"
                 }
@@ -2380,17 +2498,17 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Light Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2400,17 +2518,17 @@
                     "value": "25"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Light Spell Crit Chance",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2499,24 +2617,19 @@
         {
             "affixes": [
                 {
-                    "name": "additional rage after resting",
-                    "type": "",
+                    "name": "Rage Charge",
+                    "type": "Untyped",
                     "value": "1"
                 },
                 {
-                    "name": "damage per swing (stacking)",
-                    "type": "",
+                    "name": "Deadly",
+                    "type": "Exceptional",
                     "value": "2"
                 },
                 {
-                    "name": "Strength",
-                    "type": "",
-                    "value": "2"
-                },
-                {
-                    "name": "Constitution (stacking)",
-                    "type": "",
-                    "value": "2"
+                    "name": "If Frenzied Berserker III enhancement: +2 Strength and Constitution (stacking)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2543,7 +2656,7 @@
         {
             "affixes": [
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Equipment",
                     "value": "72"
                 }
@@ -2553,7 +2666,7 @@
         {
             "affixes": [
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Equipment",
                     "value": "78"
                 }
@@ -2592,7 +2705,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Melee Threat Generation",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "75"
                 },
@@ -2634,7 +2747,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Repair Spell Power",
+                    "name": "Reconstruction",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -2695,9 +2808,9 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Damage per Attack, extra damage is also applied to glancing blows",
-                    "type": "",
-                    "value": "6"
+                    "name": "1d6 Fire Damage per Attack, extra damage is also applied to glancing blows",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2707,17 +2820,17 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Lightning Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2727,17 +2840,17 @@
                     "value": "25"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Cold Spell Crit Chance",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Lightning Spell Crit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2764,9 +2877,14 @@
         {
             "affixes": [
                 {
-                    "name": "extra uses of Remove Disease per rest",
-                    "type": "",
+                    "name": "Remove Disease Charge",
+                    "type": "Untyped",
                     "value": "3"
+                },
+                {
+                    "name": "If have Hunter of the Dead III Enhancement: additional weapon damage versus Undead",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2820,14 +2938,19 @@
         {
             "affixes": [
                 {
-                    "name": "Exceptional Melee To-Hit",
-                    "type": "",
+                    "name": "Accuracy",
+                    "type": "Exceptional",
                     "value": "2"
                 },
                 {
-                    "name": "Confirm Criticals",
-                    "type": "",
+                    "name": "Critical Hit Confirmation",
+                    "type": "Exceptional",
                     "value": "3"
+                },
+                {
+                    "name": "If you have the fifth Core Enhancement in the Kensai tree, this item will grant a +3 exceptional bonus to hit.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2837,9 +2960,14 @@
         {
             "affixes": [
                 {
-                    "name": "damage with weapons versus Evil Outsiders",
-                    "type": "",
-                    "value": "6"
+                    "name": "Spell Resistance",
+                    "type": "Exceptional",
+                    "value": "22"
+                },
+                {
+                    "name": "If have Knight of the Chalice III Enhancement: additional 3d6 damage with weapons versus Evil Outsiders",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -2849,17 +2977,12 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Sheltering",
+                    "name": "Sheltering",
                     "type": "Artifact",
                     "value": "5"
                 },
                 {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "5"
-                },
-                {
-                    "name": "threat generation with melee attacks",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "50"
                 },
@@ -2876,17 +2999,12 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Sheltering",
+                    "name": "Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "threat generation with melee attacks",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "50"
                 },
@@ -2952,7 +3070,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Melee Threat Generation",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "75"
                 }
@@ -2969,7 +3087,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Light/Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -2979,7 +3097,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Light/Alignment Spell Crit Chance",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "6"
                 }
@@ -3023,42 +3141,42 @@
         {
             "affixes": [
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Repair Spell Power",
+                    "name": "Reconstruction",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Electric Spell Crit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Repair Spell Crit Chance",
+                    "name": "Repair Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3080,12 +3198,7 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Magical Sheltering",
+                    "name": "Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3124,7 +3237,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3188,9 +3301,9 @@
         {
             "affixes": [
                 {
-                    "name": "to all Ability Scores",
-                    "type": "",
-                    "value": "12"
+                    "name": "Your Summons, Charmed Monsters, and Hirelings gain +12 to all Ability Scores",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -3205,7 +3318,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3264,12 +3377,7 @@
         {
             "affixes": [
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3279,12 +3387,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Light",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3323,12 +3426,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Poison Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3338,12 +3436,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Poison Spell Crit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3370,7 +3463,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3413,7 +3506,7 @@
                 },
                 {
                     "name": "Magical Sheltering Cap",
-                    "type": "",
+                    "type": "Artifact",
                     "value": "30"
                 }
             ],
@@ -3424,12 +3517,42 @@
         {
             "affixes": [
                 {
-                    "name": "Sonic, Force, Light, Acid Spell Power",
+                    "name": "Resonance",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Sonic, Force, Light, Acid Spell Crit Chance",
+                    "name": "Impulse",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Radiance",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Corrosion",
+                    "type": "Artifact",
+                    "value": "30"
+                },
+                {
+                    "name": "Sonic Lore",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Kinetic Lore",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Radiance Lore",
+                    "type": "Artifact",
+                    "value": "6"
+                },
+                {
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3451,17 +3574,17 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Light Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3471,17 +3594,17 @@
                     "value": "30"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Force Spell Crit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Light Spell Crit Chance",
+                    "name": "Radiance Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3592,17 +3715,12 @@
                     "value": "15"
                 },
                 {
-                    "name": "Physical Sheltering",
+                    "name": "Sheltering",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Melee Threat Generation",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "75"
                 },
@@ -3644,7 +3762,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Repair Spell Power",
+                    "name": "Reconstruction",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3671,17 +3789,17 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Lightning Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3691,17 +3809,17 @@
                     "value": "30"
                 },
                 {
-                    "name": "Fire Spell Crit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Cold Spell Crit Chance",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Lightning Spell Crit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -4068,12 +4186,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Sneak Attack",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Sneak Attack Damage",
+                    "name": "Sneak Attack Bonus",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4147,12 +4260,12 @@
                     "value": "30"
                 },
                 {
-                    "name": "Melee Spell Power",
+                    "name": "Melee Power",
                     "type": "Artifact",
                     "value": "15"
                 },
                 {
-                    "name": "Ranged Spell Power",
+                    "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -4189,42 +4302,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Acid Spellcrit Chance",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Acid Spellpower",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -4468,7 +4581,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4495,7 +4608,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Acid Spell Power",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4522,7 +4635,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4549,12 +4662,22 @@
                     "value": "15"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Threat Reduction from all sources",
+                    "name": "Melee Diversion",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Mystic Diversion",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Diversion",
                     "type": "Artifact",
                     "value": "20"
                 }
@@ -4571,7 +4694,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Threat from Melee Attacks",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "100"
                 },
@@ -4667,7 +4790,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Tactical Feat DCs",
+                    "name": "Combat Mastery",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4699,7 +4822,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -4753,7 +4876,7 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Threat Reduction",
+                    "name": "Melee Diversion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -4766,6 +4889,11 @@
                     "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "15"
+                },
+                {
+                    "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -4775,7 +4903,17 @@
         {
             "affixes": [
                 {
-                    "name": "Threat Generation",
+                    "name": "Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Distant Incite",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -4790,22 +4928,12 @@
                     "value": "3"
                 },
                 {
-                    "name": "Critical Confirmation",
+                    "name": "Seeker",
                     "type": "Artifact",
                     "value": "3"
                 },
                 {
-                    "name": "Critical Damage",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Sneak Attack",
-                    "type": "Artifact",
-                    "value": "3"
-                },
-                {
-                    "name": "Sneak Attack Damage",
+                    "name": "Sneak Attack Bonus",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -4920,9 +5048,39 @@
         {
             "affixes": [
                 {
-                    "name": "insight AC, 30% Additional Melee Threat (Threat stacks, but only with non-like amounts)",
-                    "type": "",
+                    "name": "Armor Class",
+                    "type": "Insightful",
+                    "value": "3"
+                },
+                {
+                    "name": "Incite",
+                    "type": "Exceptional",
+                    "value": "20"
+                },
+                {
+                    "name": "Fortitude Save",
+                    "type": "Insightful",
+                    "value": "1"
+                },
+                {
+                    "name": "Will Save",
+                    "type": "Insightful",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Armor Class",
+                    "type": "Insightful",
                     "value": "5"
+                },
+                {
+                    "name": "Incite",
+                    "type": "Exceptional",
+                    "value": "30"
                 }
             ],
             "threshold": 3
@@ -4932,7 +5090,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive (Healing) Spell Power",
+                    "name": "Devotion",
                     "type": "Equipment",
                     "value": "72"
                 }
@@ -4942,7 +5100,7 @@
         {
             "affixes": [
                 {
-                    "name": "Positive (Healing) Spell Power",
+                    "name": "Devotion",
                     "type": "Equipment",
                     "value": "78"
                 }
@@ -4953,6 +5111,11 @@
     "Magewright's Expertise": [
         {
             "affixes": [
+                {
+                    "name": "Spell Focus Mastery",
+                    "type": "Untyped",
+                    "value": "1"
+                },
                 {
                     "name": "Universal Spell Power",
                     "type": "Alchemical",
@@ -5047,13 +5210,13 @@
         {
             "affixes": [
                 {
-                    "name": "competence bonus",
-                    "type": "",
+                    "name": "Open Lock",
+                    "type": "Competence",
                     "value": "15"
                 },
                 {
-                    "name": "competence bonus",
-                    "type": "",
+                    "name": "Disable Device",
+                    "type": "Competence",
                     "value": "15"
                 },
                 {
@@ -5126,7 +5289,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "DCs (Note: Tactical DCs are not affected, only Spell DCs)",
+                    "name": "Spell Focus Mastery",
                     "type": "Profane",
                     "value": "2"
                 }
@@ -5187,14 +5350,19 @@
         {
             "affixes": [
                 {
-                    "name": "Acid Spell Power",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Acid Spell Lore",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "6"
+                },
+                {
+                    "name": "When struck, you will occasionally have the Stoneskin spell cast on you.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5226,8 +5394,13 @@
         {
             "affixes": [
                 {
-                    "name": "Damage to Sneak Attacks (non-stacking)",
-                    "type": "",
+                    "name": "Accuracy",
+                    "type": "Competence",
+                    "value": "2"
+                },
+                {
+                    "name": "Sneak Attack Damage",
+                    "type": "Competence",
                     "value": "2"
                 }
             ],
@@ -5238,18 +5411,23 @@
         {
             "affixes": [
                 {
-                    "name": "Accuracy",
+                    "name": "Sneak Attack Bonus",
                     "type": "Exceptional",
                     "value": "2"
                 },
                 {
-                    "name": "+5 damage with sneak attacks (+5 damage from attacks typed backstabbing - [nonstacking])",
-                    "type": "Exceptional",
-                    "value": "2"
+                    "name": "Melee Diversion",
+                    "type": "Enhancement",
+                    "value": "20"
                 },
                 {
-                    "name": "less threat",
-                    "type": "",
+                    "name": "Mystic Diversion",
+                    "type": "Enhancement",
+                    "value": "20"
+                },
+                {
+                    "name": "Ranged Diversion",
+                    "type": "Enhancement",
                     "value": "20"
                 }
             ],
@@ -5290,6 +5468,11 @@
                     "name": "Reflex saves",
                     "type": "Exceptional",
                     "value": "2"
+                },
+                {
+                    "name": "Spell Resistance",
+                    "type": "Exceptional",
+                    "value": "22"
                 }
             ],
             "threshold": 2
@@ -5299,42 +5482,38 @@
         {
             "affixes": [
                 {
-                    "name": "that lasts 6 seconds",
-                    "type": "",
-                    "value": "4"
-                },
-                {
-                    "name": "ticks every 2 seconds while being able to stack up to 20 times.)",
-                    "type": "",
-                    "value": "4"
+                    "name": "You are protected by a swarm of hostile bees that lash out when you are struck in melee range. On vorpal melee strikes, they will also swarm your enemies, dealing Piercing damage over time. (The piercing damage is a non-scaling 1d4 that lasts 6 seconds and ticks every 2 seconds while being able to stack up to 20 times.)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
         }
     ],
-    "Pain and Suffering": [],
+    "Pain and Suffering": [
+        {
+            "affixes": [
+                {
+                    "name": "+0.5[W] to each of your Daggers",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Pale Master": [
         {
             "affixes": [
                 {
-                    "name": "Negative (Necrotic) Spell Power",
+                    "name": "Nullification",
                     "type": "Equipment",
                     "value": "78"
                 },
                 {
-                    "name": "Poison Spell Power",
-                    "type": "Equipment",
-                    "value": "78"
-                },
-                {
-                    "name": "Negative (Necrotic) Spell Power",
-                    "type": "Equipment",
-                    "value": "90"
-                },
-                {
-                    "name": "Poison Spell Power",
-                    "type": "Equipment",
-                    "value": "90"
+                    "name": "If you also have the fifth Core Enhancement in the Pale Master tree, this set instead provides a +90 Equipment Bonus to Negative Energy Spell Power.",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5383,8 +5562,8 @@
         {
             "affixes": [
                 {
-                    "name": "(untyped, fully stacks)",
-                    "type": "",
+                    "name": "Accuracy",
+                    "type": "Competence",
                     "value": "2"
                 }
             ],
@@ -5419,9 +5598,19 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Penetration checks.,  Wizardry +250 Wizardry +250: +250 Enhancement bonus to spell points., +15 psionic bonus to Universal Spell Power",
+                    "name": "Spell Penetration",
                     "type": "Equipment",
                     "value": "9"
+                },
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Psionic",
+                    "value": "15"
+                },
+                {
+                    "name": "Wizardry",
+                    "type": "Enhancement",
+                    "value": "250"
                 }
             ],
             "threshold": 2
@@ -5431,19 +5620,19 @@
         {
             "affixes": [
                 {
-                    "name": "attack Resistance Rating",
+                    "name": "Accuracy",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "damage Resistance Rating",
+                    "name": "Deadly",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "+15 artifact bonus to Physical Resistance Rating",
+                    "name": "Physical Sheltering",
                     "type": "Artifact",
-                    "value": "4"
+                    "value": "15"
                 }
             ],
             "threshold": 2
@@ -5453,9 +5642,19 @@
         {
             "affixes": [
                 {
-                    "name": "damage for any attack that would qualify as a Sneak Attack, even if the wielder is not a Rogue. , True Seeing,  Dodge +3% Dodge +3%: +3% Enhancement bonus to Dodge",
-                    "type": "Insight",
-                    "value": "8"
+                    "name": "Sneak Attack Bonus",
+                    "type": "Insightful",
+                    "value": "5"
+                },
+                {
+                    "name": "True Seeing",
+                    "type": "Untyped",
+                    "value": "1"
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Enhancement",
+                    "value": "3"
                 }
             ],
             "threshold": 2
@@ -5502,9 +5701,14 @@
         {
             "affixes": [
                 {
-                    "name": "reduced chance of taking critical damage on a critical hit., Insight AC Bonus +1 (non-stacking)",
+                    "name": "Fortification",
                     "type": "Enhancement",
                     "value": "25"
+                },
+                {
+                    "name": "Parrying",
+                    "type": "Insight",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5514,9 +5718,24 @@
         {
             "affixes": [
                 {
-                    "name": "additional threat",
-                    "type": "",
+                    "name": "Incite",
+                    "type": "Artifact",
                     "value": "10"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Distant Incite",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Accuracy",
+                    "type": "Exceptional",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5543,8 +5762,13 @@
         {
             "affixes": [
                 {
-                    "name": "additional Turn Undead attempt (Additional turns do not stack with other items that grant additional turns)",
-                    "type": "",
+                    "name": "Turn Undead Charge",
+                    "type": "Untyped",
+                    "value": "1"
+                },
+                {
+                    "name": "Exceptional Bonus to Turn Undead Cleric Level",
+                    "type": "Untyped",
                     "value": "1"
                 }
             ],
@@ -5555,9 +5779,9 @@
         {
             "affixes": [
                 {
-                    "name": "slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended\u00a0ARCHIVE ME!.)",
-                    "type": "",
-                    "value": "6"
+                    "name": "chance to inflict damage over time effect (Ravager's Cut: 2d6 slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended\u00a0ARCHIVE ME!.)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5685,9 +5909,9 @@
         {
             "affixes": [
                 {
-                    "name": "Chance on Hit to Bluff your target for four seconds. (Bluffed enemies can be affected by Sneak Attacks even while targeting you.)",
-                    "type": "",
-                    "value": "5"
+                    "name": "While both items from this set are equipped, your melee attacks deal an additional +0.5[W] damage dice. Your attacks also gain a 5% Chance on Hit to Bluff your target for four seconds. (Bluffed enemies can be affected by Sneak Attacks even while targeting you.)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -5714,12 +5938,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -5736,12 +5960,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -5768,7 +5992,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Points",
+                    "name": "Wizardry",
                     "type": "Artifact",
                     "value": "50"
                 }
@@ -5820,42 +6044,42 @@
         {
             "affixes": [
                 {
-                    "name": "Fire",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Acid Spellcrit Chance",
+                    "name": "Acid Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Fire",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Cold",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Electric",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Acid Spellpower",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -5867,7 +6091,7 @@
         {
             "affixes": [
                 {
-                    "name": "To-Hit",
+                    "name": "Accuracy",
                     "type": "Exceptional",
                     "value": "2"
                 },
@@ -5877,14 +6101,9 @@
                     "value": "2"
                 },
                 {
-                    "name": "Enhancement, then additionally:",
-                    "type": "",
-                    "value": "3"
-                },
-                {
-                    "name": "additional melee threat generation (not in item description but shows in the buff bar when equipped)",
-                    "type": "",
-                    "value": "15"
+                    "name": "If you have the fifth Core Enhancement in the Shintao Monk tree, your unarmed attacks bypass Good and Evil damage reduction. (Undocumented: Also gain 15% melee thread)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -6158,7 +6377,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Sneak Attack",
+                    "name": "Sneak Attack Bonus",
                     "type": "Quality",
                     "value": "1"
                 }
@@ -6170,8 +6389,8 @@
         {
             "affixes": [
                 {
-                    "name": "additional Bard songs per rest",
-                    "type": "",
+                    "name": "Bard Song Charge",
+                    "type": "Untyped",
                     "value": "2"
                 }
             ],
@@ -6182,14 +6401,14 @@
         {
             "affixes": [
                 {
-                    "name": "additional threat from melee attacks",
-                    "type": "",
+                    "name": "Incite",
+                    "type": "Artifact",
                     "value": "15"
                 },
                 {
-                    "name": "AC Bonus (Stacks)",
-                    "type": "",
-                    "value": "2"
+                    "name": "If have Stalwart Defender fifth core enhancement: +2 AC Bonus (Stacks)",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -6211,14 +6430,19 @@
         {
             "affixes": [
                 {
-                    "name": "Additional Slash Damage  (does not work with handwraps (WAI?))",
-                    "type": "",
-                    "value": "4"
+                    "name": "1d4 Additional Slash Damage  (does not work with handwraps (WAI?))",
+                    "type": "Untyped",
+                    "value": "1"
                 },
                 {
-                    "name": "To-Hit Bonus",
-                    "type": "",
-                    "value": "3"
+                    "name": "Seems to actually be some kind of bleed damage, despite description (undead and constructs are immune)",
+                    "type": "Untyped",
+                    "value": "1"
+                },
+                {
+                    "name": "If have Tempest III Enhancement: +3 To-Hit Bonus",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -6238,7 +6462,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6265,7 +6489,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Acid Spell Power",
+                    "name": "Corrosion",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6292,7 +6516,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Electric Spell Power",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6319,12 +6543,22 @@
                     "value": "5"
                 },
                 {
-                    "name": "Cold Spell Power",
+                    "name": "Glaciation",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Threat Reduction from all sources",
+                    "name": "Melee Diversion",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Mystic Diversion",
+                    "type": "Artifact",
+                    "value": "10"
+                },
+                {
+                    "name": "Ranged Diversion",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -6336,24 +6570,39 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Threat Reduction",
-                    "type": "",
+                    "name": "Ghost Touch",
+                    "type": "Untyped",
+                    "value": "1"
+                },
+                {
+                    "name": "Melee Diversion",
+                    "type": "Enhancement",
                     "value": "20"
                 }
             ],
             "threshold": 2
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Feather Falling",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 3
         }
     ],
     "The Desert's Biting Sands": [
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Force Spellpower",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6370,12 +6619,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spellcrit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Fire Spellpower",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6392,22 +6641,12 @@
         {
             "affixes": [
                 {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "2"
-                },
-                {
-                    "name": "Poison Spellcrit Chance",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
                     "name": "Nullification",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Poison Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6424,12 +6663,12 @@
         {
             "affixes": [
                 {
-                    "name": "Electric Spellcrit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Electric Spellpower",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6458,7 +6697,12 @@
         {
             "affixes": [
                 {
-                    "name": "Melee And Ranged Power",
+                    "name": "Melee Power",
+                    "type": "Profane",
+                    "value": "5"
+                },
+                {
+                    "name": "Ranged Power",
                     "type": "Profane",
                     "value": "5"
                 },
@@ -6490,12 +6734,12 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Force Spellpower",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6512,12 +6756,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spellcrit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Fire Spellpower",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6534,22 +6778,12 @@
         {
             "affixes": [
                 {
-                    "name": "Negative",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Poison Spellcrit",
-                    "type": "Artifact",
-                    "value": "4"
-                },
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Poison Spellpower",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6566,12 +6800,12 @@
         {
             "affixes": [
                 {
-                    "name": "Electric Spellcrit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Electric Spellpower",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6593,7 +6827,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Threat from Melee Attacks",
+                    "name": "Incite",
                     "type": "Artifact",
                     "value": "50"
                 },
@@ -6652,12 +6886,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spellcrit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire Spell Power",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6674,12 +6908,12 @@
         {
             "affixes": [
                 {
-                    "name": "Force Spellcrit Chance",
+                    "name": "Kinetic Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Force Spellpower",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6696,12 +6930,12 @@
         {
             "affixes": [
                 {
-                    "name": "Fire Spellcrit Chance",
+                    "name": "Fire Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Fire Spellpower",
+                    "name": "Combustion",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6718,22 +6952,12 @@
         {
             "affixes": [
                 {
-                    "name": "Negative",
+                    "name": "Void Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Poison Spellcrit Chance",
-                    "type": "Artifact",
-                    "value": "6"
-                },
-                {
-                    "name": "Negative",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Poison Spellpower",
+                    "name": "Nullification",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6750,12 +6974,12 @@
         {
             "affixes": [
                 {
-                    "name": "Electric Spellcrit Chance",
+                    "name": "Lightning Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Electric Spellpower",
+                    "name": "Magnetism",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6856,7 +7080,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Tactical Feat DCs",
+                    "name": "Combat Mastery",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -6888,9 +7112,9 @@
                     "value": "15"
                 },
                 {
-                    "name": "to AC",
-                    "type": "",
-                    "value": "2"
+                    "name": "Unknown\u00a0% chance weapons will unbalance an opponent, causing -2 to AC",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -6900,13 +7124,13 @@
         {
             "affixes": [
                 {
-                    "name": "to hit",
-                    "type": "",
-                    "value": "5"
+                    "name": "True Seeing",
+                    "type": "Untyped",
+                    "value": "1"
                 },
                 {
-                    "name": "+8 to damage to any attack that would qualify as a sneak attack. (non-stacking)",
-                    "type": "",
+                    "name": "Sneak Attack Bonus",
+                    "type": "Enhancement",
                     "value": "5"
                 }
             ],
@@ -6941,9 +7165,19 @@
         {
             "affixes": [
                 {
-                    "name": "all saves, Open Lock +3, Disable Device +3 (saves typed insight, stacks with resistance, skills typed competence, thus non-stacking)",
-                    "type": "",
+                    "name": "Resistance",
+                    "type": "Insightful",
                     "value": "1"
+                },
+                {
+                    "name": "Open Lock",
+                    "type": "Competence",
+                    "value": "3"
+                },
+                {
+                    "name": "Disable Device",
+                    "type": "Competence",
+                    "value": "3"
                 }
             ],
             "threshold": 2
@@ -6997,12 +7231,7 @@
         {
             "affixes": [
                 {
-                    "name": "Physical Sheltering",
-                    "type": "Luck",
-                    "value": "5"
-                },
-                {
-                    "name": "Magical Sheltering",
+                    "name": "Sheltering",
                     "type": "Luck",
                     "value": "5"
                 }
@@ -7014,13 +7243,13 @@
         {
             "affixes": [
                 {
-                    "name": "additional Bard Song per rest",
-                    "type": "",
+                    "name": "Bard Song Charge",
+                    "type": "Untyped",
                     "value": "1"
                 },
                 {
-                    "name": "SP",
-                    "type": "",
+                    "name": "Efficient Metamagic - Extend",
+                    "type": "Untyped",
                     "value": "2"
                 }
             ],
@@ -7048,7 +7277,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Spell Critical Chance",
+                    "name": "Universal Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -7102,7 +7331,7 @@
         {
             "affixes": [
                 {
-                    "name": "Melee Threat Reduction",
+                    "name": "Melee Diversion",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -7115,6 +7344,11 @@
                     "name": "Ranged Power",
                     "type": "Artifact",
                     "value": "5"
+                },
+                {
+                    "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
+                    "type": "Untyped",
+                    "value": "1"
                 }
             ],
             "threshold": 2
@@ -7124,7 +7358,17 @@
         {
             "affixes": [
                 {
-                    "name": "Threat Generation",
+                    "name": "Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Mystic Incite",
+                    "type": "Artifact",
+                    "value": "20"
+                },
+                {
+                    "name": "Distant Incite",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -7173,18 +7417,18 @@
         {
             "affixes": [
                 {
-                    "name": "additional Bard Song after resting",
-                    "type": "",
+                    "name": "Bard Song Charge",
+                    "type": "Untyped",
                     "value": "1"
                 },
                 {
-                    "name": "SP",
-                    "type": "",
+                    "name": "Efficient Metamagic - Maximize",
+                    "type": "Untyped",
                     "value": "4"
                 },
                 {
-                    "name": "SP",
-                    "type": "",
+                    "name": "Efficient Metamagic - Extend",
+                    "type": "Untyped",
                     "value": "1"
                 }
             ],
@@ -7212,8 +7456,13 @@
         {
             "affixes": [
                 {
-                    "name": "additional Turn Undead per rest (Additional turns do not stack with other items that grant additional turns)",
-                    "type": "",
+                    "name": "Turn Undead Charge",
+                    "type": "Untyped",
+                    "value": "2"
+                },
+                {
+                    "name": "Accuracy",
+                    "type": "Exceptional",
                     "value": "2"
                 }
             ],
@@ -7224,7 +7473,7 @@
         {
             "affixes": [
                 {
-                    "name": "your Cold Spell Critical Chance",
+                    "name": "Ice Lore",
                     "type": "Artifact",
                     "value": "2"
                 }
@@ -7278,7 +7527,18 @@
             "threshold": 3
         }
     ],
-    "Wild Mage": [],
+    "Wild Mage": [
+        {
+            "affixes": [
+                {
+                    "name": "Set Bonus: Your 8th level spells and spells lower than 8th level gain a +2 bonus to the die roll to penetrate the target's Spell resistance. (Non-stacking)",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "threshold": 2
+        }
+    ],
     "Windlasher's Ferocity": [
         {
             "affixes": [

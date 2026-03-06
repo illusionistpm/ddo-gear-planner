@@ -5855,7 +5855,7 @@
                 "affixes": [
                     {
                         "name": "Magical Sheltering Cap",
-                        "type": "",
+                        "type": "Artifact",
                         "value": "30"
                     }
                 ],
@@ -5884,7 +5884,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Tactical DCs",
+                        "name": "Combat Mastery",
                         "type": "Artifact",
                         "value": "3"
                     }

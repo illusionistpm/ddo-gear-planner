@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Any, Literal, cast
 
 from bs4 import BeautifulSoup
@@ -89,6 +90,58 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         'Fang (Weapon)',
         'Scale (Weapon)',
     ]
+
+    craftableAffixNames = (
+        'Craftable',
+        'Craftable (hidden)',
+        'Craftable Rune Arm' # Handling craftable rune arms is non-trivial
+    )
+    craftableRunearmsAffixesLost = {
+        'Flame Warden': ['Fire Resistance', 'Reflex Save'],
+        'Thought Spike (starter)': ['Starter', 'Will Save'],
+        'Thought Spike': ['Will Save'],
+        'Candlelight': ['Lesser Undead Guard'],
+        'Flicker': ['Power', 'Reflex Save'],
+        'Chimera\'s Breath': [], # No losses
+        'Chulchannad\'s Claw': ['Cold Absorption', 'Cold Resistance'],
+        'Khyber\'s Fury': ['Fortification'],
+        'Strinati\'s Hand Cannon': ['Wizardry'],
+        'Coronach (historic)': [], # No losses, assumedly
+        'Coronach': [], # No losses
+        'Ol\' Ironsides': [], # TODO: Unknown crafting losses
+        'The Devourer\'s Hunger': ['Glaciation', 'False Life'], 
+        'The Pea Shooter': ['Potency', 'Acid Resistance'],
+        'Hand of the Tombs': ['Fire Resistance'],
+        'Recoyle': ['Impulse', 'Anathema'],
+        'The Disciplinator': ['Fortification', 'Physical Sheltering', 'Fortitude Save'],
+        'Titan\'s Fist': ['Intelligence', 'Kinetic Lore'],
+        'Trial by Fire': ['False Life', 'Fire Resistance'],
+        'Arcing Sky (level 13)': ['Dodge', 'Electric Resistance'],
+        'Chill of Winter (level 13)': ['Cold Resistance'],
+        'The Turmoil Within (level 13)': [], # TODO: Unknown crafting losses
+        'Tira\'s Splendor': ['Healing Amplification', 'Deathblock'],
+        'Glorious Obscenity': ['Spot', 'Seeker'],
+        'Animus': [], # No losses
+        'Lucid Dreams': ['Potency', 'Spell Lore', 'Mind Drain', 'Will Save'],
+        'Toven\'s Hammer': ['Potency', 'Fortification'],
+        'Epic Coronach': [], # TODO: Is this one really craftable? Doesn't look like the case from wiki's screenshot
+        # These don't actually lose anything
+        'Acid Rune Arm': [],
+        'Fire Rune Arm': [],
+        'Force Rune Arm': [],
+        'Ice Rune Arm': [],
+        'Lightning Rune Arm': [],
+        'Radiant Rune Arm': [],
+        'Greater Acid Rune Arm': [],
+        'Greater Fire Rune Arm': [],
+        'Greater Force Rune Arm': [],
+        'Greater Ice Rune Arm': [],
+        'Greater Lightning Rune Arm': [],
+        'Greater Radiant Rune Arm': [],
+    }
+    rangedWeaponTypes = (
+        'Repeating Light Crossbows', 'Throwing Daggers', 'Darts', 'Long Bows', 'Shurikens', 'Repeating Heavy Crossbows', 'Heavy Crossbows', 'Throwing Axes', 'Great Crossbows', 'Throwing Hammers', 'Short Bows', 'Light Crossbows'
+    )
 
     print("Parsing " + itemPageURL)
     page = open(itemPageURL, "r", encoding='utf-8').read()
@@ -365,6 +418,48 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 
         else:
             items.append(item)
+
+            # Post-process craftable items
+            if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
+                craftedItem = deepcopy(item)
+                craftedItem['name'] = item['name'] + ' [Crafted]'
+                
+                craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
+                for craftableAffix in craftableAffixes:
+                    craftedItem['affixes'].remove(craftableAffix)
+
+                isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
+                if isCraftableRunearm:
+                    # check for misspellings and bs
+                    for affixToLose in craftableRunearmsAffixesLost[item['name']]:
+                        assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
+                    
+                    for affix in [*craftedItem['affixes']]:
+                        if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
+                            craftedItem['affixes'].remove(affix)
+                
+                if 'crafting' not in craftedItem:
+                    craftedItem['crafting'] = []
+                
+                match (item['slot'], item['type']):
+                    case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
+                        slot = 'Ranged'
+                    case ('Weapon', _):
+                        slot = 'Melee'
+                    case ('Offhand', 'Rune Arms'):
+                        slot = 'Rune Arm'
+                    case ('Offhand', 'Orbs'):
+                        slot = 'Orb'
+                    case ('Offhand', _):
+                        slot = 'Shield'
+                    case _:
+                        slot = item['slot']
+
+                craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
+                craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
+                craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
+
+                items.append(craftedItem)
 
     return items
 

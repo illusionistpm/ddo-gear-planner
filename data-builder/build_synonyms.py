@@ -1,15 +1,16 @@
-import json
 from write_json import write_json
 
-def add(data, mainName, synonyms):
-    group = {}
-    group['name'] = mainName
-    group['synonyms'] = synonyms
-    data.append(group)
+from typedefs import AffixSynonyms
+
+def add(data: list[AffixSynonyms], mainName: str, synonyms: list[str]) -> None:
+    data.append({
+        'name': mainName,
+        'synonyms': synonyms,
+    })
 
 
-def build_synonyms():
-    data = []
+def build_synonyms() -> None:
+    data: list[AffixSynonyms] = []
 
     add(data, 'Accuracy', ['Attack', 'Hit', 'hit', 'Attack Bonus'])
     add(data, 'Action Boost Charges', ['Action Boost Enhancement'])

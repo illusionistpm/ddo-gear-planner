@@ -1,7 +1,12 @@
-import openpyxl 
-import json
+from typing import TypedDict, cast
+
+import openpyxl
 import os
 from get_inverted_synonym_map import get_inverted_synonym_map
+
+from typedefs import Affix, AffixesDict, SetDict
+
+SystemDict = TypedDict('SystemDict', { '*': list[AffixesDict|SetDict] })
 
 def parse_slavers_sets():
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 
@@ -18,7 +23,7 @@ def parse_slavers_sets():
     rows = ws.iter_rows()
     next(rows) # skip header
     for row in rows:
-        name = row[0].value
+        name = cast(str, row[0].value)
         level = row[1].value
         threshold = row[2].value
         affix = row[3].value
@@ -52,16 +57,17 @@ def parse_slavers_sets():
     return sets
 
 
-def parse_slavers_crafting():
+def parse_slavers_crafting() -> dict[str, SystemDict]:
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/slavers.xlsx") 
 
-    systems = {}
+    systems: dict[str, SystemDict] = {}
     
     for s in range(len(wb.sheetnames)):
         group = wb.sheetnames[s]
 
         wb.active = s
-        ws = wb.active 
+        ws = wb.active
+        assert ws is not None
 
         if group == 'Set':
             continue
@@ -70,25 +76,24 @@ def parse_slavers_crafting():
         legendarySystem = 'Legendary ' + system
 
         if system not in systems:
-            systems[system] = {}
-            systems[system]['*'] = []
+            systems[system] = { '*': [] }
 
         if legendarySystem not in systems:
-            systems[legendarySystem] = {}
-            systems[legendarySystem]['*'] = []
+            systems[legendarySystem] = { '*': [] }
 
         rows = ws.iter_rows()
         next(rows) # skip header
         for row in rows:
-            name = row[0].value
+            name = cast(str, row[0].value)
             level = row[1].value
             value = row[2].value
-            bonusType = row[3].value
+            bonusType = cast(str, row[3].value)
         
-            affix = {}
-            affix['name'] = name
-            affix['value'] = value
-            affix['type'] = bonusType
+            affix: Affix = {
+                'name': name,
+                'value': value,
+                'type': bonusType,
+            }
 
             if affix['name'] == 'Fortification':
                 affix['value'] = 100 * affix['value']
@@ -102,27 +107,16 @@ def parse_slavers_crafting():
             if affix['name'] == 'MRR':
                 affix['name'] = 'Magical Resistance Rating'
 
-            option = {}
-            option['affixes'] = [affix]
-
             mySystem = system if level == 8 else legendarySystem
             
-            systems[mySystem]['*'].append(option)
+            systems[mySystem]['*'].append({ 'affixes': [affix] })
 
-    systems["Slaver's Set Bonus"] = {}
-    systems["Slaver's Set Bonus"]['*'] = []
-
-    systems["Legendary Slaver's Set Bonus"] = {}
-    systems["Legendary Slaver's Set Bonus"]['*'] = []
+    systems["Slaver's Set Bonus"] = { '*': [] }
+    systems["Legendary Slaver's Set Bonus"] =  { '*': [] }
 
     for setName in ["Slave Lord's Might", "Slave Lord's Sorcery", "Slave Lord's Endurance"]:
-        option = {}
-        option['set'] = setName
-        systems["Slaver's Set Bonus"]['*'].append(option)
-
-        option = {}
-        option['set'] = 'Legendary ' + setName
-        systems["Legendary Slaver's Set Bonus"]['*'].append(option)
+        systems["Slaver's Set Bonus"]['*'].append({ 'set': setName })
+        systems["Legendary Slaver's Set Bonus"]['*'].append({ 'set': 'Legendary ' + setName })
 
     return systems
 

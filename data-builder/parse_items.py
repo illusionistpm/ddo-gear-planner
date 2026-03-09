@@ -1,25 +1,26 @@
+from typing import Any, Literal, cast
+
 from bs4 import BeautifulSoup
-import requests
 import os
 import re
-import json
 import collections
-from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
 from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
 
-def include_page(fileName):
+from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
+
+def include_page(fileName: str) -> bool:
     return not fileName.startswith('Collars')
 
 
-def add_cat_to_map(catMap, slot, array):
+def add_cat_to_map(catMap: CatMap, slot: str, array: list[str]) -> None:
     for category in array:
         catMap[category] = slot
 
 
-def build_cat_map():
+def build_cat_map() -> CatMap:
     catMap = collections.defaultdict(lambda: 'Weapon')
 
     add_cat_to_map(catMap, 'Armor', ['Cloth armor', 'Heavy armor', 'Medium armor', 'Light armor', 'Cloth armor', 'Docents'])
@@ -40,7 +41,7 @@ def build_cat_map():
     return catMap
 
 
-def build_augment_name_transform_map():
+def build_augment_name_transform_map() -> AugmentNameTransformMap:
     augmentNameTransformMap = {
         'Moon'           : 'Moon Augment Slot',
         'Sun'            : 'Sun Augment Slot',
@@ -56,7 +57,7 @@ def build_augment_name_transform_map():
     return augmentNameTransformMap
 
 
-def transform_augment_name(name, augmentNameTransformMap):
+def transform_augment_name(name: str, augmentNameTransformMap: AugmentNameTransformMap) -> str:
     pack_name = None
 
     # Drop the pack name if it exists for brevity
@@ -72,7 +73,7 @@ def transform_augment_name(name, augmentNameTransformMap):
     return augmentNameTransformMap.get(name, name)
 
 
-def get_items_from_page(itemPageURL, craftingSystems, sets):
+def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
     synonymMap = get_inverted_synonym_map()
 
     augmentNameTransformMap = build_augment_name_transform_map()
@@ -110,9 +111,11 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
     rows = table.find_all('tr', recursive=False)
 
+    questIdx = None
     for q in ['Location', 'Locations', 'Quest', 'Quests']:
         if q in cols:
             questIdx = cols[q]
+    assert questIdx is not None
 
     # For some reason, the header is showing up as a row
     rows.pop(0)
@@ -122,31 +125,26 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
     fakeBonuses = get_fake_bonuses()
 
     for row in rows:
-        item = {}
-        item['type'] = category
-        item['slot'] = catMap[category]
-
         fields = row.find_all('td', recursive=False)
-
-        itemLink = fields[cols['Item']].find('a')
-
-        item['name'] = itemLink.getText().strip()
-        item['url'] = itemLink['href'].strip()
-        item['ml'] = fields[cols['ML']].getText().strip()
-        item['affixes'] = []
 
         if 'Drops on leaving adventure' in fields[cols['Bind']].getText():
             continue
 
+        itemLink = fields[cols['Item']].find('a')
+        rawML = fields[cols['ML']].getText().strip()
+
+        item: Item|SetAugment = {
+            'type': category,
+            'slot': catMap[category],
+            'name': itemLink.getText().strip(),
+            'url': itemLink['href'].strip(),
+            'ml': 1 if rawML == 'None' else int(rawML),
+            'affixes': [],
+        }
+
         # Uncomment and edit to stop at a particular item
         # if item['name'] == "Diabolist's Robe":
         #     a = 1
-
-        if item['ml'] == 'None':
-            item['ml'] = 1
-        else:
-            # convert ml to int
-            item['ml'] = int(item['ml'])
 
         # If we're doing an Armor page, add an entry for the Armor Class
         if 'AC' in cols:
@@ -158,12 +156,11 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
             # Docents have a more complicated expression that I'm not parsing, so if it's not a simple
             # number, just skip it.
             if acBonus != '0' and acBonus.isnumeric():
-                aff = {
+                item['affixes'].append({
                     'name': 'Armor Class',
                     'value': acBonus,
-                    'type': 'Armor'
-                }
-                item['affixes'].append(aff)
+                    'type': 'Armor',
+                })
 
         # If we're doing a Shield page, add an entry for the (Shield) Armor Class bonus
         if 'SB' in cols:
@@ -172,12 +169,11 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                 acBonus = acBonus[1:]
 
             if acBonus != '0' and acBonus.isnumeric():
-                aff = {
+                item['affixes'].append({
                     'name': 'Armor Class',
                     'value': acBonus,
-                    'type': 'Shield'
-                }
-                item['affixes'].append(aff)
+                    'type': 'Shield',
+                })
 
         questsCell = fields[questIdx]
         questsTooltipSpan = questsCell.find('a')
@@ -241,6 +237,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                     if affix['name'] == 'Horn (Accessory)':
                         affix['name'] = 'Horn (Accessory - Artifact)'
 
+                assert 'crafting' in item
                 item['crafting'].append(affix['name'])
                 remove.append(affix)
 
@@ -257,10 +254,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                     isArmor = True
 
                 # identify shield items based on item type
-                if ((item['type'] == 'Bucklers') or \
-                    (item['type'] == 'Large shields') or \
-                    (item['type'] == 'Small shields') or \
-                    (item['type'] == 'Tower shields')):
+                if item['type'] in ('Bucklers', 'Large shields', 'Small shields', 'Tower shields'):
                     isShield = True
 
                 # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
@@ -271,8 +265,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                 # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
                 # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
                 # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
-                if ((item['slot'] == 'Weapon') or (item['slot'] == 'Offhand')) \
-                    and not (isShield or item['type'] == 'Orbs'):
+                if item['slot'] in ('Weapon', 'Offhand') and not (isShield or item['type'] == 'Orbs'):
                     affix['name'] = 'Enhancement Bonus (Weapon)'
 
         for affix in remove:
@@ -288,15 +281,6 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
             augmentType = transform_augment_name(fields[cols['Augment type']].getText().strip(), augmentNameTransformMap)
 
-            # unique case exists when processing set bonus augments
-            if (augmentType == 'Isle of Dread: Set Bonus Slot: Empty'):
-                # when an augment is going in to a set bonus slot, we can assume we only need to populate name and set values
-                setName = re.search(r'^.*Set Bonus: (.*)$', item['name']).group(1).strip()
-                item = {
-                    'name' : setName,
-                    'set'  : setName,
-                }
-
             # unique case exists when processing augments going in artifacts and quarterstaffs
             # crafting logic doesnt support conventional approach so unique crafting systems are created
             if (augmentType in (augmentsWithArtifactVariantList + augmentsWithQuarterstaffVariantList)):
@@ -310,14 +294,16 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                 # - add affix to both artifact and quarterstaff affix lists if no unique flag is set
                 # - do some checks to replace base (common) affix with custom affix if collission detected
                 for affix in item['affixes'][:]:
+                    assert isinstance(affix, dict)
                     if ('uniquePropertyRequired' in affix):
+                        affixList = []
                         if (affix['uniquePropertyRequired'] == 'Minor Artifact'):
                             affixList = augmentArtifactAffixList
                         elif (affix['uniquePropertyRequired'] == 'Quarterstaff'):
                             affixList = augmentQuarterstaffAffixList
 
                         # remove any duplicates found in custom affix list
-                        for i, val in enumerate(affixList[:]):
+                        for i, _ in enumerate(affixList[:]):
                             if affixList[i]['name'] == affix['name']:
                                 affixList.pop(i)
 
@@ -328,7 +314,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                         affixList.append(affix)
 
                         # remove affix from the base item affix list
-                        item['affixes'].remove(affix)
+                        cast(list, item['affixes']).remove(affix)
                     else:
                         # add an unqualified affix to artifact affix list if not found
                         affixAlreadyExists = False
@@ -358,6 +344,15 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
                     itemQuarterstaffVariant['affixes'] = augmentQuarterstaffAffixList
                     add_entry_to_crafting_map(augmentType.replace(')', ' - Quarterstaff)'), itemQuarterstaffVariant, craftingSystems)
 
+            # unique case exists when processing set bonus augments
+            if (augmentType == 'Isle of Dread: Set Bonus Slot: Empty'):
+                # when an augment is going in to a set bonus slot, we can assume we only need to populate name and set values
+                setName = re.search(r'^.*Set Bonus: (.*)$', item['name']).group(1).strip()
+                item = {
+                    'name' : setName,
+                    'set'  : setName,
+                }
+
             # for item augments, change the set element name from "sets" to "set"
             # and transpose from list with one element to string
             if 'sets' in item:
@@ -373,7 +368,7 @@ def get_items_from_page(itemPageURL, craftingSystems, sets):
 
     return items
 
-def add_entry_to_crafting_map(craftingSystemName, augmentEntry, craftingSystems):
+def add_entry_to_crafting_map(craftingSystemName: str, augmentEntry, craftingSystems: CraftingSystems) -> Literal[True]:
     # check for existence of top level system name
     # if not found create entry and create a child wildcard entry
     if craftingSystemName not in craftingSystems:
@@ -391,9 +386,9 @@ def add_entry_to_crafting_map(craftingSystemName, augmentEntry, craftingSystems)
     if not augmentEntryExistsInCraftingSystems:
         craftingSystems[craftingSystemName]['*'].append(augmentEntry)
 
-    return(True)
+    return True
 
-def parse_items():
+def parse_items() -> None:
     crafting = read_json('crafting')
     sets     = read_json('sets')
     items    = []
@@ -437,13 +432,13 @@ def parse_items():
 
     write_json(crafting, 'crafting')
 
-def change_lost_purpose_affix_name(affix, item):
+def change_lost_purpose_affix_name(affix: Affix, item: Item) -> Any:
     if item['ml'] > 29 and affix['name'] == "Lost Purpose":
         affix['name'] = "Legendary Lost Purpose"
 
     return affix
 
-def is_artifact(item):
+def is_artifact(item: Item) -> bool:
     hasBlueSlot = False
     hasGreenSlot = False
     hasYellowSlot = False

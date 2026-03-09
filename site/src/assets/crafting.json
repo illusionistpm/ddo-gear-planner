@@ -6962,7 +6962,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sneak Attack Dice",
+                        "name": "your Sneak Attack Dice",
                         "type": "Profane",
                         "value": "1"
                     }
@@ -6976,7 +6976,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sneak Attack Dice",
+                        "name": "your Sneak Attack Dice",
                         "type": "Profane",
                         "value": "2"
                     }
@@ -8018,7 +8018,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sneak Attack Dice",
+                        "name": "your Sneak Attack Dice",
                         "type": "Profane",
                         "value": "2"
                     }

@@ -33,12 +33,13 @@ def download_page(url, cacheDir):
     filename = url.split(':')[-1].replace("/","_")
     path = cacheDir + filename + '.html'
     if os.path.exists(path):
-        print(filename + " already exists")
+        print(f"Using cached {filename}.html")
         return False
 
     #https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Category:Cloth_armor
     print(f"Downloading {filename} from {url}")
     page = requests.get("http://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url)
+    page.raise_for_status()
     open(path, 'w', encoding='utf8').write(page.text)
 
     return True

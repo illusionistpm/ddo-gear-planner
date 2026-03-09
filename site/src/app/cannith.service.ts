@@ -46,6 +46,10 @@ export class CannithService {
     return craftingOptions;
   }
 
+  getValuesForSlotML(itemType: string, cannithSlot: string, ml: number): Craftable {
+    return this._getOptionsForItemSlot(itemType, cannithSlot, ml);
+  }
+
   getAllAffixesForML(ml: number) {
     let affixes = [];
     const itemTypes = Object.keys(cannithList['itemTypes']);
@@ -62,30 +66,36 @@ export class CannithService {
   private _getOptionsForItemType(itemType: string, ml: number) {
     const craftingOptions = new Array<Craftable>();
 
-    const locations = cannithList['itemTypes'][itemType];
-
-    for (const location of ['Prefix', 'Suffix', 'Extra']) {
-      const newOptions = [];
-      for (let affix of locations[location]) {
-        const option = new CraftableOption(null);
-        const value = cannithList['progression'][affix][ml - 1];
-        let type = 'Enhancement';
-        if (affix.startsWith('Insightful')) {
-          affix = affix.replace('Insightful ', '');
-          type = 'Insight';
-        } else {
-          const bonusType = cannithList['bonusTypes'][affix];
-          if (bonusType) {
-            type = bonusType;
-          }
-
-        }
-        option.affixes.push(new Affix({ name: affix, value, type }));
-        newOptions.push(new CraftableOption(option));
-      }
-      craftingOptions.push(new Craftable(location, newOptions, false));
+    for (const cannithSlot of ['Prefix', 'Suffix', 'Extra']) {
+      craftingOptions.push(this._getOptionsForItemSlot(itemType, cannithSlot, ml));
     }
 
     return craftingOptions;
+  }
+
+  private _getOptionsForItemSlot(itemType: string, cannithSlot: string, ml: number): Craftable {
+    const affixList = cannithList['itemTypes'][itemType][cannithSlot];
+    
+    const slotOptions = [];
+    for (let affix of affixList) {
+      const option = new CraftableOption(null);
+      const value = cannithList['progression'][affix][ml - 1];
+      let type = 'Enhancement';
+      
+      if (affix.startsWith('Insightful')) {
+        affix = affix.replace('Insightful ', '');
+        type = 'Insight';
+      } else {
+        const bonusType = cannithList['bonusTypes'][affix];
+        if (bonusType) {
+          type = bonusType;
+        }
+      }
+
+      option.affixes.push(new Affix({ name: affix, value, type }));
+      slotOptions.push(new CraftableOption(option));
+    }
+
+    return new Craftable(cannithSlot, slotOptions, false);
   }
 }

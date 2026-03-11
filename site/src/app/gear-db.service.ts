@@ -29,6 +29,7 @@ export class GearDbService {
   private gear: Map<string, Array<Item>>;
   private allGear: Map<string, Array<Item>>;
   private craftingList: Map<string, Map<string, Craftable>>;
+  private cannithCraftingList: Map<string, (ml: number) => Craftable>;
 
   affixToBonusTypes: Map<string, Map<string, number>>;
   bestValues: Map<any, number>;
@@ -40,6 +41,7 @@ export class GearDbService {
     private affixSvc: AffixService
   ) {
     this._buildAugmentOptions();
+    this._buildCannithAugmentOptions();
     this.gear = new Map<string, Array<Item>>();
     this.allGear = this._loadAllItems();
 
@@ -118,6 +120,17 @@ export class GearDbService {
     ['Blue', 'Yellow', 'Red', 'Green', 'Purple', 'Orange', 'Colorless'].map(e => this._sortAugmentList(e));
   }
 
+  private _buildCannithAugmentOptions() {
+    this.cannithCraftingList = new Map<string, (ml: number) => Craftable>();
+
+    Object.entries(cannithList['itemTypes']).forEach( ([cannithItemType, cannithItemSlots]: [string, { [slot: string]: string[] }]) => {
+      Object.keys(cannithItemSlots).forEach( (cannithItemSlot) => {
+        const getOptions = (ml: number) => this.cannith.getValuesForSlotML(cannithItemType, cannithItemSlot, ml);
+        this.cannithCraftingList.set(`Cannith: ${cannithItemType} - ${cannithItemSlot}`, getOptions);
+      });
+    });
+  }
+
   _loadAllItems() {
     const gear = new Map<string, Array<Item>>();
 
@@ -140,11 +153,12 @@ export class GearDbService {
       if (newItem.rawCrafting) {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
-          if (craftingSystem && this.craftingList.get(craftingSystem)) {
-            let craftable = this.craftingList.get(craftingSystem).get(item.name);
-            if (!craftable) {
-              craftable = this.craftingList.get(craftingSystem).get('*');
-            }
+          if (craftingSystem && craftingSystem.startsWith('Cannith: ')) {
+            craftingOptions.push(this.cannithCraftingList.get(craftingSystem)(newItem.ml));
+          } else if (craftingSystem && this.craftingList.get(craftingSystem)) {
+            const baseName = item.name.replace(' [Crafted]', '');
+            const systemCraftables = this.craftingList.get(craftingSystem);
+            let craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
             if (craftable) {
               craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
             }

@@ -1,22 +1,23 @@
-import json
 from write_json import write_json
 
-def get_all_saves(bonusType = None):
+from typedefs import AffixGroup
+
+def get_all_saves(bonusType = None) -> list[str]:
     return ['Fortitude Save', 'Reflex Save', 'Will Save']
 
-def get_all_skills(bonusType = None):
+def get_all_skills(bonusType = None) -> list[str]:
     return ['Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Fortitude Save', 'Spot', 'Haggle', 'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform', 'Reflex Save', 'Repair', 'Resistance', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Will Save', 'Use Magic Device']
 
 
-def add(groups, name, list):
-    group = {}
-    group['name'] = name
-    group['affixes'] = list
-    groups.append(group)
+def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
+    groups.append({
+        'name': name,
+        'affixes': affixes
+    })
 
 
-def build_affix_groups():
-    groups = []
+def build_affix_groups() -> None:
+    groups: list[AffixGroup] = []
 
     parrying = get_all_saves()
     parrying.append('Armor Class')

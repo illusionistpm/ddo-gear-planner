@@ -1,23 +1,30 @@
+from typing import cast
+
 import openpyxl
-import json
+
+import openpyxl.worksheet
+import openpyxl.worksheet.worksheet
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
 import os
 
-def parse_cannith():
+def parse_cannith() -> None:
     assumedBonusTypeMap = get_most_common_bonus_type()
 
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/cannith-crafting.xlsx")
 
+    s = 0
     for s in range(len(wb.sheetnames)):
         if wb.sheetnames[s] == 'Sheet1':
             break
     wb.active = s
 
-    ws = wb.active
+    ws = cast(openpyxl.worksheet.worksheet.Worksheet, wb.active)
 
     itemTypeInfoList = []
 
+    levelStart = levelEnd = None
+    words = []
     for idx, cell in enumerate(ws[1], 0):
         if isinstance(cell.value, str):
             words = cell.value.split()
@@ -31,6 +38,8 @@ def parse_cannith():
         elif words[-1] in ['Prefix', 'Suffix', 'Extra']:
             itemType = ' '.join(words[0:-1])
             itemTypeInfoList.append({'col': idx, 'itemType': itemType, 'affixLoc': words[-1]})
+    assert levelStart is not None
+    assert levelEnd is not None
 
     output = {}
     progression = {}
@@ -43,6 +52,7 @@ def parse_cannith():
     next(rows)
     for row in rows:
         affix = row[0].value
+        assert isinstance(affix, str)
         affix = affix.replace('Ins.', 'Insightful')
         affix = affix.title()
 
@@ -84,7 +94,7 @@ def parse_cannith():
 
     # Only keep bonus types for things that are actually used by Cannith crafting
     delKeys = []
-    for k,v in assumedBonusTypeMap.items():
+    for k,_ in assumedBonusTypeMap.items():
         if k not in progression:
             delKeys.append(k)
 

@@ -1,23 +1,25 @@
 import json
+import os
+from typing import TypedDict
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_slavers import parse_slavers_crafting
 from write_json import write_json
 from get_lost_purpose import get_lost_purpose_crafting
 from get_item_crafting import get_item_crafting
 
-import os
+from typedefs import AffixesDict, SetDict
 
-def build_crafting():
-    nearlyFinished = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
+SystemDict = TypedDict('SystemDict', { '*': list[AffixesDict|SetDict] })
+
+def build_crafting() -> None:
     synonymMap = get_inverted_synonym_map()
 
-    slavers = parse_slavers_crafting()
+    nearlyFinished: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
+    slavers: dict[str, SystemDict] = parse_slavers_crafting()
+    lost_purpose: dict[str, SystemDict] = get_lost_purpose_crafting()
+    item_crafting: dict[str, SystemDict] = get_item_crafting()
 
-    lost_purpose = get_lost_purpose_crafting()
-
-    item_crafting = get_item_crafting()
-
-    combined = {}
+    combined: dict[str, SystemDict] = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
     combined.update(lost_purpose)
@@ -43,12 +45,9 @@ def build_crafting():
                             if 'name' not in craftingEntry:
                                 # generation of the parent name property depends on minimum level value
                                 # so we populate the value with a default if value is not set
-                                if 'ml' not in craftingEntry:
-                                    minimumLevel = 1
-                                else:
-                                    minimumLevel = craftingEntry['ml']
+                                minimumLevel = craftingEntry.get('ml', 1)
 
-                                craftingEntry['name'] = '%s +%d %s (%s)' % (affixEntry['name'], affixEntry['value'], affixEntry['type'], minimumLevel)
+                                craftingEntry['name'] = f'{affixEntry['name']} +{affixEntry['value']} {affixEntry['type']} ({minimumLevel})'
 
                             affixEntry['name'] = synonymMap[affixEntry['name']]
 

@@ -11170,6 +11170,7 @@
                 "affixes": [
                     {
                         "name": "Physical Sheltering",
+                        "type": "Enhancement",
                         "value": "12"
                     }
                 ],
@@ -11183,6 +11184,7 @@
                 "affixes": [
                     {
                         "name": "Physical Sheltering",
+                        "type": "Enhancement",
                         "value": "38"
                     }
                 ],

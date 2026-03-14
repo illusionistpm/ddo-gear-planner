@@ -14,7 +14,6 @@ def get_item_page_urls():
     itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
 
     itemPages.append('Category:Quiver_items')
-    itemPages.append('Raw_data/Item_augments')
 
     return itemPages
 
@@ -81,6 +80,14 @@ def download_set_page():
     download_page('Raw data/Sets v2', cacheDir)
 
 
+def download_item_augments_page():
+    cacheDir = 'cache/item_augments/'
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    download_page('Raw data/Item augments', cacheDir)
+
+
 def download_quest_pages():
     cacheDir = 'cache/quests/'
     if not os.path.exists(cacheDir):
@@ -102,6 +109,7 @@ def download_wiki_pages():
     download_item_type_pages()
     download_minor_artifacts_page()
     download_set_page()
+    download_item_augments_page()
     download_quest_pages()
     download_crafting_pages()
 

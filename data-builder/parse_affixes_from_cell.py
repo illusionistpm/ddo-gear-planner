@@ -500,14 +500,13 @@ def get_text_map_from_tag(tag):
         tooltipSpan = tag.find("span", {"class": "tooltip"})
 
         # preserve the contents of the tooltip span in map element "tooltip"
-        textMap["tooltip"] = tooltipSpan.getText().replace(u'\xa0', u' ').strip()
+        textMap["tooltip"] = cleanup_unicode(tooltipSpan.getText()).strip()
 
         # yank out the "tooltip" span from the element
         tooltipSpan.decompose()
 
         # preserve the remaining contents of the has_tooltip span in map element "text"
-        textMap["text"] = hasTooltipSpan.getText().replace(u'\xa0', u' ').strip()
-
+        textMap["text"] = cleanup_unicode(tag.getText()).strip()
     else:
         # if no "has_tooltip" span was found, preserve all text in map element "text"
         textMap["text"] = tag.getText().strip()
@@ -532,37 +531,84 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # build bonus type list to be used when scanning string for bonus type
     bonusTypeList = [
-        "Alchemical"
-        , "Artifact"
-        , "Competence"
-        , "Enhancement"
-        , "Equipment"
-        , "Exceptional"
-        , "Insight"
-        , "Insightful"
-        , "Legendary"
-        , "Luck"
-        , "Profane"
-        , "Psionic"
-        , "Quality"
-        , "Resistance"
+        "Alchemical(?! Air)(?! Earth)(?! Fire)(?! Water)",
+        "Artifact",
+        "Competence",
+        "Deflection",
+        "[Ee]nhancement",
+        "Equipment",
+        "Exceptional",
+        "Festive",
+        "Implement",
+        "[Ii]nsight(?:ful)?",
+        "Legendary(?! Ash)(?! Affirmation)(?! Dust)(?! Ice)(?! Ooze)(?! Salt)(?! Steam)(?! Vacuum)",
+        "Luck",
+        "Natural",
+        "Profane",
+        "Psionic",
+        "Quality",
+        "Resistance(?! Rating)",
+        "Sacred",
+        "Vitality",
     ]
 
     # convert list to regex capture group string
     bonusTypeString = "(" + "|".join(bonusTypeList) + ")"
 
+    affixExceptionDetectionList = [
+        "Crushing Wave(?: Guard)?",
+        "(?:Improved )?Demonic Shield",
+        "(?:Enhanced )?Ghostly",
+        "Greater Marksmanship",
+        "Occultation",
+        "Relentless Fury",
+        "Strength of Purpose",
+    ]
+
+    # convert list to regex capture group string
+    affixExceptionDetectionString = "(?!" + "|".join(affixExceptionDetectionList) + ")"
+
+    # remove text related to bug information sometimes included in affix text grab
+    textMap["text"] = textMap["text"].split('Minor bug:', 1)[0].strip()
+
+    # special case exists if affix requires unique property
+    # detect those cases and create a unique flag that can be detected and operated on
+    affixTextSearch = re.search(r'^(.*?)( \(if (?:Minor Artifact|Quarterstaff)\))$', textMap["text"])
+    if (('name' not in affixMap) and (affixTextSearch)):
+        textMap['text'] = affixTextSearch.group(1)
+
+        if ('uniquePropertyRequired' not in affixMap):
+            affixMap['uniquePropertyRequired'] = {}
+
+        if (affixTextSearch.group(2) == ' (if Minor Artifact)'):
+            affixMap['uniquePropertyRequired']['requireMinorArtifact'] = True
+
+        if (affixTextSearch.group(2) == ' (if Quarterstaff)'):
+            affixMap['uniquePropertyRequired']['requireQuarterstaff'] = True
+
     # detect if text is in format (affix bonus type) (affix bonus name) (affix bonus value)
     # ex : Artifact Universal Spell Power +20
-    affixTextSearch = re.search(r'^' + bonusTypeString + r' (.*?) \+?([0-9]+)%?$', textMap["text"])
+    affixTextSearch = re.search(r'^' + bonusTypeString + r' (.*?)(?::)? \+?([0-9]+)%?$', textMap["text"])
     if (('name' not in affixMap) and (affixTextSearch)):
         affixMap['name'] = affixTextSearch.group(2).strip()
         affixMap['type'] = affixTextSearch.group(1).strip()
         affixMap['value'] = affixTextSearch.group(3).strip()
 
+    # detect if text is in format (affix bonus type) (affix bonus name) (affix bonus value [roman numeral format])
+    # ex: Insightful Spell Power V
+    affixTextSearch = re.search(r'^' + bonusTypeString + r' (.*?) ([IVX]+)$', textMap["text"])
+    if (('name' not in affixMap) and (affixTextSearch)):
+        affixMap['name'] = affixTextSearch.group(2).strip()
+        affixMap['type'] = affixTextSearch.group(1).strip()
+
+        # assume that roman numeral in text means we search the tooltip for bonus value
+        affixTooltipSearch = re.search(r'^.*?\+?([0-9]+)%?.*?$', textMap["tooltip"])
+        if (affixTooltipSearch):
+            affixMap['value'] = affixTooltipSearch.group(1).strip()
+
     # detect if text is in format (affix bonus value) (affix bonus type) (affix bonus name)
     # ex: +2% Artifact Bonus to Missile Deflection
-    # *** must revisit the -If have- and -If you also have- trap once refactoring source page
-    affixTextSearch = re.search(r'^(?!If have)(?!If you also have).*?\+?([0-9]+)%? ' + bonusTypeString + r' (?:[Bb]onus )?(?:to )?(?:your )?(.*?)\.?$', textMap["text"])
+    affixTextSearch = re.search(r'^(?!If (?:you also)? have)(?!Once).*?\+?([0-9]+)%? ' + bonusTypeString + r' (?:[Bb]onus )?(?:to )?(?:your )?(?:the )?(.*?)\.?$', textMap["text"])
     if (('name' not in affixMap) and (affixTextSearch)):
         affixMap['name'] = affixTextSearch.group(3).strip()
         affixMap['type'] = affixTextSearch.group(2).strip()
@@ -585,7 +631,7 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # detect if text is in format (affix bonus value) (missing bonus type) (affix bonus name)
     # ex: +20% Offhand Strike Chance
-    affixTextSearch = re.search(r'^\+?([0-9]+)%? (.*?)$', textMap["text"])
+    affixTextSearch = re.search(r'^\+?([0-9]+)%? (?![Cc]hance(?: On)?)(?!.*[Dd]amage)(?!.*every)(.*?)$', textMap["text"])
     if (('name' not in affixMap) and (affixTextSearch)):
         affixMap['name'] = affixTextSearch.group(2).strip()
         affixMap['value'] = affixTextSearch.group(1).strip()
@@ -601,36 +647,75 @@ def convert_affix_text_map_to_affix_map(textMap):
         if (affixTooltipSearch):
             affixMap['value'] = affixTooltipSearch.group(1).strip()
 
+    # case exists where tooltip contains affix that will be caught, but does not reflect the true nature of the affix
+    # catch those cases before processing tooltip
+    # ex: Once every three seconds when you take ...
+    affixTextSearch = re.search(r'^Once every.*$', textMap["text"])
+    if (('name' not in affixMap) and (affixTextSearch)):
+        affixMap['name'] = textMap["text"].strip()
+        affixMap['type'] = "Untyped"
+        affixMap['value'] = 1
+
     # begin unique affix detection
-    # check for Efficient Metamagic affix
     if (('name' not in affixMap) and ('tooltip' in textMap)):
+        # check for Set bonus
+        affixTextSearch = re.search(r'^.*[0-9]+ Pieces Equipped.*$', textMap["tooltip"])
+        if (affixTextSearch):
+            affixMap['name'] = textMap["text"]
+
+        # check for Efficient Metamagic
         affixTextSearch = re.search(r'^.*The additional spell point cost for using the (.*) Metamagic feat is reduced by ([0-9]+) SP(?:\.)$', textMap["tooltip"])
         if (affixTextSearch):
             affixMap['name'] = "Efficient Metamagic - " + affixTextSearch.group(1).strip()
             affixMap['value'] = affixTextSearch.group(2).strip()
 
-    # unable to detect any affix name, fail to populating affix name as the entire text field
+        # check for Arcane Casting Dexterity
+        affixTextSearch = re.search(r'^.*(Arcane Casting Dexterity).*?([0-9]+).*$', textMap["tooltip"])
+        if (affixTextSearch):
+            affixMap['name'] = affixTextSearch.group(1).strip()
+            affixMap['value'] = affixTextSearch.group(2).strip()
+
+        # check for Action Boost/Rage/Dragonmark/... Charges
+        affixTextSearch = re.search(r'^.* increase the total number of (.*) you can use by ([0-9]+).*$', textMap["tooltip"])
+        if (('name' not in affixMap) and (affixTextSearch)):
+            affixMap['name'] = affixTextSearch.group(1)
+            affixMap['value'] = affixTextSearch.group(2)
+
+        # check if the tooltip indicates that this grants a feat
+        affixTooltipSearch = re.search(r'^.*?grants you the (.*) feat.*$', textMap['tooltip'])
+        if (affixTooltipSearch):
+            # update the affix name to include "Feat:" qualifier
+            affixMap['name'] = "Feat: " + affixTooltipSearch.group(1)
+
+        # final pass where we try to calculate bonus name/type/value from tooltip
+        affixTextSearch = re.search(r'^' + affixExceptionDetectionString + r'.*?\+?([0-9]+)%?.*?' + bonusTypeString + r'(?: [Bb]onus)?(?: to)?(?: your)?(.*?)\.?$', textMap["tooltip"])
+        if (('name' not in affixMap) and (affixTextSearch)):
+            affixMap['name'] = affixTextSearch.group(3).strip()
+            affixMap['type'] = affixTextSearch.group(2).strip()
+            affixMap['value'] = affixTextSearch.group(1).strip()
+
+    if (('type' not in affixMap) and ('tooltip' in textMap)):
+        affixTooltipSearch = re.search(r'^' + affixExceptionDetectionString + r'.*?' + bonusTypeString + r' (?:[Bb]onus|discount).*$', textMap["tooltip"])
+        if (affixTooltipSearch):
+            affixMap['type'] = affixTooltipSearch.group(1).strip()
+
+    # unable to detect any affix name
+    # populate affix name with the string from 'text' field as a final catch
     if ('name' not in affixMap):
         affixMap['name'] = textMap['text']
 
     if ('type' not in affixMap):
-        # attempt to detect bonus type from tooltip (but only if tooltip value exists)
-        if ('tooltip' in textMap):
-            affixTooltipSearch = re.search(r'^.*(' + bonusTypeString + r').*$', textMap["tooltip"])
-            if (affixTooltipSearch):
-                affixMap['type'] = affixTooltipSearch.group(1).strip()
-
-        # if type still not defined after scanning tooltip, define as Untyped
-        # *** not 100% confident that all undefined types should default to "Untyped"
-        if ('type' not in affixMap):
-            affixMap['type'] = 'Untyped'
+        affixMap['type'] = 'Untyped'
 
     if ('value' not in affixMap):
-        # *** not 100% confident that all undefined values should default to "1"
-        affixMap['value'] = '1'
+        affixMap['value'] = 1
 
-    # special case exists for Armor Class % bonus
-    if ((affixMap['name'] in ['AC', 'Armor Class']) and ('%' in textMap['text'])):
+    # capitalize the first letter of the bonus type for standardization
+    affixMap['type'] = affixMap['type'][0].upper() + affixMap['type'][1:]
+
+    # case exists for affix types that provide a percentage (%) bonus
+    # add a (%) string to the affix name
+    if ((affixMap['name'] in ['AC', 'Armor Class', 'Conditioning', 'Maximum Spell Points']) and ('%' in textMap['text'])):
         affixMap['name'] = affixMap['name'] + ' (%)'
 
     # special case exists for Natural Armor
@@ -646,6 +731,7 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     return(affixMap)
 
+
 def get_affix_map_list_from_tag(tag):
     affixMapList = []
 
@@ -657,3 +743,24 @@ def get_affix_map_list_from_tag(tag):
             affixMapList.append(affixMap)
 
     return affixMapList
+
+
+# function that loops through a map searching for set references
+# if a set reference is found in an affix map
+# the set property will be created and the affix associated with the set will be deleted
+def replace_item_set_affixes(itemMap):
+    sets = read_json('sets')
+
+    for key, value in itemMap.items():
+        for ikey, ivalue in value.items():
+            for iikey, iivalue in enumerate(ivalue):
+                for iiikey, iiivalue in enumerate(iivalue['affixes']):
+                    if (iiivalue['name'] in sets):
+                        del itemMap[key][ikey][iikey]['affixes'][iiikey]
+
+                        if (not itemMap[key][ikey][iikey]['affixes']):
+                            del itemMap[key][ikey][iikey]['affixes']
+
+                        itemMap[key][ikey][iikey]['set'] = iiivalue['name']
+
+    return itemMap

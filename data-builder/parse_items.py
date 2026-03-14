@@ -268,27 +268,39 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
                 # *** temporary solution until more long term solution can be built out
                 # *** using ddowiki artifact properties on items and item based crafting support in crafting system map
                 # unique case exists where we need to hard code support to use a custom crafting system for isle of dread quarterstaffs
-                if item['name'] in ['Attuned Bone Quarterstaff', 'Dinosaur Bone Quarterstaff']:
-                    if affix['name'] == 'Fang (Weapon)':
-                        affix['name'] = 'Fang (Weapon - Quarterstaff)'
-                    if affix['name'] == 'Scale (Weapon)':
-                        affix['name'] = 'Scale (Weapon - Quarterstaff)'
-                # unique case exists where we need to hard code support to use a custom crafting system for isle of dread artifacts
-                elif item['name'] in [
-                    'Dinosaur Bone Belt',
-                    'Dinosaur Bone Boots',
-                    'Dinosaur Bone Bracers',
-                    'Dinosaur Bone Gloves',
-                    'Dinosaur Bone Necklace',
-                    'Dinosaur Bone Ring']:
-                    if affix['name'] == 'Scale (Accessory)':
-                        affix['name'] = 'Scale (Accessory - Artifact)'
-                    if affix['name'] == 'Fang (Accessory)':
-                        affix['name'] = 'Fang (Accessory - Artifact)'
-                    if affix['name'] == 'Claw (Accessory)':
-                        affix['name'] = 'Claw (Accessory - Artifact)'
-                    if affix['name'] == 'Horn (Accessory)':
-                        affix['name'] = 'Horn (Accessory - Artifact)'
+                if ((item['name'] in [
+                        'Attuned Bone Quarterstaff',
+                        'Dinosaur Bone Quarterstaff',
+                    ])
+                    and (affix['name'] in [
+                        'Fang (Weapon)',
+                        'Scale (Weapon)',
+                    ])):
+                    affix['name'] = affix['name'] + ' (quarterstaff)'
+                elif ((item['name'] in [
+                        'Calamitous Quarterstaff',
+                    ])
+                    and (affix['name'] in [
+                        'Dolorous Slot (Weapon)',
+                        'Melancholic Slot (Weapon)',
+                    ])):
+                    affix['name'] = affix['name'] + ' (quarterstaff)'
+                elif ((item['name'] in [
+                        'Dinosaur Bone Belt',
+                        'Dinosaur Bone Boots',
+                        'Dinosaur Bone Bracers',
+                        'Dinosaur Bone Gloves',
+                        'Dinosaur Bone Necklace',
+                        'Dinosaur Bone Ring',
+                    ])
+                    and (affix['name'] in [
+                        'Claw (Accessory)',
+                        'Fang (Accessory)',
+                        'Horn (Accessory)',
+                        'Scale (Accessory)',
+                    ])
+                    ):
+                    affix['name'] = affix['name'] + ' (artifact)'
 
                 assert 'crafting' in item
                 item['crafting'].append(affix['name'])

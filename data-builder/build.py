@@ -1,5 +1,6 @@
 from download_wiki_pages import download_wiki_pages, clear_wiki_cache
 from parse_set_page import parse_set_page
+from parse_item_augment_page import parse_item_augment_page
 from parse_items import parse_items
 from parse_minor_artifacts import parse_minor_artifacts
 from parse_cannith import parse_cannith
@@ -30,13 +31,14 @@ def build_data(clearCache, discordURL):
     build_crafting()
 
     parse_set_page()
+    parse_item_augment_page()
     parse_items()
     parse_minor_artifacts()
 
     parse_item_types()
 
     parse_quests()
- 
+
     newStats = get_data_stats()
 
     diffStats = diff_data_stats(newStats, oldStats)
@@ -47,7 +49,7 @@ def build_data(clearCache, discordURL):
         message = "Data Changes:\n"
         message += diffStr
 
-        requests.post(discordURL, data = 
+        requests.post(discordURL, data =
         {
             'content': message
         })

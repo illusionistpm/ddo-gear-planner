@@ -83,9 +83,21 @@
         ]
     },
     {
+        "name": "False Life (%)",
+        "synonyms": [
+            "Conditioning (%)"
+        ]
+    },
+    {
         "name": "Force Spell Crit Damage",
         "synonyms": [
             "Force and Physical Spell Crit Damage"
+        ]
+    },
+    {
+        "name": "Fortitude Save",
+        "synonyms": [
+            "Fortitude saves"
         ]
     },
     {
@@ -177,6 +189,12 @@
         ]
     },
     {
+        "name": "Reflex Save",
+        "synonyms": [
+            "Reflex saves"
+        ]
+    },
+    {
         "name": "Sheltering",
         "synonyms": [
             "Physical and Magical Resistance Rating"
@@ -233,6 +251,12 @@
         "synonyms": [
             "Spellcasting Implement",
             "Universal Spellpower"
+        ]
+    },
+    {
+        "name": "Will Save",
+        "synonyms": [
+            "Will saves"
         ]
     },
     {

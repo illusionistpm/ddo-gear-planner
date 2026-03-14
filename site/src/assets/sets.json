@@ -116,7 +116,7 @@
                 {
                     "name": "Spells costs 10%/20%/30% less when you're below 50%/25%/10% hp.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -360,7 +360,7 @@
                 {
                     "name": "If have Assassin III Enhancement: chance with weapons to apply a Level Drain effect.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -652,7 +652,7 @@
                 {
                     "name": "Underwater Action",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -662,7 +662,7 @@
                 {
                     "name": "Feather Falling",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 3
@@ -777,7 +777,7 @@
                 {
                     "name": "Whenever you cast a Negative spell, you have a chance to apply a stack of Dreadful Curse, reducing the enemy's Fortitude by 1. This can stack up to 3 times, and each stack lasts 30 seconds.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -804,7 +804,7 @@
                 {
                     "name": "Whenever you cast a Negative spell, you have a chance to apply a stack of Legendary Dreadful Curse, reducing the enemy's Fortitude by 1. This can stack up to 6 times, and each stack lasts 30 seconds.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -816,7 +816,7 @@
                 {
                     "name": "True Seeing",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -882,7 +882,7 @@
                 {
                     "name": "Your Summons, Charmed Monsters, and Hirelings gain +4 to all Ability Scores",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -916,7 +916,7 @@
                 {
                     "name": "If have Defender of Siberys III Enhancement: +2 AC (stacking)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -1130,9 +1130,9 @@
                     "value": "3"
                 },
                 {
-                    "name": "artifact bonus to Hit and Damage with Ranged and Thrown weapons",
+                    "name": "+2 artifact bonus to Hit and Damage with Ranged and Thrown weapons",
                     "type": "Untyped",
-                    "value": "2"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -1664,7 +1664,7 @@
                 {
                     "name": "Your Summons, Charmed Monsters, and Hirelings gain +8 to all Ability Scores",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2228,7 +2228,7 @@
                 {
                     "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2629,7 +2629,7 @@
                 {
                     "name": "If Frenzied Berserker III enhancement: +2 Strength and Constitution (stacking)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2810,7 +2810,7 @@
                 {
                     "name": "1d6 Fire Damage per Attack, extra damage is also applied to glancing blows",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2884,7 +2884,7 @@
                 {
                     "name": "If have Hunter of the Dead III Enhancement: additional weapon damage versus Undead",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2950,7 +2950,7 @@
                 {
                     "name": "If you have the fifth Core Enhancement in the Kensai tree, this item will grant a +3 exceptional bonus to hit.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -2967,7 +2967,7 @@
                 {
                     "name": "If have Knight of the Chalice III Enhancement: additional 3d6 damage with weapons versus Evil Outsiders",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -3303,7 +3303,7 @@
                 {
                     "name": "Your Summons, Charmed Monsters, and Hirelings gain +12 to all Ability Scores",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -4893,7 +4893,7 @@
                 {
                     "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5362,7 +5362,7 @@
                 {
                     "name": "When struck, you will occasionally have the Stoneskin spell cast on you.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5460,12 +5460,12 @@
         {
             "affixes": [
                 {
-                    "name": "Will saves",
+                    "name": "Will Save",
                     "type": "Exceptional",
                     "value": "2"
                 },
                 {
-                    "name": "Reflex saves",
+                    "name": "Reflex Save",
                     "type": "Exceptional",
                     "value": "2"
                 },
@@ -5484,7 +5484,7 @@
                 {
                     "name": "You are protected by a swarm of hostile bees that lash out when you are struck in melee range. On vorpal melee strikes, they will also swarm your enemies, dealing Piercing damage over time. (The piercing damage is a non-scaling 1d4 that lasts 6 seconds and ticks every 2 seconds while being able to stack up to 20 times.)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5496,7 +5496,7 @@
                 {
                     "name": "+0.5[W] to each of your Daggers",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5513,7 +5513,7 @@
                 {
                     "name": "If you also have the fifth Core Enhancement in the Pale Master tree, this set instead provides a +90 Equipment Bonus to Negative Energy Spell Power.",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5649,7 +5649,7 @@
                 {
                     "name": "True Seeing",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Dodge",
@@ -5769,7 +5769,7 @@
                 {
                     "name": "Exceptional Bonus to Turn Undead Cleric Level",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5781,7 +5781,7 @@
                 {
                     "name": "chance to inflict damage over time effect (Ravager's Cut: 2d6 slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended\u00a0ARCHIVE ME!.)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -5911,7 +5911,7 @@
                 {
                     "name": "While both items from this set are equipped, your melee attacks deal an additional +0.5[W] damage dice. Your attacks also gain a 5% Chance on Hit to Bluff your target for four seconds. (Bluffed enemies can be affected by Sneak Attacks even while targeting you.)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -6103,7 +6103,7 @@
                 {
                     "name": "If you have the fifth Core Enhancement in the Shintao Monk tree, your unarmed attacks bypass Good and Evil damage reduction. (Undocumented: Also gain 15% melee thread)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -6408,7 +6408,7 @@
                 {
                     "name": "If have Stalwart Defender fifth core enhancement: +2 AC Bonus (Stacks)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -6432,17 +6432,17 @@
                 {
                     "name": "1d4 Additional Slash Damage  (does not work with handwraps (WAI?))",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Seems to actually be some kind of bleed damage, despite description (undead and constructs are immune)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "If have Tempest III Enhancement: +3 To-Hit Bonus",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -6572,7 +6572,7 @@
                 {
                     "name": "Ghost Touch",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Melee Diversion",
@@ -6587,7 +6587,7 @@
                 {
                     "name": "Feather Falling",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 3
@@ -7114,7 +7114,7 @@
                 {
                     "name": "Unknown\u00a0% chance weapons will unbalance an opponent, causing -2 to AC",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -7126,7 +7126,7 @@
                 {
                     "name": "True Seeing",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 },
                 {
                     "name": "Sneak Attack Bonus",
@@ -7348,7 +7348,7 @@
                 {
                     "name": "You gain On Vorpal: You apply a Vulkoorim Constitution Poison",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2
@@ -7533,7 +7533,7 @@
                 {
                     "name": "Set Bonus: Your 8th level spells and spells lower than 8th level gain a +2 bonus to the die roll to penetrate the target's Spell resistance. (Non-stacking)",
                     "type": "Untyped",
-                    "value": "1"
+                    "value": 1
                 }
             ],
             "threshold": 2

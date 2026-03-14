@@ -8454,7 +8454,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Power Store",
+                        "name": "Magical Efficiency",
                         "type": "bool",
                         "value": 1
                     }
@@ -11395,7 +11395,7 @@
                     {
                         "name": "Force Absorption",
                         "type": "Enhancement",
-                        "value": "11"
+                        "value": "17"
                     }
                 ],
                 "ml": 34,

@@ -11,7 +11,8 @@
     {
         "name": "Action Boost Charges",
         "synonyms": [
-            "Action Boost Enhancement"
+            "Action Boost Enhancement",
+            "Action Boosts"
         ]
     },
     {
@@ -25,6 +26,7 @@
         "name": "Armor Class",
         "synonyms": [
             "AC",
+            "Armor",
             "Armor Bonus",
             "Natural Armor",
             "Natural Armor Bonus",
@@ -102,7 +104,8 @@
     {
         "name": "Lesser Dragonmark Charges",
         "synonyms": [
-            "Lesser Dragonmark Enhancement"
+            "Lesser Dragonmark Enhancement",
+            "Lesser Dragonmarks"
         ]
     },
     {
@@ -145,6 +148,12 @@
         ]
     },
     {
+        "name": "Magical Efficiency",
+        "synonyms": [
+            "Power Store"
+        ]
+    },
+    {
         "name": "Magical Sheltering",
         "synonyms": [
             "Magical Resistance Rating",
@@ -163,7 +172,8 @@
         "name": "Rage Charges",
         "synonyms": [
             "Anger",
-            "Minor Anger"
+            "Minor Anger",
+            "Rages"
         ]
     },
     {
@@ -255,6 +265,7 @@
         "synonyms": [
             "Ability stats",
             "All Ability Scores",
+            "all Abilities",
             "all Ability Scores",
             "all of your Ability Scores",
             "each Ability Score",

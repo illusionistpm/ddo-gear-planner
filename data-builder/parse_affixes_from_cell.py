@@ -8,6 +8,7 @@ from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
+import copy
 
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
@@ -492,24 +493,33 @@ def parse_affixes_from_cell(itemName, cell, synonymMap, fakeBonuses, ml, craftin
 def get_text_map_from_tag(tag):
     textMap = {}
 
+    # create a shallow copy of tag so that when we modify inside this function it does not change value
+    tagCopy = copy.copy(tag)
+
+    # if tag contains any unordered lists, remove the contents before processing
+    for ul_tag in tagCopy.find_all('ul'):
+        ul_tag.decompose()
+
     # check if tag includes a span with class "has_tooltip"
-    hasTooltipSpan = tag.find("span", {"class": "has_tooltip"})
+    hasTooltipSpan = tagCopy.find("span", {"class": "has_tooltip"})
     if (hasTooltipSpan):
         # the span with class has_tooltip will include affix short name
         # as well as a span tag (tooltip) with affix description
-        tooltipSpan = tag.find("span", {"class": "tooltip"})
+        tooltipSpan = tagCopy.find("span", {"class": "tooltip"})
 
-        # preserve the contents of the tooltip span in map element "tooltip"
-        textMap["tooltip"] = cleanup_unicode(tooltipSpan.getText()).strip()
+        # sometimes even though a "has_tooltip" span exists, no "tooltip" span exists
+        if (tooltipSpan):
+            # preserve the contents of the tooltip span in map element "tooltip"
+            textMap["tooltip"] = cleanup_unicode(tooltipSpan.getText()).strip()
 
-        # yank out the "tooltip" span from the element
-        tooltipSpan.decompose()
+            # yank out the "tooltip" span from the element
+            tooltipSpan.decompose()
 
         # preserve the remaining contents of the has_tooltip span in map element "text"
-        textMap["text"] = cleanup_unicode(tag.getText()).strip()
+        textMap["text"] = cleanup_unicode(tagCopy.getText()).strip()
     else:
         # if no "has_tooltip" span was found, preserve all text in map element "text"
-        textMap["text"] = tag.getText().strip()
+        textMap["text"] = tagCopy.getText().strip()
 
     return(textMap)
 
@@ -642,10 +652,11 @@ def convert_affix_text_map_to_affix_map(textMap):
     if (('name' not in affixMap) and (affixTextSearch)):
         affixMap['name'] = affixTextSearch.group(1).strip()
 
-        # assume that roman numeral in text means we search the tooltip for bonus value
-        affixTooltipSearch = re.search(r'^.*?\+?([0-9]+)%?.*?$', textMap["tooltip"])
-        if (affixTooltipSearch):
-            affixMap['value'] = affixTooltipSearch.group(1).strip()
+        if ('tooltip' in textMap):
+            # assume that roman numeral in text means we search the tooltip for bonus value
+            affixTooltipSearch = re.search(r'^.*?\+?([0-9]+)%?.*?$', textMap["tooltip"])
+            if (affixTooltipSearch):
+                affixMap['value'] = affixTooltipSearch.group(1).strip()
 
     # case exists where tooltip contains affix that will be caught, but does not reflect the true nature of the affix
     # catch those cases before processing tooltip
@@ -737,7 +748,7 @@ def get_affix_map_list_from_tag(tag):
 
     # if tag passed in is a unordered list (ul) tag, process each list item (li) tag as a unique affix
     if (tag.name == 'ul'):
-        for li_tag in tag.find_all('li'):
+        for li_tag in tag.find_all('li', recursive=False):
             textMap = get_text_map_from_tag(li_tag)
             affixMap = convert_affix_text_map_to_affix_map(textMap)
             affixMapList.append(affixMap)

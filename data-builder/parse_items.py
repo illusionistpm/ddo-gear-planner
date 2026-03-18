@@ -524,7 +524,8 @@ def parse_items() -> None:
     for craftingSystemName in crafting.keys():
         for craftingSystemItem in crafting[craftingSystemName]:
             if isinstance(crafting[craftingSystemName][craftingSystemItem], list):
-                crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x.get('name', ''))
+                crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x['name'] if ('name' in x) else x['affixes'][0]['name'] if ('affixes' in x) else '')
+
 
     # case exists where set systems can be used as part of crafting systems
     # loop through crafting system map and identify which entries are related to set systems

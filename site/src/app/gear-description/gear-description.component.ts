@@ -76,6 +76,14 @@ export class GearDescriptionComponent implements OnInit {
     return this.affixUi.getAffixTooltip(affix, option);
   }
 
+  getAffixGroupTooltip(affix: Affix): string {
+    return this.affixUi.getAffixGroupTooltip(affix);
+  }
+
+  isAffixGroup(affix: Affix): boolean {
+    return this.affixSvc.isAffixGroup(affix);
+  }
+
   getClassForCraftable(craft: Craftable) {
     return this.affixUi.getClassForCraftable(craft);
   }

@@ -113,4 +113,40 @@ export class GearListComponent implements OnInit {
   copyGearToClipboard() {
     Clipboard.copy(this.equipped.getGearDescription());
   }
+
+  getAllGear() {
+    const allGear = [];
+    for (const slot of this.gearList.getSlots()) {
+      allGear.push(...this.gearList.getGearBySlot(slot));
+    }
+    return allGear;
+  }
+
+  onGlobalItemSelected = (item: any) => {
+    if (item) {
+      let actualItem: any = item;
+      if (item.original) {
+        // This is a synonym match, find the actual item by name
+        const allGear = this.getAllGear();
+        actualItem = allGear.find(g => g.name === item.original);
+        if (!actualItem) {
+          console.log('Could not find item with name:', item.original);
+          return;
+        }
+      } else if (!item.slot) {
+        // Not an Item object, maybe a fake object
+        console.log('Invalid item selected:', item);
+        return;
+      }
+      this.equipped.set(actualItem);
+    }
+  }
+
+  globalResultFormatter = (item: any) => {
+    if (item.slot) {
+      const current = this.equipped.getSlotsSnapshot().get(item.slot)?.name;
+      return item.name + ' (' + item.slot + ')' + (current ? ' (replaces ' + current + ')' : '');
+    }
+    return item.name;
+  }
 }

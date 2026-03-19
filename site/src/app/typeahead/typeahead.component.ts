@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
@@ -13,6 +13,10 @@ export class TypeaheadComponent implements OnInit {
   @Input() item;
   @Input() onChange: (val: string) => any;
   @Input() placeholder: string;
+  @Input() resultFormatter: (x: any) => string;
+  @Input() inputClass: string;
+
+  @ViewChild('inputElement', { static: true }) inputElement: ElementRef;
 
   itemName: string;
 
@@ -45,7 +49,12 @@ export class TypeaheadComponent implements OnInit {
 
   onSelectItemMine(e) {
     this.onChange(e.item);
-    this.itemName = '';
+    setTimeout(() => {
+      this.itemName = '';
+      if (this.inputElement) {
+        this.inputElement.nativeElement.value = '';
+      }
+    }, 0);
   }
 
   _getSortIndex(term: string, str) {

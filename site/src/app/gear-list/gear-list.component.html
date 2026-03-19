@@ -1,6 +1,15 @@
-<div class="row section-header">
-  <span class="col-8"><h3>Equipment</h3></span>
-  <button class="btn btn-primary float-end col-3" (click)="copyGearToClipboard()">Copy Equipment to Clipboard</button>
+<div class="row section-header align-items-center">
+  <div class="col-3"><h3 class="mb-0">Equipment</h3></div>
+  <div class="col-6">
+    <div class="d-flex align-items-center">
+      <i class="fas fa-search me-2 text-white"></i>
+      <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..." 
+          [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'bg-white text-dark border-0 px-2 form-control-sm'"></app-typeahead>
+    </div>
+  </div>
+  <div class="col-3 text-end">
+    <button class="btn btn-primary btn-sm" (click)="copyGearToClipboard()">Copy Equipment</button>
+  </div>
 </div>
 
 <div class="row">

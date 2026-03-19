@@ -1,8 +1,8 @@
-<input type="text" class="form-control" 
+<input #inputElement type="text" class="form-control {{inputClass}}" 
     (selectItem)="onSelectItemMine($event)" 
     [ngbTypeahead]="search" 
     [inputFormatter]="formatter" 
-    [resultFormatter]="formatter"
+    [resultFormatter]="resultFormatter || formatter"
     [editable]='false'
     [value]="itemName ? itemName : ''"
     placement='auto'

@@ -68,22 +68,37 @@ export class AffixUiService {
       }
     }
 
+    let tooltip = '';
     switch (affixRank) {
       case AffixRank.BetterThanBest:
-        return 'Better than best equipped value';
+        tooltip = 'Better than best equipped value';
+        break;
       case AffixRank.Best:
-        return 'Best equipped value';
+        tooltip = 'Best equipped value';
+        break;
       case AffixRank.BestTied:
-        return 'Tied for best equipped value';
+        tooltip = 'Tied for best equipped value';
+        break;
       case AffixRank.Outranked:
-        return 'Overpowered by another affix';
+        tooltip = 'Overpowered by another affix';
+        break;
       case AffixRank.Mixed:
-        return 'Mixed effectiveness';
+        tooltip = 'Mixed effectiveness';
+        break;
       case AffixRank.Penalty:
-        return option?.set ? 'Not yet active - need more set items' : 'Penalty/negative effect';
+        tooltip = option?.set ? 'Not yet active - need more set items' : 'Penalty/negative effect';
+        break;
       default:
-        return '';
+        tooltip = '';
     }
+
+    return tooltip;
+  }
+
+  getAffixGroupTooltip(affix: Affix): string {
+    if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
+    const groupAffixes = this.affixSvc.affixGroups.get(affix.name);
+    return groupAffixes ? affix.name + ' is:\n' + groupAffixes.map(aff => '• ' + aff).join('\n') : '';
   }
 
   getClassForCraftable(craft: Craftable): string {

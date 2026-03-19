@@ -34,7 +34,7 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
-    search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
+    search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
     if search:
         return search.group(2)
 
@@ -419,12 +419,15 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['type'] = 'bool'
         aff['value'] = 1
 
+    # Radiance (on Celestia, for example) is a different affix than the more common spellpower-boosting Radiance
+    if aff['name'] == 'Radiance' and aff['type'] == 'bool':
+        aff['name'] = 'Radiance (enchantment)'
 
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
 
 
-    # case exsits where affix is detected as being associated with a set
+    # case exists where affix is detected as being associated with a set
     # in those cases, add the set value and remove the value value and type value
     if aff['name'] in sets:
         aff['set'] = aff['name']
@@ -433,7 +436,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         if 'value' in aff:
             del(aff['value'])
 
-    # case exists where deasthblock effect is added to other effects
+    # case exists where deathblock effect is added to other effects
     # append the deathblock effect to the detected effect when returning to caller
     tooltipSearch = re.search(r'^.*?immune to magical effects that can cause instant death.*$', words)
     if (tooltipSearch):
@@ -715,6 +718,11 @@ def convert_affix_text_map_to_affix_map(textMap):
     if ('name' not in affixMap):
         affixMap['name'] = textMap['text']
 
+    # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
+    if ('type' not in affixMap) and ('value' not in affixMap):
+        affixMap['type'] = 'Bool'
+        affixMap['value'] = 1
+
     if ('type' not in affixMap):
         affixMap['type'] = 'Untyped'
 
@@ -723,6 +731,9 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # capitalize the first letter of the bonus type for standardization
     affixMap['type'] = affixMap['type'][0].upper() + affixMap['type'][1:]
+
+    if 'Insightful' == affixMap['type']:
+        affixMap['type'] = 'Insight'
 
     # case exists for affix types that provide a percentage (%) bonus
     # add a (%) string to the affix name

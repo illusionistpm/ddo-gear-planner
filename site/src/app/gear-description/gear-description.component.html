@@ -27,7 +27,7 @@
           <button class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(affix.name)"></button>
         }
-        <div class="col ps-1">{{affix.name}}</div>
+        <div class="col ps-1">{{affix.name}} @if (isAffixGroup(affix)) { <i class="fas fa-eye small ms-1" [title]="getAffixGroupTooltip(affix)"></i> }</div>
         @if (affix.hasRealType()) {
           <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
         }

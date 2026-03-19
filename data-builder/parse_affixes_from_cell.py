@@ -720,7 +720,7 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
     if ('type' not in affixMap) and ('value' not in affixMap):
-        affixMap['type'] = 'bool'
+        affixMap['type'] = 'Bool'
         affixMap['value'] = 1
 
     if ('type' not in affixMap):

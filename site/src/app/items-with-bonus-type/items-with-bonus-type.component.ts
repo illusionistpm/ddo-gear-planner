@@ -11,6 +11,7 @@ import { Craftable } from '../craftable';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { AffixService } from '../affix.service';
 import { CraftableOption } from '../craftable-option';
+import { AffixUiService } from '../affix-ui.service';
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -68,7 +69,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     public equipped: EquippedService,
     private modalService: NgbModal,
     private affixSvc: AffixService,
-    public userGear: UserGearService
+    public userGear: UserGearService,
+    public affixUi: AffixUiService
   ) {
   }
 

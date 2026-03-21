@@ -42,54 +42,8 @@ def build_cat_map() -> CatMap:
     return catMap
 
 
-def build_augment_name_transform_map() -> AugmentNameTransformMap:
-    augmentNameTransformMap = {
-        'Moon'           : 'Moon Augment Slot',
-        'Sun'            : 'Sun Augment Slot',
-        'Blue'           : 'Blue Augment Slot',
-        'Red'            : 'Red Augment Slot',
-        'Yellow'         : 'Yellow Augment Slot',
-        'Green'          : 'Green Augment Slot',
-        'Purple'         : 'Purple Augment Slot',
-        'Orange'         : 'Orange Augment Slot',
-        'Colorless'      : 'Colorless Augment Slot'
-    }
-
-    return augmentNameTransformMap
-
-
-def transform_augment_name(name: str, augmentNameTransformMap: AugmentNameTransformMap) -> str:
-    pack_name = None
-
-    # Drop the pack name if it exists for brevity
-    if ':' in name:
-        split = name.split(':')
-        pack_name = split[0].strip()
-        name = split[1].strip()
-
-    # If it's a set bonus, we tweak the name and restore the pack name since it's necessary to differentiate sets
-    if name == 'Set Bonus':
-        return f"{pack_name}: Set Bonus Slot: Empty" if pack_name else "Set Bonus Slot: Empty"
-
-    return augmentNameTransformMap.get(name, name)
-
-
 def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
     synonymMap = get_inverted_synonym_map()
-
-    augmentNameTransformMap = build_augment_name_transform_map()
-
-    augmentsWithArtifactVariantList = [
-        'Claw (Accessory)',
-        'Fang (Accessory)',
-        'Horn (Accessory)',
-        'Scale (Accessory)',
-    ]
-
-    augmentsWithQuarterstaffVariantList = [
-        'Fang (Weapon)',
-        'Scale (Weapon)',
-    ]
 
     craftableAffixNames = (
         'Craftable',
@@ -336,164 +290,52 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         for affix in remove:
             item['affixes'].remove(affix)
 
-        # case exists if the item is really an item augment
-        # in those cases we add the augment to the crafting systems map instead of the items map
-        if category == 'Raw data/Item augments':
-            # some properties that are specific to equippable items are not required/desired for items augments, so we remove them
-            item.pop('slot')
-            item.pop('type')
-            item.pop('url') # this may be helpful at some point in the future to add back in (?)
+        items.append(item)
 
-            augmentType = transform_augment_name(fields[cols['Augment type']].getText().strip(), augmentNameTransformMap)
+        # Post-process craftable items
+        if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
+            craftedItem = deepcopy(item)
+            craftedItem['name'] = item['name'] + ' [Crafted]'
 
-            # unique case exists when processing augments going in artifacts and quarterstaffs
-            # crafting logic doesnt support conventional approach so unique crafting systems are created
-            if (augmentType in (augmentsWithArtifactVariantList + augmentsWithQuarterstaffVariantList)):
-                # custom affix map for artifact version
-                augmentArtifactAffixList     = []
-                # custom affix map for quarterstaff version
-                augmentQuarterstaffAffixList = []
+            craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
+            for craftableAffix in craftableAffixes:
+                craftedItem['affixes'].remove(craftableAffix)
 
-                # loop through each affix and
-                # - add affix to the respective artifact or quarterstaff affix list if the flag is set
-                # - add affix to both artifact and quarterstaff affix lists if no unique flag is set
-                # - do some checks to replace base (common) affix with custom affix if collission detected
-                for affix in item['affixes'][:]:
-                    assert isinstance(affix, dict)
-                    if ('uniquePropertyRequired' in affix):
-                        affixList = []
-                        if (affix['uniquePropertyRequired'] == 'Minor Artifact'):
-                            affixList = augmentArtifactAffixList
-                        elif (affix['uniquePropertyRequired'] == 'Quarterstaff'):
-                            affixList = augmentQuarterstaffAffixList
+            isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
+            if isCraftableRunearm:
+                # check for misspellings and bs
+                for affixToLose in craftableRunearmsAffixesLost[item['name']]:
+                    assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
 
-                        # remove any duplicates found in custom affix list
-                        for i, _ in enumerate(affixList[:]):
-                            if affixList[i]['name'] == affix['name']:
-                                affixList.pop(i)
+                for affix in [*craftedItem['affixes']]:
+                    if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
+                        craftedItem['affixes'].remove(affix)
 
-                        # remove property indicating unique property required
-                        affix.pop('uniquePropertyRequired')
+            if 'crafting' not in craftedItem:
+                craftedItem['crafting'] = []
 
-                        # add the affix to the custom affix list
-                        affixList.append(affix)
+            match (item['slot'], item['type']):
+                case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
+                    slot = 'Ranged'
+                case ('Weapon', _):
+                    slot = 'Melee'
+                case ('Offhand', 'Rune Arms'):
+                    slot = 'Rune Arm'
+                case ('Offhand', 'Orbs'):
+                    slot = 'Orb'
+                case ('Offhand', _):
+                    slot = 'Shield'
+                case _:
+                    slot = item['slot']
 
-                        # remove affix from the base item affix list
-                        cast(list, item['affixes']).remove(affix)
-                    else:
-                        # add an unqualified affix to artifact affix list if not found
-                        affixAlreadyExists = False
-                        for augmentAffix in augmentArtifactAffixList:
-                            if augmentAffix['name'] == affix['name']:
-                                affixAlreadyExists = True
-                        if not affixAlreadyExists:
-                            augmentArtifactAffixList.append(affix)
+            craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
+            craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
+            craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
 
-                        # add an unqualified affix to quarterstaff affix list if not found
-                        affixAlreadyExists = False
-                        for augmentAffix in augmentQuarterstaffAffixList:
-                            if augmentAffix['name'] == affix['name']:
-                                affixAlreadyExists = True
-                        if not affixAlreadyExists:
-                            augmentQuarterstaffAffixList.append(affix)
-
-                # after processing all affixes, add the custom artifact variant to the crafting system map
-                if (augmentType in augmentsWithArtifactVariantList):
-                    itemArtifactVariant = item.copy()
-                    itemArtifactVariant['affixes'] = augmentArtifactAffixList
-                    add_entry_to_crafting_map(augmentType.replace(')', ' - Artifact)'), itemArtifactVariant, craftingSystems)
-
-                # after processing all affixes, add the custom quarterstaff variant to the crafting system map
-                if (augmentType in augmentsWithQuarterstaffVariantList):
-                    itemQuarterstaffVariant = item.copy()
-                    itemQuarterstaffVariant['affixes'] = augmentQuarterstaffAffixList
-                    add_entry_to_crafting_map(augmentType.replace(')', ' - Quarterstaff)'), itemQuarterstaffVariant, craftingSystems)
-
-            # unique case exists when processing set bonus augments
-            if (augmentType == 'Isle of Dread: Set Bonus Slot: Empty'):
-                # when an augment is going in to a set bonus slot, we can assume we only need to populate name and set values
-                setName = re.search(r'^.*Set Bonus: (.*)$', item['name']).group(1).strip()
-                item = {
-                    'name' : setName,
-                    'set'  : setName,
-                }
-
-            # for item augments, change the set element name from "sets" to "set"
-            # and transpose from list with one element to string
-            if 'sets' in item:
-                item['set'] = item['sets'][0]
-                del item['sets']
-
-            # after processing all affixes, add the common augment variant to the crafting system map
-            # (earlier processing removed entries in affix map that required custom property
-            add_entry_to_crafting_map(augmentType, item, craftingSystems)
-
-        else:
-            items.append(item)
-
-            # Post-process craftable items
-            if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
-                craftedItem = deepcopy(item)
-                craftedItem['name'] = item['name'] + ' [Crafted]'
-                
-                craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
-                for craftableAffix in craftableAffixes:
-                    craftedItem['affixes'].remove(craftableAffix)
-
-                isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
-                if isCraftableRunearm:
-                    # check for misspellings and bs
-                    for affixToLose in craftableRunearmsAffixesLost[item['name']]:
-                        assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
-                    
-                    for affix in [*craftedItem['affixes']]:
-                        if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
-                            craftedItem['affixes'].remove(affix)
-                
-                if 'crafting' not in craftedItem:
-                    craftedItem['crafting'] = []
-                
-                match (item['slot'], item['type']):
-                    case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
-                        slot = 'Ranged'
-                    case ('Weapon', _):
-                        slot = 'Melee'
-                    case ('Offhand', 'Rune Arms'):
-                        slot = 'Rune Arm'
-                    case ('Offhand', 'Orbs'):
-                        slot = 'Orb'
-                    case ('Offhand', _):
-                        slot = 'Shield'
-                    case _:
-                        slot = item['slot']
-
-                craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
-                craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
-                craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
-
-                items.append(craftedItem)
+            items.append(craftedItem)
 
     return items
 
-def add_entry_to_crafting_map(craftingSystemName: str, augmentEntry, craftingSystems: CraftingSystems) -> Literal[True]:
-    # check for existence of top level system name
-    # if not found create entry and create a child wildcard entry
-    if craftingSystemName not in craftingSystems:
-        craftingSystems[craftingSystemName]      = {}
-        craftingSystems[craftingSystemName]['*'] = []
-
-    # *** this code can (should) be removed once the crafting system pass is all done by parsing raw item augments data
-    # add some logic to prevent adding duplicate augment entries to crafting set
-    # ideally, duplicates would not be encountered, but during testing, this can happen
-    augmentEntryExistsInCraftingSystems = False
-    for craftingSystemEntry in craftingSystems[craftingSystemName]['*']:
-        if 'name' in craftingSystemEntry and augmentEntry['name'] == craftingSystemEntry['name']:
-            augmentEntryExistsInCraftingSystems = True
-
-    if not augmentEntryExistsInCraftingSystems:
-        craftingSystems[craftingSystemName]['*'].append(augmentEntry)
-
-    return True
 
 def parse_items() -> None:
     crafting = read_json('crafting')
@@ -526,41 +368,14 @@ def parse_items() -> None:
             if isinstance(crafting[craftingSystemName][craftingSystemItem], list):
                 crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x['name'] if ('name' in x) else x['affixes'][0]['name'] if ('affixes' in x) else '')
 
-
-    # case exists where set systems can be used as part of crafting systems
-    # loop through crafting system map and identify which entries are related to set systems
-    # for each entry that correlates to a set, update the affix property from what was parsed during the set pass
-    for craftingSystemName, craftingSystemMap in crafting.items():
-        for craftingSystemItem, craftingSystemItemList in craftingSystemMap.items():
-            if isinstance(craftingSystemItemList, list):
-                for index, craftingItem in enumerate(craftingSystemItemList):
-                    if 'set' in craftingItem and 'affixes' in craftingItem and len(craftingItem['affixes']) == 0 and len(sets[craftingItem['set']]) > 0:
-                        setName = craftingItem['set']
-                        crafting[craftingSystemName][craftingSystemItem][index]['affixes'] = sets[setName][0]['affixes']
-
     write_json(crafting, 'crafting')
+
 
 def change_lost_purpose_affix_name(affix: Affix, item: Item) -> Any:
     if item['ml'] > 29 and affix['name'] == "Lost Purpose":
         affix['name'] = "Legendary Lost Purpose"
 
     return affix
-
-def is_artifact(item: Item) -> bool:
-    hasBlueSlot = False
-    hasGreenSlot = False
-    hasYellowSlot = False
-
-    for affix in item['affixes']:
-        if affix['name'] == "Blue Augment Slot":
-            hasBlueSlot = True
-        elif affix['name'] == "Yellow Augment Slot":
-            hasYellowSlot = True
-        elif affix['name'] == "Green Augment Slot":
-            hasGreenSlot = True
-
-    # This may not be perfect but it's the simplest way I can figure for now...
-    return hasBlueSlot and hasGreenSlot and hasYellowSlot
 
 
 if __name__ == "__main__":

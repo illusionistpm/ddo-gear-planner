@@ -36,7 +36,8 @@
                 <select [(ngModel)]="selectedAugmentSlot">
                   @for (innerElem of elem.value | keyvalue; track innerElem) {
                     @for (craftable of innerElem.value; track craftable) {
-                      <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}">
+                      <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
+                        [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])">
                         {{innerElem.key.name}} - {{craftable.name}}
                       </option>
                     }

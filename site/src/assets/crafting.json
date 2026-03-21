@@ -16690,7 +16690,7 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -16699,7 +16699,7 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -16767,7 +16767,7 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -16776,7 +16776,7 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -16844,7 +16844,7 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -16853,7 +16853,7 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -20972,7 +20972,7 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21005,7 +21005,7 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21022,7 +21022,7 @@
                 "affixes": [
                     {
                         "name": "Icy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21056,7 +21056,7 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21083,7 +21083,7 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21116,7 +21116,7 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21133,7 +21133,7 @@
                 "affixes": [
                     {
                         "name": "Icy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21167,7 +21167,7 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21194,7 +21194,7 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21227,7 +21227,7 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21244,7 +21244,7 @@
                 "affixes": [
                     {
                         "name": "Icy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21278,7 +21278,7 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21353,7 +21353,7 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21362,7 +21362,7 @@
                 "affixes": [
                     {
                         "name": "Improved Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21371,7 +21371,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21470,7 +21470,7 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21479,7 +21479,7 @@
                 "affixes": [
                     {
                         "name": "Improved Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21488,7 +21488,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21587,7 +21587,7 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21596,7 +21596,7 @@
                 "affixes": [
                     {
                         "name": "Improved Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -21605,7 +21605,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22200,7 +22200,7 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22209,7 +22209,7 @@
                 "affixes": [
                     {
                         "name": "Bleed",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22218,7 +22218,7 @@
                 "affixes": [
                     {
                         "name": "Force",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22227,7 +22227,7 @@
                 "affixes": [
                     {
                         "name": "Impact",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22236,7 +22236,7 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22247,7 +22247,7 @@
                 "affixes": [
                     {
                         "name": "Constitution Poison, Virulent",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22256,7 +22256,7 @@
                 "affixes": [
                     {
                         "name": "Dexterity Poison, Virulent",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22265,7 +22265,7 @@
                 "affixes": [
                     {
                         "name": "Strength Poison, Virulent",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -22940,7 +22940,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23010,7 +23010,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23080,7 +23080,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23159,7 +23159,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23238,7 +23238,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23317,7 +23317,7 @@
                 "affixes": [
                     {
                         "name": "Deathblock",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23389,7 +23389,7 @@
                 "affixes": [
                     {
                         "name": "Disruption",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23398,7 +23398,7 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23407,7 +23407,7 @@
                 "affixes": [
                     {
                         "name": "Greater Good",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -23416,7 +23416,7 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25728,7 +25728,7 @@
                 "affixes": [
                     {
                         "name": "Evocation Focus +2, Kinetic Lore VKinetic Lore V: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25737,7 +25737,7 @@
                 "affixes": [
                     {
                         "name": "Necromancy Focus +2, Void Lore VVoid Lore V: Passive: Your Negative Energy and Poison spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25746,7 +25746,7 @@
                 "affixes": [
                     {
                         "name": "Spellcasting Implement +15, Combustion +84Combustion +84: Passive: +84 Equipment bonus to Fire Spell Power., Fire Lore VFire Lore V: Passive: Your Fire spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25755,7 +25755,7 @@
                 "affixes": [
                     {
                         "name": "Spellcasting Implement +15, Glaciation +84Glaciation +84: Passive: +84 Equipment bonus to Cold Spell Power., Ice Lore VIce Lore V: Passive: Your Cold spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25764,7 +25764,7 @@
                 "affixes": [
                     {
                         "name": "Spellcasting Implement +15, Radiance +84Radiance +84: Passive: +84 Equipment bonus to Light and Alignment Spell Power., Greater RegenerationGreater Regeneration: This item is imbued with an undeniable goodness that freely flows outward in a pleasant palpable current, constantly healing the wearer over time.",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25801,7 +25801,7 @@
                 "affixes": [
                     {
                         "name": "Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25842,7 +25842,7 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25851,7 +25851,7 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25901,7 +25901,7 @@
                 "affixes": [
                     {
                         "name": "Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25936,7 +25936,7 @@
                 "affixes": [
                     {
                         "name": "Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25977,7 +25977,7 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -25986,7 +25986,7 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26036,7 +26036,7 @@
                 "affixes": [
                     {
                         "name": "Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26071,7 +26071,7 @@
                 "affixes": [
                     {
                         "name": "Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26112,7 +26112,7 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26121,7 +26121,7 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26171,7 +26171,7 @@
                 "affixes": [
                     {
                         "name": "Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26230,7 +26230,7 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26239,7 +26239,7 @@
                 "affixes": [
                     {
                         "name": "Greater Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26256,7 +26256,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26347,7 +26347,7 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26356,7 +26356,7 @@
                 "affixes": [
                     {
                         "name": "Greater Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26373,7 +26373,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26464,7 +26464,7 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26473,7 +26473,7 @@
                 "affixes": [
                     {
                         "name": "Greater Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26490,7 +26490,7 @@
                 "affixes": [
                     {
                         "name": "Nothing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26809,7 +26809,7 @@
                 "affixes": [
                     {
                         "name": "Absolute Law",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26845,7 +26845,7 @@
                 "affixes": [
                     {
                         "name": "Banishing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26863,7 +26863,7 @@
                 "affixes": [
                     {
                         "name": "Cursespewing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26872,7 +26872,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26881,7 +26881,7 @@
                 "affixes": [
                     {
                         "name": "Destruction",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26899,7 +26899,7 @@
                 "affixes": [
                     {
                         "name": "Elf Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26908,7 +26908,7 @@
                 "affixes": [
                     {
                         "name": "Everbright",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26917,7 +26917,7 @@
                 "affixes": [
                     {
                         "name": "Feather Falling",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26926,7 +26926,7 @@
                 "affixes": [
                     {
                         "name": "Finesse",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26944,7 +26944,7 @@
                 "affixes": [
                     {
                         "name": "Ghostly",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26953,7 +26953,7 @@
                 "affixes": [
                     {
                         "name": "Gnoll Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26971,7 +26971,7 @@
                 "affixes": [
                     {
                         "name": "Greater Goblinoid Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26980,7 +26980,7 @@
                 "affixes": [
                     {
                         "name": "Greater Good",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26989,7 +26989,7 @@
                 "affixes": [
                     {
                         "name": "Greater Lawful Outsider Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -26998,7 +26998,7 @@
                 "affixes": [
                     {
                         "name": "Greater Monstrous Humanoid Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27024,7 +27024,7 @@
                 "affixes": [
                     {
                         "name": "Lesser Dwarf Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27033,7 +27033,7 @@
                 "affixes": [
                     {
                         "name": "Lesser Evil Outsider Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27042,7 +27042,7 @@
                 "affixes": [
                     {
                         "name": "Lesser Goblinoid Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27051,7 +27051,7 @@
                 "affixes": [
                     {
                         "name": "Lesser Reptilian Bane",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27069,7 +27069,7 @@
                 "affixes": [
                     {
                         "name": "Metalline",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27078,7 +27078,7 @@
                 "affixes": [
                     {
                         "name": "Paralyzing",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27096,7 +27096,7 @@
                 "affixes": [
                     {
                         "name": "Plant Slaying",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27105,7 +27105,7 @@
                 "affixes": [
                     {
                         "name": "Pure Good",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27123,7 +27123,7 @@
                 "affixes": [
                     {
                         "name": "Shattermantle",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27132,7 +27132,7 @@
                 "affixes": [
                     {
                         "name": "Smiting",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27141,7 +27141,7 @@
                 "affixes": [
                     {
                         "name": "Telekinetic",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27150,7 +27150,7 @@
                 "affixes": [
                     {
                         "name": "True Law",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27159,7 +27159,7 @@
                 "affixes": [
                     {
                         "name": "Underwater Action",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27168,7 +27168,7 @@
                 "affixes": [
                     {
                         "name": "Vicious",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -27177,7 +27177,7 @@
                 "affixes": [
                     {
                         "name": "Vorpal",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31267,7 +31267,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Affirmation",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31276,7 +31276,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Ash",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31285,7 +31285,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Dust",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31294,7 +31294,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Ooze",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31303,7 +31303,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Salt",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]
@@ -31312,7 +31312,7 @@
                 "affixes": [
                     {
                         "name": "Legendary Vacuum",
-                        "type": "bool",
+                        "type": "Bool",
                         "value": 1
                     }
                 ]

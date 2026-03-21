@@ -104,7 +104,7 @@ export class EffectsTableComponent implements OnInit {
   }
 
   private _isBoolAffix(entry) {
-    return entry[1].length === 1 && entry[1][0].bonusType === 'bool';
+    return entry[1].length === 1 && entry[1][0].bonusType === 'Bool';
   }
 
   private getModerateThreshold(maxValue: number): number {

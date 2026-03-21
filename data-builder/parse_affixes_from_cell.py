@@ -416,11 +416,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # if all the work is done and we still dont have a value defined, treat value as 1 and type as boolean
     if 'value' not in aff:
-        aff['type'] = 'bool'
+        aff['type'] = 'Bool'
         aff['value'] = 1
 
     # Radiance (on Celestia, for example) is a different affix than the more common spellpower-boosting Radiance
-    if aff['name'] == 'Radiance' and aff['type'] == 'bool':
+    if aff['name'] == 'Radiance' and aff['type'] == 'Bool':
         aff['name'] = 'Radiance (enchantment)'
 
     if aff['name'] in synonymMap:
@@ -442,7 +442,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if (tooltipSearch):
         affDeathblock = {
             'name'  : 'Deathblock',
-            'type'  : 'bool',
+            'type'  : 'Bool',
             'value' : 1,
         }
 

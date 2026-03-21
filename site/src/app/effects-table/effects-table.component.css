@@ -1,28 +1,32 @@
 .max-available {
-    color: gray;
-    font-weight: normal;
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .max-value {
-    color: green;
-    font-weight: bold;
+    color: var(--success-color);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
 }
 
 .mid-value {
-    color: darkorange;
-    font-weight: bold;
+    color: var(--warning-color);
+    font-weight: 600;
 }
 
 .low-value {
-    color: red;
-    font-weight: bold;
+    color: var(--danger-color);
+    font-weight: 600;
 }
 
 .penalty-value {
-    color: red;
-    font-weight: bold;
+    color: var(--danger-color);
+    font-weight: 700;
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .no-value {
-    color: 	grey;
+    color: var(--text-secondary);
+    font-weight: 400;
 }

@@ -1,51 +1,66 @@
+/* Modern row striping with better contrast for readability */
 .row:nth-child(odd) {
-background-color:antiquewhite;
-}
-.row:nth-child(even) {
-background: #FFFFFF;
+    background-color: #e2e8f0;
 }
 
+.row:nth-child(even) {
+    background-color: var(--surface-color);
+}
+
+/* Modern affix ranking colors */
 .BetterThanBest {
-    font-weight: bold;
-    color: purple;
+    font-weight: 700;
+    color: #7c3aed; /* Modern purple */
+    text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
 }
 
 .Best {
-    font-weight: bold;
-    color: green;
+    font-weight: 700;
+    color: var(--success-color);
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
 .SmallFont {
-    font-size: 13px;
+    font-size: 0.8125rem;
 }
 
 .BestTied {
-    font-weight: bold;
-    color: blue;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
 }
 
 .Outranked {
-    font-weight: bold;
-    color: darkorange;
+    font-weight: 600;
+    color: var(--warning-color);
+    opacity: 0.8;
 }
 
 .Irrelevant {
-    color: black;
+    color: var(--text-primary);
+    font-weight: 400;
 }
 
 .Penalty {
-    color: red;
+    color: var(--danger-color);
+    font-weight: 600;
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .Mixed {
     font-style: italic;
-    font-weight: bold;
-    color: darkorange;
+    font-weight: 600;
+    color: var(--warning-color);
+    background: linear-gradient(45deg, var(--warning-color), #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
+/* Restore original hover behavior for heart icon */
 .hover-helper:hover .show-on-hover {
     visibility: visible;
-
 }
 
 .hover-helper .show-on-hover {
@@ -59,6 +74,10 @@ background: #FFFFFF;
 .heart {
     color: red;
     border: none;
+}
+
+.show-on-hover {
+    visibility: visible;
 }
 
 a {

@@ -5,7 +5,7 @@ export class Affix {
     description: string;
 
     static isRealType(type: string) {
-        return type !== 'bool';
+        return type !== 'Bool';
     }
 
     constructor(json) {

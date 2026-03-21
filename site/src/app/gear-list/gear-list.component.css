@@ -1,5 +1,5 @@
 .user-owned-star {
-    color: gold;
+    color: #fbbf24;
     font-size: 1.2em;
     vertical-align: middle;
     cursor: pointer;
@@ -8,9 +8,19 @@
     top: -4px;
     display: inline-flex;
     align-items: center;
+    transition: all 0.2s ease-in-out;
 }
+
+.user-owned-star:hover {
+  opacity: 0.8;
+}
+
 .item-name {
-    font-weight: bold;
+    font-weight: 600;
+}
+
+.MinorArtifact .item-name {
+    color: inherit;
 }
 
 .flat-left {
@@ -24,17 +34,18 @@
 }
 
 .locked {
-    color: gold;
-    font-size: 14px;
+    color: var(--warning-color);
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .unlocked {
-    color: lightgray;
-    font-size: 14px;
-    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
-/* JK: FIXME!! BEGIN: These are duplicated from gear-description and you should feel bad */
+/* Hover effects for better interactivity */
 .hover-helper:hover .show-on-hover {
     visibility: visible;
 }
@@ -43,41 +54,54 @@
     visibility: hidden;
 }
 
+/* Modern affix ranking colors */
 .MinorArtifact {
-    color: gold;
+    color: #fbbf24;
+    font-weight: 600;
 }
 
 .BetterThanBest {
-    font-weight: bold;
-    color: purple;
+    font-weight: 700;
+    color: #7c3aed; /* Modern purple */
+    text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
 }
 
 .Best {
-    font-weight: bold;
-    color: green;
+    font-weight: 700;
+    color: var(--success-color);
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
 .BestTied {
-    font-weight: bold;
-    color: blue;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
 }
 
 .Outranked {
-    font-weight: bold;
-    color: darkorange;
+    font-weight: 600;
+    color: var(--warning-color);
+    opacity: 0.8;
 }
 
 .Irrelevant {
-    color: black;
+    color: var(--text-primary);
+    font-weight: 400;
 }
 
 .Penalty {
-    color: red;
+    color: var(--danger-color);
+    font-weight: 600;
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .Mixed {
     font-style: italic;
-    font-weight: bold;
-    color: darkorange;
+    font-weight: 600;
+    color: var(--warning-color);
+    background: linear-gradient(45deg, var(--warning-color), #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
-/* JK: FIXME!! END: These are duplicated from gear-description and you should feel bad */

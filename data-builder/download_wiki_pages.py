@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import shutil
+import time
 from pathlib import Path
 
 def get_item_page_urls():
@@ -28,20 +29,39 @@ def get_item_type_urls():
         ]
 
 
-def download_page(url, cacheDir):
+def download_page(url, cacheDir, max_retries=3, retry_delay_seconds=10):
     filename = url.split(':')[-1].replace("/","_")
     path = cacheDir + filename + '.html'
     if os.path.exists(path):
         print(f"Using cached {filename}.html")
         return False
 
-    #https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Category:Cloth_armor
-    print(f"Downloading {filename} from {url}")
-    page = requests.get("http://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url)
-    page.raise_for_status()
-    open(path, 'w', encoding='utf8').write(page.text)
+    # https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Category:Cloth_armor
+    full_url = "http://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url
 
-    return True
+    for attempt in range(1, max_retries + 1):
+        print(f"Downloading {filename} from {full_url} (attempt {attempt}/{max_retries})")
+        try:
+            page = requests.get(full_url)
+            page.raise_for_status()
+            open(path, 'w', encoding='utf8').write(page.text)
+            return True
+        except requests.exceptions.HTTPError as e:
+            status_code = e.response.status_code if e.response is not None else None
+            # Retry on server-side errors like 5xx, including 504 timeouts
+            if status_code is not None and 500 <= status_code < 600 and attempt < max_retries:
+                print(f"HTTP {status_code} while downloading {filename}, retrying in {retry_delay_seconds}s...")
+                time.sleep(retry_delay_seconds)
+                continue
+            raise
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+            if attempt < max_retries:
+                print(f"Connection issue while downloading {filename}, retrying in {retry_delay_seconds}s...")
+                time.sleep(retry_delay_seconds)
+                continue
+            raise
+
+    return False
 
 
 def download_item_pages():

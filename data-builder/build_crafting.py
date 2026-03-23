@@ -4,7 +4,6 @@ from typing import TypedDict
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_slavers import parse_slavers_crafting
 from write_json import write_json
-from get_lost_purpose import get_lost_purpose_crafting
 from get_item_crafting import get_item_crafting
 
 from typedefs import AffixesDict, SetDict
@@ -16,13 +15,11 @@ def build_crafting() -> None:
 
     nearlyFinished: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
     slavers: dict[str, SystemDict] = parse_slavers_crafting()
-    lost_purpose: dict[str, SystemDict] = get_lost_purpose_crafting()
     item_crafting: dict[str, SystemDict] = get_item_crafting()
 
     combined: dict[str, SystemDict] = {}
     combined.update(nearlyFinished)
     combined.update(slavers)
-    combined.update(lost_purpose)
     combined.update(item_crafting)
 
     # loop through all Crafting map entries to identify effect names that need to be transformed

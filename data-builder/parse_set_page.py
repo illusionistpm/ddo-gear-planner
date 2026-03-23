@@ -9,7 +9,6 @@ from parse_slavers import parse_slavers_sets
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
-from get_lost_purpose import get_lost_purpose_sets
 from parse_affixes_from_cell import get_affix_map_list_from_tag
 
 def get_sets_from_page(soup):
@@ -72,8 +71,6 @@ def parse_set_page():
     sets = get_sets_from_page(soup)
 
     slaversSets = parse_slavers_sets()
-
-    lostPurposeSets = get_lost_purpose_sets()
 
     sets = {**sets, **slaversSets}
 

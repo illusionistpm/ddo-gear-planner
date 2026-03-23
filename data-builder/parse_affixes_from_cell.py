@@ -767,6 +767,64 @@ def get_affix_map_list_from_tag(tag):
     return affixMapList
 
 
+def get_item_property_map_from_tag(tag, setMap, craftingMap):
+    itemPropertyMap = {}
+
+    # if tag passed in is a unordered list (ul) tag, process each list item (li) tag
+    if (tag.name == 'ul'):
+        for li_tag in tag.find_all('li', recursive=False):
+
+            textMap = get_text_map_from_tag(li_tag)
+
+            # check to see if text from list element indicates this affix is related to a set
+            if (textMap['text'] in setMap):
+                if ('set' not in itemPropertyMap):
+                    itemPropertyMap['set'] = []
+                itemPropertyMap['set'].append(textMap['text'])
+
+            # check to see if text from list element indicates this affix is related to a (known) crafting system
+            elif (
+                (textMap['text'] in craftingMap)
+                and ('*' in craftingMap[textMap['text']])
+                ):
+                if ('crafting' not in itemPropertyMap):
+                    itemPropertyMap['crafting'] = []
+                itemPropertyMap['crafting'].append(textMap['text'])
+
+            # if list element is not a set or known crafting system, process
+            else:
+                # check to see if this list element contains child unordered list
+                # (indicator of an item based crafting system)
+                innerUlTag = li_tag.find('ul')
+                if (innerUlTag):
+                    innerInnerUlTag = innerUlTag.find('ul')
+                    if (innerInnerUlTag):
+
+                        flatAffixMapList = get_affix_map_list_from_tag(innerInnerUlTag)
+
+                        structuredAffixMapList = []
+                        for affixEntry in flatAffixMapList:
+                            structuredAffixMapList.append({
+                                'affixes' : [
+                                    affixEntry,
+                                ],
+                            })
+
+                        if ('craftingSystem' not in itemPropertyMap):
+                            itemPropertyMap['craftingSystem'] = []
+                        itemPropertyMap['craftingSystem'].append({
+                            'name' : textMap['text'],
+                            'affixMapList' : structuredAffixMapList,
+                        })
+
+                else:
+                    if ('affixes' not in itemPropertyMap):
+                        itemPropertyMap['affixes'] = []
+                    itemPropertyMap['affixes'].append(convert_affix_text_map_to_affix_map(textMap))
+
+    return itemPropertyMap
+
+
 # function that loops through a map searching for set references
 # if a set reference is found in an affix map
 # the set property will be created and the affix associated with the set will be deleted

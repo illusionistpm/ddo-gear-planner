@@ -28,9 +28,13 @@ def build_data(clearCache, discordURL):
 
     parse_cannith()
     build_affix_groups()
-    build_crafting()
 
     parse_set_page()
+
+    # some crafting depends on the existence of sets
+    # make sure to process crafting loop after sets
+    build_crafting()
+
     parse_item_augment_page()
     parse_items()
     parse_minor_artifacts()

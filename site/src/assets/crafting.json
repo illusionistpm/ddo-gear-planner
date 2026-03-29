@@ -15994,6 +15994,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Debilitating",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deception",
                         "value": "6"
                     }
@@ -16044,6 +16053,57 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Disruption",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
                         "value": "6"
                     }
                 ]
@@ -16061,6 +16121,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Debilitating",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deception",
                         "value": "6"
                     }
@@ -16111,6 +16180,57 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Disruption",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
                         "value": "6"
                     }
                 ]
@@ -16128,6 +16248,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Debilitating",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deception",
                         "value": "6"
                     }
@@ -16178,6 +16307,57 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Disruption",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "6"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
                         "value": "6"
                     }
                 ]
@@ -16516,6 +16696,56 @@
                         "value": "5"
                     }
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Destruction",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
+                        "value": "5"
+                    }
+                ]
             }
         ],
         "Magistrate's Scepter (level 18)": [
@@ -16575,6 +16805,56 @@
                         "value": "5"
                     }
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Destruction",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
+                        "value": "5"
+                    }
+                ]
             }
         ],
         "Magistrate's Scepter (level 19)": [
@@ -16631,6 +16911,56 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Destruction",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "5"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
                         "value": "5"
                     }
                 ]
@@ -16711,6 +17041,47 @@
                         "value": "8"
                     }
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
+                        "value": "8"
+                    }
+                ]
             }
         ],
         "Magistrate's Scepter (level 27)": [
@@ -16788,6 +17159,47 @@
                         "value": "8"
                     }
                 ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
+                        "value": "8"
+                    }
+                ]
             }
         ],
         "Magistrate's Scepter (level 28)": [
@@ -16862,6 +17274,47 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Natural Bane",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ribcracker",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stumbling",
+                        "value": "8"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sundering",
                         "value": "8"
                     }
                 ]

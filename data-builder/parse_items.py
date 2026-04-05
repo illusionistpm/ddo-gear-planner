@@ -10,7 +10,6 @@ from read_json import read_json
 from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
 
-from parse_context_error import ParseContextError
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
 def include_page(fileName: str) -> bool:
@@ -132,221 +131,208 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 
     fakeBonuses = get_fake_bonuses()
 
-    for row_index, row in enumerate(rows, start=1):
+    for row in rows:
         fields = row.find_all('td', recursive=False)
 
-        try:
-            if 'Drops on leaving adventure' in fields[cols['Bind']].getText():
-                continue
+        if 'Drops on leaving adventure' in fields[cols['Bind']].getText():
+            continue
 
-            itemLink = fields[cols['Item']].find('a')
-            rawML = fields[cols['ML']].getText().strip()
+        itemLink = fields[cols['Item']].find('a')
+        rawML = fields[cols['ML']].getText().strip()
 
-            item: Item|SetAugment = {
-                'type': category,
-                'slot': catMap[category],
-                'name': itemLink.getText().strip(),
-                'url': itemLink['href'].strip(),
-                'ml': 1 if rawML == 'None' else int(rawML),
-                'affixes': [],
-            }
+        item: Item|SetAugment = {
+            'type': category,
+            'slot': catMap[category],
+            'name': itemLink.getText().strip(),
+            'url': itemLink['href'].strip(),
+            'ml': 1 if rawML == 'None' else int(rawML),
+            'affixes': [],
+        }
 
-            # Uncomment and edit to stop at a particular item
-            # if item['name'] == "Diabolist's Robe":
-            #     a = 1
+        # Uncomment and edit to stop at a particular item
+        # if item['name'] == "Diabolist's Robe":
+        #     a = 1
 
-            # If we're doing an Armor page, add an entry for the Armor Class
-            if 'AC' in cols:
-                acBonus = fields[cols['AC']].getText().strip()
-                if acBonus.startswith('+'):
-                    acBonus = acBonus[1:]
+        # If we're doing an Armor page, add an entry for the Armor Class
+        if 'AC' in cols:
+            acBonus = fields[cols['AC']].getText().strip()
+            if acBonus.startswith('+'):
+                acBonus = acBonus[1:]
 
-                # Robes have 0 AC - no need to include them in the list.
-                # Docents have a more complicated expression that I'm not parsing, so if it's not a simple
-                # number, just skip it.
-                if acBonus != '0' and acBonus.isnumeric():
-                    item['affixes'].append({
-                        'name': 'Armor Class',
-                        'value': acBonus,
-                        'type': 'Armor',
-                    })
+            # Robes have 0 AC - no need to include them in the list.
+            # Docents have a more complicated expression that I'm not parsing, so if it's not a simple
+            # number, just skip it.
+            if acBonus != '0' and acBonus.isnumeric():
+                item['affixes'].append({
+                    'name': 'Armor Class',
+                    'value': acBonus,
+                    'type': 'Armor',
+                })
 
-            # If we're doing a Shield page, add an entry for the (Shield) Armor Class bonus
-            if 'SB' in cols:
-                acBonus = fields[cols['SB']].getText().strip()
-                if acBonus.startswith('+'):
-                    acBonus = acBonus[1:]
+        # If we're doing a Shield page, add an entry for the (Shield) Armor Class bonus
+        if 'SB' in cols:
+            acBonus = fields[cols['SB']].getText().strip()
+            if acBonus.startswith('+'):
+                acBonus = acBonus[1:]
 
-                if acBonus != '0' and acBonus.isnumeric():
-                    item['affixes'].append({
-                        'name': 'Armor Class',
-                        'value': acBonus,
-                        'type': 'Shield',
-                    })
+            if acBonus != '0' and acBonus.isnumeric():
+                item['affixes'].append({
+                    'name': 'Armor Class',
+                    'value': acBonus,
+                    'type': 'Shield',
+                })
 
-            questsCell = fields[questIdx]
-            questsTooltipSpan = questsCell.find('a')
-            questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
-            if questsTooltip:
-                quests = str(questsTooltip)
-                item['quests'] = [quests]
+        questsCell = fields[questIdx]
+        questsTooltipSpan = questsCell.find('a')
+        questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
+        if questsTooltip:
+            quests = str(questsTooltip)
+            item['quests'] = [quests]
 
-            affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
-            cell = fields[affixesIdx]
+        affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
+        cell = fields[affixesIdx]
 
-            affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
+        affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
 
-            # Detect all the sets that we picked up as affixes
-            set_names_in_affixes = []
-            for aff in affixes:
-                if aff['name'] in sets:
-                    set_names_in_affixes.append(aff['name'])
+        # Detect all the sets that we picked up as affixes
+        set_names_in_affixes = []
+        for aff in affixes:
+            if aff['name'] in sets:
+                set_names_in_affixes.append(aff['name'])
 
-            # Move them over to the set list and remove from affixes
-            for set_name in set_names_in_affixes:
-                if 'sets' not in item:
-                    item['sets'] = []
-                item['sets'].append(set_name)
+        # Move them over to the set list and remove from affixes
+        for set_name in set_names_in_affixes:
+            if 'sets' not in item:
+                item['sets'] = []
+            item['sets'].append(set_name)
 
-            affixes[:] = [affix for affix in affixes if affix['name'] not in set_names_in_affixes]
+        affixes[:] = [affix for affix in affixes if affix['name'] not in set_names_in_affixes]
 
-            item['affixes'].extend(affixes)
+        item['affixes'].extend(affixes)
 
-            remove = []
+        remove = []
 
-            for affix in item['affixes']:
-                affix = change_lost_purpose_affix_name(affix, item)
+        for affix in item['affixes']:
+            affix = change_lost_purpose_affix_name(affix, item)
 
-                if affix['name'] in craftingSystems:
-                    if 'crafting' not in item.keys():
-                        item['crafting'] = []
+            if affix['name'] in craftingSystems:
+                if 'crafting' not in item.keys():
+                    item['crafting'] = []
 
-                    # *** temporary solution until more long term solution can be built out
-                    # *** using ddowiki artifact properties on items and item based crafting support in crafting system map
-                    # unique case exists where we need to hard code support to use a custom crafting system for isle of dread quarterstaffs
-                    if ((item['name'] in [
-                            'Attuned Bone Quarterstaff',
-                            'Dinosaur Bone Quarterstaff',
-                        ])
-                        and (affix['name'] in [
-                            'Fang (Weapon)',
-                            'Scale (Weapon)',
-                        ])):
-                        affix['name'] = affix['name'] + ' (quarterstaff)'
-                    elif ((item['name'] in [
-                            'Calamitous Quarterstaff',
-                        ])
-                        and (affix['name'] in [
-                            'Dolorous Slot (Weapon)',
-                            'Melancholic Slot (Weapon)',
-                        ])):
-                        affix['name'] = affix['name'] + ' (quarterstaff)'
-                    elif ((item['name'] in [
-                            'Dinosaur Bone Belt',
-                            'Dinosaur Bone Boots',
-                            'Dinosaur Bone Bracers',
-                            'Dinosaur Bone Gloves',
-                            'Dinosaur Bone Necklace',
-                            'Dinosaur Bone Ring',
-                        ])
-                        and (affix['name'] in [
-                            'Claw (Accessory)',
-                            'Fang (Accessory)',
-                            'Horn (Accessory)',
-                            'Scale (Accessory)',
-                        ])
-                        ):
-                        affix['name'] = affix['name'] + ' (artifact)'
+                # *** temporary solution until more long term solution can be built out
+                # *** using ddowiki artifact properties on items and item based crafting support in crafting system map
+                # unique case exists where we need to hard code support to use a custom crafting system for isle of dread quarterstaffs
+                if ((item['name'] in [
+                        'Attuned Bone Quarterstaff',
+                        'Dinosaur Bone Quarterstaff',
+                    ])
+                    and (affix['name'] in [
+                        'Fang (Weapon)',
+                        'Scale (Weapon)',
+                    ])):
+                    affix['name'] = affix['name'] + ' (quarterstaff)'
+                elif ((item['name'] in [
+                        'Calamitous Quarterstaff',
+                    ])
+                    and (affix['name'] in [
+                        'Dolorous Slot (Weapon)',
+                        'Melancholic Slot (Weapon)',
+                    ])):
+                    affix['name'] = affix['name'] + ' (quarterstaff)'
+                elif ((item['name'] in [
+                        'Dinosaur Bone Belt',
+                        'Dinosaur Bone Boots',
+                        'Dinosaur Bone Bracers',
+                        'Dinosaur Bone Gloves',
+                        'Dinosaur Bone Necklace',
+                        'Dinosaur Bone Ring',
+                    ])
+                    and (affix['name'] in [
+                        'Claw (Accessory)',
+                        'Fang (Accessory)',
+                        'Horn (Accessory)',
+                        'Scale (Accessory)',
+                    ])
+                    ):
+                    affix['name'] = affix['name'] + ' (artifact)'
 
-                    assert 'crafting' in item
-                    item['crafting'].append(affix['name'])
-                    remove.append(affix)
+                assert 'crafting' in item
+                item['crafting'].append(affix['name'])
+                remove.append(affix)
 
-                # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
-                if affix['name'] == 'Enhancement Bonus':
+            # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
+            if affix['name'] == 'Enhancement Bonus':
 
-                    # create some booleans to reduce duplication and increase readability
-                    isArmor = False
-                    isShield = False
-                    isWeapon = False
+                # create some booleans to reduce duplication and increase readability
+                isArmor = False
+                isShield = False
+                isWeapon = False
 
-                    # assume that all item types that go in to the armor slot are armors
-                    if item['slot'] == 'Armor':
-                        isArmor = True
+                # assume that all item types that go in to the armor slot are armors
+                if item['slot'] == 'Armor':
+                    isArmor = True
 
-                    # identify shield items based on item type
-                    if item['type'] in ('Bucklers', 'Large shields', 'Small shields', 'Tower shields'):
-                        isShield = True
+                # identify shield items based on item type
+                if item['type'] in ('Bucklers', 'Large shields', 'Small shields', 'Tower shields'):
+                    isShield = True
 
-                    # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
-                    # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
-                    if isArmor or isShield:
-                        affix['name'] = 'Enhancement Bonus (Armor)'
+                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
+                # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
+                if isArmor or isShield:
+                    affix['name'] = 'Enhancement Bonus (Armor)'
 
-                    # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
-                    # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
-                    # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
-                    if item['slot'] in ('Weapon', 'Offhand') and not (isShield or item['type'] == 'Orbs'):
-                        affix['name'] = 'Enhancement Bonus (Weapon)'
+                # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
+                # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
+                # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
+                if item['slot'] in ('Weapon', 'Offhand') and not (isShield or item['type'] == 'Orbs'):
+                    affix['name'] = 'Enhancement Bonus (Weapon)'
 
-            for affix in remove:
-                item['affixes'].remove(affix)
+        for affix in remove:
+            item['affixes'].remove(affix)
 
-            items.append(item)
+        items.append(item)
 
-            # Post-process craftable items
-            if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
-                craftedItem = deepcopy(item)
-                craftedItem['name'] = item['name'] + ' [Crafted]'
+        # Post-process craftable items
+        if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
+            craftedItem = deepcopy(item)
+            craftedItem['name'] = item['name'] + ' [Crafted]'
 
-                craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
-                for craftableAffix in craftableAffixes:
-                    craftedItem['affixes'].remove(craftableAffix)
+            craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
+            for craftableAffix in craftableAffixes:
+                craftedItem['affixes'].remove(craftableAffix)
 
-                isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
-                if isCraftableRunearm:
-                    # check for misspellings and bs
-                    for affixToLose in craftableRunearmsAffixesLost[item['name']]:
-                        assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
+            isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
+            if isCraftableRunearm:
+                # check for misspellings and bs
+                for affixToLose in craftableRunearmsAffixesLost[item['name']]:
+                    assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
 
-                    for affix in [*craftedItem['affixes']]:
-                        if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
-                            craftedItem['affixes'].remove(affix)
+                for affix in [*craftedItem['affixes']]:
+                    if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
+                        craftedItem['affixes'].remove(affix)
 
-                if 'crafting' not in craftedItem:
-                    craftedItem['crafting'] = []
+            if 'crafting' not in craftedItem:
+                craftedItem['crafting'] = []
 
-                match (item['slot'], item['type']):
-                    case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
-                        slot = 'Ranged'
-                    case ('Weapon', _):
-                        slot = 'Melee'
-                    case ('Offhand', 'Rune Arms'):
-                        slot = 'Rune Arm'
-                    case ('Offhand', 'Orbs'):
-                        slot = 'Orb'
-                    case ('Offhand', _):
-                        slot = 'Shield'
-                    case _:
-                        slot = item['slot']
+            match (item['slot'], item['type']):
+                case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
+                    slot = 'Ranged'
+                case ('Weapon', _):
+                    slot = 'Melee'
+                case ('Offhand', 'Rune Arms'):
+                    slot = 'Rune Arm'
+                case ('Offhand', 'Orbs'):
+                    slot = 'Orb'
+                case ('Offhand', _):
+                    slot = 'Shield'
+                case _:
+                    slot = item['slot']
 
-                craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
-                craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
-                craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
+            craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
+            craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
+            craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
 
-                items.append(craftedItem)
-        except Exception as e:
-            raise ParseContextError(
-                "Error parsing item row",
-                page=itemPageURL,
-                row_html=str(row),
-                context={
-                    "row_index": row_index,
-                    "title": title,
-                    "category": category,
-                },
-                original=e,
-            ) from e
+            items.append(craftedItem)
 
     return items
 

@@ -35485,7 +35485,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Your attacks and offensive spells have a chance to reduce enemy Physical and Magical Resistance Rating.",
+                        "name": "Constricting Nightmare",
                         "type": "Bool",
                         "value": 1
                     }

@@ -23,6 +23,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r data-builder/requirements.txt
+      - name: Install Playwright browser runtime
+        run: |
+          python -m playwright install chromium
       - name: Run script 
         run: |
           python data-builder/build.py --discord ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}

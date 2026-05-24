@@ -7,6 +7,7 @@
 1. `npm install -g @angular/cli`
 1. Clone this repo
 1. `pip install -r data-builder/requirements.txt`
+1. `python -m playwright install chromium`
 
 ## Build the data
 The latest assets are included in the repo; if you make changes, you can update them:

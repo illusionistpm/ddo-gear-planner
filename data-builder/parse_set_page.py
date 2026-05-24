@@ -16,18 +16,29 @@ def get_sets_from_page(soup):
 
     sets = {}
 
-    setTable = soup.find(id='bodyContent').find(id='mw-content-text').contents[0].find('table', class_="wikitable")
+    content_root = soup.find(id='mw-content-text') or soup.find(class_='mw-parser-output') or soup
+    setTable = content_root.find('table', class_=lambda value: value and 'wikitable' in value)
+    if setTable is None:
+        raise RuntimeError('Could not locate the sets table in the downloaded page. ' \
+                           'Verify the cache file and the wiki page format.')
 
     rows = setTable.find_all('tr')
+    if not rows:
+        raise RuntimeError('Set table found but it contains no rows.')
 
-    # safe to assume the first row will have the headers we are looking for
-    setNameCell = rows[0].find('th', string=re.compile('Set name'))
-    if setNameCell:
-        setNameIdx = rows[0].find_all('th').index(setNameCell)
+    headers = [cell.get_text(strip=True) for cell in rows[0].find_all(['th', 'td'])]
+    print(f"Found sets table with headers: {headers}")
 
-    setEffectsCell = rows[0].find('th', string=re.compile('Effect'))
-    if setEffectsCell:
-        setEffectsIdx = rows[0].find_all('th').index(setEffectsCell)
+    setNameIdx = next((i for i, h in enumerate(headers) if re.search(r'Set\s*name', h, re.I)), None)
+    if setNameIdx is None:
+        setNameIdx = next((i for i, h in enumerate(headers) if re.search(r'\bName\b', h, re.I)), None)
+
+    setEffectsIdx = next((i for i, h in enumerate(headers) if re.search(r'Effect', h, re.I)), None)
+    if setEffectsIdx is None:
+        setEffectsIdx = next((i for i, h in enumerate(headers) if re.search(r'Effects', h, re.I)), None)
+
+    if setNameIdx is None or setEffectsIdx is None:
+        raise RuntimeError(f"Unable to determine set name/effects column indexes from headers: {headers}")
 
     for row in rows[1:]:
         cells = row.find_all('td')
@@ -36,11 +47,12 @@ def get_sets_from_page(soup):
         setName = cells[setNameIdx].get_text(strip=True)
         setEffectMapList = []
 
-        effectsParagraphs = cells[setEffectsIdx].find_all('p')
+        effectsCell = cells[setEffectsIdx]
+        effectsParagraphs = effectsCell.find_all('p') or [effectsCell]
         for p in effectsParagraphs:
 
             # calculate threshold (# of pieces)
-            search = re.search(r'([0-9])+ Pieces Equipped.*$', p.getText())
+            search = re.search(r'([0-9]+)\s*Pieces Equipped.*$', p.getText())
 
             if search:
                 threshold = int(search.group(1))
@@ -48,7 +60,14 @@ def get_sets_from_page(soup):
                 print(f"Malformed Effects cell detected in {setName} (no Pieces Equipped value found)")
                 continue
 
-            affixes = get_affix_map_list_from_tag(p.findNextSibling('ul'))
+            affixesList = []
+            ul = p.find_next_sibling('ul')
+            if ul is None:
+                ul = p.find('ul')
+            if ul is None:
+                ul = effectsCell.find('ul')
+
+            affixes = get_affix_map_list_from_tag(ul)
 
             setEffectsMap = {}
             setEffectsMap['affixes'] = affixes

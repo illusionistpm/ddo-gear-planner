@@ -1,5 +1,5 @@
 import { UserGearService, UserItemLocation } from '../user-gear.service';
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
@@ -17,6 +17,7 @@ import { AffixUiService } from '../affix-ui.service';
     selector: 'app-items-with-bonus-type',
     templateUrl: './items-with-bonus-type.component.html',
     styleUrls: ['./items-with-bonus-type.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {

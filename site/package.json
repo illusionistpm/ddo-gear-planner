@@ -14,15 +14,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^21.2.4",
-    "@angular/common": "^21.2.4",
-    "@angular/compiler": "^21.2.4",
-    "@angular/core": "^21.2.4",
-    "@angular/forms": "^21.2.4",
-    "@angular/localize": "^21.2.4",
-    "@angular/platform-browser": "^21.2.4",
-    "@angular/platform-browser-dynamic": "^21.2.4",
-    "@angular/router": "^21.2.4",
+    "@angular/animations": "^22.0.4",
+    "@angular/common": "^22.0.4",
+    "@angular/compiler": "^22.0.4",
+    "@angular/core": "^22.0.4",
+    "@angular/forms": "^22.0.4",
+    "@angular/localize": "^22.0.4",
+    "@angular/platform-browser": "^22.0.4",
+    "@angular/platform-browser-dynamic": "^22.0.4",
+    "@angular/router": "^22.0.4",
     "@ng-bootstrap/ng-bootstrap": "^20.0.0-rc.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
@@ -32,14 +32,15 @@
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "21.2.10",
+    "@angular-devkit/build-angular": "22.0.4",
     "@angular-eslint/eslint-plugin": "^18.1.0",
-    "@angular/cli": "^21.2.5",
-    "@angular/compiler-cli": "^21.2.4",
-    "@angular/language-service": "^21.2.4",
+    "@angular/cli": "^22.0.4",
+    "@angular/compiler-cli": "^22.0.4",
+    "@angular/language-service": "^22.0.4",
     "@types/jasmine": "~3.8.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "^6.4.4",
@@ -49,6 +50,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   }
 }

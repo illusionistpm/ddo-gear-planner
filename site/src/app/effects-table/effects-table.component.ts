@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EquippedService } from '../equipped.service';
@@ -9,6 +9,7 @@ import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with
     selector: 'app-effects-table',
     templateUrl: './effects-table.component.html',
     styleUrls: ['./effects-table.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EffectsTableComponent implements OnInit {

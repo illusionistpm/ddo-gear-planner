@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { QueryParamsService } from '../query-params.service';
@@ -9,6 +9,7 @@ import { GearDbService } from '../gear-db.service';
     selector: 'app-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MainComponent implements OnInit {

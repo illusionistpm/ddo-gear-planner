@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 
 import { Item } from '../item';
@@ -7,6 +7,7 @@ import { Item } from '../item';
     selector: 'app-gear',
     templateUrl: './gear.component.html',
     styleUrls: ['./gear.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GearComponent implements OnInit {

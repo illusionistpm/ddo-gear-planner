@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserGearService } from '../user-gear.service';
 
 import { FiltersService } from '../filters.service';
@@ -9,6 +9,7 @@ import { Output, EventEmitter } from '@angular/core';
     selector: 'app-filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FiltersComponent implements OnInit {

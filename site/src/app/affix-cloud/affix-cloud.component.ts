@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
@@ -10,6 +10,7 @@ import { AffixCloud } from '../affix-cloud';
     selector: 'app-affix-cloud',
     templateUrl: './affix-cloud.component.html',
     styleUrls: ['./affix-cloud.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AffixCloudComponent implements OnInit {

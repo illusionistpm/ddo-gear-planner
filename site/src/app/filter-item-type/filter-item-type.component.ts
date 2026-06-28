@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FiltersService } from '../filters.service';
@@ -9,6 +9,7 @@ import itemTypesList from 'src/assets/item-types.json';
     selector: 'app-filter-item-type',
     templateUrl: './filter-item-type.component.html',
     styleUrls: ['./filter-item-type.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FilterItemTypeComponent implements OnInit {

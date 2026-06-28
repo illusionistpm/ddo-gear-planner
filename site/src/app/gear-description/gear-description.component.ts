@@ -1,6 +1,6 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CraftableOption } from './../craftable-option';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 import { CannithService } from '../cannith.service';
@@ -19,6 +19,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
     selector: 'app-gear-description',
     templateUrl: './gear-description.component.html',
     styleUrls: ['./gear-description.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GearDescriptionComponent implements OnInit {

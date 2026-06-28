@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
     selector: 'app-typeahead',
     templateUrl: './typeahead.component.html',
     styleUrls: ['./typeahead.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TypeaheadComponent implements OnInit {

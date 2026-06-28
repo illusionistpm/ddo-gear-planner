@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { UserGearService, UserItemLocation } from '../user-gear.service';
     selector: 'app-item-suggestions',
     templateUrl: './item-suggestions.component.html',
     styleUrls: ['./item-suggestions.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ItemSuggestionsComponent implements OnInit {

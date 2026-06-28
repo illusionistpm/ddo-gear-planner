@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
@@ -16,6 +16,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
     selector: 'app-gear-list',
     templateUrl: './gear-list.component.html',
     styleUrls: ['./gear-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GearListComponent implements OnInit {

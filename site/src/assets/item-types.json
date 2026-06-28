@@ -1,4 +1,7 @@
 {
+    "Back items": {
+        "attributes": []
+    },
     "Bastard Swords": {
         "attributes": [
             "one-handed",
@@ -57,12 +60,21 @@
             "weapon"
         ]
     },
+    "Eye items": {
+        "attributes": []
+    },
     "Falchions": {
         "attributes": [
             "two-handed",
             "melee",
             "weapon"
         ]
+    },
+    "Feet items": {
+        "attributes": []
+    },
+    "Finger items": {
+        "attributes": []
     },
     "Great Axes": {
         "attributes": [
@@ -100,12 +112,18 @@
             "weapon"
         ]
     },
+    "Hand items": {
+        "attributes": []
+    },
     "Handwraps": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
         ]
+    },
+    "Head items": {
+        "attributes": []
     },
     "Heavy Crossbows": {
         "attributes": [
@@ -230,6 +248,9 @@
             "weapon"
         ]
     },
+    "Neck items": {
+        "attributes": []
+    },
     "Orbs": {
         "attributes": [
             "offhand"
@@ -241,6 +262,9 @@
             "melee",
             "weapon"
         ]
+    },
+    "Quiver items": {
+        "attributes": []
     },
     "Rapiers": {
         "attributes": [
@@ -338,11 +362,20 @@
             "offhand"
         ]
     },
+    "Trinket items": {
+        "attributes": []
+    },
+    "Waist items": {
+        "attributes": []
+    },
     "War Hammers": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
         ]
+    },
+    "Wrist items": {
+        "attributes": []
     }
 }

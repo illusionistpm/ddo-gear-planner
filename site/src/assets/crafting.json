@@ -334,7 +334,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Accuracy +22"
+                "name": "Sapphire of Accuracy +22",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -513,7 +516,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Defense +36"
+                "name": "Sapphire of Defense +36",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -972,7 +978,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Healing Amplification +57"
+                "name": "Sapphire of Healing Amplification +57",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -1319,7 +1328,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Protection +11"
+                "name": "Sapphire of Protection +11",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -1526,7 +1538,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Repair Amplification +57"
+                "name": "Sapphire of Repair Amplification +57",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -1719,7 +1734,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Shatter +16"
+                "name": "Sapphire of Shatter +16",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -1898,7 +1916,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Sapphire of Stunning +16"
+                "name": "Sapphire of Stunning +16",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -8517,7 +8538,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": "5"
+                        "value": "7"
                     }
                 ],
                 "ml": 31,
@@ -8655,7 +8676,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": "5"
+                        "value": "7"
                     }
                 ],
                 "ml": 31,
@@ -29166,7 +29187,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Frost (9d6)"
+                "name": "Ruby of Frost (9d6)",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -29238,7 +29262,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Glaciation 153"
+                "name": "Ruby of Glaciation 153",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -29465,7 +29492,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Impulse 153"
+                "name": "Ruby of Impulse 153",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -29602,7 +29632,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Magnetism 153"
+                "name": "Ruby of Magnetism 153",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -30005,7 +30038,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Reconstruction 153"
+                "name": "Ruby of Reconstruction 153",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -30128,7 +30164,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Resonance 153"
+                "name": "Ruby of Resonance 153",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -30321,7 +30360,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Ruby of Shock (9d6)"
+                "name": "Ruby of Shock (9d6)",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -31513,7 +31555,7 @@
                         "uniquePropertyRequired": {
                             "requireQuarterstaff": true
                         },
-                        "value": "15"
+                        "value": "31"
                     },
                     {
                         "name": "Magical Efficiency",
@@ -34779,6 +34821,16 @@
                         "name": "Diversion",
                         "type": "Artifact",
                         "value": "10"
+                    },
+                    {
+                        "name": "Distant Diversion",
+                        "type": "Artifact",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Mystic Diversion",
+                        "type": "Artifact",
+                        "value": "10"
                     }
                 ],
                 "ml": 1,
@@ -34791,6 +34843,16 @@
                 "affixes": [
                     {
                         "name": "Diversion",
+                        "type": "Artifact",
+                        "value": "20"
+                    },
+                    {
+                        "name": "Distant Diversion",
+                        "type": "Artifact",
+                        "value": "20"
+                    },
+                    {
+                        "name": "Mystic Diversion",
                         "type": "Artifact",
                         "value": "20"
                     }
@@ -35831,8 +35893,8 @@
                 "affixes": [
                     {
                         "name": "Abjuration Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -35846,7 +35908,7 @@
                     {
                         "name": "Abjuration Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -36130,7 +36192,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Topaz of Cold Resistance 45"
+                "name": "Topaz of Cold Resistance 45",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [
@@ -36150,8 +36215,8 @@
                 "affixes": [
                     {
                         "name": "Conjuration Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -36165,7 +36230,7 @@
                     {
                         "name": "Conjuration Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -36421,7 +36486,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Topaz of Electric Resistance 45"
+                "name": "Topaz of Electric Resistance 45",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -36442,7 +36510,7 @@
                     {
                         "name": "Enchantment Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -36455,8 +36523,8 @@
                 "affixes": [
                     {
                         "name": "Enchantment Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -36469,8 +36537,8 @@
                 "affixes": [
                     {
                         "name": "Evocation Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -36484,7 +36552,7 @@
                     {
                         "name": "Evocation Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -36651,8 +36719,8 @@
                 "affixes": [
                     {
                         "name": "Abjuration Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36665,8 +36733,8 @@
                 "affixes": [
                     {
                         "name": "Conjuration Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36679,8 +36747,8 @@
                 "affixes": [
                     {
                         "name": "Enchantment Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36693,8 +36761,8 @@
                 "affixes": [
                     {
                         "name": "Evocation Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36707,8 +36775,8 @@
                 "affixes": [
                     {
                         "name": "Illusion Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36721,8 +36789,8 @@
                 "affixes": [
                     {
                         "name": "Necromancy Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36735,8 +36803,8 @@
                 "affixes": [
                     {
                         "name": "Transmutation Focus",
-                        "type": "Enhancement",
-                        "value": "2"
+                        "type": "Equipment",
+                        "value": "6"
                     }
                 ],
                 "ml": 24,
@@ -36749,8 +36817,8 @@
                 "affixes": [
                     {
                         "name": "Illusion Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -36764,7 +36832,7 @@
                     {
                         "name": "Illusion Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -36810,7 +36878,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Topaz of Melee Power +12"
+                "name": "Topaz of Melee Power +12",
+                "quests": [
+                    "Randall Lyric (Outskirts of Myth Drannor)"
+                ]
             },
             {
                 "affixes": [
@@ -36900,8 +36971,8 @@
                 "affixes": [
                     {
                         "name": "Necromancy Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -36915,7 +36986,7 @@
                     {
                         "name": "Necromancy Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -37492,8 +37563,8 @@
                 "affixes": [
                     {
                         "name": "Transmutation Focus",
-                        "type": "Enhancement",
-                        "value": "1"
+                        "type": "Equipment",
+                        "value": "5"
                     }
                 ],
                 "ml": 16,
@@ -37507,7 +37578,7 @@
                     {
                         "name": "Transmutation Focus",
                         "type": "Equipment",
-                        "value": "6"
+                        "value": "8"
                     }
                 ],
                 "ml": 30,
@@ -37623,7 +37694,10 @@
                     }
                 ],
                 "ml": 32,
-                "name": "Topaz of Wizardry +294"
+                "name": "Topaz of Wizardry +294",
+                "quests": [
+                    "Randall Lyric (Ludendorf City Hall)"
+                ]
             },
             {
                 "affixes": [

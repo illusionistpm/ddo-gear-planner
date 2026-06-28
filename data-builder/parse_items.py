@@ -13,7 +13,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
 def include_page(fileName: str) -> bool:
-    return not fileName.startswith('Collars')
+    return not (fileName.startswith('Collars') or fileName.startswith('Cosmetic_'))
 
 
 def add_cat_to_map(catMap: CatMap, slot: str, array: list[str]) -> None:
@@ -109,23 +109,66 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 
     items = []
 
-    table = soup.find(id='bodyContent').find(id='mw-content-text').find('div').find('table', class_="wikitable").find('tbody')
-    for idx, col in enumerate(table.find_all('th')):
+    tables = soup.find_all('table', class_='wikitable')
+    if not tables:
+        print(f"Skipping {itemPageURL}: no wikitable found")
+        return items
+
+    def score_table(table):
+        header = table.find('tr')
+        if header is None:
+            return 0
+        headers = {cell.getText().strip() for cell in header.find_all(['th', 'td'])}
+        score = 0
+        if 'Item' in headers:
+            score += 100
+        if 'Bind' in headers:
+            score += 50
+        if {'Location', 'Locations', 'Quest', 'Quests'} & headers:
+            score += 40
+        if {'ML', 'Minimum level'} & headers:
+            score += 20
+        if {'Enchantments', 'Special Abilities'} & headers:
+            score += 10
+        return score
+
+    table = max(tables, key=score_table)
+    if score_table(table) == 0:
+        print(f"Skipping {itemPageURL}: no data table found")
+        return items
+
+    tbody = table.find('tbody')
+    if tbody is not None:
+        table = tbody
+
+    header_row = table.find('tr')
+    for idx, col in enumerate(header_row.find_all(['th', 'td'])):
         cols[col.getText().strip()] = idx
 
     if 'Minimum level' in cols:
         cols['ML'] = cols['Minimum level']
 
+    equippable_columns = {'Enchantments', 'Special Abilities', 'AC', 'SB'}
+    if not equippable_columns & cols.keys():
+        print(f"Skipping {itemPageURL}: non-equippable page")
+        return items
+
     rows = table.find_all('tr', recursive=False)
+    if not rows:
+        print(f"Skipping {itemPageURL}: no rows found")
+        return items
 
     questIdx = None
     for q in ['Location', 'Locations', 'Quest', 'Quests']:
         if q in cols:
             questIdx = cols[q]
-    assert questIdx is not None
+    if questIdx is None:
+        print(f"Skipping {itemPageURL}: missing quest/location column")
+        return items
 
     # For some reason, the header is showing up as a row
-    rows.pop(0)
+    if rows and rows[0].find_all(['th', 'td']):
+        rows.pop(0)
 
     catMap = build_cat_map()
 
@@ -134,10 +177,18 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
     for row in rows:
         fields = row.find_all('td', recursive=False)
 
+        if len(fields) <= max(cols.values()):
+            print(f"Skipping malformed row in {itemPageURL}: expected at least {max(cols.values())+1} columns, got {len(fields)}")
+            continue
+
         if 'Drops on leaving adventure' in fields[cols['Bind']].getText():
             continue
 
         itemLink = fields[cols['Item']].find('a')
+        if itemLink is None:
+            print(f"Skipping row in {itemPageURL}: missing item link")
+            continue
+
         rawML = fields[cols['ML']].getText().strip()
 
         item: Item|SetAugment = {
@@ -189,10 +240,11 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
             quests = str(questsTooltip)
             item['quests'] = [quests]
 
-        affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
-        cell = fields[affixesIdx]
-
-        affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
+        affixes = []
+        if 'Enchantments' in cols or 'Special Abilities' in cols:
+            affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
+            cell = fields[affixesIdx]
+            affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
 
         # Detect all the sets that we picked up as affixes
         set_names_in_affixes = []

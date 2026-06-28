@@ -59,11 +59,19 @@ def get_item_page_urls(session=None):
     resp.raise_for_status()
     soup = BeautifulSoup(resp.content, 'html.parser')
 
-    table = soup.find(id='mw-content-text').contents[0].contents[0]
-    links = table.find_all('a', href=True)
-    itemPages = [s['href'].split('/page/')[1] for s in links if '/page/Category' in s['href']]
+    content = soup.find(id='mw-content-text')
+    if content is None:
+        raise RuntimeError('Unable to find Items page content while collecting item page URLs')
 
-    itemPages.append('Category:Quiver_items')
+    links = content.find_all('a', href=True)
+    itemPages = sorted({
+        s['href'].split('/page/')[1]
+        for s in links
+        if '/page/Category:' in s['href']
+    })
+
+    if 'Category:Quiver_items' not in itemPages:
+        itemPages.append('Category:Quiver_items')
 
     return itemPages
 
@@ -188,7 +196,8 @@ def download_item_pages(session=None):
         os.makedirs(cacheDir)
 
     itemPageURLs = get_item_page_urls(session=session)
-    for url in set(itemPageURLs):
+    print(f'Found {len(itemPageURLs)} item page URLs to download')
+    for url in sorted(set(itemPageURLs)):
         download_page(url, cacheDir, session=session)
 
 

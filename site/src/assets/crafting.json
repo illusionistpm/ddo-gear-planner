@@ -7331,7 +7331,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": "5"
+                        "value": "8"
                     }
                 ],
                 "ml": 34,
@@ -7855,7 +7855,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": "5"
+                        "value": "8"
                     }
                 ],
                 "ml": 34,
@@ -26201,7 +26201,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Evocation Focus +2, Kinetic Lore VKinetic Lore V: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "name": "Evocation Focus II, Kinetic Lore VKinetic Lore V: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26210,7 +26210,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromancy Focus +2, Void Lore VVoid Lore V: Passive: Your Negative Energy and Poison spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "name": "Necromancy Focus II, Void Lore VVoid Lore V: Passive: Your Negative Energy and Poison spells gain a 15% Equipment bonus to their chance to critical hit.",
                         "type": "Bool",
                         "value": 1
                     }

@@ -2236,7 +2236,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2264,7 +2264,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2278,7 +2278,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2292,7 +2292,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2306,7 +2306,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2320,7 +2320,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2348,7 +2348,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2376,7 +2376,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2390,7 +2390,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2404,7 +2404,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2478,7 +2478,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2509,7 +2509,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2523,7 +2523,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2537,7 +2537,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2551,7 +2551,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2565,7 +2565,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2596,7 +2596,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2627,7 +2627,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2641,7 +2641,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2655,7 +2655,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -6095,7 +6095,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6109,7 +6109,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6123,7 +6123,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6137,7 +6137,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6207,7 +6207,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6221,7 +6221,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6235,7 +6235,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6249,7 +6249,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6263,7 +6263,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6277,7 +6277,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6319,7 +6319,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6333,7 +6333,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6375,7 +6375,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6389,7 +6389,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6403,7 +6403,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6417,7 +6417,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6711,7 +6711,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6725,7 +6725,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6767,7 +6767,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6781,7 +6781,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -7937,7 +7937,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -7951,7 +7951,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -7993,7 +7993,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8007,7 +8007,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8021,7 +8021,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8049,7 +8049,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8077,7 +8077,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8091,7 +8091,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8119,7 +8119,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8147,7 +8147,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8182,7 +8182,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8196,7 +8196,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8244,7 +8244,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8258,7 +8258,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8272,7 +8272,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8303,7 +8303,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8334,7 +8334,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8348,7 +8348,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8379,7 +8379,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8410,7 +8410,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -10344,7 +10344,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10358,7 +10358,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10400,7 +10400,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10414,7 +10414,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10540,7 +10540,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10554,7 +10554,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10596,7 +10596,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10610,7 +10610,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10624,7 +10624,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10638,7 +10638,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10680,7 +10680,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10694,7 +10694,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10708,7 +10708,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10722,7 +10722,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10736,7 +10736,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10750,7 +10750,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10764,7 +10764,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10778,7 +10778,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10792,7 +10792,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10806,7 +10806,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -11622,7 +11622,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11636,7 +11636,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11678,7 +11678,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11692,7 +11692,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11706,7 +11706,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11720,7 +11720,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11734,7 +11734,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11748,7 +11748,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11762,7 +11762,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11776,7 +11776,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11790,7 +11790,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11804,7 +11804,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11846,7 +11846,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11860,7 +11860,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11902,7 +11902,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11916,7 +11916,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11930,7 +11930,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11944,7 +11944,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11958,7 +11958,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11972,7 +11972,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -30655,7 +30655,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30683,7 +30683,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30725,7 +30725,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30753,7 +30753,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30767,7 +30767,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30795,7 +30795,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30809,7 +30809,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30823,7 +30823,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30837,7 +30837,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30851,7 +30851,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30897,7 +30897,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Spell Crit Damage",
+                        "name": "Acid Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30928,7 +30928,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Spell Crit Damage",
+                        "name": "Cold Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30976,7 +30976,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Spell Crit Damage",
+                        "name": "Electric Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31007,7 +31007,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Crit Damage",
+                        "name": "Fire Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31021,7 +31021,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Crit Damage",
+                        "name": "Force Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31052,7 +31052,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Crit Damage",
+                        "name": "Light Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31066,7 +31066,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Spell Crit Damage",
+                        "name": "Negative Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31080,7 +31080,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Spell Crit Damage",
+                        "name": "Positive Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31094,7 +31094,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Repair Spell Crit Damage",
+                        "name": "Repair Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31108,7 +31108,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Sonic Spell Crit Damage",
+                        "name": "Sonic Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -34140,6 +34140,34 @@
             {
                 "affixes": [
                     {
+                        "name": "Missile Deflection",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Missile Deflection (Heroic)",
+                "quests": [
+                    "The Price of an Egg"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Missile Deflection",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Missile Deflection (Legendary)",
+                "quests": [
+                    "The Price of an Egg"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Necromancy Focus",
                         "type": "Artifact",
                         "value": "2"
@@ -34552,7 +34580,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Crit Damage",
+                        "name": "Intensity",
                         "type": "Legendary",
                         "value": "5"
                     }
@@ -34566,7 +34594,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Crit Damage",
+                        "name": "Intensity",
                         "type": "Legendary",
                         "value": "15"
                     }

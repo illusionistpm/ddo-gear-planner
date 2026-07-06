@@ -2264,7 +2264,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2278,7 +2278,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2306,7 +2306,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2320,7 +2320,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2348,7 +2348,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2376,7 +2376,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2509,7 +2509,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2523,7 +2523,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2551,7 +2551,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2565,7 +2565,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2596,7 +2596,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -2627,7 +2627,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Quality",
                         "value": "5"
                     }
@@ -6123,7 +6123,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6137,7 +6137,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6207,7 +6207,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6221,7 +6221,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6263,7 +6263,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6277,7 +6277,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6319,7 +6319,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6333,7 +6333,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6375,7 +6375,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6389,7 +6389,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -6403,7 +6403,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Insight",
                         "value": "5"
                     }
@@ -6417,7 +6417,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Insight",
                         "value": "12"
                     }
@@ -7951,7 +7951,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -7993,7 +7993,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8021,7 +8021,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8049,7 +8049,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8077,7 +8077,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8091,7 +8091,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8196,7 +8196,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8244,7 +8244,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8272,7 +8272,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8303,7 +8303,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8334,7 +8334,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -8348,7 +8348,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Insight",
                         "value": "10"
                     }
@@ -10400,7 +10400,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10414,7 +10414,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10540,7 +10540,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10554,7 +10554,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10624,7 +10624,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10638,7 +10638,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10680,7 +10680,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10694,7 +10694,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10708,7 +10708,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10722,7 +10722,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -10736,7 +10736,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -10750,7 +10750,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Enhancement",
                         "value": "23"
                     }
@@ -11678,7 +11678,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11692,7 +11692,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11706,7 +11706,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11720,7 +11720,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11762,7 +11762,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11776,7 +11776,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11790,7 +11790,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11804,7 +11804,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11846,7 +11846,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11860,7 +11860,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -11902,7 +11902,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Quality",
                         "value": "2"
                     }
@@ -11916,7 +11916,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Quality",
                         "value": "6"
                     }
@@ -30683,7 +30683,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30725,7 +30725,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30767,7 +30767,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30795,7 +30795,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30809,7 +30809,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30823,7 +30823,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30928,7 +30928,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Cold Intensity",
+                        "name": "Ice Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -30976,7 +30976,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Electric Intensity",
+                        "name": "Lightning Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31021,7 +31021,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Intensity",
+                        "name": "Kinetic Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31052,7 +31052,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Intensity",
+                        "name": "Radiance Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31066,7 +31066,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Intensity",
+                        "name": "Void Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -31080,7 +31080,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Positive Intensity",
+                        "name": "Healing Intensity",
                         "type": "Enhancement",
                         "value": "20"
                     }
@@ -34580,7 +34580,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Intensity",
+                        "name": "Spell Intensity",
                         "type": "Legendary",
                         "value": "5"
                     }
@@ -34594,7 +34594,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Intensity",
+                        "name": "Spell Intensity",
                         "type": "Legendary",
                         "value": "15"
                     }

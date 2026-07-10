@@ -13382,7 +13382,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Healing Amplification (Heroic)",
                 "quests": [
-                    "Ruins of Myth Drannor"
+                    "Hideous to Behold"
                 ]
             },
             {
@@ -14128,7 +14128,7 @@
                 "ml": 1,
                 "name": "Lunar Gem of Wisdom (Heroic)",
                 "quests": [
-                    "Back to the Abyss"
+                    "Ettercap Incursion"
                 ]
             },
             {
@@ -14142,7 +14142,7 @@
                 "ml": 30,
                 "name": "Lunar Gem of Wisdom (Legendary)",
                 "quests": [
-                    "Back to the Abyss"
+                    "Ettercap Incursion"
                 ]
             }
         ]
@@ -32872,6 +32872,34 @@
             {
                 "affixes": [
                     {
+                        "name": "Alignment Absorption",
+                        "type": "Artifact",
+                        "value": "3"
+                    }
+                ],
+                "ml": 1,
+                "name": "Solar Gem of Alignment Absorption (Heroic)",
+                "quests": [
+                    "Back to the Abyss"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Alignment Absorption",
+                        "type": "Artifact",
+                        "value": "10"
+                    }
+                ],
+                "ml": 30,
+                "name": "Solar Gem of Alignment Absorption (Legendary)",
+                "quests": [
+                    "Back to the Abyss"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Maximum Spell Points (%)",
                         "type": "Legendary",
                         "value": "3"
@@ -34358,7 +34386,7 @@
                 "ml": 1,
                 "name": "Solar Gem of Repair Amplification (Heroic)",
                 "quests": [
-                    "Back to the Abyss"
+                    "Voices of the Dead"
                 ]
             },
             {
@@ -34372,7 +34400,7 @@
                 "ml": 30,
                 "name": "Solar Gem of Repair Amplification (Legendary)",
                 "quests": [
-                    "Back to the Abyss"
+                    "Voices of the Dead"
                 ]
             },
             {

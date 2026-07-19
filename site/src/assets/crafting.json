@@ -35047,6 +35047,182 @@
             }
         ]
     },
+    "T1 (Equipment)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq AED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq EED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq FED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq NED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq PED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Intensity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Eq WED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            }
+        ]
+    },
+    "T1 (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp AED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp EED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp FED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp NED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp PED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "ml": 26,
+                "name": "T1 Green Steel Augment (Wp WED)",
+                "quests": [
+                    "Legendary Altar of Invasion (page does not exist)"
+                ]
+            }
+        ]
+    },
     "Woeful (Accessory)": {
         "*": [
             {

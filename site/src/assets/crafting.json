@@ -35058,9 +35058,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq AED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Air Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Air Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Air Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35072,9 +35100,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq EED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Earth Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Earth Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Earth Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35086,9 +35142,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq FED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Fire Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Fire Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Fire Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35100,9 +35184,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq NED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Negative Energy Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Negative Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Negative Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35114,9 +35226,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq PED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Positive Energy Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Positive Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Positive Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35128,9 +35268,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Eq WED)",
+                "name": "Green Steel Augment (Equipment, Tier 1, Water Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Resistance",
+                        "value": "13"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Water Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Guard",
+                        "type": "Untyped",
+                        "value": "8"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 1, Water Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             }
         ]
@@ -35146,9 +35314,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp AED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Air Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Air Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electrifying",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Air Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35160,9 +35356,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp EED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Earth Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Earth Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acidic",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Earth Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35174,9 +35398,37 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp FED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Fire Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Fire Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fiery",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Fire Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35188,9 +35440,56 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp NED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Negative Energy Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Negative Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Aligned",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negativity",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Negative Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Negative Energy Material Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35202,9 +35501,56 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp PED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Positive Energy Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Positive Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Aligned",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Holy",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Positive Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Positive Energy Material Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
                 ]
             },
             {
@@ -35216,9 +35562,893 @@
                     }
                 ],
                 "ml": 26,
-                "name": "T1 Green Steel Augment (Wp WED)",
+                "name": "Green Steel Augment (Weapon, Tier 1, Water Ethereal Dominion)",
                 "quests": [
-                    "Legendary Altar of Invasion (page does not exist)"
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Water Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Chilling",
+                        "type": "Untyped",
+                        "value": "12"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 1, Water Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            }
+        ]
+    },
+    "T2 (Equipment)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Air Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Air Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Air Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Earth Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Earth Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Earth Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Fire Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Fire Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Fire Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Negative Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Negative Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Negative Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Positive Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Positive Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Positive Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Intensity",
+                        "type": "Insight",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Water Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Water Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Guard",
+                        "type": "Untyped",
+                        "value": "10"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 2, Water Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            }
+        ]
+    },
+    "T2 (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Air Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Air Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Earth Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Earth Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Fire Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Fire Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Negative Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Negative Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Positive Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Positive Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Water Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "6"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 2, Water Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            }
+        ]
+    },
+    "T3 (Equipment)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Air Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Air Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Air Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Earth Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Earth Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Earth Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Fire Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reflex Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Fire Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Fire Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Void Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Negative Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortitude Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Negative Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evil Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Negative Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Healing Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Positive Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Positive Energy Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Good Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Positive Energy Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ice Intensity",
+                        "type": "Quality",
+                        "value": "5"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Water Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Will Save",
+                        "type": "Quality",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Water Ethereal Opposition)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Guard",
+                        "type": "Untyped",
+                        "value": "15"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Equipment, Tier 3, Water Material Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            }
+        ]
+    },
+    "T3 (Weapon)": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Magnetism",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Air Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Air Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Corrosion",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Earth Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Earth Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combustion",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Fire Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Fire Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Nullification",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Negative Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Negative Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Devotion",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Positive Energy Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Positive Energy Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Glaciation",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Water Ethereal Dominion)",
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Exceptional",
+                        "value": "2"
+                    }
+                ],
+                "ml": 26,
+                "name": "Green Steel Augment (Weapon, Tier 3, Water Ethereal Escalation)",
+                "quests": [
+                    "Legendary Altar of Devastation"
                 ]
             }
         ]

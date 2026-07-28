@@ -1,10 +1,10 @@
 import { CraftableOption } from './craftable-option';
 
 export class Craftable {
-    name: string;
-    options: Array<CraftableOption>;
-    selected: CraftableOption;
-    hiddenFromAffixSearch: boolean;
+    name!: string;
+    options!: Array<CraftableOption>;
+    selected!: CraftableOption;
+    hiddenFromAffixSearch!: boolean;
     isColoredAugmentSystem: boolean = false;
 
     constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean, addEmptyOption: boolean = true) {
@@ -27,7 +27,7 @@ export class Craftable {
         this.hiddenFromAffixSearch = hiddenFromAffixSearch;
     }
 
-    getMatchingBonusType(affixName, bonusType) {
+    getMatchingBonusType(affixName: string, bonusType: string): number | null {
         if (!this.hiddenFromAffixSearch) {
             for (const option of this.options) {
                 const value = option.getMatchingBonusType(affixName, bonusType);
@@ -40,7 +40,7 @@ export class Craftable {
         return null;
     }
 
-    selectMatchingBonusType(affixName, bonusType) {
+    selectMatchingBonusType(affixName: string, bonusType: string): boolean {
         if (!this.hiddenFromAffixSearch) {
             for (const option of this.options) {
                 const value = option.getMatchingBonusType(affixName, bonusType);

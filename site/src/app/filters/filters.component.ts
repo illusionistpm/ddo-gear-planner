@@ -13,9 +13,9 @@ import { Output, EventEmitter } from '@angular/core';
     standalone: false
 })
 export class FiltersComponent implements OnInit {
-  minLevel: number;
-  maxLevel: number;
-  showRaidItems: boolean;
+  minLevel: number = 1;
+  maxLevel: number = 30;
+  showRaidItems: boolean = false;
 
   sortOwnedToTop: boolean = true;
 

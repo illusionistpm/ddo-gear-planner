@@ -3,20 +3,20 @@ import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
 
 export class Item {
-    name: string;
-    slot: string;
-    type: string;
-    ml: number;
+    name!: string;
+    slot!: string;
+    type!: string;
+    ml!: number;
     affixes: Array<Affix> = Array<Affix>();
-    url: string;
-    private sets: Array<string>;
-    crafting: Array<Craftable>;
-    quests: Array<string>;
-    artifact: boolean;
+    url!: string;
+    private sets!: Array<string>;
+    crafting!: Array<Craftable>;
+    quests!: Array<string>;
+    artifact!: boolean;
 
     rawCrafting: Array<string> = Array<string>();
 
-    constructor(json) {
+    constructor(json: any) {
         if (json) {
             this.name = json.name;
             this.slot = json.slot;
@@ -75,11 +75,11 @@ export class Item {
         return activeAffixes;
     }
 
-    canHaveBonusType(affixName, bonusType, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
+    canHaveBonusType(affixName: string, bonusType: string, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
         return this.getMatchingBonusType(affixName, bonusType, affixSvc, allowColoredAugmentSystem) != null;
     }
 
-    getMatchingBonusType(affixName, bonusType, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
+    getMatchingBonusType(affixName: string, bonusType: string, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
         for (const affix of this.affixes) {
             let ungroupedAffixes = affixSvc.ungroupAffix(affix);
             ungroupedAffixes = ungroupedAffixes.concat(affix);
@@ -108,7 +108,7 @@ export class Item {
         return null;
     }
 
-    selectMatchingBonusType(affixName, bonusType) {
+    selectMatchingBonusType(affixName: string, bonusType: string) {
         if (this.crafting) {
             for (const craftable of this.crafting) {
                 if (craftable.selectMatchingBonusType(affixName, bonusType)) {
@@ -118,7 +118,7 @@ export class Item {
         }
     }
 
-    getValue(affixName, bonusType, affixSvc: AffixService) {
+    getValue(affixName: string, bonusType: string, affixSvc: AffixService) {
         const ret = this.getMatchingBonusType(affixName, bonusType, affixSvc);
         if (ret) {
             return ret[1];

@@ -14,11 +14,11 @@ import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with
 })
 export class EffectsTableComponent implements OnInit {
 
-  public affixMap: Map<string, Array<any>>;
-  public affixNames: Array<string>;
+  public affixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  public affixNames: Array<string> = [];
 
-  public boolAffixMap: Map<string, Array<any>>;
-  public boolAffixNames: Array<string>;
+  public boolAffixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  public boolAffixNames: Array<string> = [];
 
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
 
@@ -52,23 +52,24 @@ export class EffectsTableComponent implements OnInit {
     });
   }
 
-  removeAffix(affixName) {
+  removeAffix(affixName: string) {
     this.equipped.removeImportantAffix(affixName);
   }
 
-  currentBonus(affixName) {
+  currentBonus(affixName: string) {
     let total = 0;
-    for (const type of this.affixMap.get(affixName)) {
+    const types = this.affixMap.get(affixName) || [];
+    for (const type of types) {
       total += type.value;
     }
     return total;
   }
 
-  maxBonus(affixName) {
+  maxBonus(affixName: string) {
     return this.gearDB.getBestValueForAffix(affixName);
   }
 
-  showItemsWithBonusType(affixName, bonusType) {
+  showItemsWithBonusType(affixName: string, bonusType: string) {
     const dlg = this.modalService.open(ItemsWithBonusTypeComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.affixName = affixName;
@@ -83,7 +84,7 @@ export class EffectsTableComponent implements OnInit {
   }
 
   sortTypes(affixName: string) {
-    const types = this.affixMap.get(affixName);
+    const types = this.affixMap.get(affixName) || [];
     return types.sort((a, b) => {
       let aIndex = this.sortOrder.indexOf(a.bonusType);
       if (aIndex === -1) {
@@ -104,7 +105,7 @@ export class EffectsTableComponent implements OnInit {
     });
   }
 
-  private _isBoolAffix(entry) {
+  private _isBoolAffix(entry: [string, Array<any>]) {
     return entry[1].length === 1 && entry[1][0].bonusType === 'Bool';
   }
 
@@ -112,7 +113,7 @@ export class EffectsTableComponent implements OnInit {
     return maxValue * 3 / 4;
   } 
 
-  getClassForValue(affixName, type) {
+  getClassForValue(affixName: string, type: any) {
     if (type.bonusType === 'Penalty') {
       return 'penalty-value';
     }
@@ -128,7 +129,7 @@ export class EffectsTableComponent implements OnInit {
     }
   }
 
-  getValueTooltip(affixName, type): string {
+  getValueTooltip(affixName: string, type: any): string {
     if (type.bonusType === 'Penalty') {
       return 'Penalty effect';
     }

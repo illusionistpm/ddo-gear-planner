@@ -15,11 +15,11 @@ import { UserGearService, UserItemLocation } from '../user-gear.service';
     standalone: false
 })
 export class ItemSuggestionsComponent implements OnInit {
-  @Input() slot: string;
+  @Input() slot!: string;
 
-  current: Observable<Item>;
-  gear: Array<Item>;
-  cannith: Array<Item>;
+  current: Observable<Item> | null = null;
+  gear: Array<Item> = [];
+  cannith: Array<Item> = [];
 
   constructor(
     public gearDB: GearDbService,
@@ -39,8 +39,9 @@ export class ItemSuggestionsComponent implements OnInit {
   ngOnInit() {
     this.current = this.equipped.getSlot(this.slot);
 
-    const shortlist = [];
-    for (const gear of this.gearDB.getFilteredGearBySlot(this.slot)) {
+    const shortlist: Array<Item> = [];
+    const filtered = this.gearDB.getFilteredGearBySlot(this.slot) || [];
+    for (const gear of filtered) {
       shortlist.push(gear);
     }
 
@@ -48,11 +49,13 @@ export class ItemSuggestionsComponent implements OnInit {
 
     this.gear = shortlist.slice(0, 20);
 
-    this.cannith = this.gearDB.getFilteredGearBySlot(this.slot).filter(item => item.isCannithCrafted());
+    this.cannith = filtered.filter(item => item.isCannithCrafted());
   }
 
   clearSlot() {
-    this.equipped.clearSlot(this.gear[0].slot);
+    if (this.gear.length > 0) {
+      this.equipped.clearSlot(this.gear[0].slot);
+    }
     this.modalService.dismissAll();
   }
 
@@ -66,7 +69,12 @@ export class ItemSuggestionsComponent implements OnInit {
       if (newVal instanceof Item) {
         this.gear = [newVal];
       } else {
-        this.gear = [this.gearDB.findGearBySlot(slot, newVal)];
+        const found = this.gearDB.findGearBySlot(slot, newVal);
+        if (found) {
+          this.gear = [found];
+        } else {
+          this.gear = [];
+        }
       }
     };
   }

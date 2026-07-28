@@ -37,9 +37,11 @@ export class FilterItemTypeComponent implements OnInit {
     filters.getItemFilters().subscribe(itemFilters => {
       const groups = this.splitTypeSetIntoGroups(itemFilters.hiddenItemTypes);
       for (let key of groups.keys()) {
-        const options = this.getTypesWithAttribute([key]).getValue();
-        options.forEach(e => e.value = groups.get(key).includes(e.name));
-        this.getTypesWithAttribute([key]).next(options);
+        const subject = this.getTypesWithAttribute([key]);
+        const options = subject ? subject.getValue() : [];
+        const groupValues = groups.get(key) || [];
+        options.forEach(e => e.value = groupValues.includes(e.name));
+        subject?.next(options);
 
         this.hiddenTypesMap.set(key, options.map(e => e.name));
       }
@@ -58,8 +60,9 @@ export class FilterItemTypeComponent implements OnInit {
 
     const types = new Array<{name: string, value: boolean}>();
     
-    for (let type in itemTypesList) {
-      const attributes = itemTypesList[type]['attributes'];
+    const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
+    for (let type in itemTypes) {
+      const attributes = itemTypes[type]?.attributes || [];
       if (searchAttributes.every(e => attributes.includes(e))) {
         types.push({name: type, value: false});
       }
@@ -81,7 +84,10 @@ export class FilterItemTypeComponent implements OnInit {
       this.hiddenTypesMap.set(groupName, items.filter(e => e.value).map(e => e.name));
       
       for (let key of this.hiddenTypesMap.keys()) {
-          this.hiddenTypesMap.get(key).forEach(e => combinedItems.add(e));
+          const hiddenItems = this.hiddenTypesMap.get(key);
+          if (hiddenItems) {
+            hiddenItems.forEach(e => combinedItems.add(e));
+          }
       }
   
       this.filters.setHiddenTypes(combinedItems);
@@ -93,12 +99,18 @@ export class FilterItemTypeComponent implements OnInit {
 
     list.forEach(e => {
       const group = this.typeToGroup.get(e);
+      if (group === undefined) {
+        return;
+      }
 
       if (!out.has(group)) {
         out.set(group, new Array<string>());
       }
 
-      out.get(group).push(e);
+      const groupItems = out.get(group);
+      if (groupItems) {
+        groupItems.push(e);
+      }
     });
 
     return out;

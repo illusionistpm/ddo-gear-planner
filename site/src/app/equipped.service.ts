@@ -33,9 +33,9 @@ export class EquippedService {
 
     this.importantAffixes = new Set();
 
-    this.slots = new Map();
+    this.slots = new Map<string, BehaviorSubject<Item>>();
     for (const slot of gearList.getSlots()) {
-      this.slots.set(slot, new BehaviorSubject(null));
+      this.slots.set(slot, new BehaviorSubject<Item>(new Item(null)));
     }
 
     this.params = new BehaviorSubject<any>(null);
@@ -51,7 +51,7 @@ export class EquippedService {
     }
   }
 
-  updateFromParams(params) {
+  updateFromParams(params: any) {
     const craftingParams = [];
     const minLevels = new Map<string, number>();
 
@@ -68,9 +68,9 @@ export class EquippedService {
         if (craftingParams.length <= index) {
           craftingParams.length = index + 1;
         }
-        let craftingParam = craftingParams[index];
+        let craftingParam = craftingParams[index] as Record<string, string> | undefined;
         if (!craftingParam) {
-          craftingParam = new Object();
+          craftingParam = {};
           craftingParams[index] = craftingParam;
         }
         craftingParam[parts[2]] = params.get(key);
@@ -95,7 +95,8 @@ export class EquippedService {
     }
 
     for (const entries of minLevels.entries()) {
-      const item = this.slots.get(entries[0]).getValue();
+      const slotSubject = this.slots.get(entries[0]);
+      const item = slotSubject ? slotSubject.getValue() : null;
       if (item) {
         item.ml = entries[1];
         this._set(item);
@@ -104,7 +105,7 @@ export class EquippedService {
 
     for (const craftingParam of craftingParams) {
       const itemSubj = this.slots.get(craftingParam['slot']);
-      const item = itemSubj.getValue();
+      const item = itemSubj ? itemSubj.getValue() : null;
       if (!item) {
         console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
         continue;
@@ -127,7 +128,7 @@ export class EquippedService {
   }
 
   _updateRouterState() {
-    const params = {};
+    const params: Record<string, string | number | Array<string>> = {};
     let craftingIdx = 0;
     for (const kv of this.slots) {
       const slot = kv[0];
@@ -160,7 +161,10 @@ export class EquippedService {
   }
 
   _set(item: Item) {
-    this.slots.get(item.slot).next(item);
+    const slotSubject = this.slots.get(item.slot);
+    if (slotSubject) {
+      slotSubject.next(item);
+    }
   }
 
   set(item: Item) {
@@ -172,7 +176,10 @@ export class EquippedService {
   clearSlot(slot: string) {
     const dummy = new Item(null);
     dummy.slot = slot;
-    this.slots.get(slot).next(dummy);
+    const slotSubject = this.slots.get(slot);
+    if (slotSubject) {
+      slotSubject.next(dummy);
+    }
     this._updateRouterState();
   }
 
@@ -257,12 +264,13 @@ export class EquippedService {
   }
 
   private getValuesForAffixType(affixName: string, bonusType: string) {
-    const values = [];
+    const values: Array<{ slot: string; value: number }> = [];
     for (const slot of this.slots) {
-      if (slot[1].getValue()) {
-        for (const affix of this.affixSvc.getActiveAffixes(slot[1].getValue())) {
+      const slotValue = slot[1].getValue();
+      if (slotValue) {
+        for (const affix of this.affixSvc.getActiveAffixes(slotValue)) {
           if (affix.name === affixName && affix.type === bonusType) {
-            values.push({ slot, value: affix.value });
+            values.push({ slot: slot[0], value: affix.value });
           }
         }
       }
@@ -296,7 +304,8 @@ export class EquippedService {
       if (item) {
         for (const affix of this.affixSvc.getActiveAffixes(item)) {
           if (this.affixSvc.resolvesToAffix(affix.name, affixName)) {
-            if (!map.get(affix.type) || map.get(affix.type) < affix.value) {
+            const existing = map.get(affix.type) ?? 0;
+            if (existing < affix.value) {
               map.set(affix.type, affix.value);
             }
             break;
@@ -310,15 +319,21 @@ export class EquippedService {
   }
 
   hasItem(slot: string) {
-    const item = this.slots.get(slot).getValue();
+    const slotSubject = this.slots.get(slot);
+    const item = slotSubject ? slotSubject.getValue() : null;
     return item && item.isValid();
   }
 
   isEquipped(item: Item) {
-    if (!item || !this.slots.get(item.slot).getValue()) {
+    if (!item) {
       return false;
     }
-    return item.name === this.slots.get(item.slot).getValue().name;
+    const slotSubject = this.slots.get(item.slot);
+    const itemAtSlot = slotSubject ? slotSubject.getValue() : null;
+    if (!itemAtSlot) {
+      return false;
+    }
+    return item.name === itemAtSlot.name;
   }
 
   setLock(slot: string, lock: boolean) {
@@ -409,26 +424,26 @@ export class EquippedService {
     return this.importantAffixes;
   }
 
-  setImportantAffixes(affixes) {
+  setImportantAffixes(affixes: Array<string>) {
     this.importantAffixes = new Set(affixes);
     this._updateCoveredAffixes();
   }
 
-  addImportantAffix(affix) {
+  addImportantAffix(affix: string) {
     if (!this.importantAffixes.has(affix)) {
       this.importantAffixes.add(affix);
       this._updateCoveredAffixes();
     }
   }
 
-  removeImportantAffix(affix) {
+  removeImportantAffix(affix: string) {
     if (this.importantAffixes.has(affix)) {
       this.importantAffixes.delete(affix);
       this._updateCoveredAffixes();
     }
   }
 
-  toggleImportantAffix(affix) {
+  toggleImportantAffix(affix: string) {
     if (this.isImportantAffix(affix)) {
       this.removeImportantAffix(affix);
     } else {
@@ -436,7 +451,7 @@ export class EquippedService {
     }
   }
 
-  isImportantAffix(affix) {
+  isImportantAffix(affix: string) {
     return this.importantAffixes.has(affix);
   }
 

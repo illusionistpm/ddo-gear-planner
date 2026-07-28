@@ -23,10 +23,10 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
     standalone: false
 })
 export class GearDescriptionComponent implements OnInit {
-  @Input() item: Observable<Item> | Item;
+  @Input() item: Observable<Item> | Item | null = null;
   @Input() readonly = false;
-  curItem: Item = null;
-  cannithML: number;
+  curItem: Item | null = null;
+  cannithML: number | null = null;
 
   constructor(
     public equipped: EquippedService,
@@ -57,12 +57,16 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   updateItem() {
-    this.equipped.set(this.curItem);
+    if (this.curItem) {
+      this.equipped.set(this.curItem);
+    }
   }
 
   updateML() {
-    this.cannith.setItemToML(this.curItem, this.cannithML);
-    this.equipped.set(this.curItem);
+    if (this.curItem && this.cannithML !== null) {
+      this.cannith.setItemToML(this.curItem, this.cannithML);
+      this.equipped.set(this.curItem);
+    }
   }
 
   getAffixValue(affix: Affix) {

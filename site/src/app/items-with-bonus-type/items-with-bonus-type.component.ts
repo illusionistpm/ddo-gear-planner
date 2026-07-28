@@ -50,18 +50,18 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     this.lockedMatches = this._sortItems(this.lockedMatches);
   }
 
-  @Input() affixName: string;
-  @Input() bonusType: string;
+  @Input() affixName!: string;
+  @Input() bonusType!: string;
 
-  matches: Array<Item>;
-  lockedMatches: Array<Item>;
+  matches!: Array<Item>;
+  lockedMatches!: Array<Item>;
 
-  optionToEligibleGear: Map<string, Map<Item, Array<Craftable>>>;
-  stringToOption: Map<string, CraftableOption>;
+  optionToEligibleGear!: Map<string, Map<Item, Array<Craftable>>>;
+  stringToOption!: Map<string, CraftableOption>;
 
-  sets: Array<[string, number, number]>;
+  sets!: Array<[string, number, number]>;
 
-  setMatches: Array<[string, Array<Affix>, Array<Item>]>;
+  setMatches!: Array<[string, Array<Affix>, Array<Item>]>;
 
   selectedAugmentSlot: any;
 
@@ -132,10 +132,16 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
               continue;
             }
             if (matchingAugmentCraftable.name == craftable.name) {
-              if (!this.optionToEligibleGear.get(option.describe()).has(item)) {
-                this.optionToEligibleGear.get(option.describe()).set(item, []);
+              const eligibleGearMap = this.optionToEligibleGear.get(option.describe());
+              if (eligibleGearMap) {
+                if (!eligibleGearMap.has(item)) {
+                  eligibleGearMap.set(item, []);
+                }
+                const gearCraftables = eligibleGearMap.get(item);
+                if (gearCraftables) {
+                  gearCraftables.push(matchingAugmentCraftable);
+                }
               }
-              this.optionToEligibleGear.get(option.describe()).get(item).push(matchingAugmentCraftable);
             }
           }
         }
@@ -149,7 +155,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     this.lockedMatches = this._sortByValue(this.lockedMatches);
   }
 
-  isRealType(bonusType) {
+  isRealType(bonusType: string) {
     return Affix.isRealType(bonusType);
   }
 
@@ -160,11 +166,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
 
   findMatchingValue(item: Item) {
     const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
-    let crafting = ret[0] || '';
+    let crafting = (ret && ret[0]) || '';
     if (crafting) {
       crafting = ' (' + crafting + ')';
     }
-    const value = ret[1] || '';
+    const value = (ret && ret[1]) || '';
 
     return [crafting, value];
   }

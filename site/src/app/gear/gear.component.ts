@@ -11,9 +11,9 @@ import { Item } from '../item';
     standalone: false
 })
 export class GearComponent implements OnInit {
-  @Input() data: Array<Item>;
-  @Input() onChange;
-  @Input() item;
+  @Input() data: Array<Item> = [];
+  @Input() onChange: ((value: any) => void) | null = null;
+  @Input() item: Item | null = null;
 
   constructor() { }
 

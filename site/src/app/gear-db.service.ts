@@ -26,13 +26,13 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   providedIn: 'root'
 })
 export class GearDbService {
-  private gear: Map<string, Array<Item>>;
-  private allGear: Map<string, Array<Item>>;
-  private craftingList: Map<string, Map<string, Craftable>>;
-  private cannithCraftingList: Map<string, (ml: number) => Craftable>;
+  private gear: Map<string, Array<Item>> = new Map<string, Array<Item>>();
+  private allGear: Map<string, Array<Item>> = new Map<string, Array<Item>>();
+  private craftingList: Map<string, Map<string, Craftable>> = new Map<string, Map<string, Craftable>>();
+  private cannithCraftingList: Map<string, (ml: number) => Craftable> = new Map<string, (ml: number) => Craftable>();
 
-  affixToBonusTypes: Map<string, Map<string, number>>;
-  bestValues: Map<any, number>;
+  affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+  bestValues: Map<any, number> = new Map<any, number>();
 
   constructor(
     public cannith: CannithService,
@@ -50,20 +50,30 @@ export class GearDbService {
     });
   }
 
-  _mergeAugmentLists(left, right) {
+  _mergeAugmentLists(left: string, right: string) {
     left = left + ' Augment Slot';
     right = right + ' Augment Slot';
 
     // Remove the empty item from the RHS so we don't end up with 2 of them
-    const rhsOptions = this.craftingList.get(right).get('*').options.slice(1)
-
-    this.craftingList.get(left).get('*').options = this.craftingList.get(left).get('*').options.concat(rhsOptions);
+    const rightCraftable = this.craftingList.get(right);
+    const rightWildcard = rightCraftable?.get('*');
+    const leftCraftable = this.craftingList.get(left);
+    const leftWildcard = leftCraftable?.get('*');
+    
+    if (rightWildcard && leftWildcard) {
+      const rhsOptions = rightWildcard.options.slice(1);
+      leftWildcard.options = leftWildcard.options.concat(rhsOptions);
+    }
   }
 
-  private _sortAugmentList(name) {
+  private _sortAugmentList(name: string) {
     name = name + ' Augment Slot';
-    this.craftingList.get(name).get('*').options = this.craftingList.get(name).get('*').options.sort((a, b) => {
-
+    const craftable = this.craftingList.get(name);
+    if (!craftable) return;
+    const wildcard = craftable.get('*');
+    if (!wildcard) return;
+    
+    wildcard.options = wildcard.options.sort((a, b) => {
       const aStr = a.name ? a.name : a.affixes[0] ? a.affixes[0].name : '';
       const bStr = b.name ? b.name : b.affixes[0] ? b.affixes[0].name : '';
 
@@ -74,11 +84,15 @@ export class GearDbService {
       const regexNumberAfterPlus = /.*\+([0-9]+)/
 
       // if a plus is found in the string, insert some zeros at the beginning of the number for sorting purposes
-      const aStrPadded = aStr.match(regexBeforePlus) ? aStr.match(regexBeforePlus)[1] + aStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : aStr
-      const bStrPadded = bStr.match(regexBeforePlus) ? bStr.match(regexBeforePlus)[1] + bStr.match(regexNumberAfterPlus)[1].padStart(4, '0') : bStr
+      const aMatch = aStr.match(regexBeforePlus);
+      const aNumberMatch = aStr.match(regexNumberAfterPlus);
+      const aStrPadded = aMatch && aNumberMatch ? aMatch[1] + aNumberMatch[1].padStart(4, '0') : aStr;
+      
+      const bMatch = bStr.match(regexBeforePlus);
+      const bNumberMatch = bStr.match(regexNumberAfterPlus);
+      const bStrPadded = bMatch && bNumberMatch ? bMatch[1] + bNumberMatch[1].padStart(4, '0') : bStr;
 
       return aStrPadded.localeCompare(bStrPadded);
-
     });
   }
 
@@ -86,16 +100,19 @@ export class GearDbService {
     // The craftables come in as raw JSON, but we'd really like them as their proper types. Build that now.
     this.craftingList = new Map<string, Map<string, Craftable>>();
 
-    Object.keys(craftingListRaw).forEach((key) => {
+    const rawData = craftingListRaw as Record<string, Record<string, any>>;
+    Object.keys(rawData).forEach((key) => {
       const innerMap = new Map<string, Craftable>();
-      Object.keys(craftingListRaw[key]).forEach((innerKey) => {
+      const keyData = rawData[key];
+      Object.keys(keyData).forEach((innerKey) => {
         // HACK! I probably need to fix the JSON format to remove this
         if (innerKey === 'hiddenFromAffixSearch') {
           return;
         }
 
-        const options = Array.prototype.map.call(craftingListRaw[key][innerKey], (option) => new CraftableOption(option));
-        const craftable = new Craftable(key, options, craftingListRaw[key][innerKey]['hiddenFromAffixSearch']);
+        const rawOptions = keyData[innerKey] as Array<any>;
+        const options = rawOptions.map((option: any) => new CraftableOption(option));
+        const craftable = new Craftable(key, options, (keyData[innerKey] as any)['hiddenFromAffixSearch']);
         innerMap.set(innerKey, craftable);
       });
       this.craftingList.set(key, innerMap);
@@ -154,13 +171,18 @@ export class GearDbService {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
           if (craftingSystem && craftingSystem.startsWith('Cannith: ')) {
-            craftingOptions.push(this.cannithCraftingList.get(craftingSystem)(newItem.ml));
+            const craftingFn = this.cannithCraftingList.get(craftingSystem);
+            if (craftingFn) {
+              craftingOptions.push(craftingFn(newItem.ml));
+            }
           } else if (craftingSystem && this.craftingList.get(craftingSystem)) {
             const baseName = item.name.replace(' [Crafted]', '');
             const systemCraftables = this.craftingList.get(craftingSystem);
-            let craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
-            if (craftable) {
-              craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
+            if (systemCraftables) {
+              let craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
+              if (craftable) {
+                craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
+              }
             }
           } else {
             // Not-yet-implemented crafting systems
@@ -170,24 +192,36 @@ export class GearDbService {
         newItem.crafting = craftingOptions;
       }
 
-      gear.get(item.slot).push(newItem);
+      const gearSlot = gear.get(item.slot);
+      if (gearSlot) {
+        gearSlot.push(newItem);
+      }
     }
 
-    const ring2 = [];
-    for (const item of gear.get('Ring1')) {
-      const newItem = new Item(item);
-      newItem.slot = 'Ring2';
-      ring2.push(newItem);
+    const ring1Items = gear.get('Ring1');
+    if (ring1Items) {
+      const ring2 = [];
+      for (const item of ring1Items) {
+        const newItem = new Item(item);
+        newItem.slot = 'Ring2';
+        ring2.push(newItem);
+      }
+      gear.set('Ring2', ring2);
     }
-    gear.set('Ring2', ring2);
 
     const offhand = [];
-    for (const item of gear.get('Weapon')) {
-      const newItem = new Item(item);
-      newItem.slot = 'Offhand';
-      offhand.push(newItem);
+    const weaponItems = gear.get('Weapon');
+    if (weaponItems) {
+      for (const item of weaponItems) {
+        const newItem = new Item(item);
+        newItem.slot = 'Offhand';
+        offhand.push(newItem);
+      }
     }
-    gear.set('Offhand', gear.get('Offhand').concat(offhand));
+    const offhandItems = gear.get('Offhand');
+    if (offhandItems) {
+      gear.set('Offhand', offhandItems.concat(offhand));
+    }
 
     this.filters.setMaxLevel(maxLevel);
 
@@ -224,8 +258,9 @@ export class GearDbService {
       }
     }
 
-    for (const setName of Object.getOwnPropertyNames(setList)) {
-      for (const threshold of setList[setName]) {
+    const rawSetList = setList as Record<string, any[]>;
+    for (const setName of Object.getOwnPropertyNames(rawSetList)) {
+      for (const threshold of rawSetList[setName]) {
         this._addAffixesToMap(threshold.affixes);
       }
     }
@@ -251,7 +286,7 @@ export class GearDbService {
     return gear;
   }
 
-  private _buildCannithItems(gear, maxLevel) {
+  private _buildCannithItems(gear: Map<string, Array<Item>>, maxLevel: number) {
     for (const slot of gear.keys()) {
       let cannithSlots = null;
       switch (slot) {
@@ -270,7 +305,8 @@ export class GearDbService {
       }
 
       for (const cannithSlot of cannithSlots) {
-        const locations = cannithList['itemTypes'][cannithSlot];
+        const cannithData = cannithList as Record<string, any>;
+        const locations = cannithData['itemTypes']?.[cannithSlot];
         if (locations) {
           const ml = maxLevel;
           const craftingOptions = this.cannith.getValuesForML(cannithSlot, ml);
@@ -280,7 +316,10 @@ export class GearDbService {
           cannithBlank.slot = slot;
           cannithBlank.name = 'Cannith ' + cannithSlot;
           cannithBlank.crafting = craftingOptions;
-          gear.get(cannithBlank.slot).push(cannithBlank);
+          const slotItems = gear.get(cannithBlank.slot);
+          if (slotItems) {
+            slotItems.push(cannithBlank);
+          }
         }
       }
     }
@@ -306,6 +345,7 @@ export class GearDbService {
       }
 
       const typeMap = this.affixToBonusTypes.get(affix.name);
+      if (!typeMap) continue;
 
       const bestVal = typeMap.get(affix.type);
       if (!bestVal || bestVal < affix.value) {
@@ -323,7 +363,7 @@ export class GearDbService {
   }
 
   getGearBySlot(type: string) {
-    return this.allGear.get(type);
+    return this.allGear.get(type) || [];
   }
 
   private getSortIndex(slot: string) {
@@ -350,11 +390,12 @@ export class GearDbService {
   }
 
   findGearBySlot(type: string, name: string) {
-    return this.getGearBySlot(type).find(e => e.name === name);
+    const slotItems = this.getGearBySlot(type);
+    return slotItems ? slotItems.find(e => e.name === name) : undefined;
   }
 
-  findGearWithAffixAndType(affixName, bonusType) {
-    const results = [];
+  findGearWithAffixAndType(affixName: string, bonusType: string) {
+    const results: any[] = [];
     for (const items of this.gear.values()) {
       for (const item of items) {
         if (item.canHaveBonusType(affixName, bonusType, this.affixSvc)) {
@@ -367,7 +408,7 @@ export class GearDbService {
   }
 
   findGearInSet(setName: string) {
-    const results = [];
+    const results: any[] = [];
 
     if (!setName) {
       return results;
@@ -384,11 +425,12 @@ export class GearDbService {
     return results;
   }
 
-  findSetsWithAffixAndType(affixName, bonusType) {
-    const results = [];
+  findSetsWithAffixAndType(affixName: string, bonusType: string) {
+    const results: any[] = [];
 
-    for (const setName of Object.getOwnPropertyNames(setList)) {
-      for (const threshold of setList[setName]) {
+    const rawSetList = setList as Record<string, any[]>;
+    for (const setName of Object.getOwnPropertyNames(rawSetList)) {
+      for (const threshold of rawSetList[setName]) {
         for (const affix of threshold.affixes) {
           if (affix.name === affixName && affix.type === bonusType) {
             results.push([setName, threshold.threshold, affix.value]);
@@ -400,11 +442,15 @@ export class GearDbService {
     return results;
   }
 
-  findAugmentsWithAffixAndType(affixName, bonusType): Array<Craftable> {
-    let results = [];
+  findAugmentsWithAffixAndType(affixName: string, bonusType: string): Array<Craftable> {
+    let results: Craftable[] = [];
     const augmentTypes = Array.from(this.craftingList.keys()).filter(c => c.endsWith(' Augment Slot'));
     for (const augmentType of augmentTypes) {
-      const augments = this.craftingList.get(augmentType).get('*').options;
+      const craftable = this.craftingList.get(augmentType);
+      if (!craftable) continue;
+      const wildcard = craftable.get('*');
+      if (!wildcard) continue;
+      const augments = wildcard.options;
 
       // Filter the augments to only those that have the affix and type we are looking for
       let filteredAugments = augments.filter(aug => aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)) as CraftableOption[];
@@ -456,7 +502,8 @@ export class GearDbService {
   }
 
   getTypesForAffix(affixName: string) {
-    return Array.from(this.affixToBonusTypes.get(affixName).keys());
+    const outermap = this.affixToBonusTypes.get(affixName);
+    return outermap ? Array.from(outermap.keys()) : [];
   }
 
   getBestValueForAffixType(affixName: string, affixType: string) {
@@ -464,7 +511,7 @@ export class GearDbService {
     if (!outermap) {
       return 0;
     }
-    return outermap.get(affixType);
+    return outermap.get(affixType) || 0;
   }
 
   getBestValueForAffix(affixName: string) {
@@ -506,9 +553,10 @@ export class GearDbService {
 
   getSetBonus(set: string, numPieces: number) {
     const bonuses = new Array<Affix>();
+    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
 
-    if (setList[set]) {
-      for (const data of setList[set]) {
+    if (setData) {
+      for (const data of setData) {
         if (Number(data.threshold) <= numPieces) {
           for (const affix of data.affixes) {
             bonuses.push(new Affix(affix));
@@ -521,8 +569,9 @@ export class GearDbService {
 
   getSetBonusThresholds(set: string) {
     const thresholds = new Array<number>();
-    if (setList[set]) {
-      for (const data of setList[set]) {
+    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
+    if (setData) {
+      for (const data of setData) {
         thresholds.push(data.threshold);
       }
       thresholds.sort((a, b) => a - b);

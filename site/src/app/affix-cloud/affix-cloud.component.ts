@@ -31,10 +31,10 @@ export class AffixCloudComponent implements OnInit {
 
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
   packages = new Map<string, Array<string>>();
-  packageKeys = [];
+  packageKeys: string[] = [];
 
   spellpowerPackages = new Map<string, Array<string>>();
-  spellpowerPackageKeys = [];
+  spellpowerPackageKeys: string[] = [];
 
   constructor(
     public equipped: EquippedService,
@@ -53,7 +53,7 @@ export class AffixCloudComponent implements OnInit {
 
     const gearList = gearDB.getGearList();
 
-    let flatList = [];
+    let flatList: any[] = [];
     for (const entry of gearList.entries()) {
       // Skip Weapon and Ring2 to avoid double counting since Offhand is offhand + weapon and ring2 is just ring1
       if (entry[0] === 'Weapon' || entry[0] === 'Ring2') {
@@ -113,8 +113,8 @@ export class AffixCloudComponent implements OnInit {
       return 'btn';
     }
     const maxVal = sortedResults[0][1];
-    const myVal = this.workingMap.get(result[0]);
-    if (myVal < maxVal / 3) {
+    const myVal = this.workingMap.get(result);
+    if (myVal === undefined || myVal < maxVal / 3) {
       return 'btn-sm';
     } else if (myVal > 2 / 3 * maxVal) {
       return 'btn-lg';
@@ -130,8 +130,11 @@ export class AffixCloudComponent implements OnInit {
       this.showSpellSchools = true;
       this.showSpellpowers = true;
     }
-    for (const affix of this.packages.get(pkg)) {
-      this.add(affix);
+    const packageAffixes = this.packages.get(pkg);
+    if (packageAffixes) {
+      for (const affix of packageAffixes) {
+        this.add(affix);
+      }
     }
   }
 
@@ -144,8 +147,11 @@ export class AffixCloudComponent implements OnInit {
   }
 
   addSpellpower(spellpower: string) {
-    for (const affix of this.spellpowerPackages.get(spellpower)) {
-      this.add(affix);
+    const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
+    if (spellpowerAffixes) {
+      for (const affix of spellpowerAffixes) {
+        this.add(affix);
+      }
     }
   }
 

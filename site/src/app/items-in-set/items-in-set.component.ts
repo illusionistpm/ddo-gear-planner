@@ -13,10 +13,10 @@ import { Item } from '../item';
     standalone: false
 })
 export class ItemsInSetComponent implements OnInit {
-  @Input() setName: string;
+  @Input() setName!: string;
 
-  matches: Array<Item>;
-  lockedMatches: Array<Item>;
+  matches!: Array<Item>;
+  lockedMatches!: Array<Item>;
 
   constructor(
     public gearDB: GearDbService,

@@ -50,15 +50,15 @@ export class CannithService {
     return this._getOptionsForItemSlot(itemType, cannithSlot, ml);
   }
 
-  getAllAffixesForML(ml: number) {
-    let affixes = [];
-    const itemTypes = Object.keys(cannithList['itemTypes']);
+  getAllAffixesForML(ml: number): Array<Affix> {
+    let affixes: Array<Affix> = [];
+    const itemTypes = Object.keys(cannithList['itemTypes'] as Record<string, any>);
     for (const itemType of itemTypes) {
       const craftables = this._getOptionsForItemType(itemType, ml);
-      affixes = craftables.reduce((accum, a) =>
-        accum.concat(a.options.reduce((accum, b) =>
-          accum.concat(b.affixes),
-          [])), []);
+      affixes = craftables.reduce((accum: Array<Affix>, a: Craftable) =>
+        accum.concat(a.options.reduce((innerAccum: Array<Affix>, b: CraftableOption) =>
+          innerAccum.concat(b.affixes),
+          [] as Array<Affix>)), [] as Array<Affix>);
     }
     return affixes;
   }
@@ -74,19 +74,22 @@ export class CannithService {
   }
 
   private _getOptionsForItemSlot(itemType: string, cannithSlot: string, ml: number): Craftable {
-    const affixList = cannithList['itemTypes'][itemType][cannithSlot];
+    const cannithData = cannithList as Record<string, any>;
+    const affixList = (cannithData['itemTypes']?.[itemType]?.[cannithSlot] ?? []) as Array<string>;
     
-    const slotOptions = [];
+    const slotOptions: Array<CraftableOption> = [];
     for (let affix of affixList) {
       const option = new CraftableOption(null);
-      const value = cannithList['progression'][affix][ml - 1];
+      const progression = cannithData['progression'] as Record<string, Array<number>>;
+      const value = (progression[affix]?.[ml - 1] ?? 0) as number;
       let type = 'Enhancement';
       
       if (affix.startsWith('Insightful')) {
         affix = affix.replace('Insightful ', '');
         type = 'Insight';
       } else {
-        const bonusType = cannithList['bonusTypes'][affix];
+        const bonusTypes = cannithData['bonusTypes'] as Record<string, string>;
+        const bonusType = bonusTypes[affix];
         if (bonusType) {
           type = bonusType;
         }

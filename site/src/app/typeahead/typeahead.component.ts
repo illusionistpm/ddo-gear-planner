@@ -10,16 +10,16 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
     standalone: false
 })
 export class TypeaheadComponent implements OnInit {
-  @Input() source;
-  @Input() item;
-  @Input() onChange: (val: string) => any;
-  @Input() placeholder: string;
-  @Input() resultFormatter: (x: any) => string;
-  @Input() inputClass: string;
+  @Input() source: any;
+  @Input() item: any;
+  @Input() onChange!: (val: string) => any;
+  @Input() placeholder!: string;
+  @Input() resultFormatter!: (x: any) => string;
+  @Input() inputClass!: string;
 
-  @ViewChild('inputElement', { static: true }) inputElement: ElementRef;
+  @ViewChild('inputElement', { static: true }) inputElement!: ElementRef;
 
-  itemName: string;
+  itemName!: string;
 
   formatter = (x: { name: string }) => x.name;
 
@@ -28,10 +28,10 @@ export class TypeaheadComponent implements OnInit {
       debounceTime(200),
       distinctUntilChanged(),
       map(term => {
-        return this.source.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || (v.synonyms && v.synonyms.some(x => x.toLowerCase().indexOf(term.toLowerCase()) > -1)))
+        return this.source.filter((v: any) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || (v.synonyms && v.synonyms.some((x: any) => x.toLowerCase().indexOf(term.toLowerCase()) > -1)))
         // If the entry has any synonyms, search on them as well. If they match, we want to show an entry like "Canonical Text (Synonym)".
         // If we matched on a synonym, we also add another field to the response, 'original', which is the canonical name.
-        .map(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ? v : {name: `${v.name} (${v.synonyms.find(x => x.toLowerCase().indexOf(term.toLowerCase()) > -1)})`, original: v.name })
+        .map((v: any) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ? v : {name: `${v.name} (${v.synonyms.find((x: any) => x.toLowerCase().indexOf(term.toLowerCase()) > -1)})`, original: v.name })
         .sort(this._sortResults(term)).slice(0, 6)
       })
       );
@@ -40,7 +40,7 @@ export class TypeaheadComponent implements OnInit {
 
   ngOnInit() {
     if (this.item) {
-      this.item.subscribe(v => {
+      this.item.subscribe((v: any) => {
         if (v) {
           this.itemName = v.name;
         }
@@ -48,7 +48,7 @@ export class TypeaheadComponent implements OnInit {
     }
   }
 
-  onSelectItemMine(e) {
+  onSelectItemMine(e: any) {
     this.onChange(e.item);
     setTimeout(() => {
       this.itemName = '';
@@ -58,10 +58,10 @@ export class TypeaheadComponent implements OnInit {
     }, 0);
   }
 
-  _getSortIndex(term: string, str) {
+  _getSortIndex(term: string, str: any) {
     const split = str.name.split(' ');
 
-    const matches = split.filter(v => v.toLowerCase().startsWith(term.toLowerCase()));
+    const matches = split.filter((v: any) => v.toLowerCase().startsWith(term.toLowerCase()));
     let index = split.indexOf(matches[0]);
     if (index < 0) {
       index = 999;
@@ -70,7 +70,7 @@ export class TypeaheadComponent implements OnInit {
   }
 
   _sortResults(term: string) {
-    return (a, b) => {
+    return (a: any, b: any) => {
       const aIndex = this._getSortIndex(term, a);
       const bIndex = this._getSortIndex(term, b);
 

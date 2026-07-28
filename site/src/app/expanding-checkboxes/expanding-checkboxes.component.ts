@@ -8,10 +8,10 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
     standalone: false
 })
 export class ExpandingCheckboxesComponent implements OnInit {
-  @Input() title: string;
-  @Input() list: Array<{name: string, value: boolean}>;
-  @Input() invert: boolean;
-  @Input() onChangeFn: (list: Array<{name: string, value: boolean}>) => void;
+  @Input() title: string = '';
+  @Input() list: Array<{name: string, value: boolean}> = [];
+  @Input() invert: boolean = false;
+  @Input() onChangeFn: (list: Array<{name: string, value: boolean}>) => void = () => {};
 
   constructor() { }
 

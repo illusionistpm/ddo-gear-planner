@@ -133,7 +133,7 @@ export class AffixUiService {
     return affixRank;
   }
 
-  private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } {
+  private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } | null {
     if (!setName) {
       return null;
     }

@@ -63,7 +63,7 @@ export class AffixCloud {
         return this.cloud.get(affix);
     }
 
-    merge(set1, set2) {
+    merge(set1: Map<string, number>, set2: Map<string, number>): Map<string, number> {
         const result = set1;
         for (const pair of set2.entries()) {
             let count = set1.get(pair[0]);

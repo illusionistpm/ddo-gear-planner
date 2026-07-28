@@ -1,12 +1,12 @@
 import { Affix } from './affix';
 
 export class CraftableOption {
-    affixes: Array<Affix>;
-    set: string;
-    name: string;
-    ml: number;
+    affixes: Array<Affix> = new Array<Affix>();
+    set: string = '';
+    name: string = '';
+    ml: number = 0;
 
-    constructor(json) {
+    constructor(json: any) {
         this.affixes = new Array<Affix>();
 
         if (json) {
@@ -43,7 +43,7 @@ export class CraftableOption {
         return '';
     }
 
-    getMatchingBonusType(affixName, bonusType) {
+    getMatchingBonusType(affixName: string, bonusType: string): number | null {
         if (this.affixes) {
             for (const affix of this.affixes) {
                 if (affix.name === affixName && affix.type === bonusType) {

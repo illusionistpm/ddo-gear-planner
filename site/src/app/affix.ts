@@ -1,17 +1,17 @@
 export class Affix {
-    name: string;
-    value: number;
-    type: string;
-    description: string;
+    name: string = '';
+    value: number = 0;
+    type: string = '';
+    description: string = '';
 
     static isRealType(type: string) {
         return type !== 'Bool';
     }
 
-    constructor(json) {
-        this.name = json.name;
-        this.value = Number(json.value);
-        this.type = json.type;
+    constructor(json: any) {
+        this.name = json?.name ?? '';
+        this.value = Number(json?.value ?? 0);
+        this.type = json?.type ?? '';
     }
 
     hasRealType() {

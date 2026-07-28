@@ -89,17 +89,17 @@ export class FiltersService {
     this._updateRouterState();
   }
 
-  updateFromParams(params) {
+  updateFromParams(params: any) {
     for (const key of params.keys) {
       if (key === 'levelrange') {
-        const vals = params.get(key).split(',');
-        this.setLevelRange(vals[0], vals[1]);
+        const vals = (params.get(key) as string).split(',');
+        this.setLevelRange(Number(vals[0]), Number(vals[1]));
       } else if (key === 'raids') {
         this.setShowRaidItems(params.get(key) === 'true');
       } else if (key === 'hiddentypes') {
-        const vals = params.get(key).split(',');
+        const vals = (params.get(key) as string).split(',');
         const hiddenTypes = new Set<string>();
-        vals.forEach(element => {
+        vals.forEach((element: string) => {
           hiddenTypes.add(element);
         });
         this.setHiddenTypes(hiddenTypes);
@@ -108,7 +108,7 @@ export class FiltersService {
   }
 
   _updateRouterState() {
-    const params = {};
+    const params: Record<string, string | boolean> = {};
     params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
     params['raids'] = this.itemFilters.getValue().showRaidItems;
     params['hiddentypes'] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');

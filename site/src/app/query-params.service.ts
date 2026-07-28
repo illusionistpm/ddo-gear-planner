@@ -23,8 +23,8 @@ export class QueryParamsService {
     this.paramsFromCode = new Map<any, any>();
   }
 
-  _makeNavigateFn(pair) {
-    return (val) => {
+  _makeNavigateFn(pair: any) {
+    return (val: any) => {
         this.paramsFromCode.set(pair[0], val);
 
         let combinedParams = {};
@@ -39,7 +39,7 @@ export class QueryParamsService {
     }
 
   // Called by the app when the page is loaded
-  updateFromParams(params) {
+  updateFromParams(params: any) {
     if (this.initialPageLoad) {
       this.initialPageLoad = false;
 
@@ -65,7 +65,7 @@ export class QueryParamsService {
   }
 
   // Call to be notified when the params change
-  subscribe(listener) {
+  subscribe(listener: any) {
     this.updateListeners.push(listener);
   }
 }

@@ -46,7 +46,7 @@ export class AffixService {
     return affixes;
   }
 
-  resolvesToAffix(givenAffixName, targetAffixName): boolean {
+  resolvesToAffix(givenAffixName: string, targetAffixName: string): boolean {
     if (givenAffixName === targetAffixName) {
       return true;
     }
@@ -59,6 +59,10 @@ export class AffixService {
 
     const affixNames = this.affixGroups.get(resolvedName);
 
+    if (!affixNames) {
+      return false;
+    }
+
     for (const affixName of affixNames) {
       if (affixName === targetAffixName) {
         return true;
@@ -68,16 +72,16 @@ export class AffixService {
     return false;
   }
 
-  getResolvedAffixName(affixName): string {
-    return this.affixSynonyms.has(affixName) ? this.affixSynonyms.get(affixName) : affixName;
+  getResolvedAffixName(affixName: string): string {
+    return this.affixSynonyms.has(affixName) ? (this.affixSynonyms.get(affixName) || affixName) : affixName;
   }
 
-  getSynonyms(affixName): Array<string> {
-    return this.synonymsForAffix.has(affixName) ? this.synonymsForAffix.get(affixName) : [];
+  getSynonyms(affixName: string): Array<string> {
+    return this.synonymsForAffix.has(affixName) ? (this.synonymsForAffix.get(affixName) || []) : [];
   }
 
   flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
-    let flattened = [];
+    let flattened: Affix[] = [];
     for (const affix of affixes) {
       const ungroup = this.ungroupAffix(affix);
       if (ungroup) {

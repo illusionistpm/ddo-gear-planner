@@ -57,7 +57,7 @@ export class GearListComponent implements OnInit {
     });
   }
 
-  showSuggestedItems(slot) {
+  showSuggestedItems(slot: string) {
     const dlg = this.modalService.open(ItemSuggestionsComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.slot = slot;

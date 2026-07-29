@@ -1,7 +1,11 @@
 from bs4 import BeautifulSoup
 
 from parse_nearly_complete import get_nearly_complete_crafting_from_page
-from parse_items import crafting_system_sort_key, specialize_nearly_complete_crafting_for_item
+from parse_items import (
+    crafting_system_sort_key,
+    get_legendary_green_steel_crafting_systems,
+    specialize_nearly_complete_crafting_for_item,
+)
 
 
 def test_parse_nearly_complete_crafting_table():
@@ -106,4 +110,38 @@ def test_crafting_system_sort_order_puts_named_augments_after_other_systems():
         'Yellow Augment Slot',
         'Blue Augment Slot',
         'Colorless Augment Slot',
+    ]
+
+
+def test_get_legendary_green_steel_crafting_systems_uses_weapon_tiers_for_weapons():
+    item = {
+        'name': 'Legendary Green Steel Longsword',
+        'ml': 26,
+        'type': 'Long Swords',
+        'slot': 'Weapon',
+        'url': '/page/Item:Legendary_Green_Steel_Longsword',
+        'affixes': [],
+    }
+
+    assert get_legendary_green_steel_crafting_systems(item) == [
+        'T1 (Weapon)',
+        'T2 (Weapon)',
+        'T3 (Weapon)',
+    ]
+
+
+def test_get_legendary_green_steel_crafting_systems_uses_equipment_tiers_for_non_weapons():
+    item = {
+        'name': 'Legendary Green Steel Belt',
+        'ml': 26,
+        'type': 'Waist items',
+        'slot': 'Belt',
+        'url': '/page/Item:Legendary_Green_Steel_Belt',
+        'affixes': [],
+    }
+
+    assert get_legendary_green_steel_crafting_systems(item) == [
+        'T1 (Equipment)',
+        'T2 (Equipment)',
+        'T3 (Equipment)',
     ]

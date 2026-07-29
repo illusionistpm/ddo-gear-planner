@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import re
 from parse_affixes_from_cell import get_affix_map_list_from_tag
 from parse_affixes_from_cell import replace_item_set_affixes
+from parse_legendary_green_steel import postprocess_legendary_green_steel_augments
 from read_json import read_json
 from write_json import write_json
 
@@ -187,6 +188,7 @@ def parse_item_augment_page():
     item_augments = get_item_augments_from_page(soup)
 
     item_augments = replace_item_set_affixes(item_augments)
+    postprocess_legendary_green_steel_augments(item_augments)
 
     crafting = read_json('crafting')
 

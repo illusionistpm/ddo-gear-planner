@@ -85,6 +85,30 @@ def sort_item_crafting_systems(item: Item|SetAugment) -> None:
         item['crafting'].sort(key=crafting_system_sort_key)
 
 
+def get_legendary_green_steel_crafting_systems(item: Item|SetAugment) -> list[str]:
+    if not item['name'].startswith('Legendary Green Steel '):
+        return []
+
+    item_type = 'Weapon' if item['slot'] == 'Weapon' else 'Equipment'
+    return [
+        f'T1 ({item_type})',
+        f'T2 ({item_type})',
+        f'T3 ({item_type})',
+    ]
+
+
+def add_item_crafting_systems(item: Item|SetAugment, crafting_system_names: list[str]) -> None:
+    if not crafting_system_names:
+        return
+
+    if 'crafting' not in item:
+        item['crafting'] = []
+
+    for crafting_system_name in crafting_system_names:
+        if crafting_system_name not in item['crafting']:
+            item['crafting'].append(crafting_system_name)
+
+
 def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
     synonymMap = get_inverted_synonym_map()
 
@@ -386,6 +410,7 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         for affix in remove:
             item['affixes'].remove(affix)
 
+        add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
         sort_item_crafting_systems(item)
         items.append(item)
 

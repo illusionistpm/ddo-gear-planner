@@ -38,7 +38,7 @@ export class CraftableOption {
         } else if (this.set) {
             return this.set;
         } else if (this.affixes && this.affixes.length) {
-            return this.affixes[0].name + this.affixes[0].value;
+            return this.affixes.map(affix => affix.name + affix.value).join('|');
         }
         return '';
     }
@@ -62,15 +62,7 @@ export class CraftableOption {
             return this.set;
         }
         if (this.affixes && this.affixes.length) {
-            const affix = this.affixes[0];
-
-            let str = this.affixes[0].name
-            if (affix.hasRealType()) {
-                if (includeValue) {
-                    str += ' +' + this.affixes[0].value;
-                }
-                str += ' ' + this.affixes[0].type;
-            }
+            let str = this.affixes.map(affix => this.describeAffix(affix, includeValue)).join(', ');
 
             if (this.ml && includeML) {
                 str += ' (ML ' + this.ml + ')';
@@ -79,5 +71,16 @@ export class CraftableOption {
         } else {
             return '';
         }
+    }
+
+    private describeAffix(affix: Affix, includeValue: boolean = true) {
+        let str = affix.name;
+        if (affix.hasRealType()) {
+            if (includeValue) {
+                str += ' +' + affix.value;
+            }
+            str += ' ' + affix.type;
+        }
+        return str;
     }
 }

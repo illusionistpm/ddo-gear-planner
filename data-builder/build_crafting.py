@@ -1,5 +1,6 @@
 import json
 import os
+from copy import deepcopy
 from typing import TypedDict
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_slavers import parse_slavers_crafting
@@ -11,6 +12,12 @@ from typedefs import AffixesDict, SetDict
 
 SystemDict = TypedDict('SystemDict', { '*': list[AffixesDict|SetDict] })
 
+
+def add_sealed_in_fire_crafting(item_crafting: dict[str, SystemDict]) -> None:
+    if 'Sealed in Fire' not in item_crafting and 'Sealed in Mist' in item_crafting:
+        item_crafting['Sealed in Fire'] = deepcopy(item_crafting['Sealed in Mist'])
+
+
 def build_crafting() -> None:
     synonymMap = get_inverted_synonym_map()
 
@@ -18,6 +25,7 @@ def build_crafting() -> None:
     nearly_complete: dict[str, SystemDict] = parse_nearly_complete_crafting()
     slavers: dict[str, SystemDict] = parse_slavers_crafting()
     item_crafting: dict[str, SystemDict] = get_item_crafting()
+    add_sealed_in_fire_crafting(item_crafting)
 
     combined: dict[str, SystemDict] = {}
     combined.update(nearlyFinished)

@@ -94,16 +94,16 @@ export class AffixCloudComponent implements OnInit {
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());
 
-    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal', 'Positive Spell Crit Damage']);
-    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Force and Physical Spell Crit Damage']);
-    this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Spell Crit Damage']);
-    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Cold Spell Crit Damage']);
-    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Electric Spell Crit Damage']);
-    this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Spell Crit Damage']);
-    this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Negative Spell Crit Damage']);
-    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Light and Alignment Spell Crit Damage']);
-    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore', 'Repair Spell Crit Damage']);
-    this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Spell Crit Damage']);
+    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal', 'Healing Intensity']);
+    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Kinetic Intensity']);
+    this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Intensity']);
+    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Ice Intensity']);
+    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Lightning Intensity']);
+    this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Intensity']);
+    this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Void Intensity']);
+    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Radiance Intensity']);
+    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore', 'Repair Intensity']);
+    this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Intensity']);
     this.spellpowerPackageKeys = Array.from(this.spellpowerPackages.keys());
   }
 

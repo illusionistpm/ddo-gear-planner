@@ -5,6 +5,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_slavers import parse_slavers_crafting
 from write_json import write_json
 from get_item_crafting import get_item_crafting
+from parse_nearly_complete import parse_nearly_complete_crafting
 
 from typedefs import AffixesDict, SetDict
 
@@ -14,11 +15,13 @@ def build_crafting() -> None:
     synonymMap = get_inverted_synonym_map()
 
     nearlyFinished: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
+    nearly_complete: dict[str, SystemDict] = parse_nearly_complete_crafting()
     slavers: dict[str, SystemDict] = parse_slavers_crafting()
     item_crafting: dict[str, SystemDict] = get_item_crafting()
 
     combined: dict[str, SystemDict] = {}
     combined.update(nearlyFinished)
+    combined.update(nearly_complete)
     combined.update(slavers)
     combined.update(item_crafting)
 

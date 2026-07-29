@@ -42,6 +42,49 @@ def build_cat_map() -> CatMap:
     return catMap
 
 
+def specialize_nearly_complete_crafting_for_item(craftingSystems: CraftingSystems, crafting_system_name: str, item: Item|SetAugment) -> None:
+    if not crafting_system_name.startswith('Nearly Complete: '):
+        return
+
+    system = craftingSystems.get(crafting_system_name)
+    wildcard_options = system.get('*') if isinstance(system, dict) else None
+    if not isinstance(wildcard_options, list):
+        return
+
+    item_options = [
+        {key: value for key, value in option.items() if key != 'ml'}
+        for option in wildcard_options
+        if isinstance(option, dict) and option.get('ml') == item['ml']
+    ]
+    if item_options:
+        system[item['name']] = item_options
+
+
+CRAFTING_SYSTEM_ORDER = {
+    'Sun Augment Slot': 0,
+    'Moon Augment Slot': 1,
+    'Green Augment Slot': 2,
+    'Orange Augment Slot': 3,
+    'Purple Augment Slot': 4,
+    'Red Augment Slot': 5,
+    'Yellow Augment Slot': 6,
+    'Blue Augment Slot': 7,
+    'Colorless Augment Slot': 8,
+}
+
+
+def crafting_system_sort_key(crafting_system_name: str) -> tuple[int, str|int]:
+    if crafting_system_name in CRAFTING_SYSTEM_ORDER:
+        return (1, CRAFTING_SYSTEM_ORDER[crafting_system_name])
+
+    return (0, crafting_system_name.lower())
+
+
+def sort_item_crafting_systems(item: Item|SetAugment) -> None:
+    if 'crafting' in item:
+        item['crafting'].sort(key=crafting_system_sort_key)
+
+
 def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
     synonymMap = get_inverted_synonym_map()
 
@@ -310,6 +353,7 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 
                 assert 'crafting' in item
                 item['crafting'].append(affix['name'])
+                specialize_nearly_complete_crafting_for_item(craftingSystems, affix['name'], item)
                 remove.append(affix)
 
             # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
@@ -342,6 +386,7 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         for affix in remove:
             item['affixes'].remove(affix)
 
+        sort_item_crafting_systems(item)
         items.append(item)
 
         # Post-process craftable items
@@ -384,6 +429,7 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
             craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
             craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
 
+            sort_item_crafting_systems(craftedItem)
             items.append(craftedItem)
 
     return items

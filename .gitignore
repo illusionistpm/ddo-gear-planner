@@ -1,5 +1,6 @@
 .vscode/
-data-builder/__pycache__/
+**/__pycache__/
 data-builder/cache/
+data-builder/reports/
 ~$*.xlsx
 *:Zone.Identifier

@@ -209,7 +209,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # Ignore child lists, which are typically lists of possible attributes,
     # such as for https://ddowiki.com/page/Item:The_Admiral_of_Bling
-    for child in tag.findChildren('li'):
+    for child in tag.find_all('li'):
         child.decompose()
 
     affixName = tag.getText()

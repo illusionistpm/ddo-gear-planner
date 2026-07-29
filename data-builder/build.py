@@ -13,8 +13,25 @@ from get_output_path import get_output_path
 from parse_item_types import parse_item_types
 import requests
 from parse_quests import parse_quests
+import subprocess
+import sys
+import os
 
 def build_data(clearCache, discordURL):
+    # Run unit tests first; fail the build if tests fail.
+    try:
+        print('Running unit tests...')
+        tests_dir = os.path.join(os.path.dirname(__file__), 'tests')
+        result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q'])
+        if result.returncode != 0:
+            print('Unit tests failed. Aborting data build.')
+            raise SystemExit(result.returncode)
+        print('Unit tests passed.')
+    except FileNotFoundError:
+        # If pytest isn't available, surface a clear error
+        print('pytest not found in environment. Ensure dependencies are installed.')
+        raise
+
     oldStats = get_data_stats()
 
     if clearCache:

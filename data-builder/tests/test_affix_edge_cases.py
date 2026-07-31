@@ -68,6 +68,26 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Evil Outsider Bane', 'type': 'Bool', 'value': 1},
         ),
         (
+            '<li>Feybane 2</li>',
+            {'name': 'Feybane', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li>Poisonous 3</li>',
+            {'name': 'Poisonous', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li>Destructive Acid +2</li>',
+            {'name': 'Destructive Acid', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li>Holy Burst 4</li>',
+            {'name': 'Holy Burst', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Heartseeker IV<span class="tooltip">Heartseeker IV: On Critical Hit: 9 to 54 Piercing damage from weapons with a x2 Critical Multiplier.</span></span></li>',
+            {'name': 'Heartseeker', 'type': 'Bool', 'value': 1},
+        ),
+        (
             '<li><span class="has_tooltip">Magical Efficiency 5%<span class="tooltip">Magical Efficiency 5%: You take a 5% Enhancement discount to the Spell Point cost of your spells.</span></span></li>',
             {'name': 'Magical Efficiency', 'type': 'Enhancement', 'value': '5'},
         ),

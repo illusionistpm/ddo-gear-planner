@@ -57,6 +57,14 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'text': 'Combustion +32', 'tooltip': 'This grants a +32 Enhancement bonus to Fire Spell Power.'},
             {'name': 'Combustion', 'type': 'Enhancement', 'value': '32'},
         ),
+        (
+            {'text': 'Chilling 9', 'tooltip': 'Chilling 9: This weapon deals 9d6 Cold damage on each hit.'},
+            {'name': 'Chilling', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            {'text': 'Undead Bane 4', 'tooltip': 'Undead Bane 4: This weapon deals extra bane damage vs. Undead.'},
+            {'name': 'Undead Bane', 'type': 'Bool', 'value': 1},
+        ),
     ],
 )
 def test_convert_affix_text_map_parameterized_quality_fixtures(text_map, expected):

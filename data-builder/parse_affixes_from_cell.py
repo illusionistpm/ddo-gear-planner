@@ -71,6 +71,59 @@ def tooltip_bonus_targets_affix(words, affix_name):
     target = cleanup_whitespace(BeautifulSoup(search.group(1), 'html.parser').getText()).lower()
     return affix_name.lower() in target
 
+
+def is_weapon_damage_proc_affix(name):
+    if not isinstance(name, str):
+        return False
+
+    weapon_damage_proc_names = {
+        'Acid Blast',
+        'Acidic',
+        'Anarchic',
+        'Anarchic Blast',
+        'Banishing',
+        'Blazing',
+        'Bleeding',
+        'Bludgeoning',
+        'Chilling',
+        'Coruscating',
+        'Crushing',
+        'Disintegrate',
+        'Electrifying',
+        'Entropic',
+        'Evil Blast',
+        'Fiery',
+        'Flaming Blast',
+        'Force Blast',
+        'Gashing',
+        'Ghostbane',
+        'Holy',
+        'Impactful',
+        'Maiming',
+        'Piercing',
+        'Slashing',
+        'Smashing',
+        'Sonic Blast',
+        'Toxic',
+        'Unholy',
+        'Vampirism',
+        'Weakening',
+    }
+
+    return name in weapon_damage_proc_names or name.endswith(' Bane')
+
+
+def convert_weapon_damage_proc_to_bool(affix):
+    if (
+        isinstance(affix, dict)
+        and 'value' in affix
+        and 'type' not in affix
+        and is_weapon_damage_proc_affix(affix.get('name'))
+    ):
+        affix['type'] = 'Bool'
+        affix['value'] = 1
+    return affix
+
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
@@ -469,6 +522,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             aff['type'] = 'Enhancement'
             aff['value'] = tooltipSearch.group(1)
 
+    aff = convert_weapon_damage_proc_to_bool(aff)
+
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
 
@@ -796,6 +851,8 @@ def convert_affix_text_map_to_affix_map(textMap):
     # populate affix name with the string from 'text' field as a final catch
     if ('name' not in affixMap):
         affixMap['name'] = textMap['text']
+
+    affixMap = convert_weapon_damage_proc_to_bool(affixMap)
 
     # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
     if ('type' not in affixMap) and ('value' not in affixMap):

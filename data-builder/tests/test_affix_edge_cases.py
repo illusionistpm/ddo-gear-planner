@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import pytest
 
-from parse_affixes_from_cell import get_text_map_from_tag, convert_affix_text_map_to_affix_map, translate_list_tag_to_affix_map, get_fake_bonuses
+from parse_affixes_from_cell import get_text_map_from_tag, convert_affix_text_map_to_affix_map, translate_list_tag_to_affix_map, get_fake_bonuses, convert_weapon_damage_proc_to_bool
 
 
 def test_get_text_map_without_tooltip():
@@ -59,12 +59,24 @@ def test_translate_list_tag_detects_unique_property_required():
             '<li><span class="has_tooltip">Songblade <span class="tooltip">Songblade: +2 enhancement bonus to the Perform skill.</span></span></li>',
             {'name': 'Perform', 'type': 'Enhancement', 'value': '2'},
         ),
+        (
+            '<li>Holy 4</li>',
+            {'name': 'Holy', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li>Evil Outsider Bane 4</li>',
+            {'name': 'Evil Outsider Bane', 'type': 'Bool', 'value': 1},
+        ),
     ],
 )
 def test_translate_list_tag_parameterized_quality_fixtures(html, expected):
     li = BeautifulSoup(html, 'html.parser').li
     aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
     assert aff == expected
+
+
+def test_translate_list_tag_does_not_bool_weapon_proc_without_rank():
+    assert convert_weapon_damage_proc_to_bool({'name': 'Holy'}) == {'name': 'Holy'}
 
 
 def test_nested_crafting_option_keeps_multiple_affixes_grouped():

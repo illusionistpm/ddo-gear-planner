@@ -103,7 +103,6 @@ def is_weapon_damage_proc_affix(name):
         'Crushing',
         'Destructive Acid',
         'Disintegrate',
-        'Dazing',
         'Electrifying',
         'Energy Siphon',
         'Echoes of Angdrelve',
@@ -156,7 +155,6 @@ def is_weapon_damage_proc_affix(name):
         'Staggering',
         'Shrieking',
         'Sirocco',
-        'Sundering',
         'Tendon Slice',
         'Telekinetic',
         'The Dragging of the Depths',
@@ -179,7 +177,7 @@ def convert_weapon_damage_proc_to_bool(affix):
         isinstance(affix, dict)
         and 'value' in affix
         and 'type' not in affix
-        and (is_weapon_damage_proc_affix(affix.get('name')) or affix.get('name') == 'Improved Deception')
+        and is_weapon_damage_proc_affix(affix.get('name'))
     ):
         affix['type'] = 'Bool'
         affix['value'] = 1
@@ -211,6 +209,8 @@ def apply_known_affix_type_defaults(affix):
     elif name == 'Hardened Exterior':
         affix['type'] = 'Profane'
     elif name == 'Mystic Incite':
+        affix['type'] = 'Enhancement'
+    elif name == 'Improved Deception':
         affix['type'] = 'Enhancement'
     elif name in {
         'Arcane Augmentation',
@@ -624,6 +624,19 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     if aff['name'] == 'Striding' and 'type' not in aff:
         aff['type'] = 'Enhancement'
+
+    tooltipSearch = re.search(r'^.*?DC of the saving throw to resist .*? is increased by ([0-9]+).*$', words)
+    if aff['name'] in {'Dazing', 'Sundering'} and tooltipSearch:
+        aff['type'] = 'Enhancement'
+        aff['value'] = tooltipSearch.group(1)
+    elif aff['name'] in {'Dazing', 'Sundering'} and 'value' in aff and 'type' not in aff:
+        aff['type'] = 'Enhancement'
+        aff['value'] = str(int(aff['value']) * 2)
+
+    tooltipSearch = re.search(r'^.*?provides a \+([0-9]+) enhancement bonus to Bluff checks.*$', words)
+    if aff['name'] == 'Improved Deception' and tooltipSearch:
+        aff['type'] = 'Enhancement'
+        aff['value'] = tooltipSearch.group(1)
 
     aff = convert_weapon_damage_proc_to_bool(aff)
     aff = apply_known_affix_type_defaults(aff)

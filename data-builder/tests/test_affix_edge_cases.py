@@ -101,7 +101,7 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Improved Deception +9<span class="tooltip">Improved Deception: This item provides a +9 enhancement bonus to Bluff checks and your weapons have a chance to make the target vulnerable to sneak attacks.</span></span></li>',
-            {'name': 'Improved Deception', 'type': 'Bool', 'value': 1},
+            {'name': 'Improved Deception', 'type': 'Enhancement', 'value': '9'},
         ),
         (
             '<li><span class="has_tooltip">Good Blast 3<span class="tooltip">Good Blast 3: This weapon sings of virtue, dealing 3d6 Good damage on a successful hit, and an additional 3d6 Good damage on a critical hit.</span></span></li>',
@@ -113,7 +113,15 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Sundering V<span class="tooltip">Sundering V: On Hit: Your target suffers a -1 Penalty to Fortitude Saving Throws.</span></span></li>',
-            {'name': 'Sundering', 'type': 'Bool', 'value': 1},
+            {'name': 'Sundering', 'type': 'Enhancement', 'value': '10'},
+        ),
+        (
+            '<li><span class="has_tooltip">Sundering V<span class="tooltip">Sundering V: On Hit: Your target suffers a -1 Penalty to Fortitude Saving Throws for 6 seconds. Passive: The DC of the saving throw to resist your Sunder combat feats is increased by 10.</span></span></li>',
+            {'name': 'Sundering', 'type': 'Enhancement', 'value': '10'},
+        ),
+        (
+            '<li><span class="has_tooltip">Dazing IV<span class="tooltip">Dazing IV: On Hit: Your target suffers a -1 Penalty to Will Saving Throws for 6 seconds. Passive: The DC of the saving throw to resist your Stunning Blow and Stunning Fist combat feats is increased by 8.</span></span></li>',
+            {'name': 'Dazing', 'type': 'Enhancement', 'value': '8'},
         ),
         (
             '<li><span class="has_tooltip">Echoes of Angdrelve 6<span class="tooltip">Echoes of Angdrelve 6: Each strike from this weapon deals an additional 6d6 Acid damage on each hit.</span></span></li>',

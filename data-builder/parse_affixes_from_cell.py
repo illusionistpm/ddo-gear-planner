@@ -81,18 +81,25 @@ def is_weapon_damage_proc_affix(name):
         'Acidic',
         'Anarchic',
         'Anarchic Blast',
+        'Anarchic Burst',
+        'Axiomatic',
+        'Axiomatic Burst',
         'Banishing',
+        'Bashing',
         'Bloodletter',
         'Blazing',
         'Bleeding',
         'Bludgeoning',
         'Chilling',
         'Coruscating',
+        'Critical Befouling',
         'Crushing',
         'Destructive Acid',
         'Disintegrate',
         'Electrifying',
+        'Energy Siphon',
         'Entropic',
+        'Feeding',
         'Flaming',
         'Flaming Burst',
         'Evil Blast',
@@ -115,9 +122,12 @@ def is_weapon_damage_proc_affix(name):
         'Poison Blast',
         'Poisonous',
         'Reverberating',
+        'Screeching',
         'Shocking Blast',
         'Slashing',
         'Smashing',
+        'Solar',
+        'Solar Guard',
         'Sonic Blast',
         'Stabbing',
         'Tendon Slice',
@@ -164,9 +174,20 @@ def apply_known_affix_type_defaults(affix):
         'Efficient Metamagic - Quicken',
     }:
         affix['type'] = 'Enhancement'
-    elif name in {'Magical Efficiency', 'Wizardry'}:
+    elif name in {'Magical Efficiency', 'Power', 'Wizardry'}:
         affix['type'] = 'Enhancement'
-    elif name in {'Maximum Charge Tier', 'Craftable Rune Arm'} or name.startswith('Rune Arm Imbue: '):
+    elif name in {
+        'Arcane Augmentation',
+        'Arcane Casting Dexterity',
+        'Divine Augmentation',
+        'Extra Smites',
+        'Ki',
+        'Linguistics',
+        'Maximum Charge Tier',
+        'Smite Evil Charges',
+        'Craftable Rune Arm',
+        'Upgradeable - Tier',
+    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity'):
         affix['type'] = 'Untyped'
 
     return affix

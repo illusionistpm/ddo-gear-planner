@@ -84,8 +84,20 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Holy Burst', 'type': 'Bool', 'value': 1},
         ),
         (
+            '<li>Axiomatic 4</li>',
+            {'name': 'Axiomatic', 'type': 'Bool', 'value': 1},
+        ),
+        (
             '<li><span class="has_tooltip">Heartseeker IV<span class="tooltip">Heartseeker IV: On Critical Hit: 9 to 54 Piercing damage from weapons with a x2 Critical Multiplier.</span></span></li>',
             {'name': 'Heartseeker', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Energy Siphon V<span class="tooltip">Energy Siphon V: On Hit: Gain 25 Temporary Spellpoints which last for up to 1 minute.</span></span></li>',
+            {'name': 'Energy Siphon', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Solar Guard III<span class="tooltip">Solar Guard III: When Hit in Melee: Deals 3 to 12 Light damage to your attacker.</span></span></li>',
+            {'name': 'Solar Guard', 'type': 'Bool', 'value': 1},
         ),
         (
             '<li><span class="has_tooltip">Magical Efficiency 5%<span class="tooltip">Magical Efficiency 5%: You take a 5% Enhancement discount to the Spell Point cost of your spells.</span></span></li>',
@@ -98,6 +110,30 @@ def test_translate_list_tag_detects_unique_property_required():
         (
             '<li><span class="has_tooltip">Wizardry II<span class="tooltip">Wizardry II: This item grants the wearer +50 maximum spell points. Sorcerers and Favored Souls gain up to double spell points from items.</span></span></li>',
             {'name': 'Wizardry', 'type': 'Enhancement', 'value': '2'},
+        ),
+        (
+            '<li><span class="has_tooltip">Power I<span class="tooltip">Power I: This item grants the wearer +10 maximum spell points.</span></span></li>',
+            {'name': 'Power', 'type': 'Enhancement', 'value': '1'},
+        ),
+        (
+            '<li><span class="has_tooltip">Linguistics 10%<span class="tooltip">Linguistics: This item reduced the cooldowns of your Social skills by 10%.</span></span></li>',
+            {'name': 'Linguistics', 'type': 'Untyped', 'value': '10'},
+        ),
+        (
+            '<li><span class="has_tooltip">Enhanced Ki +3<span class="tooltip">Enhanced Ki +3: Increases the rate at which the user gains ki with each successful attack.</span></span></li>',
+            {'name': 'Ki', 'type': 'Untyped', 'value': '3'},
+        ),
+        (
+            '<li><span class="has_tooltip">Extra Smites 2<span class="tooltip">Extra Smites 2: +2 Smite Evil uses per rest. Smite Evil uses regenerate 10% faster.</span></span></li>',
+            {'name': 'Extra Smites', 'type': 'Untyped', 'value': '2'},
+        ),
+        (
+            '<li><span class="has_tooltip">Upgradeable - Tier 2<span class="tooltip">Upgradeable - Tier 2: This is a tier 2 upgradeable item.</span></span></li>',
+            {'name': 'Upgradeable - Tier', 'type': 'Untyped', 'value': '2'},
+        ),
+        (
+            '<li><span class="has_tooltip">Lesser Arcane Casting Dexterity<span class="tooltip">Lesser Arcane Casting Dexterity: This ability reduces the arcane spell failure chance by -5%.</span></span></li>',
+            {'name': 'Lesser Arcane Casting Dexterity', 'type': 'Untyped', 'value': '5'},
         ),
         (
             '<li>Maximum Charge Tier: III</li>',

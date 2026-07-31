@@ -100,6 +100,22 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Solar Guard', 'type': 'Bool', 'value': 1},
         ),
         (
+            '<li><span class="has_tooltip">Improved Deception +9<span class="tooltip">Improved Deception: This item provides a +9 enhancement bonus to Bluff checks and your weapons have a chance to make the target vulnerable to sneak attacks.</span></span></li>',
+            {'name': 'Improved Deception', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Good Blast 3<span class="tooltip">Good Blast 3: This weapon sings of virtue, dealing 3d6 Good damage on a successful hit, and an additional 3d6 Good damage on a critical hit.</span></span></li>',
+            {'name': 'Good Blast', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Paralyzing 45<span class="tooltip">Paralyzing 45: Any creature struck by this weapon must succeed on a DC 45 Will save or be paralyzed.</span></span></li>',
+            {'name': 'Paralyzing', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Sundering V<span class="tooltip">Sundering V: On Hit: Your target suffers a -1 Penalty to Fortitude Saving Throws.</span></span></li>',
+            {'name': 'Sundering', 'type': 'Bool', 'value': 1},
+        ),
+        (
             '<li><span class="has_tooltip">Magical Efficiency 5%<span class="tooltip">Magical Efficiency 5%: You take a 5% Enhancement discount to the Spell Point cost of your spells.</span></span></li>',
             {'name': 'Magical Efficiency', 'type': 'Enhancement', 'value': '5'},
         ),
@@ -134,6 +150,18 @@ def test_translate_list_tag_detects_unique_property_required():
         (
             '<li><span class="has_tooltip">Lesser Arcane Casting Dexterity<span class="tooltip">Lesser Arcane Casting Dexterity: This ability reduces the arcane spell failure chance by -5%.</span></span></li>',
             {'name': 'Lesser Arcane Casting Dexterity', 'type': 'Untyped', 'value': '5'},
+        ),
+        (
+            '<li><span class="has_tooltip">Lesser Arcane Augmentation I<span class="tooltip">Lesser Arcane Augmentation I: Increases the wearer\'s caster level when casting first level sorcerer or wizard spells by one.</span></span></li>',
+            {'name': 'Lesser Arcane Augmentation', 'type': 'Untyped', 'value': '1'},
+        ),
+        (
+            '<li><span class="has_tooltip">Spearblock V<span class="tooltip">Spearblock V: Passive: Reduces physical damage taken by 10, except from Bludgeoning or Slashing weapons.</span></span></li>',
+            {'name': 'Spearblock', 'type': 'Untyped', 'value': '5'},
+        ),
+        (
+            '<li><span class="has_tooltip">Negative Energy Absorption +20%<span class="tooltip">Negative Energy Absorption +20%: This effect absorbs 20% of all negative damage the character would have taken.</span></span></li>',
+            {'name': 'Negative Energy Absorption', 'type': 'Untyped', 'value': '20'},
         ),
         (
             '<li>Maximum Charge Tier: III</li>',

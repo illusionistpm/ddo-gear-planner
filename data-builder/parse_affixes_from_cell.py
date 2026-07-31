@@ -78,11 +78,14 @@ def is_weapon_damage_proc_affix(name):
 
     weapon_damage_proc_names = {
         'Acid Blast',
+        'Acid Guard',
         'Acidic',
+        'Acid',
         'Anarchic',
         'Anarchic Blast',
         'Anarchic Burst',
         'Axiomatic',
+        'Axiomatic Blast',
         'Axiomatic Burst',
         'Banishing',
         'Bashing',
@@ -96,6 +99,7 @@ def is_weapon_damage_proc_affix(name):
         'Crushing',
         'Destructive Acid',
         'Disintegrate',
+        'Dazing',
         'Electrifying',
         'Energy Siphon',
         'Entropic',
@@ -109,8 +113,11 @@ def is_weapon_damage_proc_affix(name):
         'Flaming Blast',
         'Force Blast',
         'Freezing',
+        'Fracturing',
+        'Frost',
         'Gashing',
         'Ghostbane',
+        'Good Blast',
         'Heartseeker',
         'Holy',
         'Holy Burst',
@@ -118,11 +125,17 @@ def is_weapon_damage_proc_affix(name):
         'Icy Blast',
         'Jolting',
         'Maiming',
+        'Negativity',
+        'Nightshade Venom',
+        'Paralyzing',
         'Piercing',
+        'Poison',
         'Poison Blast',
         'Poisonous',
         'Reverberating',
+        'Ribcracker',
         'Screeching',
+        'Shock',
         'Shocking Blast',
         'Slashing',
         'Smashing',
@@ -130,7 +143,10 @@ def is_weapon_damage_proc_affix(name):
         'Solar Guard',
         'Sonic Blast',
         'Stabbing',
+        'Shrieking',
+        'Sundering',
         'Tendon Slice',
+        'Tidal',
         'Toxic',
         'Unholy',
         'Unholy Burst',
@@ -147,7 +163,7 @@ def convert_weapon_damage_proc_to_bool(affix):
         isinstance(affix, dict)
         and 'value' in affix
         and 'type' not in affix
-        and is_weapon_damage_proc_affix(affix.get('name'))
+        and (is_weapon_damage_proc_affix(affix.get('name')) or affix.get('name') == 'Improved Deception')
     ):
         affix['type'] = 'Bool'
         affix['value'] = 1
@@ -184,10 +200,15 @@ def apply_known_affix_type_defaults(affix):
         'Ki',
         'Linguistics',
         'Maximum Charge Tier',
+        'Negative Energy Absorption',
+        'Raging Strength',
         'Smite Evil Charges',
         'Craftable Rune Arm',
         'Upgradeable - Tier',
-    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity'):
+        'Axeblock',
+        'Hammerblock',
+        'Spearblock',
+    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity') or name.endswith(' Arcane Augmentation'):
         affix['type'] = 'Untyped'
 
     return affix

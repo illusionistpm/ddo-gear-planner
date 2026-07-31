@@ -67,6 +67,26 @@ def test_translate_list_tag_detects_unique_property_required():
             '<li>Evil Outsider Bane 4</li>',
             {'name': 'Evil Outsider Bane', 'type': 'Bool', 'value': 1},
         ),
+        (
+            '<li><span class="has_tooltip">Magical Efficiency 5%<span class="tooltip">Magical Efficiency 5%: You take a 5% Enhancement discount to the Spell Point cost of your spells.</span></span></li>',
+            {'name': 'Magical Efficiency', 'type': 'Enhancement', 'value': '5'},
+        ),
+        (
+            '<li><span class="has_tooltip">Efficient Metamagic - Maximize II<span class="tooltip">Efficient Metamagic - Maximize II: The additional spell point cost for using the Maximize Metamagic feat is reduced by 4 SP.</span></span></li>',
+            {'name': 'Efficient Metamagic - Maximize', 'type': 'Enhancement', 'value': '2'},
+        ),
+        (
+            '<li><span class="has_tooltip">Wizardry II<span class="tooltip">Wizardry II: This item grants the wearer +50 maximum spell points. Sorcerers and Favored Souls gain up to double spell points from items.</span></span></li>',
+            {'name': 'Wizardry', 'type': 'Enhancement', 'value': '2'},
+        ),
+        (
+            '<li>Maximum Charge Tier: III</li>',
+            {'name': 'Maximum Charge Tier', 'type': 'Untyped', 'value': '3'},
+        ),
+        (
+            '<li><span class="has_tooltip">Rune Arm Imbue: Acid II<span class="tooltip">Rune Arm Imbue: Acid II: Wearing this Rune Arm will imbue any weapon you wield, dealing 2d4 points of Acid damage per hit.</span></span></li>',
+            {'name': 'Rune Arm Imbue: Acid', 'type': 'Untyped', 'value': '2'},
+        ),
     ],
 )
 def test_translate_list_tag_parameterized_quality_fixtures(html, expected):

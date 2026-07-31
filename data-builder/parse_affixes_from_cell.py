@@ -124,6 +124,35 @@ def convert_weapon_damage_proc_to_bool(affix):
         affix['value'] = 1
     return affix
 
+
+def apply_known_affix_type_defaults(affix):
+    if not isinstance(affix, dict) or 'type' in affix:
+        return affix
+
+    name = affix.get('name')
+    if not isinstance(name, str):
+        return affix
+
+    if name in {
+        'Efficient Metamagic - Embolden',
+        'Efficient Metamagic - Empower',
+        'Efficient Metamagic - Empower Healing',
+        'Efficient Metamagic - Enlarge',
+        'Efficient Metamagic - Extend',
+        'Efficient Metamagic - Heighten',
+        'Efficient Metamagic - Intensify',
+        'Efficient Metamagic - Maximize',
+        'Efficient Metamagic - Quicken',
+    }:
+        affix['type'] = 'Enhancement'
+    elif name in {'Magical Efficiency', 'Wizardry'}:
+        affix['type'] = 'Enhancement'
+    elif name in {'Maximum Charge Tier', 'Craftable Rune Arm'} or name.startswith('Rune Arm Imbue: '):
+        affix['type'] = 'Untyped'
+
+    return affix
+
+
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
@@ -523,6 +552,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             aff['value'] = tooltipSearch.group(1)
 
     aff = convert_weapon_damage_proc_to_bool(aff)
+    aff = apply_known_affix_type_defaults(aff)
 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
@@ -853,6 +883,7 @@ def convert_affix_text_map_to_affix_map(textMap):
         affixMap['name'] = textMap['text']
 
     affixMap = convert_weapon_damage_proc_to_bool(affixMap)
+    affixMap = apply_known_affix_type_defaults(affixMap)
 
     # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
     if ('type' not in affixMap) and ('value' not in affixMap):

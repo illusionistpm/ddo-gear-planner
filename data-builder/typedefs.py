@@ -1,5 +1,5 @@
 import collections
-from typing import Any, TypedDict, NotRequired
+from typing import Any, Literal, TypedDict, NotRequired
 
 type CatMap = collections.defaultdict[str, str]
 type AugmentNameTransformMap = dict[str, str]
@@ -10,6 +10,24 @@ class Affix(TypedDict):
     name: str
     type: str
     value: Any
+    sourceText: NotRequired[str]
+    sourceTooltip: NotRequired[str]
+    parserSource: NotRequired[str]
+
+class CompoundAffixValue(TypedDict, total=False):
+    mode: Literal["same_as_affix_number", "fixed", "boolean_one"]
+    amount: int
+
+class CompoundAffixComponent(TypedDict):
+    name: str
+    type: str
+    value: CompoundAffixValue
+
+class CompoundAffixDefinition(TypedDict, total=False):
+    components: list[CompoundAffixComponent]
+    notes: str
+
+type CompoundAffixMap = dict[str, CompoundAffixDefinition]
 
 class AffixSynonyms(TypedDict):
     name: str

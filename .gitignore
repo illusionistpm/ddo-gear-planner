@@ -2,5 +2,7 @@
 **/__pycache__/
 data-builder/cache/
 data-builder/reports/
+data-builder/llm/compound_affix_attempts.json
+data-builder/llm/compound_affix_candidates.json
 ~$*.xlsx
 *:Zone.Identifier

@@ -8,7 +8,25 @@ from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
+from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
+from compound_affixes import expand_affix_list_with_compounds
 import copy
+
+
+def include_affix_provenance():
+    return os.environ.get('DDO_AFFIX_PROVENANCE', '').lower() in ('1', 'true', 'yes')
+
+
+def add_affix_provenance(affix, source_text, source_tooltip, parser_source):
+    if not include_affix_provenance() or not isinstance(affix, dict):
+        return affix
+
+    if source_text:
+        affix['sourceText'] = cleanup_whitespace(cleanup_unicode(source_text))
+    if source_tooltip:
+        affix['sourceTooltip'] = cleanup_whitespace(cleanup_unicode(source_tooltip))
+    affix['parserSource'] = parser_source
+    return affix
 
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
@@ -165,6 +183,7 @@ def addAffixToCraftingSystem(affix, keyName, discoveredCraftingSystem, sets):
 # itemName, craftingSystem, and sets are used to help identify if crafting dict needs to be updated
 def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, craftingSystems, sets):
     aff = {}
+    source_text = cleanup_whitespace(cleanup_unicode(tag.getText()))
 
     # check to see if the tag includes a child unordered list
     # this can be assumed to be a sign of a selectable property
@@ -204,6 +223,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
                     craftingSystems[keyName][itemName] = discoveredCraftingSystem[keyName]
 
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
+    source_tooltip = cleanup_whitespace(cleanup_unicode(tooltipSpan.getText())) if tooltipSpan else ''
     tooltip = tooltipSpan.extract() if tooltipSpan else None
     words = str(tooltip)
 
@@ -322,6 +342,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     # ex: ... Grants a +2 Profane bonus to all abilities.
     tooltipSearch = re.search(r'^.*?Grants a \+([0-9]+).*?bonus.*$', words)
     if ((tooltipSearch) and ('value' not in aff)):
+        aff['value'] = tooltipSearch.group(1)
+
+    # ex: +1 Insight bonus to Search
+    tooltipSearch = re.search(r'^.*?\+([0-9]+)%?.*?[Bb]onus.*$', words)
+    if ((tooltipSearch) and ('value' not in aff) and ('type' in aff)):
         aff['value'] = tooltipSearch.group(1)
 
     # ex: ... will increase the total number of Action Boosts you can use by 3. ...
@@ -446,7 +471,12 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             'value' : 1,
         }
 
-        aff = [ aff, affDeathblock ]
+        aff = [
+            add_affix_provenance(aff, source_text, source_tooltip, 'translate_list_tag_to_affix_map'),
+            add_affix_provenance(affDeathblock, source_text, source_tooltip, 'translate_list_tag_to_affix_map:deathblock'),
+        ]
+    else:
+        aff = add_affix_provenance(aff, source_text, source_tooltip, 'translate_list_tag_to_affix_map')
 
     return aff
 
@@ -489,7 +519,7 @@ def parse_affixes_from_cell(itemName, cell, synonymMap, fakeBonuses, ml, craftin
         else:
             ret.append(itemAffixMap)
 
-    return ret
+    return expand_affix_list_with_compounds(ret)
 
 
 # parse an html tag object and return a map with up to two elements (text and tooltip)
@@ -542,31 +572,7 @@ def convert_affix_name_to_common_affix_name(affixName):
 def convert_affix_text_map_to_affix_map(textMap):
     affixMap = {}
 
-    # build bonus type list to be used when scanning string for bonus type
-    bonusTypeList = [
-        "Alchemical(?! Air)(?! Earth)(?! Fire)(?! Water)",
-        "Artifact",
-        "Competence",
-        "Deflection",
-        "[Ee]nhancement",
-        "Equipment",
-        "Exceptional",
-        "Festive",
-        "Implement",
-        "[Ii]nsight(?:ful)?",
-        "Legendary(?! Ash)(?! Affirmation)(?! Dust)(?! Ice)(?! Ooze)(?! Salt)(?! Steam)(?! Vacuum)",
-        "Luck",
-        "Natural",
-        "Profane",
-        "Psionic",
-        "Quality",
-        "Resistance(?! Rating)",
-        "Sacred",
-        "Vitality",
-    ]
-
-    # convert list to regex capture group string
-    bonusTypeString = "(" + "|".join(bonusTypeList) + ")"
+    bonusTypeString = get_parser_bonus_type_regex()
 
     affixExceptionDetectionList = [
         "Crushing Wave(?: Guard)?",
@@ -729,11 +735,7 @@ def convert_affix_text_map_to_affix_map(textMap):
     if ('value' not in affixMap):
         affixMap['value'] = 1
 
-    # capitalize the first letter of the bonus type for standardization
-    affixMap['type'] = affixMap['type'][0].upper() + affixMap['type'][1:]
-
-    if 'Insightful' == affixMap['type']:
-        affixMap['type'] = 'Insight'
+    affixMap['type'] = normalize_bonus_type(affixMap['type'])
 
     # case exists for affix types that provide a percentage (%) bonus
     # add a (%) string to the affix name
@@ -751,6 +753,13 @@ def convert_affix_text_map_to_affix_map(textMap):
     # convert affix name to standardize
     affixMap['name'] = convert_affix_name_to_common_affix_name(affixMap['name'])
 
+    add_affix_provenance(
+        affixMap,
+        textMap.get('text', ''),
+        textMap.get('tooltip', ''),
+        'convert_affix_text_map_to_affix_map',
+    )
+
     return(affixMap)
 
 
@@ -764,7 +773,7 @@ def get_affix_map_list_from_tag(tag):
             affixMap = convert_affix_text_map_to_affix_map(textMap)
             affixMapList.append(affixMap)
 
-    return affixMapList
+    return expand_affix_list_with_compounds(affixMapList)
 
 
 def get_item_property_map_from_tag(tag, setMap, craftingMap):

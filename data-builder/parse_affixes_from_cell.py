@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import os
 import re
 import json
 import collections
@@ -10,11 +9,8 @@ from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
 from compound_affixes import expand_affix_list_with_compounds
+from provenance_io import include_affix_provenance
 import copy
-
-
-def include_affix_provenance():
-    return os.environ.get('DDO_AFFIX_PROVENANCE', '').lower() in ('1', 'true', 'yes')
 
 
 def add_affix_provenance(affix, source_text, source_tooltip, parser_source):

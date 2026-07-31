@@ -5,7 +5,7 @@ from collections import defaultdict
 from typing import Any, Optional
 
 from allowed_bonus_types import get_allowed_bonus_types
-from get_output_path import get_output_path
+from provenance_io import get_asset_json_path, get_provenance_json_path, include_affix_provenance
 
 REPORT_OUTPUT_PATH = os.path.join(os.path.dirname(__file__), 'reports')
 EXPECTATIONS_PATH = os.path.join(os.path.dirname(__file__), 'affix_expectations.json')
@@ -13,7 +13,8 @@ CSV_FIELDS = ['category', 'severity', 'item', 'url', 'affix', 'type', 'value', '
 
 
 def _load_json(name: str) -> Any | None:
-    path = f"{get_output_path()}/{name}.json"
+    provenance_path = get_provenance_json_path(name)
+    path = provenance_path if include_affix_provenance() and os.path.exists(provenance_path) else get_asset_json_path(name)
     if not os.path.exists(path):
         return None
     with open(path, 'r', encoding='utf8') as fh:

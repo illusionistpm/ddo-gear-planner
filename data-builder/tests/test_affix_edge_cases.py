@@ -116,6 +116,10 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Sundering', 'type': 'Enhancement', 'value': '10'},
         ),
         (
+            '<li><span class="has_tooltip">Tendon Slice +6<span class="tooltip">Tendon Slice +6: On Hit: 6% chance to slow target\'s movement by 50% for 6 seconds.</span></span></li>',
+            {'name': 'Tendon Slice', 'type': 'Untyped', 'value': '6'},
+        ),
+        (
             '<li><span class="has_tooltip">Sundering V<span class="tooltip">Sundering V: On Hit: Your target suffers a -1 Penalty to Fortitude Saving Throws for 6 seconds. Passive: The DC of the saving throw to resist your Sunder combat feats is increased by 10.</span></span></li>',
             {'name': 'Sundering', 'type': 'Enhancement', 'value': '10'},
         ),

@@ -81,6 +81,7 @@ def is_weapon_damage_proc_affix(name):
         'Acid Guard',
         'Acidic',
         'Acid',
+        'Antimagic Spike',
         'Anarchic',
         'Anarchic Blast',
         'Anarchic Burst',
@@ -90,18 +91,22 @@ def is_weapon_damage_proc_affix(name):
         'Banishing',
         'Bashing',
         'Bloodletter',
+        'Bewildering',
         'Blazing',
         'Bleeding',
         'Bludgeoning',
         'Chilling',
         'Coruscating',
         'Critical Befouling',
+        'Critical Weakening',
+        'Critical Wounding',
         'Crushing',
         'Destructive Acid',
         'Disintegrate',
         'Dazing',
         'Electrifying',
         'Energy Siphon',
+        'Echoes of Angdrelve',
         'Entropic',
         'Feeding',
         'Flaming',
@@ -113,6 +118,7 @@ def is_weapon_damage_proc_affix(name):
         'Flaming Blast',
         'Force Blast',
         'Freezing',
+        'Freezing Ice',
         'Fracturing',
         'Frost',
         'Gashing',
@@ -120,14 +126,18 @@ def is_weapon_damage_proc_affix(name):
         'Good Blast',
         'Heartseeker',
         'Holy',
+        'Holy Blast',
         'Holy Burst',
         'Impactful',
         'Icy Blast',
         'Jolting',
         'Maiming',
+        'Magma Surge',
         'Negativity',
+        'Negative Blast',
         'Nightshade Venom',
         'Paralyzing',
+        'Percussive Maintenance',
         'Piercing',
         'Poison',
         'Poison Blast',
@@ -143,15 +153,21 @@ def is_weapon_damage_proc_affix(name):
         'Solar Guard',
         'Sonic Blast',
         'Stabbing',
+        'Staggering',
         'Shrieking',
+        'Sirocco',
         'Sundering',
         'Tendon Slice',
+        'Telekinetic',
+        'The Dragging of the Depths',
+        'Thorny Crown of Madness',
         'Tidal',
         'Toxic',
         'Unholy',
         'Unholy Burst',
         'Vampirism',
         'Weakening',
+        'Wind Frenzy',
         'Wounding',
     }
 
@@ -190,7 +206,11 @@ def apply_known_affix_type_defaults(affix):
         'Efficient Metamagic - Quicken',
     }:
         affix['type'] = 'Enhancement'
-    elif name in {'Magical Efficiency', 'Power', 'Wizardry'}:
+    elif name in {'Magical Efficiency', 'Minor Spell Penetration', 'Power', 'Wizardry'}:
+        affix['type'] = 'Enhancement'
+    elif name == 'Hardened Exterior':
+        affix['type'] = 'Profane'
+    elif name == 'Mystic Incite':
         affix['type'] = 'Enhancement'
     elif name in {
         'Arcane Augmentation',
@@ -208,7 +228,7 @@ def apply_known_affix_type_defaults(affix):
         'Axeblock',
         'Hammerblock',
         'Spearblock',
-    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity') or name.endswith(' Arcane Augmentation'):
+    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity') or name.endswith(' Arcane Augmentation') or name.endswith(' Fire Augmentation'):
         affix['type'] = 'Untyped'
 
     return affix

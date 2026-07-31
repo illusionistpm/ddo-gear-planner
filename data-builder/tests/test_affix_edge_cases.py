@@ -116,6 +116,14 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Sundering', 'type': 'Bool', 'value': 1},
         ),
         (
+            '<li><span class="has_tooltip">Echoes of Angdrelve 6<span class="tooltip">Echoes of Angdrelve 6: Each strike from this weapon deals an additional 6d6 Acid damage on each hit.</span></span></li>',
+            {'name': 'Echoes of Angdrelve', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Antimagic Spike 117<span class="tooltip">Antimagic Spike 117: When scoring a critical hit, the target must make a DC 117 Fortitude save or be unable to cast spells.</span></span></li>',
+            {'name': 'Antimagic Spike', 'type': 'Bool', 'value': 1},
+        ),
+        (
             '<li><span class="has_tooltip">Magical Efficiency 5%<span class="tooltip">Magical Efficiency 5%: You take a 5% Enhancement discount to the Spell Point cost of your spells.</span></span></li>',
             {'name': 'Magical Efficiency', 'type': 'Enhancement', 'value': '5'},
         ),
@@ -130,6 +138,18 @@ def test_translate_list_tag_detects_unique_property_required():
         (
             '<li><span class="has_tooltip">Power I<span class="tooltip">Power I: This item grants the wearer +10 maximum spell points.</span></span></li>',
             {'name': 'Power', 'type': 'Enhancement', 'value': '1'},
+        ),
+        (
+            '<li>Minor Spell Penetration VII</li>',
+            {'name': 'Minor Spell Penetration', 'type': 'Enhancement', 'value': '7'},
+        ),
+        (
+            '<li><span class="has_tooltip">Hardened Exterior 2<span class="tooltip">Hardened Exterior 2: You gain a +2 profane bonus to AC.</span></span></li>',
+            {'name': 'Hardened Exterior', 'type': 'Profane', 'value': '2'},
+        ),
+        (
+            '<li><span class="has_tooltip">Mystic Incite +23<span class="tooltip">Mystic Incite +23: +23% bonus to increased threat generation from spell damage</span></span></li>',
+            {'name': 'Mystic Incite', 'type': 'Enhancement', 'value': '23'},
         ),
         (
             '<li><span class="has_tooltip">Linguistics 10%<span class="tooltip">Linguistics: This item reduced the cooldowns of your Social skills by 10%.</span></span></li>',

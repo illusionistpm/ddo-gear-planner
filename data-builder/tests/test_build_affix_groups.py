@@ -1,0 +1,16 @@
+import build_affix_groups as module
+
+
+def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    groups = {entry['name']: entry['affixes'] for entry in written['affix-groups']}
+    assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
+

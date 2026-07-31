@@ -45,6 +45,7 @@ def build_affix_groups() -> None:
     add(groups, 'Charisma Skills', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Frozen Depths Lore', ['Ice Lore', 'Poison Lore', 'Void Lore'])
     add(groups, 'Frozen Storm Lore', ['Ice Lore', 'Lightning Lore'])
+    add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
     add(groups, 'Power of the Frozen Storm', ['Glaciation', 'Magnetism'])

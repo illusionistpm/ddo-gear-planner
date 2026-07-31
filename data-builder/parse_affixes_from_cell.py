@@ -28,6 +28,49 @@ def add_affix_provenance(affix, source_text, source_tooltip, parser_source):
     affix['parserSource'] = parser_source
     return affix
 
+
+def get_has_tooltip_spans(tag):
+    return tag.find_all('span', class_='has_tooltip')
+
+
+def get_text_map_from_tooltip_span(span):
+    textMap = {}
+    spanCopy = copy.copy(span)
+    tooltipSpan = spanCopy.find("span", {"class": "tooltip"})
+    if tooltipSpan:
+        textMap["tooltip"] = cleanup_unicode(tooltipSpan.getText()).strip()
+        tooltipSpan.decompose()
+    textMap["text"] = cleanup_unicode(spanCopy.getText()).strip()
+    return textMap
+
+
+def get_affix_map_list_from_multi_tooltip_tag(tag):
+    return [
+        convert_affix_text_map_to_affix_map(get_text_map_from_tooltip_span(span))
+        for span in get_has_tooltip_spans(tag)
+    ]
+
+
+def get_primary_tooltip_text(tag):
+    span = tag.find('span', class_='has_tooltip')
+    if not span:
+        return None
+
+    text_map = get_text_map_from_tooltip_span(span)
+    return cleanup_whitespace(strip_trailing_colon(text_map.get('text', '')))
+
+
+def tooltip_bonus_targets_affix(words, affix_name):
+    if not words or not affix_name:
+        return False
+
+    search = re.search(r'[Bb]onus(?:</a>)?(?: to)?(?: your)?(?: the)?(.*?)(?:\.|<)', words)
+    if not search:
+        return False
+
+    target = cleanup_whitespace(BeautifulSoup(search.group(1), 'html.parser').getText()).lower()
+    return affix_name.lower() in target
+
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
@@ -178,6 +221,22 @@ def addAffixToCraftingSystem(affix, keyName, discoveredCraftingSystem, sets):
         discoveredCraftingSystem[keyName].append(affixMap)
 
 
+def addAffixesToCraftingSystem(affixes, keyName, discoveredCraftingSystem, sets):
+    if len(affixes) == 1:
+        addAffixToCraftingSystem(affixes[0], keyName, discoveredCraftingSystem, sets)
+        return
+
+    affixMap = {'affixes': []}
+    for affix in affixes:
+        if affix['name'] in sets:
+            discoveredCraftingSystem[keyName].append(affix)
+        else:
+            affixMap['affixes'].append(affix)
+
+    if affixMap['affixes']:
+        discoveredCraftingSystem[keyName].append(affixMap)
+
+
 # recursive function to parse through a list tag
 # function will update crafting dict if a child list is detected in tag
 # itemName, craftingSystem, and sets are used to help identify if crafting dict needs to be updated
@@ -212,8 +271,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
                     for listEntry in (tag.find('ul')).find_all('li', recursive=False):
                         parsed_affix = translate_list_tag_to_affix_map(itemName, listEntry, synonymMap, fakeBonuses, ml, craftingSystems, sets)
                         if isinstance(parsed_affix, list):
-                            for affixEntry in parsed_affix:
-                                addAffixToCraftingSystem(affixEntry, keyName, discoveredCraftingSystem, sets)
+                            addAffixesToCraftingSystem(parsed_affix, keyName, discoveredCraftingSystem, sets)
                         else:
                             addAffixToCraftingSystem(parsed_affix, keyName, discoveredCraftingSystem, sets)
 
@@ -221,6 +279,14 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
                         craftingSystems[keyName] = {}
 
                     craftingSystems[keyName][itemName] = discoveredCraftingSystem[keyName]
+
+    primary_tooltip_text = get_primary_tooltip_text(tag)
+    if primary_tooltip_text in craftingSystems and '*' in craftingSystems[primary_tooltip_text]:
+        aff['name'] = primary_tooltip_text
+        return aff
+
+    if not tag.find('ul') and len(get_has_tooltip_spans(tag)) > 1:
+        return get_affix_map_list_from_multi_tooltip_tag(tag)
 
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
     source_tooltip = cleanup_whitespace(cleanup_unicode(tooltipSpan.getText())) if tooltipSpan else ''
@@ -346,7 +412,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # ex: +1 Insight bonus to Search
     tooltipSearch = re.search(r'^.*?\+([0-9]+)%?.*?[Bb]onus.*$', words)
-    if ((tooltipSearch) and ('value' not in aff) and ('type' in aff)):
+    if ((tooltipSearch) and ('value' not in aff) and ('type' in aff) and tooltip_bonus_targets_affix(words, aff['name'])):
         aff['value'] = tooltipSearch.group(1)
 
     # ex: ... will increase the total number of Action Boosts you can use by 3. ...
@@ -395,6 +461,13 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     if aff['name'] == 'Striding' and 'type' not in aff:
         aff['type'] = 'Enhancement'
+
+    if aff['name'] == 'Songblade':
+        tooltipSearch = re.search(r'^.*?\+([0-9]+)%?.*?[Bb]onus.*Perform skill.*$', words)
+        if tooltipSearch:
+            aff['name'] = 'Perform'
+            aff['type'] = 'Enhancement'
+            aff['value'] = tooltipSearch.group(1)
 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
@@ -769,9 +842,12 @@ def get_affix_map_list_from_tag(tag):
     # if tag passed in is a unordered list (ul) tag, process each list item (li) tag as a unique affix
     if (tag.name == 'ul'):
         for li_tag in tag.find_all('li', recursive=False):
-            textMap = get_text_map_from_tag(li_tag)
-            affixMap = convert_affix_text_map_to_affix_map(textMap)
-            affixMapList.append(affixMap)
+            if len(get_has_tooltip_spans(li_tag)) > 1:
+                affixMapList.extend(get_affix_map_list_from_multi_tooltip_tag(li_tag))
+            else:
+                textMap = get_text_map_from_tag(li_tag)
+                affixMap = convert_affix_text_map_to_affix_map(textMap)
+                affixMapList.append(affixMap)
 
     return expand_affix_list_with_compounds(affixMapList)
 

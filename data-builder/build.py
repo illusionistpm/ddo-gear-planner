@@ -22,7 +22,9 @@ def build_data(clearCache, discordURL):
     try:
         print('Running unit tests...')
         tests_dir = os.path.join(os.path.dirname(__file__), 'tests')
-        result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q'])
+        test_env = os.environ.copy()
+        test_env.pop('DDO_AFFIX_PROVENANCE', None)
+        result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q'], env=test_env)
         if result.returncode != 0:
             print('Unit tests failed. Aborting data build.')
             raise SystemExit(result.returncode)

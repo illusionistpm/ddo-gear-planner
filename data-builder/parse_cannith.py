@@ -10,6 +10,7 @@ import os
 
 def parse_cannith() -> None:
     assumedBonusTypeMap = get_most_common_bonus_type()
+    assumedBonusTypeMap['Perform'] = 'Enhancement'
 
     wb = openpyxl.load_workbook(f"{os.path.dirname(__file__)}/cannith-crafting.xlsx")
 
@@ -55,6 +56,10 @@ def parse_cannith() -> None:
         assert isinstance(affix, str)
         affix = affix.replace('Ins.', 'Insightful')
         affix = affix.title()
+        fixed_progression_value = None
+        if affix == 'Songblade':
+            affix = 'Perform'
+            fixed_progression_value = 2
 
         affixes = []
 
@@ -76,7 +81,7 @@ def parse_cannith() -> None:
 
         progVals = []
         for val in range(levelStart, levelEnd + 1):
-            progVals.append(row[val].value)
+            progVals.append(fixed_progression_value if fixed_progression_value is not None else row[val].value)
 
         for affix in affixes:
             progression[affix] = progVals

@@ -39,7 +39,7 @@ class FakeWorkbook:
         self._active = value
 
 
-def test_parse_cannith_normalizes_songblade_to_perform(monkeypatch):
+def test_parse_cannith_keeps_songblade_as_fixed_mapping_source(monkeypatch):
     written = {}
 
     monkeypatch.setattr(module, 'get_most_common_bonus_type', lambda: {'Songblade': 'Enhancement'})
@@ -48,8 +48,6 @@ def test_parse_cannith_normalizes_songblade_to_perform(monkeypatch):
 
     module.parse_cannith()
 
-    assert 'Songblade' not in written['cannith']['progression']
-    assert 'Songblade' not in written['cannith']['bonusTypes']
-    assert written['cannith']['progression']['Perform'] == [2, 2]
-    assert written['cannith']['bonusTypes']['Perform'] == 'Enhancement'
-    assert written['cannith']['itemTypes']['Melee']['Prefix'] == ['Perform']
+    assert written['cannith']['progression']['Songblade'] == [1, 1]
+    assert written['cannith']['bonusTypes']['Songblade'] == 'Bool'
+    assert written['cannith']['itemTypes']['Melee']['Prefix'] == ['Songblade']

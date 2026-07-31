@@ -625,13 +625,6 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] == 'Striding' and 'type' not in aff:
         aff['type'] = 'Enhancement'
 
-    if aff['name'] == 'Songblade':
-        tooltipSearch = re.search(r'^.*?\+([0-9]+)%?.*?[Bb]onus.*Perform skill.*$', words)
-        if tooltipSearch:
-            aff['name'] = 'Perform'
-            aff['type'] = 'Enhancement'
-            aff['value'] = tooltipSearch.group(1)
-
     aff = convert_weapon_damage_proc_to_bool(aff)
     aff = apply_known_affix_type_defaults(aff)
 

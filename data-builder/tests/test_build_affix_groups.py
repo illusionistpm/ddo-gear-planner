@@ -14,3 +14,9 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     groups = {entry['name']: entry['affixes'] for entry in written['affix-groups']}
     assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
 
+    songblade = next(entry for entry in written['affix-groups'] if entry['name'] == 'Songblade')
+    assert songblade == {
+        'name': 'Songblade',
+        'affixes': ['Perform'],
+        'components': [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}],
+    }

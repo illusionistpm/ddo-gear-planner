@@ -57,7 +57,7 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Songblade <span class="tooltip">Songblade: +2 enhancement bonus to the Perform skill.</span></span></li>',
-            {'name': 'Perform', 'type': 'Enhancement', 'value': '2'},
+            {'name': 'Songblade', 'type': 'Bool', 'value': 1},
         ),
         (
             '<li>Holy 4</li>',

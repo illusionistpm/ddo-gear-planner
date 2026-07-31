@@ -36,6 +36,7 @@ class AffixSynonyms(TypedDict):
 class AffixGroup(TypedDict):
     name: str
     affixes: list[str]
+    components: NotRequired[list[Affix]]
 
 class AffixesDict(TypedDict):
     affixes: list[Affix]

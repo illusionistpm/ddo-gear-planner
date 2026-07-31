@@ -97,6 +97,15 @@ export class AffixUiService {
 
   getAffixGroupTooltip(affix: Affix): string {
     if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
+    const fixedAffixes = this.affixSvc.affixGroupComponents.get(affix.name);
+    if (fixedAffixes) {
+      return affix.name + ' is:\n' + fixedAffixes.map(groupAffix => {
+        const value = this.getAffixValue(groupAffix);
+        const parts = [value, groupAffix.name, groupAffix.type].filter(part => part);
+        return '- ' + parts.join(' ');
+      }).join('\n');
+    }
+
     const groupAffixes = this.affixSvc.affixGroups.get(affix.name);
     return groupAffixes ? affix.name + ' is:\n' + groupAffixes.map(aff => '• ' + aff).join('\n') : '';
   }

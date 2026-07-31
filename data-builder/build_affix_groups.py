@@ -1,6 +1,6 @@
 from write_json import write_json
 
-from typedefs import AffixGroup
+from typedefs import Affix, AffixGroup
 
 def get_all_saves(bonusType = None) -> list[str]:
     return ['Fortitude Save', 'Reflex Save', 'Will Save']
@@ -13,6 +13,14 @@ def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
     groups.append({
         'name': name,
         'affixes': affixes
+    })
+
+
+def add_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
+    groups.append({
+        'name': name,
+        'affixes': [affix['name'] for affix in affixes],
+        'components': affixes,
     })
 
 
@@ -59,6 +67,7 @@ def build_affix_groups() -> None:
     add(groups, 'Well Rounded', ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'])
     add(groups, 'Spell Focus Mastery', ['Evocation Focus', 'Necromancy Focus', 'Transmutation Focus', 'Enchantment Focus', 'Conjuration Focus', 'Abjuration Focus', 'Illusion Focus'])
     add(groups, 'each Amplification', ['Healing Amplification', 'Negative Amplification', 'Repair Amplification'])
+    add_fixed(groups, 'Songblade', [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}])
 
     write_json(groups, 'affix-groups')
 

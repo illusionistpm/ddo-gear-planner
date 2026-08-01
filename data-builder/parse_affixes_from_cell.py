@@ -588,9 +588,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # case exists where Deathblock effect is previously detected, but really should be Negative Energy Absorption
     tooltipSearch = re.search(r'^.*?([0-9]+)%.*?([A-Za-z]+) [bB]onus.*(Negative Energy Absorption).*$', words)
-    if (tooltipSearch):
-        aff['name']  = tooltipSearch.group(3)
-        aff['type']  = tooltipSearch.group(2)
+    if tooltipSearch:
+        if aff.get('name') != 'Lifesealed':
+            aff['name'] = tooltipSearch.group(3)
+        aff['type']  = tooltipSearch.group(2).capitalize()
         aff['value'] = tooltipSearch.group(1)
 
     # prefix affix with "Feat:" string to create consistency for affixes that grant feats

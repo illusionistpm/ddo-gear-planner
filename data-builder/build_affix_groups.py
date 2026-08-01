@@ -71,6 +71,10 @@ def build_affix_groups() -> None:
     add(groups, 'Spell Focus Mastery', ['Evocation Focus', 'Necromancy Focus', 'Transmutation Focus', 'Enchantment Focus', 'Conjuration Focus', 'Abjuration Focus', 'Illusion Focus'])
     add(groups, 'each Amplification', ['Healing Amplification', 'Negative Amplification', 'Repair Amplification'])
     add_fixed(groups, 'Songblade', [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}])
+    add_fixed(groups, 'Lifesealed', [
+        {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},
+        {'name': 'Deathblock', 'type': 'Bool', 'value': 1},
+    ])
 
     write_json(groups, 'affix-groups')
 

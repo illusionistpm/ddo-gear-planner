@@ -23,3 +23,13 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
         'affixes': ['Perform'],
         'components': [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}],
     }
+
+    lifesealed = next(entry for entry in written['affix-groups'] if entry['name'] == 'Lifesealed')
+    assert lifesealed == {
+        'name': 'Lifesealed',
+        'affixes': ['Negative Energy Absorption', 'Deathblock'],
+        'components': [
+            {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},
+            {'name': 'Deathblock', 'type': 'Bool', 'value': 1},
+        ],
+    }

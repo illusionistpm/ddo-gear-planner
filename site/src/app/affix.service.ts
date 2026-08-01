@@ -17,7 +17,7 @@ interface AffixGroupJson {
 })
 export class AffixService {
   affixGroups = new Map<string, Array<string>>();
-  affixGroupComponents = new Map<string, Array<Affix>>();
+  affixGroupComponents = new Map<string, Array<{ name: string; type: string; value: number | string }>>();
   affixSynonyms = new Map<string, string>();
   synonymsForAffix = new Map<string, Array<string>>();
 
@@ -32,7 +32,7 @@ export class AffixService {
       if (group['components']) {
         this.affixGroupComponents.set(
           group['name'],
-          group['components'].map((affix: any) => new Affix(affix))
+          group['components']
         );
       }
     }
@@ -51,7 +51,15 @@ export class AffixService {
     const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
     if (fixedAffixes) {
       for (const fixedAffix of fixedAffixes) {
-        affixes.push(new Affix(fixedAffix));
+        const inheritsValue = (fixedAffix as any).value === '<ValueAlreadyParsed>';
+        const affix = new Affix(fixedAffix);
+        if (affix.type === '<TypeAlreadyParsed>') {
+          affix.type = affixGroup.type;
+        }
+        if (inheritsValue) {
+          affix.value = affixGroup.value;
+        }
+        affixes.push(affix);
       }
       return affixes;
     }

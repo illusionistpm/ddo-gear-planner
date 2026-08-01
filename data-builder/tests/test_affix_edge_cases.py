@@ -196,6 +196,10 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Negative Energy Absorption', 'type': 'Untyped', 'value': '20'},
         ),
         (
+            '<li><span class="has_tooltip">Lifesealed +28<span class="tooltip">Lifesealed +28: You are immune to magical effects that cause instant death. In addition, you have a +28% enhancement bonus to Negative Energy Absorption.</span></span></li>',
+            {'name': 'Lifesealed', 'type': 'Enhancement', 'value': '28'},
+        ),
+        (
             '<li>Maximum Charge Tier: III</li>',
             {'name': 'Maximum Charge Tier', 'type': 'Untyped', 'value': '3'},
         ),

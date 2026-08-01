@@ -1,6 +1,11 @@
 from read_json import read_json
 from functools import reduce
 
+
+def _count_affixes(entries):
+    return reduce(lambda count, entry: count + len(entry.get('affixes', [])), entries, 0)
+
+
 def get_data_stats_description(stats, diff):
     ret = ''
 
@@ -90,7 +95,7 @@ def get_data_stats():
         items = []
     stats['items'] = {
         'items': len(items),
-        'affixes': reduce(lambda x, v: x + len(v['affixes']), items, 0)
+        'affixes': _count_affixes(items)
     }
 
     return stats

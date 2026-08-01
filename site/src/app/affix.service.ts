@@ -106,7 +106,7 @@ export class AffixService {
     let flattened: Affix[] = [];
     for (const affix of affixes) {
       const ungroup = this.ungroupAffix(affix);
-      if (ungroup) {
+      if (ungroup.length) {
         if (includeOriginal) {
           flattened.push(affix);
         }

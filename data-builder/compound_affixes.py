@@ -52,7 +52,8 @@ def _materialize_component_affix(component: CompoundAffixComponent, base_value: 
         value = base_value
 
     component_type = component['type']
-    bonus_type = base_type if component_type == '<TypeAlreadyParsed>' and isinstance(base_type, str) else component_type
+    inherit_type_tokens = {'<TypeAlreadyParsed>', '__inherit_type__'}
+    bonus_type = base_type if component_type in inherit_type_tokens and isinstance(base_type, str) else component_type
 
     return {
         'name': component['name'],

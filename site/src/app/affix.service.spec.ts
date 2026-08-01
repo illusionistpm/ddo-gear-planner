@@ -22,4 +22,11 @@ describe('AffixService', () => {
       new Affix({ name: 'Perform', type: 'Enhancement', value: 2 })
     ]);
   });
+
+  it('preserves non-group affixes when flattening', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+    const deadly = new Affix({ name: 'Deadly', type: 'Competence', value: 10 });
+
+    expect(service.flattenAffixGroups([deadly])).toEqual([deadly]);
+  });
 });

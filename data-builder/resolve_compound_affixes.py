@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import dataclass
 from typing import Any, Literal, TypedDict
 
@@ -56,6 +57,43 @@ class UsageTotals:
             (self.prompt_tokens / 1_000_000) * prompt_cost_per_1m
             + (self.completion_tokens / 1_000_000) * completion_cost_per_1m
         )
+
+
+class ProgressPrinter:
+    def __init__(self, enabled: bool = True):
+        self.enabled = enabled
+        self.active = False
+        self.last_width = 0
+
+    def querying(self, affix_name: str) -> None:
+        if not self.enabled:
+            return
+        message = f"Querying: {affix_name}"
+        self._write_line(message)
+        self.active = True
+
+    def kept(self, affix_name: str) -> None:
+        if not self.enabled:
+            return
+        self._write_line(f"[kept] {affix_name}")
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+        self.active = False
+        self.last_width = 0
+
+    def finish(self) -> None:
+        if not self.enabled or not self.active:
+            return
+        sys.stdout.write('\r' + ' ' * self.last_width + '\r')
+        sys.stdout.flush()
+        self.active = False
+        self.last_width = 0
+
+    def _write_line(self, message: str) -> None:
+        padding = max(0, self.last_width - len(message))
+        sys.stdout.write('\r' + message + ' ' * padding)
+        sys.stdout.flush()
+        self.last_width = len(message)
 
 
 def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) -> tuple[LLMResult, dict[str, Any]]:
@@ -163,12 +201,14 @@ def resolve_compound_affixes(
     prompt_cost_per_1m: float = 0.0,
     completion_cost_per_1m: float = 0.0,
     retry_affixes: list[str] | None = None,
+    show_progress: bool = True,
 ) -> None:
     candidates: list[CompoundAffixCandidate] = read_llm_json('compound_affix_candidates')
     mapping: CompoundAffixMap = load_compound_affixes()
     allowed_types = get_allowed_bonus_types()
     usage = UsageTotals()
     retry_names = set(retry_affixes or [])
+    progress = ProgressPrinter(show_progress)
 
     try:
         attempts: dict[str, Any] = read_llm_json('compound_affix_attempts')
@@ -190,6 +230,7 @@ def resolve_compound_affixes(
             write_llm_json(attempts, 'compound_affix_attempts')
             continue
 
+        progress.querying(affix_name)
         result, usage_meta = call_llm_for_decomposition(candidate, model)
         usage.record(usage_meta)
 
@@ -211,7 +252,9 @@ def resolve_compound_affixes(
 
         attempts.pop(affix_name, None)
         save_compound_affixes(mapping)
+        progress.kept(affix_name)
 
+    progress.finish()
     save_compound_affixes(mapping)
     write_llm_json(attempts, 'compound_affix_attempts')
 
@@ -229,8 +272,15 @@ def main() -> None:
     parser.add_argument('--prompt-cost-per-1m', type=float, default=0.0)
     parser.add_argument('--completion-cost-per-1m', type=float, default=0.0)
     parser.add_argument('--retry-affix', action='append', default=[], help='Retry a named affix even if it already has an attempt record')
+    parser.add_argument('--no-progress', action='store_true', help='Disable per-affix progress output')
     args = parser.parse_args()
-    resolve_compound_affixes(args.model, args.prompt_cost_per_1m, args.completion_cost_per_1m, args.retry_affix)
+    resolve_compound_affixes(
+        args.model,
+        args.prompt_cost_per_1m,
+        args.completion_cost_per_1m,
+        args.retry_affix,
+        not args.no_progress,
+    )
 
 
 if __name__ == '__main__':

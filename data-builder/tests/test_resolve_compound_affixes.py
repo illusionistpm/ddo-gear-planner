@@ -119,3 +119,46 @@ def test_retry_affix_reprocesses_existing_attempt_and_clears_stale_failure(monke
         'notes': 'Passive critical damage bonus split by spell damage type.',
     }
     assert "Winter's Impertenence" not in writes['compound_affix_attempts']
+
+
+def test_resolve_compound_affixes_prints_query_progress_and_kept_lines(monkeypatch, capsys):
+    mapping = {}
+
+    monkeypatch.setattr(module, 'read_llm_json', lambda name: [
+        {'affixName': 'Rejected Affix', 'sourceTooltips': ['Rejected Affix: maybe not useful.']},
+        {'affixName': 'Kept Affix', 'sourceTooltips': ['Kept Affix: useful.']},
+    ] if name == 'compound_affix_candidates' else {})
+    monkeypatch.setattr(module, 'write_llm_json', lambda data, name: None)
+    monkeypatch.setattr(module, 'load_compound_affixes', lambda: mapping)
+    monkeypatch.setattr(module, 'save_compound_affixes', lambda data: mapping.update(data))
+    monkeypatch.setattr(module, 'get_allowed_bonus_types', lambda: {'Enhancement'})
+    monkeypatch.setattr(module, 'get_candidate_exclusion_reason', lambda candidate: None)
+
+    def call_llm(candidate, model):
+        if candidate['affixName'] == 'Rejected Affix':
+            return ({'isCompound': False, 'components': [], 'notes': 'Nope.', 'errors': []}, {})
+        return (
+            {
+                'isCompound': True,
+                'components': [
+                    {
+                        'name': 'Useful Bonus',
+                        'type': 'Enhancement',
+                        'value': {'mode': 'fixed', 'amount': 2},
+                    },
+                ],
+                'notes': None,
+                'errors': [],
+            },
+            {},
+        )
+
+    monkeypatch.setattr(module, 'call_llm_for_decomposition', call_llm)
+
+    module.resolve_compound_affixes('test-model')
+
+    output = capsys.readouterr().out
+    assert '\rQuerying: Rejected Affix' in output
+    assert '\rQuerying: Kept Affix' in output
+    assert '\r[kept] Kept Affix' in output
+    assert '[kept] Kept Affix   \nRequests: 2' in output

@@ -174,6 +174,30 @@ def test_build_compound_affix_candidates_repairs_truncated_name_from_provenance(
     assert candidates[0]['candidatePriority'] == 'high'
 
 
+def test_build_compound_affix_candidates_prefers_tooltip_label_over_glued_source_text(monkeypatch):
+    monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: {'Sheltering'})
+
+    candidates = build_compound_affix_candidates.build_compound_affix_candidates([
+        {
+            'name': 'Crystalline Cacophony',
+            'url': '/page/Item:Crystalline_Cacophony',
+            'affixes': [
+                {
+                    'name': 'Sheltering',
+                    'type': 'Enhancement',
+                    'value': '10',
+                    'sourceText': 'Sheltering +10 Sheltering +10: +10 Enhancement bonus to Physical and Magical Resistance Ratings',
+                    'sourceTooltip': 'Sheltering +10: +10 Enhancement bonus to Physical and Magical Resistance Ratings',
+                },
+            ],
+        },
+    ])
+
+    assert candidates[0]['affixName'] == 'Sheltering'
+    assert candidates[0]['candidatePriority'] == 'manual-affix-group'
+
+
 def test_read_items_for_candidates_prefers_provenance_assets(monkeypatch, tmp_path):
     provenance_path = tmp_path / 'items.json'
     provenance_path.write_text('[{"name": "Provenance Item", "affixes": []}]', encoding='utf8')

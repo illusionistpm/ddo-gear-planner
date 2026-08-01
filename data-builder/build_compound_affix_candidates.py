@@ -19,7 +19,7 @@ def _candidate_text(candidate: dict[str, Any]) -> str:
 
 
 def _extract_source_affix_label(affix: Affix) -> str | None:
-    for key in ('sourceText', 'sourceTooltip'):
+    for key in ('sourceTooltip', 'sourceText'):
         source = affix.get(key)
         if not isinstance(source, str):
             continue

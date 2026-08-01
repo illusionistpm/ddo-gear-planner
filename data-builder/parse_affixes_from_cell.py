@@ -8,7 +8,6 @@ from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
-from compound_affixes import expand_affix_list_with_compounds
 from provenance_io import include_affix_provenance
 import copy
 
@@ -761,7 +760,7 @@ def parse_affixes_from_cell(itemName, cell, synonymMap, fakeBonuses, ml, craftin
         else:
             ret.append(itemAffixMap)
 
-    return expand_affix_list_with_compounds(ret)
+    return ret
 
 
 # parse an html tag object and return a map with up to two elements (text and tooltip)
@@ -1021,7 +1020,7 @@ def get_affix_map_list_from_tag(tag):
                 affixMap = convert_affix_text_map_to_affix_map(textMap)
                 affixMapList.append(affixMap)
 
-    return expand_affix_list_with_compounds(affixMapList)
+    return affixMapList
 
 
 def get_item_property_map_from_tag(tag, setMap, craftingMap):

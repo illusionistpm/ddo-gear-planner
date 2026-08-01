@@ -1,4 +1,6 @@
 from compound_affixes import expand_single_affix
+import parse_items
+from parse_items import expand_affix_names_with_compounds
 
 
 def test_expand_single_affix_with_same_value_and_inherited_type():
@@ -36,3 +38,27 @@ def test_expand_single_affix_accepts_legacy_inherit_type_token():
 def test_expand_single_affix_returns_original_when_unknown():
     affix = {'name': 'Search', 'type': 'Insight', 'value': '7'}
     assert expand_single_affix(affix, {}) == [affix]
+
+
+def test_expand_affix_names_with_compounds_uses_parsed_component_names(monkeypatch):
+    monkeypatch.setattr(parse_items, 'expand_single_affix', lambda affix: {
+        'Impulse': [
+            {'name': 'Force Spell Power'},
+            {'name': 'Untyped Spell Power'},
+        ],
+        'Anathema': [
+            {'name': 'Slashing Spell Power'},
+            {'name': 'Piercing Spell Power'},
+            {'name': 'Bludgeoning Spell Power'},
+            {'name': 'Anathema'},
+        ],
+    }.get(affix['name'], [affix]))
+
+    assert expand_affix_names_with_compounds(['Impulse', 'Anathema']) == {
+        'Force Spell Power',
+        'Untyped Spell Power',
+        'Slashing Spell Power',
+        'Piercing Spell Power',
+        'Bludgeoning Spell Power',
+        'Anathema',
+    }

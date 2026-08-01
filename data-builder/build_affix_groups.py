@@ -1,6 +1,7 @@
 from write_json import write_json
 
-from typedefs import Affix, AffixGroup
+from compound_affixes import load_compound_affixes
+from typedefs import Affix, AffixGroup, CompoundAffixComponent, CompoundAffixMap
 
 def get_all_saves(bonusType = None) -> list[str]:
     return ['Fortitude Save', 'Reflex Save', 'Will Save']
@@ -17,11 +18,49 @@ def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
 
 
 def add_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
-    groups.append({
+    upsert_fixed(groups, name, affixes)
+
+
+def upsert_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
+    entry = {
         'name': name,
         'affixes': [affix['name'] for affix in affixes],
         'components': affixes,
-    })
+    }
+    for index, group in enumerate(groups):
+        if group['name'] == name:
+            groups[index] = entry
+            return
+    groups.append(entry)
+
+
+def _convert_compound_component(component: CompoundAffixComponent) -> Affix:
+    value_spec = component['value']
+    mode = value_spec['mode']
+    if mode == 'fixed':
+        value = value_spec['amount']
+    elif mode == 'boolean_one':
+        value = 1
+    else:
+        value = '<ValueAlreadyParsed>'
+
+    bonus_type = component['type']
+    if bonus_type == '__inherit_type__':
+        bonus_type = '<TypeAlreadyParsed>'
+
+    return {
+        'name': component['name'],
+        'type': bonus_type,
+        'value': value,
+    }
+
+
+def add_compound_affix_groups(groups: list[AffixGroup], mapping: CompoundAffixMap | None = None) -> None:
+    compound_affixes = mapping if mapping is not None else load_compound_affixes()
+    for name, definition in sorted(compound_affixes.items()):
+        components = definition.get('components', [])
+        if components:
+            upsert_fixed(groups, name, [_convert_compound_component(component) for component in components])
 
 
 def build_affix_groups() -> None:
@@ -75,6 +114,7 @@ def build_affix_groups() -> None:
         {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},
         {'name': 'Deathblock', 'type': 'Bool', 'value': 1},
     ])
+    add_compound_affix_groups(groups)
 
     write_json(groups, 'affix-groups')
 

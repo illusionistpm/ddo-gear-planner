@@ -90,7 +90,8 @@ def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) ->
                 'role': 'system',
                 'content': (
                     'Normalize Dungeons & Dragons Online item affixes. Decide whether an affix is compound, '
-                    'meaning it grants multiple permanent underlying stat bonuses for a gear planner. '
+                    'meaning it should stay visible as its named in-game affix but expose multiple permanent '
+                    'underlying stat bonuses as an affix-group hover breakdown for a gear planner. '
                     'Do not decompose temporary combat-state effects, stacking effects, clickies, procs, or '
                     'short-duration bonuses. Return only JSON matching the schema.'
                 ),

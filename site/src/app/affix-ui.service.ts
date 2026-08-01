@@ -97,22 +97,18 @@ export class AffixUiService {
 
   getAffixGroupTooltip(affix: Affix): string {
     if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
-    const fixedAffixes = this.affixSvc.affixGroupComponents.has(affix.name)
-      ? this.affixSvc.ungroupAffix(affix)
-      : null;
-    if (fixedAffixes) {
-      return affix.name + ' is:\n' + fixedAffixes.map(groupAffix => {
-        if (groupAffix.type === 'Bool' && groupAffix.value === 1) {
-          return '- ' + groupAffix.name;
-        }
-        const value = this.getAffixValue(groupAffix);
-        const parts = [value, groupAffix.name, groupAffix.type].filter(part => part);
-        return '- ' + parts.join(' ');
-      }).join('\n');
+    const groupAffixes = this.affixSvc.ungroupAffix(affix);
+    return groupAffixes.length ? affix.name + ' is:\n' + groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n') : '';
+  }
+
+  private getAffixDescription(affix: Affix): string {
+    if (affix.type === 'Bool' && affix.value === 1) {
+      return affix.name;
     }
 
-    const groupAffixes = this.affixSvc.affixGroups.get(affix.name);
-    return groupAffixes ? affix.name + ' is:\n' + groupAffixes.map(aff => '• ' + aff).join('\n') : '';
+    const value = this.getAffixValue(affix);
+    const bonus = [value, affix.type].filter(part => part).join(' ');
+    return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 
   getClassForCraftable(craft: Craftable): string {

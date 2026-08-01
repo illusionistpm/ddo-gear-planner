@@ -92,6 +92,9 @@ def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) ->
                     'Normalize Dungeons & Dragons Online item affixes. Decide whether an affix is compound, '
                     'meaning it should stay visible as its named in-game affix but expose multiple permanent '
                     'underlying stat bonuses as an affix-group hover breakdown for a gear planner. '
+                    'Passive always-on bonuses to spell critical chance, spell critical damage, spell power, '
+                    'absorption, resistance, skills, DCs, or other character stats are permanent bonuses even '
+                    'when they only matter during spell casts, attacks, saves, or critical hits. '
                     'Do not decompose temporary combat-state effects, stacking effects, clickies, procs, or '
                     'short-duration bonuses. Return only JSON matching the schema.'
                 ),
@@ -101,7 +104,10 @@ def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) ->
                 'content': (
                     'Use <TypeAlreadyParsed> when typeIsParsed is true. Use same_as_affix_number when '
                     'valueIsParsed is true and the component scales with the parsed value. If uncertain, '
-                    'return isCompound=false with errors explaining why. If the affix only grants bonuses '
+                    'return isCompound=false with errors explaining why. If a passive tooltip grants critical '
+                    'chance with multiple spell damage types, decompose it into the matching Lore affixes. If '
+                    'a passive tooltip grants critical damage with multiple spell damage types, decompose it '
+                    'into the matching Spell Crit Damage affixes. If the affix only grants bonuses '
                     'after kills, on hit, on vorpal, while stacks are active, until stacks expire, or until '
                     'the item is unequipped/blocked, return isCompound=false; those effects should remain '
                     'as their named affix instead of being broken into permanent stat bonuses.'
@@ -156,11 +162,13 @@ def resolve_compound_affixes(
     model: str,
     prompt_cost_per_1m: float = 0.0,
     completion_cost_per_1m: float = 0.0,
+    retry_affixes: list[str] | None = None,
 ) -> None:
     candidates: list[CompoundAffixCandidate] = read_llm_json('compound_affix_candidates')
     mapping: CompoundAffixMap = load_compound_affixes()
     allowed_types = get_allowed_bonus_types()
     usage = UsageTotals()
+    retry_names = set(retry_affixes or [])
 
     try:
         attempts: dict[str, Any] = read_llm_json('compound_affix_attempts')
@@ -169,7 +177,7 @@ def resolve_compound_affixes(
 
     for candidate in candidates:
         affix_name = candidate['affixName']
-        if affix_name in mapping or affix_name in attempts:
+        if affix_name in mapping or (affix_name in attempts and affix_name not in retry_names):
             continue
 
         exclusion_reason = get_candidate_exclusion_reason(candidate)
@@ -201,6 +209,7 @@ def resolve_compound_affixes(
             write_llm_json(attempts, 'compound_affix_attempts')
             continue
 
+        attempts.pop(affix_name, None)
         save_compound_affixes(mapping)
 
     save_compound_affixes(mapping)
@@ -219,8 +228,9 @@ def main() -> None:
     parser.add_argument('--model', default='gpt-4.1-mini')
     parser.add_argument('--prompt-cost-per-1m', type=float, default=0.0)
     parser.add_argument('--completion-cost-per-1m', type=float, default=0.0)
+    parser.add_argument('--retry-affix', action='append', default=[], help='Retry a named affix even if it already has an attempt record')
     args = parser.parse_args()
-    resolve_compound_affixes(args.model, args.prompt_cost_per_1m, args.completion_cost_per_1m)
+    resolve_compound_affixes(args.model, args.prompt_cost_per_1m, args.completion_cost_per_1m, args.retry_affix)
 
 
 if __name__ == '__main__':

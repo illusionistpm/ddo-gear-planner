@@ -17,7 +17,7 @@ def get_asset_json_path(file_name: str) -> str:
 
 
 def get_provenance_output_path() -> str:
-    return os.path.normpath(os.path.join(get_output_path(), 'provenance'))
+    return os.path.normpath(os.path.join(os.path.dirname(__file__), 'provenance'))
 
 
 def get_provenance_json_path(file_name: str) -> str:

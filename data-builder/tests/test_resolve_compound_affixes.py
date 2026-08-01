@@ -61,7 +61,9 @@ def test_retry_affix_reprocesses_existing_attempt_and_clears_stale_failure(monke
                     'valueIsParsed': True,
                 },
             ]
-        if name == 'compound_affix_attempts':
+        if name == 'compound_affix_suggestions':
+            return {}
+        if name == 'compound_affix_llm_results':
             return {
                 "Winter's Impertenence": {
                     'status': 'not-compound',
@@ -73,7 +75,6 @@ def test_retry_affix_reprocesses_existing_attempt_and_clears_stale_failure(monke
     monkeypatch.setattr(module, 'read_llm_json', read_llm_json)
     monkeypatch.setattr(module, 'write_llm_json', lambda data, name: writes.setdefault(name, data.copy()))
     monkeypatch.setattr(module, 'load_compound_affixes', lambda: mapping)
-    monkeypatch.setattr(module, 'save_compound_affixes', lambda data: mapping.update(data))
     monkeypatch.setattr(module, 'get_allowed_bonus_types', lambda: {'Enhancement'})
     monkeypatch.setattr(module, 'get_candidate_exclusion_reason', lambda candidate: None)
     monkeypatch.setattr(
@@ -103,7 +104,7 @@ def test_retry_affix_reprocesses_existing_attempt_and_clears_stale_failure(monke
 
     module.resolve_compound_affixes('test-model', retry_affixes=["Winter's Impertenence"])
 
-    assert mapping["Winter's Impertenence"] == {
+    assert writes['compound_affix_suggestions']["Winter's Impertenence"] == {
         'components': [
             {
                 'name': 'Force Spell Crit Damage',
@@ -118,7 +119,7 @@ def test_retry_affix_reprocesses_existing_attempt_and_clears_stale_failure(monke
         ],
         'notes': 'Passive critical damage bonus split by spell damage type.',
     }
-    assert "Winter's Impertenence" not in writes['compound_affix_attempts']
+    assert "Winter's Impertenence" not in writes['compound_affix_llm_results']
 
 
 def test_resolve_compound_affixes_prints_query_progress_and_kept_lines(monkeypatch, capsys):
@@ -130,7 +131,6 @@ def test_resolve_compound_affixes_prints_query_progress_and_kept_lines(monkeypat
     ] if name == 'compound_affix_candidates' else {})
     monkeypatch.setattr(module, 'write_llm_json', lambda data, name: None)
     monkeypatch.setattr(module, 'load_compound_affixes', lambda: mapping)
-    monkeypatch.setattr(module, 'save_compound_affixes', lambda data: mapping.update(data))
     monkeypatch.setattr(module, 'get_allowed_bonus_types', lambda: {'Enhancement'})
     monkeypatch.setattr(module, 'get_candidate_exclusion_reason', lambda candidate: None)
 

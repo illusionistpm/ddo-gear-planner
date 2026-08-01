@@ -9,7 +9,7 @@ _COMPOUND_AFFIXES: CompoundAffixMap | None = None
 
 
 def get_compound_affix_path() -> str:
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), 'llm', 'compound_affixes.json'))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), 'compound_affixes.json'))
 
 
 def load_compound_affixes() -> CompoundAffixMap:

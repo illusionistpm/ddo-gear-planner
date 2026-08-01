@@ -4,6 +4,7 @@ import os
 import re
 from typing import Any
 
+from compound_affix_names import is_source_label_only_type_prefixed
 from compound_affixes import load_compound_affixes
 from llm_io import write_llm_json
 from provenance_io import get_provenance_json_path
@@ -50,6 +51,8 @@ def get_candidate_affix_name(affix: Affix) -> str | None:
         return None
 
     source_label = _extract_source_affix_label(affix)
+    if source_label and is_source_label_only_type_prefixed(name, source_label, affix.get('type')):
+        return name
     if source_label and _should_repair_candidate_name(name, source_label):
         return source_label
 

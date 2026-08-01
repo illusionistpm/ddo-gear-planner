@@ -174,6 +174,35 @@ def test_build_compound_affix_candidates_repairs_truncated_name_from_provenance(
     assert candidates[0]['candidatePriority'] == 'high'
 
 
+def test_build_compound_affix_candidates_keeps_type_prefixed_tooltip_names_canonical(monkeypatch):
+    monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: set())
+
+    affixes = []
+    for bonus_type in ('Exceptional', 'Insight', 'Quality'):
+        tooltip_label = 'Insightful Alluring Skills Bonus' if bonus_type == 'Insight' else f'{bonus_type} Alluring Skills Bonus'
+        affixes.append(
+            {
+                'name': 'Alluring Skills Bonus',
+                'type': bonus_type,
+                'value': '8',
+                'sourceText': f'{tooltip_label} +8{tooltip_label}: +8 {bonus_type} bonus to Bluff, Diplomacy, Haggle, Intimidate, and Perform.',
+                'sourceTooltip': f'{tooltip_label}: +8 {bonus_type} bonus to Bluff, Diplomacy, Haggle, Intimidate, and Perform.',
+            }
+        )
+
+    candidates = build_compound_affix_candidates.build_compound_affix_candidates([
+        {
+            'name': 'Social Item',
+            'url': '/page/Item:Social_Item',
+            'affixes': affixes,
+        },
+    ])
+
+    assert [candidate['affixName'] for candidate in candidates] == ['Alluring Skills Bonus']
+    assert candidates[0]['candidatePriority'] == 'high'
+
+
 def test_build_compound_affix_candidates_prefers_tooltip_label_over_glued_source_text(monkeypatch):
     monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
     monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: {'Sheltering'})

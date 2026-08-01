@@ -5,6 +5,11 @@ from typing import Any
 
 LLM_DIR = os.path.join(os.path.dirname(__file__), 'llm')
 
+COMPOUND_AFFIX_CANDIDATES_FILE = 'compound_affix_candidates'
+COMPOUND_AFFIX_SUGGESTIONS_FILE = 'compound_affix_suggestions'
+COMPOUND_AFFIX_LLM_RESULTS_FILE = 'compound_affix_llm_results'
+COMPOUND_AFFIX_REVIEW_STATE_FILE = 'compound_affix_review_state'
+
 
 def get_llm_path(file_name: str) -> str:
     return os.path.join(LLM_DIR, file_name + '.json')

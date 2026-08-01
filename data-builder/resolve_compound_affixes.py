@@ -8,8 +8,13 @@ from typing import Any, Literal, TypedDict
 
 from allowed_bonus_types import get_allowed_bonus_types
 from build_compound_affix_candidates import get_candidate_exclusion_reason
-from compound_affixes import load_compound_affixes, save_compound_affixes
-from llm_io import read_llm_json, write_llm_json
+from compound_affixes import load_compound_affixes
+from llm_io import (
+    COMPOUND_AFFIX_LLM_RESULTS_FILE,
+    COMPOUND_AFFIX_SUGGESTIONS_FILE,
+    read_llm_json,
+    write_llm_json,
+)
 from typedefs import CompoundAffixDefinition, CompoundAffixComponent, CompoundAffixValue, CompoundAffixMap
 
 
@@ -204,20 +209,28 @@ def resolve_compound_affixes(
     show_progress: bool = True,
 ) -> None:
     candidates: list[CompoundAffixCandidate] = read_llm_json('compound_affix_candidates')
-    mapping: CompoundAffixMap = load_compound_affixes()
+    curated_mapping: CompoundAffixMap = load_compound_affixes()
+    try:
+        suggestions: CompoundAffixMap = read_llm_json(COMPOUND_AFFIX_SUGGESTIONS_FILE)
+    except FileNotFoundError:
+        suggestions = {}
     allowed_types = get_allowed_bonus_types()
     usage = UsageTotals()
     retry_names = set(retry_affixes or [])
     progress = ProgressPrinter(show_progress)
 
     try:
-        attempts: dict[str, Any] = read_llm_json('compound_affix_attempts')
+        attempts: dict[str, Any] = read_llm_json(COMPOUND_AFFIX_LLM_RESULTS_FILE)
     except FileNotFoundError:
         attempts = {}
 
     for candidate in candidates:
         affix_name = candidate['affixName']
-        if affix_name in mapping or (affix_name in attempts and affix_name not in retry_names):
+        if (
+            affix_name in curated_mapping
+            or affix_name in suggestions
+            or (affix_name in attempts and affix_name not in retry_names)
+        ):
             continue
 
         exclusion_reason = get_candidate_exclusion_reason(candidate)
@@ -227,7 +240,7 @@ def resolve_compound_affixes(
                 'errors': [exclusion_reason],
                 'notes': 'Skipped by deterministic candidate filter before LLM resolution.',
             }
-            write_llm_json(attempts, 'compound_affix_attempts')
+            write_llm_json(attempts, COMPOUND_AFFIX_LLM_RESULTS_FILE)
             continue
 
         progress.querying(affix_name)
@@ -240,23 +253,23 @@ def resolve_compound_affixes(
                 'errors': result.get('errors', []),
                 'notes': result.get('notes'),
             }
-            write_llm_json(attempts, 'compound_affix_attempts')
+            write_llm_json(attempts, COMPOUND_AFFIX_LLM_RESULTS_FILE)
             continue
 
         try:
-            mapping[affix_name] = _to_definition(result, allowed_types)
+            suggestions[affix_name] = _to_definition(result, allowed_types)
         except ValueError as exc:
             attempts[affix_name] = {'status': 'validation-failed', 'errors': [str(exc)]}
-            write_llm_json(attempts, 'compound_affix_attempts')
+            write_llm_json(attempts, COMPOUND_AFFIX_LLM_RESULTS_FILE)
             continue
 
         attempts.pop(affix_name, None)
-        save_compound_affixes(mapping)
+        write_llm_json(suggestions, COMPOUND_AFFIX_SUGGESTIONS_FILE)
         progress.kept(affix_name)
 
     progress.finish()
-    save_compound_affixes(mapping)
-    write_llm_json(attempts, 'compound_affix_attempts')
+    write_llm_json(suggestions, COMPOUND_AFFIX_SUGGESTIONS_FILE)
+    write_llm_json(attempts, COMPOUND_AFFIX_LLM_RESULTS_FILE)
 
     if usage.requests:
         print(f"Requests: {usage.requests}")

@@ -1,9 +1,9 @@
 .vscode/
 **/__pycache__/
 data-builder/cache/
+data-builder/provenance/
 data-builder/reports/
-site/src/assets/provenance/
-data-builder/llm/compound_affix_attempts.json
+data-builder/llm/compound_affix_llm_results.json
 data-builder/llm/compound_affix_candidates.json
 ~$*.xlsx
 *:Zone.Identifier

@@ -143,6 +143,24 @@
     },
     {
         "affixes": [
+            "Stunning"
+        ],
+        "name": "Dazing"
+    },
+    {
+        "affixes": [
+            "Shatter"
+        ],
+        "name": "Sundering"
+    },
+    {
+        "affixes": [
+            "Bluff"
+        ],
+        "name": "Improved Deception"
+    },
+    {
+        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",
@@ -175,6 +193,14 @@
             "Lightning Lore"
         ],
         "name": "Frozen Storm Lore"
+    },
+    {
+        "affixes": [
+            "Force Lore",
+            "Physical Lore",
+            "Untyped Lore"
+        ],
+        "name": "Kinetic Lore"
     },
     {
         "affixes": [
@@ -281,5 +307,37 @@
             "Repair Amplification"
         ],
         "name": "each Amplification"
+    },
+    {
+        "affixes": [
+            "Perform"
+        ],
+        "components": [
+            {
+                "name": "Perform",
+                "type": "Enhancement",
+                "value": 2
+            }
+        ],
+        "name": "Songblade"
+    },
+    {
+        "affixes": [
+            "Negative Energy Absorption",
+            "Deathblock"
+        ],
+        "components": [
+            {
+                "name": "Negative Energy Absorption",
+                "type": "<TypeAlreadyParsed>",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Lifesealed"
     }
 ]

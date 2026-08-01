@@ -1,0 +1,1713 @@
+{
+  "Alluring Skills Bonus": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants multiple permanent skill bonuses of the same amount and bonus type to Bluff, Diplomacy, Haggle, Intimidate, and Perform."
+  },
+  "Armor Class": {
+    "components": [
+      {
+        "name": "Armor Bonus",
+        "type": "Armor",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Deflection Bonus",
+        "type": "Deflection",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Shield Bonus",
+        "type": "Shield",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Astute Skills Bonus": {
+    "components": [
+      {
+        "name": "Disable Device",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants permanent Exceptional bonuses to Disable Device, Repair, and Search skills."
+  },
+  "Blighted Lore": {
+    "components": [
+      {
+        "name": "Acid Lore",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Negative Lore",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Lore",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Lore",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Affix grants passive Equipment bonus to critical chance for multiple spell damage types; decomposed into matching Lore affixes for Acid, Negative, Poison, and Evil."
+  },
+  "Blood": {
+    "components": [
+      {
+        "name": "Positive Healing Amplification",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortification",
+        "type": "Penalty",
+        "value": {
+          "amount": -10,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Compound affix grants +20 Positive Healing Amplification (Enhancement) and -10% Fortification (Penalty). Both are permanent stat changes."
+  },
+  "Bottled Heart": {
+    "components": [
+      {
+        "name": "Melee Threat Generation",
+        "type": "Legendary",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Legendary",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ]
+  },
+  "Charisma Skills": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants permanent Exceptional bonus to multiple Charisma-based skills, treated as compound because it affects multiple distinct skill stats."
+  },
+  "Combat Mastery +12 Combat Mastery": {
+    "components": [
+      {
+        "name": "Trip DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Improved Trip DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sunder DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Improved Sunder DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Stunning Blow DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Stunning Fist DC",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix provides a permanent enhancement bonus to the DCs of Trip, Improved Trip, Sunder, Improved Sunder, Stunning Blow, and Stunning Fist as a single grouped affix."
+  },
+  "Combat Mastery +3 Combat Mastery": {
+    "components": [
+      {
+        "name": "DC to resist Trip",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "DC to resist Improved Trip",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "DC to resist Sunder",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "DC to resist Improved Sunder",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "DC to resist Stunning Blow",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "DC to resist Stunning Fist",
+        "type": "Enhancement",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      }
+    ]
+  },
+  "Combat Mastery +4 Combat Mastery": {
+    "components": [
+      {
+        "name": "Trip DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Improved Trip DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Sunder DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Improved Sunder DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Stunning Blow DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Stunning Fist DC Enhancement Bonus",
+        "type": "Enhancement",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "This affix provides a permanent +4 enhancement bonus to the DCs of multiple combat maneuvers and class features, thus it is decomposed into multiple permanent stat bonuses."
+  },
+  "Combat Mastery +9 Combat Mastery": {
+    "components": [
+      {
+        "name": "DC to resist Trip attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "DC to resist Improved Trip attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "DC to resist Sunder attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "DC to resist Improved Sunder attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "DC to resist Stunning Blow attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "DC to resist Stunning Fist attempts",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Command": {
+    "components": [
+      {
+        "name": "Insight bonus on Charisma based skill checks",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Penalty on Hide checks",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": -6,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The Command affix grants a positive insight or competence bonus on Charisma-based skill checks and imposes a fixed -6 penalty on Hide checks. Both are permanent bonuses/penalties inherent to the item, so it is a compound affix."
+  },
+  "Confounding Enchantment": {
+    "components": [
+      {
+        "name": "Exceptional Charisma",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Exceptional Constitution",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Exceptional Dexterity",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Exceptional Intelligence",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Exceptional Strength",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Exceptional Wisdom",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants one of several +1 Exceptional ability bonuses permanently (until unequipped) on each equip. Thus it is compound because it can grant multiple different permanent stat bonuses, but only one at a time."
+  },
+  "Creeping Dust Lore": {
+    "components": [
+      {
+        "name": "Cold Spell Crit Chance",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Acid Spell Crit Chance",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Creeping Dust Lore grants a permanent Equipment bonus to critical hit chance for Cold and Acid spells, decomposed into separate Cold and Acid spell critical chance affixes."
+  },
+  "Darkwood": {
+    "components": [
+      {
+        "name": "Hardness",
+        "type": "Armor",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Armor Check Penalty",
+        "type": "Penalty",
+        "value": {
+          "amount": -2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Darkwood grants two permanent underlying stat bonuses: +1 hardness and -2 armor check penalty."
+  },
+  "Dream Vision": {
+    "components": [
+      {
+        "name": "Attack rolls",
+        "type": "Competence",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Damage rolls",
+        "type": "Competence",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants scaled competence bonuses to both Attack and Damage rolls permanently; the bypass of miss chance vs. Incorporeal is a permanent property, not decomposed into stats."
+  },
+  "Epic Nimbleness": {
+    "components": [
+      {
+        "name": "Maximum Dexterity Bonus Increase",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 6,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Armor Check Penalty Reduction",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Grants permanent increases to maximum Dexterity bonus and reduction to armor check penalty; both are permanent underlying stat modifications."
+  },
+  "Eternal Faith": {
+    "components": [
+      {
+        "name": "Effective level for turning checks",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Maximum Hit Dice turned",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Total Hit Dice turned",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The affix grants multiple permanent bonuses related to turning undead and thus is compound. All bonuses are fixed values."
+  },
+  "Fire and Cold Absorption": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants two permanent stat bonuses: Enhancement Bonus to Fire Absorption and Enhancement Bonus to Cold Absorption, each scaling with the parsed value."
+  },
+  "Fire and Cold Absorption +22% Fire and Cold Absorption": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants Enhancement bonus absorption to both Fire and Cold damage types as permanent passive bonuses. Decomposed into two components for Fire Absorption and Cold Absorption respectively."
+  },
+  "Fire and Cold Absorption +40% Fire and Cold Absorption": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Affix grants a permanent 40% enhancement bonus to both Fire Absorption and Cold Absorption; decomposed into two separate absorption components."
+  },
+  "Good Luck": {
+    "components": [
+      {
+        "name": "All Saves",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "All Skill Checks",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants a Luck bonus to all saves and skill checks equal to the affix number."
+  },
+  "Greater Marksmanship": {
+    "components": [
+      {
+        "name": "Ranged Attack",
+        "type": "Competence",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Ranged Damage",
+        "type": "Competence",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ]
+  },
+  "Greater Nimbleness": {
+    "components": [
+      {
+        "name": "max Dexterity bonus increase",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "armor check penalty reduction",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Grants two distinct permanent benefits: +2 to max Dex bonus and -4 armor check penalty."
+  },
+  "Greater Stability": {
+    "components": [
+      {
+        "name": "Deflection bonus to AC",
+        "type": "Deflection",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Resistance bonus to saving throws",
+        "type": "Resistance",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Bonuses apply only for characters of True Neutral alignment but are permanent while the item is equipped."
+  },
+  "Greater Water Elemental Form": {
+    "components": [
+      {
+        "name": "Cold Caster Level",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Exceptional",
+        "value": {
+          "amount": 50,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Cold Spell Critical Damage",
+        "type": "Exceptional",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Permanent passive bonuses for Cold caster level, Cold spell power, and Cold spell critical damage as water elemental."
+  },
+  "Ice Intensity": {
+    "components": [
+      {
+        "name": "Spell Cold Critical Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Affix grants a permanent enhancement bonus to critical damage for Cold spells and is decomposed into related Spell Crit Damage affix component."
+  },
+  "Improved Heroism": {
+    "components": [
+      {
+        "name": "attack rolls",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "saving throws",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "skill checks",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Improved Heroism grants a permanent +3 morale bonus to attack rolls, saving throws, and skill checks, constituting multiple underlying stat bonuses."
+  },
+  "Intelligence Skills": {
+    "components": [
+      {
+        "name": "Disable Device",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
+  },
+  "Kinetic Intensity +12% Kinetic Intensity": {
+    "components": [
+      {
+        "name": "Spell Crit Damage - Force",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spell Crit Damage - Physical",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This compound affix grants a permanent enhancement bonus to spell critical damage for both Force and Physical spells, decomposed into their respective affix components."
+  },
+  "Kinetic Intensity +24% Kinetic Intensity": {
+    "components": [
+      {
+        "name": "Force Spell Critical Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Physical Spell Critical Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed compound affix granting enhancement bonuses to critical damage for both Force and Physical spell types."
+  },
+  "Litany of the Dead - Ability Bonus": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants +1 Profane bonus to all Abilities (Str, Con, Dex, Int, Wis, Cha)."
+  },
+  "Litany of the Dead - Combat Bonus": {
+    "components": [
+      {
+        "name": "attack bonus",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "damage",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Litany of the Dead II - Ability Bonus": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants +2 Profane bonus to all Abilities, parsed value scales the bonus for each ability."
+  },
+  "Litany of the Dead II - Combat Bonus": {
+    "components": [
+      {
+        "name": "Attack Bonus",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Damage Bonus",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants +4 Profane bonus to both attack bonus and damage as permanent bonuses."
+  },
+  "Overfocus": {
+    "components": [
+      {
+        "name": "Search Penalty",
+        "type": "Penalty",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot Penalty",
+        "type": "Penalty",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The affix grants two distinct permanent penalties (-10 to Search and -10 to Spot), making it compound."
+  },
+  "Parrying": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fortitude Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Parrying grants multiple permanent Insight bonuses: to AC, and to Fortitude, Reflex, and Will saves. These are permanent and not conditional on combat states, so the affix is compound."
+  },
+  "Power of the Flames of Purity": {
+    "components": [
+      {
+        "name": "Fire Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Power of the Frozen Depths": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Power of the Frozen Storm": {
+    "components": [
+      {
+        "name": "Cold Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants two permanent underlying stats: bonus to Cold Spell Power and bonus to Electric Spell Power, both scaling with the affix value."
+  },
+  "Power of the Silver Flame": {
+    "components": [
+      {
+        "name": "Positive Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Radiance Intensity +12% Radiance Intensity": {
+    "components": [
+      {
+        "name": "Spell Crit Damage (Light)",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spell Crit Damage (Alignment)",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed Radiance Intensity into separate Spell Crit Damage affixes for Light and Alignment spells since the affix grants permanent bonuses to critical damage for multiple spell damage types."
+  },
+  "Radiance Intensity +24% Radiance Intensity": {
+    "components": [
+      {
+        "name": "Light Spell Crit Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Spell Crit Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed Radiance Intensity +24% into Light Spell Crit Damage and Alignment Spell Crit Damage enhancement bonuses."
+  },
+  "Reconstruction": {
+    "components": [
+      {
+        "name": "Repair Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Rust Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Reconstruction affix grants permanent Equipment/Insight/Quality bonus to both Repair and Rust Spell Power, representing two distinct underlying stat bonuses, thus it is compound."
+  },
+  "Repair Intensity +12% Repair Intensity": {
+    "components": [
+      {
+        "name": "Repair Spell Crit Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Rust Spell Crit Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed the compound affix 'Repair Intensity +12% Repair Intensity' into its component permanent stat bonuses for critical damage enhancement on Repair and Rust spell damage types."
+  },
+  "Repair Intensity +24% Repair Intensity": {
+    "components": [
+      {
+        "name": "Repair Intensity Spell Crit Damage",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Compound affix granting permanent +24% Enhancement bonus to critical damage with Repair and Rust spells decomposed into single Repair Intensity Spell Crit Damage affix."
+  },
+  "Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Saving Throws",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Saving Throws",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Saving Throws",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This Resistance affix grants permanent bonus to Fortitude, Reflex, and Will saving throws equally."
+  },
+  "Resistance +1 Resistance": {
+    "components": [
+      {
+        "name": "Resistance",
+        "type": "Resistance",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Resistance (Fortitude)",
+        "type": "Resistance",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Resistance (Reflex)",
+        "type": "Resistance",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Resistance (Will)",
+        "type": "Resistance",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Resistance +1 Resistance grants a +1 Resistance bonus to Fortitude, Reflex, and Will saving throws. Decomposed into separate Resistance components per save."
+  },
+  "Resistance +10 Resistance": {
+    "components": [
+      {
+        "name": "Resistance to Fortitude Saves",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Reflex Saves",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Will Saves",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed from '+10 Resistance bonus to Fortitude, Reflex, and Will Saving Throws' into three separate Resistance components."
+  },
+  "Resistance +11 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants a permanent +11 Resistance bonus to Fortitude, Reflex, and Will Saving Throws as a compound affix with three underlying resistance components."
+  },
+  "Resistance +12 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed the Resistance +12 affix into its three underlying permanent bonuses to Fortitude, Reflex, and Will Saving Throws."
+  },
+  "Resistance +2 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Resistance +3 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants a Resistance bonus of +3 to all saving throws: Fortitude, Reflex, and Will. The value is parsed and split into three permanent resistance bonuses."
+  },
+  "Resistance +4 Resistance": {
+    "components": [
+      {
+        "name": "Resistance to Fortitude Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Reflex Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Will Saving Throws",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants a permanent +4 Resistance bonus to all three saving throws: Fortitude, Reflex, and Will. Decomposed into three underlying Resistance affixes."
+  },
+  "Resistance +5 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed Resistance +5 affix into separate Fortitude, Reflex, and Will Resistance components, each with the same parsed value."
+  },
+  "Resistance +6 Resistance": {
+    "components": [
+      {
+        "name": "Resistance to Fortitude",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Reflex",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Resistance to Will",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Resistance +6 Resistance grants +6 Resistance bonus to Fortitude, Reflex, and Will saving throws, decomposed into separate components for each save type."
+  },
+  "Resistance +7 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Resistance +8 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Resistance +9 Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Resistance",
+        "type": "Resistance",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Riposte": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fortitude Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Saving Throws",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+  },
+  "Voice of Deceit": {
+    "components": [
+      {
+        "name": "Bluff skill bonus",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy skill bonus",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle skill bonus",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform skill bonus",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "This affix grants multiple permanent competence bonuses to 4 different skills."
+  },
+  "Well Rounded": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "Profane",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  },
+  "Wisdom Skills": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Exceptional",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  }
+}

@@ -1,9 +1,12 @@
 from collections import defaultdict
+import json
+import os
 import re
 from typing import Any
 
 from compound_affixes import load_compound_affixes
 from llm_io import write_llm_json
+from provenance_io import get_provenance_json_path
 from read_json import read_json
 from typedefs import Affix, Item
 
@@ -13,6 +16,52 @@ def _candidate_text(candidate: dict[str, Any]) -> str:
     parts.extend(str(value) for value in candidate.get('originalNames', []))
     parts.extend(str(value) for value in candidate.get('sourceTooltips', []))
     return ' '.join(parts).lower()
+
+
+def _extract_source_affix_label(affix: Affix) -> str | None:
+    for key in ('sourceText', 'sourceTooltip'):
+        source = affix.get(key)
+        if not isinstance(source, str):
+            continue
+
+        match = re.search(r'^\s*(.*?)\s+\+?-?\d+%?(?::|[A-Z]|$)', source)
+        if match:
+            label = match.group(1).strip()
+            if label and not label.startswith(('+', '-')):
+                return label
+
+    return None
+
+
+def _should_repair_candidate_name(parsed_name: str, source_label: str) -> bool:
+    if parsed_name == source_label or len(parsed_name) >= len(source_label):
+        return False
+    if parsed_name[:1].islower() and source_label[:1].isupper():
+        return True
+
+    parsed_words = parsed_name.casefold().split()
+    source_words = source_label.casefold().split()
+    return bool(parsed_words and source_words and parsed_words[-1] == source_words[-1] and len(parsed_words) < len(source_words))
+
+
+def get_candidate_affix_name(affix: Affix) -> str | None:
+    name = affix.get('name')
+    if not isinstance(name, str) or not name:
+        return None
+
+    source_label = _extract_source_affix_label(affix)
+    if source_label and _should_repair_candidate_name(name, source_label):
+        return source_label
+
+    return name
+
+
+def read_items_for_candidates() -> list[Item]:
+    provenance_path = get_provenance_json_path('items')
+    if os.path.exists(provenance_path):
+        with open(provenance_path, 'r', encoding='utf8') as fh:
+            return json.load(fh)
+    return read_json('items')
 
 
 def get_candidate_exclusion_reason(candidate: dict[str, Any]) -> str | None:
@@ -97,7 +146,7 @@ def _load_existing_affix_groups() -> set[str]:
 
 
 def build_compound_affix_candidates(items: list[Item] | None = None) -> list[dict[str, Any]]:
-    items = items if items is not None else read_json('items')
+    items = items if items is not None else read_items_for_candidates()
     known_compound_names = set(load_compound_affixes().keys())
     existing_affix_groups = _load_existing_affix_groups()
     candidates: dict[str, dict[str, Any]] = {}
@@ -105,8 +154,8 @@ def build_compound_affix_candidates(items: list[Item] | None = None) -> list[dic
 
     for item in items:
         for aff in item.get('affixes', []):
-            name = aff.get('name')
-            if not isinstance(name, str) or not name or name in known_compound_names:
+            name = get_candidate_affix_name(aff)
+            if name is None or name in known_compound_names:
                 continue
 
             record = candidates.setdefault(

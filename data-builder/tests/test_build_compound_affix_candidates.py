@@ -142,3 +142,43 @@ def test_build_compound_affix_candidates_filters_temporary_stacking_effects(monk
     ])
 
     assert candidates == []
+
+
+def test_build_compound_affix_candidates_repairs_truncated_name_from_provenance(monkeypatch):
+    monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: set())
+
+    candidates = build_compound_affix_candidates.build_compound_affix_candidates([
+        {
+            'name': 'Creeping Dust Conduit',
+            'url': '/page/Item:Creeping_Dust_Conduit',
+            'affixes': [
+                {
+                    'name': 'cst Lore',
+                    'type': 'Equipment',
+                    'value': '14',
+                    'sourceText': (
+                        'Creeping Dust Lore +14%Creeping Dust Lore +14: Passive: Your Cold and Acid spells '
+                        'gain a 14% Equipment bonus to their chance to critical hit.'
+                    ),
+                    'sourceTooltip': (
+                        'Creeping Dust Lore +14: Passive: Your Cold and Acid spells gain a 14% Equipment bonus '
+                        'to their chance to critical hit.'
+                    ),
+                },
+            ],
+        },
+    ])
+
+    assert candidates[0]['affixName'] == 'Creeping Dust Lore'
+    assert candidates[0]['candidatePriority'] == 'high'
+
+
+def test_read_items_for_candidates_prefers_provenance_assets(monkeypatch, tmp_path):
+    provenance_path = tmp_path / 'items.json'
+    provenance_path.write_text('[{"name": "Provenance Item", "affixes": []}]', encoding='utf8')
+
+    monkeypatch.setattr(build_compound_affix_candidates, 'get_provenance_json_path', lambda file_name: str(provenance_path))
+    monkeypatch.setattr(build_compound_affix_candidates, 'read_json', lambda file_name: [{'name': 'Regular Item', 'affixes': []}])
+
+    assert build_compound_affix_candidates.read_items_for_candidates() == [{'name': 'Provenance Item', 'affixes': []}]

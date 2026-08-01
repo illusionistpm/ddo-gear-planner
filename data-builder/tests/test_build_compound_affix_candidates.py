@@ -113,3 +113,32 @@ def test_build_compound_affix_candidates_keeps_damage_procs_low_priority(monkeyp
     ])
 
     assert candidates[0]['candidatePriority'] == 'low-damage-proc'
+
+
+def test_build_compound_affix_candidates_filters_temporary_stacking_effects(monkeypatch):
+    monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: set())
+
+    candidates = build_compound_affix_candidates.build_compound_affix_candidates([
+        {
+            'name': 'Legendary Echo of Blackrazor',
+            'url': '/page/Item:Legendary_Echo_of_Blackrazor',
+            'affixes': [
+                {
+                    'name': 'Legendary Stealer of Souls',
+                    'type': 'Bool',
+                    'value': 1,
+                    'sourceText': 'Legendary Stealer of Souls',
+                    'sourceTooltip': (
+                        'Legendary Stealer of Souls: When you strike the killing blow on an enemy, '
+                        'Blackrazor retains one Defeated Soul, up to a maximum of 20. Each Defeated Soul '
+                        'grants you +1 Profane bonus to Melee Power and +1 Profane bonus to Damage. '
+                        'If you block or unequip Blackrazor, the Defeated Souls will be released. '
+                        'Defeated Souls last for 30 seconds.'
+                    ),
+                },
+            ],
+        },
+    ])
+
+    assert candidates == []

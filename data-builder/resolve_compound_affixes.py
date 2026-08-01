@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Literal, TypedDict
 
 from allowed_bonus_types import get_allowed_bonus_types
+from build_compound_affix_candidates import get_candidate_exclusion_reason
 from compound_affixes import load_compound_affixes, save_compound_affixes
 from llm_io import read_llm_json, write_llm_json
 from typedefs import CompoundAffixDefinition, CompoundAffixComponent, CompoundAffixValue, CompoundAffixMap
@@ -89,7 +90,9 @@ def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) ->
                 'role': 'system',
                 'content': (
                     'Normalize Dungeons & Dragons Online item affixes. Decide whether an affix is compound, '
-                    'meaning it grants multiple underlying stat bonuses. Return only JSON matching the schema.'
+                    'meaning it grants multiple permanent underlying stat bonuses for a gear planner. '
+                    'Do not decompose temporary combat-state effects, stacking effects, clickies, procs, or '
+                    'short-duration bonuses. Return only JSON matching the schema.'
                 ),
             },
             {
@@ -97,7 +100,10 @@ def call_llm_for_decomposition(candidate: CompoundAffixCandidate, model: str) ->
                 'content': (
                     'Use <TypeAlreadyParsed> when typeIsParsed is true. Use same_as_affix_number when '
                     'valueIsParsed is true and the component scales with the parsed value. If uncertain, '
-                    'return isCompound=false with errors explaining why.'
+                    'return isCompound=false with errors explaining why. If the affix only grants bonuses '
+                    'after kills, on hit, on vorpal, while stacks are active, until stacks expire, or until '
+                    'the item is unequipped/blocked, return isCompound=false; those effects should remain '
+                    'as their named affix instead of being broken into permanent stat bonuses.'
                 ),
             },
             {'role': 'user', 'content': json.dumps(payload, sort_keys=True)},
@@ -163,6 +169,16 @@ def resolve_compound_affixes(
     for candidate in candidates:
         affix_name = candidate['affixName']
         if affix_name in mapping or affix_name in attempts:
+            continue
+
+        exclusion_reason = get_candidate_exclusion_reason(candidate)
+        if exclusion_reason:
+            attempts[affix_name] = {
+                'status': 'filtered',
+                'errors': [exclusion_reason],
+                'notes': 'Skipped by deterministic candidate filter before LLM resolution.',
+            }
+            write_llm_json(attempts, 'compound_affix_attempts')
             continue
 
         result, usage_meta = call_llm_for_decomposition(candidate, model)

@@ -40,6 +40,19 @@ def get_candidate_exclusion_reason(candidate: dict[str, Any]) -> str | None:
         return 'upgrade-marker'
     if any(marker in lower_name for marker in ('required class', 'class required', 'required trait', 'minimum level')):
         return 'requirement-metadata'
+    if any(marker in text for marker in (
+        'lasts for ',
+        'linger for ',
+        'lingers for ',
+        'will be released',
+        'if you block or unequip',
+        'when you strike the killing blow',
+        'killing a monster will',
+        'per stack',
+        'stack up to',
+        'stacks up to',
+    )):
+        return 'temporary-or-stacking-effect'
 
     return None
 

@@ -197,6 +197,23 @@ def test_quarantine_stale_suggestion_moves_definition_to_llm_results(monkeypatch
     assert writes['compound_affix_llm_results']['Exceptional Alluring Skills Bonus']['status'] == 'stale-suggestion'
 
 
+def test_save_affix_name_synonym_endpoint_delegates_to_quality_module(monkeypatch):
+    called = {}
+    monkeypatch.setattr(admin_api, 'save_synonym_mapping', lambda canonical, synonyms: called.update({'canonical': canonical, 'synonyms': synonyms}) or {'ok': True})
+
+    assert admin_api.save_synonym_mapping('Glaciation', ['Cold Spell Power']) == {'ok': True}
+    assert called == {'canonical': 'Glaciation', 'synonyms': ['Cold Spell Power']}
+
+
+def test_add_parser_backlog_endpoint_delegates_to_quality_module(monkeypatch):
+    monkeypatch.setattr(admin_api, 'add_parser_backlog_item', lambda payload: {'name': payload['name'], 'note': payload['note']})
+
+    assert admin_api.add_parser_backlog_item({'name': 'Bad Affix', 'note': 'Needs parser cleanup'}) == {
+        'name': 'Bad Affix',
+        'note': 'Needs parser cleanup',
+    }
+
+
 def test_build_review_payload_hides_value_suffixed_duplicate_when_canonical_exists(monkeypatch):
     def load_llm(file_name, default):
         if file_name == 'compound_affix_suggestions':
@@ -238,3 +255,97 @@ def test_build_review_payload_hides_value_suffixed_duplicate_when_canonical_cand
     monkeypatch.setattr(admin_api, 'get_llm_path', lambda file_name: file_name)
 
     assert admin_api.build_review_payload()['entries'] == []
+
+
+def test_queue_affix_name_for_compound_review_creates_candidate_and_review_state(monkeypatch):
+    writes = {}
+    review_state = {}
+
+    monkeypatch.setattr(admin_api, 'build_affix_name_review_payload', lambda: {
+        'entries': [
+            {
+                'name': 'Bloodrage Defense',
+                'examples': [
+                    {
+                        'parentName': 'Bloodrage Chrism',
+                        'url': '/page/Item:Bloodrage_Chrism',
+                        'type': 'Bool',
+                        'sourceText': 'Bloodrage DefenseBloodrage Defense: You gain bonuses.',
+                        'sourceTooltip': 'Bloodrage Defense: You gain bonuses.',
+                    }
+                ],
+            }
+        ],
+    })
+    monkeypatch.setattr(admin_api, '_load_llm_json', lambda file_name, default: [])
+    monkeypatch.setattr(admin_api, 'write_llm_json', lambda data, file_name: writes.update({file_name: data}))
+    monkeypatch.setattr(admin_api, '_load_review_state', lambda: review_state)
+    monkeypatch.setattr(admin_api, '_save_review_state', lambda data: review_state.update(data))
+    monkeypatch.setattr(admin_api, '_load_asset_json', lambda file_name, default: default)
+
+    result = admin_api.queue_affix_name_for_compound_review('Bloodrage Defense')
+
+    candidate = writes['compound_affix_candidates'][0]
+    assert result['candidatePresent'] is True
+    assert result['status'] == 'needs-tweak'
+    assert result['candidatePriority'] == 'normal'
+    assert candidate['affixName'] == 'Bloodrage Defense'
+    assert candidate['exampleItems'] == [{'itemName': 'Bloodrage Chrism', 'itemUrl': '/page/Item:Bloodrage_Chrism'}]
+    assert candidate['sourceTooltips'] == ['Bloodrage Defense: You gain bonuses.']
+    assert review_state['Bloodrage Defense']['status'] == 'needs-tweak'
+    assert review_state['Bloodrage Defense']['queuedFromAffixNames'] is True
+
+
+def test_queue_affix_name_for_compound_review_merges_existing_candidate(monkeypatch):
+    writes = {}
+    review_state = {}
+
+    monkeypatch.setattr(admin_api, 'build_affix_name_review_payload', lambda: {
+        'entries': [
+            {
+                'name': 'Paired Defenses',
+                'examples': [
+                    {
+                        'parentName': 'New Item',
+                        'url': '/page/Item:New_Item',
+                        'type': 'Insight',
+                        'sourceText': 'Paired Defenses +5',
+                        'sourceTooltip': 'Paired Defenses: You gain bonuses to both defenses.',
+                    }
+                ],
+            }
+        ],
+    })
+
+    def load_llm(file_name, default):
+        if file_name == 'compound_affix_candidates':
+            return [
+                {
+                    'affixName': 'Paired Defenses',
+                    'exampleItems': [{'itemName': 'Old Item', 'itemUrl': '/page/Item:Old_Item'}],
+                    'originalNames': ['Old Paired Defenses +4'],
+                    'sourceTooltips': ['Paired Defenses: Old tooltip.'],
+                    'candidatePriority': 'normal',
+                }
+            ]
+        return default
+
+    monkeypatch.setattr(admin_api, '_load_llm_json', load_llm)
+    monkeypatch.setattr(admin_api, 'write_llm_json', lambda data, file_name: writes.update({file_name: data}))
+    monkeypatch.setattr(admin_api, '_load_review_state', lambda: review_state)
+    monkeypatch.setattr(admin_api, '_save_review_state', lambda data: review_state.update(data))
+    monkeypatch.setattr(admin_api, '_load_asset_json', lambda file_name, default: default)
+
+    result = admin_api.queue_affix_name_for_compound_review('Paired Defenses')
+
+    candidate = writes['compound_affix_candidates'][0]
+    assert result['candidatePriority'] == 'high'
+    assert candidate['exampleItems'] == [
+        {'itemName': 'Old Item', 'itemUrl': '/page/Item:Old_Item'},
+        {'itemName': 'New Item', 'itemUrl': '/page/Item:New_Item'},
+    ]
+    assert candidate['sourceTooltips'] == [
+        'Paired Defenses: Old tooltip.',
+        'Paired Defenses: You gain bonuses to both defenses.',
+    ]
+    assert candidate['knownBonusType'] == 'Insight'

@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 
 type ValueMode = 'same_as_affix_number' | 'fixed' | 'boolean_one';
 type ReviewStatus = 'unreviewed' | 'accepted' | 'tweaked' | 'needs-tweak' | 'rejected';
+type AdminView = 'compound-affixes' | 'affix-names';
 
 interface CompoundAffixComponent {
   name: string;
@@ -46,8 +47,58 @@ interface ReviewPayload {
   entries: ReviewEntry[];
 }
 
+interface AffixNameExample {
+  asset: string;
+  parentName: string;
+  path: string;
+  url?: string;
+  type: string;
+  value: string;
+  sourceText?: string;
+  sourceTooltip?: string;
+}
+
+interface AffixNameEntry {
+  name: string;
+  count: number;
+  assets: Record<string, number>;
+  types: Record<string, number>;
+  values: Record<string, number>;
+  examples: AffixNameExample[];
+  reviewStatus: 'unreviewed' | 'ok';
+  reviewNotes?: string;
+  reviewedAt?: string;
+  signals: string[];
+  clusterIds: string[];
+  synonymCanonicalName?: string;
+  isCanonicalSynonymName: boolean;
+  hasSynonymCoverage: boolean;
+}
+
+interface AffixNameCluster {
+  id: string;
+  names: string[];
+  totalCount: number;
+}
+
+interface AffixNamePayload {
+  entries: AffixNameEntry[];
+  clusters: AffixNameCluster[];
+  synonyms: Array<{ name: string; synonyms: string[] }>;
+  backlog: any[];
+  summary: {
+    totalNames: number;
+    oneOffNames: number;
+    suspiciousNames: number;
+    reviewedNames: number;
+    clusters: number;
+  };
+}
+
 const API_ROOT = 'http://127.0.0.1:8765';
+const ACTIVE_VIEW_STORAGE_KEY = 'ddo-admin-active-view';
 const SELECTED_AFFIX_STORAGE_KEY = 'ddo-admin-selected-affix';
+const SELECTED_AFFIX_NAME_STORAGE_KEY = 'ddo-admin-selected-affix-name';
 
 function requestJson<T>(url: string, options: { method?: string; body?: unknown } = {}): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -85,12 +136,22 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
       <aside class="sidebar">
         <div class="brand">
           <h1>DDO Data Admin</h1>
-          <span>{{entries.length}} affixes</span>
+          <span>{{activeView === 'compound-affixes' ? entries.length : affixNameEntries.length}} affixes</span>
         </div>
 
-        <input class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search affixes">
+        <div class="admin-nav">
+          <button type="button" [class.active]="activeView === 'compound-affixes'" (click)="setActiveView('compound-affixes')">
+            Compound Affixes
+          </button>
+          <button type="button" [class.active]="activeView === 'affix-names'" (click)="setActiveView('affix-names')">
+            Affix Names
+          </button>
+        </div>
 
-        <div class="pipeline-summary">
+        <input *ngIf="activeView === 'compound-affixes'" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search compound affixes">
+        <input *ngIf="activeView === 'affix-names'" class="form-control form-control-sm" [(ngModel)]="affixNameSearchText" placeholder="Search affix names">
+
+        <div class="pipeline-summary" *ngIf="activeView === 'compound-affixes'">
           <span>Pipeline Health</span>
           <div>
             <strong>{{matchedEntryCount()}}</strong>
@@ -106,7 +167,27 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
           </div>
         </div>
 
-        <div class="status-tabs">
+        <div class="pipeline-summary" *ngIf="activeView === 'affix-names'">
+          <span>Name Quality</span>
+          <div>
+            <strong>{{affixNamePayload?.summary?.totalNames || 0}}</strong>
+            <small>names</small>
+          </div>
+          <div>
+            <strong>{{affixNamePayload?.summary?.suspiciousNames || 0}}</strong>
+            <small>flagged</small>
+          </div>
+          <div>
+            <strong>{{affixNamePayload?.summary?.clusters || 0}}</strong>
+            <small>clusters</small>
+          </div>
+          <div>
+            <strong>{{affixNamePayload?.summary?.reviewedNames || 0}}</strong>
+            <small>reviewed</small>
+          </div>
+        </div>
+
+        <div class="status-tabs" *ngIf="activeView === 'compound-affixes'">
           <button type="button" *ngFor="let status of statusFilters"
             [class.active]="statusFilter === status"
             (click)="statusFilter = status">
@@ -114,7 +195,15 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
           </button>
         </div>
 
-        <div class="queue">
+        <div class="status-tabs" *ngIf="activeView === 'affix-names'">
+          <button type="button" *ngFor="let filter of affixNameFilters"
+            [class.active]="affixNameFilter === filter"
+            (click)="affixNameFilter = filter">
+            {{filter}}
+          </button>
+        </div>
+
+        <div class="queue" *ngIf="activeView === 'compound-affixes'">
           <button type="button" *ngFor="let entry of filteredEntries()"
             [class.selected]="selected?.name === entry.name"
             (click)="select(entry)">
@@ -122,9 +211,18 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
             <small [class]="entry.staleReason ? 'stale' : entry.status">{{entry.staleReason ? 'stale' : entry.status}}</small>
           </button>
         </div>
+
+        <div class="queue affix-name-queue" *ngIf="activeView === 'affix-names'">
+          <button type="button" *ngFor="let entry of filteredAffixNameEntries()"
+            [class.selected]="selectedAffixName?.name === entry.name"
+            (click)="selectAffixName(entry)">
+            <span>{{entry.name}}</span>
+            <small [class]="getAffixNameBadgeClass(entry)">{{getAffixNameBadge(entry)}}</small>
+          </button>
+        </div>
       </aside>
 
-      <section class="detail" *ngIf="selected; else emptyState">
+      <section class="detail" *ngIf="activeView === 'compound-affixes' && selected">
         <header class="detail-header">
           <div>
             <p>Compound Affixes</p>
@@ -263,16 +361,129 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
         </section>
       </section>
 
-      <ng-template #emptyState>
-        <section class="detail empty">
-          <h2>Select an affix to review</h2>
-          <p>{{loadError || 'Loading review queue...'}}</p>
+      <section class="detail" *ngIf="activeView === 'affix-names' && selectedAffixName">
+        <header class="detail-header">
+          <div>
+            <p>Affix Names</p>
+            <h2>{{selectedAffixName.name}}</h2>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-outline-secondary" (click)="selectPreviousAffixName()">Previous</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="selectNextAffixName()">Next</button>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="affix-name-meta">
+            <span>{{selectedAffixName.count}} occurrences</span>
+            <span *ngFor="let asset of objectEntries(selectedAffixName.assets)">{{asset.key}}: {{asset.value}}</span>
+            <span *ngIf="selectedAffixName.reviewStatus === 'ok'" class="ok">reviewed ok</span>
+            <span *ngIf="selectedAffixName.hasSynonymCoverage" class="ok">synonym covered</span>
+            <span *ngIf="!selectedAffixName.hasSynonymCoverage" class="warn">no synonym coverage</span>
+          </div>
+          <div class="health-grid">
+            <span *ngFor="let signal of selectedAffixName.signals" class="warn">{{signal}}</span>
+            <span *ngIf="!selectedAffixName.signals.length" class="ok">no quality signals</span>
+            <span *ngIf="selectedAffixName.synonymCanonicalName" class="ok">maps to {{selectedAffixName.synonymCanonicalName}}</span>
+            <span *ngIf="selectedAffixName.isCanonicalSynonymName" class="ok">canonical synonym name</span>
+          </div>
         </section>
-      </ng-template>
+
+        <section class="two-column">
+          <div class="panel">
+            <h3>Review</h3>
+            <label class="notes-label" for="affix-name-review-notes">Review Notes</label>
+            <textarea id="affix-name-review-notes" class="form-control" rows="3" [(ngModel)]="affixNameReviewNotes"></textarea>
+            <div class="save-row">
+              <button type="button" class="btn btn-success" (click)="saveAffixNameReview('ok')">Mark OK</button>
+              <button type="button" class="btn btn-outline-secondary" (click)="saveAffixNameReview('unreviewed')">Clear Review</button>
+              <span class="save-status">{{affixNameSaveMessage}}</span>
+            </div>
+
+            <h3>Fix With Synonym</h3>
+            <datalist id="final-affix-names">
+              <option *ngFor="let name of affixNameOptions" [value]="name"></option>
+            </datalist>
+            <label class="notes-label" for="canonical-name">Canonical Name</label>
+            <input id="canonical-name" class="form-control" list="final-affix-names" [(ngModel)]="synonymCanonicalName">
+            <label class="notes-label" for="synonym-names">Synonyms</label>
+            <textarea id="synonym-names" class="form-control" rows="3" [(ngModel)]="synonymNamesText"></textarea>
+            <div class="save-row">
+              <button type="button" class="btn btn-primary" (click)="saveAffixSynonyms()">Save Synonym Mapping</button>
+            </div>
+
+            <h4>Likely Duplicate Clusters</h4>
+            <div *ngIf="getSelectedClusters().length; else noClusters">
+              <div class="cluster" *ngFor="let cluster of getSelectedClusters()">
+                <button type="button" *ngFor="let name of cluster.names"
+                  [class.selected]="name === selectedAffixName.name"
+                  (click)="useClusterName(name)">
+                  {{name}}
+                </button>
+              </div>
+            </div>
+            <ng-template #noClusters><p>No likely duplicate cluster found.</p></ng-template>
+          </div>
+
+          <div class="panel">
+            <h3>Parser Backlog</h3>
+            <label class="notes-label" for="parser-note">Note</label>
+            <textarea id="parser-note" class="form-control" rows="5" [(ngModel)]="parserBacklogNote"></textarea>
+            <div class="save-row">
+              <button type="button" class="btn btn-warning" (click)="saveParserBacklog()">Flag Parser Problem</button>
+            </div>
+
+            <h4>Compound Affix Review</h4>
+            <div class="save-row">
+              <button type="button" class="btn btn-outline-primary" (click)="sendToCompoundReview()">Send to Compound Review</button>
+            </div>
+
+            <h4>Type Distribution</h4>
+            <div class="distribution-row" *ngFor="let type of objectEntries(selectedAffixName.types)">
+              <span>{{type.key}}</span><strong>{{type.value}}</strong>
+            </div>
+            <h4>Value Distribution</h4>
+            <div class="distribution-row" *ngFor="let value of objectEntries(selectedAffixName.values).slice(0, 8)">
+              <span>{{value.key}}</span><strong>{{value.value}}</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Examples</h3>
+          <div class="impact-table">
+            <div class="impact-row impact-header">
+              <span>Source</span>
+              <span>Parse</span>
+              <span>Tooltip</span>
+            </div>
+            <div class="impact-row" *ngFor="let example of selectedAffixName.examples">
+              <div class="example-source">
+                <strong>{{example.asset}}</strong>
+                <a *ngIf="example.url" [href]="'https://ddowiki.com' + example.url" target="_blank" rel="noreferrer">{{example.parentName}}</a>
+                <span *ngIf="!example.url">{{example.parentName}}</span>
+              </div>
+              <code>{{selectedAffixName.name}} {{example.value}} {{example.type}}</code>
+              <code>{{example.sourceTooltip || example.sourceText || example.path}}</code>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="detail empty" *ngIf="activeView === 'compound-affixes' && !selected">
+        <h2>Select a compound affix to review</h2>
+        <p>{{loadError || 'Loading review queue...'}}</p>
+      </section>
+
+      <section class="detail empty" *ngIf="activeView === 'affix-names' && !selectedAffixName">
+        <h2>Select an affix name to review</h2>
+        <p>{{affixNameLoadError || 'Loading affix names...'}}</p>
+      </section>
     </main>
   `
 })
 export class AdminAppComponent {
+  activeView: AdminView = this.getStoredActiveView();
   entries: ReviewEntry[] = [];
   selected: ReviewEntry | null = null;
   draft: CompoundAffixDefinition = { components: [] };
@@ -286,9 +497,31 @@ export class AdminAppComponent {
   saveMessage = '';
   loadError = '';
   draggedComponentIndex: number | null = null;
+  affixNamePayload: AffixNamePayload | null = null;
+  affixNameEntries: AffixNameEntry[] = [];
+  selectedAffixName: AffixNameEntry | null = null;
+  affixNameOptions: string[] = [];
+  affixNameSearchText = '';
+  affixNameFilter = 'all';
+  affixNameFilters = ['all', 'unreviewed', 'reviewed', 'one-off', 'long-name', 'sentence-like-name', 'value-like-name', 'likely-duplicate', 'has-synonym', 'no-synonym', 'items', 'crafting', 'sets', 'affix-groups'];
+  synonymCanonicalName = '';
+  synonymNamesText = '';
+  parserBacklogNote = '';
+  affixNameReviewNotes = '';
+  affixNameSaveMessage = '';
+  affixNameLoadError = '';
 
   constructor(private changeDetector: ChangeDetectorRef) {
     this.load();
+    this.loadAffixNames();
+  }
+
+  setActiveView(view: AdminView) {
+    this.activeView = view;
+    this.storeActiveView(view);
+    if (view === 'affix-names' && !this.affixNameEntries.length) {
+      this.loadAffixNames();
+    }
   }
 
   async load(selectedName?: string) {
@@ -320,6 +553,23 @@ export class AdminAppComponent {
     });
   }
 
+  filteredAffixNameEntries() {
+    const query = this.affixNameSearchText.trim().toLowerCase();
+    return this.affixNameEntries.filter(entry => {
+      const matchesSearch = !query || entry.name.toLowerCase().includes(query);
+      if (!matchesSearch) return false;
+      if (this.affixNameFilter === 'all') return true;
+      if (this.affixNameFilter === 'reviewed') return entry.reviewStatus === 'ok';
+      if (this.affixNameFilter === 'unreviewed') return entry.reviewStatus !== 'ok';
+      if (this.affixNameFilter === 'has-synonym') return entry.hasSynonymCoverage;
+      if (this.affixNameFilter === 'no-synonym') return !entry.hasSynonymCoverage;
+      if (['items', 'crafting', 'sets', 'affix-groups'].includes(this.affixNameFilter)) {
+        return !!entry.assets[this.affixNameFilter];
+      }
+      return entry.signals.includes(this.affixNameFilter);
+    });
+  }
+
   matchedEntryCount() {
     return this.entries.filter(entry => entry.nameMatchesCurrentAffix).length;
   }
@@ -332,6 +582,25 @@ export class AdminAppComponent {
     return this.entries.filter(entry => entry.candidatePresent).length;
   }
 
+  async loadAffixNames(selectedName?: string) {
+    try {
+      const payload = await requestJson<AffixNamePayload>(`${API_ROOT}/api/affix-names/review`);
+      this.affixNamePayload = payload;
+      this.affixNameEntries = payload.entries;
+      this.affixNameOptions = payload.entries.map(entry => entry.name).sort((left, right) => left.localeCompare(right));
+      const preferredName = selectedName || this.getStoredAffixNameSelectionName();
+      const nextSelection = preferredName
+        ? this.affixNameEntries.find(entry => entry.name === preferredName)
+        : this.affixNameEntries[0];
+      this.selectAffixName(nextSelection || this.affixNameEntries[0]);
+    } catch (error) {
+      this.affixNameLoadError = `Could not load affix name API at ${API_ROOT}.`;
+      console.error(error);
+    } finally {
+      this.changeDetector.detectChanges();
+    }
+  }
+
   select(entry: ReviewEntry) {
     if (!entry) return;
     this.selected = entry;
@@ -339,6 +608,17 @@ export class AdminAppComponent {
     this.reviewNotes = entry.reviewNotes || '';
     this.saveMessage = '';
     this.storeSelectionName(entry.name);
+  }
+
+  selectAffixName(entry: AffixNameEntry) {
+    if (!entry) return;
+    this.selectedAffixName = entry;
+    this.synonymCanonicalName = entry.synonymCanonicalName || entry.name;
+    this.synonymNamesText = entry.synonymCanonicalName ? entry.name : '';
+    this.parserBacklogNote = '';
+    this.affixNameReviewNotes = entry.reviewNotes || '';
+    this.affixNameSaveMessage = '';
+    this.storeAffixNameSelectionName(entry.name);
   }
 
   selectPrevious() {
@@ -355,6 +635,132 @@ export class AdminAppComponent {
     const index = visible.findIndex(entry => entry.name === this.selected?.name);
     const next = visible[index + delta];
     if (next) this.select(next);
+  }
+
+  selectPreviousAffixName() {
+    this.moveAffixNameSelection(-1);
+  }
+
+  selectNextAffixName() {
+    this.moveAffixNameSelection(1);
+  }
+
+  moveAffixNameSelection(delta: number) {
+    if (!this.selectedAffixName) return;
+    const visible = this.filteredAffixNameEntries();
+    const index = visible.findIndex(entry => entry.name === this.selectedAffixName?.name);
+    const next = visible[index + delta];
+    if (next) this.selectAffixName(next);
+  }
+
+  objectEntries(record: Record<string, number>) {
+    return Object.entries(record || {})
+      .map(([key, value]) => ({ key, value }))
+      .sort((left, right) => Number(right.value) - Number(left.value) || left.key.localeCompare(right.key));
+  }
+
+  getSelectedClusters() {
+    if (!this.selectedAffixName || !this.affixNamePayload) return [];
+    const ids = new Set(this.selectedAffixName.clusterIds);
+    return this.affixNamePayload.clusters.filter(cluster => ids.has(cluster.id));
+  }
+
+  useClusterName(name: string) {
+    if (!this.selectedAffixName) return;
+    this.synonymCanonicalName = name;
+    this.synonymNamesText = this.selectedAffixName.name === name ? '' : this.selectedAffixName.name;
+  }
+
+  getAffixNameBadge(entry: AffixNameEntry) {
+    return entry.reviewStatus === 'ok' ? 'ok' : String(entry.count);
+  }
+
+  getAffixNameBadgeClass(entry: AffixNameEntry) {
+    if (entry.reviewStatus === 'ok') return 'accepted';
+    return entry.signals.length ? 'stale' : 'unreviewed';
+  }
+
+  async saveAffixNameReview(status: 'ok' | 'unreviewed') {
+    if (!this.selectedAffixName) return;
+    const name = this.selectedAffixName.name;
+    this.affixNameSaveMessage = status === 'ok' ? 'Marking reviewed...' : 'Clearing review...';
+    try {
+      await requestJson(`${API_ROOT}/api/affix-names/review/${encodeURIComponent(name)}`, {
+        method: 'POST',
+        body: {
+          status,
+          notes: this.affixNameReviewNotes,
+        }
+      });
+    } catch (error: any) {
+      this.affixNameSaveMessage = error?.error || 'Save failed';
+      return;
+    }
+    this.affixNameSaveMessage = status === 'ok' ? 'Marked OK' : 'Review cleared';
+    await this.loadAffixNames(name);
+  }
+
+  async saveAffixSynonyms() {
+    if (!this.selectedAffixName) return;
+    const synonyms = this.synonymNamesText
+      .split(/\r?\n|,/)
+      .map(name => name.trim())
+      .filter(name => name);
+    this.affixNameSaveMessage = 'Saving...';
+    try {
+      await requestJson(`${API_ROOT}/api/affix-names/synonyms`, {
+        method: 'POST',
+        body: {
+          canonicalName: this.synonymCanonicalName,
+          synonyms,
+        }
+      });
+    } catch (error: any) {
+      this.affixNameSaveMessage = error?.error || 'Save failed';
+      return;
+    }
+    this.affixNameSaveMessage = 'Saved';
+    await this.loadAffixNames(this.selectedAffixName.name);
+  }
+
+  async saveParserBacklog() {
+    if (!this.selectedAffixName) return;
+    this.affixNameSaveMessage = 'Saving parser issue...';
+    try {
+      await requestJson(`${API_ROOT}/api/affix-names/parser-backlog`, {
+        method: 'POST',
+        body: {
+          name: this.selectedAffixName.name,
+          note: this.parserBacklogNote,
+          examples: this.selectedAffixName.examples,
+        }
+      });
+    } catch (error: any) {
+      this.affixNameSaveMessage = error?.error || 'Save failed';
+      return;
+    }
+    this.affixNameSaveMessage = 'Parser issue saved';
+    this.parserBacklogNote = '';
+    await this.loadAffixNames(this.selectedAffixName.name);
+  }
+
+  async sendToCompoundReview() {
+    if (!this.selectedAffixName) return;
+    const name = this.selectedAffixName.name;
+    this.affixNameSaveMessage = 'Sending to compound review...';
+    try {
+      await requestJson(`${API_ROOT}/api/affix-names/compound-candidate`, {
+        method: 'POST',
+        body: { name }
+      });
+    } catch (error: any) {
+      this.affixNameSaveMessage = error?.error || 'Send failed';
+      return;
+    }
+    this.affixNameSaveMessage = 'Sent to compound review';
+    await this.load(name);
+    this.setActiveView('compound-affixes');
+    this.changeDetector.detectChanges();
   }
 
   addComponent() {
@@ -475,6 +881,34 @@ export class AdminAppComponent {
     localStorage.setItem(SELECTED_AFFIX_STORAGE_KEY, name);
     const url = new URL(window.location.href);
     url.searchParams.set('affix', name);
+    window.history.replaceState({}, '', url);
+  }
+
+  getStoredAffixNameSelectionName() {
+    const urlName = new URLSearchParams(window.location.search).get('affixName');
+    return urlName || localStorage.getItem(SELECTED_AFFIX_NAME_STORAGE_KEY) || '';
+  }
+
+  storeAffixNameSelectionName(name: string) {
+    localStorage.setItem(SELECTED_AFFIX_NAME_STORAGE_KEY, name);
+    const url = new URL(window.location.href);
+    url.searchParams.set('affixName', name);
+    window.history.replaceState({}, '', url);
+  }
+
+  getStoredActiveView(): AdminView {
+    const urlView = new URLSearchParams(window.location.search).get('view');
+    if (urlView === 'affix-names' || urlView === 'compound-affixes') {
+      return urlView;
+    }
+    const storedView = localStorage.getItem(ACTIVE_VIEW_STORAGE_KEY);
+    return storedView === 'affix-names' || storedView === 'compound-affixes' ? storedView : 'compound-affixes';
+  }
+
+  storeActiveView(view: AdminView) {
+    localStorage.setItem(ACTIVE_VIEW_STORAGE_KEY, view);
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', view);
     window.history.replaceState({}, '', url);
   }
 

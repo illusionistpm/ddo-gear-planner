@@ -846,19 +846,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Attack Rolls",
-                        "type": "Enhancement",
-                        "value": 4
-                    },
-                    {
-                        "name": "Saving Throws",
-                        "type": "Enhancement",
-                        "value": 4
-                    },
-                    {
-                        "name": "Skill Checks",
-                        "type": "Enhancement",
-                        "value": 4
+                        "name": "Greater Heroism",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -1010,19 +1000,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Attack Rolls",
+                        "name": "Heroism",
                         "type": "Bool",
-                        "value": 2
-                    },
-                    {
-                        "name": "Saving Throws",
-                        "type": "Bool",
-                        "value": 2
-                    },
-                    {
-                        "name": "Skill Checks",
-                        "type": "Bool",
-                        "value": 2
+                        "value": 1
                     }
                 ],
                 "ml": 6,
@@ -2850,27 +2830,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "149"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "149"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "149"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "149"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2884,12 +2844,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "149"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -6224,19 +6179,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement to attack rolls",
+                        "name": "Deception",
                         "type": "Enhancement",
                         "value": "3"
-                    },
-                    {
-                        "name": "Sneak attack damage bonus",
-                        "type": "Enhancement",
-                        "value": "3"
-                    },
-                    {
-                        "name": "Enhancement bonus to Bluff checks",
-                        "type": "Enhancement",
-                        "value": 3
                     }
                 ],
                 "ml": 8,
@@ -6248,19 +6193,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement to attack rolls",
+                        "name": "Deception",
                         "type": "Enhancement",
                         "value": "12"
-                    },
-                    {
-                        "name": "Sneak attack damage bonus",
-                        "type": "Enhancement",
-                        "value": "12"
-                    },
-                    {
-                        "name": "Enhancement bonus to Bluff checks",
-                        "type": "Enhancement",
-                        "value": 3
                     }
                 ],
                 "ml": 34,
@@ -7122,27 +7057,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7156,27 +7071,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7190,12 +7085,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7209,12 +7099,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7397,12 +7282,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -7669,27 +7549,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7703,27 +7563,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7737,12 +7577,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Insight",
-                        "value": "35"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7756,12 +7591,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Insight",
-                        "value": "79"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7944,12 +7774,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -8154,19 +7979,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement to attack rolls",
+                        "name": "Deception",
                         "type": "Enhancement",
-                        "value": "12"
-                    },
-                    {
-                        "name": "Sneak attack damage bonus",
-                        "type": "Enhancement",
-                        "value": "12"
-                    },
-                    {
-                        "name": "Enhancement bonus to Bluff checks",
-                        "type": "Enhancement",
-                        "value": 3
+                        "value": "11"
                     }
                 ],
                 "ml": 31,
@@ -8412,19 +8227,12 @@
             {
                 "affixes": [
                     {
-                        "name": "Enhancement to attack rolls",
+                        "name": "Deception",
                         "type": "Enhancement",
+                        "uniquePropertyRequired": {
+                            "requireMinorArtifact": true
+                        },
                         "value": "12"
-                    },
-                    {
-                        "name": "Sneak attack damage bonus",
-                        "type": "Enhancement",
-                        "value": "12"
-                    },
-                    {
-                        "name": "Enhancement bonus to Bluff checks",
-                        "type": "Enhancement",
-                        "value": 3
                     }
                 ],
                 "ml": 31,
@@ -11148,12 +10956,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Energy Absorption",
-                        "type": "Enhancement",
-                        "value": 1
-                    },
-                    {
-                        "name": "Immunity to death spells and magical death effects",
+                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     },
@@ -11172,12 +10975,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Energy Absorption",
-                        "type": "Enhancement",
-                        "value": 1
-                    },
-                    {
-                        "name": "Immunity to death spells and magical death effects",
+                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     },
@@ -12486,27 +12284,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12520,27 +12298,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "159"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "159"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "159"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "159"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12554,12 +12312,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12573,12 +12326,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "159"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -36204,27 +35952,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "153"
                     },
@@ -36280,24 +36008,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Quell Effect Application",
+                        "name": "Improved Quelling Strikes",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "Spell Casting Prevention Chance",
-                        "type": "Bool",
-                        "value": 50
-                    },
-                    {
-                        "name": "Effect Duration",
-                        "type": "Bool",
-                        "value": 6
-                    },
-                    {
-                        "name": "Cooldown Duration",
-                        "type": "Bool",
-                        "value": 12
                     }
                 ],
                 "ml": 30,
@@ -38022,12 +37735,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38041,12 +37749,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38060,12 +37763,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38079,12 +37777,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38098,12 +37791,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38117,12 +37805,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38136,12 +37819,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38155,12 +37833,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38174,12 +37847,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Damage on Hit",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Fire Damage on Critical Hit",
+                        "name": "Flaming",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38582,27 +38250,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "111"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "111"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "111"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "111"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -38616,27 +38264,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "125"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "125"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "125"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "125"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -38650,27 +38278,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "139"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "139"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "139"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "139"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -38684,27 +38292,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -38718,27 +38306,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "38"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "38"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "38"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "38"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -38752,27 +38320,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "55"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "55"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "55"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "55"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -38786,27 +38334,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -38820,27 +38348,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "84"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "84"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "84"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "84"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -38854,27 +38362,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "97"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "97"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "97"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "97"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -39182,12 +38670,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "111"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -39201,12 +38684,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "125"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -39220,12 +38698,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "139"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -39239,12 +38712,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "153"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -39258,12 +38726,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "38"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -39277,12 +38740,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "55"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -39296,12 +38754,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "70"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -39315,12 +38768,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "84"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -39334,12 +38782,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Light Spell Power",
-                        "type": "Equipment",
-                        "value": "97"
-                    },
-                    {
-                        "name": "Alignment Spell Power",
+                        "name": "Radiance",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -39834,12 +39277,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Freezing Ice Chance to Freeze",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Freezing Ice Fortitude DC",
+                        "name": "Freezing Ice",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39934,27 +39372,7 @@
                         "value": "146"
                     },
                     {
-                        "name": "Force Spell Power",
-                        "type": "Equipment",
-                        "value": "146"
-                    },
-                    {
-                        "name": "Untyped Spell Power",
-                        "type": "Equipment",
-                        "value": "146"
-                    },
-                    {
-                        "name": "Slashing Spell Power",
-                        "type": "Equipment",
-                        "value": "146"
-                    },
-                    {
-                        "name": "Piercing Spell Power",
-                        "type": "Equipment",
-                        "value": "146"
-                    },
-                    {
-                        "name": "Bludgeoning Spell Power",
+                        "name": "Impulse",
                         "type": "Equipment",
                         "value": "146"
                     }
@@ -40548,12 +39966,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Energy Absorption",
-                        "type": "Enhancement",
-                        "value": 1
-                    },
-                    {
-                        "name": "Immunity to death spells and magical death effects",
+                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     },
@@ -45001,17 +44414,7 @@
                         "value": 1
                     },
                     {
-                        "name": "additional good damage",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "good alignment",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "negative level penalty to evil wielders",
+                        "name": "Holy",
                         "type": "Bool",
                         "value": 1
                     }
@@ -46741,27 +46144,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Acid Resistance",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Cold Resistance",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Fire Resistance",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Electrical Resistance",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Sonic Resistance",
+                        "name": "Elemental Resistance",
                         "type": "Enhancement",
                         "value": "30"
                     }
@@ -46803,22 +46186,7 @@
             {
                 "affixes": [
                     {
-                        "name": "ki per successful attack",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Action Boosts per rest",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Turn Undead attempts per rest",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Bard Songs per rest",
+                        "name": "Alchemical Conservation",
                         "type": "Bool",
                         "value": 1
                     }
@@ -47476,12 +46844,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Negative Energy Absorption",
-                        "type": "Enhancement",
-                        "value": 1
-                    },
-                    {
-                        "name": "Immunity to death spells and magical death effects",
+                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     }

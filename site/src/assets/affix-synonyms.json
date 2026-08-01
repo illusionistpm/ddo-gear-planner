@@ -19,7 +19,9 @@
         "name": "Arcane Casting Dexterity",
         "synonyms": [
             "Lesser Arcane Casting Dexterity",
-            "Greater Arcane Casting Dexterity"
+            "Greater Arcane Casting Dexterity",
+            "reduce your Arcane Spell Failure by",
+            "Arcane Spell Failure"
         ]
     },
     {
@@ -314,13 +316,6 @@
         "name": "Silver",
         "synonyms": [
             "Silver , Alchemical"
-        ]
-    },
-    {
-        "name": "Arcane Casting Dexterity",
-        "synonyms": [
-            "reduce your Arcane Spell Failure by",
-            "Arcane Spell Failure"
         ]
     }
 ]

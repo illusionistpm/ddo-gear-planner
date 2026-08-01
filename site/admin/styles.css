@@ -12,10 +12,13 @@ body {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
   background: #172033;
   color: #fff;
   padding: 1rem;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .brand {
@@ -36,9 +39,31 @@ body {
   font-size: 0.85rem;
 }
 
+.admin-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.admin-nav button {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.45rem 0.5rem;
+  background: #2a3548;
+  color: #dbe4f0;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.admin-nav button.active {
+  background: #fff;
+  color: #172033;
+}
+
 .pipeline-summary {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
   gap: 0.45rem;
   margin: 0.75rem 0;
   padding: 0.65rem;
@@ -99,6 +124,9 @@ body {
 .queue {
   display: grid;
   gap: 0.35rem;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
 }
 
 .queue button {
@@ -139,6 +167,10 @@ body {
 
 .queue small.stale {
   background: #be123c;
+}
+
+.affix-name-queue button span {
+  overflow-wrap: anywhere;
 }
 
 .detail {
@@ -244,6 +276,70 @@ body {
 .health-grid span.muted {
   background: #f2f4f7;
   color: #667085;
+}
+
+.affix-name-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.8rem;
+}
+
+.affix-name-meta span {
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.affix-name-meta span.ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.affix-name-meta span.warn {
+  background: #ffe4e6;
+  color: #9f1239;
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cluster button {
+  border: 1px solid #d0d5dd;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  background: #fff;
+  color: #344054;
+}
+
+.cluster button.selected {
+  border-color: #2563eb;
+  background: #eef4ff;
+  color: #1d4ed8;
+}
+
+.distribution-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.distribution-row span {
+  overflow-wrap: anywhere;
+}
+
+.example-source strong,
+.example-source a,
+.example-source span {
+  display: block;
 }
 
 .tooltip-example {

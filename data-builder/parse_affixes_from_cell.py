@@ -260,6 +260,26 @@ def strip_bonus_types(name):
     return name
 
 
+def parse_sacred_turn_undead_bonus(text, tooltip):
+    combined = f'{text} {tooltip}'
+    if not re.search(r'^Sacred\s+[+-]?\d+', text) and not re.search(r'^Sacred\s+[+-]?\d+', tooltip):
+        return None
+    if not re.search(r'(Turning Undead|Turn Undead|turn undead)', combined):
+        return None
+
+    search = re.search(r'Sacred\s+\+?([0-9]+)', combined)
+    if not search:
+        search = re.search(r'\+([0-9]+)\s+Enhancement bonus.*?(?:Turning Undead|Turn Undead)', combined, re.IGNORECASE)
+    if not search:
+        return None
+
+    return {
+        'name': 'Turn Undead',
+        'type': 'Enhancement',
+        'value': search.group(1),
+    }
+
+
 def strip_charges(name):
     newName = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
     return newName.strip() + " clicky" if newName != name else name
@@ -460,6 +480,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     affixName = cleanup_unicode(affixName)
     affixName = cleanup_whitespace(affixName)
+    sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(affixName, source_tooltip)
+    if sacred_turn_undead_affix:
+        return add_affix_provenance(sacred_turn_undead_affix, source_text, source_tooltip, 'translate_list_tag_to_affix_map:sacred-turn-undead')
+
     affixName = strip_bonus_types(affixName)
     affixName = strip_charges(affixName)
     affixName = strip_necro4_upgrades(affixName)
@@ -501,7 +525,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['value'] = affixNameSearch.group(1).strip()
 
     # ex: +15 Enhancement Bonus
-    affixNameSearch = re.search(r'^\+(\d+) (Enhancement|Orb) [Bb]onus$', affixName)
+    affixNameSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(2) + ' Bonus'
         aff['type'] = affixNameSearch.group(2)
@@ -831,6 +855,10 @@ def convert_affix_text_map_to_affix_map(textMap):
     # remove text related to bug information sometimes included in affix text grab
     textMap["text"] = textMap["text"].split('Minor bug:', 1)[0].strip()
 
+    sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(textMap.get('text', ''), textMap.get('tooltip', ''))
+    if sacred_turn_undead_affix:
+        affixMap.update(sacred_turn_undead_affix)
+
     # special case exists if affix requires unique property
     # detect those cases and create a unique flag that can be detected and operated on
     affixTextSearch = re.search(r'^(.*?)( \(if (?:Minor Artifact|Quarterstaff)\))$', textMap["text"])
@@ -853,6 +881,12 @@ def convert_affix_text_map_to_affix_map(textMap):
         affixMap['name'] = affixTextSearch.group(2).strip()
         affixMap['type'] = affixTextSearch.group(1).strip()
         affixMap['value'] = affixTextSearch.group(3).strip()
+
+    affixTextSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', textMap["text"])
+    if (('name' not in affixMap) and (affixTextSearch)):
+        affixMap['name'] = affixTextSearch.group(2) + ' Bonus'
+        affixMap['type'] = affixTextSearch.group(2)
+        affixMap['value'] = affixTextSearch.group(1)
 
     # detect if text is in format (affix bonus type) (affix bonus name) (affix bonus value [roman numeral format])
     # ex: Insightful Spell Power V

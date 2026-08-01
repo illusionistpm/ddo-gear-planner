@@ -1,21 +1,12 @@
 import json
 import os
-import tempfile
 from provenance_io import get_asset_json_path, get_provenance_json_path, include_affix_provenance, strip_provenance
 
 
 def _write_json_file(path: str, contents: str) -> None:
-    directory = os.path.dirname(path)
-    os.makedirs(directory, exist_ok=True)
-    temp_path = None
-    try:
-        with tempfile.NamedTemporaryFile('w', encoding='utf8', dir=directory, delete=False) as fh:
-            temp_path = fh.name
-            fh.write(contents)
-        os.replace(temp_path, path)
-    finally:
-        if temp_path and os.path.exists(temp_path):
-            os.unlink(temp_path)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf8') as fh:
+        fh.write(contents)
 
 
 def write_json(dict, fileName):

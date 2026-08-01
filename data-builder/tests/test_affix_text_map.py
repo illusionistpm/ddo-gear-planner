@@ -62,6 +62,20 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'name': 'Chilling', 'type': 'Bool', 'value': 1},
         ),
         (
+            {
+                'text': 'Sacred +10',
+                'tooltip': 'Sacred +10: Sacred items provide an +10 Enhancement bonus to your effective level for Turning Undead.',
+            },
+            {'name': 'Turn Undead', 'type': 'Enhancement', 'value': '10'},
+        ),
+        (
+            {
+                'text': '-1 Enhancement Bonus',
+                'tooltip': '-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.',
+            },
+            {'name': 'Enhancement Bonus', 'type': 'Enhancement', 'value': '-1'},
+        ),
+        (
             {'text': 'Undead Bane 4', 'tooltip': 'Undead Bane 4: This weapon deals extra bane damage vs. Undead.'},
             {'name': 'Undead Bane', 'type': 'Bool', 'value': 1},
         ),

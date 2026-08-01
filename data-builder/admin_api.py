@@ -9,7 +9,14 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import unquote, urlparse
 
+from affix_name_quality import (
+    add_parser_backlog_item,
+    build_affix_name_review_payload,
+    save_affix_name_review,
+    save_synonym_mapping,
+)
 from allowed_bonus_types import get_allowed_bonus_types
+from build_compound_affix_candidates import get_candidate_exclusion_reason, get_candidate_priority
 from compound_affix_names import get_likely_canonical_affix_name, get_value_suffixed_canonical_name
 from compound_affixes import expand_single_affix, load_compound_affixes, save_compound_affixes
 from llm_io import (
@@ -302,6 +309,114 @@ def quarantine_stale_suggestion(name: str) -> dict[str, Any]:
     }
 
 
+def _append_unique_limited(values: list[Any], value: Any, limit: int = 3) -> None:
+    if value and value not in values and len(values) < limit:
+        values.append(value)
+
+
+def _existing_affix_group_names() -> set[str]:
+    return {
+        group['name']
+        for group in _load_asset_json('affix-groups', [])
+        if isinstance(group, dict) and isinstance(group.get('name'), str)
+    }
+
+
+def _build_candidate_from_affix_name_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    candidate = {
+        'affixName': entry['name'],
+        'exampleItems': [],
+        'originalNames': [],
+        'sourceTooltips': [],
+    }
+    observed_types = set()
+    for example in entry.get('examples', []):
+        if not isinstance(example, dict):
+            continue
+        _append_unique_limited(
+            candidate['exampleItems'],
+            {
+                'itemName': example.get('parentName'),
+                'itemUrl': example.get('url'),
+            },
+        )
+        _append_unique_limited(candidate['originalNames'], example.get('sourceText'))
+        _append_unique_limited(candidate['sourceTooltips'], example.get('sourceTooltip'))
+        bonus_type = example.get('type')
+        if isinstance(bonus_type, str) and bonus_type not in ('', 'Bool', 'Untyped', '<missing>'):
+            observed_types.add(bonus_type)
+
+    if observed_types:
+        candidate['typeIsParsed'] = True
+        candidate['valueIsParsed'] = True
+    if len(observed_types) == 1:
+        candidate['knownBonusType'] = next(iter(observed_types))
+
+    exclusion_reason = get_candidate_exclusion_reason(candidate)
+    if exclusion_reason:
+        raise ValueError(f'affix name cannot be queued as a compound candidate: {exclusion_reason}')
+    candidate['candidatePriority'] = get_candidate_priority(candidate, _existing_affix_group_names())
+    return candidate
+
+
+def _merge_candidate(existing: dict[str, Any], incoming: dict[str, Any]) -> dict[str, Any]:
+    merged = {**existing, 'affixName': incoming['affixName']}
+    for key in ('exampleItems', 'originalNames', 'sourceTooltips'):
+        values = list(merged.get(key, []))
+        for value in incoming.get(key, []):
+            _append_unique_limited(values, value)
+        merged[key] = values
+    for key in ('typeIsParsed', 'valueIsParsed', 'knownBonusType', 'candidatePriority'):
+        if key in incoming:
+            merged[key] = incoming[key]
+    return merged
+
+
+def queue_affix_name_for_compound_review(name: str) -> dict[str, Any]:
+    clean_name = name.strip()
+    if not clean_name:
+        raise ValueError('name is required')
+
+    payload = build_affix_name_review_payload()
+    entry = next((entry for entry in payload['entries'] if entry['name'] == clean_name), None)
+    if entry is None:
+        raise ValueError('affix name does not exist in current data')
+
+    incoming_candidate = _build_candidate_from_affix_name_entry(entry)
+    candidates: list[dict[str, Any]] = _load_llm_json(COMPOUND_AFFIX_CANDIDATES_FILE, [])
+    candidate_by_name = {candidate.get('affixName'): candidate for candidate in candidates if isinstance(candidate, dict)}
+    candidate_by_name[clean_name] = _merge_candidate(candidate_by_name.get(clean_name, {}), incoming_candidate)
+
+    priority_order = {'high': 0, 'manual-affix-group': 1, 'normal': 2, 'low-damage-proc': 3}
+    sorted_candidates = sorted(
+        candidate_by_name.values(),
+        key=lambda candidate: (
+            priority_order.get(str(candidate.get('candidatePriority')), 99),
+            str(candidate.get('affixName', '')).casefold(),
+        ),
+    )
+    write_llm_json(sorted_candidates, COMPOUND_AFFIX_CANDIDATES_FILE)
+
+    review_state = _load_review_state()
+    current_state = review_state.get(clean_name, {})
+    if current_state.get('status') not in ('accepted', 'tweaked'):
+        review_state[clean_name] = {
+            **current_state,
+            'status': 'needs-tweak',
+            'notes': current_state.get('notes') or 'Queued from Affix Names review for manual compound-affix cleanup.',
+            'reviewedAt': datetime.now(timezone.utc).isoformat(),
+            'queuedFromAffixNames': True,
+        }
+        _save_review_state(review_state)
+
+    return {
+        'name': clean_name,
+        'status': review_state.get(clean_name, current_state).get('status', 'queued'),
+        'candidatePriority': candidate_by_name[clean_name].get('candidatePriority'),
+        'candidatePresent': True,
+    }
+
+
 def save_review_decision(name: str, payload: dict[str, Any]) -> dict[str, Any]:
     status = payload.get('status')
     if status not in ('accepted', 'tweaked', 'needs-tweak', 'rejected'):
@@ -338,6 +453,9 @@ class AdminApiHandler(BaseHTTPRequestHandler):
         if parsed.path == '/api/compound-affixes/review':
             self._send_json(build_review_payload())
             return
+        if parsed.path == '/api/affix-names/review':
+            self._send_json(build_affix_name_review_payload())
+            return
         self._send_json({'error': 'not found'}, 404)
 
     def do_POST(self) -> None:
@@ -357,6 +475,34 @@ class AdminApiHandler(BaseHTTPRequestHandler):
             affix_name = unquote(parsed.path[len(cleanup_prefix):-len(cleanup_suffix)])
             try:
                 self._send_json(quarantine_stale_suggestion(affix_name))
+            except ValueError as exc:
+                self._send_json({'error': str(exc)}, 400)
+            return
+        if parsed.path == '/api/affix-names/synonyms':
+            try:
+                payload = self._read_body()
+                self._send_json(save_synonym_mapping(str(payload.get('canonicalName', '')), [str(name) for name in payload.get('synonyms', [])]))
+            except ValueError as exc:
+                self._send_json({'error': str(exc)}, 400)
+            return
+        if parsed.path == '/api/affix-names/parser-backlog':
+            try:
+                self._send_json(add_parser_backlog_item(self._read_body()))
+            except ValueError as exc:
+                self._send_json({'error': str(exc)}, 400)
+            return
+        if parsed.path == '/api/affix-names/compound-candidate':
+            try:
+                payload = self._read_body()
+                self._send_json(queue_affix_name_for_compound_review(str(payload.get('name', ''))))
+            except ValueError as exc:
+                self._send_json({'error': str(exc)}, 400)
+            return
+        affix_name_prefix = '/api/affix-names/review/'
+        if parsed.path.startswith(affix_name_prefix):
+            affix_name = unquote(parsed.path[len(affix_name_prefix):])
+            try:
+                self._send_json(save_affix_name_review(affix_name, self._read_body()))
             except ValueError as exc:
                 self._send_json({'error': str(exc)}, 400)
             return

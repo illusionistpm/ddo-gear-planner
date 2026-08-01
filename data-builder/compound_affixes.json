@@ -612,6 +612,69 @@
       }
     ]
   },
+  "Power of the Frozen Storm": {
+    "components": [
+      {
+        "name": "Cold Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants two permanent underlying stats: bonus to Cold Spell Power and bonus to Electric Spell Power, both scaling with the affix value."
+  },
+  "Power of the Silver Flame": {
+    "components": [
+      {
+        "name": "Positive Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Reconstruction": {
+    "components": [
+      {
+        "name": "Repair Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Rust Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Reconstruction affix grants permanent Equipment/Insight/Quality bonus to both Repair and Rust Spell Power, representing two distinct underlying stat bonuses, thus it is compound."
+  },
   "Resistance": {
     "components": [
       {
@@ -637,5 +700,147 @@
       }
     ],
     "notes": "This Resistance affix grants permanent bonus to Fortitude, Reflex, and Will saving throws equally."
+  },
+  "Riposte": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+  },
+  "Voice of Deceit": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "This affix grants multiple permanent competence bonuses to 4 different skills."
+  },
+  "Well Rounded": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  },
+  "Wisdom Skills": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
   }
 }

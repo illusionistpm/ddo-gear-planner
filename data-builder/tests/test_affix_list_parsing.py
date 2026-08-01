@@ -30,3 +30,35 @@ def test_get_affix_map_list_from_tag_splits_multiple_tooltips_in_one_li():
         {'name': 'Evocation Focus', 'value': '2', 'type': 'Equipment'},
         {'name': 'Kinetic Lore', 'value': '15', 'type': 'Equipment'},
     ]
+
+
+def test_get_affix_map_list_from_tag_parses_sacred_turn_undead_bonus():
+    html = '''
+    <ul>
+      <li>
+        <span class="has_tooltip">Sacred +10
+          <span class="tooltip">Sacred +10: An item with this quality assists only wearers who have the ability to turn undead. Sacred items provide an +10 Enhancement bonus to your effective level for Turning Undead.</span>
+        </span>
+      </li>
+    </ul>
+    '''
+    ul = BeautifulSoup(html, 'html.parser').ul
+    assert get_affix_map_list_from_tag(ul) == [
+        {'name': 'Turn Undead', 'type': 'Enhancement', 'value': '10'},
+    ]
+
+
+def test_get_affix_map_list_from_tag_parses_negative_enhancement_bonus():
+    html = '''
+    <ul>
+      <li>
+        <span class="has_tooltip">-1 Enhancement Bonus
+          <span class="tooltip">-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.</span>
+        </span>
+      </li>
+    </ul>
+    '''
+    ul = BeautifulSoup(html, 'html.parser').ul
+    assert get_affix_map_list_from_tag(ul) == [
+        {'name': 'Enhancement Bonus', 'type': 'Enhancement', 'value': '-1'},
+    ]

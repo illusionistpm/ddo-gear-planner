@@ -269,27 +269,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -616,27 +596,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -1136,12 +1096,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1282,27 +1237,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -1749,12 +1684,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -2504,37 +2434,12 @@
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2598,37 +2503,12 @@
                     "value": "25"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "25"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -3207,12 +3087,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3276,27 +3151,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3532,12 +3387,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3576,27 +3426,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3692,37 +3522,12 @@
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3774,37 +3579,12 @@
                     "value": "30"
                 },
                 {
-                    "name": "Force Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Light Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Alignment Spell Power",
+                    "name": "Radiance",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6822,27 +6602,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "10"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6979,27 +6739,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "20"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -7173,27 +6913,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Force Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Untyped Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Slashing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Piercing Spell Power",
-                    "type": "Artifact",
-                    "value": "30"
-                },
-                {
-                    "name": "Bludgeoning Spell Power",
+                    "name": "Impulse",
                     "type": "Artifact",
                     "value": "30"
                 },

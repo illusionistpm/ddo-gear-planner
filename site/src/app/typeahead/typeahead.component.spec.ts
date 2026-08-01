@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { TypeaheadComponent } from './typeahead.component';
 
 describe('TypeaheadComponent', () => {
@@ -8,7 +9,7 @@ describe('TypeaheadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TypeaheadComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

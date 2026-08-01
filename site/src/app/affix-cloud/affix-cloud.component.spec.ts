@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { AffixCloudComponent } from './affix-cloud.component';
 
 describe('AffixCloudComponent', () => {
@@ -8,7 +9,7 @@ describe('AffixCloudComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AffixCloudComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

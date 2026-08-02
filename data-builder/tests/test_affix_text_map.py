@@ -148,6 +148,10 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'name': 'Damage vs. the Helpless', 'type': 'Artifact', 'value': '10'},
         ),
         (
+            {'text': 'False Life +10', 'tooltip': 'False Life: +10% Legendary bonus to your maximum hit points.'},
+            {'name': 'False Life (%)', 'type': 'Legendary', 'value': '10'},
+        ),
+        (
             {
                 'text': 'Greater Dragonmark Enhancement',
                 'tooltip': 'Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 3.',

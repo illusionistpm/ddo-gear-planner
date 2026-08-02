@@ -341,6 +341,23 @@ def canonicalize_affix_name(name, affix_type=None):
     return name
 
 
+def is_legendary_false_life_percent_affix(affix):
+    if not isinstance(affix, dict):
+        return False
+
+    return (
+        affix.get('name') == 'False Life'
+        and normalize_bonus_type(affix.get('type')) == 'Legendary'
+        and str(affix.get('value')) in {'5', '10'}
+    )
+
+
+def classify_legendary_false_life_percent_affix(affix):
+    if is_legendary_false_life_percent_affix(affix):
+        affix['name'] = 'False Life (%)'
+    return affix
+
+
 def parse_sacred_turn_undead_bonus(text, tooltip):
     combined = f'{text} {tooltip}'
     if not re.search(r'^Sacred\s+[+-]?\d+', text) and not re.search(r'^Sacred\s+[+-]?\d+', tooltip):
@@ -799,6 +816,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
 
+    aff = classify_legendary_false_life_percent_affix(aff)
 
     # case exists where affix is detected as being associated with a set
     # in those cases, add the set value and remove the value value and type value
@@ -1115,6 +1133,8 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # convert affix name to standardize
     affixMap['name'] = convert_affix_name_to_common_affix_name(affixMap['name'])
+
+    affixMap = classify_legendary_false_life_percent_affix(affixMap)
 
     add_affix_provenance(
         affixMap,

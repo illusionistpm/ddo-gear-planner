@@ -326,7 +326,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "False Life",
+                    "name": "False Life (%)",
                     "type": "Legendary",
                     "value": "5"
                 }
@@ -1598,7 +1598,7 @@
         {
             "affixes": [
                 {
-                    "name": "False Life",
+                    "name": "False Life (%)",
                     "type": "Legendary",
                     "value": "10"
                 }
@@ -3208,7 +3208,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "False Life",
+                    "name": "False Life (%)",
                     "type": "Legendary",
                     "value": "10"
                 }
@@ -3220,7 +3220,7 @@
         {
             "affixes": [
                 {
-                    "name": "False Life",
+                    "name": "False Life (%)",
                     "type": "Legendary",
                     "value": "10"
                 }

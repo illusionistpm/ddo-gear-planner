@@ -1,6 +1,7 @@
 [
     {
         "affixes": [
+            "Resistance",
             "Fortitude Save",
             "Reflex Save",
             "Will Save",
@@ -9,6 +10,8 @@
             "Concentration",
             "Diplomacy",
             "Disable Device",
+            "Fortitude Save",
+            "Spot",
             "Haggle",
             "Heal",
             "Hide",
@@ -18,135 +21,16 @@
             "Move Silently",
             "Open Lock",
             "Perform",
+            "Reflex Save",
             "Repair",
+            "Resistance",
             "Search",
             "Spellcraft",
             "Spot",
             "Swim",
             "Tumble",
+            "Will Save",
             "Use Magic Device"
-        ],
-        "components": [
-            {
-                "name": "Fortitude Save",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Will Save",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Balance",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Bluff",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Concentration",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Diplomacy",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Disable Device",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Haggle",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Heal",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Hide",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Intimidate",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Jump",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Listen",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Move Silently",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Open Lock",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Perform",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Repair",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Search",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Spellcraft",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Spot",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Swim",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Tumble",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Use Magic Device",
-                "type": "Luck",
-                "value": "<ValueAlreadyParsed>"
-            }
         ],
         "name": "Good Luck"
     },
@@ -163,53 +47,15 @@
             "Reflex Save",
             "Will Save"
         ],
-        "components": [
-            {
-                "name": "Fortitude Save",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Reflex Save",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Will Save",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
         "name": "Resistance"
     },
     {
         "affixes": [
             "Armor Class",
+            "Resistance",
             "Fortitude Save",
             "Reflex Save",
             "Will Save"
-        ],
-        "components": [
-            {
-                "name": "Armor Class",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Fortitude Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Will Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            }
         ],
         "name": "Riposte"
     },
@@ -241,32 +87,10 @@
     },
     {
         "affixes": [
-            "Armor Class",
             "Fortitude Save",
             "Reflex Save",
-            "Will Save"
-        ],
-        "components": [
-            {
-                "name": "Armor Class",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Fortitude Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Will Save",
-                "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Will Save",
+            "Armor Class"
         ],
         "name": "Parrying"
     },
@@ -319,56 +143,11 @@
     },
     {
         "affixes": [
-            "Stunning"
-        ],
-        "name": "Dazing"
-    },
-    {
-        "affixes": [
-            "Shatter"
-        ],
-        "name": "Sundering"
-    },
-    {
-        "affixes": [
-            "Bluff"
-        ],
-        "name": "Improved Deception"
-    },
-    {
-        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",
             "Intimidate",
             "Perform"
-        ],
-        "components": [
-            {
-                "name": "Bluff",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Diplomacy",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Haggle",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Intimidate",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Perform",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
         ],
         "name": "Alluring Skills Bonus"
     },
@@ -378,40 +157,7 @@
             "Diplomacy",
             "Haggle",
             "Intimidate",
-            "Perform",
-            "Use Magic Device"
-        ],
-        "components": [
-            {
-                "name": "Bluff",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Diplomacy",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Haggle",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Intimidate",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Perform",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Use Magic Device",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Perform"
         ],
         "name": "Charisma Skills"
     },
@@ -432,40 +178,10 @@
     },
     {
         "affixes": [
-            "Force Lore",
-            "Physical Lore",
-            "Untyped Lore"
-        ],
-        "name": "Kinetic Lore"
-    },
-    {
-        "affixes": [
             "Disable Device",
             "Repair",
             "Search",
             "Spellcraft"
-        ],
-        "components": [
-            {
-                "name": "Disable Device",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Repair",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Search",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Spellcraft",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
         ],
         "name": "Intelligence Skills"
     },
@@ -481,89 +197,30 @@
     },
     {
         "affixes": [
-            "Cold Spell Power",
-            "Electric Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Cold Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Electric Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Glaciation",
+            "Magnetism"
         ],
         "name": "Power of the Frozen Storm"
     },
     {
         "affixes": [
-            "Negative Spell Power",
-            "Cold Spell Power",
-            "Poison Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Cold Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Poison Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Glaciation",
+            "Nullification",
+            "Poison"
         ],
         "name": "Power of the Frozen Depths"
     },
     {
         "affixes": [
-            "Fire Spell Power",
-            "Light Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Fire Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Light Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Combustion",
+            "Radiance"
         ],
         "name": "Power of the Flames of Purity"
     },
     {
         "affixes": [
-            "Positive Spell Power",
-            "Light Spell Power",
-            "Alignment Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Positive Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Light Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Alignment Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Devotion",
+            "Radiance"
         ],
         "name": "Power of the Silver Flame"
     },
@@ -603,38 +260,6 @@
             "Wisdom",
             "Charisma"
         ],
-        "components": [
-            {
-                "name": "Strength",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Dexterity",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Constitution",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Intelligence",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Wisdom",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Charisma",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
         "name": "Well Rounded"
     },
     {
@@ -656,281 +281,5 @@
             "Repair Amplification"
         ],
         "name": "each Amplification"
-    },
-    {
-        "affixes": [
-            "Perform"
-        ],
-        "components": [
-            {
-                "name": "Perform",
-                "type": "Enhancement",
-                "value": 2
-            }
-        ],
-        "name": "Songblade"
-    },
-    {
-        "affixes": [
-            "Negative Energy Absorption",
-            "Deathblock"
-        ],
-        "components": [
-            {
-                "name": "Negative Energy Absorption",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Deathblock",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "name": "Lifesealed"
-    },
-    {
-        "affixes": [
-            "Disable Device",
-            "Repair",
-            "Search"
-        ],
-        "components": [
-            {
-                "name": "Disable Device",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Repair",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Search",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Astute Skills Bonus"
-    },
-    {
-        "affixes": [
-            "Acid Lore",
-            "Negative Lore",
-            "Poison Lore",
-            "Evil Lore"
-        ],
-        "components": [
-            {
-                "name": "Acid Lore",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Poison Lore",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Evil Lore",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Blighted Lore"
-    },
-    {
-        "affixes": [
-            "Positive Healing Amplification",
-            "Fortification"
-        ],
-        "components": [
-            {
-                "name": "Positive Healing Amplification",
-                "type": "Untyped",
-                "value": 20
-            },
-            {
-                "name": "Fortification",
-                "type": "Penalty",
-                "value": -10
-            }
-        ],
-        "name": "Blood"
-    },
-    {
-        "affixes": [
-            "Melee Threat Generation",
-            "Intimidate"
-        ],
-        "components": [
-            {
-                "name": "Melee Threat Generation",
-                "type": "Legendary",
-                "value": 100
-            },
-            {
-                "name": "Intimidate",
-                "type": "Legendary",
-                "value": 10
-            }
-        ],
-        "name": "Bottled Heart"
-    },
-    {
-        "affixes": [
-            "Bluff",
-            "Diplomacy",
-            "Intimidate",
-            "Perform",
-            "Use Magic Device",
-            "Hide"
-        ],
-        "components": [
-            {
-                "name": "Bluff",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Diplomacy",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Intimidate",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Perform",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Use Magic Device",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Hide",
-                "type": "Penalty",
-                "value": -6
-            }
-        ],
-        "name": "Command"
-    },
-    {
-        "affixes": [
-            "Cold Intensity",
-            "Acid Intensity"
-        ],
-        "components": [
-            {
-                "name": "Cold Intensity",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Acid Intensity",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Creeping Dust Lore"
-    },
-    {
-        "affixes": [
-            "Fire Absorption",
-            "Cold Absorption"
-        ],
-        "components": [
-            {
-                "name": "Fire Absorption",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Cold Absorption",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Fire and Cold Absorption"
-    },
-    {
-        "affixes": [
-            "Armor Class",
-            "Fortitude Save",
-            "Reflex Save",
-            "Will Save"
-        ],
-        "components": [
-            {
-                "name": "Armor Class",
-                "type": "Deflection",
-                "value": 4
-            },
-            {
-                "name": "Fortitude Save",
-                "type": "Resistance",
-                "value": 4
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Resistance",
-                "value": 4
-            },
-            {
-                "name": "Will Save",
-                "type": "Resistance",
-                "value": 4
-            }
-        ],
-        "name": "Greater Stability"
-    },
-    {
-        "affixes": [
-            "Search",
-            "Spot"
-        ],
-        "components": [
-            {
-                "name": "Search",
-                "type": "Penalty",
-                "value": 10
-            },
-            {
-                "name": "Spot",
-                "type": "Penalty",
-                "value": 10
-            }
-        ],
-        "name": "Overfocus"
-    },
-    {
-        "affixes": [
-            "Repair Spell Power",
-            "Rust Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Repair Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Rust Spell Power",
-                "type": "<TypeAlreadyParsed>",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Reconstruction"
     }
 ]

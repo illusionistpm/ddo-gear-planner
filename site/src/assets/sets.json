@@ -100,7 +100,7 @@
             "affixes": [
                 {
                     "name": "Efficient Metamagic - Empower",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "2"
                 },
                 {
@@ -110,7 +110,7 @@
                 },
                 {
                     "name": "Efficient Metamagic - Maximize",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "4"
                 },
                 {
@@ -236,7 +236,7 @@
             "affixes": [
                 {
                     "name": "Power",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "20"
                 }
             ],
@@ -7249,7 +7249,7 @@
                 },
                 {
                     "name": "Efficient Metamagic - Extend",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "2"
                 }
             ],
@@ -7423,12 +7423,12 @@
                 },
                 {
                     "name": "Efficient Metamagic - Maximize",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "4"
                 },
                 {
                     "name": "Efficient Metamagic - Extend",
-                    "type": "Enhancement",
+                    "type": "Untyped",
                     "value": "1"
                 }
             ],

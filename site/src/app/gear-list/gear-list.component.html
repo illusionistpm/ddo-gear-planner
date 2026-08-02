@@ -57,7 +57,7 @@
           </div>
         </button>
         <div class="mb-3 col">
-          @for (affix of setToAffixes[1]; track affix) {
+          @for (affix of setToAffixes[1]; track affix.name + '|' + affix.type + '|' + affix.value + '|' + $index) {
             <div class="row table-striped table-condensed small hover-helper"
               [ngClass]="getClassForAffix(affix)"
               [title]="getAffixTooltip(affix)">

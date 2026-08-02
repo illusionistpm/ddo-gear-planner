@@ -3,7 +3,7 @@
     [checked]="isTopLevelChecked()" (click)="toggleTopLevel()">
 
     <ng-template #popContent>
-      @for (elem of list; track elem; let i = $index) {
+      @for (elem of list; track elem.name; let i = $index) {
         <div class="form-check form-check-inline">
           <input type="checkbox" class="form-check-input" id="chk-{{elem.name}}" [ngModel]="isChecked(i)"
             (ngModelChange)="toggle($event, i)">

@@ -13,7 +13,7 @@
     <div class="col-2"></div>
   </div>
 
-  @for (item of matches; track item) {
+  @for (item of matches; track item.name) {
     <div class="row">
       <div class="col-1">{{item.ml}}</div>
       <div class="col-2">{{item.slot}}</div>
@@ -27,7 +27,7 @@
       <div class="row">&nbsp;</div>
       <h3>Already Filled Slots</h3>
       <i>
-        @for (item of lockedMatches; track item) {
+        @for (item of lockedMatches; track item.name) {
           <div class="row">
             <div class="col-1">{{item.ml}}</div>
             <div class="col-2">{{item.slot}}</div>

@@ -19,7 +19,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
   current: Observable<Item> | null = null;
   gear: Array<Item> = [];
-  cannith: Array<Item> = [];
+  essenceCrafting: Array<Item> = [];
 
   constructor(
     public gearDB: GearDbService,
@@ -49,7 +49,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
     this.gear = shortlist.slice(0, 20);
 
-    this.cannith = filtered.filter(item => item.isCannithCrafted());
+    this.essenceCrafting = filtered.filter(item => item.isEssenceCrafted());
   }
 
   clearSlot() {

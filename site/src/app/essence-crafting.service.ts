@@ -5,18 +5,18 @@ import { Affix } from './affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
-import cannithList from 'src/assets/cannith.json';
+import essenceCraftingList from 'src/assets/essence-crafting.json';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CannithService {
+export class EssenceCraftingService {
   levels: Array<number>;
   maxLevel: number;
 
   constructor() {
-    const cannithData = cannithList as Record<string, any>;
-    this.maxLevel = Number(cannithData['maxLevel'] ?? 34);
+    const essenceCraftingData = essenceCraftingList as Record<string, any>;
+    this.maxLevel = Number(essenceCraftingData['maxLevel'] ?? 34);
     this.levels = [];
     for (let ml = this.maxLevel; ml >= 1; ml--) {
       this.levels.push(ml);
@@ -30,12 +30,34 @@ export class CannithService {
     }
 
     item.ml = ml;
-    item.crafting = this.getValuesForML(item.slot, ml);
+    item.crafting = this.getValuesForML(this.getEssenceCraftingItemType(item), ml);
 
     for(let i = 0; i < indexes.length; i++) {
       const craftable = item.crafting[i];
-      craftable.selected = craftable.options[indexes[i]];
+      if (craftable && indexes[i] >= 0 && craftable.options[indexes[i]]) {
+        craftable.selected = craftable.options[indexes[i]];
+      }
     }
+  }
+
+  private getEssenceCraftingItemType(item: Item): string {
+    const rawCrafting = item.rawCrafting || [];
+    const essenceCraftingSystem = rawCrafting.find(system => system.startsWith('Essence Crafting: '));
+    const systemMatch = essenceCraftingSystem?.match(/^Essence Crafting: (.+) - (?:Prefix|Suffix|Extra)$/);
+    if (systemMatch) {
+      return systemMatch[1];
+    }
+
+    const blankMatch = item.name?.match(/^Essence Crafting (.+)$/);
+    if (blankMatch) {
+      return blankMatch[1];
+    }
+
+    if (item.slot === 'Ring1' || item.slot === 'Ring2') {
+      return 'Ring';
+    }
+
+    return item.slot;
   }
 
   getValuesForML(itemType: string, ml: number) {
@@ -48,13 +70,13 @@ export class CannithService {
     return craftingOptions;
   }
 
-  getValuesForSlotML(itemType: string, cannithSlot: string, ml: number): Craftable {
-    return this._getOptionsForItemSlot(itemType, cannithSlot, ml);
+  getValuesForSlotML(itemType: string, essenceCraftingSlot: string, ml: number): Craftable {
+    return this._getOptionsForItemSlot(itemType, essenceCraftingSlot, ml);
   }
 
   getAllAffixesForML(ml: number): Array<Affix> {
     let affixes: Array<Affix> = [];
-    const itemTypes = Object.keys(cannithList['itemTypes'] as Record<string, any>);
+    const itemTypes = Object.keys(essenceCraftingList['itemTypes'] as Record<string, any>);
     for (const itemType of itemTypes) {
       const craftables = this._getOptionsForItemType(itemType, ml);
       affixes = craftables.reduce((accum: Array<Affix>, a: Craftable) =>
@@ -68,27 +90,27 @@ export class CannithService {
   private _getOptionsForItemType(itemType: string, ml: number) {
     const craftingOptions = new Array<Craftable>();
 
-    for (const cannithSlot of ['Prefix', 'Suffix', 'Extra']) {
-      craftingOptions.push(this._getOptionsForItemSlot(itemType, cannithSlot, ml));
+    for (const essenceCraftingSlot of ['Prefix', 'Suffix', 'Extra']) {
+      craftingOptions.push(this._getOptionsForItemSlot(itemType, essenceCraftingSlot, ml));
     }
 
     return craftingOptions;
   }
 
-  private _getOptionsForItemSlot(itemType: string, cannithSlot: string, ml: number): Craftable {
-    const cannithData = cannithList as Record<string, any>;
-    const affixList = (cannithData['itemTypes']?.[itemType]?.[cannithSlot] ?? []) as Array<string>;
+  private _getOptionsForItemSlot(itemType: string, essenceCraftingSlot: string, ml: number): Craftable {
+    const essenceCraftingData = essenceCraftingList as Record<string, any>;
+    const affixList = (essenceCraftingData['itemTypes']?.[itemType]?.[essenceCraftingSlot] ?? []) as Array<string>;
     const cappedMl = Math.min(Math.max(ml, 1), this.maxLevel);
     
     const slotOptions: Array<CraftableOption> = [];
     for (const optionName of affixList) {
       const option = new CraftableOption(null);
-      const progression = cannithData['progression'] as Record<string, Array<number>>;
+      const progression = essenceCraftingData['progression'] as Record<string, Array<number>>;
       const value = (progression[optionName]?.[cappedMl - 1] ?? 0) as number;
-      const affixNames = (cannithData['affixes'] ?? {}) as Record<string, string | Array<string>>;
+      const affixNames = (essenceCraftingData['affixes'] ?? {}) as Record<string, string | Array<string>>;
       const mappedAffixes = affixNames[optionName] ?? optionName;
       const optionAffixes = Array.isArray(mappedAffixes) ? mappedAffixes : [mappedAffixes];
-      const bonusTypes = cannithData['bonusTypes'] as Record<string, string>;
+      const bonusTypes = essenceCraftingData['bonusTypes'] as Record<string, string>;
 
       for (let affix of optionAffixes) {
         let type = 'Enhancement';
@@ -108,6 +130,6 @@ export class CannithService {
       slotOptions.push(new CraftableOption(option));
     }
 
-    return new Craftable(cannithSlot, slotOptions, false);
+    return new Craftable(essenceCraftingSlot, slotOptions, false);
   }
 }

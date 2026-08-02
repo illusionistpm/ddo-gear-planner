@@ -6,8 +6,10 @@ import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService } from './gear-db.service';
+import { canonicalizeCraftingSystemName } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
 import { AffixService } from './affix.service';
+import { EssenceCraftingService } from './essence-crafting.service';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -31,7 +33,8 @@ export class EquippedService {
   constructor(
     private gearList: GearDbService,
     private queryParams: QueryParamsService,
-    private affixSvc: AffixService
+    private affixSvc: AffixService,
+    private essenceCrafting: EssenceCraftingService
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
@@ -103,7 +106,11 @@ export class EquippedService {
       const slotSubject = this.slots.get(entries[0]);
       const item = slotSubject ? slotSubject.getValue() : null;
       if (item) {
-        item.ml = entries[1];
+        if (item.isEssenceCrafted()) {
+          this.essenceCrafting.setItemToML(item, entries[1]);
+        } else {
+          item.ml = entries[1];
+        }
         this._set(item);
       }
     }
@@ -115,7 +122,7 @@ export class EquippedService {
         console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
         continue;
       }
-      const crafting = item.getCraftingByName(craftingParam['system']);
+      const crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
       if (!crafting) {
         console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
         continue;
@@ -141,7 +148,7 @@ export class EquippedService {
       if (item) {
         params[slot] = item.name;
 
-        if (item.isCannithCrafted()) {
+        if (item.isEssenceCrafted()) {
           params["ml_" + slot] = item.ml;
         }
 

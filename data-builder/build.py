@@ -3,7 +3,7 @@ from parse_set_page import parse_set_page
 from parse_item_augment_page import parse_item_augment_page
 from parse_items import parse_items
 from parse_minor_artifacts import parse_minor_artifacts
-from parse_cannith import parse_cannith
+from parse_essence_crafting import parse_essence_crafting
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
@@ -45,7 +45,7 @@ def build_data(clearCache, discordURL):
     print(f"### Writing to '{get_output_path()}")
     build_synonyms()
 
-    parse_cannith()
+    parse_essence_crafting()
     build_affix_groups()
 
     parse_set_page()

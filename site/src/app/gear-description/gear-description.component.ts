@@ -3,7 +3,7 @@ import { CraftableOption } from './../craftable-option';
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
-import { CannithService } from '../cannith.service';
+import { EssenceCraftingService } from '../essence-crafting.service';
 import { AffixService } from '../affix.service';
 import { AffixUiService } from '../affix-ui.service';
 
@@ -26,11 +26,11 @@ export class GearDescriptionComponent implements OnInit {
   @Input() item: Observable<Item> | Item | null = null;
   @Input() readonly = false;
   curItem: Item | null = null;
-  cannithML: number | null = null;
+  essenceCraftingML: number | null = null;
 
   constructor(
     public equipped: EquippedService,
-    public cannith: CannithService,
+    public essenceCrafting: EssenceCraftingService,
     private affixSvc: AffixService,
     private modalService: NgbModal,
     private affixUi: AffixUiService
@@ -41,11 +41,11 @@ export class GearDescriptionComponent implements OnInit {
     if (this.item instanceof Observable) {
       this.item.subscribe(val => {
         this.curItem = val;
-        this.cannithML = this.curItem ? this.curItem.ml : null;
+        this.essenceCraftingML = this.curItem ? this.curItem.ml : null;
       });
     } else {
       this.curItem = this.item;
-      this.cannithML = this.curItem ? this.curItem.ml : null;
+      this.essenceCraftingML = this.curItem ? this.curItem.ml : null;
     }
   }
 
@@ -63,8 +63,8 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   updateML() {
-    if (this.curItem && this.cannithML !== null) {
-      this.cannith.setItemToML(this.curItem, this.cannithML);
+    if (this.curItem && this.essenceCraftingML !== null) {
+      this.essenceCrafting.setItemToML(this.curItem, this.essenceCraftingML);
       this.equipped.set(this.curItem);
     }
   }

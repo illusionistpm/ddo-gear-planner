@@ -8,12 +8,12 @@ from get_output_path import get_output_path
 
 def test_get_item_property_map_set_and_crafting_detection():
     setMap = {'Some Set': True}
-    craftingMap = {'Cannith': {'*': []}, 'OtherCraft': {'*': []}}
-    html = '<ul><li>Some Set</li><li>Cannith</li><li>Something Else</li></ul>'
+    craftingMap = {'Essence Crafting': {'*': []}, 'OtherCraft': {'*': []}}
+    html = '<ul><li>Some Set</li><li>Essence Crafting</li><li>Something Else</li></ul>'
     ul = BeautifulSoup(html, 'html.parser').ul
     res = get_item_property_map_from_tag(ul, setMap, craftingMap)
     assert 'set' in res and res['set'] == ['Some Set']
-    assert 'crafting' in res and 'Cannith' in res['crafting']
+    assert 'crafting' in res and 'Essence Crafting' in res['crafting']
 
 
 def test_replace_item_set_affixes_writes_set_field_and_removes_affix():

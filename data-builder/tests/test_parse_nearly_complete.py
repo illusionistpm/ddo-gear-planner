@@ -89,7 +89,7 @@ def test_crafting_system_sort_order_puts_named_augments_after_other_systems():
         'Nearly Complete: Quality Ability Score',
         'Green Augment Slot',
         'Moon Augment Slot',
-        'Cannith: Ring - Prefix',
+        'Essence Crafting: Ring - Prefix',
         'Sun Augment Slot',
         'Colorless Augment Slot',
         'Orange Augment Slot',
@@ -99,7 +99,7 @@ def test_crafting_system_sort_order_puts_named_augments_after_other_systems():
     ]
 
     assert sorted(crafting_systems, key=crafting_system_sort_key) == [
-        'Cannith: Ring - Prefix',
+        'Essence Crafting: Ring - Prefix',
         'Nearly Complete: Quality Ability Score',
         'Sun Augment Slot',
         'Moon Augment Slot',

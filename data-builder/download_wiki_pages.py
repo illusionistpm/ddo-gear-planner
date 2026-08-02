@@ -248,6 +248,7 @@ def download_crafting_pages(session=None):
     if not os.path.exists(cacheDir):
         os.makedirs(cacheDir)
 
+    download_page('Essence_Crafting/table_3b', cacheDir, session=session)
     download_page('Raw data/Item crafting enchantments', cacheDir, session=session)
     download_page('Nearly_Complete', cacheDir, session=session)
     for tier in [1, 2, 3]:

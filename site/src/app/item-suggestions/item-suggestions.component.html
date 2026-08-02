@@ -18,7 +18,7 @@
 
     <div class="row">
       <span>Crafted items: </span>
-      @for (item of cannith; track item) {
+      @for (item of essenceCrafting; track item.name) {
         <div>
           <button class="btn btn-primary m-1" (click)="equipItem(item)">
             {{item.name}}
@@ -36,7 +36,7 @@
         <span>Suggested items: </span>
       </div>
 
-      @for (item of gear; track item) {
+      @for (item of gear; track item.name) {
         <div class="container">
           <div class="row">
             <span class="col">{{item.name}}

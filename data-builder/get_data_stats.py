@@ -50,17 +50,17 @@ def get_data_stats():
     stats['synonyms'] = {'items': len(affixSynonyms)}
 
     try:
-        cannith = read_json('cannith')
+        essence_crafting = read_json('essence-crafting')
     except FileNotFoundError:
-        cannith = {
+        essence_crafting = {
             'bonusTypes': [],
             'itemTypes': [],
             'progression': []
         }
-    stats['cannith'] = {
-        'bonus types': len(cannith['bonusTypes']),
-        'item types': len(cannith['itemTypes']),
-        'progressions': len(cannith['progression']),
+    stats['essence crafting'] = {
+        'bonus types': len(essence_crafting['bonusTypes']),
+        'item types': len(essence_crafting['itemTypes']),
+        'progressions': len(essence_crafting['progression']),
     }
 
     try:
@@ -103,7 +103,7 @@ def get_data_stats():
 if __name__ == "__main__":
     oldStats = get_data_stats()
     oldStats['groups']['items'] = oldStats['groups']['items'] +3
-    oldStats['cannith']['bonus types'] = oldStats['cannith']['bonus types'] - 5
+    oldStats['essence crafting']['bonus types'] = oldStats['essence crafting']['bonus types'] - 5
 
     newStats = get_data_stats()
     diff = diff_data_stats(newStats, oldStats)

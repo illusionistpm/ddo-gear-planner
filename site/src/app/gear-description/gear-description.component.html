@@ -1,22 +1,25 @@
 @if (curItem && curItem.isValid()) {
   <div class="col">
-    @if (!curItem.isCannithCrafted()) {
+    @if (!curItem.isEssenceCrafted()) {
       <div class="row ps-2">
         <div class="col-4"><b>ML: {{curItem.ml}}</b></div>
         <div class="col-8 text-end"><i>{{curItem.quests ? curItem.quests[0] : ''}}</i></div>
       </div>
     } @else {
-      <div class="row ps-2">
-        <div><b>ML:&nbsp;</b></div>
-        <select [(ngModel)]="cannithML" (change)="updateML()" [value]="curItem.ml">
-          @for (ml of cannith.levels; track ml) {
-            <option>{{ml}}</option>
-          }
-        </select>
+      <div class="row">
+        <span class="show-never fas fa-heart heart col-1"></span>
+        <div class="col-3 ps-1 pe-0"><b>ML:</b></div>
+        <div class="col-8">
+          <select class="form-control SmallFont border border-secondary fw-bold" [(ngModel)]="essenceCraftingML" (change)="updateML()" [value]="curItem.ml">
+            @for (ml of essenceCrafting.levels; track ml) {
+              <option>{{ml}}</option>
+            }
+          </select>
+        </div>
       </div>
     }
     <!-- Main Affixes -->
-    @for (affix of curItem.affixes; track affix) {
+    @for (affix of curItem.affixes; track affix.name + '|' + affix.type + '|' + affix.value) {
       <div class="row table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
           [title]="getAffixTooltip(affix)">
         @if (equipped.isImportantAffix(affix.name)) {
@@ -34,7 +37,7 @@
       </div>
     }
     <!-- Crafting -->
-    @for (craft of curItem.crafting; track craft) {
+    @for (craft of curItem.crafting; track craft.name) {
       <div class="row table-striped table-condensed small hover-helper">
         @if (!craft.selected.affixes.length) {
           <span class="show-never fas fa-heart heart col-1"></span>
@@ -56,7 +59,7 @@
         @if (!readonly) {
           <div class="col-8">
             <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForAffix(craft.selected.affixes[0], craft.selected)" [hidden]="craft.options.length < 2">
-              @for (option of craft.options; track option) {
+              @for (option of craft.options; track option.getParamDescription()) {
                 <option [ngValue]="option"
                   [ngClass]="getClassForAffix(option.affixes[0], option)"
                   [title]="getAffixTooltip(option.affixes[0], option)">

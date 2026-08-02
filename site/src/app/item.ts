@@ -53,7 +53,7 @@ export class Item {
         return this.name !== undefined;
     }
 
-    isCannithCrafted() {
+    isEssenceCrafted() {
         return this.crafting && this.crafting.find(opt => opt.name === 'Prefix');
     }
 

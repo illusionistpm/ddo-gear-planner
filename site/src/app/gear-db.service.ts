@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CannithService } from './cannith.service';
+import { EssenceCraftingService } from './essence-crafting.service';
 import { FiltersService } from './filters.service';
 import { QuestService } from './quest.service';
 
@@ -12,7 +12,7 @@ import { CraftableOption } from './craftable-option';
 
 import itemsList from 'src/assets/items.json';
 import craftingListRaw from 'src/assets/crafting.json';
-import cannithList from 'src/assets/cannith.json';
+import essenceCraftingList from 'src/assets/essence-crafting.json';
 import setList from 'src/assets/sets.json';
 import { AffixService } from './affix.service';
 
@@ -22,6 +22,12 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
     return groups;
   }, {} as Record<K, T[]>);
 
+export const canonicalizeCraftingSystemName = (name: string): string =>
+  name.replace(/^Cannith: /, 'Essence Crafting: ');
+
+export const canonicalizeGeneratedCraftedItemName = (name: string): string =>
+  name.replace(/^Cannith (?=Armor|Belt|Boots|Bracers|Cloak|Gloves|Goggles|Helm|Melee|Necklace|Orb|Quiver|Ranged|Ring|Rune Arm|Shield|Trinket)/, 'Essence Crafting ');
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,19 +35,19 @@ export class GearDbService {
   private gear: Map<string, Array<Item>> = new Map<string, Array<Item>>();
   private allGear: Map<string, Array<Item>> = new Map<string, Array<Item>>();
   private craftingList: Map<string, Map<string, Craftable>> = new Map<string, Map<string, Craftable>>();
-  private cannithCraftingList: Map<string, (ml: number) => Craftable> = new Map<string, (ml: number) => Craftable>();
+  private essenceCraftingList: Map<string, (ml: number) => Craftable> = new Map<string, (ml: number) => Craftable>();
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
   bestValues: Map<any, number> = new Map<any, number>();
 
   constructor(
-    public cannith: CannithService,
+    public essenceCrafting: EssenceCraftingService,
     public filters: FiltersService,
     public quests: QuestService,
     private affixSvc: AffixService
   ) {
     this._buildAugmentOptions();
-    this._buildCannithAugmentOptions();
+    this._buildEssenceCraftingOptions();
     this.gear = new Map<string, Array<Item>>();
     this.allGear = this._loadAllItems();
 
@@ -137,13 +143,13 @@ export class GearDbService {
     ['Blue', 'Yellow', 'Red', 'Green', 'Purple', 'Orange', 'Colorless'].map(e => this._sortAugmentList(e));
   }
 
-  private _buildCannithAugmentOptions() {
-    this.cannithCraftingList = new Map<string, (ml: number) => Craftable>();
+  private _buildEssenceCraftingOptions() {
+    this.essenceCraftingList = new Map<string, (ml: number) => Craftable>();
 
-    Object.entries(cannithList['itemTypes']).forEach( ([cannithItemType, cannithItemSlots]: [string, { [slot: string]: string[] }]) => {
-      Object.keys(cannithItemSlots).forEach( (cannithItemSlot) => {
-        const getOptions = (ml: number) => this.cannith.getValuesForSlotML(cannithItemType, cannithItemSlot, ml);
-        this.cannithCraftingList.set(`Cannith: ${cannithItemType} - ${cannithItemSlot}`, getOptions);
+    Object.entries(essenceCraftingList['itemTypes']).forEach( ([essenceCraftingItemType, essenceCraftingItemSlots]: [string, { [slot: string]: string[] }]) => {
+      Object.keys(essenceCraftingItemSlots).forEach( (essenceCraftingItemSlot) => {
+        const getOptions = (ml: number) => this.essenceCrafting.getValuesForSlotML(essenceCraftingItemType, essenceCraftingItemSlot, ml);
+        this.essenceCraftingList.set(`Essence Crafting: ${essenceCraftingItemType} - ${essenceCraftingItemSlot}`, getOptions);
       });
     });
   }
@@ -170,14 +176,15 @@ export class GearDbService {
       if (newItem.rawCrafting) {
         const craftingOptions = new Array<Craftable>();
         for (const craftingSystem of newItem.rawCrafting) {
-          if (craftingSystem && craftingSystem.startsWith('Cannith: ')) {
-            const craftingFn = this.cannithCraftingList.get(craftingSystem);
+          const canonicalCraftingSystem = craftingSystem ? canonicalizeCraftingSystemName(craftingSystem) : craftingSystem;
+          if (canonicalCraftingSystem && canonicalCraftingSystem.startsWith('Essence Crafting: ')) {
+            const craftingFn = this.essenceCraftingList.get(canonicalCraftingSystem);
             if (craftingFn) {
               craftingOptions.push(craftingFn(newItem.ml));
             }
-          } else if (craftingSystem && this.craftingList.get(craftingSystem)) {
+          } else if (canonicalCraftingSystem && this.craftingList.get(canonicalCraftingSystem)) {
             const baseName = item.name.replace(' [Crafted]', '');
-            const systemCraftables = this.craftingList.get(craftingSystem);
+            const systemCraftables = this.craftingList.get(canonicalCraftingSystem);
             if (systemCraftables) {
               let craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
               if (craftable) {
@@ -186,7 +193,7 @@ export class GearDbService {
             }
           } else {
             // Not-yet-implemented crafting systems
-            craftingOptions.push(new Craftable(craftingSystem, [], false));
+            craftingOptions.push(new Craftable(canonicalCraftingSystem, [], false));
           }
         }
         newItem.crafting = craftingOptions;
@@ -198,7 +205,7 @@ export class GearDbService {
       }
     }
 
-    maxLevel = Math.max(maxLevel, this.cannith.maxLevel);
+    maxLevel = Math.max(maxLevel, this.essenceCrafting.maxLevel);
 
     const ring1Items = gear.get('Ring1');
     if (ring1Items) {
@@ -250,7 +257,7 @@ export class GearDbService {
       gear.set(slot, myItems);
     }
 
-    this._buildCannithItems(gear, maxLevel);
+    this._buildEssenceCraftingItems(gear, maxLevel);
 
 
     //// FIXME!! Move this to its own function, attach it to the level range change so that affixes update with level range
@@ -268,45 +275,45 @@ export class GearDbService {
       }
     }
 
-    const cannithAffixes = this.cannith.getAllAffixesForML(maxLevel);
-    this._addAffixesToMap(cannithAffixes);
+    const essenceCraftingAffixes = this.essenceCrafting.getAllAffixesForML(maxLevel);
+    this._addAffixesToMap(essenceCraftingAffixes);
 
     return gear;
   }
 
-  private _buildCannithItems(gear: Map<string, Array<Item>>, maxLevel: number) {
+  private _buildEssenceCraftingItems(gear: Map<string, Array<Item>>, maxLevel: number) {
     for (const slot of gear.keys()) {
-      let cannithSlots = null;
+      let essenceCraftingSlots = null;
       switch (slot) {
         case 'Ring1':
         case 'Ring2':
-          cannithSlots = ['Ring'];
+          essenceCraftingSlots = ['Ring'];
           break;
         case 'Weapon':
-          cannithSlots = ['Melee', 'Ranged'];
+          essenceCraftingSlots = ['Melee', 'Ranged'];
           break;
         case 'Offhand':
-          cannithSlots = ['Melee', 'Ranged', 'Shield', 'Rune Arm', 'Orb'];
+          essenceCraftingSlots = ['Melee', 'Ranged', 'Shield', 'Rune Arm', 'Orb'];
           break;
         default:
-          cannithSlots = [slot];
+          essenceCraftingSlots = [slot];
       }
 
-      for (const cannithSlot of cannithSlots) {
-        const cannithData = cannithList as Record<string, any>;
-        const locations = cannithData['itemTypes']?.[cannithSlot];
+      for (const essenceCraftingSlot of essenceCraftingSlots) {
+        const essenceCraftingData = essenceCraftingList as Record<string, any>;
+        const locations = essenceCraftingData['itemTypes']?.[essenceCraftingSlot];
         if (locations) {
           const ml = maxLevel;
-          const craftingOptions = this.cannith.getValuesForML(cannithSlot, ml);
+          const craftingOptions = this.essenceCrafting.getValuesForML(essenceCraftingSlot, ml);
 
-          const cannithBlank = new Item(null);
-          cannithBlank.ml = ml;
-          cannithBlank.slot = slot;
-          cannithBlank.name = 'Cannith ' + cannithSlot;
-          cannithBlank.crafting = craftingOptions;
-          const slotItems = gear.get(cannithBlank.slot);
+          const essenceCraftingBlank = new Item(null);
+          essenceCraftingBlank.ml = ml;
+          essenceCraftingBlank.slot = slot;
+          essenceCraftingBlank.name = 'Essence Crafting ' + essenceCraftingSlot;
+          essenceCraftingBlank.crafting = craftingOptions;
+          const slotItems = gear.get(essenceCraftingBlank.slot);
           if (slotItems) {
-            slotItems.push(cannithBlank);
+            slotItems.push(essenceCraftingBlank);
           }
         }
       }
@@ -394,8 +401,15 @@ export class GearDbService {
   }
 
   findGearBySlot(type: string, name: string) {
+    const canonicalName = canonicalizeGeneratedCraftedItemName(name);
     const slotItems = this.getGearBySlot(type);
-    return slotItems ? slotItems.find(e => e.name === name) : undefined;
+    const item = slotItems ? slotItems.find(e => e.name === canonicalName) : undefined;
+    if (item) {
+      return item;
+    }
+
+    const filteredSlotItems = this.getFilteredGearBySlot(type);
+    return filteredSlotItems ? filteredSlotItems.find(e => e.name === canonicalName) : undefined;
   }
 
   findGearWithAffixAndType(affixName: string, bonusType: string) {

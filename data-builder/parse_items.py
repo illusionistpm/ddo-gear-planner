@@ -86,6 +86,12 @@ def sort_item_crafting_systems(item: Item|SetAugment) -> None:
         item['crafting'].sort(key=crafting_system_sort_key)
 
 
+def canonicalize_quest_name(quest_name: str) -> str:
+    if quest_name == 'Cannith Crafting Tutorial':
+        return 'Essence Crafting Tutorial'
+    return quest_name
+
+
 def get_legendary_green_steel_crafting_systems(item: Item|SetAugment) -> list[str]:
     if not item['name'].startswith('Legendary Green Steel '):
         return []
@@ -318,7 +324,7 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         questsTooltipSpan = questsCell.find('a')
         questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
         if questsTooltip:
-            quests = str(questsTooltip)
+            quests = canonicalize_quest_name(str(questsTooltip))
             item['quests'] = [quests]
 
         affixes = []
@@ -466,9 +472,9 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
                 case _:
                     slot = item['slot']
 
-            craftedItem['crafting'].append(f'Cannith: {slot} - Prefix')
-            craftedItem['crafting'].append(f'Cannith: {slot} - Suffix')
-            craftedItem['crafting'].append(f'Cannith: {slot} - Extra')
+            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Prefix')
+            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Suffix')
+            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Extra')
 
             sort_item_crafting_systems(craftedItem)
             items.append(craftedItem)

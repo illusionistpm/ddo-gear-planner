@@ -198,7 +198,44 @@
     },
     {
         "affixes": [
-            "Well Rounded"
+            "Strength",
+            "Dexterity",
+            "Constitution",
+            "Intelligence",
+            "Wisdom",
+            "Charisma"
+        ],
+        "components": [
+            {
+                "name": "Strength",
+                "type": "Profane",
+                "value": 1
+            },
+            {
+                "name": "Dexterity",
+                "type": "Profane",
+                "value": 1
+            },
+            {
+                "name": "Constitution",
+                "type": "Profane",
+                "value": 1
+            },
+            {
+                "name": "Intelligence",
+                "type": "Profane",
+                "value": 1
+            },
+            {
+                "name": "Wisdom",
+                "type": "Profane",
+                "value": 1
+            },
+            {
+                "name": "Charisma",
+                "type": "Profane",
+                "value": 1
+            }
         ],
         "name": "Litany of the Dead - Ability Bonus"
     },
@@ -635,12 +672,12 @@
     },
     {
         "affixes": [
-            "Ice Intensity",
+            "Cold Intensity",
             "Acid Intensity"
         ],
         "components": [
             {
-                "name": "Ice Intensity",
+                "name": "Cold Intensity",
                 "type": "Equipment",
                 "value": "<ValueAlreadyParsed>"
             },
@@ -654,10 +691,154 @@
     },
     {
         "affixes": [
+            "Positive Healing Amplification",
+            "Melee Power",
+            "Ranged Power"
+        ],
+        "components": [
+            {
+                "name": "Positive Healing Amplification",
+                "type": "Enhancement",
+                "value": 15
+            },
+            {
+                "name": "Melee Power",
+                "type": "Enhancement",
+                "value": 10
+            },
+            {
+                "name": "Ranged Power",
+                "type": "Enhancement",
+                "value": 5
+            }
+        ],
+        "name": "Crown of Summer"
+    },
+    {
+        "affixes": [
+            "Fire Absorption",
+            "Evil Absorption"
+        ],
+        "components": [
+            {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Evil Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Devil's Bones"
+    },
+    {
+        "affixes": [
+            "Acid Absorption",
+            "Cold Absorption",
+            "Fire Absorption",
+            "Electric Absorption",
+            "Sonic Absorption"
+        ],
+        "components": [
+            {
+                "name": "Acid Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Cold Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Electric Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Sonic Absorption",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Elemental Absorption"
+    },
+    {
+        "affixes": [
+            "Acid Spell Power",
+            "Cold Spell Power",
+            "Electric Spell Power",
+            "Fire Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Elemental Manipulation"
+    },
+    {
+        "affixes": [
+            "Acid Resistance",
+            "Cold Resistance",
+            "Electric Resistance",
+            "Fire Resistance",
+            "Sonic Resistance"
+        ],
+        "name": "Elemental Resistance"
+    },
+    {
+        "affixes": [
+            "Acid Spell Power",
+            "Fire Spell Power",
+            "Electric Spell Power",
+            "Cold Spell Power"
+        ],
+        "name": "Elemental Resonance"
+    },
+    {
+        "affixes": [
             "Fire Absorption",
             "Cold Absorption"
         ],
         "name": "Fire and Cold Absorption"
+    },
+    {
+        "affixes": [
+            "Ghost Touch"
+        ],
+        "components": [
+            {
+                "name": "Ghost Touch",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Ghostbane"
     },
     {
         "affixes": [
@@ -692,6 +873,97 @@
     },
     {
         "affixes": [
+            "Armor-Piercing"
+        ],
+        "components": [
+            {
+                "name": "Armor-Piercing",
+                "type": "Legendary",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Legendary Armor-Piercing"
+    },
+    {
+        "affixes": [
+            "Positive Healing Amplification",
+            "Repair Amplification",
+            "Negative Amplification"
+        ],
+        "components": [
+            {
+                "name": "Positive Healing Amplification",
+                "type": "Competence",
+                "value": 53
+            },
+            {
+                "name": "Repair Amplification",
+                "type": "Competence",
+                "value": 53
+            },
+            {
+                "name": "Negative Amplification",
+                "type": "Profane",
+                "value": 53
+            }
+        ],
+        "name": "Lifeblood of the Undead Prince"
+    },
+    {
+        "affixes": [
+            "Rust Spell Power",
+            "Rust Lore",
+            "Rust Intensity",
+            "Repair Spell Power",
+            "Repair Lore",
+            "Repair Intensity"
+        ],
+        "components": [
+            {
+                "name": "Rust Spell Power",
+                "type": "Equipment",
+                "value": 171
+            },
+            {
+                "name": "Rust Lore",
+                "type": "Equipment",
+                "value": 24
+            },
+            {
+                "name": "Rust Intensity",
+                "type": "Enhancement",
+                "value": 25
+            },
+            {
+                "name": "Repair Spell Power",
+                "type": "Equipment",
+                "value": 171
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": 24
+            },
+            {
+                "name": "Repair Intensity",
+                "type": "Enhancement",
+                "value": 25
+            }
+        ],
+        "name": "Memory of Animated Objects"
+    },
+    {
+        "affixes": [
+            "Balance",
+            "Hide",
+            "Move Silently",
+            "Open Lock",
+            "Tumble"
+        ],
+        "name": "Nimble Skills Bonus"
+    },
+    {
+        "affixes": [
             "Search",
             "Spot"
         ],
@@ -711,10 +983,300 @@
     },
     {
         "affixes": [
+            "Negative Spell Power",
+            "Poison Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Negative Spell Power",
+                "type": "Alchemical",
+                "value": 30
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Alchemical",
+                "value": 30
+            }
+        ],
+        "name": "Permanent Nihil"
+    },
+    {
+        "affixes": [
+            "Cold Spell Power",
+            "Acid Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of Creeping Dust"
+    },
+    {
+        "affixes": [
+            "Acid Spell Power",
+            "Negative Spell Power",
+            "Poison Spell Power",
+            "Evil Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Evil Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Blight"
+    },
+    {
+        "affixes": [
+            "Negative Spell Power",
+            "Poison Spell Power",
+            "Positive Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Positive Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Dark Restoration"
+    },
+    {
+        "affixes": [
+            "Fire Spell Power",
+            "Electric Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Firestorm"
+    },
+    {
+        "affixes": [
+            "Fire Spell Power",
+            "Negative Spell Power",
+            "Poison Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Flames of Darkness"
+    },
+    {
+        "affixes": [
+            "Cold Spell Power",
+            "Sonic Spell Power",
+            "Electric Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Frozen Thunderstorm"
+    },
+    {
+        "affixes": [
+            "Negative Spell Power",
+            "Force Spell Power",
+            "Poison Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Force Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Moonlit Haunt"
+    },
+    {
+        "affixes": [
+            "Acid Spell Power",
+            "Light Spell Power",
+            "Alignment Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Light Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Alignment Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Sacred Ground"
+    },
+    {
+        "affixes": [
+            "Sonic Spell Power",
+            "Electric Spell Power"
+        ],
+        "name": "Power of the Thunderstorm"
+    },
+    {
+        "affixes": [
+            "Heal",
+            "Listen",
+            "Spot"
+        ],
+        "name": "Prudent Skills Bonus"
+    },
+    {
+        "affixes": [
             "Repair Spell Power",
             "Rust Spell Power"
         ],
         "name": "Reconstruction"
+    },
+    {
+        "affixes": [
+            "Deflection",
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save"
+        ],
+        "components": [
+            {
+                "name": "Deflection",
+                "type": "Deflection",
+                "value": 2
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": 2
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Resistance",
+                "value": 2
+            },
+            {
+                "name": "Will Save",
+                "type": "Resistance",
+                "value": 2
+            }
+        ],
+        "name": "Stability"
+    },
+    {
+        "affixes": [
+            "Armor Class",
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save"
+        ],
+        "components": [
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": 6
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Resistance",
+                "value": 6
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Resistance",
+                "value": 6
+            },
+            {
+                "name": "Will Save",
+                "type": "Resistance",
+                "value": 6
+            }
+        ],
+        "name": "Superior Stability"
     },
     {
         "affixes": [

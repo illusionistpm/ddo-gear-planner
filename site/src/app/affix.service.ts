@@ -39,11 +39,15 @@ export class AffixService {
 
     for (const synonymGroup of affixSynonymsList) {
       for (const syn of synonymGroup['synonyms']) {
-        this.affixSynonyms.set(syn, synonymGroup['name']);
+        this.affixSynonyms.set(this.getSynonymKey(syn), synonymGroup['name']);
       }
 
       this.synonymsForAffix.set(synonymGroup['name'], synonymGroup['synonyms']);
     }
+  }
+
+  private getSynonymKey(affixName: string): string {
+    return affixName.trim().toLocaleLowerCase();
   }
 
   ungroupAffix(affixGroup: Affix) {
@@ -103,7 +107,7 @@ export class AffixService {
   }
 
   getResolvedAffixName(affixName: string): string {
-    return this.affixSynonyms.has(affixName) ? (this.affixSynonyms.get(affixName) || affixName) : affixName;
+    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 
   getSynonyms(affixName: string): Array<string> {
@@ -137,6 +141,6 @@ export class AffixService {
   }
 
   getCanonicalName(affixName: string) {
-    return this.affixSynonyms.get(affixName) || affixName;
+    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 }

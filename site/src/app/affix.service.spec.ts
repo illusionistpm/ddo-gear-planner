@@ -43,4 +43,13 @@ describe('AffixService', () => {
 
     expect(service.flattenAffixGroups([deadly])).toEqual([deadly]);
   });
+
+  it('resolves synonyms case-insensitively', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+
+    expect(service.getResolvedAffixName('hit')).toBe('Accuracy');
+    expect(service.getResolvedAffixName('Fortification bypass')).toBe('Armor-Piercing');
+    expect(service.getResolvedAffixName('all spell DCs')).toBe('Spell Focus Mastery');
+    expect(service.getResolvedAffixName('all Ability Scores')).toBe('Well Rounded');
+  });
 });

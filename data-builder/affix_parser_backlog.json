@@ -145,7 +145,9 @@
         "value": "111"
       }
     ],
-    "createdAt": "2026-08-01T20:01:38.504916+00:00"
+    "createdAt": "2026-08-01T20:01:38.504916+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
   },
   {
     "id": "affix-parser-4",
@@ -163,7 +165,9 @@
         "value": "10"
       }
     ],
-    "createdAt": "2026-08-01T20:03:19.316216+00:00"
+    "createdAt": "2026-08-01T20:03:19.316216+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
   },
   {
     "id": "affix-parser-5",
@@ -191,7 +195,9 @@
         "value": "3"
       }
     ],
-    "createdAt": "2026-08-01T20:04:25.612814+00:00"
+    "createdAt": "2026-08-01T20:04:25.612814+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
   },
   {
     "id": "affix-parser-6",
@@ -279,6 +285,98 @@
         "value": "10"
       }
     ],
-    "createdAt": "2026-08-01T20:06:35.680820+00:00"
+    "createdAt": "2026-08-01T20:06:35.680820+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
+  },
+  {
+    "id": "affix-parser-7",
+    "name": "Weapon Focus: Falchion",
+    "note": "a few categories of affixes that look suspicious but aren't:\n\"Weapon Focus: <weapon name>\"\n\"Feat: <feat name>\"\n\"Rune Arm Imbue; <element>\"\n\"Proficiency: <weapon>\"\ni do see we have both \"Proficiency: weapon\" and \"Feat: Proficiency: weapon\" and we should settle on the one without feat.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 12)",
+        "path": "items / 8073 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_12)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 13)",
+        "path": "items / 8074 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_13)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 14)",
+        "path": "items / 8075 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_14)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 23)",
+        "path": "items / 8076 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_23)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 24)",
+        "path": "items / 8077 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_24)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 25)",
+        "path": "items / 8078 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_25)",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T20:10:51.147679+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:17:11.786111+00:00"
+  },
+  {
+    "id": "affix-parser-8",
+    "name": "Hidden effect: Cursed Defiance",
+    "note": "i don't think \"Hidden Effect: \" adds value so we can just strip those whenever they appear",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Docent of Defiance",
+        "path": "items / 1483 / affixes",
+        "sourceText": "Hidden effect: Cursed DefianceCursed Defiance: 5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds",
+        "sourceTooltip": "Cursed Defiance: 5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds",
+        "type": "Bool",
+        "url": "/page/Item:Docent_of_Defiance",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T20:11:21.213321+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:17:11.786111+00:00"
   }
 ]

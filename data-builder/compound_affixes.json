@@ -237,7 +237,7 @@
   "Creeping Dust Lore": {
     "components": [
       {
-        "name": "Cold Intensity",
+        "name": "Ice Intensity",
         "type": "Equipment",
         "value": {
           "mode": "same_as_affix_number"
@@ -817,30 +817,5 @@
       }
     ],
     "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
-  },
-  "Wisdom Skills": {
-    "components": [
-      {
-        "name": "Heal",
-        "type": "<TypeAlreadyParsed>",
-        "value": {
-          "mode": "same_as_affix_number"
-        }
-      },
-      {
-        "name": "Listen",
-        "type": "<TypeAlreadyParsed>",
-        "value": {
-          "mode": "same_as_affix_number"
-        }
-      },
-      {
-        "name": "Spot",
-        "type": "<TypeAlreadyParsed>",
-        "value": {
-          "mode": "same_as_affix_number"
-        }
-      }
-    ]
   }
 }

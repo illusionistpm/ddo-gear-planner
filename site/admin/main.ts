@@ -70,6 +70,7 @@ interface AffixNameEntry {
   reviewedAt?: string;
   signals: string[];
   clusterIds: string[];
+  hasCompoundAffixDefinition: boolean;
   synonymCanonicalName?: string;
   isCanonicalSynonymName: boolean;
   hasSynonymCoverage: boolean;
@@ -89,6 +90,9 @@ interface AffixNamePayload {
   summary: {
     totalNames: number;
     oneOffNames: number;
+    twoOffNames: number;
+    threeOffNames: number;
+    lowCountNoCompoundNames: number;
     suspiciousNames: number;
     reviewedNames: number;
     clusters: number;
@@ -176,6 +180,14 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
           <div>
             <strong>{{affixNamePayload?.summary?.suspiciousNames || 0}}</strong>
             <small>flagged</small>
+          </div>
+          <div>
+            <strong>{{affixNamePayload?.summary?.twoOffNames || 0}}/{{affixNamePayload?.summary?.threeOffNames || 0}}</strong>
+            <small>2/3-off</small>
+          </div>
+          <div>
+            <strong>{{affixNamePayload?.summary?.lowCountNoCompoundNames || 0}}</strong>
+            <small>low no compound</small>
           </div>
           <div>
             <strong>{{affixNamePayload?.summary?.clusters || 0}}</strong>
@@ -503,7 +515,7 @@ export class AdminAppComponent {
   affixNameOptions: string[] = [];
   affixNameSearchText = '';
   affixNameFilter = 'all';
-  affixNameFilters = ['all', 'unreviewed', 'reviewed', 'one-off', 'long-name', 'sentence-like-name', 'value-like-name', 'likely-duplicate', 'has-synonym', 'no-synonym', 'items', 'crafting', 'sets', 'affix-groups'];
+  affixNameFilters = ['all', 'unreviewed', 'reviewed', 'one-off', 'two-off', 'three-off', 'low-count-no-compound', 'long-name', 'sentence-like-name', 'value-like-name', 'likely-duplicate', 'has-synonym', 'no-synonym', 'items', 'crafting', 'sets', 'affix-groups'];
   synonymCanonicalName = '';
   synonymNamesText = '';
   parserBacklogNote = '';

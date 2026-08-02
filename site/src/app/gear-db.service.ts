@@ -198,6 +198,8 @@ export class GearDbService {
       }
     }
 
+    maxLevel = Math.max(maxLevel, this.cannith.maxLevel);
+
     const ring1Items = gear.get('Ring1');
     if (ring1Items) {
       const ring2 = [];
@@ -255,6 +257,7 @@ export class GearDbService {
     for (const items of gear.values()) {
       for (const item of items) {
         this._addAffixesToMap(item.affixes);
+        this._addCraftingAffixesToMap(item.crafting);
       }
     }
 
@@ -262,21 +265,6 @@ export class GearDbService {
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
       for (const threshold of rawSetList[setName]) {
         this._addAffixesToMap(threshold.affixes);
-      }
-    }
-
-    for (const itemNames of this.craftingList.values()) {
-      for (const craftable of itemNames.values()) {
-        for (const option of craftable.options) {
-          if (option['ml'] && option['ml'] > maxLevel) {
-            continue;
-          }
-          if (option['affixes']) {
-            for (const affix of Object.values(option['affixes'])) {
-              this._addAffixesToMap([new Affix(affix)]);
-            }
-          }
-        }
       }
     }
 
@@ -331,6 +319,22 @@ export class GearDbService {
     for (const affix of affixes) {
       const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
       this._addAffixesToMap_helper(ungroupedAffixes);
+    }
+  }
+
+  private _addCraftingAffixesToMap(crafting: Array<Craftable> | undefined) {
+    if (!crafting) {
+      return;
+    }
+
+    for (const craftable of crafting) {
+      if (craftable.hiddenFromAffixSearch) {
+        continue;
+      }
+
+      for (const option of craftable.options) {
+        this._addAffixesToMap(option.affixes);
+      }
     }
   }
 

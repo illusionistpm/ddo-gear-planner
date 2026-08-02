@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from build_synonyms import build_synonyms, load_synonyms, save_synonyms
+from compound_affixes import load_compound_affixes
 from provenance_io import get_provenance_json_path
 from read_json import read_json
 from typedefs import AffixSynonyms
@@ -153,15 +154,22 @@ def _spell_power_key(name: str) -> str | None:
     return None
 
 
-def _quality_signals(name: str, count: int) -> list[str]:
+def _quality_signals(name: str, count: int, has_compound_affix_definition: bool = False) -> list[str]:
     signals = []
+    colon_prefix_is_name = re.match(r'^(?:Feat|Proficiency|Rune Arm Imbue|Weapon Focus):\s+\S', name)
     if count == 1:
         signals.append('one-off')
+    elif count == 2:
+        signals.append('two-off')
+    elif count == 3:
+        signals.append('three-off')
+    if count <= 3 and not has_compound_affix_definition:
+        signals.append('low-count-no-compound')
     if len(name) > 80:
         signals.append('long-name')
     if re.fullmatch(r'[+-]?\d+(?:\s+.*)?', name):
         signals.append('value-like-name')
-    if re.search(r'[.:;]', name) or re.search(r'\b(grants|deals|chance|nearby|possibly|inflicting|lasting)\b', name, re.IGNORECASE):
+    if (not colon_prefix_is_name and re.search(r'[.:;]', name)) or re.search(r'\b(grants|deals|chance|nearby|possibly|inflicting|lasting)\b', name, re.IGNORECASE):
         signals.append('sentence-like-name')
     return signals
 
@@ -181,6 +189,7 @@ def _load_synonym_maps() -> tuple[list[AffixSynonyms], dict[str, str], set[str]]
 def build_affix_name_review_payload() -> dict[str, Any]:
     inventory = collect_affix_inventory()
     synonyms, synonym_to_canonical, canonical_names = _load_synonym_maps()
+    compound_affix_names = set(load_compound_affixes().keys())
     review_state = load_affix_name_review_state()
     cluster_groups: defaultdict[str, list[str]] = defaultdict(list)
 
@@ -198,7 +207,8 @@ def build_affix_name_review_payload() -> dict[str, Any]:
 
     entries = []
     for name, entry in inventory.items():
-        signals = _quality_signals(name, entry['count'])
+        has_compound_affix_definition = name in compound_affix_names
+        signals = _quality_signals(name, entry['count'], has_compound_affix_definition)
         if cluster_ids_by_name[name]:
             signals.append('likely-duplicate')
         synonym_canonical = synonym_to_canonical.get(name)
@@ -211,6 +221,7 @@ def build_affix_name_review_payload() -> dict[str, Any]:
                 'reviewedAt': state.get('reviewedAt'),
                 'signals': signals,
                 'clusterIds': cluster_ids_by_name[name],
+                'hasCompoundAffixDefinition': has_compound_affix_definition,
                 'synonymCanonicalName': synonym_canonical,
                 'isCanonicalSynonymName': name in canonical_names,
                 'hasSynonymCoverage': bool(synonym_canonical or name in canonical_names),
@@ -225,6 +236,9 @@ def build_affix_name_review_payload() -> dict[str, Any]:
         'summary': {
             'totalNames': len(entries),
             'oneOffNames': sum(1 for entry in entries if 'one-off' in entry['signals']),
+            'twoOffNames': sum(1 for entry in entries if 'two-off' in entry['signals']),
+            'threeOffNames': sum(1 for entry in entries if 'three-off' in entry['signals']),
+            'lowCountNoCompoundNames': sum(1 for entry in entries if 'low-count-no-compound' in entry['signals']),
             'suspiciousNames': sum(1 for entry in entries if entry['signals']),
             'reviewedNames': sum(1 for entry in entries if entry['reviewStatus'] == 'ok'),
             'clusters': len(clusters),

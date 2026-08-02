@@ -62,3 +62,19 @@ def test_get_affix_map_list_from_tag_parses_negative_enhancement_bonus():
     assert get_affix_map_list_from_tag(ul) == [
         {'name': 'Enhancement Bonus', 'type': 'Enhancement', 'value': '-1'},
     ]
+
+
+def test_get_affix_map_list_from_tag_canonicalizes_spell_power_name():
+    html = '''
+    <ul>
+      <li>
+        <span class="has_tooltip">Glaciation +53
+          <span class="tooltip">Glaciation +53: Passive: +53 Equipment bonus to Cold Spell Power.</span>
+        </span>
+      </li>
+    </ul>
+    '''
+    ul = BeautifulSoup(html, 'html.parser').ul
+    assert get_affix_map_list_from_tag(ul) == [
+        {'name': 'Cold Spell Power', 'value': '53', 'type': 'Equipment'},
+    ]

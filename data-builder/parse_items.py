@@ -7,7 +7,7 @@ import re
 import collections
 from write_json import write_json
 from read_json import read_json
-from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
+from parse_affixes_from_cell import canonicalize_affix_name, parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
 
@@ -118,7 +118,7 @@ def expand_affix_names_with_compounds(affixNames: list[str]) -> set[str]:
         for affix in expandedAffixes:
             expandedAffixName = affix.get('name')
             if isinstance(expandedAffixName, str):
-                expandedAffixNames.add(expandedAffixName)
+                expandedAffixNames.add(canonicalize_affix_name(expandedAffixName, affix.get('type')))
 
     return expandedAffixNames
 

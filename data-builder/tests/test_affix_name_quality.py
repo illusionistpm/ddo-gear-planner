@@ -23,6 +23,8 @@ def test_build_affix_name_review_payload_flags_quality_signals(monkeypatch):
         'Glaciation': {'name': 'Glaciation', 'count': 10, 'assets': {'items': 10}, 'types': {}, 'values': {}, 'examples': []},
         'Cold Spell Power': {'name': 'Cold Spell Power', 'count': 1, 'assets': {'items': 1}, 'types': {}, 'values': {}, 'examples': []},
         'Spell Power for Cold Spells': {'name': 'Spell Power for Cold Spells', 'count': 2, 'assets': {'crafting': 2}, 'types': {}, 'values': {}, 'examples': []},
+        'Bloodrage Defense': {'name': 'Bloodrage Defense', 'count': 3, 'assets': {'items': 3}, 'types': {}, 'values': {}, 'examples': []},
+        'Known Compound': {'name': 'Known Compound', 'count': 2, 'assets': {'items': 2}, 'types': {}, 'values': {}, 'examples': []},
         '+12': {'name': '+12', 'count': 1, 'assets': {'items': 1}, 'types': {}, 'values': {}, 'examples': []},
         'Special: Deals 10 to 60 Negative Energy Damage to nearby enemies.': {
             'name': 'Special: Deals 10 to 60 Negative Energy Damage to nearby enemies.',
@@ -32,8 +34,11 @@ def test_build_affix_name_review_payload_flags_quality_signals(monkeypatch):
             'values': {},
             'examples': [],
         },
+        'Weapon Focus: Falchion': {'name': 'Weapon Focus: Falchion', 'count': 6, 'assets': {'items': 6}, 'types': {}, 'values': {}, 'examples': []},
+        'Rune Arm Imbue: Acid': {'name': 'Rune Arm Imbue: Acid', 'count': 25, 'assets': {'items': 25}, 'types': {}, 'values': {}, 'examples': []},
     })
     monkeypatch.setattr(module, 'load_synonyms', lambda: [{'name': 'Glaciation', 'synonyms': []}])
+    monkeypatch.setattr(module, 'load_compound_affixes', lambda: {'Known Compound': {'components': []}})
     monkeypatch.setattr(module, 'load_parser_backlog', lambda: [])
     monkeypatch.setattr(module, 'load_affix_name_review_state', lambda: {'Glaciation': {'status': 'ok', 'notes': 'Looks right.', 'reviewedAt': 'today'}})
 
@@ -44,10 +49,22 @@ def test_build_affix_name_review_payload_flags_quality_signals(monkeypatch):
     assert entries['Glaciation']['reviewNotes'] == 'Looks right.'
     assert 'likely-duplicate' in entries['Cold Spell Power']['signals']
     assert 'one-off' in entries['Cold Spell Power']['signals']
+    assert 'two-off' in entries['Spell Power for Cold Spells']['signals']
+    assert 'low-count-no-compound' in entries['Spell Power for Cold Spells']['signals']
+    assert 'three-off' in entries['Bloodrage Defense']['signals']
+    assert 'low-count-no-compound' in entries['Bloodrage Defense']['signals']
+    assert entries['Known Compound']['hasCompoundAffixDefinition'] is True
+    assert 'two-off' in entries['Known Compound']['signals']
+    assert 'low-count-no-compound' not in entries['Known Compound']['signals']
     assert 'value-like-name' in entries['+12']['signals']
     assert 'sentence-like-name' in entries['Special: Deals 10 to 60 Negative Energy Damage to nearby enemies.']['signals']
+    assert 'sentence-like-name' not in entries['Weapon Focus: Falchion']['signals']
+    assert 'sentence-like-name' not in entries['Rune Arm Imbue: Acid']['signals']
     assert payload['summary']['reviewedNames'] == 1
     assert payload['summary']['clusters'] == 1
+    assert payload['summary']['twoOffNames'] == 2
+    assert payload['summary']['threeOffNames'] == 1
+    assert payload['summary']['lowCountNoCompoundNames'] == 5
 
 
 def test_save_synonym_mapping_updates_json_source(monkeypatch):

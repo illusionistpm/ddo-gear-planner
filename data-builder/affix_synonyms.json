@@ -4,8 +4,26 @@
     "synonyms": [
       "Attack",
       "Hit",
-      "hit",
       "Attack Bonus"
+    ]
+  },
+  {
+    "name": "Acid Spell Power",
+    "synonyms": [
+      "Corrosion",
+      "Acid Spellpower"
+    ]
+  },
+  {
+    "name": "Acid Intensity",
+    "synonyms": [
+      "Corrosion Intensity"
+    ]
+  },
+  {
+    "name": "Acid Lore",
+    "synonyms": [
+      "Corrosion Lore"
     ]
   },
   {
@@ -42,14 +60,36 @@
     "name": "Armor-Piercing",
     "synonyms": [
       "Armor Piercing",
-      "Fortification Bypass",
-      "Fortification bypass"
+      "Fortification Bypass"
     ]
   },
   {
     "name": "Assassinate",
     "synonyms": [
       "Assassinate DCs"
+    ]
+  },
+  {
+    "name": "Cold Spell Power",
+    "synonyms": [
+      "Glaciation",
+      "Cold Spellpower",
+      "Ice Spell Power",
+      "Ice Spellpower"
+    ]
+  },
+  {
+    "name": "Ice Intensity",
+    "synonyms": [
+      "Cold Intensity",
+      "Glaciation Intensity"
+    ]
+  },
+  {
+    "name": "Cold Lore",
+    "synonyms": [
+      "Glaciation Lore",
+      "Ice Lore"
     ]
   },
   {
@@ -60,10 +100,35 @@
     ]
   },
   {
-    "name": "Devotion",
+    "name": "Deception",
     "synonyms": [
-      "Positive Spell Power",
-      "Positive Spellpower"
+      "Sneak Attacks"
+    ]
+  },
+  {
+    "name": "Electric Spell Power",
+    "synonyms": [
+      "Magnetism",
+      "Magnetic",
+      "Electric Spellpower",
+      "Lightning Spell Power",
+      "Lightning Spellpower"
+    ]
+  },
+  {
+    "name": "Lightning Intensity",
+    "synonyms": [
+      "Electric Intensity",
+      "Magnetic Intensity",
+      "Magnetism Intensity"
+    ]
+  },
+  {
+    "name": "Lightning Lore",
+    "synonyms": [
+      "Electric Lore",
+      "Magnetic Lore",
+      "Magnetism Lore"
     ]
   },
   {
@@ -87,13 +152,40 @@
   {
     "name": "False Life (%)",
     "synonyms": [
-      "Conditioning (%)"
+      "Conditioning (%)",
+      "Legendary Conditioning"
     ]
   },
   {
-    "name": "Force Spell Crit Damage",
+    "name": "Fire Spell Power",
     "synonyms": [
-      "Force and Physical Spell Crit Damage"
+      "Combustion",
+      "Fire Spellpower"
+    ]
+  },
+  {
+    "name": "Fire Intensity",
+    "synonyms": [
+      "Combustion Intensity"
+    ]
+  },
+  {
+    "name": "Fire Lore",
+    "synonyms": [
+      "Combustion Lore"
+    ]
+  },
+  {
+    "name": "Force Lore",
+    "synonyms": [
+      "Impulse Lore"
+    ]
+  },
+  {
+    "name": "Force Spell Power",
+    "synonyms": [
+      "Impulse",
+      "Force Spellpower"
     ]
   },
   {
@@ -109,10 +201,27 @@
     ]
   },
   {
+    "name": "Healing Amplification",
+    "synonyms": [
+      "Positive Healing Amplification",
+      "Positive Amplification"
+    ]
+  },
+  {
     "name": "Healing Lore",
     "synonyms": [
+      "Devotion Lore",
       "Positive Spell Crit Chance",
       "Positive Spellcrit Chance"
+    ]
+  },
+  {
+    "name": "Kinetic Intensity",
+    "synonyms": [
+      "Impulse Intensity",
+      "Force Spell Crit Damage",
+      "Physical Spell Crit Damage",
+      "Force and Physical Spell Crit Damage"
     ]
   },
   {
@@ -123,43 +232,14 @@
     ]
   },
   {
-    "name": "Light Spell Crit Damage",
+    "name": "Light Spell Power",
     "synonyms": [
-      "Light and Alignment Spell Crit Damage"
+      "Light Spellpower"
     ]
   },
   {
-    "name": "Seeker",
-    "synonyms": [
-      "Critical Confirmation and Critical Damage"
-    ]
-  },
-  {
-    "name": "Void Lore",
-    "synonyms": [
-      "Negative Spell Crit Chance",
-      "Negative Lore"
-    ]
-  },
-  {
-    "name": "Deception",
-    "synonyms": [
-      "Sneak Attacks"
-    ]
-  },
-  {
-    "name": "Speed",
-    "synonyms": [
-      "Striding",
-      "movement speed"
-    ]
-  },
-  {
-    "name": "Physical Sheltering",
-    "synonyms": [
-      "Physical Resistance Rating",
-      "PRR"
-    ]
+    "name": "Light Lore",
+    "synonyms": []
   },
   {
     "name": "Magical Efficiency",
@@ -183,6 +263,50 @@
     ]
   },
   {
+    "name": "Negative Amplification",
+    "synonyms": [
+      "Negative Healing Amplification"
+    ]
+  },
+  {
+    "name": "Negative Spell Power",
+    "synonyms": [
+      "Nullification",
+      "Negative Spellpower"
+    ]
+  },
+  {
+    "name": "Physical Sheltering",
+    "synonyms": [
+      "Physical Resistance Rating",
+      "PRR"
+    ]
+  },
+  {
+    "name": "Positive Spell Power",
+    "synonyms": [
+      "Devotion",
+      "Positive Spellpower"
+    ]
+  },
+  {
+    "name": "Radiance",
+    "synonyms": []
+  },
+  {
+    "name": "Radiance Intensity",
+    "synonyms": [
+      "Light Intensity",
+      "Light Spell Crit Damage",
+      "Alignment Spell Crit Damage",
+      "Light and Alignment Spell Crit Damage"
+    ]
+  },
+  {
+    "name": "Radiance Lore",
+    "synonyms": []
+  },
+  {
     "name": "Rage Charges",
     "synonyms": [
       "Anger",
@@ -197,9 +321,39 @@
     ]
   },
   {
+    "name": "Repair Amplification",
+    "synonyms": [
+      "Repair Healing Amplification"
+    ]
+  },
+  {
+    "name": "Repair Lore",
+    "synonyms": [
+      "Reconstruction Lore"
+    ]
+  },
+  {
+    "name": "Repair Intensity",
+    "synonyms": [
+      "Reconstruction Intensity"
+    ]
+  },
+  {
+    "name": "Seeker",
+    "synonyms": [
+      "Critical Confirmation and Critical Damage"
+    ]
+  },
+  {
     "name": "Sheltering",
     "synonyms": [
       "Physical and Magical Resistance Rating"
+    ]
+  },
+  {
+    "name": "Silver",
+    "synonyms": [
+      "Silver , Alchemical"
     ]
   },
   {
@@ -209,12 +363,37 @@
     ]
   },
   {
+    "name": "Sonic Spell Power",
+    "synonyms": [
+      "Resonance",
+      "Sonic Spellpower"
+    ]
+  },
+  {
+    "name": "Sonic Intensity",
+    "synonyms": [
+      "Resonance Intensity"
+    ]
+  },
+  {
+    "name": "Sonic Lore",
+    "synonyms": [
+      "Resonance Lore"
+    ]
+  },
+  {
+    "name": "Speed",
+    "synonyms": [
+      "Striding",
+      "movement speed"
+    ]
+  },
+  {
     "name": "Spell Focus Mastery",
     "synonyms": [
       "DCs",
       "Spell DCs",
       "all Spell DCs",
-      "all spell DCs",
       "Spell DC's"
     ]
   },
@@ -231,8 +410,10 @@
     ]
   },
   {
-    "name": "Sunder",
+    "name": "Sundering",
     "synonyms": [
+      "Sunder",
+      "Sunder DC",
       "Sunder DCs"
     ]
   },
@@ -243,12 +424,6 @@
     ]
   },
   {
-    "name": "Trip",
-    "synonyms": [
-      "Trip DCs"
-    ]
-  },
-  {
     "name": "Universal Spell Power",
     "synonyms": [
       "Spellcasting Implement",
@@ -256,34 +431,36 @@
     ]
   },
   {
-    "name": "Will Save",
+    "name": "Vertigo",
     "synonyms": [
-      "Will saves"
+      "Trip",
+      "Trip DC",
+      "Trip DCs"
     ]
   },
   {
-    "name": "Nullification",
+    "name": "Void Intensity",
     "synonyms": [
-      "Negative Spell Power"
+      "Nullification Intensity",
+      "Negative Intensity",
+      "Negative Spell Crit Damage",
+      "Poison Spell Crit Damage",
+      "Negative and Poison Spell Crit Damage"
     ]
   },
   {
-    "name": "Healing Amplification",
+    "name": "Negative Lore",
     "synonyms": [
-      "Positive Healing Amplification",
-      "Positive Amplification"
+      "Nullification Lore",
+      "Void Lore",
+      "Negative Spell Crit Chance"
     ]
   },
   {
-    "name": "Negative Amplification",
+    "name": "Healing Intensity",
     "synonyms": [
-      "Negative Healing Amplification"
-    ]
-  },
-  {
-    "name": "Repair Amplification",
-    "synonyms": [
-      "Repair Healing Amplification"
+      "Devotion Intensity",
+      "Positive Intensity"
     ]
   },
   {
@@ -292,30 +469,15 @@
       "Ability stats",
       "All Ability Scores",
       "all Abilities",
-      "all Ability Scores",
       "all of your Ability Scores",
       "each Ability Score",
       "Well-Rounded"
     ]
   },
   {
-    "name": "Sundering",
+    "name": "Will Save",
     "synonyms": [
-      "Sunder",
-      "Sunder DC"
-    ]
-  },
-  {
-    "name": "Vertigo",
-    "synonyms": [
-      "Trip",
-      "Trip DC"
-    ]
-  },
-  {
-    "name": "Silver",
-    "synonyms": [
-      "Silver , Alchemical"
+      "Will saves"
     ]
   }
 ]

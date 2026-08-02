@@ -50,12 +50,16 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'name': 'Ghostly', 'type': 'Bool', 'value': 1},
         ),
         (
+            {'text': 'Spell Focus Mastery +1', 'tooltip': ''},
+            {'name': 'Spell Focus Mastery', 'type': 'Equipment', 'value': '1'},
+        ),
+        (
             {'text': 'Once every three seconds when you take damage', 'tooltip': ''},
             {'name': 'Once every three seconds when you take damage', 'type': 'Untyped', 'value': 1},
         ),
         (
             {'text': 'Combustion +32', 'tooltip': 'This grants a +32 Enhancement bonus to Fire Spell Power.'},
-            {'name': 'Combustion', 'type': 'Enhancement', 'value': '32'},
+            {'name': 'Fire Spell Power', 'type': 'Enhancement', 'value': '32'},
         ),
         (
             {'text': 'Chilling 9', 'tooltip': 'Chilling 9: This weapon deals 9d6 Cold damage on each hit.'},
@@ -78,6 +82,95 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
         (
             {'text': 'Undead Bane 4', 'tooltip': 'Undead Bane 4: This weapon deals extra bane damage vs. Undead.'},
             {'name': 'Undead Bane', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            {'text': 'Glaciation +53', 'tooltip': 'Glaciation +53: Passive: +53 Equipment bonus to Cold Spell Power.'},
+            {'name': 'Cold Spell Power', 'type': 'Equipment', 'value': '53'},
+        ),
+        (
+            {'text': 'Ice Spell Power +53', 'tooltip': 'Ice Spell Power +53: Passive: +53 Equipment bonus to Cold Spell Power.'},
+            {'name': 'Cold Spell Power', 'type': 'Equipment', 'value': '53'},
+        ),
+        (
+            {'text': 'Lightning Spell Power +53', 'tooltip': 'Lightning Spell Power +53: Passive: +53 Equipment bonus to Electric Spell Power.'},
+            {'name': 'Electric Spell Power', 'type': 'Equipment', 'value': '53'},
+        ),
+        (
+            {'text': 'Void Lore +22', 'tooltip': 'Void Lore +22: Passive: +22 Equipment bonus to Negative Spell Critical Chance.'},
+            {'name': 'Negative Lore', 'type': 'Equipment', 'value': '22'},
+        ),
+        (
+            {'text': 'Ice Intensity +12', 'tooltip': 'Ice Intensity +12: Passive: +12 Equipment bonus to Cold Spell Critical Damage.'},
+            {'name': 'Ice Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Combustion Intensity +12', 'tooltip': 'Combustion Intensity +12: Passive: +12 Equipment bonus to Fire Spell Critical Damage.'},
+            {'name': 'Fire Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Corrosion Intensity +12', 'tooltip': 'Corrosion Intensity +12: Passive: +12 Equipment bonus to Acid Spell Critical Damage.'},
+            {'name': 'Acid Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Impulse Intensity +12', 'tooltip': 'Impulse Intensity +12: Passive: +12 Equipment bonus to Force Spell Critical Damage.'},
+            {'name': 'Kinetic Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Kinetic Lore +15', 'tooltip': 'Kinetic Lore +15: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.'},
+            {'name': 'Kinetic Lore', 'type': 'Equipment', 'value': '15'},
+        ),
+        (
+            {'text': 'Lightning Intensity +12', 'tooltip': 'Lightning Intensity +12: Passive: +12 Equipment bonus to Electric Spell Critical Damage.'},
+            {'name': 'Lightning Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Nullification Intensity +12', 'tooltip': 'Nullification Intensity +12: Passive: +12 Equipment bonus to Negative Spell Critical Damage.'},
+            {'name': 'Void Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Devotion Intensity +12', 'tooltip': 'Devotion Intensity +12: Passive: +12 Equipment bonus to Positive Spell Critical Damage.'},
+            {'name': 'Healing Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Reconstruction Intensity +12', 'tooltip': 'Reconstruction Intensity +12: Passive: +12 Equipment bonus to Repair Spell Critical Damage.'},
+            {'name': 'Repair Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Resonance Intensity +12', 'tooltip': 'Resonance Intensity +12: Passive: +12 Equipment bonus to Sonic Spell Critical Damage.'},
+            {'name': 'Sonic Intensity', 'type': 'Equipment', 'value': '12'},
+        ),
+        (
+            {'text': 'Radiance Lore +22', 'tooltip': 'Radiance Lore +22: Passive: +22 Equipment bonus to Light Spell Critical Chance.'},
+            {'name': 'Radiance Lore', 'type': 'Equipment', 'value': '22'},
+        ),
+        (
+            {'text': '+10% Artifact Bonus to Damage vs. the Helpless', 'tooltip': ''},
+            {'name': 'Damage vs. the Helpless', 'type': 'Artifact', 'value': '10'},
+        ),
+        (
+            {
+                'text': 'Greater Dragonmark Enhancement',
+                'tooltip': 'Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 3.',
+            },
+            {'name': 'Greater Dragonmark Charges', 'type': 'Untyped', 'value': '3'},
+        ),
+        (
+            {'text': 'Greater Dragonmark charges +1', 'tooltip': ''},
+            {'name': 'Greater Dragonmark Charges', 'type': 'Untyped', 'value': '1'},
+        ),
+        (
+            {
+                'text': 'Hidden effect: Cursed Defiance',
+                'tooltip': 'Cursed Defiance: 5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds',
+            },
+            {'name': 'Cursed Defiance', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            {
+                'text': 'Proficiency: Bastard Sword',
+                'tooltip': 'This grants you the Proficiency: Bastard Sword feat.',
+            },
+            {'name': 'Proficiency: Bastard Sword', 'type': 'Bool', 'value': 1},
         ),
     ],
 )

@@ -7,6 +7,16 @@ import openpyxl.worksheet.worksheet
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
 import os
+from parse_affixes_from_cell import canonicalize_affix_name
+
+
+CANNITH_MAX_LEVEL = 34
+
+
+def canonicalize_cannith_affix_name(affix: str) -> str:
+    if affix.startswith('Insightful '):
+        return 'Insightful ' + canonicalize_affix_name(affix.removeprefix('Insightful '))
+    return canonicalize_affix_name(affix)
 
 def parse_cannith() -> None:
     assumedBonusTypeMap = get_most_common_bonus_type()
@@ -33,7 +43,7 @@ def parse_cannith() -> None:
 
         if cell.value == 1:
             levelStart = idx
-        elif cell.value == 34:
+        elif isinstance(cell.value, int):
             levelEnd = idx
         elif cell.value in ['Min Level', 'Sort']:
             continue
@@ -48,6 +58,7 @@ def parse_cannith() -> None:
     itemTypes = {}
     output['progression'] = progression
     output['itemTypes'] = itemTypes
+    output['maxLevel'] = CANNITH_MAX_LEVEL
     output['bonusTypes'] = assumedBonusTypeMap
 
     rows = ws.iter_rows()
@@ -61,12 +72,6 @@ def parse_cannith() -> None:
         if affix == 'Songblade':
             fixed_progression_value = 1
 
-        affixes = []
-
-        if affix == 'Universal Spell Lore':
-            for lore in ['Acid Lore', 'Cold Lore', 'Electricity Lore', 'Fire Lore', 'Force Lore', 'Light Lore', 'Negative Lore', 'Positive Lore', 'Repair Lore', 'Sonic Lore']:
-                affixes.append(lore)
-
         if affix == 'Spell Resistance (Sr)':
             affix = 'Spell Resistance'
 
@@ -76,26 +81,24 @@ def parse_cannith() -> None:
         if affix.startswith('Spell Focus: '):
             affix = affix.replace('Spell Focus: ', '') + ' Focus'
 
-        if len(affixes) == 0:
-            affixes.append(affix)
+        affix = canonicalize_cannith_affix_name(affix)
 
         progVals = []
         for val in range(levelStart, levelEnd + 1):
             progVals.append(fixed_progression_value if fixed_progression_value is not None else row[val].value)
 
-        for affix in affixes:
-            progression[affix] = progVals
+        progression[affix] = progVals
 
-            for itemInfo in itemTypeInfoList:
-                isMarked = row[itemInfo['col']].value
-                if isMarked and len(isMarked) > 0:
-                    if itemInfo['itemType'] not in itemTypes:
-                        itemTypes[itemInfo['itemType']] = {}
+        for itemInfo in itemTypeInfoList:
+            isMarked = row[itemInfo['col']].value
+            if isMarked and len(isMarked) > 0:
+                if itemInfo['itemType'] not in itemTypes:
+                    itemTypes[itemInfo['itemType']] = {}
 
-                    if itemInfo['affixLoc'] not in itemTypes[itemInfo['itemType']]:
-                        itemTypes[itemInfo['itemType']][itemInfo['affixLoc']] = []
+                if itemInfo['affixLoc'] not in itemTypes[itemInfo['itemType']]:
+                    itemTypes[itemInfo['itemType']][itemInfo['affixLoc']] = []
 
-                    itemTypes[itemInfo['itemType']][itemInfo['affixLoc']].append(affix)
+                itemTypes[itemInfo['itemType']][itemInfo['affixLoc']].append(affix)
 
     # Only keep bonus types for things that are actually used by Cannith crafting
     delKeys = []

@@ -9,4 +9,10 @@ describe('CannithService', () => {
     const service: CannithService = TestBed.inject(CannithService);
     expect(service).toBeTruthy();
   });
+
+  it('uses the generated Cannith max level for selectable levels', () => {
+    const service: CannithService = TestBed.inject(CannithService);
+    expect(service.maxLevel).toBe(34);
+    expect(service.levels[0]).toBe(34);
+  });
 });

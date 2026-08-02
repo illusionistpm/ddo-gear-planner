@@ -146,8 +146,8 @@
     "status": "accepted"
   },
   "Wisdom Skills": {
-    "notes": "",
+    "notes": "Covered by the explicit affix group; no compound override is needed.",
     "reviewedAt": "2026-08-01T19:50:11.149193+00:00",
-    "status": "accepted"
+    "status": "rejected"
   }
 }

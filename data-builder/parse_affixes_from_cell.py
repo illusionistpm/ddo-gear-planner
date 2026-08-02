@@ -200,6 +200,8 @@ def apply_known_affix_type_defaults(affix):
         affix['type'] = 'Enhancement'
     elif name in {'Magical Efficiency', 'Minor Spell Penetration', 'Power', 'Wizardry'}:
         affix['type'] = 'Enhancement'
+    elif name == 'Spell Focus Mastery':
+        affix['type'] = 'Equipment'
     elif name == 'Hardened Exterior':
         affix['type'] = 'Profane'
     elif name == 'Mystic Incite':
@@ -256,6 +258,85 @@ def strip_bonus_types(name):
     search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
     if search:
         return search.group(2)
+
+    return name
+
+
+SPELL_POWER_CANONICAL_NAMES = {
+    'Combustion': 'Fire Spell Power',
+    'Corrosion': 'Acid Spell Power',
+    'Devotion': 'Positive Spell Power',
+    'Glaciation': 'Cold Spell Power',
+    'Ice Spell Power': 'Cold Spell Power',
+    'Impulse': 'Force Spell Power',
+    'Lightning Spell Power': 'Electric Spell Power',
+    'Magnetic': 'Electric Spell Power',
+    'Magnetism': 'Electric Spell Power',
+    'Nullification': 'Negative Spell Power',
+    'Resonance': 'Sonic Spell Power',
+}
+
+SPELL_LORE_CANONICAL_NAMES = {
+    'Combustion Lore': 'Fire Lore',
+    'Corrosion Lore': 'Acid Lore',
+    'Devotion Lore': 'Healing Lore',
+    'Glaciation Lore': 'Cold Lore',
+    'Ice Lore': 'Cold Lore',
+    'Impulse Lore': 'Kinetic Lore',
+    'Electric Lore': 'Lightning Lore',
+    'Magnetic Lore': 'Lightning Lore',
+    'Magnetism Lore': 'Lightning Lore',
+    'Nullification Lore': 'Negative Lore',
+    'Resonance Lore': 'Sonic Lore',
+    'Void Lore': 'Negative Lore',
+}
+
+SPELL_INTENSITY_CANONICAL_NAMES = {
+    'Combustion Intensity': 'Fire Intensity',
+    'Corrosion Intensity': 'Acid Intensity',
+    'Devotion Intensity': 'Healing Intensity',
+    'Cold Intensity': 'Ice Intensity',
+    'Glaciation Intensity': 'Ice Intensity',
+    'Impulse Intensity': 'Kinetic Intensity',
+    'Electric Intensity': 'Lightning Intensity',
+    'Magnetic Intensity': 'Lightning Intensity',
+    'Magnetism Intensity': 'Lightning Intensity',
+    'Nullification Intensity': 'Void Intensity',
+    'Positive Intensity': 'Healing Intensity',
+    'Radiance Intensity': 'Radiance Intensity',
+    'Reconstruction Intensity': 'Repair Intensity',
+    'Resonance Intensity': 'Sonic Intensity',
+}
+
+
+def canonicalize_affix_name(name, affix_type=None):
+    if not isinstance(name, str):
+        return name
+
+    hidden_effect_search = re.match(r'^Hidden [Ee]ffect:\s*(.*)$', name)
+    if hidden_effect_search:
+        name = hidden_effect_search.group(1).strip()
+
+    proficiency_feat_search = re.match(r'^Feat:\s*(Proficiency:\s+.*)$', name)
+    if proficiency_feat_search:
+        name = proficiency_feat_search.group(1).strip()
+
+    if name in SPELL_POWER_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_POWER_CANONICAL_NAMES[name]
+
+    if name in SPELL_LORE_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_LORE_CANONICAL_NAMES[name]
+
+    if name in SPELL_INTENSITY_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_INTENSITY_CANONICAL_NAMES[name]
+
+    dragonmark_search = re.fullmatch(r'(lesser|greater) dragonmarks?(?: (?:charge|charges|enhancement))?', name, re.IGNORECASE)
+    if dragonmark_search:
+        return f'{dragonmark_search.group(1).capitalize()} Dragonmark Charges'
+
+    normalized_name = name.casefold()
+    if 'damage' in normalized_name and 'helpless' in normalized_name:
+        return 'Damage vs. the Helpless'
 
     return name
 
@@ -713,6 +794,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] == 'Radiance' and aff['type'] == 'Bool':
         aff['name'] = 'Radiance (enchantment)'
 
+    aff['name'] = canonicalize_affix_name(aff['name'], aff.get('type'))
+
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
 
@@ -1027,6 +1110,8 @@ def convert_affix_text_map_to_affix_map(textMap):
     # special case exists for Shield Armor Class
     if (affixMap['name'] in ['Shield Armor Class']):
         affixMap['type'] = affixMap['type'] + ' Shield'
+
+    affixMap['name'] = canonicalize_affix_name(affixMap['name'], affixMap.get('type'))
 
     # convert affix name to standardize
     affixMap['name'] = convert_affix_name_to_common_affix_name(affixMap['name'])

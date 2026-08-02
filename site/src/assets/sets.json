@@ -100,7 +100,7 @@
             "affixes": [
                 {
                     "name": "Efficient Metamagic - Empower",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "2"
                 },
                 {
@@ -110,7 +110,7 @@
                 },
                 {
                     "name": "Efficient Metamagic - Maximize",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "4"
                 },
                 {
@@ -138,7 +138,7 @@
         {
             "affixes": [
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -153,17 +153,17 @@
                     "value": "6"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Resonance",
+                    "name": "Sonic Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -236,7 +236,7 @@
             "affixes": [
                 {
                     "name": "Power",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "20"
                 }
             ],
@@ -259,17 +259,17 @@
         {
             "affixes": [
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -375,7 +375,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -385,17 +385,17 @@
                     "value": "6"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -524,7 +524,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -539,22 +539,22 @@
                     "value": "6"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -586,7 +586,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -596,7 +596,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -672,7 +672,7 @@
         {
             "affixes": [
                 {
-                    "name": "damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -792,12 +792,12 @@
                     "value": "30"
                 },
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -978,7 +978,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -1027,7 +1027,7 @@
         {
             "affixes": [
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Equipment",
                     "value": "36"
                 }
@@ -1101,7 +1101,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -1183,7 +1183,7 @@
         {
             "affixes": [
                 {
-                    "name": "Greater Dragonmark Charge",
+                    "name": "Greater Dragonmark Charges",
                     "type": "Untyped",
                     "value": "2"
                 }
@@ -1220,7 +1220,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "damage vs. helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -1232,17 +1232,17 @@
         {
             "affixes": [
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1434,7 +1434,7 @@
         {
             "affixes": [
                 {
-                    "name": "damage versus the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -1526,7 +1526,7 @@
         {
             "affixes": [
                 {
-                    "name": "damage versus the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -1689,7 +1689,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -1786,7 +1786,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1941,7 +1941,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -2042,7 +2042,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -2057,22 +2057,22 @@
                     "value": "4"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 }
@@ -2429,12 +2429,12 @@
         {
             "affixes": [
                 {
-                    "name": "Resonance",
+                    "name": "Sonic Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2444,7 +2444,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2498,12 +2498,12 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2513,7 +2513,7 @@
                     "value": "25"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2656,7 +2656,7 @@
         {
             "affixes": [
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Equipment",
                     "value": "72"
                 }
@@ -2666,7 +2666,7 @@
         {
             "affixes": [
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Equipment",
                     "value": "78"
                 }
@@ -2820,22 +2820,22 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2845,7 +2845,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -2914,7 +2914,7 @@
         {
             "affixes": [
                 {
-                    "name": "damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -3026,7 +3026,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -3082,7 +3082,7 @@
         {
             "affixes": [
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3141,17 +3141,17 @@
         {
             "affixes": [
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3328,7 +3328,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -3392,7 +3392,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -3421,17 +3421,17 @@
         {
             "affixes": [
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3517,12 +3517,12 @@
         {
             "affixes": [
                 {
-                    "name": "Resonance",
+                    "name": "Sonic Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3532,7 +3532,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3574,12 +3574,12 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3589,7 +3589,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3789,22 +3789,22 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -3814,7 +3814,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3851,7 +3851,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -4073,7 +4073,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4100,7 +4100,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -4122,7 +4122,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -4243,7 +4243,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Damage vs. Helpless opponents",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -4307,7 +4307,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -4322,22 +4322,22 @@
                     "value": "6"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 }
@@ -4581,12 +4581,12 @@
                     "value": "15"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -4608,7 +4608,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4635,7 +4635,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4662,7 +4662,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -4699,7 +4699,7 @@
                     "value": "100"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -4805,7 +4805,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -5090,7 +5090,7 @@
         {
             "affixes": [
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Equipment",
                     "value": "72"
                 }
@@ -5100,7 +5100,7 @@
         {
             "affixes": [
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Equipment",
                     "value": "78"
                 }
@@ -5113,7 +5113,7 @@
             "affixes": [
                 {
                     "name": "Spell Focus Mastery",
-                    "type": "Untyped",
+                    "type": "Equipment",
                     "value": "1"
                 },
                 {
@@ -5350,7 +5350,7 @@
         {
             "affixes": [
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -5443,7 +5443,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Devotion",
+                    "name": "Positive Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -5506,7 +5506,7 @@
         {
             "affixes": [
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Equipment",
                     "value": "78"
                 },
@@ -5545,7 +5545,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -5853,7 +5853,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Damage vs. Helpless opponents",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -5938,12 +5938,12 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -5960,12 +5960,12 @@
         {
             "affixes": [
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6049,7 +6049,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -6064,22 +6064,22 @@
                     "value": "2"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 }
@@ -6133,7 +6133,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Damage vs. Helpless Opponents",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -6165,7 +6165,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Damage vs. Helpless Opponents",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -6462,12 +6462,12 @@
                     "value": "5"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Helplessness Damage",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -6489,7 +6489,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Corrosion",
+                    "name": "Acid Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6516,7 +6516,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6543,7 +6543,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Glaciation",
+                    "name": "Cold Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6602,7 +6602,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6624,7 +6624,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6641,17 +6641,17 @@
         {
             "affixes": [
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
                 {
-                    "name": "Damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -6668,7 +6668,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -6739,7 +6739,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6761,7 +6761,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6778,12 +6778,12 @@
         {
             "affixes": [
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6805,7 +6805,7 @@
                     "value": "4"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -6832,7 +6832,7 @@
                     "value": "50"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -6891,12 +6891,12 @@
                     "value": "6"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -6913,7 +6913,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Impulse",
+                    "name": "Force Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6935,7 +6935,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Combustion",
+                    "name": "Fire Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -6952,17 +6952,17 @@
         {
             "affixes": [
                 {
-                    "name": "Void Lore",
+                    "name": "Negative Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Nullification",
+                    "name": "Negative Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
                 {
-                    "name": "Damage vs the Helpless",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -6979,7 +6979,7 @@
                     "value": "6"
                 },
                 {
-                    "name": "Magnetism",
+                    "name": "Electric Spell Power",
                     "type": "Artifact",
                     "value": "30"
                 },
@@ -7095,7 +7095,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Additional Damage to Helpless Targets",
+                    "name": "Damage vs. the Helpless",
                     "type": "Artifact",
                     "value": "5"
                 }
@@ -7249,7 +7249,7 @@
                 },
                 {
                     "name": "Efficient Metamagic - Extend",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "2"
                 }
             ],
@@ -7423,12 +7423,12 @@
                 },
                 {
                     "name": "Efficient Metamagic - Maximize",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "4"
                 },
                 {
                     "name": "Efficient Metamagic - Extend",
-                    "type": "Untyped",
+                    "type": "Enhancement",
                     "value": "1"
                 }
             ],
@@ -7473,7 +7473,7 @@
         {
             "affixes": [
                 {
-                    "name": "Ice Lore",
+                    "name": "Cold Lore",
                     "type": "Artifact",
                     "value": "2"
                 }

@@ -175,7 +175,7 @@
                 "affixes": [
                     {
                         "name": "Efficient Metamagic - Quicken",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -189,7 +189,7 @@
                 "affixes": [
                     {
                         "name": "Efficient Metamagic - Quicken",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "3"
                     }
                 ],
@@ -2774,7 +2774,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2788,7 +2788,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2802,7 +2802,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2816,7 +2816,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2830,7 +2830,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2858,7 +2858,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2872,7 +2872,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -2900,7 +2900,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "149"
                     }
@@ -6945,7 +6945,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -6959,7 +6959,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -6973,7 +6973,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -6987,7 +6987,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7001,7 +7001,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7015,7 +7015,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7029,7 +7029,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7043,7 +7043,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7057,7 +7057,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7071,7 +7071,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7113,7 +7113,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7127,7 +7127,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7141,7 +7141,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7155,7 +7155,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7197,7 +7197,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7211,7 +7211,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7231,8 +7231,8 @@
                     },
                     {
                         "name": "Freezing",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -7283,8 +7283,8 @@
                     },
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -7363,8 +7363,8 @@
                     },
                     {
                         "name": "Jolting",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -7437,7 +7437,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7451,7 +7451,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7465,7 +7465,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7479,7 +7479,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7493,7 +7493,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7507,7 +7507,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7521,7 +7521,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7535,7 +7535,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7549,7 +7549,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7563,7 +7563,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7605,7 +7605,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7619,7 +7619,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7633,7 +7633,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7647,7 +7647,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7689,7 +7689,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Insight",
                         "value": "35"
                     }
@@ -7703,7 +7703,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Insight",
                         "value": "79"
                     }
@@ -7723,8 +7723,8 @@
                     },
                     {
                         "name": "Freezing",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -7775,8 +7775,8 @@
                     },
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -7887,8 +7887,8 @@
                     },
                     {
                         "name": "Jolting",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -9594,8 +9594,7 @@
                         "type": "Quality",
                         "value": 8
                     }
-                ],
-                "name": "Magical Resistance Rating +8 Quality (1)"
+                ]
             },
             {
                 "affixes": [
@@ -9631,8 +9630,7 @@
                         "type": "Quality",
                         "value": 8
                     }
-                ],
-                "name": "Physical Resistance Rating +8 Quality (1)"
+                ]
             },
             {
                 "affixes": [
@@ -10085,6 +10083,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": 142
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": 20
@@ -10094,16 +10101,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Cold Lore",
                         "type": "Equipment",
-                        "value": 142
+                        "value": 21
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": 142
                     }
@@ -10130,7 +10137,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": 142
                     }
@@ -10148,7 +10155,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": 142
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": 142
                     }
@@ -10166,24 +10182,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Ice Lore",
-                        "type": "Equipment",
-                        "value": 21
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Impulse",
-                        "type": "Equipment",
-                        "value": 142
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Lightning Lore",
                         "type": "Equipment",
                         "value": 21
@@ -10193,7 +10191,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": 21
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": 142
                     }
@@ -10202,7 +10209,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": 142
                     }
@@ -10256,15 +10263,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
-                        "type": "Equipment",
-                        "value": 142
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Seeker",
                         "type": "Enhancement",
                         "value": 13
@@ -10283,9 +10281,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Void Lore",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
-                        "value": 21
+                        "value": 142
                     }
                 ]
             }
@@ -11037,8 +11035,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11061,8 +11059,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11108,8 +11106,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11127,8 +11125,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11174,8 +11172,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11193,8 +11191,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11240,8 +11238,8 @@
                     },
                     {
                         "name": "Electrifying",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11259,8 +11257,8 @@
                     },
                     {
                         "name": "Electrifying",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11287,8 +11285,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11311,8 +11309,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11390,8 +11388,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11409,8 +11407,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11488,8 +11486,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11507,8 +11505,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -11586,8 +11584,8 @@
                     },
                     {
                         "name": "Electrifying",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -11605,8 +11603,8 @@
                     },
                     {
                         "name": "Electrifying",
-                        "type": "Untyped",
-                        "value": "16"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12172,7 +12170,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12186,7 +12184,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12200,7 +12198,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12214,7 +12212,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12228,7 +12226,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12242,7 +12240,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12256,7 +12254,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12270,7 +12268,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12284,7 +12282,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12298,7 +12296,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12340,7 +12338,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12354,7 +12352,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12368,7 +12366,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12382,7 +12380,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12424,7 +12422,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -12438,7 +12436,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "159"
                     }
@@ -12579,8 +12577,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12593,8 +12591,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12621,8 +12619,8 @@
                 "affixes": [
                     {
                         "name": "Maiming",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12635,8 +12633,8 @@
                 "affixes": [
                     {
                         "name": "Maiming",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12663,8 +12661,8 @@
                 "affixes": [
                     {
                         "name": "Monstrous Humanoid Bane",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12677,8 +12675,8 @@
                 "affixes": [
                     {
                         "name": "Monstrous Humanoid Bane",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12761,8 +12759,8 @@
                 "affixes": [
                     {
                         "name": "Undead Bane",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12775,8 +12773,8 @@
                 "affixes": [
                     {
                         "name": "Undead Bane",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12789,8 +12787,8 @@
                 "affixes": [
                     {
                         "name": "Vermin Bane",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12803,8 +12801,8 @@
                 "affixes": [
                     {
                         "name": "Vermin Bane",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 34,
@@ -12830,7 +12828,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Ice Lore",
+                        "name": "Cold Lore",
                         "type": "Equipment",
                         "value": "23"
                     }
@@ -12900,7 +12898,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Void Lore",
+                        "name": "Negative Lore",
                         "type": "Equipment",
                         "value": "23"
                     }
@@ -24027,6 +24025,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24073,6 +24072,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24119,6 +24119,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24165,6 +24166,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24211,6 +24213,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24257,6 +24260,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24303,6 +24307,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24349,6 +24354,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24395,6 +24401,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24441,6 +24448,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24487,6 +24495,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24533,6 +24542,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -24552,7 +24562,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             },
@@ -24594,7 +24605,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24602,7 +24614,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24610,7 +24623,8 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24618,7 +24632,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24644,7 +24659,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24669,7 +24685,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             }
@@ -24679,7 +24696,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             },
@@ -24721,7 +24739,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24729,7 +24748,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24737,7 +24757,8 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24745,7 +24766,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24771,7 +24793,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24796,7 +24819,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             }
@@ -24806,7 +24830,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             },
@@ -24848,7 +24873,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24856,7 +24882,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24864,7 +24891,8 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24872,7 +24900,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24898,7 +24927,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -24923,7 +24953,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "6"
+                        "type": "Enhancement",
+                        "value": "11"
                     }
                 ]
             }
@@ -25209,7 +25240,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             },
@@ -25242,7 +25274,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25250,7 +25283,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25258,7 +25292,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25275,7 +25310,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25283,7 +25319,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25308,7 +25345,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             }
@@ -25318,7 +25356,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             },
@@ -25351,7 +25390,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25359,7 +25399,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25367,7 +25408,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25384,7 +25426,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25392,7 +25435,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25417,7 +25461,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             }
@@ -25427,7 +25472,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             },
@@ -25460,7 +25506,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25468,7 +25515,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25476,7 +25524,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25493,7 +25542,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25501,7 +25551,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25526,7 +25577,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "5"
+                        "type": "Enhancement",
+                        "value": "10"
                     }
                 ]
             }
@@ -25536,7 +25588,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "13"
                     }
                 ]
             },
@@ -25569,7 +25622,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25577,7 +25631,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25603,7 +25658,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25611,7 +25667,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25619,7 +25676,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25644,7 +25702,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "16"
                     }
                 ]
             }
@@ -25654,7 +25713,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "13"
                     }
                 ]
             },
@@ -25687,7 +25747,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25695,7 +25756,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25721,7 +25783,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25729,7 +25792,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25737,7 +25801,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25762,7 +25827,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "16"
                     }
                 ]
             }
@@ -25772,7 +25838,8 @@
                 "affixes": [
                     {
                         "name": "Dazing",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "13"
                     }
                 ]
             },
@@ -25805,7 +25872,8 @@
                 "affixes": [
                     {
                         "name": "Feeding",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25813,7 +25881,8 @@
                 "affixes": [
                     {
                         "name": "Ghostbane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25839,7 +25908,8 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25847,7 +25917,8 @@
                 "affixes": [
                     {
                         "name": "Natural Bane",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25855,7 +25926,8 @@
                 "affixes": [
                     {
                         "name": "Ribcracker",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -25880,7 +25952,8 @@
                 "affixes": [
                     {
                         "name": "Sundering",
-                        "value": "8"
+                        "type": "Enhancement",
+                        "value": "16"
                     }
                 ]
             }
@@ -26289,6 +26362,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -26416,6 +26490,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -26543,6 +26618,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -26670,6 +26746,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26797,6 +26874,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26924,6 +27002,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -27051,6 +27130,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -27178,6 +27258,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -27305,6 +27386,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -27432,6 +27514,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -27559,6 +27642,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -27686,6 +27770,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -27813,6 +27898,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -27940,6 +28026,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -28067,6 +28154,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -28194,6 +28282,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -28321,6 +28410,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -28448,6 +28538,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -28575,6 +28666,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -28702,6 +28794,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -28829,6 +28922,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -28956,6 +29050,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29083,6 +29178,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29210,6 +29306,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29337,6 +29434,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -29464,6 +29562,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -29591,6 +29690,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -29718,6 +29818,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29845,6 +29946,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29972,6 +30074,7 @@
                 "affixes": [
                     {
                         "name": "Wizardry",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -29982,7 +30085,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -29999,7 +30103,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30007,7 +30112,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30015,7 +30121,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30032,7 +30139,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30049,7 +30157,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30066,7 +30175,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30083,7 +30193,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -30093,7 +30204,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30110,7 +30222,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30118,7 +30231,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30126,7 +30240,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30143,7 +30258,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30160,7 +30276,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30177,7 +30294,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30194,7 +30312,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -30204,7 +30323,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30221,7 +30341,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30229,7 +30350,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30237,7 +30359,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30254,7 +30377,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30271,7 +30395,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30288,7 +30413,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30305,7 +30431,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -30315,7 +30442,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30323,7 +30451,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30331,7 +30460,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30347,7 +30477,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30355,7 +30486,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30363,7 +30495,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30398,7 +30531,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30406,7 +30540,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30414,7 +30549,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30422,7 +30558,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -30432,7 +30569,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30440,7 +30578,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30448,7 +30587,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30464,7 +30604,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30472,7 +30613,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30480,7 +30622,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30515,7 +30658,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30523,7 +30667,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30531,7 +30676,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30539,7 +30685,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -30549,7 +30696,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30557,7 +30705,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30565,7 +30714,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30581,7 +30731,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30589,7 +30740,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30597,7 +30749,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30632,7 +30785,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30640,7 +30794,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30648,7 +30803,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -30656,7 +30812,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -31359,6 +31516,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -31659,7 +31817,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -31668,7 +31826,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -31677,7 +31835,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -31686,7 +31844,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -31695,7 +31853,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -31706,7 +31864,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -31715,7 +31873,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -31724,7 +31882,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -31733,7 +31891,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -31742,7 +31900,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -31753,7 +31911,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -31762,7 +31920,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -31771,7 +31929,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -31780,7 +31938,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -31789,7 +31947,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -31800,7 +31958,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -31809,7 +31967,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -31818,7 +31976,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -31827,7 +31985,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -31836,7 +31994,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -31847,7 +32005,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -31856,7 +32014,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -31865,7 +32023,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -31874,7 +32032,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -31883,7 +32041,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -31894,7 +32052,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -31903,7 +32061,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -31912,7 +32070,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -31921,7 +32079,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -31930,7 +32088,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -31942,6 +32100,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -31950,14 +32109,6 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     }
@@ -31976,6 +32127,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -31986,6 +32138,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "12"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32002,6 +32159,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32012,6 +32170,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32020,14 +32179,6 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32046,6 +32197,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32056,6 +32208,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "12"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32072,6 +32229,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32082,6 +32240,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32090,14 +32249,6 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32116,6 +32267,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32126,6 +32278,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "12"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32142,6 +32299,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "4"
                     }
                 ]
@@ -32152,6 +32310,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32160,7 +32319,8 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32170,15 +32330,6 @@
                         "name": "Combat Mastery",
                         "type": "Insight",
                         "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32195,6 +32346,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32205,6 +32357,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "21"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32221,6 +32378,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32231,6 +32389,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32239,7 +32398,8 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32249,15 +32409,6 @@
                         "name": "Combat Mastery",
                         "type": "Insight",
                         "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32274,6 +32425,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32284,6 +32436,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "21"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32300,6 +32457,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32310,6 +32468,7 @@
                 "affixes": [
                     {
                         "name": "Axeblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32318,7 +32477,8 @@
                 "affixes": [
                     {
                         "name": "Bashing",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32328,15 +32488,6 @@
                         "name": "Combat Mastery",
                         "type": "Insight",
                         "value": "4"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Deathblock",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32353,6 +32504,7 @@
                 "affixes": [
                     {
                         "name": "Hammerblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32363,6 +32515,11 @@
                         "name": "Negative Energy Absorption",
                         "type": "Enhancement",
                         "value": "21"
+                    },
+                    {
+                        "name": "Deathblock",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32379,6 +32536,7 @@
                 "affixes": [
                     {
                         "name": "Spearblock",
+                        "type": "Untyped",
                         "value": "7"
                     }
                 ]
@@ -32531,7 +32689,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -32540,7 +32698,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -32549,7 +32707,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -32558,7 +32716,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -32567,7 +32725,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "78"
                     }
@@ -32578,7 +32736,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -32587,7 +32745,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -32596,7 +32754,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -32605,7 +32763,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -32614,7 +32772,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -32625,7 +32783,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -32634,7 +32792,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -32643,7 +32801,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -32652,7 +32810,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -32661,7 +32819,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "90"
                     }
@@ -32672,7 +32830,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -32681,7 +32839,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -32690,7 +32848,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -32699,7 +32857,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -32708,7 +32866,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "108"
                     }
@@ -32719,7 +32877,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -32728,7 +32886,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -32737,7 +32895,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -32746,7 +32904,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -32755,7 +32913,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "114"
                     }
@@ -32766,7 +32924,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -32775,7 +32933,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -32784,7 +32942,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -32793,7 +32951,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -32802,7 +32960,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "120"
                     }
@@ -34745,7 +34903,45 @@
             {
                 "affixes": [
                     {
-                        "name": "Evocation Focus II, Kinetic Lore VKinetic Lore V: Passive: Your Force, Physical and Untyped spells gain a 15% Equipment bonus to their chance to critical hit.",
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "84"
+                    },
+                    {
+                        "name": "Greater Regeneration",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34754,36 +34950,38 @@
             {
                 "affixes": [
                     {
-                        "name": "Necromancy Focus II, Void Lore VVoid Lore V: Passive: Your Negative Energy and Poison spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "Bool",
-                        "value": 1
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "84"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "15"
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Spellcasting Implement +15, Combustion +84Combustion +84: Passive: +84 Equipment bonus to Fire Spell Power., Fire Lore VFire Lore V: Passive: Your Fire spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "Bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
+                        "name": "Universal Spell Power",
+                        "type": "Implement",
+                        "value": "15"
+                    },
                     {
-                        "name": "Spellcasting Implement +15, Glaciation +84Glaciation +84: Passive: +84 Equipment bonus to Cold Spell Power., Ice Lore VIce Lore V: Passive: Your Cold spells gain a 15% Equipment bonus to their chance to critical hit.",
-                        "type": "Bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "84"
+                    },
                     {
-                        "name": "Spellcasting Implement +15, Radiance +84Radiance +84: Passive: +84 Equipment bonus to Light and Alignment Spell Power., Greater RegenerationGreater Regeneration: This item is imbued with an undeniable goodness that freely flows outward in a pleasant palpable current, constantly healing the wearer over time.",
-                        "type": "Bool",
-                        "value": 1
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "15"
                     }
                 ]
             }
@@ -34795,7 +34993,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34803,7 +35002,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34811,7 +35011,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34836,7 +35037,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34844,7 +35046,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34852,7 +35055,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34878,7 +35082,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34895,7 +35100,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34903,7 +35109,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34911,7 +35118,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34930,7 +35138,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34938,7 +35147,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34946,7 +35156,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34971,7 +35182,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34979,7 +35191,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34987,7 +35200,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35013,7 +35227,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35030,7 +35245,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35038,7 +35254,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35046,7 +35263,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35065,7 +35283,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35073,7 +35292,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35081,7 +35301,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35106,7 +35327,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35114,7 +35336,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35122,7 +35345,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35148,7 +35372,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35165,7 +35390,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35173,7 +35399,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35181,7 +35408,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35200,7 +35428,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35208,7 +35437,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35216,7 +35446,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35232,7 +35463,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35240,7 +35472,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35266,7 +35499,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35283,7 +35517,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35291,7 +35526,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35299,7 +35535,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35307,7 +35544,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -35317,7 +35555,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35325,7 +35564,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35333,7 +35573,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35349,7 +35590,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35357,7 +35599,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35383,7 +35626,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35400,7 +35644,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35408,7 +35653,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35416,7 +35662,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35424,7 +35671,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -35434,7 +35682,8 @@
                 "affixes": [
                     {
                         "name": "Acid",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35442,7 +35691,8 @@
                 "affixes": [
                     {
                         "name": "Anarchic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35450,7 +35700,8 @@
                 "affixes": [
                     {
                         "name": "Axiomatic",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35466,7 +35717,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35474,7 +35726,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35500,7 +35753,8 @@
                 "affixes": [
                     {
                         "name": "Holy",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35517,7 +35771,8 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35525,7 +35780,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35533,7 +35789,8 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -35541,7 +35798,8 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -35591,6 +35849,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
+                        "type": "Untyped",
                         "value": "10"
                     }
                 ]
@@ -35630,7 +35889,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Greater Dragonmark charges",
+                        "name": "Greater Dragonmark Charges",
                         "type": "Enhancement",
                         "value": "1"
                     }
@@ -35691,7 +35950,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     },
@@ -35711,13 +35970,13 @@
                 "affixes": [
                     {
                         "name": "Efficient Metamagic - Maximize",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "6"
                     },
                     {
-                        "name": "Once every three seconds when you take physical damage you get Psionic Universal Spell Power +8. This can stack up to three times (up to Psionic Universal Spell Power +24Psionic Universal Spell Power +24: Passive: +24 Psionic bonus to Universal Spell Power.) and each stack lasts for 20 seconds.",
-                        "type": "Untyped",
-                        "value": 1
+                        "name": "Universal Spell Power",
+                        "type": "Psionic",
+                        "value": "24"
                     }
                 ],
                 "ml": 28,
@@ -35808,7 +36067,7 @@
                         "value": 1
                     },
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -36034,6 +36293,7 @@
                 "affixes": [
                     {
                         "name": "Ki",
+                        "type": "Untyped",
                         "value": "1"
                     }
                 ]
@@ -36496,8 +36756,8 @@
                 "affixes": [
                     {
                         "name": "Dragon Bane",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 18,
@@ -36510,8 +36770,8 @@
                 "affixes": [
                     {
                         "name": "Dragon Bane",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -36524,8 +36784,8 @@
                 "affixes": [
                     {
                         "name": "Magical Beast Bane",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 18,
@@ -36576,8 +36836,8 @@
                 "affixes": [
                     {
                         "name": "Undead Bane",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Ghost Touch",
@@ -36595,8 +36855,8 @@
                 "affixes": [
                     {
                         "name": "Undead Bane",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Ghost Touch",
@@ -36614,8 +36874,8 @@
                 "affixes": [
                     {
                         "name": "Magical Beast Bane",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -36683,7 +36943,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     },
@@ -36702,7 +36962,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     },
@@ -36721,7 +36981,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     },
@@ -36740,7 +37000,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     },
@@ -36886,8 +37146,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 1,
@@ -36900,8 +37160,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -36914,8 +37174,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -36928,8 +37188,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -36942,8 +37202,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 16,
@@ -36956,8 +37216,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -36970,8 +37230,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 24,
@@ -36984,8 +37244,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -36998,8 +37258,8 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "9"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -37053,7 +37313,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -37067,7 +37327,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -37081,7 +37341,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -37095,7 +37355,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -37109,7 +37369,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -37123,7 +37383,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -37137,7 +37397,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -37151,7 +37411,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -37165,7 +37425,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -37179,7 +37439,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -37193,7 +37453,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -37207,7 +37467,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -37221,7 +37481,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -37235,7 +37495,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -37249,7 +37509,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -37263,7 +37523,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -37277,7 +37537,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -37291,7 +37551,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -37305,7 +37565,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -37319,7 +37579,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -37333,7 +37593,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -37347,7 +37607,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -37361,7 +37621,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -37375,7 +37635,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -37389,7 +37649,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -37403,7 +37663,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -37417,7 +37677,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -37474,8 +37734,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 1,
@@ -37488,8 +37748,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -37502,8 +37762,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -37516,8 +37776,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -37530,8 +37790,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 16,
@@ -37544,8 +37804,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -37558,8 +37818,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 24,
@@ -37572,8 +37832,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -37586,8 +37846,8 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Untyped",
-                        "value": "9"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -37614,8 +37874,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 1,
@@ -37628,8 +37888,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -37642,8 +37902,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -37656,8 +37916,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -37670,8 +37930,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 16,
@@ -37684,8 +37944,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -37698,8 +37958,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 24,
@@ -37712,8 +37972,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -37726,8 +37986,8 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Untyped",
-                        "value": "9"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -37758,7 +38018,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -37772,7 +38032,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -37786,7 +38046,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -37800,7 +38060,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -37814,7 +38074,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -37828,7 +38088,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -37842,7 +38102,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -37856,7 +38116,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -37870,7 +38130,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -37912,7 +38172,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Acid Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     },
@@ -37931,7 +38191,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     },
@@ -37950,7 +38210,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     },
@@ -37969,7 +38229,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     },
@@ -37988,7 +38248,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -38002,7 +38262,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -38016,7 +38276,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -38030,7 +38290,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -38044,7 +38304,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -38058,7 +38318,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -38072,7 +38332,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -38086,7 +38346,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -38100,7 +38360,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -38128,7 +38388,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -38142,7 +38402,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -38156,7 +38416,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -38170,7 +38430,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -38184,7 +38444,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -38198,7 +38458,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -38212,7 +38472,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -38226,7 +38486,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -38240,7 +38500,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -38268,7 +38528,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -38282,7 +38542,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -38296,7 +38556,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -38310,7 +38570,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -38324,7 +38584,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -38338,7 +38598,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -38352,7 +38612,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -38366,7 +38626,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -38380,7 +38640,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -38660,7 +38920,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "111"
                     }
@@ -38674,7 +38934,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "125"
                     }
@@ -38688,7 +38948,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -38702,7 +38962,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "153"
                     }
@@ -38716,7 +38976,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "38"
                     }
@@ -38730,7 +38990,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "55"
                     }
@@ -38744,7 +39004,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "70"
                     }
@@ -38758,7 +39018,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "84"
                     }
@@ -38772,7 +39032,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
                         "value": "97"
                     }
@@ -38787,8 +39047,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "1"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 1,
@@ -38801,8 +39061,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "2"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -38815,8 +39075,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -38829,8 +39089,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -38843,8 +39103,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 16,
@@ -38857,8 +39117,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -38871,8 +39131,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "7"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 24,
@@ -38885,8 +39145,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "8"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -38899,8 +39159,8 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Untyped",
-                        "value": "9"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -39087,8 +39347,8 @@
                     },
                     {
                         "name": "Unholy",
-                        "type": "Untyped",
-                        "value": "10"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 30,
@@ -39105,12 +39365,12 @@
                         "value": 1
                     },
                     {
-                        "name": "Devotion",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     },
                     {
-                        "name": "Impulse",
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": "146"
                     }
@@ -39130,8 +39390,8 @@
                     },
                     {
                         "name": "Vampirism",
-                        "type": "Untyped",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "When you slay an enemy, you gain 15 Temporary HP. If you are Undead, this healing becomes Negative.",
@@ -39168,8 +39428,8 @@
                 "affixes": [
                     {
                         "name": "Construct Bane",
-                        "type": "Untyped",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 18,
@@ -39182,8 +39442,8 @@
                 "affixes": [
                     {
                         "name": "Construct Bane",
-                        "type": "Untyped",
-                        "value": "6"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -39857,8 +40117,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -39876,8 +40136,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -39914,8 +40174,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -39947,8 +40207,8 @@
                     },
                     {
                         "name": "Jolting",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -40000,8 +40260,8 @@
                     },
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -40019,8 +40279,8 @@
                     },
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -40073,8 +40333,8 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -40122,8 +40382,8 @@
                     },
                     {
                         "name": "Jolting",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -40744,8 +41004,7 @@
                         "type": "Quality",
                         "value": 2
                     }
-                ],
-                "name": "Magical Resistance Rating +2 Quality (1)"
+                ]
             },
             {
                 "affixes": [
@@ -40781,8 +41040,7 @@
                         "type": "Quality",
                         "value": 2
                     }
-                ],
-                "name": "Physical Resistance Rating +2 Quality (1)"
+                ]
             },
             {
                 "affixes": [
@@ -41235,6 +41493,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Armor-Piercing",
                         "type": "Enhancement",
                         "value": 8
@@ -41244,16 +41511,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Cold Lore",
                         "type": "Equipment",
-                        "value": 70
+                        "value": 10
                     }
                 ]
             },
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": 70
                     }
@@ -41280,7 +41547,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": 70
                     }
@@ -41298,7 +41565,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": 70
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Power",
                         "type": "Equipment",
                         "value": 70
                     }
@@ -41316,24 +41592,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Ice Lore",
-                        "type": "Equipment",
-                        "value": 10
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Impulse",
-                        "type": "Equipment",
-                        "value": 70
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Lightning Lore",
                         "type": "Equipment",
                         "value": 10
@@ -41343,7 +41601,16 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": 10
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": 70
                     }
@@ -41352,7 +41619,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": 70
                     }
@@ -41406,15 +41673,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Resonance",
-                        "type": "Equipment",
-                        "value": 70
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Seeker",
                         "type": "Enhancement",
                         "value": 5
@@ -41433,9 +41691,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Void Lore",
+                        "name": "Sonic Spell Power",
                         "type": "Equipment",
-                        "value": 10
+                        "value": 70
                     }
                 ]
             }
@@ -41820,7 +42078,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Damage to helpless enemies",
+                        "name": "Damage vs. the Helpless",
                         "type": "Artifact",
                         "value": "5"
                     }
@@ -41834,7 +42092,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Damage to helpless enemies",
+                        "name": "Damage vs. the Helpless",
                         "type": "Artifact",
                         "value": "15"
                     }
@@ -43655,8 +43913,8 @@
                 "affixes": [
                     {
                         "name": "Acid Guard",
-                        "type": "Untyped",
-                        "value": "10"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -43800,8 +44058,8 @@
                 "affixes": [
                     {
                         "name": "Fire Guard",
-                        "type": "Untyped",
-                        "value": "10"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44027,9 +44285,21 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "139"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Acidic",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44052,8 +44322,8 @@
                 "affixes": [
                     {
                         "name": "Chilling",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44063,7 +44333,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Cold Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -44087,19 +44357,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
-                        "type": "Equipment",
-                        "value": "139"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Invasion"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Devotion",
+                        "name": "Electric Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -44112,8 +44370,8 @@
                 "affixes": [
                     {
                         "name": "Electrifying",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44124,8 +44382,8 @@
                 "affixes": [
                     {
                         "name": "Fiery",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44135,7 +44393,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Glaciation",
+                        "name": "Fire Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -44153,8 +44411,8 @@
                     },
                     {
                         "name": "Holy",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44176,7 +44434,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Negative Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -44189,8 +44447,8 @@
                 "affixes": [
                     {
                         "name": "Negativity",
-                        "type": "Untyped",
-                        "value": "12"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44200,7 +44458,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Positive Spell Power",
                         "type": "Equipment",
                         "value": "139"
                     }
@@ -44241,8 +44499,8 @@
                 "affixes": [
                     {
                         "name": "Acid Guard",
-                        "type": "Untyped",
-                        "value": "14"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44369,8 +44627,8 @@
                 "affixes": [
                     {
                         "name": "Fire Guard",
-                        "type": "Untyped",
-                        "value": "14"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44613,6 +44871,18 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Spell Power",
+                        "type": "Quality",
+                        "value": "37"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Charisma",
                         "type": "Insight",
                         "value": "6"
@@ -44625,7 +44895,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Cold Spell Power",
                         "type": "Quality",
                         "value": "37"
                     }
@@ -44637,7 +44907,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Electric Spell Power",
                         "type": "Quality",
                         "value": "37"
                     }
@@ -44649,19 +44919,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
-                        "type": "Quality",
-                        "value": "37"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Glaciation",
+                        "name": "Fire Spell Power",
                         "type": "Quality",
                         "value": "37"
                     }
@@ -44685,7 +44943,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Negative Spell Power",
                         "type": "Quality",
                         "value": "37"
                     }
@@ -44697,7 +44955,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Positive Spell Power",
                         "type": "Quality",
                         "value": "37"
                     }
@@ -44726,8 +44984,8 @@
                 "affixes": [
                     {
                         "name": "Acid Guard",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -44871,8 +45129,8 @@
                 "affixes": [
                     {
                         "name": "Fire Guard",
-                        "type": "Untyped",
-                        "value": "15"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [
@@ -45098,6 +45356,18 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Spell Power",
+                        "type": "Exceptional",
+                        "value": "37"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Charisma",
                         "type": "Exceptional",
                         "value": "2"
@@ -45110,7 +45380,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Combustion",
+                        "name": "Cold Spell Power",
                         "type": "Exceptional",
                         "value": "37"
                     }
@@ -45122,7 +45392,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Corrosion",
+                        "name": "Electric Spell Power",
                         "type": "Exceptional",
                         "value": "37"
                     }
@@ -45134,19 +45404,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Devotion",
-                        "type": "Exceptional",
-                        "value": "37"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Devastation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Glaciation",
+                        "name": "Fire Spell Power",
                         "type": "Exceptional",
                         "value": "37"
                     }
@@ -45170,7 +45428,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Magnetism",
+                        "name": "Negative Spell Power",
                         "type": "Exceptional",
                         "value": "37"
                     }
@@ -45182,7 +45440,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Nullification",
+                        "name": "Positive Spell Power",
                         "type": "Exceptional",
                         "value": "37"
                     }
@@ -45420,7 +45678,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Ice Lore",
+                        "name": "Cold Lore",
                         "type": "Equipment",
                         "value": "23"
                     }
@@ -45504,7 +45762,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Void Lore",
+                        "name": "Negative Lore",
                         "type": "Equipment",
                         "value": "23"
                     }
@@ -45864,13 +46122,13 @@
                 "affixes": [
                     {
                         "name": "Efficient Metamagic - Empower",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "4"
                     },
                     {
-                        "name": "Once every three seconds when you take physical damage, you get Psionic Universal Spell Power +8. This can stack up to three times (up to Psionic Universal Spell Power +24Psionic Universal Spell Power +24: Passive: +24 Psionic bonus to Universal Spell Power.) and each stack lasts for 20 seconds.",
-                        "type": "Untyped",
-                        "value": 1
+                        "name": "Universal Spell Power",
+                        "type": "Psionic",
+                        "value": "24"
                     }
                 ],
                 "ml": 28,

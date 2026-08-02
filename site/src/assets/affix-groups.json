@@ -316,8 +316,10 @@
     {
         "affixes": [
             "Negative Lore",
+            "Poison Lore",
             "Light Lore",
             "Radiance Lore",
+            "Alignment Lore",
             "Healing Lore",
             "Acid Lore",
             "Fire Lore",
@@ -325,6 +327,7 @@
             "Cold Lore",
             "Repair Lore",
             "Rust Lore",
+            "Kinetic Lore",
             "Force Lore",
             "Sonic Lore"
         ],

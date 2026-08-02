@@ -34,7 +34,16 @@ export class QueryParamsService {
           }
         }
 
-        this.router.navigate([], { queryParams: combinedParams });
+        const rawHash = window.location.hash || '';
+        const hashPath = rawHash.startsWith('#/') ? rawHash.slice(1) : (rawHash.startsWith('#') ? rawHash.slice(1) : rawHash);
+        const routePath = hashPath.split('?')[0] || this.router.url.split('?')[0] || '';
+        const routeSegments = routePath.split('/').filter(Boolean);
+
+        this.router.navigate(routeSegments, {
+          queryParams: combinedParams,
+          replaceUrl: true,
+          queryParamsHandling: 'merge'
+        });
       };
     }
 

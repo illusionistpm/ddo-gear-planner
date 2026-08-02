@@ -35,4 +35,13 @@ describe('EquippedService', () => {
 
     expect(Array.from(service.getImportantAffixes()).sort()).toEqual(['Armor Class', 'Armor Class (%)']);
   });
+
+  it('canonicalizes synonymized tracked affixes loaded from query params', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.setImportantAffixes(['Devotion']);
+
+    expect(service.isImportantAffix('Positive Spell Power')).toBeTrue();
+    expect(service.isImportantAffix('Devotion')).toBeFalse();
+  });
 });

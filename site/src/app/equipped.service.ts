@@ -430,7 +430,8 @@ export class EquippedService {
   }
 
   private getTrackedAffixFamily(affix: string) {
-    return [affix, ...(TRACKED_AFFIX_COMPANIONS.get(affix) || [])];
+    const canonicalAffix = this.affixSvc.getCanonicalName(affix);
+    return [canonicalAffix, ...(TRACKED_AFFIX_COMPANIONS.get(canonicalAffix) || [])];
   }
 
   private expandTrackedAffixes(affixes: Iterable<string>) {

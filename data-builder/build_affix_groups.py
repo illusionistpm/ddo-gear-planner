@@ -1,6 +1,7 @@
 from write_json import write_json
 
-from typedefs import AffixGroup
+from compound_affixes import load_compound_affixes
+from typedefs import Affix, AffixGroup, CompoundAffixComponent, CompoundAffixMap
 
 def get_all_saves(bonusType = None) -> list[str]:
     return ['Fortitude Save', 'Reflex Save', 'Will Save']
@@ -16,6 +17,76 @@ def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
     })
 
 
+def upsert(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
+    entry = {
+        'name': name,
+        'affixes': affixes,
+    }
+    for index, group in enumerate(groups):
+        if group['name'] == name:
+            groups[index] = entry
+            return
+    groups.append(entry)
+
+
+def add_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
+    upsert_fixed(groups, name, affixes)
+
+
+def upsert_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
+    entry = {
+        'name': name,
+        'affixes': [affix['name'] for affix in affixes],
+        'components': affixes,
+    }
+    for index, group in enumerate(groups):
+        if group['name'] == name:
+            groups[index] = entry
+            return
+    groups.append(entry)
+
+
+def _convert_compound_component(component: CompoundAffixComponent) -> Affix:
+    value_spec = component['value']
+    mode = value_spec['mode']
+    if mode == 'fixed':
+        value = value_spec['amount']
+    elif mode == 'boolean_one':
+        value = 1
+    else:
+        value = '<ValueAlreadyParsed>'
+
+    bonus_type = component['type']
+    if bonus_type == '__inherit_type__':
+        bonus_type = '<TypeAlreadyParsed>'
+
+    return {
+        'name': component['name'],
+        'type': bonus_type,
+        'value': value,
+    }
+
+
+def _uses_default_group_behavior(affixes: list[Affix]) -> bool:
+    return all(
+        affix.get('type') == '<TypeAlreadyParsed>'
+        and affix.get('value') == '<ValueAlreadyParsed>'
+        for affix in affixes
+    )
+
+
+def add_compound_affix_groups(groups: list[AffixGroup], mapping: CompoundAffixMap | None = None) -> None:
+    compound_affixes = mapping if mapping is not None else load_compound_affixes()
+    for name, definition in sorted(compound_affixes.items()):
+        components = definition.get('components', [])
+        if components:
+            affixes = [_convert_compound_component(component) for component in components]
+            if _uses_default_group_behavior(affixes):
+                upsert(groups, name, [affix['name'] for affix in affixes])
+            else:
+                upsert_fixed(groups, name, affixes)
+
+
 def build_affix_groups() -> None:
     groups: list[AffixGroup] = []
 
@@ -27,7 +98,7 @@ def build_affix_groups() -> None:
     #add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
     #add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Deadly'])
     add(groups, 'Good Luck', ['Resistance'] + get_all_saves() + get_all_skills())
-    add(groups, 'Negative and Poison Spell Crit Damage', ['Negative Spell Crit Damage', 'Poison Spell Crit Damage'])
+    add(groups, 'Void Intensity', ['Negative Intensity', 'Poison Intensity'])
     add(groups, 'Resistance', get_all_saves())
     add(groups, 'Riposte', ['Armor Class', 'Resistance'] + get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
@@ -38,26 +109,38 @@ def build_affix_groups() -> None:
     add(groups, 'Litany of the Dead II - Combat Bonus', ['Accuracy', 'Deadly'])
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
-    add(groups, 'Potency', ['Nullification', 'Radiance', 'Devotion', 'Corrosion', 'Combustion', 'Magnetic', 'Glaciation', 'Reconstruction', 'Impulse', 'Resonance'])
-    add(groups, 'Spell Lore', ['Nullification Lore', 'Radiance Lore', 'Devotion Lore', 'Corrosion Lore', 'Combustion Lore', 'Magnetic Lore', 'Glaciation Lore', 'Reconstruction Lore', 'Impulse Lore', 'Resonance'])
+    add(groups, 'Potency', ['Negative Spell Power', 'Light Spell Power', 'Positive Spell Power', 'Acid Spell Power', 'Fire Spell Power', 'Electric Spell Power', 'Cold Spell Power', 'Repair Spell Power', 'Rust Spell Power', 'Force Spell Power', 'Sonic Spell Power'])
+    add(groups, 'Spell Lore', ['Negative Lore', 'Light Lore', 'Radiance Lore', 'Healing Lore', 'Acid Lore', 'Fire Lore', 'Lightning Lore', 'Cold Lore', 'Repair Lore', 'Rust Lore', 'Force Lore', 'Sonic Lore'])
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
+    add(groups, 'Dazing', ['Stunning'])
+    add(groups, 'Sundering', ['Shatter'])
+    add(groups, 'Improved Deception', ['Bluff'])
     add(groups, 'Alluring Skills Bonus', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Charisma Skills', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
-    add(groups, 'Frozen Depths Lore', ['Ice Lore', 'Poison Lore', 'Void Lore'])
-    add(groups, 'Frozen Storm Lore', ['Ice Lore', 'Lightning Lore'])
+    add(groups, 'Frozen Depths Lore', ['Cold Lore', 'Poison Lore', 'Negative Lore'])
+    add(groups, 'Frozen Storm Lore', ['Cold Lore', 'Lightning Lore'])
+    add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
-    add(groups, 'Power of the Frozen Storm', ['Glaciation', 'Magnetism'])
-    add(groups, 'Power of the Frozen Depths', ['Glaciation', 'Nullification', 'Poison'])
-    add(groups, 'Power of the Flames of Purity', ['Combustion', 'Radiance'])
-    add(groups, 'Power of the Silver Flame', ['Devotion', 'Radiance'])
-    add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Radiance Lore'])
+    add(groups, 'Power of the Frozen Storm', ['Cold Spell Power', 'Electric Spell Power'])
+    add(groups, 'Power of the Frozen Depths', ['Cold Spell Power', 'Negative Spell Power', 'Poison'])
+    add(groups, 'Power of the Flames of Purity', ['Fire Spell Power', 'Light Spell Power'])
+    add(groups, 'Power of the Silver Flame', ['Positive Spell Power', 'Light Spell Power'])
+    add(groups, 'Radiance', ['Light Spell Power', 'Alignment Spell Power'])
+    add(groups, 'Radiance Lore', ['Light Lore', 'Alignment Lore'])
+    add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Light Lore'])
     add(groups, 'Strength Skills', ['Jump'])
     add(groups, 'Wisdom Skills', ['Heal', 'Listen', 'Spot'])
     add(groups, 'Constitution Skills', ['Concentration'])
     add(groups, 'Well Rounded', ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'])
     add(groups, 'Spell Focus Mastery', ['Evocation Focus', 'Necromancy Focus', 'Transmutation Focus', 'Enchantment Focus', 'Conjuration Focus', 'Abjuration Focus', 'Illusion Focus'])
     add(groups, 'each Amplification', ['Healing Amplification', 'Negative Amplification', 'Repair Amplification'])
+    add_fixed(groups, 'Songblade', [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}])
+    add_fixed(groups, 'Lifesealed', [
+        {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},
+        {'name': 'Deathblock', 'type': 'Bool', 'value': 1},
+    ])
+    add_compound_affix_groups(groups)
 
     write_json(groups, 'affix-groups')
 

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { FilterItemTypeComponent } from './filter-item-type.component';
 
 describe('FilterItemTypeComponent', () => {
@@ -8,7 +9,7 @@ describe('FilterItemTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FilterItemTypeComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   });

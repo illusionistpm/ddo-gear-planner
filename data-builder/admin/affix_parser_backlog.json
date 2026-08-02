@@ -1,0 +1,382 @@
+[
+  {
+    "id": "affix-parser-1",
+    "status": "resolved",
+    "name": "+10",
+    "note": "all the +X entries are actually from the Sacred keyword which we are instead treating as a type",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Hallowed Gauntlets",
+        "path": "items / 3133 / affixes",
+        "sourceText": "Sacred +10Sacred +10: An item with this quality assists only wearers who have the ability to turn undead. Sacred items provide an +10 Enhancement bonus to your effective level for Turning Undead.",
+        "sourceTooltip": "Sacred +10: An item with this quality assists only wearers who have the ability to turn undead. Sacred items provide an +10 Enhancement bonus to your effective level for Turning Undead.",
+        "type": "Bool",
+        "url": "/page/Item:Hallowed_Gauntlets",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T19:31:47.918724+00:00",
+    "resolvedAt": "2026-08-01T19:40:00+00:00"
+  },
+  {
+    "id": "affix-parser-2",
+    "status": "resolved",
+    "name": "-1 Enhancement Bonus",
+    "note": "this should be treated like a regular enhancement bonus that almost all weapons and armor have, but it's a -1 instead of a positive number.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "-1 Quarterstaff of Lesser Halfling Bane",
+        "path": "items / 23 / affixes",
+        "sourceText": "-1 Enhancement Bonus-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "sourceTooltip": "-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "type": "Bool",
+        "url": "/page/Item:-1_Quarterstaff_of_Lesser_Halfling_Bane",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Club of the Holy Flame",
+        "path": "items / 1022 / affixes",
+        "sourceText": "-1 Enhancement Bonus-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "sourceTooltip": "-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "type": "Bool",
+        "url": "/page/Item:Club_of_the_Holy_Flame",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Club of the Holy Flame (starter)",
+        "path": "items / 1023 / affixes",
+        "sourceText": "-1 Enhancement Bonus-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "sourceTooltip": "-1 Enhancement Bonus: This weapon is less well-made than normal, giving a -1 penalty to attack and damage rolls.",
+        "type": "Bool",
+        "url": "/page/Item:Club_of_the_Holy_Flame_(starter)",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T19:34:41.072578+00:00",
+    "resolvedAt": "2026-08-01T19:40:00+00:00"
+  },
+  {
+    "id": "affix-parser-3",
+    "name": "Glaciation",
+    "note": "for all the spell powers, there is the literal \"Cold Spell Power\" name and the more fantastical \"Glaciation\". I think we should favor the literal ones across the board.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Anchorchain",
+        "path": "items / 144 / affixes",
+        "sourceText": "Glaciation +53Glaciation +53: Passive: +53 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +53: Passive: +53 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Anchorchain",
+        "value": "53"
+      },
+      {
+        "asset": "items",
+        "parentName": "Bound Elemental Ring of Frost",
+        "path": "items / 573 / affixes",
+        "sourceText": "Glaciation +148Glaciation +148: Passive: +148 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +148: Passive: +148 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Bound_Elemental_Ring_of_Frost",
+        "value": "148"
+      },
+      {
+        "asset": "items",
+        "parentName": "Brine Shaman's Staff",
+        "path": "items / 665 / affixes",
+        "sourceText": "Glaciation +48Glaciation +48: Passive: +48 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +48: Passive: +48 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Brine_Shaman%27s_Staff",
+        "value": "48"
+      },
+      {
+        "asset": "items",
+        "parentName": "Chillring",
+        "path": "items / 906 / affixes",
+        "sourceText": "Glaciation +38Glaciation +38: Passive: +38 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +38: Passive: +38 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Chillring",
+        "value": "38"
+      },
+      {
+        "asset": "items",
+        "parentName": "Defiled Reliquary Freezing Sceptre",
+        "path": "items / 1323 / affixes",
+        "sourceText": "Glaciation +104Glaciation +104: Passive: +104 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +104: Passive: +104 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Defiled_Reliquary_Freezing_Sceptre",
+        "value": "104"
+      },
+      {
+        "asset": "items",
+        "parentName": "Dread Pirate's Cloak (level 12)",
+        "path": "items / 1572 / affixes",
+        "sourceText": "Glaciation +84Glaciation +84: Passive: +84 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +84: Passive: +84 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Dread_Pirate%27s_Cloak_(level_12)",
+        "value": "84"
+      },
+      {
+        "asset": "items",
+        "parentName": "Dread Pirate's Cloak (level 16)",
+        "path": "items / 1573 / affixes",
+        "sourceText": "Glaciation +97Glaciation +97: Passive: +97 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +97: Passive: +97 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Dread_Pirate%27s_Cloak_(level_16)",
+        "value": "97"
+      },
+      {
+        "asset": "items",
+        "parentName": "Dread Pirate's Cloak (level 20)",
+        "path": "items / 1574 / affixes",
+        "sourceText": "Glaciation +111Glaciation +111: Passive: +111 Equipment bonus to Cold Spell Power.",
+        "sourceTooltip": "Glaciation +111: Passive: +111 Equipment bonus to Cold Spell Power.",
+        "type": "Equipment",
+        "url": "/page/Item:Dread_Pirate%27s_Cloak_(level_20)",
+        "value": "111"
+      }
+    ],
+    "createdAt": "2026-08-01T20:01:38.504916+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
+  },
+  {
+    "id": "affix-parser-4",
+    "name": "Damage vs. the Helpless",
+    "note": "we have a bunch of different forms of damage versus the helpless. we should collapse all of them into a single affix at the parser level, perhaps with a regex to catch \"damage vs helpless\" with flexibility. i expect this change to clear up the 4 distinct entries we have in the likely-duplicates list for damage vs the helpless",
+    "examples": [
+      {
+        "asset": "sets",
+        "parentName": "sets / The Epic Desert's Starless Nights / 0 / affixes",
+        "path": "sets / The Epic Desert's Starless Nights / 0 / affixes",
+        "sourceText": "+10% Artifact Bonus to Damage vs. the Helpless",
+        "sourceTooltip": "",
+        "type": "Artifact",
+        "url": "",
+        "value": "10"
+      }
+    ],
+    "createdAt": "2026-08-01T20:03:19.316216+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
+  },
+  {
+    "id": "affix-parser-5",
+    "name": "Greater Dragonmark Charges",
+    "note": "we have a category of likely duplicates that are the same except for casing. we should handle that at the parser level by keeping the \"more capitalized\" version i think if that's clean to do.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Epic Chimera's Crown",
+        "path": "items / 1909 / affixes",
+        "sourceText": "Minor Greater Dragonmark EnhancementMinor Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 1. However, these additional Greater Dragonmarks will only take effect after the wielder rests.",
+        "sourceTooltip": "Minor Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 1. However, these additional Greater Dragonmarks will only take effect after the wielder rests.",
+        "type": "Enhancement",
+        "url": "/page/Item:Epic_Chimera%27s_Crown",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Legendary Chimera's Crown",
+        "path": "items / 3842 / affixes",
+        "sourceText": "Greater Dragonmark Enhancement Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 3. However, these additional Greater Dragonmarks will only take effect after the wielder rests.",
+        "sourceTooltip": "Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 3. However, these additional Greater Dragonmarks will only take effect after the wielder rests.",
+        "type": "Enhancement",
+        "url": "/page/Item:Legendary_Chimera%27s_Crown",
+        "value": "3"
+      }
+    ],
+    "createdAt": "2026-08-01T20:04:25.612814+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
+  },
+  {
+    "id": "affix-parser-6",
+    "name": "Armor Class",
+    "note": "it is expected that we have both linear and percentage based versions of armor class and false life. i think if someone adds the non-percent version as a tracked affix, they should also get the percentage version since they probably care about that too.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "+1 Starter Breastplate",
+        "path": "items / 1 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Armor",
+        "url": "/page/Item:%2B1_Starter_Breastplate",
+        "value": "6"
+      },
+      {
+        "asset": "items",
+        "parentName": "A Garbage Can Lid?",
+        "path": "items / 24 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Shield",
+        "url": "/page/Item:A_Garbage_Can_Lid%3F",
+        "value": "9"
+      },
+      {
+        "asset": "items",
+        "parentName": "Aberrant Robe",
+        "path": "items / 26 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Armor",
+        "url": "/page/Item:Aberrant_Robe",
+        "value": "5"
+      },
+      {
+        "asset": "items",
+        "parentName": "Aberrant Robe",
+        "path": "items / 26 / affixes",
+        "sourceText": "Armor Bonus +5Armor Bonus +5: This item surrounds the wearer with an invisible but tangible field of force, granting +5 armor bonus to AC, just as though he were wearing armor.",
+        "sourceTooltip": "Armor Bonus +5: This item surrounds the wearer with an invisible but tangible field of force, granting +5 armor bonus to AC, just as though he were wearing armor.",
+        "type": "Armor",
+        "url": "/page/Item:Aberrant_Robe",
+        "value": "5"
+      },
+      {
+        "asset": "items",
+        "parentName": "Adamantine Cloak of the Bear",
+        "path": "items / 41 / affixes",
+        "sourceText": "Protection +7Protection +7: Passive: +7 Deflection bonus to Armor Class.",
+        "sourceTooltip": "Protection +7: Passive: +7 Deflection bonus to Armor Class.",
+        "type": "Deflection",
+        "url": "/page/Item:Adamantine_Cloak_of_the_Bear",
+        "value": "7"
+      },
+      {
+        "asset": "items",
+        "parentName": "Adherence",
+        "path": "items / 50 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Shield",
+        "url": "/page/Item:Adherence",
+        "value": "14"
+      },
+      {
+        "asset": "items",
+        "parentName": "Aegis of Aosu'riel",
+        "path": "items / 59 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Shield",
+        "url": "/page/Item:Aegis_of_Aosu%27riel",
+        "value": "14"
+      },
+      {
+        "asset": "items",
+        "parentName": "Aegis of Flame",
+        "path": "items / 60 / affixes",
+        "sourceText": "",
+        "sourceTooltip": "",
+        "type": "Shield",
+        "url": "/page/Item:Aegis_of_Flame",
+        "value": "10"
+      }
+    ],
+    "createdAt": "2026-08-01T20:06:35.680820+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:13:44.159153+00:00"
+  },
+  {
+    "id": "affix-parser-7",
+    "name": "Weapon Focus: Falchion",
+    "note": "a few categories of affixes that look suspicious but aren't:\n\"Weapon Focus: <weapon name>\"\n\"Feat: <feat name>\"\n\"Rune Arm Imbue; <element>\"\n\"Proficiency: <weapon>\"\ni do see we have both \"Proficiency: weapon\" and \"Feat: Proficiency: weapon\" and we should settle on the one without feat.",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 12)",
+        "path": "items / 8073 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_12)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 13)",
+        "path": "items / 8074 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_13)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 14)",
+        "path": "items / 8075 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_14)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 23)",
+        "path": "items / 8076 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_23)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 24)",
+        "path": "items / 8077 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_24)",
+        "value": "1"
+      },
+      {
+        "asset": "items",
+        "parentName": "Windlasher (level 25)",
+        "path": "items / 8078 / affixes",
+        "sourceText": "Weapon Focus: Falchion Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "sourceTooltip": "Weapon Focus: Falchion: While equipped this item gives you the feat Weapon Focus: Slashing but only for Falchions, giving a +1 to your attack bonus while using Falchions.",
+        "type": "Bool",
+        "url": "/page/Item:Windlasher_(level_25)",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T20:10:51.147679+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:17:11.786111+00:00"
+  },
+  {
+    "id": "affix-parser-8",
+    "name": "Hidden effect: Cursed Defiance",
+    "note": "i don't think \"Hidden Effect: \" adds value so we can just strip those whenever they appear",
+    "examples": [
+      {
+        "asset": "items",
+        "parentName": "Docent of Defiance",
+        "path": "items / 1483 / affixes",
+        "sourceText": "Hidden effect: Cursed DefianceCursed Defiance: 5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds",
+        "sourceTooltip": "Cursed Defiance: 5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds",
+        "type": "Bool",
+        "url": "/page/Item:Docent_of_Defiance",
+        "value": "1"
+      }
+    ],
+    "createdAt": "2026-08-01T20:11:21.213321+00:00",
+    "status": "resolved",
+    "resolvedAt": "2026-08-01T20:17:11.786111+00:00"
+  }
+]

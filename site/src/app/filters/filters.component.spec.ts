@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { FiltersComponent } from './filters.component';
 
 describe('FiltersComponent', () => {
@@ -8,7 +9,7 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FiltersComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

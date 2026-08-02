@@ -1,0 +1,153 @@
+{
+  "Alluring Skills Bonus": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:18:15.421754+00:00",
+    "status": "accepted"
+  },
+  "Armor Class": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:19:12.410619+00:00",
+    "status": "rejected"
+  },
+  "Astute Skills Bonus": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:23:04.399154+00:00",
+    "status": "accepted"
+  },
+  "Blighted Lore": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:27:20.955228+00:00",
+    "status": "accepted"
+  },
+  "Blood": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:30:54.040040+00:00",
+    "status": "accepted"
+  },
+  "Bloodrage Defense": {
+    "notes": "Queued from Affix Names review for manual compound-affix cleanup.",
+    "queuedFromAffixNames": true,
+    "reviewedAt": "2026-08-01T19:48:46.265450+00:00",
+    "status": "needs-tweak"
+  },
+  "Bottled Heart": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:31:42.747012+00:00",
+    "status": "accepted"
+  },
+  "Charisma Skills": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:32:12.475618+00:00",
+    "status": "accepted"
+  },
+  "Command": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:39:46.238499+00:00",
+    "status": "accepted"
+  },
+  "Confounding Enchantment": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:43:17.198114+00:00",
+    "status": "rejected"
+  },
+  "Creeping Dust Lore": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:43:55.828958+00:00",
+    "status": "accepted"
+  },
+  "Darkwood": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:44:11.281246+00:00",
+    "status": "rejected"
+  },
+  "Epic Nimbleness": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:46:29.007577+00:00",
+    "status": "rejected"
+  },
+  "Fire and Cold Absorption": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:48:08.735468+00:00",
+    "status": "accepted"
+  },
+  "Good Luck": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:56:37.433142+00:00",
+    "status": "accepted"
+  },
+  "Greater Stability": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T18:59:11.983527+00:00",
+    "status": "accepted"
+  },
+  "Ice Intensity": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:51:43.777654+00:00",
+    "status": "rejected"
+  },
+  "Intelligence Skills": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:03:10.641481+00:00",
+    "status": "accepted"
+  },
+  "Overfocus": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:05:43.444344+00:00",
+    "status": "accepted"
+  },
+  "Parrying": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:01:23.162399+00:00",
+    "status": "accepted"
+  },
+  "Power of the Flames of Purity": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:02:04.705832+00:00",
+    "status": "accepted"
+  },
+  "Power of the Frozen Depths": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:02:16.360065+00:00",
+    "status": "accepted"
+  },
+  "Power of the Frozen Storm": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:07:38.874262+00:00",
+    "status": "accepted"
+  },
+  "Power of the Silver Flame": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:07:44.491247+00:00",
+    "status": "accepted"
+  },
+  "Reconstruction": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:12:55.300492+00:00",
+    "status": "accepted"
+  },
+  "Resistance": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:00:50.407880+00:00",
+    "status": "accepted"
+  },
+  "Riposte": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:14:02.250523+00:00",
+    "status": "accepted"
+  },
+  "Voice of Deceit": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:50:39.432314+00:00",
+    "status": "accepted"
+  },
+  "Well Rounded": {
+    "notes": "",
+    "reviewedAt": "2026-08-01T19:14:28.329863+00:00",
+    "status": "accepted"
+  },
+  "Wisdom Skills": {
+    "notes": "Covered by the explicit affix group; no compound override is needed.",
+    "reviewedAt": "2026-08-01T19:50:11.149193+00:00",
+    "status": "rejected"
+  }
+}

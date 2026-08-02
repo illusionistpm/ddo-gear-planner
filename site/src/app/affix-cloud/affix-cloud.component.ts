@@ -98,13 +98,35 @@ export class AffixCloudComponent implements OnInit {
     this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Kinetic Intensity']);
     this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Intensity']);
     this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Ice Intensity']);
-    this.spellpowerPackages.set('Lightning', ['Magnetism', 'Lightning Lore', 'Lightning Intensity']);
+    this.spellpowerPackages.set('Electric', ['Magnetism', 'Lightning Lore', 'Lightning Intensity']);
     this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Intensity']);
+    this.spellpowerPackages.set('Poison', ['Poison Spell Power', 'Poison Lore', 'Void Intensity']);
     this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Void Intensity']);
     this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Radiance Intensity']);
-    this.spellpowerPackages.set('Repair', ['Reconstruction', 'Repair Lore', 'Repair Intensity']);
+    this.spellpowerPackages.set('Repair', ['Repair Spell Power', 'Rust Spell Power', 'Repair Lore', 'Repair Intensity', 'Repair']);
     this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Intensity']);
     this.spellpowerPackageKeys = Array.from(this.spellpowerPackages.keys());
+    this.canonicalizePackages();
+  }
+
+  private canonicalizePackages() {
+    this.packages = this.canonicalizePackageMap(this.packages);
+    this.spellpowerPackages = this.canonicalizePackageMap(this.spellpowerPackages);
+  }
+
+  private canonicalizePackageMap(source: Map<string, Array<string>>) {
+    const canonicalized = new Map<string, Array<string>>();
+    for (const [key, affixes] of source.entries()) {
+      const canonicalAffixes: string[] = [];
+      for (const affix of affixes) {
+        const canonicalName = this.affixSvc.getCanonicalName(affix);
+        if (!canonicalAffixes.includes(canonicalName)) {
+          canonicalAffixes.push(canonicalName);
+        }
+      }
+      canonicalized.set(key, canonicalAffixes);
+    }
+    return canonicalized;
   }
 
   getBtnSize(result: string) {
@@ -156,9 +178,24 @@ export class AffixCloudComponent implements OnInit {
   }
 
   add(affix: string) {
-    this.savedSet.add(affix);
-    this.equipped.addImportantAffix(affix);
+    const addedAffixes = this.equipped.addImportantAffix(affix);
+    for (const addedAffix of addedAffixes) {
+      this.savedSet.add(addedAffix);
+    }
+    if (!addedAffixes.length && this.equipped.isImportantAffix(affix)) {
+      this.savedSet.add(affix);
+    }
 
+    this.addAffixToWorkingMap(affix);
+    for (const addedAffix of addedAffixes) {
+      if (addedAffix !== affix) {
+        this.addAffixToWorkingMap(addedAffix);
+      }
+    }
+    this.refreshTopResults();
+  }
+
+  private addAffixToWorkingMap(affix: string) {
     const map = this.cloud.get(affix);
     if (!map) {
       console.log('Couldn\'t find ' + affix + ' in affix cloud');
@@ -166,6 +203,9 @@ export class AffixCloudComponent implements OnInit {
     }
 
     this.workingMap = this.cloud.merge(this.workingMap, map);
+  }
+
+  private refreshTopResults() {
     for (const entry of this.workingMap) {
       if (this.savedSet.has(entry[0]) || this.ignoredSet.has(entry[0]) || this.attributes.includes(entry[0])) {
         this.workingMap.delete(entry[0]);
@@ -176,11 +216,16 @@ export class AffixCloudComponent implements OnInit {
   }
 
   remove(affix: string) {
-    this.savedSet.delete(affix);
-    this.equipped.removeImportantAffix(affix);
+    const removedAffixes = this.equipped.removeImportantAffix(affix);
+    for (const removedAffix of removedAffixes) {
+      this.savedSet.delete(removedAffix);
+    }
 
     this.workingMap.clear();
-    this.savedSet.forEach((a, b, s) => this.add(a));
+    for (const savedAffix of this.savedSet) {
+      this.addAffixToWorkingMap(savedAffix);
+    }
+    this.refreshTopResults();
   }
 
   onChange() {

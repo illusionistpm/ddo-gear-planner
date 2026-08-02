@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import os
 import re
 import json
 import collections
@@ -8,7 +7,229 @@ from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
+from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
+from provenance_io import include_affix_provenance
 import copy
+
+
+def add_affix_provenance(affix, source_text, source_tooltip, parser_source):
+    if not include_affix_provenance() or not isinstance(affix, dict):
+        return affix
+
+    if source_text:
+        affix['sourceText'] = cleanup_whitespace(cleanup_unicode(source_text))
+    if source_tooltip:
+        affix['sourceTooltip'] = cleanup_whitespace(cleanup_unicode(source_tooltip))
+    affix['parserSource'] = parser_source
+    return affix
+
+
+def get_has_tooltip_spans(tag):
+    return tag.find_all('span', class_='has_tooltip')
+
+
+def get_text_map_from_tooltip_span(span):
+    textMap = {}
+    spanCopy = copy.copy(span)
+    tooltipSpan = spanCopy.find("span", {"class": "tooltip"})
+    if tooltipSpan:
+        textMap["tooltip"] = cleanup_unicode(tooltipSpan.getText()).strip()
+        tooltipSpan.decompose()
+    textMap["text"] = cleanup_unicode(spanCopy.getText()).strip()
+    return textMap
+
+
+def get_affix_map_list_from_multi_tooltip_tag(tag):
+    return [
+        convert_affix_text_map_to_affix_map(get_text_map_from_tooltip_span(span))
+        for span in get_has_tooltip_spans(tag)
+    ]
+
+
+def get_primary_tooltip_text(tag):
+    span = tag.find('span', class_='has_tooltip')
+    if not span:
+        return None
+
+    text_map = get_text_map_from_tooltip_span(span)
+    return cleanup_whitespace(strip_trailing_colon(text_map.get('text', '')))
+
+
+def tooltip_bonus_targets_affix(words, affix_name):
+    if not words or not affix_name:
+        return False
+
+    search = re.search(r'[Bb]onus(?:</a>)?(?: to)?(?: your)?(?: the)?(.*?)(?:\.|<)', words)
+    if not search:
+        return False
+
+    target = cleanup_whitespace(BeautifulSoup(search.group(1), 'html.parser').getText()).lower()
+    return affix_name.lower() in target
+
+
+def is_weapon_damage_proc_affix(name):
+    if not isinstance(name, str):
+        return False
+
+    weapon_damage_proc_names = {
+        'Acid Blast',
+        'Acid Guard',
+        'Acidic',
+        'Acid',
+        'Antimagic Spike',
+        'Anarchic',
+        'Anarchic Blast',
+        'Anarchic Burst',
+        'Axiomatic',
+        'Axiomatic Blast',
+        'Axiomatic Burst',
+        'Banishing',
+        'Bashing',
+        'Bloodletter',
+        'Bewildering',
+        'Blazing',
+        'Bleeding',
+        'Bludgeoning',
+        'Chilling',
+        'Coruscating',
+        'Critical Befouling',
+        'Critical Weakening',
+        'Critical Wounding',
+        'Crushing',
+        'Destructive Acid',
+        'Disintegrate',
+        'Electrifying',
+        'Energy Siphon',
+        'Echoes of Angdrelve',
+        'Entropic',
+        'Feeding',
+        'Flaming',
+        'Flaming Burst',
+        'Evil Blast',
+        'Feybane',
+        'Fiery',
+        'Fire Guard',
+        'Flaming Blast',
+        'Force Blast',
+        'Freezing',
+        'Freezing Ice',
+        'Fracturing',
+        'Frost',
+        'Gashing',
+        'Ghostbane',
+        'Good Blast',
+        'Heartseeker',
+        'Holy',
+        'Holy Blast',
+        'Holy Burst',
+        'Impactful',
+        'Icy Blast',
+        'Jolting',
+        'Maiming',
+        'Magma Surge',
+        'Negativity',
+        'Negative Blast',
+        'Nightshade Venom',
+        'Paralyzing',
+        'Percussive Maintenance',
+        'Piercing',
+        'Poison',
+        'Poison Blast',
+        'Poisonous',
+        'Reverberating',
+        'Ribcracker',
+        'Screeching',
+        'Shock',
+        'Shocking Blast',
+        'Slashing',
+        'Smashing',
+        'Solar',
+        'Solar Guard',
+        'Sonic Blast',
+        'Stabbing',
+        'Staggering',
+        'Shrieking',
+        'Sirocco',
+        'Telekinetic',
+        'The Dragging of the Depths',
+        'Thorny Crown of Madness',
+        'Tidal',
+        'Toxic',
+        'Unholy',
+        'Unholy Burst',
+        'Vampirism',
+        'Weakening',
+        'Wind Frenzy',
+        'Wounding',
+    }
+
+    return name in weapon_damage_proc_names or name.endswith(' Bane') or name.endswith('bane')
+
+
+def convert_weapon_damage_proc_to_bool(affix):
+    if (
+        isinstance(affix, dict)
+        and 'value' in affix
+        and 'type' not in affix
+        and is_weapon_damage_proc_affix(affix.get('name'))
+    ):
+        affix['type'] = 'Bool'
+        affix['value'] = 1
+    return affix
+
+
+def apply_known_affix_type_defaults(affix):
+    if not isinstance(affix, dict) or 'type' in affix:
+        return affix
+
+    name = affix.get('name')
+    if not isinstance(name, str):
+        return affix
+
+    if name in {
+        'Efficient Metamagic - Embolden',
+        'Efficient Metamagic - Empower',
+        'Efficient Metamagic - Empower Healing',
+        'Efficient Metamagic - Enlarge',
+        'Efficient Metamagic - Extend',
+        'Efficient Metamagic - Heighten',
+        'Efficient Metamagic - Intensify',
+        'Efficient Metamagic - Maximize',
+        'Efficient Metamagic - Quicken',
+    }:
+        affix['type'] = 'Enhancement'
+    elif name in {'Magical Efficiency', 'Minor Spell Penetration', 'Power', 'Wizardry'}:
+        affix['type'] = 'Enhancement'
+    elif name == 'Spell Focus Mastery':
+        affix['type'] = 'Equipment'
+    elif name == 'Hardened Exterior':
+        affix['type'] = 'Profane'
+    elif name == 'Mystic Incite':
+        affix['type'] = 'Enhancement'
+    elif name == 'Improved Deception':
+        affix['type'] = 'Enhancement'
+    elif name in {
+        'Arcane Augmentation',
+        'Arcane Casting Dexterity',
+        'Divine Augmentation',
+        'Extra Smites',
+        'Ki',
+        'Linguistics',
+        'Maximum Charge Tier',
+        'Negative Energy Absorption',
+        'Raging Strength',
+        'Smite Evil Charges',
+        'Tendon Slice',
+        'Craftable Rune Arm',
+        'Upgradeable - Tier',
+        'Axeblock',
+        'Hammerblock',
+        'Spearblock',
+    } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity') or name.endswith(' Arcane Augmentation') or name.endswith(' Fire Augmentation'):
+        affix['type'] = 'Untyped'
+
+    return affix
+
 
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
@@ -39,6 +260,105 @@ def strip_bonus_types(name):
         return search.group(2)
 
     return name
+
+
+SPELL_POWER_CANONICAL_NAMES = {
+    'Combustion': 'Fire Spell Power',
+    'Corrosion': 'Acid Spell Power',
+    'Devotion': 'Positive Spell Power',
+    'Glaciation': 'Cold Spell Power',
+    'Ice Spell Power': 'Cold Spell Power',
+    'Impulse': 'Force Spell Power',
+    'Lightning Spell Power': 'Electric Spell Power',
+    'Magnetic': 'Electric Spell Power',
+    'Magnetism': 'Electric Spell Power',
+    'Nullification': 'Negative Spell Power',
+    'Resonance': 'Sonic Spell Power',
+}
+
+SPELL_LORE_CANONICAL_NAMES = {
+    'Combustion Lore': 'Fire Lore',
+    'Corrosion Lore': 'Acid Lore',
+    'Devotion Lore': 'Healing Lore',
+    'Glaciation Lore': 'Cold Lore',
+    'Ice Lore': 'Cold Lore',
+    'Impulse Lore': 'Kinetic Lore',
+    'Electric Lore': 'Lightning Lore',
+    'Magnetic Lore': 'Lightning Lore',
+    'Magnetism Lore': 'Lightning Lore',
+    'Nullification Lore': 'Negative Lore',
+    'Resonance Lore': 'Sonic Lore',
+    'Void Lore': 'Negative Lore',
+}
+
+SPELL_INTENSITY_CANONICAL_NAMES = {
+    'Combustion Intensity': 'Fire Intensity',
+    'Corrosion Intensity': 'Acid Intensity',
+    'Devotion Intensity': 'Healing Intensity',
+    'Cold Intensity': 'Ice Intensity',
+    'Glaciation Intensity': 'Ice Intensity',
+    'Impulse Intensity': 'Kinetic Intensity',
+    'Electric Intensity': 'Lightning Intensity',
+    'Magnetic Intensity': 'Lightning Intensity',
+    'Magnetism Intensity': 'Lightning Intensity',
+    'Nullification Intensity': 'Void Intensity',
+    'Positive Intensity': 'Healing Intensity',
+    'Radiance Intensity': 'Radiance Intensity',
+    'Reconstruction Intensity': 'Repair Intensity',
+    'Resonance Intensity': 'Sonic Intensity',
+}
+
+
+def canonicalize_affix_name(name, affix_type=None):
+    if not isinstance(name, str):
+        return name
+
+    hidden_effect_search = re.match(r'^Hidden [Ee]ffect:\s*(.*)$', name)
+    if hidden_effect_search:
+        name = hidden_effect_search.group(1).strip()
+
+    proficiency_feat_search = re.match(r'^Feat:\s*(Proficiency:\s+.*)$', name)
+    if proficiency_feat_search:
+        name = proficiency_feat_search.group(1).strip()
+
+    if name in SPELL_POWER_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_POWER_CANONICAL_NAMES[name]
+
+    if name in SPELL_LORE_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_LORE_CANONICAL_NAMES[name]
+
+    if name in SPELL_INTENSITY_CANONICAL_NAMES and affix_type != 'Bool':
+        return SPELL_INTENSITY_CANONICAL_NAMES[name]
+
+    dragonmark_search = re.fullmatch(r'(lesser|greater) dragonmarks?(?: (?:charge|charges|enhancement))?', name, re.IGNORECASE)
+    if dragonmark_search:
+        return f'{dragonmark_search.group(1).capitalize()} Dragonmark Charges'
+
+    normalized_name = name.casefold()
+    if 'damage' in normalized_name and 'helpless' in normalized_name:
+        return 'Damage vs. the Helpless'
+
+    return name
+
+
+def parse_sacred_turn_undead_bonus(text, tooltip):
+    combined = f'{text} {tooltip}'
+    if not re.search(r'^Sacred\s+[+-]?\d+', text) and not re.search(r'^Sacred\s+[+-]?\d+', tooltip):
+        return None
+    if not re.search(r'(Turning Undead|Turn Undead|turn undead)', combined):
+        return None
+
+    search = re.search(r'Sacred\s+\+?([0-9]+)', combined)
+    if not search:
+        search = re.search(r'\+([0-9]+)\s+Enhancement bonus.*?(?:Turning Undead|Turn Undead)', combined, re.IGNORECASE)
+    if not search:
+        return None
+
+    return {
+        'name': 'Turn Undead',
+        'type': 'Enhancement',
+        'value': search.group(1),
+    }
 
 
 def strip_charges(name):
@@ -160,11 +480,28 @@ def addAffixToCraftingSystem(affix, keyName, discoveredCraftingSystem, sets):
         discoveredCraftingSystem[keyName].append(affixMap)
 
 
+def addAffixesToCraftingSystem(affixes, keyName, discoveredCraftingSystem, sets):
+    if len(affixes) == 1:
+        addAffixToCraftingSystem(affixes[0], keyName, discoveredCraftingSystem, sets)
+        return
+
+    affixMap = {'affixes': []}
+    for affix in affixes:
+        if affix['name'] in sets:
+            discoveredCraftingSystem[keyName].append(affix)
+        else:
+            affixMap['affixes'].append(affix)
+
+    if affixMap['affixes']:
+        discoveredCraftingSystem[keyName].append(affixMap)
+
+
 # recursive function to parse through a list tag
 # function will update crafting dict if a child list is detected in tag
 # itemName, craftingSystem, and sets are used to help identify if crafting dict needs to be updated
 def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, craftingSystems, sets):
     aff = {}
+    source_text = cleanup_whitespace(cleanup_unicode(tag.getText()))
 
     # check to see if the tag includes a child unordered list
     # this can be assumed to be a sign of a selectable property
@@ -193,8 +530,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
                     for listEntry in (tag.find('ul')).find_all('li', recursive=False):
                         parsed_affix = translate_list_tag_to_affix_map(itemName, listEntry, synonymMap, fakeBonuses, ml, craftingSystems, sets)
                         if isinstance(parsed_affix, list):
-                            for affixEntry in parsed_affix:
-                                addAffixToCraftingSystem(affixEntry, keyName, discoveredCraftingSystem, sets)
+                            addAffixesToCraftingSystem(parsed_affix, keyName, discoveredCraftingSystem, sets)
                         else:
                             addAffixToCraftingSystem(parsed_affix, keyName, discoveredCraftingSystem, sets)
 
@@ -203,7 +539,16 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
                     craftingSystems[keyName][itemName] = discoveredCraftingSystem[keyName]
 
+    primary_tooltip_text = get_primary_tooltip_text(tag)
+    if primary_tooltip_text in craftingSystems and '*' in craftingSystems[primary_tooltip_text]:
+        aff['name'] = primary_tooltip_text
+        return aff
+
+    if not tag.find('ul') and len(get_has_tooltip_spans(tag)) > 1:
+        return get_affix_map_list_from_multi_tooltip_tag(tag)
+
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
+    source_tooltip = cleanup_whitespace(cleanup_unicode(tooltipSpan.getText())) if tooltipSpan else ''
     tooltip = tooltipSpan.extract() if tooltipSpan else None
     words = str(tooltip)
 
@@ -216,6 +561,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     affixName = cleanup_unicode(affixName)
     affixName = cleanup_whitespace(affixName)
+    sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(affixName, source_tooltip)
+    if sacred_turn_undead_affix:
+        return add_affix_provenance(sacred_turn_undead_affix, source_text, source_tooltip, 'translate_list_tag_to_affix_map:sacred-turn-undead')
+
     affixName = strip_bonus_types(affixName)
     affixName = strip_charges(affixName)
     affixName = strip_necro4_upgrades(affixName)
@@ -257,7 +606,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['value'] = affixNameSearch.group(1).strip()
 
     # ex: +15 Enhancement Bonus
-    affixNameSearch = re.search(r'^\+(\d+) (Enhancement|Orb) [Bb]onus$', affixName)
+    affixNameSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(2) + ' Bonus'
         aff['type'] = affixNameSearch.group(2)
@@ -324,6 +673,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if ((tooltipSearch) and ('value' not in aff)):
         aff['value'] = tooltipSearch.group(1)
 
+    # ex: +1 Insight bonus to Search
+    tooltipSearch = re.search(r'^.*?\+([0-9]+)%?.*?[Bb]onus.*$', words)
+    if ((tooltipSearch) and ('value' not in aff) and ('type' in aff) and tooltip_bonus_targets_affix(words, aff['name'])):
+        aff['value'] = tooltipSearch.group(1)
+
     # ex: ... will increase the total number of Action Boosts you can use by 3. ...
     tooltipSearch = re.search(r'^.*?you can use by ([0-9]+).*$', words)
     if ((tooltipSearch) and ('value' not in aff)):
@@ -338,9 +692,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # case exists where Deathblock effect is previously detected, but really should be Negative Energy Absorption
     tooltipSearch = re.search(r'^.*?([0-9]+)%.*?([A-Za-z]+) [bB]onus.*(Negative Energy Absorption).*$', words)
-    if (tooltipSearch):
-        aff['name']  = tooltipSearch.group(3)
-        aff['type']  = tooltipSearch.group(2)
+    if tooltipSearch:
+        if aff.get('name') != 'Lifesealed':
+            aff['name'] = tooltipSearch.group(3)
+        aff['type']  = tooltipSearch.group(2).capitalize()
         aff['value'] = tooltipSearch.group(1)
 
     # prefix affix with "Feat:" string to create consistency for affixes that grant feats
@@ -370,6 +725,22 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     if aff['name'] == 'Striding' and 'type' not in aff:
         aff['type'] = 'Enhancement'
+
+    tooltipSearch = re.search(r'^.*?DC of the saving throw to resist .*? is increased by ([0-9]+).*$', words)
+    if aff['name'] in {'Dazing', 'Sundering'} and tooltipSearch:
+        aff['type'] = 'Enhancement'
+        aff['value'] = tooltipSearch.group(1)
+    elif aff['name'] in {'Dazing', 'Sundering'} and 'value' in aff and 'type' not in aff:
+        aff['type'] = 'Enhancement'
+        aff['value'] = str(int(aff['value']) * 2)
+
+    tooltipSearch = re.search(r'^.*?provides a \+([0-9]+) enhancement bonus to Bluff checks.*$', words)
+    if aff['name'] == 'Improved Deception' and tooltipSearch:
+        aff['type'] = 'Enhancement'
+        aff['value'] = tooltipSearch.group(1)
+
+    aff = convert_weapon_damage_proc_to_bool(aff)
+    aff = apply_known_affix_type_defaults(aff)
 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
@@ -423,6 +794,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] == 'Radiance' and aff['type'] == 'Bool':
         aff['name'] = 'Radiance (enchantment)'
 
+    aff['name'] = canonicalize_affix_name(aff['name'], aff.get('type'))
+
     if aff['name'] in synonymMap:
         aff['name'] = synonymMap[aff['name']]
 
@@ -446,7 +819,12 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             'value' : 1,
         }
 
-        aff = [ aff, affDeathblock ]
+        aff = [
+            add_affix_provenance(aff, source_text, source_tooltip, 'translate_list_tag_to_affix_map'),
+            add_affix_provenance(affDeathblock, source_text, source_tooltip, 'translate_list_tag_to_affix_map:deathblock'),
+        ]
+    else:
+        aff = add_affix_provenance(aff, source_text, source_tooltip, 'translate_list_tag_to_affix_map')
 
     return aff
 
@@ -542,31 +920,7 @@ def convert_affix_name_to_common_affix_name(affixName):
 def convert_affix_text_map_to_affix_map(textMap):
     affixMap = {}
 
-    # build bonus type list to be used when scanning string for bonus type
-    bonusTypeList = [
-        "Alchemical(?! Air)(?! Earth)(?! Fire)(?! Water)",
-        "Artifact",
-        "Competence",
-        "Deflection",
-        "[Ee]nhancement",
-        "Equipment",
-        "Exceptional",
-        "Festive",
-        "Implement",
-        "[Ii]nsight(?:ful)?",
-        "Legendary(?! Ash)(?! Affirmation)(?! Dust)(?! Ice)(?! Ooze)(?! Salt)(?! Steam)(?! Vacuum)",
-        "Luck",
-        "Natural",
-        "Profane",
-        "Psionic",
-        "Quality",
-        "Resistance(?! Rating)",
-        "Sacred",
-        "Vitality",
-    ]
-
-    # convert list to regex capture group string
-    bonusTypeString = "(" + "|".join(bonusTypeList) + ")"
+    bonusTypeString = get_parser_bonus_type_regex()
 
     affixExceptionDetectionList = [
         "Crushing Wave(?: Guard)?",
@@ -583,6 +937,10 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # remove text related to bug information sometimes included in affix text grab
     textMap["text"] = textMap["text"].split('Minor bug:', 1)[0].strip()
+
+    sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(textMap.get('text', ''), textMap.get('tooltip', ''))
+    if sacred_turn_undead_affix:
+        affixMap.update(sacred_turn_undead_affix)
 
     # special case exists if affix requires unique property
     # detect those cases and create a unique flag that can be detected and operated on
@@ -606,6 +964,12 @@ def convert_affix_text_map_to_affix_map(textMap):
         affixMap['name'] = affixTextSearch.group(2).strip()
         affixMap['type'] = affixTextSearch.group(1).strip()
         affixMap['value'] = affixTextSearch.group(3).strip()
+
+    affixTextSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', textMap["text"])
+    if (('name' not in affixMap) and (affixTextSearch)):
+        affixMap['name'] = affixTextSearch.group(2) + ' Bonus'
+        affixMap['type'] = affixTextSearch.group(2)
+        affixMap['value'] = affixTextSearch.group(1)
 
     # detect if text is in format (affix bonus type) (affix bonus name) (affix bonus value [roman numeral format])
     # ex: Insightful Spell Power V
@@ -718,6 +1082,9 @@ def convert_affix_text_map_to_affix_map(textMap):
     if ('name' not in affixMap):
         affixMap['name'] = textMap['text']
 
+    affixMap = convert_weapon_damage_proc_to_bool(affixMap)
+    affixMap = apply_known_affix_type_defaults(affixMap)
+
     # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
     if ('type' not in affixMap) and ('value' not in affixMap):
         affixMap['type'] = 'Bool'
@@ -729,11 +1096,7 @@ def convert_affix_text_map_to_affix_map(textMap):
     if ('value' not in affixMap):
         affixMap['value'] = 1
 
-    # capitalize the first letter of the bonus type for standardization
-    affixMap['type'] = affixMap['type'][0].upper() + affixMap['type'][1:]
-
-    if 'Insightful' == affixMap['type']:
-        affixMap['type'] = 'Insight'
+    affixMap['type'] = normalize_bonus_type(affixMap['type'])
 
     # case exists for affix types that provide a percentage (%) bonus
     # add a (%) string to the affix name
@@ -748,8 +1111,17 @@ def convert_affix_text_map_to_affix_map(textMap):
     if (affixMap['name'] in ['Shield Armor Class']):
         affixMap['type'] = affixMap['type'] + ' Shield'
 
+    affixMap['name'] = canonicalize_affix_name(affixMap['name'], affixMap.get('type'))
+
     # convert affix name to standardize
     affixMap['name'] = convert_affix_name_to_common_affix_name(affixMap['name'])
+
+    add_affix_provenance(
+        affixMap,
+        textMap.get('text', ''),
+        textMap.get('tooltip', ''),
+        'convert_affix_text_map_to_affix_map',
+    )
 
     return(affixMap)
 
@@ -760,9 +1132,12 @@ def get_affix_map_list_from_tag(tag):
     # if tag passed in is a unordered list (ul) tag, process each list item (li) tag as a unique affix
     if (tag.name == 'ul'):
         for li_tag in tag.find_all('li', recursive=False):
-            textMap = get_text_map_from_tag(li_tag)
-            affixMap = convert_affix_text_map_to_affix_map(textMap)
-            affixMapList.append(affixMap)
+            if len(get_has_tooltip_spans(li_tag)) > 1:
+                affixMapList.extend(get_affix_map_list_from_multi_tooltip_tag(li_tag))
+            else:
+                textMap = get_text_map_from_tag(li_tag)
+                affixMap = convert_affix_text_map_to_affix_map(textMap)
+                affixMapList.append(affixMap)
 
     return affixMapList
 

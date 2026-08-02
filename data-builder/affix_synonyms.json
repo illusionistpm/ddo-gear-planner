@@ -1,0 +1,483 @@
+[
+  {
+    "name": "Accuracy",
+    "synonyms": [
+      "Attack",
+      "Hit",
+      "Attack Bonus"
+    ]
+  },
+  {
+    "name": "Acid Spell Power",
+    "synonyms": [
+      "Corrosion",
+      "Acid Spellpower"
+    ]
+  },
+  {
+    "name": "Acid Intensity",
+    "synonyms": [
+      "Corrosion Intensity"
+    ]
+  },
+  {
+    "name": "Acid Lore",
+    "synonyms": [
+      "Corrosion Lore"
+    ]
+  },
+  {
+    "name": "Action Boost Charges",
+    "synonyms": [
+      "Action Boost Enhancement",
+      "Action Boosts"
+    ]
+  },
+  {
+    "name": "Arcane Casting Dexterity",
+    "synonyms": [
+      "Lesser Arcane Casting Dexterity",
+      "Greater Arcane Casting Dexterity",
+      "reduce your Arcane Spell Failure by",
+      "Arcane Spell Failure"
+    ]
+  },
+  {
+    "name": "Armor Class",
+    "synonyms": [
+      "AC",
+      "Armor",
+      "Armor Bonus",
+      "Natural Armor",
+      "Natural Armor Bonus",
+      "Protection",
+      "Rough Hide",
+      "Shield",
+      "Shield Armor Class"
+    ]
+  },
+  {
+    "name": "Armor-Piercing",
+    "synonyms": [
+      "Armor Piercing",
+      "Fortification Bypass"
+    ]
+  },
+  {
+    "name": "Assassinate",
+    "synonyms": [
+      "Assassinate DCs"
+    ]
+  },
+  {
+    "name": "Cold Spell Power",
+    "synonyms": [
+      "Glaciation",
+      "Cold Spellpower",
+      "Ice Spell Power",
+      "Ice Spellpower"
+    ]
+  },
+  {
+    "name": "Ice Intensity",
+    "synonyms": [
+      "Cold Intensity",
+      "Glaciation Intensity"
+    ]
+  },
+  {
+    "name": "Cold Lore",
+    "synonyms": [
+      "Glaciation Lore",
+      "Ice Lore"
+    ]
+  },
+  {
+    "name": "Deadly",
+    "synonyms": [
+      "Damage",
+      "Damage Bonus"
+    ]
+  },
+  {
+    "name": "Deception",
+    "synonyms": [
+      "Sneak Attacks"
+    ]
+  },
+  {
+    "name": "Electric Spell Power",
+    "synonyms": [
+      "Magnetism",
+      "Magnetic",
+      "Electric Spellpower",
+      "Lightning Spell Power",
+      "Lightning Spellpower"
+    ]
+  },
+  {
+    "name": "Lightning Intensity",
+    "synonyms": [
+      "Electric Intensity",
+      "Magnetic Intensity",
+      "Magnetism Intensity"
+    ]
+  },
+  {
+    "name": "Lightning Lore",
+    "synonyms": [
+      "Electric Lore",
+      "Magnetic Lore",
+      "Magnetism Lore"
+    ]
+  },
+  {
+    "name": "Evocation Focus",
+    "synonyms": [
+      "Evocation Spell DCs"
+    ]
+  },
+  {
+    "name": "False Life",
+    "synonyms": [
+      "Hit Points",
+      "Lifeforce",
+      "Maximum HP",
+      "Maximum Hit Points",
+      "maximum hitpoints",
+      "Vitality",
+      "your maximum hit points"
+    ]
+  },
+  {
+    "name": "False Life (%)",
+    "synonyms": [
+      "Conditioning (%)",
+      "Legendary Conditioning"
+    ]
+  },
+  {
+    "name": "Fire Spell Power",
+    "synonyms": [
+      "Combustion",
+      "Fire Spellpower"
+    ]
+  },
+  {
+    "name": "Fire Intensity",
+    "synonyms": [
+      "Combustion Intensity"
+    ]
+  },
+  {
+    "name": "Fire Lore",
+    "synonyms": [
+      "Combustion Lore"
+    ]
+  },
+  {
+    "name": "Force Lore",
+    "synonyms": [
+      "Impulse Lore"
+    ]
+  },
+  {
+    "name": "Force Spell Power",
+    "synonyms": [
+      "Impulse",
+      "Force Spellpower"
+    ]
+  },
+  {
+    "name": "Fortitude Save",
+    "synonyms": [
+      "Fortitude saves"
+    ]
+  },
+  {
+    "name": "Greater Dragonmark Charges",
+    "synonyms": [
+      "Greater Dragonmark Enhancement"
+    ]
+  },
+  {
+    "name": "Healing Amplification",
+    "synonyms": [
+      "Positive Healing Amplification",
+      "Positive Amplification"
+    ]
+  },
+  {
+    "name": "Healing Lore",
+    "synonyms": [
+      "Devotion Lore",
+      "Positive Spell Crit Chance",
+      "Positive Spellcrit Chance"
+    ]
+  },
+  {
+    "name": "Kinetic Intensity",
+    "synonyms": [
+      "Impulse Intensity",
+      "Force Spell Crit Damage",
+      "Physical Spell Crit Damage",
+      "Force and Physical Spell Crit Damage"
+    ]
+  },
+  {
+    "name": "Lesser Dragonmark Charges",
+    "synonyms": [
+      "Lesser Dragonmark Enhancement",
+      "Lesser Dragonmarks"
+    ]
+  },
+  {
+    "name": "Light Spell Power",
+    "synonyms": [
+      "Light Spellpower"
+    ]
+  },
+  {
+    "name": "Light Lore",
+    "synonyms": []
+  },
+  {
+    "name": "Magical Efficiency",
+    "synonyms": [
+      "Power Store"
+    ]
+  },
+  {
+    "name": "Magical Sheltering",
+    "synonyms": [
+      "Magical Resistance Rating",
+      "MRR",
+      "your Magical Resistance Rating"
+    ]
+  },
+  {
+    "name": "Magical Sheltering Cap",
+    "synonyms": [
+      "Magical Resistance Rating Cap",
+      "MRR Cap"
+    ]
+  },
+  {
+    "name": "Negative Amplification",
+    "synonyms": [
+      "Negative Healing Amplification"
+    ]
+  },
+  {
+    "name": "Negative Spell Power",
+    "synonyms": [
+      "Nullification",
+      "Negative Spellpower"
+    ]
+  },
+  {
+    "name": "Physical Sheltering",
+    "synonyms": [
+      "Physical Resistance Rating",
+      "PRR"
+    ]
+  },
+  {
+    "name": "Positive Spell Power",
+    "synonyms": [
+      "Devotion",
+      "Positive Spellpower"
+    ]
+  },
+  {
+    "name": "Radiance",
+    "synonyms": []
+  },
+  {
+    "name": "Radiance Intensity",
+    "synonyms": [
+      "Light Intensity",
+      "Light Spell Crit Damage",
+      "Alignment Spell Crit Damage",
+      "Light and Alignment Spell Crit Damage"
+    ]
+  },
+  {
+    "name": "Radiance Lore",
+    "synonyms": []
+  },
+  {
+    "name": "Rage Charges",
+    "synonyms": [
+      "Anger",
+      "Minor Anger",
+      "Rages"
+    ]
+  },
+  {
+    "name": "Reflex Save",
+    "synonyms": [
+      "Reflex saves"
+    ]
+  },
+  {
+    "name": "Repair Amplification",
+    "synonyms": [
+      "Repair Healing Amplification"
+    ]
+  },
+  {
+    "name": "Repair Lore",
+    "synonyms": [
+      "Reconstruction Lore"
+    ]
+  },
+  {
+    "name": "Repair Intensity",
+    "synonyms": [
+      "Reconstruction Intensity"
+    ]
+  },
+  {
+    "name": "Seeker",
+    "synonyms": [
+      "Critical Confirmation and Critical Damage"
+    ]
+  },
+  {
+    "name": "Sheltering",
+    "synonyms": [
+      "Physical and Magical Resistance Rating"
+    ]
+  },
+  {
+    "name": "Silver",
+    "synonyms": [
+      "Silver , Alchemical"
+    ]
+  },
+  {
+    "name": "Smite Evil Charges",
+    "synonyms": [
+      "Extra Smites"
+    ]
+  },
+  {
+    "name": "Sonic Spell Power",
+    "synonyms": [
+      "Resonance",
+      "Sonic Spellpower"
+    ]
+  },
+  {
+    "name": "Sonic Intensity",
+    "synonyms": [
+      "Resonance Intensity"
+    ]
+  },
+  {
+    "name": "Sonic Lore",
+    "synonyms": [
+      "Resonance Lore"
+    ]
+  },
+  {
+    "name": "Speed",
+    "synonyms": [
+      "Striding",
+      "movement speed"
+    ]
+  },
+  {
+    "name": "Spell Focus Mastery",
+    "synonyms": [
+      "DCs",
+      "Spell DCs",
+      "all Spell DCs",
+      "Spell DC's"
+    ]
+  },
+  {
+    "name": "Spell Points",
+    "synonyms": [
+      "your maximum Spell Points"
+    ]
+  },
+  {
+    "name": "Stunning",
+    "synonyms": [
+      "Stunning DCs"
+    ]
+  },
+  {
+    "name": "Sundering",
+    "synonyms": [
+      "Sunder",
+      "Sunder DC",
+      "Sunder DCs"
+    ]
+  },
+  {
+    "name": "Tactical Abilities",
+    "synonyms": [
+      "your Tactical Abilities"
+    ]
+  },
+  {
+    "name": "Universal Spell Power",
+    "synonyms": [
+      "Spellcasting Implement",
+      "Universal Spellpower"
+    ]
+  },
+  {
+    "name": "Vertigo",
+    "synonyms": [
+      "Trip",
+      "Trip DC",
+      "Trip DCs"
+    ]
+  },
+  {
+    "name": "Void Intensity",
+    "synonyms": [
+      "Nullification Intensity",
+      "Negative Intensity",
+      "Negative Spell Crit Damage",
+      "Poison Spell Crit Damage",
+      "Negative and Poison Spell Crit Damage"
+    ]
+  },
+  {
+    "name": "Negative Lore",
+    "synonyms": [
+      "Nullification Lore",
+      "Void Lore",
+      "Negative Spell Crit Chance"
+    ]
+  },
+  {
+    "name": "Healing Intensity",
+    "synonyms": [
+      "Devotion Intensity",
+      "Positive Intensity"
+    ]
+  },
+  {
+    "name": "Well Rounded",
+    "synonyms": [
+      "Ability stats",
+      "All Ability Scores",
+      "all Abilities",
+      "all of your Ability Scores",
+      "each Ability Score",
+      "Well-Rounded"
+    ]
+  },
+  {
+    "name": "Will Save",
+    "synonyms": [
+      "Will saves"
+    ]
+  }
+]

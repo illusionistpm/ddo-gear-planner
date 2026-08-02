@@ -10,7 +10,7 @@ def get_most_common_bonus_type():
     items = read_json('items')
     affixes = {}
     for item in items:
-        for affix in item['affixes']:
+        for affix in item.get('affixes', []):
             if 'name' in affix and 'type' in affix:
                 if affix['name'] not in affixes:
                     affixes[affix['name']] = {}
@@ -23,12 +23,14 @@ def get_most_common_bonus_type():
 
     for affix, v in affixes.items():
         maxCount = 0
+        bestBonus = None
 
         for bonusType, count in v.items():
             if count > maxCount and bonusType not in ['Profane', 'Insight']:
                 maxCount = count
                 bestBonus = bonusType
 
-        bestBonusMap[affix] = bestBonus
+        if bestBonus:
+            bestBonusMap[affix] = bestBonus
 
     return bestBonusMap

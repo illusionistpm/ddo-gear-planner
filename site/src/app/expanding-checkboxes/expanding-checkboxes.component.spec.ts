@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes.component';
 
 describe('ExpandingCheckboxesComponent', () => {
@@ -8,7 +9,7 @@ describe('ExpandingCheckboxesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExpandingCheckboxesComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   });

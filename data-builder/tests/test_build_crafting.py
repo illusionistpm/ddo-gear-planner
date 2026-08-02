@@ -1,3 +1,4 @@
+import build_crafting as module
 from build_crafting import add_sealed_in_fire_crafting
 
 
@@ -22,3 +23,25 @@ def test_add_sealed_in_fire_crafting_copies_sealed_in_mist_options():
 
     assert item_crafting['Sealed in Fire'] == item_crafting['Sealed in Mist']
     assert item_crafting['Sealed in Fire'] is not item_crafting['Sealed in Mist']
+
+
+def test_build_crafting_does_not_synthesize_names_for_synonymized_affixes(monkeypatch):
+    written = {}
+
+    monkeypatch.setattr(module, 'get_inverted_synonym_map', lambda: {'Devotion': 'Positive Spell Power'})
+    monkeypatch.setattr(module, 'parse_nearly_complete_crafting', lambda: {})
+    monkeypatch.setattr(module, 'parse_slavers_crafting', lambda: {
+        "Legendary Slaver's Suffix Slot": {
+            '*': [
+                {'affixes': [{'name': 'Devotion', 'type': 'Equipment', 'value': 142}]},
+            ],
+        },
+    })
+    monkeypatch.setattr(module, 'get_item_crafting', lambda: {})
+    monkeypatch.setattr(module.json, 'load', lambda _: {})
+    monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+
+    module.build_crafting()
+
+    option = written['crafting']["Legendary Slaver's Suffix Slot"]['*'][0]
+    assert option == {'affixes': [{'name': 'Positive Spell Power', 'type': 'Equipment', 'value': 142}]}

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { GearListComponent } from './gear-list.component';
 
 describe('GearListComponent', () => {
@@ -8,7 +9,7 @@ describe('GearListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GearListComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

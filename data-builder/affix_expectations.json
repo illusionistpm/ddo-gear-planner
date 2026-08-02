@@ -1,0 +1,34 @@
+[
+  {
+    "id": "tooltip-search-insight",
+    "sourceText": "Search",
+    "sourceTooltip": "+1 Insight bonus to Search",
+    "expected": {
+      "name": "Search",
+      "type": "Insight",
+      "value": "1"
+    },
+    "notes": "Regression guard for tooltip-derived bonus type."
+  },
+  {
+    "id": "artifact-universal-spell-power",
+    "sourceText": "Artifact Universal Spell Power +20",
+    "expected": {
+      "name": "Universal Spell Power",
+      "type": "Artifact",
+      "value": "20"
+    },
+    "notes": "Regression guard for type-name-value text format."
+  },
+  {
+    "id": "insightful-spell-power-roman",
+    "sourceText": "Insightful Spell Power V",
+    "sourceTooltip": "+10% Insight bonus to Spell Power",
+    "expected": {
+      "name": "Spell Power",
+      "type": "Insight",
+      "value": "10"
+    },
+    "notes": "Regression guard for Insightful normalization and tooltip numeric value."
+  }
+]

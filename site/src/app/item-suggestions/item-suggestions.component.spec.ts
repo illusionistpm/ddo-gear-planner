@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { AppModule } from '../app.module';
 import { ItemSuggestionsComponent } from './item-suggestions.component';
 
 describe('ItemSuggestionsComponent', () => {
@@ -8,7 +9,7 @@ describe('ItemSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemSuggestionsComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));
@@ -16,6 +17,7 @@ describe('ItemSuggestionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemSuggestionsComponent);
     component = fixture.componentInstance;
+    component.slot = 'Trinket';
     fixture.detectChanges();
   });
 

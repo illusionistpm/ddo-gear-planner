@@ -48,15 +48,6 @@ def build_crafting() -> None:
                 if 'affixes' in craftingEntry:
                     for affixEntry in craftingEntry['affixes']:
                         if affixEntry['name'] in synonymMap:
-                            # if the entry does not have a 'name' property at the root level (this is generally limited to augments)
-                            # generate what the name should be based on values inside the affix (prior to changing values inside the entry)
-                            if 'name' not in craftingEntry:
-                                # generation of the parent name property depends on minimum level value
-                                # so we populate the value with a default if value is not set
-                                minimumLevel = craftingEntry.get('ml', 1)
-
-                                craftingEntry['name'] = f'{affixEntry['name']} +{affixEntry['value']} {affixEntry['type']} ({minimumLevel})'
-
                             affixEntry['name'] = synonymMap[affixEntry['name']]
 
     write_json(combined, 'crafting')

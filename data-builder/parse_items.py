@@ -7,8 +7,9 @@ import re
 import collections
 from write_json import write_json
 from read_json import read_json
-from parse_affixes_from_cell import parse_affixes_from_cell, get_fake_bonuses
+from parse_affixes_from_cell import canonicalize_affix_name, parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
+from compound_affixes import expand_single_affix
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
@@ -107,6 +108,19 @@ def add_item_crafting_systems(item: Item|SetAugment, crafting_system_names: list
     for crafting_system_name in crafting_system_names:
         if crafting_system_name not in item['crafting']:
             item['crafting'].append(crafting_system_name)
+
+
+def expand_affix_names_with_compounds(affixNames: list[str]) -> set[str]:
+    expandedAffixNames = set()
+
+    for affixName in affixNames:
+        expandedAffixes = expand_single_affix({'name': affixName})
+        for affix in expandedAffixes:
+            expandedAffixName = affix.get('name')
+            if isinstance(expandedAffixName, str):
+                expandedAffixNames.add(canonicalize_affix_name(expandedAffixName, affix.get('type')))
+
+    return expandedAffixNames
 
 
 def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
@@ -425,12 +439,14 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 
             isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
             if isCraftableRunearm:
+                affixesToLose = expand_affix_names_with_compounds(craftableRunearmsAffixesLost[item['name']])
+
                 # check for misspellings and bs
-                for affixToLose in craftableRunearmsAffixesLost[item['name']]:
+                for affixToLose in affixesToLose:
                     assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
 
                 for affix in [*craftedItem['affixes']]:
-                    if affix['name'] in craftableRunearmsAffixesLost[item['name']]:
+                    if affix['name'] in affixesToLose:
                         craftedItem['affixes'].remove(affix)
 
             if 'crafting' not in craftedItem:

@@ -2,7 +2,7 @@ import { CraftableOption } from './craftable-option';
 
 describe('CraftableOption', () => {
   it('should create an instance', () => {
-    expect(new CraftableOption()).toBeTruthy();
+    expect(new CraftableOption(null)).toBeTruthy();
   });
 
   it('describes compound affix options', () => {

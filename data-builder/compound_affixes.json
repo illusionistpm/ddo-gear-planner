@@ -1,0 +1,821 @@
+{
+  "Alluring Skills Bonus": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants multiple permanent skill bonuses of the same amount and bonus type to Bluff, Diplomacy, Haggle, Intimidate, and Perform."
+  },
+  "Astute Skills Bonus": {
+    "components": [
+      {
+        "name": "Disable Device",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants permanent Exceptional bonuses to Disable Device, Repair, and Search skills."
+  },
+  "Blighted Lore": {
+    "components": [
+      {
+        "name": "Acid Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Negative Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Affix grants passive Equipment bonus to critical chance for multiple spell damage types; decomposed into matching Lore affixes for Acid, Negative, Poison, and Evil."
+  },
+  "Blood": {
+    "components": [
+      {
+        "name": "Positive Healing Amplification",
+        "type": "Untyped",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortification",
+        "type": "Penalty",
+        "value": {
+          "amount": -10,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Compound affix grants +20 Positive Healing Amplification (Enhancement) and -10% Fortification (Penalty). Both are permanent stat changes."
+  },
+  "Bottled Heart": {
+    "components": [
+      {
+        "name": "Melee Threat Generation",
+        "type": "Legendary",
+        "value": {
+          "amount": 100,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Legendary",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ]
+  },
+  "Charisma Skills": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants permanent Exceptional bonus to multiple Charisma-based skills, treated as compound because it affects multiple distinct skill stats."
+  },
+  "Command": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Penalty",
+        "value": {
+          "amount": -6,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The Command affix grants a positive insight or competence bonus on Charisma-based skill checks and imposes a fixed -6 penalty on Hide checks. Both are permanent bonuses/penalties inherent to the item, so it is a compound affix."
+  },
+  "Creeping Dust Lore": {
+    "components": [
+      {
+        "name": "Ice Intensity",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Acid Intensity",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Creeping Dust Lore grants a permanent Equipment bonus to critical hit chance for Cold and Acid spells, decomposed into separate Cold and Acid spell critical chance affixes."
+  },
+  "Fire and Cold Absorption": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants two permanent stat bonuses: Enhancement Bonus to Fire Absorption and Enhancement Bonus to Cold Absorption, each scaling with the parsed value."
+  },
+  "Good Luck": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Luck",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants a Luck bonus to all saves and skill checks equal to the affix number."
+  },
+  "Greater Stability": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Deflection",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Bonuses apply only for characters of True Neutral alignment but are permanent while the item is equipped."
+  },
+  "Intelligence Skills": {
+    "components": [
+      {
+        "name": "Disable Device",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
+  },
+  "Overfocus": {
+    "components": [
+      {
+        "name": "Search",
+        "type": "Penalty",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Penalty",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The affix grants two distinct permanent penalties (-10 to Search and -10 to Spot), making it compound."
+  },
+  "Parrying": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Parrying grants multiple permanent Insight bonuses: to AC, and to Fortitude, Reflex, and Will saves. These are permanent and not conditional on combat states, so the affix is compound."
+  },
+  "Power of the Flames of Purity": {
+    "components": [
+      {
+        "name": "Fire Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Power of the Frozen Depths": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Power of the Frozen Storm": {
+    "components": [
+      {
+        "name": "Cold Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants two permanent underlying stats: bonus to Cold Spell Power and bonus to Electric Spell Power, both scaling with the affix value."
+  },
+  "Power of the Silver Flame": {
+    "components": [
+      {
+        "name": "Positive Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Reconstruction": {
+    "components": [
+      {
+        "name": "Repair Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Rust Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Reconstruction affix grants permanent Equipment/Insight/Quality bonus to both Repair and Rust Spell Power, representing two distinct underlying stat bonuses, thus it is compound."
+  },
+  "Resistance": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This Resistance affix grants permanent bonus to Fortitude, Reflex, and Will saving throws equally."
+  },
+  "Riposte": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Insight",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+  },
+  "Voice of Deceit": {
+    "components": [
+      {
+        "name": "Bluff",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "This affix grants multiple permanent competence bonuses to 4 different skills."
+  },
+  "Well Rounded": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  }
+}

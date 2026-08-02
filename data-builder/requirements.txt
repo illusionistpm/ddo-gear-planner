@@ -3,3 +3,4 @@ requests
 openpyxl
 playwright
 pytest
+openai

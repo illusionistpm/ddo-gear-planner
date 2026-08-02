@@ -97,8 +97,18 @@ export class AffixUiService {
 
   getAffixGroupTooltip(affix: Affix): string {
     if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
-    const groupAffixes = this.affixSvc.affixGroups.get(affix.name);
-    return groupAffixes ? affix.name + ' is:\n' + groupAffixes.map(aff => '• ' + aff).join('\n') : '';
+    const groupAffixes = this.affixSvc.ungroupAffix(affix);
+    return groupAffixes.length ? affix.name + ' is:\n' + groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n') : '';
+  }
+
+  private getAffixDescription(affix: Affix): string {
+    if (affix.type === 'Bool' && affix.value === 1) {
+      return affix.name;
+    }
+
+    const value = this.getAffixValue(affix);
+    const bonus = [value, affix.type].filter(part => part).join(' ');
+    return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 
   getClassForCraftable(craft: Craftable): string {

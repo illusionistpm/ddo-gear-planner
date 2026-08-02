@@ -9,6 +9,11 @@ import { GearDbService } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
 import { AffixService } from './affix.service';
 
+const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
+  ['Armor Class', ['Armor Class (%)']],
+  ['False Life', ['False Life (%)']],
+]);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -424,23 +429,47 @@ export class EquippedService {
     return this.importantAffixes;
   }
 
+  private getTrackedAffixFamily(affix: string) {
+    return [affix, ...(TRACKED_AFFIX_COMPANIONS.get(affix) || [])];
+  }
+
+  private expandTrackedAffixes(affixes: Iterable<string>) {
+    const expanded = new Set<string>();
+    for (const affix of affixes) {
+      for (const trackedAffix of this.getTrackedAffixFamily(affix)) {
+        expanded.add(trackedAffix);
+      }
+    }
+    return expanded;
+  }
+
   setImportantAffixes(affixes: Array<string>) {
-    this.importantAffixes = new Set(affixes);
+    this.importantAffixes = this.expandTrackedAffixes(affixes);
     this._updateCoveredAffixes();
   }
 
   addImportantAffix(affix: string) {
-    if (!this.importantAffixes.has(affix)) {
-      this.importantAffixes.add(affix);
+    const trackedAffixes = this.getTrackedAffixFamily(affix);
+    const addedAffixes = trackedAffixes.filter(trackedAffix => !this.importantAffixes.has(trackedAffix));
+    if (trackedAffixes.some(trackedAffix => !this.importantAffixes.has(trackedAffix))) {
+      for (const trackedAffix of trackedAffixes) {
+        this.importantAffixes.add(trackedAffix);
+      }
       this._updateCoveredAffixes();
     }
+    return addedAffixes;
   }
 
   removeImportantAffix(affix: string) {
-    if (this.importantAffixes.has(affix)) {
-      this.importantAffixes.delete(affix);
+    const trackedAffixes = this.getTrackedAffixFamily(affix);
+    const removedAffixes = trackedAffixes.filter(trackedAffix => this.importantAffixes.has(trackedAffix));
+    if (trackedAffixes.some(trackedAffix => this.importantAffixes.has(trackedAffix))) {
+      for (const trackedAffix of trackedAffixes) {
+        this.importantAffixes.delete(trackedAffix);
+      }
       this._updateCoveredAffixes();
     }
+    return removedAffixes;
   }
 
   toggleImportantAffix(affix: string) {

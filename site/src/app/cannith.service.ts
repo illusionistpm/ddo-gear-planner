@@ -12,11 +12,13 @@ import cannithList from 'src/assets/cannith.json';
 })
 export class CannithService {
   levels: Array<number>;
+  maxLevel: number;
 
   constructor() {
+    const cannithData = cannithList as Record<string, any>;
+    this.maxLevel = Number(cannithData['maxLevel'] ?? 34);
     this.levels = [];
-    // FIXME!! This should be based on the maximum level, not the old hard-coded 34 
-    for (let ml = 34; ml >= 1; ml--) {
+    for (let ml = this.maxLevel; ml >= 1; ml--) {
       this.levels.push(ml);
     }
   }
@@ -76,26 +78,33 @@ export class CannithService {
   private _getOptionsForItemSlot(itemType: string, cannithSlot: string, ml: number): Craftable {
     const cannithData = cannithList as Record<string, any>;
     const affixList = (cannithData['itemTypes']?.[itemType]?.[cannithSlot] ?? []) as Array<string>;
+    const cappedMl = Math.min(Math.max(ml, 1), this.maxLevel);
     
     const slotOptions: Array<CraftableOption> = [];
-    for (let affix of affixList) {
+    for (const optionName of affixList) {
       const option = new CraftableOption(null);
       const progression = cannithData['progression'] as Record<string, Array<number>>;
-      const value = (progression[affix]?.[ml - 1] ?? 0) as number;
-      let type = 'Enhancement';
-      
-      if (affix.startsWith('Insightful')) {
-        affix = affix.replace('Insightful ', '');
-        type = 'Insight';
-      } else {
-        const bonusTypes = cannithData['bonusTypes'] as Record<string, string>;
-        const bonusType = bonusTypes[affix];
-        if (bonusType) {
-          type = bonusType;
-        }
-      }
+      const value = (progression[optionName]?.[cappedMl - 1] ?? 0) as number;
+      const affixNames = (cannithData['affixes'] ?? {}) as Record<string, string | Array<string>>;
+      const mappedAffixes = affixNames[optionName] ?? optionName;
+      const optionAffixes = Array.isArray(mappedAffixes) ? mappedAffixes : [mappedAffixes];
+      const bonusTypes = cannithData['bonusTypes'] as Record<string, string>;
 
-      option.affixes.push(new Affix({ name: affix, value, type }));
+      for (let affix of optionAffixes) {
+        let type = 'Enhancement';
+        
+        if (optionName.startsWith('Insightful')) {
+          affix = affix.replace('Insightful ', '');
+          type = 'Insight';
+        } else {
+          const bonusType = bonusTypes[affix];
+          if (bonusType) {
+            type = bonusType;
+          }
+        }
+
+        option.affixes.push(new Affix({ name: affix, value, type }));
+      }
       slotOptions.push(new CraftableOption(option));
     }
 

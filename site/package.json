@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "admin:start": "ng serve admin",
+    "admin:build": "ng build admin",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

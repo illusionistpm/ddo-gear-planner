@@ -6,34 +6,68 @@ import { Item } from './item';
 import affixGroupsList from 'src/assets/affix-groups.json';
 import affixSynonymsList from 'src/assets/affix-synonyms.json';
 
+interface AffixGroupJson {
+  name: string;
+  affixes: Array<string>;
+  components?: Array<{ name: string; type: string; value: number | string }>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AffixService {
   affixGroups = new Map<string, Array<string>>();
+  affixGroupComponents = new Map<string, Array<{ name: string; type: string; value: number | string }>>();
   affixSynonyms = new Map<string, string>();
   synonymsForAffix = new Map<string, Array<string>>();
 
   constructor() {
-    for (const group of affixGroupsList) {
+    for (const group of affixGroupsList as Array<AffixGroupJson>) {
       const affixNames = [];
       for (const affix of group['affixes']) {
         affixNames.push(affix);
       }
       this.affixGroups.set(group['name'], affixNames);
+
+      if (group['components']) {
+        this.affixGroupComponents.set(
+          group['name'],
+          group['components']
+        );
+      }
     }
 
     for (const synonymGroup of affixSynonymsList) {
       for (const syn of synonymGroup['synonyms']) {
-        this.affixSynonyms.set(syn, synonymGroup['name']);
+        this.affixSynonyms.set(this.getSynonymKey(syn), synonymGroup['name']);
       }
 
       this.synonymsForAffix.set(synonymGroup['name'], synonymGroup['synonyms']);
     }
   }
 
+  private getSynonymKey(affixName: string): string {
+    return affixName.trim().toLocaleLowerCase();
+  }
+
   ungroupAffix(affixGroup: Affix) {
     const affixes = [];
+    const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
+    if (fixedAffixes) {
+      for (const fixedAffix of fixedAffixes) {
+        const inheritsValue = (fixedAffix as any).value === '<ValueAlreadyParsed>';
+        const affix = new Affix(fixedAffix);
+        if (affix.type === '<TypeAlreadyParsed>') {
+          affix.type = affixGroup.type;
+        }
+        if (inheritsValue) {
+          affix.value = affixGroup.value;
+        }
+        affixes.push(affix);
+      }
+      return affixes;
+    }
+
     const affixNames = this.affixGroups.get(affixGroup.name);
     if (affixNames) {
       for (const affixName of affixNames) {
@@ -73,7 +107,7 @@ export class AffixService {
   }
 
   getResolvedAffixName(affixName: string): string {
-    return this.affixSynonyms.has(affixName) ? (this.affixSynonyms.get(affixName) || affixName) : affixName;
+    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 
   getSynonyms(affixName: string): Array<string> {
@@ -84,7 +118,7 @@ export class AffixService {
     let flattened: Affix[] = [];
     for (const affix of affixes) {
       const ungroup = this.ungroupAffix(affix);
-      if (ungroup) {
+      if (ungroup.length) {
         if (includeOriginal) {
           flattened.push(affix);
         }
@@ -107,6 +141,6 @@ export class AffixService {
   }
 
   getCanonicalName(affixName: string) {
-    return this.affixSynonyms.get(affixName) || affixName;
+    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 }

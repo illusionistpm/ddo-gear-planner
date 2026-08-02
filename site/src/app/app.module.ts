@@ -20,6 +20,7 @@ import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
 import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
+import { AdminLinkComponent } from './admin-link.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
         ItemsInSetComponent,
         ExpandingCheckboxesComponent,
         FilterItemTypeComponent,
-        UserItemLocationTooltipPipe
+        UserItemLocationTooltipPipe,
+        AdminLinkComponent
     ],
     imports: [
         AppRoutingModule,

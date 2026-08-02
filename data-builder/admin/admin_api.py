@@ -9,7 +9,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import unquote, urlparse
 
-from affix_name_quality import (
+DATA_BUILDER_ROOT = os.path.dirname(os.path.dirname(__file__))
+if DATA_BUILDER_ROOT not in sys.path:
+    sys.path.insert(0, DATA_BUILDER_ROOT)
+
+from admin.affix_name_quality import (
     add_parser_backlog_item,
     build_affix_name_review_payload,
     save_affix_name_review,

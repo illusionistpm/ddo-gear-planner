@@ -1,4 +1,4 @@
-import admin_api
+from admin import admin_api
 
 
 def test_save_review_decision_writes_accepted_definition(monkeypatch):

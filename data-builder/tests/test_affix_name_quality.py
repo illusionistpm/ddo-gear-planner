@@ -1,4 +1,4 @@
-import affix_name_quality as module
+from admin import affix_name_quality as module
 
 
 def test_collect_affix_inventory_walks_all_affix_arrays(monkeypatch):

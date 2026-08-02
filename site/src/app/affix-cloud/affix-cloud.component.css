@@ -1,0 +1,11 @@
+.saved-affix-group {
+  margin-bottom: 0.5rem;
+}
+
+.saved-affix-group-title {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0.25rem 0 0.35rem;
+  text-transform: uppercase;
+}

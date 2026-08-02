@@ -30,3 +30,123 @@
     color: var(--text-secondary);
     font-weight: 400;
 }
+
+.tracked-affix-section {
+    --tracked-affix-accent: var(--primary-color);
+    --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--tracked-affix-accent);
+    border-right: 4px solid var(--tracked-affix-accent);
+    border-radius: var(--border-radius);
+    margin: 0.75rem 0;
+    padding: 0.65rem 0.75rem 0.25rem;
+}
+
+.tracked-affix-group-title {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--text-primary);
+    display: flex;
+    font-size: 0.9rem;
+    font-weight: 700;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    text-align: left;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.tracked-affix-group-title:hover,
+.tracked-affix-group-title:focus {
+    color: var(--tracked-affix-accent);
+}
+
+.tracked-affix-group-title:focus-visible {
+    outline: 3px solid var(--tracked-affix-accent-soft);
+    outline-offset: 3px;
+}
+
+.tracked-affix-header-actions {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.tracked-affix-count {
+    background-color: var(--tracked-affix-accent-soft);
+    border-radius: 999px;
+    color: var(--tracked-affix-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 1.5rem;
+    padding: 0.25rem 0.45rem;
+    text-align: center;
+}
+
+.tracked-affix-collapse-indicator {
+    color: var(--tracked-affix-accent);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    transform: rotate(90deg);
+    transition: transform 0.15s ease-in-out;
+    text-align: center;
+}
+
+.tracked-affix-collapse-indicator.collapsed {
+    transform: rotate(0deg);
+}
+
+.tracked-affix-section .card {
+    margin-bottom: 0.5rem;
+}
+
+.tracked-affix-section-attributes {
+    --tracked-affix-accent: #7c3aed;
+    --tracked-affix-accent-soft: rgba(124, 58, 237, 0.1);
+}
+
+.tracked-affix-section-defense {
+    --tracked-affix-accent: #0891b2;
+    --tracked-affix-accent-soft: rgba(8, 145, 178, 0.1);
+}
+
+.tracked-affix-section-offense {
+    --tracked-affix-accent: #dc2626;
+    --tracked-affix-accent-soft: rgba(220, 38, 38, 0.1);
+}
+
+.tracked-affix-section-casting {
+    --tracked-affix-accent: #2563eb;
+    --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
+}
+
+.tracked-affix-section-saves {
+    --tracked-affix-accent: #16a34a;
+    --tracked-affix-accent-soft: rgba(22, 163, 74, 0.1);
+}
+
+.tracked-affix-section-skills {
+    --tracked-affix-accent: #65a30d;
+    --tracked-affix-accent-soft: rgba(101, 163, 13, 0.1);
+}
+
+.tracked-affix-section-utility-checklist {
+    --tracked-affix-accent: #d97706;
+    --tracked-affix-accent-soft: rgba(217, 119, 6, 0.1);
+}
+
+.tracked-affix-section-immunities {
+    --tracked-affix-accent: #0f766e;
+    --tracked-affix-accent-soft: rgba(15, 118, 110, 0.1);
+}
+
+.tracked-affix-section-other {
+    --tracked-affix-accent: #64748b;
+    --tracked-affix-accent-soft: rgba(100, 116, 139, 0.12);
+}

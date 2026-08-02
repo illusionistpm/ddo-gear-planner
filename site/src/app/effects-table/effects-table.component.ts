@@ -3,7 +3,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
+import { AffixService } from '../affix.service';
 import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with-bonus-type.component';
+import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
+
+interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
+  checklistAffixes: string[];
+}
 
 @Component({
     selector: 'app-effects-table',
@@ -21,12 +27,14 @@ export class EffectsTableComponent implements OnInit {
   public boolAffixNames: Array<string> = [];
 
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
+  collapsedAffixGroups = new Set<string>();
 
   @Input() sortOwnedToTop: boolean = true;
 
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
+    private affixSvc: AffixService,
     private modalService: NgbModal
   ) {
     this.affixNames = [];
@@ -103,6 +111,61 @@ export class EffectsTableComponent implements OnInit {
 
       return a.bonusType.localeCompare(b.bonusType);
     });
+  }
+
+  getFilteredBoolAffixNames(): string[] {
+    return this.boolAffixNames
+      .sort((left, right) => left.localeCompare(right));
+  }
+
+  getAffixGroups(): AffixGroupDisplay[] {
+    return groupAffixNames(this.affixNames, '', this.affixSvc);
+  }
+
+  getTrackedAffixGroups(): TrackedAffixGroupDisplay[] {
+    const groups = this.getAffixGroups().map(group => ({
+      ...group,
+      checklistAffixes: [] as string[]
+    }));
+    const checklistAffixes = this.getFilteredBoolAffixNames();
+    if (!checklistAffixes.length) {
+      return groups;
+    }
+
+    const utilityGroup = groups.find(group => group.name === UTILITY_CHECKLIST_CATEGORY);
+    if (utilityGroup) {
+      utilityGroup.checklistAffixes = checklistAffixes;
+      return groups;
+    }
+
+    const utilityIndex = groups.findIndex(group => group.name === 'Immunities' || group.name === 'Other');
+    const insertIndex = utilityIndex >= 0 ? utilityIndex : groups.length;
+    groups.splice(insertIndex, 0, {
+      name: UTILITY_CHECKLIST_CATEGORY,
+      affixes: [],
+      checklistAffixes
+    });
+    return groups;
+  }
+
+  getAffixGroupCount(group: TrackedAffixGroupDisplay): number {
+    return group.affixes.length + group.checklistAffixes.length;
+  }
+
+  getAffixGroupClass(groupName: string): string {
+    return 'tracked-affix-section-' + groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  toggleAffixGroup(groupName: string) {
+    if (this.collapsedAffixGroups.has(groupName)) {
+      this.collapsedAffixGroups.delete(groupName);
+    } else {
+      this.collapsedAffixGroups.add(groupName);
+    }
+  }
+
+  isAffixGroupCollapsed(groupName: string): boolean {
+    return this.collapsedAffixGroups.has(groupName);
   }
 
   private _isBoolAffix(entry: [string, Array<any>]) {

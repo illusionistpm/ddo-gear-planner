@@ -70,7 +70,7 @@
     <div>
       <p>What other affixes are important to your build?</p>
       <div class="row d-flex justify-content-start">
-        @for (result of topResults; track result) {
+        @for (result of topResults; track result[0]) {
           <div class="col-auto m-0 mb-2 p-0">
             <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
             (click)="add(result[0])">{{result[0]}}</button>
@@ -94,21 +94,26 @@
       <div class="row section-header my-2">
         <h4>Saved affixes</h4>
       </div>
-      <div class="row">
-        <p>Tap to remove</p>
+      <div class="row mb-2">
+        <p class="col-12 mb-0">Tap to remove</p>
       </div>
-      <div class="row d-flex justify-content-start">
-        @for (result of savedSet; track result) {
-          <div class="col-auto m-0 mb-2 p-0">
-            <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
+      @for (group of getSavedAffixGroups(); track group.name) {
+        <div class="saved-affix-group">
+          <div class="saved-affix-group-title">{{group.name}}</div>
+          <div class="row d-flex justify-content-start">
+            @for (result of group.affixes; track result) {
+              <div class="col-auto m-0 mb-2 p-0">
+                <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
+              </div>
+            }
           </div>
-        }
-      </div>
+        </div>
+      }
     </div>
   }
 
   <!-- Done -->
   <div class="row mt-2">
-    <a class="btn btn-success col-4" routerLink="/main" routerLinkActive="active">Done</a>
+    <a class="btn btn-success col-4" routerLink="/main" queryParamsHandling="preserve" routerLinkActive="active">Done</a>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
 
 import { AffixCloud } from '../affix-cloud';
+import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 
 @Component({
     selector: 'app-affix-cloud',
@@ -84,8 +85,8 @@ export class AffixCloudComponent implements OnInit {
   }
 
   _initPackages() {
-    this.packages.set('Basic', ['Healing Amplification', 'Sheltering', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Resistance', 'Blurry', 'Parrying', 'Ghostly',
+    this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Blurry', 'Parrying', 'Ghostly',
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
       'Heroic Inspiration']);
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
@@ -232,5 +233,12 @@ export class AffixCloudComponent implements OnInit {
     return (affix: any) => {
       this.add(affix.original ? affix.original : affix.name);
     };
+  }
+
+  getSavedAffixGroups(): AffixGroupDisplay[] {
+    return groupAffixNames(this.savedSet, '', this.affixSvc, affixName => {
+      const types = this.gearDB.getTypesForAffix(affixName);
+      return types.length === 1 && types[0] === 'Bool' ? UTILITY_CHECKLIST_CATEGORY : null;
+    });
   }
 }

@@ -59,10 +59,39 @@ describe('AffixCloudComponent', () => {
     expect(component.spellpowerPackages.get('Repair')).not.toContain('Reconstruction');
   });
 
+  it('uses individual saves and explicit sheltering affixes in the basic bundle', () => {
+    expect(component.packages.get('Basic')).toContain('Fortitude Save');
+    expect(component.packages.get('Basic')).toContain('Reflex Save');
+    expect(component.packages.get('Basic')).toContain('Will Save');
+    expect(component.packages.get('Basic')).toContain('Physical Sheltering');
+    expect(component.packages.get('Basic')).toContain('Magical Sheltering');
+    expect(component.packages.get('Basic')).not.toContain('Resistance');
+    expect(component.packages.get('Basic')).not.toContain('Sheltering');
+  });
+
   it('shows tracked companion affixes immediately when an affix is added', () => {
     component.add('Armor Class');
 
     expect(component.savedSet.has('Armor Class')).toBeTrue();
     expect(component.savedSet.has('Armor Class (%)')).toBeTrue();
+  });
+
+  it('groups saved affixes for easier scanning', () => {
+    component.savedSet.add('Strength');
+    component.savedSet.add('Armor-Piercing');
+
+    const groups = component.getSavedAffixGroups();
+
+    expect(groups).toContain({ name: 'Attributes', affixes: ['Strength'] });
+    expect(groups).toContain({ name: 'Offense', affixes: ['Armor-Piercing'] });
+  });
+
+  it('groups bool-only saved affixes with utility and checklist', () => {
+    component.savedSet.add('Heroic Inspiration');
+
+    expect(component.getSavedAffixGroups()).toContain({
+      name: 'Utility & Checklist',
+      affixes: ['Heroic Inspiration']
+    });
   });
 });

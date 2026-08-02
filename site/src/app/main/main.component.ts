@@ -1,7 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { QueryParamsService } from '../query-params.service';
 import { UserGearService } from '../user-gear.service';
 import { GearDbService } from '../gear-db.service';
 
@@ -20,16 +18,11 @@ export class MainComponent implements OnInit {
   }
 
   constructor(
-    private readonly route: ActivatedRoute,
-    private queryParams: QueryParamsService,
     private userGear: UserGearService,
     private gearDb: GearDbService
   ) {}
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
-      this.queryParams.updateFromParams(params);
-    });
     this.userGear.loadFromStorage();
   }
 

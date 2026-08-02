@@ -2,56 +2,68 @@
     <h3>Tracked Affixes</h3>
 </div>
 <div class="row">
-    <div class="card col-sm-12 col-md-6 col-lg-4" *ngIf="boolAffixNames.length">
-        <div>
-            <span class="h5">Checklist Affixes</span>
-        </div>
-        <div class="col" *ngFor="let affixName of boolAffixNames">
-            <button class="w-100" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
-                (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
-                <span class="max-value">{{affixName}}</span>
-                <span class="far fa-check-square max-value float-end pt-1"></span>
-            </button>
-            <ng-template #noValueBools>
-                <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="w-100 no-value"
-                    (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
-                    {{affixName}}
-                    <span class="far fa-square no-value float-end pt-1"></span>
-                </button>
-            </ng-template>
+    <div class="col-12 tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of getTrackedAffixGroups()">
+        <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
+            [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
+            <span>{{group.name}}</span>
+            <span class="tracked-affix-header-actions">
+                <span class="tracked-affix-count" *ngIf="isAffixGroupCollapsed(group.name)">{{getAffixGroupCount(group)}}</span>
+                <span class="tracked-affix-collapse-indicator" [class.collapsed]="isAffixGroupCollapsed(group.name)" aria-hidden="true">&#8250;</span>
+            </span>
+        </button>
+        <div class="row" *ngIf="!isAffixGroupCollapsed(group.name)">
+            <div class="card col-sm-12 col-md-6 col-lg-4" *ngIf="group.checklistAffixes.length">
+                <div>
+                    <span class="h5">Checklist Affixes</span>
+                </div>
+                <div class="col" *ngFor="let affixName of group.checklistAffixes">
+                    <button class="w-100" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
+                        (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                        <span class="max-value">{{affixName}}</span>
+                        <span class="far fa-check-square max-value float-end pt-1"></span>
+                    </button>
+                    <ng-template #noValueBools>
+                        <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="w-100 no-value"
+                            (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                            {{affixName}}
+                            <span class="far fa-square no-value float-end pt-1"></span>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let affixName of group.affixes">
+                <div class="col">
+                    <span class="h5">{{affixName}}: {{currentBonus(affixName)}}<span
+                            class="max-available">/{{maxBonus(affixName)}}</span></span>
+                    <button type="button" class="custom-close float-end" aria-label="Close" (click)="removeAffix(affixName)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="col" *ngFor="let types of sortTypes(affixName)">
+                    <button class="w-100" *ngIf="types.value; else noValue"
+                        (click)="showItemsWithBonusType(affixName, types.bonusType)"
+                        [title]="getValueTooltip(affixName, types)">
+                        <span
+                            [ngClass]="getClassForValue(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
+                            {{types.value}} </span>
+                        <span
+                            class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                    </button>
+                    <ng-template #noValue>
+                        <button [hidden]="types.bonusType === 'Penalty'" class="w-100 no-value"
+                            (click)="showItemsWithBonusType(affixName, types.bonusType)">
+                            {{types.bonusType ? types.bonusType : "Untyped"}}
+                            <span
+                                class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let affixName of affixNames">
-        <div class="col">
-            <span class="h5">{{affixName}}: {{currentBonus(affixName)}}<span
-                    class="max-available">/{{maxBonus(affixName)}}</span></span>
-            <button type="button" class="custom-close float-end" aria-label="Close" (click)="removeAffix(affixName)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="col" *ngFor="let types of sortTypes(affixName)">
-            <button class="w-100" *ngIf="types.value; else noValue"
-                (click)="showItemsWithBonusType(affixName, types.bonusType)"
-                [title]="getValueTooltip(affixName, types)">
-                <span
-                    [ngClass]="getClassForValue(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
-                    {{types.value}} </span>
-                <span
-                    class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
-            </button>
-            <ng-template #noValue>
-                <button [hidden]="types.bonusType === 'Penalty'" class="w-100 no-value"
-                    (click)="showItemsWithBonusType(affixName, types.bonusType)">
-                    {{types.bonusType ? types.bonusType : "Untyped"}}
-                    <span
-                        class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
-                </button>
-            </ng-template>
-        </div>
-    </div>
 </div>
 
 <div class="row">
-    <a class="btn btn-success col-sm-4 col-md-4 col-lg-2 mt-1 mb-2" routerLink="/affixes" routerLinkActive="active">Add Affixes...</a>
+    <a class="btn btn-success col-sm-4 col-md-4 col-lg-2 mt-1 mb-2" routerLink="/affixes" queryParamsHandling="preserve" routerLinkActive="active">Add Affixes...</a>
 </div>

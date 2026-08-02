@@ -4,6 +4,7 @@ import { UserGearService } from '../user-gear.service';
 import { FiltersService } from '../filters.service';
 
 import { Output, EventEmitter } from '@angular/core';
+import buildInfo from 'src/assets/build-info.json';
 
 @Component({
     selector: 'app-filters',
@@ -16,6 +17,7 @@ export class FiltersComponent implements OnInit {
   minLevel: number = 1;
   maxLevel: number = 30;
   showRaidItems: boolean = false;
+  readonly dataBuiltAt: string = this.formatBuiltAt(buildInfo.builtAt);
 
   sortOwnedToTop: boolean = true;
 
@@ -85,5 +87,17 @@ export class FiltersComponent implements OnInit {
 
   onSortOwnedToTopChanged() {
     this.sortOwnedToTopChanged.emit(this.sortOwnedToTop);
+  }
+
+  private formatBuiltAt(value: string): string {
+    const builtAt = new Date(value);
+    if (Number.isNaN(builtAt.getTime())) {
+      return value;
+    }
+
+    return builtAt.toLocaleString(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
   }
 }

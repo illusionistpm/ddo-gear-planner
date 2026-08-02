@@ -16,12 +16,21 @@ from parse_quests import parse_quests
 import subprocess
 import sys
 import os
+from datetime import datetime, timezone
+
+from write_json import write_json
 
 DATA_BUILDER_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def ensure_data_builder_cwd():
     os.chdir(DATA_BUILDER_DIR)
+
+
+def write_build_info():
+    write_json({
+        'builtAt': datetime.now(timezone.utc).isoformat(timespec='seconds')
+    }, 'build-info')
 
 
 def build_data(clearCache, discordURL):
@@ -70,6 +79,8 @@ def build_data(clearCache, discordURL):
     parse_item_types()
 
     parse_quests()
+
+    write_build_info()
 
     newStats = get_data_stats()
 

@@ -1,0 +1,23 @@
+.data-built-at {
+  position: absolute;
+  top: 0.35rem;
+  right: 6rem;
+  left: auto;
+  z-index: 1;
+  width: auto;
+  max-width: calc(100% - 12rem);
+  padding: 0;
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.8;
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .data-built-at {
+    right: 1.5rem;
+    max-width: calc(100% - 3rem);
+    font-size: 0.65rem;
+  }
+}

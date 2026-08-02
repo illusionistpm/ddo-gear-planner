@@ -17,11 +17,20 @@ import subprocess
 import sys
 import os
 
+DATA_BUILDER_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def ensure_data_builder_cwd():
+    os.chdir(DATA_BUILDER_DIR)
+
+
 def build_data(clearCache, discordURL):
+    ensure_data_builder_cwd()
+
     # Run unit tests first; fail the build if tests fail.
     try:
         print('Running unit tests...')
-        tests_dir = os.path.join(os.path.dirname(__file__), 'tests')
+        tests_dir = os.path.join(DATA_BUILDER_DIR, 'tests')
         test_env = os.environ.copy()
         test_env.pop('DDO_AFFIX_PROVENANCE', None)
         result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q'], env=test_env)

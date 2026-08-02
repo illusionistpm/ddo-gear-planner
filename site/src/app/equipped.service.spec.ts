@@ -44,4 +44,15 @@ describe('EquippedService', () => {
     expect(service.isImportantAffix('Positive Spell Power')).toBeTrue();
     expect(service.isImportantAffix('Devotion')).toBeFalse();
   });
+
+  it('tracks spell lore components when universal spell lore is selected', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    const addedAffixes = service.addImportantAffix('Spell Lore');
+
+    expect(addedAffixes).toContain('Spell Lore');
+    expect(addedAffixes).toContain('Kinetic Lore');
+    expect(service.isImportantAffix('Spell Lore')).toBeTrue();
+    expect(service.isImportantAffix('Kinetic Lore')).toBeTrue();
+  });
 });

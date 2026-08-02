@@ -37,8 +37,10 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     ]
     assert groups['Spell Lore'] == [
         'Negative Lore',
+        'Poison Lore',
         'Light Lore',
         'Radiance Lore',
+        'Alignment Lore',
         'Healing Lore',
         'Acid Lore',
         'Fire Lore',
@@ -46,6 +48,7 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
         'Cold Lore',
         'Repair Lore',
         'Rust Lore',
+        'Kinetic Lore',
         'Force Lore',
         'Sonic Lore',
     ]

@@ -110,7 +110,7 @@ def build_affix_groups() -> None:
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
     add(groups, 'Potency', ['Negative Spell Power', 'Light Spell Power', 'Positive Spell Power', 'Acid Spell Power', 'Fire Spell Power', 'Electric Spell Power', 'Cold Spell Power', 'Repair Spell Power', 'Rust Spell Power', 'Force Spell Power', 'Sonic Spell Power'])
-    add(groups, 'Spell Lore', ['Negative Lore', 'Light Lore', 'Radiance Lore', 'Healing Lore', 'Acid Lore', 'Fire Lore', 'Lightning Lore', 'Cold Lore', 'Repair Lore', 'Rust Lore', 'Force Lore', 'Sonic Lore'])
+    add(groups, 'Spell Lore', ['Negative Lore', 'Poison Lore', 'Light Lore', 'Radiance Lore', 'Alignment Lore', 'Healing Lore', 'Acid Lore', 'Fire Lore', 'Lightning Lore', 'Cold Lore', 'Repair Lore', 'Rust Lore', 'Kinetic Lore', 'Force Lore', 'Sonic Lore'])
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
     add(groups, 'Dazing', ['Stunning'])
     add(groups, 'Sundering', ['Shatter'])

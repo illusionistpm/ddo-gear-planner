@@ -144,6 +144,10 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'name': 'Radiance Lore', 'type': 'Equipment', 'value': '22'},
         ),
         (
+            {'text': 'Artifact Spell Lore +6', 'tooltip': 'Artifact Spell Lore 6: Passive: All of your spells gain a 6% Artifact bonus to their chance to critical hit.'},
+            {'name': 'Spell Lore', 'type': 'Artifact', 'value': '6'},
+        ),
+        (
             {'text': '+10% Artifact Bonus to Damage vs. the Helpless', 'tooltip': ''},
             {'name': 'Damage vs. the Helpless', 'type': 'Artifact', 'value': '10'},
         ),

@@ -237,7 +237,7 @@
   "Creeping Dust Lore": {
     "components": [
       {
-        "name": "Ice Intensity",
+        "name": "Cold Intensity",
         "type": "Equipment",
         "value": {
           "mode": "same_as_affix_number"
@@ -252,6 +252,200 @@
       }
     ],
     "notes": "Creeping Dust Lore grants a permanent Equipment bonus to critical hit chance for Cold and Acid spells, decomposed into separate Cold and Acid spell critical chance affixes."
+  },
+  "Crown of Summer": {
+    "components": [
+      {
+        "name": "Positive Healing Amplification",
+        "type": "Enhancement",
+        "value": {
+          "amount": 15,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Melee Power",
+        "type": "Enhancement",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Ranged Power",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "The affix 'Crown of Summer' grants permanent enhancement bonus to Positive Healing Amplification, Melee Power, and Ranged Power, all always on. Decomposed into underlying permanent stat bonuses."
+  },
+  "Devil's Bones": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed +23% Enhancement bonus to Fire and Evil Absorption into separate components as permanent stat bonuses."
+  },
+  "Elemental Absorption": {
+    "components": [
+      {
+        "name": "Acid Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fire Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sonic Absorption",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed Elemental Absorption into Acid, Cold, Fire, Electrical, and Sonic Absorption for permanent Enhancement bonus absorption stats."
+  },
+  "Elemental Manipulation": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fire Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Elemental Manipulation is a compound affix providing permanent +90 Equipment bonus to Acid, Cold, Electric, and Fire Spell Power."
+  },
+  "Elemental Resistance": {
+    "components": [
+      {
+        "name": "Acid Resistance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Resistance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Resistance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fire Resistance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sonic Resistance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Elemental Resistance is a compound affix that provides multiple permanent elemental resistances. Each resistance component inherits the affix's bonus value and bonus type from the parsed affix."
+  },
+  "Elemental Resonance": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Fire Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Elemental Resonance grants equal permanent Equipment Spell Power bonuses to Acid, Fire, Electric and Cold; decomposed into four components."
   },
   "Fire and Cold Absorption": {
     "components": [
@@ -271,6 +465,18 @@
       }
     ],
     "notes": "This affix grants two permanent stat bonuses: Enhancement Bonus to Fire Absorption and Enhancement Bonus to Cold Absorption, each scaling with the parsed value."
+  },
+  "Ghostbane": {
+    "components": [
+      {
+        "name": "Ghost Touch",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This affix grants a permanent weapon bonus: extra bane damage vs. Undead scaling with affix rank and a fixed Ghost Touch effect that bypasses ethereal monster evade chance. Both are passive and always active, so the affix is decomposed into permanent bonus components."
   },
   "Good Luck": {
     "components": [
@@ -515,6 +721,193 @@
     ],
     "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
   },
+  "Legendary Armor-Piercing": {
+    "components": [
+      {
+        "name": "Armor-Piercing",
+        "type": "Legendary",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix provides a passive always-on percentage bonus to Fortification Bypass, which is a permanent stat affecting attacks ignoring enemy Fortification. It is correctly parsed as a compound affix with one component representing the underlying bonus."
+  },
+  "Lifeblood of the Undead Prince": {
+    "components": [
+      {
+        "name": "Positive Healing Amplification",
+        "type": "Competence",
+        "value": {
+          "amount": 53,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Amplification",
+        "type": "Competence",
+        "value": {
+          "amount": 53,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Negative Amplification",
+        "type": "Profane",
+        "value": {
+          "amount": 53,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Compound affix granting multiple permanent bonuses to healing amplification with distinct bonus types; each scales with the affix magnitude."
+  },
+  "Litany of the Dead - Ability Bonus": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Constitution",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intelligence",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Wisdom",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Charisma",
+        "type": "Profane",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Grants +1 Profane bonus to all Abilities (Str, Con, Dex, Int, Wis, Cha)."
+  },
+  "Memory of Animated Objects": {
+    "components": [
+      {
+        "name": "Rust Spell Power",
+        "type": "Equipment",
+        "value": {
+          "amount": 171,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Rust Lore",
+        "type": "Equipment",
+        "value": {
+          "amount": 24,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Rust Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 25,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Spell Power",
+        "type": "Equipment",
+        "value": {
+          "amount": 171,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Lore",
+        "type": "Equipment",
+        "value": {
+          "amount": 24,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 25,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Compound affix with multiple permanent underlying bonuses all to Rust and Repair spells: Spell Power, Spell Crit Chance, and Spell Crit Damage."
+  },
+  "Nimble Skills Bonus": {
+    "components": [
+      {
+        "name": "Balance",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The Nimble Skills Bonus affix grants a permanent, always-on bonus to multiple skills (Balance, Hide, Move Silently, Open Lock, Tumble) with the specified bonus type and amount. It is compound because it represents multiple underlying skill bonuses that are always active."
+  },
   "Overfocus": {
     "components": [
       {
@@ -568,6 +961,149 @@
       }
     ],
     "notes": "Parrying grants multiple permanent Insight bonuses: to AC, and to Fortitude, Reflex, and Will saves. These are permanent and not conditional on combat states, so the affix is compound."
+  },
+  "Permanent Nihil": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 30,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 30,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Decomposed Permanent Nihil into separate Alchemical bonuses to Negative and Poison Spell Power as permanent stat bonuses."
+  },
+  "Power of Creeping Dust": {
+    "components": [
+      {
+        "name": "Cold Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Acid Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants a permanent Equipment bonus to both Cold Power and Acid Power equally, so it is compound with two underlying stat bonuses."
+  },
+  "Power of the Blight": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants multiple permanent Equipment bonus spell power stats to Acid, Negative, Poison, and Evil damage types. It is decomposed into separate components to reflect these individual bonuses."
+  },
+  "Power of the Dark Restoration": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Positive Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Power of the Firestorm": {
+    "components": [
+      {
+        "name": "Fire Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The affix 'Power of the Firestorm' grants a permanent Equipment bonus to both Fire and Electric Spell Power. It is a compound affix exposing multiple permanent underlying stat bonuses as separate components."
+  },
+  "Power of the Flames of Darkness": {
+    "components": [
+      {
+        "name": "Fire Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This compound affix grants three permanent Equipment bonuses to Fire, Negative, and Poison Spell Power."
   },
   "Power of the Flames of Purity": {
     "components": [
@@ -631,6 +1167,84 @@
     ],
     "notes": "This affix grants two permanent underlying stats: bonus to Cold Spell Power and bonus to Electric Spell Power, both scaling with the affix value."
   },
+  "Power of the Frozen Thunderstorm": {
+    "components": [
+      {
+        "name": "Cold Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sonic Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Decomposed compound affix granting +145 Equipment bonus to Cold, Sonic, and Electric Spell Power into matching individual Spell Power components."
+  },
+  "Power of the Moonlit Haunt": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Force Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Affix compoundly grants Equipment bonus to Negative, Force, and Poison Spell Power equally, decomposed into three permanent stat bonuses."
+  },
+  "Power of the Sacred Ground": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "Equipment",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "This affix grants +148 Equipment bonus to Acid, Light, and Alignment Spell Power as permanent bonuses."
+  },
   "Power of the Silver Flame": {
     "components": [
       {
@@ -655,6 +1269,51 @@
         }
       }
     ]
+  },
+  "Power of the Thunderstorm": {
+    "components": [
+      {
+        "name": "Sonic Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The affix grants permanent Equipment bonus to both Sonic and Electric Spell Power. Decomposed into two components for Sonic and Electric Spell Power respectively."
+  },
+  "Prudent Skills Bonus": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Prudent Skills Bonus is a compound affix representing multiple permanent Exceptional bonuses to Heal, Listen, and Spot skills."
   },
   "Reconstruction": {
     "components": [
@@ -733,6 +1392,80 @@
       }
     ],
     "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+  },
+  "Stability": {
+    "components": [
+      {
+        "name": "Deflection",
+        "type": "Deflection",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Permanent +2 Deflection bonus to AC and +2 Resistance bonus to saving throws for True Neutral alignment characters."
+  },
+  "Superior Stability": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Deflection",
+        "value": {
+          "amount": 6,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 6,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 6,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Resistance",
+        "value": {
+          "amount": 6,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Grants +6 deflection bonus to AC and +6 resistance bonus to saves for characters of True Neutral alignment; both permanent while the item is equipped and conditions met."
   },
   "Voice of Deceit": {
     "components": [
@@ -817,5 +1550,30 @@
       }
     ],
     "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  },
+  "Wisdom Skills": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
   }
 }

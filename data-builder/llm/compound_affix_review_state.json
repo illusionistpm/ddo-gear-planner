@@ -50,9 +50,19 @@
     "reviewedAt": "2026-08-01T18:43:17.198114+00:00",
     "status": "rejected"
   },
+  "Cooking By the Book": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:11:12.866808+00:00",
+    "status": "rejected"
+  },
   "Creeping Dust Lore": {
     "notes": "",
     "reviewedAt": "2026-08-01T18:43:55.828958+00:00",
+    "status": "accepted"
+  },
+  "Crown of Summer": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:11:07.017491+00:00",
     "status": "accepted"
   },
   "Darkwood": {
@@ -60,9 +70,44 @@
     "reviewedAt": "2026-08-01T18:44:11.281246+00:00",
     "status": "rejected"
   },
+  "Devil's Bones": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:10:52.040820+00:00",
+    "status": "accepted"
+  },
+  "Dragonshard Focus: Sentinel": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:11:31.801012+00:00",
+    "status": "rejected"
+  },
+  "Elemental Absorption": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:09:04.068206+00:00",
+    "status": "accepted"
+  },
+  "Elemental Manipulation": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:06:09.911363+00:00",
+    "status": "accepted"
+  },
+  "Elemental Resistance": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:13:29.455787+00:00",
+    "status": "accepted"
+  },
+  "Elemental Resonance": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:09:32.681009+00:00",
+    "status": "accepted"
+  },
   "Epic Nimbleness": {
     "notes": "",
     "reviewedAt": "2026-08-01T18:46:29.007577+00:00",
+    "status": "rejected"
+  },
+  "Feeds Off Madness": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:09:45.218967+00:00",
     "status": "rejected"
   },
   "Fire and Cold Absorption": {
@@ -70,10 +115,20 @@
     "reviewedAt": "2026-08-01T18:48:08.735468+00:00",
     "status": "accepted"
   },
+  "Ghostbane": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:10:32.007670+00:00",
+    "status": "accepted"
+  },
   "Good Luck": {
     "notes": "",
     "reviewedAt": "2026-08-01T18:56:37.433142+00:00",
     "status": "accepted"
+  },
+  "Greater Marksmanship": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:13:34.663088+00:00",
+    "status": "needs-tweak"
   },
   "Greater Stability": {
     "notes": "",
@@ -85,9 +140,64 @@
     "reviewedAt": "2026-08-01T19:51:43.777654+00:00",
     "status": "rejected"
   },
+  "Illusory Death": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:11:51.599829+00:00",
+    "status": "needs-tweak"
+  },
+  "Improved Heroism": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:07:51.850255+00:00",
+    "status": "needs-tweak"
+  },
   "Intelligence Skills": {
     "notes": "",
     "reviewedAt": "2026-08-01T19:03:10.641481+00:00",
+    "status": "accepted"
+  },
+  "Knight's Loyalty": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:07:36.270194+00:00",
+    "status": "rejected"
+  },
+  "Legendary Armor-Piercing": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:13:08.730535+00:00",
+    "status": "accepted"
+  },
+  "Legendary Cooking By the Book": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:06:14.879929+00:00",
+    "status": "rejected"
+  },
+  "Lifeblood of the Undead Prince": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:07:28.578480+00:00",
+    "status": "accepted"
+  },
+  "Litany of the Dead - Ability Bonus": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:12:50.325589+00:00",
+    "status": "accepted"
+  },
+  "Memory of Animated Objects": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:05:54.242792+00:00",
+    "status": "accepted"
+  },
+  "Mind Tear": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:03:38.242003+00:00",
+    "status": "rejected"
+  },
+  "Negative Spell Power": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:02:39.809353+00:00",
+    "status": "rejected"
+  },
+  "Nimble Skills Bonus": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:03:30.442218+00:00",
     "status": "accepted"
   },
   "Overfocus": {
@@ -98,6 +208,36 @@
   "Parrying": {
     "notes": "",
     "reviewedAt": "2026-08-01T19:01:23.162399+00:00",
+    "status": "accepted"
+  },
+  "Permanent Nihil": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:02:14.615829+00:00",
+    "status": "accepted"
+  },
+  "Power of Creeping Dust": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:01:35.266768+00:00",
+    "status": "accepted"
+  },
+  "Power of the Blight": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:01:17.074922+00:00",
+    "status": "accepted"
+  },
+  "Power of the Dark Restoration": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T03:00:20.629749+00:00",
+    "status": "accepted"
+  },
+  "Power of the Firestorm": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:59:28.629163+00:00",
+    "status": "accepted"
+  },
+  "Power of the Flames of Darkness": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:59:25.455014+00:00",
     "status": "accepted"
   },
   "Power of the Flames of Purity": {
@@ -115,10 +255,45 @@
     "reviewedAt": "2026-08-01T19:07:38.874262+00:00",
     "status": "accepted"
   },
+  "Power of the Frozen Thunderstorm": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:59:06.709640+00:00",
+    "status": "accepted"
+  },
+  "Power of the Moonlit Haunt": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:58:59.608403+00:00",
+    "status": "accepted"
+  },
+  "Power of the Sacred Ground": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:58:32.498233+00:00",
+    "status": "accepted"
+  },
   "Power of the Silver Flame": {
     "notes": "",
     "reviewedAt": "2026-08-01T19:07:44.491247+00:00",
     "status": "accepted"
+  },
+  "Power of the Thunderstorm": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:56:56.026668+00:00",
+    "status": "accepted"
+  },
+  "Protection from Evil": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:56:38.165664+00:00",
+    "status": "rejected"
+  },
+  "Prudent Skills Bonus": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:56:31.954388+00:00",
+    "status": "accepted"
+  },
+  "Radiance": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:57:07.803884+00:00",
+    "status": "rejected"
   },
   "Reconstruction": {
     "notes": "",
@@ -133,6 +308,31 @@
   "Riposte": {
     "notes": "",
     "reviewedAt": "2026-08-01T19:14:02.250523+00:00",
+    "status": "accepted"
+  },
+  "Slice 'n Dice Set": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:57:59.487611+00:00",
+    "status": "rejected"
+  },
+  "Sonic Intensity": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:57:57.449358+00:00",
+    "status": "rejected"
+  },
+  "Stability": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:55:52.137622+00:00",
+    "status": "accepted"
+  },
+  "Stone Paws": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:59:18.595162+00:00",
+    "status": "rejected"
+  },
+  "Superior Stability": {
+    "notes": "",
+    "reviewedAt": "2026-08-02T02:55:13.714139+00:00",
     "status": "accepted"
   },
   "Voice of Deceit": {

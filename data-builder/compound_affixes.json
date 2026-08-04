@@ -1467,6 +1467,31 @@
     ],
     "notes": "Grants +6 deflection bonus to AC and +6 resistance bonus to saves for characters of True Neutral alignment; both permanent while the item is equipped and conditions met."
   },
+  "Swiftness": {
+    "components": [
+      {
+        "name": "Melee Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Ranged Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Speed",
+        "type": "Enhancement",
+        "value": {
+          "mode": "30"
+        }
+      }
+    ]
+  }
   "Voice of Deceit": {
     "components": [
       {

@@ -1283,6 +1283,31 @@
     },
     {
         "affixes": [
+            "Melee Alacrity",
+            "Ranged Alacrity",
+            "Speed"
+        ],
+        "components": [
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Ranged Alacrity",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Speed",
+                "type": "Enhancement",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Swiftness"
+    },
+    {
+        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",

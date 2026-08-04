@@ -1,42 +1,67 @@
 name: Data Auto Updater
+
 on:
   push:
     branches:
       - master
   schedule:
-    # Run at 5:18 UTC daily 
-    - cron:  '18 5 * * *'
+    # Run at 5:18 UTC daily
+    - cron: '18 5 * * *'
 
 jobs:
   build-data:
-    # Prevent infinite loop of commits triggering the workflow
+    # Scheduled runs always execute. Pushes created by this workflow do not.
     if: |
       github.event_name == 'schedule' ||
       !startsWith(github.event.head_commit.message, '[auto-update]')
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.AUTO_UPDATER_REPO_ACCESS_TOKEN }}
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.14
+          python-version: '3.14'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r data-builder/requirements.txt
+
       - name: Install Playwright browser runtime
         run: |
           python -m playwright install chromium
-      - name: Run script 
+
+      - name: Run script
         run: |
-          python data-builder/build.py --discord ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
+          python data-builder/build.py \
+            --discord "${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}"
+
+      - name: Check for substantive data changes
+        id: data-changes
+        shell: bash
+        run: |
+          changes=$(git status --porcelain site/src/assets \
+            | grep -v 'site/src/assets/build-info.json' || true)
+
+          if [ -n "$changes" ]; then
+            echo "Data changed."
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Only build-info.json changed (or nothing changed)."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Commit
+        if: steps.data-changes.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "[auto-update] Latest data"
           commit_user_name: Data Auto Updater
           file_pattern: site/src/assets/*.json
-          
+

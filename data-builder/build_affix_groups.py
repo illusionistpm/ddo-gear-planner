@@ -86,6 +86,15 @@ def add_compound_affix_groups(groups: list[AffixGroup], mapping: CompoundAffixMa
             else:
                 upsert_fixed(groups, name, affixes)
 
+def expand_groups(elem, groups):
+    if elem not in groups:
+        return [elem]
+
+    result = []
+    for item in groups[elem.name]:
+        result.extend(expand_groups(elem, groups))
+    return result
+
 
 def build_affix_groups() -> None:
     groups: list[AffixGroup] = []
@@ -97,6 +106,8 @@ def build_affix_groups() -> None:
     # and I don't really care about them.
     #add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
     #add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Deadly'])
+    add(groups, 'All Saves', get_all_saves())
+    add(groups, 'All Skills', get_all_skills())
     add(groups, 'Good Luck', ['Resistance'] + get_all_saves() + get_all_skills())
     add(groups, 'Void Intensity', ['Negative Intensity', 'Poison Intensity'])
     add(groups, 'Resistance', get_all_saves())
@@ -122,6 +133,7 @@ def build_affix_groups() -> None:
     add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
+    add(groups, 'Greater Heroism', ['All Saves', 'All Skills', 'Accuracy'])
     add(groups, 'Power of the Frozen Storm', ['Cold Spell Power', 'Electric Spell Power'])
     add(groups, 'Power of the Frozen Depths', ['Cold Spell Power', 'Negative Spell Power', 'Poison'])
     add(groups, 'Power of the Flames of Purity', ['Fire Spell Power', 'Light Spell Power'])
@@ -142,7 +154,11 @@ def build_affix_groups() -> None:
     ])
     add_compound_affix_groups(groups)
 
-    write_json(groups, 'affix-groups')
+    # Recursively go through each group and replace any RHS groups with their components
+    # ('All Saves' for example should be expanded to all the saves)
+    expandedGroups = {k: expand_groups(k, groups) for k in groups}
+
+    write_json(expandedGroups, 'affix-groups')
 
 
 if __name__ == "__main__":

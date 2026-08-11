@@ -7,10 +7,11 @@ def get_all_saves(bonusType = None) -> list[str]:
     return ['Fortitude Save', 'Reflex Save', 'Will Save']
 
 def get_all_skills(bonusType = None) -> list[str]:
-    return ['Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Fortitude Save', 'Spot', 'Haggle', 'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform', 'Reflex Save', 'Repair', 'Resistance', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Will Save', 'Use Magic Device']
+    return ['Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Haggle', 'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform', 'Repair', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Use Magic Device']
 
 
 def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
+    _validate_affix_names(name, affixes)
     groups.append({
         'name': name,
         'affixes': affixes
@@ -18,6 +19,7 @@ def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
 
 
 def upsert(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
+    _validate_affix_names(name, affixes)
     entry = {
         'name': name,
         'affixes': affixes,
@@ -27,6 +29,20 @@ def upsert(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
             groups[index] = entry
             return
     groups.append(entry)
+
+
+def _validate_affix_names(group_name: str, affixes: list[str]) -> None:
+    invalid_affixes = [affix for affix in affixes if not isinstance(affix, str)]
+    if invalid_affixes:
+        raise TypeError(f'Affix group "{group_name}" contains non-string affixes: {invalid_affixes}')
+
+
+def _fixed_affixes(names: list[str], bonus_type: str, value: int) -> list[Affix]:
+    return [{'name': name, 'type': bonus_type, 'value': value} for name in names]
+
+
+def _unique_affix_names(names: list[str]) -> list[str]:
+    return list(dict.fromkeys(names))
 
 
 def add_fixed(groups: list[AffixGroup], name: str, affixes: list[Affix]) -> None:
@@ -97,10 +113,12 @@ def build_affix_groups() -> None:
     # and I don't really care about them.
     #add(groups, 'Enhancement Bonus (Armor)', ['Armor Class'])
     #add(groups, 'Enhancement Bonus (Weapon)', ['Accuracy', 'Deadly'])
-    add(groups, 'Good Luck', ['Resistance'] + get_all_saves() + get_all_skills())
+    add(groups, 'All Saves', get_all_saves())
+    add(groups, 'All Skills', get_all_skills())
+    add(groups, 'Good Luck', get_all_saves() + get_all_skills())
     add(groups, 'Void Intensity', ['Negative Intensity', 'Poison Intensity'])
     add(groups, 'Resistance', get_all_saves())
-    add(groups, 'Riposte', ['Armor Class', 'Resistance'] + get_all_saves())
+    add(groups, 'Riposte', ['Armor Class'] + get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
     # but we treat as an affix group to keep consistency with Litany of the Dead Combat Bonus affix
     add(groups, 'Litany of the Dead - Ability Bonus', ['Well Rounded'])
@@ -122,6 +140,7 @@ def build_affix_groups() -> None:
     add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
+    add_fixed(groups, 'Greater Heroism', _fixed_affixes(get_all_saves() + get_all_skills() + ['Accuracy'], 'Morale', 4))
     add(groups, 'Power of the Frozen Storm', ['Cold Spell Power', 'Electric Spell Power'])
     add(groups, 'Power of the Frozen Depths', ['Cold Spell Power', 'Negative Spell Power', 'Poison'])
     add(groups, 'Power of the Flames of Purity', ['Fire Spell Power', 'Light Spell Power'])
@@ -135,6 +154,15 @@ def build_affix_groups() -> None:
     add(groups, 'Well Rounded', ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'])
     add(groups, 'Spell Focus Mastery', ['Evocation Focus', 'Necromancy Focus', 'Transmutation Focus', 'Enchantment Focus', 'Conjuration Focus', 'Abjuration Focus', 'Illusion Focus'])
     add(groups, 'each Amplification', ['Healing Amplification', 'Negative Amplification', 'Repair Amplification'])
+    add_fixed(groups, 'Stealth Strike', [
+        {'name': 'Distant Diversion', 'type': 'Insight', 'value': 15}, 
+        {'name': 'Mystic Diversion', 'type': 'Insight', 'value': 15}
+    ])
+    add_fixed(groups, 'Occultation', [
+        {'name': 'Diversion', 'type': 'Enhancement', 'value': 20}, 
+        {'name': 'Distant Diversion', 'type': 'Enhancement', 'value': 20}, 
+        {'name': 'Mystic Diversion', 'type': 'Enhancement', 'value': 20}
+    ])
     add_fixed(groups, 'Songblade', [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}])
     add_fixed(groups, 'Lifesealed', [
         {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},

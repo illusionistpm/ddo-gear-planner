@@ -98,7 +98,7 @@ export class Item {
                     continue;
                 }
 
-                const value = craftable.getMatchingBonusType(affixName, bonusType);
+                const value = craftable.getMatchingBonusType(affixName, bonusType, affixSvc);
                 if (value) {
                     return [craftable.name, value];
                 }
@@ -108,10 +108,10 @@ export class Item {
         return null;
     }
 
-    selectMatchingBonusType(affixName: string, bonusType: string) {
+    selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService) {
         if (this.crafting) {
             for (const craftable of this.crafting) {
-                if (craftable.selectMatchingBonusType(affixName, bonusType)) {
+                if (craftable.selectMatchingBonusType(affixName, bonusType, affixSvc)) {
                     break;
                 }
             }

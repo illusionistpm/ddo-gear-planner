@@ -1,4 +1,5 @@
 import { CraftableOption } from './craftable-option';
+import { AffixService } from './affix.service';
 
 export class Craftable {
     name!: string;
@@ -27,10 +28,10 @@ export class Craftable {
         this.hiddenFromAffixSearch = hiddenFromAffixSearch;
     }
 
-    getMatchingBonusType(affixName: string, bonusType: string): number | null {
+    getMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): number | null {
         if (!this.hiddenFromAffixSearch) {
             for (const option of this.options) {
-                const value = option.getMatchingBonusType(affixName, bonusType);
+                const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
                 if (value) {
                     return value;
                 }
@@ -40,10 +41,10 @@ export class Craftable {
         return null;
     }
 
-    selectMatchingBonusType(affixName: string, bonusType: string): boolean {
+    selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): boolean {
         if (!this.hiddenFromAffixSearch) {
             for (const option of this.options) {
-                const value = option.getMatchingBonusType(affixName, bonusType);
+                const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
                 if (value) {
                     this.selected = option;
                     return true;

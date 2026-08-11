@@ -1,4 +1,5 @@
 import { Affix } from './affix';
+import { AffixService } from './affix.service';
 
 export class CraftableOption {
     affixes: Array<Affix> = new Array<Affix>();
@@ -43,11 +44,14 @@ export class CraftableOption {
         return '';
     }
 
-    getMatchingBonusType(affixName: string, bonusType: string): number | null {
+    getMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): number | null {
         if (this.affixes) {
             for (const affix of this.affixes) {
-                if (affix.name === affixName && affix.type === bonusType) {
-                    return affix.value;
+                const affixesToCheck = affixSvc ? affixSvc.ungroupAffix(affix).concat(affix) : [affix];
+                for (const affixToCheck of affixesToCheck) {
+                    if (affixToCheck.name === affixName && affixToCheck.type === bonusType) {
+                        return affixToCheck.value;
+                    }
                 }
             }
         }

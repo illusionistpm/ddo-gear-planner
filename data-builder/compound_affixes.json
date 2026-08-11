@@ -1487,7 +1487,8 @@
         "name": "Speed",
         "type": "Enhancement",
         "value": {
-          "mode": "30"
+          "amount": 30,
+          "mode": "fixed"
         }
       }
     ]

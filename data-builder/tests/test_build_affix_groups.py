@@ -1,4 +1,5 @@
 import build_affix_groups as module
+import pytest
 
 
 def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
@@ -57,6 +58,23 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert groups['Radiance'] == ['Light Spell Power', 'Alignment Spell Power']
     assert groups['Radiance Lore'] == ['Light Lore', 'Alignment Lore']
     assert groups['Purifying Flame Lore'] == ['Fire Lore', 'Light Lore']
+    assert groups['All Skills'] == module.get_all_skills()
+    assert not set(module.get_all_saves()).intersection(module.get_all_skills())
+    assert 'Resistance' not in module.get_all_skills()
+    assert len(module.get_all_skills()) == len(set(module.get_all_skills()))
+    greater_heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
+    assert groups['Greater Heroism'] == greater_heroism_affixes
+    assert all(isinstance(affix, str) for affix in groups['Greater Heroism'])
+
+    greater_heroism = next(entry for entry in written['affix-groups'] if entry['name'] == 'Greater Heroism')
+    assert greater_heroism == {
+        'name': 'Greater Heroism',
+        'affixes': greater_heroism_affixes,
+        'components': [
+            {'name': name, 'type': 'Morale', 'value': 4}
+            for name in greater_heroism_affixes
+        ],
+    }
 
     songblade = next(entry for entry in written['affix-groups'] if entry['name'] == 'Songblade')
     assert songblade == {
@@ -143,3 +161,10 @@ def test_build_affix_groups_omits_redundant_default_components(monkeypatch):
         'name': 'Default Compound',
         'affixes': ['Search', 'Spot'],
     }
+
+
+def test_add_rejects_nested_affix_lists():
+    groups = []
+
+    with pytest.raises(TypeError, match='non-string affixes'):
+        module.add(groups, 'Bad Group', [['Search'], 'Spot'])

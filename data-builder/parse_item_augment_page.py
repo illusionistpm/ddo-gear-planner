@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import re
+from compound_affixes import expand_single_affix
 from parse_affixes_from_cell import get_affix_map_list_from_tag
 from parse_affixes_from_cell import replace_item_set_affixes
 from parse_legendary_green_steel import postprocess_legendary_green_steel_augments
@@ -32,6 +33,30 @@ def convert_augment_type(augment_type):
         return f"{pack_name}: Set Bonus Slot: Empty" if pack_name else "Set Bonus Slot: Empty"
 
     return augmentTypeTransformMap.get(augment_type, augment_type)
+
+
+def expand_compound_affixes_from_augment_name(crafting_entry):
+    match = re.fullmatch(r'(?:Legendary )?[A-Za-z]+ of (.*?) \+?([0-9]+)%?', crafting_entry['name'])
+    if not match:
+        return
+
+    affix_name = match.group(1)
+    parsed_affixes = crafting_entry.get('affixes', {})
+    base_affix = {
+        'name': affix_name,
+        'type': 'Enhancement',
+        'value': match.group(2),
+    }
+    if affix_name in parsed_affixes:
+        base_affix = parsed_affixes[affix_name]
+
+    expanded_affixes = expand_single_affix(base_affix)
+    if expanded_affixes == [base_affix]:
+        return
+
+    crafting_entry['affixes'] = {
+        base_affix['name']: base_affix
+    }
 
 
 def get_item_augments_from_page(soup):
@@ -95,6 +120,7 @@ def get_item_augments_from_page(soup):
                 affixMap[affix['name']] = affix
 
         craftingEntry['affixes'] = affixMap
+        expand_compound_affixes_from_augment_name(craftingEntry)
 
         itemQuestsTooltipSpan = cells[dataTableLocationCellIndex].find('a')
         itemQuestsTooltip     = itemQuestsTooltipSpan.get('title') if itemQuestsTooltipSpan else None

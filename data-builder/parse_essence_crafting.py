@@ -169,60 +169,6 @@ WIKI_ONLY_COMBINED_AFFIX_PREFIXES = (
     'Warded',
 )
 
-ESSENCE_CRAFTING_AFFIX_ORDER = [
-    'Insightful Assassinate', 'Insightful Deadly', 'Insightful Disease Ward',
-    'Insightful Enchantment Resistance', 'Insightful Illusion Resistance', 'Insightful Poison Ward',
-    'Insightful Spell Saves', 'Insightful Tendon Slice', 'Insightful Charisma', 'Insightful Constitution',
-    'Insightful Dexterity', 'Insightful Dodge', 'Insightful Intelligence', 'Insightful Seeker',
-    'Insightful Strength', 'Insightful Wisdom', 'Parrying', 'Insightful Shatter', 'Insightful Stunning',
-    'Insightful Vertigo', 'Insightful Accuracy', 'Insightful Diversion', 'Bashing', 'Blindness Immunity',
-    'Deathblock', 'Efficient Metamagic - Empower', 'Efficient Metamagic - Enlarge',
-    'Efficient Metamagic - Extend', 'Efficient Metamagic - Empower Healing',
-    'Efficient Metamagic - Maximize', 'Eternal Faith', 'Everbright', 'Fearsome', 'Feather Fall',
-    'Ghost Touch', 'Invulnerability', 'Metalline', 'Persuasion', 'Regeneration', 'Sacred',
-    'Shield Spikes', 'Silver Flame', 'Songblade', 'True Seeing', 'Unbalancing', 'Underwater Action',
-    'Vampirism', 'Vengeful', 'Insightful Abjuration Focus', 'Insightful Conjuration Focus',
-    'Insightful Enchantment Focus', 'Insightful Evocation Focus', 'Insightful Illusion Focus',
-    'Insightful Necromancy Focus', 'Insightful Transmutation Focus', 'Insightful Spell Penetration',
-    'Spell Focus Mastery', 'Insightful Combat Mastery', 'Abjuration Focus', 'Conjuration Focus',
-    'Enchantment Focus', 'Evocation Focus', 'Illusion Focus', 'Necromancy Focus', 'Transmutation Focus',
-    'Spell Penetration', 'Assassinate', 'Doubleshot', 'Insightful Magical Sheltering',
-    'Insightful Physical Sheltering', 'Combat Mastery', 'Deadly', 'Disease Ward',
-    'Enchantment Resistance', 'Fortitude', 'Illusion Resistance', 'Poison Ward', 'Protection',
-    'Reflex', 'Resistance', 'Spell Saves', 'Tendon Slice', 'Will', 'Universal Spell Lore',
-    'Insightful Balance', 'Insightful Bluff', 'Insightful Concentration', 'Insightful Diplomacy',
-    'Insightful Disable Device', 'Insightful Haggle', 'Insightful Heal', 'Insightful Hide',
-    'Insightful Intimidate', 'Insightful Jump', 'Insightful Listen', 'Insightful Move Silently',
-    'Insightful Open Lock', 'Insightful Perform', 'Insightful Repair', 'Insightful Search',
-    'Insightful Spellcraft', 'Insightful Spot', 'Insightful Swim', 'Insightful Tumble', 'Charisma',
-    'Constitution', 'Dexterity', 'Dodge', 'Intelligence', 'Natural Armor', 'Seeker', 'Strength',
-    'Wisdom', 'Melee Alacrity', 'Ranged Alacrity', 'Shatter', 'Stunning', 'Vertigo',
-    'Insightful Incite', 'Insightful Acid Resistance', 'Insightful Cold Resistance',
-    'Insightful Electric Resistance', 'Insightful Fire Resistance', 'Insightful Light Resistance',
-    'Insightful Negative Resistance', 'Insightful Poison Resistance', 'Insightful Sonic Resistance',
-    'Doublestrike', 'Insightful Spell Resistance', 'Accuracy', 'Armor-Piercing', 'Diversion',
-    'Shield Bashing', 'Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Haggle',
-    'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform',
-    'Repair', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Spell Resistance', 'Sheltering',
-    'Striding', 'Vitality', 'Acid Resistance', 'Cold Resistance', 'Electric Resistance',
-    'False Life', 'Fire Resistance', 'Light Resistance', 'Negative Resistance', 'Poison Resistance',
-    'Sonic Resistance', 'Healing Amplification', 'Negative Amplification', 'Repair Amplification',
-    'Acid Lore', 'Fire Lore', 'Healing Lore', 'Cold Lore', 'Kinetic Lore', 'Lightning Lore',
-    'Radiance Lore', 'Repair Lore', 'Sonic Lore', 'Negative Lore', 'Incite', 'Insightful Wizardry',
-    'Acid Absorption', 'Cold Absorption', 'Electricity Absorption', 'Fire Absorption',
-    'Sonic Absorption', 'Potency', 'Insightful Fire Spell Power', 'Insightful Acid Spell Power',
-    'Insightful Positive Spell Power', 'Insightful Fortification', 'Insightful Glaciation',
-    'Insightful Force Spell Power', 'Insightful Electric Spell Power', 'Insightful Negative Spell Power',
-    'Insightful Radiance', 'Insightful Reconstruction', 'Insightful Sonic Spell Power', 'Wizardry',
-    'Fire Spell Power', 'Acid Spell Power', 'Positive Spell Power', 'Fortification',
-    'Cold Spell Power', 'Force Spell Power', 'Electric Spell Power', 'Negative Spell Power',
-    'Radiance', 'Reconstruction', 'Sonic Spell Power',
-]
-
-ESSENCE_CRAFTING_AFFIX_ORDER_INDEX = {
-    affix: index for index, affix in enumerate(ESSENCE_CRAFTING_AFFIX_ORDER)
-}
-
 ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
     ('Armor', 'Suffix'): {
         'add': ['Sonic Spell Power'],
@@ -493,19 +439,6 @@ def apply_essence_crafting_legacy_compatibility_overrides(item_types: dict[str, 
         for affix in override.get('add', []):
             if affix not in affixes:
                 affixes.append(affix)
-    validate_essence_crafting_affix_order(item_types)
-    for item_type_slots in item_types.values():
-        for affixes in item_type_slots.values():
-            affixes.sort(key=lambda affix: ESSENCE_CRAFTING_AFFIX_ORDER_INDEX[affix])
-
-
-def validate_essence_crafting_affix_order(item_types: dict[str, dict[str, list[str]]]) -> None:
-    missing_order = []
-    for item_type_slots in item_types.values():
-        for affixes in item_type_slots.values():
-            missing_order.extend([affix for affix in affixes if affix not in ESSENCE_CRAFTING_AFFIX_ORDER_INDEX])
-    if missing_order:
-        raise ValueError(f'Missing Essence Crafting affix order entries: {sorted(set(missing_order))}')
 
 
 def load_essence_crafting_item_types_from_wiki(path: str = ESSENCE_CRAFTING_SLOTS_PATH) -> dict[str, dict[str, list[str]]]:
@@ -587,14 +520,13 @@ def get_max_known_level(
 
 
 def get_essence_crafting_affix_order(item_types: dict[str, dict[str, list[str]]]) -> list[str]:
-    validate_essence_crafting_affix_order(item_types)
-    affixes_in_item_types = {
-        affix
-        for item_type_slots in item_types.values()
-        for affixes in item_type_slots.values()
-        for affix in affixes
-    }
-    return [affix for affix in ESSENCE_CRAFTING_AFFIX_ORDER if affix in affixes_in_item_types]
+    affix_order: list[str] = []
+    for item_type_slots in item_types.values():
+        for affixes in item_type_slots.values():
+            for affix in affixes:
+                if affix not in affix_order:
+                    affix_order.append(affix)
+    return affix_order
 
 
 def build_essence_crafting_data() -> dict:

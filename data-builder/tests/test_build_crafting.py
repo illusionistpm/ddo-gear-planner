@@ -1,5 +1,6 @@
 import build_crafting as module
 from build_crafting import add_sealed_in_fire_crafting
+from parse_slavers import parse_slavers_crafting
 
 
 def test_add_sealed_in_fire_crafting_copies_sealed_in_mist_options():
@@ -45,3 +46,15 @@ def test_build_crafting_does_not_synthesize_names_for_synonymized_affixes(monkey
 
     option = written['crafting']["Legendary Slaver's Suffix Slot"]['*'][0]
     assert option == {'affixes': [{'name': 'Positive Spell Power', 'type': 'Equipment', 'value': 142}]}
+
+
+def test_slavers_radiance_spell_power_is_not_radiance_lore():
+    slavers = parse_slavers_crafting()
+
+    heroic_suffixes = slavers["Slaver's Suffix Slot"]['*']
+    legendary_suffixes = slavers["Legendary Slaver's Suffix Slot"]['*']
+
+    assert {'affixes': [{'name': 'Radiance Lore', 'type': 'Equipment', 'value': 10}]} in heroic_suffixes
+    assert {'affixes': [{'name': 'Radiance', 'type': 'Equipment', 'value': 70}]} in heroic_suffixes
+    assert {'affixes': [{'name': 'Radiance Lore', 'type': 'Equipment', 'value': 21}]} in legendary_suffixes
+    assert {'affixes': [{'name': 'Radiance', 'type': 'Equipment', 'value': 142}]} in legendary_suffixes

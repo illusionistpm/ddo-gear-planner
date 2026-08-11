@@ -3,52 +3,6 @@ from bs4 import BeautifulSoup
 import parse_essence_crafting as module
 
 
-class FakeCell:
-    def __init__(self, value):
-        self.value = value
-
-
-class FakeWorksheet:
-    def __getitem__(self, key):
-        assert key == 1
-        return [
-            FakeCell('Affix'),
-            FakeCell('Min Level'),
-            *[FakeCell(level) for level in range(1, 35)],
-            FakeCell('Melee Prefix'),
-        ]
-
-    def iter_rows(self):
-        yield [
-            FakeCell('Affix'),
-            FakeCell('Min Level'),
-            *[FakeCell(level) for level in range(1, 35)],
-            FakeCell('Melee Prefix'),
-        ]
-        yield [FakeCell('Songblade'), FakeCell(None), *[FakeCell(1) for _ in range(34)], FakeCell('x')]
-        yield [FakeCell('Combustion'), FakeCell(None), *[FakeCell(2) for _ in range(34)], FakeCell('x')]
-        yield [FakeCell('Insightful Combustion'), FakeCell(None), *[FakeCell(3) for _ in range(34)], FakeCell('x')]
-        yield [FakeCell('Universal Spell Lore'), FakeCell(None), *[FakeCell(4) for _ in range(34)], FakeCell('x')]
-        yield [FakeCell('Spell Focus: Evocation'), FakeCell(None), *[FakeCell(5) for _ in range(34)], FakeCell('x')]
-
-
-class FakeWorkbook:
-    sheetnames = ['Sheet1']
-
-    def __init__(self):
-        self._active = FakeWorksheet()
-
-    @property
-    def active(self):
-        return self._active
-
-    @active.setter
-    def active(self, value):
-        if isinstance(value, int):
-            return
-        self._active = value
-
-
 def build_wiki_progression(values):
     assert len(values) == 36
     return ''.join(f'<td>{value}</td>' for value in values)
@@ -78,7 +32,19 @@ def stub_dependencies(monkeypatch, written, wiki_html):
         'Universal Spell Lore': 'Exceptional',
         'Evocation Focus': 'Equipment',
     })
-    monkeypatch.setattr(module.openpyxl, 'load_workbook', lambda path: FakeWorkbook())
+    monkeypatch.setattr(module, 'load_essence_crafting_item_types_from_wiki', lambda: {
+        'Melee': {
+            'Prefix': [
+                'Songblade',
+                'Fire Spell Power',
+                'Insightful Fire Spell Power',
+                'Universal Spell Lore',
+                'Evocation Focus',
+            ],
+            'Suffix': [],
+            'Extra': [],
+        },
+    })
     monkeypatch.setattr(
         module,
         'load_essence_crafting_progression_from_wiki',
@@ -129,3 +95,67 @@ def test_parse_essence_crafting_raises_max_level_when_wiki_values_are_known(monk
     assert output['maxLevel'] == 36
     assert output['progression']['Fire Spell Power'][-2:] == [135, 136]
     assert output['progression']['Songblade'][-2:] == [1, 1]
+
+
+def test_get_essence_crafting_affixes_from_wiki_cell_expands_grouped_affixes():
+    soup = BeautifulSoup('''
+        <td>
+            <div>
+                <ul>
+                    <li>Spell Power (Combustion, Corrosion, Devotion, Glaciation, Impulse, Magnetism, Nullification, Radiance, Reconstruction, Resonance)</li>
+                    <li>Insightful Spell Power (Combustion, Corrosion, Devotion, Glaciation, Impulse, Magnetism, Nullification, Radiance, Reconstruction, Resonance)</li>
+                    <li>Spell Lore (one type)</li>
+                    <li>Skills:
+                        <ul>
+                            <li>Spellsight</li>
+                            <li>Move Silently</li>
+                        </ul>
+                    </li>
+                    <li>Efficient Metamagic (Empower, Enlarge, Extend, Empower Healing, Maximize)</li>
+                    <li>Armor Destroying (Armor Piercing + Destruction)</li>
+                </ul>
+            </div>
+        </td>
+    ''', 'html.parser')
+
+    affixes = module.get_essence_crafting_affixes_from_cell(soup.find('td'))
+
+    assert affixes == [
+        'Fire Spell Power',
+        'Acid Spell Power',
+        'Positive Spell Power',
+        'Cold Spell Power',
+        'Force Spell Power',
+        'Electric Spell Power',
+        'Negative Spell Power',
+        'Radiance',
+        'Reconstruction',
+        'Sonic Spell Power',
+        'Insightful Fire Spell Power',
+        'Insightful Acid Spell Power',
+        'Insightful Positive Spell Power',
+        'Insightful Glaciation',
+        'Insightful Force Spell Power',
+        'Insightful Electric Spell Power',
+        'Insightful Negative Spell Power',
+        'Insightful Radiance',
+        'Insightful Reconstruction',
+        'Insightful Sonic Spell Power',
+        'Acid Lore',
+        'Fire Lore',
+        'Healing Lore',
+        'Cold Lore',
+        'Kinetic Lore',
+        'Lightning Lore',
+        'Radiance Lore',
+        'Repair Lore',
+        'Sonic Lore',
+        'Negative Lore',
+        'Spellcraft',
+        'Move Silently',
+        'Efficient Metamagic - Empower',
+        'Efficient Metamagic - Enlarge',
+        'Efficient Metamagic - Extend',
+        'Efficient Metamagic - Empower Healing',
+        'Efficient Metamagic - Maximize',
+    ]

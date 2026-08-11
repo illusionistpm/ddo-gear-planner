@@ -29,7 +29,7 @@ def stub_dependencies(monkeypatch, written, wiki_html):
     monkeypatch.setattr(module, 'get_most_common_bonus_type', lambda: {
         'Songblade': 'Enhancement',
         'Fire Spell Power': 'Equipment',
-        'Universal Spell Lore': 'Exceptional',
+        'Spell Lore': 'Equipment',
         'Evocation Focus': 'Equipment',
     })
     monkeypatch.setattr(module, 'load_essence_crafting_item_types_from_wiki', lambda: {
@@ -38,7 +38,7 @@ def stub_dependencies(monkeypatch, written, wiki_html):
                 'Songblade',
                 'Fire Spell Power',
                 'Insightful Fire Spell Power',
-                'Universal Spell Lore',
+                'Spell Lore',
                 'Evocation Focus',
             ],
             'Suffix': [],
@@ -68,17 +68,17 @@ def test_parse_essence_crafting_uses_wiki_values_and_caps_at_known_levels(monkey
     assert output['progression']['Fire Spell Power'][-1] == 134
     assert output['progression']['Insightful Fire Spell Power'][0] == 51
     assert output['progression']['Insightful Fire Spell Power'][-1] == 84
-    assert output['progression']['Universal Spell Lore'][0] == 7
+    assert output['progression']['Spell Lore'][0] == 7
     assert output['progression']['Evocation Focus'][-1] == 2
     assert output['bonusTypes']['Fire Spell Power'] == 'Equipment'
-    assert output['bonusTypes']['Universal Spell Lore'] == 'Exceptional'
+    assert output['bonusTypes']['Spell Lore'] == 'Equipment'
     assert 'affixes' not in output
     assert 'Combustion' not in output['bonusTypes']
     assert output['itemTypes']['Melee']['Prefix'] == [
         'Songblade',
         'Fire Spell Power',
         'Insightful Fire Spell Power',
-        'Universal Spell Lore',
+        'Spell Lore',
         'Evocation Focus',
     ]
 
@@ -159,3 +159,13 @@ def test_get_essence_crafting_affixes_from_wiki_cell_expands_grouped_affixes():
         'Efficient Metamagic - Empower Healing',
         'Efficient Metamagic - Maximize',
     ]
+
+
+def test_spell_lore_parentheticals_have_distinct_meanings():
+    all_types = module.expand_essence_crafting_wiki_affix('Spell Lore (all types)')
+    universal = module.expand_essence_crafting_wiki_affix('Spell Lore (universal)')
+    one_type = module.expand_essence_crafting_wiki_affix('Spell Lore (one type)')
+
+    assert all_types == ['Spell Lore']
+    assert universal == ['Spell Lore']
+    assert one_type == module.SPELL_LORE_AFFIXES

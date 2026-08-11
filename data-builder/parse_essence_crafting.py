@@ -185,12 +185,11 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
         'add': ['Resistance'],
     },
     ('Gloves', 'Suffix'): {
-        'add': ['Resistance', 'Universal Spell Lore'],
+        'add': ['Resistance'],
         'remove': [
             'Insightful Assassinate',
             'Insightful Combat Mastery',
             'Spell Saves',
-            *SPELL_LORE_AFFIXES,
         ],
     },
     ('Helm', 'Suffix'): {
@@ -223,7 +222,7 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
         'remove': ['Silver Flame'],
     },
     ('Trinket', 'Suffix'): {
-        'add': ['Spell Focus Mastery', 'Resistance', 'Universal Spell Lore'],
+        'add': ['Spell Focus Mastery', 'Resistance'],
         'remove': ['Spell Saves', 'Open Lock', 'Search', 'Spellcraft', *SPELL_FOCUS_AFFIXES, *SPELL_LORE_AFFIXES],
     },
 }
@@ -247,7 +246,7 @@ def normalize_wiki_stat_name(stat: str) -> str:
         'Insightful Spell Focus Mastery': 'Insightful Spell Focus Mastery',
         'Insightful Spellpower': 'Insightful Spell Power',
         'Insightful Vertigo /Stunning/Shatter': 'Insightful Vertigo/Stunning/Shatter',
-        'Lore (All)': 'Universal Spell Lore',
+        'Lore (All)': 'Spell Lore',
         'Lore (One Type)': 'Lore',
         'Reflex/Fortitude/Will': 'Saves',
         'Resistance (Save)': 'Resistance',
@@ -359,6 +358,8 @@ def expand_essence_crafting_wiki_affix(affix: str) -> list[str]:
         return INSIGHTFUL_SPELL_POWER_AFFIXES
     if affix.startswith('Spell Power'):
         return SPELL_POWER_AFFIXES
+    if affix.startswith('Spell Lore') and ('(universal)' in affix or '(all types)' in affix):
+        return ['Spell Lore']
     if affix.startswith('Insightful Spell Lore') or affix.startswith('Spell Lore'):
         return SPELL_LORE_AFFIXES
     if affix.startswith('Insightful Resistance'):
@@ -469,6 +470,8 @@ def get_wiki_progression_key(affix: str) -> str | None:
     if base_affix in ['Acid Lore', 'Cold Lore', 'Fire Lore', 'Healing Lore', 'Ice Lore', 'Kinetic Lore',
                       'Lightning Lore', 'Negative Lore', 'Radiance Lore', 'Repair Lore', 'Sonic Lore', 'Void Lore']:
         return 'Lore'
+    if affix == 'Spell Lore':
+        return 'Spell Lore'
     if base_affix in ['Acid Absorption', 'Cold Absorption', 'Electricity Absorption', 'Fire Absorption', 'Sonic Absorption']:
         return 'Absorption'
     if base_affix in ['Acid Spell Power', 'Fire Spell Power', 'Positive Spell Power', 'Repair Spell Power',
@@ -532,6 +535,7 @@ def get_essence_crafting_affix_order(item_types: dict[str, dict[str, list[str]]]
 def build_essence_crafting_data() -> dict:
     assumedBonusTypeMap = get_most_common_bonus_type()
     assumedBonusTypeMap['Perform'] = 'Enhancement'
+    assumedBonusTypeMap['Spell Lore'] = 'Equipment'
     assumedBonusTypeMap['Songblade'] = 'Bool'
     wiki_levels, wiki_progression = load_essence_crafting_progression_from_wiki()
     itemTypes = load_essence_crafting_item_types_from_wiki()

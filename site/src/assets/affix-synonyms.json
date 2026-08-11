@@ -431,6 +431,12 @@
         ]
     },
     {
+        "name": "Use Magic Device",
+        "synonyms": [
+            "UMD"
+        ]
+    },
+    {
         "name": "Vertigo",
         "synonyms": [
             "Trip",

@@ -3,6 +3,40 @@
         "affixes": [
             "Fortitude Save",
             "Reflex Save",
+            "Will Save"
+        ],
+        "name": "All Saves"
+    },
+    {
+        "affixes": [
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device"
+        ],
+        "name": "All Skills"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
             "Will Save",
             "Balance",
             "Bluff",
@@ -426,6 +460,163 @@
     },
     {
         "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 4
+            }
+        ],
+        "name": "Greater Heroism"
+    },
+    {
+        "affixes": [
             "Cold Spell Power",
             "Electric Spell Power"
         ],
@@ -542,6 +733,50 @@
             "Repair Amplification"
         ],
         "name": "each Amplification"
+    },
+    {
+        "affixes": [
+            "Distant Diversion",
+            "Mystic Diversion"
+        ],
+        "components": [
+            {
+                "name": "Distant Diversion",
+                "type": "Insight",
+                "value": 15
+            },
+            {
+                "name": "Mystic Diversion",
+                "type": "Insight",
+                "value": 15
+            }
+        ],
+        "name": "Stealth Strike"
+    },
+    {
+        "affixes": [
+            "Diversion",
+            "Distant Diversion",
+            "Mystic Diversion"
+        ],
+        "components": [
+            {
+                "name": "Diversion",
+                "type": "Enhancement",
+                "value": 20
+            },
+            {
+                "name": "Distant Diversion",
+                "type": "Enhancement",
+                "value": 20
+            },
+            {
+                "name": "Mystic Diversion",
+                "type": "Enhancement",
+                "value": 20
+            }
+        ],
+        "name": "Occultation"
     },
     {
         "affixes": [
@@ -1301,7 +1536,7 @@
             {
                 "name": "Speed",
                 "type": "Enhancement",
-                "value": "<ValueAlreadyParsed>"
+                "value": 30
             }
         ],
         "name": "Swiftness"

@@ -10218,9 +10218,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Radiance Lore",
+                        "name": "Radiance",
                         "type": "Equipment",
-                        "value": 21
+                        "value": 142
                     }
                 ]
             },
@@ -10229,7 +10229,7 @@
                     {
                         "name": "Radiance Lore",
                         "type": "Equipment",
-                        "value": 142
+                        "value": 21
                     }
                 ]
             },
@@ -41628,9 +41628,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Radiance Lore",
+                        "name": "Radiance",
                         "type": "Equipment",
-                        "value": 10
+                        "value": 70
                     }
                 ]
             },
@@ -41639,7 +41639,7 @@
                     {
                         "name": "Radiance Lore",
                         "type": "Equipment",
-                        "value": 70
+                        "value": 10
                     }
                 ]
             },
@@ -47985,12 +47985,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Speed",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Melee Alacrity",
+                        "name": "Swiftness",
                         "type": "Enhancement",
                         "value": "10"
                     }
@@ -48004,9 +47999,9 @@
             {
                 "affixes": [
                     {
-                        "name": "Speed",
+                        "name": "Swiftness",
                         "type": "Enhancement",
-                        "value": "30"
+                        "value": "15"
                     }
                 ],
                 "ml": 20,
@@ -48018,12 +48013,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Speed",
-                        "type": "Enhancement",
-                        "value": "30"
-                    },
-                    {
-                        "name": "Melee Alacrity",
+                        "name": "Swiftness",
                         "type": "Enhancement",
                         "value": "5"
                     }

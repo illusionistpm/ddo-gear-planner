@@ -252,6 +252,7 @@ def download_crafting_pages(session=None):
     download_page('Essence_Crafting/table_3b', cacheDir, session=session)
     download_page('Raw data/Item crafting enchantments', cacheDir, session=session)
     download_page('Nearly_Complete', cacheDir, session=session)
+    download_page('Slave_Lords_Crafting', cacheDir, session=session)
     for tier in [1, 2, 3]:
         download_page(f'Legendary_Green_Steel_items/Tier_{tier}', cacheDir, session=session)
 

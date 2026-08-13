@@ -1,6 +1,8 @@
 import build_crafting as module
+import parse_slavers as slavers_module
 from build_crafting import add_sealed_in_fire_crafting
 from parse_slavers import parse_slavers_crafting
+from test_parse_slavers import slavers_html
 
 
 def test_add_sealed_in_fire_crafting_copies_sealed_in_mist_options():
@@ -48,7 +50,9 @@ def test_build_crafting_does_not_synthesize_names_for_synonymized_affixes(monkey
     assert option == {'affixes': [{'name': 'Positive Spell Power', 'type': 'Equipment', 'value': 142}]}
 
 
-def test_slavers_radiance_spell_power_is_not_radiance_lore():
+def test_slavers_radiance_spell_power_is_not_radiance_lore(monkeypatch):
+    monkeypatch.setattr(slavers_module, 'load_slavers_crafting_soup', slavers_html)
+
     slavers = parse_slavers_crafting()
 
     heroic_suffixes = slavers["Slaver's Suffix Slot"]['*']

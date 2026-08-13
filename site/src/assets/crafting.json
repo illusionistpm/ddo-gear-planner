@@ -9866,7 +9866,7 @@
                     {
                         "name": "Spell Focus Mastery",
                         "type": "Equipment",
-                        "value": 4
+                        "value": 6
                     }
                 ]
             },
@@ -41285,7 +41285,7 @@
                     {
                         "name": "Spell Penetration",
                         "type": "Equipment",
-                        "value": 2
+                        "value": 3
                     }
                 ]
             },

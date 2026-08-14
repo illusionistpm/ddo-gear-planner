@@ -39,22 +39,29 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="col" *ngFor="let types of sortTypes(affixName)">
-                    <button class="w-100" *ngIf="types.value; else noValue"
+                <div class="col" *ngFor="let types of getVisibleTypes(affixName)">
+                    <button class="w-100 tracked-bonus-button" *ngIf="types.value; else noValue"
                         (click)="showItemsWithBonusType(affixName, types.bonusType)"
-                        [title]="getValueTooltip(affixName, types)">
-                        <span
-                            [ngClass]="getClassForValue(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}:
-                            {{types.value}} </span>
-                        <span
-                            class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                        [title]="getBonusTypeTooltip(affixName, types)">
+                        <span class="tracked-bonus-side" aria-hidden="true"></span>
+                        <span class="tracked-bonus-label"
+                            [ngClass]="getClassForValue(affixName, types)">
+                            <span [class.unavailable-bonus-type]="isBonusTypeUnavailableAtCurrentLevelRange(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}</span>:
+                            {{types.value}}
+                        </span>
+                        <span class="tracked-bonus-side max-available">
+                            <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                        </span>
                     </button>
                     <ng-template #noValue>
-                        <button [hidden]="types.bonusType === 'Penalty'" class="w-100 no-value"
+                        <button class="w-100 no-value tracked-bonus-button"
+                            [title]="getBonusTypeTooltip(affixName, types)"
                             (click)="showItemsWithBonusType(affixName, types.bonusType)">
-                            {{types.bonusType ? types.bonusType : "Untyped"}}
-                            <span
-                                class="max-available float-end">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                            <span class="tracked-bonus-side" aria-hidden="true"></span>
+                            <span class="tracked-bonus-label" [class.unavailable-bonus-type]="isBonusTypeUnavailableAtCurrentLevelRange(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}</span>
+                            <span class="tracked-bonus-side max-available">
+                                <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                            </span>
                         </button>
                     </ng-template>
                 </div>

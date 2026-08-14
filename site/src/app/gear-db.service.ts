@@ -36,6 +36,9 @@ export class GearDbService {
   private allGear: Map<string, Array<Item>> = new Map<string, Array<Item>>();
   private craftingList: Map<string, Map<string, Craftable>> = new Map<string, Map<string, Craftable>>();
   private essenceCraftingList: Map<string, (ml: number) => Craftable> = new Map<string, (ml: number) => Craftable>();
+  private currentItemFilters: ItemFilters = new ItemFilters();
+  private setLevels: Map<string, Set<number>> = new Map<string, Set<number>>();
+  private allLevelAffixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
   bestValues: Map<any, number> = new Map<any, number>();
@@ -52,6 +55,7 @@ export class GearDbService {
     this.allGear = this._loadAllItems();
 
     this.filters.getItemFilters().subscribe(itemFilters => {
+      this.currentItemFilters = itemFilters;
       this.gear = this.applyItemFilters(itemFilters);
     });
   }
@@ -233,8 +237,64 @@ export class GearDbService {
     }
 
     this.filters.setMaxLevel(maxLevel);
+    this.setLevels = this._buildSetLevels(gear);
+    this.allLevelAffixToBonusTypes = this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel);
 
     return gear;
+  }
+
+  private _buildSetLevels(gear: Map<string, Array<Item>>) {
+    const setLevels = new Map<string, Set<number>>();
+    const addSetLevel = (setName: string, ml: number) => {
+      if (!setLevels.has(setName)) {
+        setLevels.set(setName, new Set<number>());
+      }
+
+      const levels = setLevels.get(setName);
+      if (levels) {
+        levels.add(ml);
+      }
+    };
+
+    for (const items of gear.values()) {
+      for (const item of items) {
+        const sets = item.getSets();
+        if (sets) {
+          for (const setName of sets) {
+            addSetLevel(setName, item.ml);
+          }
+        }
+
+        if (item.crafting) {
+          for (const craftable of item.crafting) {
+            for (const option of craftable.options) {
+              if (option.set) {
+                addSetLevel(option.set, option.ml || item.ml);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return setLevels;
+  }
+
+  private _isLevelInRange(ml: number, minLevel: number, maxLevel: number) {
+    return ml >= minLevel && ml <= maxLevel;
+  }
+
+  private _isCraftableOptionInLevelRange(option: CraftableOption, minLevel: number, maxLevel: number) {
+    return !option.ml || this._isLevelInRange(option.ml, minLevel, maxLevel);
+  }
+
+  private _isSetInLevelRange(setName: string, minLevel: number, maxLevel: number) {
+    const levels = this.setLevels.get(setName);
+    if (!levels || levels.size === 0) {
+      return false;
+    }
+
+    return Array.from(levels).some(level => this._isLevelInRange(level, minLevel, maxLevel));
   }
 
   applyItemFilters(filters: ItemFilters) {
@@ -259,26 +319,36 @@ export class GearDbService {
 
     this._buildEssenceCraftingItems(gear, maxLevel);
 
+    this.affixToBonusTypes = this._buildAffixToBonusTypes(gear, minLevel, maxLevel);
 
-    //// FIXME!! Move this to its own function, attach it to the level range change so that affixes update with level range
+    return gear;
+  }
+
+  private _buildAffixToBonusTypes(gear: Map<string, Array<Item>>, minLevel: number, maxLevel: number) {
+    const affixToBonusTypes = new Map<string, Map<string, number>>();
+
     for (const items of gear.values()) {
       for (const item of items) {
-        this._addAffixesToMap(item.affixes);
-        this._addCraftingAffixesToMap(item.crafting);
+        this._addAffixesToMap(affixToBonusTypes, item.affixes);
+        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel);
       }
     }
 
     const rawSetList = setList as Record<string, any[]>;
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
+      if (!this._isSetInLevelRange(setName, minLevel, maxLevel)) {
+        continue;
+      }
+
       for (const threshold of rawSetList[setName]) {
-        this._addAffixesToMap(threshold.affixes);
+        this._addAffixesToMap(affixToBonusTypes, threshold.affixes);
       }
     }
 
     const essenceCraftingAffixes = this.essenceCrafting.getAllAffixesForML(maxLevel);
-    this._addAffixesToMap(essenceCraftingAffixes);
+    this._addAffixesToMap(affixToBonusTypes, essenceCraftingAffixes);
 
-    return gear;
+    return affixToBonusTypes;
   }
 
   private _buildEssenceCraftingItems(gear: Map<string, Array<Item>>, maxLevel: number) {
@@ -320,16 +390,16 @@ export class GearDbService {
     }
   }
 
-  private _addAffixesToMap(affixes: Array<Affix>) {
-    this._addAffixesToMap_helper(affixes);
+  private _addAffixesToMap(affixToBonusTypes: Map<string, Map<string, number>>, affixes: Array<Affix>) {
+    this._addAffixesToMap_helper(affixToBonusTypes, affixes);
 
     for (const affix of affixes) {
       const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
-      this._addAffixesToMap_helper(ungroupedAffixes);
+      this._addAffixesToMap_helper(affixToBonusTypes, ungroupedAffixes);
     }
   }
 
-  private _addCraftingAffixesToMap(crafting: Array<Craftable> | undefined) {
+  private _addCraftingAffixesToMap(affixToBonusTypes: Map<string, Map<string, number>>, crafting: Array<Craftable> | undefined, minLevel: number, maxLevel: number) {
     if (!crafting) {
       return;
     }
@@ -340,22 +410,26 @@ export class GearDbService {
       }
 
       for (const option of craftable.options) {
-        this._addAffixesToMap(option.affixes);
+        if (!this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)) {
+          continue;
+        }
+
+        this._addAffixesToMap(affixToBonusTypes, option.affixes);
       }
     }
   }
 
-  private _addAffixesToMap_helper(affixes: Array<Affix>) {
+  private _addAffixesToMap_helper(affixToBonusTypes: Map<string, Map<string, number>>, affixes: Array<Affix>) {
     for (const affix of affixes) {
       if (!affix.name) {
         continue;
       }
 
-      if (!this.affixToBonusTypes.has(affix.name)) {
-        this.affixToBonusTypes.set(affix.name, new Map<string, number>());
+      if (!affixToBonusTypes.has(affix.name)) {
+        affixToBonusTypes.set(affix.name, new Map<string, number>());
       }
 
-      const typeMap = this.affixToBonusTypes.get(affix.name);
+      const typeMap = affixToBonusTypes.get(affix.name);
       if (!typeMap) continue;
 
       const bestVal = typeMap.get(affix.type);
@@ -427,6 +501,8 @@ export class GearDbService {
 
   findGearInSet(setName: string) {
     const results: any[] = [];
+    const minLevel = this.currentItemFilters.levelRange[0];
+    const maxLevel = this.currentItemFilters.levelRange[1];
 
     if (!setName) {
       return results;
@@ -436,6 +512,28 @@ export class GearDbService {
       for (const item of items) {
         if (item.getSets() && item.getSets().includes(setName)) {
           results.push(item);
+          continue;
+        }
+
+        if (!item.crafting) {
+          continue;
+        }
+
+        for (const craftable of item.crafting) {
+          const matchingOption = craftable.options.find(option =>
+            option.set === setName &&
+            this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)
+          );
+
+          if (matchingOption) {
+            const itemWithSetSelected = new Item(item);
+            const matchingCraftable = itemWithSetSelected.getCraftingByName(craftable.name);
+            if (matchingCraftable) {
+              matchingCraftable.selected = matchingCraftable.options.find(option => option.set === setName) || matchingCraftable.selected;
+            }
+            results.push(itemWithSetSelected);
+            break;
+          }
         }
       }
     }
@@ -445,9 +543,15 @@ export class GearDbService {
 
   findSetsWithAffixAndType(affixName: string, bonusType: string) {
     const results: any[] = [];
+    const minLevel = this.currentItemFilters.levelRange[0];
+    const maxLevel = this.currentItemFilters.levelRange[1];
 
     const rawSetList = setList as Record<string, any[]>;
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
+      if (!this._isSetInLevelRange(setName, minLevel, maxLevel)) {
+        continue;
+      }
+
       for (const threshold of rawSetList[setName]) {
         for (const affix of threshold.affixes) {
           if (affix.name === affixName && affix.type === bonusType) {
@@ -462,6 +566,8 @@ export class GearDbService {
 
   findAugmentsWithAffixAndType(affixName: string, bonusType: string): Array<Craftable> {
     let results: Craftable[] = [];
+    const minLevel = this.currentItemFilters.levelRange[0];
+    const maxLevel = this.currentItemFilters.levelRange[1];
     const augmentTypes = Array.from(this.craftingList.keys()).filter(c => c.endsWith(' Augment Slot'));
     for (const augmentType of augmentTypes) {
       const craftable = this.craftingList.get(augmentType);
@@ -471,7 +577,10 @@ export class GearDbService {
       const augments = wildcard.options;
 
       // Filter the augments to only those that have the affix and type we are looking for
-      let filteredAugments = augments.filter(aug => aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)) as CraftableOption[];
+      let filteredAugments = augments.filter(aug =>
+        this._isCraftableOptionInLevelRange(aug, minLevel, maxLevel) &&
+        aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)
+      ) as CraftableOption[];
 
       // Simplify the remaining augments to only the affix name and type
       filteredAugments = filteredAugments.map(aug => {
@@ -521,6 +630,11 @@ export class GearDbService {
 
   getTypesForAffix(affixName: string) {
     const outermap = this.affixToBonusTypes.get(affixName);
+    return outermap ? Array.from(outermap.keys()) : [];
+  }
+
+  getAllLevelTypesForAffix(affixName: string) {
+    const outermap = this.allLevelAffixToBonusTypes.get(affixName);
     return outermap ? Array.from(outermap.keys()) : [];
   }
 

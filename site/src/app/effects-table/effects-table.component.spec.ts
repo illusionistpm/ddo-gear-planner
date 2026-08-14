@@ -56,4 +56,74 @@ describe('EffectsTableComponent', () => {
     component.toggleAffixGroup('Offense');
     expect(component.isAffixGroupCollapsed('Offense')).toBeFalse();
   });
+
+  it('keeps all-level bonus type buttons when the filtered gear has no available value', () => {
+    component.affixMap.set('Kinetic Intensity', [
+      { bonusType: 'Equipment', value: 0 },
+      { bonusType: 'Insight', value: 0 },
+    ]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight', 'Quality']);
+
+    expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
+      { bonusType: 'Equipment', value: 0 },
+      { bonusType: 'Insight', value: 0 },
+      { bonusType: 'Quality', value: 0 },
+    ]);
+    expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
+      'Kinetic Intensity',
+      { bonusType: 'Equipment', value: 0 }
+    )).toBeTrue();
+  });
+
+  it('keeps zero-value bonus type buttons when filtered gear can provide that type', () => {
+    component.affixMap.set('Kinetic Intensity', [
+      { bonusType: 'Equipment', value: 0 },
+      { bonusType: 'Insight', value: 0 },
+    ]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName, bonusType) =>
+      bonusType === 'Equipment' ? 12 : 0
+    );
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight']);
+
+    expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
+      { bonusType: 'Equipment', value: 0 },
+      { bonusType: 'Insight', value: 0 },
+    ]);
+    expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
+      'Kinetic Intensity',
+      { bonusType: 'Equipment', value: 0 }
+    )).toBeFalse();
+  });
+
+  it('keeps equipped bonus type buttons even when the filtered max is zero', () => {
+    component.affixMap.set('Kinetic Intensity', [
+      { bonusType: 'Equipment', value: 12 },
+    ]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment']);
+
+    expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
+      { bonusType: 'Equipment', value: 12 },
+    ]);
+  });
+
+  it('explains unavailable bonus types in the tooltip', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+
+    expect(component.getBonusTypeTooltip('Kinetic Intensity', { bonusType: 'Equipment', value: 0 }))
+      .toBe('No gear with this bonus type is available in the current level range.');
+  });
+
+  it('hides max available badges when the filtered max is zero', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+
+    expect(component.shouldShowMaxAvailable('Kinetic Intensity', { bonusType: 'Equipment', value: 0 })).toBeFalse();
+  });
+
+  it('shows max available badges when the filtered max is positive', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(12);
+
+    expect(component.shouldShowMaxAvailable('Kinetic Intensity', { bonusType: 'Equipment', value: 0 })).toBeTrue();
+  });
 });

@@ -3,6 +3,22 @@
     font-weight: 400;
 }
 
+.tracked-bonus-button {
+    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(3rem, 1fr) auto minmax(3rem, 1fr);
+}
+
+.tracked-bonus-label {
+    justify-self: center;
+}
+
+.tracked-bonus-side {
+    justify-self: end;
+    min-width: 3rem;
+    text-align: right;
+}
+
 .max-value {
     color: var(--success-color);
     font-weight: 700;
@@ -27,8 +43,14 @@
 }
 
 .no-value {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-weight: 400;
+}
+
+.unavailable-bonus-type {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    text-decoration-color: currentColor;
 }
 
 .tracked-affix-section {

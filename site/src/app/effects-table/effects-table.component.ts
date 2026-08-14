@@ -93,6 +93,10 @@ export class EffectsTableComponent implements OnInit {
 
   sortTypes(affixName: string) {
     const types = this.affixMap.get(affixName) || [];
+    return this.sortTypeList(types);
+  }
+
+  private sortTypeList(types: Array<any>) {
     return types.sort((a, b) => {
       let aIndex = this.sortOrder.indexOf(a.bonusType);
       if (aIndex === -1) {
@@ -111,6 +115,45 @@ export class EffectsTableComponent implements OnInit {
 
       return a.bonusType.localeCompare(b.bonusType);
     });
+  }
+
+  isBonusTypeAvailable(affixName: string, type: any): boolean {
+    return this.gearDB.getBestValueForAffixType(affixName, type.bonusType) > 0;
+  }
+
+  isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: any): boolean {
+    return !this.isBonusTypeAvailable(affixName, type);
+  }
+
+  shouldShowMaxAvailable(affixName: string, type: any): boolean {
+    return this.gearDB.getBestValueForAffixType(affixName, type.bonusType) > 0;
+  }
+
+  getVisibleTypes(affixName: string) {
+    const currentTypes = this.affixMap.get(affixName) || [];
+    const typeMap = new Map<string, any>();
+
+    for (const type of currentTypes) {
+      if (type.bonusType !== 'Penalty') {
+        typeMap.set(type.bonusType, type);
+      }
+    }
+
+    for (const bonusType of this.gearDB.getAllLevelTypesForAffix(affixName)) {
+      if (bonusType !== 'Penalty' && !typeMap.has(bonusType)) {
+        typeMap.set(bonusType, { bonusType, value: 0 });
+      }
+    }
+
+    return this.sortTypeList(Array.from(typeMap.values()));
+  }
+
+  getBonusTypeTooltip(affixName: string, type: any): string {
+    if (this.isBonusTypeUnavailableAtCurrentLevelRange(affixName, type)) {
+      return 'No gear with this bonus type is available in the current level range.';
+    }
+
+    return this.getValueTooltip(affixName, type);
   }
 
   getFilteredBoolAffixNames(): string[] {
@@ -199,6 +242,10 @@ export class EffectsTableComponent implements OnInit {
 
     const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
     const shortBy = maxValue - type.value;
+
+    if (maxValue === 0) {
+      return 'No gear with this bonus type is available in the current level range.';
+    }
 
     if (type.value >= maxValue) {
       return 'Best possible value';

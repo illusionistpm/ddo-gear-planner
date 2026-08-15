@@ -57,7 +57,7 @@ describe('EffectsTableComponent', () => {
     expect(component.isAffixGroupCollapsed('Offense')).toBeFalse();
   });
 
-  it('keeps all-level bonus type buttons when the filtered gear has no available value', () => {
+  it('lists all-level bonus types unavailable due to filtering', () => {
     component.affixMap.set('Kinetic Intensity', [
       { bonusType: 'Equipment', value: 0 },
       { bonusType: 'Insight', value: 0 },
@@ -65,15 +65,8 @@ describe('EffectsTableComponent', () => {
     spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
     spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight', 'Quality']);
 
-    expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
-      { bonusType: 'Equipment', value: 0 },
-      { bonusType: 'Insight', value: 0 },
-      { bonusType: 'Quality', value: 0 },
-    ]);
-    expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
-      'Kinetic Intensity',
-      { bonusType: 'Equipment', value: 0 }
-    )).toBeTrue();
+    expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([]);
+    expect(component.getUnavailableTypes('Kinetic Intensity')).toEqual(['Equipment', 'Insight', 'Quality']);
   });
 
   it('keeps zero-value bonus type buttons when filtered gear can provide that type', () => {
@@ -88,8 +81,8 @@ describe('EffectsTableComponent', () => {
 
     expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
       { bonusType: 'Equipment', value: 0 },
-      { bonusType: 'Insight', value: 0 },
     ]);
+    expect(component.getUnavailableTypes('Kinetic Intensity')).toEqual(['Insight']);
     expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
       'Kinetic Intensity',
       { bonusType: 'Equipment', value: 0 }

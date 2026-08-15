@@ -47,12 +47,6 @@
     font-weight: 400;
 }
 
-.unavailable-bonus-type {
-    color: var(--text-secondary);
-    text-decoration: line-through;
-    text-decoration-color: currentColor;
-}
-
 .tracked-affix-section {
     --tracked-affix-accent: var(--primary-color);
     --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
@@ -126,6 +120,15 @@
 
 .tracked-affix-section .card {
     margin-bottom: 0.5rem;
+}
+
+.tracked-affix-unavailable-types {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.25;
+    margin-top: 0.25rem;
+    padding: 0 0.25rem 0.25rem;
+    text-align: center;
 }
 
 .tracked-affix-section-attributes {

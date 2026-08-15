@@ -46,7 +46,7 @@
                         <span class="tracked-bonus-side" aria-hidden="true"></span>
                         <span class="tracked-bonus-label"
                             [ngClass]="getClassForValue(affixName, types)">
-                            <span [class.unavailable-bonus-type]="isBonusTypeUnavailableAtCurrentLevelRange(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}</span>:
+                            {{types.bonusType ? types.bonusType : "Untyped"}}:
                             {{types.value}}
                         </span>
                         <span class="tracked-bonus-side max-available">
@@ -58,12 +58,15 @@
                             [title]="getBonusTypeTooltip(affixName, types)"
                             (click)="showItemsWithBonusType(affixName, types.bonusType)">
                             <span class="tracked-bonus-side" aria-hidden="true"></span>
-                            <span class="tracked-bonus-label" [class.unavailable-bonus-type]="isBonusTypeUnavailableAtCurrentLevelRange(affixName, types)">{{types.bonusType ? types.bonusType : "Untyped"}}</span>
+                            <span class="tracked-bonus-label">{{types.bonusType ? types.bonusType : "Untyped"}}</span>
                             <span class="tracked-bonus-side max-available">
                                 <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
                             </span>
                         </button>
                     </ng-template>
+                </div>
+                <div class="tracked-affix-unavailable-types" *ngIf="getUnavailableTypes(affixName).length">
+                    Filtered types: {{getUnavailableTypes(affixName).join(', ')}}
                 </div>
             </div>
         </div>

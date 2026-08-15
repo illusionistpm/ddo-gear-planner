@@ -134,18 +134,39 @@ export class EffectsTableComponent implements OnInit {
     const typeMap = new Map<string, any>();
 
     for (const type of currentTypes) {
-      if (type.bonusType !== 'Penalty') {
+      if (type.bonusType !== 'Penalty' && (type.value || this.isBonusTypeAvailable(affixName, type))) {
         typeMap.set(type.bonusType, type);
       }
     }
 
     for (const bonusType of this.gearDB.getAllLevelTypesForAffix(affixName)) {
-      if (bonusType !== 'Penalty' && !typeMap.has(bonusType)) {
-        typeMap.set(bonusType, { bonusType, value: 0 });
+      const type = { bonusType, value: 0 };
+      if (bonusType !== 'Penalty' && !typeMap.has(bonusType) && this.isBonusTypeAvailable(affixName, type)) {
+        typeMap.set(bonusType, type);
       }
     }
 
     return this.sortTypeList(Array.from(typeMap.values()));
+  }
+
+  getUnavailableTypes(affixName: string) {
+    const currentTypes = this.affixMap.get(affixName) || [];
+    const currentTypesWithValue = new Set(
+      currentTypes
+        .filter(type => type.value)
+        .map(type => type.bonusType)
+    );
+
+    const unavailableTypes = this.gearDB.getAllLevelTypesForAffix(affixName)
+      .filter(bonusType =>
+        bonusType !== 'Penalty' &&
+        !currentTypesWithValue.has(bonusType) &&
+        !this.isBonusTypeAvailable(affixName, { bonusType, value: 0 })
+      )
+      .map(bonusType => bonusType ? bonusType : 'Untyped');
+
+    return this.sortTypeList(unavailableTypes.map(bonusType => ({ bonusType, value: 0 })))
+      .map(type => type.bonusType);
   }
 
   getBonusTypeTooltip(affixName: string, type: any): string {

@@ -43,7 +43,7 @@ export class FilterItemTypeComponent implements OnInit {
         options.forEach(e => e.value = groupValues.includes(e.name));
         subject?.next(options);
 
-        this.hiddenTypesMap.set(key, options.map(e => e.name));
+        this.hiddenTypesMap.set(key, groupValues);
       }
     });    
    }

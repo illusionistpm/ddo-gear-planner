@@ -19,6 +19,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
   current: Observable<Item> | null = null;
   gear: Array<Item> = [];
+  filteredGear: Array<Item> = [];
   essenceCrafting: Array<Item> = [];
 
   constructor(
@@ -40,8 +41,8 @@ export class ItemSuggestionsComponent implements OnInit {
     this.current = this.equipped.getSlot(this.slot);
 
     const shortlist: Array<Item> = [];
-    const filtered = this.gearDB.getFilteredGearBySlot(this.slot) || [];
-    for (const gear of filtered) {
+    this.filteredGear = this.gearDB.getFilteredGearBySlot(this.slot) || [];
+    for (const gear of this.filteredGear) {
       shortlist.push(gear);
     }
 
@@ -49,7 +50,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
     this.gear = shortlist.slice(0, 20);
 
-    this.essenceCrafting = filtered.filter(item => item.isEssenceCrafted());
+    this.essenceCrafting = this.filteredGear.filter(item => item.isEssenceCrafted());
   }
 
   clearSlot() {
@@ -69,7 +70,7 @@ export class ItemSuggestionsComponent implements OnInit {
       if (newVal instanceof Item) {
         this.gear = [newVal];
       } else {
-        const found = this.gearDB.findGearBySlot(slot, newVal);
+        const found = this.filteredGear.find(item => item.name === newVal);
         if (found) {
           this.gear = [found];
         } else {

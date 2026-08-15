@@ -30,6 +30,16 @@ describe('FilterItemTypeComponent', () => {
     expect(component.hiddenTypesMap.get('one-handed melee')).toEqual(['War Hammers']);
   });
 
+  it('clears hidden type state for groups with no hidden entries', () => {
+    component.filters.setHiddenTypes(new Set(['War Hammers']));
+    component.filters.setHiddenTypes(new Set());
+
+    const options = component.getTypesWithAttribute(['one-handed', 'melee'])?.getValue() || [];
+
+    expect(component.hiddenTypesMap.get('one-handed melee')).toEqual([]);
+    expect(options.find(option => option.name === 'War Hammers')?.value).toBeFalse();
+  });
+
   it('shows all one-handed melee options even when one type is hidden', () => {
     component.filters.setHiddenTypes(new Set(['War Hammers']));
 

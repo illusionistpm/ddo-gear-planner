@@ -36,8 +36,9 @@ export class FilterItemTypeComponent implements OnInit {
 
     filters.getItemFilters().subscribe(itemFilters => {
       const groups = this.splitTypeSetIntoGroups(itemFilters.hiddenItemTypes);
-      for (let key of groups.keys()) {
-        const subject = this.getTypesWithAttribute([key]);
+      for (const group of this.groups) {
+        const key = group.attributes.join(' ');
+        const subject = this.getTypesWithAttribute(group.attributes);
         const options = subject ? subject.getValue() : [];
         const groupValues = groups.get(key) || [];
         options.forEach(e => e.value = groupValues.includes(e.name));

@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center">
       <i class="fas fa-search me-2 text-white"></i>
       <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..." 
-          [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'bg-white text-dark border-0 px-2 form-control-sm'"></app-typeahead>
+          [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'bg-white text-dark border-0 px-2 form-control-sm'" searchType="global_item"></app-typeahead>
     </div>
   </div>
   <div class="col-3 text-end">
@@ -33,7 +33,7 @@
         </button>
         @if (equipped.hasItem(slot)) {
           <button type="button" class="btn btn-secondary flat-left col-1 fw-bold"
-            (click)="equipped.clearSlot(slot)">
+            (click)="clearSlot(slot)">
             &times;
           </button>
         } @else {

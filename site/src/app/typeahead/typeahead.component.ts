@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
     selector: 'app-typeahead',
@@ -16,6 +17,7 @@ export class TypeaheadComponent implements OnInit {
   @Input() placeholder!: string;
   @Input() resultFormatter!: (x: any) => string;
   @Input() inputClass!: string;
+  @Input() searchType!: string;
 
   @ViewChild('inputElement', { static: true }) inputElement!: ElementRef;
 
@@ -36,7 +38,7 @@ export class TypeaheadComponent implements OnInit {
       })
       );
 
-  constructor() { }
+  constructor(private analytics: AnalyticsService) { }
 
   ngOnInit() {
     if (this.item) {
@@ -49,6 +51,12 @@ export class TypeaheadComponent implements OnInit {
   }
 
   onSelectItemMine(e: any) {
+    if (this.searchType) {
+      this.analytics.track('search', {
+        search_type: this.searchType,
+        result_selected: true
+      });
+    }
     this.onChange(e.item);
     setTimeout(() => {
       this.itemName = '';

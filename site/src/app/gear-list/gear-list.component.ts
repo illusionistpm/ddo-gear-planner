@@ -8,6 +8,7 @@ import { AffixRank } from '../affix-rank.enum';
 import { AffixUiService } from '../affix-ui.service';
 import { Clipboard } from '../clipboard';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
@@ -27,7 +28,8 @@ export class GearListComponent implements OnInit {
     public equipped: EquippedService,
     private modalService: NgbModal,
     public userGear: UserGearService,
-    private affixUi: AffixUiService
+    private affixUi: AffixUiService,
+    private analytics: AnalyticsService
   ) {
     this.itemNameMap = new Map<string, string>();
   }
@@ -58,6 +60,9 @@ export class GearListComponent implements OnInit {
   }
 
   showSuggestedItems(slot: string) {
+    this.analytics.track('open_item_suggestions', {
+      slot
+    });
     const dlg = this.modalService.open(ItemSuggestionsComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.slot = slot;
@@ -70,6 +75,9 @@ export class GearListComponent implements OnInit {
   }
 
   showItemsInSet(setName: string) {
+    this.analytics.track('open_set_items', {
+      source: 'active_set'
+    });
     const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.setName = setName;
@@ -113,6 +121,16 @@ export class GearListComponent implements OnInit {
 
   copyGearToClipboard() {
     Clipboard.copy(this.equipped.getGearDescription());
+    this.analytics.track('copy_build', {
+      equipped_slot_count: this.getEquippedSlotCount()
+    });
+  }
+
+  clearSlot(slot: string) {
+    this.equipped.clearSlot(slot);
+    this.analytics.track('planner_clear_slot', {
+      slot
+    });
   }
 
   getAllGear() {
@@ -140,6 +158,10 @@ export class GearListComponent implements OnInit {
         return;
       }
       this.equipped.set(actualItem);
+      this.analytics.track('planner_equip_item', {
+        equip_source: 'global_search',
+        slot: actualItem.slot
+      });
     }
   }
 
@@ -149,5 +171,9 @@ export class GearListComponent implements OnInit {
       return item.name + ' (' + item.slot + ')' + (current ? ' (replaces ' + current + ')' : '');
     }
     return item.name;
+  }
+
+  private getEquippedSlotCount() {
+    return Array.from(this.equipped.getSlotsSnapshot().values()).filter(item => item && item.isValid()).length;
   }
 }

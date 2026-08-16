@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
     selector: 'app-items-in-set',
@@ -21,7 +22,8 @@ export class ItemsInSetComponent implements OnInit {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private analytics: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,10 @@ export class ItemsInSetComponent implements OnInit {
 
   equipItem(item: Item) {
     this.equipped.set(item);
+    this.analytics.track('planner_equip_item', {
+      equip_source: 'set_modal',
+      slot: item.slot
+    });
   }
 
   close() {

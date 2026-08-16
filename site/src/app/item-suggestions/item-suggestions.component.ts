@@ -6,6 +6,7 @@ import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
     selector: 'app-item-suggestions',
@@ -26,7 +27,8 @@ export class ItemSuggestionsComponent implements OnInit {
     public gearDB: GearDbService,
     public equipped: EquippedService,
     private modalService: NgbModal,
-    public userGear: UserGearService
+    public userGear: UserGearService,
+    private analytics: AnalyticsService
   ) { }
 
   userOwnsItem(item: Item): boolean {
@@ -56,12 +58,21 @@ export class ItemSuggestionsComponent implements OnInit {
   clearSlot() {
     if (this.gear.length > 0) {
       this.equipped.clearSlot(this.gear[0].slot);
+      this.analytics.track('planner_clear_slot', {
+        slot: this.gear[0].slot,
+        clear_source: 'slot_suggestions'
+      });
     }
     this.modalService.dismissAll();
   }
 
   equipItem(item: Item) {
     this.equipped.set(item);
+    this.analytics.track('planner_equip_item', {
+      equip_source: 'slot_suggestions',
+      slot: item.slot,
+      crafted: !!item.isEssenceCrafted()
+    });
     this.modalService.dismissAll();
   }
 

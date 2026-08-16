@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserGearService } from '../user-gear.service';
 
 import { FiltersService } from '../filters.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import buildInfo from 'src/assets/build-info.json';
@@ -28,7 +29,8 @@ export class FiltersComponent implements OnInit {
 
   constructor(
     public filters: FiltersService,
-    private userGear: UserGearService
+    private userGear: UserGearService,
+    private analytics: AnalyticsService
   ) {
     filters.getItemFilters().subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
@@ -62,10 +64,18 @@ export class FiltersComponent implements OnInit {
 
   onChangeLevelRange() {
     this.filters.setLevelRange(this.minLevel, this.maxLevel);
+    this.analytics.track('change_level_range', {
+      min_level: this.minLevel,
+      max_level: this.maxLevel,
+      level_span: this.maxLevel - this.minLevel + 1
+    });
   }
   
   onChangeShowRaidItems() {
     this.filters.setShowRaidItems(this.showRaidItems);
+    this.analytics.track('toggle_raid_items', {
+      enabled: this.showRaidItems
+    });
   }
 
   onTroveFileSelected(event: Event) {

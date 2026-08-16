@@ -9,7 +9,7 @@
     @for (attr of attributes; track attr) {
       <div class="col-auto m-0 mb-2 p-0">
         <button class="btn btn-primary mx-1"
-        (click)="add(attr)">{{attr}}</button>
+        (click)="add(attr, 'attribute_button')">{{attr}}</button>
       </div>
     }
   </div>
@@ -73,7 +73,7 @@
         @for (result of topResults; track result[0]) {
           <div class="col-auto m-0 mb-2 p-0">
             <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
-            (click)="add(result[0])">{{result[0]}}</button>
+        (click)="add(result[0], 'suggested_affix')">{{result[0]}}</button>
           </div>
         }
       </div>
@@ -83,7 +83,7 @@
   <!-- Manual Entry -->
   <div class="row mt-2">
     <p class="col-sm-12 col-md-4">Enter affixes manually:</p>
-    <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes
+    <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes searchType="affix"
       [onChange]=onChange()>
     </app-typeahead>
   </div>

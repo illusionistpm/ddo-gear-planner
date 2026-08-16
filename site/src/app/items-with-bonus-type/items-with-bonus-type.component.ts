@@ -12,6 +12,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { AffixService } from '../affix.service';
 import { CraftableOption } from '../craftable-option';
 import { AffixUiService } from '../affix-ui.service';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -71,7 +72,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     private modalService: NgbModal,
     private affixSvc: AffixService,
     public userGear: UserGearService,
-    public affixUi: AffixUiService
+    public affixUi: AffixUiService,
+    private analytics: AnalyticsService
   ) {
   }
 
@@ -182,6 +184,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     }
 
     this.equipped.set(item);
+    this.analytics.track('planner_equip_item', {
+      equip_source: 'bonus_type_modal',
+      slot: item.slot,
+      crafted: !!item.isEssenceCrafted()
+    });
     this.modalService.dismissAll();
   }
 
@@ -196,6 +203,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
           if (option.describe() == optionString) {
             itemCraftable.selected = option;
             this.equipped.set(item);
+            this.analytics.track('planner_equip_item', {
+              equip_source: 'augment_modal',
+              slot: item.slot
+            });
             this.modalService.dismissAll();
             return;
           }
@@ -208,6 +219,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
 
   // Duplicated from gear-craftingList
   showItemsInSet(setName: string) {
+    this.analytics.track('open_set_items', {
+      source: 'bonus_type_modal'
+    });
     const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.setName = setName;

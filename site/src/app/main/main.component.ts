@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { UserGearService } from '../user-gear.service';
 import { GearDbService } from '../gear-db.service';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
     selector: 'app-main',
@@ -19,7 +20,8 @@ export class MainComponent implements OnInit {
 
   constructor(
     private userGear: UserGearService,
-    private gearDb: GearDbService
+    private gearDb: GearDbService,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit() {
@@ -52,6 +54,9 @@ export class MainComponent implements OnInit {
       const text = e.target.result;
       const validNames = this.getValidItemNames();
       const count = this.userGear.importFromTroveCsv(text, validNames);
+      this.analytics.track('import_trove_csv', {
+        imported_item_count_bucket: this.getImportCountBucket(count)
+      });
       this.troveUploadStatus = `TroveExport.csv processed! ${count} items loaded.`;
     };
     reader.onerror = () => {
@@ -68,5 +73,21 @@ export class MainComponent implements OnInit {
       }
     }
     return validNames;
+  }
+
+  private getImportCountBucket(count: number): string {
+    if (count === 0) {
+      return '0';
+    }
+    if (count <= 10) {
+      return '1-10';
+    }
+    if (count <= 50) {
+      return '11-50';
+    }
+    if (count <= 100) {
+      return '51-100';
+    }
+    return '101+';
   }
 }

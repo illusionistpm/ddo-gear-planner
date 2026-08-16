@@ -3,6 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { AffixCloud } from '../affix-cloud';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
@@ -40,7 +41,8 @@ export class AffixCloudComponent implements OnInit {
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
-    private affixSvc: AffixService
+    private affixSvc: AffixService,
+    private analytics: AnalyticsService
   ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
@@ -147,6 +149,10 @@ export class AffixCloudComponent implements OnInit {
   }
 
   addPackage(pkg: string) {
+    this.analytics.track('select_affix_package', {
+      package_type: 'basic',
+      package_name: pkg
+    });
     if (pkg == 'Melee') {
       this.showTactics = true;
     } else if (pkg == 'Caster') {
@@ -156,30 +162,40 @@ export class AffixCloudComponent implements OnInit {
     const packageAffixes = this.packages.get(pkg);
     if (packageAffixes) {
       for (const affix of packageAffixes) {
-        this.add(affix);
+        this.add(affix, 'package', false);
       }
     }
   }
 
   addTactic(tactic: string) {
-    this.add(tactic);
+    this.add(tactic, 'tactic_button');
   }
 
   addSpellSchool(spellSchool: string) {
-    this.add(spellSchool + ' Focus');
+    this.add(spellSchool + ' Focus', 'spell_school_button');
   }
 
   addSpellpower(spellpower: string) {
+    this.analytics.track('select_affix_package', {
+      package_type: 'spellpower',
+      package_name: spellpower
+    });
     const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
     if (spellpowerAffixes) {
       for (const affix of spellpowerAffixes) {
-        this.add(affix);
+        this.add(affix, 'spellpower_package', false);
       }
     }
   }
 
-  add(affix: string) {
+  add(affix: string, source: string = 'manual_search', track: boolean = true) {
     const addedAffixes = this.equipped.addImportantAffix(affix);
+    if (track && addedAffixes.length) {
+      this.analytics.track('select_affix', {
+        selection_source: source,
+        added_affix_count: addedAffixes.length
+      });
+    }
     for (const addedAffix of addedAffixes) {
       this.savedSet.add(addedAffix);
     }
@@ -231,7 +247,7 @@ export class AffixCloudComponent implements OnInit {
 
   onChange() {
     return (affix: any) => {
-      this.add(affix.original ? affix.original : affix.name);
+      this.add(affix.original ? affix.original : affix.name, 'manual_search');
     };
   }
 

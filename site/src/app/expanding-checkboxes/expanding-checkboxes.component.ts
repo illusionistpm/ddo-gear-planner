@@ -11,7 +11,7 @@ export class ExpandingCheckboxesComponent implements OnInit {
   @Input() title: string = '';
   @Input() list: Array<{name: string, value: boolean}> = [];
   @Input() invert: boolean = false;
-  @Input() onChangeFn: (list: Array<{name: string, value: boolean}>) => void = () => {};
+  @Input() onChangeFn: (list: Array<{name: string, value: boolean}>, changeSource: string) => void = () => {};
 
   constructor() { }
 
@@ -33,7 +33,7 @@ export class ExpandingCheckboxesComponent implements OnInit {
 
     this.list.forEach(e => e.value = !clearAll);
 
-    this._notifyListeners();
+    this._notifyListeners('top_level');
   }
 
   isChecked(index: number): boolean {
@@ -47,10 +47,10 @@ export class ExpandingCheckboxesComponent implements OnInit {
 
     this.list[index].value = b;
 
-    this._notifyListeners();
+    this._notifyListeners('subgroup');
   }
 
-  _notifyListeners(): void {
-    this.onChangeFn(this.list);
+  _notifyListeners(changeSource: string): void {
+    this.onChangeFn(this.list, changeSource);
   }
 }

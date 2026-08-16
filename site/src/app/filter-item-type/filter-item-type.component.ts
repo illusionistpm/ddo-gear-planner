@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FiltersService } from '../filters.service';
+import { AnalyticsService } from '../analytics.service';
 
 import itemTypesList from 'src/assets/item-types.json';
 
@@ -20,6 +21,7 @@ export class FilterItemTypeComponent implements OnInit {
 
   constructor(
     public filters: FiltersService,
+    private analytics: AnalyticsService
   ) {
 
     this.groups.push({name: "One-handed melee", attributes: ['one-handed', 'melee']});
@@ -79,7 +81,7 @@ export class FilterItemTypeComponent implements OnInit {
   }
 
   makeOnChangeFn(groupName: string) {
-    return (items: Array<{name: string, value: boolean}>): void => {
+    return (items: Array<{name: string, value: boolean}>, changeSource: string): void => {
       const combinedItems = new Set<string>();
 
       this.hiddenTypesMap.set(groupName, items.filter(e => e.value).map(e => e.name));
@@ -92,6 +94,12 @@ export class FilterItemTypeComponent implements OnInit {
       }
   
       this.filters.setHiddenTypes(combinedItems);
+      this.analytics.track('change_item_type_filters', {
+        interaction_level: changeSource,
+        filter_group: groupName,
+        group_hidden_type_count: items.filter(e => e.value).length,
+        total_hidden_type_count: combinedItems.size
+      });
     };
   }
 

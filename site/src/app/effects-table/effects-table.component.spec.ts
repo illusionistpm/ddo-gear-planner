@@ -80,7 +80,13 @@ describe('EffectsTableComponent', () => {
     spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight']);
 
     expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
-      { bonusType: 'Equipment', value: 0 },
+      {
+        bonusType: 'Equipment',
+        value: 0,
+        label: 'Equipment',
+        sourceAffixName: 'Kinetic Intensity',
+        sourceBonusType: 'Equipment',
+      },
     ]);
     expect(component.getUnavailableTypes('Kinetic Intensity')).toEqual(['Insight']);
     expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
@@ -97,8 +103,108 @@ describe('EffectsTableComponent', () => {
     spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment']);
 
     expect(component.getVisibleTypes('Kinetic Intensity')).toEqual([
-      { bonusType: 'Equipment', value: 12 },
+      {
+        bonusType: 'Equipment',
+        value: 12,
+        label: 'Equipment',
+        sourceAffixName: 'Kinetic Intensity',
+        sourceBonusType: 'Equipment',
+      },
     ]);
+  });
+
+  it('shows universal spell power rows under specific spell power affixes', () => {
+    component.affixMap.set('Light Spell Power', [
+      { bonusType: 'Enhancement', value: 120 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+      if (affixName === 'Light Spell Power') {
+        return ['Enhancement'];
+      }
+      if (affixName === 'Universal Spell Power') {
+        return ['Implement', 'Profane'];
+      }
+      return [];
+    });
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) => {
+      if (affixName === 'Light Spell Power' && bonusType === 'Enhancement') {
+        return 150;
+      }
+      if (affixName === 'Universal Spell Power' && bonusType === 'Implement') {
+        return 32;
+      }
+      if (affixName === 'Universal Spell Power' && bonusType === 'Profane') {
+        return 25;
+      }
+      return 0;
+    });
+    spyOn(component.equipped, 'getCurrentValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
+      affixName === 'Universal Spell Power' && bonusType === 'Implement' ? 30 : 0
+    );
+
+    const visibleTypes = component.getVisibleTypes('Light Spell Power');
+
+    expect(visibleTypes).toContain({
+      bonusType: 'Enhancement',
+      value: 120,
+      label: 'Enhancement',
+      sourceAffixName: 'Light Spell Power',
+      sourceBonusType: 'Enhancement',
+    });
+    expect(visibleTypes).toContain({
+      bonusType: 'Implement',
+      value: 30,
+      label: 'Universal Implement',
+      sourceAffixName: 'Universal Spell Power',
+      sourceBonusType: 'Implement',
+    });
+    expect(visibleTypes).toContain({
+      bonusType: 'Profane',
+      value: 0,
+      label: 'Universal Profane',
+      sourceAffixName: 'Universal Spell Power',
+      sourceBonusType: 'Profane',
+    });
+  });
+
+  it('routes universal spell power rows to the universal source affix', () => {
+    const type = {
+      bonusType: 'Implement',
+      value: 30,
+      label: 'Universal Implement',
+      sourceAffixName: 'Universal Spell Power',
+      sourceBonusType: 'Implement',
+    };
+
+    expect(component.getSourceAffixName('Light Spell Power', type)).toBe('Universal Spell Power');
+    expect(component.getSourceBonusType(type)).toBe('Implement');
+  });
+
+  it('shows universal spell lore rows under specific lore affixes', () => {
+    component.affixMap.set('Light Lore', [
+      { bonusType: 'Equipment', value: 22 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+      if (affixName === 'Light Lore') {
+        return ['Equipment'];
+      }
+      if (affixName === 'Universal Spell Lore') {
+        return ['Artifact'];
+      }
+      return [];
+    });
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
+      affixName === 'Universal Spell Lore' && bonusType === 'Artifact' ? 5 : 1
+    );
+    spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+
+    expect(component.getVisibleTypes('Light Lore')).toContain({
+      bonusType: 'Artifact',
+      value: 0,
+      label: 'Universal Artifact',
+      sourceAffixName: 'Universal Spell Lore',
+      sourceBonusType: 'Artifact',
+    });
   });
 
   it('explains unavailable bonus types in the tooltip', () => {

@@ -11,6 +11,54 @@ interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
 }
 
+interface TrackedBonusTypeDisplay {
+  bonusType: string;
+  value: number;
+  label: string;
+  sourceAffixName: string;
+  sourceBonusType: string;
+}
+
+const UNIVERSAL_SPELL_POWER_AFFIX = 'Universal Spell Power';
+const UNIVERSAL_SPELL_LORE_AFFIX = 'Universal Spell Lore';
+const SPELL_POWER_AFFIXES_WITH_UNIVERSAL_COVERAGE = new Set([
+  'Acid Spell Power',
+  'Alignment Spell Power',
+  'Cold Spell Power',
+  'Electric Spell Power',
+  'Evil Spell Power',
+  'Fire Spell Power',
+  'Force Spell Power',
+  'Light Spell Power',
+  'Negative Spell Power',
+  'Physical Spell Power',
+  'Poison Spell Power',
+  'Positive Spell Power',
+  'Repair Spell Power',
+  'Rust Spell Power',
+  'Sonic Spell Power',
+  'Untyped Spell Power',
+]);
+const LORE_AFFIXES_WITH_UNIVERSAL_COVERAGE = new Set([
+  'Acid Lore',
+  'Alignment Lore',
+  'Cold Lore',
+  'Evil Lore',
+  'Fire Lore',
+  'Force Lore',
+  'Healing Lore',
+  'Kinetic Lore',
+  'Light Lore',
+  'Lightning Lore',
+  'Negative Lore',
+  'Physical Lore',
+  'Poison Lore',
+  'Repair Lore',
+  'Rust Lore',
+  'Sonic Lore',
+  'Untyped Lore',
+]);
+
 @Component({
     selector: 'app-effects-table',
     templateUrl: './effects-table.component.html',
@@ -66,15 +114,21 @@ export class EffectsTableComponent implements OnInit {
 
   currentBonus(affixName: string) {
     let total = 0;
-    const types = this.affixMap.get(affixName) || [];
-    for (const type of types) {
+    for (const type of this.getVisibleTypes(affixName)) {
       total += type.value;
     }
     return total;
   }
 
   maxBonus(affixName: string) {
-    return this.gearDB.getBestValueForAffix(affixName);
+    let total = 0;
+    for (const type of this.getVisibleTypes(affixName)) {
+      const maxValue = this.gearDB.getBestValueForAffixType(type.sourceAffixName, type.sourceBonusType);
+      if (maxValue > 0) {
+        total += maxValue;
+      }
+    }
+    return total;
   }
 
   showItemsWithBonusType(affixName: string, bonusType: string) {
@@ -96,7 +150,7 @@ export class EffectsTableComponent implements OnInit {
     return this.sortTypeList(types);
   }
 
-  private sortTypeList(types: Array<any>) {
+  private sortTypeList<T extends { bonusType: string; label?: string; sourceAffixName?: string }>(types: Array<T>) {
     return types.sort((a, b) => {
       let aIndex = this.sortOrder.indexOf(a.bonusType);
       if (aIndex === -1) {
@@ -113,12 +167,17 @@ export class EffectsTableComponent implements OnInit {
         return diff;
       }
 
-      return a.bonusType.localeCompare(b.bonusType);
+      const affixDiff = (a.sourceAffixName || '').localeCompare(b.sourceAffixName || '');
+      if (affixDiff !== 0) {
+        return affixDiff;
+      }
+
+      return (a.label || a.bonusType).localeCompare(b.label || b.bonusType);
     });
   }
 
   isBonusTypeAvailable(affixName: string, type: any): boolean {
-    return this.gearDB.getBestValueForAffixType(affixName, type.bonusType) > 0;
+    return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
   isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: any): boolean {
@@ -126,23 +185,42 @@ export class EffectsTableComponent implements OnInit {
   }
 
   shouldShowMaxAvailable(affixName: string, type: any): boolean {
-    return this.gearDB.getBestValueForAffixType(affixName, type.bonusType) > 0;
+    return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
-  getVisibleTypes(affixName: string) {
+  getVisibleTypes(affixName: string): TrackedBonusTypeDisplay[] {
     const currentTypes = this.affixMap.get(affixName) || [];
-    const typeMap = new Map<string, any>();
+    const typeMap = new Map<string, TrackedBonusTypeDisplay>();
 
     for (const type of currentTypes) {
       if (type.bonusType !== 'Penalty' && (type.value || this.isBonusTypeAvailable(affixName, type))) {
-        typeMap.set(type.bonusType, type);
+        typeMap.set(
+          this.getTypeMapKey(affixName, type.bonusType),
+          this.makeDisplayType(affixName, type.bonusType, type.value)
+        );
       }
     }
 
     for (const bonusType of this.gearDB.getAllLevelTypesForAffix(affixName)) {
       const type = { bonusType, value: 0 };
-      if (bonusType !== 'Penalty' && !typeMap.has(bonusType) && this.isBonusTypeAvailable(affixName, type)) {
-        typeMap.set(bonusType, type);
+      const key = this.getTypeMapKey(affixName, bonusType);
+      if (bonusType !== 'Penalty' && !typeMap.has(key) && this.isBonusTypeAvailable(affixName, type)) {
+        typeMap.set(key, this.makeDisplayType(affixName, bonusType, 0));
+      }
+    }
+
+    for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
+      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
+        const type = {
+          bonusType,
+          value: this.equipped.getCurrentValueForAffixType(sourceAffixName, bonusType),
+          sourceAffixName,
+          sourceBonusType: bonusType,
+        };
+        const key = this.getTypeMapKey(sourceAffixName, bonusType);
+        if (bonusType !== 'Penalty' && !typeMap.has(key) && (type.value || this.isBonusTypeAvailable(affixName, type))) {
+          typeMap.set(key, this.makeDisplayType(sourceAffixName, bonusType, type.value));
+        }
       }
     }
 
@@ -150,23 +228,22 @@ export class EffectsTableComponent implements OnInit {
   }
 
   getUnavailableTypes(affixName: string) {
-    const currentTypes = this.affixMap.get(affixName) || [];
     const currentTypesWithValue = new Set(
-      currentTypes
+      this.getVisibleTypes(affixName)
         .filter(type => type.value)
-        .map(type => type.bonusType)
+        .map(type => this.getTypeMapKey(type.sourceAffixName, type.sourceBonusType))
     );
 
-    const unavailableTypes = this.gearDB.getAllLevelTypesForAffix(affixName)
+    const unavailableTypes = this.getAllLevelDisplayTypes(affixName)
       .filter(bonusType =>
-        bonusType !== 'Penalty' &&
-        !currentTypesWithValue.has(bonusType) &&
-        !this.isBonusTypeAvailable(affixName, { bonusType, value: 0 })
+        bonusType.sourceBonusType !== 'Penalty' &&
+        !currentTypesWithValue.has(this.getTypeMapKey(bonusType.sourceAffixName, bonusType.sourceBonusType)) &&
+        !this.isBonusTypeAvailable(affixName, bonusType)
       )
-      .map(bonusType => bonusType ? bonusType : 'Untyped');
+      .map(bonusType => bonusType.label);
 
-    return this.sortTypeList(unavailableTypes.map(bonusType => ({ bonusType, value: 0 })))
-      .map(type => type.bonusType);
+    return this.sortTypeList(unavailableTypes.map(bonusType => ({ bonusType, label: bonusType, value: 0 })))
+      .map(type => type.label || type.bonusType);
   }
 
   getBonusTypeTooltip(affixName: string, type: any): string {
@@ -245,7 +322,7 @@ export class EffectsTableComponent implements OnInit {
       return 'penalty-value';
     }
 
-    const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
+    const maxValue = this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
 
     if (type.value >= maxValue) {
       return 'max-value';
@@ -261,7 +338,7 @@ export class EffectsTableComponent implements OnInit {
       return 'Penalty effect';
     }
 
-    const maxValue = this.gearDB.getBestValueForAffixType(affixName, type.bonusType);
+    const maxValue = this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
     const shortBy = maxValue - type.value;
 
     if (maxValue === 0) {
@@ -275,5 +352,65 @@ export class EffectsTableComponent implements OnInit {
     } else {
       return `Low value (${shortBy} below max)`;
     }
+  }
+
+  getBonusTypeLabel(type: any): string {
+    return type.label || (type.bonusType ? type.bonusType : 'Untyped');
+  }
+
+  getSourceAffixName(affixName: string, type: any): string {
+    return type.sourceAffixName || affixName;
+  }
+
+  getSourceBonusType(type: any): string {
+    return type.sourceBonusType || type.bonusType;
+  }
+
+  getMaxValueForType(affixName: string, type: any): number {
+    return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+  }
+
+  private getUniversalCompanionAffixes(affixName: string): string[] {
+    if (SPELL_POWER_AFFIXES_WITH_UNIVERSAL_COVERAGE.has(affixName)) {
+      return [UNIVERSAL_SPELL_POWER_AFFIX];
+    }
+    if (LORE_AFFIXES_WITH_UNIVERSAL_COVERAGE.has(affixName)) {
+      return [UNIVERSAL_SPELL_LORE_AFFIX];
+    }
+    return [];
+  }
+
+  private makeDisplayType(sourceAffixName: string, bonusType: string, value: number): TrackedBonusTypeDisplay {
+    return {
+      bonusType,
+      value,
+      label: this.getDisplayTypeLabel(sourceAffixName, bonusType),
+      sourceAffixName,
+      sourceBonusType: bonusType,
+    };
+  }
+
+  private getDisplayTypeLabel(sourceAffixName: string, bonusType: string): string {
+    const label = bonusType ? bonusType : 'Untyped';
+    return sourceAffixName === UNIVERSAL_SPELL_POWER_AFFIX || sourceAffixName === UNIVERSAL_SPELL_LORE_AFFIX
+      ? 'Universal ' + label
+      : label;
+  }
+
+  private getAllLevelDisplayTypes(affixName: string): TrackedBonusTypeDisplay[] {
+    const displayTypes = this.gearDB.getAllLevelTypesForAffix(affixName)
+      .map(bonusType => this.makeDisplayType(affixName, bonusType, 0));
+
+    for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
+      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
+        displayTypes.push(this.makeDisplayType(sourceAffixName, bonusType, 0));
+      }
+    }
+
+    return displayTypes;
+  }
+
+  private getTypeMapKey(sourceAffixName: string, bonusType: string): string {
+    return sourceAffixName + '\0' + bonusType;
   }
 }

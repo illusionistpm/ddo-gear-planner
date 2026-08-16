@@ -61,6 +61,25 @@ describe('EquippedService', () => {
     expect(service.isImportantAffix('Devotion')).toBeFalse();
   });
 
+  it('does not track universal spell power when a specific spell power is selected', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    const addedAffixes = service.addImportantAffix('Light Spell Power');
+
+    expect(addedAffixes).toEqual(['Light Spell Power']);
+    expect(service.isImportantAffix('Light Spell Power')).toBeTrue();
+    expect(service.isImportantAffix('Universal Spell Power')).toBeFalse();
+  });
+
+  it('allows universal spell power to be tracked directly', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    const addedAffixes = service.addImportantAffix('Universal Spell Power');
+
+    expect(addedAffixes).toEqual(['Universal Spell Power']);
+    expect(service.isImportantAffix('Universal Spell Power')).toBeTrue();
+  });
+
   it('tracks spell lore components when universal spell lore is selected', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 

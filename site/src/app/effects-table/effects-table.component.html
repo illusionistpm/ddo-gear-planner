@@ -41,26 +41,26 @@
                 </div>
                 <div class="col" *ngFor="let types of getVisibleTypes(affixName)">
                     <button class="w-100 tracked-bonus-button" *ngIf="types.value; else noValue"
-                        (click)="showItemsWithBonusType(affixName, types.bonusType)"
+                        (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                         [title]="getBonusTypeTooltip(affixName, types)">
                         <span class="tracked-bonus-side" aria-hidden="true"></span>
                         <span class="tracked-bonus-label"
                             [ngClass]="getClassForValue(affixName, types)">
-                            {{types.bonusType ? types.bonusType : "Untyped"}}:
+                            {{getBonusTypeLabel(types)}}:
                             {{types.value}}
                         </span>
                         <span class="tracked-bonus-side max-available">
-                            <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                            <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{getMaxValueForType(affixName, types)}}]</span>
                         </span>
                     </button>
                     <ng-template #noValue>
                         <button class="w-100 no-value tracked-bonus-button"
                             [title]="getBonusTypeTooltip(affixName, types)"
-                            (click)="showItemsWithBonusType(affixName, types.bonusType)">
+                            (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
                             <span class="tracked-bonus-side" aria-hidden="true"></span>
-                            <span class="tracked-bonus-label">{{types.bonusType ? types.bonusType : "Untyped"}}</span>
+                            <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
                             <span class="tracked-bonus-side max-available">
-                                <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{gearDB.getBestValueForAffixType(affixName, types.bonusType)}}]</span>
+                                <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{getMaxValueForType(affixName, types)}}]</span>
                             </span>
                         </button>
                     </ng-template>

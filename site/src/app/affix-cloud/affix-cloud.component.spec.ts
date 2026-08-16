@@ -70,6 +70,13 @@ describe('AffixCloudComponent', () => {
     expect(component.packages.get('Basic')).not.toContain('Sheltering');
   });
 
+  it('does not include universal spell affixes in the caster bundle', () => {
+    expect(component.packages.get('Caster')).not.toContain('Universal Spell Power');
+    expect(component.packages.get('Caster')).not.toContain('Universal Spell Lore');
+    expect(component.packages.get('Caster')).toContain('Spellcraft');
+    expect(component.packages.get('Caster')).toContain('Spell Focus Mastery');
+  });
+
   it('shows tracked companion affixes immediately when an affix is added', () => {
     component.add('Armor Class');
 

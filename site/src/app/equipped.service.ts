@@ -416,6 +416,10 @@ export class EquippedService {
     return 0;
   }
 
+  getCurrentValueForAffixType(affixName: string, bonusType: string) {
+    return this._getBestValueForAffixType(affixName, bonusType);
+  }
+
   private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {
     const map = new Map<string, number>();
 

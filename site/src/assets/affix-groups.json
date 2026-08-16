@@ -1111,19 +1111,6 @@
     },
     {
         "affixes": [
-            "Armor-Piercing"
-        ],
-        "components": [
-            {
-                "name": "Armor-Piercing",
-                "type": "Legendary",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Legendary Armor-Piercing"
-    },
-    {
-        "affixes": [
             "Positive Healing Amplification",
             "Repair Amplification",
             "Negative Amplification"
@@ -1453,6 +1440,14 @@
             "Rust Spell Power"
         ],
         "name": "Reconstruction"
+    },
+    {
+        "affixes": [
+            "Acid Lore",
+            "Light Lore",
+            "Alignment Lore"
+        ],
+        "name": "Sacred Ground Lore"
     },
     {
         "affixes": [

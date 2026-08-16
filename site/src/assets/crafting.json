@@ -17859,7 +17859,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "24"
                     }
                 ],
@@ -17869,7 +17869,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "62"
                     }
                 ],
@@ -17879,7 +17879,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "24"
                     }
                 ],
@@ -17889,7 +17889,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "62"
                     }
                 ],
@@ -17921,7 +17921,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "24"
                     }
                 ]
@@ -17930,7 +17930,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "24"
                     }
                 ]
@@ -17950,7 +17950,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "62"
                     }
                 ]
@@ -17959,7 +17959,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "62"
                     }
                 ]
@@ -17979,7 +17979,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "62"
                     }
                 ]
@@ -17988,7 +17988,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "62"
                     }
                 ]
@@ -18008,7 +18008,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "62"
                     }
                 ]
@@ -18017,7 +18017,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "62"
                     }
                 ]
@@ -18037,7 +18037,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "24"
                     }
                 ]
@@ -18046,7 +18046,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "24"
                     }
                 ]
@@ -18066,7 +18066,7 @@
                 "affixes": [
                     {
                         "name": "Healing Amplification",
-                        "type": "Enhancement",
+                        "type": "Competence",
                         "value": "24"
                     }
                 ]
@@ -18075,7 +18075,7 @@
                 "affixes": [
                     {
                         "name": "Negative Amplification",
-                        "type": "Enhancement",
+                        "type": "Profane",
                         "value": "24"
                     }
                 ]

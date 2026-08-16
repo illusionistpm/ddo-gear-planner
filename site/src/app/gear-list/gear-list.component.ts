@@ -64,6 +64,10 @@ export class GearListComponent implements OnInit {
   }
 
   showSuggestedItems(slot: string) {
+    if (this.isSlotDisabled(slot)) {
+      return;
+    }
+
     const done = perfStart('GearListComponent.showSuggestedItems');
     this.analytics.track('open_item_suggestions', {
       slot
@@ -124,6 +128,22 @@ export class GearListComponent implements OnInit {
     return '';
   }
 
+  isSlotDisabled(slot: string) {
+    return slot === 'Offhand' && this.equipped.isOffhandDisabled();
+  }
+
+  getSlotTitle(slot: string) {
+    if (this.isSlotDisabled(slot)) {
+      return 'Offhand unavailable while a two-handed weapon is equipped.';
+    }
+
+    if (slot === 'Offhand' && this.equipped.isOffhandRuneArmOnly()) {
+      return 'Crossbows can use rune arms in the offhand.';
+    }
+
+    return '';
+  }
+
   copyGearToClipboard() {
     Clipboard.copy(this.equipped.getGearDescription());
     this.analytics.track('copy_build', {
@@ -132,6 +152,10 @@ export class GearListComponent implements OnInit {
   }
 
   clearSlot(slot: string) {
+    if (this.isSlotDisabled(slot)) {
+      return;
+    }
+
     this.equipped.clearSlot(slot);
     this.analytics.track('planner_clear_slot', {
       slot
@@ -160,6 +184,9 @@ export class GearListComponent implements OnInit {
       } else if (!item.slot) {
         // Not an Item object, maybe a fake object
         console.log('Invalid item selected:', item);
+        return;
+      }
+      if (!this.equipped.canEquip(actualItem)) {
         return;
       }
       this.equipped.set(actualItem);

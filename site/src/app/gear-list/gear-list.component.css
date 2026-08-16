@@ -33,6 +33,17 @@
     border-bottom-right-radius: 0;
 }
 
+.disabled-slot {
+    cursor: help;
+    opacity: 0.75;
+}
+
+.disabled-slot .btn:disabled,
+.disabled-slot .btn.disabled {
+    cursor: help;
+    pointer-events: auto;
+}
+
 .locked {
     color: var(--warning-color);
     font-size: 0.875rem;

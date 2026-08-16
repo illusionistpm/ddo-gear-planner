@@ -3,6 +3,9 @@ import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { perfStart } from './perf-trace';
+import itemTypesList from 'src/assets/item-types.json';
+
+const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
 
 export class Item {
     name!: string;
@@ -65,6 +68,22 @@ export class Item {
 
     isValid() {
         return this.name !== undefined;
+    }
+
+    hasTypeAttribute(attribute: string) {
+        return !!this.type && (itemTypes[this.type]?.attributes || []).includes(attribute);
+    }
+
+    isTwoHandedWeapon() {
+        return this.hasTypeAttribute('weapon') && this.hasTypeAttribute('two-handed');
+    }
+
+    isCrossbow() {
+        return !!this.type && /Crossbows$/.test(this.type);
+    }
+
+    isRuneArm() {
+        return this.type === 'Rune Arms' || this.name === 'Essence Crafting Rune Arm';
     }
 
     isEssenceCrafted() {

@@ -30,7 +30,7 @@ export class ItemsInSetComponent implements OnInit {
     this.matches = [];
     this.lockedMatches = [];
 
-    const matchingGear = this.gearDB.findGearInSet(this.setName);
+    const matchingGear = this.equipped.getCompatibleGear(this.gearDB.findGearInSet(this.setName));
     for (const item of matchingGear) {
       if (this.equipped.getUnlockedSlots().has(item.slot)) {
         this.matches.push(item);
@@ -49,6 +49,10 @@ export class ItemsInSetComponent implements OnInit {
   }
 
   equipItem(item: Item) {
+    if (!this.equipped.canEquip(item)) {
+      return;
+    }
+
     this.equipped.set(item);
     this.analytics.track('planner_equip_item', {
       equip_source: 'set_modal',

@@ -45,7 +45,7 @@ export class ItemSuggestionsComponent implements OnInit {
     this.current = this.equipped.getSlot(this.slot);
 
     const shortlist: Array<Item> = [];
-    this.filteredGear = this.gearDB.getFilteredGearBySlot(this.slot) || [];
+    this.filteredGear = this.equipped.getCompatibleGearForSlot(this.slot, this.gearDB.getFilteredGearBySlot(this.slot) || []);
     for (const gear of this.filteredGear) {
       shortlist.push(gear);
     }
@@ -75,13 +75,11 @@ export class ItemSuggestionsComponent implements OnInit {
   }
 
   clearSlot() {
-    if (this.gear.length > 0) {
-      this.equipped.clearSlot(this.gear[0].slot);
-      this.analytics.track('planner_clear_slot', {
-        slot: this.gear[0].slot,
-        clear_source: 'slot_suggestions'
-      });
-    }
+    this.equipped.clearSlot(this.slot);
+    this.analytics.track('planner_clear_slot', {
+      slot: this.slot,
+      clear_source: 'slot_suggestions'
+    });
     this.modalService.dismissAll();
   }
 

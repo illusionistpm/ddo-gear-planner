@@ -14,9 +14,13 @@
 
 <div class="row">
   @for (slot of gearList.getSlots(); track slot) {
-    <div class="mb-3 card col-sm-12 col-md-6 col-lg-4">
+    <div class="mb-3 card col-sm-12 col-md-6 col-lg-4"
+      [class.disabled-slot]="isSlotDisabled(slot)"
+      [title]="getSlotTitle(slot)">
       <div class="row">
         <button type="button" class="btn btn-secondary flat-right col-11 text-center" [ngClass]="getClassForSlot(slot)"
+          [disabled]="isSlotDisabled(slot)"
+          [title]="getSlotTitle(slot)"
           (click)="showSuggestedItems(slot)">
           <div class='row'>
             <div class='col-3 text-start'>{{slot}}</div>
@@ -33,11 +37,16 @@
         </button>
         @if (equipped.hasItem(slot)) {
           <button type="button" class="btn btn-secondary flat-left col-1 fw-bold"
+            [disabled]="isSlotDisabled(slot)"
+            [title]="getSlotTitle(slot)"
             (click)="clearSlot(slot)">
             &times;
           </button>
         } @else {
-          <span class="btn btn-secondary flat-left col-1"></span>
+          <span class="btn btn-secondary flat-left col-1"
+            [class.disabled]="isSlotDisabled(slot)"
+            [attr.aria-disabled]="isSlotDisabled(slot)"
+            [title]="getSlotTitle(slot)"></span>
         }
       </div>
       <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>

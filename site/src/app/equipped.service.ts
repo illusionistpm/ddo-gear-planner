@@ -150,6 +150,8 @@ export class EquippedService {
         this._set(item);
       }
 
+      this._enforceOffhandCompatibility();
+
       // for (const lockedSlot of params.getAll('locked')) {
       //   this.setLock(lockedSlot, true);
       // }
@@ -200,9 +202,91 @@ export class EquippedService {
     }
   }
 
+  private getSlotValue(slot: string) {
+    const slotSubject = this.slots.get(slot);
+    return slotSubject ? slotSubject.getValue() : null;
+  }
+
+  private getMainHand() {
+    return this.getSlotValue('Weapon');
+  }
+
+  private shouldEmptyOffhandForMainHand(mainHand: Item | null) {
+    return !!mainHand && mainHand.isValid() && mainHand.isTwoHandedWeapon() && !mainHand.isCrossbow();
+  }
+
+  private shouldLimitOffhandToRuneArms(mainHand: Item | null) {
+    return !!mainHand && mainHand.isValid() && mainHand.isTwoHandedWeapon() && mainHand.isCrossbow();
+  }
+
+  private _clearSlotWithoutRouterUpdate(slot: string) {
+    const dummy = new Item(null);
+    dummy.slot = slot;
+    this._set(dummy);
+  }
+
+  private _enforceOffhandCompatibility() {
+    const mainHand = this.getMainHand();
+    const offhand = this.getSlotValue('Offhand');
+    if (!offhand || !offhand.isValid()) {
+      return;
+    }
+
+    if (this.shouldEmptyOffhandForMainHand(mainHand)) {
+      this._clearSlotWithoutRouterUpdate('Offhand');
+    } else if (this.shouldLimitOffhandToRuneArms(mainHand) && !offhand.isRuneArm()) {
+      this._clearSlotWithoutRouterUpdate('Offhand');
+    }
+  }
+
+  isOffhandDisabled() {
+    return this.shouldEmptyOffhandForMainHand(this.getMainHand());
+  }
+
+  isOffhandRuneArmOnly() {
+    return this.shouldLimitOffhandToRuneArms(this.getMainHand());
+  }
+
+  canEquip(item: Item) {
+    if (!item || item.slot !== 'Offhand') {
+      return true;
+    }
+
+    if (this.isOffhandDisabled()) {
+      return false;
+    }
+
+    return !this.isOffhandRuneArmOnly() || item.isRuneArm();
+  }
+
+  getCompatibleGearForSlot(slot: string, gear: Array<Item>) {
+    if (slot !== 'Offhand') {
+      return gear;
+    }
+
+    if (this.isOffhandDisabled()) {
+      return [];
+    }
+
+    if (this.isOffhandRuneArmOnly()) {
+      return gear.filter(item => item.isRuneArm());
+    }
+
+    return gear;
+  }
+
+  getCompatibleGear(gear: Array<Item>) {
+    return gear.filter(item => this.canEquip(item));
+  }
+
   set(item: Item) {
+    if (!this.canEquip(item)) {
+      return;
+    }
+
     const done = perfStart('EquippedService.set');
     this._set(new Item(item));
+    this._enforceOffhandCompatibility();
 
     this._updateRouterState();
     done({ slot: item.slot, item: item.name });
@@ -396,7 +480,7 @@ export class EquippedService {
 
   isLocked(slot: string) {
     //return !this.unlockedSlots.has(slot);
-    return this.hasItem(slot);
+    return this.hasItem(slot) || (slot === 'Offhand' && this.isOffhandDisabled());
   }
 
   getLockedSlots() {

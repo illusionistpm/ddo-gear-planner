@@ -90,7 +90,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     this.matches = [];
     this.lockedMatches = [];
 
-    const matchingGear = this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType);
+    const matchingGear = this.equipped.getCompatibleGear(
+      this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType)
+    );
     const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
     const unlocked: Item[] = [];
     const locked: Item[] = [];
@@ -179,6 +181,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   }
 
   equipItem(item: Item) {
+    if (!this.equipped.canEquip(item)) {
+      return;
+    }
+
     const done = perfStart('ItemsWithBonusTypeComponent.equipItem');
     const itemToEquip = new Item(item);
     // Apply the relevant crafting option, if any

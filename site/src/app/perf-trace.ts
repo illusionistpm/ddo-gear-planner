@@ -50,9 +50,47 @@ export function perfAfterFrames(label: string) {
   }
 
   const start = performance.now();
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
+  scheduleFrame(() => {
+    scheduleFrame(() => {
       console.log(`[ddo-perf] ${label} ${((performance.now() - start)).toFixed(1)}ms`);
     });
   });
+}
+
+const counters = new Map<string, number>();
+let counterFlushScheduled = false;
+
+export function perfCount(label: string) {
+  if (!perfEnabled()) {
+    return;
+  }
+
+  counters.set(label, (counters.get(label) || 0) + 1);
+  if (counterFlushScheduled) {
+    return;
+  }
+
+  counterFlushScheduled = true;
+  scheduleFrame(() => {
+    scheduleFrame(() => {
+      counterFlushScheduled = false;
+      if (!counters.size) {
+        return;
+      }
+
+      const summary = Array.from(counters.entries())
+        .sort((left, right) => right[1] - left[1])
+        .reduce((accum: Record<string, number>, [key, value]) => {
+          accum[key] = value;
+          return accum;
+        }, {});
+      counters.clear();
+      console.log('[ddo-perf] call counts', summary);
+    });
+  });
+}
+
+function scheduleFrame(callback: FrameRequestCallback) {
+  const nativeRequestAnimationFrame = (window as any).__zone_symbol__requestAnimationFrame as typeof requestAnimationFrame | undefined;
+  (nativeRequestAnimationFrame || requestAnimationFrame)(callback);
 }

@@ -19,51 +19,51 @@
       </div>
     }
     <!-- Main Affixes -->
-    @for (affix of curItem.affixes; track affix.name + '|' + affix.type + '|' + affix.value) {
-      <div class="row table-condensed small hover-helper" [ngClass]="getClassForAffix(affix)"
-          [title]="getAffixTooltip(affix)">
-        @if (equipped.isImportantAffix(affix.name)) {
+    @for (row of affixRows; track row.affix.name + '|' + row.affix.type + '|' + row.affix.value) {
+      <div class="row table-condensed small hover-helper" [ngClass]="row.className"
+          [title]="row.tooltip">
+        @if (row.important) {
           <button class="show-on-hover fas fa-heart heart col-1"
-          (click)="equipped.toggleImportantAffix(affix.name)"></button>
+          (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
-        @if (!equipped.isImportantAffix(affix.name)) {
+        @if (!row.important) {
           <button class="show-on-hover far fa-heart heart col-1"
-          (click)="equipped.toggleImportantAffix(affix.name)"></button>
+          (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
-        <div class="col ps-1">{{affix.name}} @if (isAffixGroup(affix)) { <i class="fas fa-eye small ms-1" [title]="getAffixGroupTooltip(affix)"></i> }</div>
-        @if (affix.hasRealType()) {
-          <div class="col">{{getAffixValue(affix)}} {{affix.type}}</div>
+        <div class="col ps-1">{{row.affix.name}} @if (row.affixGroup) { <i class="fas fa-eye small ms-1" [title]="row.groupTooltip"></i> }</div>
+        @if (row.valueText) {
+          <div class="col">{{row.valueText}}</div>
         }
       </div>
       }
     <!-- Crafting -->
-    @for (craft of curItem.crafting; track craft.name) {
+    @for (row of craftingRows; track row.craft.name) {
       <div class="row table-striped table-condensed small hover-helper">
-        @if (!craft.selected.affixes.length) {
+        @if (!row.craft.selected.affixes.length) {
           <span class="show-never fas fa-heart heart col-1"></span>
         }
-        @if (craft.selected.affixes.length && equipped.isImportantAffix(craft.selected.affixes[0].name)) {
+        @if (row.craft.selected.affixes.length && row.important) {
           <button class="show-on-hover fas fa-heart heart col-1"
-          (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+          (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
-        @if (craft.selected.affixes.length && !equipped.isImportantAffix(craft.selected.affixes[0].name)) {
+        @if (row.craft.selected.affixes.length && !row.important) {
           <button class="show-on-hover far fa-heart heart col-1"
-          (click)="equipped.toggleImportantAffix(craft.selected.affixes[0].name)"></button>
+          (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
-        <div class="col-3 ps-1 pe-0" [ngClass]="getClassForCraftable(craft)" [title]="craft.selected?.affixes?.length ? getAffixTooltip(craft.selected.affixes[0], craft.selected) : ''">
-          {{craft.name}}
-          @if (craft.selected?.affixes?.length && isAffixGroup(craft.selected.affixes[0])) {
-            <i class="fas fa-eye small ms-1" [title]="getAffixGroupTooltip(craft.selected.affixes[0])"></i>
+        <div class="col-3 ps-1 pe-0" [ngClass]="row.className" [title]="row.tooltip">
+          {{row.craft.name}}
+          @if (row.selectedAffixGroup) {
+            <i class="fas fa-eye small ms-1" [title]="row.selectedGroupTooltip"></i>
           }
         </div>
         @if (!readonly) {
           <div class="col-8">
-            <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (change)="updateItem()" [ngClass]="getClassForAffix(craft.selected.affixes[0], craft.selected)" [hidden]="craft.options.length < 2">
-              @for (option of craft.options; track option.getParamDescription()) {
-                <option [ngValue]="option"
-                  [ngClass]="getClassForAffix(option.affixes[0], option)"
-                  [title]="getAffixTooltip(option.affixes[0], option)">
-                  {{describe(option)}}
+            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
+              @for (optionRow of row.options; track optionRow.description) {
+                <option [ngValue]="optionRow.option"
+                  [ngClass]="optionRow.className"
+                  [title]="optionRow.tooltip">
+                  {{optionRow.description}}
                 </option>
               }
             </select>
@@ -72,9 +72,9 @@
       </div>
     }
     <!-- Sets -->
-    @for (set of curItem.getSets(); track set) {
+    @for (set of setRows; track set.name) {
       <div class="row table-striped table-condensed small" >
-        <span class="col">Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set)">{{set}}</a> ({{equipped.getActiveSets().get(set)}})</span>
+        <span class="col">Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set.name)">{{set.name}}</a> ({{set.count}})</span>
       </div>
     }
   </div>

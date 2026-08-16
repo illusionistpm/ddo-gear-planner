@@ -89,7 +89,7 @@
       <div class="col-1"><b>Value</b></div>
       <div class="col-2"></div>
     </div>
-    @for (item of matches.slice(0,100); track item.name) {
+    @for (item of matches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
       <div class="row">
         <div class="col-1">{{item.ml}}</div>
         <div class="col-2">{{item.slot}}</div>
@@ -114,7 +114,7 @@
     <div class="row">&nbsp;</div>
     <h3>Already Filled Slots</h3>
     <i>
-      @for (item of lockedMatches.slice(0,100); track item.name) {
+      @for (item of lockedMatches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
         <div class="row">
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>

@@ -10,7 +10,7 @@ import { canonicalizeCraftingSystemName } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
 import { AffixService } from './affix.service';
 import { EssenceCraftingService } from './essence-crafting.service';
-import { perfMeasure, perfStart } from './perf-trace';
+import { perfCount, perfMeasure, perfStart } from './perf-trace';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -259,6 +259,7 @@ export class EquippedService {
   }
 
   getActiveSets() {
+    perfCount('EquippedService.getActiveSets');
     const setCounts = new Map<string, number>();
 
     for (const slot of this.slots.values()) {
@@ -519,10 +520,12 @@ export class EquippedService {
   }
 
   isImportantAffix(affix: string) {
+    perfCount('EquippedService.isImportantAffix');
     return this.importantAffixes.has(affix);
   }
 
   getAffixRanking(affix: Affix) {
+    perfCount('EquippedService.getAffixRanking');
     // The crafting guys are being passed in too, and they aren't actually affixes. Will have to sort that out.
     if (!affix) {
       return AffixRank.Irrelevant;

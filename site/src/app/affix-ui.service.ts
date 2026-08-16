@@ -6,6 +6,7 @@ import { AffixService } from './affix.service';
 import { GearDbService } from './gear-db.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
+import { perfCount } from './perf-trace';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AffixUiService {
   ) {}
 
   getAffixValue(affix: Affix): string {
+    perfCount('AffixUiService.getAffixValue');
     if (affix?.value) {
       return (affix.value > 0 ? '+' : '') + affix.value;
     }
@@ -25,6 +27,7 @@ export class AffixUiService {
   }
 
   getClassForAffix(affix: Affix, option?: CraftableOption): string {
+    perfCount('AffixUiService.getClassForAffix');
     if (!affix) {
       return AffixRank[AffixRank.Irrelevant];
     }
@@ -51,6 +54,7 @@ export class AffixUiService {
   }
 
   getAffixTooltip(affix: Affix, option?: CraftableOption): string {
+    perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
     
     // Check if this is a set bonus from an augment
@@ -96,6 +100,7 @@ export class AffixUiService {
   }
 
   getAffixGroupTooltip(affix: Affix): string {
+    perfCount('AffixUiService.getAffixGroupTooltip');
     if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
     const groupAffixes = this.affixSvc.ungroupAffix(affix);
     return groupAffixes.length ? affix.name + ' is:\n' + groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n') : '';
@@ -112,6 +117,7 @@ export class AffixUiService {
   }
 
   getClassForCraftable(craft: Craftable): string {
+    perfCount('AffixUiService.getClassForCraftable');
     if (!craft?.selected?.affixes?.length) {
       return AffixRank[AffixRank.Irrelevant];
     }
@@ -120,6 +126,7 @@ export class AffixUiService {
   }
 
   getClassForCraftingOption(option: CraftableOption): string {
+    perfCount('AffixUiService.getClassForCraftingOption');
     if (!option?.affixes?.length) {
       return AffixRank[AffixRank.Irrelevant];
     }

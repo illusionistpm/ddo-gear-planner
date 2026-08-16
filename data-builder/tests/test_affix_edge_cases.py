@@ -193,7 +193,7 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Negative Energy Absorption +20%<span class="tooltip">Negative Energy Absorption +20%: This effect absorbs 20% of all negative damage the character would have taken.</span></span></li>',
-            {'name': 'Negative Energy Absorption', 'type': 'Untyped', 'value': '20'},
+            {'name': 'Negative Energy Absorption', 'type': 'Enhancement', 'value': '20'},
         ),
         (
             '<li><span class="has_tooltip">False Life +5<span class="tooltip">False Life: +5% Legendary bonus to your maximum hit points.</span></span></li>',

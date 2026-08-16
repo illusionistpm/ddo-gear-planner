@@ -217,7 +217,6 @@ def apply_known_affix_type_defaults(affix):
         'Ki',
         'Linguistics',
         'Maximum Charge Tier',
-        'Negative Energy Absorption',
         'Raging Strength',
         'Smite Evil Charges',
         'Tendon Slice',
@@ -228,6 +227,8 @@ def apply_known_affix_type_defaults(affix):
         'Spearblock',
     } or name.startswith('Rune Arm Imbue: ') or name.endswith(' Arcane Casting Dexterity') or name.endswith(' Arcane Augmentation') or name.endswith(' Fire Augmentation'):
         affix['type'] = 'Untyped'
+    elif name == 'Negative Energy Absorption':
+        affix['type'] = 'Enhancement'
 
     return affix
 

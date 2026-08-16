@@ -7,6 +7,7 @@ import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
+import { perfAfterFrames, perfMeasure, perfStart } from '../perf-trace';
 
 @Component({
     selector: 'app-item-suggestions',
@@ -40,6 +41,7 @@ export class ItemSuggestionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    const done = perfStart('ItemSuggestionsComponent.ngOnInit');
     this.current = this.equipped.getSlot(this.slot);
 
     const shortlist: Array<Item> = [];
@@ -48,11 +50,28 @@ export class ItemSuggestionsComponent implements OnInit {
       shortlist.push(gear);
     }
 
-    shortlist.sort((a, b) => this.equipped.getScore(b) - this.equipped.getScore(a));
+    const scores = perfMeasure('ItemSuggestionsComponent.scoreItems', () => {
+      const scoreMap = new Map<Item, number>();
+      for (const item of shortlist) {
+        scoreMap.set(item, this.equipped.getScore(item));
+      }
+      return scoreMap;
+    });
+
+    perfMeasure('ItemSuggestionsComponent.sortItems', () => {
+      shortlist.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
+    });
 
     this.gear = shortlist.slice(0, 20);
 
     this.essenceCrafting = this.filteredGear.filter(item => item.isEssenceCrafted());
+    done({
+      slot: this.slot,
+      filtered: this.filteredGear.length,
+      suggested: this.gear.length,
+      essenceCrafting: this.essenceCrafting.length
+    });
+    perfAfterFrames('paint after item suggestions init');
   }
 
   clearSlot() {

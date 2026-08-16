@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
@@ -15,7 +16,7 @@ import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class AffixCloudComponent implements OnInit {
+export class AffixCloudComponent implements OnInit, OnDestroy {
   cloud: AffixCloud;
   workingMap: Map<string, number>;
   savedSet: Set<string>;
@@ -37,6 +38,8 @@ export class AffixCloudComponent implements OnInit {
 
   spellpowerPackages = new Map<string, Array<string>>();
   spellpowerPackageKeys: string[] = [];
+
+  private importantAffixesSubscription?: Subscription;
 
   constructor(
     public equipped: EquippedService,
@@ -81,9 +84,12 @@ export class AffixCloudComponent implements OnInit {
   }
 
   ngOnInit() {
-    for (const affix of this.equipped.getImportantAffixes()) {
-      this.add(affix);
-    }
+    this.importantAffixesSubscription = this.equipped.getImportantAffixesObservable()
+      .subscribe(affixes => this.syncFromImportantAffixes(affixes));
+  }
+
+  ngOnDestroy() {
+    this.importantAffixesSubscription?.unsubscribe();
   }
 
   _initPackages() {
@@ -230,6 +236,23 @@ export class AffixCloudComponent implements OnInit {
     }
 
     this.topResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 30);
+  }
+
+  private syncFromImportantAffixes(affixes: Set<string>) {
+    this.savedSet = new Set(affixes);
+    this.workingMap.clear();
+
+    for (const savedAffix of this.savedSet) {
+      this.addAffixToWorkingMap(savedAffix);
+    }
+
+    if (!this.savedSet.size) {
+      this.showTactics = false;
+      this.showSpellpowers = false;
+      this.showSpellSchools = false;
+    }
+
+    this.refreshTopResults();
   }
 
   remove(affix: string) {

@@ -479,11 +479,12 @@ export class GearDbService {
     const slotItems = this.getGearBySlot(type);
     const item = slotItems ? slotItems.find(e => e.name === canonicalName) : undefined;
     if (item) {
-      return item;
+      return new Item(item);
     }
 
     const filteredSlotItems = this.getFilteredGearBySlot(type);
-    return filteredSlotItems ? filteredSlotItems.find(e => e.name === canonicalName) : undefined;
+    const filteredItem = filteredSlotItems ? filteredSlotItems.find(e => e.name === canonicalName) : undefined;
+    return filteredItem ? new Item(filteredItem) : undefined;
   }
 
   findGearWithAffixAndType(affixName: string, bonusType: string) {

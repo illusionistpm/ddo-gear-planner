@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { AffixCloudComponent } from './affix-cloud.component';
+import { EquippedService } from '../equipped.service';
 
 describe('AffixCloudComponent', () => {
   let component: AffixCloudComponent;
@@ -93,5 +94,18 @@ describe('AffixCloudComponent', () => {
       name: 'Utility & Checklist',
       affixes: ['Heroic Inspiration']
     });
+  });
+
+  it('clears saved affixes when tracked URL state is cleared', () => {
+    const equipped = TestBed.inject(EquippedService);
+
+    component.add('Strength');
+    expect(component.savedSet.has('Strength')).toBeTrue();
+    expect(component.topResults.length).toBeGreaterThan(0);
+
+    equipped.setImportantAffixes([]);
+
+    expect(component.savedSet.size).toBe(0);
+    expect(component.topResults.length).toBe(0);
   });
 });

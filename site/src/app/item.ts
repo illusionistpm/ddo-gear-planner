@@ -1,6 +1,8 @@
 import { Affix } from './affix';
 import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
+import { CraftableOption } from './craftable-option';
+import { perfStart } from './perf-trace';
 
 export class Item {
     name!: string;
@@ -18,6 +20,7 @@ export class Item {
 
     constructor(json: any) {
         if (json) {
+            const doneClone = json instanceof Item ? perfStart('Item.clone') : null;
             this.name = json.name;
             this.slot = json.slot;
             this.type = json.type;
@@ -27,16 +30,27 @@ export class Item {
             }
             this.sets = json.sets;
             this.url = json.url;
-            this.rawCrafting = json.crafting;
+            this.rawCrafting = (json.rawCrafting || json.crafting || [])
+                .filter((crafting: any) => typeof crafting === 'string');
             if (json.crafting) {
                 this.crafting = Array<Craftable>();
-                const addEmptyItem = !(json instanceof Craftable);
                 for (const craftingJSON of json.crafting) {
-                    this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch, addEmptyItem));
+                    if (craftingJSON instanceof Craftable) {
+                        const selectedDescription = craftingJSON.selected?.getParamDescription() || '';
+                        const options = craftingJSON.options.map(option => new CraftableOption(option));
+                        const crafting = new Craftable(craftingJSON.name, options, craftingJSON.hiddenFromAffixSearch, false);
+                        crafting.selectByParamDescription(selectedDescription);
+                        this.crafting.push(crafting);
+                    } else {
+                        this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch, true));
+                    }
                 }
             }
             this.quests = json.quests;
             this.artifact = json.artifact;
+            if (doneClone) {
+                doneClone({ item: this.name, crafting: this.crafting?.length || 0 });
+            }
         }
     }
 

@@ -90,21 +90,31 @@ export class FiltersService {
   }
 
   updateFromParams(params: any) {
-    for (const key of params.keys) {
-      if (key === 'levelrange') {
-        const vals = (params.get(key) as string).split(',');
-        this.setLevelRange(Number(vals[0]), Number(vals[1]));
-      } else if (key === 'raids') {
-        this.setShowRaidItems(params.get(key) === 'true');
-      } else if (key === 'hiddentypes') {
-        const vals = (params.get(key) as string).split(',');
-        const hiddenTypes = new Set<string>();
-        vals.forEach((element: string) => {
+    const levelRangeParam = params.get('levelrange');
+    if (levelRangeParam) {
+      const vals = levelRangeParam.split(',');
+      const min = Number(vals[0]);
+      const max = Number(vals[1]);
+      if (!Number.isNaN(min) && !Number.isNaN(max)) {
+        this.setLevelRange(min, max);
+      }
+    } else {
+      this.setLevelRange(ItemFilters.MIN_LEVEL(), this.maxLevel);
+    }
+
+    const raidsParam = params.get('raids');
+    this.setShowRaidItems(raidsParam === null ? true : raidsParam === 'true');
+
+    const hiddenTypes = new Set<string>();
+    const hiddenTypesParam = params.get('hiddentypes');
+    if (hiddenTypesParam) {
+      hiddenTypesParam.split(',')
+        .filter((element: string) => element)
+        .forEach((element: string) => {
           hiddenTypes.add(element);
         });
-        this.setHiddenTypes(hiddenTypes);
-      }
     }
+    this.setHiddenTypes(hiddenTypes);
   }
 
   _updateRouterState() {

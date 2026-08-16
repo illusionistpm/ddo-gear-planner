@@ -9,6 +9,7 @@ import { AffixUiService } from '../affix-ui.service';
 import { Clipboard } from '../clipboard';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
+import { perfAfterFrames, perfStart } from '../perf-trace';
 
 import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
@@ -22,6 +23,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 })
 export class GearListComponent implements OnInit {
   itemNameMap: Map<string, string>;
+  itemArtifactMap: Map<string, boolean>;
 
   constructor(
     public gearList: GearDbService,
@@ -32,6 +34,7 @@ export class GearListComponent implements OnInit {
     private analytics: AnalyticsService
   ) {
     this.itemNameMap = new Map<string, string>();
+    this.itemArtifactMap = new Map<string, boolean>();
   }
   userOwnsItem(slot: string): boolean {
     const itemName = this.getItemName(slot);
@@ -50,6 +53,7 @@ export class GearListComponent implements OnInit {
       item.subscribe(newItem => {
         if (newItem) {
           this.itemNameMap.set(newItem.slot, newItem.name);
+          this.itemArtifactMap.set(newItem.slot, !!newItem.artifact);
         }
       });
     }
@@ -60,12 +64,15 @@ export class GearListComponent implements OnInit {
   }
 
   showSuggestedItems(slot: string) {
+    const done = perfStart('GearListComponent.showSuggestedItems');
     this.analytics.track('open_item_suggestions', {
       slot
     });
     const dlg = this.modalService.open(ItemSuggestionsComponent, { ariaLabelledBy: 'modal-basic-title' });
 
     dlg.componentInstance.slot = slot;
+    done({ slot });
+    perfAfterFrames('paint after slot suggestions open');
 
     dlg.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
@@ -111,9 +118,7 @@ export class GearListComponent implements OnInit {
   }
 
   getClassForSlot(slot: string) {
-    const itemName = this.getItemName(slot);
-    const item = this.gearList.findGearBySlot(slot, itemName);
-    if (item && item.artifact) {
+    if (this.itemArtifactMap.get(slot)) {
       return 'MinorArtifact';
     }
     return '';

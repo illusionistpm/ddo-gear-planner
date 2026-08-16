@@ -13,6 +13,7 @@ import { AffixService } from '../affix.service';
 import { CraftableOption } from '../craftable-option';
 import { AffixUiService } from '../affix-ui.service';
 import { AnalyticsService } from '../analytics.service';
+import { perfAfterFrames, perfStart } from '../perf-trace';
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -178,22 +179,27 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   }
 
   equipItem(item: Item) {
-      // Apply the relevant crafting option, if any
-      if (this.findMatchingValue(item)[0]) {
-      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+    const done = perfStart('ItemsWithBonusTypeComponent.equipItem');
+    const itemToEquip = new Item(item);
+    // Apply the relevant crafting option, if any
+    if (this.findMatchingValue(itemToEquip)[0]) {
+      itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
     }
 
-    this.equipped.set(item);
+    this.equipped.set(itemToEquip);
     this.analytics.track('planner_equip_item', {
       equip_source: 'bonus_type_modal',
-      slot: item.slot,
-      crafted: !!item.isEssenceCrafted()
+      slot: itemToEquip.slot,
+      crafted: !!itemToEquip.isEssenceCrafted()
     });
     this.modalService.dismissAll();
+    done({ slot: itemToEquip.slot, item: itemToEquip.name });
+    perfAfterFrames('paint after bonus type equip');
   }
 
   equipAugment() {
-    const item = this.selectedAugmentSlot.item as Item;
+    const done = perfStart('ItemsWithBonusTypeComponent.equipAugment');
+    const item = new Item(this.selectedAugmentSlot.item as Item);
     const craftable = this.selectedAugmentSlot.craftable as Craftable;
     const optionString = this.selectedAugmentSlot.optionString as string;
 
@@ -208,6 +214,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
               slot: item.slot
             });
             this.modalService.dismissAll();
+            done({ slot: item.slot, item: item.name });
+            perfAfterFrames('paint after augment equip');
             return;
           }
         }
@@ -215,6 +223,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     }
 
     console.error('Unable to find matching option for ' + item.name + ' ' + craftable.name + ' ' + optionString);
+    done({ error: true });
   }
 
   // Duplicated from gear-craftingList

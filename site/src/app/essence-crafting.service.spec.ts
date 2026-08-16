@@ -56,4 +56,37 @@ describe('EssenceCraftingService', () => {
     expect(item.crafting.length).toBe(3);
     expect(item.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
   });
+
+  it('rebuilds cloned crafted items from their raw Essence Crafting system when ML changes', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const item = new Item({
+      name: 'Crafted Rune Arm',
+      slot: 'Offhand',
+      type: 'Rune Arms',
+      ml: 34,
+      affixes: [],
+      sets: [],
+      url: '/page/Crafted_Rune_Arm',
+      crafting: [
+        'Essence Crafting: Rune Arm - Extra',
+        'Essence Crafting: Rune Arm - Prefix',
+        'Essence Crafting: Rune Arm - Suffix',
+      ],
+      quests: [],
+      artifact: false,
+    });
+    item.crafting = service.getValuesForML('Rune Arm', item.ml);
+
+    const clone = new Item(item);
+
+    service.setItemToML(clone, 30);
+
+    expect(clone.rawCrafting).toEqual([
+      'Essence Crafting: Rune Arm - Extra',
+      'Essence Crafting: Rune Arm - Prefix',
+      'Essence Crafting: Rune Arm - Suffix',
+    ]);
+    expect(clone.crafting.length).toBe(3);
+    expect(clone.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
+  });
 });

@@ -33,6 +33,44 @@ describe('GearDbService', () => {
     expect(service.findGearBySlot('Weapon', 'Cannith Melee')?.name).toBe('Essence Crafting Melee');
   });
 
+  it('returns a fresh item copy when finding gear by slot', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const item = new Item({
+      name: 'Craftable Test Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 18,
+      affixes: [],
+      sets: [],
+      url: '/page/Craftable_Test_Item',
+      crafting: [
+        {
+          name: 'Test Crafting',
+          hiddenFromAffixSearch: false,
+          options: [
+            { name: 'First Option' },
+          ],
+        },
+      ],
+      quests: [],
+      artifact: false,
+    });
+
+    service['gear'] = new Map<string, Array<Item>>([
+      ['Trinket', [item]],
+    ]);
+
+    const firstLookup = service.findGearBySlot('Trinket', 'Craftable Test Item');
+    firstLookup?.getCraftingByName('Test Crafting')?.selectByParamDescription('First Option');
+
+    const secondLookup = service.findGearBySlot('Trinket', 'Craftable Test Item');
+
+    expect(firstLookup).not.toBe(item);
+    expect(secondLookup).not.toBe(item);
+    expect(secondLookup).not.toBe(firstLookup);
+    expect(secondLookup?.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('');
+  });
+
   it('matches craftable options with MLs inside the requested level range', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
 

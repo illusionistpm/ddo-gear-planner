@@ -14,6 +14,7 @@ import { Item } from '../item';
 import { Observable } from 'rxjs';
 
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
+import { perfAfterFrames, perfStart } from '../perf-trace';
 
 @Component({
     selector: 'app-gear-description',
@@ -57,16 +58,22 @@ export class GearDescriptionComponent implements OnInit {
   }
 
   updateItem() {
+    const done = perfStart('GearDescriptionComponent.updateItem');
     if (this.curItem) {
       this.equipped.set(this.curItem);
     }
+    done();
+    perfAfterFrames('paint after crafting option change');
   }
 
   updateML() {
+    const done = perfStart('GearDescriptionComponent.updateML');
     if (this.curItem && this.essenceCraftingML !== null) {
       this.essenceCrafting.setItemToML(this.curItem, this.essenceCraftingML);
       this.equipped.set(this.curItem);
     }
+    done();
+    perfAfterFrames('paint after crafting ML change');
   }
 
   getAffixValue(affix: Affix) {

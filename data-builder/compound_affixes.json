@@ -721,18 +721,6 @@
     ],
     "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
   },
-  "Legendary Armor-Piercing": {
-    "components": [
-      {
-        "name": "Armor-Piercing",
-        "type": "Legendary",
-        "value": {
-          "mode": "same_as_affix_number"
-        }
-      }
-    ],
-    "notes": "This affix provides a passive always-on percentage bonus to Fortification Bypass, which is a permanent stat affecting attacks ignoring enemy Fortification. It is correctly parsed as a compound affix with one component representing the underlying bonus."
-  },
   "Lifeblood of the Undead Prince": {
     "components": [
       {
@@ -1392,6 +1380,31 @@
       }
     ],
     "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+  },
+  "Sacred Ground Lore": {
+    "components": [
+      {
+        "name": "Acid Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
   },
   "Stability": {
     "components": [

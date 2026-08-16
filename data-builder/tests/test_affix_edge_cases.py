@@ -200,6 +200,42 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'False Life (%)', 'value': '5', 'type': 'Legendary'},
         ),
         (
+            '<li><span class="has_tooltip">Legendary Deadly +13<span class="tooltip">Legendary Deadly +13: +13 Legendary bonus to weapon damage.</span></span></li>',
+            {'name': 'Deadly', 'type': 'Legendary', 'value': '13'},
+        ),
+        (
+            '<li><span class="has_tooltip">Legendary Accuracy +20<span class="tooltip">Legendary Accuracy +20: +20 Legendary bonus to attack rolls.</span></span></li>',
+            {'name': 'Accuracy', 'type': 'Legendary', 'value': '20'},
+        ),
+        (
+            '<li><span class="has_tooltip">Legendary Armor-Piercing +5%<span class="tooltip">Legendary Armor-Piercing +5%: +5% Legendary bonus to Fortification Bypass.</span></span></li>',
+            {'name': 'Armor-Piercing', 'type': 'Legendary', 'value': '5'},
+        ),
+        (
+            '<li><span class="has_tooltip">Legendary Conditioning +15%<span class="tooltip">Legendary Conditioning +15%: You have a +15% Legendary bonus to Maximum Hit Points.</span></span></li>',
+            {'name': 'Conditioning (%)', 'type': 'Legendary', 'value': '15'},
+        ),
+        (
+            '<li><span class="has_tooltip">Sacred Ground Lore<span class="tooltip">Sacred Ground Lore: Passive: Your Acid, Light, and Alignment spells gain a 15% Equipment bonus to their chance to critical hit.</span></span></li>',
+            {'name': 'Sacred Ground Lore', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Sacred Ground Lore +22<span class="tooltip">Sacred Ground Lore: Passive: Your Acid, Light, and Alignment spells gain a 22% Equipment bonus to their chance to critical hit.</span></span></li>',
+            {'name': 'Sacred Ground Lore', 'type': 'Equipment', 'value': '22'},
+        ),
+        (
+            '<li><span class="has_tooltip">Power of the Sacred Ground +148<span class="tooltip">Power of the Sacred Ground: Passive: +148 Equipment bonus to Acid, Light, and Alignment Spell Power.</span></span></li>',
+            {'name': 'Power of the Sacred Ground', 'type': 'Equipment', 'value': '148'},
+        ),
+        (
+            '<li><span class="has_tooltip">Competence Elemental Resistance - 5<span class="tooltip">Competence Elemental Resistance - 5: This item provides a +5 Competence bonus to your Acid, Cold, Fire, and Electrical resistances.</span></span></li>',
+            {'name': 'Elemental Resistance', 'type': 'Competence', 'value': '5'},
+        ),
+        (
+            '<li><span class="has_tooltip">Insight Elemental Resistance - 10<span class="tooltip">Insight Elemental Resistance - 10: This item provides a +10 Insight bonus to your Acid, Cold, Fire, and Electrical resistances.</span></span></li>',
+            {'name': 'Elemental Resistance', 'type': 'Insight', 'value': '10'},
+        ),
+        (
             '<li><span class="has_tooltip">Lifesealed +28<span class="tooltip">Lifesealed +28: You are immune to magical effects that cause instant death. In addition, you have a +28% enhancement bonus to Negative Energy Absorption.</span></span></li>',
             {'name': 'Lifesealed', 'type': 'Enhancement', 'value': '28'},
         ),
@@ -221,6 +257,21 @@ def test_translate_list_tag_parameterized_quality_fixtures(html, expected):
 
 def test_translate_list_tag_does_not_bool_weapon_proc_without_rank():
     assert convert_weapon_damage_proc_to_bool({'name': 'Holy'}) == {'name': 'Holy'}
+
+
+def test_translate_list_tag_maps_legendary_conditioning_to_false_life_percent():
+    html = '<li><span class="has_tooltip">Legendary Conditioning +15%<span class="tooltip">Legendary Conditioning +15%: You have a +15% Legendary bonus to Maximum Hit Points.</span></span></li>'
+    li = BeautifulSoup(html, 'html.parser').li
+    aff = translate_list_tag_to_affix_map(
+        'Baphomet Test',
+        li,
+        {'Conditioning (%)': 'False Life (%)'},
+        get_fake_bonuses(),
+        35,
+        {},
+        {},
+    )
+    assert aff == {'name': 'False Life (%)', 'type': 'Legendary', 'value': '15'}
 
 
 def test_nested_crafting_option_keeps_multiple_affixes_grouped():

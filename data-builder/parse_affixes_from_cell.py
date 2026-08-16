@@ -8,6 +8,7 @@ from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
+from compound_affixes import load_compound_affixes
 from provenance_io import include_affix_provenance
 import copy
 
@@ -255,11 +256,59 @@ def convert_roman_numerals(name):
 
 
 def strip_bonus_types(name):
+    if is_compound_affix_name(name):
+        return name
+
     search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
     if search:
         return search.group(2)
 
     return name
+
+
+def is_compound_affix_name(name):
+    return isinstance(name, str) and name in load_compound_affixes()
+
+
+def parse_compound_affix_text(text):
+    if is_compound_affix_name(text):
+        return {'name': text}
+
+    search = parse_affix_name_and_value(text)
+    if search and is_compound_affix_name(search['name']):
+        return {
+            'name': search['name'],
+            'value': search['value'],
+        }
+
+    return None
+
+
+def parse_affix_name_and_value(text):
+    search = re.search(r'^(.*?)(?:\s+-)?\s+\+?([0-9]+)%?$', text)
+    if not search:
+        return None
+
+    return {
+        'name': search.group(1).strip(),
+        'value': search.group(2).strip(),
+    }
+
+
+def parse_bonus_type_prefixed_affix_text(text):
+    if parse_compound_affix_text(text):
+        return None
+
+    bonus_type_string = get_parser_bonus_type_regex()
+    search = re.search(r'^' + bonus_type_string + r' (.*?)(?::)?(?:\s+-)?\s+\+?([0-9]+)%?$', text)
+    if not search:
+        return None
+
+    return {
+        'name': search.group(2).strip(),
+        'type': search.group(1).strip(),
+        'value': search.group(3).strip(),
+    }
 
 
 SPELL_POWER_CANONICAL_NAMES = {
@@ -582,6 +631,14 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if sacred_turn_undead_affix:
         return add_affix_provenance(sacred_turn_undead_affix, source_text, source_tooltip, 'translate_list_tag_to_affix_map:sacred-turn-undead')
 
+    compound_affix = parse_compound_affix_text(affixName)
+    if compound_affix:
+        aff.update(compound_affix)
+
+    prefixed_bonus_type_affix = parse_bonus_type_prefixed_affix_text(affixName)
+    if prefixed_bonus_type_affix:
+        aff.update(prefixed_bonus_type_affix)
+
     affixName = strip_bonus_types(affixName)
     affixName = strip_charges(affixName)
     affixName = strip_necro4_upgrades(affixName)
@@ -664,7 +721,12 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # begin logic to determine properties based on tooltip
 
-    if (('type' not in aff) and (tooltip) and ('Augment Slot' not in aff['name'])):
+    if (
+        ('type' not in aff)
+        and (tooltip)
+        and ('Augment Slot' not in aff['name'])
+        and (not is_compound_affix_name(aff['name']) or 'value' in aff)
+    ):
         # Sometimes the tooltip has a hyperlink title. Those are convenient for picking up multi-word
         # bonuses like "Natural Armor"
         bonusTypeSearch = re.findall('title="([a-z ]+) bonus"', words, re.IGNORECASE)
@@ -810,6 +872,9 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     # Radiance (on Celestia, for example) is a different affix than the more common spellpower-boosting Radiance
     if aff['name'] == 'Radiance' and aff['type'] == 'Bool':
         aff['name'] = 'Radiance (enchantment)'
+
+    if aff['name'] in ['AC', 'Armor Class', 'Conditioning', 'Maximum Spell Points'] and '%' in source_text:
+        aff['name'] = aff['name'] + ' (%)'
 
     aff['name'] = canonicalize_affix_name(aff['name'], aff.get('type'))
 
@@ -960,6 +1025,10 @@ def convert_affix_text_map_to_affix_map(textMap):
     if sacred_turn_undead_affix:
         affixMap.update(sacred_turn_undead_affix)
 
+    compound_affix = parse_compound_affix_text(textMap["text"])
+    if compound_affix:
+        affixMap.update(compound_affix)
+
     # special case exists if affix requires unique property
     # detect those cases and create a unique flag that can be detected and operated on
     affixTextSearch = re.search(r'^(.*?)( \(if (?:Minor Artifact|Quarterstaff)\))$', textMap["text"])
@@ -977,11 +1046,9 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # detect if text is in format (affix bonus type) (affix bonus name) (affix bonus value)
     # ex : Artifact Universal Spell Power +20
-    affixTextSearch = re.search(r'^' + bonusTypeString + r' (.*?)(?::)? \+?([0-9]+)%?$', textMap["text"])
-    if (('name' not in affixMap) and (affixTextSearch)):
-        affixMap['name'] = affixTextSearch.group(2).strip()
-        affixMap['type'] = affixTextSearch.group(1).strip()
-        affixMap['value'] = affixTextSearch.group(3).strip()
+    prefixed_bonus_type_affix = parse_bonus_type_prefixed_affix_text(textMap["text"])
+    if (('name' not in affixMap) and (prefixed_bonus_type_affix)):
+        affixMap.update(prefixed_bonus_type_affix)
 
     affixTextSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', textMap["text"])
     if (('name' not in affixMap) and (affixTextSearch)):
@@ -1090,7 +1157,11 @@ def convert_affix_text_map_to_affix_map(textMap):
             affixMap['type'] = affixTextSearch.group(2).strip()
             affixMap['value'] = affixTextSearch.group(1).strip()
 
-    if (('type' not in affixMap) and ('tooltip' in textMap)):
+    if (
+        ('type' not in affixMap)
+        and ('tooltip' in textMap)
+        and (not is_compound_affix_name(affixMap.get('name')) or 'value' in affixMap)
+    ):
         affixTooltipSearch = re.search(r'^' + affixExceptionDetectionString + r'.*?' + bonusTypeString + r' (?:[Bb]onus|discount).*$', textMap["tooltip"])
         if (affixTooltipSearch):
             affixMap['type'] = affixTooltipSearch.group(1).strip()

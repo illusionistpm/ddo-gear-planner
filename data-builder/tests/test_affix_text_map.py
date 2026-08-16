@@ -120,6 +120,13 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
             {'name': 'Kinetic Lore', 'type': 'Equipment', 'value': '15'},
         ),
         (
+            {
+                'text': 'Sacred Ground Lore',
+                'tooltip': 'Sacred Ground Lore: Passive: Your Acid, Light, and Alignment spells gain a 15% Equipment bonus to their chance to critical hit.',
+            },
+            {'name': 'Sacred Ground Lore', 'type': 'Bool', 'value': 1},
+        ),
+        (
             {'text': 'Lightning Intensity +12', 'tooltip': 'Lightning Intensity +12: Passive: +12 Equipment bonus to Electric Spell Critical Damage.'},
             {'name': 'Lightning Intensity', 'type': 'Equipment', 'value': '12'},
         ),

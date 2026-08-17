@@ -11,59 +11,65 @@
                 <span class="tracked-affix-collapse-indicator" [class.collapsed]="isAffixGroupCollapsed(group.name)" aria-hidden="true">&#8250;</span>
             </span>
         </button>
-        <div class="row" *ngIf="!isAffixGroupCollapsed(group.name)">
-            <div class="card col-sm-12 col-md-6 col-lg-4" *ngIf="group.checklistAffixes.length">
-                <div>
-                    <span class="h5">Checklist Affixes</span>
+        <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.name)">
+            <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="group.checklistAffixes.length">
+                <div class="tracked-affix-summary">
+                    <span class="tracked-affix-name">Checklist Affixes</span>
                 </div>
-                <div class="col" *ngFor="let affixName of group.checklistAffixes">
-                    <button class="w-100" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
-                        (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
-                        <span class="max-value">{{affixName}}</span>
-                        <span class="far fa-check-square max-value float-end pt-1"></span>
-                    </button>
-                    <ng-template #noValueBools>
-                        <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="w-100 no-value"
+                <div class="tracked-affix-chips">
+                    <ng-container *ngFor="let affixName of group.checklistAffixes">
+                        <button class="tracked-bonus-chip" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
                             (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
-                            {{affixName}}
-                            <span class="far fa-square no-value float-end pt-1"></span>
+                            <span class="tracked-bonus-label max-value">{{affixName}}</span>
+                            <span class="far fa-check-square max-value" aria-hidden="true"></span>
                         </button>
-                    </ng-template>
+                        <ng-template #noValueBools>
+                            <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="tracked-bonus-chip no-value"
+                                (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                                <span class="tracked-bonus-label">{{affixName}}</span>
+                                <span class="far fa-square no-value" aria-hidden="true"></span>
+                            </button>
+                        </ng-template>
+                    </ng-container>
                 </div>
             </div>
-            <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let affixName of group.affixes">
-                <div class="col">
-                    <span class="h5">{{affixName}}: {{currentBonus(affixName)}}<span
-                            class="max-available">/{{maxBonus(affixName)}}</span></span>
-                    <button type="button" class="custom-close float-end" aria-label="Close" (click)="removeAffix(affixName)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="col" *ngFor="let types of getVisibleTypes(affixName)">
-                    <button class="w-100 tracked-bonus-button" *ngIf="types.value; else noValue"
-                        (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                        [title]="getBonusTypeTooltip(affixName, types)">
-                        <span class="tracked-bonus-side" aria-hidden="true"></span>
-                        <span class="tracked-bonus-label"
-                            [ngClass]="getClassForValue(affixName, types)">
-                            {{getBonusTypeLabel(types)}}:
-                            {{types.value}}
-                        </span>
-                        <span class="tracked-bonus-side max-available">
-                            <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{getMaxValueForType(affixName, types)}}]</span>
-                        </span>
-                    </button>
-                    <ng-template #noValue>
-                        <button class="w-100 no-value tracked-bonus-button"
-                            [title]="getBonusTypeTooltip(affixName, types)"
-                            (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
-                            <span class="tracked-bonus-side" aria-hidden="true"></span>
-                            <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
-                            <span class="tracked-bonus-side max-available">
-                                <span *ngIf="shouldShowMaxAvailable(affixName, types)">[{{getMaxValueForType(affixName, types)}}]</span>
-                            </span>
+            <div class="tracked-affix-row" *ngFor="let affixName of group.affixes">
+                <div class="tracked-affix-summary">
+                    <span class="tracked-affix-name">
+                        {{affixName}}
+                        <button type="button" class="custom-close tracked-affix-remove" aria-label="Remove {{affixName}}" (click)="removeAffix(affixName)"
+                            title="Remove {{affixName}}">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                    </ng-template>
+                    </span>
+                    <span class="tracked-affix-total">
+                        <span class="tracked-affix-total-value">{{currentBonus(affixName)}}<span
+                                class="max-available">/{{maxBonus(affixName)}}</span></span>
+                        <span class="tracked-affix-progress" aria-hidden="true">
+                            <span class="tracked-affix-progress-fill"
+                                [style.width.%]="getTotalProgressPercent(affixName)"></span>
+                        </span>
+                    </span>
+                </div>
+                <div class="tracked-affix-chips">
+                    <ng-container *ngFor="let types of getVisibleTypes(affixName)">
+                        <button class="tracked-bonus-chip" *ngIf="types.value; else noValue"
+                            (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
+                            [title]="getBonusTypeTooltip(affixName, types)"
+                            [ngClass]="getClassForValue(affixName, types)">
+                            <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}:</span>
+                            <span class="tracked-bonus-value">{{types.value}}</span>
+                            <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
+                        </button>
+                        <ng-template #noValue>
+                            <button class="tracked-bonus-chip no-value"
+                                [title]="getBonusTypeTooltip(affixName, types)"
+                                (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
+                                <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
+                                <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
+                            </button>
+                        </ng-template>
+                    </ng-container>
                 </div>
                 <div class="tracked-affix-unavailable-types" *ngIf="getUnavailableTypes(affixName).length">
                     Filtered types: {{getUnavailableTypes(affixName).join(', ')}}

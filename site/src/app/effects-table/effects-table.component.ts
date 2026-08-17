@@ -131,6 +131,15 @@ export class EffectsTableComponent implements OnInit {
     return total;
   }
 
+  getTotalProgressPercent(affixName: string) {
+    const maxValue = this.maxBonus(affixName);
+    if (maxValue <= 0) {
+      return 0;
+    }
+
+    return Math.min(100, Math.max(0, this.currentBonus(affixName) / maxValue * 100));
+  }
+
   showItemsWithBonusType(affixName: string, bonusType: string) {
     const dlg = this.modalService.open(ItemsWithBonusTypeComponent, { ariaLabelledBy: 'modal-basic-title' });
 

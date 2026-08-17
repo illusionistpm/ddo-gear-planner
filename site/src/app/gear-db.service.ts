@@ -307,7 +307,9 @@ export class GearDbService {
       const minLevel = filters.levelRange[0];
       const maxLevel = filters.levelRange[1];
       const showRaidItems = filters.showRaidItems;
+      const showRareItems = filters.showRareItems;
       const hiddenItemTypes = filters.hiddenItemTypes;
+      const hiddenPacks = filters.hiddenPacks;
 
       const gear = new Map<string, Array<Item>>();
 
@@ -318,8 +320,10 @@ export class GearDbService {
           const myItems = items.filter(i =>
             i.ml >= minLevel &&
             i.ml <= maxLevel &&
-            (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
-            !hiddenItemTypes.has(i.type)
+            (showRaidItems || !this.quests.isRaidLoot(i)) &&
+            (showRareItems || !i.rare) &&
+            !hiddenItemTypes.has(i.type) &&
+            !hiddenPacks.has(i.pack || FiltersService.NO_PACK_FILTER)
           );
           gear.set(slot, myItems);
         }
@@ -330,7 +334,7 @@ export class GearDbService {
       });
 
       this.affixToBonusTypes = perfMeasure('GearDbService.applyItemFilters.buildAffixToBonusTypes', () => {
-        if (this.canReuseAllLevelAffixToBonusTypes(minLevel, maxLevel, showRaidItems, hiddenItemTypes)) {
+        if (this.canReuseAllLevelAffixToBonusTypes(minLevel, maxLevel, showRaidItems, showRareItems, hiddenItemTypes, hiddenPacks)) {
           return this.allLevelAffixToBonusTypes;
         }
 
@@ -345,12 +349,16 @@ export class GearDbService {
     minLevel: number,
     maxLevel: number,
     showRaidItems: boolean,
-    hiddenItemTypes: Set<string>
+    showRareItems: boolean,
+    hiddenItemTypes: Set<string>,
+    hiddenPacks: Set<string>
   ) {
     return minLevel === ItemFilters.MIN_LEVEL()
       && maxLevel === this.allGearMaxLevel
       && showRaidItems
-      && hiddenItemTypes.size === 0;
+      && showRareItems
+      && hiddenItemTypes.size === 0
+      && hiddenPacks.size === 0;
   }
 
   private _buildAffixToBonusTypes(gear: Map<string, Array<Item>>, minLevel: number, maxLevel: number) {

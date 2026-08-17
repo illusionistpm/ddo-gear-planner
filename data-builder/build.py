@@ -67,6 +67,7 @@ def build_data(clearCache, discordURL):
     build_affix_groups()
 
     parse_set_page()
+    parse_quests()
 
     # some crafting depends on the existence of sets
     # make sure to process crafting loop after sets
@@ -77,8 +78,6 @@ def build_data(clearCache, discordURL):
     parse_minor_artifacts()
 
     parse_item_types()
-
-    parse_quests()
 
     write_build_info()
 

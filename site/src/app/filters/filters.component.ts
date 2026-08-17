@@ -6,6 +6,7 @@ import { AnalyticsService } from '../analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import buildInfo from 'src/assets/build-info.json';
+import itemsList from 'src/assets/items.json';
 
 @Component({
     selector: 'app-filters',
@@ -15,9 +16,13 @@ import buildInfo from 'src/assets/build-info.json';
     standalone: false
 })
 export class FiltersComponent implements OnInit {
+  readonly freeQuestsPackLabel = 'Free Quests';
   minLevel: number = 1;
   maxLevel: number = 30;
   showRaidItems: boolean = false;
+  showRareItems: boolean = true;
+  showPackFilters: boolean = false;
+  packOptions: Array<{name: string, value: boolean}> = [];
   readonly dataBuiltAt: string = this.formatBuiltAt(buildInfo.builtAt);
 
   sortOwnedToTop: boolean = true;
@@ -32,10 +37,13 @@ export class FiltersComponent implements OnInit {
     private userGear: UserGearService,
     private analytics: AnalyticsService
   ) {
+    this.packOptions = this.getAllPackOptions();
     filters.getItemFilters().subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
       this.maxLevel = itemFilters.levelRange[1];
       this.showRaidItems = itemFilters.showRaidItems;
+      this.showRareItems = itemFilters.showRareItems;
+      this.packOptions.forEach(option => option.value = !itemFilters.hiddenPacks.has(this.packFilterValue(option.name)));
     });
     this.updateUserGearCount();
   }
@@ -78,6 +86,47 @@ export class FiltersComponent implements OnInit {
     });
   }
 
+  onChangeShowRareItems() {
+    this.filters.setShowRareItems(this.showRareItems);
+    this.analytics.track('toggle_rare_items', {
+      enabled: this.showRareItems
+    });
+  }
+
+  onChangePacks(items: Array<{name: string, value: boolean}>, changeSource: string): void {
+    const hiddenPacks = new Set<string>();
+    items.filter(item => !item.value)
+      .forEach(item => hiddenPacks.add(this.packFilterValue(item.name)));
+
+    this.filters.setHiddenPacks(hiddenPacks);
+    this.analytics.track('change_pack_filters', {
+      interaction_level: changeSource,
+      hidden_pack_count: hiddenPacks.size
+    });
+  }
+
+  togglePackFilters() {
+    this.showPackFilters = !this.showPackFilters;
+  }
+
+  areAllPacksChecked() {
+    return this.packOptions.every(option => option.value);
+  }
+
+  areSomePacksChecked() {
+    return this.packOptions.some(option => option.value);
+  }
+
+  toggleAllPacks() {
+    const checked = !this.areAllPacksChecked();
+    this.packOptions.forEach(option => option.value = checked);
+    this.onChangePacks(this.packOptions, 'top_level');
+  }
+
+  onChangePackOption() {
+    this.onChangePacks(this.packOptions, 'subgroup');
+  }
+
   onTroveFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
@@ -109,5 +158,32 @@ export class FiltersComponent implements OnInit {
       dateStyle: 'medium',
       timeStyle: 'short'
     });
+  }
+
+  private getAllPackOptions(): Array<{name: string, value: boolean}> {
+    const packs = new Set<string>();
+    let hasNoPack = false;
+
+    for (const item of itemsList as Array<any>) {
+      if (item.pack) {
+        packs.add(item.pack);
+      } else {
+        hasNoPack = true;
+      }
+    }
+
+    const options = Array.from(packs)
+      .sort((left, right) => left.localeCompare(right))
+      .map(pack => ({name: pack, value: true}));
+
+    if (hasNoPack) {
+      options.unshift({name: this.freeQuestsPackLabel, value: true});
+    }
+
+    return options;
+  }
+
+  private packFilterValue(packName: string): string {
+    return packName === this.freeQuestsPackLabel ? FiltersService.NO_PACK_FILTER : packName;
   }
 }

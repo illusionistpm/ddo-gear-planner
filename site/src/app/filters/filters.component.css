@@ -21,3 +21,33 @@
     font-size: 0.65rem;
   }
 }
+
+.pack-filter-toggle {
+  padding-left: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.pack-filter-card {
+  max-height: 22rem;
+  overflow-y: auto;
+}
+
+.pack-filter-header {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.pack-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+}
+
+.pack-filter-option {
+  min-width: 0;
+}
+
+.pack-filter-option label {
+  overflow-wrap: anywhere;
+}

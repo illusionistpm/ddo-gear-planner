@@ -10,6 +10,7 @@ from read_json import read_json
 from parse_affixes_from_cell import canonicalize_affix_name, parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
+from parse_rare_loot import get_rare_loot_from_cache
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
@@ -92,6 +93,44 @@ def canonicalize_quest_name(quest_name: str) -> str:
     return quest_name
 
 
+def normalize_item_name_for_metadata(name: str) -> str:
+    return name.replace('\xa0', ' ').strip()
+
+
+RARE_SOURCE_LOCATIONS = {
+    'Catalyst Crafting',
+}
+
+
+def infer_item_pack(quests_cell, quests: list[str], quest_pack_map: dict[str, str], row_text: str = '') -> str|None:
+    for quest in quests:
+        pack = quest_pack_map.get(quest)
+        if pack:
+            return pack
+
+    known_pack_names = set(quest_pack_map.values())
+    for link in quests_cell.find_all('a'):
+        title = str(link.get('title') or link.getText()).replace('\xa0', ' ').strip()
+        if title in known_pack_names:
+            return title
+        if 'Myth Drannor' in title:
+            return title
+        if 'Lamordia' in title:
+            return 'Lamordia'
+
+    source_hints = {
+        'Lamordia:': 'Lamordia',
+        'Viktranium Experiment': 'Lamordia',
+        'Isle of Dread:': 'The Isle of Dread',
+        'Dinosaur Bone crafting': 'The Isle of Dread',
+    }
+    for hint, pack in source_hints.items():
+        if hint in row_text:
+            return pack
+
+    return None
+
+
 def get_legendary_green_steel_crafting_systems(item: Item|SetAugment) -> list[str]:
     if not item['name'].startswith('Legendary Green Steel '):
         return []
@@ -129,8 +168,16 @@ def expand_affix_names_with_compounds(affixNames: list[str]) -> set[str]:
     return expandedAffixNames
 
 
-def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets: Sets) -> Any:
+def get_items_from_page(
+    itemPageURL: str,
+    craftingSystems: CraftingSystems,
+    sets: Sets,
+    rareItemNames: set[str]|None = None,
+    questPackMap: dict[str, str]|None = None,
+) -> Any:
     synonymMap = get_inverted_synonym_map()
+    rareItemNames = rareItemNames or set()
+    questPackMap = questPackMap or {}
 
     craftableAffixNames = (
         'Craftable',
@@ -323,9 +370,25 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
         questsCell = fields[questIdx]
         questsTooltipSpan = questsCell.find('a')
         questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
+        quests = []
         if questsTooltip:
-            quests = canonicalize_quest_name(str(questsTooltip))
-            item['quests'] = [quests]
+            quest = canonicalize_quest_name(str(questsTooltip))
+            quests = [quest]
+            item['quests'] = quests
+
+        row_text = row.getText(' ', strip=True)
+        pack = infer_item_pack(questsCell, quests, questPackMap, row_text)
+        if pack:
+            item['pack'] = pack
+
+        lowered_row_text = row_text.lower()
+        is_rare_drop_row = 'rare drop' in lowered_row_text
+        is_rare_source_location = any(quest in RARE_SOURCE_LOCATIONS for quest in quests)
+        if normalize_item_name_for_metadata(item['name']) in rareItemNames or is_rare_drop_row or is_rare_source_location:
+            item['rare'] = True
+            if 'rare drop in any legendary sharn quest' in lowered_row_text:
+                quests = ['Sharn quests']
+                item['quests'] = quests
 
         affixes = []
         if 'Enchantments' in cols or 'Special Abilities' in cols:
@@ -485,6 +548,11 @@ def get_items_from_page(itemPageURL: str, craftingSystems: CraftingSystems, sets
 def parse_items() -> None:
     crafting = read_json('crafting')
     sets     = read_json('sets')
+    rareItemNames = get_rare_loot_from_cache()
+    try:
+        questPackMap = read_json('quests').get('packs', {})
+    except FileNotFoundError:
+        questPackMap = {}
     items    = []
 
     cachePath            = './cache/items/'
@@ -501,7 +569,7 @@ def parse_items() -> None:
 
     for file in fileList:
         if include_page(file):
-            items.extend(get_items_from_page(cachePath + file, crafting, sets))
+            items.extend(get_items_from_page(cachePath + file, crafting, sets, rareItemNames, questPackMap))
 
     # Sort by name then slot (for a stable sort with Slaver's items, which have entries in multiple slots)
     items.sort(key=lambda x: (x['name'], x.get('slot', '')))

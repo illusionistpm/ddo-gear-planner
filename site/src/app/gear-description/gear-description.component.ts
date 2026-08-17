@@ -15,6 +15,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../perf-trace';
+import { QuestService } from '../quest.service';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -75,6 +76,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
     private affixSvc: AffixService,
     private modalService: NgbModal,
     private affixUi: AffixUiService,
+    private questService: QuestService,
     private changeDetector: ChangeDetectorRef
   ) {
   }
@@ -275,6 +277,14 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
   isAffixGroup(affix: Affix): boolean {
     perfCount('GearDescriptionComponent.isAffixGroup');
     return this.affixSvc.isAffixGroup(affix);
+  }
+
+  isRaidLoot(item: Item | null): boolean {
+    return this.questService.isRaidLoot(item);
+  }
+
+  getLootSourceLabel(item: Item | null): string {
+    return this.questService.getLootSourceLabel(item);
   }
 
   getClassForCraftable(craft: Craftable) {

@@ -2,7 +2,7 @@ import { Item } from './item';
 
 describe('Item', () => {
   it('should create an instance', () => {
-    expect(new Item({
+    const item = new Item({
       name: 'Test Item',
       slot: 'Trinket',
       type: '',
@@ -10,10 +10,16 @@ describe('Item', () => {
       affixes: [],
       sets: [],
       url: '/page/Test_Item',
+      pack: 'Test Pack',
+      rare: true,
       crafting: [],
       quests: [],
       artifact: false,
-    })).toBeTruthy();
+    });
+
+    expect(item).toBeTruthy();
+    expect(item.pack).toBe('Test Pack');
+    expect(item.rare).toBeTrue();
   });
 
   it('preserves selected crafting options when cloning an item', () => {

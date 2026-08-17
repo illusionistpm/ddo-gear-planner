@@ -20,6 +20,17 @@
                 (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
                 <label class="form-check-label col-6" for="raidItems">Show Raid Items</label>
               </div>
+            <div class="row">
+              <input type="checkbox" class="form-check form-check-inline col-1" id="rareItems"
+                (change)="onChangeShowRareItems()" [(ngModel)]="showRareItems">
+                <label class="form-check-label col-6" for="rareItems">Show Rare Items</label>
+              </div>
+            <div class="pack-filter-toggle">
+              <button type="button" class="btn btn-link p-0" (click)="togglePackFilters()"
+                [attr.aria-expanded]="showPackFilters" aria-controls="packFilters">
+                {{showPackFilters ? 'Hide' : 'Show'}} Pack Filters
+              </button>
+            </div>
             </div>
           </div>
         </div>
@@ -50,3 +61,29 @@
           </div>
         </div>
       </div>
+
+<div class="row pb-2" id="packFilters" [hidden]="!showPackFilters">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body pack-filter-card">
+        <div class="pack-filter-header">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="allPacks"
+              [checked]="areAllPacksChecked()" [indeterminate]="areSomePacksChecked() && !areAllPacksChecked()"
+              (change)="toggleAllPacks()">
+            <label class="form-check-label" for="allPacks">All Packs</label>
+          </div>
+        </div>
+        <div class="pack-filter-grid">
+          @for (pack of packOptions; track pack.name) {
+            <div class="form-check pack-filter-option">
+              <input type="checkbox" class="form-check-input" id="pack-{{$index}}"
+                [(ngModel)]="pack.value" (change)="onChangePackOption()">
+              <label class="form-check-label" for="pack-{{$index}}">{{pack.name}}</label>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

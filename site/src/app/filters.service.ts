@@ -13,6 +13,8 @@ import { perfMeasure } from './perf-trace';
   providedIn: 'root'
 })
 export class FiltersService {
+  static readonly NO_PACK_FILTER = '__NO_PACK__';
+
   private params: BehaviorSubject<any>;
 
   private itemFilters = new BehaviorSubject<ItemFilters>(new ItemFilters());
@@ -41,6 +43,19 @@ export class FiltersService {
     }
 
     newFilters.showRaidItems = bShow;
+    this.itemFilters.next(newFilters);
+
+    this._updateRouterState();
+  }
+
+  setShowRareItems(bShow: boolean) {
+    const newFilters = new ItemFilters(this.itemFilters.getValue());
+
+    if (bShow == newFilters.showRareItems) {
+      return;
+    }
+
+    newFilters.showRareItems = bShow;
     this.itemFilters.next(newFilters);
 
     this._updateRouterState();
@@ -94,6 +109,17 @@ export class FiltersService {
     this._updateRouterState();
   }
 
+  setHiddenPacks(hiddenPacks: Set<string>) {
+    const newFilters = new ItemFilters(this.itemFilters.getValue());
+    if (this.areSetsEqual(hiddenPacks, newFilters.hiddenPacks)) {
+      return;
+    }
+
+    newFilters.hiddenPacks = hiddenPacks;
+    this.itemFilters.next(newFilters);
+    this._updateRouterState();
+  }
+
   private areSetsEqual(left: Set<string>, right: Set<string>) {
     if (left.size !== right.size) {
       return false;
@@ -125,6 +151,9 @@ export class FiltersService {
       const raidsParam = params.get('raids');
       this.setShowRaidItems(raidsParam === null ? true : raidsParam === 'true');
 
+      const rareParam = params.get('rare');
+      this.setShowRareItems(rareParam === null ? true : rareParam === 'true');
+
       const hiddenTypes = new Set<string>();
       const hiddenTypesParam = params.get('hiddentypes');
       if (hiddenTypesParam) {
@@ -135,6 +164,17 @@ export class FiltersService {
           });
       }
       this.setHiddenTypes(hiddenTypes);
+
+      const hiddenPacks = new Set<string>();
+      const hiddenPacksParam = params.get('hiddenpacks');
+      if (hiddenPacksParam) {
+        hiddenPacksParam.split(',')
+          .filter((element: string) => element)
+          .forEach((element: string) => {
+            hiddenPacks.add(element);
+          });
+      }
+      this.setHiddenPacks(hiddenPacks);
     });
   }
 
@@ -142,7 +182,9 @@ export class FiltersService {
     const params: Record<string, string | boolean> = {};
     params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
     params['raids'] = this.itemFilters.getValue().showRaidItems;
+    params['rare'] = this.itemFilters.getValue().showRareItems;
     params['hiddentypes'] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');
+    params['hiddenpacks'] = Array.from(this.itemFilters.getValue().hiddenPacks).join(',');
     this.params.next(params);
   }
 }

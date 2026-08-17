@@ -52,6 +52,8 @@ class Item(TypedDict):
     slot: str
     type: str
     url: str
+    pack: NotRequired[str]
+    rare: NotRequired[bool]
     quests: NotRequired[list[str]]
     set: NotRequired[str]
     sets: NotRequired[list]

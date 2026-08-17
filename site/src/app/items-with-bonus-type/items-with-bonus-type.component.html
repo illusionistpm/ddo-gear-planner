@@ -94,7 +94,14 @@
         <div class="col-1">{{item.ml}}</div>
         <div class="col-2">{{item.slot}}</div>
         <div class="col-6">
-          <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}
+          <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>
+          @if (isRaidLoot(item)) {
+            <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+          }
+          @if (item.rare) {
+            <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+          }
+          {{findMatchingValue(item)[0]}}
           @if (userOwnsItem(item)) {
             <span class="user-owned-star"
               [title]="getUserItemLocations(item) | userItemLocationTooltip">
@@ -119,7 +126,14 @@
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
           <div class="col-6">
-            <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>{{findMatchingValue(item)[0]}}
+            <a href="{{item.getURL()}}" target="_blank">{{item.name}}</a>
+            @if (isRaidLoot(item)) {
+              <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+            }
+            @if (item.rare) {
+              <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+            }
+            {{findMatchingValue(item)[0]}}
             @if (userOwnsItem(item)) {
               <span class="user-owned-star"
                 [title]="getUserItemLocations(item) | userItemLocationTooltip">

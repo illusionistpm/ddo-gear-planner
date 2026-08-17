@@ -13,6 +13,8 @@ export class Item {
     ml!: number;
     affixes: Array<Affix> = Array<Affix>();
     url!: string;
+    pack!: string;
+    rare!: boolean;
     private sets!: Array<string>;
     crafting!: Array<Craftable>;
     quests!: Array<string>;
@@ -31,6 +33,8 @@ export class Item {
             }
             this.sets = json.sets;
             this.url = json.url;
+            this.pack = json.pack;
+            this.rare = !!json.rare;
             this.rawCrafting = (json.rawCrafting || json.crafting || [])
                 .filter((crafting: any) => typeof crafting === 'string');
             if (json.crafting) {

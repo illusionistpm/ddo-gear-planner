@@ -83,3 +83,41 @@
 a {
     text-decoration: underline;
 }
+
+.item-source-line {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.item-source-line i {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.loot-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    padding: 0.05rem 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.raid-loot-badge {
+    border: 1px solid #b45309;
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.rare-loot-badge {
+    border: 1px solid #7c3aed;
+    background: #ede9fe;
+    color: #5b21b6;
+}

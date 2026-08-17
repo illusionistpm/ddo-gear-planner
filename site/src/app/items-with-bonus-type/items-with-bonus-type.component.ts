@@ -14,6 +14,7 @@ import { CraftableOption } from '../craftable-option';
 import { AffixUiService } from '../affix-ui.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
+import { QuestService } from '../quest.service';
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -74,7 +75,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     private affixSvc: AffixService,
     public userGear: UserGearService,
     public affixUi: AffixUiService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private questService: QuestService
   ) {
   }
 
@@ -84,6 +86,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
 
   getUserItemLocations(item: Item): UserItemLocation[] | undefined {
     return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
+  }
+
+  isRaidLoot(item: Item): boolean {
+    return this.questService.isRaidLoot(item);
   }
 
   ngOnInit() {

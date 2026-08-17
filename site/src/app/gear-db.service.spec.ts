@@ -7,6 +7,8 @@ import {
 } from './gear-db.service';
 import { CraftableOption } from './craftable-option';
 import { Item } from './item';
+import { ItemFilters } from './item-filters';
+import { FiltersService } from './filters.service';
 
 describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -183,6 +185,126 @@ describe('GearDbService', () => {
     expect(results[0]).not.toBe(item);
     expect(results[0].getSets()).toEqual(['Matching Set']);
     expect(item.getSets()).toEqual([]);
+  });
+
+  it('filters rare items only when showRareItems is disabled', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const normalItem = new Item({
+      name: 'Normal Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 10,
+      affixes: [],
+      sets: [],
+      url: '/page/Normal_Item',
+      crafting: [],
+      quests: [],
+      artifact: false,
+    });
+    const rareItem = new Item({
+      name: 'Rare Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 10,
+      affixes: [],
+      sets: [],
+      url: '/page/Rare_Item',
+      rare: true,
+      crafting: [],
+      quests: [],
+      artifact: false,
+    });
+    const filters = new ItemFilters();
+    filters.showRareItems = false;
+    service['allGear'] = new Map<string, Array<Item>>([
+      ['Trinket', [normalItem, rareItem]],
+    ]);
+
+    const filtered = service.applyItemFilters(filters);
+
+    expect(filtered.get('Trinket')?.map(item => item.name)).toContain('Normal Item');
+    expect(filtered.get('Trinket')?.map(item => item.name)).not.toContain('Rare Item');
+  });
+
+  it('filters items from hidden packs while default hidden pack set shows everything', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const packItem = new Item({
+      name: 'Pack Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 10,
+      affixes: [],
+      sets: [],
+      url: '/page/Pack_Item',
+      pack: 'Test Pack',
+      crafting: [],
+      quests: [],
+      artifact: false,
+    });
+    const noPackItem = new Item({
+      name: 'No Pack Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 10,
+      affixes: [],
+      sets: [],
+      url: '/page/No_Pack_Item',
+      crafting: [],
+      quests: [],
+      artifact: false,
+    });
+    service['allGear'] = new Map<string, Array<Item>>([
+      ['Trinket', [packItem, noPackItem]],
+    ]);
+
+    expect(service.applyItemFilters(new ItemFilters()).get('Trinket')?.map(item => item.name))
+      .toEqual(jasmine.arrayContaining(['Pack Item', 'No Pack Item']));
+
+    const filters = new ItemFilters();
+    filters.hiddenPacks = new Set(['Test Pack', FiltersService.NO_PACK_FILTER]);
+
+    expect(service.applyItemFilters(filters).get('Trinket')?.map(item => item.name)).toEqual([]);
+  });
+
+  it('keeps Sharn rare-drop artifacts when raid items are hidden', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const raidItem = new Item({
+      name: 'Regular Sharn Raid Item',
+      slot: 'Trinket',
+      type: '',
+      ml: 29,
+      affixes: [],
+      sets: [],
+      url: '/page/Regular_Sharn_Raid_Item',
+      pack: 'Masterminds of Sharn',
+      crafting: [],
+      quests: ['Too Hot to Handle'],
+      artifact: false,
+    });
+    const sharnArtifact = new Item({
+      name: 'Sigil of Regalport',
+      slot: 'Trinket',
+      type: '',
+      ml: 29,
+      affixes: [],
+      sets: [],
+      url: '/page/Sigil_of_Regalport',
+      pack: 'Masterminds of Sharn',
+      rare: true,
+      crafting: [],
+      quests: ['Sharn quests'],
+      artifact: false,
+    });
+    const filters = new ItemFilters();
+    filters.showRaidItems = false;
+    service['allGear'] = new Map<string, Array<Item>>([
+      ['Trinket', [raidItem, sharnArtifact]],
+    ]);
+
+    const filteredNames = service.applyItemFilters(filters).get('Trinket')?.map(item => item.name);
+
+    expect(filteredNames).toContain('Sigil of Regalport');
+    expect(filteredNames).not.toContain('Regular Sharn Raid Item');
   });
 
 });

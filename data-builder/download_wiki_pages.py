@@ -4,6 +4,9 @@ import os
 import shutil
 import time
 from pathlib import Path
+from urllib.parse import urljoin, urlparse, parse_qs
+
+from parse_quests import get_expansion_pack_pages_from_category
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
 DEFAULT_HEADERS = {
@@ -190,6 +193,54 @@ def download_page(url, cacheDir, max_retries=3, retry_delay_seconds=10, session=
     return False
 
 
+def _safe_cache_filename_from_url(url):
+    parsed = urlparse(url)
+    params = parse_qs(parsed.query)
+    title = params.get('title', ['page'])[0].split(':')[-1].replace('/', '_')
+    pagefrom = params.get('pagefrom', [''])[0]
+    if pagefrom:
+        return f"{title}_{pagefrom.replace('/', '_')}.html"
+    return f"{title}.html"
+
+
+def download_paginated_category(title, cacheDir, max_pages=50, session=None):
+    if not os.path.exists(cacheDir):
+        os.makedirs(cacheDir)
+
+    url = "https://ddowiki.com/index.php?title=" + title
+    downloaded_any = False
+    seen = set()
+
+    for _ in range(max_pages):
+        if url in seen:
+            break
+        seen.add(url)
+
+        filename = _safe_cache_filename_from_url(url)
+        path = os.path.join(cacheDir, filename)
+        if os.path.exists(path):
+            print(f"Using cached {filename}")
+            html = open(path, 'r', encoding='utf8').read()
+        else:
+            print(f"Downloading {filename} from {url} using requests")
+            html = _download_html(url, session=session, timeout=30)
+            open(path, 'w', encoding='utf8').write(html)
+            downloaded_any = True
+
+        soup = BeautifulSoup(html, 'html.parser')
+        next_url = None
+        for link in soup.select('#mw-pages a[href]'):
+            if link.get_text(' ', strip=True).lower() == 'next page':
+                next_url = urljoin('https://ddowiki.com', link['href'])
+                break
+
+        if not next_url:
+            break
+        url = next_url
+
+    return downloaded_any
+
+
 def download_item_pages(session=None):
     cacheDir = 'cache/items/'
     if not os.path.exists(cacheDir):
@@ -241,6 +292,23 @@ def download_quest_pages(session=None):
         os.makedirs(cacheDir)
 
     download_page('Raids', cacheDir, session=session)
+    download_page('Adventure_Pack', cacheDir, session=session)
+    download_page('Quests_by_Adventure_Pack', cacheDir, session=session)
+    download_page('Category:Expansion_Packs', cacheDir, session=session)
+
+    expansion_pack_category_path = os.path.join(cacheDir, 'Expansion_Packs.html')
+    if not os.path.exists(expansion_pack_category_path):
+        return
+
+    expansion_pack_category_page = open(expansion_pack_category_path, 'r', encoding='utf-8').read()
+    expansion_pack_pages = get_expansion_pack_pages_from_category(BeautifulSoup(expansion_pack_category_page, 'html.parser'))
+    for pack_page in expansion_pack_pages:
+        download_page(pack_page, cacheDir, session=session)
+
+
+def download_rare_loot_pages(session=None):
+    cacheDir = 'cache/rare_loot/'
+    download_paginated_category('Category:Rare_Loot_List_items', cacheDir, session=session)
 
 
 def download_crafting_pages(session=None):
@@ -263,6 +331,7 @@ def download_wiki_pages():
 
     download_item_pages(session=session)
     download_item_type_pages(session=session)
+    download_rare_loot_pages(session=session)
     download_minor_artifacts_page(session=session)
     download_set_page(session=session)
     download_item_augments_page(session=session)

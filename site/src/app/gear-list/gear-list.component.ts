@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
@@ -21,7 +21,7 @@ import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class GearListComponent implements OnInit {
+export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecked {
   itemNameMap: Map<string, string>;
   itemArtifactMap: Map<string, boolean>;
 
@@ -47,9 +47,13 @@ export class GearListComponent implements OnInit {
   }
 
   activeSetBonuses: Array<[string, Array<Affix>]> = [];
+  private loggedInitialViewChecked = false;
 
   ngOnInit() {
+    const done = perfStart('GearListComponent.ngOnInit');
+    let slotSubscriptionCount = 0;
     for (const item of this.equipped.getSlots().values()) {
+      slotSubscriptionCount++;
       item.subscribe(newItem => {
         if (newItem) {
           this.itemNameMap.set(newItem.slot, newItem.name);
@@ -60,6 +64,29 @@ export class GearListComponent implements OnInit {
 
     this.equipped.getActiveSetBonusesObservable().subscribe(setBonuses => {
       this.activeSetBonuses = setBonuses;
+    });
+    done({ slotSubscriptionCount });
+  }
+
+  ngAfterViewInit() {
+    const done = perfStart('GearListComponent.ngAfterViewInit');
+    done({
+      slotCount: this.gearList.getSlots().length,
+      activeSetBonusCount: this.activeSetBonuses.length
+    });
+    perfAfterFrames('paint after gear list view init');
+  }
+
+  ngAfterViewChecked() {
+    if (this.loggedInitialViewChecked) {
+      return;
+    }
+
+    this.loggedInitialViewChecked = true;
+    const done = perfStart('GearListComponent.ngAfterViewChecked.first');
+    done({
+      itemNameCount: this.itemNameMap.size,
+      activeSetBonusCount: this.activeSetBonuses.length
     });
   }
 

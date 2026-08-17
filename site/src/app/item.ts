@@ -2,7 +2,6 @@ import { Affix } from './affix';
 import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
-import { perfStart } from './perf-trace';
 import itemTypesList from 'src/assets/item-types.json';
 
 const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
@@ -23,7 +22,6 @@ export class Item {
 
     constructor(json: any) {
         if (json) {
-            const doneClone = json instanceof Item ? perfStart('Item.clone') : null;
             this.name = json.name;
             this.slot = json.slot;
             this.type = json.type;
@@ -51,9 +49,6 @@ export class Item {
             }
             this.quests = json.quests;
             this.artifact = json.artifact;
-            if (doneClone) {
-                doneClone({ item: this.name, crafting: this.crafting?.length || 0 });
-            }
         }
     }
 

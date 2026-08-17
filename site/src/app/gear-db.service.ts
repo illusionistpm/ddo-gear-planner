@@ -15,6 +15,7 @@ import craftingListRaw from 'src/assets/crafting.json';
 import essenceCraftingList from 'src/assets/essence-crafting.json';
 import setList from 'src/assets/sets.json';
 import { AffixService } from './affix.service';
+import { perfMeasure, perfStart } from './perf-trace';
 
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
@@ -39,6 +40,7 @@ export class GearDbService {
   private currentItemFilters: ItemFilters = new ItemFilters();
   private setLevels: Map<string, Set<number>> = new Map<string, Set<number>>();
   private allLevelAffixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+  private allGearMaxLevel = ItemFilters.MAX_LEVEL();
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
   bestValues: Map<any, number> = new Map<any, number>();
@@ -210,6 +212,7 @@ export class GearDbService {
     }
 
     maxLevel = Math.max(maxLevel, this.essenceCrafting.maxLevel);
+    this.allGearMaxLevel = maxLevel;
 
     const ring1Items = gear.get('Ring1');
     if (ring1Items) {
@@ -238,7 +241,9 @@ export class GearDbService {
 
     this.filters.setMaxLevel(maxLevel);
     this.setLevels = this._buildSetLevels(gear);
-    this.allLevelAffixToBonusTypes = this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel);
+    this.allLevelAffixToBonusTypes = perfMeasure('GearDbService.loadAllItems.buildAllLevelAffixToBonusTypes', () =>
+      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel)
+    );
 
     return gear;
   }
@@ -298,55 +303,112 @@ export class GearDbService {
   }
 
   applyItemFilters(filters: ItemFilters) {
-    const minLevel = filters.levelRange[0];
-    const maxLevel = filters.levelRange[1];
-    const showRaidItems = filters.showRaidItems;
-    const hiddenItemTypes = filters.hiddenItemTypes;
+    return perfMeasure('GearDbService.applyItemFilters', () => {
+      const minLevel = filters.levelRange[0];
+      const maxLevel = filters.levelRange[1];
+      const showRaidItems = filters.showRaidItems;
+      const hiddenItemTypes = filters.hiddenItemTypes;
 
-    const gear = new Map<string, Array<Item>>();
+      const gear = new Map<string, Array<Item>>();
 
-    this.affixToBonusTypes = new Map<string, Map<string, number>>();
+      this.affixToBonusTypes = new Map<string, Map<string, number>>();
 
-    for (const [slot, items] of this.allGear.entries()) {
-      const myItems = items.filter(i =>
-        i.ml >= minLevel &&
-        i.ml <= maxLevel &&
-        (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
-        !hiddenItemTypes.has(i.type)
-      );
-      gear.set(slot, myItems);
-    }
+      perfMeasure('GearDbService.applyItemFilters.filterItems', () => {
+        for (const [slot, items] of this.allGear.entries()) {
+          const myItems = items.filter(i =>
+            i.ml >= minLevel &&
+            i.ml <= maxLevel &&
+            (showRaidItems || !i.quests || i.quests.some(quest => !this.quests.isRaid(quest))) &&
+            !hiddenItemTypes.has(i.type)
+          );
+          gear.set(slot, myItems);
+        }
+      });
 
-    this._buildEssenceCraftingItems(gear, maxLevel);
+      perfMeasure('GearDbService.applyItemFilters.buildEssenceCraftingItems', () => {
+        this._buildEssenceCraftingItems(gear, maxLevel);
+      });
 
-    this.affixToBonusTypes = this._buildAffixToBonusTypes(gear, minLevel, maxLevel);
+      this.affixToBonusTypes = perfMeasure('GearDbService.applyItemFilters.buildAffixToBonusTypes', () => {
+        if (this.canReuseAllLevelAffixToBonusTypes(minLevel, maxLevel, showRaidItems, hiddenItemTypes)) {
+          return this.allLevelAffixToBonusTypes;
+        }
 
-    return gear;
+        return this._buildAffixToBonusTypes(gear, minLevel, maxLevel);
+      });
+
+      return gear;
+    });
+  }
+
+  private canReuseAllLevelAffixToBonusTypes(
+    minLevel: number,
+    maxLevel: number,
+    showRaidItems: boolean,
+    hiddenItemTypes: Set<string>
+  ) {
+    return minLevel === ItemFilters.MIN_LEVEL()
+      && maxLevel === this.allGearMaxLevel
+      && showRaidItems
+      && hiddenItemTypes.size === 0;
   }
 
   private _buildAffixToBonusTypes(gear: Map<string, Array<Item>>, minLevel: number, maxLevel: number) {
     const affixToBonusTypes = new Map<string, Map<string, number>>();
 
+    const itemsDone = perfStart('GearDbService.buildAffixToBonusTypes.items');
+    let itemCount = 0;
+    let itemAffixCount = 0;
+    let craftingSystemCount = 0;
+    let searchableCraftingSystemCount = 0;
+    let craftingOptionCount = 0;
+    const processedCraftingOptionLists = new Set<Array<CraftableOption>>();
     for (const items of gear.values()) {
       for (const item of items) {
+        itemCount++;
+        itemAffixCount += item.affixes?.length || 0;
+        craftingSystemCount += item.crafting?.length || 0;
+        searchableCraftingSystemCount += item.crafting
+          ?.filter(craftable => !craftable.hiddenFromAffixSearch).length || 0;
+        craftingOptionCount += item.crafting
+          ?.reduce((count, craftable) => count + (craftable.hiddenFromAffixSearch ? 0 : craftable.options.length), 0) || 0;
         this._addAffixesToMap(affixToBonusTypes, item.affixes);
-        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel);
+        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel, processedCraftingOptionLists);
       }
     }
+    itemsDone({
+      itemCount,
+      itemAffixCount,
+      craftingSystemCount,
+      searchableCraftingSystemCount,
+      craftingOptionCount,
+      uniqueCraftingOptionListCount: processedCraftingOptionLists.size,
+      skippedDuplicateCraftingOptionListCount: searchableCraftingSystemCount - processedCraftingOptionLists.size
+    });
 
     const rawSetList = setList as Record<string, any[]>;
+    const setsDone = perfStart('GearDbService.buildAffixToBonusTypes.sets');
+    let setCount = 0;
+    let setThresholdCount = 0;
+    let setAffixCount = 0;
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
       if (!this._isSetInLevelRange(setName, minLevel, maxLevel)) {
         continue;
       }
 
+      setCount++;
       for (const threshold of rawSetList[setName]) {
+        setThresholdCount++;
+        setAffixCount += threshold.affixes?.length || 0;
         this._addAffixesToMap(affixToBonusTypes, threshold.affixes);
       }
     }
+    setsDone({ setCount, setThresholdCount, setAffixCount });
 
+    const essenceDone = perfStart('GearDbService.buildAffixToBonusTypes.essenceCraftingAffixes');
     const essenceCraftingAffixes = this.essenceCrafting.getAllAffixesForML(maxLevel);
     this._addAffixesToMap(affixToBonusTypes, essenceCraftingAffixes);
+    essenceDone({ affixCount: essenceCraftingAffixes.length });
 
     return affixToBonusTypes;
   }
@@ -390,16 +452,31 @@ export class GearDbService {
     }
   }
 
-  private _addAffixesToMap(affixToBonusTypes: Map<string, Map<string, number>>, affixes: Array<Affix>) {
-    this._addAffixesToMap_helper(affixToBonusTypes, affixes);
-
+  private _addAffixesToMap(
+    affixToBonusTypes: Map<string, Map<string, number>>,
+    affixes: Array<Affix>
+  ) {
     for (const affix of affixes) {
-      const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
-      this._addAffixesToMap_helper(affixToBonusTypes, ungroupedAffixes);
+      if (!this._addAffixToMap(affixToBonusTypes, affix)) {
+        continue;
+      }
+
+      if (this.affixSvc.isAffixGroup(affix)) {
+        const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
+        for (const ungroupedAffix of ungroupedAffixes) {
+          this._addAffixToMap(affixToBonusTypes, ungroupedAffix);
+        }
+      }
     }
   }
 
-  private _addCraftingAffixesToMap(affixToBonusTypes: Map<string, Map<string, number>>, crafting: Array<Craftable> | undefined, minLevel: number, maxLevel: number) {
+  private _addCraftingAffixesToMap(
+    affixToBonusTypes: Map<string, Map<string, number>>,
+    crafting: Array<Craftable> | undefined,
+    minLevel: number,
+    maxLevel: number,
+    processedCraftingOptionLists?: Set<Array<CraftableOption>>
+  ) {
     if (!crafting) {
       return;
     }
@@ -409,6 +486,11 @@ export class GearDbService {
         continue;
       }
 
+      if (processedCraftingOptionLists?.has(craftable.options)) {
+        continue;
+      }
+
+      processedCraftingOptionLists?.add(craftable.options);
       for (const option of craftable.options) {
         if (!this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)) {
           continue;
@@ -419,24 +501,28 @@ export class GearDbService {
     }
   }
 
-  private _addAffixesToMap_helper(affixToBonusTypes: Map<string, Map<string, number>>, affixes: Array<Affix>) {
-    for (const affix of affixes) {
-      if (!affix.name) {
-        continue;
-      }
-
-      if (!affixToBonusTypes.has(affix.name)) {
-        affixToBonusTypes.set(affix.name, new Map<string, number>());
-      }
-
-      const typeMap = affixToBonusTypes.get(affix.name);
-      if (!typeMap) continue;
-
-      const bestVal = typeMap.get(affix.type);
-      if (!bestVal || bestVal < affix.value) {
-        typeMap.set(affix.type, Number(affix.value));
-      }
+  private _addAffixToMap(
+    affixToBonusTypes: Map<string, Map<string, number>>,
+    affix: Affix
+  ) {
+    if (!affix.name) {
+      return false;
     }
+
+    if (!affixToBonusTypes.has(affix.name)) {
+      affixToBonusTypes.set(affix.name, new Map<string, number>());
+    }
+
+    const typeMap = affixToBonusTypes.get(affix.name);
+    if (!typeMap) {
+      return false;
+    }
+
+    const bestVal = typeMap.get(affix.type);
+    if (!bestVal || bestVal < affix.value) {
+      typeMap.set(affix.type, Number(affix.value));
+    }
+    return true;
   }
 
   getGearList() {

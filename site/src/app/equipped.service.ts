@@ -29,6 +29,9 @@ export class EquippedService {
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
+  private batchingDerivedStateUpdates = false;
+  private derivedStateDirty = false;
+  private importantAffixesDirty = false;
 
   private params: BehaviorSubject<any>;
 
@@ -54,110 +57,161 @@ export class EquippedService {
     this.queryParams.subscribe(this);
 
     for (const slot of this.slots) {
-      slot[1].subscribe(v => { 
-        this._updateCoveredAffixes(false);
-        this._updateActiveSetBonuses();
+      slot[1].subscribe(() => {
+        this.refreshDerivedStateAfterSlotChange();
       });
     }
   }
 
   updateFromParams(params: any) {
     return perfMeasure('EquippedService.updateFromParams', () => {
+      this.beginDerivedStateBatch();
       const craftingParams = [];
       const minLevels = new Map<string, number>();
 
-      this.setImportantAffixes(params.getAll('tracked'));
+      try {
+        this.setImportantAffixes(params.getAll('tracked'));
 
-      for (const slot of this.gearList.getSlots()) {
-        if (!params.get(slot)) {
-          const dummy = new Item(null);
-          dummy.slot = slot;
-          this._set(dummy);
+        for (const slot of this.gearList.getSlots()) {
+          if (!params.get(slot)) {
+            const dummy = new Item(null);
+            dummy.slot = slot;
+            this._set(dummy);
+          }
         }
-      }
 
-      for (const key of params.keys) {
-        if (key === 'tracked') {
-          continue;
-        } else if (key.startsWith('craft_')) {
-          const parts = key.split('_');
-          if (parts.length !== 3) {
-            console.log('Bad crafting key: ' + key);
+        for (const key of params.keys) {
+          if (key === 'tracked') {
             continue;
-          }
-          const index = Number(parts[1]);
-          if (craftingParams.length <= index) {
-            craftingParams.length = index + 1;
-          }
-          let craftingParam = craftingParams[index] as Record<string, string> | undefined;
-          if (!craftingParam) {
-            craftingParam = {};
-            craftingParams[index] = craftingParam;
-          }
-          craftingParam[parts[2]] = params.get(key);
+          } else if (key.startsWith('craft_')) {
+            const parts = key.split('_');
+            if (parts.length !== 3) {
+              console.log('Bad crafting key: ' + key);
+              continue;
+            }
+            const index = Number(parts[1]);
+            if (craftingParams.length <= index) {
+              craftingParams.length = index + 1;
+            }
+            let craftingParam = craftingParams[index] as Record<string, string> | undefined;
+            if (!craftingParam) {
+              craftingParam = {};
+              craftingParams[index] = craftingParam;
+            }
+            craftingParam[parts[2]] = params.get(key);
 
 
-        } else if (this.gearList.getSlots().find(v => v === key)) {
-          const itemName = params.get(key);
-          const item = this.gearList.findGearBySlot(key, itemName);
+          } else if (this.gearList.getSlots().find(v => v === key)) {
+            const itemName = params.get(key);
+            const item = this.gearList.findGearBySlot(key, itemName);
+            if (item) {
+              this._set(item);
+            } else {
+              console.log('Can\'t find ' + itemName + ' for slot ' + key);
+            }
+          } else if (key.startsWith('ml_')) {
+            const parts = key.split('_');
+            if (parts.length !== 2) {
+              console.log('Bad ml key: ' + key);
+              continue;
+            }
+            minLevels.set(parts[1], +params.get(key));
+          }
+        }
+
+        for (const entries of minLevels.entries()) {
+          const slotSubject = this.slots.get(entries[0]);
+          const item = slotSubject ? slotSubject.getValue() : null;
           if (item) {
+            if (item.isEssenceCrafted()) {
+              this.essenceCrafting.setItemToML(item, entries[1]);
+            } else {
+              item.ml = entries[1];
+            }
             this._set(item);
-          } else {
-            console.log('Can\'t find ' + itemName + ' for slot ' + key);
           }
-        } else if (key.startsWith('ml_')) {
-          const parts = key.split('_');
-          if (parts.length !== 2) {
-            console.log('Bad ml key: ' + key);
+        }
+
+        for (const craftingParam of craftingParams) {
+          if (!craftingParam) {
             continue;
           }
-          minLevels.set(parts[1], +params.get(key));
-        }
-      }
-
-      for (const entries of minLevels.entries()) {
-        const slotSubject = this.slots.get(entries[0]);
-        const item = slotSubject ? slotSubject.getValue() : null;
-        if (item) {
-          if (item.isEssenceCrafted()) {
-            this.essenceCrafting.setItemToML(item, entries[1]);
-          } else {
-            item.ml = entries[1];
+          const itemSubj = this.slots.get(craftingParam['slot']);
+          const item = itemSubj ? itemSubj.getValue() : null;
+          if (!item) {
+            console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
+            continue;
+          }
+          const crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
+          if (!crafting) {
+            console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
+            continue;
+          }
+          if(!crafting.selectByParamDescription(craftingParam['selected'])) {
+            console.log('Couldn\'t set craftable. Couldn\'t find option matching ' + craftingParam['selected']);
+            continue;
           }
           this._set(item);
         }
+
+        this._enforceOffhandCompatibility();
+
+        // for (const lockedSlot of params.getAll('locked')) {
+        //   this.setLock(lockedSlot, true);
+        // }
+      } finally {
+        this.endDerivedStateBatch();
       }
-
-      for (const craftingParam of craftingParams) {
-        if (!craftingParam) {
-          continue;
-        }
-        const itemSubj = this.slots.get(craftingParam['slot']);
-        const item = itemSubj ? itemSubj.getValue() : null;
-        if (!item) {
-          console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
-          continue;
-        }
-        const crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
-        if (!crafting) {
-          console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
-          continue;
-        }
-        if(!crafting.selectByParamDescription(craftingParam['selected'])) {
-          console.log('Couldn\'t set craftable. Couldn\'t find option matching ' + craftingParam['selected']);
-          continue;
-        }
-        this._set(item);
-      }
-
-      this._enforceOffhandCompatibility();
-
-      // for (const lockedSlot of params.getAll('locked')) {
-      //   this.setLock(lockedSlot, true);
-      // }
 
       this._updateRouterState();
     });
+  }
+
+  private beginDerivedStateBatch() {
+    this.batchingDerivedStateUpdates = true;
+    this.derivedStateDirty = false;
+    this.importantAffixesDirty = false;
+  }
+
+  private endDerivedStateBatch() {
+    const shouldEmitImportantAffixes = this.importantAffixesDirty;
+    const shouldRefreshDerivedState = this.derivedStateDirty || shouldEmitImportantAffixes;
+
+    this.batchingDerivedStateUpdates = false;
+    this.derivedStateDirty = false;
+    this.importantAffixesDirty = false;
+
+    if (shouldEmitImportantAffixes) {
+      this.importantAffixesSubject.next(new Set(this.importantAffixes));
+    }
+
+    if (shouldRefreshDerivedState) {
+      this.refreshDerivedState();
+    }
+  }
+
+  private refreshDerivedStateAfterSlotChange() {
+    if (this.batchingDerivedStateUpdates) {
+      this.derivedStateDirty = true;
+      return;
+    }
+
+    this.refreshDerivedState();
+  }
+
+  private emitImportantAffixesChanged() {
+    if (this.batchingDerivedStateUpdates) {
+      this.importantAffixesDirty = true;
+      return;
+    }
+
+    this.importantAffixesSubject.next(new Set(this.importantAffixes));
+    this._updateCoveredAffixes();
+  }
+
+  private refreshDerivedState() {
+    this._updateCoveredAffixes(false);
+    this._updateActiveSetBonuses();
   }
 
   _updateRouterState() {
@@ -569,8 +623,7 @@ export class EquippedService {
 
   setImportantAffixes(affixes: Array<string>) {
     this.importantAffixes = this.expandTrackedAffixes(affixes);
-    this.importantAffixesSubject.next(new Set(this.importantAffixes));
-    this._updateCoveredAffixes();
+    this.emitImportantAffixesChanged();
   }
 
   addImportantAffix(affix: string) {

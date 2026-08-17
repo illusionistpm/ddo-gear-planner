@@ -58,7 +58,7 @@
         </div>
         @if (!readonly) {
           <div class="col-8">
-            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
+            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
               @for (optionRow of row.options; track optionRow.description) {
                 <option [ngValue]="optionRow.option"
                   [ngClass]="optionRow.className"

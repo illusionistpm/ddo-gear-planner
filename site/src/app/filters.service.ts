@@ -6,6 +6,7 @@ import { Item } from './item';
 import { ItemFilters } from './item-filters';
 
 import { QueryParamsService } from './query-params.service';
+import { perfMeasure } from './perf-trace';
 
 
 @Injectable({
@@ -84,37 +85,57 @@ export class FiltersService {
 
   setHiddenTypes(hiddenTypes: Set<string>) {
     const newFilters = new ItemFilters(this.itemFilters.getValue());
+    if (this.areSetsEqual(hiddenTypes, newFilters.hiddenItemTypes)) {
+      return;
+    }
+
     newFilters.hiddenItemTypes = hiddenTypes;
     this.itemFilters.next(newFilters);
     this._updateRouterState();
   }
 
-  updateFromParams(params: any) {
-    const levelRangeParam = params.get('levelrange');
-    if (levelRangeParam) {
-      const vals = levelRangeParam.split(',');
-      const min = Number(vals[0]);
-      const max = Number(vals[1]);
-      if (!Number.isNaN(min) && !Number.isNaN(max)) {
-        this.setLevelRange(min, max);
+  private areSetsEqual(left: Set<string>, right: Set<string>) {
+    if (left.size !== right.size) {
+      return false;
+    }
+
+    for (const value of left) {
+      if (!right.has(value)) {
+        return false;
       }
-    } else {
-      this.setLevelRange(ItemFilters.MIN_LEVEL(), this.maxLevel);
     }
 
-    const raidsParam = params.get('raids');
-    this.setShowRaidItems(raidsParam === null ? true : raidsParam === 'true');
+    return true;
+  }
 
-    const hiddenTypes = new Set<string>();
-    const hiddenTypesParam = params.get('hiddentypes');
-    if (hiddenTypesParam) {
-      hiddenTypesParam.split(',')
-        .filter((element: string) => element)
-        .forEach((element: string) => {
-          hiddenTypes.add(element);
-        });
-    }
-    this.setHiddenTypes(hiddenTypes);
+  updateFromParams(params: any) {
+    return perfMeasure('FiltersService.updateFromParams', () => {
+      const levelRangeParam = params.get('levelrange');
+      if (levelRangeParam) {
+        const vals = levelRangeParam.split(',');
+        const min = Number(vals[0]);
+        const max = Number(vals[1]);
+        if (!Number.isNaN(min) && !Number.isNaN(max)) {
+          this.setLevelRange(min, max);
+        }
+      } else {
+        this.setLevelRange(ItemFilters.MIN_LEVEL(), this.maxLevel);
+      }
+
+      const raidsParam = params.get('raids');
+      this.setShowRaidItems(raidsParam === null ? true : raidsParam === 'true');
+
+      const hiddenTypes = new Set<string>();
+      const hiddenTypesParam = params.get('hiddentypes');
+      if (hiddenTypesParam) {
+        hiddenTypesParam.split(',')
+          .filter((element: string) => element)
+          .forEach((element: string) => {
+            hiddenTypes.add(element);
+          });
+      }
+      this.setHiddenTypes(hiddenTypes);
+    });
   }
 
   _updateRouterState() {

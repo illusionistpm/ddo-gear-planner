@@ -14,7 +14,7 @@ import { Item } from '../item';
 import { Observable, Subscription } from 'rxjs';
 
 import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
-import { perfAfterFrames, perfCount, perfStart } from '../perf-trace';
+import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../perf-trace';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -28,8 +28,8 @@ interface AffixDisplayRow {
 
 interface CraftingOptionDisplayRow {
   option: CraftableOption;
-  className: string;
-  tooltip: string;
+  className?: string;
+  tooltip?: string;
   description: string;
 }
 
@@ -41,6 +41,8 @@ interface CraftingDisplayRow {
   selectedAffixGroup: boolean;
   selectedGroupTooltip: string;
   options: CraftingOptionDisplayRow[];
+  optionsRanked: boolean;
+  optionsLoaded: boolean;
 }
 
 interface SetDisplayRow {
@@ -64,6 +66,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
   craftingRows: CraftingDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
   private subscriptions = new Subscription();
+  private rankedCraftingOptions = new WeakSet<Craftable>();
+  private loadedCraftingOptions = new WeakSet<Craftable>();
 
   constructor(
     public equipped: EquippedService,
@@ -112,17 +116,27 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
   }
 
   private refreshDisplayRows() {
+    const done = perfAggregateStart('GearDescriptionComponent.refreshDisplayRows');
     this.affixRows = this.buildAffixRows();
     this.craftingRows = this.buildCraftingRows();
     this.setRows = this.buildSetRows();
+    done({
+      validItems: this.curItem?.isValid() ? 1 : 0,
+      affixRows: this.affixRows.length,
+      craftingRows: this.craftingRows.length,
+      craftingOptionRows: this.craftingRows.reduce((count, row) => count + row.options.length, 0),
+      setRows: this.setRows.length
+    });
   }
 
   private buildAffixRows(): AffixDisplayRow[] {
+    const done = perfAggregateStart('GearDescriptionComponent.buildAffixRows');
     if (!this.curItem?.affixes) {
+      done();
       return [];
     }
 
-    return this.curItem.affixes.map(affix => {
+    const rows = this.curItem.affixes.map(affix => {
       const affixGroup = this.affixSvc.isAffixGroup(affix);
       return {
         affix,
@@ -134,14 +148,18 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
         valueText: affix.hasRealType() ? [this.affixUi.getAffixValue(affix), affix.type].filter(part => part).join(' ') : ''
       };
     });
+    done({ rows: rows.length });
+    return rows;
   }
 
   private buildCraftingRows(): CraftingDisplayRow[] {
+    const done = perfAggregateStart('GearDescriptionComponent.buildCraftingRows');
     if (!this.curItem?.crafting) {
+      done();
       return [];
     }
 
-    return this.curItem.crafting.map(craft => {
+    const rows = this.curItem.crafting.map(craft => {
       const selectedAffix = craft.selected?.affixes?.[0];
       const selectedAffixGroup = selectedAffix ? this.affixSvc.isAffixGroup(selectedAffix) : false;
       return {
@@ -151,26 +169,55 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
-        options: this.readonly ? [] : (craft.options || []).map(option => ({
-          option,
-          className: this.affixUi.getClassForCraftingOption(option),
-          tooltip: option.affixes?.[0] ? this.affixUi.getAffixTooltip(option.affixes[0], option) : '',
-          description: option.describe()
-        }))
+        options: this.buildCraftingOptionRows(craft, this.rankedCraftingOptions.has(craft), this.loadedCraftingOptions.has(craft)),
+        optionsRanked: this.readonly || this.rankedCraftingOptions.has(craft),
+        optionsLoaded: this.readonly || this.loadedCraftingOptions.has(craft)
       };
     });
+    done({
+      rows: rows.length,
+      optionRows: rows.reduce((count, row) => count + row.options.length, 0),
+      rankedOptionRows: rows.reduce((count, row) => count + (row.optionsRanked ? row.options.length : 0), 0)
+    });
+    return rows;
+  }
+
+  private buildCraftingOptionRows(craft: Craftable, includeRank: boolean, includeAllOptions: boolean): CraftingOptionDisplayRow[] {
+    const done = perfAggregateStart('GearDescriptionComponent.buildCraftingOptionRows');
+    if (this.readonly) {
+      done();
+      return [];
+    }
+
+    const options = includeAllOptions ? (craft.options || []) : [craft.selected];
+    const rows = options.map(option => ({
+      option,
+      className: includeRank ? this.affixUi.getClassForCraftingOption(option) : undefined,
+      tooltip: includeRank && option.affixes?.[0] ? this.affixUi.getAffixTooltip(option.affixes[0], option) : undefined,
+      description: option.describe()
+    }));
+    done({
+      rows: rows.length,
+      rankedRows: includeRank ? rows.length : 0,
+      fullOptionLists: includeAllOptions ? 1 : 0
+    });
+    return rows;
   }
 
   private buildSetRows(): SetDisplayRow[] {
+    const done = perfAggregateStart('GearDescriptionComponent.buildSetRows');
     if (!this.curItem) {
+      done();
       return [];
     }
 
     const activeSets = this.equipped.getActiveSets();
-    return (this.curItem.getSets() || []).map(set => ({
+    const rows = (this.curItem.getSets() || []).map(set => ({
       name: set,
       count: activeSets.get(set)
     }));
+    done({ rows: rows.length });
+    return rows;
   }
 
   updateItem() {
@@ -180,6 +227,19 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
     }
     done();
     perfAfterFrames('paint after crafting option change');
+  }
+
+  loadAndRankCraftingOptions(row: CraftingDisplayRow) {
+    if (row.optionsLoaded && row.optionsRanked) {
+      return;
+    }
+
+    this.loadedCraftingOptions.add(row.craft);
+    this.rankedCraftingOptions.add(row.craft);
+    row.options = this.buildCraftingOptionRows(row.craft, true, true);
+    row.optionsLoaded = true;
+    row.optionsRanked = true;
+    this.changeDetector.markForCheck();
   }
 
   updateML() {

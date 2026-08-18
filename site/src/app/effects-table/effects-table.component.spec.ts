@@ -47,6 +47,31 @@ describe('EffectsTableComponent', () => {
     });
   });
 
+  it('targets the first chip in the first non-utility onboarding group', () => {
+    component.hasOpenedAffixType = false;
+    component.affixNames = ['Speed', 'Strength'];
+    component.affixMap.set('Speed', [
+      { bonusType: 'Enhancement', value: 30 },
+    ]);
+    component.affixMap.set('Strength', [
+      { bonusType: 'Enhancement', value: 8 },
+      { bonusType: 'Equipment', value: 13 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+
+    expect(component.isOnboardingTargetChip('Speed', 'Enhancement')).toBeFalse();
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeTrue();
+    expect(component.isOnboardingTargetChip('Strength', 'Enhancement')).toBeFalse();
+  });
+
+  it('falls back to the first utility checklist chip when it is the only onboarding group', () => {
+    component.hasOpenedAffixType = false;
+    component.boolAffixNames = ['Feather Falling'];
+    component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
+
+    expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBeTrue();
+  });
+
   it('toggles category collapse state by group name', () => {
     expect(component.isAffixGroupCollapsed('Offense')).toBeFalse();
 

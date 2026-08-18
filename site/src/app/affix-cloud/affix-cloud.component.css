@@ -1,11 +1,342 @@
-.saved-affix-group {
-  margin-bottom: 0.5rem;
+.affix-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 0.5rem 1rem 1rem;
+}
+
+.affix-workspace-bar {
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(248, 250, 252, 0.94);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  margin: 0 auto 0.9rem;
+  max-width: 1400px;
+  padding: 0.4rem;
+  position: sticky;
+  top: 0.5rem;
+  z-index: 20;
+}
+
+.affix-brand {
+  color: var(--text-primary);
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 0 0.45rem 0 0.2rem;
+  white-space: nowrap;
+}
+
+.affix-nav {
+  align-items: center;
+  background: #e8eef5;
+  border-radius: 6px;
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.18rem;
+}
+
+.affix-tab {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 700;
+  gap: 0.45rem;
+  line-height: 1.2;
+  min-height: 2rem;
+  padding: 0.4rem 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.affix-tab:hover,
+.affix-tab:focus {
+  color: var(--primary-color);
+}
+
+.affix-tab:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.16);
+  outline-offset: 2px;
+}
+
+.affix-tab.active {
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+}
+
+.affix-next-tab {
+  background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+  color: #ffffff;
+}
+
+.affix-next-tab:hover,
+.affix-next-tab:focus {
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.affix-next-badge {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.18rem 0.4rem;
+  text-transform: uppercase;
+}
+
+.affix-setup-tab {
+  flex: 1 1 auto;
+}
+
+.affix-count {
+  background: #eef3f8;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.18rem 0.45rem;
+}
+
+.affix-layout {
+  align-items: start;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.affix-builder {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.affix-intro-panel {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 0.85rem 1rem;
+}
+
+.affix-intro-panel h2 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem;
+}
+
+.affix-intro-panel p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.affix-panel,
+.selected-affixes-panel {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  padding: 0.85rem;
+}
+
+.affix-panel-header,
+.selected-affixes-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.affix-panel h3,
+.selected-affixes-header h3 {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.selected-affixes-actions {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.selected-affixes-actions span {
+  background: #eef3f8;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  min-width: 1.75rem;
+  padding: 0.18rem 0.45rem;
+  text-align: center;
+}
+
+.clear-affixes-button {
+  background: transparent;
+  border: 0;
+  color: var(--danger-color);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0;
+}
+
+.clear-affixes-button:hover,
+.clear-affixes-button:focus {
+  color: #b91c1c;
+}
+
+.selected-affixes-panel {
+  max-height: calc(100vh - 5.2rem);
+  overflow-y: auto;
+  position: sticky;
+  top: 5rem;
+}
+
+.chip-grid,
+.selected-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.affix-chip,
+.selected-affix-chip {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: 0.88rem;
+  font-weight: 700;
+  gap: 0.4rem;
+  line-height: 1.2;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.affix-chip:hover,
+.affix-chip:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+  color: var(--primary-color);
+}
+
+.affix-package-chip {
+  background: #eef3f8;
+}
+
+.affix-next-chip,
+.affix-next-chip:hover,
+.affix-next-chip:focus {
+  background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  color: #ffffff;
+}
+
+.affix-next-chip-badge {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.17rem 0.38rem;
+  text-transform: uppercase;
+}
+
+.affix-selectable-chip.selected,
+.affix-package-chip.selected {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.affix-selectable-chip.selected::before,
+.affix-package-chip.selected::before {
+  content: '\2713';
+  font-weight: 900;
+  margin-right: 0.2rem;
+}
+
+.selected-affixes-groups {
+  display: grid;
+  gap: 0.75rem;
 }
 
 .saved-affix-group-title {
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin: 0.25rem 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem;
   text-transform: uppercase;
+}
+
+.selected-affix-chip {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.selected-affix-chip:hover,
+.selected-affix-chip:focus {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+.empty-selected-affixes {
+  background: #f8fafc;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-weight: 700;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 991.98px) {
+  .affix-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-affixes-panel {
+    max-height: none;
+    order: -1;
+    position: static;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .affix-workspace-bar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .affix-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
 }

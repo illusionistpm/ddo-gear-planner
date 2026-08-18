@@ -235,4 +235,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   private getEquippedSlotCount() {
     return Array.from(this.equipped.getSlotsSnapshot().values()).filter(item => item && item.isValid()).length;
   }
+
+  isBuildEmpty() {
+    return this.getEquippedSlotCount() === 0;
+  }
 }

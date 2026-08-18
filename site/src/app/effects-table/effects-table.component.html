@@ -1,6 +1,10 @@
-<div class="row section-header">
-    <h3>Tracked Affixes</h3>
-</div>
+@if (shouldShowAffixTypeHint()) {
+    <section class="tracked-affix-start-hint" aria-label="Tracked affixes hint">
+        <h2>Find gear from your tracked affixes</h2>
+        <p>Click the highlighted affix type chip to see items that can improve that bonus.</p>
+    </section>
+}
+
 <div class="row">
     <div class="col-12 tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of getTrackedAffixGroups()">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
@@ -19,15 +23,19 @@
                 <div class="tracked-affix-chips">
                     <ng-container *ngFor="let affixName of group.checklistAffixes">
                         <button class="tracked-bonus-chip" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
                             (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
                             <span class="tracked-bonus-label max-value">{{affixName}}</span>
                             <span class="far fa-check-square max-value" aria-hidden="true"></span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
                         </button>
                         <ng-template #noValueBools>
                             <button [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="tracked-bonus-chip no-value"
+                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
                                 (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
                                 <span class="tracked-bonus-label">{{affixName}}</span>
                                 <span class="far fa-square no-value" aria-hidden="true"></span>
+                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
                             </button>
                         </ng-template>
                     </ng-container>
@@ -56,17 +64,21 @@
                         <button class="tracked-bonus-chip" *ngIf="types.value; else noValue"
                             (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [title]="getBonusTypeTooltip(affixName, types)"
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [ngClass]="getClassForValue(affixName, types)">
                             <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}:</span>
                             <span class="tracked-bonus-value">{{types.value}}</span>
                             <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))">Click</span>
                         </button>
                         <ng-template #noValue>
                             <button class="tracked-bonus-chip no-value"
                                 [title]="getBonusTypeTooltip(affixName, types)"
+                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                                 (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
                                 <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
                                 <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
+                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))">Click</span>
                             </button>
                         </ng-template>
                     </ng-container>
@@ -78,8 +90,4 @@
         </div>
     </div>
 
-</div>
-
-<div class="row">
-    <a class="btn btn-success col-sm-4 col-md-4 col-lg-2 mt-1 mb-2" routerLink="/affixes" queryParamsHandling="preserve" routerLinkActive="active">Add Affixes...</a>
 </div>

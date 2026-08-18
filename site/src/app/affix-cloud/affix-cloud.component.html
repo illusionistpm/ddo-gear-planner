@@ -1,119 +1,152 @@
-<div class="container">
-  <!-- Affix Cloud -->
-  <div class="row section-header">
-    <h3>Choose affixes</h3>
-  </div>
+<div class="affix-page">
+  <header class="affix-workspace-bar">
+    <div class="affix-brand">DDO Gear Planner</div>
+    <nav class="affix-nav" aria-label="Planner sections" role="tablist">
+      @if (savedSet.size) {
+        <a class="affix-tab affix-next-tab" routerLink="/main" [queryParams]="{tab: null}" queryParamsHandling="merge" role="tab">
+          Equipment
+          <span class="affix-next-badge">Next</span>
+        </a>
+        <a class="affix-tab" routerLink="/main" [queryParams]="{tab: 'affixes'}" queryParamsHandling="merge" role="tab">Tracked Affixes</a>
+        <span class="affix-tab active" role="tab" aria-selected="true">
+          Edit Affixes
+          <span class="affix-count">{{savedSet.size}} selected</span>
+        </span>
+      } @else {
+        <span class="affix-tab active affix-setup-tab" role="tab" aria-selected="true">
+          Affix Setup
+        </span>
+      }
+    </nav>
+  </header>
 
-  <p>What attributes do you care about?</p>
-  <div class="row d-flex justify-content-start">
-    @for (attr of attributes; track attr) {
-      <div class="col-auto m-0 mb-2 p-0">
-        <button class="btn btn-primary mx-1"
-        (click)="add(attr, 'attribute_button')">{{attr}}</button>
-      </div>
-    }
-  </div>
-
-  <p>Pick a bundle of affixes to save time:</p>
-  <div class="row d-flex justify-content-start">
-    @for (pkg of packageKeys; track pkg) {
-      <div class="col-auto m-0 mb-2 p-0">
-        <button class="btn btn-primary mx-1"
-        (click)="addPackage(pkg)">{{pkg}}</button>
-      </div>
-    }
-  </div>
-
-  @if (showTactics) {
-    <div>
-      <p>Which tactics will you use?</p>
-      <div class="row d-flex justify-content-start">
-        @for (tactic of tactics; track tactic) {
-          <div class="col-auto m-0 mb-2 p-0">
-            <button class="btn btn-primary mx-1"
-            (click)="addTactic(tactic)">{{tactic}}</button>
-          </div>
+  <main class="affix-layout">
+    <section class="affix-builder">
+      <section class="affix-intro-panel">
+        @if (savedSet.size) {
+          <h2>Your gear targets are ready</h2>
+          <p>Use the Equipment tab to start choosing items. You can come back to Edit Affixes any time to adjust what the planner tracks.</p>
+        } @else {
+          <h2>Start by choosing your build goals</h2>
+          <p>Pick the highlighted starter package or choose a few core stats. Once you have selected affixes, the planner can track them while you compare gear.</p>
         }
-      </div>
-    </div>
-  }
+      </section>
 
-  @if (showSpellpowers) {
-    <div>
-      <p>Which spellpowers do you care about?</p>
-      <div class="row d-flex justify-content-start">
-        @for (spellpower of spellpowerPackageKeys; track spellpower) {
-          <div class="col-auto m-0 mb-2 p-0">
-            <button class="btn btn-primary mx-1"
-            (click)="addSpellpower(spellpower)">{{spellpower}}</button>
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Core Stats</h3>
+        </div>
+        <div class="chip-grid">
+          @for (attr of attributes; track attr) {
+            <button type="button" class="affix-chip affix-selectable-chip"
+              [class.selected]="isAttributeSelected(attr)"
+              [attr.aria-pressed]="isAttributeSelected(attr)"
+              (click)="toggleAttribute(attr)">{{attr}}</button>
+          }
+        </div>
+      </section>
+
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Build Packages</h3>
+        </div>
+        <div class="chip-grid">
+          @for (pkg of packageKeys; track pkg) {
+            <button type="button" class="affix-chip affix-package-chip"
+              [class.selected]="isPackageSelected(pkg)"
+              [class.affix-next-chip]="shouldHighlightStarterPackage(pkg)"
+              [attr.aria-pressed]="isPackageSelected(pkg)"
+              [title]="getPackageTooltip(pkg)"
+              (click)="addPackage(pkg)">
+              {{pkg}}
+              @if (shouldHighlightStarterPackage(pkg)) {
+                <span class="affix-next-chip-badge">Start</span>
+              }
+            </button>
+          }
+        </div>
+      </section>
+
+      @if (showTactics) {
+        <section class="affix-panel">
+          <div class="affix-panel-header">
+            <h3>Tactics</h3>
           </div>
-        }
-      </div>
-    </div>
-  }
-
-  @if (showSpellSchools) {
-    <div>
-      <p>What spell schools will you use?</p>
-      <div class="row d-flex justify-content-start">
-        @for (spellSchool of spellSchools; track spellSchool) {
-          <div class="col-auto m-0 mb-2 p-0">
-            <button class="btn btn-primary mx-1"
-            (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
-          </div>
-        }
-      </div>
-    </div>
-  }
-
-  @if (topResults.length) {
-    <div>
-      <p>What other affixes are important to your build?</p>
-      <div class="row d-flex justify-content-start">
-        @for (result of topResults; track result[0]) {
-          <div class="col-auto m-0 mb-2 p-0">
-            <button class="btn btn-primary mx-1" [ngClass]="getBtnSize(result)"
-        (click)="add(result[0], 'suggested_affix')">{{result[0]}}</button>
-          </div>
-        }
-      </div>
-    </div>
-  }
-
-  <!-- Manual Entry -->
-  <div class="row mt-2">
-    <p class="col-sm-12 col-md-4">Enter affixes manually:</p>
-    <app-typeahead id="effect-search" class="col-8" type="text" placeholder="Enter an affix" [source]=allAffixes searchType="affix"
-      [onChange]=onChange()>
-    </app-typeahead>
-  </div>
-
-  <!-- Saved Affixes -->
-  @if (savedSet.size) {
-    <div>
-      <div class="row section-header my-2">
-        <h4>Saved affixes</h4>
-      </div>
-      <div class="row mb-2">
-        <p class="col-12 mb-0">Tap to remove</p>
-      </div>
-      @for (group of getSavedAffixGroups(); track group.name) {
-        <div class="saved-affix-group">
-          <div class="saved-affix-group-title">{{group.name}}</div>
-          <div class="row d-flex justify-content-start">
-            @for (result of group.affixes; track result) {
-              <div class="col-auto m-0 mb-2 p-0">
-                <button class="btn btn-danger btn-sm mx-1" (click)="remove(result)">{{result}}</button>
-              </div>
+          <div class="chip-grid">
+            @for (tactic of tactics; track tactic) {
+              <button type="button" class="affix-chip" (click)="addTactic(tactic)">{{tactic}}</button>
             }
           </div>
-        </div>
+        </section>
       }
-    </div>
-  }
 
-  <!-- Done -->
-  <div class="row mt-2">
-    <a class="btn btn-success col-4" routerLink="/main" queryParamsHandling="preserve" routerLinkActive="active">Done</a>
-  </div>
+      @if (showSpellpowers) {
+        <section class="affix-panel">
+          <div class="affix-panel-header">
+            <h3>Spell Power</h3>
+        </div>
+        <div class="chip-grid">
+          @for (spellpower of spellpowerPackageKeys; track spellpower) {
+              <button type="button" class="affix-chip affix-package-chip"
+                [class.selected]="isSpellpowerSelected(spellpower)"
+                [attr.aria-pressed]="isSpellpowerSelected(spellpower)"
+                [title]="getSpellpowerTooltip(spellpower)"
+                (click)="addSpellpower(spellpower)">{{spellpower}}</button>
+          }
+        </div>
+      </section>
+      }
+
+      @if (showSpellSchools) {
+        <section class="affix-panel">
+          <div class="affix-panel-header">
+            <h3>Spell Schools</h3>
+          </div>
+          <div class="chip-grid">
+            @for (spellSchool of spellSchools; track spellSchool) {
+              <button type="button" class="affix-chip" (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
+            }
+          </div>
+        </section>
+      }
+
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Manual Search</h3>
+        </div>
+        <app-typeahead id="effect-search" type="text" placeholder="Enter an affix" [source]=allAffixes searchType="affix"
+          [onChange]=onChange()>
+        </app-typeahead>
+      </section>
+    </section>
+
+    <aside class="selected-affixes-panel">
+      <div class="selected-affixes-header">
+        <h3>Selected Affixes</h3>
+        <div class="selected-affixes-actions">
+          <span>{{savedSet.size}}</span>
+          @if (savedSet.size) {
+            <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear All</button>
+          }
+        </div>
+      </div>
+
+      @if (savedSet.size) {
+        <div class="selected-affixes-groups">
+          @for (group of getSavedAffixGroups(); track group.name) {
+            <section class="saved-affix-group">
+              <div class="saved-affix-group-title">{{group.name}}</div>
+              <div class="selected-chip-grid">
+                @for (result of group.affixes; track result) {
+                  <button type="button" class="selected-affix-chip" (click)="remove(result)">{{result}}</button>
+                }
+              </div>
+            </section>
+          }
+        </div>
+      } @else {
+        <div class="empty-selected-affixes">No affixes selected</div>
+      }
+    </aside>
+  </main>
 </div>

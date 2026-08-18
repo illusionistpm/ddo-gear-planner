@@ -1,5 +1,61 @@
-<div class="container">
-    <app-filters (troveFileSelected)="onTroveFileSelected($event)" (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>
-    <app-gear-list></app-gear-list>
-    <app-effects-table [sortOwnedToTop]="sortOwnedToTop"></app-effects-table>
+<div class="container planner-page">
+    <header class="planner-workspace-bar">
+        <div class="planner-brand">DDO Gear Planner</div>
+        <nav class="planner-tabs" aria-label="Planner sections" role="tablist">
+            <button type="button" class="planner-tab" id="equipmentTab"
+                [class.active]="isActiveTab('equipment')"
+                [attr.aria-selected]="isActiveTab('equipment')"
+                aria-controls="equipmentPanel"
+                role="tab"
+                (click)="selectTab('equipment')">
+                Equipment
+            </button>
+            <button type="button" class="planner-tab" id="affixesTab"
+                [class.active]="isActiveTab('affixes')"
+                [class.planner-next-tab]="shouldHighlightTrackedAffixes()"
+                [attr.aria-selected]="isActiveTab('affixes')"
+                aria-controls="affixesPanel"
+                role="tab"
+                (click)="selectTab('affixes')">
+                Tracked Affixes
+                @if (shouldHighlightTrackedAffixes()) {
+                    <span class="planner-next-badge">Next</span>
+                }
+            </button>
+            <a class="planner-tab" routerLink="/affixes" queryParamsHandling="preserve" role="tab">Edit Affixes</a>
+            <button type="button" class="planner-filter-button"
+                [class.open]="filtersOpen"
+                [attr.aria-expanded]="filtersOpen"
+                aria-controls="filtersPanel"
+                (click)="toggleFilters()">
+                <span class="planner-tab-label">Filters</span>
+                <span class="planner-tab-badges">
+                    <span class="planner-filter-chip">{{getLevelRangeSummary()}}</span>
+                    <span class="planner-filter-chip">{{getContentSummary()}}</span>
+                    <span class="planner-filter-chip">{{getFilterCountSummary()}}</span>
+                </span>
+            </button>
+        </nav>
+
+        @if (filtersOpen) {
+            <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
+                <app-filters (troveFileSelected)="onTroveFileSelected($event)"
+                    (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>
+            </section>
+        }
+    </header>
+
+    @if (filtersOpen) {
+        <button type="button" class="planner-filter-backdrop" aria-label="Close filters" (click)="closeFilters()"></button>
+    }
+
+    <div class="planner-tab-panels">
+        <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
+            <app-gear-list></app-gear-list>
+        </section>
+
+        <section id="affixesPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="affixesTab" [hidden]="!isActiveTab('affixes')">
+            <app-effects-table [sortOwnedToTop]="sortOwnedToTop"></app-effects-table>
+        </section>
+    </div>
 </div>

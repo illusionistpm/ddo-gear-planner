@@ -35,9 +35,11 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
   packages = new Map<string, Array<string>>();
   packageKeys: string[] = [];
+  selectedPackages = new Set<string>();
 
   spellpowerPackages = new Map<string, Array<string>>();
   spellpowerPackageKeys: string[] = [];
+  selectedSpellpowerPackages = new Set<string>();
 
   private importantAffixesSubscription?: Subscription;
 
@@ -154,23 +156,37 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleAttribute(attr: string) {
+    if (this.isAttributeSelected(attr)) {
+      this.remove(attr);
+      return;
+    }
+
+    this.add(attr, 'attribute_button');
+  }
+
+  isAttributeSelected(attr: string) {
+    return this.savedSet.has(attr);
+  }
+
   addPackage(pkg: string) {
+    if (this.selectedPackages.has(pkg)) {
+      this.removePackage(pkg);
+      return;
+    }
+
     this.analytics.track('select_affix_package', {
       package_type: 'basic',
       package_name: pkg
     });
-    if (pkg == 'Melee') {
-      this.showTactics = true;
-    } else if (pkg == 'Caster') {
-      this.showSpellSchools = true;
-      this.showSpellpowers = true;
-    }
     const packageAffixes = this.packages.get(pkg);
     if (packageAffixes) {
+      this.selectedPackages.add(pkg);
       for (const affix of packageAffixes) {
         this.add(affix, 'package', false);
       }
     }
+    this.updateConditionalSections();
   }
 
   addTactic(tactic: string) {
@@ -182,16 +198,69 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   }
 
   addSpellpower(spellpower: string) {
+    if (this.selectedSpellpowerPackages.has(spellpower)) {
+      this.removeSpellpower(spellpower);
+      return;
+    }
+
     this.analytics.track('select_affix_package', {
       package_type: 'spellpower',
       package_name: spellpower
     });
     const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
     if (spellpowerAffixes) {
+      this.selectedSpellpowerPackages.add(spellpower);
       for (const affix of spellpowerAffixes) {
         this.add(affix, 'spellpower_package', false);
       }
     }
+    this.updateConditionalSections();
+  }
+
+  removePackage(pkg: string) {
+    const packageAffixes = this.packages.get(pkg);
+    if (!packageAffixes) {
+      return;
+    }
+
+    this.selectedPackages.delete(pkg);
+    for (const affix of packageAffixes) {
+      this.remove(affix);
+    }
+    this.updateConditionalSections();
+  }
+
+  removeSpellpower(spellpower: string) {
+    const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
+    if (!spellpowerAffixes) {
+      return;
+    }
+
+    this.selectedSpellpowerPackages.delete(spellpower);
+    for (const affix of spellpowerAffixes) {
+      this.remove(affix);
+    }
+    this.updateConditionalSections();
+  }
+
+  isPackageSelected(pkg: string) {
+    return this.selectedPackages.has(pkg);
+  }
+
+  shouldHighlightStarterPackage(pkg: string) {
+    return !this.savedSet.size && pkg === 'Basic';
+  }
+
+  isSpellpowerSelected(spellpower: string) {
+    return this.selectedSpellpowerPackages.has(spellpower);
+  }
+
+  getPackageTooltip(pkg: string) {
+    return this.getPackageAffixesTooltip(this.packages.get(pkg));
+  }
+
+  getSpellpowerTooltip(spellpower: string) {
+    return this.getPackageAffixesTooltip(this.spellpowerPackages.get(spellpower));
   }
 
   add(affix: string, source: string = 'manual_search', track: boolean = true) {
@@ -247,11 +316,11 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     }
 
     if (!this.savedSet.size) {
-      this.showTactics = false;
-      this.showSpellpowers = false;
-      this.showSpellSchools = false;
+      this.selectedPackages.clear();
+      this.selectedSpellpowerPackages.clear();
     }
 
+    this.updateConditionalSections();
     this.refreshTopResults();
   }
 
@@ -268,6 +337,15 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     this.refreshTopResults();
   }
 
+  clearAll() {
+    for (const affix of Array.from(this.savedSet)) {
+      this.remove(affix);
+    }
+    this.selectedPackages.clear();
+    this.selectedSpellpowerPackages.clear();
+    this.updateConditionalSections();
+  }
+
   onChange() {
     return (affix: any) => {
       this.add(affix.original ? affix.original : affix.name, 'manual_search');
@@ -279,5 +357,19 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
       const types = this.gearDB.getTypesForAffix(affixName);
       return types.length === 1 && types[0] === 'Bool' ? UTILITY_CHECKLIST_CATEGORY : null;
     });
+  }
+
+  private updateConditionalSections() {
+    this.showTactics = this.selectedPackages.has('Melee');
+    this.showSpellpowers = this.selectedPackages.has('Caster') || this.selectedSpellpowerPackages.size > 0;
+    this.showSpellSchools = this.selectedPackages.has('Caster');
+  }
+
+  private getPackageAffixesTooltip(affixes: string[] | undefined) {
+    if (!affixes || !affixes.length) {
+      return '';
+    }
+
+    return 'Adds: ' + affixes.join(', ');
   }
 }

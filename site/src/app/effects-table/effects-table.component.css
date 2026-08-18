@@ -3,6 +3,30 @@
     font-weight: 400;
 }
 
+.tracked-affix-start-hint {
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), #ffffff 55%);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    margin: 0.25rem 0 0.75rem;
+    padding: 0.75rem 0.9rem;
+}
+
+.tracked-affix-start-hint h2 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 0.25rem;
+}
+
+.tracked-affix-start-hint p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    margin: 0;
+}
+
 .tracked-affix-list {
     --tracked-affix-summary-width: clamp(13rem, 22vw, 17rem);
     display: flex;
@@ -205,6 +229,49 @@
     background-color: transparent;
     border-color: #a8b2bf;
     color: #5f6b7a;
+}
+
+.tracked-bonus-chip-onboarding-target,
+.tracked-bonus-chip-onboarding-target.no-value,
+.tracked-bonus-chip-onboarding-target.max-value,
+.tracked-bonus-chip-onboarding-target.mid-value,
+.tracked-bonus-chip-onboarding-target.low-value {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    border-color: #059669;
+    box-shadow: none;
+    color: #ffffff;
+    font-weight: 700;
+    position: relative;
+}
+
+.tracked-bonus-chip-onboarding-target:hover,
+.tracked-bonus-chip-onboarding-target:focus {
+    border-color: #047857;
+    box-shadow: var(--shadow-sm);
+    color: #ffffff;
+}
+
+.tracked-bonus-chip-onboarding-target .tracked-bonus-label,
+.tracked-bonus-chip-onboarding-target .tracked-bonus-value,
+.tracked-bonus-chip-onboarding-target .max-available,
+.tracked-bonus-chip-onboarding-target .max-value,
+.tracked-bonus-chip-onboarding-target .mid-value,
+.tracked-bonus-chip-onboarding-target .low-value,
+.tracked-bonus-chip-onboarding-target .no-value {
+    color: #ffffff;
+    text-shadow: none;
+}
+
+.tracked-bonus-onboarding-badge {
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    line-height: 1;
+    padding: 0.17rem 0.38rem;
+    text-transform: uppercase;
 }
 
 .tracked-affix-section {

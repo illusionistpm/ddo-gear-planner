@@ -4,6 +4,7 @@ import { Subscription, fromEvent } from 'rxjs';
 import { EquippedService } from './equipped.service';
 import { FiltersService } from './filters.service';
 import { QueryParamsService } from './query-params.service';
+import { PlannerOnboardingService } from './planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './perf-trace';
 
 @Component({
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly queryParams: QueryParamsService,
     private readonly equipped: EquippedService,
-    private readonly filters: FiltersService
+    private readonly filters: FiltersService,
+    private readonly onboarding: PlannerOnboardingService
   ) {}
 
   ngOnInit() {
@@ -43,7 +45,12 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.queryParams.updateFromParams(this.getParamsFromHash());
+    const params = this.getParamsFromHash();
+    if (!params.keys.length) {
+      this.onboarding.resetAffixTypeOpened();
+    }
+
+    this.queryParams.updateFromParams(params);
     done({ applied: true });
     perfAfterFrames('paint after URL restore');
   }

@@ -1,47 +1,116 @@
-.data-built-at {
-  position: absolute;
-  top: 0.35rem;
-  right: 6rem;
-  left: auto;
-  z-index: 1;
-  width: auto;
-  max-width: calc(100% - 12rem);
-  padding: 0;
-  font-size: 0.7rem;
-  font-weight: 400;
-  opacity: 0.8;
+.filters-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filters-topline {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.filters-meta {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
   text-align: right;
-  white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .data-built-at {
-    right: 1.5rem;
-    max-width: calc(100% - 3rem);
-    font-size: 0.65rem;
-  }
+.filters-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.pack-filter-toggle {
-  padding-left: 0.75rem;
-  margin-top: 0.25rem;
+.filter-panel {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  padding: 0.8rem;
 }
 
-.pack-filter-card {
-  max-height: 22rem;
+.filter-panel-title {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0 0 0.65rem;
+}
+
+.level-range-control {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.level-range-control label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.level-inputs {
+  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(4rem, 1fr) auto minmax(4rem, 1fr);
+  gap: 0.4rem;
+}
+
+.filter-toggle-list {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+}
+
+.filter-link-button {
+  background: transparent;
+  border: 0;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0;
+}
+
+.filter-link-button:hover,
+.filter-link-button:focus {
+  color: var(--primary-dark);
+}
+
+.owned-gear-status {
+  align-items: center;
+  color: var(--success-color);
+  display: flex;
+  font-size: 0.85rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.pack-filter-panel {
+  max-height: 18rem;
   overflow-y: auto;
 }
 
 .pack-filter-header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+}
+
+.pack-filter-header .filter-panel-title {
+  margin-bottom: 0;
 }
 
 .pack-filter-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   column-gap: 1rem;
-  row-gap: 0.25rem;
+  row-gap: 0.2rem;
 }
 
 .pack-filter-option {
@@ -50,4 +119,23 @@
 
 .pack-filter-option label {
   overflow-wrap: anywhere;
+}
+
+@media (max-width: 991.98px) {
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .filters-topline,
+  .pack-filter-header,
+  .owned-gear-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filters-meta {
+    text-align: left;
+  }
 }

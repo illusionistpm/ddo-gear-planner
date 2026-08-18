@@ -1,89 +1,81 @@
-<div class="row section-header">
-  <h3>Filters</h3>
-  <span class="data-built-at">Data built: {{dataBuiltAt}}</span>
-</div>
+<div class="filters-shell">
+  <div class="filters-topline">
+    <span class="filters-meta">Data built: {{dataBuiltAt}}</span>
+  </div>
 
-<div class="row pb-2">
-  <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <span class="align-bottom col-5">Level range:</span>
-          <input type="number" min="1" class="col-2" (change)="onChangeLevelRange()"
-            [(ngModel)]="minLevel">
-            <span class="col-1 text-center">-</span>
-            <input type="number" min="1" class="col-2" (change)="onChangeLevelRange()"
-              [(ngModel)]="maxLevel">
-            </div>
-            <div class="row">
-              <input type="checkbox" class="form-check form-check-inline col-1" id="raidItems"
-                (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
-                <label class="form-check-label col-6" for="raidItems">Show Raid Items</label>
-              </div>
-            <div class="row">
-              <input type="checkbox" class="form-check form-check-inline col-1" id="rareItems"
-                (change)="onChangeShowRareItems()" [(ngModel)]="showRareItems">
-                <label class="form-check-label col-6" for="rareItems">Show Rare Items</label>
-              </div>
-            <div class="pack-filter-toggle">
-              <button type="button" class="btn btn-link p-0" (click)="togglePackFilters()"
-                [attr.aria-expanded]="showPackFilters" aria-controls="packFilters">
-                {{showPackFilters ? 'Hide' : 'Show'}} Pack Filters
-              </button>
-            </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-6 col-lg-4">
-          <app-filter-item-type></app-filter-item-type>
-        </div>
-
-        <div class="col-sm-12 col-md-6 col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <label for="trove-upload" class="btn btn-success w-100 mb-2"
-                data-bs-toggle="tooltip"
-                data-bs-html="true"
-              title="Users of Dungeon Helper Trove can show the planner what gear they have to help choose items they already own. Manually export the CSV file in Trove then load it here. After export, it typically lives in C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\. The data stays on your computer and will be used automatically until you clear it.">Load TroveExport.csv</label>
-              <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
-              @if (userGearCount !== undefined) {
-                <span class="text-success">
-                  {{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded
-                  <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="onClearUserGear()">Clear</button>
-                </span>
-              }
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="sortOwnedToTop" [(ngModel)]="sortOwnedToTop" (change)="onSortOwnedToTopChanged()">
-                <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
-              </div>
-            </div>
-          </div>
+  <div class="filters-grid">
+    <section class="filter-panel">
+      <h4 class="filter-panel-title">Content</h4>
+      <div class="level-range-control">
+        <label for="minLevel">Level range</label>
+        <div class="level-inputs">
+          <input id="minLevel" type="number" min="1" class="form-control form-control-sm"
+            (change)="onChangeLevelRange()" [(ngModel)]="minLevel">
+          <span aria-hidden="true">-</span>
+          <input id="maxLevel" type="number" min="1" class="form-control form-control-sm"
+            (change)="onChangeLevelRange()" [(ngModel)]="maxLevel">
         </div>
       </div>
 
-<div class="row pb-2" id="packFilters" [hidden]="!showPackFilters">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body pack-filter-card">
-        <div class="pack-filter-header">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="allPacks"
-              [checked]="areAllPacksChecked()" [indeterminate]="areSomePacksChecked() && !areAllPacksChecked()"
-              (change)="toggleAllPacks()">
-            <label class="form-check-label" for="allPacks">All Packs</label>
-          </div>
+      <div class="filter-toggle-list">
+        <div class="form-check form-switch">
+          <input type="checkbox" class="form-check-input" id="raidItems"
+            (change)="onChangeShowRaidItems()" [(ngModel)]="showRaidItems">
+          <label class="form-check-label" for="raidItems">Show raid items</label>
         </div>
-        <div class="pack-filter-grid">
-          @for (pack of packOptions; track pack.name) {
-            <div class="form-check pack-filter-option">
-              <input type="checkbox" class="form-check-input" id="pack-{{$index}}"
-                [(ngModel)]="pack.value" (change)="onChangePackOption()">
-              <label class="form-check-label" for="pack-{{$index}}">{{pack.name}}</label>
-            </div>
-          }
+        <div class="form-check form-switch">
+          <input type="checkbox" class="form-check-input" id="rareItems"
+            (change)="onChangeShowRareItems()" [(ngModel)]="showRareItems">
+          <label class="form-check-label" for="rareItems">Show rare items</label>
         </div>
+      </div>
+
+      <button type="button" class="filter-link-button" (click)="togglePackFilters()"
+        [attr.aria-expanded]="showPackFilters" aria-controls="packFilters">
+        {{showPackFilters ? 'Hide' : 'Show'}} pack filters
+      </button>
+    </section>
+
+    <app-filter-item-type></app-filter-item-type>
+
+    <section class="filter-panel">
+      <h4 class="filter-panel-title">Owned Gear</h4>
+      <label for="trove-upload" class="btn btn-success btn-sm w-100 mb-2"
+        data-bs-toggle="tooltip"
+        data-bs-html="true"
+        title="Users of Dungeon Helper Trove can show the planner what gear they have to help choose items they already own. Manually export the CSV file in Trove then load it here. After export, it typically lives in C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\. The data stays on your computer and will be used automatically until you clear it.">Load TroveExport.csv</label>
+      <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
+      @if (userGearCount !== undefined) {
+        <div class="owned-gear-status">
+          <span>{{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded</span>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="onClearUserGear()">Clear</button>
+        </div>
+      }
+      <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="sortOwnedToTop" [(ngModel)]="sortOwnedToTop" (change)="onSortOwnedToTopChanged()">
+        <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
+      </div>
+    </section>
+  </div>
+
+  <section class="filter-panel pack-filter-panel" id="packFilters" [hidden]="!showPackFilters">
+    <div class="pack-filter-header">
+      <h4 class="filter-panel-title">Packs</h4>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="allPacks"
+          [checked]="areAllPacksChecked()" [indeterminate]="areSomePacksChecked() && !areAllPacksChecked()"
+          (change)="toggleAllPacks()">
+        <label class="form-check-label" for="allPacks">All packs</label>
       </div>
     </div>
-  </div>
+    <div class="pack-filter-grid">
+      @for (pack of packOptions; track pack.name) {
+        <div class="form-check pack-filter-option">
+          <input type="checkbox" class="form-check-input" id="pack-{{$index}}"
+            [(ngModel)]="pack.value" (change)="onChangePackOption()">
+          <label class="form-check-label" for="pack-{{$index}}">{{pack.name}}</label>
+        </div>
+      }
+    </div>
+  </section>
 </div>

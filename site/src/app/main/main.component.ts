@@ -8,6 +8,7 @@ import { FiltersService } from '../filters.service';
 import { ItemFilters } from '../item-filters';
 import { EquippedService } from '../equipped.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { ThemeService } from '../theme.service';
 
 type MainTab = 'equipment' | 'affixes';
 
@@ -39,7 +40,8 @@ export class MainComponent implements OnInit, OnDestroy {
     private analytics: AnalyticsService,
     private filters: FiltersService,
     private equipped: EquippedService,
-    private onboarding: PlannerOnboardingService
+    private onboarding: PlannerOnboardingService,
+    public theme: ThemeService
   ) {}
 
   ngOnInit() {
@@ -75,6 +77,10 @@ export class MainComponent implements OnInit, OnDestroy {
 
   toggleFilters() {
     this.filtersOpen = !this.filtersOpen;
+  }
+
+  toggleTheme() {
+    this.theme.toggleTheme();
   }
 
   closeFilters() {

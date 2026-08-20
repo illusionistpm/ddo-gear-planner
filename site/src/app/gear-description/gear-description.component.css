@@ -1,10 +1,10 @@
 /* Modern row striping with better contrast for readability */
 .row:nth-child(odd) {
-    background-color: #e2e8f0;
+    background-color: var(--row-alt-bg);
 }
 
 .row:nth-child(even) {
-    background-color: var(--surface-color);
+    background-color: var(--row-bg);
 }
 
 /* Modern affix ranking colors */
@@ -112,12 +112,18 @@ a {
 
 .raid-loot-badge {
     border: 1px solid #b45309;
-    background: #fef3c7;
-    color: #92400e;
+    background: rgba(245, 158, 11, 0.16);
+    color: var(--raid-loot-text-color);
 }
 
 .rare-loot-badge {
     border: 1px solid #7c3aed;
-    background: #ede9fe;
-    color: #5b21b6;
+    background: rgba(124, 58, 237, 0.16);
+    color: var(--rare-loot-text-color);
+}
+
+.artifact-loot-badge {
+    border: 1px solid var(--artifact-badge-border-color);
+    background: var(--artifact-badge-bg);
+    color: var(--artifact-badge-text-color);
 }

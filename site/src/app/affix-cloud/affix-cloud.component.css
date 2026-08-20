@@ -7,7 +7,7 @@
 .affix-workspace-bar {
   align-items: center;
   backdrop-filter: blur(12px);
-  background: rgba(248, 250, 252, 0.94);
+  background: var(--top-bar-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
@@ -17,7 +17,7 @@
   padding: 0.4rem;
   position: sticky;
   top: 0.5rem;
-  z-index: 20;
+  z-index: 1100;
 }
 
 .affix-brand {
@@ -31,7 +31,7 @@
 
 .affix-nav {
   align-items: center;
-  background: #e8eef5;
+  background: var(--surface-subtle-color);
   border-radius: 6px;
   display: flex;
   flex: 1 1 auto;
@@ -63,12 +63,12 @@
 }
 
 .affix-tab:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.16);
+  outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
 
 .affix-tab.active {
-  background: #ffffff;
+  background: var(--surface-elevated-color);
   box-shadow: var(--shadow-sm);
   color: var(--text-primary);
 }
@@ -101,7 +101,7 @@
 }
 
 .affix-count {
-  background: #eef3f8;
+  background: var(--surface-muted-color);
   border: 1px solid var(--border-color);
   border-radius: 999px;
   color: var(--text-secondary);
@@ -126,7 +126,7 @@
 }
 
 .affix-intro-panel {
-  background: #f8fafc;
+  background: var(--surface-color);
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--primary-color);
   border-radius: var(--border-radius);
@@ -149,7 +149,7 @@
 
 .affix-panel,
 .selected-affixes-panel {
-  background: #ffffff;
+  background: var(--panel-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
@@ -180,7 +180,7 @@
 }
 
 .selected-affixes-actions span {
-  background: #eef3f8;
+  background: var(--surface-muted-color);
   border-radius: 999px;
   color: var(--text-secondary);
   font-size: 0.78rem;
@@ -221,7 +221,7 @@
 .affix-chip,
 .selected-affix-chip {
   align-items: center;
-  background: #ffffff;
+  background: var(--chip-bg);
   border: 1px solid var(--border-color);
   border-radius: 999px;
   color: var(--text-primary);
@@ -237,12 +237,12 @@
 .affix-chip:hover,
 .affix-chip:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
   color: var(--primary-color);
 }
 
 .affix-package-chip {
-  background: #eef3f8;
+  background: var(--surface-muted-color);
 }
 
 .affix-next-chip,
@@ -268,9 +268,9 @@
 
 .affix-selectable-chip.selected,
 .affix-package-chip.selected {
-  background: #dcfce7;
-  border-color: #86efac;
-  color: #166534;
+  background: var(--selected-bg);
+  border-color: var(--selected-border-color);
+  color: var(--selected-text-color);
 }
 
 .affix-selectable-chip.selected::before,
@@ -294,26 +294,58 @@
 }
 
 .selected-affix-chip {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-  color: #1d4ed8;
+  background: var(--info-chip-bg);
+  border-color: var(--info-chip-border-color);
+  color: var(--info-chip-text-color);
 }
 
 .selected-affix-chip:hover,
 .selected-affix-chip:focus {
-  background: #dbeafe;
-  border-color: #93c5fd;
-  color: #1e40af;
+  background: var(--info-chip-hover-bg);
+  border-color: var(--info-chip-hover-border-color);
+  color: var(--info-chip-hover-text-color);
 }
 
 .empty-selected-affixes {
-  background: #f8fafc;
+  background: var(--surface-color);
   border: 1px dashed var(--border-color);
   border-radius: var(--border-radius);
   color: var(--text-secondary);
   font-weight: 700;
   padding: 1rem;
   text-align: center;
+}
+
+.theme-toggle {
+  align-items: center;
+  align-self: stretch;
+  background: var(--surface-subtle-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  justify-content: center;
+  line-height: 1.2;
+  margin-left: 0.4rem;
+  min-height: 2rem;
+  min-width: 2.25rem;
+  padding: 0.35rem;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+  color: var(--primary-color);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.theme-toggle.dark {
+  color: var(--primary-color);
 }
 
 @media (max-width: 991.98px) {
@@ -337,6 +369,12 @@
   .affix-nav {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .theme-toggle {
+    align-self: flex-end;
+    margin-left: 0;
+    margin-top: 0.4rem;
   }
 
 }

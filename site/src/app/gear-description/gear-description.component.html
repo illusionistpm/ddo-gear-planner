@@ -10,6 +10,9 @@
           @if (curItem.rare) {
             <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
           }
+          @if (curItem.artifact) {
+            <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+          }
           <i>{{getLootSourceLabel(curItem)}}</i>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
 import { AnalyticsService } from '../analytics.service';
+import { ThemeService } from '../theme.service';
 
 import { AffixCloud } from '../affix-cloud';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
@@ -47,7 +48,8 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     public equipped: EquippedService,
     public gearDB: GearDbService,
     private affixSvc: AffixService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    public theme: ThemeService
   ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
@@ -92,6 +94,10 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.importantAffixesSubscription?.unsubscribe();
+  }
+
+  toggleTheme() {
+    this.theme.toggleTheme();
   }
 
   _initPackages() {

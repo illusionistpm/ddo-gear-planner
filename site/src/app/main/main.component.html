@@ -37,6 +37,15 @@
             </button>
         </nav>
 
+        <button type="button" class="theme-toggle"
+            [class.dark]="theme.isDarkTheme()"
+            [attr.aria-pressed]="theme.isDarkTheme()"
+            [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+            [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+            (click)="toggleTheme()">
+            <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
+        </button>
+
         @if (filtersOpen) {
             <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
                 <app-filters (troveFileSelected)="onTroveFileSelected($event)"

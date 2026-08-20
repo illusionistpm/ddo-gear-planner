@@ -149,10 +149,14 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   getClassForSlot(slot: string) {
-    if (this.itemArtifactMap.get(slot)) {
+    if (this.isMinorArtifact(slot)) {
       return 'MinorArtifact';
     }
     return '';
+  }
+
+  isMinorArtifact(slot: string) {
+    return !!this.itemArtifactMap.get(slot);
   }
 
   isSlotDisabled(slot: string) {

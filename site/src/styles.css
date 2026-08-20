@@ -11,14 +11,99 @@
   --danger-color: #ef4444;
   --background-color: #f8fafc;
   --surface-color: #ffffff;
+  --surface-elevated-color: #ffffff;
+  --surface-muted-color: #eef3f8;
+  --surface-subtle-color: #e8eef5;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --border-color: #e2e8f0;
+  --focus-ring-color: rgba(37, 99, 235, 0.16);
+  --top-bar-bg: rgba(248, 250, 252, 0.94);
+  --panel-bg: #ffffff;
+  --row-bg: #ffffff;
+  --row-alt-bg: #eef3f8;
+  --chip-bg: #ffffff;
+  --chip-border-color: #7c8794;
+  --progress-track-color: #d5dce5;
+  --selected-bg: #dcfce7;
+  --selected-border-color: #86efac;
+  --selected-text-color: #166534;
+  --info-chip-bg: #eff6ff;
+  --info-chip-hover-bg: #dbeafe;
+  --info-chip-border-color: #bfdbfe;
+  --info-chip-hover-border-color: #93c5fd;
+  --info-chip-text-color: #1d4ed8;
+  --info-chip-hover-text-color: #1e40af;
+  --raid-loot-text-color: #92400e;
+  --rare-loot-text-color: #5b21b6;
+  --artifact-text-color: #fbbf24;
+  --artifact-badge-text-color: #92400e;
+  --artifact-badge-bg: rgba(251, 191, 36, 0.16);
+  --artifact-badge-border-color: #b45309;
+  --bs-body-bg: var(--background-color);
+  --bs-body-color: var(--text-primary);
+  --bs-border-color: var(--border-color);
+  --bs-card-bg: var(--surface-color);
+  --bs-card-color: var(--text-primary);
+  --bs-card-border-color: var(--border-color);
+  --bs-secondary-color: var(--text-secondary);
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --border-radius: 8px;
   --border-radius-lg: 12px;
+}
+
+:root.dark-theme {
+  color-scheme: dark;
+  --primary-color: #60a5fa;
+  --primary-dark: #3b82f6;
+  --secondary-color: #94a3b8;
+  --accent-color: #fbbf24;
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --danger-color: #f87171;
+  --background-color: #0f172a;
+  --surface-color: #1e293b;
+  --surface-elevated-color: #263449;
+  --surface-muted-color: #334155;
+  --surface-subtle-color: #162033;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --border-color: #475569;
+  --focus-ring-color: rgba(96, 165, 250, 0.28);
+  --top-bar-bg: rgba(15, 23, 42, 0.94);
+  --panel-bg: #1e293b;
+  --row-bg: #1e293b;
+  --row-alt-bg: #263449;
+  --chip-bg: #162033;
+  --chip-border-color: #64748b;
+  --progress-track-color: #475569;
+  --selected-bg: rgba(34, 197, 94, 0.18);
+  --selected-border-color: rgba(134, 239, 172, 0.7);
+  --selected-text-color: #bbf7d0;
+  --info-chip-bg: rgba(96, 165, 250, 0.16);
+  --info-chip-hover-bg: rgba(96, 165, 250, 0.24);
+  --info-chip-border-color: rgba(147, 197, 253, 0.48);
+  --info-chip-hover-border-color: rgba(147, 197, 253, 0.7);
+  --info-chip-text-color: #bfdbfe;
+  --info-chip-hover-text-color: #eff6ff;
+  --raid-loot-text-color: #fbbf24;
+  --rare-loot-text-color: #c4b5fd;
+  --artifact-text-color: #fbbf24;
+  --artifact-badge-text-color: #fbbf24;
+  --artifact-badge-bg: rgba(251, 191, 36, 0.16);
+  --artifact-badge-border-color: rgba(251, 191, 36, 0.65);
+  --bs-body-bg: var(--background-color);
+  --bs-body-color: var(--text-primary);
+  --bs-border-color: var(--border-color);
+  --bs-card-bg: var(--surface-color);
+  --bs-card-color: var(--text-primary);
+  --bs-card-border-color: var(--border-color);
+  --bs-secondary-color: var(--text-secondary);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.35);
+  --shadow-md: 0 5px 14px -3px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 18px 32px -12px rgb(0 0 0 / 0.65);
 }
 
 @keyframes onboarding-green-pulse {
@@ -65,6 +150,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  color: var(--primary-color);
+}
+
 /* Modern section headers */
 .section-header {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
@@ -100,7 +189,11 @@ body {
 }
 
 /* Modern card styling */
-.card {
+.card,
+.card.card {
+  --bs-card-bg: var(--surface-color);
+  --bs-card-color: var(--text-primary);
+  --bs-card-border-color: var(--border-color);
   border: none;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
@@ -118,7 +211,7 @@ body {
 }
 
 .card-header {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, var(--surface-color) 0%, var(--surface-subtle-color) 100%);
   border-bottom: 1px solid var(--border-color);
   padding: 1rem 1.5rem;
   font-weight: 600;
@@ -179,12 +272,34 @@ body {
   padding: 0.75rem 1rem;
   transition: all 0.2s ease-in-out;
   background-color: var(--surface-color);
+  color: var(--text-primary);
 }
 
 .form-control:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px var(--focus-ring-color);
   outline: none;
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+.dropdown-menu,
+.list-group-item,
+.table {
+  --bs-dropdown-bg: var(--surface-elevated-color);
+  --bs-dropdown-border-color: var(--border-color);
+  --bs-dropdown-link-color: var(--text-primary);
+  --bs-dropdown-link-hover-bg: var(--surface-muted-color);
+  --bs-dropdown-link-hover-color: var(--text-primary);
+  --bs-list-group-bg: var(--surface-color);
+  --bs-list-group-border-color: var(--border-color);
+  --bs-list-group-color: var(--text-primary);
+  --bs-table-bg: var(--surface-color);
+  --bs-table-color: var(--text-primary);
+  --bs-table-border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
 .form-control-sm {

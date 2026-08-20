@@ -15,6 +15,24 @@
     max-width: 1400px;
 }
 
+.equipment-grid > .card {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: calc(100% - 0.5rem);
+}
+
+@media (min-width: 768px) {
+    .equipment-grid > .card {
+        width: calc(50% - 0.5rem);
+    }
+}
+
+@media (min-width: 992px) {
+    .equipment-grid > .card {
+        width: calc(33.333333% - 0.5rem);
+    }
+}
+
 .equipment-search {
     align-items: center;
     display: flex;
@@ -52,6 +70,27 @@
     box-shadow: var(--shadow-md);
 }
 
+:host-context(.dark-theme) .slot-select-button.btn-secondary,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary {
+    background: var(--surface-subtle-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary:hover,
+:host-context(.dark-theme) .slot-select-button.btn-secondary:focus,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary:hover,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary:focus {
+    background: var(--surface-muted-color);
+    color: var(--text-primary);
+}
+
+:host-context(.dark-theme) .recommended-start-slot .slot-select-button.btn-secondary {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    border-color: #059669;
+    color: #ffffff;
+}
+
 .equipment-start-badge {
     background: rgba(255, 255, 255, 0.22);
     border: 1px solid rgba(255, 255, 255, 0.42);
@@ -65,6 +104,36 @@
     padding: 0.18rem 0.4rem;
     text-transform: uppercase;
     vertical-align: middle;
+}
+
+.artifact-badge {
+    background: var(--artifact-badge-bg);
+    border: 1px solid var(--artifact-badge-border-color);
+    border-radius: 999px;
+    color: var(--artifact-badge-text-color);
+    display: inline-flex;
+    font-size: 0.68rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-left: 0.35rem;
+    padding: 0.18rem 0.4rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.set-bonus-button {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-primary);
+}
+
+.set-bonus-button:hover,
+.set-bonus-button:focus {
+    background: var(--surface-muted-color);
+    border-color: var(--border-color);
+    border-left-color: var(--accent-color);
+    color: var(--text-primary);
 }
 
 .user-owned-star {
@@ -88,8 +157,9 @@
     font-weight: 600;
 }
 
-.MinorArtifact .item-name {
-    color: inherit;
+.slot-select-button.MinorArtifact,
+.slot-select-button.MinorArtifact .item-name {
+    color: var(--artifact-text-color);
 }
 
 .flat-left {
@@ -136,8 +206,13 @@
 
 /* Modern affix ranking colors */
 .MinorArtifact {
-    color: #fbbf24;
+    color: var(--artifact-text-color);
     font-weight: 600;
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact,
+:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact .item-name {
+    color: var(--artifact-text-color);
 }
 
 .BetterThanBest {

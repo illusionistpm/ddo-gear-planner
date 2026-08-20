@@ -4,7 +4,7 @@
 }
 
 .tracked-affix-start-hint {
-    background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), #ffffff 55%);
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), var(--surface-color) 55%);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--primary-color);
     border-radius: var(--border-radius);
@@ -36,7 +36,7 @@
 
 .tracked-affix-row {
     align-items: center;
-    --tracked-affix-row-bg: #ffffff;
+    --tracked-affix-row-bg: var(--row-bg);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     display: flex;
@@ -46,12 +46,12 @@
 }
 
 .tracked-affix-row:nth-child(odd) {
-    --tracked-affix-row-bg: #ffffff;
+    --tracked-affix-row-bg: var(--row-bg);
     background-color: var(--tracked-affix-row-bg);
 }
 
 .tracked-affix-row:nth-child(even) {
-    --tracked-affix-row-bg: #eef3f8;
+    --tracked-affix-row-bg: var(--row-alt-bg);
     background-color: var(--tracked-affix-row-bg);
 }
 
@@ -100,7 +100,7 @@
 }
 
 .tracked-affix-progress {
-    background-color: #d5dce5;
+    background-color: var(--progress-track-color);
     border-radius: 999px;
     display: block;
     height: 0.22rem;
@@ -150,8 +150,8 @@
 
 .tracked-bonus-chip {
     align-items: baseline;
-    background-color: #ffffff;
-    border: 1px solid #7c8794;
+    background-color: var(--chip-bg);
+    border: 1px solid var(--chip-border-color);
     border-radius: 4px;
     color: var(--text-primary);
     display: inline-flex;
@@ -227,8 +227,8 @@
 
 .tracked-bonus-chip.no-value {
     background-color: transparent;
-    border-color: #a8b2bf;
-    color: #5f6b7a;
+    border-color: var(--border-color);
+    color: var(--text-secondary);
 }
 
 .tracked-bonus-chip-onboarding-target,
@@ -277,7 +277,7 @@
 .tracked-affix-section {
     --tracked-affix-accent: var(--primary-color);
     --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
-    background: #ffffff;
+    background: var(--panel-bg);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--tracked-affix-accent);
     border-right: 4px solid var(--tracked-affix-accent);

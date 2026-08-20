@@ -1,5 +1,5 @@
 <div class='modal-body'>
-  <div class="row" style="background-color: white;">
+  <div class="row">
     <div class="col-10">
       <h2>
         <span>{{affixName}}</span>@if (isRealType(bonusType)) {
@@ -101,6 +101,9 @@
           @if (item.rare) {
             <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
           }
+          @if (item.artifact) {
+            <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+          }
           {{findMatchingValue(item)[0]}}
           @if (userOwnsItem(item)) {
             <span class="user-owned-star"
@@ -132,6 +135,9 @@
             }
             @if (item.rare) {
               <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+            }
+            @if (item.artifact) {
+              <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
             }
             {{findMatchingValue(item)[0]}}
             @if (userOwnsItem(item)) {

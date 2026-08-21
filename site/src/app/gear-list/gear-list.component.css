@@ -289,11 +289,18 @@
 }
 
 .heart {
+    align-items: center;
     background: transparent;
     border: 0;
     color: red;
+    display: inline-flex;
+    justify-content: center;
     padding-left: 0;
     padding-right: 0;
+}
+
+.set-bonus-affix-row .heart {
+    align-self: stretch;
 }
 
 .heart:hover,

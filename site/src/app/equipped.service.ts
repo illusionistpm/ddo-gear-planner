@@ -23,6 +23,15 @@ export interface VisibleSetBonus {
   tiers: Array<SetBonusThreshold>;
 }
 
+export interface AffixSource {
+  kind: 'item' | 'set';
+  slot: string;
+  itemName: string;
+  affixName: string;
+  bonusType: string;
+  value: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -490,6 +499,51 @@ export class EquippedService {
 
   getCurrentValueForAffixType(affixName: string, bonusType: string) {
     return this._getBestValueForAffixType(affixName, bonusType);
+  }
+
+  getSourcesForAffixType(affixName: string, bonusType: string): AffixSource[] {
+    const bestValue = this._getBestValueForAffixType(affixName, bonusType);
+    if (!bestValue) {
+      return [];
+    }
+
+    const sources: AffixSource[] = [];
+    for (const slot of this.slots) {
+      const item = slot[1].getValue();
+      if (!item || !item.isValid()) {
+        continue;
+      }
+
+      for (const affix of this.affixSvc.getActiveAffixes(item)) {
+        if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
+          sources.push({
+            kind: 'item',
+            slot: slot[0],
+            itemName: item.name,
+            affixName: affix.name,
+            bonusType: affix.type,
+            value: affix.value
+          });
+        }
+      }
+    }
+
+    for (const setToAffixes of this.getActiveSetBonuses()) {
+      for (const affix of setToAffixes[1]) {
+        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && affix.value === bestValue) {
+          sources.push({
+            kind: 'set',
+            slot: 'Set',
+            itemName: setToAffixes[0],
+            affixName: affix.name,
+            bonusType: affix.type,
+            value: affix.value
+          });
+        }
+      }
+    }
+
+    return sources;
   }
 
   private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {

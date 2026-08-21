@@ -3,13 +3,13 @@ import { TestBed } from '@angular/core/testing';
 import { EquippedService } from './equipped.service';
 import { Item } from './item';
 
-function makeItem(name: string, slot: string, type: string) {
+function makeItem(name: string, slot: string, type: string, affixes: Array<any> = []) {
   return new Item({
     name,
     slot,
     type,
     ml: 1,
-    affixes: [],
+    affixes,
     sets: [],
     url: '/page/' + name.replace(/ /g, '_'),
     crafting: [],
@@ -131,5 +131,25 @@ describe('EquippedService', () => {
     expect(service.hasItem('Offhand')).toBeFalse();
     expect(service.isOffhandDisabled()).toBeFalse();
     expect(service.isOffhandRuneArmOnly()).toBeTrue();
+  });
+
+  it('reports the equipped item currently supplying an affix type', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.set(makeItem('Weak Gloves', 'Gloves', 'Gloves', [
+      { name: 'Strength', type: 'Enhancement', value: 5 },
+    ]));
+    service.set(makeItem('Strong Belt', 'Belt', 'Belts', [
+      { name: 'Strength', type: 'Enhancement', value: 10 },
+    ]));
+
+    expect(service.getSourcesForAffixType('Strength', 'Enhancement')).toEqual([{
+      kind: 'item',
+      slot: 'Belt',
+      itemName: 'Strong Belt',
+      affixName: 'Strength',
+      bonusType: 'Enhancement',
+      value: 10,
+    }]);
   });
 });

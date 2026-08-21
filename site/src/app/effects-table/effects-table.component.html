@@ -5,8 +5,74 @@
     </section>
 }
 
-<div class="row">
-    <div class="col-12 tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of getTrackedAffixGroups()">
+<div class="tracked-affixes-workspace" [class.equipment-collapsed]="equipmentSidebarCollapsed">
+    <div class="tracked-equipment-dock" [class.collapsed]="equipmentSidebarCollapsed">
+        <aside class="tracked-equipment-rail" aria-label="Equipped gear">
+            <div class="tracked-equipment-header">
+                <div class="tracked-equipment-title">
+                    <span>Equipment</span>
+                </div>
+                <button type="button" class="tracked-equipment-collapse-toggle"
+                    [attr.aria-expanded]="!equipmentSidebarCollapsed"
+                    [title]="equipmentSidebarCollapsed ? 'Show equipment' : 'Hide equipment'"
+                    (click)="toggleEquipmentSidebar()">
+                    <span class="fas" [class.fa-chevron-right]="equipmentSidebarCollapsed" [class.fa-chevron-left]="!equipmentSidebarCollapsed" aria-hidden="true"></span>
+                </button>
+            </div>
+            @if (equipmentSidebarCollapsed) {
+                <button type="button" class="tracked-equipment-collapsed-button"
+                    title="Show equipment"
+                    (click)="toggleEquipmentSidebar()">
+                    <span class="tracked-equipment-collapsed-label">Equipment</span>
+                </button>
+            } @else {
+                <div class="tracked-equipment-slots">
+                @for (entry of getEquippedSlots(); track entry.slot) {
+                    <div class="tracked-equipment-slot-shell"
+                        [class.filled]="entry.item"
+                        [class.focused]="focusedSlot === entry.slot"
+                        [class.disabled]="isSlotDisabled(entry.slot)"
+                        (mouseenter)="previewSlot(entry.slot)"
+                        (mouseleave)="clearPreviewSlot(entry.slot)">
+                        <button type="button" class="tracked-equipment-slot"
+                            [disabled]="isSlotDisabled(entry.slot)"
+                            (click)="showSuggestedItems(entry.slot)">
+                            <span class="tracked-equipment-slot-name">{{entry.slot}}</span>
+                            <span class="tracked-equipment-item-name">{{getSidebarItemName(entry.item)}}</span>
+                            @if (entry.suppliedCount) {
+                                <span class="tracked-equipment-source-count">{{entry.suppliedCount}}</span>
+                            } @else {
+                                <span class="tracked-equipment-source-count-placeholder" aria-hidden="true"></span>
+                            }
+                        </button>
+                        @if (entry.item && !isSlotDisabled(entry.slot)) {
+                            <button type="button" class="tracked-equipment-clear"
+                                aria-label="Clear {{entry.slot}}"
+                                title="Clear {{entry.slot}}"
+                                (click)="clearSlot(entry.slot, $event)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        }
+                    </div>
+                }
+                </div>
+            }
+
+        </aside>
+
+        @if (!equipmentSidebarCollapsed && getFocusedItem()) {
+            <div class="tracked-equipment-card" role="status">
+                <div class="tracked-equipment-card-title">
+                    <span>{{focusedSlot}}</span>
+                    <strong>{{getFocusedItem()?.name}}</strong>
+                </div>
+                <app-gear-description [item]="getFocusedItem()" [readonly]="true" [equipOnChange]="false"></app-gear-description>
+            </div>
+        }
+    </div>
+
+    <div class="tracked-affixes-content">
+    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of getTrackedAffixGroups()">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
             [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
             <span>{{group.name}}</span>
@@ -24,6 +90,7 @@
                     <ng-container *ngFor="let affixName of group.checklistAffixes">
                         <button class="tracked-bonus-chip" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
                             [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
+                            [title]="getBonusTypeTooltip(affixName, boolAffixMap.get(affixName)[0])"
                             (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
                             <span class="tracked-bonus-label max-value">{{affixName}}</span>
                             <span class="far fa-check-square max-value" aria-hidden="true"></span>
@@ -88,6 +155,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 </div>

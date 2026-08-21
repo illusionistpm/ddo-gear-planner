@@ -150,3 +150,28 @@ a {
     background: var(--artifact-badge-bg);
     color: var(--artifact-badge-text-color);
 }
+
+:host-context(.tracked-equipment-card) {
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+:host-context(.tracked-equipment-card) .row {
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+}
+
+:host-context(.tracked-equipment-card) .col,
+:host-context(.tracked-equipment-card) [class*="col-"] {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.readonly-crafting-option {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}

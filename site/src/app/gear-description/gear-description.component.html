@@ -81,6 +81,10 @@
               }
             </select>
           </div>
+        } @else {
+          <div class="col-8 readonly-crafting-option" [ngClass]="row.className" [title]="row.tooltip">
+            {{describe(row.craft.selected) || 'Empty'}}
+          </div>
         }
       </div>
     }

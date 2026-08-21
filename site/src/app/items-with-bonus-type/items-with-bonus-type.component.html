@@ -33,11 +33,12 @@
           <div class="row" style="background-color: transparent;">
             @if (elem.value.size > 0) {
               <div>
-                <select [(ngModel)]="selectedAugmentSlot">
+                <select class="augment-slot-select" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
                   @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
                     @for (craftable of innerElem.value; track craftable.name) {
                       <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
-                        [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])">
+                        [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])"
+                        [title]="innerElem.key.name + ' - ' + craftable.name">
                         {{innerElem.key.name}} - {{craftable.name}}
                       </option>
                     }

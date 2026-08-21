@@ -17,6 +17,14 @@
     background: var(--row-bg);
 }
 
+.augment-slot-select {
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
 .loot-badge {
     display: inline-flex;
     align-items: center;

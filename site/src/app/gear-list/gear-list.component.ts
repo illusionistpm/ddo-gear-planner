@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { GearDbService } from '../gear-db.service';
-import { EquippedService } from '../equipped.service';
+import { EquippedService, VisibleSetBonus } from '../equipped.service';
 import { Affix } from '../affix';
 import { AffixRank } from '../affix-rank.enum';
 import { AffixUiService } from '../affix-ui.service';
@@ -42,7 +42,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return itemName ? this.userGear.getItemLocations(itemName) : undefined;
   }
 
-  activeSetBonuses: Array<[string, Array<Affix>]> = [];
+  visibleSetBonuses: Array<VisibleSetBonus> = [];
   private loggedInitialViewChecked = false;
 
   ngOnInit() {
@@ -58,8 +58,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
       });
     }
 
-    this.equipped.getActiveSetBonusesObservable().subscribe(setBonuses => {
-      this.activeSetBonuses = setBonuses;
+    this.equipped.getVisibleSetBonusesObservable().subscribe(setBonuses => {
+      this.visibleSetBonuses = setBonuses;
     });
     done({ slotSubscriptionCount });
   }
@@ -68,7 +68,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     const done = perfStart('GearListComponent.ngAfterViewInit');
     done({
       slotCount: this.gearList.getSlots().length,
-      activeSetBonusCount: this.activeSetBonuses.length
+      activeSetBonusCount: this.visibleSetBonuses.length
     });
     perfAfterFrames('paint after gear list view init');
   }
@@ -82,7 +82,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     const done = perfStart('GearListComponent.ngAfterViewChecked.first');
     done({
       itemNameCount: this.itemNameMap.size,
-      activeSetBonusCount: this.activeSetBonuses.length
+      activeSetBonusCount: this.visibleSetBonuses.length
     });
   }
 
@@ -124,8 +124,24 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return this.affixUi.getClassForAffix(affix);
   }
 
+  getClassForSetBonusAffix(affix: Affix, eligible: boolean) {
+    if (!eligible) {
+      return 'DisabledSetBonus';
+    }
+
+    return this.getClassForAffix(affix);
+  }
+
   getAffixTooltip(affix: Affix): string {
     return this.affixUi.getAffixTooltip(affix);
+  }
+
+  getSetBonusTooltip(eligible: boolean, threshold: number, pieces: number, affix: Affix): string {
+    if (!eligible) {
+      return `Need ${threshold} set items (currently have ${pieces})`;
+    }
+
+    return this.getAffixTooltip(affix);
   }
 
   getClassForSlot(slot: string) {

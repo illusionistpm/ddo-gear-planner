@@ -51,33 +51,41 @@
   }
 
   <!-- Describe Sets -->
-  @for (setToAffixes of activeSetBonuses; track setToAffixes[0]) {
-    <div class="mb-3 active-set-bonus col-sm-12 col-md-6 col-lg-4">
-      <div class="row">
+  @if (visibleSetBonuses.length) {
+    <div class="equipment-set-divider col-12" aria-hidden="true"></div>
+  }
+
+  @for (setBonus of visibleSetBonuses; track setBonus.setName) {
+    <div class="mb-3 card active-set-bonus col-sm-12 col-md-6 col-lg-4">
+      <div class="row set-bonus-card">
         <button type="button" class="btn set-bonus-button col-12 text-center"
-          (click)="showItemsInSet(setToAffixes[0])">
+          (click)="showItemsInSet(setBonus.setName)">
           <div class='row'>
             <div class='col-2 text-start'>Set</div>
-            <div class="col-9 text-end item-name">{{setToAffixes[0]}}</div>
-            <div class="col-1"></div>
+            <div class="col-8 text-end item-name">{{setBonus.setName}}</div>
+            <div class="col-2 text-end set-piece-count">{{setBonus.pieces}}</div>
           </div>
         </button>
-        <div class="mb-3 col">
-          @for (affix of setToAffixes[1]; track affix.name + '|' + affix.type + '|' + affix.value + '|' + $index) {
-            <div class="row table-striped table-condensed small hover-helper"
-              [ngClass]="getClassForAffix(affix)"
-              [title]="getAffixTooltip(affix)">
-              @if (equipped.isImportantAffix(affix.name)) {
-                <span class="show-on-hover fas fa-heart heart col-1"
-                (click)="equipped.toggleImportantAffix(affix.name)"></span>
-              }
-              @if (!equipped.isImportantAffix(affix.name)) {
-                <span class="show-on-hover far fa-heart heart col-1"
-                (click)="equipped.toggleImportantAffix(affix.name)"></span>
-              }
-              <div class="col-7">{{affix.name}}</div>
-              <div class="col-4">{{getAffixValue(affix)}} {{affix.type}}</div>
-            </div>
+        <div class="set-bonus-affixes col">
+          @for (tier of setBonus.tiers; track tier.threshold) {
+            @for (affix of tier.affixes; track $index) {
+              <div class="row table-condensed small hover-helper set-bonus-affix-row"
+                [class.disabled-set-tier]="!tier.eligible"
+                [ngClass]="getClassForSetBonusAffix(affix, tier.eligible)"
+                [title]="getSetBonusTooltip(tier.eligible, tier.threshold, setBonus.pieces, affix)">
+                @if (equipped.isImportantAffix(affix.name)) {
+                  <button class="show-on-hover fas fa-heart heart col-1"
+                  (click)="equipped.toggleImportantAffix(affix.name)"></button>
+                }
+                @if (!equipped.isImportantAffix(affix.name)) {
+                  <button class="show-on-hover far fa-heart heart col-1"
+                  (click)="equipped.toggleImportantAffix(affix.name)"></button>
+                }
+                <div class="col-2 set-threshold">{{tier.threshold}} pc</div>
+                <div class="col-5 ps-1">{{affix.name}}</div>
+                <div class="col-4">{{getAffixValue(affix)}} {{affix.type}}</div>
+              </div>
+            }
           }
         </div>
       </div>

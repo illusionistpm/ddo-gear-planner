@@ -22,6 +22,15 @@
     width: calc(100% - 0.5rem);
 }
 
+.equipment-set-divider {
+    border-top: 1px solid var(--border-color);
+    flex: 0 0 100%;
+    margin: 0.25rem 0 1rem;
+    max-width: 100%;
+    padding: 0;
+    width: 100%;
+}
+
 @media (min-width: 768px) {
     .equipment-grid > .card,
     .equipment-grid > .active-set-bonus {
@@ -142,10 +151,23 @@
     vertical-align: middle;
 }
 
+.active-set-bonus {
+    border-color: rgba(37, 99, 235, 0.32);
+}
+
+.set-bonus-card {
+    --bs-gutter-x: 0;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    overflow: hidden;
+    width: calc(100% + 1.5rem);
+}
+
 .set-bonus-button {
     background: var(--surface-subtle-color);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--accent-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
     color: var(--text-primary);
 }
 
@@ -153,8 +175,49 @@
 .set-bonus-button:focus {
     background: var(--surface-muted-color);
     border-color: var(--border-color);
-    border-left-color: var(--accent-color);
+    border-left-color: var(--primary-color);
     color: var(--text-primary);
+}
+
+.set-piece-count,
+.set-threshold {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.set-bonus-affixes {
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    overflow: hidden;
+}
+
+.set-bonus-affix-row {
+    align-items: center;
+    min-height: 1.5rem;
+}
+
+.set-bonus-affix-row:nth-child(odd) {
+    background-color: var(--row-alt-bg);
+}
+
+.set-bonus-affix-row:nth-child(even) {
+    background-color: var(--row-bg);
+}
+
+.set-bonus-affix-row:hover {
+    background-color: var(--surface-muted-color);
+}
+
+.disabled-set-tier {
+    opacity: 0.48;
+}
+
+.DisabledSetBonus {
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-shadow: none;
 }
 
 .user-owned-star {
@@ -223,6 +286,19 @@
 
 .hover-helper .show-on-hover {
     visibility: hidden;
+}
+
+.heart {
+    background: transparent;
+    border: 0;
+    color: red;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.heart:hover,
+.heart:focus {
+    background: transparent;
 }
 
 /* Modern affix ranking colors */

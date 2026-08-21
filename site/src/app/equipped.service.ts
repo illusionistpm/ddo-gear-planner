@@ -5,7 +5,7 @@ import { Item } from './item';
 import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
 
-import { GearDbService } from './gear-db.service';
+import { GearDbService, SetBonusThreshold } from './gear-db.service';
 import { canonicalizeCraftingSystemName } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
 import { AffixService } from './affix.service';
@@ -16,6 +16,12 @@ const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
   ['False Life', ['False Life (%)']],
 ]);
+
+export interface VisibleSetBonus {
+  setName: string;
+  pieces: number;
+  tiers: Array<SetBonusThreshold>;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +34,7 @@ export class EquippedService {
 
   private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
+  private visibleSetBonuses = new BehaviorSubject<Array<VisibleSetBonus>>([]);
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
   private batchingDerivedStateUpdates = false;
   private derivedStateDirty = false;
@@ -422,11 +429,18 @@ export class EquippedService {
 
   private _updateActiveSetBonuses() {
     const setToAffixes = new Array<[string, Array<Affix>]>();
+    const visibleSetBonuses = new Array<VisibleSetBonus>();
     for (const pair of this.getActiveSets().entries()) {
       const aff = this.gearList.getSetBonus(pair[0], pair[1]);
       setToAffixes.push([pair[0], aff]);
+      visibleSetBonuses.push({
+        setName: pair[0],
+        pieces: pair[1],
+        tiers: this.gearList.getSetBonusThresholdDetails(pair[0], pair[1])
+      });
     }
     this.activeSetBonuses.next(setToAffixes);
+    this.visibleSetBonuses.next(visibleSetBonuses);
   }
 
   getActiveSetBonuses() {
@@ -435,6 +449,10 @@ export class EquippedService {
 
   getActiveSetBonusesObservable() {
     return this.activeSetBonuses.asObservable();
+  }
+
+  getVisibleSetBonusesObservable() {
+    return this.visibleSetBonuses.asObservable();
   }
 
   private getValuesForAffixType(affixName: string, bonusType: string) {

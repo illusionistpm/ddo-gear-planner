@@ -23,6 +23,12 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
     return groups;
   }, {} as Record<K, T[]>);
 
+export interface SetBonusThreshold {
+  threshold: number;
+  eligible: boolean;
+  affixes: Array<Affix>;
+}
+
 export const canonicalizeCraftingSystemName = (name: string): string =>
   name.replace(/^Cannith: /, 'Essence Crafting: ');
 
@@ -780,15 +786,9 @@ export class GearDbService {
 
   getSetBonus(set: string, numPieces: number) {
     const bonuses = new Array<Affix>();
-    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
-
-    if (setData) {
-      for (const data of setData) {
-        if (Number(data.threshold) <= numPieces) {
-          for (const affix of data.affixes) {
-            bonuses.push(new Affix(affix));
-          }
-        }
+    for (const tier of this.getSetBonusThresholdDetails(set, numPieces)) {
+      if (tier.eligible) {
+        bonuses.push(...tier.affixes);
       }
     }
     return bonuses;
@@ -802,6 +802,23 @@ export class GearDbService {
         thresholds.push(data.threshold);
       }
       thresholds.sort((a, b) => a - b);
+    }
+    return thresholds;
+  }
+
+  getSetBonusThresholdDetails(set: string, numPieces: number): Array<SetBonusThreshold> {
+    const thresholds = new Array<SetBonusThreshold>();
+    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
+    if (setData) {
+      for (const data of setData) {
+        const threshold = Number(data.threshold);
+        thresholds.push({
+          threshold,
+          eligible: threshold <= numPieces,
+          affixes: data.affixes.map(affix => new Affix(affix))
+        });
+      }
+      thresholds.sort((a, b) => a.threshold - b.threshold);
     }
     return thresholds;
   }

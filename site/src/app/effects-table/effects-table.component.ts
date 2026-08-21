@@ -80,7 +80,11 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   hasOpenedAffixType = false;
   equipmentSidebarCollapsed = false;
   suppliedAffixCounts = new Map<string, number>();
+  recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
+  private coveredAffixesSubscription?: Subscription;
+  private previousAffixTypeValues?: Map<string, number>;
+  private changedAffixTypesTimeout: ReturnType<typeof setTimeout> | null = null;
 
   @Input() sortOwnedToTop: boolean = true;
 
@@ -101,7 +105,7 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
       this.hasOpenedAffixType = hasOpenedAffixType;
     });
 
-    this.equipped.getCoveredAffixes().subscribe(map => {
+    this.coveredAffixesSubscription = this.equipped.getCoveredAffixes().subscribe(map => {
       this.affixMap = new Map<string, Array<any>>();
       this.boolAffixMap = new Map<string, Array<any>>();
       this.affixNames = [];
@@ -117,12 +121,17 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
         }
       }
 
+      this.updateRecentlyChangedAffixTypes();
       this.refreshSuppliedAffixCounts();
     });
   }
 
   ngOnDestroy() {
     this.onboardingSubscription?.unsubscribe();
+    this.coveredAffixesSubscription?.unsubscribe();
+    if (this.changedAffixTypesTimeout) {
+      clearTimeout(this.changedAffixTypesTimeout);
+    }
   }
 
   removeAffix(affixName: string) {
@@ -464,6 +473,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     return type.label || (type.bonusType ? type.bonusType : 'Untyped');
   }
 
+  isRecentlyChangedAffixType(affixName: string, type: any): boolean {
+    return this.recentlyChangedAffixTypes.has(this.getDisplayedTypeKey(affixName, type));
+  }
+
   getSourceAffixName(affixName: string, type: any): string {
     return type.sourceAffixName || affixName;
   }
@@ -518,6 +531,59 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
   private getTypeMapKey(sourceAffixName: string, bonusType: string): string {
     return sourceAffixName + '\0' + bonusType;
+  }
+
+  private getDisplayedTypeKey(affixName: string, type: any): string {
+    return this.getTypeMapKey(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+  }
+
+  private updateRecentlyChangedAffixTypes() {
+    const currentValues = this.getDisplayedAffixTypeValues();
+    if (!this.previousAffixTypeValues) {
+      this.previousAffixTypeValues = currentValues;
+      return;
+    }
+
+    const changedKeys = new Set<string>();
+    for (const [key, value] of currentValues.entries()) {
+      if (this.previousAffixTypeValues.has(key) && this.previousAffixTypeValues.get(key) !== value) {
+        changedKeys.add(key);
+      }
+    }
+
+    this.previousAffixTypeValues = currentValues;
+    if (changedKeys.size) {
+      this.showRecentlyChangedAffixTypes(changedKeys);
+    }
+  }
+
+  private getDisplayedAffixTypeValues(): Map<string, number> {
+    const values = new Map<string, number>();
+    for (const affixName of this.boolAffixNames) {
+      const boolAffix = this.boolAffixMap.get(affixName)?.[0];
+      if (boolAffix) {
+        values.set(this.getDisplayedTypeKey(affixName, boolAffix), boolAffix.value || 0);
+      }
+    }
+
+    for (const affixName of this.affixNames) {
+      for (const type of this.getVisibleTypes(affixName)) {
+        values.set(this.getDisplayedTypeKey(affixName, type), type.value || 0);
+      }
+    }
+    return values;
+  }
+
+  private showRecentlyChangedAffixTypes(changedKeys: Set<string>) {
+    if (this.changedAffixTypesTimeout) {
+      clearTimeout(this.changedAffixTypesTimeout);
+    }
+
+    this.recentlyChangedAffixTypes = changedKeys;
+    this.changedAffixTypesTimeout = setTimeout(() => {
+      this.recentlyChangedAffixTypes = new Set<string>();
+      this.changedAffixTypesTimeout = null;
+    }, 1900);
   }
 
   private getOnboardingChipKey(affixName: string, bonusType: string): string {

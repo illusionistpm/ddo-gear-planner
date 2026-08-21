@@ -164,7 +164,38 @@
     line-height: 1.15;
     min-height: 1.45rem;
     padding: 0.16rem 0.4rem;
+    --tracked-bonus-pulse-rgb: 16, 185, 129;
+    --tracked-bonus-rest-bg: var(--chip-bg);
+    --tracked-bonus-rest-border: var(--chip-border-color);
     white-space: nowrap;
+}
+
+.tracked-bonus-chip.recently-changed {
+    animation: tracked-bonus-chip-value-pulse 1.8s ease-out;
+}
+
+@keyframes tracked-bonus-chip-value-pulse {
+    0% {
+        background-color: rgba(var(--tracked-bonus-pulse-rgb), 0.28);
+        border-color: rgba(var(--tracked-bonus-pulse-rgb), 0.9);
+        box-shadow: 0 0 0 0 rgba(var(--tracked-bonus-pulse-rgb), 0.36);
+    }
+    45% {
+        background-color: rgba(var(--tracked-bonus-pulse-rgb), 0.16);
+        border-color: rgba(var(--tracked-bonus-pulse-rgb), 0.72);
+        box-shadow: 0 0 0 3px rgba(var(--tracked-bonus-pulse-rgb), 0.18);
+    }
+    100% {
+        background-color: var(--tracked-bonus-rest-bg);
+        border-color: var(--tracked-bonus-rest-border);
+        box-shadow: 0 0 0 0 rgba(var(--tracked-bonus-pulse-rgb), 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tracked-bonus-chip.recently-changed {
+        animation: none;
+    }
 }
 
 .tracked-bonus-chip:hover,

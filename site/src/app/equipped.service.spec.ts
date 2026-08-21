@@ -152,4 +152,15 @@ describe('EquippedService', () => {
       value: 10,
     }]);
   });
+
+  it('emits an event when an item is equipped', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const events: Array<{ slot: string; itemName: string }> = [];
+    const subscription = service.getEquippedItemEvents().subscribe(event => events.push(event));
+
+    service.set(makeItem('Flashy Gloves', 'Gloves', 'Gloves'));
+    subscription.unsubscribe();
+
+    expect(events).toEqual([{ slot: 'Gloves', itemName: 'Flashy Gloves' }]);
+  });
 });

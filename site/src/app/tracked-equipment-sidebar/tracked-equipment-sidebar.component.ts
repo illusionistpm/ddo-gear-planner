@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
@@ -15,18 +16,32 @@ interface TrackedEquipmentSlotDisplay {
   templateUrl: './tracked-equipment-sidebar.component.html',
   standalone: false
 })
-export class TrackedEquipmentSidebarComponent {
+export class TrackedEquipmentSidebarComponent implements OnDestroy {
   @Input() suppliedAffixCounts = new Map<string, number>();
   @Input() collapsed = false;
   @Output() collapsedChange = new EventEmitter<boolean>();
 
   selectedSlot: string | null = null;
   hoveredSlot: string | null = null;
+  recentlyEquippedSlot: string | null = null;
+  private equippedEventsSubscription: Subscription;
+  private recentlyEquippedTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     public equipped: EquippedService,
     private suggestionDrawer: SuggestionDrawerService
-  ) { }
+  ) {
+    this.equippedEventsSubscription = this.equipped.getEquippedItemEvents().subscribe(event => {
+      this.showRecentlyEquippedSlot(event.slot);
+    });
+  }
+
+  ngOnDestroy() {
+    this.equippedEventsSubscription.unsubscribe();
+    if (this.recentlyEquippedTimeout) {
+      clearTimeout(this.recentlyEquippedTimeout);
+    }
+  }
 
   toggle() {
     this.collapsed = !this.collapsed;
@@ -103,6 +118,22 @@ export class TrackedEquipmentSidebarComponent {
     return item.name
       .replace(/\bLegendary\b/g, 'L.')
       .replace(/\bEpic\b/g, 'E.');
+  }
+
+  isRecentlyEquipped(slot: string): boolean {
+    return this.recentlyEquippedSlot === slot;
+  }
+
+  private showRecentlyEquippedSlot(slot: string) {
+    if (this.recentlyEquippedTimeout) {
+      clearTimeout(this.recentlyEquippedTimeout);
+    }
+
+    this.recentlyEquippedSlot = slot;
+    this.recentlyEquippedTimeout = setTimeout(() => {
+      this.recentlyEquippedSlot = null;
+      this.recentlyEquippedTimeout = null;
+    }, 1900);
   }
 
   get focusedSlot(): string | null {

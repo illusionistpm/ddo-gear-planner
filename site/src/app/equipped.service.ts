@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 import { Item } from './item';
 import { Affix } from './affix';
@@ -32,6 +32,11 @@ export interface AffixSource {
   value: number;
 }
 
+export interface EquippedItemEvent {
+  slot: string;
+  itemName: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,6 +50,7 @@ export class EquippedService {
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
   private visibleSetBonuses = new BehaviorSubject<Array<VisibleSetBonus>>([]);
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
+  private equippedItemSubject = new Subject<EquippedItemEvent>();
   private batchingDerivedStateUpdates = false;
   private derivedStateDirty = false;
   private importantAffixesDirty = false;
@@ -359,6 +365,7 @@ export class EquippedService {
     this._enforceOffhandCompatibility();
 
     this._updateRouterState();
+    this.equippedItemSubject.next({ slot: item.slot, itemName: item.name });
     done({ slot: item.slot, item: item.name });
   }
 
@@ -388,6 +395,10 @@ export class EquippedService {
     }
 
     return slots;
+  }
+
+  getEquippedItemEvents() {
+    return this.equippedItemSubject.asObservable();
   }
 
   getSlotsSnapshot() : Map<string, Item> {

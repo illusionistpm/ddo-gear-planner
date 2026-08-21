@@ -691,7 +691,16 @@ export class EquippedService {
 
   private getTrackedAffixFamily(affix: string) {
     const canonicalAffix = this.affixSvc.getCanonicalName(affix);
-    return [canonicalAffix, ...(TRACKED_AFFIX_COMPANIONS.get(canonicalAffix) || [])];
+    const trackedAffixes = new Set<string>([
+      canonicalAffix,
+      ...(TRACKED_AFFIX_COMPANIONS.get(canonicalAffix) || [])
+    ]);
+
+    for (const groupAffix of this.affixSvc.ungroupAffix(new Affix({ name: canonicalAffix, type: '', value: 0 }))) {
+      trackedAffixes.add(this.affixSvc.getCanonicalName(groupAffix.name));
+    }
+
+    return Array.from(trackedAffixes);
   }
 
   private expandTrackedAffixes(affixes: Iterable<string>) {

@@ -5,17 +5,20 @@ import { BehaviorSubject } from 'rxjs';
 import { QueryParamsService } from './query-params.service';
 
 describe('QueryParamsService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      {
-        provide: Router,
-        useValue: {
-          url: '',
-          navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true))
+  beforeEach(() => {
+    window.location.hash = '';
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            url: '',
+            navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true))
+          }
         }
-      }
-    ]
-  }));
+      ]
+    });
+  });
 
   it('should be created', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);

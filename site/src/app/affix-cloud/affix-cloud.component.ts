@@ -121,7 +121,7 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
       'Heroic Inspiration']);
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
     this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy', 'Armor-Piercing']);
-    this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration']);
+    this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Spell Focus Mastery']);
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());
 

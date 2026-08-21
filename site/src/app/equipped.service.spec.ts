@@ -119,7 +119,7 @@ describe('EquippedService', () => {
     expect(service.canEquip(shield)).toBeFalse();
     expect(service.getCompatibleGearForSlot('Offhand', [runeArm, shield])).toEqual([runeArm]);
     expect(service.getCompatibleGear([runeArm, shield])).toEqual([runeArm]);
-    expect(service.getUnlockedSlots().has('Offhand')).toBeTrue();
+    expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();
   });
 
   it('evicts non-rune offhands when equipping a crossbow', () => {

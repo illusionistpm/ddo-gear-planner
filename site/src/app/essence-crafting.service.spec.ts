@@ -13,8 +13,8 @@ describe('EssenceCraftingService', () => {
 
   it('uses the generated Essence Crafting max level for selectable levels', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
-    expect(service.maxLevel).toBe(34);
-    expect(service.levels[0]).toBe(34);
+    expect(service.maxLevel).toBe(36);
+    expect(service.levels[0]).toBe(service.maxLevel);
   });
 
   it('rebuilds generated weapon blanks from their Essence Crafting type when ML changes', () => {

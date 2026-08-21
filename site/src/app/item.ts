@@ -26,19 +26,19 @@ export class Item {
         if (json) {
             this.name = json.name;
             this.slot = json.slot;
-            this.type = json.type;
-            this.ml = Number(json.ml);
-            for (const affixJSON of json.affixes) {
+            this.type = json.type || '';
+            this.ml = Number(json.ml || 0);
+            for (const affixJSON of json.affixes || []) {
                 this.affixes.push(new Affix(affixJSON));
             }
-            this.sets = json.sets;
-            this.url = json.url;
-            this.pack = json.pack;
+            this.sets = json.sets || [];
+            this.url = json.url || '';
+            this.pack = json.pack || '';
             this.rare = !!json.rare;
             this.rawCrafting = (json.rawCrafting || json.crafting || [])
                 .filter((crafting: any) => typeof crafting === 'string');
+            this.crafting = Array<Craftable>();
             if (json.crafting) {
-                this.crafting = Array<Craftable>();
                 for (const craftingJSON of json.crafting) {
                     if (craftingJSON instanceof Craftable) {
                         const selectedDescription = craftingJSON.selected?.getParamDescription() || '';
@@ -52,8 +52,8 @@ export class Item {
                     }
                 }
             }
-            this.quests = json.quests;
-            this.artifact = json.artifact;
+            this.quests = json.quests || [];
+            this.artifact = !!json.artifact;
         }
     }
 

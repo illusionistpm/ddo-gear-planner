@@ -336,7 +336,9 @@ export class GearDbService {
       });
 
       perfMeasure('GearDbService.applyItemFilters.buildEssenceCraftingItems', () => {
-        this._buildEssenceCraftingItems(gear, maxLevel);
+        if (!hiddenPacks.has(FiltersService.NO_PACK_FILTER)) {
+          this._buildEssenceCraftingItems(gear, maxLevel);
+        }
       });
 
       this.affixToBonusTypes = perfMeasure('GearDbService.applyItemFilters.buildAffixToBonusTypes', () => {

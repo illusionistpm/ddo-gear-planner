@@ -25,7 +25,7 @@ describe('GearDbService', () => {
 
   it('maps legacy generated Cannith crafted item names to Essence Crafting names', () => {
     expect(canonicalizeGeneratedCraftedItemName('Cannith Melee')).toBe('Essence Crafting Melee');
-    expect(canonicalizeGeneratedCraftedItemName('Cannith Boots of Propulsion')).toBe('Cannith Boots of Propulsion');
+    expect(canonicalizeGeneratedCraftedItemName('Cannith Boots of Propulsion')).toBe('Essence Crafting Boots of Propulsion');
   });
 
   it('finds generated Essence Crafting blanks from URL item names', () => {

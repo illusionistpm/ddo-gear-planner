@@ -43,4 +43,31 @@ describe('ItemSuggestionsComponent', () => {
     expect(component.filteredGear.some(item => item.name === hiddenItem?.name)).toBeFalse();
     expect(component.gear).toEqual([]);
   });
+
+  it('filters the displayed items by the search query', () => {
+    const gearDB = TestBed.inject(GearDbService);
+    const item = gearDB.getGearBySlot('Trinket').find(gear => !gear.isGeneratedEssenceCraftingBlank());
+
+    expect(item).toBeTruthy();
+
+    component.searchQuery = item?.name || '';
+    component.onSearchQueryChanged();
+
+    expect(component.gear.length).toBeGreaterThan(0);
+    expect(component.gear.every(gear => gear.name.toLowerCase().includes(component.searchQuery.toLowerCase()))).toBeTrue();
+    expect(component.gear.some(gear => gear.name === item?.name)).toBeTrue();
+  });
+
+  it('returns to suggested items when the search query is cleared', () => {
+    const suggestedItems = component.gear;
+
+    component.searchQuery = 'zzzz-no-real-item';
+    component.onSearchQueryChanged();
+    expect(component.gear).toEqual([]);
+
+    component.searchQuery = '';
+    component.onSearchQueryChanged();
+
+    expect(component.gear).toEqual(suggestedItems);
+  });
 });

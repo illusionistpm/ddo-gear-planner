@@ -23,6 +23,8 @@ export class ItemSuggestionsComponent implements OnInit {
   gear: Array<Item> = [];
   filteredGear: Array<Item> = [];
   essenceCrafting: Array<Item> = [];
+  searchQuery = '';
+  private suggestedGear: Array<Item> = [];
 
   constructor(
     public gearDB: GearDbService,
@@ -62,7 +64,8 @@ export class ItemSuggestionsComponent implements OnInit {
       shortlist.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
     });
 
-    this.gear = shortlist.slice(0, 20);
+    this.suggestedGear = shortlist.slice(0, 20);
+    this.updateDisplayedGear();
 
     this.essenceCrafting = this.filteredGear.filter(item => item.isGeneratedEssenceCraftingBlank());
     done({
@@ -106,6 +109,60 @@ export class ItemSuggestionsComponent implements OnInit {
         }
       }
     };
+  }
+
+  onSearchQueryChanged() {
+    this.updateDisplayedGear();
+  }
+
+  private updateDisplayedGear() {
+    const query = this.searchQuery.trim().toLowerCase();
+    if (!query) {
+      this.gear = this.suggestedGear;
+      return;
+    }
+
+    this.gear = this.filteredGear
+      .filter(item => this.itemMatchesSearch(item, query))
+      .sort(this.sortSearchResults(query));
+  }
+
+  private itemMatchesSearch(item: Item, query: string) {
+    return this.getSearchTerms(item).some(term => term.includes(query));
+  }
+
+  private getSearchTerms(item: Item) {
+    const terms = [item.name || ''];
+    const synonyms = (item as any).synonyms;
+    if (synonyms) {
+      terms.push(...synonyms);
+    }
+    return terms.map(term => term.toLowerCase());
+  }
+
+  private sortSearchResults(query: string) {
+    return (a: Item, b: Item) => {
+      const aIndex = this.getSortIndex(query, a);
+      const bIndex = this.getSortIndex(query, b);
+
+      if (aIndex !== bIndex) {
+        return aIndex - bIndex;
+      }
+
+      return a.name.localeCompare(b.name);
+    };
+  }
+
+  private getSortIndex(query: string, item: Item) {
+    for (const term of this.getSearchTerms(item)) {
+      const words = term.split(' ');
+      const wordIndex = words.findIndex(word => word.startsWith(query));
+      if (wordIndex >= 0) {
+        return wordIndex;
+      }
+    }
+
+    return 999;
   }
 
   close() {

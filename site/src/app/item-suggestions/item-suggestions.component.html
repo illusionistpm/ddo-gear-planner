@@ -10,8 +10,8 @@
 
   <div class="row">
     <span>Search by name: </span>
-    <app-typeahead type="text" placeholder="Enter an item name" class="col-8" [source]=filteredGear
-    [onChange]=onChange(slot) searchType="slot_item"></app-typeahead>
+    <input type="text" class="form-control col-8" placeholder="Enter an item name"
+      [(ngModel)]="searchQuery" (input)="onSearchQueryChanged()">
   </div>
 
   <hr>

@@ -21,6 +21,7 @@ import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-c
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
 import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
+import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { AdminLinkComponent } from './admin-link.component';
         ExpandingCheckboxesComponent,
         FilterItemTypeComponent,
         UserItemLocationTooltipPipe,
-        AdminLinkComponent
+        AdminLinkComponent,
+        SuggestionDrawerComponent
     ],
     imports: [
         AppRoutingModule,

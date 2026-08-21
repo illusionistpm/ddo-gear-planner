@@ -92,15 +92,6 @@ a {
     text-decoration: underline;
 }
 
-:host-context(.dark-theme) .set-link {
-    color: #93c5fd;
-}
-
-:host-context(.dark-theme) .set-link:hover,
-:host-context(.dark-theme) .set-link:focus {
-    color: #bfdbfe;
-}
-
 .item-source-line {
     display: flex;
     justify-content: flex-end;

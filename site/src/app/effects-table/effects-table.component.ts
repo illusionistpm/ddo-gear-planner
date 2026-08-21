@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 
 import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
-import { ItemsWithBonusTypeComponent } from '../items-with-bonus-type/items-with-bonus-type.component';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
@@ -87,8 +86,8 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     public equipped: EquippedService,
     public gearDB: GearDbService,
     private affixSvc: AffixService,
-    private modalService: NgbModal,
-    private onboarding: PlannerOnboardingService
+    private onboarding: PlannerOnboardingService,
+    private suggestionDrawer: SuggestionDrawerService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];
@@ -156,17 +155,7 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
   showItemsWithBonusType(affixName: string, bonusType: string) {
     this.onboarding.markAffixTypeOpened();
-    const dlg = this.modalService.open(ItemsWithBonusTypeComponent, { ariaLabelledBy: 'modal-basic-title' });
-
-    dlg.componentInstance.affixName = affixName;
-    dlg.componentInstance.bonusType = bonusType;
-    dlg.componentInstance.sortOwnedToTop = this.sortOwnedToTop;
-
-    dlg.result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.suggestionDrawer.openBonusType(affixName, bonusType, this.sortOwnedToTop);
   }
 
   sortTypes(affixName: string) {

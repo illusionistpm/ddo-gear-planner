@@ -1,6 +1,5 @@
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
@@ -8,13 +7,13 @@ import { Item } from '../item';
 import { Affix } from '../affix';
 import { Craftable } from '../craftable';
 
-import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { AffixService } from '../affix.service';
 import { CraftableOption } from '../craftable-option';
 import { AffixUiService } from '../affix-ui.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -71,12 +70,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal,
     private affixSvc: AffixService,
     public userGear: UserGearService,
     public affixUi: AffixUiService,
     private analytics: AnalyticsService,
-    private questService: QuestService
+    private questService: QuestService,
+    private suggestionDrawer: SuggestionDrawerService
   ) {
   }
 
@@ -204,7 +203,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
       slot: itemToEquip.slot,
       crafted: !!itemToEquip.isEssenceCrafted()
     });
-    this.modalService.dismissAll();
+    this.suggestionDrawer.close();
     done({ slot: itemToEquip.slot, item: itemToEquip.name });
     perfAfterFrames('paint after bonus type equip');
   }
@@ -225,7 +224,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
               equip_source: 'augment_modal',
               slot: item.slot
             });
-            this.modalService.dismissAll();
+            this.suggestionDrawer.close();
             done({ slot: item.slot, item: item.name });
             perfAfterFrames('paint after augment equip');
             return;
@@ -243,19 +242,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     this.analytics.track('open_set_items', {
       source: 'bonus_type_modal'
     });
-    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
-
-    dlg.componentInstance.setName = setName;
-
-    dlg.result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.suggestionDrawer.openSet(setName);
   }
 
   close() {
-    this.modalService.dismissAll();
+    this.suggestionDrawer.close();
   }
 
 }

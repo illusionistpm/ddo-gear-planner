@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 
 import { GearDbService } from '../gear-db.service';
@@ -8,6 +7,7 @@ import { Item } from '../item';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfMeasure, perfStart } from '../perf-trace';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 @Component({
     selector: 'app-item-suggestions',
@@ -27,9 +27,9 @@ export class ItemSuggestionsComponent implements OnInit {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal,
     public userGear: UserGearService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private suggestionDrawer: SuggestionDrawerService
   ) { }
 
   userOwnsItem(item: Item): boolean {
@@ -80,7 +80,7 @@ export class ItemSuggestionsComponent implements OnInit {
       slot: this.slot,
       clear_source: 'slot_suggestions'
     });
-    this.modalService.dismissAll();
+    this.suggestionDrawer.close();
   }
 
   equipItem(item: Item) {
@@ -90,7 +90,7 @@ export class ItemSuggestionsComponent implements OnInit {
       slot: item.slot,
       crafted: !!item.isEssenceCrafted()
     });
-    this.modalService.dismissAll();
+    this.suggestionDrawer.close();
   }
 
   onChange(slot: string) {
@@ -109,6 +109,6 @@ export class ItemSuggestionsComponent implements OnInit {
   }
 
   close() {
-    this.modalService.dismissAll();
+    this.suggestionDrawer.close();
   }
 }

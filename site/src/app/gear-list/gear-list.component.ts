@@ -1,6 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { Affix } from '../affix';
@@ -10,9 +8,7 @@ import { Clipboard } from '../clipboard';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
-
-import { ItemSuggestionsComponent } from './../item-suggestions/item-suggestions.component';
-import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 @Component({
     selector: 'app-gear-list',
@@ -28,10 +24,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   constructor(
     public gearList: GearDbService,
     public equipped: EquippedService,
-    private modalService: NgbModal,
     public userGear: UserGearService,
     private affixUi: AffixUiService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private suggestionDrawer: SuggestionDrawerService
   ) {
     this.itemNameMap = new Map<string, string>();
     this.itemArtifactMap = new Map<string, boolean>();
@@ -99,32 +95,16 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.analytics.track('open_item_suggestions', {
       slot
     });
-    const dlg = this.modalService.open(ItemSuggestionsComponent, { ariaLabelledBy: 'modal-basic-title' });
-
-    dlg.componentInstance.slot = slot;
+    this.suggestionDrawer.openSlot(slot);
     done({ slot });
     perfAfterFrames('paint after slot suggestions open');
-
-    dlg.result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   showItemsInSet(setName: string) {
     this.analytics.track('open_set_items', {
       source: 'active_set'
     });
-    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
-
-    dlg.componentInstance.setName = setName;
-
-    dlg.result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.suggestionDrawer.openSet(setName);
   }
 
   getItemName(slot: string) {

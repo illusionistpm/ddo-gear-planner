@@ -1,0 +1,20 @@
+@if (drawer.state$ | async; as state) {
+  <button type="button" class="suggestion-drawer-backdrop" aria-label="Close suggestions" (click)="close()"></button>
+  <aside class="suggestion-drawer" aria-label="Suggestions" role="dialog">
+    @if (state.kind === 'slot') {
+      <app-item-suggestions [slot]="state.slot"></app-item-suggestions>
+    }
+
+    @if (state.kind === 'bonusType') {
+      <app-items-with-bonus-type
+        [affixName]="state.affixName"
+        [bonusType]="state.bonusType"
+        [sortOwnedToTop]="state.sortOwnedToTop">
+      </app-items-with-bonus-type>
+    }
+
+    @if (state.kind === 'set') {
+      <app-items-in-set [setName]="state.setName"></app-items-in-set>
+    }
+  </aside>
+}

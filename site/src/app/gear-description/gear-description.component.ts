@@ -1,4 +1,3 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CraftableOption } from './../craftable-option';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
@@ -13,9 +12,9 @@ import { Craftable } from '../craftable';
 import { Item } from '../item';
 import { Observable, Subscription } from 'rxjs';
 
-import { ItemsInSetComponent } from './../items-in-set/items-in-set.component';
 import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -74,10 +73,10 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
     public equipped: EquippedService,
     public essenceCrafting: EssenceCraftingService,
     private affixSvc: AffixService,
-    private modalService: NgbModal,
     private affixUi: AffixUiService,
     private questService: QuestService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private suggestionDrawer: SuggestionDrawerService
   ) {
   }
 
@@ -297,17 +296,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
     return this.affixUi.getClassForCraftingOption(option);
   }
 
-  // Duplicated from gear-craftingList
   showItemsInSet(setName: string) {
-    const dlg = this.modalService.open(ItemsInSetComponent, { ariaLabelledBy: 'modal-basic-title' });
-
-    dlg.componentInstance.setName = setName;
-
-    dlg.result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.suggestionDrawer.openSet(setName);
   }
 
 }

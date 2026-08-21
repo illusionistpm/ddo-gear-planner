@@ -16,6 +16,8 @@
   --surface-subtle-color: #e8eef5;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
+  --link-color: var(--primary-color);
+  --link-hover-color: var(--primary-dark);
   --border-color: #e2e8f0;
   --focus-ring-color: rgba(37, 99, 235, 0.16);
   --top-bar-bg: rgba(248, 250, 252, 0.94);
@@ -70,6 +72,8 @@
   --surface-subtle-color: #162033;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
+  --link-color: #93c5fd;
+  --link-hover-color: #bfdbfe;
   --border-color: #475569;
   --focus-ring-color: rgba(96, 165, 250, 0.28);
   --top-bar-bg: rgba(15, 23, 42, 0.94);
@@ -151,7 +155,12 @@ body {
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--link-color);
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover-color);
 }
 
 /* Modern section headers */
@@ -304,6 +313,50 @@ a {
 
 .filter-popover.popover {
   z-index: 1200;
+}
+
+.suggestion-drawer .modal-body {
+  padding: 1rem;
+}
+
+.suggestion-drawer h1,
+.suggestion-drawer h2 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 0.8rem;
+  padding-right: 2.75rem;
+}
+
+.suggestion-drawer h3 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.suggestion-drawer .custom-close {
+  align-items: center;
+  background: var(--surface-subtle-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  font-size: 1.4rem;
+  height: 2rem;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: sticky;
+  top: 0.75rem;
+  width: 2rem;
+  z-index: 1;
+}
+
+.suggestion-drawer .custom-close:hover,
+.suggestion-drawer .custom-close:focus {
+  background: var(--surface-muted-color);
+  color: var(--text-primary);
 }
 
 .form-control-sm {

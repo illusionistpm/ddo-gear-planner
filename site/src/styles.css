@@ -74,6 +74,8 @@
   --text-secondary: #cbd5e1;
   --link-color: #93c5fd;
   --link-hover-color: #bfdbfe;
+  --bs-link-color-rgb: 147, 197, 253;
+  --bs-link-hover-color-rgb: 191, 219, 254;
   --border-color: #475569;
   --focus-ring-color: rgba(96, 165, 250, 0.28);
   --top-bar-bg: rgba(15, 23, 42, 0.94);

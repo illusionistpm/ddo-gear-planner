@@ -72,8 +72,16 @@
 }
 
 .heart {
+    background: transparent;
     color: red;
     border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.heart:hover,
+.heart:focus {
+    background: transparent;
 }
 
 .show-on-hover {
@@ -82,6 +90,15 @@
 
 a {
     text-decoration: underline;
+}
+
+:host-context(.dark-theme) .set-link {
+    color: #93c5fd;
+}
+
+:host-context(.dark-theme) .set-link:hover,
+:host-context(.dark-theme) .set-link:focus {
+    color: #bfdbfe;
 }
 
 .item-source-line {

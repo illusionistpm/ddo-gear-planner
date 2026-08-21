@@ -85,7 +85,7 @@
     <!-- Sets -->
     @for (set of setRows; track set.name) {
       <div class="row table-striped table-condensed small" >
-        <span class="col">Set:&nbsp;<a href='javascript:;' (click)="showItemsInSet(set.name)">{{set.name}}</a> ({{set.count}})</span>
+        <span class="col">Set:&nbsp;<a class="set-link" href='javascript:;' (click)="showItemsInSet(set.name)">{{set.name}}</a> ({{set.count}})</span>
       </div>
     }
   </div>

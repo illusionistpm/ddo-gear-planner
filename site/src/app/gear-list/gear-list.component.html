@@ -9,45 +9,10 @@
 
 <div class="row equipment-grid">
   @for (slot of gearList.getSlots(); track slot) {
-    <div class="mb-3 card col-sm-12 col-md-6 col-lg-4"
-      [class.recommended-start-slot]="isBuildEmpty() && slot === 'Armor'"
-      [class.disabled-slot]="isSlotDisabled(slot)"
-      [title]="getSlotTitle(slot)">
-      <div class="row slot-header">
-        <button type="button" class="btn btn-secondary slot-select-button text-center" [ngClass]="getClassForSlot(slot)"
-          [class.flat-right]="equipped.hasItem(slot)"
-          [class.col-11]="equipped.hasItem(slot)"
-          [class.col-12]="!equipped.hasItem(slot)"
-          [disabled]="isSlotDisabled(slot)"
-          [title]="getSlotTitle(slot)"
-          (click)="showSuggestedItems(slot)">
-          <div class='row'>
-            <div class='col-3 text-start'>{{slot}}</div>
-            <div class="col-9 text-end item-name">
-              {{getItemName(slot)}}
-              @if (isBuildEmpty() && slot === 'Armor') {
-                <span class="equipment-start-badge">Start Here</span>
-              }
-              @if (userOwnsItem(slot)) {
-                <span class="user-owned-star"
-                  [title]="getUserItemLocations(slot) | userItemLocationTooltip">
-                  ★
-                </span>
-              }
-            </div>
-          </div>
-        </button>
-        @if (equipped.hasItem(slot)) {
-          <button type="button" class="btn btn-secondary slot-clear-button flat-left col-1 fw-bold"
-            [disabled]="isSlotDisabled(slot)"
-            [title]="getSlotTitle(slot)"
-            (click)="clearSlot(slot)">
-            &times;
-          </button>
-        }
-      </div>
-      <app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
-    </div>
+    <app-equipment-slot-card
+      [slot]="slot"
+      [recommendedStart]="isBuildEmpty() && slot === 'Armor'">
+    </app-equipment-slot-card>
   }
 
   <!-- Describe Sets -->

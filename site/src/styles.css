@@ -745,27 +745,38 @@ a:focus {
   font-weight: 400;
 }
 
-.tracked-bonus-chip.max-value {
+.tracked-affixes-workspace .tracked-bonus-chip.max-value {
   background-color: rgba(16, 185, 129, 0.08);
   border-color: rgba(16, 185, 129, 0.55);
+  color: var(--success-color);
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
 }
 
-.tracked-bonus-chip.mid-value {
+.tracked-affixes-workspace .tracked-bonus-chip.mid-value {
   background-color: rgba(245, 158, 11, 0.08);
   border-color: rgba(245, 158, 11, 0.55);
+  color: var(--warning-color);
+  font-weight: 600;
 }
 
-.tracked-bonus-chip.low-value {
+.tracked-affixes-workspace .tracked-bonus-chip.low-value {
   background-color: rgba(239, 68, 68, 0.08);
   border-color: rgba(239, 68, 68, 0.55);
+  color: var(--danger-color);
+  font-weight: 600;
 }
 
-.tracked-bonus-chip.penalty-value {
+.tracked-affixes-workspace .tracked-bonus-chip.penalty-value {
   background-color: rgba(239, 68, 68, 0.08);
   border-color: rgba(239, 68, 68, 0.7);
+  color: var(--danger-color);
+  font-weight: 700;
+  text-decoration: line-through;
+  text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
-.tracked-bonus-chip.no-value {
+.tracked-affixes-workspace .tracked-bonus-chip.no-value {
   background-color: transparent;
   border-color: var(--border-color);
   color: var(--text-secondary);

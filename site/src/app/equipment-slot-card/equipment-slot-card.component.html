@@ -1,0 +1,34 @@
+<div class="row slot-header">
+  <button type="button" class="btn btn-secondary slot-select-button text-center" [ngClass]="getClassForSlot()"
+    [class.flat-right]="equipped.hasItem(slot)"
+    [class.col-11]="equipped.hasItem(slot)"
+    [class.col-12]="!equipped.hasItem(slot)"
+    [disabled]="isSlotDisabled()"
+    [title]="getSlotTitle()"
+    (click)="showSuggestedItems()">
+    <div class='row'>
+      <div class='col-3 text-start'>{{slot}}</div>
+      <div class="col-9 text-end item-name">
+        {{itemName}}
+        @if (recommendedStart) {
+          <span class="equipment-start-badge">Start Here</span>
+        }
+        @if (userOwnsItem()) {
+          <span class="user-owned-star"
+            [title]="getUserItemLocations() | userItemLocationTooltip">
+            ★
+          </span>
+        }
+      </div>
+    </div>
+  </button>
+  @if (equipped.hasItem(slot)) {
+    <button type="button" class="btn btn-secondary slot-clear-button flat-left col-1 fw-bold"
+      [disabled]="isSlotDisabled()"
+      [title]="getSlotTitle()"
+      (click)="clearSlot()">
+      &times;
+    </button>
+  }
+</div>
+<app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>

@@ -22,6 +22,8 @@ import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.com
 import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
+import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar/tracked-equipment-sidebar.component';
+import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer
         FilterItemTypeComponent,
         UserItemLocationTooltipPipe,
         AdminLinkComponent,
-        SuggestionDrawerComponent
+        SuggestionDrawerComponent,
+        TrackedEquipmentSidebarComponent,
+        EquipmentSlotCardComponent
     ],
     imports: [
         AppRoutingModule,

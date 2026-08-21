@@ -1,0 +1,114 @@
+:host(.recommended-start-slot) {
+    border: 1px solid #86efac;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16), var(--shadow-md);
+}
+
+:host(.disabled-slot) {
+    cursor: help;
+    opacity: 0.75;
+}
+
+.slot-header {
+    --bs-gutter-x: 0;
+    background: var(--surface-subtle-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    overflow: hidden;
+    position: relative;
+    width: calc(100% + 1.5rem);
+}
+
+.slot-header > .btn {
+    border: 0;
+    border-radius: 0;
+    position: relative;
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary {
+    background: var(--surface-subtle-color);
+    border: 0;
+    color: var(--text-primary);
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary:hover,
+:host-context(.dark-theme) .slot-select-button.btn-secondary:focus,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary:hover,
+:host-context(.dark-theme) .slot-clear-button.btn-secondary:focus {
+    background: var(--surface-muted-color);
+    color: var(--text-primary);
+}
+
+:host(.recommended-start-slot) .btn-secondary {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    color: #ffffff;
+}
+
+:host(.recommended-start-slot) .btn-secondary:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.equipment-start-badge {
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px;
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 0.68rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-left: 0.35rem;
+    padding: 0.18rem 0.4rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.user-owned-star {
+    align-items: center;
+    color: #fbbf24;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.2em;
+    line-height: 1;
+    position: relative;
+    top: -4px;
+    transition: all 0.2s ease-in-out;
+    vertical-align: middle;
+}
+
+.user-owned-star:hover {
+  opacity: 0.8;
+}
+
+.item-name {
+    font-weight: 600;
+}
+
+.slot-select-button.MinorArtifact,
+.slot-select-button.MinorArtifact .item-name {
+    color: var(--artifact-text-color);
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact,
+:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact .item-name {
+    color: var(--artifact-text-color);
+}
+
+.flat-left {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.flat-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+:host(.disabled-slot) .btn:disabled,
+:host(.disabled-slot) .btn.disabled {
+    cursor: help;
+    pointer-events: auto;
+}

@@ -7,7 +7,6 @@ import { AffixService } from '../affix.service';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { Item } from '../item';
 
 interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
@@ -79,9 +78,8 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
   collapsedAffixGroups = new Set<string>();
   hasOpenedAffixType = false;
-  selectedSlot: string | null = null;
-  hoveredSlot: string | null = null;
   equipmentSidebarCollapsed = false;
+  suppliedAffixCounts = new Map<string, number>();
   private onboardingSubscription?: Subscription;
 
   @Input() sortOwnedToTop: boolean = true;
@@ -118,6 +116,8 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
           this.affixNames.push(entry[0]);
         }
       }
+
+      this.refreshSuppliedAffixCounts();
     });
   }
 
@@ -162,88 +162,16 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     this.suggestionDrawer.openBonusType(affixName, bonusType, this.sortOwnedToTop);
   }
 
-  toggleEquipmentSidebar() {
-    this.equipmentSidebarCollapsed = !this.equipmentSidebarCollapsed;
-    if (this.equipmentSidebarCollapsed) {
-      this.selectedSlot = null;
-      this.hoveredSlot = null;
-    }
-  }
-
-  getEquippedItemCount() {
-    return this.getEquippedSlots().filter(entry => entry.item).length;
-  }
-
-  getEquippedSlots(): Array<{ slot: string; item: Item | null; suppliedCount: number }> {
-    const slots = [];
-    for (const [slot, item] of this.equipped.getSlotsSnapshot().entries()) {
-      slots.push({
-        slot,
-        item: item && item.isValid() ? item : null,
-        suppliedCount: this.getSuppliedAffixCountForSlot(slot)
-      });
-    }
-    return slots;
-  }
-
-  getFocusedItem(): Item | null {
-    if (!this.focusedSlot || this.focusedSlot === 'Set') {
-      return null;
-    }
-
-    const item = this.equipped.getSlotsSnapshot().get(this.focusedSlot);
-    return item && item.isValid() ? item : null;
-  }
-
-  showSuggestedItems(slot: string) {
-    if (this.isSlotDisabled(slot)) {
-      return;
-    }
-
-    this.suggestionDrawer.openSlot(slot);
-  }
-
-  clearSlot(slot: string, event?: Event) {
-    event?.stopPropagation();
-    if (this.isSlotDisabled(slot)) {
-      return;
-    }
-
-    this.equipped.clearSlot(slot);
-    if (this.selectedSlot === slot) {
-      this.selectedSlot = null;
-    }
-    if (this.hoveredSlot === slot) {
-      this.hoveredSlot = null;
-    }
-  }
-
-  isSlotDisabled(slot: string): boolean {
-    return slot === 'Offhand' && this.equipped.isOffhandDisabled();
-  }
-
-  previewSlot(slot: string | null) {
-    this.hoveredSlot = slot;
-  }
-
-  clearPreviewSlot(slot: string | null) {
-    if (this.hoveredSlot === slot) {
-      this.hoveredSlot = null;
-    }
-  }
-
-  getSidebarItemName(item: Item | null): string {
-    if (!item) {
-      return 'Empty';
-    }
-
-    return item.name
-      .replace(/\bLegendary\b/g, 'L.')
-      .replace(/\bEpic\b/g, 'E.');
-  }
-
   getSourcesForType(affixName: string, type: any): AffixSource[] {
     return this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+  }
+
+  private refreshSuppliedAffixCounts() {
+    const counts = new Map<string, number>();
+    for (const slot of this.equipped.getSlotNames()) {
+      counts.set(slot, this.getSuppliedAffixCountForSlot(slot));
+    }
+    this.suppliedAffixCounts = counts;
   }
 
   private getSuppliedAffixCountForSlot(slot: string): number {
@@ -265,10 +193,6 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
       }
     }
     return supplied.size;
-  }
-
-  get focusedSlot(): string | null {
-    return this.selectedSlot || this.hoveredSlot;
   }
 
   sortTypes(affixName: string) {

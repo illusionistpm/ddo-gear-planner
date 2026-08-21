@@ -2,10 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChe
 import { GearDbService } from '../gear-db.service';
 import { EquippedService, VisibleSetBonus } from '../equipped.service';
 import { Affix } from '../affix';
-import { AffixRank } from '../affix-rank.enum';
 import { AffixUiService } from '../affix-ui.service';
 import { Clipboard } from '../clipboard';
-import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
@@ -18,50 +16,23 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
     standalone: false
 })
 export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  itemNameMap: Map<string, string>;
-  itemArtifactMap: Map<string, boolean>;
-
   constructor(
     public gearList: GearDbService,
     public equipped: EquippedService,
-    public userGear: UserGearService,
     private affixUi: AffixUiService,
     private analytics: AnalyticsService,
     private suggestionDrawer: SuggestionDrawerService
-  ) {
-    this.itemNameMap = new Map<string, string>();
-    this.itemArtifactMap = new Map<string, boolean>();
-  }
-  userOwnsItem(slot: string): boolean {
-    const itemName = this.getItemName(slot);
-    return !!itemName && this.userGear.hasItem(itemName);
-  }
-
-  getUserItemLocations(slot: string): UserItemLocation[] | undefined {
-    const itemName = this.getItemName(slot);
-    return itemName ? this.userGear.getItemLocations(itemName) : undefined;
-  }
+  ) { }
 
   visibleSetBonuses: Array<VisibleSetBonus> = [];
   private loggedInitialViewChecked = false;
 
   ngOnInit() {
     const done = perfStart('GearListComponent.ngOnInit');
-    let slotSubscriptionCount = 0;
-    for (const item of this.equipped.getSlots().values()) {
-      slotSubscriptionCount++;
-      item.subscribe(newItem => {
-        if (newItem) {
-          this.itemNameMap.set(newItem.slot, newItem.name);
-          this.itemArtifactMap.set(newItem.slot, !!newItem.artifact);
-        }
-      });
-    }
-
     this.equipped.getVisibleSetBonusesObservable().subscribe(setBonuses => {
       this.visibleSetBonuses = setBonuses;
     });
-    done({ slotSubscriptionCount });
+    done({});
   }
 
   ngAfterViewInit() {
@@ -81,23 +52,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.loggedInitialViewChecked = true;
     const done = perfStart('GearListComponent.ngAfterViewChecked.first');
     done({
-      itemNameCount: this.itemNameMap.size,
       activeSetBonusCount: this.visibleSetBonuses.length
     });
-  }
-
-  showSuggestedItems(slot: string) {
-    if (this.isSlotDisabled(slot)) {
-      return;
-    }
-
-    const done = perfStart('GearListComponent.showSuggestedItems');
-    this.analytics.track('open_item_suggestions', {
-      slot
-    });
-    this.suggestionDrawer.openSlot(slot);
-    done({ slot });
-    perfAfterFrames('paint after slot suggestions open');
   }
 
   showItemsInSet(setName: string) {
@@ -105,15 +61,6 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
       source: 'active_set'
     });
     this.suggestionDrawer.openSet(setName);
-  }
-
-  getItemName(slot: string) {
-    const itemName = this.itemNameMap.get(slot);
-    if (itemName) {
-      return itemName;
-    }
-
-    return '';
   }
 
   getAffixValue(affix: Affix) {
@@ -144,48 +91,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return this.getAffixTooltip(affix);
   }
 
-  getClassForSlot(slot: string) {
-    if (this.isMinorArtifact(slot)) {
-      return 'MinorArtifact';
-    }
-    return '';
-  }
-
-  isMinorArtifact(slot: string) {
-    return !!this.itemArtifactMap.get(slot);
-  }
-
-  isSlotDisabled(slot: string) {
-    return slot === 'Offhand' && this.equipped.isOffhandDisabled();
-  }
-
-  getSlotTitle(slot: string) {
-    if (this.isSlotDisabled(slot)) {
-      return 'Offhand unavailable while a two-handed weapon is equipped.';
-    }
-
-    if (slot === 'Offhand' && this.equipped.isOffhandRuneArmOnly()) {
-      return 'Crossbows can use rune arms in the offhand.';
-    }
-
-    return '';
-  }
-
   copyGearToClipboard() {
     Clipboard.copy(this.equipped.getGearDescription());
     this.analytics.track('copy_build', {
       equipped_slot_count: this.getEquippedSlotCount()
-    });
-  }
-
-  clearSlot(slot: string) {
-    if (this.isSlotDisabled(slot)) {
-      return;
-    }
-
-    this.equipped.clearSlot(slot);
-    this.analytics.track('planner_clear_slot', {
-      slot
     });
   }
 

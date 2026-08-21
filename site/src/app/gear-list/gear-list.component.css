@@ -242,6 +242,11 @@
     text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
 }
 
+:host-context(.dark-theme) .BetterThanBest {
+    color: #a78bfa;
+    text-shadow: 0 0 8px rgba(167, 139, 250, 0.35);
+}
+
 .Best {
     font-weight: 700;
     color: var(--success-color);

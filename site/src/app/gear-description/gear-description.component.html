@@ -32,6 +32,7 @@
     <!-- Main Affixes -->
     @for (row of affixRows; track row.affix.name + '|' + row.affix.type + '|' + row.affix.value) {
       <div class="row table-condensed small hover-helper" [ngClass]="row.className"
+          [class.highlighted-affix-row]="isHighlightedAffix(row.affix)"
           [title]="row.tooltip">
         @if (row.important) {
           <button class="show-on-hover fas fa-heart heart col-1"
@@ -49,7 +50,8 @@
       }
     <!-- Crafting -->
     @for (row of craftingRows; track row.craft.name) {
-      <div class="row table-striped table-condensed small hover-helper">
+      <div class="row table-striped table-condensed small hover-helper"
+          [class.highlighted-affix-row]="isHighlightedCraftingRow(row)">
         @if (!row.craft.selected.affixes.length) {
           <span class="show-never fas fa-heart heart col-1"></span>
         }

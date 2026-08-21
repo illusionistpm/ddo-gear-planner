@@ -5,20 +5,56 @@
   <h1>
     {{setName}}
   </h1>
+</div>
 
+@if (previewItem) {
+  <aside class="item-preview-panel" aria-label="Item preview">
+    <div class="item-preview-header">
+      <div class="item-preview-title">
+        <button type="button" class="preview-nav-button" aria-label="Previous item"
+          (click)="showPreviousPreviewItem()" [disabled]="!canShowPreviousPreviewItem()">
+          &lsaquo;
+        </button>
+        <h3>{{previewItem.name}}</h3>
+        <button type="button" class="preview-nav-button" aria-label="Next item"
+          (click)="showNextPreviewItem()" [disabled]="!canShowNextPreviewItem()">
+          &rsaquo;
+        </button>
+      </div>
+      <button type="button" class="preview-close" aria-label="Close item preview" (click)="closeItemPreview()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="item-preview-card">
+      <app-gear-description [item]="previewItem" [readonly]="false" [equipOnChange]="false"></app-gear-description>
+    </div>
+    <div class="item-preview-actions">
+      <a class="wiki-link" [href]="previewItem.getURL()" target="_blank" rel="noreferrer">
+        Open wiki page
+      </a>
+      <button type="button" class="equip-button preview-equip-button" (click)="equipPreviewItem()" [disabled]="!equipped.canEquip(previewItem)">
+        Equip
+      </button>
+    </div>
+  </aside>
+}
+
+<div class='modal-body'>
   <div class="row">
     <div class="col-1"><b>ML</b></div>
     <div class="col-2"><b>Slot</b></div>
-    <div class="col-7"><b>Name</b></div>
-    <div class="col-2"></div>
+    <div class="col-9"><b>Name</b></div>
   </div>
 
-  @for (item of matches; track item.name) {
-    <div class="row">
+  @for (item of matches; track item.name + '|' + item.slot + '|' + $index) {
+    <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
       <div class="col-1">{{item.ml}}</div>
       <div class="col-2">{{item.slot}}</div>
-      <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
-      <button class="col-3" [disabled]="equipped.isEquipped(item)" (click)="equipItem(item)">{{equipped.isEquipped(item) ? 'Equipped' : 'Equip'}}</button>
+      <div class="col-9">
+        <a class="item-preview-link" [href]="item.getURL()" (click)="showItemPreview(item, matches, $index); $event.preventDefault()">
+          {{item.name}}
+        </a>
+      </div>
     </div>
   }
 
@@ -27,12 +63,15 @@
       <div class="row">&nbsp;</div>
       <h3>Already Filled Slots</h3>
       <i>
-        @for (item of lockedMatches; track item.name) {
-          <div class="row">
+        @for (item of lockedMatches; track item.name + '|' + item.slot + '|' + $index) {
+          <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
             <div class="col-1">{{item.ml}}</div>
             <div class="col-2">{{item.slot}}</div>
-            <div class="col-6"><a href="{{item.getURL()}}" target="_blank">{{item.name}}</a></div>
-            <button class="col-3" [disabled]="equipped.isEquipped(item)" (click)="equipItem(item)">{{equipped.isEquipped(item) ? 'Equipped' : 'Equip'}}</button>
+            <div class="col-9">
+              <a class="item-preview-link" [href]="item.getURL()" (click)="showItemPreview(item, lockedMatches, $index); $event.preventDefault()">
+                {{item.name}}
+              </a>
+            </div>
           </div>
         }
       </i>

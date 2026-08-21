@@ -21,7 +21,7 @@
       <div class="crafted-items-list">
       @for (item of essenceCrafting; track item.name) {
         <div class="crafted-item-option">
-          <button class="btn btn-primary crafted-item-button" (click)="equipItem(item)">
+          <button class="btn btn-primary equip-button crafted-item-button" (click)="equipItem(item)">
             {{item.name}}
             @if (userOwnsItem(item)) {
               <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
@@ -46,7 +46,7 @@
                 <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
               }
             </span>
-            <button class="col-2" (click)="equipItem(item)">Equip</button>
+            <button class="col-2 equip-button" (click)="equipItem(item)">Equip</button>
           </div>
           <div class="row">
             <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>

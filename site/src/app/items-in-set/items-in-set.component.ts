@@ -18,6 +18,9 @@ export class ItemsInSetComponent implements OnInit {
 
   matches!: Array<Item>;
   lockedMatches!: Array<Item>;
+  previewItem: Item | null = null;
+  previewItems: Item[] = [];
+  previewIndex = -1;
 
   constructor(
     public gearDB: GearDbService,
@@ -57,6 +60,72 @@ export class ItemsInSetComponent implements OnInit {
     this.analytics.track('planner_equip_item', {
       equip_source: 'set_modal',
       slot: item.slot
+    });
+    this.suggestionDrawer.close();
+  }
+
+  showItemPreview(item: Item, items: Item[] = [], index = -1) {
+    this.previewItems = items.slice();
+    this.previewIndex = index >= 0
+      ? index
+      : this.previewItems.findIndex(candidate => this.isSameItem(candidate, item));
+    this.setPreviewItem(item);
+  }
+
+  private setPreviewItem(item: Item) {
+    this.previewItem = new Item(item);
+  }
+
+  closeItemPreview() {
+    this.previewItem = null;
+    this.previewItems = [];
+    this.previewIndex = -1;
+  }
+
+  showPreviousPreviewItem() {
+    if (!this.canShowPreviousPreviewItem()) {
+      return;
+    }
+
+    this.previewIndex -= 1;
+    this.setPreviewItem(this.previewItems[this.previewIndex]);
+  }
+
+  showNextPreviewItem() {
+    if (!this.canShowNextPreviewItem()) {
+      return;
+    }
+
+    this.previewIndex += 1;
+    this.setPreviewItem(this.previewItems[this.previewIndex]);
+  }
+
+  canShowPreviousPreviewItem(): boolean {
+    return this.previewIndex > 0;
+  }
+
+  canShowNextPreviewItem(): boolean {
+    return this.previewIndex >= 0 && this.previewIndex < this.previewItems.length - 1;
+  }
+
+  isPreviewingItem(item: Item): boolean {
+    return !!this.previewItem && this.isSameItem(this.previewItem, item);
+  }
+
+  private isSameItem(left: Item, right: Item): boolean {
+    return left.name === right.name && left.slot === right.slot && left.ml === right.ml;
+  }
+
+  equipPreviewItem() {
+    if (!this.previewItem || !this.equipped.canEquip(this.previewItem)) {
+      return;
+    }
+
+    const itemToEquip = new Item(this.previewItem);
+    this.equipped.set(itemToEquip);
+    this.analytics.track('planner_equip_item', {
+      equip_source: 'set_preview',
+      slot: itemToEquip.slot
     });
     this.suggestionDrawer.close();
   }

@@ -1,5 +1,5 @@
 import { CraftableOption } from './../craftable-option';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 
 import { EquippedService } from '../equipped.service';
 import { EssenceCraftingService } from '../essence-crafting.service';
@@ -57,9 +57,12 @@ interface SetDisplayRow {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class GearDescriptionComponent implements OnInit, OnDestroy {
+export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() item: Observable<Item> | Item | null = null;
   @Input() readonly = false;
+  @Input() equipOnChange = true;
+  @Input() highlightAffixName: string | null = null;
+  @Input() highlightBonusType: string | null = null;
   curItem: Item | null = null;
   essenceCraftingML: number | null = null;
   affixRows: AffixDisplayRow[] = [];
@@ -80,18 +83,21 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['item'] && !(this.item instanceof Observable)) {
+      this.setCurrentItem(this.item);
+      this.changeDetector.markForCheck();
+    }
+  }
+
   ngOnInit() {
     if (this.item instanceof Observable) {
       this.subscriptions.add(this.item.subscribe(val => {
-        this.curItem = val;
-        this.essenceCraftingML = this.curItem ? this.curItem.ml : null;
-        this.refreshDisplayRows();
+        this.setCurrentItem(val);
         this.changeDetector.markForCheck();
       }));
     } else {
-      this.curItem = this.item;
-      this.essenceCraftingML = this.curItem ? this.curItem.ml : null;
-      this.refreshDisplayRows();
+      this.setCurrentItem(this.item);
     }
 
     this.subscriptions.add(this.equipped.getImportantAffixesObservable().subscribe(() => {
@@ -106,6 +112,12 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  private setCurrentItem(item: Item | null) {
+    this.curItem = item;
+    this.essenceCraftingML = this.curItem ? this.curItem.ml : null;
+    this.refreshDisplayRows();
   }
 
   describe(option: CraftableOption) {
@@ -223,9 +235,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
 
   updateItem() {
     const done = perfStart('GearDescriptionComponent.updateItem');
-    if (this.curItem) {
+    if (this.curItem && this.equipOnChange) {
       this.equipped.set(this.curItem);
     }
+    this.refreshDisplayRows();
+    this.changeDetector.markForCheck();
     done();
     perfAfterFrames('paint after crafting option change');
   }
@@ -247,7 +261,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
     const done = perfStart('GearDescriptionComponent.updateML');
     if (this.curItem && this.essenceCraftingML !== null) {
       this.essenceCrafting.setItemToML(this.curItem, this.essenceCraftingML);
-      this.equipped.set(this.curItem);
+      if (this.equipOnChange) {
+        this.equipped.set(this.curItem);
+      }
+      this.refreshDisplayRows();
+      this.changeDetector.markForCheck();
     }
     done();
     perfAfterFrames('paint after crafting ML change');
@@ -261,6 +279,18 @@ export class GearDescriptionComponent implements OnInit, OnDestroy {
   getClassForAffix(affix: Affix, option?: CraftableOption) {
     perfCount('GearDescriptionComponent.getClassForAffix');
     return this.affixUi.getClassForAffix(affix, option);
+  }
+
+  isHighlightedAffix(affix: Affix): boolean {
+    const affixes = [affix].concat(this.affixSvc.ungroupAffix(affix));
+    return affixes.some(candidate =>
+      candidate.name === this.highlightAffixName
+      && (!this.highlightBonusType || candidate.type === this.highlightBonusType));
+  }
+
+  isHighlightedCraftingRow(row: CraftingDisplayRow): boolean {
+    const selectedAffix = row.craft.selected?.affixes?.[0];
+    return !!selectedAffix && this.isHighlightedAffix(selectedAffix);
   }
 
   getAffixTooltip(affix: Affix, option?: CraftableOption): string {

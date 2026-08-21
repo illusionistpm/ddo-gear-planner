@@ -265,6 +265,51 @@ a:focus {
   background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
 }
 
+.equip-button {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  border: 1px solid var(--primary-dark);
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.equip-button:hover,
+.equip-button:focus {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #1e40af 100%);
+  color: #ffffff;
+}
+
+.equip-button:disabled {
+  background: var(--surface-subtle-color);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  cursor: default;
+  opacity: 0.72;
+}
+
+:root.dark-theme .equip-button {
+  background: #172033;
+  border-color: rgba(96, 165, 250, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.14);
+  color: #dbeafe;
+}
+
+:root.dark-theme .equip-button:hover,
+:root.dark-theme .equip-button:focus {
+  background: #1e2b45;
+  border-color: rgba(147, 197, 253, 0.95);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16), inset 0 0 0 1px rgba(147, 197, 253, 0.18);
+  color: #eff6ff;
+}
+
+:root.dark-theme .equip-button:disabled {
+  background: #162033;
+  border-color: #334155;
+  box-shadow: none;
+  color: #94a3b8;
+  opacity: 0.68;
+}
+
 /* Higher-contrast primary button when placed on blue section headers */
 .section-header .btn-primary {
   background: #ffffff;

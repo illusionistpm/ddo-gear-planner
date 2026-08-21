@@ -66,6 +66,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   setMatches!: Array<[string, Array<Affix>, Array<Item>]>;
 
   selectedAugmentSlot: any;
+  previewItem: Item | null = null;
+  previewItems: Item[] = [];
+  previewIndex = -1;
 
   constructor(
     public gearDB: GearDbService,
@@ -183,6 +186,79 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     const value = (ret && ret[1]) || '';
 
     return [crafting, value];
+  }
+
+  showItemPreview(item: Item, items: Item[] = [], index = -1) {
+    this.previewItems = items.slice(0, 100);
+    this.previewIndex = index >= 0
+      ? index
+      : this.previewItems.findIndex(candidate => this.isSameItem(candidate, item));
+    this.setPreviewItem(item);
+  }
+
+  private setPreviewItem(item: Item) {
+    this.previewItem = new Item(item);
+    if (this.findMatchingValue(this.previewItem)[0]) {
+      this.previewItem.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+    }
+  }
+
+  closeItemPreview() {
+    this.previewItem = null;
+    this.previewItems = [];
+    this.previewIndex = -1;
+  }
+
+  showPreviousPreviewItem() {
+    if (!this.canShowPreviousPreviewItem()) {
+      return;
+    }
+
+    this.previewIndex -= 1;
+    this.setPreviewItem(this.previewItems[this.previewIndex]);
+  }
+
+  showNextPreviewItem() {
+    if (!this.canShowNextPreviewItem()) {
+      return;
+    }
+
+    this.previewIndex += 1;
+    this.setPreviewItem(this.previewItems[this.previewIndex]);
+  }
+
+  canShowPreviousPreviewItem(): boolean {
+    return this.previewIndex > 0;
+  }
+
+  canShowNextPreviewItem(): boolean {
+    return this.previewIndex >= 0 && this.previewIndex < this.previewItems.length - 1;
+  }
+
+  isPreviewingItem(item: Item): boolean {
+    return !!this.previewItem && this.isSameItem(this.previewItem, item);
+  }
+
+  private isSameItem(left: Item, right: Item): boolean {
+    return left.name === right.name && left.slot === right.slot && left.ml === right.ml;
+  }
+
+  equipPreviewItem() {
+    if (!this.previewItem || !this.equipped.canEquip(this.previewItem)) {
+      return;
+    }
+
+    const done = perfStart('ItemsWithBonusTypeComponent.equipPreviewItem');
+    const itemToEquip = new Item(this.previewItem);
+    this.equipped.set(itemToEquip);
+    this.analytics.track('planner_equip_item', {
+      equip_source: 'bonus_type_preview',
+      slot: itemToEquip.slot,
+      crafted: !!itemToEquip.isEssenceCrafted()
+    });
+    this.suggestionDrawer.close();
+    done({ slot: itemToEquip.slot, item: itemToEquip.name });
+    perfAfterFrames('paint after bonus type preview equip');
   }
 
   equipItem(item: Item) {

@@ -302,6 +302,10 @@ a {
   color: var(--text-primary);
 }
 
+.filter-popover.popover {
+  z-index: 1200;
+}
+
 .form-control-sm {
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;

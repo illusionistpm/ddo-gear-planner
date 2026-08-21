@@ -3,14 +3,15 @@
     <div class="affix-brand">DDO Gear Planner</div>
     <nav class="affix-nav" aria-label="Planner sections" role="tablist">
       @if (savedSet.size) {
-        <a class="affix-tab affix-next-tab" routerLink="/main" [queryParams]="{tab: null}" queryParamsHandling="merge" role="tab">
+        <a class="affix-tab" [class.affix-next-tab]="shouldHighlightEquipmentStep()" routerLink="/main" [queryParams]="{tab: null}" queryParamsHandling="merge" role="tab">
           Equipment
-          <span class="affix-next-badge">Next</span>
+          @if (shouldHighlightEquipmentStep()) {
+            <span class="affix-next-badge">Next</span>
+          }
         </a>
         <a class="affix-tab" routerLink="/main" [queryParams]="{tab: 'affixes'}" queryParamsHandling="merge" role="tab">Tracked Affixes</a>
         <span class="affix-tab active" role="tab" aria-selected="true">
           Edit Affixes
-          <span class="affix-count">{{savedSet.size}} selected</span>
         </span>
       } @else {
         <span class="affix-tab active affix-setup-tab" role="tab" aria-selected="true">
@@ -26,18 +27,40 @@
       (click)="toggleTheme()">
       <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
     </button>
+    <app-admin-link></app-admin-link>
   </header>
 
   <main class="affix-layout">
     <section class="affix-builder">
-      <section class="affix-intro-panel">
-        @if (savedSet.size) {
+      <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
+        <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
+        <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
           <h2>Your gear targets are ready</h2>
           <p>Use the Equipment tab to start choosing items. You can come back to Edit Affixes any time to adjust what the planner tracks.</p>
-        } @else {
+        </ng-container>
+        <ng-template #affixSetupIntro>
+          <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
+            <h2>Add one build package</h2>
+            <p>Basic covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #basicAffixSetupIntro>
+          <ng-container *ngIf="shouldShowBasicPackageHint(); else savedAffixSetupIntro">
+            <h2>Start by choosing your build goals</h2>
+            <p>Pick the highlighted Basic package first. It adds common defenses and utility that most builds want tracked.</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #savedAffixSetupIntro>
+          <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
+            <h2>Your gear targets are ready</h2>
+            <p>Use the Equipment tab to start choosing items. You can come back to Edit Affixes any time to adjust what the planner tracks.</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #emptyAffixSetupIntro>
           <h2>Start by choosing your build goals</h2>
-          <p>Pick the highlighted starter package or choose a few core stats. Once you have selected affixes, the planner can track them while you compare gear.</p>
-        }
+          <p>Pick Basic, then add one combat or role package. Once you have selected affixes, the planner can track them while you compare gear.</p>
+        </ng-template>
+        <button *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
       </section>
 
       <section class="affix-panel">
@@ -67,9 +90,7 @@
               [title]="getPackageTooltip(pkg)"
               (click)="addPackage(pkg)">
               {{pkg}}
-              @if (shouldHighlightStarterPackage(pkg)) {
-                <span class="affix-next-chip-badge">Start</span>
-              }
+              <span *ngIf="shouldHighlightStarterPackage(pkg)" class="affix-next-chip-badge">{{pkg === 'Basic' ? 'Start' : 'Pick one'}}</span>
             </button>
           }
         </div>

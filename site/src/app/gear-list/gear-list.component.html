@@ -7,11 +7,20 @@
   <button class="btn btn-outline-success btn-sm equipment-copy" (click)="copyGearToClipboard()">Copy Equipment</button>
 </div>
 
+<section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
+  <div>
+    <div class="onboarding-step-label">Next step</div>
+    <h2>Start by choosing one item</h2>
+    <p>Pick an armor item first so the planner has gear to compare against your tracked bonuses.</p>
+  </div>
+  <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+</section>
+
 <div class="row equipment-grid">
   @for (slot of gearList.getSlots(); track slot) {
     <app-equipment-slot-card
       [slot]="slot"
-      [recommendedStart]="isBuildEmpty() && slot === 'Armor'">
+      [recommendedStart]="shouldShowArmorStartHint() && slot === 'Armor'">
     </app-equipment-slot-card>
   }
 

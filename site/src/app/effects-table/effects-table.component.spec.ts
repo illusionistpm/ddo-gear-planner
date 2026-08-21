@@ -6,13 +6,22 @@ import { EffectsTableComponent } from './effects-table.component';
 describe('EffectsTableComponent', () => {
   let component: EffectsTableComponent;
   let fixture: ComponentFixture<EffectsTableComponent>;
+  const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
+  const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
   beforeEach(waitForAsync(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
     TestBed.configureTestingModule({
       imports: [ AppModule ]
     })
     .compileComponents();
   }));
+
+  afterEach(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EffectsTableComponent);
@@ -47,29 +56,92 @@ describe('EffectsTableComponent', () => {
     });
   });
 
-  it('targets the first chip in the first non-utility onboarding group', () => {
-    component.hasOpenedAffixType = false;
+  it('targets the first missing-value chip in the first non-utility onboarding group', () => {
+    component.onboardingActive = true;
     component.affixNames = ['Speed', 'Strength'];
     component.affixMap.set('Speed', [
       { bonusType: 'Enhancement', value: 30 },
     ]);
     component.affixMap.set('Strength', [
-      { bonusType: 'Enhancement', value: 8 },
+      { bonusType: 'Enhancement', value: 0 },
+      { bonusType: 'Equipment', value: 13 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) =>
+      affixName === 'Strength' ? ['Enhancement', 'Equipment'] : []
+    );
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
+      affixName === 'Strength' && bonusType === 'Enhancement' ? 8 : 0
+    );
+    (component as any).refreshTrackedAffixDisplay();
+
+    expect(component.isOnboardingTargetChip('Speed', 'Enhancement')).toBeFalse();
+    expect(component.isOnboardingTargetChip('Strength', 'Enhancement')).toBeTrue();
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeFalse();
+  });
+
+  it('falls back to a covered chip when every onboarding chip already has value', () => {
+    component.onboardingActive = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
     ]);
     spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    (component as any).refreshTrackedAffixDisplay();
 
-    expect(component.isOnboardingTargetChip('Speed', 'Enhancement')).toBeFalse();
     expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeTrue();
-    expect(component.isOnboardingTargetChip('Strength', 'Enhancement')).toBeFalse();
   });
 
   it('falls back to the first utility checklist chip when it is the only onboarding group', () => {
-    component.hasOpenedAffixType = false;
+    component.onboardingActive = true;
     component.boolAffixNames = ['Feather Falling'];
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
+    (component as any).refreshTrackedAffixDisplay();
 
     expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBeTrue();
+  });
+
+  it('pairs the tracked affix chip green cue with intro text and a skip action', () => {
+    component.onboardingActive = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [
+      { bonusType: 'Equipment', value: 13 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    (component as any).refreshTrackedAffixDisplay();
+
+    expect(component.shouldShowAffixTypeHint()).toBeTrue();
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeTrue();
+  });
+
+  it('completes onboarding when a tracked affix chip opens item suggestions', () => {
+    component.onboardingActive = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [
+      { bonusType: 'Equipment', value: 13 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn((component as any).suggestionDrawer, 'openBonusType');
+    (component as any).refreshTrackedAffixDisplay();
+
+    component.showItemsWithBonusType('Strength', 'Equipment');
+
+    expect(component.onboardingActive).toBeFalse();
+    expect((component as any).suggestionDrawer.openBonusType).toHaveBeenCalledWith('Strength', 'Equipment', true);
+  });
+
+  it('hides the tracked affix onboarding cue when dismissed', () => {
+    component.onboardingActive = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [
+      { bonusType: 'Equipment', value: 13 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    (component as any).refreshTrackedAffixDisplay();
+
+    component.dismissIntro();
+
+    expect(component.shouldShowAffixTypeHint()).toBeFalse();
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeFalse();
   });
 
   it('toggles category collapse state by group name', () => {

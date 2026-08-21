@@ -235,6 +235,34 @@
   font-weight: 800;
 }
 
+.planner-onboarding-hint {
+  align-items: center;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--success-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin: -0.25rem 1rem 0.75rem 0;
+  padding: 0.7rem 0.85rem;
+}
+
+.planner-onboarding-hint h2 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 0.2rem;
+}
+
+.planner-onboarding-hint p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
 @keyframes planner-filter-sheet-in {
   from {
     opacity: 0;

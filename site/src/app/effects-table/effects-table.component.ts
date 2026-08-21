@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EquippedService, AffixSource } from '../equipped.service';
@@ -67,7 +67,7 @@ const LORE_AFFIXES_WITH_UNIVERSAL_COVERAGE = new Set([
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class EffectsTableComponent implements OnInit, OnDestroy {
+export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   public affixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
   public affixNames: Array<string> = [];
@@ -77,7 +77,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
   collapsedAffixGroups = new Set<string>();
-  hasOpenedAffixType = false;
+  onboardingActive = true;
+  trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
+  showAffixTypeHint = false;
+  onboardingTargetChipKey = '';
   equipmentSidebarCollapsed = false;
   suppliedAffixCounts = new Map<string, number>();
   recentlyChangedAffixTypes = new Set<string>();
@@ -85,6 +88,7 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   private coveredAffixesSubscription?: Subscription;
   private previousAffixTypeValues?: Map<string, number>;
   private changedAffixTypesTimeout: ReturnType<typeof setTimeout> | null = null;
+  private trackedAffixDisplaySignature = '';
 
   @Input() sortOwnedToTop: boolean = true;
 
@@ -100,9 +104,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.hasOpenedAffixType = this.onboarding.hasOpenedAffixType();
-    this.onboardingSubscription = this.onboarding.getAffixTypeOpened().subscribe(hasOpenedAffixType => {
-      this.hasOpenedAffixType = hasOpenedAffixType;
+    this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
+      this.onboardingActive = this.onboarding.shouldShowOnboarding();
+      this.refreshTrackedAffixDisplay();
     });
 
     this.coveredAffixesSubscription = this.equipped.getCoveredAffixes().subscribe(map => {
@@ -123,6 +128,7 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
       this.updateRecentlyChangedAffixTypes();
       this.refreshSuppliedAffixCounts();
+      this.refreshTrackedAffixDisplay();
     });
   }
 
@@ -132,6 +138,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     if (this.changedAffixTypesTimeout) {
       clearTimeout(this.changedAffixTypesTimeout);
     }
+  }
+
+  ngDoCheck() {
+    this.refreshTrackedAffixDisplay();
   }
 
   removeAffix(affixName: string) {
@@ -167,7 +177,11 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   }
 
   showItemsWithBonusType(affixName: string, bonusType: string) {
-    this.onboarding.markAffixTypeOpened();
+    if (this.shouldShowAffixTypeHint()) {
+      this.onboarding.completeIntro();
+      this.onboardingActive = this.onboarding.shouldShowOnboarding();
+      this.refreshTrackedAffixDisplay();
+    }
     this.suggestionDrawer.openBonusType(affixName, bonusType, this.sortOwnedToTop);
   }
 
@@ -327,6 +341,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   }
 
   getTrackedAffixGroups(): TrackedAffixGroupDisplay[] {
+    return this.buildTrackedAffixGroups();
+  }
+
+  private buildTrackedAffixGroups(): TrackedAffixGroupDisplay[] {
     const groups = this.getAffixGroups().map(group => ({
       ...group,
       checklistAffixes: [] as string[]
@@ -353,22 +371,49 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
   }
 
   shouldShowAffixTypeHint(): boolean {
-    return !this.hasOpenedAffixType && this.getTrackedAffixGroups().some(group => this.getAffixGroupCount(group) > 0);
+    return this.showAffixTypeHint;
+  }
+
+  dismissIntro() {
+    this.onboarding.dismissIntro();
+    this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.refreshTrackedAffixDisplay();
   }
 
   isOnboardingTargetChip(affixName: string, bonusType: string): boolean {
-    return this.shouldShowAffixTypeHint() && this.getOnboardingTargetChipKey() === this.getOnboardingChipKey(affixName, bonusType);
+    return this.shouldShowAffixTypeHint() && this.onboardingTargetChipKey === this.getOnboardingChipKey(affixName, bonusType);
   }
 
   private getOnboardingTargetChipKey(): string {
     let utilityFallbackChipKey = '';
 
-    for (const group of this.getTrackedAffixGroups()) {
+    for (const group of this.trackedAffixGroups) {
       if (this.isAffixGroupCollapsed(group.name)) {
         continue;
       }
 
-      const groupChipKey = this.getFirstOnboardingChipKeyForGroup(group);
+      const groupChipKey = this.getFirstOnboardingChipKeyForGroup(group, true);
+      if (!groupChipKey) {
+        continue;
+      }
+
+      if (group.name !== UTILITY_CHECKLIST_CATEGORY) {
+        return groupChipKey;
+      }
+
+      utilityFallbackChipKey = utilityFallbackChipKey || groupChipKey;
+    }
+
+    if (utilityFallbackChipKey) {
+      return utilityFallbackChipKey;
+    }
+
+    for (const group of this.trackedAffixGroups) {
+      if (this.isAffixGroupCollapsed(group.name)) {
+        continue;
+      }
+
+      const groupChipKey = this.getFirstOnboardingChipKeyForGroup(group, false);
       if (!groupChipKey) {
         continue;
       }
@@ -383,10 +428,13 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     return utilityFallbackChipKey;
   }
 
-  private getFirstOnboardingChipKeyForGroup(group: TrackedAffixGroupDisplay): string {
+  private getFirstOnboardingChipKeyForGroup(group: TrackedAffixGroupDisplay, preferMissingValue: boolean): string {
     for (const affixName of group.checklistAffixes) {
       const boolAffix = this.boolAffixMap.get(affixName)?.[0];
       if (!boolAffix || boolAffix.bonusType === 'Penalty') {
+        continue;
+      }
+      if (preferMissingValue && boolAffix.value) {
         continue;
       }
 
@@ -395,6 +443,10 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
     for (const affixName of group.affixes) {
       for (const type of this.getVisibleTypes(affixName)) {
+        if (preferMissingValue && type.value) {
+          continue;
+        }
+
         const chipAffixName = this.getSourceAffixName(affixName, type);
         const chipBonusType = this.getSourceBonusType(type);
         return this.getOnboardingChipKey(chipAffixName, chipBonusType);
@@ -418,6 +470,7 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
     } else {
       this.collapsedAffixGroups.add(groupName);
     }
+    this.refreshOnboardingTarget();
   }
 
   isAffixGroupCollapsed(groupName: string): boolean {
@@ -588,5 +641,41 @@ export class EffectsTableComponent implements OnInit, OnDestroy {
 
   private getOnboardingChipKey(affixName: string, bonusType: string): string {
     return affixName + '\0' + bonusType;
+  }
+
+  private refreshTrackedAffixDisplay() {
+    const signature = this.getTrackedAffixDisplaySignature();
+    if (signature === this.trackedAffixDisplaySignature) {
+      return;
+    }
+
+    this.trackedAffixDisplaySignature = signature;
+    this.trackedAffixGroups = this.buildTrackedAffixGroups();
+    this.showAffixTypeHint = this.onboardingActive && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
+    this.refreshOnboardingTarget();
+  }
+
+  private refreshOnboardingTarget() {
+    this.onboardingTargetChipKey = this.showAffixTypeHint ? this.getOnboardingTargetChipKey() : '';
+  }
+
+  private getTrackedAffixDisplaySignature(): string {
+    const boolAffixes = this.boolAffixNames.map(affixName => {
+      const boolAffix = this.boolAffixMap.get(affixName)?.[0];
+      return [affixName, boolAffix?.bonusType, boolAffix?.value].join(':');
+    });
+    const affixes = this.affixNames.map(affixName => {
+      const types = (this.affixMap.get(affixName) || [])
+        .map(type => [type.bonusType, type.value, type.sourceAffixName, type.sourceBonusType].join(':'))
+        .join(',');
+      return affixName + '=' + types;
+    });
+
+    return [
+      this.onboardingActive ? '1' : '0',
+      Array.from(this.collapsedAffixGroups).sort().join(','),
+      boolAffixes.join('|'),
+      affixes.join('|')
+    ].join('\0');
   }
 }

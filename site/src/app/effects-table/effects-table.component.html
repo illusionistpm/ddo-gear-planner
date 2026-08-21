@@ -1,9 +1,11 @@
-@if (shouldShowAffixTypeHint()) {
-    <section class="tracked-affix-start-hint" aria-label="Tracked affixes hint">
+<section *ngIf="showAffixTypeHint" class="tracked-affix-start-hint onboarding-instruction-panel" aria-label="Tracked affixes hint">
+    <div>
+        <div class="onboarding-step-label">Next step</div>
         <h2>Find gear from your tracked affixes</h2>
-        <p>Click the highlighted affix type chip to see items that can improve that bonus.</p>
-    </section>
-}
+        <p>Click the highlighted affix type chip to open matching item suggestions for that exact bonus type.</p>
+    </div>
+    <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+</section>
 
 <div class="tracked-affixes-workspace" [class.equipment-collapsed]="equipmentSidebarCollapsed">
     <app-tracked-equipment-sidebar
@@ -12,7 +14,7 @@
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
-    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of getTrackedAffixGroups()">
+    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of trackedAffixGroups">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
             [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
             <span>{{group.name}}</span>

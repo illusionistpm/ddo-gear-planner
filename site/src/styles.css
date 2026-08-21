@@ -460,6 +460,54 @@ a:focus {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.instruction-callout-panel {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.16), var(--surface-color) 72%) !important;
+  border-color: rgba(37, 99, 235, 0.42) !important;
+  border-left-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1), var(--shadow-sm);
+}
+
+.onboarding-instruction-panel {
+  background: linear-gradient(90deg, rgba(22, 163, 74, 0.2), var(--surface-color) 72%) !important;
+  border-color: rgba(22, 163, 74, 0.68) !important;
+  border-left-color: var(--success-color) !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16), var(--shadow-md);
+}
+
+.onboarding-step-label {
+  color: var(--success-color);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.onboarding-dismiss-button {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-secondary);
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: 0.35rem 0.55rem;
+  white-space: nowrap;
+}
+
+.onboarding-dismiss-button:hover,
+.onboarding-dismiss-button:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+  color: var(--primary-color);
+}
+
+.onboarding-dismiss-button:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
 /* Tracked affixes equipment rail */
 .tracked-affixes-workspace {
   align-items: start;

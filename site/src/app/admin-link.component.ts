@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { environment } from '../environments/environment';
+import { PlannerOnboardingService } from './planner-onboarding.service';
 
 @Component({
   selector: 'app-admin-link',
@@ -28,34 +29,57 @@ import { environment } from '../environments/environment';
           >
         </label>
 
+        <button type="button" class="admin-panel-action" role="menuitem" (click)="resetOnboarding()">
+          <span>
+            <strong>Reset onboarding</strong>
+            <small>Show intro cues again</small>
+          </span>
+        </button>
+
         <a class="admin-panel-link" [href]="adminUrl" role="menuitem">Open admin page</a>
       </div>
     </div>
   `,
   styles: [`
+    :host {
+      align-self: stretch;
+      display: inline-flex;
+      flex: 0 0 auto;
+      margin-left: 0.4rem;
+      position: relative;
+    }
+
     .admin-menu {
-      position: fixed;
-      right: 0.75rem;
-      top: 0.75rem;
-      z-index: 1000;
+      align-self: stretch;
+      display: inline-flex;
       font-size: 0.875rem;
+      position: relative;
     }
 
     .admin-button {
-      padding: 0.35rem 0.65rem;
-      border: 0;
+      align-items: center;
+      background: var(--surface-subtle-color);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
-      background: #111827;
-      color: #fff;
+      color: var(--text-secondary);
       cursor: pointer;
+      display: inline-flex;
       font: inherit;
+      font-weight: 700;
+      justify-content: center;
       line-height: 1.2;
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
+      min-height: 2rem;
+      padding: 0.35rem 0.65rem;
     }
 
     .admin-button:hover,
     .admin-button:focus {
-      background: #1f2937;
+      color: var(--primary-color);
+    }
+
+    .admin-button:focus-visible {
+      outline: 3px solid var(--focus-ring-color);
+      outline-offset: 2px;
     }
 
     .admin-panel {
@@ -64,11 +88,12 @@ import { environment } from '../environments/environment';
       top: calc(100% + 0.4rem);
       width: 15rem;
       padding: 0.7rem;
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
-      background: #fff;
-      color: #111827;
-      box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+      background: var(--surface-elevated-color);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-lg);
+      z-index: 1200;
     }
 
     .admin-toggle {
@@ -92,7 +117,7 @@ import { environment } from '../environments/environment';
 
     .admin-toggle small {
       margin-top: 0.15rem;
-      color: #6b7280;
+      color: var(--text-secondary);
       font-size: 0.75rem;
     }
 
@@ -106,14 +131,58 @@ import { environment } from '../environments/environment';
     .admin-panel-link {
       display: block;
       padding-top: 0.65rem;
-      border-top: 1px solid #e5e7eb;
-      color: #2563eb;
+      border-top: 1px solid var(--border-color);
+      color: var(--link-color);
       text-decoration: none;
+    }
+
+    .admin-panel-action {
+      align-items: flex-start;
+      background: transparent;
+      border: 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      font: inherit;
+      margin: 0;
+      padding: 0.65rem 0 0;
+      text-align: left;
+      width: 100%;
+    }
+
+    .admin-panel-action strong,
+    .admin-panel-action small {
+      display: block;
+    }
+
+    .admin-panel-action strong {
+      font-size: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .admin-panel-action small {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      margin-top: 0.15rem;
+    }
+
+    .admin-panel-action:hover strong,
+    .admin-panel-action:focus strong {
+      color: var(--primary-color);
     }
 
     .admin-panel-link:hover,
     .admin-panel-link:focus {
+      color: var(--link-hover-color);
       text-decoration: underline;
+    }
+
+    @media (max-width: 767.98px) {
+      :host {
+        align-self: flex-end;
+        margin-top: 0.4rem;
+      }
     }
   `],
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -123,6 +192,8 @@ export class AdminLinkComponent {
   adminUrl = environment.adminUrl;
   panelOpen = false;
   performanceLoggingEnabled = this.getPerformanceLogging();
+
+  constructor(private onboarding: PlannerOnboardingService) {}
 
   @HostListener('document:click')
   closePanel() {
@@ -146,6 +217,11 @@ export class AdminLinkComponent {
     } catch {
       this.performanceLoggingEnabled = false;
     }
+  }
+
+  resetOnboarding() {
+    this.onboarding.resetIntro();
+    this.panelOpen = false;
   }
 
   private getPerformanceLogging() {

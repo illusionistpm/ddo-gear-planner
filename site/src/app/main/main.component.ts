@@ -25,10 +25,12 @@ export class MainComponent implements OnInit, OnDestroy {
   activeTab: MainTab = 'equipment';
   filtersOpen: boolean = false;
   itemFilters = new ItemFilters();
-  hasOpenedAffixType = false;
+  onboardingActive = true;
+  trackedAffixesHint = false;
 
   private filterSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
+  private slotSubscriptions: Subscription[] = [];
 
   onSortOwnedToTopChanged(value: boolean) {
     this.sortOwnedToTop = value;
@@ -50,15 +52,24 @@ export class MainComponent implements OnInit, OnDestroy {
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
-    this.hasOpenedAffixType = this.onboarding.hasOpenedAffixType();
-    this.onboardingSubscription = this.onboarding.getAffixTypeOpened().subscribe(hasOpenedAffixType => {
-      this.hasOpenedAffixType = hasOpenedAffixType;
+    this.refreshOnboardingState();
+    this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
+      this.refreshOnboardingState();
     });
+    for (const slot of this.gearDb.getSlots()) {
+      const slotObservable = this.equipped.getSlot(slot);
+      if (slotObservable) {
+        this.slotSubscriptions.push(slotObservable.subscribe(() => this.refreshOnboardingState()));
+      }
+    }
   }
 
   ngOnDestroy() {
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
+    for (const slotSubscription of this.slotSubscriptions) {
+      slotSubscription.unsubscribe();
+    }
   }
 
   selectTab(tab: MainTab) {
@@ -69,6 +80,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.activeTab = tab;
     this.closeFilters();
+    this.refreshOnboardingState();
   }
 
   isActiveTab(tab: MainTab) {
@@ -125,7 +137,12 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   shouldHighlightTrackedAffixes() {
-    return this.isArmorEquipped() && !this.hasOpenedAffixType && !this.isActiveTab('affixes');
+    return this.trackedAffixesHint;
+  }
+
+  dismissIntro() {
+    this.onboarding.dismissIntro();
+    this.refreshOnboardingState();
   }
 
   onTroveFileSelected(eventOrFile: Event | File) {
@@ -200,5 +217,10 @@ export class MainComponent implements OnInit, OnDestroy {
 
     const params = new URLSearchParams(hash.slice(queryIndex + 1));
     return params.get('tab') === 'affixes' ? 'affixes' : 'equipment';
+  }
+
+  private refreshOnboardingState() {
+    this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.trackedAffixesHint = this.isArmorEquipped() && this.onboardingActive && !this.isActiveTab('affixes');
   }
 }

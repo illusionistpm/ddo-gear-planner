@@ -7,13 +7,22 @@ import { EquippedService } from '../equipped.service';
 describe('AffixCloudComponent', () => {
   let component: AffixCloudComponent;
   let fixture: ComponentFixture<AffixCloudComponent>;
+  const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
+  const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
   beforeEach(waitForAsync(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
     TestBed.configureTestingModule({
       imports: [ AppModule ]
     })
     .compileComponents();
   }));
+
+  afterEach(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AffixCloudComponent);
@@ -23,6 +32,47 @@ describe('AffixCloudComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders non-production admin access in the workspace bar', () => {
+    const compiled: HTMLElement = fixture.nativeElement;
+
+    expect(compiled.querySelector('.affix-workspace-bar app-admin-link')).not.toBeNull();
+  });
+
+  it('pairs the starter package green cue with intro text and a skip action', () => {
+    const compiled: HTMLElement = fixture.nativeElement;
+
+    expect(compiled.querySelector('.affix-next-chip')).not.toBeNull();
+    expect(compiled.textContent).toContain('Pick the highlighted Basic package first');
+    expect(compiled.querySelector('.onboarding-dismiss-button')?.textContent).toContain('Skip intro');
+  });
+
+  it('cues one additional build package after Basic is selected', () => {
+    component.addPackage('Basic');
+
+    expect(component.shouldHighlightEquipmentStep()).toBeFalse();
+    expect(component.shouldHighlightStarterPackage('Melee')).toBeTrue();
+    expect(component.shouldHighlightStarterPackage('Basic')).toBeFalse();
+    expect(component.shouldShowAdditionalPackageHint()).toBeTrue();
+  });
+
+  it('pairs the equipment tab green cue with intro text after Basic and another package are selected', () => {
+    component.addPackage('Basic');
+    component.addPackage('Melee');
+
+    expect(component.shouldHighlightEquipmentStep()).toBeTrue();
+    expect(component.shouldShowAdditionalPackageHint()).toBeFalse();
+    expect(component.shouldShowBasicPackageHint()).toBeFalse();
+  });
+
+  it('hides affix setup onboarding cues when dismissed', () => {
+    component.dismissIntro();
+
+    expect(component.onboardingActive).toBeFalse();
+    expect(component.shouldShowBasicPackageHint()).toBeFalse();
+    expect(component.shouldShowAdditionalPackageHint()).toBeFalse();
+    expect(component.shouldHighlightEquipmentStep()).toBeFalse();
   });
 
   it('offers canonical affix names in spellpower bundles', () => {

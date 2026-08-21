@@ -4,6 +4,19 @@ import { AppComponent } from './app.component';
 import { QueryParamsService } from './query-params.service';
 
 describe('AppComponent', () => {
+  const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
+  const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
+
+  beforeEach(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
+  });
+
+  afterEach(() => {
+    localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem(legacyOnboardingKey);
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -32,6 +45,14 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
+  });
+
+  it('does not render the admin link at the root shell', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled: HTMLElement = fixture.nativeElement;
+
+    expect(compiled.querySelector('app-admin-link')).toBeNull();
   });
 
   it('updates query params when a hash URL is pasted over the current page', () => {
@@ -63,5 +84,21 @@ describe('AppComponent', () => {
     window.dispatchEvent(new HashChangeEvent('hashchange'));
 
     expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+  });
+
+  it('does not reset onboarding state when loading a hash URL without query params', () => {
+    localStorage.setItem(onboardingStateKey, JSON.stringify({
+      completed: false,
+      dismissed: true
+    }));
+
+    window.location.hash = '#/main';
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(JSON.parse(localStorage.getItem(onboardingStateKey) || '{}')).toEqual({
+      completed: false,
+      dismissed: true
+    });
   });
 });

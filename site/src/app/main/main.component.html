@@ -45,6 +45,7 @@
             (click)="toggleTheme()">
             <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
         </button>
+        <app-admin-link></app-admin-link>
 
         @if (filtersOpen) {
             <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
@@ -53,6 +54,17 @@
             </section>
         }
     </header>
+
+    @if (shouldHighlightTrackedAffixes()) {
+        <section class="planner-onboarding-hint onboarding-instruction-panel" aria-label="Tracked affixes next step">
+            <div>
+                <div class="onboarding-step-label">Next step</div>
+                <h2>Check which bonuses your gear covers</h2>
+                <p>Open Tracked Affixes to see what your equipped items already satisfy and what still needs better gear.</p>
+            </div>
+            <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+        </section>
+    }
 
     @if (filtersOpen) {
         <button type="button" class="planner-filter-backdrop" aria-label="Close filters" (click)="closeFilters()"></button>

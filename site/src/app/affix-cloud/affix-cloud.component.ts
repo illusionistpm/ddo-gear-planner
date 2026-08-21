@@ -6,6 +6,7 @@ import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
 import { AnalyticsService } from '../analytics.service';
 import { ThemeService } from '../theme.service';
+import { PlannerOnboardingService } from '../planner-onboarding.service';
 
 import { AffixCloud } from '../affix-cloud';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
@@ -41,15 +42,21 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   spellpowerPackages = new Map<string, Array<string>>();
   spellpowerPackageKeys: string[] = [];
   selectedSpellpowerPackages = new Set<string>();
+  onboardingActive = true;
+  basicPackageHint = true;
+  additionalPackageHint = false;
+  equipmentStepHint = false;
 
   private importantAffixesSubscription?: Subscription;
+  private onboardingSubscription?: Subscription;
 
   constructor(
     public equipped: EquippedService,
     public gearDB: GearDbService,
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
-    public theme: ThemeService
+    public theme: ThemeService,
+    private onboarding: PlannerOnboardingService
   ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
@@ -90,10 +97,17 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.importantAffixesSubscription = this.equipped.getImportantAffixesObservable()
       .subscribe(affixes => this.syncFromImportantAffixes(affixes));
+    this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
+      this.onboardingActive = this.onboarding.shouldShowOnboarding();
+      this.refreshOnboardingHints();
+    });
+    this.refreshOnboardingHints();
   }
 
   ngOnDestroy() {
     this.importantAffixesSubscription?.unsubscribe();
+    this.onboardingSubscription?.unsubscribe();
   }
 
   toggleTheme() {
@@ -193,6 +207,7 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
       }
     }
     this.updateConditionalSections();
+    this.refreshOnboardingHints();
   }
 
   addTactic(tactic: string) {
@@ -234,6 +249,7 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
       this.remove(affix);
     }
     this.updateConditionalSections();
+    this.refreshOnboardingHints();
   }
 
   removeSpellpower(spellpower: string) {
@@ -254,7 +270,29 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   }
 
   shouldHighlightStarterPackage(pkg: string) {
-    return !this.savedSet.size && pkg === 'Basic';
+    if (this.shouldShowBasicPackageHint()) {
+      return pkg === 'Basic';
+    }
+
+    return this.shouldShowAdditionalPackageHint() && pkg !== 'Basic';
+  }
+
+  shouldShowBasicPackageHint() {
+    return this.basicPackageHint;
+  }
+
+  shouldShowAdditionalPackageHint() {
+    return this.additionalPackageHint;
+  }
+
+  shouldHighlightEquipmentStep() {
+    return this.equipmentStepHint;
+  }
+
+  dismissIntro() {
+    this.onboarding.dismissIntro();
+    this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.refreshOnboardingHints();
   }
 
   isSpellpowerSelected(spellpower: string) {
@@ -328,6 +366,7 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
 
     this.updateConditionalSections();
     this.refreshTopResults();
+    this.refreshOnboardingHints();
   }
 
   remove(affix: string) {
@@ -350,6 +389,7 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     this.selectedPackages.clear();
     this.selectedSpellpowerPackages.clear();
     this.updateConditionalSections();
+    this.refreshOnboardingHints();
   }
 
   onChange() {
@@ -371,11 +411,21 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     this.showSpellSchools = this.selectedPackages.has('Caster');
   }
 
+  private hasAdditionalStarterPackage() {
+    return Array.from(this.selectedPackages).some(pkg => pkg !== 'Basic');
+  }
+
   private getPackageAffixesTooltip(affixes: string[] | undefined) {
     if (!affixes || !affixes.length) {
       return '';
     }
 
     return 'Adds: ' + affixes.join(', ');
+  }
+
+  private refreshOnboardingHints() {
+    this.basicPackageHint = this.onboardingActive && !this.selectedPackages.has('Basic');
+    this.additionalPackageHint = this.onboardingActive && this.selectedPackages.has('Basic') && !this.hasAdditionalStarterPackage();
+    this.equipmentStepHint = this.onboardingActive && this.selectedPackages.has('Basic') && this.hasAdditionalStarterPackage();
   }
 }

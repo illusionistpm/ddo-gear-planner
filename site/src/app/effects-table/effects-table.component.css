@@ -8,10 +8,14 @@
 }
 
 .tracked-affix-start-hint {
+    align-items: center;
     background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), var(--surface-color) 55%);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--success-color);
     border-radius: var(--border-radius);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
     margin: 0.25rem 0 0.75rem;
     padding: 0.75rem 0.9rem;
 }

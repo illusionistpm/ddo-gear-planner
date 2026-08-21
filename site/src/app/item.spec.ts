@@ -52,4 +52,48 @@ describe('Item', () => {
     expect(clone.getCraftingByName('Test Crafting')).not.toBe(item.getCraftingByName('Test Crafting'));
     expect(clone.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('First Option');
   });
+
+  it('distinguishes generated Essence Crafting blanks from named essence-craftable items', () => {
+    const blank = new Item({
+      name: 'Essence Crafting Trinket',
+      slot: 'Trinket',
+      type: '',
+      ml: 34,
+      affixes: [],
+      sets: [],
+      url: '/page/Essence_Crafting_Trinket',
+      crafting: [
+        {
+          name: 'Prefix',
+          hiddenFromAffixSearch: false,
+          options: [],
+        },
+      ],
+      quests: [],
+      artifact: false,
+    });
+    const namedCraftable = new Item({
+      name: 'Crafted Rune Arm',
+      slot: 'Offhand',
+      type: 'Rune Arms',
+      ml: 34,
+      affixes: [],
+      sets: [],
+      url: '/page/Crafted_Rune_Arm',
+      crafting: [
+        {
+          name: 'Prefix',
+          hiddenFromAffixSearch: false,
+          options: [],
+        },
+      ],
+      quests: [],
+      artifact: false,
+    });
+
+    expect(blank.isEssenceCrafted()).toBeTruthy();
+    expect(blank.isGeneratedEssenceCraftingBlank()).toBeTrue();
+    expect(namedCraftable.isEssenceCrafted()).toBeTruthy();
+    expect(namedCraftable.isGeneratedEssenceCraftingBlank()).toBeFalse();
+  });
 });

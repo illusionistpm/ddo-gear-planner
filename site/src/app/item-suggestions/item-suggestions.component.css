@@ -1,0 +1,23 @@
+.crafted-items-section {
+  align-items: flex-start;
+}
+
+.crafted-items-label {
+  margin-bottom: 0.25rem;
+}
+
+.crafted-items-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.crafted-item-option {
+  min-width: 0;
+}
+
+.crafted-item-button {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: left;
+}

@@ -64,7 +64,7 @@ export class ItemSuggestionsComponent implements OnInit {
 
     this.gear = shortlist.slice(0, 20);
 
-    this.essenceCrafting = this.filteredGear.filter(item => item.isEssenceCrafted());
+    this.essenceCrafting = this.filteredGear.filter(item => item.isGeneratedEssenceCraftingBlank());
     done({
       slot: this.slot,
       filtered: this.filteredGear.length,

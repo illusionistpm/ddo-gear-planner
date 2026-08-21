@@ -47,7 +47,8 @@ export class Item {
                         crafting.selectByParamDescription(selectedDescription);
                         this.crafting.push(crafting);
                     } else {
-                        this.crafting.push(new Craftable(craftingJSON.name, craftingJSON.options, craftingJSON.hiddenFromAffixSearch, true));
+                        const options = (craftingJSON.options || []).map((option: any) => new CraftableOption(option));
+                        this.crafting.push(new Craftable(craftingJSON.name, options, craftingJSON.hiddenFromAffixSearch, true));
                     }
                 }
             }
@@ -87,6 +88,10 @@ export class Item {
 
     isEssenceCrafted() {
         return this.crafting && this.crafting.find(opt => opt.name === 'Prefix');
+    }
+
+    isGeneratedEssenceCraftingBlank() {
+        return !!this.name && this.name.startsWith('Essence Crafting ');
     }
 
     getURL() {

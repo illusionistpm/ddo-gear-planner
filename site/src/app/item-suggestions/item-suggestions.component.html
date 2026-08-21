@@ -16,11 +16,12 @@
 
   <hr>
 
-    <div class="row">
-      <span>Crafted items: </span>
+    <div class="row crafted-items-section">
+      <span class="crafted-items-label">Crafted items: </span>
+      <div class="crafted-items-list">
       @for (item of essenceCrafting; track item.name) {
-        <div>
-          <button class="btn btn-primary m-1" (click)="equipItem(item)">
+        <div class="crafted-item-option">
+          <button class="btn btn-primary crafted-item-button" (click)="equipItem(item)">
             {{item.name}}
             @if (userOwnsItem(item)) {
               <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
@@ -28,6 +29,7 @@
           </button>
         </div>
       }
+      </div>
     </div>
 
     <hr>

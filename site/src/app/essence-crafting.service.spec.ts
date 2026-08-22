@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { EssenceCraftingService } from './essence-crafting.service';
 import { Item } from './item';
+import { Craftable } from './craftable';
+import { CraftableOption } from './craftable-option';
 
 describe('EssenceCraftingService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -88,5 +90,28 @@ describe('EssenceCraftingService', () => {
     ]);
     expect(clone.crafting.length).toBe(3);
     expect(clone.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
+  });
+
+  it('preserves non-essence crafting rows when ML changes', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const item = new Item(null);
+    const augmentSlot = new Craftable('Augment Slot 1', [], false);
+    augmentSlot.setCraftingSystemOptions(new Map([
+      ['Blue Augment Slot', [new CraftableOption({ name: 'Sapphire of Test' })]],
+    ]), 'Blue Augment Slot');
+    item.name = 'Essence Crafting Armor';
+    item.slot = 'Armor';
+    item.ml = 36;
+    item.crafting = service.getValuesForML('Armor', item.ml).concat([augmentSlot]);
+
+    service.setItemToML(item, 30);
+
+    expect(item.crafting.map(craftable => craftable.name)).toEqual([
+      'Prefix',
+      'Suffix',
+      'Extra',
+      'Augment Slot 1',
+    ]);
+    expect(item.getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName).toBe('Blue Augment Slot');
   });
 });

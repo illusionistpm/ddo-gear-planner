@@ -24,18 +24,23 @@ export class EssenceCraftingService {
   }
 
   setItemToML(item: Item, ml: number) {
-    const indexes = [];
+    const selections = [];
+    const extraCrafting = [];
     for(const craftable of item.crafting) {
-      indexes.push(craftable.options.findIndex(a => a === craftable.selected));
+      if (['Prefix', 'Suffix', 'Extra'].includes(craftable.name)) {
+        selections.push(craftable.getSelectedParamDescription());
+      } else {
+        extraCrafting.push(craftable);
+      }
     }
 
     item.ml = ml;
-    item.crafting = this.getValuesForML(this.getEssenceCraftingItemType(item), ml);
+    item.crafting = this.getValuesForML(this.getEssenceCraftingItemType(item), ml).concat(extraCrafting);
 
-    for(let i = 0; i < indexes.length; i++) {
+    for(let i = 0; i < selections.length; i++) {
       const craftable = item.crafting[i];
-      if (craftable && indexes[i] >= 0 && craftable.options[indexes[i]]) {
-        craftable.selected = craftable.options[indexes[i]];
+      if (craftable && selections[i]) {
+        craftable.selectByParamDescription(selections[i]);
       }
     }
   }

@@ -35,6 +35,19 @@ export const canonicalizeCraftingSystemName = (name: string): string =>
 export const canonicalizeGeneratedCraftedItemName = (name: string): string =>
   name.replace(/^Cannith (?=Armor|Belt|Boots|Bracers|Cloak|Gloves|Goggles|Helm|Melee|Necklace|Orb|Quiver|Ranged|Ring|Rune Arm|Shield|Trinket)/, 'Essence Crafting ');
 
+const ESSENCE_CRAFTING_ACCESSORY_TYPES = new Set([
+  'Belt',
+  'Boots',
+  'Bracers',
+  'Cloak',
+  'Gloves',
+  'Goggles',
+  'Helm',
+  'Necklace',
+  'Ring',
+  'Trinket',
+]);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -458,7 +471,7 @@ export class GearDbService {
           essenceCraftingBlank.ml = ml;
           essenceCraftingBlank.slot = slot;
           essenceCraftingBlank.name = 'Essence Crafting ' + essenceCraftingSlot;
-          essenceCraftingBlank.crafting = craftingOptions;
+          essenceCraftingBlank.crafting = craftingOptions.concat(this._getEssenceCraftingAugmentSlotOptions(essenceCraftingSlot));
           const slotItems = gear.get(essenceCraftingBlank.slot);
           if (slotItems) {
             slotItems.push(essenceCraftingBlank);
@@ -466,6 +479,60 @@ export class GearDbService {
         }
       }
     }
+  }
+
+  private _getEssenceCraftingAugmentSlotOptions(essenceCraftingSlot: string) {
+    const colors = this._getEssenceCraftingAugmentSlotColors(essenceCraftingSlot);
+    if (colors.length === 0) {
+      return [];
+    }
+
+    return [
+      this._buildEssenceCraftingAugmentSlot('Augment Slot 1', colors),
+      this._buildEssenceCraftingAugmentSlot('Augment Slot 2', ['Colorless']),
+    ];
+  }
+
+  private _getEssenceCraftingAugmentSlotColors(essenceCraftingSlot: string) {
+    const colors = ['Colorless'];
+
+    if (essenceCraftingSlot === 'Melee' || essenceCraftingSlot === 'Ranged') {
+      colors.push('Red');
+    } else if (essenceCraftingSlot === 'Shield') {
+      colors.push('Red', 'Blue');
+    } else if (essenceCraftingSlot === 'Orb') {
+      colors.push('Red', 'Blue');
+    } else if (essenceCraftingSlot === 'Rune Arm') {
+      colors.push('Blue');
+    } else if (essenceCraftingSlot === 'Armor') {
+      colors.push('Blue', 'Green');
+    } else if (ESSENCE_CRAFTING_ACCESSORY_TYPES.has(essenceCraftingSlot)) {
+      colors.push('Yellow', 'Green');
+    }
+
+    return colors;
+  }
+
+  private _buildEssenceCraftingAugmentSlot(name: string, colors: string[]) {
+    const optionsByCraftingSystem = new Map<string, CraftableOption[]>();
+
+    for (const color of colors) {
+      const systemName = `${color} Augment Slot`;
+      optionsByCraftingSystem.set(systemName, this._getAugmentOptionsForColor(color));
+    }
+
+    const craftable = new Craftable(name, [], false);
+    craftable.setCraftingSystemOptions(optionsByCraftingSystem);
+    return craftable;
+  }
+
+  private _getAugmentOptionsForColor(color: string) {
+    const craftable = this.craftingList.get(`${color} Augment Slot`)?.get('*');
+    if (!craftable) {
+      return [];
+    }
+
+    return craftable.options.filter(option => option.describe(false, false));
   }
 
   private _addAffixesToMap(

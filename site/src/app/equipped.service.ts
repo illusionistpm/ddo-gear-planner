@@ -252,10 +252,10 @@ export class EquippedService {
 
         if (item.crafting) {
           for (const crafting of item.crafting) {
-            if (crafting.selected.affixes.length || crafting.selected.set) {
+            if (crafting.selected.affixes.length || crafting.selected.set || crafting.selected.name || crafting.selectedCraftingSystemName) {
               params['craft_' + craftingIdx + "_slot"] = slot;
               params['craft_' + craftingIdx + "_system"] = crafting.name;
-              params['craft_' + craftingIdx + "_selected"] = crafting.selected.getParamDescription();
+              params['craft_' + craftingIdx + "_selected"] = crafting.getSelectedParamDescription();
               craftingIdx++;
             }
           }

@@ -73,11 +73,11 @@
               <div>
                 <select class="augment-slot-select" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
                   @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
-                    @for (craftable of innerElem.value; track craftable.name) {
-                      <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
+                    @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
+                      <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
                         [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])"
-                        [title]="innerElem.key.name + ' - ' + craftable.name">
-                        {{innerElem.key.name}} - {{craftable.name}}
+                        [title]="innerElem.key.name + ' - ' + entry.craftable.name">
+                        {{innerElem.key.name}} - {{entry.craftable.name}}
                       </option>
                     }
                   }

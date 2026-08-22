@@ -130,6 +130,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   private refreshDisplayRows() {
     const done = perfAggregateStart('GearDescriptionComponent.refreshDisplayRows');
+    this.normalizeAugmentSlotRows();
     this.affixRows = this.buildAffixRows();
     this.craftingRows = this.buildCraftingRows();
     this.setRows = this.buildSetRows();
@@ -172,7 +173,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return [];
     }
 
-    const rows = this.curItem.crafting.map(craft => {
+    const rows = this.curItem.crafting.filter(craft => this.shouldShowCraftingRow(craft)).map(craft => {
       const selectedAffix = craft.selected?.affixes?.[0];
       const selectedAffixGroup = selectedAffix ? this.affixSvc.isAffixGroup(selectedAffix) : false;
       return {
@@ -193,6 +194,30 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       rankedOptionRows: rows.reduce((count, row) => count + (row.optionsRanked ? row.options.length : 0), 0)
     });
     return rows;
+  }
+
+  private normalizeAugmentSlotRows() {
+    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
+    const slotTwo = this.curItem?.getCraftingByName('Augment Slot 2');
+
+    if (slotOne && slotTwo && !this.canHaveSecondAugmentSlot()) {
+      slotTwo.selectCraftingSystem('');
+    }
+  }
+
+  private shouldShowCraftingRow(craft: Craftable) {
+    if (craft.name !== 'Augment Slot 2') {
+      return true;
+    }
+
+    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
+    return this.canHaveSecondAugmentSlot();
+  }
+
+  private canHaveSecondAugmentSlot() {
+    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
+    return !!slotOne?.selectedCraftingSystemName
+      && slotOne.selectedCraftingSystemName !== 'Colorless Augment Slot';
   }
 
   private buildCraftingOptionRows(craft: Craftable, includeRank: boolean, includeAllOptions: boolean): CraftingOptionDisplayRow[] {
@@ -242,6 +267,16 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     this.changeDetector.markForCheck();
     done();
     perfAfterFrames('paint after crafting option change');
+  }
+
+  updateCraftingSystem(row: CraftingDisplayRow) {
+    row.craft.selectCraftingSystem(row.craft.selectedCraftingSystemName);
+    if (row.craft.name === 'Augment Slot 1' && !this.canHaveSecondAugmentSlot()) {
+      this.curItem?.getCraftingByName('Augment Slot 2')?.selectCraftingSystem('');
+    }
+    this.loadedCraftingOptions.delete(row.craft);
+    this.rankedCraftingOptions.delete(row.craft);
+    this.updateItem();
   }
 
   loadAndRankCraftingOptions(row: CraftingDisplayRow) {
@@ -328,6 +363,10 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   showItemsInSet(setName: string) {
     this.suggestionDrawer.openSet(setName);
+  }
+
+  getCraftingSystemEmptyLabel(craft: Craftable) {
+    return craft.hasCraftingSystemOptions() ? 'No augment slot' : craft.name;
   }
 
 }

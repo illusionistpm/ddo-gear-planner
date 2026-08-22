@@ -163,4 +163,17 @@ describe('EquippedService', () => {
 
     expect(events).toEqual([{ slot: 'Gloves', itemName: 'Flashy Gloves' }]);
   });
+
+  it('persists named crafting choices that do not add affixes', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const item = service['gearList'].findGearBySlot('Weapon', 'Essence Crafting Melee');
+    const augmentSlot = item?.getCraftingByName('Augment Slot 1');
+
+    augmentSlot?.selectByParamDescription('Red Augment Slot (empty)');
+    service.set(item as Item);
+
+    const params = service['params'].getValue();
+    expect(params['craft_0_system']).toBe('Augment Slot 1');
+    expect(params['craft_0_selected']).toBe('Red Augment Slot (empty)');
+  });
 });

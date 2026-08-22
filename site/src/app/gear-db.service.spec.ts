@@ -35,6 +35,45 @@ describe('GearDbService', () => {
     expect(service.findGearBySlot('Weapon', 'Cannith Melee')?.name).toBe('Essence Crafting Melee');
   });
 
+  it('adds non-named weapon augment slot choices to generated Essence Crafting blanks', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const item = service.findGearBySlot('Weapon', 'Essence Crafting Melee');
+    const slotOne = item?.getCraftingByName('Augment Slot 1');
+
+    expect(slotOne).toBeTruthy();
+    expect(slotOne?.craftingSystemOptions).toContain('Red Augment Slot');
+    expect(slotOne?.craftingSystemOptions).toContain('Colorless Augment Slot');
+    expect(slotOne?.craftingSystemOptions).not.toContain('Blue Augment Slot');
+    expect(slotOne?.craftingSystemOptions).not.toContain('Yellow Augment Slot');
+  });
+
+  it('adds non-named accessory augment slot choices to generated Essence Crafting blanks', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const item = service.findGearBySlot('Trinket', 'Essence Crafting Trinket');
+    const slotOne = item?.getCraftingByName('Augment Slot 1');
+    const slotTwo = item?.getCraftingByName('Augment Slot 2');
+
+    expect(slotOne).toBeTruthy();
+    expect(slotOne?.craftingSystemOptions).toContain('Yellow Augment Slot');
+    expect(slotOne?.craftingSystemOptions).toContain('Green Augment Slot');
+    expect(slotOne?.craftingSystemOptions).toContain('Colorless Augment Slot');
+    expect(slotOne?.craftingSystemOptions).not.toContain('Red Augment Slot');
+    expect(slotOne?.craftingSystemOptions).not.toContain('Blue Augment Slot');
+    expect(slotTwo?.craftingSystemOptions).toEqual(['Colorless Augment Slot']);
+  });
+
+  it('loads regular augment options after selecting a generated Essence Crafting augment slot system', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const item = service.findGearBySlot('Weapon', 'Essence Crafting Melee');
+    const slotOne = item?.getCraftingByName('Augment Slot 1');
+
+    slotOne?.selectCraftingSystem('Red Augment Slot');
+    const redOption = slotOne?.options.find(option => option.affixes.length > 0);
+
+    expect(redOption).toBeTruthy();
+    expect(redOption?.describe()).not.toMatch(/^Red: /);
+  });
+
   it('returns a fresh item copy when finding gear by slot', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const item = new Item({

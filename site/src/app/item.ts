@@ -41,9 +41,15 @@ export class Item {
             if (json.crafting) {
                 for (const craftingJSON of json.crafting) {
                     if (craftingJSON instanceof Craftable) {
-                        const selectedDescription = craftingJSON.selected?.getParamDescription() || '';
+                        const selectedDescription = craftingJSON.getSelectedParamDescription();
                         const options = craftingJSON.options.map(option => new CraftableOption(option));
                         const crafting = new Craftable(craftingJSON.name, options, craftingJSON.hiddenFromAffixSearch, false);
+                        if (craftingJSON.hasCraftingSystemOptions()) {
+                            crafting.setCraftingSystemOptions(
+                                craftingJSON.getOptionsByCraftingSystem(),
+                                craftingJSON.selectedCraftingSystemName
+                            );
+                        }
                         crafting.selectByParamDescription(selectedDescription);
                         this.crafting.push(crafting);
                     } else {
@@ -165,6 +171,10 @@ export class Item {
     }
 
     getCraftingByName(name: string) {
+        if (!this.crafting) {
+            return undefined;
+        }
+
         for (const crafting of this.crafting) {
             if (crafting.name == name) {
                 return crafting;

@@ -1,4 +1,6 @@
 import { Item } from './item';
+import { Craftable } from './craftable';
+import { CraftableOption } from './craftable-option';
 
 describe('Item', () => {
   it('should create an instance', () => {
@@ -51,6 +53,35 @@ describe('Item', () => {
     expect(clone).not.toBe(item);
     expect(clone.getCraftingByName('Test Crafting')).not.toBe(item.getCraftingByName('Test Crafting'));
     expect(clone.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('First Option');
+  });
+
+  it('clones nested crafting-system selections without coupling empty augment slots', () => {
+    const slotOne = new Craftable('Augment Slot 1', [], false);
+    const slotTwo = new Craftable('Augment Slot 2', [], false);
+    const augmentOptions = new Map([
+      ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
+      ['Blue Augment Slot', [new CraftableOption({ name: 'Sapphire of Test' })]],
+    ]);
+    slotOne.setCraftingSystemOptions(augmentOptions, 'Blue Augment Slot');
+    slotTwo.setCraftingSystemOptions(augmentOptions, 'Colorless Augment Slot');
+    slotOne.selectCraftingSystem('');
+    const item = new Item({
+      name: 'Essence Crafting Armor',
+      slot: 'Armor',
+      type: '',
+      ml: 36,
+      affixes: [],
+      sets: [],
+      url: '/page/Essence_Crafting_Armor',
+      crafting: [slotOne, slotTwo],
+      quests: [],
+      artifact: false,
+    });
+
+    const clone = new Item(item);
+
+    expect(clone.getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName).toBe('');
+    expect(clone.getCraftingByName('Augment Slot 2')?.selectedCraftingSystemName).toBe('Colorless Augment Slot');
   });
 
   it('distinguishes generated Essence Crafting blanks from named essence-craftable items', () => {

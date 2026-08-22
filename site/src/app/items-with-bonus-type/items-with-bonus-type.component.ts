@@ -60,15 +60,16 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   @Input() affixName!: string;
   @Input() bonusType!: string;
 
-  matches!: Array<Item>;
-  lockedMatches!: Array<Item>;
+  matches: Array<Item> = [];
+  lockedMatches: Array<Item> = [];
 
-  optionToEligibleGear!: Map<string, Map<Item, Array<Craftable>>>;
-  stringToOption!: Map<string, CraftableOption>;
+  optionToEligibleGear: Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>> =
+    new Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>>();
+  stringToOption: Map<string, CraftableOption> = new Map<string, CraftableOption>();
 
-  sets!: Array<[string, number, number]>;
+  sets: Array<[string, number, number]> = [];
 
-  setMatches!: Array<[string, Array<Affix>, Array<Item>]>;
+  setMatches: Array<[string, Array<Affix>, Array<Item>]> = [];
 
   selectedAugmentSlot: any;
   previewItem: Item | null = null;
@@ -133,7 +134,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     // This allows me to build a list that looks something like
     // ML | Diamond of Strength +14 | ComboBox of Eligible Item/Slot combinations | 14 | Equip button
     // I feel like I've overcomplicated this, but it works.
-    this.optionToEligibleGear = new Map<string, Map<Item, Array<Craftable>>>();
+    this.optionToEligibleGear = new Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>>();
     this.stringToOption = new Map<string, CraftableOption>();
     
     const matchingAugments = this.gearDB.findAugmentsWithAffixAndType(this.affixName, this.bonusType);
@@ -145,7 +146,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
         }
 
         if (!this.optionToEligibleGear.has(option.describe())) {
-          this.optionToEligibleGear.set(option.describe(), new Map<Item, Array<Craftable>>());
+          this.optionToEligibleGear.set(option.describe(), new Map<Item, Array<{ craftable: Craftable, systemName: string }>>());
         }
 
         for (const item of this.equipped.getSlotsSnapshot().values()) {
@@ -158,7 +159,19 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
               // This craftable is already committed to something; skip it.
               continue;
             }
-            if (matchingAugmentCraftable.name == craftable.name) {
+
+            if (!this.canUseAugmentSlot(item, craftable)) {
+              continue;
+            }
+
+            const canUseCraftable = matchingAugmentCraftable.name == craftable.name
+              || (
+                craftable.hasCraftingSystemOptions()
+                && craftable.craftingSystemOptions.includes(matchingAugmentCraftable.name)
+                && (!craftable.selectedCraftingSystemName || craftable.selectedCraftingSystemName === matchingAugmentCraftable.name)
+              );
+
+            if (canUseCraftable) {
               const eligibleGearMap = this.optionToEligibleGear.get(option.describe());
               if (eligibleGearMap) {
                 if (!eligibleGearMap.has(item)) {
@@ -166,7 +179,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
                 }
                 const gearCraftables = eligibleGearMap.get(item);
                 if (gearCraftables) {
-                  gearCraftables.push(matchingAugmentCraftable);
+                  gearCraftables.push({ craftable, systemName: matchingAugmentCraftable.name });
                 }
               }
             }
@@ -180,6 +193,15 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);
+  }
+
+  private canUseAugmentSlot(item: Item, craftable: Craftable) {
+    if (craftable.name !== 'Augment Slot 2') {
+      return true;
+    }
+
+    const slotOneSystem = item.getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName;
+    return !!slotOneSystem && slotOneSystem !== 'Colorless Augment Slot';
   }
 
   isRealType(bonusType: string) {
@@ -303,9 +325,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     const item = new Item(this.selectedAugmentSlot.item as Item);
     const craftable = this.selectedAugmentSlot.craftable as Craftable;
     const optionString = this.selectedAugmentSlot.optionString as string;
+    const systemName = this.selectedAugmentSlot.systemName as string;
 
     for (const itemCraftable of item.crafting) {
       if (itemCraftable.name == craftable.name) {
+        if (systemName && itemCraftable.hasCraftingSystemOptions()) {
+          itemCraftable.selectCraftingSystem(systemName);
+        }
+
         for (const option of itemCraftable.options) {
           if (option.describe() == optionString) {
             itemCraftable.selected = option;

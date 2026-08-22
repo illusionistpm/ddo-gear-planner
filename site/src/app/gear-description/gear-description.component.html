@@ -64,9 +64,18 @@
           (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
         <div class="col-3 ps-1 pe-0" [ngClass]="row.className" [title]="row.tooltip">
-          {{row.craft.name}}
-          @if (row.selectedAffixGroup) {
-            <i class="fas fa-eye small ms-1" [title]="row.selectedGroupTooltip"></i>
+          @if (row.craft.hasCraftingSystemOptions()) {
+            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selectedCraftingSystemName" (change)="updateCraftingSystem(row)">
+              <option [ngValue]="''">{{getCraftingSystemEmptyLabel(row.craft)}}</option>
+              @for (systemName of row.craft.craftingSystemOptions; track systemName) {
+                <option [ngValue]="systemName">{{systemName}}</option>
+              }
+            </select>
+          } @else {
+            {{row.craft.name}}
+            @if (row.selectedAffixGroup) {
+              <i class="fas fa-eye small ms-1" [title]="row.selectedGroupTooltip"></i>
+            }
           }
         </div>
         @if (!readonly) {

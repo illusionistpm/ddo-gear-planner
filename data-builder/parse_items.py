@@ -1,4 +1,3 @@
-from copy import deepcopy
 from typing import Any, Literal, cast
 
 from bs4 import BeautifulSoup
@@ -494,17 +493,12 @@ def get_items_from_page(
             item['affixes'].remove(affix)
 
         add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
-        sort_item_crafting_systems(item)
-        items.append(item)
 
         # Post-process craftable items
         if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):
-            craftedItem = deepcopy(item)
-            craftedItem['name'] = item['name'] + ' [Crafted]'
-
-            craftableAffixes = tuple(itemAffix for itemAffix in craftedItem['affixes'] if itemAffix['name'] in craftableAffixNames)
+            craftableAffixes = tuple(itemAffix for itemAffix in item['affixes'] if itemAffix['name'] in craftableAffixNames)
             for craftableAffix in craftableAffixes:
-                craftedItem['affixes'].remove(craftableAffix)
+                item['affixes'].remove(craftableAffix)
 
             isCraftableRunearm = any(craftableAffix['name'] == 'Craftable Rune Arm' for craftableAffix in craftableAffixes)
             if isCraftableRunearm:
@@ -512,14 +506,14 @@ def get_items_from_page(
 
                 # check for misspellings and bs
                 for affixToLose in affixesToLose:
-                    assert any(affix for affix in craftedItem['affixes'] if affix['name'] == affixToLose)
+                    assert any(affix for affix in item['affixes'] if affix['name'] == affixToLose)
 
-                for affix in [*craftedItem['affixes']]:
+                for affix in [*item['affixes']]:
                     if affix['name'] in affixesToLose:
-                        craftedItem['affixes'].remove(affix)
+                        item['affixes'].remove(affix)
 
-            if 'crafting' not in craftedItem:
-                craftedItem['crafting'] = []
+            if 'crafting' not in item:
+                item['crafting'] = []
 
             match (item['slot'], item['type']):
                 case ('Weapon', weaponType) if weaponType in rangedWeaponTypes:
@@ -535,12 +529,12 @@ def get_items_from_page(
                 case _:
                     slot = item['slot']
 
-            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Prefix')
-            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Suffix')
-            craftedItem['crafting'].append(f'Essence Crafting: {slot} - Extra')
+            item['crafting'].append(f'Essence Crafting: {slot} - Prefix')
+            item['crafting'].append(f'Essence Crafting: {slot} - Suffix')
+            item['crafting'].append(f'Essence Crafting: {slot} - Extra')
 
-            sort_item_crafting_systems(craftedItem)
-            items.append(craftedItem)
+        sort_item_crafting_systems(item)
+        items.append(item)
 
     return items
 

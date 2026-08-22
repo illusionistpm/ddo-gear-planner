@@ -72,6 +72,37 @@ def test_item_metadata_marks_catalyst_crafting_locations_as_rare(tmp_path, monke
     assert items[0]['quests'] == ['Catalyst Crafting']
 
 
+def test_item_metadata_merges_craftable_affix_into_canonical_item(tmp_path, monkeypatch):
+    monkeypatch.setattr(parse_items, 'get_inverted_synonym_map', lambda: {})
+    monkeypatch.setattr(parse_items, 'get_fake_bonuses', lambda: {})
+    monkeypatch.setattr(
+        parse_items,
+        'parse_affixes_from_cell',
+        lambda *args, **kwargs: [{'name': 'Craftable (hidden)', 'type': 'Bool', 'value': 1}],
+    )
+
+    items = get_items_from_page(
+        write_item_page(tmp_path, '''
+          <tr>
+            <td><a href="/page/Item:Gem_of_Many_Facets" title="Item:Gem of Many Facets">Gem of Many Facets</a></td>
+            <td>Craftable</td><td>5</td><td>Bound to Account on Acquire</td>
+            <td><a href="/page/The_Chronoscope" title="The Chronoscope">The Chronoscope</a></td>
+            <td>end chest</td>
+          </tr>
+        '''),
+        {},
+        {},
+    )
+
+    assert [item['name'] for item in items] == ['Gem of Many Facets']
+    assert items[0]['affixes'] == []
+    assert items[0]['crafting'] == [
+        'Essence Crafting: Trinket - Extra',
+        'Essence Crafting: Trinket - Prefix',
+        'Essence Crafting: Trinket - Suffix',
+    ]
+
+
 def test_item_metadata_labels_sharn_rare_drop_artifacts_as_sharn_quests(tmp_path, monkeypatch):
     items = metadata_items(tmp_path, '''
       <tr>

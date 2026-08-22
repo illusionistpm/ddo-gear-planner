@@ -138,6 +138,12 @@
     min-width: 5rem;
 }
 
+.set-view-button {
+    font-size: 0.82rem;
+    padding: 0.28rem 0.55rem;
+    width: 100%;
+}
+
 .wiki-link {
     display: inline-block;
     text-decoration: underline;

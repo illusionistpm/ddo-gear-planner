@@ -521,13 +521,19 @@ a:focus {
   grid-template-columns: 2.75rem minmax(0, 1fr);
 }
 
-.tracked-equipment-dock {
+.tracked-affixes-workspace > app-tracked-equipment-sidebar {
   align-self: start;
+  display: block;
   min-width: 0;
-  overflow: visible;
   position: sticky;
   top: 0.25rem;
   z-index: 45;
+}
+
+.tracked-equipment-dock {
+  min-width: 0;
+  overflow: visible;
+  position: relative;
 }
 
 .tracked-equipment-rail {
@@ -998,7 +1004,7 @@ a:focus {
     grid-template-columns: 1fr;
   }
 
-  .tracked-equipment-dock,
+  .tracked-affixes-workspace > app-tracked-equipment-sidebar,
   .tracked-equipment-rail {
     position: static;
   }

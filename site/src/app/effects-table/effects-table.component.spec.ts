@@ -311,6 +311,63 @@ describe('EffectsTableComponent', () => {
       .toBe('No gear with this bonus type is available in the current level range.');
   });
 
+  it('does not include source equipment names in bonus type tooltips', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(10);
+    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+      {
+        kind: 'item',
+        slot: 'Goggles',
+        itemName: 'Precise Lenses',
+        affixName: 'Accuracy',
+        bonusType: 'Equipment',
+        value: 8,
+      },
+    ]);
+
+    expect(component.getBonusTypeTooltip('Accuracy', { bonusType: 'Equipment', value: 8 }))
+      .toBe('Moderate value (2 below max)');
+  });
+
+  it('highlights item slots that supply the hovered affix type', () => {
+    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+      {
+        kind: 'item',
+        slot: 'Goggles',
+        itemName: 'Precise Lenses',
+        affixName: 'Accuracy',
+        bonusType: 'Equipment',
+        value: 8,
+      },
+      {
+        kind: 'set',
+        slot: 'Set',
+        itemName: 'Focused Sight',
+        affixName: 'Accuracy',
+        bonusType: 'Equipment',
+        value: 8,
+      },
+    ]);
+
+    component.previewAffixTypeEquipment('Accuracy', { bonusType: 'Equipment', value: 8 });
+
+    expect(component.highlightedEquipmentSlots.has('Goggles')).toBeTrue();
+    expect(component.highlightedEquipmentSlots.has('Set')).toBeFalse();
+
+    component.clearAffixTypeEquipmentPreview();
+
+    expect(component.highlightedEquipmentSlots.size).toBe(0);
+  });
+
+  it('tracks visible type rows without depending on component method binding', () => {
+    const trackVisibleType = component.trackVisibleType;
+
+    expect(trackVisibleType(0, {
+      bonusType: 'Implement',
+      sourceAffixName: 'Universal Spell Power',
+      sourceBonusType: 'Implement',
+    })).toBe('Universal Spell Power\0Implement');
+  });
+
   it('hides max available badges when the filtered max is zero', () => {
     spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
 

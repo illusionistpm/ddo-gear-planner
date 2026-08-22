@@ -83,6 +83,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   onboardingTargetChipKey = '';
   equipmentSidebarCollapsed = false;
   suppliedAffixCounts = new Map<string, number>();
+  highlightedEquipmentSlots = new Set<string>();
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
@@ -187,6 +188,18 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   getSourcesForType(affixName: string, type: any): AffixSource[] {
     return this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+  }
+
+  previewAffixTypeEquipment(affixName: string, type: any) {
+    this.highlightedEquipmentSlots = new Set(
+      this.getSourcesForType(affixName, type)
+        .filter(source => source.kind === 'item')
+        .map(source => source.slot)
+    );
+  }
+
+  clearAffixTypeEquipmentPreview() {
+    this.highlightedEquipmentSlots = new Set<string>();
   }
 
   private refreshSuppliedAffixCounts() {
@@ -320,15 +333,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   getBonusTypeTooltip(affixName: string, type: any): string {
-    const sources = this.getSourcesForType(affixName, type)
-      .map(source => `${source.slot}: ${source.itemName}`);
-    const sourceText = sources.length ? '\n' + sources.join('\n') : '';
-
     if (this.isBonusTypeUnavailableAtCurrentLevelRange(affixName, type)) {
-      return 'No gear with this bonus type is available in the current level range.' + sourceText;
+      return 'No gear with this bonus type is available in the current level range.';
     }
 
-    return this.getValueTooltip(affixName, type) + sourceText;
+    return this.getValueTooltip(affixName, type);
   }
 
   getFilteredBoolAffixNames(): string[] {
@@ -524,6 +533,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   getBonusTypeLabel(type: any): string {
     return type.label || (type.bonusType ? type.bonusType : 'Untyped');
+  }
+
+  trackVisibleType(index: number, type: any): string {
+    return (type.sourceAffixName || '') + '\0' + (type.sourceBonusType || type.bonusType);
   }
 
   isRecentlyChangedAffixType(affixName: string, type: any): boolean {

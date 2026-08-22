@@ -675,6 +675,17 @@ a:focus {
   color: var(--text-primary);
 }
 
+.tracked-equipment-slot-shell.affix-source-highlight .tracked-equipment-slot {
+  background: var(--selected-bg);
+  border-color: var(--selected-border-color);
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
+  color: var(--selected-text-color);
+}
+
+.tracked-equipment-slot-shell.affix-source-highlight .tracked-equipment-source-count {
+  background: var(--surface-color);
+}
+
 .tracked-equipment-slot-shell.recently-equipped .tracked-equipment-slot {
   animation: tracked-equipment-equipped-pulse 1.8s ease-out;
 }

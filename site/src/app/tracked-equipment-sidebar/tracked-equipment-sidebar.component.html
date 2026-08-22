@@ -23,6 +23,7 @@
                 <div class="tracked-equipment-slot-shell"
                     [class.filled]="entry.item"
                     [class.focused]="focusedSlot === entry.slot"
+                    [class.affix-source-highlight]="isHighlightedSlot(entry.slot)"
                     [class.recently-equipped]="isRecentlyEquipped(entry.slot)"
                     [class.disabled]="isSlotDisabled(entry.slot)"
                     (mouseenter)="previewSlot(entry.slot)"

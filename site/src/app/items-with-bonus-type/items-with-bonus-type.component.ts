@@ -26,6 +26,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   @Input() sortOwnedToTop: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
+    if ((changes['affixName'] || changes['bonusType']) && this.affixName && this.bonusType) {
+      this.refreshMatches();
+      return;
+    }
+
     if (changes['sortOwnedToTop'] && !changes['sortOwnedToTop'].firstChange) {
       this.updateSorting();
     }
@@ -95,8 +100,17 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    if (this.affixName && this.bonusType) {
+      this.refreshMatches();
+    }
+  }
+
+  private refreshMatches() {
     this.matches = [];
     this.lockedMatches = [];
+    this.previewItem = null;
+    this.previewItems = [];
+    this.previewIndex = -1;
 
     const matchingGear = this.equipped.getCompatibleGear(
       this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType)

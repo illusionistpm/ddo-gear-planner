@@ -18,6 +18,7 @@ interface TrackedEquipmentSlotDisplay {
 })
 export class TrackedEquipmentSidebarComponent implements OnDestroy {
   @Input() suppliedAffixCounts = new Map<string, number>();
+  @Input() highlightedSlots = new Set<string>();
   @Input() collapsed = false;
   @Output() collapsedChange = new EventEmitter<boolean>();
 
@@ -122,6 +123,10 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
 
   isRecentlyEquipped(slot: string): boolean {
     return this.recentlyEquippedSlot === slot;
+  }
+
+  isHighlightedSlot(slot: string): boolean {
+    return this.highlightedSlots.has(slot);
   }
 
   private showRecentlyEquippedSlot(slot: string) {

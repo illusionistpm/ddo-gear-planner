@@ -186786,6 +186786,10 @@
         ],
         "ml": 35,
         "name": "Legendary Shards of the Deep",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "A Blood Pact"
+        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Legendary_Shards_of_the_Deep"
@@ -215343,6 +215347,264 @@
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Mind%27s_Reach"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "2"
+            }
+        ],
+        "ml": 1,
+        "name": "Mindcleaver (level 1)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_1)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "5"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 10,
+        "name": "Mindcleaver (level 10)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+6"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 15,
+        "name": "Mindcleaver (level 15)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_15)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+8"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Mindcleaver (level 20)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+10"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "9"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 25,
+        "name": "Mindcleaver (level 25)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_25)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "11"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 30,
+        "name": "Mindcleaver (level 30)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_30)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Mindcleaver",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 5,
+        "name": "Mindcleaver (level 5)",
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Mindcleaver_(level_5)"
     },
     {
         "affixes": [
@@ -252840,6 +253102,229 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Shadowblade (level 1)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_1)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 10,
+        "name": "Shadowblade (level 10)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+6"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 15,
+        "name": "Shadowblade (level 15)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_15)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+8"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Shadowblade (level 20)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+10"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 25,
+        "name": "Shadowblade (level 25)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_25)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sovereign Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 30,
+        "name": "Shadowblade (level 30)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_30)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Shadowblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Force Blast",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 5,
+        "name": "Shadowblade (level 5)",
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Shadowblade_(level_5)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Hide",
                 "type": "Competence",
                 "value": "12"
@@ -254280,6 +254765,10 @@
         ],
         "ml": 11,
         "name": "Shards of the Deep",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "A Blood Pact"
+        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Shards_of_the_Deep"
@@ -286133,6 +286622,244 @@
         "slot": "Weapon",
         "type": "Bastard Swords",
         "url": "/page/Item:Thirteen"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Thorn Blade (level 1)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_1)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Critical Wounding",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 10,
+        "name": "Thorn Blade (level 10)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_10)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+6"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Critical Wounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cursespewing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 15,
+        "name": "Thorn Blade (level 15)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_15)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+8"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Critical Wounding",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Thorn Blade (level 20)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+10"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Critical Wounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cursespewing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 25,
+        "name": "Thorn Blade (level 25)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_25)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Critical Wounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Legendary Cursespewing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 30,
+        "name": "Thorn Blade (level 30)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_30)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Thornblade",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Poison Blast",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 5,
+        "name": "Thorn Blade (level 5)",
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Thorn_Blade_(level_5)"
     },
     {
         "affixes": [

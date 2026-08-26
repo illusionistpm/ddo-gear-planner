@@ -184276,7 +184276,8 @@
         ],
         "crafting": [
             "Nearly Complete: Spell Focus",
-            "Blue Augment Slot"
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 35,
         "name": "Legendary Ruler of Ruin",
@@ -285978,6 +285979,57 @@
         "slot": "Belt",
         "type": "Waist items",
         "url": "/page/Item:The_Unbreakable_Cord"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Maximum Charge Tier",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
+                "name": "Rune Arm Imbue: Acid",
+                "type": "Untyped",
+                "value": "2"
+            },
+            {
+                "name": "Acid Shot",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "25"
+            },
+            {
+                "name": "Spell Lore",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Rune Arm Focus",
+                "type": "Insight",
+                "value": "7"
+            },
+            {
+                "name": "Rune Arm Charge Rate",
+                "type": "Enhancement",
+                "value": "30"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Unspeakable Maw",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Offhand",
+        "type": "Rune Arms",
+        "url": "/page/Item:The_Unspeakable_Maw"
     },
     {
         "affixes": [

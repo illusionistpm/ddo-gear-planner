@@ -79,7 +79,6 @@
         "Entering the Gate Chamber": "The Ruins of Threnal",
         "Escape Plan": "Disciples of Shadow",
         "Escort the Expedition": "The Ruins of Threnal",
-        "Ettercap Incursion": "Magic of Myth Drannor",
         "Eveningstar": "Menace of the Underdark",
         "Extermination": "Sorrowdusk Isle",
         "Eye of the Titan": "The Dreaming Dark",
@@ -357,7 +356,6 @@
         "Thorn and Paw": "The Druid's Deep",
         "Thrall of the Necromancer": "Delera's Tomb",
         "Thralls of the Fungus Lord": "Masterminds of Sharn",
-        "Threats Old and New": "Magic of Myth Drannor",
         "Through a Mirror Darkly": "Shadowfell Conspiracy",
         "Times Long Past": "Magic of Myth Drannor",
         "To Curse the Sky": "The Vale of Twilight",
@@ -409,7 +407,6 @@
     "raids": [
         "Tempest's Spine",
         "The Reaver's Fate",
-        "Plane of Night",
         "The Titan Awakes",
         "Zawabi's Revenge",
         "A Vision of Destruction",
@@ -418,7 +415,6 @@
         "Tower of Despair",
         "The Chronoscope",
         "The Twilight Forge",
-        "The Shroud",
         "The Codex and the Shroud",
         "Legendary Hound of Xoriat",
         "Legendary Tempest's Spine",
@@ -434,8 +430,6 @@
         "Project Nemesis",
         "Legendary Vision of Destruction",
         "Legendary Master Artificer",
-        "Legendary Lord of Blades",
-        "Temple of the Deathwyrm",
         "The Mark of Death",
         "The Dryad and the Demigod",
         "The Lord of Blades",
@@ -449,6 +443,10 @@
         "The Chronoscope (Legendary)",
         "Relentless",
         "Terror of the Demon Lords",
+        "The Shroud",
+        "Temple of the Deathwyrm",
+        "Legendary Lord of Blades",
+        "Plane of Night",
         "Ritual Table"
     ]
 }

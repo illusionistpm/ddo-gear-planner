@@ -1992,7 +1992,6 @@
         ],
         "ml": 33,
         "name": "Aeon, the Blazing Reign",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -2030,7 +2029,6 @@
         ],
         "ml": 33,
         "name": "Aeon, the Blazing Reign",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -13086,7 +13084,6 @@
         ],
         "ml": 33,
         "name": "Bauble of Draconic Resistance",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -19456,7 +19453,6 @@
         ],
         "ml": 13,
         "name": "Bracelets of Flourishing Fauna",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -20024,7 +20020,6 @@
         ],
         "ml": 33,
         "name": "Bracers of the Battlerager",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -21617,7 +21612,6 @@
         ],
         "ml": 33,
         "name": "Breath of Vitality",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -22253,7 +22247,6 @@
         ],
         "ml": 33,
         "name": "Brimstone, the Heart of the Dracolich",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -33663,7 +33656,6 @@
         ],
         "ml": 13,
         "name": "Cloak of the Forest's Blade",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -44037,7 +44029,6 @@
         ],
         "ml": 33,
         "name": "Death's Deferral",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -51750,7 +51741,6 @@
         ],
         "ml": 13,
         "name": "Docent of the Artblade",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -53254,7 +53244,6 @@
         ],
         "ml": 33,
         "name": "Dracolich's Eye",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -59888,6 +59877,48 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Dust",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Slashing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Telekinetic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Baphomet's Tactics",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "Echo of Heartcleaver",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Dwarven War Axes",
+        "url": "/page/Item:Echo_of_Heartcleaver"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Eternal Holy Burst",
                 "type": "Bool",
                 "value": 1
@@ -60254,6 +60285,53 @@
         "slot": "Weapon",
         "type": "Short Swords",
         "url": "/page/Item:Echo_of_the_Sunsword"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Universal Spell Power",
+                "type": "Implement",
+                "value": "35"
+            },
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Negation",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Power of the Blight",
+                "type": "Equipment",
+                "value": "169"
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Insight",
+                "value": "84"
+            },
+            {
+                "name": "Orcus' Magic: Nightmares",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "Echo of the Wand of Orcus",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:Echo_of_the_Wand_of_Orcus"
     },
     {
         "affixes": [
@@ -69236,10 +69314,6 @@
         ],
         "ml": 20,
         "name": "Epic Diabolist's Ring",
-        "pack": "Devil Assault",
-        "quests": [
-            "The Chronoscope"
-        ],
         "sets": [
             "Epic Deadly Diabolist"
         ],
@@ -75072,10 +75146,6 @@
         ],
         "ml": 20,
         "name": "Epic Infested Chainmail",
-        "pack": "Devil Assault",
-        "quests": [
-            "The Chronoscope"
-        ],
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Epic_Infested_Chainmail"
@@ -93453,7 +93523,6 @@
         ],
         "ml": 33,
         "name": "Finality, the Fall of the Sun",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -95406,7 +95475,6 @@
         ],
         "ml": 33,
         "name": "Flamefang, the Blazing Bite",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -98955,7 +99023,6 @@
         ],
         "ml": 33,
         "name": "Folly, the Thorn of Cormanthyr",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -98991,7 +99058,6 @@
         ],
         "ml": 33,
         "name": "Footfalls of the Dracolich",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -122918,7 +122984,6 @@
         ],
         "ml": 33,
         "name": "Kindling, the Twin Flames of the City",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -125330,7 +125395,6 @@
         ],
         "ml": 13,
         "name": "Large Shield of the Fallen Age",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -125376,7 +125440,6 @@
         ],
         "ml": 13,
         "name": "Large Shield of the Golden Age",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -132344,7 +132407,6 @@
         ],
         "ml": 33,
         "name": "Legendary Bracelets of Flourishing Fauna",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -138495,7 +138557,6 @@
         ],
         "ml": 33,
         "name": "Legendary Cloak of the Forest's Blade",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -146767,7 +146828,6 @@
         ],
         "ml": 33,
         "name": "Legendary Docent of the Artblade",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -170306,7 +170366,6 @@
         ],
         "ml": 33,
         "name": "Legendary Large Shield of the Fallen Age",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -170353,7 +170412,6 @@
         ],
         "ml": 33,
         "name": "Legendary Large Shield of the Golden Age",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -184374,7 +184432,6 @@
         ],
         "ml": 33,
         "name": "Legendary Rune Arm of Nature's Wrath",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -184427,7 +184484,6 @@
         ],
         "ml": 33,
         "name": "Legendary Rune Arm of the Great Decay",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -213990,7 +214046,6 @@
         ],
         "ml": 33,
         "name": "Maw, the Dracolich's Bite",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -226230,7 +226285,6 @@
         ],
         "ml": 33,
         "name": "Nova, the Wild Star",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -227095,7 +227149,6 @@
         ],
         "ml": 33,
         "name": "Omen, Herald of the Fall",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -227229,7 +227282,6 @@
         ],
         "ml": 33,
         "name": "Ophael's Cincture",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -229359,7 +229411,6 @@
         ],
         "ml": 33,
         "name": "Palisade, the Ward of Karliath",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -238966,7 +239017,6 @@
         ],
         "ml": 33,
         "name": "Red Wizard's Sight",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -247251,7 +247301,6 @@
         ],
         "ml": 13,
         "name": "Rune Arm of Nature's Wrath",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -247303,7 +247352,6 @@
         ],
         "ml": 13,
         "name": "Rune Arm of the Great Decay",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Ettercap Incursion"
         ],
@@ -268205,7 +268253,6 @@
         ],
         "ml": 33,
         "name": "Spur, the Claw of Death",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -278000,7 +278047,6 @@
         ],
         "ml": 33,
         "name": "Thayan Pactmage's Bangle",
-        "pack": "Magic of Myth Drannor",
         "quests": [
             "Threats Old and New"
         ],
@@ -279089,6 +279135,173 @@
         "url": "/page/Item:The_Broken_Blade_of_Constellation"
     },
     {
+        "affixes": [
+            {
+                "name": "Orb Bonus",
+                "type": "Orb",
+                "value": "+16"
+            },
+            {
+                "name": "Power of the Moonlit Haunt",
+                "type": "Equipment",
+                "value": "80"
+            },
+            {
+                "name": "Moonlit Haunt Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Legendary Vacuum",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Kinetic Intensity",
+                "type": "Quality",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": 11,
+        "name": "The Butcher's Mind",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Offhand",
+        "type": "Orbs",
+        "url": "/page/Item:The_Butcher%27s_Mind"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Vacuum",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Butcher's Mouth",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Morningstars",
+        "url": "/page/Item:The_Butcher%27s_Mouth"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Vacuum",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Butcher's Teeth",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Heavy Maces",
+        "url": "/page/Item:The_Butcher%27s_Teeth"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Vacuum",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Butcher's Tongue",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Light Maces",
+        "url": "/page/Item:The_Butcher%27s_Tongue"
+    },
+    {
         "affixes": [],
         "crafting": [
             "One of the following",
@@ -279763,6 +279976,48 @@
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:The_Deathly_Shroud"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Ash",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegrate",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Murderous Point",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Deep Father's Fang",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:The_Deep_Father%27s_Fang"
     },
     {
         "affixes": [
@@ -280781,6 +281036,90 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Slime",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Elasticity",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegrate",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Faceless Lord's Reach",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:The_Faceless_Lord%27s_Reach"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Slime",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Piercing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Elasticity",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegrate",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Faceless Lord's Reach",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:The_Faceless_Lord%27s_Reach"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Class",
                 "type": "Shield",
                 "value": "10"
@@ -280954,6 +281293,48 @@
         "slot": "Weapon",
         "type": "Repeating Heavy Crossbows",
         "url": "/page/Item:The_Fatal_Flaw"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Slime",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Bludgeoning)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Blunt Trauma",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegrate",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Fetid Prince's Fury",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Mauls",
+        "url": "/page/Item:The_Fetid_Prince%27s_Fury"
     },
     {
         "affixes": [],
@@ -284707,6 +285088,54 @@
     {
         "affixes": [
             {
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "55"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Legendary",
+                "value": "6"
+            },
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "False Life (%)",
+                "type": "Legendary",
+                "value": "5"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "15"
+            }
+        ],
+        "crafting": [
+            "Sun Augment Slot",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Prince of Demons",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Armor",
+        "type": "Medium armor",
+        "url": "/page/Item:The_Prince_of_Demons"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Lifeblood of the Undead Prince",
                 "type": "Bool",
                 "value": 1
@@ -285123,6 +285552,53 @@
     {
         "affixes": [
             {
+                "name": "Universal Spell Power",
+                "type": "Implement",
+                "value": "35"
+            },
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Negation",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Conjuration Focus",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Enchantment Focus",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Graz'zt's Magic: Trap the Soul",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Shadow Lord's Arcana",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Clubs",
+        "url": "/page/Item:The_Shadow_Lord%27s_Arcana"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
@@ -285344,6 +285820,48 @@
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:The_Slayer_of_the_Living"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+16"
+            },
+            {
+                "name": "Legendary Slime",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Revel in Blood (Bludgeoning)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Blunt Trauma",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegrate",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot",
+            "Purple Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Slime Father's Staff",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Weapon",
+        "type": "Quarterstaffs",
+        "url": "/page/Item:The_Slime_Father%27s_Staff"
     },
     {
         "affixes": [
@@ -286030,6 +286548,47 @@
         "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Unspeakable_Maw"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Orb Bonus",
+                "type": "Orb",
+                "value": "+16"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "4"
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Insight",
+                "value": "40"
+            },
+            {
+                "name": "Legendary Ash",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Intensity",
+                "type": "Quality",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Purple Augment Slot"
+        ],
+        "ml": 11,
+        "name": "The Unspeakable Power",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Offhand",
+        "type": "Orbs",
+        "url": "/page/Item:The_Unspeakable_Power"
     },
     {
         "affixes": [

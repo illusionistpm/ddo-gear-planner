@@ -865,6 +865,7 @@
         ],
         "ml": 11,
         "name": "Abyssal Arbalest",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -1593,6 +1594,7 @@
         ],
         "ml": 7,
         "name": "Admiral's Cummerbund",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Trouble with Tar Pits"
         ],
@@ -1670,6 +1672,7 @@
         ],
         "ml": 7,
         "name": "Admiral's Gumshoes",
+        "pack": "The Isle of Dread",
         "quests": [
             "Captive of the Hidden God"
         ],
@@ -1725,6 +1728,7 @@
         ],
         "ml": 7,
         "name": "Admiral's Wristwatch",
+        "pack": "The Isle of Dread",
         "quests": [
             "Plundering Pirates' Point"
         ],
@@ -2338,6 +2342,7 @@
         ],
         "ml": 31,
         "name": "Alaric's Grim Gauntlets",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -3921,6 +3926,7 @@
         ],
         "ml": 3,
         "name": "Amethyst Loupe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -4213,6 +4219,7 @@
         ],
         "ml": 3,
         "name": "Anchorchain",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -7052,6 +7059,7 @@
         ],
         "ml": 11,
         "name": "Astral Spore Pendant",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -9835,6 +9843,7 @@
         ],
         "ml": 11,
         "name": "Band of the Imprisoned One",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -13150,6 +13159,7 @@
         ],
         "ml": 7,
         "name": "Beachcombers",
+        "pack": "The Isle of Dread",
         "quests": [
             "Whispers of Return"
         ],
@@ -13813,6 +13823,7 @@
         ],
         "ml": 3,
         "name": "Belt of Myriad Pockets",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -14862,6 +14873,7 @@
         ],
         "ml": 7,
         "name": "Birchlore Gauntlets",
+        "pack": "The Isle of Dread",
         "quests": [
             "Spiders and Flies"
         ],
@@ -17513,6 +17525,7 @@
         ],
         "ml": 7,
         "name": "Blue Raptor Feather",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -18702,6 +18715,7 @@
         ],
         "ml": 7,
         "name": "Bottle o' Rum",
+        "pack": "The Isle of Dread",
         "quests": [
             "Captive of the Hidden God"
         ],
@@ -19540,6 +19554,7 @@
         ],
         "ml": 11,
         "name": "Bracers of Baphomet",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -20403,6 +20418,7 @@
         ],
         "ml": 11,
         "name": "Bracers of the Spider Queen",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -22971,6 +22987,7 @@
         ],
         "ml": 7,
         "name": "Bronzed Bracers",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -23623,6 +23640,7 @@
         ],
         "ml": 3,
         "name": "Bullywug Priestess' Staff",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -26822,6 +26840,7 @@
         ],
         "ml": 7,
         "name": "Captain's Spyglass",
+        "pack": "The Isle of Dread",
         "quests": [
             "Spiders and Flies"
         ],
@@ -27878,6 +27897,7 @@
         ],
         "ml": 11,
         "name": "Cavernous Chill",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -29017,6 +29037,7 @@
         ],
         "ml": 11,
         "name": "Chains of Yeenoghu",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -30963,6 +30984,7 @@
         ],
         "ml": 3,
         "name": "Cinderfingers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -36069,6 +36091,7 @@
         ],
         "ml": 7,
         "name": "Commodore Alaina's Cutlass",
+        "pack": "The Isle of Dread",
         "quests": [
             "Plundering Pirates' Point"
         ],
@@ -38072,6 +38095,7 @@
         ],
         "ml": 3,
         "name": "Corroded Iron Lenses",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -39175,6 +39199,7 @@
         ],
         "ml": 11,
         "name": "Cracked Symbol of Lolth",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -40261,6 +40286,7 @@
         ],
         "ml": 3,
         "name": "Crocodile Maw",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -40291,6 +40317,7 @@
         ],
         "ml": 3,
         "name": "Crocodile Skin Boots",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -40319,6 +40346,7 @@
         ],
         "ml": 3,
         "name": "Crocodile Tooth",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -43251,6 +43279,7 @@
         ],
         "ml": 11,
         "name": "Dark Star of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -43291,6 +43320,7 @@
         ],
         "ml": 11,
         "name": "Darkfire Sidearm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -44900,6 +44930,7 @@
         ],
         "ml": 7,
         "name": "Defender's Cloak",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Trouble with Tar Pits"
         ],
@@ -44938,6 +44969,7 @@
         ],
         "ml": 7,
         "name": "Defender's Masque",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -47541,6 +47573,7 @@
         ],
         "ml": 11,
         "name": "Demogorgon's Sinew",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -47581,6 +47614,7 @@
         ],
         "ml": 11,
         "name": "Demogorgon's Sinew",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -47986,6 +48020,7 @@
         ],
         "ml": 11,
         "name": "Demonsbane Hatchet",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -52250,6 +52285,7 @@
         ],
         "ml": 7,
         "name": "Docent of the Locus",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -52414,6 +52450,7 @@
         ],
         "ml": 3,
         "name": "Dockworker's Outfit",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -52573,6 +52610,7 @@
         ],
         "ml": 31,
         "name": "Doctor Lifestone's Hunting Horn",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -54808,6 +54846,7 @@
         ],
         "ml": 7,
         "name": "Dread Stalker's Cloak",
+        "pack": "The Isle of Dread",
         "quests": [
             "Captive of the Hidden God"
         ],
@@ -54846,6 +54885,7 @@
         ],
         "ml": 7,
         "name": "Dread Stalker's Skullcap",
+        "pack": "The Isle of Dread",
         "quests": [
             "Spiders and Flies"
         ],
@@ -55313,6 +55353,7 @@
         ],
         "ml": 11,
         "name": "Drider's Vision",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -55398,6 +55439,7 @@
         ],
         "ml": 3,
         "name": "Driftwood Bracers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -56006,6 +56048,7 @@
         ],
         "ml": 11,
         "name": "Drow Wizard's Greaves",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -56254,6 +56297,7 @@
         ],
         "ml": 3,
         "name": "Duelist's Epee",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -56789,6 +56833,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Brigandine",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -56877,6 +56922,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Chain",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -56909,6 +56955,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -56982,6 +57029,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -57106,6 +57154,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Docent",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -57589,6 +57638,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -58169,6 +58219,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Outfit",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -58211,6 +58262,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Plate",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -58417,6 +58469,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Robe",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -58618,6 +58671,7 @@
         ],
         "ml": 11,
         "name": "Duergarcraft Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -59865,6 +59919,7 @@
         ],
         "ml": 35,
         "name": "Echo of Heartcleaver",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -60281,6 +60336,7 @@
         ],
         "ml": 35,
         "name": "Echo of the Wand of Orcus",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -63555,6 +63611,7 @@
         ],
         "ml": 11,
         "name": "Envenomed Craft",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -89079,6 +89136,7 @@
         ],
         "ml": 3,
         "name": "Ethereal Ring",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -93435,6 +93493,7 @@
         ],
         "ml": 7,
         "name": "Fimbric, Lost Longsword",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],
@@ -94010,6 +94069,7 @@
         ],
         "ml": 7,
         "name": "Firemouth's Bulwark",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -94131,6 +94191,7 @@
         ],
         "ml": 7,
         "name": "Firesplitter",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Trouble with Tar Pits"
         ],
@@ -99328,6 +99389,7 @@
         ],
         "ml": 11,
         "name": "Forge's Flame",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -101759,6 +101821,7 @@
         ],
         "ml": 11,
         "name": "Gauntlets of Devoured Divinity",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -103664,6 +103727,7 @@
         ],
         "ml": 11,
         "name": "Glabrezu Claw Pendant",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -106630,6 +106694,7 @@
         ],
         "ml": 3,
         "name": "Goldcursed Dagger",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -106977,6 +107042,7 @@
         ],
         "ml": 11,
         "name": "Goristro-Hide Bracers",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -107013,6 +107079,7 @@
         ],
         "ml": 31,
         "name": "Gorth's Mage Hand",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -108745,6 +108812,7 @@
         ],
         "ml": 11,
         "name": "Great Forge Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -108777,6 +108845,7 @@
         ],
         "ml": 11,
         "name": "Great Forge Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -108847,6 +108916,7 @@
         ],
         "ml": 11,
         "name": "Great Forge Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -109008,6 +109078,7 @@
         ],
         "ml": 11,
         "name": "Great Forge Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -111122,6 +111193,7 @@
         ],
         "ml": 7,
         "name": "Greenpine Gauntlets",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -116346,6 +116418,7 @@
         ],
         "ml": 11,
         "name": "High Priestess' Focus",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -118398,6 +118471,7 @@
         ],
         "ml": 3,
         "name": "Immaculate Globe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -121273,6 +121347,7 @@
         ],
         "ml": 11,
         "name": "Jellysight",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -122149,6 +122224,7 @@
         ],
         "ml": 11,
         "name": "Karazikar's Cube",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -122505,6 +122581,7 @@
         ],
         "ml": 31,
         "name": "Kelas' Volatile Mixture",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -123954,6 +124031,7 @@
         ],
         "ml": 7,
         "name": "Kopru Bracers",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],
@@ -126178,6 +126256,7 @@
         ],
         "ml": 35,
         "name": "Legendary Abyssal Arbalest",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -127409,6 +127488,7 @@
         ],
         "ml": 30,
         "name": "Legendary Amethyst Loupe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -127488,6 +127568,7 @@
         ],
         "ml": 30,
         "name": "Legendary Anchorchain",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -128217,6 +128298,7 @@
         ],
         "ml": 35,
         "name": "Legendary Astral Spore Pendant",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -128984,6 +129066,7 @@
         ],
         "ml": 35,
         "name": "Legendary Band of the Imprisoned One",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -129738,6 +129821,7 @@
         ],
         "ml": 30,
         "name": "Legendary Belt of Myriad Pockets",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -132423,6 +132507,7 @@
         ],
         "ml": 35,
         "name": "Legendary Bracers of Baphomet",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -132796,6 +132881,7 @@
         ],
         "ml": 35,
         "name": "Legendary Bracers of the Spider Queen",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -133870,6 +133956,7 @@
         ],
         "ml": 30,
         "name": "Legendary Bullywug Priestess' Staff",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -136938,6 +137025,7 @@
         ],
         "ml": 35,
         "name": "Legendary Cavernous Chill",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -137291,6 +137379,7 @@
         ],
         "ml": 35,
         "name": "Legendary Chains of Yeenoghu",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -137735,6 +137824,7 @@
         ],
         "ml": 30,
         "name": "Legendary Cinderfingers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -139918,6 +140008,7 @@
         ],
         "ml": 30,
         "name": "Legendary Corroded Iron Lenses",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -140459,6 +140550,7 @@
         ],
         "ml": 35,
         "name": "Legendary Cracked Symbol of Lolth",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -140969,6 +141061,7 @@
         ],
         "ml": 30,
         "name": "Legendary Crocodile Maw",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -141010,6 +141103,7 @@
         ],
         "ml": 30,
         "name": "Legendary Crocodile Skin Boots",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -141049,6 +141143,7 @@
         ],
         "ml": 30,
         "name": "Legendary Crocodile Tooth",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Swim at Your Own Risk"
         ],
@@ -142058,6 +142153,7 @@
         ],
         "ml": 35,
         "name": "Legendary Dark Star of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -142099,6 +142195,7 @@
         ],
         "ml": 35,
         "name": "Legendary Darkfire Sidearm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -142968,6 +143065,7 @@
         ],
         "ml": 31,
         "name": "Legendary Defender's Cloak",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Trouble with Tar Pits"
         ],
@@ -143007,6 +143105,7 @@
         ],
         "ml": 31,
         "name": "Legendary Defender's Masque",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -145726,6 +145825,7 @@
         ],
         "ml": 35,
         "name": "Legendary Demogorgon's Sinew",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -145767,6 +145867,7 @@
         ],
         "ml": 35,
         "name": "Legendary Demogorgon's Sinew",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -146092,6 +146193,7 @@
         ],
         "ml": 35,
         "name": "Legendary Demonsbane Hatchet",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -146993,6 +147095,7 @@
         ],
         "ml": 31,
         "name": "Legendary Docent of the Locus",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -147087,6 +147190,7 @@
         ],
         "ml": 30,
         "name": "Legendary Dockworker's Outfit",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -147839,6 +147943,7 @@
         ],
         "ml": 31,
         "name": "Legendary Dread Stalker's Cloak",
+        "pack": "The Isle of Dread",
         "quests": [
             "Captive of the Hidden God"
         ],
@@ -147878,6 +147983,7 @@
         ],
         "ml": 31,
         "name": "Legendary Dread Stalker's Skullcap",
+        "pack": "The Isle of Dread",
         "quests": [
             "Spiders and Flies"
         ],
@@ -148033,6 +148139,7 @@
         ],
         "ml": 35,
         "name": "Legendary Drider's Vision",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -148069,6 +148176,7 @@
         ],
         "ml": 30,
         "name": "Legendary Driftwood Bracers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -148282,6 +148390,7 @@
         ],
         "ml": 35,
         "name": "Legendary Drow Wizard's Greaves",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -148450,6 +148559,7 @@
         ],
         "ml": 30,
         "name": "Legendary Duelist's Epee",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -148622,6 +148732,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Brigandine",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -148712,6 +148823,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Chain",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -148745,6 +148857,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -148820,6 +148933,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -148947,6 +149061,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Docent",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -149442,6 +149557,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -150036,6 +150152,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Outfit",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -150079,6 +150196,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Plate",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -150290,6 +150408,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Robe",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -150496,6 +150615,7 @@
         ],
         "ml": 35,
         "name": "Legendary Duergarcraft Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -152297,6 +152417,7 @@
         ],
         "ml": 35,
         "name": "Legendary Envenomed Craft",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -152376,6 +152497,7 @@
         ],
         "ml": 30,
         "name": "Legendary Ethereal Ring",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -155362,6 +155484,7 @@
         ],
         "ml": 31,
         "name": "Legendary Firemouth's Bulwark",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -157940,6 +158063,7 @@
         ],
         "ml": 35,
         "name": "Legendary Forge's Flame",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -159344,6 +159468,7 @@
         ],
         "ml": 35,
         "name": "Legendary Gauntlets of Devoured Divinity",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -159515,6 +159640,7 @@
         ],
         "ml": 35,
         "name": "Legendary Glabrezu Claw Pendant",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -160897,6 +161023,7 @@
         ],
         "ml": 30,
         "name": "Legendary Goldcursed Dagger",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -161116,6 +161243,7 @@
         ],
         "ml": 35,
         "name": "Legendary Goristro-Hide Bracers",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -162017,6 +162145,7 @@
         ],
         "ml": 35,
         "name": "Legendary Great Forge Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -162049,6 +162178,7 @@
         ],
         "ml": 35,
         "name": "Legendary Great Forge Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -162121,6 +162251,7 @@
         ],
         "ml": 35,
         "name": "Legendary Great Forge Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -162286,6 +162417,7 @@
         ],
         "ml": 35,
         "name": "Legendary Great Forge Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -166467,6 +166599,7 @@
         ],
         "ml": 35,
         "name": "Legendary High Priestess' Focus",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Raiding the Raiders"
         ],
@@ -167160,6 +167293,7 @@
         ],
         "ml": 30,
         "name": "Legendary Immaculate Globe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -168253,6 +168387,7 @@
         ],
         "ml": 35,
         "name": "Legendary Jellysight",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -168571,6 +168706,7 @@
         ],
         "ml": 35,
         "name": "Legendary Karazikar's Cube",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -170383,6 +170519,7 @@
         ],
         "ml": 35,
         "name": "Legendary Lenses of Logic",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -171833,6 +171970,7 @@
         ],
         "ml": 30,
         "name": "Legendary Lizardfolk Tooth Necklace",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -172622,6 +172760,7 @@
         ],
         "ml": 35,
         "name": "Legendary Mad Angels' Manacles",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -172655,6 +172794,7 @@
         ],
         "ml": 35,
         "name": "Legendary Mad Brew Bottle",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -174134,6 +174274,7 @@
         ],
         "ml": 30,
         "name": "Legendary Marshreed Cloak",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -175127,6 +175268,7 @@
         ],
         "ml": 35,
         "name": "Legendary Menzoberranzan's Memory",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -175305,6 +175447,7 @@
         ],
         "ml": 35,
         "name": "Legendary Minotaur Calling Horn",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -176050,6 +176193,7 @@
         ],
         "ml": 35,
         "name": "Legendary Mycelic Mauler",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -176744,6 +176888,7 @@
         ],
         "ml": 35,
         "name": "Legendary Oblivium Mattock",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -176917,6 +177062,7 @@
         ],
         "ml": 31,
         "name": "Legendary Ol' Ironsides",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -176960,6 +177106,7 @@
         ],
         "ml": 31,
         "name": "Legendary Ol' Reliable",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -180130,6 +180277,7 @@
         ],
         "ml": 30,
         "name": "Legendary Privateer's Leathers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -180551,6 +180699,7 @@
         ],
         "ml": 35,
         "name": "Legendary Purple Chiton Pouch",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -183602,6 +183751,7 @@
         ],
         "ml": 31,
         "name": "Legendary Robe of the Locus",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -184101,6 +184251,7 @@
         ],
         "ml": 31,
         "name": "Legendary Roughcut Armor",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -184211,6 +184362,7 @@
         ],
         "ml": 35,
         "name": "Legendary Ruler of Ruin",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -184508,6 +184660,7 @@
         ],
         "ml": 31,
         "name": "Legendary Sacrarium Suncatcher",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],
@@ -184634,6 +184787,7 @@
         ],
         "ml": 30,
         "name": "Legendary Sailcloth Cloak",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -184713,6 +184867,7 @@
         ],
         "ml": 30,
         "name": "Legendary Saltiron Bracer",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -184757,6 +184912,7 @@
         ],
         "ml": 30,
         "name": "Legendary Saltiron Docent",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -184805,6 +184961,7 @@
         ],
         "ml": 30,
         "name": "Legendary Saltiron Plate",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -184868,6 +185025,7 @@
         ],
         "ml": 30,
         "name": "Legendary Saltiron Targe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -185114,6 +185272,7 @@
         ],
         "ml": 30,
         "name": "Legendary Scalegouger",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -186490,6 +186649,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shaped Duergarcraft Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -186523,6 +186683,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shaped Duergarcraft Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -186556,6 +186717,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shaped Great Forge Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -186589,6 +186751,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shaped Great Forge Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -186663,6 +186826,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shard of the Mad Gem",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -186704,6 +186868,7 @@
         ],
         "ml": 35,
         "name": "Legendary Shards of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -189319,6 +189484,7 @@
         ],
         "ml": 30,
         "name": "Legendary Ship-Mage's Attire",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -190502,6 +190668,7 @@
         ],
         "ml": 35,
         "name": "Legendary Signet of the Prince of Pleasure",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -190664,6 +190831,7 @@
         ],
         "ml": 30,
         "name": "Legendary Silver Pocketwatch",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -191207,6 +191375,7 @@
         ],
         "ml": 30,
         "name": "Legendary Skullduggery Cap",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -191656,6 +191825,7 @@
         ],
         "ml": 30,
         "name": "Legendary Smash 'n Grabber",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -191695,6 +191865,7 @@
         ],
         "ml": 30,
         "name": "Legendary Smuggler's Cap",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -191748,6 +191919,7 @@
         ],
         "ml": 30,
         "name": "Legendary Smuggler's Gear",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -191792,6 +191964,7 @@
         ],
         "ml": 30,
         "name": "Legendary Snakeskin Belt",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -192226,6 +192399,7 @@
         ],
         "ml": 30,
         "name": "Legendary Sparksoles",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -192470,6 +192644,7 @@
         ],
         "ml": 35,
         "name": "Legendary Spider's Bite",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -192594,6 +192769,7 @@
         ],
         "ml": 30,
         "name": "Legendary Splintermast",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -192631,6 +192807,7 @@
         ],
         "ml": 35,
         "name": "Legendary Sporesphere",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -192860,6 +193037,7 @@
         ],
         "ml": 35,
         "name": "Legendary Staff of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -192995,6 +193173,7 @@
         ],
         "ml": 31,
         "name": "Legendary Stalker's Outfit",
+        "pack": "The Isle of Dread",
         "quests": [
             "All Hail the King"
         ],
@@ -193249,6 +193428,7 @@
         ],
         "ml": 35,
         "name": "Legendary Stitched Duergarcraft Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -193282,6 +193462,7 @@
         ],
         "ml": 35,
         "name": "Legendary Stitched Duergarcraft Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -193315,6 +193496,7 @@
         ],
         "ml": 35,
         "name": "Legendary Stitched Great Forge Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -193348,6 +193530,7 @@
         ],
         "ml": 35,
         "name": "Legendary Stitched Great Forge Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -194717,6 +194900,7 @@
         ],
         "ml": 35,
         "name": "Legendary Sword of Spiders",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -196491,6 +196675,7 @@
         ],
         "ml": 35,
         "name": "Legendary Tail of the Demogorgon",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -196621,6 +196806,7 @@
         ],
         "ml": 31,
         "name": "Legendary Tanaroa Sneaking Suit",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -201494,6 +201680,7 @@
         ],
         "ml": 35,
         "name": "Legendary Vizeran's Band",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -201753,6 +201940,7 @@
         ],
         "ml": 31,
         "name": "Legendary Walking Ancestor's Helmet",
+        "pack": "The Isle of Dread",
         "quests": [
             "Plundering Pirates' Point"
         ],
@@ -201792,6 +201980,7 @@
         ],
         "ml": 31,
         "name": "Legendary Walking Ancestor's Shroud",
+        "pack": "The Isle of Dread",
         "quests": [
             "Whispers of Return"
         ],
@@ -202396,6 +202585,7 @@
         ],
         "ml": 35,
         "name": "Legendary Wave of Wailing",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -202541,6 +202731,7 @@
         ],
         "ml": 31,
         "name": "Legendary Wheel of the St. Marie",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -203021,6 +203212,7 @@
         ],
         "ml": 30,
         "name": "Legendary Wind-Swept Buckler",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -203323,6 +203515,7 @@
         ],
         "ml": 35,
         "name": "Legendary Wormwrithe Ring",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -203368,6 +203561,7 @@
         ],
         "ml": 31,
         "name": "Legendary Wreckage of the Beachcomber",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -203465,6 +203659,7 @@
         ],
         "ml": 31,
         "name": "Legendary Wreckage of the Tabernack",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],
@@ -203674,6 +203869,7 @@
         ],
         "ml": 11,
         "name": "Lenses of Logic",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -205929,6 +206125,7 @@
         ],
         "ml": 31,
         "name": "Lindal's Mighty Belt",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -206497,6 +206694,7 @@
         ],
         "ml": 3,
         "name": "Lizardfolk Tooth Necklace",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -209907,6 +210105,7 @@
         ],
         "ml": 11,
         "name": "Mad Angels' Manacles",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -209939,6 +210138,7 @@
         ],
         "ml": 11,
         "name": "Mad Brew Bottle",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -210740,6 +210940,7 @@
         ],
         "ml": 7,
         "name": "Magma Waders",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Trouble with Tar Pits"
         ],
@@ -213041,6 +213242,7 @@
         ],
         "ml": 3,
         "name": "Marshreed Cloak",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -213590,6 +213792,7 @@
         ],
         "ml": 7,
         "name": "Masthead",
+        "pack": "The Isle of Dread",
         "quests": [
             "All Hail the King"
         ],
@@ -215074,6 +215277,7 @@
         ],
         "ml": 11,
         "name": "Menzoberranzan's Memory",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -216025,6 +216229,7 @@
         ],
         "ml": 11,
         "name": "Minotaur Calling Horn",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -220820,6 +221025,7 @@
         ],
         "ml": 11,
         "name": "Mycelic Mauler",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -226575,6 +226781,7 @@
         ],
         "ml": 11,
         "name": "Oblivium Mattock",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -226840,6 +227047,7 @@
         ],
         "ml": 7,
         "name": "Ol' Ironsides",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -226883,6 +227091,7 @@
         ],
         "ml": 7,
         "name": "Ol' Reliable",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -227944,6 +228153,7 @@
         ],
         "ml": 31,
         "name": "Osfield's Lightning Boots",
+        "pack": "The Isle of Dread",
         "quests": [
             "Skeletons in the Closet"
         ],
@@ -230244,6 +230454,7 @@
         ],
         "ml": 7,
         "name": "Pendant of the Earth",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -230350,6 +230561,7 @@
         ],
         "ml": 7,
         "name": "Pendant of the Sea",
+        "pack": "The Isle of Dread",
         "quests": [
             "All Hail the King"
         ],
@@ -230388,6 +230600,7 @@
         ],
         "ml": 7,
         "name": "Pendant of the Sky",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -234586,6 +234799,7 @@
         ],
         "ml": 7,
         "name": "Powder-Packed Barrel",
+        "pack": "The Isle of Dread",
         "quests": [
             "All Hail the King"
         ],
@@ -235664,6 +235878,7 @@
         ],
         "ml": 3,
         "name": "Privateer's Leathers",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Rest for the Night"
         ],
@@ -236242,6 +236457,7 @@
         ],
         "ml": 11,
         "name": "Purple Chiton Pouch",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -238762,6 +238978,7 @@
         ],
         "ml": 7,
         "name": "Red Raptor Feather",
+        "pack": "The Isle of Dread",
         "quests": [
             "Captive of the Hidden God"
         ],
@@ -245552,6 +245769,7 @@
         ],
         "ml": 7,
         "name": "Robe of the Locus",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -246411,6 +246629,7 @@
         ],
         "ml": 7,
         "name": "Rope and Pulley",
+        "pack": "The Isle of Dread",
         "quests": [
             "Whispers of Return"
         ],
@@ -246631,6 +246850,7 @@
         ],
         "ml": 7,
         "name": "Roughcut Armor",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -247020,6 +247240,7 @@
         ],
         "ml": 11,
         "name": "Ruler of Ruin",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -247558,6 +247779,7 @@
         ],
         "ml": 7,
         "name": "Sacrarium Suncatcher",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],
@@ -248181,6 +248403,7 @@
         ],
         "ml": 3,
         "name": "Sailcloth Cloak",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -248300,6 +248523,7 @@
         ],
         "ml": 3,
         "name": "Saltiron Bracer",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -248333,6 +248557,7 @@
         ],
         "ml": 3,
         "name": "Saltiron Docent",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -248371,6 +248596,7 @@
         ],
         "ml": 3,
         "name": "Saltiron Plate",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -248419,6 +248645,7 @@
         ],
         "ml": 3,
         "name": "Saltiron Targe",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Hijacked Haul"
         ],
@@ -249065,6 +249292,7 @@
         ],
         "ml": 3,
         "name": "Scalegouger",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -251459,6 +251687,7 @@
         ],
         "ml": 7,
         "name": "Seaweed-woven Belt",
+        "pack": "The Isle of Dread",
         "quests": [
             "Whispers of Return"
         ],
@@ -254255,6 +254484,7 @@
         ],
         "ml": 11,
         "name": "Shaped Duergarcraft Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -254287,6 +254517,7 @@
         ],
         "ml": 11,
         "name": "Shaped Duergarcraft Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -254319,6 +254550,7 @@
         ],
         "ml": 11,
         "name": "Shaped Great Forge Cowl",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -254351,6 +254583,7 @@
         ],
         "ml": 11,
         "name": "Shaped Great Forge Helm",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -254551,6 +254784,7 @@
         ],
         "ml": 11,
         "name": "Shard of the Mad Gem",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Demon in the Rough"
         ],
@@ -254613,6 +254847,7 @@
         ],
         "ml": 11,
         "name": "Shards of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -257956,6 +258191,7 @@
         ],
         "ml": 3,
         "name": "Ship-Mage's Attire",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -258314,6 +258550,7 @@
         ],
         "ml": 7,
         "name": "Shipbreaker",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -259905,6 +260142,7 @@
         ],
         "ml": 7,
         "name": "Signet Ring of the Earth",
+        "pack": "The Isle of Dread",
         "quests": [
             "Spiders and Flies"
         ],
@@ -259943,6 +260181,7 @@
         ],
         "ml": 7,
         "name": "Signet Ring of the Sea",
+        "pack": "The Isle of Dread",
         "quests": [
             "Plundering Pirates' Point"
         ],
@@ -259981,6 +260220,7 @@
         ],
         "ml": 7,
         "name": "Signet Ring of the Sky",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Curse and the Captive Crustacean"
         ],
@@ -260274,6 +260514,7 @@
         ],
         "ml": 11,
         "name": "Signet of the Prince of Pleasure",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -261082,6 +261323,7 @@
         ],
         "ml": 3,
         "name": "Silver Pocketwatch",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -261454,6 +261696,7 @@
         ],
         "ml": 3,
         "name": "Sir Squilliam III, Esq.",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -261567,6 +261810,7 @@
         ],
         "ml": 30,
         "name": "Sir Squilliam V, Esq.",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -262455,6 +262699,7 @@
         ],
         "ml": 3,
         "name": "Skullduggery Cap",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Final Enemy"
         ],
@@ -263666,6 +263911,7 @@
         ],
         "ml": 3,
         "name": "Smash 'n Grabber",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "What Sleeps Below"
         ],
@@ -263784,6 +264030,7 @@
         ],
         "ml": 3,
         "name": "Smuggler's Cap",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -263827,6 +264074,7 @@
         ],
         "ml": 3,
         "name": "Smuggler's Gear",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "The Haunting of Saltmarsh"
         ],
@@ -263860,6 +264108,7 @@
         ],
         "ml": 3,
         "name": "Snakeskin Belt",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Danger at Dunwater"
         ],
@@ -264633,6 +264882,7 @@
         ],
         "ml": 3,
         "name": "Sparksoles",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Down You Go"
         ],
@@ -264814,6 +265064,7 @@
         ],
         "ml": 7,
         "name": "Spearfisher",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -267302,6 +267553,7 @@
         ],
         "ml": 11,
         "name": "Spider's Bite",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Flocked Together"
         ],
@@ -267845,6 +268097,7 @@
         ],
         "ml": 3,
         "name": "Splintermast",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Under the Cover of Darkness"
         ],
@@ -267995,6 +268248,7 @@
         ],
         "ml": 11,
         "name": "Sporesphere",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -268412,6 +268666,7 @@
         ],
         "ml": 11,
         "name": "Staff of the Deep",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -268786,6 +269041,7 @@
         ],
         "ml": 7,
         "name": "Stalker's Outfit",
+        "pack": "The Isle of Dread",
         "quests": [
             "All Hail the King"
         ],
@@ -269850,6 +270106,7 @@
         ],
         "ml": 11,
         "name": "Stitched Duergarcraft Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "For Want of a Heart"
         ],
@@ -269882,6 +270139,7 @@
         ],
         "ml": 11,
         "name": "Stitched Duergarcraft Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Fetid Wedding"
         ],
@@ -269914,6 +270172,7 @@
         ],
         "ml": 11,
         "name": "Stitched Great Forge Cloak",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Hideous to Behold"
         ],
@@ -269946,6 +270205,7 @@
         ],
         "ml": 11,
         "name": "Stitched Great Forge Shroud",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -273238,6 +273498,7 @@
         ],
         "ml": 11,
         "name": "Sword of Spiders",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Stealing from Sorcere"
         ],
@@ -276362,6 +276623,7 @@
         ],
         "ml": 11,
         "name": "Tail of the Demogorgon",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Back to the Abyss"
         ],
@@ -276557,6 +276819,7 @@
         ],
         "ml": 7,
         "name": "Tanaroa Sneaking Suit",
+        "pack": "The Isle of Dread",
         "quests": [
             "Fall of the Forbidden Temple"
         ],
@@ -278939,6 +279202,7 @@
         ],
         "ml": 11,
         "name": "The Butcher's Mind",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -278980,6 +279244,7 @@
         ],
         "ml": 35,
         "name": "The Butcher's Mouth",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -279021,6 +279286,7 @@
         ],
         "ml": 35,
         "name": "The Butcher's Teeth",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -279062,6 +279328,7 @@
         ],
         "ml": 35,
         "name": "The Butcher's Tongue",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -279580,6 +279847,7 @@
         ],
         "ml": 7,
         "name": "The Compass Rose",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -279778,6 +280046,7 @@
         ],
         "ml": 35,
         "name": "The Deep Father's Fang",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -280833,6 +281102,7 @@
         ],
         "ml": 35,
         "name": "The Faceless Lord's Reach",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -280874,6 +281144,7 @@
         ],
         "ml": 35,
         "name": "The Faceless Lord's Reach",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -281092,6 +281363,7 @@
         ],
         "ml": 35,
         "name": "The Fetid Prince's Fury",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -281192,6 +281464,7 @@
         ],
         "ml": 11,
         "name": "The Forgehammer",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -281532,6 +281805,7 @@
         ],
         "ml": 11,
         "name": "The Heart of Gauntlgrym",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -282222,6 +282496,7 @@
         ],
         "ml": 11,
         "name": "The Iron Tabernacle",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -282679,6 +282954,7 @@
         ],
         "ml": 35,
         "name": "The Legendary Forgehammer",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -282809,6 +283085,7 @@
         ],
         "ml": 35,
         "name": "The Legendary Heart of Gauntlgrym",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Long Way to Mushrooms"
         ],
@@ -282934,6 +283211,7 @@
         ],
         "ml": 35,
         "name": "The Legendary Iron Tabernacle",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "If It Wasn't For Bad Luck"
         ],
@@ -284882,6 +285160,7 @@
         ],
         "ml": 35,
         "name": "The Prince of Demons",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -285344,6 +285623,7 @@
         ],
         "ml": 35,
         "name": "The Shadow Lord's Arcana",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -285610,6 +285890,7 @@
         ],
         "ml": 35,
         "name": "The Slime Father's Staff",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -286295,6 +286576,7 @@
         ],
         "ml": 35,
         "name": "The Unspeakable Maw",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -286335,6 +286617,7 @@
         ],
         "ml": 11,
         "name": "The Unspeakable Power",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Terror of the Demon Lords"
         ],
@@ -292689,6 +292972,7 @@
         ],
         "ml": 7,
         "name": "Twinchopper",
+        "pack": "The Isle of Dread",
         "quests": [
             "Trials of the Triceratops"
         ],
@@ -296089,6 +296373,7 @@
         ],
         "ml": 11,
         "name": "Vizeran's Band",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "Tower of Vengeance"
         ],
@@ -296537,6 +296822,7 @@
         ],
         "ml": 7,
         "name": "Walking Ancestor's Helmet",
+        "pack": "The Isle of Dread",
         "quests": [
             "Plundering Pirates' Point"
         ],
@@ -296575,6 +296861,7 @@
         ],
         "ml": 7,
         "name": "Walking Ancestor's Shroud",
+        "pack": "The Isle of Dread",
         "quests": [
             "Whispers of Return"
         ],
@@ -297802,6 +298089,7 @@
         ],
         "ml": 11,
         "name": "Wave of Wailing",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "A Blood Pact"
         ],
@@ -298063,6 +298351,7 @@
         ],
         "ml": 7,
         "name": "Wheel of the St. Marie",
+        "pack": "The Isle of Dread",
         "quests": [
             "The Stone Crypt Chronicle"
         ],
@@ -299383,6 +299672,7 @@
         ],
         "ml": 3,
         "name": "Wind-Swept Buckler",
+        "pack": "Sinister Secret of Saltmarsh",
         "quests": [
             "Back to Basics"
         ],
@@ -300267,6 +300557,7 @@
         ],
         "ml": 11,
         "name": "Wormwrithe Ring",
+        "pack": "Terror of Demogorgon",
         "quests": [
             "The Price of an Egg"
         ],
@@ -300686,6 +300977,7 @@
         ],
         "ml": 7,
         "name": "Wreckage of the Beachcomber",
+        "pack": "The Isle of Dread",
         "quests": [
             "Wild Thing"
         ],
@@ -300783,6 +301075,7 @@
         ],
         "ml": 7,
         "name": "Wreckage of the Tabernack",
+        "pack": "The Isle of Dread",
         "quests": [
             "Bullywugs and Booby Traps"
         ],

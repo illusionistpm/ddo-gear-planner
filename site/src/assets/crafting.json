@@ -1393,7 +1393,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Sapphire of False Life +60"
+                "name": "Sapphire of False Life +60",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -1723,7 +1726,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Sapphire of Natural Armor +15"
+                "name": "Sapphire of Natural Armor +15",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -1930,7 +1936,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Sapphire of Negative Amplification +63"
+                "name": "Sapphire of Negative Amplification +63",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -38144,7 +38153,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Ruby of Acid (10d6)"
+                "name": "Ruby of Acid (10d6)",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -38516,7 +38528,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Ruby of Corrosion 166"
+                "name": "Ruby of Corrosion 166",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -39833,7 +39848,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Ruby of Radiance 166"
+                "name": "Ruby of Radiance 166",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -48920,7 +48938,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Topaz of Fire Resistance 50"
+                "name": "Topaz of Fire Resistance 50",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -49404,7 +49425,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Topaz of Ranged Power +14"
+                "name": "Topaz of Ranged Power +14",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [
@@ -49597,7 +49621,10 @@
                     }
                 ],
                 "ml": 36,
-                "name": "Topaz of Sonic Resistance 50"
+                "name": "Topaz of Sonic Resistance 50",
+                "quests": [
+                    "Randall Lyric (Gravenhollow)"
+                ]
             },
             {
                 "affixes": [

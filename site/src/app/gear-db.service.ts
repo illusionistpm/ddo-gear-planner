@@ -487,9 +487,13 @@ export class GearDbService {
       return [];
     }
 
+    const secondSlotColors = colors.includes('Green')
+      ? colors.filter(color => color !== 'Green')
+      : ['Colorless'];
+
     return [
       this._buildEssenceCraftingAugmentSlot('Augment Slot 1', colors),
-      this._buildEssenceCraftingAugmentSlot('Augment Slot 2', ['Colorless']),
+      this._buildEssenceCraftingAugmentSlot('Augment Slot 2', secondSlotColors),
     ];
   }
 
@@ -505,9 +509,9 @@ export class GearDbService {
     } else if (essenceCraftingSlot === 'Rune Arm') {
       colors.push('Blue');
     } else if (essenceCraftingSlot === 'Armor') {
-      colors.push('Blue', 'Green');
+      colors.push('Blue');
     } else if (ESSENCE_CRAFTING_ACCESSORY_TYPES.has(essenceCraftingSlot)) {
-      colors.push('Yellow', 'Green');
+      colors.push('Blue', 'Yellow', 'Green');
     }
 
     return colors;

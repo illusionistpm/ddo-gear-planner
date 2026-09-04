@@ -10,6 +10,7 @@ export class Craftable {
     craftingSystemOptions: string[] = [];
     selectedCraftingSystemName: string = '';
     private optionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
+    private allOptionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
 
     constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean, addEmptyOption: boolean = true) {
         // Mark all of the traditional, "colored" augment systems. They're numerous and get filtered out sometimes.
@@ -32,22 +33,34 @@ export class Craftable {
     }
 
     setCraftingSystemOptions(optionsByCraftingSystem: Map<string, CraftableOption[]>, selectedCraftingSystemName: string = '') {
-        this.optionsByCraftingSystem = new Map<string, CraftableOption[]>();
-        this.craftingSystemOptions = Array.from(optionsByCraftingSystem.keys());
+        this.allOptionsByCraftingSystem = new Map<string, CraftableOption[]>();
 
         for (const [systemName, options] of optionsByCraftingSystem.entries()) {
-            this.optionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
+            this.allOptionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
         }
 
-        this.selectCraftingSystem(selectedCraftingSystemName);
+        this.setAvailableCraftingSystemOptions(Array.from(optionsByCraftingSystem.keys()), selectedCraftingSystemName);
     }
 
     getOptionsByCraftingSystem() {
         const copy = new Map<string, CraftableOption[]>();
-        for (const [systemName, options] of this.optionsByCraftingSystem.entries()) {
+        for (const [systemName, options] of this.allOptionsByCraftingSystem.entries()) {
             copy.set(systemName, options.map(option => new CraftableOption(option)));
         }
         return copy;
+    }
+
+    setAvailableCraftingSystemOptions(systemNames: string[], selectedCraftingSystemName: string = '') {
+        this.optionsByCraftingSystem = new Map<string, CraftableOption[]>();
+        this.craftingSystemOptions = systemNames.filter(systemName => this.allOptionsByCraftingSystem.has(systemName));
+        for (const systemName of this.craftingSystemOptions) {
+            const options = this.allOptionsByCraftingSystem.get(systemName);
+            if (options) {
+                this.optionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
+            }
+        }
+
+        this.selectCraftingSystem(this.craftingSystemOptions.includes(selectedCraftingSystemName) ? selectedCraftingSystemName : '');
     }
 
     selectCraftingSystem(systemName: string) {

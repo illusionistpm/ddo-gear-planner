@@ -56,10 +56,14 @@ describe('GearDbService', () => {
     expect(slotOne).toBeTruthy();
     expect(slotOne?.craftingSystemOptions).toContain('Yellow Augment Slot');
     expect(slotOne?.craftingSystemOptions).toContain('Green Augment Slot');
+    expect(slotOne?.craftingSystemOptions).toContain('Blue Augment Slot');
     expect(slotOne?.craftingSystemOptions).toContain('Colorless Augment Slot');
     expect(slotOne?.craftingSystemOptions).not.toContain('Red Augment Slot');
-    expect(slotOne?.craftingSystemOptions).not.toContain('Blue Augment Slot');
-    expect(slotTwo?.craftingSystemOptions).toEqual(['Colorless Augment Slot']);
+    expect(slotTwo?.craftingSystemOptions).toEqual([
+      'Colorless Augment Slot',
+      'Blue Augment Slot',
+      'Yellow Augment Slot',
+    ]);
   });
 
   it('loads regular augment options after selecting a generated Essence Crafting augment slot system', () => {

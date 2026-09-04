@@ -200,8 +200,15 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
     const slotTwo = this.curItem?.getCraftingByName('Augment Slot 2');
 
-    if (slotOne && slotTwo && !this.canHaveSecondAugmentSlot()) {
-      slotTwo.selectCraftingSystem('');
+    if (slotOne && slotTwo) {
+      const availableColors = slotOne.selectedCraftingSystemName === 'Green Augment Slot'
+        ? slotTwo.getOptionsByCraftingSystem().keys()
+        : ['Colorless Augment Slot'];
+      slotTwo.setAvailableCraftingSystemOptions(Array.from(availableColors), slotTwo.selectedCraftingSystemName);
+
+      if (!this.canHaveSecondAugmentSlot()) {
+        slotTwo.selectCraftingSystem('');
+      }
     }
   }
 

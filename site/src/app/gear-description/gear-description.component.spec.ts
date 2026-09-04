@@ -46,6 +46,20 @@ describe('GearDescriptionComponent', () => {
 
     expect(component.craftingRows.map(row => row.craft.name)).toEqual(['Augment Slot 1', 'Augment Slot 2']);
     expect(component.getCraftingSystemEmptyLabel(item.getCraftingByName('Augment Slot 1') as Craftable)).toBe('No augment slot');
+    expect(item.getCraftingByName('Augment Slot 2')?.craftingSystemOptions).toEqual(['Colorless Augment Slot']);
+  });
+
+  it('allows the primary color in augment slot 2 after selecting green in slot 1', () => {
+    const item = makeItemWithAugmentSlots();
+    item.getCraftingByName('Augment Slot 1')?.selectCraftingSystem('Green Augment Slot');
+    component.curItem = item;
+
+    component['refreshDisplayRows']();
+
+    expect(item.getCraftingByName('Augment Slot 2')?.craftingSystemOptions).toEqual([
+      'Colorless Augment Slot',
+      'Blue Augment Slot',
+    ]);
   });
 
   it('hides and clears augment slot 2 when augment slot 1 is colorless', () => {
@@ -67,8 +81,8 @@ function makeItemWithAugmentSlots() {
   item.slot = 'Armor';
   item.ml = 36;
   item.crafting = [
-    makeAugmentSlot('Augment Slot 1', ['Colorless Augment Slot', 'Blue Augment Slot']),
-    makeAugmentSlot('Augment Slot 2', ['Colorless Augment Slot']),
+    makeAugmentSlot('Augment Slot 1', ['Colorless Augment Slot', 'Blue Augment Slot', 'Green Augment Slot']),
+    makeAugmentSlot('Augment Slot 2', ['Colorless Augment Slot', 'Blue Augment Slot']),
   ];
   return item;
 }

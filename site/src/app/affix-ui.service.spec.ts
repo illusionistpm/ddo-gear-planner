@@ -1,4 +1,5 @@
 import { Affix } from './affix';
+import { AffixRank } from './affix-rank.enum';
 import { AffixService } from './affix.service';
 import { AffixUiService } from './affix-ui.service';
 
@@ -59,5 +60,22 @@ describe('AffixUiService', () => {
 
     expect(service.getCraftingOptionTooltip(option))
       .toBe('Skill Gem is:\n- Balance: +5 Competence\n- Spot: +5 Competence');
+  });
+
+  it('ranks crafting options using all affixes', () => {
+    const equipped = {
+      getAffixRanking: (affix: Affix) => affix.name === 'Alchemical Earth Attunement'
+        ? AffixRank.Best
+        : AffixRank.Irrelevant
+    };
+    const service = new AffixUiService(equipped as any, new AffixService(), {} as any);
+    const option = {
+      affixes: [
+        new Affix({ name: 'Evil Aligned', type: 'Bool', value: 1 }),
+        new Affix({ name: 'Alchemical Earth Attunement', type: 'Bool', value: 1 })
+      ]
+    } as any;
+
+    expect(service.getClassForCraftingOption(option)).toBe(AffixRank[AffixRank.Best]);
   });
 });

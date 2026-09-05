@@ -28,15 +28,19 @@ export class AffixUiService {
 
   getClassForAffix(affix: Affix, option?: CraftableOption): string {
     perfCount('AffixUiService.getClassForAffix');
+    return AffixRank[this.getAffixRank(affix, option)];
+  }
+
+  private getAffixRank(affix: Affix, option?: CraftableOption): AffixRank {
     if (!affix) {
-      return AffixRank[AffixRank.Irrelevant];
+      return AffixRank.Irrelevant;
     }
 
     // Check for set augments that don't have enough pieces equipped
     if (option?.set) {
       const setReq = this.checkSetRequirements(option.set);
       if (setReq && !setReq.meetsRequirements) {
-        return AffixRank[AffixRank.Penalty];
+        return AffixRank.Penalty;
       }
     }
     
@@ -50,7 +54,7 @@ export class AffixUiService {
       affixRank = AffixRank.Best;
     }
 
-    return AffixRank[affixRank];
+    return affixRank;
   }
 
   getAffixTooltip(affix: Affix, option?: CraftableOption): string {
@@ -129,11 +133,7 @@ export class AffixUiService {
 
   getClassForCraftable(craft: Craftable): string {
     perfCount('AffixUiService.getClassForCraftable');
-    if (!craft?.selected?.affixes?.length) {
-      return AffixRank[AffixRank.Irrelevant];
-    }
-    const affix = craft.selected.affixes[0];
-    return this.getClassForAffix(affix, craft.selected);
+    return this.getClassForCraftingOption(craft?.selected);
   }
 
   getClassForCraftingOption(option: CraftableOption): string {
@@ -141,8 +141,19 @@ export class AffixUiService {
     if (!option?.affixes?.length) {
       return AffixRank[AffixRank.Irrelevant];
     }
-    const affix = option.affixes[0];
-    return this.getClassForAffix(affix, option);
+    let optionRank = AffixRank.Irrelevant;
+    for (const affix of option.affixes) {
+      const affixRank = this.getAffixRank(affix, option);
+      if (affixRank === AffixRank.Irrelevant) {
+        continue;
+      }
+      if (optionRank === AffixRank.Irrelevant) {
+        optionRank = affixRank;
+      } else if (optionRank !== affixRank) {
+        return AffixRank[AffixRank.Mixed];
+      }
+    }
+    return AffixRank[optionRank];
   }
 
   private getAffixGroupRank(affixGroup: Affix): AffixRank {

@@ -71,26 +71,24 @@ describe('EquippedService', () => {
     expect(service.isImportantAffix('Universal Spell Power')).toBeFalse();
   });
 
-  it('tracks spell power components when universal spell power is selected', () => {
+  it('does not expand universal spell power into its components when selected', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 
     const addedAffixes = service.addImportantAffix('Universal Spell Power');
 
-    expect(addedAffixes).toContain('Universal Spell Power');
-    expect(addedAffixes).toContain('Fire Spell Power');
+    expect(addedAffixes).toEqual(['Universal Spell Power']);
     expect(service.isImportantAffix('Universal Spell Power')).toBeTrue();
-    expect(service.isImportantAffix('Fire Spell Power')).toBeTrue();
+    expect(service.isImportantAffix('Fire Spell Power')).toBeFalse();
   });
 
-  it('tracks spell lore components when spell lore is selected', () => {
+  it('does not expand spell lore into its components when selected', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 
     const addedAffixes = service.addImportantAffix('Spell Lore');
 
-    expect(addedAffixes).toContain('Spell Lore');
-    expect(addedAffixes).toContain('Force Lore');
+    expect(addedAffixes).toEqual(['Spell Lore']);
     expect(service.isImportantAffix('Spell Lore')).toBeTrue();
-    expect(service.isImportantAffix('Force Lore')).toBeTrue();
+    expect(service.isImportantAffix('Force Lore')).toBeFalse();
   });
 
   it('empties and disables offhand when equipping a non-crossbow two-handed weapon', () => {

@@ -23,36 +23,10 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert groups['Improved Deception'] == ['Bluff']
     assert 'Armor Class (%)' not in groups
     assert 'False Life (%)' not in groups
-    assert groups['Potency'] == [
-        'Negative Spell Power',
-        'Light Spell Power',
-        'Positive Spell Power',
-        'Acid Spell Power',
-        'Fire Spell Power',
-        'Electric Spell Power',
-        'Cold Spell Power',
-        'Repair Spell Power',
-        'Rust Spell Power',
-        'Force Spell Power',
-        'Sonic Spell Power',
-    ]
-    assert groups['Spell Lore'] == [
-        'Negative Lore',
-        'Poison Lore',
-        'Light Lore',
-        'Radiance Lore',
-        'Alignment Lore',
-        'Healing Lore',
-        'Acid Lore',
-        'Fire Lore',
-        'Lightning Lore',
-        'Cold Lore',
-        'Repair Lore',
-        'Rust Lore',
-        'Kinetic Lore',
-        'Force Lore',
-        'Sonic Lore',
-    ]
+    assert groups['Potency'] == module.get_all_spell_power_types()
+    assert groups['Universal Spell Power'] == module.get_all_spell_power_types()
+    assert groups['Spell Lore'] == module.get_all_lore_types()
+    assert groups['Universal Spell Lore'] == module.get_all_lore_types()
     assert groups['Frozen Depths Lore'] == ['Cold Lore', 'Poison Lore', 'Negative Lore']
     assert groups['Frozen Storm Lore'] == ['Cold Lore', 'Lightning Lore']
     assert groups['Radiance'] == ['Light Spell Power', 'Alignment Spell Power']

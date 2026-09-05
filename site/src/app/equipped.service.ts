@@ -696,10 +696,8 @@ export class EquippedService {
       ...(TRACKED_AFFIX_COMPANIONS.get(canonicalAffix) || [])
     ]);
 
-    if (!this.affixSvc.isCompoundAffix(canonicalAffix)) {
-      for (const groupAffix of this.affixSvc.ungroupAffix(new Affix({ name: canonicalAffix, type: '', value: 0 }))) {
-        trackedAffixes.add(this.affixSvc.getCanonicalName(groupAffix.name));
-      }
+    for (const groupAffix of this.affixSvc.ungroupAffix(new Affix({ name: canonicalAffix, type: '', value: 0 }))) {
+      trackedAffixes.add(this.affixSvc.getCanonicalName(groupAffix.name));
     }
 
     return Array.from(trackedAffixes);

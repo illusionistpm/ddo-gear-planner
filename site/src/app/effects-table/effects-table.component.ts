@@ -22,43 +22,7 @@ interface TrackedBonusTypeDisplay {
 
 const UNIVERSAL_SPELL_POWER_AFFIX = 'Universal Spell Power';
 const UNIVERSAL_SPELL_LORE_AFFIX = 'Universal Spell Lore';
-const SPELL_POWER_AFFIXES_WITH_UNIVERSAL_COVERAGE = new Set([
-  'Acid Spell Power',
-  'Alignment Spell Power',
-  'Cold Spell Power',
-  'Electric Spell Power',
-  'Evil Spell Power',
-  'Fire Spell Power',
-  'Force Spell Power',
-  'Light Spell Power',
-  'Negative Spell Power',
-  'Physical Spell Power',
-  'Poison Spell Power',
-  'Positive Spell Power',
-  'Repair Spell Power',
-  'Rust Spell Power',
-  'Sonic Spell Power',
-  'Untyped Spell Power',
-]);
-const LORE_AFFIXES_WITH_UNIVERSAL_COVERAGE = new Set([
-  'Acid Lore',
-  'Alignment Lore',
-  'Cold Lore',
-  'Evil Lore',
-  'Fire Lore',
-  'Force Lore',
-  'Healing Lore',
-  'Kinetic Lore',
-  'Light Lore',
-  'Lightning Lore',
-  'Negative Lore',
-  'Physical Lore',
-  'Poison Lore',
-  'Repair Lore',
-  'Rust Lore',
-  'Sonic Lore',
-  'Untyped Lore',
-]);
+const UNIVERSAL_COMPANION_GROUPS = [UNIVERSAL_SPELL_POWER_AFFIX, UNIVERSAL_SPELL_LORE_AFFIX];
 
 @Component({
     selector: 'app-effects-table',
@@ -556,13 +520,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   private getUniversalCompanionAffixes(affixName: string): string[] {
-    if (SPELL_POWER_AFFIXES_WITH_UNIVERSAL_COVERAGE.has(affixName)) {
-      return [UNIVERSAL_SPELL_POWER_AFFIX];
-    }
-    if (LORE_AFFIXES_WITH_UNIVERSAL_COVERAGE.has(affixName)) {
-      return [UNIVERSAL_SPELL_LORE_AFFIX];
-    }
-    return [];
+    return UNIVERSAL_COMPANION_GROUPS.filter(groupName => this.affixSvc.isGroupMember(affixName, groupName));
   }
 
   private makeDisplayType(sourceAffixName: string, bonusType: string, value: number): TrackedBonusTypeDisplay {

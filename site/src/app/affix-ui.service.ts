@@ -122,7 +122,7 @@ export class AffixUiService {
     }
 
     const value = this.getAffixValue(affix);
-    const bonus = [value, affix.channel, affix.type].filter(part => part).join(' ');
+    const bonus = [value, affix.type].filter(part => part).join(' ');
     return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 

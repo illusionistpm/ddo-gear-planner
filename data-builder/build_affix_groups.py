@@ -10,6 +10,23 @@ def get_all_skills(bonusType = None) -> list[str]:
     return ['Balance', 'Bluff', 'Concentration', 'Diplomacy', 'Disable Device', 'Haggle', 'Heal', 'Hide', 'Intimidate', 'Jump', 'Listen', 'Move Silently', 'Open Lock', 'Perform', 'Repair', 'Search', 'Spellcraft', 'Spot', 'Swim', 'Tumble', 'Use Magic Device']
 
 
+def get_all_spell_power_types() -> list[str]:
+    return [
+        'Acid Spell Power', 'Alignment Spell Power', 'Cold Spell Power', 'Electric Spell Power',
+        'Evil Spell Power', 'Fire Spell Power', 'Force Spell Power', 'Light Spell Power',
+        'Negative Spell Power', 'Physical Spell Power', 'Poison Spell Power', 'Positive Spell Power',
+        'Repair Spell Power', 'Rust Spell Power', 'Sonic Spell Power', 'Untyped Spell Power',
+    ]
+
+
+def get_all_lore_types() -> list[str]:
+    return [
+        'Acid Lore', 'Alignment Lore', 'Cold Lore', 'Evil Lore', 'Fire Lore', 'Force Lore',
+        'Healing Lore', 'Light Lore', 'Lightning Lore', 'Negative Lore', 'Physical Lore',
+        'Poison Lore', 'Repair Lore', 'Rust Lore', 'Sonic Lore', 'Untyped Lore',
+    ]
+
+
 def add(groups: list[AffixGroup], name: str, affixes: list[str]) -> None:
     _validate_affix_names(name, affixes)
     groups.append({
@@ -127,8 +144,11 @@ def build_affix_groups() -> None:
     add(groups, 'Litany of the Dead II - Combat Bonus', ['Accuracy', 'Deadly'])
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
-    add(groups, 'Potency', ['Negative Spell Power', 'Light Spell Power', 'Positive Spell Power', 'Acid Spell Power', 'Fire Spell Power', 'Electric Spell Power', 'Cold Spell Power', 'Repair Spell Power', 'Rust Spell Power', 'Force Spell Power', 'Sonic Spell Power'])
-    add(groups, 'Spell Lore', ['Negative Lore', 'Poison Lore', 'Light Lore', 'Radiance Lore', 'Alignment Lore', 'Healing Lore', 'Acid Lore', 'Fire Lore', 'Lightning Lore', 'Cold Lore', 'Repair Lore', 'Rust Lore', 'Kinetic Lore', 'Force Lore', 'Sonic Lore'])
+    add(groups, 'Potency', get_all_spell_power_types())
+    # Universal Spell Power and Spell Lore DO stack with non-Universal flavors; we handle that at the website level and not in the data
+    add(groups, 'Universal Spell Power', get_all_spell_power_types())
+    add(groups, 'Spell Lore', get_all_lore_types())
+    add(groups, 'Universal Spell Lore', get_all_lore_types())
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
     add(groups, 'Dazing', ['Stunning'])
     add(groups, 'Sundering', ['Shatter'])

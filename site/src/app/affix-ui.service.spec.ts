@@ -62,16 +62,6 @@ describe('AffixUiService', () => {
       .toBe('Skill Gem is:\n- Balance: +5 Competence\n- Spot: +5 Competence');
   });
 
-  it('shows the universal channel before the source type', () => {
-    const service = new AffixUiService({} as any, new AffixService(), {} as any);
-    const option = {
-      name: 'Universal Spell Lore',
-      affixes: [new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 })]
-    } as any;
-
-    expect(service.getCraftingOptionTooltip(option)).toContain('- Fire Lore: +5 Universal Exceptional');
-  });
-
   it('ranks crafting options using all affixes', () => {
     const equipped = {
       getAffixRanking: (affix: Affix) => affix.name === 'Alchemical Earth Attunement'
@@ -102,7 +92,7 @@ describe('AffixUiService', () => {
     expect(service.getAffixTooltip(universalLore)).toBe('Best equipped value');
   });
 
-  it('preserves the source type when expanding universal spell effects', () => {
+  it('preserves the source type and value when expanding universal spell effects', () => {
     const affixService = new AffixService();
     const universalPower = affixService.ungroupAffix(new Affix({
       name: 'Universal Spell Power',
@@ -118,12 +108,10 @@ describe('AffixUiService', () => {
     expect(universalPower.find(affix => affix.name === 'Force Spell Power')).toEqual(jasmine.objectContaining({
       type: 'Artifact',
       value: 15,
-      channel: 'Universal',
     }));
     expect(universalLore.find(affix => affix.name === 'Force Lore')).toEqual(jasmine.objectContaining({
       type: 'Exceptional',
       value: 5,
-      channel: 'Universal',
     }));
   });
 });

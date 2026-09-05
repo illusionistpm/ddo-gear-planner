@@ -148217,7 +148217,8 @@
         ],
         "crafting": [
             "Sun Augment Slot",
-            "Blue Augment Slot"
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 35,
         "name": "Legendary Drow Captain's Mask",
@@ -199142,7 +199143,7 @@
             {
                 "name": "Armor Class",
                 "type": "Shield",
-                "value": "41"
+                "value": "42"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -279179,28 +279180,28 @@
             {
                 "name": "Power of the Moonlit Haunt",
                 "type": "Equipment",
-                "value": "80"
+                "value": "169"
             },
             {
                 "name": "Moonlit Haunt Lore",
                 "type": "Equipment",
-                "value": "12"
+                "value": "25"
             },
             {
-                "name": "Legendary Vacuum",
+                "name": "Legendary Ash",
                 "type": "Bool",
                 "value": 1
             },
             {
                 "name": "Kinetic Intensity",
                 "type": "Quality",
-                "value": "3"
+                "value": "7"
             }
         ],
         "crafting": [
             "Purple Augment Slot"
         ],
-        "ml": 11,
+        "ml": 35,
         "name": "The Butcher's Mind",
         "pack": "Terror of Demogorgon",
         "quests": [
@@ -285138,11 +285139,6 @@
                 "value": "6"
             },
             {
-                "name": "Melee Alacrity",
-                "type": "Enhancement",
-                "value": "15"
-            },
-            {
                 "name": "False Life (%)",
                 "type": "Legendary",
                 "value": "5"
@@ -285151,9 +285147,15 @@
                 "name": "Seeker",
                 "type": "Enhancement",
                 "value": "15"
+            },
+            {
+                "name": "Well Rounded",
+                "type": "Profane",
+                "value": "3"
             }
         ],
         "crafting": [
+            "Nearly Complete: Ability Score",
             "Sun Augment Slot",
             "Green Augment Slot",
             "Colorless Augment Slot"
@@ -286543,7 +286545,7 @@
             {
                 "name": "Rune Arm Imbue: Acid",
                 "type": "Untyped",
-                "value": "2"
+                "value": "6"
             },
             {
                 "name": "Acid Shot",
@@ -286569,10 +286571,16 @@
                 "name": "Rune Arm Charge Rate",
                 "type": "Enhancement",
                 "value": "30"
+            },
+            {
+                "name": "Legendary Ash",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Yellow Augment Slot"
         ],
         "ml": 35,
         "name": "The Unspeakable Maw",
@@ -286594,12 +286602,12 @@
             {
                 "name": "Necromancy Focus",
                 "type": "Equipment",
-                "value": "4"
+                "value": "14"
             },
             {
                 "name": "Negative Spell Power",
                 "type": "Insight",
-                "value": "40"
+                "value": "84"
             },
             {
                 "name": "Legendary Ash",
@@ -286607,15 +286615,15 @@
                 "value": 1
             },
             {
-                "name": "Acid Intensity",
+                "name": "Void Intensity",
                 "type": "Quality",
-                "value": "3"
+                "value": "7"
             }
         ],
         "crafting": [
             "Purple Augment Slot"
         ],
-        "ml": 11,
+        "ml": 35,
         "name": "The Unspeakable Power",
         "pack": "Terror of Demogorgon",
         "quests": [

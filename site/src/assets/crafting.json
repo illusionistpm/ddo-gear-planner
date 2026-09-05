@@ -18686,6 +18686,62 @@
                 ]
             }
         ],
+        "The Prince of Demons": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            }
+        ],
         "The Shadow King's Cruelty": [
             {
                 "affixes": [
@@ -46314,18 +46370,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Evil damage on critical hit",
-                        "type": "Bool",
-                        "value": 1
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Fire Absorption",
                         "type": "Enhancement",
                         "value": "30"
@@ -46430,6 +46474,18 @@
                         "name": "Negative Spell Power",
                         "type": "Quality",
                         "value": "37"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative damage on critical hit",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "quests": [

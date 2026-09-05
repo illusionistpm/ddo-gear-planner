@@ -333,39 +333,87 @@
     },
     {
         "affixes": [
-            "Negative Spell Power",
-            "Light Spell Power",
-            "Positive Spell Power",
             "Acid Spell Power",
-            "Fire Spell Power",
-            "Electric Spell Power",
+            "Alignment Spell Power",
             "Cold Spell Power",
+            "Electric Spell Power",
+            "Evil Spell Power",
+            "Fire Spell Power",
+            "Force Spell Power",
+            "Light Spell Power",
+            "Negative Spell Power",
+            "Physical Spell Power",
+            "Poison Spell Power",
+            "Positive Spell Power",
             "Repair Spell Power",
             "Rust Spell Power",
-            "Force Spell Power",
-            "Sonic Spell Power"
+            "Sonic Spell Power",
+            "Untyped Spell Power"
         ],
         "name": "Potency"
     },
     {
         "affixes": [
-            "Negative Lore",
-            "Poison Lore",
-            "Light Lore",
-            "Radiance Lore",
-            "Alignment Lore",
-            "Healing Lore",
+            "Acid Spell Power",
+            "Alignment Spell Power",
+            "Cold Spell Power",
+            "Electric Spell Power",
+            "Evil Spell Power",
+            "Fire Spell Power",
+            "Force Spell Power",
+            "Light Spell Power",
+            "Negative Spell Power",
+            "Physical Spell Power",
+            "Poison Spell Power",
+            "Positive Spell Power",
+            "Repair Spell Power",
+            "Rust Spell Power",
+            "Sonic Spell Power",
+            "Untyped Spell Power"
+        ],
+        "name": "Universal Spell Power"
+    },
+    {
+        "affixes": [
             "Acid Lore",
-            "Fire Lore",
-            "Lightning Lore",
+            "Alignment Lore",
             "Cold Lore",
+            "Evil Lore",
+            "Fire Lore",
+            "Force Lore",
+            "Healing Lore",
+            "Light Lore",
+            "Lightning Lore",
+            "Negative Lore",
+            "Physical Lore",
+            "Poison Lore",
             "Repair Lore",
             "Rust Lore",
-            "Kinetic Lore",
-            "Force Lore",
-            "Sonic Lore"
+            "Sonic Lore",
+            "Untyped Lore"
         ],
         "name": "Spell Lore"
+    },
+    {
+        "affixes": [
+            "Acid Lore",
+            "Alignment Lore",
+            "Cold Lore",
+            "Evil Lore",
+            "Fire Lore",
+            "Force Lore",
+            "Healing Lore",
+            "Light Lore",
+            "Lightning Lore",
+            "Negative Lore",
+            "Physical Lore",
+            "Poison Lore",
+            "Repair Lore",
+            "Rust Lore",
+            "Sonic Lore",
+            "Untyped Lore"
+        ],
+        "name": "Universal Spell Lore"
     },
     {
         "affixes": [

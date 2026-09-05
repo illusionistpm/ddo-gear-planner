@@ -73,13 +73,13 @@
             </select>
           } @else {
             {{row.craft.name}}
-            @if (row.selectedAffixGroup) {
-              <i class="fas fa-eye small ms-1" [title]="row.selectedGroupTooltip"></i>
-            }
+          }
+          @if (row.selectedOptionTooltip) {
+            <i class="fas fa-eye small ms-1" [title]="row.selectedOptionTooltip"></i>
           }
         </div>
         @if (!readonly) {
-          <div class="col-8">
+          <div class="col-8 d-flex align-items-center">
             <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
               @for (optionRow of row.options; track optionRow.description) {
                 <option [ngValue]="optionRow.option"

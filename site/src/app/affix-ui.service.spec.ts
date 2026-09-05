@@ -39,4 +39,25 @@ describe('AffixUiService', () => {
     expect(service.getAffixGroupTooltip(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 })))
       .toBe('Purifying Flame Lore is:\n- Fire Lore: +21 Enhancement\n- Radiance Lore: +21 Enhancement');
   });
+
+  it('describes crafting option affixes', () => {
+    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const option = { name: 'Flamehorn', affixes: [new Affix({ name: 'Legendary Ash', type: 'Bool', value: 1 })] } as any;
+
+    expect(service.getCraftingOptionTooltip(option))
+      .toBe('Flamehorn is:\n- Legendary Ash');
+  });
+
+  it('expands crafting option affix groups', () => {
+    const affixSvc = new AffixService();
+    affixSvc.affixGroups.set('All Skills', ['Balance', 'Spot']);
+    const service = new AffixUiService({} as any, affixSvc, {} as any);
+    const option = {
+      name: 'Skill Gem',
+      affixes: [new Affix({ name: 'All Skills', type: 'Competence', value: 5 })]
+    } as any;
+
+    expect(service.getCraftingOptionTooltip(option))
+      .toBe('Skill Gem is:\n- Balance: +5 Competence\n- Spot: +5 Competence');
+  });
 });

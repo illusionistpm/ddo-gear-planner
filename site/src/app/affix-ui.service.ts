@@ -106,6 +106,17 @@ export class AffixUiService {
     return groupAffixes.length ? affix.name + ' is:\n' + groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n') : '';
   }
 
+  getCraftingOptionTooltip(option: CraftableOption): string {
+    perfCount('AffixUiService.getCraftingOptionTooltip');
+    if (!option?.affixes?.length) return '';
+    const optionName = option.name || option.set || option.describe(false);
+    const optionAffixes = option.affixes.flatMap(affix => {
+      const expandedAffixes = this.affixSvc.ungroupAffix(affix);
+      return expandedAffixes.length ? expandedAffixes : [affix];
+    });
+    return optionName + ' is:\n' + optionAffixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n');
+  }
+
   private getAffixDescription(affix: Affix): string {
     if (affix.type === 'Bool' && affix.value === 1) {
       return affix.name;

@@ -40,6 +40,7 @@ interface CraftingDisplayRow {
   important: boolean;
   selectedAffixGroup: boolean;
   selectedGroupTooltip: string;
+  selectedOptionTooltip: string;
   options: CraftingOptionDisplayRow[];
   optionsRanked: boolean;
   optionsLoaded: boolean;
@@ -183,6 +184,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
+        selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(craft.selected),
         options: this.buildCraftingOptionRows(craft, this.rankedCraftingOptions.has(craft), this.loadedCraftingOptions.has(craft)),
         optionsRanked: this.readonly || this.rankedCraftingOptions.has(craft),
         optionsLoaded: this.readonly || this.loadedCraftingOptions.has(craft)
@@ -235,12 +237,18 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     const options = includeAllOptions ? (craft.options || []) : [craft.selected];
-    const rows = options.map(option => ({
-      option,
-      className: includeRank ? this.affixUi.getClassForCraftingOption(option) : undefined,
-      tooltip: includeRank && option.affixes?.[0] ? this.affixUi.getAffixTooltip(option.affixes[0], option) : undefined,
-      description: option.describe()
-    }));
+    const rows = options.map(option => {
+      const rankingTooltip = includeRank && option.affixes?.[0]
+        ? this.affixUi.getAffixTooltip(option.affixes[0], option)
+        : '';
+      const optionTooltip = this.affixUi.getCraftingOptionTooltip(option);
+      return {
+        option,
+        className: includeRank ? this.affixUi.getClassForCraftingOption(option) : undefined,
+        tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n') || undefined,
+        description: option.describe()
+      };
+    });
     done({
       rows: rows.length,
       rankedRows: includeRank ? rows.length : 0,

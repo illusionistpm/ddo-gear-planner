@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
@@ -16,7 +16,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class ItemSuggestionsComponent implements OnInit {
+export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   @Input() slot!: string;
 
   current: Observable<Item> | null = null;
@@ -25,14 +25,20 @@ export class ItemSuggestionsComponent implements OnInit {
   essenceCrafting: Array<Item> = [];
   searchQuery = '';
   private suggestedGear: Array<Item> = [];
+  private userItemsChangedSubscription?: Subscription;
 
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
     public userGear: UserGearService,
     private analytics: AnalyticsService,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private changeDetector: ChangeDetectorRef
   ) { }
+
+  ngOnDestroy() {
+    this.userItemsChangedSubscription?.unsubscribe();
+  }
 
   userOwnsItem(item: Item): boolean {
     return !!item?.name && this.userGear.hasItem(item.name);
@@ -44,6 +50,9 @@ export class ItemSuggestionsComponent implements OnInit {
 
   ngOnInit() {
     const done = perfStart('ItemSuggestionsComponent.ngOnInit');
+    this.userItemsChangedSubscription = this.userGear.userItemsChanged$.subscribe(() => {
+      this.changeDetector.markForCheck();
+    });
     this.current = this.equipped.getSlot(this.slot);
 
     const shortlist: Array<Item> = [];

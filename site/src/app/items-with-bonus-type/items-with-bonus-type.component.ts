@@ -1,5 +1,6 @@
 import { UserGearService, UserItemLocation } from '../user-gear.service';
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { GearDbService } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
@@ -22,7 +23,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
+export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges {
   @Input() sortOwnedToTop: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
@@ -75,6 +76,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   previewItem: Item | null = null;
   previewItems: Item[] = [];
   previewIndex = -1;
+  private userItemsChangedSubscription?: Subscription;
 
   constructor(
     public gearDB: GearDbService,
@@ -84,8 +86,13 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
     public affixUi: AffixUiService,
     private analytics: AnalyticsService,
     private questService: QuestService,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private changeDetector: ChangeDetectorRef
   ) {
+  }
+
+  ngOnDestroy() {
+    this.userItemsChangedSubscription?.unsubscribe();
   }
 
   userOwnsItem(item: Item): boolean {
@@ -101,6 +108,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.userItemsChangedSubscription = this.userGear.userItemsChanged$.subscribe(() => {
+      this.updateSorting();
+      this.changeDetector.markForCheck();
+    });
     if (this.affixName && this.bonusType) {
       this.refreshMatches();
     }

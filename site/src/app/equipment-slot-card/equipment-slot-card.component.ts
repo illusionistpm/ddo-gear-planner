@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../analytics.service';
@@ -24,12 +24,14 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   itemName = '';
   isArtifact = false;
   private slotSubscription?: Subscription;
+  private userItemsChangedSubscription?: Subscription;
 
   constructor(
     public equipped: EquippedService,
     public userGear: UserGearService,
     private analytics: AnalyticsService,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   @HostBinding('class.recommended-start-slot')
@@ -50,10 +52,14 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const slot = this.equipped.getSlot(this.slot);
     this.slotSubscription = slot?.subscribe(item => this.setItem(item));
+    this.userItemsChangedSubscription = this.userGear.userItemsChanged$.subscribe(() => {
+      this.changeDetector.markForCheck();
+    });
   }
 
   ngOnDestroy() {
     this.slotSubscription?.unsubscribe();
+    this.userItemsChangedSubscription?.unsubscribe();
   }
 
   userOwnsItem(): boolean {

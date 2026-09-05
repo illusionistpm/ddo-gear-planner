@@ -89,6 +89,17 @@
   margin-bottom: 0.45rem;
 }
 
+.owned-gear-help {
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  margin: 0 0 0.65rem;
+}
+
+.owned-gear-help code {
+  overflow-wrap: anywhere;
+}
+
 .pack-filter-panel {
   max-height: 18rem;
   overflow-y: auto;

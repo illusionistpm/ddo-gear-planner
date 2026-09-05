@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 
 export interface UserItemLocation {
@@ -19,6 +20,8 @@ export class UserGearService {
   // Map of item name (lowercase) to UserGearEntry
   private userItems: Map<string, UserGearEntry> = new Map();
   private storageKey = 'ddo-user-gear';
+  private userItemsChangedSubject = new Subject<void>();
+  readonly userItemsChanged$ = this.userItemsChangedSubject.asObservable();
 
   setUserItems(items: { itemName: string, location: UserItemLocation }[], validNames: Set<string>) {
     this.userItems.clear();
@@ -31,6 +34,7 @@ export class UserGearService {
       this.userItems.get(key)!.locations.push(entry.location);
     }
     this.saveToStorage();
+    this.userItemsChangedSubject.next();
   }
 
   /**
@@ -80,6 +84,7 @@ export class UserGearService {
   clear() {
     this.userItems.clear();
     localStorage.removeItem(this.storageKey);
+    this.userItemsChangedSubject.next();
   }
 
   saveToStorage() {

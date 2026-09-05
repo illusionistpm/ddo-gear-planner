@@ -40,10 +40,14 @@
 
     <section class="filter-panel">
       <h4 class="filter-panel-title">Owned Gear</h4>
-      <label for="trove-upload" class="btn btn-success btn-sm w-100 mb-2"
-        data-bs-toggle="tooltip"
-        data-bs-html="true"
-        title="Users of Dungeon Helper Trove can show the planner what gear they have to help choose items they already own. Manually export the CSV file in Trove then load it here. After export, it typically lives in C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\. The data stays on your computer and will be used automatically until you clear it.">Load TroveExport.csv</label>
+      <p class="owned-gear-help">
+        <a href='https://dungeonhelper.com/'>Dungeon Helper</a>'s Trove plugin can extract your owned gear from the game and export it to a CSV file. 
+        Uploading that file here will label the gear that you already own.
+        After exporting, the file typically lives at
+        <code>C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\</code>.
+        Your item data is private and never leaves your computer.
+      </p>
+      <label for="trove-upload" class="btn btn-success btn-sm w-100 mb-2">Load TroveExport.csv</label>
       <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
       @if (userGearCount !== undefined) {
         <div class="owned-gear-status">

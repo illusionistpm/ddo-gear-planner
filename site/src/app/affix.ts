@@ -2,6 +2,7 @@ export class Affix {
     name: string = '';
     value: number = 0;
     type: string = '';
+    channel: string = '';
     description: string = '';
 
     static isRealType(type: string) {
@@ -12,6 +13,7 @@ export class Affix {
         this.name = json?.name ?? '';
         this.value = Number(json?.value ?? 0);
         this.type = json?.type ?? '';
+        this.channel = json?.channel ?? '';
     }
 
     hasRealType() {

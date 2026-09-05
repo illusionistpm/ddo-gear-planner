@@ -12,6 +12,50 @@ interface AffixGroupJson {
   components?: Array<{ name: string; type: string; value: number | string }>;
 }
 
+const UNIVERSAL_SPELL_POWER_COMPONENTS = [
+  'Acid Spell Power',
+  'Alignment Spell Power',
+  'Cold Spell Power',
+  'Electric Spell Power',
+  'Evil Spell Power',
+  'Fire Spell Power',
+  'Force Spell Power',
+  'Light Spell Power',
+  'Negative Spell Power',
+  'Physical Spell Power',
+  'Poison Spell Power',
+  'Positive Spell Power',
+  'Repair Spell Power',
+  'Rust Spell Power',
+  'Sonic Spell Power',
+  'Untyped Spell Power',
+];
+
+const UNIVERSAL_SPELL_LORE_COMPONENTS = [
+  'Acid Lore',
+  'Alignment Lore',
+  'Cold Lore',
+  'Evil Lore',
+  'Fire Lore',
+  'Force Lore',
+  'Healing Lore',
+  'Kinetic Lore',
+  'Light Lore',
+  'Lightning Lore',
+  'Negative Lore',
+  'Physical Lore',
+  'Poison Lore',
+  'Repair Lore',
+  'Rust Lore',
+  'Sonic Lore',
+  'Untyped Lore',
+];
+
+const COMPOUND_AFFIX_COMPONENTS = new Map<string, Array<string>>([
+  ['Universal Spell Lore', UNIVERSAL_SPELL_LORE_COMPONENTS],
+  ['Universal Spell Power', UNIVERSAL_SPELL_POWER_COMPONENTS],
+]);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +96,17 @@ export class AffixService {
 
   ungroupAffix(affixGroup: Affix) {
     const affixes = [];
+    const compoundComponents = COMPOUND_AFFIX_COMPONENTS.get(affixGroup.name);
+    if (compoundComponents) {
+      for (const affixName of compoundComponents) {
+        const affix = new Affix(affixGroup);
+        affix.name = affixName;
+        affix.channel = 'Universal';
+        affixes.push(affix);
+      }
+      return affixes;
+    }
+
     const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
     if (fixedAffixes) {
       for (const fixedAffix of fixedAffixes) {
@@ -131,8 +186,11 @@ export class AffixService {
   }
 
   isAffixGroup(affix: Affix) {
-    const affixNames = this.affixGroups.get(affix.name);
-    return affixNames != undefined;
+    return COMPOUND_AFFIX_COMPONENTS.has(affix.name) || this.affixGroups.has(affix.name);
+  }
+
+  isCompoundAffix(affixName: string) {
+    return COMPOUND_AFFIX_COMPONENTS.has(affixName);
   }
 
   getActiveAffixes(item: Item) {

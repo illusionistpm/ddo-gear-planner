@@ -69,12 +69,7 @@ export class AffixUiService {
       }
     }
 
-    let affixRank = this.equipped.getAffixRanking(affix);
-    if (affixRank === AffixRank.Irrelevant) {
-      if (this.affixSvc.isAffixGroup(affix)) {
-        affixRank = this.getAffixGroupRank(affix);
-      }
-    }
+    const affixRank = this.getAffixRank(affix, option);
 
     let tooltip = '';
     switch (affixRank) {
@@ -127,7 +122,7 @@ export class AffixUiService {
     }
 
     const value = this.getAffixValue(affix);
-    const bonus = [value, affix.type].filter(part => part).join(' ');
+    const bonus = [value, affix.channel, affix.type].filter(part => part).join(' ');
     return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 

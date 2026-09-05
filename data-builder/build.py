@@ -7,7 +7,7 @@ from parse_essence_crafting import parse_essence_crafting
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
-from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description
+from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds
 import argparse
 from get_output_path import get_output_path
 from parse_item_types import parse_item_types
@@ -86,6 +86,14 @@ def build_data(clearCache, discordURL):
     diffStats = diff_data_stats(newStats, oldStats)
 
     diffStr = get_data_stats_description(newStats, diffStats)
+
+    thresholdViolations = check_stats_thresholds(newStats, oldStats)
+    if thresholdViolations:
+        print('Data stats dropped more than expected compared to the previous build:')
+        for violation in thresholdViolations:
+            print(f" - {violation}")
+        print('Aborting data build. If this drop is expected, investigate the parser output before re-running.')
+        raise SystemExit(1)
 
     if discordURL:
         message = "Data Changes:\n"

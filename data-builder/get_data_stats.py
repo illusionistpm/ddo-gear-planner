@@ -31,7 +31,32 @@ def diff_data_stats(newStats, oldStats):
             diff[k][field] = newStats[k][field] - oldStats[k][field]
 
     return diff
-        
+
+
+def check_stats_thresholds(newStats, oldStats, threshold=0.1):
+    """Flag any metric that dropped by more than `threshold` (fraction) from oldStats to newStats.
+
+    Metrics with an old value of 0 are skipped since a percentage drop is meaningless there.
+    Returns a list of human-readable violation messages; empty if nothing breached the threshold.
+    """
+    violations = []
+
+    for category, fields in newStats.items():
+        oldFields = oldStats.get(category, {})
+        for field, newValue in fields.items():
+            oldValue = oldFields.get(field, 0)
+            if oldValue <= 0:
+                continue
+
+            drop = (oldValue - newValue) / oldValue
+            if drop > threshold:
+                violations.append(
+                    f"{category} - {field}: dropped {drop:.0%} ({oldValue} -> {newValue}, threshold {threshold:.0%})"
+                )
+
+    return violations
+
+
 
 
 def get_data_stats():

@@ -96,7 +96,12 @@ def get_item_augments_from_page(soup):
 
         craftingEntry['ml'] = int(cells[dataTableMinimumLevelCellIndex].get_text(strip=True))
 
-        affixMapList = get_affix_map_list_from_tag(cells[dataTableEffectsCellIndex].find_all('ul')[0])
+        effectsLists = cells[dataTableEffectsCellIndex].find_all('ul')
+        if not effectsLists:
+            # entry has no parseable affix list (e.g. descriptive text only), skip it
+            continue
+
+        affixMapList = get_affix_map_list_from_tag(effectsLists[0])
 
         affixMap = {}
         affixMapArtifactVariant     = {}

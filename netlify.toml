@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://ddo-gear-planner.netlify.app/*"
+  to = "https://ddo-gear-planner.com/:splat"
+  status = 301
+  force = true

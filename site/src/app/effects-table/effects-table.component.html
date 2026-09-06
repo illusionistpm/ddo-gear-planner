@@ -17,7 +17,7 @@
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
-    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of trackedAffixGroups">
+    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of trackedAffixGroups; trackBy: trackAffixGroup">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
             [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
             <span>{{group.name}}</span>

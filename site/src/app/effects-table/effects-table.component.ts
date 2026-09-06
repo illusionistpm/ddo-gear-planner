@@ -518,6 +518,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return type.label || (type.bonusType ? type.bonusType : 'Untyped');
   }
 
+  trackAffixGroup(index: number, group: TrackedAffixGroupDisplay): string {
+    return group.name;
+  }
+
   trackVisibleType(index: number, type: any): string {
     return (type.sourceAffixName || '') + '\0' + (type.sourceBonusType || type.bonusType);
   }

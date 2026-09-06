@@ -742,6 +742,97 @@ a:focus {
   width: var(--tracked-equipment-action-size, 1.35rem);
 }
 
+.tracked-equipment-sets {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.tracked-equipment-sets-title {
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 0.15rem;
+  text-transform: uppercase;
+}
+
+.tracked-equipment-set {
+  grid-template-columns: minmax(0, 1fr) var(--tracked-equipment-action-size);
+}
+
+.tracked-equipment-set-bonus-list {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.tracked-equipment-set-bonus-row {
+  align-items: baseline;
+  column-gap: 0.4rem;
+  display: grid;
+  font-size: 0.78rem;
+  grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+  padding: 0.2rem 0.4rem;
+}
+
+.tracked-equipment-set-bonus-row:nth-child(odd) {
+  background: var(--row-alt-bg);
+}
+
+.tracked-equipment-set-bonus-row:nth-child(even) {
+  background: var(--row-bg);
+}
+
+.tracked-equipment-set-bonus-row.disabled-set-tier {
+  opacity: 0.48;
+}
+
+.tracked-equipment-set-bonus-threshold {
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.tracked-equipment-set-bonus-name {
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.tracked-equipment-set-bonus-value {
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tracked-equipment-set-bonus-value.BetterThanBest {
+  color: #7c3aed;
+}
+
+.tracked-equipment-set-bonus-value.Best {
+  color: var(--success-color);
+}
+
+.tracked-equipment-set-bonus-value.BestTied {
+  color: var(--primary-color);
+}
+
+.tracked-equipment-set-bonus-value.Outranked {
+  color: var(--warning-color);
+}
+
+.tracked-equipment-set-bonus-value.Irrelevant {
+  color: var(--text-primary);
+}
+
+.tracked-equipment-set-bonus-value.Penalty {
+  color: var(--danger-color);
+  text-decoration: line-through;
+}
+
+.tracked-equipment-set-bonus-value.DisabledSetBonus {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
 .tracked-equipment-clear {
   align-items: center;
   background: var(--surface-elevated-color);

@@ -47,7 +47,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   onboardingTargetChipKey = '';
   equipmentSidebarCollapsed = false;
   suppliedAffixCounts = new Map<string, number>();
+  suppliedSetAffixCounts = new Map<string, number>();
   highlightedEquipmentSlots = new Set<string>();
+  highlightedEquipmentSets = new Set<string>();
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
@@ -155,38 +157,50 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   previewAffixTypeEquipment(affixName: string, type: any) {
+    const sources = this.getSourcesForType(affixName, type);
     this.highlightedEquipmentSlots = new Set(
-      this.getSourcesForType(affixName, type)
-        .filter(source => source.kind === 'item')
-        .map(source => source.slot)
+      sources.filter(source => source.kind === 'item').map(source => source.slot)
+    );
+    this.highlightedEquipmentSets = new Set(
+      sources.filter(source => source.kind === 'set').map(source => source.itemName)
     );
   }
 
   clearAffixTypeEquipmentPreview() {
     this.highlightedEquipmentSlots = new Set<string>();
+    this.highlightedEquipmentSets = new Set<string>();
   }
 
   private refreshSuppliedAffixCounts() {
     const counts = new Map<string, number>();
     for (const slot of this.equipped.getSlotNames()) {
-      counts.set(slot, this.getSuppliedAffixCountForSlot(slot));
+      counts.set(slot, this.countSuppliedAffixes(source => source.kind === 'item' && source.slot === slot));
     }
     this.suppliedAffixCounts = counts;
+
+    const setCounts = new Map<string, number>();
+    for (const [setName] of this.equipped.getActiveSetBonuses()) {
+      const count = this.countSuppliedAffixes(source => source.kind === 'set' && source.itemName === setName);
+      if (count > 0) {
+        setCounts.set(setName, count);
+      }
+    }
+    this.suppliedSetAffixCounts = setCounts;
   }
 
-  private getSuppliedAffixCountForSlot(slot: string): number {
+  private countSuppliedAffixes(predicate: (source: AffixSource) => boolean): number {
     const supplied = new Set<string>();
     for (const group of this.getTrackedAffixGroups()) {
       for (const affixName of group.checklistAffixes) {
         const boolAffix = this.boolAffixMap.get(affixName)?.[0];
-        if (boolAffix && this.getSourcesForType(affixName, boolAffix).some(source => source.slot === slot)) {
+        if (boolAffix && this.getSourcesForType(affixName, boolAffix).some(predicate)) {
           supplied.add(affixName + '\0' + boolAffix.bonusType);
         }
       }
 
       for (const affixName of group.affixes) {
         for (const type of this.getVisibleTypes(affixName)) {
-          if (this.getSourcesForType(affixName, type).some(source => source.slot === slot)) {
+          if (this.getSourcesForType(affixName, type).some(predicate)) {
             supplied.add(this.getSourceAffixName(affixName, type) + '\0' + this.getSourceBonusType(type));
           }
         }

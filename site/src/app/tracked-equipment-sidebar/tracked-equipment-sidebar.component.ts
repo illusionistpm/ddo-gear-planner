@@ -1,13 +1,20 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService } from '../equipped.service';
+import { EquippedService, VisibleSetBonus } from '../equipped.service';
 import { Item } from '../item';
+import { Affix } from '../affix';
+import { AffixUiService } from '../affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 interface TrackedEquipmentSlotDisplay {
   slot: string;
   item: Item | null;
+  suppliedCount: number;
+}
+
+interface TrackedEquipmentSetDisplay {
+  setName: string;
   suppliedCount: number;
 }
 
@@ -18,27 +25,37 @@ interface TrackedEquipmentSlotDisplay {
 })
 export class TrackedEquipmentSidebarComponent implements OnDestroy {
   @Input() suppliedAffixCounts = new Map<string, number>();
+  @Input() suppliedSetAffixCounts = new Map<string, number>();
   @Input() highlightedSlots = new Set<string>();
+  @Input() highlightedSets = new Set<string>();
   @Input() collapsed = false;
   @Output() collapsedChange = new EventEmitter<boolean>();
 
   selectedSlot: string | null = null;
   hoveredSlot: string | null = null;
+  hoveredSet: string | null = null;
   recentlyEquippedSlot: string | null = null;
   private equippedEventsSubscription: Subscription;
+  private setBonusesSubscription: Subscription;
+  private visibleSetBonuses: VisibleSetBonus[] = [];
   private recentlyEquippedTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     public equipped: EquippedService,
+    public affixUi: AffixUiService,
     private suggestionDrawer: SuggestionDrawerService
   ) {
     this.equippedEventsSubscription = this.equipped.getEquippedItemEvents().subscribe(event => {
       this.showRecentlyEquippedSlot(event.slot);
     });
+    this.setBonusesSubscription = this.equipped.getVisibleSetBonusesObservable().subscribe(bonuses => {
+      this.visibleSetBonuses = bonuses;
+    });
   }
 
   ngOnDestroy() {
     this.equippedEventsSubscription.unsubscribe();
+    this.setBonusesSubscription.unsubscribe();
     if (this.recentlyEquippedTimeout) {
       clearTimeout(this.recentlyEquippedTimeout);
     }
@@ -49,6 +66,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     if (this.collapsed) {
       this.selectedSlot = null;
       this.hoveredSlot = null;
+      this.hoveredSet = null;
     }
     this.collapsedChange.emit(this.collapsed);
   }
@@ -63,6 +81,42 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
       });
     }
     return slots;
+  }
+
+  getActiveSetDisplays(): TrackedEquipmentSetDisplay[] {
+    return Array.from(this.suppliedSetAffixCounts.entries())
+      .map(([setName, suppliedCount]) => ({ setName, suppliedCount }))
+      .sort((a, b) => a.setName.localeCompare(b.setName));
+  }
+
+  isHighlightedSet(setName: string): boolean {
+    return this.highlightedSets.has(setName);
+  }
+
+  previewSet(setName: string | null) {
+    this.hoveredSet = setName;
+  }
+
+  clearPreviewSet(setName: string | null) {
+    if (this.hoveredSet === setName) {
+      this.hoveredSet = null;
+    }
+  }
+
+  getFocusedSetBonus(): VisibleSetBonus | null {
+    if (this.collapsed || !this.hoveredSet) {
+      return null;
+    }
+
+    return this.visibleSetBonuses.find(bonus => bonus.setName === this.hoveredSet) || null;
+  }
+
+  getSetAffixValue(affix: Affix): string {
+    return this.affixUi.getAffixValue(affix);
+  }
+
+  getClassForSetAffix(affix: Affix, eligible: boolean): string {
+    return eligible ? this.affixUi.getClassForAffix(affix) : 'DisabledSetBonus';
   }
 
   getFocusedItem(): Item | null {

@@ -50,6 +50,25 @@
                 </div>
             }
             </div>
+            @if (getActiveSetDisplays().length) {
+                <div class="tracked-equipment-sets">
+                    <div class="tracked-equipment-sets-title">Sets</div>
+                    @for (setEntry of getActiveSetDisplays(); track setEntry.setName) {
+                        <div class="tracked-equipment-slot-shell tracked-equipment-set-shell"
+                            [class.focused]="hoveredSet === setEntry.setName"
+                            [class.affix-source-highlight]="isHighlightedSet(setEntry.setName)"
+                            (mouseenter)="previewSet(setEntry.setName)"
+                            (mouseleave)="clearPreviewSet(setEntry.setName)">
+                            <div class="tracked-equipment-slot tracked-equipment-set">
+                                <span class="tracked-equipment-item-name">{{setEntry.setName}}</span>
+                                @if (setEntry.suppliedCount) {
+                                    <span class="tracked-equipment-source-count">{{setEntry.suppliedCount}}</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         }
 
     </aside>
@@ -61,6 +80,27 @@
                 <strong>{{getFocusedItem()?.name}}</strong>
             </div>
             <app-gear-description [item]="getFocusedItem()" [readonly]="true" [equipOnChange]="false"></app-gear-description>
+        </div>
+    }
+
+    @if (!collapsed && getFocusedSetBonus(); as setBonus) {
+        <div class="tracked-equipment-card" role="status">
+            <div class="tracked-equipment-card-title">
+                <span>Set</span>
+                <strong>{{setBonus.setName}}</strong>
+            </div>
+            <div class="tracked-equipment-set-bonus-list">
+                @for (tier of setBonus.tiers; track tier.threshold) {
+                    @for (affix of tier.affixes; track $index) {
+                        <div class="tracked-equipment-set-bonus-row" [class.disabled-set-tier]="!tier.eligible">
+                            <span class="tracked-equipment-set-bonus-threshold">{{tier.threshold}} pc</span>
+                            <span class="tracked-equipment-set-bonus-name">{{affix.name}}</span>
+                            <span class="tracked-equipment-set-bonus-value"
+                                [ngClass]="getClassForSetAffix(affix, tier.eligible)">{{getSetAffixValue(affix)}} {{affix.type}}</span>
+                        </div>
+                    }
+                }
+            </div>
         </div>
     }
 </div>

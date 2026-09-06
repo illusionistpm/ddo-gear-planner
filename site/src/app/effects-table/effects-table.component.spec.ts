@@ -352,10 +352,12 @@ describe('EffectsTableComponent', () => {
 
     expect(component.highlightedEquipmentSlots.has('Goggles')).toBeTrue();
     expect(component.highlightedEquipmentSlots.has('Set')).toBeFalse();
+    expect(component.highlightedEquipmentSets.has('Focused Sight')).toBeTrue();
 
     component.clearAffixTypeEquipmentPreview();
 
     expect(component.highlightedEquipmentSlots.size).toBe(0);
+    expect(component.highlightedEquipmentSets.size).toBe(0);
   });
 
   it('tracks visible type rows without depending on component method binding', () => {

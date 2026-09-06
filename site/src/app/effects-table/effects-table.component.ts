@@ -22,7 +22,12 @@ interface TrackedBonusTypeDisplay {
 
 const UNIVERSAL_SPELL_POWER_AFFIX = 'Universal Spell Power';
 const UNIVERSAL_SPELL_LORE_AFFIX = 'Universal Spell Lore';
-const UNIVERSAL_COMPANION_GROUPS = [UNIVERSAL_SPELL_POWER_AFFIX, UNIVERSAL_SPELL_LORE_AFFIX];
+const UNIVERSAL_SPELL_CRITICAL_DAMAGE_AFFIX = 'Universal Spell Critical Damage';
+const UNIVERSAL_COMPANION_GROUPS = [
+  UNIVERSAL_SPELL_POWER_AFFIX,
+  UNIVERSAL_SPELL_LORE_AFFIX,
+  UNIVERSAL_SPELL_CRITICAL_DAMAGE_AFFIX,
+];
 
 @Component({
     selector: 'app-effects-table',
@@ -549,7 +554,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   private getDisplayTypeLabel(sourceAffixName: string, bonusType: string): string {
     const label = bonusType ? bonusType : 'Untyped';
-    return sourceAffixName === UNIVERSAL_SPELL_POWER_AFFIX || sourceAffixName === UNIVERSAL_SPELL_LORE_AFFIX
+    return UNIVERSAL_COMPANION_GROUPS.includes(sourceAffixName)
       ? 'Universal ' + label
       : label;
   }

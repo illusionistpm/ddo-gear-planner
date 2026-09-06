@@ -3,14 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { EquippedService } from './equipped.service';
 import { Item } from './item';
 
-function makeItem(name: string, slot: string, type: string, affixes: Array<any> = []) {
+function makeItem(name: string, slot: string, type: string, affixes: Array<any> = [], sets: Array<string> = []) {
   return new Item({
     name,
     slot,
     type,
     ml: 1,
     affixes,
-    sets: [],
+    sets,
     url: '/page/' + name.replace(/ /g, '_'),
     crafting: [],
     quests: [],
@@ -162,6 +162,24 @@ describe('EquippedService', () => {
     subscription.unsubscribe();
 
     expect(events).toEqual([{ slot: 'Gloves', itemName: 'Flashy Gloves' }]);
+  });
+
+  it('reports set-granted affix-group bonuses on the tracked member affixes', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const setName = 'Legendary Delight of the Devourer';
+
+    service.addImportantAffix('Kinetic Intensity');
+
+    service.set(makeItem('Devourer Gloves', 'Gloves', 'Gloves', [], [setName]));
+    service.set(makeItem('Devourer Belt', 'Belt', 'Belts', [], [setName]));
+    service.set(makeItem('Devourer Boots', 'Boots', 'Boots', [], [setName]));
+
+    expect(service.getCurrentValueForAffixType('Kinetic Intensity', 'Legendary')).toBe(15);
+
+    let covered = new Map<string, Array<any>>();
+    service.getCoveredAffixes().subscribe(map => (covered = map)).unsubscribe();
+    const legendary = covered.get('Kinetic Intensity')?.find(type => type.bonusType === 'Legendary');
+    expect(legendary?.value).toBe(15);
   });
 
   it('persists named crafting choices that do not add affixes', () => {

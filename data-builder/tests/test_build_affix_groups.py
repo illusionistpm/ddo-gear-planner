@@ -27,6 +27,9 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert groups['Universal Spell Power'] == module.get_all_spell_power_types()
     assert groups['Spell Lore'] == module.get_all_lore_types()
     assert groups['Universal Spell Lore'] == module.get_all_lore_types()
+    assert groups['Spell Critical Damage'] == module.get_all_spell_crit_damage_types()
+    assert groups['Universal Spell Critical Damage'] == module.get_all_spell_crit_damage_types()
+    assert 'Void Intensity' in module.get_all_spell_crit_damage_types()
     assert groups['Frozen Depths Lore'] == ['Cold Lore', 'Poison Lore', 'Negative Lore']
     assert groups['Frozen Storm Lore'] == ['Cold Lore', 'Lightning Lore']
     assert groups['Radiance'] == ['Light Spell Power', 'Alignment Spell Power']

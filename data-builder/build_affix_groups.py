@@ -19,6 +19,14 @@ def get_all_spell_power_types() -> list[str]:
     ]
 
 
+def get_all_spell_crit_damage_types() -> list[str]:
+    return [
+        'Acid Intensity', 'Fire Intensity', 'Healing Intensity', 'Ice Intensity',
+        'Kinetic Intensity', 'Lightning Intensity', 'Radiance Intensity', 'Repair Intensity',
+        'Sonic Intensity', 'Void Intensity',
+    ]
+
+
 def get_all_lore_types() -> list[str]:
     return [
         'Acid Lore', 'Alignment Lore', 'Cold Lore', 'Evil Lore', 'Fire Lore', 'Force Lore',
@@ -149,6 +157,9 @@ def build_affix_groups() -> None:
     add(groups, 'Universal Spell Power', get_all_spell_power_types())
     add(groups, 'Spell Lore', get_all_lore_types())
     add(groups, 'Universal Spell Lore', get_all_lore_types())
+    # Universal Spell Critical Damage stacks with the individual Intensity affixes, same as the Universal Spell Power / Lore flavors
+    add(groups, 'Spell Critical Damage', get_all_spell_crit_damage_types())
+    add(groups, 'Universal Spell Critical Damage', get_all_spell_crit_damage_types())
     add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
     add(groups, 'Dazing', ['Stunning'])
     add(groups, 'Sundering', ['Shatter'])

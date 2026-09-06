@@ -232,8 +232,11 @@ export class EquippedService {
   }
 
   private refreshDerivedState() {
-    this._updateCoveredAffixes(false);
+    // Active set bonuses must be recomputed first: covered affix values are
+    // derived from them (a set can supply an affix-group bonus like
+    // "Spell Critical Damage" that resolves onto tracked member affixes).
     this._updateActiveSetBonuses();
+    this._updateCoveredAffixes(false);
   }
 
   _updateRouterState() {

@@ -5,8 +5,8 @@ import { EquippedService } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
 import { AnalyticsService } from '../analytics.service';
-import { ThemeService } from '../theme.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 
 import { AffixCloud } from '../affix-cloud';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
@@ -55,8 +55,8 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     public gearDB: GearDbService,
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
-    public theme: ThemeService,
-    private onboarding: PlannerOnboardingService
+    private onboarding: PlannerOnboardingService,
+    private affixBuilder: AffixBuilderDrawerService
   ) {
     this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
@@ -110,8 +110,8 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     this.onboardingSubscription?.unsubscribe();
   }
 
-  toggleTheme() {
-    this.theme.toggleTheme();
+  isSetupMode(): boolean {
+    return this.affixBuilder.mode === 'setup';
   }
 
   _initPackages() {

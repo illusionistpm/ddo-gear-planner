@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EquippedService, VisibleSetBonus } from '../equipped.service';
@@ -28,8 +28,6 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   @Input() suppliedSetAffixCounts = new Map<string, number>();
   @Input() highlightedSlots = new Set<string>();
   @Input() highlightedSets = new Set<string>();
-  @Input() collapsed = false;
-  @Output() collapsedChange = new EventEmitter<boolean>();
 
   selectedSlot: string | null = null;
   hoveredSlot: string | null = null;
@@ -61,14 +59,8 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     }
   }
 
-  toggle() {
-    this.collapsed = !this.collapsed;
-    if (this.collapsed) {
-      this.selectedSlot = null;
-      this.hoveredSlot = null;
-      this.hoveredSet = null;
-    }
-    this.collapsedChange.emit(this.collapsed);
+  openFullView() {
+    this.equipped.setActiveMainTab('equipment');
   }
 
   getEquippedSlots(): TrackedEquipmentSlotDisplay[] {
@@ -104,7 +96,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   }
 
   getFocusedSetBonus(): VisibleSetBonus | null {
-    if (this.collapsed || !this.hoveredSet) {
+    if (!this.hoveredSet) {
       return null;
     }
 

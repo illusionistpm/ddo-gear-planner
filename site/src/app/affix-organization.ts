@@ -206,6 +206,13 @@ export function getAffixCategory(affixName: string, affixSvc?: AffixService): st
   return childCategories.size === 1 ? Array.from(childCategories)[0] : 'Other';
 }
 
+// Shared with the tracked-affix category color coding (see the
+// .tracked-affix-section-* rules in styles.css) so any view grouping affixes by
+// this same category system can reuse the same accent per category.
+export function getAffixGroupCssClass(groupName: string): string {
+  return 'tracked-affix-section-' + groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 export function groupAffixNames(
   affixNames: Iterable<string>,
   query: string,

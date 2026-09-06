@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs';
 import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affix.service';
-import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
+import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affix-availability.service';
 
 interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
@@ -68,7 +69,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
   onboardingTargetChipKey = '';
-  equipmentSidebarCollapsed = false;
   suppliedAffixCounts = new Map<string, number>();
   suppliedSetAffixCounts = new Map<string, number>();
   highlightedEquipmentSlots = new Set<string>();
@@ -89,6 +89,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private affixSvc: AffixService,
     private onboarding: PlannerOnboardingService,
     private suggestionDrawer: SuggestionDrawerService,
+    private affixBuilder: AffixBuilderDrawerService,
     private availability: AffixAvailabilityService
   ) {
     this.affixNames = [];
@@ -198,6 +199,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   setGroupMode(mode: TrackedAffixGroupMode) {
     this.equipped.setTrackedAffixGroupMode(mode);
+  }
+
+  openBuilder() {
+    this.affixBuilder.open('edit');
   }
 
   /**
@@ -605,7 +610,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   getAffixGroupClass(groupName: string): string {
-    return 'tracked-affix-section-' + groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return getAffixGroupCssClass(groupName);
   }
 
   toggleAffixGroup(groupName: string) {

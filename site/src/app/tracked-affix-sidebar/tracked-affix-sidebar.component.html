@@ -1,0 +1,87 @@
+<div class="affix-summary-dock">
+    <aside class="affix-summary-rail" aria-label="Tracked affix coverage">
+        <div class="affix-summary-sticky">
+            <div class="affix-summary-header">
+                <button type="button" class="affix-summary-nav"
+                    title="Open the full Tracked Affixes view"
+                    (click)="openFullView()">
+                    <span>Tracked Affixes</span>
+                    <span class="fas fa-external-link-alt affix-summary-nav-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <button type="button" class="affix-summary-add" (click)="openBuilder()">
+                <span class="fas fa-plus" aria-hidden="true"></span>
+                <span>Add / edit affixes</span>
+            </button>
+        </div>
+
+        @if (!trackedCount) {
+            <div class="affix-summary-empty">
+                No affixes tracked yet. Use <button type="button" class="affix-summary-empty-link" (click)="openBuilder()">Add / edit affixes</button> to choose what the planner should cover.
+            </div>
+        } @else {
+            <div class="affix-summary-groups">
+                @for (group of groups; track trackGroup($index, group)) {
+                    <section class="affix-summary-group" [ngClass]="getGroupClass(group.name)">
+                        <button type="button" class="affix-summary-group-title"
+                            [attr.aria-expanded]="!isGroupCollapsed(group.name)"
+                            (click)="toggleGroup(group.name)">
+                            <span>{{group.name}}</span>
+                            <span class="affix-summary-group-actions">
+                                @if (isGroupCollapsed(group.name)) {
+                                    <span class="affix-summary-group-count">{{group.count}}</span>
+                                }
+                                <span class="affix-summary-collapse-indicator"
+                                    [class.collapsed]="isGroupCollapsed(group.name)" aria-hidden="true">&#8250;</span>
+                            </span>
+                        </button>
+
+                        @if (!isGroupCollapsed(group.name)) {
+                            <div class="affix-summary-list">
+                                @for (affix of group.affixes; track affix.name) {
+                                    <div class="affix-summary-row" [class.is-checklist]="affix.isChecklist">
+                                        <div class="affix-summary-heading">
+                                            <span class="affix-summary-name" [title]="affix.name">{{affix.name}}</span>
+                                            <span class="affix-summary-trailing">
+                                                <button type="button" class="affix-summary-remove"
+                                                    aria-label="Stop tracking {{affix.name}}"
+                                                    title="Stop tracking {{affix.name}}"
+                                                    (click)="removeAffix(affix.name, $event)">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                @if (affix.isChecklist) {
+                                                    <button type="button"
+                                                        class="affix-summary-code"
+                                                        [ngClass]="affix.badges[0].qualityClass"
+                                                        [title]="affix.badges[0].tooltip"
+                                                        [attr.aria-label]="affix.badges[0].tooltip"
+                                                        (click)="openSuggestions(affix.badges[0].sourceAffixName, affix.badges[0].sourceBonusType)">{{affix.badges[0].code}}</button>
+                                                } @else if (affix.currentTotal || affix.maxTotal) {
+                                                    <span class="affix-summary-value"
+                                                        [title]="affix.currentTotal + ' of ' + affix.maxTotal + ' available'">{{affix.currentTotal}}<span class="affix-summary-value-max">/{{affix.maxTotal}}</span></span>
+                                                }
+                                            </span>
+                                        </div>
+                                        @if (!affix.isChecklist) {
+                                            <div class="affix-summary-codes">
+                                                @for (badge of affix.badges; track $index) {
+                                                    <button type="button"
+                                                        class="affix-summary-code"
+                                                        [ngClass]="badge.qualityClass"
+                                                        [title]="badge.tooltip"
+                                                        [attr.aria-label]="badge.tooltip"
+                                                        (click)="openSuggestions(badge.sourceAffixName, badge.sourceBonusType)">{{badge.code}}</button>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </section>
+                }
+            </div>
+        }
+    </aside>
+</div>

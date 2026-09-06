@@ -204,8 +204,8 @@
 
 .tracked-bonus-chip:hover,
 .tracked-bonus-chip:focus {
-    border-color: var(--tracked-affix-accent);
-    box-shadow: 0 0 0 2px var(--tracked-affix-accent-soft);
+    border-color: var(--tracked-affix-accent, var(--primary-color));
+    box-shadow: 0 0 0 2px var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
 }
 
 .tracked-bonus-label {
@@ -217,12 +217,14 @@
 }
 
 .tracked-affix-section {
-    --tracked-affix-accent: var(--primary-color);
-    --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
+    /* The actual accent color comes from the .tracked-affix-section-* class
+       applied via [ngClass] (shared with the sidebar, see getAffixGroupCssClass
+       in affix-organization.ts). The fallback here only covers the unlikely
+       case that class is missing. */
     background: var(--panel-bg);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--tracked-affix-accent);
-    border-right: 4px solid var(--tracked-affix-accent);
+    border-left: 4px solid var(--tracked-affix-accent, var(--primary-color));
+    border-right: 4px solid var(--tracked-affix-accent, var(--primary-color));
     border-radius: var(--border-radius);
     margin: 0.75rem 0;
     padding: 0.45rem 0.55rem 0.4rem;
@@ -247,11 +249,11 @@
 
 .tracked-affix-group-title:hover,
 .tracked-affix-group-title:focus {
-    color: var(--tracked-affix-accent);
+    color: var(--tracked-affix-accent, var(--primary-color));
 }
 
 .tracked-affix-group-title:focus-visible {
-    outline: 3px solid var(--tracked-affix-accent-soft);
+    outline: 3px solid var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
     outline-offset: 3px;
 }
 
@@ -262,9 +264,9 @@
 }
 
 .tracked-affix-count {
-    background-color: var(--tracked-affix-accent-soft);
+    background-color: var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
     border-radius: 999px;
-    color: var(--tracked-affix-accent);
+    color: var(--tracked-affix-accent, var(--primary-color));
     font-size: 0.75rem;
     font-weight: 700;
     line-height: 1;
@@ -274,7 +276,7 @@
 }
 
 .tracked-affix-collapse-indicator {
-    color: var(--tracked-affix-accent);
+    color: var(--tracked-affix-accent, var(--primary-color));
     font-size: 1.4rem;
     font-weight: 700;
     line-height: 1;
@@ -342,6 +344,27 @@
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: #fff;
+}
+
+.tracked-affix-edit-affixes {
+    align-items: center;
+    background: var(--selected-bg);
+    border: 1px solid var(--selected-border-color);
+    border-radius: 999px;
+    color: var(--selected-text-color);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 700;
+    gap: 0.4rem;
+    margin-left: auto;
+    padding: 0.16rem 0.8rem;
+}
+
+.tracked-affix-edit-affixes:hover,
+.tracked-affix-edit-affixes:focus-visible {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .tracked-affix-slots-empty {

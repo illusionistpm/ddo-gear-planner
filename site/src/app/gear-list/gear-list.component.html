@@ -1,68 +1,76 @@
-<div class="equipment-toolbar">
-  <div class="equipment-search">
-    <i class="fas fa-search equipment-search-icon" aria-hidden="true"></i>
-    <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
-      [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
-  </div>
-  <button class="btn btn-outline-success btn-sm equipment-copy" (click)="copyGearToClipboard()">Copy Equipment</button>
-</div>
+<div class="equipment-affix-workspace">
+  <app-tracked-affix-sidebar
+    [sortOwnedToTop]="sortOwnedToTop">
+  </app-tracked-affix-sidebar>
 
-<section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
-  <div>
-    <div class="onboarding-step-label">Next step</div>
-    <h2>Start by choosing one item</h2>
-    <p>Pick an armor item first so the planner has gear to compare against your tracked bonuses.</p>
-  </div>
-  <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
-</section>
-
-<div class="row equipment-grid">
-  @for (slot of gearList.getSlots(); track slot) {
-    <app-equipment-slot-card
-      [slot]="slot"
-      [recommendedStart]="shouldShowArmorStartHint() && slot === 'Armor'">
-    </app-equipment-slot-card>
-  }
-
-  <!-- Describe Sets -->
-  @if (visibleSetBonuses.length) {
-    <div class="equipment-set-divider col-12" aria-hidden="true"></div>
-  }
-
-  @for (setBonus of visibleSetBonuses; track setBonus.setName) {
-    <div class="mb-3 card active-set-bonus col-sm-12 col-md-6 col-lg-4">
-      <div class="row set-bonus-card">
-        <button type="button" class="btn set-bonus-button col-12 text-center"
-          (click)="showItemsInSet(setBonus.setName)">
-          <div class='row'>
-            <div class='col-2 text-start'>Set</div>
-            <div class="col-8 text-end item-name">{{setBonus.setName}}</div>
-            <div class="col-2 text-end set-piece-count">{{setBonus.pieces}}</div>
-          </div>
-        </button>
-        <div class="set-bonus-affixes col">
-          @for (tier of setBonus.tiers; track tier.threshold) {
-            @for (affix of tier.affixes; track $index) {
-              <div class="row table-condensed small hover-helper set-bonus-affix-row"
-                [class.disabled-set-tier]="!tier.eligible"
-                [ngClass]="getClassForSetBonusAffix(affix, tier.eligible)"
-                [title]="getSetBonusTooltip(tier.eligible, tier.threshold, setBonus.pieces, affix)">
-                @if (equipped.isImportantAffix(affix.name)) {
-                  <button class="show-on-hover fas fa-heart heart col-1"
-                  (click)="equipped.toggleImportantAffix(affix.name)"></button>
-                }
-                @if (!equipped.isImportantAffix(affix.name)) {
-                  <button class="show-on-hover far fa-heart heart col-1"
-                  (click)="equipped.toggleImportantAffix(affix.name)"></button>
-                }
-                <div class="col-2 set-threshold">{{tier.threshold}} pc</div>
-                <div class="col-5 ps-1">{{affix.name}}</div>
-                <div class="col-4">{{getAffixValue(affix)}} {{affix.type}}</div>
-              </div>
-            }
-          }
-        </div>
+  <div class="equipment-affix-main">
+    <div class="equipment-toolbar">
+      <div class="equipment-search">
+        <i class="fas fa-search equipment-search-icon" aria-hidden="true"></i>
+        <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
+          [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
       </div>
+      <button class="btn btn-outline-success btn-sm equipment-copy" (click)="copyGearToClipboard()">Copy Equipment</button>
     </div>
-  }
+
+    <section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
+      <div>
+        <div class="onboarding-step-label">Next step</div>
+        <h2>Start by choosing one item</h2>
+        <p>Pick an armor item first so the planner has gear to compare against your tracked bonuses.</p>
+      </div>
+      <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+    </section>
+
+    <div class="row equipment-grid">
+      @for (slot of gearList.getSlots(); track slot) {
+        <app-equipment-slot-card
+          [slot]="slot"
+          [recommendedStart]="shouldShowArmorStartHint() && slot === 'Armor'">
+        </app-equipment-slot-card>
+      }
+
+      <!-- Describe Sets -->
+      @if (visibleSetBonuses.length) {
+        <div class="equipment-set-divider col-12" aria-hidden="true"></div>
+      }
+
+      @for (setBonus of visibleSetBonuses; track setBonus.setName) {
+        <div class="mb-3 card active-set-bonus col-sm-12 col-md-6 col-lg-4">
+          <div class="row set-bonus-card">
+            <button type="button" class="btn set-bonus-button col-12 text-center"
+              (click)="showItemsInSet(setBonus.setName)">
+              <div class='row'>
+                <div class='col-2 text-start'>Set</div>
+                <div class="col-8 text-end item-name">{{setBonus.setName}}</div>
+                <div class="col-2 text-end set-piece-count">{{setBonus.pieces}}</div>
+              </div>
+            </button>
+            <div class="set-bonus-affixes col">
+              @for (tier of setBonus.tiers; track tier.threshold) {
+                @for (affix of tier.affixes; track $index) {
+                  <div class="row table-condensed small hover-helper set-bonus-affix-row"
+                    [class.disabled-set-tier]="!tier.eligible"
+                    [ngClass]="getClassForSetBonusAffix(affix, tier.eligible)"
+                    [title]="getSetBonusTooltip(tier.eligible, tier.threshold, setBonus.pieces, affix)">
+                    @if (equipped.isImportantAffix(affix.name)) {
+                      <button class="show-on-hover fas fa-heart heart col-1"
+                      (click)="equipped.toggleImportantAffix(affix.name)"></button>
+                    }
+                    @if (!equipped.isImportantAffix(affix.name)) {
+                      <button class="show-on-hover far fa-heart heart col-1"
+                      (click)="equipped.toggleImportantAffix(affix.name)"></button>
+                    }
+                    <div class="col-2 set-threshold">{{tier.threshold}} pc</div>
+                    <div class="col-5 ps-1">{{affix.name}}</div>
+                    <div class="col-4">{{getAffixValue(affix)}} {{affix.type}}</div>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 </div>

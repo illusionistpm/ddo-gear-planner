@@ -1,0 +1,41 @@
+@if (drawer.mode$ | async; as mode) {
+  @if (mode === 'setup') {
+    <div class="affix-builder-scrim" aria-hidden="true"></div>
+  } @else {
+    <button type="button" class="affix-builder-backdrop" aria-label="Close affix builder" (click)="close()"></button>
+  }
+
+  <aside class="affix-builder-drawer" [class.setup-mode]="mode === 'setup'"
+    aria-label="Edit tracked affixes" role="dialog" aria-modal="true">
+    <header class="affix-builder-drawer-header">
+      @if (mode === 'setup') {
+        <div class="affix-builder-setup-brand">DDO Gear Planner</div>
+        <div class="affix-builder-setup-heading">
+          <h2>Set up what your gear should cover</h2>
+          <p>Pick the bonuses your build cares about. You can change these any time.</p>
+        </div>
+      } @else {
+        <h2>Edit tracked affixes</h2>
+        <button type="button" class="affix-builder-drawer-close" aria-label="Close" title="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      }
+    </header>
+
+    <div class="affix-builder-drawer-body">
+      <app-affix-cloud></app-affix-cloud>
+    </div>
+
+    @if (mode === 'setup') {
+      <footer class="affix-builder-setup-foot">
+        <span class="affix-builder-setup-count">
+          {{trackedCount}} affix{{trackedCount === 1 ? '' : 'es'}} selected
+        </span>
+        <button type="button" class="affix-builder-setup-continue" (click)="close()">
+          {{trackedCount ? 'Start planning' : 'Skip for now'}}
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </footer>
+    }
+  </aside>
+}

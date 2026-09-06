@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GearDbService } from '../gear-db.service';
 import { EquippedService, VisibleSetBonus } from '../equipped.service';
@@ -26,6 +26,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     private suggestionDrawer: SuggestionDrawerService,
     private onboarding: PlannerOnboardingService
   ) { }
+
+  @Input() sortOwnedToTop: boolean = true;
 
   visibleSetBonuses: Array<VisibleSetBonus> = [];
   onboardingActive = true;

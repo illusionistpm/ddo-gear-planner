@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
+import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { UserGearService } from '../user-gear.service';
 import { GearDbService } from '../gear-db.service';
 import { AnalyticsService } from '../analytics.service';
@@ -44,14 +47,28 @@ export class MainComponent implements OnInit, OnDestroy {
     private filters: FiltersService,
     private equipped: EquippedService,
     private onboarding: PlannerOnboardingService,
-    public theme: ThemeService
-  ) {}
+    private route: ActivatedRoute,
+    public theme: ThemeService,
+    private affixBuilder: AffixBuilderDrawerService,
+    private sanitizer: DomSanitizer
+  ) {
+    this.supportPopoverUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      'https://www.buymeacoffee.com/widget/page/illusionistpm'
+      + '?description=' + encodeURIComponent('Support me on Buy me a coffee!')
+      + '&color=' + encodeURIComponent('#5F7FFF')
+    );
+  }
 
   ngOnInit() {
     this.userGear.loadFromStorage();
     this.activeTab = this.getInitialTabFromUrl();
+    this.maybeOpenAffixBuilderOnLoad();
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
+      // The rails switch views by calling EquippedService.setActiveMainTab directly,
+      // so mirror the housekeeping selectTab() used to do for the removed tab bar.
+      this.closeFilters();
+      this.refreshOnboardingState();
     });
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
@@ -77,6 +94,16 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
+  private maybeOpenAffixBuilderOnLoad() {
+    const forcedByRoute = !!this.route.snapshot.data['openAffixBuilder'];
+    const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
+    if (firstRun) {
+      this.affixBuilder.open('setup');
+    } else if (forcedByRoute) {
+      this.affixBuilder.open('edit');
+    }
+  }
+
   selectTab(tab: MainTab) {
     if (tab === this.activeTab) {
       this.closeFilters();
@@ -99,6 +126,22 @@ export class MainComponent implements OnInit, OnDestroy {
 
   toggleTheme() {
     this.theme.toggleTheme();
+  }
+
+  // Buy Me a Coffee's own floating widget always animates in from the bottom
+  // corner (its script hardcodes that), which looked disconnected once the
+  // trigger moved into the top bar. Its support form is just an embeddable
+  // page (https://www.buymeacoffee.com/widget/page/<slug>), so show that in a
+  // small popover anchored under our own button instead.
+  readonly supportPopoverUrl: SafeResourceUrl;
+  supportPopoverOpen = false;
+
+  toggleSupportPopover() {
+    this.supportPopoverOpen = !this.supportPopoverOpen;
+  }
+
+  closeSupportPopover() {
+    this.supportPopoverOpen = false;
   }
 
   closeFilters() {

@@ -1,24 +1,16 @@
-<div class="tracked-equipment-dock" [class.collapsed]="collapsed">
+<div class="tracked-equipment-dock">
     <aside class="tracked-equipment-rail" aria-label="Equipped gear">
-        <div class="tracked-equipment-header">
-            <div class="tracked-equipment-title">
-                <span>Equipment</span>
+        <div class="tracked-equipment-sticky">
+            <div class="tracked-equipment-header">
+                <button type="button" class="tracked-equipment-nav"
+                    title="Open the full Equipment view"
+                    (click)="openFullView()">
+                    <span>Equipment</span>
+                    <span class="fas fa-external-link-alt tracked-equipment-nav-icon" aria-hidden="true"></span>
+                </button>
             </div>
-            <button type="button" class="tracked-equipment-collapse-toggle"
-                [attr.aria-expanded]="!collapsed"
-                [title]="collapsed ? 'Show equipment' : 'Hide equipment'"
-                (click)="toggle()">
-                <span class="fas" [class.fa-chevron-right]="collapsed" [class.fa-chevron-left]="!collapsed" aria-hidden="true"></span>
-            </button>
         </div>
-        @if (collapsed) {
-            <button type="button" class="tracked-equipment-collapsed-button"
-                title="Show equipment"
-                (click)="toggle()">
-                <span class="tracked-equipment-collapsed-label">Equipment</span>
-            </button>
-        } @else {
-            <div class="tracked-equipment-slots">
+        <div class="tracked-equipment-slots">
             @for (entry of getEquippedSlots(); track entry.slot) {
                 <div class="tracked-equipment-slot-shell"
                     [class.filled]="entry.item"
@@ -69,11 +61,9 @@
                     }
                 </div>
             }
-        }
-
     </aside>
 
-    @if (!collapsed && getFocusedItem()) {
+    @if (getFocusedItem()) {
         <div class="tracked-equipment-card" role="status">
             <div class="tracked-equipment-card-title">
                 <span>{{focusedSlot}}</span>
@@ -83,7 +73,7 @@
         </div>
     }
 
-    @if (!collapsed && getFocusedSetBonus(); as setBonus) {
+    @if (getFocusedSetBonus(); as setBonus) {
         <div class="tracked-equipment-card" role="status">
             <div class="tracked-equipment-card-title">
                 <span>Set</span>

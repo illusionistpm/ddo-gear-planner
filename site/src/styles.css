@@ -554,12 +554,8 @@ a:focus {
   align-items: start;
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+  grid-template-columns: minmax(12.5rem, 15rem) minmax(0, 1fr);
   position: relative;
-}
-
-.tracked-affixes-workspace.equipment-collapsed {
-  grid-template-columns: 2.75rem minmax(0, 1fr);
 }
 
 .tracked-affixes-workspace > app-tracked-equipment-sidebar {
@@ -578,33 +574,18 @@ a:focus {
 }
 
 .tracked-equipment-rail {
-  background: var(--panel-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
   display: grid;
-  gap: 0.5rem;
   max-height: calc(100vh - 5.5rem);
   overflow-y: auto;
-  padding: 0.55rem;
+  padding: 0.4rem 0 0;
   position: relative;
 }
 
-.tracked-equipment-dock.collapsed .tracked-equipment-rail {
-  max-height: none;
-  overflow: hidden;
-  padding: 0.35rem;
-}
-
 .tracked-equipment-header {
-  align-items: center;
   display: flex;
-  gap: 0.35rem;
-  justify-content: space-between;
   min-width: 0;
 }
 
-.tracked-equipment-title,
 .tracked-equipment-card-title {
   color: var(--text-primary);
   font-size: 0.78rem;
@@ -614,56 +595,67 @@ a:focus {
   text-transform: uppercase;
 }
 
-.tracked-equipment-title {
+.tracked-equipment-sticky {
+  background: var(--background-color);
+  display: grid;
+  gap: 0.4rem;
+  padding-bottom: 0.4rem;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.tracked-equipment-sticky::before {
+  background: var(--background-color);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -0.45rem;
+  height: 0.45rem;
+}
+
+/* The header is a button: click it to open the full Equipment view. */
+.tracked-equipment-nav {
   align-items: center;
-  display: inline-flex;
-  min-width: 0;
-}
-
-.tracked-equipment-collapse-toggle,
-.tracked-equipment-collapsed-button {
-  align-items: center;
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  color: var(--text-secondary);
-  display: inline-flex;
-  justify-content: center;
-}
-
-.tracked-equipment-collapse-toggle {
-  flex: 0 0 auto;
-  height: 1.65rem;
-  width: 1.65rem;
-}
-
-.tracked-equipment-collapse-toggle:hover,
-.tracked-equipment-collapse-toggle:focus,
-.tracked-equipment-collapsed-button:hover,
-.tracked-equipment-collapsed-button:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px var(--focus-ring-color);
-  color: var(--primary-color);
-}
-
-.tracked-equipment-collapsed-button {
-  flex-direction: column;
-  gap: 0.35rem;
-  min-height: 9rem;
-  padding: 0.45rem 0.25rem;
+  background: var(--info-chip-bg);
+  border: 1px solid var(--info-chip-border-color);
+  border-radius: 6px;
+  color: var(--info-chip-text-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  justify-content: space-between;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+  text-transform: uppercase;
+  transition: background-color 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out, color 0.12s ease-out;
   width: 100%;
 }
 
-.tracked-equipment-collapsed-label {
-  font-size: 0.72rem;
-  font-weight: 800;
-  line-height: 1;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
+.tracked-equipment-nav:hover,
+.tracked-equipment-nav:focus-visible {
+  background: var(--info-chip-hover-bg);
+  border-color: var(--info-chip-hover-border-color);
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.1);
+  color: var(--info-chip-hover-text-color);
 }
 
-.tracked-equipment-dock.collapsed .tracked-equipment-title {
-  display: none;
+.tracked-equipment-nav-icon {
+  flex: 0 0 auto;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+}
+
+.tracked-equipment-nav:hover .tracked-equipment-nav-icon,
+.tracked-equipment-nav:focus-visible .tracked-equipment-nav-icon {
+  opacity: 1;
+  transform: scale(1.12);
 }
 
 .tracked-equipment-card-title {
@@ -786,6 +778,7 @@ a:focus {
 .tracked-equipment-sets {
   display: grid;
   gap: 0.25rem;
+  margin-top: 0.25rem;
 }
 
 .tracked-equipment-sets-title {
@@ -1142,8 +1135,7 @@ a:focus {
 
 /* Responsive improvements */
 @media (max-width: 768px) {
-  .tracked-affixes-workspace,
-  .tracked-affixes-workspace.equipment-collapsed {
+  .tracked-affixes-workspace {
     grid-template-columns: 1fr;
   }
 
@@ -1154,22 +1146,6 @@ a:focus {
 
   .tracked-equipment-rail {
     max-height: none;
-  }
-
-  .tracked-equipment-dock.collapsed .tracked-equipment-rail {
-    padding: 0.55rem;
-  }
-
-  .tracked-equipment-dock.collapsed .tracked-equipment-title {
-    display: inline-flex;
-  }
-
-  .tracked-equipment-collapsed-button {
-    min-height: 2.5rem;
-  }
-
-  .tracked-equipment-collapsed-label {
-    writing-mode: horizontal-tb;
   }
 
   .tracked-equipment-card {
@@ -1201,5 +1177,413 @@ a:focus {
 @media (max-width: 575.98px) {
   .tracked-equipment-slots {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Equipment tab: tracked affix coverage rail */
+.equipment-affix-workspace {
+  align-items: start;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(12.5rem, 15rem) minmax(0, 1fr);
+}
+
+.equipment-affix-main {
+  min-width: 0;
+}
+
+.equipment-affix-workspace > app-tracked-affix-sidebar {
+  align-self: start;
+  display: block;
+  min-width: 0;
+  position: sticky;
+  top: 0.25rem;
+  z-index: 45;
+}
+
+.affix-summary-dock {
+  min-width: 0;
+  position: relative;
+}
+
+.affix-summary-rail {
+  display: grid;
+  max-height: calc(100vh - 5.5rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0.4rem 0 0;
+  scrollbar-gutter: stable;
+}
+
+.affix-summary-sticky {
+  background: var(--background-color);
+  display: grid;
+  gap: 0.4rem;
+  padding-bottom: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Cover the rail's top padding so scrolled content can't peek above the header. */
+.affix-summary-sticky::before {
+  background: var(--background-color);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -0.45rem;
+  height: 0.45rem;
+}
+
+.affix-summary-header {
+  display: flex;
+  min-width: 0;
+}
+
+/* The header is a button: click it to open the full Tracked Affixes view. */
+.affix-summary-nav {
+  align-items: center;
+  background: var(--info-chip-bg);
+  border: 1px solid var(--info-chip-border-color);
+  border-radius: 6px;
+  color: var(--info-chip-text-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  justify-content: space-between;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+  text-transform: uppercase;
+  transition: background-color 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out, color 0.12s ease-out;
+  width: 100%;
+}
+
+.affix-summary-nav:hover,
+.affix-summary-nav:focus-visible {
+  background: var(--info-chip-hover-bg);
+  border-color: var(--info-chip-hover-border-color);
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.1);
+  color: var(--info-chip-hover-text-color);
+}
+
+.affix-summary-nav-icon {
+  flex: 0 0 auto;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+}
+
+.affix-summary-nav:hover .affix-summary-nav-icon,
+.affix-summary-nav:focus-visible .affix-summary-nav-icon {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+.affix-summary-add {
+  align-items: center;
+  background: var(--selected-bg);
+  border: 1px solid var(--selected-border-color);
+  border-radius: 6px;
+  color: var(--selected-text-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.76rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  justify-content: center;
+  padding: 0.4rem 0.5rem;
+  width: 100%;
+}
+
+.affix-summary-add:hover,
+.affix-summary-add:focus-visible {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.affix-summary-empty {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  padding: 0 0.15rem;
+}
+
+.affix-summary-empty-link {
+  background: none;
+  border: 0;
+  color: var(--primary-color);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.affix-summary-groups {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* Each category gets its own bordered card with an accent stripe (colors come
+   from the .tracked-affix-section-* classes applied via [ngClass], shared with
+   the Tracked Affixes page) so a scroll through the list reads as distinct
+   categories rather than one long run of rows. */
+.affix-summary-group {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--tracked-affix-accent, var(--primary-color));
+  border-radius: 6px;
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.25rem 0.35rem;
+}
+
+.affix-summary-group-title {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  justify-content: space-between;
+  letter-spacing: 0.02em;
+  padding: 0.1rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.affix-summary-group-title:hover,
+.affix-summary-group-title:focus-visible {
+  color: var(--tracked-affix-accent, var(--primary-color));
+  outline: none;
+}
+
+.affix-summary-group-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.affix-summary-group-count {
+  background: var(--tracked-affix-accent-soft, var(--surface-subtle-color));
+  border-radius: 999px;
+  color: var(--tracked-affix-accent, var(--text-secondary));
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0 0.35rem;
+}
+
+.affix-summary-collapse-indicator {
+  transform: rotate(90deg);
+  transition: transform 0.15s ease;
+}
+
+.affix-summary-collapse-indicator.collapsed {
+  transform: rotate(0deg);
+}
+
+.affix-summary-list {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+/*
+ * Regular affixes stack: a heading line (name on the left, running current/max
+ * total on the right) with the code badges wrapping on the line(s) below.
+ * Checklist affixes collapse onto a single row (see .is-checklist below).
+ */
+.affix-summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0.3rem 0.1rem;
+  position: relative;
+}
+
+.affix-summary-row + .affix-summary-row {
+  border-top: 1px solid var(--border-color);
+}
+
+.affix-summary-heading {
+  align-items: baseline;
+  column-gap: 0.4rem;
+  display: flex;
+  min-width: 0;
+}
+
+.affix-summary-name {
+  color: var(--text-primary);
+  flex: 0 1 auto;
+  font-size: 0.76rem;
+  font-weight: 650;
+  margin-right: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.affix-summary-trailing {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.affix-summary-value {
+  color: var(--text-secondary);
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.affix-summary-value-max {
+  font-weight: 600;
+  opacity: 0.65;
+}
+
+.affix-summary-codes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  min-width: 0;
+  padding-left: 0.25rem;
+}
+
+.affix-summary-remove {
+  align-items: center;
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--danger-color);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 800;
+  height: 1rem;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: calc(100% + 0.15rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+}
+
+.affix-summary-remove span {
+  display: block;
+  transform: translateY(-0.05em);
+}
+
+.affix-summary-row:hover .affix-summary-remove,
+.affix-summary-row:focus-within .affix-summary-remove,
+.affix-summary-remove:focus {
+  opacity: 1;
+}
+
+.affix-summary-remove:hover,
+.affix-summary-remove:focus {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  color: #ffffff;
+}
+
+.affix-summary-row.is-checklist {
+  align-items: center;
+  flex-direction: row;
+  column-gap: 0.4rem;
+  padding: 0.16rem 0.1rem;
+}
+
+.affix-summary-row.is-checklist + .affix-summary-row.is-checklist {
+  border-top: none;
+}
+
+.affix-summary-row.is-checklist .affix-summary-heading {
+  flex: 1 1 auto;
+}
+
+.affix-summary-row.is-checklist .affix-summary-name {
+  color: var(--text-secondary);
+  font-weight: 550;
+}
+
+.affix-summary-code {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  min-width: 1.6rem;
+  padding: 0.16rem 0.3rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.affix-summary-code:hover,
+.affix-summary-code:focus-visible {
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+  outline: none;
+}
+
+.affix-summary-code.max-value {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.55);
+  color: var(--success-color);
+}
+
+.affix-summary-code.mid-value {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.55);
+  color: var(--warning-color);
+}
+
+.affix-summary-code.low-value {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.55);
+  color: var(--danger-color);
+}
+
+.affix-summary-code.penalty-value {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.7);
+  color: var(--danger-color);
+  text-decoration: line-through;
+}
+
+.affix-summary-code.no-value {
+  background: transparent;
+  border-color: var(--border-color);
+  border-style: dashed;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .equipment-affix-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-affix-workspace > app-tracked-affix-sidebar {
+    position: static;
+  }
+
+  .affix-summary-rail {
+    max-height: none;
   }
 }

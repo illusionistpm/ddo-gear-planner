@@ -22,7 +22,9 @@ import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.com
 import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
+import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
 import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar/tracked-equipment-sidebar.component';
+import { TrackedAffixSidebarComponent } from './tracked-affix-sidebar/tracked-affix-sidebar.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 
 @NgModule({
@@ -44,7 +46,9 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
         UserItemLocationTooltipPipe,
         AdminLinkComponent,
         SuggestionDrawerComponent,
+        AffixBuilderDrawerComponent,
         TrackedEquipmentSidebarComponent,
+        TrackedAffixSidebarComponent,
         EquipmentSlotCardComponent
     ],
     imports: [

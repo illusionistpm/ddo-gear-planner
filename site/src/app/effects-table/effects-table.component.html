@@ -7,13 +7,12 @@
     <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
 </section>
 
-<div class="tracked-affixes-workspace" [class.equipment-collapsed]="equipmentSidebarCollapsed">
+<div class="tracked-affixes-workspace">
     <app-tracked-equipment-sidebar
         [suppliedAffixCounts]="suppliedAffixCounts"
         [suppliedSetAffixCounts]="suppliedSetAffixCounts"
         [highlightedSlots]="highlightedEquipmentSlots"
-        [highlightedSets]="highlightedEquipmentSets"
-        [(collapsed)]="equipmentSidebarCollapsed">
+        [highlightedSets]="highlightedEquipmentSets">
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
@@ -23,6 +22,10 @@
             [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
         <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
             [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
+        <button type="button" class="tracked-affix-edit-affixes" (click)="openBuilder()">
+            <span class="fas fa-plus" aria-hidden="true"></span>
+            <span>Add / edit affixes</span>
+        </button>
     </div>
 
     <ng-container *ngIf="groupMode === 'slots'">

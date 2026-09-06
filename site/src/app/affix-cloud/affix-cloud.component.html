@@ -1,42 +1,11 @@
 <div class="affix-page">
-  <header class="affix-workspace-bar">
-    <div class="affix-brand">DDO Gear Planner</div>
-    <nav class="affix-nav" aria-label="Planner sections" role="tablist">
-      @if (savedSet.size) {
-        <a class="affix-tab" [class.affix-next-tab]="shouldHighlightEquipmentStep()" routerLink="/main" [queryParams]="{tab: null}" queryParamsHandling="merge" role="tab">
-          Equipment
-          @if (shouldHighlightEquipmentStep()) {
-            <span class="affix-next-badge">Next</span>
-          }
-        </a>
-        <a class="affix-tab" routerLink="/main" [queryParams]="{tab: 'affixes'}" queryParamsHandling="merge" role="tab">Tracked Affixes</a>
-        <span class="affix-tab active" role="tab" aria-selected="true">
-          Edit Affixes
-        </span>
-      } @else {
-        <span class="affix-tab active affix-setup-tab" role="tab" aria-selected="true">
-          Affix Setup
-        </span>
-      }
-    </nav>
-    <button type="button" class="theme-toggle"
-      [class.dark]="theme.isDarkTheme()"
-      [attr.aria-pressed]="theme.isDarkTheme()"
-      [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-      [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-      (click)="toggleTheme()">
-      <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
-    </button>
-    <app-admin-link></app-admin-link>
-  </header>
-
   <main class="affix-layout">
     <section class="affix-builder">
-      <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
+      <section *ngIf="onboardingActive && !isSetupMode()" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
         <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
         <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Use the Equipment tab to start choosing items. You can come back to Edit Affixes any time to adjust what the planner tracks.</p>
+          <p>Close this panel to start choosing items. You can reopen it any time from the Tracked Affixes panel.</p>
         </ng-container>
         <ng-template #affixSetupIntro>
           <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
@@ -53,7 +22,7 @@
         <ng-template #savedAffixSetupIntro>
           <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
             <h2>Your gear targets are ready</h2>
-            <p>Use the Equipment tab to start choosing items. You can come back to Edit Affixes any time to adjust what the planner tracks.</p>
+            <p>Close this panel to start choosing items. You can reopen it any time from the Tracked Affixes panel.</p>
           </ng-container>
         </ng-template>
         <ng-template #emptyAffixSetupIntro>

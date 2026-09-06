@@ -34,12 +34,6 @@ describe('AffixCloudComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders non-production admin access in the workspace bar', () => {
-    const compiled: HTMLElement = fixture.nativeElement;
-
-    expect(compiled.querySelector('.affix-workspace-bar app-admin-link')).not.toBeNull();
-  });
-
   it('pairs the starter package green cue with intro text and a skip action', () => {
     const compiled: HTMLElement = fixture.nativeElement;
 

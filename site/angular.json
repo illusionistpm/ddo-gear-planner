@@ -23,7 +23,11 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/favicon",
+                "output": "/"
+              },
               "src/assets"
             ],
             "styles": [
@@ -95,7 +99,11 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/favicon",
+                "output": "/"
+              },
               "src/assets"
             ],
             "styles": [

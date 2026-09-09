@@ -37325,7 +37325,7 @@
                 "value": "10"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             }
@@ -37377,7 +37377,7 @@
                 "value": "10"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             }
@@ -37429,7 +37429,7 @@
                 "value": "10"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             }
@@ -37476,7 +37476,7 @@
                 "value": "10"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             }
@@ -37528,7 +37528,7 @@
                 "value": "10"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             }
@@ -110082,7 +110082,7 @@
     {
         "affixes": [
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             },
@@ -162911,7 +162911,7 @@
     {
         "affixes": [
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             },
@@ -268752,7 +268752,7 @@
                 "value": "+5"
             },
             {
-                "name": "Magical Efficiency",
+                "name": "Power Store",
                 "type": "Bool",
                 "value": 1
             },

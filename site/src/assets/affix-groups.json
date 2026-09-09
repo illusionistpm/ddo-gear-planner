@@ -417,6 +417,36 @@
     },
     {
         "affixes": [
+            "Acid Intensity",
+            "Fire Intensity",
+            "Healing Intensity",
+            "Ice Intensity",
+            "Kinetic Intensity",
+            "Lightning Intensity",
+            "Radiance Intensity",
+            "Repair Intensity",
+            "Sonic Intensity",
+            "Void Intensity"
+        ],
+        "name": "Spell Critical Damage"
+    },
+    {
+        "affixes": [
+            "Acid Intensity",
+            "Fire Intensity",
+            "Healing Intensity",
+            "Ice Intensity",
+            "Kinetic Intensity",
+            "Lightning Intensity",
+            "Radiance Intensity",
+            "Repair Intensity",
+            "Sonic Intensity",
+            "Void Intensity"
+        ],
+        "name": "Universal Spell Critical Damage"
+    },
+    {
+        "affixes": [
             "Vertigo",
             "Stunning",
             "Dazing",
@@ -1272,6 +1302,19 @@
             }
         ],
         "name": "Permanent Nihil"
+    },
+    {
+        "affixes": [
+            "Magical Efficiency"
+        ],
+        "components": [
+            {
+                "name": "Magical Efficiency",
+                "type": "Enhancement",
+                "value": 10
+            }
+        ],
+        "name": "Power Store"
     },
     {
         "affixes": [

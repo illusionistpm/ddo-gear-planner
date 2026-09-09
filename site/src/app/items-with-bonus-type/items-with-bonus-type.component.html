@@ -1,6 +1,9 @@
 <div class='modal-body'>
   <div class="row">
     <div class="col-10">
+      <button type="button" class="drawer-back-button" *ngIf="canGoBack" (click)="goBack()">
+        <span aria-hidden="true">&lsaquo;</span> Back
+      </button>
       <h2>
         <span>{{affixName}}</span>@if (isRealType(bonusType)) {
         <span>: {{bonusType}}</span>
@@ -99,7 +102,7 @@
   </div>
 }
 
-@if (sets.length) {
+@if (sets.length || unreachableSets.length) {
   <div>
     <div class="row">
       <div class="col-2"><b>Pieces</b></div>
@@ -109,13 +112,34 @@
     </div>
     @for (set of sets; track set[0]) {
       <div class="row">
-        <div class="col-2">{{set[1]}}</div>
+        <div class="col-2">
+          @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
+        </div>
         <div class="col-6">{{set[0]}}</div>
         <div class="col-2">{{set[2]}}</div>
         <div class="col-2">
           <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
         </div>
       </div>
+    }
+
+    @if (unreachableSets.length) {
+      <div class="row">&nbsp;</div>
+      <h3>Threshold Out of Reach</h3>
+      <i>
+        @for (set of unreachableSets; track set[0]) {
+          <div class="row">
+            <div class="col-2">
+              @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
+            </div>
+            <div class="col-6">{{set[0]}}</div>
+            <div class="col-2">{{set[2]}}</div>
+            <div class="col-2">
+              <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
+            </div>
+          </div>
+        }
+      </i>
     }
     <hr/>
   </div>

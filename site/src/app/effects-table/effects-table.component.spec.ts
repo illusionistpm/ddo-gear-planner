@@ -408,4 +408,124 @@ describe('EffectsTableComponent', () => {
 
     expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBeTrue();
   });
+
+  it('toggles the tracked-affix grouping mode', () => {
+    expect(component.groupMode).toBe('category');
+    component.setGroupMode('slots');
+    expect(component.groupMode).toBe('slots');
+    component.setGroupMode('category');
+    expect(component.groupMode).toBe('category');
+  });
+
+  it('buckets uncovered types by remaining supply, set-only first then by slot count', () => {
+    component.affixNames = ['Strength', 'Fire Intensity', 'Dexterity'];
+    component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
+    component.affixMap.set('Fire Intensity', [{ bonusType: 'Legendary', value: 0 }]);
+    component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(5);
+    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(5);
+    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) => {
+      if (bonusType === 'Legendary') {
+        return { tier: 'set-only', slotCount: 0, eliminated: false, setSources: [] };
+      }
+      if (bonusType === 'Profane') {
+        return { tier: 'scarce', slotCount: 1, eliminated: false, setSources: [] };
+      }
+      return { tier: 'common', slotCount: 7, eliminated: false, setSources: [] };
+    });
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['set-only', '1', '5plus']);
+    expect(groups[0].rows[0].affixName).toBe('Fire Intensity');
+    expect(groups[1].rows[0].chips[0].bonusType).toBe('Profane');
+  });
+
+  it('keeps every bonus type of one affix on a single row within a bucket', () => {
+    component.affixNames = ['Fortitude Save'];
+    component.affixMap.set('Fortitude Save', [
+      { bonusType: 'Insight', value: 0 },
+      { bonusType: 'Resistance', value: 0 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(5);
+    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(5);
+    spyOn((component as any).availability, 'getRemainingAvailability').and.returnValue({
+      tier: 'scarce', slotCount: 2, eliminated: false, setSources: [],
+    });
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['2']);
+    expect(groups[0].rows.length).toBe(1);
+    expect(groups[0].rows[0].affixName).toBe('Fortitude Save');
+    expect(new Set(groups[0].rows[0].chips.map(chip => chip.bonusType)))
+      .toEqual(new Set(['Insight', 'Resistance']));
+  });
+
+  it('omits sufficiently-covered types from the slot grouping', () => {
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [
+      { bonusType: 'Enhancement', value: 6 },
+      { bonusType: 'Insight', value: 0 },
+    ]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
+    const remaining = spyOn((component as any).availability, 'getRemainingAvailability').and.returnValue({
+      tier: 'common', slotCount: 9, eliminated: false, setSources: [],
+    });
+
+    const groups = component.getSlotGroups();
+
+    // Enhancement is sufficient (6 >= 3/4 of 8) and skipped; only Insight is grouped.
+    expect(groups.flatMap(group => group.rows.flatMap(row => row.chips.map(chip => chip.bonusType)))).toEqual(['Insight']);
+    expect(remaining).toHaveBeenCalledTimes(1);
+  });
+
+  it('puts eliminated types in the ruled-out bucket at the bottom', () => {
+    component.affixNames = ['Strength', 'Dexterity'];
+    component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
+    component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(6);
+    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(6);
+    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) =>
+      bonusType === 'Profane'
+        ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
+        : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] }
+    );
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out']);
+    expect(groups[1].rows[0].chips[0].eliminated).toBeTrue();
+  });
+
+  it('routes a set-only need through the bonus-type drawer, which lists the sets', () => {
+    spyOn((component as any).suggestionDrawer, 'openBonusType');
+
+    component.showItemsWithBonusType('Kinetic Lore', 'Artifact');
+
+    expect((component as any).suggestionDrawer.openBonusType).toHaveBeenCalledWith('Kinetic Lore', 'Artifact', true);
+  });
+
+  it('treats a type at or above 3/4 of the best value as sufficient', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
+
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 6 })).toBeTrue();
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 5 })).toBeFalse();
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 0 })).toBeFalse();
+  });
+
+  it('does not query availability for sufficiently-covered types when grouping by slots', () => {
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 7 }]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
+    const remaining = spyOn((component as any).availability, 'getRemainingAvailability');
+
+    expect(component.getSlotGroups()).toEqual([]);
+    expect(remaining).not.toHaveBeenCalled();
+  });
 });

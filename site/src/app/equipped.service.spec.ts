@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { EquippedService } from './equipped.service';
+import { AffixAvailabilityService } from './affix-availability.service';
 import { Item } from './item';
 
 function makeItem(name: string, slot: string, type: string, affixes: Array<any> = [], sets: Array<string> = []) {
@@ -182,6 +183,68 @@ describe('EquippedService', () => {
     expect(legendary?.value).toBe(15);
   });
 
+  it('ranks a candidate on a scarce bonus type above an equal one on a common bonus type', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const availability = TestBed.inject(AffixAvailabilityService);
+    service.setImportantAffixes(['Strength']);
+
+    spyOn(availability, 'getScarcityWeight').and.callFake((_affixName: string, bonusType: string) =>
+      bonusType === 'Profane' ? 2.2 : 1
+    );
+
+    const commonItem = makeItem('Common Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Enhancement', value: 6 }]);
+    const scarceItem = makeItem('Scarce Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Profane', value: 6 }]);
+
+    expect(service.getScore(scarceItem)).toBeGreaterThan(service.getScore(commonItem));
+  });
+
+  it('stops applying scarcity once equipped gear covers the type to the moderate threshold', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const availability = TestBed.inject(AffixAvailabilityService);
+    service.setImportantAffixes(['Strength']);
+
+    spyOn(service, 'getCurrentValueForAffixType').and.returnValue(10);
+    spyOn((service as any).gearList, 'getBestValueForAffixType').and.returnValue(10);
+    const scarcitySpy = spyOn(availability, 'getScarcityWeight').and.returnValue(2.2);
+
+    const scarceItem = makeItem('Scarce Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Profane', value: 6 }]);
+    service.getScore(scarceItem);
+
+    expect(scarcitySpy).not.toHaveBeenCalled();
+  });
+
+  it('nudges a set piece up when the set is the only source of an uncovered tracked need', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const availability = TestBed.inject(AffixAvailabilityService);
+    service.setImportantAffixes(['Strength']);
+
+    spyOn(availability, 'getScarcityWeight').and.returnValue(1);
+    spyOn(availability, 'getRemainingAvailability').and.callFake((affixName: string, bonusType: string) => ({
+      affixName,
+      bonusType,
+      slots: [],
+      slotCount: 0,
+      augmentSlots: [],
+      itemCount: 0,
+      setSources: [{ setName: 'Test Set', threshold: 3, value: 5 }],
+      augmentCount: 0,
+      hasItemSource: false,
+      hasAugmentSource: false,
+      hasSetSource: true,
+      remainingSlots: [],
+      remainingSlotCount: 0,
+      eliminated: false,
+      tier: 'set-only' as const,
+      scarcityWeight: 1,
+      bestValue: 0,
+    }));
+
+    const setPiece = makeItem('Set Belt', 'Belt', 'Belt', [], ['Test Set']);
+    const plainPiece = makeItem('Plain Belt', 'Belt', 'Belt', []);
+
+    expect(service.getScore(setPiece)).toBeGreaterThan(service.getScore(plainPiece));
+  });
+
   it('persists named crafting choices that do not add affixes', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     const item = service['gearList'].findGearBySlot('Weapon', 'Essence Crafting Melee');
@@ -193,5 +256,50 @@ describe('EquippedService', () => {
     const params = service['params'].getValue();
     expect(params['craft_0_system']).toBe('Augment Slot 1');
     expect(params['craft_0_selected']).toBe('Red Augment Slot (empty)');
+  });
+
+  it('persists non-default planner view state to params', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.setActiveMainTab('affixes');
+    service.setTrackedAffixGroupMode('slots');
+    service.toggleTrackedAffixGroupCollapsed('Defense');
+    service.toggleTrackedAffixGroupCollapsed('set-only');
+
+    const params = service['params'].getValue();
+    expect(params['tab']).toBe('affixes');
+    expect(params['taGroup']).toBe('slots');
+    expect(params['taCollapsed']).toBe('Defense,set-only');
+  });
+
+  it('omits default planner view state from params', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service['_updateRouterState']();
+
+    const params = service['params'].getValue();
+    expect(params['tab']).toBeUndefined();
+    expect(params['taGroup']).toBeUndefined();
+    expect(params['taCollapsed']).toBeUndefined();
+  });
+
+  it('restores planner view state from params', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.updateFromParams({
+      keys: ['tracked', 'tab', 'taGroup', 'taCollapsed'],
+      get: (key: string) =>
+        ({ tab: 'affixes', taGroup: 'slots', taCollapsed: 'set-only,2' } as Record<string, string>)[key] ?? null,
+      getAll: () => [],
+    });
+
+    let tab: string | undefined;
+    service.getActiveMainTab().subscribe(value => (tab = value)).unsubscribe();
+    let state: { groupMode: string; collapsed: string[] } | undefined;
+    service.getTrackedAffixViewState().subscribe(value => (state = value)).unsubscribe();
+
+    expect(tab).toBe('affixes');
+    expect(state?.groupMode).toBe('slots');
+    expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'set-only']);
   });
 });

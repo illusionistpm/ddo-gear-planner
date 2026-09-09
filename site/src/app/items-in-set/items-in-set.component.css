@@ -152,3 +152,85 @@
     background: rgba(96, 165, 250, 0.18);
     outline-color: rgba(147, 197, 253, 0.9);
 }
+
+/* "Set Bonuses" summary table shown above the item list. */
+.set-bonus-summary {
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+}
+
+.set-bonus-summary-title {
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+}
+
+.set-bonus-summary-list {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.set-bonus-summary-row {
+    align-items: baseline;
+    column-gap: 0.5rem;
+    display: grid;
+    font-size: 0.82rem;
+    grid-template-columns: 1.4rem 2.8rem minmax(0, 1fr) auto;
+    padding: 0.25rem 0.5rem;
+}
+
+.set-bonus-summary-row:nth-child(odd) {
+    background: var(--row-alt-bg);
+}
+
+.set-bonus-summary-row:nth-child(even) {
+    background: var(--row-bg);
+}
+
+.set-bonus-summary-row.disabled-set-tier {
+    opacity: 0.5;
+}
+
+.set-bonus-summary-heart {
+    background: transparent;
+    border: 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1;
+    opacity: 0;
+    padding: 0;
+}
+
+.set-bonus-summary-row:hover .set-bonus-summary-heart,
+.set-bonus-summary-heart.fas,
+.set-bonus-summary-heart:focus {
+    opacity: 1;
+}
+
+.set-bonus-summary-heart.fas {
+    color: var(--danger-color);
+}
+
+.set-bonus-summary-threshold {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.set-bonus-summary-name {
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.set-bonus-summary-value {
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.set-bonus-summary-value.BetterThanBest { color: #7c3aed; }
+.set-bonus-summary-value.Best { color: var(--success-color); }
+.set-bonus-summary-value.BestTied { color: var(--primary-color); }
+.set-bonus-summary-value.Outranked { color: var(--warning-color); }
+.set-bonus-summary-value.Irrelevant { color: var(--text-primary); }
+.set-bonus-summary-value.Penalty { color: var(--danger-color); text-decoration: line-through; }
+.set-bonus-summary-value.DisabledSetBonus { color: var(--text-secondary); font-weight: 400; }

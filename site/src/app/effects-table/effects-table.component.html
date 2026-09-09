@@ -17,6 +17,64 @@
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
+    <div class="tracked-affix-groupby" role="group" aria-label="Group tracked affixes by">
+        <span class="tracked-affix-groupby-label">Group by</span>
+        <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
+            [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
+        <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
+            [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
+    </div>
+
+    <ng-container *ngIf="groupMode === 'slots'">
+        <p class="tracked-affix-slots-empty" *ngIf="!getSlotGroups().length">
+            Every tracked bonus type is already covered to the moderate-value threshold.
+        </p>
+        <div class="tracked-affix-section slot-group-section" *ngFor="let group of getSlotGroups(); trackBy: trackSlotGroup">
+            <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"
+                [attr.aria-expanded]="!isAffixGroupCollapsed(group.key)">
+                <span>{{group.label}}</span>
+                <span class="tracked-affix-header-actions">
+                    <span class="tracked-affix-count" *ngIf="isAffixGroupCollapsed(group.key)">{{group.rows.length}}</span>
+                    <span class="tracked-affix-collapse-indicator" [class.collapsed]="isAffixGroupCollapsed(group.key)" aria-hidden="true">&#8250;</span>
+                </span>
+            </button>
+            <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.key)">
+                <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows">
+                    <div class="tracked-affix-summary">
+                        <span class="tracked-affix-name">
+                            {{row.affixName}}
+                            <button type="button" class="custom-close tracked-affix-remove" aria-label="Remove {{row.affixName}}"
+                                (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </span>
+                        <span class="tracked-affix-total">
+                            <span class="tracked-affix-total-value">{{currentBonus(row.affixName)}}<span
+                                    class="max-available">/{{maxBonus(row.affixName)}}</span></span>
+                            <span class="tracked-affix-progress" aria-hidden="true">
+                                <span class="tracked-affix-progress-fill"
+                                    [style.width.%]="getTotalProgressPercent(row.affixName)"></span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="tracked-affix-chips">
+                        <button type="button" class="tracked-bonus-chip" *ngFor="let chip of row.chips"
+                            [class.no-value]="!chip.currentValue"
+                            [class.bonus-eliminated]="chip.eliminated"
+                            [ngClass]="chip.valueClass"
+                            [title]="chip.tooltip"
+                            (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
+                            <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
+                            <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
+                            <span class="max-available" *ngIf="chip.maxValue">/{{chip.maxValue}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="groupMode === 'category'">
     <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of trackedAffixGroups; trackBy: trackAffixGroup">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
             [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
@@ -121,6 +179,7 @@
             </div>
         </div>
     </div>
+    </ng-container>
     </div>
 
 </div>

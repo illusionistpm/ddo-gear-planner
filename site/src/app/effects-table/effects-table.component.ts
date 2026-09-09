@@ -1,15 +1,39 @@
 import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, AffixSource } from '../equipped.service';
+import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
 import { AffixService } from '../affix.service';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { AffixAvailabilityService, RemainingAvailability } from '../affix-availability.service';
 
 interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
+}
+
+interface SlotGroupChip {
+  sourceAffixName: string;
+  bonusType: string;
+  label: string;
+  currentValue: number;
+  maxValue: number;
+  valueClass: string;
+  eliminated: boolean;
+  tooltip: string;
+}
+
+interface SlotGroupRow {
+  affixName: string;
+  chips: SlotGroupChip[];
+}
+
+interface SlotGroup {
+  key: string;
+  label: string;
+  order: number;
+  rows: SlotGroupRow[];
 }
 
 interface TrackedBonusTypeDisplay {
@@ -46,6 +70,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
   collapsedAffixGroups = new Set<string>();
+  groupMode: TrackedAffixGroupMode = 'category';
   onboardingActive = true;
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
@@ -58,6 +83,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
+  private viewStateSubscription?: Subscription;
   private previousAffixTypeValues?: Map<string, number>;
   private changedAffixTypesTimeout: ReturnType<typeof setTimeout> | null = null;
   private trackedAffixDisplaySignature = '';
@@ -69,13 +95,19 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     public gearDB: GearDbService,
     private affixSvc: AffixService,
     private onboarding: PlannerOnboardingService,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private availability: AffixAvailabilityService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];
   }
 
   ngOnInit() {
+    this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
+      this.groupMode = state.groupMode;
+      this.collapsedAffixGroups = new Set(state.collapsed);
+    });
+
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
       this.onboardingActive = this.onboarding.shouldShowOnboarding();
@@ -107,6 +139,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   ngOnDestroy() {
     this.onboardingSubscription?.unsubscribe();
     this.coveredAffixesSubscription?.unsubscribe();
+    this.viewStateSubscription?.unsubscribe();
     if (this.changedAffixTypesTimeout) {
       clearTimeout(this.changedAffixTypesTimeout);
     }
@@ -155,6 +188,126 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       this.refreshTrackedAffixDisplay();
     }
     this.suggestionDrawer.openBonusType(affixName, bonusType, this.sortOwnedToTop);
+  }
+
+  /**
+   * True once equipped gear already supplies at least the "moderate value"
+   * threshold (3/4 of the best available) for this bonus type — at that point
+   * it is no longer worth flagging as scarce or hard to place.
+   */
+  isBonusTypeSufficient(affixName: string, type: any): boolean {
+    if (!type.value) {
+      return false;
+    }
+    const maxValue = this.getMaxValueForType(affixName, type);
+    return maxValue > 0 && type.value >= this.getModerateThreshold(maxValue);
+  }
+
+  setGroupMode(mode: TrackedAffixGroupMode) {
+    this.equipped.setTrackedAffixGroupMode(mode);
+  }
+
+  /**
+   * Tracked bonus types that still need fitting, bucketed by how many places
+   * (open gear slots, or a free augment slot) could still supply them — most
+   * restricted first. Backs the "Group by: Scarcity" view. Types already covered
+   * to the moderate-value threshold are omitted.
+   */
+  getSlotGroups(): SlotGroup[] {
+    const openSlots = this.equipped.getUnlockedSlots();
+    const equippedSetCounts = this.equipped.getActiveSets();
+    const seen = new Set<string>();
+    const buckets = new Map<string, SlotGroup>();
+    const bucket = (key: string, label: string, order: number): SlotGroup => {
+      let group = buckets.get(key);
+      if (!group) {
+        group = { key, label, order, rows: [] };
+        buckets.set(key, group);
+      }
+      return group;
+    };
+    // Keep every bonus type of one tracked affix on the same row within a
+    // bucket, mirroring the category grouping.
+    const rowFor = (group: SlotGroup, affixName: string): SlotGroupRow => {
+      let row = group.rows.find(candidate => candidate.affixName === affixName);
+      if (!row) {
+        row = { affixName, chips: [] };
+        group.rows.push(row);
+      }
+      return row;
+    };
+
+    for (const affixName of this.affixNames) {
+      for (const type of this.getVisibleTypes(affixName)) {
+        if (this.isBonusTypeSufficient(affixName, type)) {
+          continue;
+        }
+        const sourceAffixName = this.getSourceAffixName(affixName, type);
+        const bonusType = this.getSourceBonusType(type);
+        if (!bonusType || bonusType === 'Penalty' || bonusType === 'Bool') {
+          continue;
+        }
+        const key = sourceAffixName + '\0' + bonusType;
+        if (seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+
+        const info = this.availability.getRemainingAvailability(
+          sourceAffixName, bonusType, openSlots, equippedSetCounts,
+          this.equipped.getSlotsWithOpenAugmentForAffixType(sourceAffixName, bonusType)
+        );
+
+        let group: SlotGroup;
+        if (info.eliminated) {
+          group = bucket('ruled-out', 'Ruled out by gear', 99);
+        } else if (info.tier === 'set-only') {
+          group = bucket('set-only', 'Set only', 0);
+        } else if (info.tier === 'unavailable') {
+          continue;
+        } else if (info.slotCount >= 5) {
+          group = bucket('5plus', '5+ open slots', 5);
+        } else {
+          group = bucket(
+            String(info.slotCount),
+            `${info.slotCount} open slot${info.slotCount === 1 ? '' : 's'}`,
+            info.slotCount
+          );
+        }
+
+        rowFor(group, affixName).chips.push({
+          sourceAffixName,
+          bonusType,
+          label: this.getBonusTypeLabel(type),
+          currentValue: type.value || 0,
+          maxValue: this.getMaxValueForType(affixName, type),
+          valueClass: type.value ? this.getClassForValue(affixName, type) : '',
+          eliminated: info.eliminated,
+          tooltip: this.getScarcityTooltip(info)
+        });
+      }
+    }
+
+    const groups = Array.from(buckets.values()).sort((a, b) => a.order - b.order);
+    for (const group of groups) {
+      // Alphabetical within a group, matching the category grouping.
+      group.rows.sort((a, b) => a.affixName.localeCompare(b.affixName));
+    }
+    return groups;
+  }
+
+  private getScarcityTooltip(info: RemainingAvailability): string {
+    if (info.eliminated) {
+      return 'Ruled out by your gear — no open slot, augment, or reachable set can still supply this.';
+    }
+    switch (info.tier) {
+      case 'set-only':
+        return 'Needs a multi-piece set — no single item or augment supplies it.';
+      case 'scarce':
+        return `Only ${info.slotCount === 1 ? '1 place' : info.slotCount + ' places'} can still supply this — fit it early.`;
+      default:
+        return '';
+    }
   }
 
   getSourcesForType(affixName: string, type: any): AffixSource[] {
@@ -457,11 +610,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   toggleAffixGroup(groupName: string) {
-    if (this.collapsedAffixGroups.has(groupName)) {
-      this.collapsedAffixGroups.delete(groupName);
-    } else {
-      this.collapsedAffixGroups.add(groupName);
-    }
+    this.equipped.toggleTrackedAffixGroupCollapsed(groupName);
     this.refreshOnboardingTarget();
   }
 
@@ -520,6 +669,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   trackAffixGroup(index: number, group: TrackedAffixGroupDisplay): string {
     return group.name;
+  }
+
+  trackSlotGroup(index: number, group: SlotGroup): string {
+    return group.key;
   }
 
   trackVisibleType(index: number, type: any): string {

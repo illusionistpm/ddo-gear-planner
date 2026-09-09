@@ -9,6 +9,7 @@ import { GearDbService, SetBonusThreshold } from './gear-db.service';
 import { canonicalizeCraftingSystemName } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
 import { AffixService } from './affix.service';
+import { AffixAvailabilityService } from './affix-availability.service';
 import { EssenceCraftingService } from './essence-crafting.service';
 import { perfCount, perfMeasure, perfStart } from './perf-trace';
 
@@ -16,6 +17,11 @@ const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
   ['False Life', ['False Life (%)']],
 ]);
+
+// Bonus per equipped piece of a set that is the *only* source of an uncovered
+// tracked need. Small on purpose: it should reorder pieces within a slot, not
+// swamp the affix-value signal.
+const SET_PIECE_NUDGE = 0.6;
 
 export interface VisibleSetBonus {
   setName: string;
@@ -37,6 +43,15 @@ export interface EquippedItemEvent {
   itemName: string;
 }
 
+export type TrackedAffixGroupMode = 'category' | 'slots';
+
+export interface TrackedAffixViewState {
+  groupMode: TrackedAffixGroupMode;
+  collapsed: string[];
+}
+
+export type PlannerTab = 'equipment' | 'affixes';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,17 +66,31 @@ export class EquippedService {
   private visibleSetBonuses = new BehaviorSubject<Array<VisibleSetBonus>>([]);
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
   private equippedItemSubject = new Subject<EquippedItemEvent>();
+
+  // Planner view state, persisted in the URL.
+  private activeMainTab: PlannerTab = 'equipment';
+  private plannerTabSubject = new BehaviorSubject<PlannerTab>('equipment');
+  private trackedAffixGroupMode: TrackedAffixGroupMode = 'category';
+  private collapsedTrackedAffixGroups = new Set<string>();
+  private trackedAffixViewSubject = new BehaviorSubject<TrackedAffixViewState>({
+    groupMode: 'category',
+    collapsed: [],
+  });
   private batchingDerivedStateUpdates = false;
   private derivedStateDirty = false;
   private importantAffixesDirty = false;
 
   private params: BehaviorSubject<any>;
 
+  private setOnlyUncoveredSets?: Set<string>;
+  private openAugmentSlotsCache = new Map<string, Set<string>>();
+
   constructor(
     private gearList: GearDbService,
     private queryParams: QueryParamsService,
     private affixSvc: AffixService,
-    private essenceCrafting: EssenceCraftingService
+    private essenceCrafting: EssenceCraftingService,
+    private availability: AffixAvailabilityService
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
@@ -93,6 +122,16 @@ export class EquippedService {
 
       try {
         this.setImportantAffixes(params.getAll('tracked'));
+
+        this.activeMainTab = params.get('tab') === 'affixes' ? 'affixes' : 'equipment';
+        this.plannerTabSubject.next(this.activeMainTab);
+
+        this.trackedAffixGroupMode = params.get('taGroup') === 'slots' ? 'slots' : 'category';
+        const collapsedParam = params.get('taCollapsed');
+        this.collapsedTrackedAffixGroups = new Set(
+          collapsedParam ? String(collapsedParam).split(',').filter(Boolean) : []
+        );
+        this._emitTrackedAffixViewState();
 
         for (const slot of this.gearList.getSlots()) {
           if (!params.get(slot)) {
@@ -269,6 +308,16 @@ export class EquippedService {
     //params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
+
+    if (this.activeMainTab === 'affixes') {
+      params['tab'] = this.activeMainTab;
+    }
+    if (this.trackedAffixGroupMode !== 'category') {
+      params['taGroup'] = this.trackedAffixGroupMode;
+    }
+    if (this.collapsedTrackedAffixGroups.size) {
+      params['taCollapsed'] = Array.from(this.collapsedTrackedAffixGroups).join(',');
+    }
 
     this.params.next(params);
     done({ keys: Object.keys(params).length });
@@ -650,6 +699,13 @@ export class EquippedService {
 
   getScore(item: Item) {
     let score = 0;
+    // Slots still open to gear, plus the one this candidate would take. Scarcity
+    // is measured against these so filled keystone slots stop counting and the
+    // suggestions converge on a final set.
+    const openSlots = this.getUnlockedSlots();
+    openSlots.add(item.slot);
+    const equippedSetCounts = this.getActiveSets();
+
     for (const affix of this.affixSvc.getActiveAffixes(item)) {
       if (this.importantAffixes.has(affix.name)) {
 
@@ -665,11 +721,134 @@ export class EquippedService {
 
         const affixWeight = this.gearList.getAffixWeight(affix.name, bestVal);
 
-        score += improvement / bestVal * affixWeight;
+        // Once equipped gear already covers this bonus type to the moderate
+        // threshold, stop letting scarcity boost yet another source of it.
+        const scarcity = this._isAffixTypeSufficient(affix.name, affix.type)
+          ? 1
+          : this.availability.getScarcityWeight(
+              affix.name, affix.type, openSlots, equippedSetCounts,
+              this.getSlotsWithOpenAugmentForAffixType(affix.name, affix.type)
+            );
+
+        score += improvement / bestVal * affixWeight * scarcity;
       }
     }
 
+    score += this._getSetCoverageNudge(item);
+
     return score;
+  }
+
+  /**
+   * True once currently equipped gear supplies at least 3/4 of the best
+   * available value for this affix + bonus type — matching the effects table's
+   * "moderate value" threshold. Past that point the need is handled.
+   */
+  private _isAffixTypeSufficient(affixName: string, bonusType: string): boolean {
+    const best = this.gearList.getBestValueForAffixType(affixName, bonusType);
+    if (best <= 0) {
+      return false;
+    }
+    return this.getCurrentValueForAffixType(affixName, bonusType) >= best * 3 / 4;
+  }
+
+  /**
+   * Rewards a candidate for belonging to a set that is the only source of a
+   * still-uncovered tracked need, so set pieces surface in slot suggestions even
+   * though the set bonus itself never appears among the item's own affixes.
+   */
+  private _getSetCoverageNudge(item: Item): number {
+    const sets = item.getSets();
+    if (!sets || !sets.length) {
+      return 0;
+    }
+    const setOnly = this._getSetOnlyUncoveredSets();
+    if (!setOnly.size) {
+      return 0;
+    }
+    let matches = 0;
+    for (const setName of sets) {
+      if (setOnly.has(setName)) {
+        matches++;
+      }
+    }
+    return Math.min(matches, 2) * SET_PIECE_NUDGE;
+  }
+
+  private _getSetOnlyUncoveredSets(): Set<string> {
+    if (this.setOnlyUncoveredSets) {
+      return this.setOnlyUncoveredSets;
+    }
+    const result = new Set<string>();
+    const openSlots = this.getUnlockedSlots();
+    const equippedSetCounts = this.getActiveSets();
+    for (const [affixName, types] of this.coveredAffixes.getValue()) {
+      for (const entry of types) {
+        if (entry.value || entry.bonusType === 'Bool') {
+          continue;
+        }
+        // Remaining-slot aware: a bonus type whose last item slot just got
+        // filled now counts as set-only too — and only if that set can still
+        // reach its threshold.
+        const info = this.availability.getRemainingAvailability(
+          affixName, entry.bonusType, openSlots, equippedSetCounts,
+          this.getSlotsWithOpenAugmentForAffixType(affixName, entry.bonusType)
+        );
+        if (info.tier === 'set-only') {
+          for (const source of info.setSources) {
+            result.add(source.setName);
+          }
+        }
+      }
+    }
+    this.setOnlyUncoveredSets = result;
+    return result;
+  }
+
+  /**
+   * Slots whose currently-equipped item still has a free augment slot able to
+   * host an augment granting (affixName, bonusType). Filling a gear slot does
+   * not consume its augment slots, so these stay available even though the slot
+   * is "locked". Memoised until the next equipped-gear change.
+   */
+  getSlotsWithOpenAugmentForAffixType(affixName: string, bonusType: string): Set<string> {
+    const key = affixName + '\0' + bonusType;
+    const cached = this.openAugmentSlotsCache.get(key);
+    if (cached) {
+      return cached;
+    }
+
+    const augmentNames = new Set<string>();
+    for (const craftable of this.gearList.findAugmentsWithAffixAndType(affixName, bonusType)) {
+      if (craftable.options && craftable.options.length) {
+        augmentNames.add(craftable.name);
+      }
+    }
+
+    const slots = new Set<string>();
+    if (augmentNames.size) {
+      for (const [slotName, subject] of this.slots) {
+        const item = subject.getValue();
+        if (!item || !item.crafting) {
+          continue;
+        }
+        for (const craftable of item.crafting) {
+          if (craftable.selected && craftable.selected.affixes.length !== 0) {
+            continue; // already committed to something
+          }
+          const canHost = augmentNames.has(craftable.name) ||
+            (craftable.hasCraftingSystemOptions() &&
+              craftable.craftingSystemOptions.some(name => augmentNames.has(name)));
+          if (canHost) {
+            slots.add(slotName);
+            break;
+          }
+        }
+      }
+    }
+
+    this.openAugmentSlotsCache.set(key, slots);
+    return slots;
   }
 
   private _getImportantAffixesToTypes() {
@@ -690,6 +869,49 @@ export class EquippedService {
 
   getImportantAffixesObservable() {
     return this.importantAffixesSubject.asObservable();
+  }
+
+  getActiveMainTab() {
+    return this.plannerTabSubject.asObservable();
+  }
+
+  setActiveMainTab(tab: PlannerTab) {
+    if (this.activeMainTab === tab) {
+      return;
+    }
+    this.activeMainTab = tab;
+    this.plannerTabSubject.next(tab);
+    this._updateRouterState();
+  }
+
+  getTrackedAffixViewState() {
+    return this.trackedAffixViewSubject.asObservable();
+  }
+
+  setTrackedAffixGroupMode(mode: TrackedAffixGroupMode) {
+    if (this.trackedAffixGroupMode === mode) {
+      return;
+    }
+    this.trackedAffixGroupMode = mode;
+    this._emitTrackedAffixViewState();
+    this._updateRouterState();
+  }
+
+  toggleTrackedAffixGroupCollapsed(key: string) {
+    if (this.collapsedTrackedAffixGroups.has(key)) {
+      this.collapsedTrackedAffixGroups.delete(key);
+    } else {
+      this.collapsedTrackedAffixGroups.add(key);
+    }
+    this._emitTrackedAffixViewState();
+    this._updateRouterState();
+  }
+
+  private _emitTrackedAffixViewState() {
+    this.trackedAffixViewSubject.next({
+      groupMode: this.trackedAffixGroupMode,
+      collapsed: Array.from(this.collapsedTrackedAffixGroups),
+    });
   }
 
   private getTrackedAffixFamily(affix: string) {
@@ -788,6 +1010,8 @@ export class EquippedService {
 
   private _updateCoveredAffixes(updateRouterState = true) {
     // affixName => Array of {bonusType, Array of {slot: value}}
+    this.setOnlyUncoveredSets = undefined;
+    this.openAugmentSlotsCache.clear();
     const newMap = new Map<string, Array<any>>();
 
     const importantAffixes = this._getImportantAffixesToTypes();

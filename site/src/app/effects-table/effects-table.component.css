@@ -311,3 +311,59 @@
         margin-left: 0;
     }
 }
+
+/* Group-by control + the "Scarcity" grouping view. */
+.tracked-affix-groupby {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.1rem 0 0.7rem;
+}
+
+.tracked-affix-groupby-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.tracked-affix-groupby-option {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    padding: 0.12rem 0.7rem;
+}
+
+.tracked-affix-groupby-option.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.tracked-affix-slots-empty {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.slot-group-section {
+    --tracked-affix-accent: var(--primary-color);
+    --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
+}
+
+/* A bonus type whose every candidate slot is now filled — ruled out by gear. */
+.tracked-bonus-chip.bonus-eliminated {
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+}
+
+.tracked-bonus-chip.bonus-eliminated:hover,
+.tracked-bonus-chip.bonus-eliminated:focus {
+    border-color: var(--chip-border-color);
+    box-shadow: none;
+}

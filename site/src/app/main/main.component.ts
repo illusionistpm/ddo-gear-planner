@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private filterSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
+  private tabSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
 
   onSortOwnedToTopChanged(value: boolean) {
@@ -49,6 +50,9 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userGear.loadFromStorage();
     this.activeTab = this.getInitialTabFromUrl();
+    this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
+      this.activeTab = tab;
+    });
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
@@ -67,6 +71,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
+    this.tabSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
     }
@@ -79,6 +84,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
 
     this.activeTab = tab;
+    this.equipped.setActiveMainTab(tab);
     this.closeFilters();
     this.refreshOnboardingState();
   }

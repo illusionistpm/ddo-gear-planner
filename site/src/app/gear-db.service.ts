@@ -715,6 +715,41 @@ export class GearDbService {
     return results;
   }
 
+  /**
+   * Distinct equipment slots that hold at least one filtered item belonging to
+   * (or craftable into) the named set. Used to tell whether a set can still
+   * reach a piece-count threshold given which slots are still open.
+   */
+  findSlotsForSet(setName: string): string[] {
+    if (!setName) {
+      return [];
+    }
+    const minLevel = this.currentItemFilters.levelRange[0];
+    const maxLevel = this.currentItemFilters.levelRange[1];
+    const slots: string[] = [];
+
+    for (const [slot, items] of this.gear) {
+      for (const item of items) {
+        const sets = item.getSets();
+        if (sets && sets.includes(setName)) {
+          slots.push(slot);
+          break;
+        }
+        const craftableForSet = item.crafting?.some(craftable =>
+          craftable.options.some(option =>
+            option.set === setName && this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)
+          )
+        );
+        if (craftableForSet) {
+          slots.push(slot);
+          break;
+        }
+      }
+    }
+
+    return slots;
+  }
+
   findSetsWithAffixAndType(affixName: string, bonusType: string) {
     const results: any[] = [];
     const minLevel = this.currentItemFilters.levelRange[0];
@@ -728,7 +763,10 @@ export class GearDbService {
 
       for (const threshold of rawSetList[setName]) {
         for (const affix of threshold.affixes) {
-          if (affix.name === affixName && affix.type === bonusType) {
+          // Group-aware, matching findAugmentsWithAffixAndType: a set that grants
+          // an umbrella affix (e.g. "Universal Spell Lore") also supplies each
+          // affix that umbrella resolves to (e.g. "Kinetic Lore").
+          if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
             results.push([setName, threshold.threshold, affix.value]);
           }
         }
@@ -796,6 +834,42 @@ export class GearDbService {
     }
 
     return results;
+  }
+
+  /**
+   * Distinct equipment slots whose filtered items carry an augment slot that
+   * could host an augment granting (affixName, bonusType). Lets callers tell a
+   * genuinely reachable augment from one there is nowhere to put.
+   */
+  findSlotsForAugmentAffixAndType(affixName: string, bonusType: string): string[] {
+    const augmentNames = new Set<string>();
+    for (const craftable of this.findAugmentsWithAffixAndType(affixName, bonusType)) {
+      if (craftable.options && craftable.options.length) {
+        augmentNames.add(craftable.name);
+      }
+    }
+    if (!augmentNames.size) {
+      return [];
+    }
+
+    const slots: string[] = [];
+    for (const [slot, items] of this.gear) {
+      for (const item of items) {
+        if (!item.crafting) {
+          continue;
+        }
+        const hosts = item.crafting.some(craftable =>
+          augmentNames.has(craftable.name) ||
+          (craftable.hasCraftingSystemOptions() &&
+            craftable.craftingSystemOptions.some(name => augmentNames.has(name)))
+        );
+        if (hosts) {
+          slots.push(slot);
+          break;
+        }
+      }
+    }
+    return slots;
   }
 
   getAllAffixes() {

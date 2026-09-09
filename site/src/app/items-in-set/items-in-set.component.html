@@ -1,11 +1,41 @@
 <div class='modal-body'>
-  <button type="button" class="custom-close float-end" aria-label="Close" (click)="close()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <h1>
-    {{setName}}
-  </h1>
+  <div class="drawer-heading-row">
+    <button type="button" class="drawer-back-button" *ngIf="canGoBack" (click)="goBack()">
+      <span aria-hidden="true">&lsaquo;</span> Back
+    </button>
+    <h1 class="drawer-heading-title">{{setName}}</h1>
+    <button type="button" class="custom-close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 </div>
+
+@if (setBonusTiers.length) {
+  <div class="modal-body set-bonus-summary">
+    <h3 class="set-bonus-summary-title">Set Bonuses</h3>
+    <div class="set-bonus-summary-list">
+      @for (tier of setBonusTiers; track tier.threshold) {
+        @for (affix of tier.affixes; track $index) {
+          <div class="set-bonus-summary-row" [class.disabled-set-tier]="!tier.eligible"
+            [title]="getSetBonusTooltip(tier)">
+            @if (equipped.isImportantAffix(affix.name)) {
+              <button type="button" class="set-bonus-summary-heart fas fa-heart heart"
+                aria-label="Stop tracking {{affix.name}}"
+                (click)="equipped.toggleImportantAffix(affix.name)"></button>
+            } @else {
+              <button type="button" class="set-bonus-summary-heart far fa-heart heart"
+                aria-label="Track {{affix.name}}"
+                (click)="equipped.toggleImportantAffix(affix.name)"></button>
+            }
+            <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
+            <span class="set-bonus-summary-name">{{affix.name}}</span>
+            <span class="set-bonus-summary-value" [ngClass]="getClassForSetAffix(affix, tier.eligible)">{{getSetAffixValue(affix)}} {{affix.type}}</span>
+          </div>
+        }
+      }
+    </div>
+  </div>
+}
 
 @if (previewItem) {
   <aside class="item-preview-panel" aria-label="Item preview">

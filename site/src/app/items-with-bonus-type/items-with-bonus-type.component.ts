@@ -9,6 +9,7 @@ import { Affix } from '../affix';
 import { Craftable } from '../craftable';
 
 import { AffixService } from '../affix.service';
+import { AffixAvailabilityService } from '../affix-availability.service';
 import { CraftableOption } from '../craftable-option';
 import { AffixUiService } from '../affix-ui.service';
 import { AnalyticsService } from '../analytics.service';
@@ -69,6 +70,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   stringToOption: Map<string, CraftableOption> = new Map<string, CraftableOption>();
 
   sets: Array<[string, number, number]> = [];
+  unreachableSets: Array<[string, number, number]> = [];
+  private equippedSetCounts = new Map<string, number>();
 
   setMatches: Array<[string, Array<Affix>, Array<Item>]> = [];
 
@@ -82,6 +85,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     public gearDB: GearDbService,
     public equipped: EquippedService,
     private affixSvc: AffixService,
+    private availability: AffixAvailabilityService,
     public userGear: UserGearService,
     public affixUi: AffixUiService,
     private analytics: AnalyticsService,
@@ -200,10 +204,30 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     });
         
     // JAK: FIXME!! I need to add sets to the bonus type list
-    this.sets = this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType);
+    // Split by whether the set can still reach its piece threshold given the
+    // slots left open, the same way gear is split into open vs filled slots.
+    const openSlots = this.equipped.getUnlockedSlots();
+    this.equippedSetCounts = this.equipped.getActiveSets();
+    this.sets = [];
+    this.unreachableSets = [];
+    for (const set of this.gearDB.findSetsWithAffixAndType(this.affixName, this.bonusType)) {
+      if (this.availability.isSetReachable(set[0], set[1], openSlots, this.equippedSetCounts)) {
+        this.sets.push(set);
+      } else {
+        this.unreachableSets.push(set);
+      }
+    }
+    this.sets = this._sortSetsByValue(this.sets);
+    this.unreachableSets = this._sortSetsByValue(this.unreachableSets);
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);
+  }
+
+  private _sortSetsByValue(sets: Array<[string, number, number]>): Array<[string, number, number]> {
+    return [...sets].sort((a, b) =>
+      Number(b[2]) - Number(a[2]) ||
+      a[0].localeCompare(b[0]));
   }
 
   private canUseAugmentSlot(item: Item, craftable: Craftable) {
@@ -371,6 +395,18 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       source: 'bonus_type_modal'
     });
     this.suggestionDrawer.openSet(setName);
+  }
+
+  equippedPiecesForSet(setName: string): number {
+    return this.equippedSetCounts.get(setName) || 0;
+  }
+
+  get canGoBack(): boolean {
+    return this.suggestionDrawer.canGoBack;
+  }
+
+  goBack() {
+    this.suggestionDrawer.back();
   }
 
   close() {

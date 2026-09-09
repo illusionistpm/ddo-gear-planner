@@ -56,7 +56,7 @@ WIKI_RECIPE_TYPES = {
         'Armor Piercing': 'Enhancement',
         'Deadly': 'Competence',
         'Deception (no bluff effect)': 'Enhancement',
-        'Resistance': {'heroic': 'Enhancement', 'legendary': 'Resistance'},
+        'Resistance': 'Resistance',
         'Seeker': 'Enhancement',
         'Spell Lore (single type) (Equipment Bonus)': 'Equipment',
         'Spell Power (single type) (Equipment Bonus)': 'Equipment',

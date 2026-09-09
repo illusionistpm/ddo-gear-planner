@@ -1277,6 +1277,18 @@
     ],
     "notes": "The affix grants permanent Equipment bonus to both Sonic and Electric Spell Power. Decomposed into two components for Sonic and Electric Spell Power respectively."
   },
+  "Power Store": {
+    "components": [
+      {
+        "name": "Magical Efficiency",
+        "type": "Enhancement",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ]
+  },  
   "Prudent Skills Bonus": {
     "components": [
       {

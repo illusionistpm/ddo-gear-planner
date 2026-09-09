@@ -31,7 +31,9 @@ describe('affix organization', () => {
     expect(getAffixCategory('Repair Amplification')).toBe('Defense');
     expect(getAffixCategory('Distant Diversion')).toBe('Defense');
     expect(getAffixCategory('Mystic Diversion')).toBe('Defense');
-    expect(getAffixCategory('Magical Efficiency')).toBe(UTILITY_CHECKLIST_CATEGORY);
+    expect(getAffixCategory('Magical Efficiency')).toBe('Casting');
+    expect(getAffixCategory('Efficient Metamagic - Maximize')).toBe('Casting');
+    expect(getAffixCategory('Efficient Metamagic - Empower Healing')).toBe('Casting');
     expect(getAffixCategory('Returning')).toBe(UTILITY_CHECKLIST_CATEGORY);
     expect(getAffixCategory('Shield Bashing')).toBe('Offense');
     expect(getAffixCategory('Holy')).toBe('Offense');

@@ -81,7 +81,6 @@ const DEFENSE_AFFIXES = new Set([
 ]);
 
 const UTILITY_CHECKLIST_AFFIXES = new Set([
-  'Magical Efficiency',
   'Returning'
 ]);
 
@@ -174,6 +173,9 @@ function getDirectAffixCategory(affixName: string): string {
     return 'Immunities';
   }
   if (/\b(Spell Power|Lore|Focus|Spell Penetration|Wizardry|Intensity)\b/.test(affixName)) {
+    return 'Casting';
+  }
+  if (/\b(Magical Efficiency|Efficient Metamagic)\b/.test(affixName)) {
     return 'Casting';
   }
   if (OFFENSE_AFFIXES.has(affixName) || /\b(Deadly|Accuracy|Armor-Piercing|Doublestrike|Doubleshot|Melee Power|Ranged Power|Alacrity|Assassinate|Stunning|Sundering|Vertigo|Seeker|Deception)\b/.test(affixName)) {

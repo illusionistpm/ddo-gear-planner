@@ -69,6 +69,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     new Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>>();
   stringToOption: Map<string, CraftableOption> = new Map<string, CraftableOption>();
 
+  // Free non-augment crafting slots on already-equipped items (e.g. an equipped
+  // Legendary Green Steel piece with T1 filled but T2/T3 still open) that could
+  // still host this bonus type. Modelled like the augment list above: an option
+  // string maps to the equipped items (and their open tiers) it could go into.
+  craftIntoEquippedGear: Map<string, Map<Item, Array<Craftable>>> = new Map<string, Map<Item, Array<Craftable>>>();
+  craftIntoEquippedOptions: Map<string, CraftableOption> = new Map<string, CraftableOption>();
+  selectedCraftSlot: any;
+
   sets: Array<[string, number, number]> = [];
   unreachableSets: Array<[string, number, number]> = [];
   private equippedSetCounts = new Map<string, number>();
@@ -124,6 +132,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   private refreshMatches() {
     this.matches = [];
     this.lockedMatches = [];
+    this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
+    this.craftIntoEquippedOptions = new Map<string, CraftableOption>();
+    this.selectedCraftSlot = undefined;
     this.previewItem = null;
     this.previewItems = [];
     this.previewIndex = -1;
@@ -203,6 +214,48 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       }
     });
         
+    // Free non-augment crafting slots on equipped items. The augment scan above
+    // fills open augment slots on equipped gear; this does the same for plain
+    // option-list crafting tiers (Legendary Green Steel T1/T2/T3, etc.) so a
+    // partly-crafted piece still offers its remaining tiers.
+    for (const item of this.equipped.getSlotsSnapshot().values()) {
+      if (!item || !item.crafting) {
+        continue;
+      }
+
+      for (const craftable of item.crafting) {
+        if (craftable.selected.affixes.length != 0) {
+          continue; // tier already committed to something
+        }
+        if (craftable.name.endsWith(' Augment Slot') || craftable.hasCraftingSystemOptions()) {
+          continue; // augment slots are handled by the scan above
+        }
+        if (craftable.hiddenFromAffixSearch) {
+          continue;
+        }
+
+        for (const option of craftable.options) {
+          if (option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) == null) {
+            continue;
+          }
+
+          const key = option.describe();
+          if (!this.craftIntoEquippedOptions.has(key)) {
+            this.craftIntoEquippedOptions.set(key, option);
+            this.craftIntoEquippedGear.set(key, new Map<Item, Array<Craftable>>());
+          }
+
+          const gearMap = this.craftIntoEquippedGear.get(key);
+          if (gearMap) {
+            if (!gearMap.has(item)) {
+              gearMap.set(item, []);
+            }
+            gearMap.get(item)?.push(craftable);
+          }
+        }
+      }
+    }
+
     // JAK: FIXME!! I need to add sets to the bonus type list
     // Split by whether the set can still reach its piece threshold given the
     // slots left open, the same way gear is split into open vs filled slots.
@@ -379,6 +432,42 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
             this.suggestionDrawer.close();
             done({ slot: item.slot, item: item.name });
             perfAfterFrames('paint after augment equip');
+            return;
+          }
+        }
+      }
+    }
+
+    console.error('Unable to find matching option for ' + item.name + ' ' + craftable.name + ' ' + optionString);
+    done({ error: true });
+  }
+
+  /** Value the tracked (affix, bonus type) takes in the given craft option. */
+  craftOptionMatchValue(optionString: string): number | string {
+    const option = this.craftIntoEquippedOptions.get(optionString);
+    const value = option?.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+    return value == null ? '' : value;
+  }
+
+  equipCraftIntoEquipped() {
+    const done = perfStart('ItemsWithBonusTypeComponent.equipCraftIntoEquipped');
+    const item = new Item(this.selectedCraftSlot.item as Item);
+    const craftable = this.selectedCraftSlot.craftable as Craftable;
+    const optionString = this.selectedCraftSlot.optionString as string;
+
+    for (const itemCraftable of item.crafting) {
+      if (itemCraftable.name == craftable.name) {
+        for (const option of itemCraftable.options) {
+          if (option.describe() == optionString) {
+            itemCraftable.selected = option;
+            this.equipped.set(item);
+            this.analytics.track('planner_equip_item', {
+              equip_source: 'bonus_type_craft_into_equipped',
+              slot: item.slot
+            });
+            this.suggestionDrawer.close();
+            done({ slot: item.slot, item: item.name, craftable: craftable.name });
+            perfAfterFrames('paint after bonus type craft-into-equipped');
             return;
           }
         }

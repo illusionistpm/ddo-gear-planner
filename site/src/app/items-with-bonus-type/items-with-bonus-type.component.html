@@ -102,6 +102,46 @@
   </div>
 }
 
+@if (craftIntoEquippedGear.size) {
+  <div>
+    <div class="row">
+      <div class="col-1"><b>ML</b></div>
+      <div class="col-8"><b>Craft Into Equipped Item</b></div>
+      <div class="col-1"><b>Value</b></div>
+      <div class="col-2"></div>
+    </div>
+    @for (elem of craftIntoEquippedGear | keyvalue; track elem.key) {
+      <div class="row">
+        <div class="col-1">{{craftIntoEquippedOptions.get(elem.key).ml || ''}}</div>
+        <div class="col-8">
+          <div class="row" style="background-color: transparent;">
+            {{craftIntoEquippedOptions.get(elem.key).describe(false, false)}}
+          </div>
+          <div class="row" style="background-color: transparent;">
+            <div>
+              <select class="augment-slot-select" [(ngModel)]="selectedCraftSlot"
+                [title]="selectedCraftSlot ? selectedCraftSlot.item.name + ' - ' + selectedCraftSlot.craftable.name : ''">
+                @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
+                  @for (craftable of innerElem.value; track craftable.name) {
+                    <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
+                      [title]="innerElem.key.name + ' - ' + craftable.name">
+                      {{innerElem.key.name}} - {{craftable.name}}
+                    </option>
+                  }
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">{{craftOptionMatchValue(elem.key)}}</div>
+        <button class="col-2 equip-button" (click)="equipCraftIntoEquipped()"
+          [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString != elem.key">Equip</button>
+      </div>
+    }
+    <hr/>
+  </div>
+}
+
 @if (sets.length || unreachableSets.length) {
   <div>
     <div class="row">

@@ -12,6 +12,19 @@ interface AffixGroupJson {
   components?: Array<{ name: string; type: string; value: number | string }>;
 }
 
+/**
+ * The "universal" spell casting affixes. Each is an affix group whose members
+ * are the per-element flavors (Fire Spell Power, Cold Lore, ...), and each one
+ * stacks with those flavors. The effects table renders them as a
+ * "Universal <bonus type>" companion row under every member affix, so their
+ * contribution must not also surface as a plain per-element row.
+ */
+export const UNIVERSAL_COMPANION_AFFIXES = [
+  'Universal Spell Power',
+  'Universal Spell Lore',
+  'Universal Spell Critical Damage',
+];
+
 @Injectable({
   providedIn: 'root'
 })

@@ -264,6 +264,48 @@ describe('EffectsTableComponent', () => {
     });
   });
 
+  it('does not also show a plain per-element row for a universal-companion-only bonus type', () => {
+    // "Implement" spell power only ever comes from Universal Spell Power, so
+    // ungrouping the companion affix leaks it onto Cold Spell Power's level types.
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+      if (affixName === 'Cold Spell Power') {
+        return ['Equipment', 'Implement'];
+      }
+      if (affixName === 'Universal Spell Power') {
+        return ['Implement'];
+      }
+      return [];
+    });
+    spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').and.callFake(
+      (affixName: string, bonusType: string) =>
+        affixName === 'Cold Spell Power' && bonusType === 'Implement'
+    );
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) => {
+      if (affixName === 'Cold Spell Power' && bonusType === 'Equipment') {
+        return 150;
+      }
+      if (affixName === 'Universal Spell Power' && bonusType === 'Implement') {
+        return 32;
+      }
+      return 0;
+    });
+    spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+
+    const visibleTypes = component.getVisibleTypes('Cold Spell Power');
+    const implementRows = visibleTypes.filter(type => type.bonusType === 'Implement');
+
+    expect(implementRows).toEqual([
+      {
+        bonusType: 'Implement',
+        value: 0,
+        label: 'Universal Implement',
+        sourceAffixName: 'Universal Spell Power',
+        sourceBonusType: 'Implement',
+      },
+    ]);
+    expect(visibleTypes.some(type => type.label === 'Implement')).toBe(false);
+  });
+
   it('routes universal spell power rows to the universal source affix', () => {
     const type = {
       bonusType: 'Implement',

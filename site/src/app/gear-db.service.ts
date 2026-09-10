@@ -14,7 +14,7 @@ import itemsList from 'src/assets/items.json';
 import craftingListRaw from 'src/assets/crafting.json';
 import essenceCraftingList from 'src/assets/essence-crafting.json';
 import setList from 'src/assets/sets.json';
-import { AffixService } from './affix.service';
+import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { perfMeasure, perfStart } from './perf-trace';
 
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
@@ -28,6 +28,27 @@ export interface SetBonusThreshold {
   eligible: boolean;
   affixes: Array<Affix>;
 }
+
+const UNIVERSAL_COMPANION_AFFIX_SET = new Set(UNIVERSAL_COMPANION_AFFIXES);
+
+/**
+ * While building an affix -> bonus type map, records which (affix, bonus type)
+ * pairs were contributed by ungrouping a universal companion affix versus by any
+ * literal affix, so companion-only pairs can be identified afterwards.
+ */
+interface UniversalCompanionContributionTracker {
+  fromUniversalCompanion: Map<string, Set<string>>;
+  fromLiteral: Map<string, Set<string>>;
+}
+
+const recordAffixType = (map: Map<string, Set<string>>, affixName: string, bonusType: string): void => {
+  let types = map.get(affixName);
+  if (!types) {
+    types = new Set<string>();
+    map.set(affixName, types);
+  }
+  types.add(bonusType);
+};
 
 export const canonicalizeCraftingSystemName = (name: string): string =>
   name.replace(/^Cannith: /, 'Essence Crafting: ');
@@ -59,6 +80,11 @@ export class GearDbService {
   private currentItemFilters: ItemFilters = new ItemFilters();
   private setLevels: Map<string, Set<number>> = new Map<string, Set<number>>();
   private allLevelAffixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+  // memberAffix -> bonus types it only ever receives by ungrouping a universal
+  // companion affix (never from a literal affix). The effects table renders
+  // these as a "Universal <type>" companion row, so the plain per-element row
+  // for them is a duplicate and gets suppressed.
+  private allLevelUniversalCompanionOnlyAffixTypes: Map<string, Set<string>> = new Map<string, Set<string>>();
   private allGearMaxLevel = ItemFilters.MAX_LEVEL();
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
@@ -260,9 +286,14 @@ export class GearDbService {
 
     this.filters.setMaxLevel(maxLevel);
     this.setLevels = this._buildSetLevels(gear);
+    const universalTracker: UniversalCompanionContributionTracker = {
+      fromUniversalCompanion: new Map<string, Set<string>>(),
+      fromLiteral: new Map<string, Set<string>>(),
+    };
     this.allLevelAffixToBonusTypes = perfMeasure('GearDbService.loadAllItems.buildAllLevelAffixToBonusTypes', () =>
-      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel)
+      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel, universalTracker)
     );
+    this.allLevelUniversalCompanionOnlyAffixTypes = this._buildUniversalCompanionOnlyAffixTypes(universalTracker);
 
     return gear;
   }
@@ -382,7 +413,12 @@ export class GearDbService {
       && hiddenPacks.size === 0;
   }
 
-  private _buildAffixToBonusTypes(gear: Map<string, Array<Item>>, minLevel: number, maxLevel: number) {
+  private _buildAffixToBonusTypes(
+    gear: Map<string, Array<Item>>,
+    minLevel: number,
+    maxLevel: number,
+    universalTracker?: UniversalCompanionContributionTracker
+  ) {
     const affixToBonusTypes = new Map<string, Map<string, number>>();
 
     const itemsDone = perfStart('GearDbService.buildAffixToBonusTypes.items');
@@ -401,8 +437,8 @@ export class GearDbService {
           ?.filter(craftable => !craftable.hiddenFromAffixSearch).length || 0;
         craftingOptionCount += item.crafting
           ?.reduce((count, craftable) => count + (craftable.hiddenFromAffixSearch ? 0 : craftable.options.length), 0) || 0;
-        this._addAffixesToMap(affixToBonusTypes, item.affixes);
-        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel, processedCraftingOptionLists);
+        this._addAffixesToMap(affixToBonusTypes, item.affixes, universalTracker);
+        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel, processedCraftingOptionLists, universalTracker);
       }
     }
     itemsDone({
@@ -429,14 +465,14 @@ export class GearDbService {
       for (const threshold of rawSetList[setName]) {
         setThresholdCount++;
         setAffixCount += threshold.affixes?.length || 0;
-        this._addAffixesToMap(affixToBonusTypes, threshold.affixes);
+        this._addAffixesToMap(affixToBonusTypes, threshold.affixes, universalTracker);
       }
     }
     setsDone({ setCount, setThresholdCount, setAffixCount });
 
     const essenceDone = perfStart('GearDbService.buildAffixToBonusTypes.essenceCraftingAffixes');
     const essenceCraftingAffixes = this.essenceCrafting.getAllAffixesForML(maxLevel);
-    this._addAffixesToMap(affixToBonusTypes, essenceCraftingAffixes);
+    this._addAffixesToMap(affixToBonusTypes, essenceCraftingAffixes, universalTracker);
     essenceDone({ affixCount: essenceCraftingAffixes.length });
 
     return affixToBonusTypes;
@@ -541,20 +577,60 @@ export class GearDbService {
 
   private _addAffixesToMap(
     affixToBonusTypes: Map<string, Map<string, number>>,
-    affixes: Array<Affix>
+    affixes: Array<Affix>,
+    universalTracker?: UniversalCompanionContributionTracker
   ) {
     for (const affix of affixes) {
       if (!this._addAffixToMap(affixToBonusTypes, affix)) {
         continue;
       }
 
+      const isUniversalCompanionAffix = UNIVERSAL_COMPANION_AFFIX_SET.has(affix.name);
+      if (universalTracker && !isUniversalCompanionAffix) {
+        recordAffixType(universalTracker.fromLiteral, affix.name, affix.type);
+      }
+
       if (this.affixSvc.isAffixGroup(affix)) {
         const ungroupedAffixes = this.affixSvc.ungroupAffix(affix);
         for (const ungroupedAffix of ungroupedAffixes) {
           this._addAffixToMap(affixToBonusTypes, ungroupedAffix);
+          if (universalTracker) {
+            recordAffixType(
+              isUniversalCompanionAffix ? universalTracker.fromUniversalCompanion : universalTracker.fromLiteral,
+              ungroupedAffix.name,
+              ungroupedAffix.type
+            );
+          }
         }
       }
     }
+  }
+
+  /**
+   * Collapse an {@link UniversalCompanionContributionTracker} into memberAffix -> bonus
+   * types that are only ever supplied by ungrouping a universal companion affix.
+   */
+  private _buildUniversalCompanionOnlyAffixTypes(tracker: UniversalCompanionContributionTracker): Map<string, Set<string>> {
+    const companionOnly = new Map<string, Set<string>>();
+    for (const [affixName, bonusTypes] of tracker.fromUniversalCompanion) {
+      const literalTypes = tracker.fromLiteral.get(affixName);
+      for (const bonusType of bonusTypes) {
+        if (!literalTypes || !literalTypes.has(bonusType)) {
+          recordAffixType(companionOnly, affixName, bonusType);
+        }
+      }
+    }
+    return companionOnly;
+  }
+
+  /**
+   * True when the only reason (affixName, bonusType) appears in the affix maps is
+   * that a universal companion affix (Universal Spell Power / Lore / Critical
+   * Damage) was ungrouped into it. Such a pair is shown as a "Universal <type>"
+   * companion row, so callers should not also render a plain per-element row.
+   */
+  isBonusTypeOnlyFromUniversalCompanion(affixName: string, bonusType: string): boolean {
+    return this.allLevelUniversalCompanionOnlyAffixTypes.get(affixName)?.has(bonusType) ?? false;
   }
 
   private _addCraftingAffixesToMap(
@@ -562,7 +638,8 @@ export class GearDbService {
     crafting: Array<Craftable> | undefined,
     minLevel: number,
     maxLevel: number,
-    processedCraftingOptionLists?: Set<Array<CraftableOption>>
+    processedCraftingOptionLists?: Set<Array<CraftableOption>>,
+    universalTracker?: UniversalCompanionContributionTracker
   ) {
     if (!crafting) {
       return;
@@ -583,7 +660,7 @@ export class GearDbService {
           continue;
         }
 
-        this._addAffixesToMap(affixToBonusTypes, option.affixes);
+        this._addAffixesToMap(affixToBonusTypes, option.affixes, universalTracker);
       }
     }
   }

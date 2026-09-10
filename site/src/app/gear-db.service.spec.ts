@@ -350,4 +350,22 @@ describe('GearDbService', () => {
     expect(filteredNames).not.toContain('Regular Sharn Raid Item');
   });
 
+  it('flags bonus types that only reach a per-element affix via a universal companion affix', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+
+    // "Implement" spell power exists only as Universal Spell Power, so on Cold
+    // Spell Power it is purely an artifact of ungrouping the companion affix.
+    expect(service.isBonusTypeOnlyFromUniversalCompanion('Cold Spell Power', 'Implement')).toBe(true);
+
+    // Bonus types real Cold Spell Power gear carries are not flagged.
+    expect(service.isBonusTypeOnlyFromUniversalCompanion('Cold Spell Power', 'Equipment')).toBe(false);
+
+    // "Exceptional" is on both Universal and per-element Negative Spell Power, so
+    // it is not companion-only for Negative Spell Power.
+    expect(service.isBonusTypeOnlyFromUniversalCompanion('Negative Spell Power', 'Exceptional')).toBe(false);
+
+    // The universal companion affix itself is never treated as companion-only.
+    expect(service.isBonusTypeOnlyFromUniversalCompanion('Universal Spell Power', 'Implement')).toBe(false);
+  });
+
 });

@@ -114,4 +114,17 @@ describe('EssenceCraftingService', () => {
     ]);
     expect(item.getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName).toBe('Blue Augment Slot');
   });
+
+  it('collects affixes across every essence crafting item type, not just the last one', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const affixes = service.getAllAffixesForML(service.maxLevel);
+
+    const affixNames = new Set(affixes.map(affix => affix.name));
+    expect(affixNames.has('Transmutation Focus')).toBeTrue();
+
+    const transmutationValues = affixes
+      .filter(affix => affix.name === 'Transmutation Focus')
+      .map(affix => affix.value);
+    expect(Math.max(...transmutationValues)).toBeGreaterThan(2);
+  });
 });

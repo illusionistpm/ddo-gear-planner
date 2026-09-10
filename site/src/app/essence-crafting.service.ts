@@ -84,10 +84,10 @@ export class EssenceCraftingService {
     const itemTypes = Object.keys(essenceCraftingList['itemTypes'] as Record<string, any>);
     for (const itemType of itemTypes) {
       const craftables = this._getOptionsForItemType(itemType, ml);
-      affixes = craftables.reduce((accum: Array<Affix>, a: Craftable) =>
+      affixes = affixes.concat(craftables.reduce((accum: Array<Affix>, a: Craftable) =>
         accum.concat(a.options.reduce((innerAccum: Array<Affix>, b: CraftableOption) =>
           innerAccum.concat(b.affixes),
-          [] as Array<Affix>)), [] as Array<Affix>);
+          [] as Array<Affix>)), [] as Array<Affix>));
     }
     return affixes;
   }

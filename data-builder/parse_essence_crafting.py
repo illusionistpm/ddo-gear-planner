@@ -537,6 +537,8 @@ def build_essence_crafting_data() -> dict:
     assumedBonusTypeMap['Perform'] = 'Enhancement'
     assumedBonusTypeMap['Spell Lore'] = 'Equipment'
     assumedBonusTypeMap['Songblade'] = 'Bool'
+    assumedBonusTypeMap['Spell Focus Mastery'] = 'Equipment'
+    assumedBonusTypeMap['Negative Amplification'] = 'Profane'
     wiki_levels, wiki_progression = load_essence_crafting_progression_from_wiki()
     itemTypes = load_essence_crafting_item_types_from_wiki()
 

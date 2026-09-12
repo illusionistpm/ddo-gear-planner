@@ -35,6 +35,10 @@ export class FiltersService {
     return this.itemFilters.asObservable();
   }
 
+  getMaxLevel() {
+    return this.maxLevel;
+  }
+
   setShowRaidItems(bShow: boolean) {
     const newFilters = new ItemFilters(this.itemFilters.getValue());
 

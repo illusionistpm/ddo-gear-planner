@@ -152,28 +152,75 @@ export class MainComponent implements OnInit, OnDestroy {
     return `Level ${this.itemFilters.levelRange[0]}-${this.itemFilters.levelRange[1]}`;
   }
 
-  getContentSummary() {
-    const content = [];
-    content.push(this.itemFilters.showRaidItems ? 'Raids shown' : 'Raids hidden');
-    content.push(this.itemFilters.showRareItems ? 'Rare shown' : 'Rare hidden');
-    return content.join(' · ');
+  isLevelRangeDefault() {
+    return this.itemFilters.levelRange[0] === ItemFilters.MIN_LEVEL()
+      && this.itemFilters.levelRange[1] === this.filters.getMaxLevel();
   }
 
-  getFilterCountSummary() {
-    const hiddenPackCount = this.itemFilters.hiddenPacks.size;
-    const hiddenTypeCount = this.itemFilters.hiddenItemTypes.size;
-    if (!hiddenPackCount && !hiddenTypeCount) {
-      return 'No pack/type filters';
-    }
+  hasHiddenPacks() {
+    return this.itemFilters.hiddenPacks.size > 0;
+  }
 
-    const parts = [];
-    if (hiddenPackCount) {
-      parts.push(`${hiddenPackCount} pack${hiddenPackCount === 1 ? '' : 's'} hidden`);
-    }
-    if (hiddenTypeCount) {
-      parts.push(`${hiddenTypeCount} type${hiddenTypeCount === 1 ? '' : 's'} hidden`);
-    }
-    return parts.join(' · ');
+  hasHiddenTypes() {
+    return this.itemFilters.hiddenItemTypes.size > 0;
+  }
+
+  hasAnyActiveFilter() {
+    return !this.isLevelRangeDefault()
+      || !this.itemFilters.showRaidItems
+      || !this.itemFilters.showRareItems
+      || this.hasHiddenPacks()
+      || this.hasHiddenTypes();
+  }
+
+  resetLevelRange(event: Event) {
+    event.stopPropagation();
+    this.filters.setLevelRange(ItemFilters.MIN_LEVEL(), this.filters.getMaxLevel());
+    this.analytics.track('reset_filter', { filter: 'level_range' });
+  }
+
+  resetRaidFilter(event: Event) {
+    event.stopPropagation();
+    this.filters.setShowRaidItems(true);
+    this.analytics.track('reset_filter', { filter: 'raid_items' });
+  }
+
+  resetRareFilter(event: Event) {
+    event.stopPropagation();
+    this.filters.setShowRareItems(true);
+    this.analytics.track('reset_filter', { filter: 'rare_items' });
+  }
+
+  resetHiddenPacks(event: Event) {
+    event.stopPropagation();
+    this.filters.setHiddenPacks(new Set());
+    this.analytics.track('reset_filter', { filter: 'packs' });
+  }
+
+  resetHiddenTypes(event: Event) {
+    event.stopPropagation();
+    this.filters.setHiddenTypes(new Set());
+    this.analytics.track('reset_filter', { filter: 'types' });
+  }
+
+  resetAllFilters(event: Event) {
+    event.stopPropagation();
+    this.filters.setLevelRange(ItemFilters.MIN_LEVEL(), this.filters.getMaxLevel());
+    this.filters.setShowRaidItems(true);
+    this.filters.setShowRareItems(true);
+    this.filters.setHiddenPacks(new Set());
+    this.filters.setHiddenTypes(new Set());
+    this.analytics.track('reset_filter', { filter: 'all' });
+  }
+
+  getHiddenPacksSummary() {
+    const hiddenPackCount = this.itemFilters.hiddenPacks.size;
+    return `${hiddenPackCount} pack${hiddenPackCount === 1 ? '' : 's'}`;
+  }
+
+  getHiddenTypesSummary() {
+    const hiddenTypeCount = this.itemFilters.hiddenItemTypes.size;
+    return `${hiddenTypeCount} type${hiddenTypeCount === 1 ? '' : 's'}`;
   }
 
   isBuildEmpty() {

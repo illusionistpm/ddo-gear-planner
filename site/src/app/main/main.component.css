@@ -43,27 +43,52 @@
   min-width: 0;
 }
 
-.planner-filter-button {
+.planner-filter-control {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  display: flex;
+  flex: 0 1 auto;
+  gap: 0.45rem;
+  margin-left: 0.5rem;
+  min-width: 0;
+  padding: 0.15rem 0.3rem;
+}
+
+.planner-filter-control.open {
+  background: var(--surface-elevated-color);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.planner-filter-toggle {
   align-items: center;
   background: transparent;
   border: 0;
   border-radius: 5px;
   color: var(--text-secondary);
   display: flex;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   font-size: 0.9rem;
   font-weight: 700;
-  gap: 0.45rem;
+  gap: 0.35rem;
   justify-content: flex-start;
   line-height: 1.2;
-  margin-left: 0.5rem;
-  min-height: 2rem;
-  min-width: 0;
-  padding: 0.4rem 0.75rem;
+  min-height: 1.7rem;
+  padding: 0.25rem 0.4rem;
 }
 
 .planner-tab-label {
   flex: 0 0 auto;
+}
+
+.planner-filter-caret {
+  font-size: 0.7rem;
+  transition: transform 0.15s ease-out;
+}
+
+.planner-filter-caret.rotated {
+  transform: rotate(180deg);
 }
 
 .planner-tab-badges {
@@ -74,36 +99,100 @@
   min-width: 0;
 }
 
-.planner-filter-button:hover,
-.planner-filter-button:focus {
+.planner-filter-toggle:hover,
+.planner-filter-toggle:focus {
   color: var(--primary-color);
 }
 
-.planner-filter-button:focus-visible {
+.planner-filter-toggle:focus-visible {
   outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
 
-.planner-filter-button.open {
-  background: var(--surface-elevated-color);
-  box-shadow: var(--shadow-sm);
+.planner-filter-control.open .planner-filter-toggle {
   color: var(--text-primary);
 }
 
 .planner-filter-chip {
+  align-items: center;
   background: var(--surface-elevated-color);
   border: 1px solid var(--border-color);
   border-radius: 999px;
   color: var(--text-secondary);
+  display: inline-flex;
   font-size: 0.78rem;
   font-weight: 650;
+  gap: 0.3rem;
   line-height: 1.2;
   padding: 0.18rem 0.45rem;
   white-space: nowrap;
 }
 
-.planner-filter-button.open .planner-filter-chip {
+.planner-filter-control.open .planner-filter-chip {
   background: var(--surface-muted-color);
+}
+
+.planner-filter-chip.chip-active {
+  background: color-mix(in srgb, var(--primary-color) 14%, var(--surface-elevated-color));
+  border-color: color-mix(in srgb, var(--primary-color) 45%, var(--border-color));
+  color: var(--primary-color);
+}
+
+.planner-filter-chip-icon {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.planner-filter-chip-remove {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.95rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: -0.05rem -0.15rem -0.05rem 0;
+  opacity: 0.75;
+  padding: 0;
+  height: 0.95rem;
+  width: 0.95rem;
+}
+
+.planner-filter-chip-remove:hover,
+.planner-filter-chip-remove:focus {
+  opacity: 1;
+}
+
+.planner-filter-chip-remove:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 1px;
+}
+
+.planner-filter-reset-all {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 0.78rem;
+  font-weight: 650;
+  padding: 0.18rem 0.3rem;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.planner-filter-reset-all:hover,
+.planner-filter-reset-all:focus {
+  color: var(--primary-color);
+}
+
+.planner-filter-reset-all:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
 }
 
 .planner-support-wrap {
@@ -371,7 +460,7 @@
     margin-top: 0.4rem;
   }
 
-  .planner-filter-button {
+  .planner-filter-control {
     margin-left: 0;
   }
 
@@ -381,12 +470,16 @@
 }
 
 @media (max-width: 575.98px) {
-  .planner-filter-button {
+  .planner-filter-control {
     align-items: flex-start;
     flex-direction: column;
   }
 
   .planner-tab-badges {
     width: 100%;
+  }
+
+  .planner-filter-reset-all {
+    margin-left: 0.4rem;
   }
 }

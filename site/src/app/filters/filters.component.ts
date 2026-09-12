@@ -6,7 +6,7 @@ import { AnalyticsService } from '../analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import buildInfo from 'src/assets/build-info.json';
-import itemsList from 'src/assets/items.json';
+import { GameDataService } from '../game-data.service';
 
 @Component({
     selector: 'app-filters',
@@ -35,7 +35,8 @@ export class FiltersComponent implements OnInit {
   constructor(
     public filters: FiltersService,
     private userGear: UserGearService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private gameData: GameDataService
   ) {
     this.packOptions = this.getAllPackOptions();
     filters.getItemFilters().subscribe(itemFilters => {
@@ -164,7 +165,7 @@ export class FiltersComponent implements OnInit {
     const packs = new Set<string>();
     let hasNoPack = false;
 
-    for (const item of itemsList as Array<any>) {
+    for (const item of this.gameData.items as Array<any>) {
       if (item.pack) {
         packs.add(item.pack);
       } else {

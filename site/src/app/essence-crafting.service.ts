@@ -5,7 +5,7 @@ import { Affix } from './affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
-import essenceCraftingList from 'src/assets/essence-crafting.json';
+import { GameDataService } from './game-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class EssenceCraftingService {
   levels: Array<number>;
   maxLevel: number;
 
-  constructor() {
-    const essenceCraftingData = essenceCraftingList as Record<string, any>;
+  constructor(private gameData: GameDataService) {
+    const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
     this.maxLevel = Number(essenceCraftingData['maxLevel'] ?? 34);
     this.levels = [];
     for (let ml = this.maxLevel; ml >= 1; ml--) {
@@ -81,7 +81,7 @@ export class EssenceCraftingService {
 
   getAllAffixesForML(ml: number): Array<Affix> {
     let affixes: Array<Affix> = [];
-    const itemTypes = Object.keys(essenceCraftingList['itemTypes'] as Record<string, any>);
+    const itemTypes = Object.keys(this.gameData.essenceCrafting['itemTypes'] as Record<string, any>);
     for (const itemType of itemTypes) {
       const craftables = this._getOptionsForItemType(itemType, ml);
       affixes = affixes.concat(craftables.reduce((accum: Array<Affix>, a: Craftable) =>
@@ -103,7 +103,7 @@ export class EssenceCraftingService {
   }
 
   private _getOptionsForItemSlot(itemType: string, essenceCraftingSlot: string, ml: number): Craftable {
-    const essenceCraftingData = essenceCraftingList as Record<string, any>;
+    const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
     const affixList = (essenceCraftingData['itemTypes']?.[itemType]?.[essenceCraftingSlot] ?? []) as Array<string>;
     const cappedMl = Math.min(Math.max(ml, 1), this.maxLevel);
     

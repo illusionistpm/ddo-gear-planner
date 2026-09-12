@@ -10,10 +10,7 @@ import { Affix } from './affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 
-import itemsList from 'src/assets/items.json';
-import craftingListRaw from 'src/assets/crafting.json';
-import essenceCraftingList from 'src/assets/essence-crafting.json';
-import setList from 'src/assets/sets.json';
+import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { perfMeasure, perfStart } from './perf-trace';
 
@@ -94,7 +91,8 @@ export class GearDbService {
     public essenceCrafting: EssenceCraftingService,
     public filters: FiltersService,
     public quests: QuestService,
-    private affixSvc: AffixService
+    private affixSvc: AffixService,
+    private gameData: GameDataService
   ) {
     this._buildAugmentOptions();
     this._buildEssenceCraftingOptions();
@@ -157,7 +155,7 @@ export class GearDbService {
     // The craftables come in as raw JSON, but we'd really like them as their proper types. Build that now.
     this.craftingList = new Map<string, Map<string, Craftable>>();
 
-    const rawData = craftingListRaw as Record<string, Record<string, any>>;
+    const rawData = this.gameData.crafting as Record<string, Record<string, any>>;
     Object.keys(rawData).forEach((key) => {
       const innerMap = new Map<string, Craftable>();
       const keyData = rawData[key];
@@ -197,7 +195,8 @@ export class GearDbService {
   private _buildEssenceCraftingOptions() {
     this.essenceCraftingList = new Map<string, (ml: number) => Craftable>();
 
-    Object.entries(essenceCraftingList['itemTypes']).forEach( ([essenceCraftingItemType, essenceCraftingItemSlots]: [string, { [slot: string]: string[] }]) => {
+    const itemTypesEntries = Object.entries(this.gameData.essenceCrafting['itemTypes']) as Array<[string, { [slot: string]: string[] }]>;
+    itemTypesEntries.forEach( ([essenceCraftingItemType, essenceCraftingItemSlots]) => {
       Object.keys(essenceCraftingItemSlots).forEach( (essenceCraftingItemSlot) => {
         const getOptions = (ml: number) => this.essenceCrafting.getValuesForSlotML(essenceCraftingItemType, essenceCraftingItemSlot, ml);
         this.essenceCraftingList.set(`Essence Crafting: ${essenceCraftingItemType} - ${essenceCraftingItemSlot}`, getOptions);
@@ -210,7 +209,7 @@ export class GearDbService {
 
     let maxLevel = 0;
 
-    for (const item of itemsList) {
+    for (const item of this.gameData.items) {
       if (item.slot === 'Ring') {
         item.slot = 'Ring1';
       }
@@ -451,7 +450,7 @@ export class GearDbService {
       skippedDuplicateCraftingOptionListCount: searchableCraftingSystemCount - processedCraftingOptionLists.size
     });
 
-    const rawSetList = setList as Record<string, any[]>;
+    const rawSetList = this.gameData.sets as Record<string, any[]>;
     const setsDone = perfStart('GearDbService.buildAffixToBonusTypes.sets');
     let setCount = 0;
     let setThresholdCount = 0;
@@ -497,7 +496,7 @@ export class GearDbService {
       }
 
       for (const essenceCraftingSlot of essenceCraftingSlots) {
-        const essenceCraftingData = essenceCraftingList as Record<string, any>;
+        const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
         const locations = essenceCraftingData['itemTypes']?.[essenceCraftingSlot];
         if (locations) {
           const ml = maxLevel;
@@ -832,7 +831,7 @@ export class GearDbService {
     const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
 
-    const rawSetList = setList as Record<string, any[]>;
+    const rawSetList = this.gameData.sets as Record<string, any[]>;
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
       if (!this._isSetInLevelRange(setName, minLevel, maxLevel)) {
         continue;
@@ -1020,7 +1019,7 @@ export class GearDbService {
 
   getSetBonusThresholds(set: string) {
     const thresholds = new Array<number>();
-    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
+    const setData = (this.gameData.sets as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
     if (setData) {
       for (const data of setData) {
         thresholds.push(data.threshold);
@@ -1032,7 +1031,7 @@ export class GearDbService {
 
   getSetBonusThresholdDetails(set: string, numPieces: number): Array<SetBonusThreshold> {
     const thresholds = new Array<SetBonusThreshold>();
-    const setData = (setList as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
+    const setData = (this.gameData.sets as unknown as Record<string, Array<{ affixes: Array<{ name: string; type: string; value: string | number }>; threshold: number }>>)[set];
     if (setData) {
       for (const data of setData) {
         const threshold = Number(data.threshold);

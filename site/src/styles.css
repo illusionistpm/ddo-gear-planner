@@ -1587,3 +1587,44 @@ a:focus {
     max-height: none;
   }
 }
+
+/*
+ * On very wide screens, stop making people flip between the Equipment and
+ * Tracked Affixes tabs: show the standard Equipment page (its 3-wide grid)
+ * on the left and the full Tracked Affixes page on the right, and drop both
+ * compact sidebars since each page is now showing the other in full. The
+ * 2340px threshold is ~167% of the equipment grid's old 1400px reference
+ * width, reserving this for very wide/ultrawide windows rather than
+ * typical laptop screens.
+ */
+@media (min-width: 2340px) {
+  .planner-tab-panels {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .planner-tab-panel[hidden] {
+    display: block !important;
+  }
+
+  /* Halve the facing padding on the two panels so the gutter between the
+     left panel's scrollbar and the right panel's content isn't so wide. */
+  #equipmentPanel {
+    padding-right: 0.5rem;
+  }
+
+  #affixesPanel {
+    padding-left: 0.375rem;
+  }
+
+  .equipment-affix-workspace,
+  .tracked-affixes-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-affix-workspace > app-tracked-affix-sidebar,
+  .tracked-affixes-workspace > app-tracked-equipment-sidebar {
+    display: none;
+  }
+}

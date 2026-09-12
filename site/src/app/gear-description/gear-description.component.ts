@@ -156,7 +156,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return {
         affix,
         className: this.affixUi.getClassForAffix(affix),
-        tooltip: this.affixUi.getAffixTooltip(affix),
+        tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot),
         important: this.equipped.isImportantAffix(affix.name),
         affixGroup,
         groupTooltip: affixGroup ? this.affixUi.getAffixGroupTooltip(affix) : '',
@@ -180,7 +180,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return {
         craft,
         className: this.affixUi.getClassForCraftable(craft),
-        tooltip: selectedAffix ? this.affixUi.getAffixTooltip(selectedAffix, craft.selected) : '',
+        tooltip: selectedAffix ? this.affixUi.getAffixTooltip(selectedAffix, craft.selected, this.curItem?.slot) : '',
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
@@ -239,7 +239,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     const options = includeAllOptions ? (craft.options || []) : [craft.selected];
     const rows = options.map(option => {
       const rankingTooltip = includeRank && option.affixes?.[0]
-        ? this.affixUi.getAffixTooltip(option.affixes[0], option)
+        ? this.affixUi.getAffixTooltip(option.affixes[0], option, this.curItem?.slot)
         : '';
       const optionTooltip = this.affixUi.getCraftingOptionTooltip(option);
       return {
@@ -345,7 +345,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   getAffixTooltip(affix: Affix, option?: CraftableOption): string {
     perfCount('GearDescriptionComponent.getAffixTooltip');
-    return this.affixUi.getAffixTooltip(affix, option);
+    return this.affixUi.getAffixTooltip(affix, option, this.curItem?.slot);
   }
 
   getAffixGroupTooltip(affix: Affix): string {

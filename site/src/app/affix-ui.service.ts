@@ -32,21 +32,31 @@ export class AffixUiService {
   }
 
   private getAffixRank(affix: Affix, option?: CraftableOption): AffixRank {
+    return this.getAffixRankDetails(affix, option).rank;
+  }
+
+  // Compound affixes (affix groups) get their rank from whichever component affix is
+  // responsible for it. We need to know which component that is, not just the overall
+  // rank, so tooltips can point at the specific competing item/set for that component.
+  private getAffixRankDetails(affix: Affix, option?: CraftableOption): { rank: AffixRank; sourceAffix: Affix } {
     if (!affix) {
-      return AffixRank.Irrelevant;
+      return { rank: AffixRank.Irrelevant, sourceAffix: affix };
     }
 
     // Check for set augments that don't have enough pieces equipped
     if (option?.set) {
       const setReq = this.checkSetRequirements(option.set);
       if (setReq && !setReq.meetsRequirements) {
-        return AffixRank.Penalty;
+        return { rank: AffixRank.Penalty, sourceAffix: affix };
       }
     }
-    
+
     let affixRank = this.equipped.getAffixRanking(affix);
+    let sourceAffix = affix;
     if (affixRank === AffixRank.Irrelevant && this.affixSvc?.isAffixGroup(affix)) {
-      affixRank = this.getAffixGroupRank(affix);
+      const groupResult = this.getAffixGroupRankDetails(affix);
+      affixRank = groupResult.rank;
+      sourceAffix = groupResult.sourceAffix;
     }
 
     if (option?.set && affixRank === AffixRank.BestTied) {
@@ -54,13 +64,13 @@ export class AffixUiService {
       affixRank = AffixRank.Best;
     }
 
-    return affixRank;
+    return { rank: affixRank, sourceAffix };
   }
 
-  getAffixTooltip(affix: Affix, option?: CraftableOption): string {
+  getAffixTooltip(affix: Affix, option?: CraftableOption, currentSlot?: string): string {
     perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
-    
+
     // Check if this is a set bonus from an augment
     if (option?.set) {
       const setReq = this.checkSetRequirements(option.set);
@@ -69,7 +79,7 @@ export class AffixUiService {
       }
     }
 
-    const affixRank = this.getAffixRank(affix, option);
+    const { rank: affixRank, sourceAffix } = this.getAffixRankDetails(affix, option);
 
     let tooltip = '';
     switch (affixRank) {
@@ -80,10 +90,10 @@ export class AffixUiService {
         tooltip = 'Best equipped value';
         break;
       case AffixRank.BestTied:
-        tooltip = 'Tied for best equipped value';
+        tooltip = 'Tied with';
         break;
       case AffixRank.Outranked:
-        tooltip = 'Overpowered by another affix';
+        tooltip = 'Overpowered by';
         break;
       case AffixRank.Mixed:
         tooltip = 'Mixed effectiveness';
@@ -95,7 +105,25 @@ export class AffixUiService {
         tooltip = '';
     }
 
+    if (affixRank === AffixRank.BestTied || affixRank === AffixRank.Outranked) {
+      const competing = this.describeCompetingSources(sourceAffix, currentSlot);
+      if (competing) {
+        tooltip += ` ${competing}`;
+      }
+    }
+
     return tooltip;
+  }
+
+  private describeCompetingSources(affix: Affix, currentSlot?: string): string {
+    const sources = this.equipped.getSourcesForAffixType(affix.name, affix.type)
+      .filter(source => source.slot !== currentSlot);
+
+    if (!sources.length) return '';
+
+    return sources
+      .map(source => source.kind === 'set' ? `${source.itemName} set bonus` : `${source.itemName} (${source.slot})`)
+      .join(', ');
   }
 
   getAffixGroupTooltip(affix: Affix): string {
@@ -151,20 +179,22 @@ export class AffixUiService {
     return AffixRank[optionRank];
   }
 
-  private getAffixGroupRank(affixGroup: Affix): AffixRank {
+  private getAffixGroupRankDetails(affixGroup: Affix): { rank: AffixRank; sourceAffix: Affix } {
     let affixRank = AffixRank.Irrelevant;
+    let sourceAffix = affixGroup;
     const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
     for (const aff of affixes) {
       const curRank = this.equipped.getAffixRanking(aff);
       if (affixRank === AffixRank.Irrelevant) {
         affixRank = curRank;
+        sourceAffix = aff;
       } else if (curRank === AffixRank.Irrelevant) {
         // Do nothing
       } else if (affixRank !== curRank) {
-        return AffixRank.Mixed;
+        return { rank: AffixRank.Mixed, sourceAffix: affixGroup };
       }
     }
-    return affixRank;
+    return { rank: affixRank, sourceAffix };
   }
 
   private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } | null {

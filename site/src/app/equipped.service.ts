@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 import { Item } from './item';
@@ -17,6 +17,34 @@ const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
   ['False Life', ['False Life (%)']],
 ]);
+
+/** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
+interface IdleWorkDeadline {
+  timeRemaining(): number;
+}
+
+/**
+ * Runs `work` when the browser is idle (falling back to setTimeout on
+ * engines without requestIdleCallback, e.g. Safari) rather than as soon as
+ * possible, so it never competes with rendering the way a chain of
+ * setTimeout(0) calls can. Given a timeout, the browser runs it anyway once
+ * that long has passed without a genuine idle period, so a busy page doesn't
+ * indefinitely starve the warmup of the chance to ever make progress. `work`
+ * gets the real IdleDeadline (or a synthetic one good for ~5ms on the
+ * setTimeout fallback) so callers can drain as much as actually fits in the
+ * slice instead of assuming a fixed batch size.
+ */
+function scheduleIdleWork(work: (deadline: IdleWorkDeadline) => void, timeoutMs = 50): void {
+  const w = window as unknown as {
+    requestIdleCallback?: (cb: (deadline: IdleWorkDeadline) => void, opts?: { timeout: number }) => number
+  };
+  if (w.requestIdleCallback) {
+    w.requestIdleCallback(work, { timeout: timeoutMs });
+  } else {
+    const deadline = performance.now() + 5;
+    setTimeout(() => work({ timeRemaining: () => Math.max(0, deadline - performance.now()) }), 0);
+  }
+}
 
 // Bonus per equipped piece of a set that is the *only* source of an uncovered
 // tracked need. Small on purpose: it should reorder pieces within a slot, not
@@ -84,13 +112,15 @@ export class EquippedService {
 
   private setOnlyUncoveredSets?: Set<string>;
   private openAugmentSlotsCache = new Map<string, Set<string>>();
+  private availabilityWarmupToken = 0;
 
   constructor(
     private gearList: GearDbService,
     private queryParams: QueryParamsService,
     private affixSvc: AffixService,
     private essenceCrafting: EssenceCraftingService,
-    private availability: AffixAvailabilityService
+    private availability: AffixAvailabilityService,
+    private ngZone: NgZone
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
@@ -1028,9 +1058,72 @@ export class EquippedService {
     }
 
     this.coveredAffixes.next(newMap);
+    // Warm AffixAvailabilityService's per-(affix, bonusType) cache off the
+    // critical path (URL restore / toggling a tracked affix), instead of
+    // letting getScore() pay for the first-ever lookup synchronously mid-click
+    // when a slot's suggestions are scored.
+    this._scheduleAvailabilityWarmup(importantAffixes);
     if (updateRouterState) {
       this._updateRouterState();
     }
+  }
+
+  /**
+   * Populates AffixAvailabilityService's per-(affix, bonusType) cache, so URL
+   * restore / toggling a tracked affix doesn't block a long synchronous task
+   * (the page can still paint) while still (usually) finishing well before
+   * the player opens a slot. Each idle slice drains pairs while genuine idle
+   * time remains rather than doing a fixed batch size - now that
+   * GearDbService answers each pair from a precomputed index, a single pair
+   * is cheap enough that one-per-callback would just leave most of a typical
+   * idle slice unused and take many more ticks (and more wall-clock time) to
+   * finish than necessary; but a pair's cost isn't zero (findSetsWithAffixAndType
+   * / findAugmentsWithAffixAndType aren't indexed), so it's still checked
+   * per-pair rather than assumed away. A newer call supersedes an in-flight
+   * one via the token, so a rapid affix toggle doesn't pile up redundant work.
+   */
+  private _scheduleAvailabilityWarmup(importantAffixes: Map<string, Map<string, number>>) {
+    const pairs: Array<[string, string]> = [];
+    for (const [affixName, types] of importantAffixes) {
+      for (const type of types.keys()) {
+        pairs.push([affixName, type]);
+      }
+    }
+    if (!pairs.length) {
+      return;
+    }
+
+    // Fixed one-time cost (build the item/augment lookup indexes), paid up
+    // front rather than left to land inside whichever pair below happens to
+    // be queried first - see warmAvailabilityIndexes' doc comment.
+    this.gearList.warmAvailabilityIndexes();
+
+    const token = ++this.availabilityWarmupToken;
+    let index = 0;
+    const runSlice = (deadline: IdleWorkDeadline) => {
+      if (token !== this.availabilityWarmupToken) {
+        return;
+      }
+      // Always take at least one pair, deadline or not - under sustained load
+      // timeRemaining() can read ~0 on every tick, and without this floor the
+      // loop would keep rescheduling forever without ever making progress.
+      let processedOne = false;
+      while (index < pairs.length && (!processedOne || deadline.timeRemaining() > 0)) {
+        const [affixName, type] = pairs[index++];
+        this.availability.getAvailability(affixName, type);
+        processedOne = true;
+      }
+      if (index < pairs.length) {
+        scheduleIdleWork(runSlice);
+      }
+    };
+    // Run outside Angular's zone: each getAvailability call is plain reads with
+    // no UI-bound state change, but requestIdleCallback is zone-patched, so
+    // without this every single idle tick would otherwise trigger a full
+    // change-detection pass over the whole gear list / tracked-affix sidebar -
+    // dozens of ticks' worth of avoidable re-rendering was the majority of the
+    // remaining "paint after URL restore" stall.
+    this.ngZone.runOutsideAngular(() => scheduleIdleWork(runSlice));
   }
 
   public getGearDescription() {

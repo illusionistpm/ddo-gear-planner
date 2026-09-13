@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, provideAppInitializer, inject } from '@angular/core';
+import { NgModule, provideAppInitializer, inject, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 import { GameDataService } from './game-data.service';
+import { GearDbService } from './gear-db.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,7 +62,16 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        provideAppInitializer(() => inject(GameDataService).load())
+        provideAppInitializer(() => {
+            const injector = inject(Injector);
+            return inject(GameDataService).load().then(() => {
+                // GearDbService does a fair amount of synchronous work building its
+                // gear/affix indexes in its constructor; instantiate it here so that
+                // work happens during startup instead of stalling the first click on
+                // an equipment slot.
+                runInInjectionContext(injector, () => inject(GearDbService));
+            });
+        })
     ],
     bootstrap: [AppComponent]
 })

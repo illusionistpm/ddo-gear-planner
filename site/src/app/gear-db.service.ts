@@ -38,6 +38,8 @@ interface UniversalCompanionContributionTracker {
   fromLiteral: Map<string, Set<string>>;
 }
 
+type ItemAffixTypeIndex = Map<string, Set<Item>>;
+
 const recordAffixType = (map: Map<string, Set<string>>, affixName: string, bonusType: string): void => {
   let types = map.get(affixName);
   if (!types) {
@@ -83,6 +85,22 @@ export class GearDbService {
   // for them is a duplicate and gets suppressed.
   private allLevelUniversalCompanionOnlyAffixTypes: Map<string, Set<string>> = new Map<string, Set<string>>();
   private allGearMaxLevel = ItemFilters.MAX_LEVEL();
+
+  // (affixName, bonusType) -> the items (across the currently filtered gear)
+  // that can grant it. Lets findGearWithAffixAndType answer in O(1) instead of
+  // rescanning every item (and every crafting option list) per query -
+  // AffixAvailabilityService calls this once per tracked affix/bonusType pair,
+  // and each item can carry thousands of augment-slot crafting options, so a
+  // linear rescan per query was the actual cost behind the "first slot click
+  // is slow" bug. Built lazily (not alongside affixToBonusTypes) so filter
+  // changes stay cheap for players with no tracked affixes to warm; null means
+  // "needs rebuild", reset to null in applyItemFilters whenever this.gear
+  // changes.
+  private itemAffixTypeIndex: ItemAffixTypeIndex | null = null;
+  // Craftable name -> hosting slots over the currently filtered gear, lazily
+  // built the same way and for the same reason as itemAffixTypeIndex, backing
+  // findSlotsForAugmentAffixAndType.
+  private augmentHostSlotsIndex: Map<string, Set<string>> | null = null;
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
   bestValues: Map<any, number> = new Map<any, number>();
@@ -363,6 +381,8 @@ export class GearDbService {
       const gear = new Map<string, Array<Item>>();
 
       this.affixToBonusTypes = new Map<string, Map<string, number>>();
+      this.itemAffixTypeIndex = null;
+      this.augmentHostSlotsIndex = null;
 
       perfMeasure('GearDbService.applyItemFilters.filterItems', () => {
         for (const [slot, items] of this.allGear.entries()) {
@@ -606,6 +626,127 @@ export class GearDbService {
   }
 
   /**
+   * Lazily-built (affixName, bonusType) -> items index over the currently
+   * filtered gear, backing findGearWithAffixAndType. Built on first access
+   * after a filter change rather than alongside affixToBonusTypes, so players
+   * with no tracked affixes (nothing ever calls findGearWithAffixAndType)
+   * never pay for it.
+   */
+  private _getItemAffixTypeIndex(): ItemAffixTypeIndex {
+    if (!this.itemAffixTypeIndex) {
+      this.itemAffixTypeIndex = perfMeasure('GearDbService.buildItemAffixTypeIndex', () => {
+        const index: ItemAffixTypeIndex = new Map();
+        const craftingOptionListPairsCache = new Map<Array<CraftableOption>, Array<[string, string]>>();
+        for (const items of this.gear.values()) {
+          for (const item of items) {
+            this._recordItemAffixSources(index, item, item.affixes);
+            this._recordItemCraftingSources(index, item, item.crafting, craftingOptionListPairsCache);
+          }
+        }
+        return index;
+      });
+    }
+    return this.itemAffixTypeIndex;
+  }
+
+  private _recordItemAffixSources(index: ItemAffixTypeIndex, item: Item, affixes: Array<Affix>) {
+    for (const affix of affixes) {
+      this._recordItemSource(index, item, affix.name, affix.type);
+      if (this.affixSvc.isAffixGroup(affix)) {
+        for (const ungrouped of this.affixSvc.ungroupAffix(affix)) {
+          this._recordItemSource(index, item, ungrouped.name, ungrouped.type);
+        }
+      }
+    }
+  }
+
+  private _recordItemCraftingSources(
+    index: ItemAffixTypeIndex,
+    item: Item,
+    crafting: Array<Craftable> | undefined,
+    craftingOptionListPairsCache: Map<Array<CraftableOption>, Array<[string, string]>>
+  ) {
+    if (!crafting) {
+      return;
+    }
+    for (const craftable of crafting) {
+      // Matches Item.canHaveBonusType's default (allowColoredAugmentSystem =
+      // false): the plain colored augment slots ("Blue Augment Slot" etc.) are
+      // ubiquitous enough that counting them as a source would make nearly
+      // every item in the game register as one for any commonly-augmentable
+      // affix, flooding availability/scarcity results and the "which items
+      // grant this" UI.
+      if (craftable.hiddenFromAffixSearch || craftable.isColoredAugmentSystem) {
+        continue;
+      }
+      for (const [affixName, bonusType] of this._getCraftingOptionListPairs(craftable.options, craftingOptionListPairsCache)) {
+        this._recordItemSource(index, item, affixName, bonusType);
+      }
+    }
+  }
+
+  private _recordItemSource(index: ItemAffixTypeIndex, item: Item, affixName: string, bonusType: string) {
+    if (!affixName) {
+      return;
+    }
+    const key = affixName + '\0' + bonusType;
+    let entry = index.get(key);
+    if (!entry) {
+      entry = new Set<Item>();
+      index.set(key, entry);
+    }
+    entry.add(item);
+  }
+
+  /**
+   * The distinct (affixName, bonusType) pairs a shared crafting-option-list
+   * reference can grant, memoised per array reference so scanning its
+   * (potentially large) option list happens once no matter how many items
+   * share it - mirroring the sharing _buildAffixToBonusTypes already exploits
+   * via processedCraftingOptionLists. Deliberately not level-filtered,
+   * matching Item.canHaveBonusType (whose O(items) linear scan this index
+   * replaces) - crafting options there aren't level-gated either, only the
+   * item itself is via the already-filtered gear.
+   */
+  private _getCraftingOptionListPairs(
+    options: Array<CraftableOption>,
+    cache: Map<Array<CraftableOption>, Array<[string, string]>>
+  ): Array<[string, string]> {
+    const cached = cache.get(options);
+    if (cached) {
+      return cached;
+    }
+
+    const seen = new Set<string>();
+    const pairs: Array<[string, string]> = [];
+    const collect = (name: string, type: string) => {
+      if (!name) {
+        return;
+      }
+      const key = name + '\0' + type;
+      if (seen.has(key)) {
+        return;
+      }
+      seen.add(key);
+      pairs.push([name, type]);
+    };
+
+    for (const option of options) {
+      for (const affix of option.affixes) {
+        collect(affix.name, affix.type);
+        if (this.affixSvc.isAffixGroup(affix)) {
+          for (const ungrouped of this.affixSvc.ungroupAffix(affix)) {
+            collect(ungrouped.name, ungrouped.type);
+          }
+        }
+      }
+    }
+
+    cache.set(options, pairs);
+    return pairs;
+  }
+
+  /**
    * Collapse an {@link UniversalCompanionContributionTracker} into memberAffix -> bonus
    * types that are only ever supplied by ungrouping a universal companion affix.
    */
@@ -737,16 +878,23 @@ export class GearDbService {
   }
 
   findGearWithAffixAndType(affixName: string, bonusType: string) {
-    const results: any[] = [];
-    for (const items of this.gear.values()) {
-      for (const item of items) {
-        if (item.canHaveBonusType(affixName, bonusType, this.affixSvc)) {
-          results.push(item);
-        }
-      }
-    }
+    const entry = this._getItemAffixTypeIndex().get(affixName + '\0' + bonusType);
+    return entry ? Array.from(entry) : [];
+  }
 
-    return results;
+  /**
+   * Forces the (otherwise build-on-first-query) item/augment availability
+   * indexes to exist now. Their build cost is fixed regardless of how many
+   * (affixName, bonusType) pairs get queried afterwards, so callers that are
+   * about to warm many pairs (see EquippedService's availability warmup)
+   * should pay it once up front rather than have it land inside whichever
+   * pair happens to be queried first - which, split across idle callbacks,
+   * can end up eating an entire idle slice by itself and leave every other
+   * pair to be computed synchronously if the player acts before the next one.
+   */
+  warmAvailabilityIndexes(): void {
+    this._getItemAffixTypeIndex();
+    this._getAugmentHostSlotsIndex();
   }
 
   findGearInSet(setName: string) {
@@ -928,24 +1076,57 @@ export class GearDbService {
       return [];
     }
 
-    const slots: string[] = [];
-    for (const [slot, items] of this.gear) {
-      for (const item of items) {
-        if (!item.crafting) {
-          continue;
-        }
-        const hosts = item.crafting.some(craftable =>
-          augmentNames.has(craftable.name) ||
-          (craftable.hasCraftingSystemOptions() &&
-            craftable.craftingSystemOptions.some(name => augmentNames.has(name)))
-        );
-        if (hosts) {
-          slots.push(slot);
-          break;
+    const index = this._getAugmentHostSlotsIndex();
+    const slots = new Set<string>();
+    for (const name of augmentNames) {
+      const hostSlots = index.get(name);
+      if (hostSlots) {
+        for (const slot of hostSlots) {
+          slots.add(slot);
         }
       }
     }
-    return slots;
+    return Array.from(slots);
+  }
+
+  /**
+   * Lazily-built craftable name -> hosting slots index over the currently
+   * filtered gear, backing findSlotsForAugmentAffixAndType. Replaces an
+   * O(items) rescan per queried (affixName, bonusType) pair with a single
+   * O(items) build, memoised until the next filter change - the same fix
+   * applied to findGearWithAffixAndType via _getItemAffixTypeIndex.
+   */
+  private _getAugmentHostSlotsIndex(): Map<string, Set<string>> {
+    if (!this.augmentHostSlotsIndex) {
+      this.augmentHostSlotsIndex = perfMeasure('GearDbService.buildAugmentHostSlotsIndex', () => {
+        const index = new Map<string, Set<string>>();
+        const addHost = (name: string, slot: string) => {
+          let hostSlots = index.get(name);
+          if (!hostSlots) {
+            hostSlots = new Set<string>();
+            index.set(name, hostSlots);
+          }
+          hostSlots.add(slot);
+        };
+        for (const [slot, items] of this.gear) {
+          for (const item of items) {
+            if (!item.crafting) {
+              continue;
+            }
+            for (const craftable of item.crafting) {
+              addHost(craftable.name, slot);
+              if (craftable.hasCraftingSystemOptions()) {
+                for (const name of craftable.craftingSystemOptions) {
+                  addHost(name, slot);
+                }
+              }
+            }
+          }
+        }
+        return index;
+      });
+    }
+    return this.augmentHostSlotsIndex;
   }
 
   getAllAffixes() {

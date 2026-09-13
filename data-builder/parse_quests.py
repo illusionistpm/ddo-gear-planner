@@ -45,6 +45,15 @@ def add_crafting_raid_sources(raids):
     return raids
 
 
+# The wiki's reference table column has been observed under both names -
+# it silently changed from "Name of the pack" to "Name of the pass" at some
+# point (same table, same column, just reworded), which broke canonical
+# pack-name lookups wiki-wide until this list was updated to include the
+# new text. Keep both: if it flips back, or another variant shows up, this
+# is the one place to add it.
+PACK_NAME_COLUMN_HEADERS = ('Name of the pack', 'Name of the pass')
+
+
 def get_adventure_pack_name_map_from_page(soup):
     pack_names = {}
 
@@ -55,10 +64,11 @@ def get_adventure_pack_name_map_from_page(soup):
             continue
 
         headers = [_cell_text(cell) for cell in header_row.find_all(['th', 'td'])]
-        if 'Name of the pack' not in headers:
+        pack_header = next((header for header in PACK_NAME_COLUMN_HEADERS if header in headers), None)
+        if pack_header is None:
             continue
 
-        pack_idx = headers.index('Name of the pack')
+        pack_idx = headers.index(pack_header)
         for row in table_body.find_all('tr', recursive=False)[1:]:
             cells = row.find_all('td', recursive=False)
             if len(cells) <= pack_idx:

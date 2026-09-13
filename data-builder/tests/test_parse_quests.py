@@ -45,6 +45,28 @@ def test_get_adventure_pack_name_map_from_page_reads_canonical_pack_names():
     }
 
 
+def test_get_adventure_pack_name_map_from_page_reads_pass_header_variant():
+    # The wiki silently reworded this column from "Name of the pack" to
+    # "Name of the pass" (same table/column, just different text), which
+    # broke every pack-name lookup relying on it until this variant was
+    # added - see the real-world fallout in test_build_url_codec_dictionary.
+    html = '''
+    <table class="wikitable sortable">
+      <tr><th>Name of the pass</th><th>Levels</th></tr>
+      <tr>
+        <td><a href="/page/Litany_of_the_Dead_Part_1" title="Litany of the Dead Part 1">The Necropolis Part 1</a></td>
+        <td>5 to 6</td>
+      </tr>
+    </table>
+    '''
+    soup = BeautifulSoup(html, 'html.parser')
+
+    assert get_adventure_pack_name_map_from_page(soup) == {
+        'The Necropolis Part 1': 'The Necropolis Part 1',
+        'Litany of the Dead Part 1': 'The Necropolis Part 1',
+    }
+
+
 def test_get_adventure_pack_name_map_from_page_ignores_tooltip_links():
     html = '''
     <table class="wikitable sortable">

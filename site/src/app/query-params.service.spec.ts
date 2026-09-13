@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
+import { BuildUrlCodecService } from './build-url-codec.service';
 import { QueryParamsService } from './query-params.service';
 
 describe('QueryParamsService', () => {
@@ -36,10 +37,13 @@ describe('QueryParamsService', () => {
     expect(router.navigate).toHaveBeenCalledWith(
       [],
       jasmine.objectContaining({
-        queryParams: { levelrange: '1,36' },
+        queryParams: { b: jasmine.stringMatching(/^z1\./) },
         replaceUrl: false
       })
     );
+    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    const codec = TestBed.inject(BuildUrlCodecService);
+    expect(codec.decode(queryParams.b)).toEqual({ levelrange: '1,36' });
     const navigateOptions = router.navigate.calls.mostRecent().args[1] as any;
     expect(navigateOptions.queryParamsHandling).toBeUndefined();
   });
@@ -56,10 +60,13 @@ describe('QueryParamsService', () => {
     expect(router.navigate).toHaveBeenCalledWith(
       ['build', 'ab12cd34', 'my-build'],
       jasmine.objectContaining({
-        queryParams: { levelrange: '1,36' },
+        queryParams: { b: jasmine.stringMatching(/^z1\./) },
         replaceUrl: false
       })
     );
+    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    const codec = TestBed.inject(BuildUrlCodecService);
+    expect(codec.decode(queryParams.b)).toEqual({ levelrange: '1,36' });
   });
 
   it('applies every URL param update to listeners', () => {
@@ -93,17 +100,26 @@ describe('QueryParamsService', () => {
     service.subscribe(listener);
     service.updateFromParams(params);
 
-    expect(router.navigate).not.toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(
+      [],
+      jasmine.objectContaining({
+        queryParams: { b: jasmine.stringMatching(/^z1\./) },
+        replaceUrl: true
+      })
+    );
 
     source.next({ tracked: ['Strength', 'Constitution'] });
 
     expect(router.navigate).toHaveBeenCalledWith(
       [],
       jasmine.objectContaining({
-        queryParams: { tracked: ['Strength', 'Constitution'] },
+        queryParams: { b: jasmine.stringMatching(/^z1\./) },
         replaceUrl: false
       })
     );
+    const latestQueryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(TestBed.inject(BuildUrlCodecService).decode(latestQueryParams.b))
+      .toEqual({ tracked: ['Strength', 'Constitution'] });
   });
 
   it('marks the next hashchange as app-originated when syncing query params', () => {
@@ -117,5 +133,145 @@ describe('QueryParamsService', () => {
 
     expect(service.consumeAppUrlWrite()).toBeTrue();
     expect(service.consumeAppUrlWrite()).toBeFalse();
+  });
+
+  it('decodes compact URL params before applying them to listeners', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = {
+      updateFromParams: jasmine.createSpy('updateFromParams')
+    };
+    const compactParam = codec.encode({
+      levelrange: '1,18',
+      Weapon: 'Calamitous Battle Axe',
+      tracked: ['Strength', 'False Life (%)'],
+      tab: 'affixes'
+    });
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b'],
+      get: (key: string) => key === 'b' ? compactParam : null,
+      getAll: (key: string) => key === 'b' ? [compactParam] : []
+    });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.get('levelrange')).toBe('1,18');
+    expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
+    expect(params.getAll('tracked')).toEqual(['Strength', 'False Life (%)']);
+    expect(params.get('tab')).toBe('affixes');
+  });
+
+  it('preserves route-level params alongside compact URL params', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const source = new BehaviorSubject<any>(null);
+    const listener = {
+      updateFromParams: jasmine.createSpy('updateFromParams').and.callFake((params: any) => {
+        source.next({ tracked: params.getAll('tracked') });
+      })
+    };
+    const compactParam = codec.encode({ tracked: ['Strength'] });
+
+    service.register('source', source);
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b', 'tab'],
+      get: (key: string) => key === 'b' ? compactParam : (key === 'tab' ? 'affixes' : null),
+      getAll: (key: string) => key === 'b' ? [compactParam] : (key === 'tab' ? ['affixes'] : [])
+    });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.getAll('tracked')).toEqual(['Strength']);
+    expect(params.get('tab')).toBe('affixes');
+
+    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    expect(codec.decode(queryParams.b)).toEqual({ tracked: ['Strength'], tab: 'affixes' });
+  });
+
+  it('external route-level params override stale compact route params', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = {
+      updateFromParams: jasmine.createSpy('updateFromParams')
+    };
+    const compactParam = codec.encode({ tracked: ['Strength'], tab: 'equipment' });
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b', 'tab'],
+      get: (key: string) => key === 'b' ? compactParam : (key === 'tab' ? 'affixes' : null),
+      getAll: (key: string) => key === 'b' ? [compactParam] : (key === 'tab' ? ['affixes'] : [])
+    });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.get('tab')).toBe('affixes');
+  });
+
+  it('canonicalizes legacy params with replaceUrl', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>(null);
+    const listener = {
+      updateFromParams: () => source.next({ tracked: ['Strength'] })
+    };
+
+    service.register('source', source);
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['tracked', 'tab'],
+      get: (key: string) => key === 'tab' ? 'affixes' : null,
+      getAll: (key: string) => key === 'tracked' ? ['Strength'] : (key === 'tab' ? ['affixes'] : [])
+    });
+
+    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    expect(TestBed.inject(BuildUrlCodecService).decode(queryParams.b))
+      .toEqual({ tracked: ['Strength'], tab: 'affixes' });
+  });
+
+  it('canonicalizes legacy params directly from the URL without waiting for listeners to publish state', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+
+    service.updateFromParams({
+      keys: ['levelrange', 'tracked', 'tracked', 'tab'],
+      get: (key: string) => key === 'levelrange' ? '1,36' : (key === 'tab' ? 'affixes' : null),
+      getAll: (key: string) => {
+        if (key === 'levelrange') return ['1,36'];
+        if (key === 'tracked') return ['Strength', 'Constitution'];
+        if (key === 'tab') return ['affixes'];
+        return [];
+      }
+    });
+
+    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    expect(TestBed.inject(BuildUrlCodecService).decode(queryParams.b))
+      .toEqual({
+        levelrange: '1,36',
+        tracked: ['Strength', 'Constitution'],
+        tab: 'affixes'
+      });
+  });
+
+  it('falls back to legacy params when compact decode fails', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const listener = {
+      updateFromParams: jasmine.createSpy('updateFromParams')
+    };
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b', 'tracked'],
+      get: (key: string) => key === 'b' ? 'z1.not-valid' : null,
+      getAll: (key: string) => key === 'b' ? ['z1.not-valid'] : (key === 'tracked' ? ['Strength'] : [])
+    });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.getAll('tracked')).toEqual(['Strength']);
+    expect(params.get('b')).toBeNull();
   });
 });

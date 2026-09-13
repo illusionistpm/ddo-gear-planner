@@ -149,6 +149,7 @@ export class EquippedService {
     this.collapsedTrackedAffixGroups = getStoredCollapsedTrackedAffixGroups();
     this._emitTrackedAffixViewState();
 
+    this.queryParams.registerOwnedSlots(gearList.getSlots());
     this.queryParams.register(this, this.params);
     this.queryParams.subscribe(this);
 

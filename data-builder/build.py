@@ -7,6 +7,7 @@ from parse_essence_crafting import parse_essence_crafting
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
+from build_url_codec_dictionary import build_url_codec_dictionary
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds
 import argparse
 from get_output_path import get_output_path
@@ -78,6 +79,7 @@ def build_data(clearCache, discordURL):
     parse_minor_artifacts()
 
     parse_item_types()
+    build_url_codec_dictionary()
 
     write_build_info()
 

@@ -28,6 +28,7 @@
     "@ng-bootstrap/ng-bootstrap": "^21.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
+    "pako": "^3.0.1",
     "rxjs": "~6.6.3",
     "service": "^0.1.4",
     "tslib": "^2.0.0",

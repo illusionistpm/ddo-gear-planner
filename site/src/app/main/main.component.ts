@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
@@ -47,7 +46,6 @@ export class MainComponent implements OnInit, OnDestroy {
     private filters: FiltersService,
     private equipped: EquippedService,
     private onboarding: PlannerOnboardingService,
-    private route: ActivatedRoute,
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
     private sanitizer: DomSanitizer
@@ -95,12 +93,9 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private maybeOpenAffixBuilderOnLoad() {
-    const forcedByRoute = !!this.route.snapshot.data['openAffixBuilder'];
     const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
     if (firstRun) {
       this.affixBuilder.open('setup');
-    } else if (forcedByRoute) {
-      this.affixBuilder.open('edit');
     }
   }
 

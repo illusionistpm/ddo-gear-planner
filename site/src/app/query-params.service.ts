@@ -45,9 +45,7 @@ export class QueryParamsService {
           }
         }
 
-        const routerPath = this.router.url.split('?')[0];
-        const hashPath = this.getHashRoutePath();
-        const routePath = routerPath && routerPath !== '/' ? routerPath : hashPath || routerPath || '';
+        const routePath = this.router.url.split('?')[0];
         const routeSegments = routePath.split('/').filter(Boolean);
 
         this.appUrlWritesToIgnore++;
@@ -118,11 +116,5 @@ export class QueryParamsService {
     this.appUrlWritesToIgnore--;
     perfMark('QueryParamsService.consumeAppUrlWrite');
     return true;
-  }
-
-  private getHashRoutePath() {
-    const rawHash = window.location.hash || '';
-    const hashPath = rawHash.startsWith('#/') ? rawHash.slice(1) : (rawHash.startsWith('#') ? rawHash.slice(1) : rawHash);
-    return hashPath.split('?')[0] || '';
   }
 }

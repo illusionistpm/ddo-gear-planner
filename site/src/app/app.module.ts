@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 import { GameDataService } from './game-data.service';
 import { GearDbService } from './gear-db.service';
@@ -61,7 +60,6 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
         FormsModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
         provideAppInitializer(() => {
             const injector = inject(Injector);
             return inject(GameDataService).load().then(() => {

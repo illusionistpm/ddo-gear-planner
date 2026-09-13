@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { EquippedService } from './equipped.service';
 import { FiltersService } from './filters.service';
@@ -17,47 +19,35 @@ import { perfAfterFrames, perfStart } from './perf-trace';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'DDO Gear Planner';
 
-  private hashChangeSubscription?: Subscription;
+  private routerEventsSubscription?: Subscription;
 
   constructor(
+    private readonly router: Router,
     private readonly queryParams: QueryParamsService,
     private readonly equipped: EquippedService,
     private readonly filters: FiltersService
   ) {}
 
   ngOnInit() {
-    this.updateFromHash();
-    this.hashChangeSubscription = fromEvent(window, 'hashchange').subscribe(() => this.updateFromHash());
+    this.routerEventsSubscription = this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe(() => this.updateFromLocation());
   }
 
   ngOnDestroy() {
-    this.hashChangeSubscription?.unsubscribe();
+    this.routerEventsSubscription?.unsubscribe();
   }
 
-  private updateFromHash() {
-    const done = perfStart('AppComponent.updateFromHash');
+  private updateFromLocation() {
+    const done = perfStart('AppComponent.updateFromLocation');
     if (this.queryParams.consumeAppUrlWrite()) {
       done({ skipped: 'appUrlWrite' });
-      perfAfterFrames('paint after skipped app hashchange');
+      perfAfterFrames('paint after skipped app navigation');
       return;
     }
 
-    this.queryParams.updateFromParams(this.getParamsFromHash());
+    this.queryParams.updateFromParams(this.router.parseUrl(this.router.url).queryParamMap);
     done({ applied: true });
     perfAfterFrames('paint after URL restore');
-  }
-
-  private getParamsFromHash() {
-    const hash = window.location.hash || '';
-    const queryIndex = hash.indexOf('?');
-    const searchParams = queryIndex < 0
-      ? new URLSearchParams()
-      : new URLSearchParams(hash.slice(queryIndex + 1));
-
-    return {
-      keys: Array.from(searchParams.keys()),
-      get: (key: string) => searchParams.get(key),
-      getAll: (key: string) => searchParams.getAll(key)
-    };
   }
 }

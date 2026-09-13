@@ -6,7 +6,6 @@ import { QueryParamsService } from './query-params.service';
 
 describe('QueryParamsService', () => {
   beforeEach(() => {
-    window.location.hash = '';
     TestBed.configureTestingModule({
       providers: [
         {
@@ -25,18 +24,17 @@ describe('QueryParamsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('preserves the incoming hash route path when syncing query params', () => {
+  it('preserves the current (root) route path when syncing query params', () => {
     const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    (router as any).url = '/';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
-
-    window.location.hash = '#/main?levelrange=1,36';
 
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
     expect(router.navigate).toHaveBeenCalledWith(
-      ['main'],
+      [],
       jasmine.objectContaining({
         queryParams: { levelrange: '1,36' },
         replaceUrl: false
@@ -44,6 +42,24 @@ describe('QueryParamsService', () => {
     );
     const navigateOptions = router.navigate.calls.mostRecent().args[1] as any;
     expect(navigateOptions.queryParamsHandling).toBeUndefined();
+  });
+
+  it('preserves a build route path (with shortId/slug segments) when syncing query params', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    (router as any).url = '/build/ab12cd34/my-build';
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>({ levelrange: '1,36' });
+
+    const navigateFn = (service as any)._makeNavigateFn(['source', source]);
+    navigateFn({ levelrange: '1,36' });
+
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['build', 'ab12cd34', 'my-build'],
+      jasmine.objectContaining({
+        queryParams: { levelrange: '1,36' },
+        replaceUrl: false
+      })
+    );
   });
 
   it('applies every URL param update to listeners', () => {

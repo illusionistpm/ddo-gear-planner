@@ -35,6 +35,7 @@ interface SlotGroup {
   label: string;
   order: number;
   rows: SlotGroupRow[];
+  checklistAffixes: string[];
 }
 
 interface TrackedBonusTypeDisplay {
@@ -213,10 +214,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   /**
-   * Tracked bonus types that still need fitting, bucketed by how many places
-   * (open gear slots, or a free augment slot) could still supply them — most
-   * restricted first. Backs the "Group by: Scarcity" view. Types already covered
-   * to the moderate-value threshold are omitted.
+   * Tracked bonus types bucketed by how many places (open gear slots, or a
+   * free augment slot) could still supply them — most restricted first, with
+   * types ruled out by gear after that and types already covered to the
+   * moderate-value threshold last. Backs the "Group by: Scarcity" view.
    */
   getSlotGroups(): SlotGroup[] {
     const openSlots = this.equipped.getUnlockedSlots();
@@ -226,7 +227,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const bucket = (key: string, label: string, order: number): SlotGroup => {
       let group = buckets.get(key);
       if (!group) {
-        group = { key, label, order, rows: [] };
+        group = { key, label, order, rows: [], checklistAffixes: [] };
         buckets.set(key, group);
       }
       return group;
@@ -244,9 +245,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     for (const affixName of this.affixNames) {
       for (const type of this.getVisibleTypes(affixName)) {
-        if (this.isBonusTypeSufficient(affixName, type)) {
-          continue;
-        }
         const sourceAffixName = this.getSourceAffixName(affixName, type);
         const bonusType = this.getSourceBonusType(type);
         if (!bonusType || bonusType === 'Penalty' || bonusType === 'Bool') {
@@ -257,6 +255,20 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
           continue;
         }
         seen.add(key);
+
+        if (this.isBonusTypeSufficient(affixName, type)) {
+          rowFor(bucket('fulfilled', 'Fulfilled', 100), affixName).chips.push({
+            sourceAffixName,
+            bonusType,
+            label: this.getBonusTypeLabel(type),
+            currentValue: type.value || 0,
+            maxValue: this.getMaxValueForType(affixName, type),
+            valueClass: this.getClassForValue(affixName, type),
+            eliminated: false,
+            tooltip: this.getValueTooltip(affixName, type)
+          });
+          continue;
+        }
 
         const info = this.availability.getRemainingAvailability(
           sourceAffixName, bonusType, openSlots, equippedSetCounts,
@@ -295,7 +307,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     for (const affixName of this.boolAffixNames) {
       const boolAffix = this.boolAffixMap.get(affixName)?.[0];
-      if (!boolAffix || boolAffix.bonusType === 'Penalty' || boolAffix.value) {
+      if (!boolAffix || boolAffix.bonusType === 'Penalty') {
         continue;
       }
       const bonusType = boolAffix.bonusType;
@@ -304,6 +316,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         continue;
       }
       seen.add(key);
+
+      if (boolAffix.value) {
+        bucket('fulfilled', 'Fulfilled', 100).checklistAffixes.push(affixName);
+        continue;
+      }
 
       const info = this.availability.getRemainingAvailability(
         affixName, bonusType, openSlots, equippedSetCounts,
@@ -343,6 +360,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     for (const group of groups) {
       // Alphabetical within a group, matching the category grouping.
       group.rows.sort((a, b) => a.affixName.localeCompare(b.affixName));
+      group.checklistAffixes.sort((a, b) => a.localeCompare(b));
     }
     return groups;
   }

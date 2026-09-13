@@ -30,18 +30,38 @@
 
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!getSlotGroups().length">
-            Every tracked bonus type is already covered to the moderate-value threshold.
+            No tracked affixes yet. Add some from the "Add / edit affixes" button.
         </p>
         <div class="tracked-affix-section slot-group-section" *ngFor="let group of getSlotGroups(); trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"
                 [attr.aria-expanded]="!isAffixGroupCollapsed(group.key)">
                 <span>{{group.label}}</span>
                 <span class="tracked-affix-header-actions">
-                    <span class="tracked-affix-count" *ngIf="isAffixGroupCollapsed(group.key)">{{group.rows.length}}</span>
+                    <span class="tracked-affix-count" *ngIf="isAffixGroupCollapsed(group.key)">{{group.rows.length + group.checklistAffixes.length}}</span>
                     <span class="tracked-affix-collapse-indicator" [class.collapsed]="isAffixGroupCollapsed(group.key)" aria-hidden="true">&#8250;</span>
                 </span>
             </button>
             <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.key)">
+                <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="group.checklistAffixes.length">
+                    <div class="tracked-affix-summary">
+                        <span class="tracked-affix-name">Checklist Affixes</span>
+                    </div>
+                    <div class="tracked-affix-chips">
+                        <button type="button" class="tracked-bonus-chip max-value" *ngFor="let affixName of group.checklistAffixes"
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
+                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, boolAffixMap.get(affixName)[0])"
+                            [title]="getBonusTypeTooltip(affixName, boolAffixMap.get(affixName)[0])"
+                            (mouseenter)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                            (mouseleave)="clearAffixTypeEquipmentPreview()"
+                            (focus)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                            (blur)="clearAffixTypeEquipmentPreview()"
+                            (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                            <span class="tracked-bonus-label max-value">{{affixName}}</span>
+                            <span class="far fa-check-square max-value" aria-hidden="true"></span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows; trackBy: trackSlotRow">
                     <div class="tracked-affix-summary">
                         <span class="tracked-affix-name">

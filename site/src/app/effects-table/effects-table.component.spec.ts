@@ -506,7 +506,7 @@ describe('EffectsTableComponent', () => {
       .toEqual(new Set(['Insight', 'Resistance']));
   });
 
-  it('omits sufficiently-covered types from the slot grouping', () => {
+  it('puts sufficiently-covered types in the fulfilled bucket instead of the slot buckets', () => {
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Enhancement', value: 6 },
@@ -520,8 +520,11 @@ describe('EffectsTableComponent', () => {
 
     const groups = component.getSlotGroups();
 
-    // Enhancement is sufficient (6 >= 3/4 of 8) and skipped; only Insight is grouped.
-    expect(groups.flatMap(group => group.rows.flatMap(row => row.chips.map(chip => chip.bonusType)))).toEqual(['Insight']);
+    // Enhancement is sufficient (6 >= 3/4 of 8) and lands in "fulfilled" without
+    // querying availability; Insight is still grouped by remaining supply.
+    expect(groups.map(group => group.key)).toEqual(['5plus', 'fulfilled']);
+    expect(groups[0].rows[0].chips[0].bonusType).toBe('Insight');
+    expect(groups[1].rows[0].chips[0].bonusType).toBe('Enhancement');
     expect(remaining).toHaveBeenCalledTimes(1);
   });
 
@@ -542,6 +545,37 @@ describe('EffectsTableComponent', () => {
 
     expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out']);
     expect(groups[1].rows[0].chips[0].eliminated).toBeTrue();
+  });
+
+  it('puts the fulfilled bucket after the ruled-out bucket', () => {
+    component.affixNames = ['Strength', 'Dexterity', 'Wisdom'];
+    component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
+    component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
+    component.affixMap.set('Wisdom', [{ bonusType: 'Enhancement', value: 6 }]);
+    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(6);
+    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(6);
+    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) =>
+      bonusType === 'Profane'
+        ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
+        : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] }
+    );
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out', 'fulfilled']);
+    expect(groups[2].rows[0].affixName).toBe('Wisdom');
+  });
+
+  it('collects checked checklist affixes into the fulfilled bucket\'s checklist row', () => {
+    component.boolAffixNames = ['Deathblock'];
+    component.boolAffixMap.set('Deathblock', [{ bonusType: 'Bool', value: 1 }]);
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['fulfilled']);
+    expect(groups[0].rows).toEqual([]);
+    expect(groups[0].checklistAffixes).toEqual(['Deathblock']);
   });
 
   it('routes a set-only need through the bonus-type drawer, which lists the sets', () => {
@@ -567,7 +601,9 @@ describe('EffectsTableComponent', () => {
     spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
     const remaining = spyOn((component as any).availability, 'getRemainingAvailability');
 
-    expect(component.getSlotGroups()).toEqual([]);
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['fulfilled']);
     expect(remaining).not.toHaveBeenCalled();
   });
 });

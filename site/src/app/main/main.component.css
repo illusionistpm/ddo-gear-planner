@@ -29,13 +29,21 @@
 }
 
 .planner-brand {
+  align-items: center;
   color: var(--text-primary);
+  display: flex;
   flex: 0 0 auto;
   font-size: 0.95rem;
   font-weight: 800;
+  gap: 0.4rem;
   letter-spacing: 0;
   padding: 0 0.45rem 0 0.2rem;
   white-space: nowrap;
+}
+
+.planner-brand-icon {
+  height: 1.4rem;
+  width: 1.4rem;
 }
 
 .planner-workspace-spacer {

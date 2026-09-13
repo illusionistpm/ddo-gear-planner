@@ -12,10 +12,92 @@
   <meta name="apple-mobile-web-app-title" content="DDO Gear Planner">
   <link rel="manifest" href="/site.webmanifest">
   <script src="https://kit.fontawesome.com/0ce5d59d67.js" crossorigin="anonymous"></script>
+  <script>
+    // Applied synchronously, before first paint, so the loading screen below
+    // renders in the right theme immediately instead of flashing light then
+    // switching - mirrors ThemeService's own storage key and logic exactly.
+    (function () {
+      try {
+        var stored = window.localStorage.getItem('ddo-gear-planner-theme');
+        var theme = stored === 'dark' || stored === 'light'
+          ? stored
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-theme');
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* localStorage unavailable (private browsing, etc.) - default to light */ }
+    })();
+  </script>
+  <style>
+    /* Self-contained (doesn't depend on styles.css having loaded yet) initial
+       loading screen, shown as app-root's light-DOM content until Angular
+       finishes bootstrapping and replaces it with the real app - fills the
+       gap that would otherwise be a blank white page while the initial gear
+       data loads, without adding to that load time itself. */
+    body {
+      margin: 0;
+    }
+
+    app-root {
+      display: block;
+    }
+
+    .app-boot-splash {
+      align-items: center;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      height: 100vh;
+      justify-content: center;
+      width: 100%;
+    }
+
+    html[data-theme="dark"] .app-boot-splash {
+      background: #0f172a;
+    }
+
+    .app-boot-splash-icon {
+      animation: app-boot-splash-pulse 1.4s ease-in-out infinite;
+      height: 3.5rem;
+      width: 3.5rem;
+    }
+
+    .app-boot-splash-brand {
+      color: #64748b;
+      font: 800 0.8rem/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme="dark"] .app-boot-splash-brand {
+      color: #cbd5e1;
+    }
+
+    @keyframes app-boot-splash-pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(0.92);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="app-boot-splash">
+      <img src="/favicon-96x96.png" alt="" class="app-boot-splash-icon">
+      <div class="app-boot-splash-brand">DDO Gear Planner</div>
+    </div>
+  </app-root>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE5J6NX22N"></script>

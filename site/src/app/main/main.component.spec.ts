@@ -8,10 +8,18 @@ describe('MainComponent', () => {
   let fixture: ComponentFixture<MainComponent>;
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
   const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
+  const viewStateKeys = [
+    'ddo-gear-planner-active-tab',
+    'ddo-gear-planner-tracked-affix-group-mode',
+    'ddo-gear-planner-tracked-affix-collapsed'
+  ];
 
   beforeEach(waitForAsync(() => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
+    for (const key of viewStateKeys) {
+      localStorage.removeItem(key);
+    }
     TestBed.configureTestingModule({
       imports: [ AppModule ]
     })
@@ -21,6 +29,9 @@ describe('MainComponent', () => {
   afterEach(() => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
+    for (const key of viewStateKeys) {
+      localStorage.removeItem(key);
+    }
   });
 
   beforeEach(() => {

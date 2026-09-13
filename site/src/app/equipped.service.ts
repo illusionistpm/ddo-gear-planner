@@ -8,6 +8,15 @@ import { AffixRank } from './affix-rank.enum';
 import { GearDbService, SetBonusThreshold } from './gear-db.service';
 import { canonicalizeCraftingSystemName } from './gear-db.service';
 import { QueryParamsService } from './query-params.service';
+import {
+  getStoredActiveTab,
+  getStoredCollapsedTrackedAffixGroups,
+  getStoredTrackedAffixGroupMode,
+  storeActiveTab,
+  storeCollapsedTrackedAffixGroups,
+  storeTrackedAffixGroupMode
+} from './planner-view-state-storage';
+import { getMlSlotFromKey, isCraftKey, isMlKey, parseCraftKey } from './build-param-keys';
 import { AffixService } from './affix.service';
 import { AffixAvailabilityService } from './affix-availability.service';
 import { EssenceCraftingService } from './essence-crafting.service';
@@ -95,7 +104,7 @@ export class EquippedService {
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
   private equippedItemSubject = new Subject<EquippedItemEvent>();
 
-  // Planner view state, persisted in the URL.
+  // Planner view state, persisted in localStorage - see planner-view-state-storage.ts.
   private activeMainTab: PlannerTab = 'equipment';
   private plannerTabSubject = new BehaviorSubject<PlannerTab>('equipment');
   private trackedAffixGroupMode: TrackedAffixGroupMode = 'category';
@@ -134,6 +143,12 @@ export class EquippedService {
 
     this.params = new BehaviorSubject<any>(null);
 
+    this.activeMainTab = getStoredActiveTab();
+    this.plannerTabSubject.next(this.activeMainTab);
+    this.trackedAffixGroupMode = getStoredTrackedAffixGroupMode();
+    this.collapsedTrackedAffixGroups = getStoredCollapsedTrackedAffixGroups();
+    this._emitTrackedAffixViewState();
+
     this.queryParams.register(this, this.params);
     this.queryParams.subscribe(this);
 
@@ -153,16 +168,6 @@ export class EquippedService {
       try {
         this.setImportantAffixes(params.getAll('tracked'));
 
-        this.activeMainTab = params.get('tab') === 'affixes' ? 'affixes' : 'equipment';
-        this.plannerTabSubject.next(this.activeMainTab);
-
-        this.trackedAffixGroupMode = params.get('taGroup') === 'slots' ? 'slots' : 'category';
-        const collapsedParam = params.get('taCollapsed');
-        this.collapsedTrackedAffixGroups = new Set(
-          collapsedParam ? String(collapsedParam).split(',').filter(Boolean) : []
-        );
-        this._emitTrackedAffixViewState();
-
         for (const slot of this.gearList.getSlots()) {
           if (!params.get(slot)) {
             const dummy = new Item(null);
@@ -174,13 +179,8 @@ export class EquippedService {
         for (const key of params.keys) {
           if (key === 'tracked') {
             continue;
-          } else if (key.startsWith('craft_')) {
-            const parts = key.split('_');
-            if (parts.length !== 3) {
-              console.log('Bad crafting key: ' + key);
-              continue;
-            }
-            const index = Number(parts[1]);
+          } else if (isCraftKey(key)) {
+            const { index, field } = parseCraftKey(key)!;
             if (craftingParams.length <= index) {
               craftingParams.length = index + 1;
             }
@@ -189,8 +189,7 @@ export class EquippedService {
               craftingParam = {};
               craftingParams[index] = craftingParam;
             }
-            craftingParam[parts[2]] = params.get(key);
-
+            craftingParam[field] = params.get(key);
 
           } else if (this.gearList.getSlots().find(v => v === key)) {
             const itemName = params.get(key);
@@ -200,13 +199,12 @@ export class EquippedService {
             } else {
               console.log('Can\'t find ' + itemName + ' for slot ' + key);
             }
+          } else if (isMlKey(key)) {
+            minLevels.set(getMlSlotFromKey(key)!, +params.get(key));
+          } else if (key.startsWith('craft_')) {
+            console.log('Bad crafting key: ' + key);
           } else if (key.startsWith('ml_')) {
-            const parts = key.split('_');
-            if (parts.length !== 2) {
-              console.log('Bad ml key: ' + key);
-              continue;
-            }
-            minLevels.set(parts[1], +params.get(key));
+            console.log('Bad ml key: ' + key);
           }
         }
 
@@ -338,16 +336,6 @@ export class EquippedService {
     //params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
-
-    if (this.activeMainTab === 'affixes') {
-      params['tab'] = this.activeMainTab;
-    }
-    if (this.trackedAffixGroupMode !== 'category') {
-      params['taGroup'] = this.trackedAffixGroupMode;
-    }
-    if (this.collapsedTrackedAffixGroups.size) {
-      params['taCollapsed'] = Array.from(this.collapsedTrackedAffixGroups).join(',');
-    }
 
     this.params.next(params);
     done({ keys: Object.keys(params).length });
@@ -911,7 +899,7 @@ export class EquippedService {
     }
     this.activeMainTab = tab;
     this.plannerTabSubject.next(tab);
-    this._updateRouterState();
+    storeActiveTab(tab);
   }
 
   getTrackedAffixViewState() {
@@ -924,7 +912,7 @@ export class EquippedService {
     }
     this.trackedAffixGroupMode = mode;
     this._emitTrackedAffixViewState();
-    this._updateRouterState();
+    storeTrackedAffixGroupMode(mode);
   }
 
   toggleTrackedAffixGroupCollapsed(key: string) {
@@ -934,7 +922,7 @@ export class EquippedService {
       this.collapsedTrackedAffixGroups.add(key);
     }
     this._emitTrackedAffixViewState();
-    this._updateRouterState();
+    storeCollapsedTrackedAffixGroups(this.collapsedTrackedAffixGroups);
   }
 
   private _emitTrackedAffixViewState() {

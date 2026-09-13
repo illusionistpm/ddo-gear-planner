@@ -20,7 +20,24 @@ function makeItem(name: string, slot: string, type: string, affixes: Array<any> 
 }
 
 describe('EquippedService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  const viewStateKeys = [
+    'ddo-gear-planner-active-tab',
+    'ddo-gear-planner-tracked-affix-group-mode',
+    'ddo-gear-planner-tracked-affix-collapsed'
+  ];
+
+  beforeEach(() => {
+    for (const key of viewStateKeys) {
+      localStorage.removeItem(key);
+    }
+    TestBed.configureTestingModule({});
+  });
+
+  afterEach(() => {
+    for (const key of viewStateKeys) {
+      localStorage.removeItem(key);
+    }
+  });
 
   it('should be created', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
@@ -258,7 +275,7 @@ describe('EquippedService', () => {
     expect(params['craft_0_selected']).toBe('Red Augment Slot (empty)');
   });
 
-  it('persists non-default planner view state to params', () => {
+  it('does not persist planner view state to params - it lives in localStorage instead', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 
     service.setActiveMainTab('affixes');
@@ -266,24 +283,12 @@ describe('EquippedService', () => {
     service.toggleTrackedAffixGroupCollapsed('Defense');
     service.toggleTrackedAffixGroupCollapsed('set-only');
 
-    const params = service['params'].getValue();
-    expect(params['tab']).toBe('affixes');
-    expect(params['taGroup']).toBe('slots');
-    expect(params['taCollapsed']).toBe('Defense,set-only');
+    expect(localStorage.getItem('ddo-gear-planner-active-tab')).toBe('affixes');
+    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-group-mode')).toBe('slots');
+    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-collapsed')).toBe('Defense,set-only');
   });
 
-  it('omits default planner view state from params', () => {
-    const service: EquippedService = TestBed.inject(EquippedService);
-
-    service['_updateRouterState']();
-
-    const params = service['params'].getValue();
-    expect(params['tab']).toBeUndefined();
-    expect(params['taGroup']).toBeUndefined();
-    expect(params['taCollapsed']).toBeUndefined();
-  });
-
-  it('restores planner view state from params', () => {
+  it('ignores tab/taGroup/taCollapsed if a URL still carries them (legacy links)', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 
     service.updateFromParams({
@@ -292,6 +297,19 @@ describe('EquippedService', () => {
         ({ tab: 'affixes', taGroup: 'slots', taCollapsed: 'set-only,2' } as Record<string, string>)[key] ?? null,
       getAll: () => [],
     });
+
+    let tab: string | undefined;
+    service.getActiveMainTab().subscribe(value => (tab = value)).unsubscribe();
+
+    expect(tab).toBe('equipment');
+  });
+
+  it('restores planner view state from localStorage on construction', () => {
+    localStorage.setItem('ddo-gear-planner-active-tab', 'affixes');
+    localStorage.setItem('ddo-gear-planner-tracked-affix-group-mode', 'slots');
+    localStorage.setItem('ddo-gear-planner-tracked-affix-collapsed', 'set-only,2');
+
+    const service: EquippedService = TestBed.inject(EquippedService);
 
     let tab: string | undefined;
     service.getActiveMainTab().subscribe(value => (tab = value)).unsubscribe();

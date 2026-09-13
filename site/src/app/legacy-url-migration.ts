@@ -1,3 +1,9 @@
+import {
+  storeActiveTab,
+  storeCollapsedTrackedAffixGroups,
+  storeTrackedAffixGroupMode
+} from './planner-view-state-storage';
+
 // One-time compatibility shims for URL shapes that existed before a specific
 // refactor and should self-upgrade on next load, kept separate from
 // BuildUrlCodecService's permanent flat-param-vs-compact-payload fallback
@@ -15,6 +21,7 @@
 // corrected URL.
 export function migrateLegacyUrlIfNeeded(): void {
   rewriteLegacyHashUrl();
+  migrateLegacyViewStateParams();
 }
 
 // Pre-path-routing links looked like `/#/main?levelrange=1,36&...`. Now that
@@ -28,4 +35,33 @@ function rewriteLegacyHashUrl(): void {
 
   const pathAndQuery = rawHash.slice(1);
   history.replaceState(null, '', pathAndQuery);
+}
+
+// tab/taGroup/taCollapsed used to round-trip through the URL as UI view
+// state (see planner-view-state-storage.ts for why that moved to
+// localStorage). Existing bookmarked/shared links may still carry them -
+// migrate their values into localStorage instead of just discarding them,
+// so no one's existing preference silently resets. Must run after
+// rewriteLegacyHashUrl() above, so a pre-path-routing hash link's query
+// string has already landed in window.location.search by the time this
+// reads it. The params themselves are left in place here; they get dropped
+// from the address bar the ordinary way, the next time anything triggers a
+// URL rewrite (e.g. the compact-payload codec re-encoding the build).
+function migrateLegacyViewStateParams(): void {
+  const params = new URLSearchParams(window.location.search);
+
+  const tab = params.get('tab');
+  if (tab === 'affixes') {
+    storeActiveTab('affixes');
+  }
+
+  const taGroup = params.get('taGroup');
+  if (taGroup === 'slots') {
+    storeTrackedAffixGroupMode('slots');
+  }
+
+  const taCollapsed = params.get('taCollapsed');
+  if (taCollapsed) {
+    storeCollapsedTrackedAffixGroups(new Set(taCollapsed.split(',').filter(Boolean)));
+  }
 }

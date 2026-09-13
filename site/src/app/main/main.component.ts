@@ -59,7 +59,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userGear.loadFromStorage();
-    this.activeTab = this.getInitialTabFromUrl();
     this.maybeOpenAffixBuilderOnLoad();
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
@@ -297,17 +296,6 @@ export class MainComponent implements OnInit, OnDestroy {
       return '51-100';
     }
     return '101+';
-  }
-
-  private getInitialTabFromUrl(): MainTab {
-    const hash = window.location.hash || '';
-    const queryIndex = hash.indexOf('?');
-    if (queryIndex < 0) {
-      return 'equipment';
-    }
-
-    const params = new URLSearchParams(hash.slice(queryIndex + 1));
-    return params.get('tab') === 'affixes' ? 'affixes' : 'equipment';
   }
 
   private refreshOnboardingState() {

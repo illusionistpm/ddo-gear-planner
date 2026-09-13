@@ -8,21 +8,17 @@ import { AnalyticsService } from '../analytics.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 
-import { AffixCloud } from '../affix-cloud';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 
 @Component({
-    selector: 'app-affix-cloud',
-    templateUrl: './affix-cloud.component.html',
-    styleUrls: ['./affix-cloud.component.css'],
+    selector: 'app-affix-picker',
+    templateUrl: './affix-picker.component.html',
+    styleUrls: ['./affix-picker.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class AffixCloudComponent implements OnInit, OnDestroy {
-  cloud: AffixCloud;
-  workingMap: Map<string, number>;
+export class AffixPickerComponent implements OnInit, OnDestroy {
   savedSet: Set<string>;
-  topResults: Array<any>;
   spellSchools: Array<string>;
   tactics: Array<string>;
 
@@ -31,8 +27,6 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
   showSpellSchools: boolean = false;
 
   public allAffixes: Array<any>; // is really Array<{name:string}>
-
-  ignoredSet: Set<string>;
 
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
   packages = new Map<string, Array<string>>();
@@ -58,38 +52,12 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     private onboarding: PlannerOnboardingService,
     private affixBuilder: AffixBuilderDrawerService
   ) {
-    this.workingMap = new Map<string, number>();
     this.savedSet = new Set<string>();
-    this.topResults = new Array<any>();
-    this.ignoredSet = new Set<string>();
 
     this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e, synonyms: this.affixSvc.getSynonyms(e) }));
 
     this.spellSchools = ['Evocation', 'Transmutation', 'Abjuration', 'Conjuration', 'Enchantment', 'Illusion', 'Necromancy'];
     this.tactics = ['Stunning', 'Sundering', 'Vertigo'];
-
-    const gearList = gearDB.getGearList();
-
-    let flatList: any[] = [];
-    for (const entry of gearList.entries()) {
-      // Skip Weapon and Ring2 to avoid double counting since Offhand is offhand + weapon and ring2 is just ring1
-      if (entry[0] === 'Weapon' || entry[0] === 'Ring2') {
-        continue;
-      }
-      flatList = flatList.concat(entry[1]);
-    }
-
-    this.cloud = new AffixCloud(flatList);
-
-    // This can still be added if you click on the heart. Should be stored somewhere better
-    this.ignoredSet.add('Enhancement Bonus');
-    this.ignoredSet.add('Orb Bonus');
-    this.ignoredSet.add('Spellcasting Implement');
-    this.ignoredSet.add('Upgradeable - Primary Augment');
-    this.ignoredSet.add('Upgradeable - Secondary Augment');
-    this.ignoredSet.add('Enhancement Bonus (Armor)');
-    this.ignoredSet.add('Enhancement Bonus (Weapon)');
-    this.ignoredSet.add('Well Rounded');
 
     this._initPackages();
   }
@@ -158,22 +126,6 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
       canonicalized.set(key, canonicalAffixes);
     }
     return canonicalized;
-  }
-
-  getBtnSize(result: string) {
-    const sortedResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]);
-    if (!sortedResults.length) {
-      return 'btn';
-    }
-    const maxVal = sortedResults[0][1];
-    const myVal = this.workingMap.get(result);
-    if (myVal === undefined || myVal < maxVal / 3) {
-      return 'btn-sm';
-    } else if (myVal > 2 / 3 * maxVal) {
-      return 'btn-lg';
-    } else {
-      return 'btn';
-    }
   }
 
   toggleAttribute(attr: string) {
@@ -321,43 +273,10 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     if (!addedAffixes.length && this.equipped.isImportantAffix(affix)) {
       this.savedSet.add(affix);
     }
-
-    this.addAffixToWorkingMap(affix);
-    for (const addedAffix of addedAffixes) {
-      if (addedAffix !== affix) {
-        this.addAffixToWorkingMap(addedAffix);
-      }
-    }
-    this.refreshTopResults();
-  }
-
-  private addAffixToWorkingMap(affix: string) {
-    const map = this.cloud.get(affix);
-    if (!map) {
-      console.log('Couldn\'t find ' + affix + ' in affix cloud');
-      return;
-    }
-
-    this.workingMap = this.cloud.merge(this.workingMap, map);
-  }
-
-  private refreshTopResults() {
-    for (const entry of this.workingMap) {
-      if (this.savedSet.has(entry[0]) || this.ignoredSet.has(entry[0]) || this.attributes.includes(entry[0])) {
-        this.workingMap.delete(entry[0]);
-      }
-    }
-
-    this.topResults = Array.from(this.workingMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 30);
   }
 
   private syncFromImportantAffixes(affixes: Set<string>) {
     this.savedSet = new Set(affixes);
-    this.workingMap.clear();
-
-    for (const savedAffix of this.savedSet) {
-      this.addAffixToWorkingMap(savedAffix);
-    }
 
     if (!this.savedSet.size) {
       this.selectedPackages.clear();
@@ -365,7 +284,6 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     }
 
     this.updateConditionalSections();
-    this.refreshTopResults();
     this.refreshOnboardingHints();
   }
 
@@ -374,12 +292,6 @@ export class AffixCloudComponent implements OnInit, OnDestroy {
     for (const removedAffix of removedAffixes) {
       this.savedSet.delete(removedAffix);
     }
-
-    this.workingMap.clear();
-    for (const savedAffix of this.savedSet) {
-      this.addAffixToWorkingMap(savedAffix);
-    }
-    this.refreshTopResults();
   }
 
   clearAll() {

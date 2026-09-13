@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
-import { AffixCloudComponent } from './affix-cloud.component';
+import { AffixPickerComponent } from './affix-picker.component';
 import { EquippedService } from '../equipped.service';
 
-describe('AffixCloudComponent', () => {
-  let component: AffixCloudComponent;
-  let fixture: ComponentFixture<AffixCloudComponent>;
+describe('AffixPickerComponent', () => {
+  let component: AffixPickerComponent;
+  let fixture: ComponentFixture<AffixPickerComponent>;
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
   const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
@@ -25,7 +25,7 @@ describe('AffixCloudComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AffixCloudComponent);
+    fixture = TestBed.createComponent(AffixPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -153,11 +153,9 @@ describe('AffixCloudComponent', () => {
 
     component.add('Strength');
     expect(component.savedSet.has('Strength')).toBeTrue();
-    expect(component.topResults.length).toBeGreaterThan(0);
 
     equipped.setImportantAffixes([]);
 
     expect(component.savedSet.size).toBe(0);
-    expect(component.topResults.length).toBe(0);
   });
 });

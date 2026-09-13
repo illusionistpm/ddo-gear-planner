@@ -18,7 +18,7 @@ import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-
 import { FiltersComponent } from './filters/filters.component';
 import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
-import { AffixCloudComponent } from './affix-cloud/affix-cloud.component';
+import { AffixPickerComponent } from './affix-picker/affix-picker.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
@@ -42,7 +42,7 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
         FiltersComponent,
         MainComponent,
         ItemSuggestionsComponent,
-        AffixCloudComponent,
+        AffixPickerComponent,
         ItemsInSetComponent,
         ExpandingCheckboxesComponent,
         FilterItemTypeComponent,

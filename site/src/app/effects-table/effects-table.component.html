@@ -42,7 +42,7 @@
                 </span>
             </button>
             <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.key)">
-                <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows">
+                <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows; trackBy: trackSlotRow">
                     <div class="tracked-affix-summary">
                         <span class="tracked-affix-name">
                             {{row.affixName}}
@@ -61,15 +61,22 @@
                         </span>
                     </div>
                     <div class="tracked-affix-chips">
-                        <button type="button" class="tracked-bonus-chip" *ngFor="let chip of row.chips"
+                        <button type="button" class="tracked-bonus-chip" *ngFor="let chip of row.chips; trackBy: trackSlotChip"
                             [class.no-value]="!chip.currentValue"
                             [class.bonus-eliminated]="chip.eliminated"
                             [ngClass]="chip.valueClass"
                             [title]="chip.tooltip"
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
+                            [class.recently-changed]="isRecentlyChangedAffixType(chip.sourceAffixName, chip)"
+                            (mouseenter)="previewAffixTypeEquipment(chip.sourceAffixName, chip)"
+                            (mouseleave)="clearAffixTypeEquipmentPreview()"
+                            (focus)="previewAffixTypeEquipment(chip.sourceAffixName, chip)"
+                            (blur)="clearAffixTypeEquipmentPreview()"
                             (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
                             <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
                             <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
                             <span class="max-available" *ngIf="chip.maxValue">/{{chip.maxValue}}</span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)">Click</span>
                         </button>
                     </div>
                 </div>

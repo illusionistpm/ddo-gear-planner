@@ -148,6 +148,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   currentBonus(affixName: string) {
+    const boolAffix = this.boolAffixMap.get(affixName)?.[0];
+    if (boolAffix) {
+      return boolAffix.value ? 1 : 0;
+    }
     let total = 0;
     for (const type of this.getVisibleTypes(affixName)) {
       total += type.value;
@@ -156,6 +160,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   maxBonus(affixName: string) {
+    if (this.boolAffixMap.has(affixName)) {
+      return 1;
+    }
     let total = 0;
     for (const type of this.getVisibleTypes(affixName)) {
       const maxValue = this.gearDB.getBestValueForAffixType(type.sourceAffixName, type.sourceBonusType);
@@ -284,6 +291,52 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
           tooltip: this.getScarcityTooltip(info)
         });
       }
+    }
+
+    for (const affixName of this.boolAffixNames) {
+      const boolAffix = this.boolAffixMap.get(affixName)?.[0];
+      if (!boolAffix || boolAffix.bonusType === 'Penalty' || boolAffix.value) {
+        continue;
+      }
+      const bonusType = boolAffix.bonusType;
+      const key = affixName + '\0' + bonusType;
+      if (seen.has(key)) {
+        continue;
+      }
+      seen.add(key);
+
+      const info = this.availability.getRemainingAvailability(
+        affixName, bonusType, openSlots, equippedSetCounts,
+        this.equipped.getSlotsWithOpenAugmentForAffixType(affixName, bonusType)
+      );
+
+      let group: SlotGroup;
+      if (info.eliminated) {
+        group = bucket('ruled-out', 'Ruled out by gear', 99);
+      } else if (info.tier === 'set-only') {
+        group = bucket('set-only', 'Set only', 0);
+      } else if (info.tier === 'unavailable') {
+        continue;
+      } else if (info.slotCount >= 5) {
+        group = bucket('5plus', '5+ open slots', 5);
+      } else {
+        group = bucket(
+          String(info.slotCount),
+          `${info.slotCount} open slot${info.slotCount === 1 ? '' : 's'}`,
+          info.slotCount
+        );
+      }
+
+      rowFor(group, affixName).chips.push({
+        sourceAffixName: affixName,
+        bonusType,
+        label: 'Checklist',
+        currentValue: 0,
+        maxValue: 0,
+        valueClass: '',
+        eliminated: info.eliminated,
+        tooltip: this.getScarcityTooltip(info)
+      });
     }
 
     const groups = Array.from(buckets.values()).sort((a, b) => a.order - b.order);
@@ -677,6 +730,14 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   trackSlotGroup(index: number, group: SlotGroup): string {
     return group.key;
+  }
+
+  trackSlotRow(index: number, row: SlotGroupRow): string {
+    return row.affixName;
+  }
+
+  trackSlotChip(index: number, chip: SlotGroupChip): string {
+    return chip.sourceAffixName + '\0' + chip.bonusType;
   }
 
   trackVisibleType(index: number, type: any): string {

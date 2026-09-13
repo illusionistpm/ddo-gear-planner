@@ -729,6 +729,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       return 'No gear with this bonus type is available in the current level range.';
     }
 
+    if (!type.value) {
+      return type.bonusType === 'Bool' ? 'Not covered yet' : `Not covered yet (best available: ${maxValue})`;
+    }
+
     if (type.value >= maxValue) {
       return 'Best possible value';
     } else if (type.value >= this.getModerateThreshold(maxValue)) {

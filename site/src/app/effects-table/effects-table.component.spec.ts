@@ -380,6 +380,20 @@ describe('EffectsTableComponent', () => {
       .toBe('No gear with this bonus type is available in the current level range.');
   });
 
+  it('says a zero-value available bonus type is not covered yet, rather than calling it low', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(10);
+
+    expect(component.getBonusTypeTooltip('Strength', { bonusType: 'Equipment', value: 0 }))
+      .toBe('Not covered yet (best available: 10)');
+  });
+
+  it('does not show a numeric best-available value for an uncovered checklist affix', () => {
+    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(1);
+
+    expect(component.getBonusTypeTooltip('Deathblock', { bonusType: 'Bool', value: 0 }))
+      .toBe('Not covered yet');
+  });
+
   it('does not include source equipment names in bonus type tooltips', () => {
     spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(10);
     spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([

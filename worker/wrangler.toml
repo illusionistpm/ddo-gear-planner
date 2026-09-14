@@ -1,0 +1,38 @@
+name = "ddo-gear-planner-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Filled in by `wrangler d1 create ddo-gear-planner` - paste the database_id
+# it prints here. See ../worker/SETUP.md.
+[[d1_databases]]
+binding = "DB"
+database_name = "ddo-gear-planner"
+database_id = "44bfa641-a59f-46b4-be82-f81f2b2a8d17"
+
+# Filled in by `wrangler kv namespace create ddo-gear-planner-build-cache` -
+# paste the id it prints here. The `binding` below (BUILD_CACHE, SCREAMING_
+# SNAKE_CASE) is the code-facing name used as env.BUILD_CACHE; the
+# create-time name (kebab-case, matching the D1 database's name above) is
+# just how the resource is labeled in the Cloudflare dashboard/CLI - the
+# two don't need to match, and kebab-case is the convention for the latter.
+[[kv_namespaces]]
+binding = "BUILD_CACHE"
+id = "0d0e72e33bd642bbb5ad01a3d3c60cb9"
+
+# No client secret needed here - the Worker only verifies Bearer tokens
+# (see src/auth.ts), it never runs the OAuth flow itself.
+[vars]
+AUTH0_DOMAIN = "https://dev-kh5sqt4zb3qzc6tr.us.auth0.com"
+AUTH0_AUDIENCE = "https://api.ddo-gear-planner.com"
+ALLOWED_ORIGIN = "https://ddo-gear-planner.com"
+
+# Cloudflare's "Custom Domain" feature (custom_domain = true) doesn't
+# support wildcards or paths in its pattern - it maps the whole hostname to
+# the Worker on its own, so the pattern is just the bare domain, not
+# "api.ddo-gear-planner.com/*". (A wildcard route pattern is only valid for
+# a plain zone-based [[routes]] entry with a separate zone_name, which is
+# the older mechanism this project isn't using.)
+[[routes]]
+pattern = "api.ddo-gear-planner.com"
+custom_domain = true

@@ -28,6 +28,11 @@
                 "input": "src/favicon",
                 "output": "/"
               },
+              {
+                "glob": "privacy.html",
+                "input": "src",
+                "output": "/"
+              },
               "src/assets"
             ],
             "styles": [

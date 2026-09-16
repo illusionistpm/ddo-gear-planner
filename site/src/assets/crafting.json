@@ -18686,6 +18686,62 @@
                 ]
             }
         ],
+        "The Diadem of Rot": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            }
+        ],
         "The Prince of Demons": [
             {
                 "affixes": [
@@ -18794,6 +18850,118 @@
                         "name": "Wisdom",
                         "type": "Enhancement",
                         "value": "6"
+                    }
+                ]
+            }
+        ],
+        "The Skull of the Horned King": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            }
+        ],
+        "The Volley's Aria": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Enhancement",
+                        "value": "15"
                     }
                 ]
             }
@@ -20052,6 +20220,174 @@
                         "name": "Wisdom",
                         "type": "Insight",
                         "value": "2"
+                    }
+                ]
+            }
+        ],
+        "The Queen of Rot": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            }
+        ],
+        "The Sixth Toe of the Shadow King": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            }
+        ],
+        "The Unbreakable Divinity": [
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Insight",
+                        "value": "7"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Insight",
+                        "value": "7"
                     }
                 ]
             }
@@ -23742,6 +24078,201 @@
                         "name": "Transmutation Focus",
                         "type": "Equipment",
                         "value": "4"
+                    }
+                ]
+            }
+        ],
+        "The Butcher's Mind": [
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            }
+        ],
+        "The Shadow Lord's Arcana": [
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            }
+        ],
+        "The Unspeakable Power": [
+            {
+                "affixes": [
+                    {
+                        "name": "Abjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "13"
                     }
                 ]
             }

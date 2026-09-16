@@ -32266,174 +32266,6 @@
                 "name": "Invisibility Guard",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Deathblock",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Nightmare Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Dodge",
-                "type": "Enhancement",
-                "value": "4"
-            },
-            {
-                "name": "DR",
-                "type": "Good",
-                "value": "5"
-            }
-        ],
-        "ml": 20,
-        "name": "Cloak of Night (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Cloak",
-        "type": "Back items",
-        "url": "/page/Item:Cloak_of_Night_(level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Invisibility Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Deathblock",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Nightmare Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Dodge",
-                "type": "Enhancement",
-                "value": "6"
-            },
-            {
-                "name": "DR",
-                "type": "Good",
-                "value": "10"
-            }
-        ],
-        "ml": 24,
-        "name": "Cloak of Night (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Cloak",
-        "type": "Back items",
-        "url": "/page/Item:Cloak_of_Night_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Invisibility Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Deathblock",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Nightmare Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Dodge",
-                "type": "Enhancement",
-                "value": "12"
-            },
-            {
-                "name": "DR",
-                "type": "Good",
-                "value": "15"
-            }
-        ],
-        "ml": 28,
-        "name": "Cloak of Night (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Cloak",
-        "type": "Back items",
-        "url": "/page/Item:Cloak_of_Night_(level_28)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Invisibility Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Deathblock",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Nightmare Guard",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Dodge",
-                "type": "Enhancement",
-                "value": "14"
-            },
-            {
-                "name": "DR",
-                "type": "Good",
-                "value": "15"
-            }
-        ],
-        "ml": 32,
-        "name": "Cloak of Night (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Cloak",
-        "type": "Back items",
-        "url": "/page/Item:Cloak_of_Night_(level_32)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Invisibility Guard",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "ml": 4,
@@ -51445,174 +51277,6 @@
     {
         "affixes": [
             {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "90"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "6"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "2"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 20,
-        "name": "Docent of Shadow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Docent_of_Shadow_(level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "114"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "6"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "3"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 24,
-        "name": "Docent of Shadow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Docent_of_Shadow_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "139"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "20"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "7"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 28,
-        "name": "Docent of Shadow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Docent_of_Shadow_(level_28)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "153"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "22"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "10"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 32,
-        "name": "Docent of Shadow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Docent_of_Shadow_(level_32)"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Negative Spell Power",
                 "type": "Equipment",
                 "value": "42"
@@ -59898,7 +59562,7 @@
                 "value": 1
             },
             {
-                "name": "Telekinetic",
+                "name": "Serrated",
                 "type": "Bool",
                 "value": 1
             },
@@ -60321,6 +59985,11 @@
             },
             {
                 "name": "Orcus' Magic: Nightmares",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Overwhelming Despair",
                 "type": "Bool",
                 "value": 1
             }
@@ -67369,6 +67038,132 @@
     {
         "affixes": [
             {
+                "name": "Invisibility Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmare Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "4"
+            },
+            {
+                "name": "DR",
+                "type": "Good",
+                "value": "5"
+            }
+        ],
+        "ml": 20,
+        "name": "Epic Cloak of Night (level 20)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Epic_Cloak_of_Night_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Invisibility Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmare Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "DR",
+                "type": "Good",
+                "value": "10"
+            }
+        ],
+        "ml": 24,
+        "name": "Epic Cloak of Night (level 24)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Epic_Cloak_of_Night_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Invisibility Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmare Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "12"
+            },
+            {
+                "name": "DR",
+                "type": "Good",
+                "value": "15"
+            }
+        ],
+        "ml": 28,
+        "name": "Epic Cloak of Night (level 28)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Epic_Cloak_of_Night_(level_28)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Will Save",
                 "type": "Resistance",
                 "value": "10"
@@ -69553,6 +69348,132 @@
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Epic_Docent_of_Insight"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "90"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "6"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "2"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Epic Docent of Shadow (level 20)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Epic_Docent_of_Shadow_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "114"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "6"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "3"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 24,
+        "name": "Epic Docent of Shadow (level 24)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Epic_Docent_of_Shadow_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "139"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "20"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 28,
+        "name": "Epic Docent of Shadow (level 28)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Epic_Docent_of_Shadow_(level_28)"
     },
     {
         "affixes": [
@@ -80041,6 +79962,132 @@
     {
         "affixes": [
             {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "90"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "6"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "2"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Epic Robe of Shadow (level 20)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Cloth armor",
+        "url": "/page/Item:Epic_Robe_of_Shadow_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "114"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "6"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "3"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 24,
+        "name": "Epic Robe of Shadow (level 24)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Cloth armor",
+        "url": "/page/Item:Epic_Robe_of_Shadow_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "139"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "20"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "7"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 28,
+        "name": "Epic Robe of Shadow (level 28)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Cloth armor",
+        "url": "/page/Item:Epic_Robe_of_Shadow_(level_28)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "VotAU",
                 "type": "Bool",
                 "value": 1
@@ -87888,6 +87935,117 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Epic_Wooden_Prayer_Beads"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+6"
+            },
+            {
+                "name": "Greater Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 20,
+        "name": "Epic Wraps of Endless Light (level 20)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+7"
+            },
+            {
+                "name": "Greater Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 24,
+        "name": "Epic Wraps of Endless Light (level 24)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+12"
+            },
+            {
+                "name": "Greater Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 28,
+        "name": "Epic Wraps of Endless Light (level 28)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_28)"
     },
     {
         "affixes": [
@@ -138139,6 +138297,48 @@
     {
         "affixes": [
             {
+                "name": "Invisibility Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmare Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "14"
+            },
+            {
+                "name": "DR",
+                "type": "Good",
+                "value": "15"
+            }
+        ],
+        "ml": 32,
+        "name": "Legendary Cloak of Night (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Legendary_Cloak_of_Night_(level_32)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Electric Absorption",
                 "type": "Enhancement",
                 "value": "34"
@@ -146748,6 +146948,48 @@
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Docent_of_Moonlight"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "153"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "22"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 32,
+        "name": "Legendary Docent of Shadow (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Legendary_Docent_of_Shadow_(level_32)"
     },
     {
         "affixes": [
@@ -183485,6 +183727,48 @@
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Robe_of_Moonlight"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "153"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "22"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 32,
+        "name": "Legendary Robe of Shadow (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Cloth armor",
+        "url": "/page/Item:Legendary_Robe_of_Shadow_(level_32)"
     },
     {
         "affixes": [
@@ -245090,174 +245374,6 @@
     {
         "affixes": [
             {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "90"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "6"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "2"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 20,
-        "name": "Robe of Shadow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Cloth armor",
-        "url": "/page/Item:Robe_of_Shadow_(level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "114"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "6"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "3"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 24,
-        "name": "Robe of Shadow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Cloth armor",
-        "url": "/page/Item:Robe_of_Shadow_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "139"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "20"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "7"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 28,
-        "name": "Robe of Shadow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Cloth armor",
-        "url": "/page/Item:Robe_of_Shadow_(level_28)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Nightshield clicky",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "153"
-            },
-            {
-                "name": "Negative Lore",
-                "type": "Equipment",
-                "value": "22"
-            },
-            {
-                "name": "False Life",
-                "type": "Enhancement",
-                "value": "40"
-            },
-            {
-                "name": "Necromancy Focus",
-                "type": "Equipment",
-                "value": "10"
-            },
-            {
-                "name": "Boon of Undeath",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 32,
-        "name": "Robe of Shadow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Armor",
-        "type": "Cloth armor",
-        "url": "/page/Item:Robe_of_Shadow_(level_32)"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Negative Spell Power",
                 "type": "Equipment",
                 "value": "42"
@@ -279164,6 +279280,8 @@
             }
         ],
         "crafting": [
+            "Nearly Complete: Spell Focus",
+            "Orange Augment Slot",
             "Purple Augment Slot"
         ],
         "ml": 35,
@@ -279996,7 +280114,7 @@
                 "value": 1
             },
             {
-                "name": "Disintegrate",
+                "name": "Serrated",
                 "type": "Bool",
                 "value": 1
             },
@@ -280148,6 +280266,45 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:The_Devouring_Way"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Lifeblood of the Undead Prince",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "61"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Natural",
+                "value": "16"
+            },
+            {
+                "name": "Legendary Demonic Curse",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Ability Score",
+            "Sun Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Diadem of Rot",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Helm",
+        "type": "Head items",
+        "url": "/page/Item:The_Diadem_of_Rot"
     },
     {
         "affixes": [
@@ -285222,6 +285379,45 @@
     {
         "affixes": [
             {
+                "name": "Sheltering",
+                "type": "Enhancement",
+                "value": "41"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "13"
+            },
+            {
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "84"
+            },
+            {
+                "name": "Freedom of Movement",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Insightful Ability Score",
+            "Sun Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Queen of Rot",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:The_Queen_of_Rot"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Universal Spell Power",
                 "type": "Implement",
                 "value": "5"
@@ -285574,17 +285770,13 @@
                 "value": "14"
             },
             {
-                "name": "Enchantment Focus",
-                "type": "Equipment",
-                "value": "14"
-            },
-            {
                 "name": "Graz'zt's Magic: Trap the Soul",
                 "type": "Bool",
                 "value": 1
             }
         ],
         "crafting": [
+            "Nearly Complete: Spell Focus",
             "Orange Augment Slot",
             "Purple Augment Slot"
         ],
@@ -285745,6 +285937,84 @@
         "slot": "Boots",
         "type": "Feet items",
         "url": "/page/Item:The_Shrouded_Steps_of_the_Beyond"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Shielded by Moonlight",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Smoke Screen",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Enchantment Focus",
+                "type": "Quality",
+                "value": "3"
+            },
+            {
+                "name": "Legendary Demonic Shield",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Insightful Ability Score",
+            "Sun Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Sixth Toe of the Shadow King",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:The_Sixth_Toe_of_the_Shadow_King"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Relentless Fury",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "25"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "18"
+            },
+            {
+                "name": "Bloodrage",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Ability Score",
+            "Sun Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Skull of the Horned King",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Helm",
+        "type": "Head items",
+        "url": "/page/Item:The_Skull_of_the_Horned_King"
     },
     {
         "affixes": [
@@ -286503,6 +286773,45 @@
     {
         "affixes": [
             {
+                "name": "Smite Evil Charges",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
+                "name": "Temperance of Spirit",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deadly",
+                "type": "Quality",
+                "value": "4"
+            },
+            {
+                "name": "Deadly",
+                "type": "Legendary",
+                "value": "3"
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Insightful Ability Score",
+            "Moon Augment Slot",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Unbreakable Divinity",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Necklace",
+        "type": "Neck items",
+        "url": "/page/Item:The_Unbreakable_Divinity"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Maximum Charge Tier",
                 "type": "Untyped",
                 "value": "5"
@@ -286586,6 +286895,8 @@
             }
         ],
         "crafting": [
+            "Nearly Complete: Spell Focus",
+            "Orange Augment Slot",
             "Purple Augment Slot"
         ],
         "ml": 35,
@@ -286636,6 +286947,45 @@
         "slot": "Offhand",
         "type": "Large shields",
         "url": "/page/Item:The_Vengeance_Manifest"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Shadow Striker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Power of the Frozen Thunderstorm",
+                "type": "Equipment",
+                "value": "169"
+            },
+            {
+                "name": "Enchantment Focus",
+                "type": "Insight",
+                "value": "7"
+            },
+            {
+                "name": "Greater Marksmanship",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Nearly Complete: Ability Score",
+            "Moon Augment Slot",
+            "Green Augment Slot",
+            "Yellow Augment Slot"
+        ],
+        "ml": 35,
+        "name": "The Volley's Aria",
+        "pack": "Terror of Demogorgon",
+        "quests": [
+            "Terror of the Demon Lords"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:The_Volley%27s_Aria"
     },
     {
         "affixes": [
@@ -300663,117 +301013,6 @@
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_16)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+6"
-            },
-            {
-                "name": "Greater Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Brilliance",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Radiant Blast",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 20,
-        "name": "Wraps of Endless Light (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Wraps_of_Endless_Light_(level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+7"
-            },
-            {
-                "name": "Greater Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Coruscating",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Sunburst",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 24,
-        "name": "Wraps of Endless Light (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Wraps_of_Endless_Light_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+12"
-            },
-            {
-                "name": "Greater Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Coruscating",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Sunburst",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 28,
-        "name": "Wraps of Endless Light (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Wraps_of_Endless_Light_(level_28)"
     },
     {
         "affixes": [

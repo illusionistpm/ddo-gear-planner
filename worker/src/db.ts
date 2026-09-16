@@ -77,6 +77,16 @@ export async function listBuildsByOwner(db: D1Database, ownerUserId: string): Pr
   return result.results ?? [];
 }
 
+// A dedicated COUNT query rather than listBuildsByOwner(...).length - avoids
+// pulling every row's full blob back just to check a limit (see
+// handleCreateBuild's MAX_BUILDS_PER_USER check).
+export async function countBuildsByOwner(db: D1Database, ownerUserId: string): Promise<number> {
+  const row = await db.prepare('SELECT COUNT(*) as count FROM builds WHERE owner_user_id = ?')
+    .bind(ownerUserId)
+    .first<{ count: number }>();
+  return row?.count ?? 0;
+}
+
 export async function updateBuild(db: D1Database, id: string, fields: { name?: string; blob?: string }): Promise<void> {
   const sets: string[] = [];
   const values: unknown[] = [];
@@ -98,4 +108,28 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
 
 export async function deleteBuild(db: D1Database, id: string): Promise<void> {
   await db.prepare('DELETE FROM builds WHERE id = ?').bind(id).run();
+}
+
+// blob here is the JSON envelope {"name": ..., "blob": ...} (see
+// routes/shortlinks.ts), not the raw gear blob - the single UNIQUE
+// constraint on this column is what makes "same gear AND same name" dedupe
+// to one row.
+export interface ShortLinkRow {
+  short_id: string;
+  blob: string;
+  created_at: string;
+}
+
+export async function insertShortLink(db: D1Database, row: ShortLinkRow): Promise<void> {
+  await db.prepare(
+    'INSERT INTO shortlinks (short_id, blob, created_at) VALUES (?, ?, ?)'
+  ).bind(row.short_id, row.blob, row.created_at).run();
+}
+
+export async function getShortLinkByStoredBlob(db: D1Database, stored: string): Promise<ShortLinkRow | null> {
+  return await db.prepare('SELECT * FROM shortlinks WHERE blob = ?').bind(stored).first<ShortLinkRow>();
+}
+
+export async function getShortLinkByShortId(db: D1Database, shortId: string): Promise<ShortLinkRow | null> {
+  return await db.prepare('SELECT * FROM shortlinks WHERE short_id = ?').bind(shortId).first<ShortLinkRow>();
 }

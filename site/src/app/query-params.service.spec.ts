@@ -122,6 +122,54 @@ describe('QueryParamsService', () => {
       .toEqual({ tracked: ['Strength', 'Constitution'] });
   });
 
+  it('emits combinedParamsChanges on both a genuine edit and a URL-driven load', () => {
+    // combinedParamsChanges must fire on a URL-driven apply too, not just a
+    // live edit - CurrentBuildService's dirty-tracking depends on seeing
+    // every recompute, including a build load and a browser back/forward
+    // restore, or it can be left comparing against the wrong baseline (see
+    // this stream's own comment for the regression that motivated this).
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>(null);
+    const listener = {
+      updateFromParams: () => source.next({ tracked: ['Strength'] })
+    };
+    const emissions: any[] = [];
+    service.combinedParamsChanges.subscribe(value => emissions.push(value));
+
+    service.register('source', source);
+    service.subscribe(listener);
+    service.updateFromParams({ keys: ['tracked'], get: () => null, getAll: () => ['Strength'] });
+
+    // The BehaviorSubject's own seed value ({}), then the load itself.
+    expect(emissions).toEqual([{}, { tracked: ['Strength'] }]);
+
+    source.next({ tracked: ['Strength', 'Constitution'] });
+
+    expect(emissions).toEqual([{}, { tracked: ['Strength'] }, { tracked: ['Strength', 'Constitution'] }]);
+    expect(service.getCombinedParams()).toEqual({ tracked: ['Strength', 'Constitution'] });
+  });
+
+  it('applies an already-decoded build record directly to listeners, bypassing URL decoding', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    service.subscribe(listener);
+
+    service.applyDecodedBuildParams({ Weapon: 'Calamitous Battle Axe', tracked: ['Strength', 'Constitution'] });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
+    expect(params.getAll('tracked')).toEqual(['Strength', 'Constitution']);
+  });
+
+  it('does not write URL history while applying decoded build params', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+
+    service.applyDecodedBuildParams({ Weapon: 'Calamitous Battle Axe' });
+
+    expect(router.navigate).not.toHaveBeenCalled();
+  });
+
   it('marks the next hashchange as app-originated when syncing query params', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ tracked: ['Strength'] });
@@ -255,6 +303,165 @@ describe('QueryParamsService', () => {
         tracked: ['Strength', 'Constitution'],
         tab: 'affixes'
       });
+  });
+
+  it('does not canonicalize Auth0 callback params (code/state) or hand them to listeners', () => {
+    // Regression test: Auth0's login redirect lands on the bare app root
+    // carrying ?code=...&state=... (see app.module.ts's redirect_uri and
+    // MainComponent's isOnAuthRedirectCallbackUrl()). Treating these as
+    // ordinary "legacy" params would canonicalize them into a `b` blob via
+    // a real navigation, overwriting the URL's code/state well before
+    // Auth0's own async token exchange finishes and reads it - which is
+    // exactly the race that caused a "start page" flash on sign-in even
+    // after MainComponent started checking the URL for code/state, since
+    // this canonicalize navigation had already stripped them by then.
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const listener = {
+      updateFromParams: jasmine.createSpy('updateFromParams')
+    };
+    service.subscribe(listener);
+
+    service.updateFromParams({
+      keys: ['code', 'state'],
+      get: (key: string) => key === 'code' ? 'abc' : (key === 'state' ? 'xyz' : null),
+      getAll: (key: string) => key === 'code' ? ['abc'] : (key === 'state' ? ['xyz'] : [])
+    });
+
+    expect(router.navigate).not.toHaveBeenCalled();
+    const appliedParams = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(appliedParams.keys).toEqual([]);
+  });
+
+  it('navigates to root (not a no-op) once a build identity is set on a build-shortId route', () => {
+    // Router.navigate([], ...) with zero commands and no relativeTo means
+    // "stay exactly where you are, just change query params" - NOT "go to
+    // root". An earlier version of this exact drop-the-shortId behavior
+    // shipped with [] here and silently did nothing, since the current URL
+    // was already the build route being "dropped" from.
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    (router as any).url = '/build/ab12cd34/my-build';
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>({ levelrange: '1,36' });
+
+    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' });
+    const navigateFn = (service as any)._makeNavigateFn(['source', source]);
+    navigateFn({ levelrange: '1,36' });
+
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['/'],
+      jasmine.objectContaining({ replaceUrl: false })
+    );
+  });
+
+  it('does not drop the build route path when no identity has been set', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    (router as any).url = '/build/ab12cd34/my-build';
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>({ levelrange: '1,36' });
+
+    const navigateFn = (service as any)._makeNavigateFn(['source', source]);
+    navigateFn({ levelrange: '1,36' });
+
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['build', 'ab12cd34', 'my-build'],
+      jasmine.objectContaining({ replaceUrl: false })
+    );
+  });
+
+  it('restores a build identity decoded from the URL and keeps it out of gear/filter params handed to listeners', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const identityEmissions: any[] = [];
+    service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
+
+    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' });
+    const withIdentity = (service as any).withBuildIdentityForUrl({ Weapon: 'Calamitous Battle Axe' });
+    const compactParam = codec.encode(withIdentity);
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b'],
+      get: (key: string) => key === 'b' ? compactParam : null,
+      getAll: (key: string) => key === 'b' ? [compactParam] : []
+    });
+
+    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
+    expect(params.keys).not.toContain('__buildRef');
+    expect(identityEmissions).toEqual([{ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' }]);
+  });
+
+  it('never leaks the build identity into getCombinedParams (the save-payload composer)', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const withIdentity = { Weapon: 'Calamitous Battle Axe', __buildRef: JSON.stringify({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' }) };
+    const compactParam = codec.encode(withIdentity);
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b'],
+      get: (key: string) => key === 'b' ? compactParam : null,
+      getAll: (key: string) => key === 'b' ? [compactParam] : []
+    });
+
+    expect(service.getCombinedParams()).toEqual({ Weapon: 'Calamitous Battle Axe' });
+  });
+
+  it('round-trips a name-only identity (null shortId) for a never-saved build', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const identityEmissions: any[] = [];
+    service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
+
+    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build', savedBuildId: null });
+    const withIdentity = (service as any).withBuildIdentityForUrl({ Weapon: 'Calamitous Battle Axe' });
+    const compactParam = codec.encode(withIdentity);
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b'],
+      get: (key: string) => key === 'b' ? compactParam : null,
+      getAll: (key: string) => key === 'b' ? [compactParam] : []
+    });
+
+    expect(identityEmissions).toEqual([{ shortId: null, name: 'My New Build', savedBuildId: null }]);
+  });
+
+  it('refreshLiveEditUrl forces the current identity+params into the URL immediately, with replaceUrl', () => {
+    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    (router as any).url = '/';
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const source = new BehaviorSubject<any>({ levelrange: '1,36' });
+    service.register('source', source);
+    // register() alone doesn't subscribe until initialPageLoad flips false -
+    // applyDecodedBuildParams (a no-op load) flips it, as in production.
+    service.applyDecodedBuildParams({});
+    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build', savedBuildId: null });
+
+    service.refreshLiveEditUrl();
+
+    const call = router.navigate.calls.mostRecent();
+    expect(call.args[1]?.replaceUrl).toBeTrue();
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const queryParams = call.args[1]?.queryParams as any;
+    expect(codec.decode(queryParams.b)).toEqual({
+      levelrange: '1,36',
+      __buildRef: JSON.stringify({ shortId: null, name: 'My New Build', savedBuildId: null })
+    });
+  });
+
+  it('emits a null build identity when the current URL carries none', () => {
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const identityEmissions: any[] = [];
+    service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
+
+    service.updateFromParams({ keys: [], get: () => null, getAll: () => [] });
+
+    expect(identityEmissions).toEqual([null]);
   });
 
   it('falls back to legacy params when compact decode fails', () => {

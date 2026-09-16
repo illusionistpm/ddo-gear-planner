@@ -5,7 +5,8 @@ export interface Env {
   BUILD_CACHE: KVNamespace;
   AUTH0_DOMAIN: string;
   AUTH0_AUDIENCE: string;
-  ALLOWED_ORIGIN: string;
+  // Comma-separated - see cors.ts for why this isn't a single origin.
+  ALLOWED_ORIGINS: string;
 }
 
 export interface AuthenticatedUser {
@@ -29,6 +30,23 @@ type RemoteJWKSet = ReturnType<typeof createRemoteJWKSet>;
 let cachedJwks: RemoteJWKSet | null = null;
 let cachedJwksDomain: string | null = null;
 
+// AUTH0_DOMAIN is meant to be a bare host (e.g. "your-tenant.us.auth0.com"),
+// but it's an easy copy-paste mistake to paste the full origin instead
+// (Auth0's own dashboard shows it both ways in different places). Stripping
+// an accidental scheme here means that mistake fails loudly in local
+// testing rather than silently breaking JWKS resolution in a way that's
+// only noticed when real login stops working.
+function normalizeDomain(domain: string): string {
+  return domain.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+}
+
+// AUTH0_AUDIENCE (e.g. "https://api.ddo-gear-planner.com") doubles as the
+// namespace prefix for the custom claims the login Action adds - stripping a
+// trailing slash keeps `${namespace}/email` from ending up with "//".
+function normalizeAudience(audience: string): string {
+  return audience.replace(/\/+$/, '');
+}
+
 function getJwks(domain: string): RemoteJWKSet {
   if (!cachedJwks || cachedJwksDomain !== domain) {
     cachedJwks = createRemoteJWKSet(new URL(`https://${domain}/.well-known/jwks.json`));
@@ -45,9 +63,10 @@ export async function verifyAuthToken(request: Request, env: Env): Promise<Authe
   const token = authHeader.slice('Bearer '.length);
 
   try {
-    const jwks = getJwks(env.AUTH0_DOMAIN);
+    const domain = normalizeDomain(env.AUTH0_DOMAIN);
+    const jwks = getJwks(domain);
     const { payload } = await jwtVerify(token, jwks, {
-      issuer: `https://${env.AUTH0_DOMAIN}/`,
+      issuer: `https://${domain}/`,
       audience: env.AUTH0_AUDIENCE
     });
 
@@ -55,10 +74,19 @@ export async function verifyAuthToken(request: Request, env: Env): Promise<Authe
       return null;
     }
 
+    // Auth0 access tokens for a custom API audience carry only registered
+    // claims (sub/iss/aud/scope/...) by default - email and name live on the
+    // ID token, not this one. Getting them onto the access token requires an
+    // Auth0 Action (see SETUP.md) that adds them as namespaced custom claims,
+    // since Auth0 silently drops any non-namespaced custom claim.
+    const claimNamespace = normalizeAudience(env.AUTH0_AUDIENCE);
+    const email = payload[`${claimNamespace}/email`];
+    const name = payload[`${claimNamespace}/name`];
+
     return {
       sub: payload.sub,
-      email: typeof payload.email === 'string' ? payload.email : undefined,
-      name: typeof payload.name === 'string' ? payload.name : undefined
+      email: typeof email === 'string' ? email : undefined,
+      name: typeof name === 'string' ? name : undefined
     };
   } catch {
     return null;

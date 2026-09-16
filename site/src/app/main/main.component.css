@@ -13,8 +13,6 @@
 
 .planner-workspace-bar {
   align-items: center;
-  backdrop-filter: blur(12px);
-  background: var(--top-bar-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
@@ -26,6 +24,26 @@
   position: relative;
   top: 0;
   z-index: 1100;
+}
+
+/*
+ * The blur+background lives on a pseudo-element rather than directly on
+ * .planner-workspace-bar. backdrop-filter (like transform) creates a new
+ * containing block for any position:fixed descendant - since
+ * app-build-actions (and the Save/My Builds overlays it renders) lives
+ * inside this bar, having backdrop-filter here made those overlays center
+ * within the bar's small box instead of the viewport, landing mostly
+ * off-screen. A pseudo-element isn't part of its siblings' ancestor chain,
+ * so it gets the same visual effect without hijacking fixed positioning.
+ */
+.planner-workspace-bar::before {
+  background: var(--top-bar-bg);
+  backdrop-filter: blur(12px);
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .planner-brand {
@@ -49,6 +67,13 @@
 .planner-workspace-spacer {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.planner-toolbar-divider {
+  align-self: stretch;
+  border-left: 1px solid var(--border-color);
+  flex: 0 0 auto;
+  margin: 0.3rem 0;
 }
 
 .planner-filter-control {
@@ -438,6 +463,51 @@
   overflow: hidden;
 }
 
+/* Same values as index.html's pre-bootstrap app-boot-splash (same class
+   names too, deliberately not reused verbatim - that one has to be
+   self-contained inline CSS since it renders before styles.css loads,
+   this one can use the app's real theme variables). Rendered full-viewport
+   in place of the whole app, header included, whenever contentReady is
+   false - not just tucked into the content area below an already-visible
+   header - so the two loading states read as one continuous screen instead
+   of a visible handoff to a differently-positioned spinner partway through
+   loading. */
+.planner-boot-splash {
+  align-items: center;
+  background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.planner-boot-splash-icon {
+  animation: planner-boot-splash-pulse 1.4s ease-in-out infinite;
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.planner-boot-splash-brand {
+  color: var(--text-secondary);
+  font: 800 0.8rem/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@keyframes planner-boot-splash-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+}
+
 .planner-tab-panel {
   height: 100%;
   overflow-x: hidden;
@@ -455,6 +525,13 @@
 
   .planner-workspace-spacer {
     display: none;
+  }
+
+  .planner-toolbar-divider {
+    align-self: stretch;
+    border-left: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 0.4rem 0;
   }
 
   .planner-brand {

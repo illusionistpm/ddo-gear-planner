@@ -1,3 +1,4 @@
+@if (contentReady) {
 <div class="container planner-page">
     <header class="planner-workspace-bar">
         <div class="planner-brand">
@@ -63,6 +64,10 @@
         </div>
 
         <div class="planner-workspace-spacer"></div>
+
+        <span class="planner-toolbar-divider" aria-hidden="true"></span>
+
+        <app-build-actions></app-build-actions>
 
         <div class="planner-support-wrap">
             <button type="button" class="planner-support-link"
@@ -135,3 +140,13 @@
     <app-suggestion-drawer></app-suggestion-drawer>
     <app-affix-builder-drawer></app-affix-builder-drawer>
 </div>
+} @else {
+    <!-- Same markup/classes as index.html's pre-bootstrap app-boot-splash,
+         so this reads as one continuous loading state instead of the boot
+         splash handing off to a visually different "loading your build"
+         screen (with the top bar already showing above it) partway through. -->
+    <div class="planner-boot-splash" aria-live="polite">
+        <img src="/favicon-96x96.png" alt="" class="planner-boot-splash-icon">
+        <div class="planner-boot-splash-brand">DDO Gear Planner</div>
+    </div>
+}

@@ -3,6 +3,21 @@ import { TestBed } from '@angular/core/testing';
 import { EquippedService } from './equipped.service';
 import { AffixAvailabilityService } from './affix-availability.service';
 import { Item } from './item';
+import { QueryParamsService } from './query-params.service';
+
+function makeParamsAdapter(record: Record<string, unknown>) {
+  return {
+    keys: Object.keys(record),
+    get: (key: string) => {
+      const value = record[key];
+      return Array.isArray(value) ? (value[0] ?? null) : ((value as string | null | undefined) ?? null);
+    },
+    getAll: (key: string) => {
+      const value = record[key];
+      return Array.isArray(value) ? value : (value === undefined ? [] : [value as string]);
+    }
+  };
+}
 
 function makeItem(name: string, slot: string, type: string, affixes: Array<any> = [], sets: Array<string> = []) {
   return new Item({
@@ -120,6 +135,94 @@ describe('EquippedService', () => {
     expect(service.canEquip(makeItem('Test Rune Arm', 'Offhand', 'Rune Arms'))).toBeFalse();
     expect(service.isLocked('Offhand')).toBeTrue();
     expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();
+  });
+
+  it('omits empty slots from the params it publishes, rather than an undefined-valued key', () => {
+    // Regression test: an empty slot's dummy Item(null) is a real, truthy
+    // object (isValid() is what actually means "has an item" - name !==
+    // undefined). Before this fix, _updateRouterState() wrote
+    // params[slot] = undefined for every empty slot - a plain object
+    // spread (unlike JSON.stringify) keeps that as a real key, so
+    // QueryParamsService.getCombinedParams() handed callers back a record
+    // containing e.g. "Weapon": undefined for an unequipped weapon slot.
+    // Re-applying that record (paramsAdapterFromRecord coerces undefined to
+    // null) fed `null` straight into
+    // GearDbService.findGearBySlot -> canonicalizeGeneratedCraftedItemName,
+    // which throws on a non-string name - an uncaught error inside
+    // route.paramMap's subscribe callback (MainComponent.loadBuildFromRoute)
+    // silently kills that whole subscription, so switching to a different
+    // saved build afterwards updates the URL but the app never reacts again
+    // until a hard reload. See equipped.service.ts's _updateRouterState.
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const queryParams: QueryParamsService = TestBed.inject(QueryParamsService);
+    // EquippedService's live-edit subscription to QueryParamsService's
+    // combined-params tracking only wires up once initialPageLoad flips
+    // false (see QueryParamsService.applyParamsToListeners) - a real page
+    // load does this via the URL-decode pipeline; trigger it directly here.
+    queryParams.applyDecodedBuildParams({});
+
+    service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
+    // 'Weapon' (and every other slot) is deliberately left empty.
+
+    const combined = queryParams.getCombinedParams();
+
+    expect(combined['Offhand']).toBe('Test Shield');
+    expect('Weapon' in combined).toBeFalse();
+    expect(() => service.updateFromParams({
+      keys: Object.keys(combined),
+      get: (key: string) => {
+        const value = (combined as Record<string, unknown>)[key];
+        return Array.isArray(value) ? (value[0] ?? null) : (value ?? null);
+      },
+      getAll: (key: string) => {
+        const value = (combined as Record<string, unknown>)[key];
+        return Array.isArray(value) ? value : (value === undefined ? [] : [value]);
+      }
+    })).not.toThrow();
+  });
+
+  it('ignores an ml_<slot> param for a slot with no equipped item, rather than stamping ml onto the empty placeholder', () => {
+    // Regression test: an empty slot's Item(null) placeholder is truthy
+    // (isValid() is what actually means "has an item"). Before this fix,
+    // the minLevels-applying loop in updateFromParams() mutated and
+    // re-published that placeholder with a stray .ml value instead of
+    // treating an ml param for an unequipped slot as a no-op.
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.updateFromParams(makeParamsAdapter({ ml_Weapon: '15' }));
+
+    const weapon = service.getSlotsSnapshot().get('Weapon');
+    expect(weapon?.isValid()).toBeFalse();
+    expect(weapon?.ml).toBeUndefined();
+  });
+
+  it('does not include an unequipped slot\'s set membership in getActiveSets()', () => {
+    // Regression test: getActiveSets() checked `item && item.getSets()`,
+    // relying on getSets() happening to return undefined for an empty
+    // slot's Item(null) placeholder rather than an explicit isValid()
+    // check - fragile if that incidental behavior ever changed.
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.set(makeItem('Devourer Gloves', 'Gloves', 'Gloves', [], ['Devourer of Souls']));
+    // Every other slot is deliberately left empty.
+
+    expect(service.getActiveSets().get('Devourer of Souls')).toBe(1);
+  });
+
+  it('labels an empty slot "empty" in the shared text description, not "undefined"', () => {
+    // Same root cause as the params-leak fix above: an empty slot's
+    // Item(null) placeholder is truthy, so the old `if (item)` check always
+    // passed and printed `item.name` (undefined) straight into the text.
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
+    // Every other slot is deliberately left empty.
+
+    const description = service.getGearDescription();
+
+    expect(description).toContain('Offhand: Test Shield');
+    expect(description).toContain('Weapon: empty');
+    expect(description).not.toContain('undefined');
   });
 
   it('keeps rune arms equipped with crossbows and filters offhand choices to rune arms', () => {

@@ -1,0 +1,43 @@
+<div class="save-dialog-backdrop" role="presentation" (click)="onBackdropClick()"></div>
+<section
+  class="save-dialog"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="title"
+  (click)="$event.stopPropagation()"
+>
+  <header class="save-dialog-header">
+    <strong>{{ title }}</strong>
+    <button type="button" class="save-dialog-close" aria-label="Cancel" [disabled]="saving" (click)="cancelled.emit()">x</button>
+  </header>
+
+  <form (ngSubmit)="submit()">
+    <label class="save-dialog-input">
+      <span>Build name</span>
+      <input
+        #nameInput
+        type="text"
+        [(ngModel)]="name"
+        name="buildName"
+        [maxlength]="maxLength"
+        [disabled]="saving"
+        autocomplete="off"
+        autofocus
+      >
+      <small class="save-dialog-char-count" [class.over-limit]="trimmedLength > maxLength">
+        {{ trimmedLength }}/{{ maxLength }}
+      </small>
+    </label>
+
+    @if (errorMessage) {
+      <p class="save-dialog-error" role="alert">{{ errorMessage }}</p>
+    }
+
+    <div class="save-dialog-actions">
+      <button type="button" class="save-dialog-cancel" [disabled]="saving" (click)="cancelled.emit()">Cancel</button>
+      <button type="submit" class="save-dialog-confirm" [disabled]="!isValid || saving">
+        {{ saving ? 'Saving…' : confirmLabel }}
+      </button>
+    </div>
+  </form>
+</section>

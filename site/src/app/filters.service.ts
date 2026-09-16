@@ -183,10 +183,18 @@ export class FiltersService {
   }
 
   _updateRouterState() {
-    const params: Record<string, string | boolean> = {};
+    const params: Record<string, string> = {};
     params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
-    params['raids'] = this.itemFilters.getValue().showRaidItems;
-    params['rare'] = this.itemFilters.getValue().showRareItems;
+    // Stringified, not raw booleans: updateFromParams above does a strict
+    // === 'true' string comparison. Round-tripping through an actual URL
+    // (or BuildUrlCodecService) coerces this automatically, but
+    // QueryParamsService.getCombinedParams()'s raw snapshot - reapplied
+    // directly by CurrentBuildService.canonicalParamsCache, e.g. right
+    // after an in-place Save navigates back to the build's own canonical
+    // URL - doesn't. A real boolean here silently flipped showRaidItems/
+    // showRareItems to false after every save (true !== 'true').
+    params['raids'] = String(this.itemFilters.getValue().showRaidItems);
+    params['rare'] = String(this.itemFilters.getValue().showRareItems);
     params['hiddentypes'] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');
     params['hiddenpacks'] = Array.from(this.itemFilters.getValue().hiddenPacks).join(',');
     this.params.next(params);

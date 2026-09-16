@@ -1,4 +1,5 @@
 import { Env, requireAuth } from './auth';
+import { parseAllowedOrigins, resolveAllowedOrigin } from './cors';
 import { errorResponse } from './http';
 import { getClientIp, isRateLimited } from './rateLimit';
 import { handleGetMe } from './routes/users';
@@ -9,22 +10,24 @@ import {
   handleListMine,
   handleUpdateBuild
 } from './routes/builds';
+import { handleCreateShortLink } from './routes/shortlinks';
 
 const BUILD_SHORT_ID_PATH = /^\/api\/build\/([^/]+)$/;
 const BUILD_ID_PATH = /^\/api\/builds\/([^/]+)$/;
 
-function corsHeaders(env: Env): HeadersInit {
+function corsHeaders(request: Request, env: Env): HeadersInit {
+  const allowedOrigin = resolveAllowedOrigin(request.headers.get('Origin'), parseAllowedOrigins(env.ALLOWED_ORIGINS));
   return {
-    'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN,
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Authorization, Content-Type',
     'Vary': 'Origin'
   };
 }
 
-function withCors(response: Response, env: Env): Response {
+function withCors(response: Response, request: Request, env: Env): Response {
   const headers = new Headers(response.headers);
-  for (const [key, value] of Object.entries(corsHeaders(env))) {
+  for (const [key, value] of Object.entries(corsHeaders(request, env))) {
     headers.set(key, value);
   }
   return new Response(response.body, { status: response.status, headers });
@@ -39,11 +42,11 @@ export default {
     // case here since curl doesn't send preflights; this needs verifying
     // from an actual browser.
     if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: corsHeaders(env) });
+      return new Response(null, { status: 204, headers: corsHeaders(request, env) });
     }
 
     const response = await route(request, env);
-    return withCors(response, env);
+    return withCors(response, request, env);
   }
 };
 
@@ -63,6 +66,14 @@ async function route(request: Request, env: Env): Promise<Response> {
     const authResult = await requireAuth(request, env);
     if (authResult instanceof Response) return authResult;
     return handleCreateBuild(request, authResult, env);
+  }
+
+  if (method === 'POST' && pathname === '/api/shortlinks') {
+    const rateLimitResponse = await checkMutationRateLimit(request, env);
+    if (rateLimitResponse) return rateLimitResponse;
+    const authResult = await requireAuth(request, env);
+    if (authResult instanceof Response) return authResult;
+    return handleCreateShortLink(request, env);
   }
 
   if (method === 'GET' && pathname === '/api/builds/mine') {

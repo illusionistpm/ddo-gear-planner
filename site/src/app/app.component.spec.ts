@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth.service';
+import { CurrentBuildService } from './current-build.service';
 import { QueryParamsService } from './query-params.service';
 
 @Component({ selector: 'app-stub', template: '', standalone: false })
@@ -24,7 +27,11 @@ describe('AppComponent', () => {
     window.location.hash = '';
   });
 
+  let authServiceStub: { isRedirectingAwayForAuth: boolean };
+
   beforeEach(waitForAsync(() => {
+    authServiceStub = { isRedirectingAwayForAuth: false };
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -35,6 +42,9 @@ describe('AppComponent', () => {
           { path: '**', component: StubComponent }
         ])
       ],
+      providers: [
+        { provide: AuthService, useValue: authServiceStub }
+      ]
     }).compileComponents();
   }));
 
@@ -112,5 +122,137 @@ describe('AppComponent', () => {
       completed: false,
       dismissed: true
     });
+  });
+
+  it('does not call updateFromParams when navigating to a /build/:shortId route', async () => {
+    const queryParams = TestBed.inject(QueryParamsService);
+    spyOn(queryParams, 'updateFromParams');
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+
+    await router.navigateByUrl('/build/abc123/my-build');
+
+    expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+  });
+
+  it('does not call updateFromParams for a /build/:shortId route with no slug', async () => {
+    const queryParams = TestBed.inject(QueryParamsService);
+    spyOn(queryParams, 'updateFromParams');
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+
+    await router.navigateByUrl('/build/abc123');
+
+    expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+  });
+
+  it('does call updateFromParams on a /build/:shortId route once it carries a b= param', async () => {
+    // Regression test: editing a loaded build accumulates a b= param on
+    // this same route shape as you go (see BuildActionsComponent's comment
+    // on saveInPlace), specifically so browser back/forward through those
+    // edits has something to restore. Skipping this unconditionally (as
+    // this route used to, regardless of query string) left every
+    // back/forward through an edit session silently do nothing - the
+    // address bar changed but nothing downstream of it re-applied.
+    const queryParams = TestBed.inject(QueryParamsService);
+    spyOn(queryParams, 'updateFromParams');
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+
+    await router.navigateByUrl('/build/abc123/my-build?b=z1.test');
+
+    const params = (queryParams.updateFromParams as jasmine.Spy).calls.mostRecent().args[0];
+    expect(params.get('b')).toBe('z1.test');
+  });
+
+  it('sets the browser tab title to just the app name when no build is loaded', () => {
+    const titleService = TestBed.inject(Title);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(titleService.getTitle()).toBe('DDO Gear Planner');
+  });
+
+  it('prefixes the tab title with the loaded build\'s name', () => {
+    const titleService = TestBed.inject(Title);
+    const currentBuild = TestBed.inject(CurrentBuildService);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    currentBuild.markLoaded({ shortId: 'abc123', name: 'My Fire Wizard', canonicalParams: {} });
+
+    expect(titleService.getTitle()).toBe('My Fire Wizard - DDO Gear Planner');
+  });
+
+  it('reverts the tab title once the build is reset', () => {
+    const titleService = TestBed.inject(Title);
+    const currentBuild = TestBed.inject(CurrentBuildService);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    currentBuild.markLoaded({ shortId: 'abc123', name: 'My Fire Wizard', canonicalParams: {} });
+
+    currentBuild.reset();
+
+    expect(titleService.getTitle()).toBe('DDO Gear Planner');
+  });
+
+  it('warns on window unload when the build is dirty', () => {
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    currentBuild.markLoaded({ shortId: 'abc123', name: 'My Build', canonicalParams: {} });
+
+    Object.defineProperty(currentBuild, 'value', {
+      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: false })
+    });
+    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+
+    fixture.componentInstance.warnOnUnsavedChanges(event as any);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.returnValue).toBeTruthy();
+  });
+
+  it('does not warn on window unload for a dirty build mid sign-in/sign-out redirect', () => {
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    currentBuild.markLoaded({ shortId: 'abc123', name: 'My Build', canonicalParams: {} });
+    Object.defineProperty(currentBuild, 'value', {
+      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: false })
+    });
+    authServiceStub.isRedirectingAwayForAuth = true;
+
+    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    fixture.componentInstance.warnOnUnsavedChanges(event as any);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(event.returnValue).toBeUndefined();
+  });
+
+  it('does not warn on window unload when the build is clean', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    fixture.componentInstance.warnOnUnsavedChanges(event as any);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(event.returnValue).toBeUndefined();
   });
 });

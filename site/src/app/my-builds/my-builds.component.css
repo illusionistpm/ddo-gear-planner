@@ -1,0 +1,166 @@
+.my-builds-backdrop {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: default;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
+}
+
+.my-builds-panel {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(20rem, calc(100vw - 2rem));
+  max-height: min(28rem, calc(100vh - 6rem));
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius, 6px);
+  background: var(--surface-elevated-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  z-index: 40;
+}
+
+.my-builds-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.my-builds-header strong {
+  font-size: 1rem;
+}
+
+.my-builds-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.my-builds-count {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.my-builds-count-at-limit {
+  color: var(--warning-color);
+  font-weight: 700;
+}
+
+.my-builds-close {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: 700;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.my-builds-new {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.4rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+}
+
+.my-builds-new:hover,
+.my-builds-new:focus {
+  background: var(--surface-subtle-color);
+}
+
+.my-builds-status,
+.my-builds-error {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.my-builds-error {
+  color: var(--danger-color, #d64545);
+}
+
+.my-builds-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.my-builds-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.4rem;
+  border-top: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.my-builds-row:hover {
+  background: var(--surface-subtle-color);
+}
+
+.my-builds-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-builds-delete {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
+.my-builds-delete:hover:not(:disabled) {
+  color: var(--danger-color, #d64545);
+}
+
+.my-builds-delete:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.my-builds-confirm-delete {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  flex: 0 0 auto;
+}
+
+.my-builds-confirm-delete button {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  font: inherit;
+}

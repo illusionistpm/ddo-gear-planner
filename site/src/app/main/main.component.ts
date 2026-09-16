@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { UserGearService } from '../user-gear.service';
@@ -11,6 +13,11 @@ import { ItemFilters } from '../item-filters';
 import { EquippedService } from '../equipped.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { ThemeService } from '../theme.service';
+import { AuthService } from '../auth.service';
+import { BuildUrlCodecService } from '../build-url-codec.service';
+import { BuildsService } from '../builds.service';
+import { CurrentBuildService } from '../current-build.service';
+import { QueryParamsService } from '../query-params.service';
 
 type MainTab = 'equipment' | 'affixes';
 
@@ -29,10 +36,43 @@ export class MainComponent implements OnInit, OnDestroy {
   itemFilters = new ItemFilters();
   onboardingActive = true;
   trackedAffixesHint = false;
+  // Derived from initialGateReady && !isLoadingBuild (see updateContentReady) -
+  // gates the equipment/affix panels so a visitor never sees a flash of
+  // empty slots, or another build's data, before the real build has
+  // actually populated in.
+  contentReady = false;
+
+  // The one-time gate from the original contentReady design: covers the
+  // window between page load and the first build data actually reaching
+  // EquippedService (most noticeable right after an Auth0 login redirect,
+  // where that gap is a genuine network round-trip rather than a same-tick
+  // timing quirk). Never reverts to false once true - re-navigations after
+  // this are covered by isLoadingBuild instead.
+  private initialGateReady = false;
+
+  // True while a /build/:shortId fetch triggered by loadBuildFromRoute is
+  // in flight. Angular's RouteReuseStrategy reuses this component across
+  // navigations between two different shortId values, and without this flag
+  // contentReady (once true) stayed true across that reuse - the previous
+  // build's already-applied data (or, on first load, its default empty
+  // state) stayed on screen for the whole fetch instead of the loading
+  // screen, then jump-cut to the new build once it landed.
+  private isLoadingBuild = false;
+
+  // Tracks the shortId (if any) from the most recent route.paramMap
+  // emission - read by the buildIdentitySubscription below to tell
+  // "genuinely navigated to a fresh scratch build" apart from "this build's
+  // shortId was just dropped from the URL because it went dirty" (see
+  // QueryParamsService.navigateWithParams). Both look identical from
+  // route.paramMap alone (shortId just becomes null either way).
+  private latestRouteShortId: string | null = null;
 
   private filterSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
   private tabSubscription?: Subscription;
+  private routeParamsSubscription?: Subscription;
+  private buildIdentitySubscription?: Subscription;
+  private initialParamsAppliedSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
 
   onSortOwnedToTopChanged(value: boolean) {
@@ -48,7 +88,14 @@ export class MainComponent implements OnInit, OnDestroy {
     private onboarding: PlannerOnboardingService,
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router,
+    private buildsService: BuildsService,
+    private buildUrlCodec: BuildUrlCodecService,
+    private queryParams: QueryParamsService,
+    private currentBuild: CurrentBuildService,
+    private auth: AuthService
   ) {
     this.supportPopoverUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       'https://www.buymeacoffee.com/widget/page/illusionistpm'
@@ -59,7 +106,69 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userGear.loadFromStorage();
-    this.maybeOpenAffixBuilderOnLoad();
+    // Subscribed rather than read once from the snapshot: Angular's default
+    // RouteReuseStrategy reuses this same component instance across
+    // navigations between two different /build/:shortId values (they match
+    // the same route config), so ngOnInit only runs once - without this
+    // subscription, clicking a different build in MyBuildsComponent would
+    // silently fail to load it.
+    this.routeParamsSubscription = this.route.paramMap.subscribe(paramMap => {
+      this.loadBuildFromRoute(paramMap.get('shortId'));
+    });
+    // See buildIdentityFromUrl$'s comment in query-params.service.ts: this
+    // is what actually restores a dirty, previously-loaded build's identity
+    // (name, savedBuildId, ownership) after the URL dropped its shortId path
+    // segment - on the initial drop itself (a self-triggered write) this
+    // never fires, which is correct, since CurrentBuildService's in-memory
+    // state is already right at that point; it's browser back/forward
+    // through those edits (a real navigation) that needs this to reapply
+    // what the URL says. Uses restoreIdentity(), not markLoaded() - see its
+    // comment for why treating every restored history point as a fresh
+    // clean load would be wrong.
+    this.buildIdentitySubscription = this.queryParams.buildIdentityFromUrl$.subscribe(identity => {
+      if (identity) {
+        this.currentBuild.restoreIdentity(identity);
+      } else if (!this.latestRouteShortId) {
+        this.currentBuild.reset();
+      }
+    });
+    // Not a one-shot call: this component's ngOnInit runs before
+    // AppComponent's NavigationEnd-driven updateFromParams() reaches
+    // QueryParamsService, so a synchronous check here would always see the
+    // pre-load empty state. Re-run every time params are (re)applied
+    // instead - this also self-corrects the case where a second navigation
+    // follows the first with the real data (e.g. an Auth0 redirect: the
+    // callback URL lands here first with no build params, then the SDK
+    // navigates again to the actual target - same route config, so this
+    // component is reused rather than recreated).
+    //
+    // Also gated on auth.isLoading$: while the SDK is still processing a
+    // login redirect, the first (empty) navigation's params have already
+    // applied, but the real target navigation hasn't landed yet - opening
+    // setup here would show a real, visible flash of the "no build" screen
+    // for the ~network-round-trip duration of that callback exchange, not a
+    // same-tick coincidence like the race above.
+    //
+    // isLoading$ alone isn't quite enough, though: reading auth0-angular's
+    // own source, handleRedirectCallback() fires router.navigateByUrl(target)
+    // and then - without awaiting that navigation - synchronously flips
+    // isLoading to false in the same operator chain. Router navigation is
+    // itself async (guards, resolvers, rendering), so there's a real window
+    // where isLoading$ has already gone false but the router is still
+    // mid-flight to the actual target and this component is still sitting
+    // on the transient callback URL. isOnAuthRedirectCallbackUrl() below
+    // closes that window by checking for the code/state query params Auth0
+    // appends to that transient URL, rather than trusting isLoading$'s
+    // timing alone.
+    this.initialParamsAppliedSubscription = combineLatest([
+      this.queryParams.initialParamsApplied$,
+      this.auth.isLoading$
+    ]).subscribe(([, isLoading]) => {
+      if (!isLoading && !this.isOnAuthRedirectCallbackUrl()) {
+        this.initialGateReady = true;
+        this.updateContentReady();
+      }
+    });
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
       // The rails switch views by calling EquippedService.setActiveMainTab directly,
@@ -86,6 +195,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
     this.tabSubscription?.unsubscribe();
+    this.routeParamsSubscription?.unsubscribe();
+    this.buildIdentitySubscription?.unsubscribe();
+    this.initialParamsAppliedSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
     }
@@ -95,7 +207,126 @@ export class MainComponent implements OnInit, OnDestroy {
     const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
     if (firstRun) {
       this.affixBuilder.open('setup');
+    } else if (this.affixBuilder.mode === 'setup') {
+      // A prior call (against the pre-load empty state) opened the setup
+      // screen speculatively; real build data has since landed, so correct
+      // course rather than leaving it stuck open over an actual build.
+      this.affixBuilder.close();
     }
+  }
+
+  // /build/:shortId(/:slug) carries no query string - GET /api/build/:shortId
+  // is public and returns just {name, blob} (no id, no owner - see
+  // builds.service.ts), so decode it and apply it directly rather than
+  // going through the URL query-param pipeline AppComponent normally owns
+  // (which explicitly skips this route shape - see build-route.ts).
+  private loadBuildFromRoute(shortId: string | null) {
+    this.latestRouteShortId = shortId;
+    if (!shortId) {
+      // Navigated to a route with no shortId - could be a genuinely fresh
+      // scratch build (CurrentBuildService is a singleton and wouldn't
+      // otherwise know to drop a previously loaded build's state), or it
+      // could be an already-loaded build whose shortId was just dropped
+      // from the URL because it went dirty (see
+      // QueryParamsService.navigateWithParams). Those look identical here -
+      // the buildIdentitySubscription above is what actually decides
+      // between reset() and restoring identity, using latestRouteShortId
+      // (just set above) to tell them apart.
+      this.isLoadingBuild = false;
+      this.updateContentReady();
+      return;
+    }
+
+    if (shortId === this.currentBuild.value.shortId) {
+      // Landed back on this build's own bare canonical URL - most likely
+      // browser back all the way through an edit session (the shortId
+      // itself never actually changed if we were dirty-editing on the root
+      // route the whole time, so this is the only place that transition
+      // becomes visible), but could also be a redundant re-emission for a
+      // build that's already exactly right on screen. Whatever's currently
+      // applied to EquippedService/FiltersService may reflect an abandoned
+      // edit, so reassert this build's canonical params when a local cache
+      // is available (the common case: this build was already fetched, or
+      // just saved, this session) - synchronous, so it doesn't flash the
+      // loading screen for a build that's already on screen. No cache
+      // (e.g. a build created via Save this session, then edited and
+      // navigated all the way back without ever having been GET-fetched
+      // by shortId) is rare enough to just leave as a no-op here rather
+      // than force a fetch on every same-shortId re-emission.
+      const cached = this.currentBuild.getCanonicalParamsCache(shortId);
+      if (cached) {
+        this.queryParams.applyDecodedBuildParams(cached);
+      }
+      return;
+    }
+
+    this.isLoadingBuild = true;
+    this.updateContentReady();
+
+    this.buildsService.getByShortId(shortId).subscribe({
+      next: ({ name, blob }) => {
+        const decoded = this.buildUrlCodec.decode(blob);
+        if (!decoded) {
+          this.router.navigateByUrl('/', { replaceUrl: true });
+          return;
+        }
+        this.queryParams.applyDecodedBuildParams(decoded);
+        this.currentBuild.markLoaded({ shortId, name, canonicalParams: decoded });
+        this.confirmOwnershipIfSignedIn(shortId);
+        this.isLoadingBuild = false;
+        this.updateContentReady();
+      },
+      error: () => this.router.navigateByUrl('/', { replaceUrl: true })
+    });
+  }
+
+  private updateContentReady(): void {
+    const previous = this.contentReady;
+    this.contentReady = this.initialGateReady && !this.isLoadingBuild;
+    // Only on the genuine false->true transition, never on every call - by
+    // this point real build data (or a legitimate empty scratch build) is
+    // already applied, since isLoadingBuild only goes false after
+    // applyDecodedBuildParams has already run (see loadBuildFromRoute).
+    // Previously this ran unconditionally from inside the initialGate
+    // combineLatest subscriber in ngOnInit, which for a build route fires
+    // immediately on subscribe (isLoading$/initialParamsApplied$ already
+    // cached "ready" from the prior root-page instance) - before
+    // getByShortId's fetch had returned. Evaluating the "first-run" heuristic
+    // against that still-empty equipment state opened the affix builder's
+    // setup drawer (which isn't gated by contentReady) for the whole fetch,
+    // then closed it again once real data landed - which is what actually
+    // caused the "start page" flash chased across this whole conversation,
+    // not a contentReady bug at all.
+    if (!previous && this.contentReady) {
+      this.maybeOpenAffixBuilderOnLoad();
+    }
+  }
+
+  // True only on the transient URL Auth0's redirect lands on mid-login -
+  // see the long comment above the combineLatest subscription in ngOnInit
+  // for why isLoading$ alone can't be trusted to have cleared before this
+  // URL is replaced by the SDK's own follow-up navigation.
+  private isOnAuthRedirectCallbackUrl(): boolean {
+    const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;
+    return queryParamMap.has('code') && queryParamMap.has('state');
+  }
+
+  // Ownership can't be known from the public shortId lookup above (it
+  // doesn't check auth or return an owner). If the viewer is signed in,
+  // cross-reference their own build list instead of changing that public
+  // endpoint's shape.
+  private confirmOwnershipIfSignedIn(shortId: string) {
+    this.auth.isAuthenticated$.pipe(take(1)).subscribe(isAuthenticated => {
+      if (!isAuthenticated) {
+        return;
+      }
+      this.buildsService.listMine().subscribe(builds => {
+        const owned = builds.find(build => build.shortId === shortId);
+        if (owned) {
+          this.currentBuild.confirmOwnership(shortId, owned.id);
+        }
+      });
+    });
   }
 
   selectTab(tab: MainTab) {

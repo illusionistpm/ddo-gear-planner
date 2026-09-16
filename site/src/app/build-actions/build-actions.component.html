@@ -1,0 +1,96 @@
+<div class="build-actions">
+  <div class="build-name-group">
+    @if (editingName) {
+      <input #nameInput type="text" class="build-name-input" [(ngModel)]="nameDraft"
+        maxlength="60"
+        (keydown.enter)="commitRename()"
+        (keydown.escape)="cancelRename()"
+        (blur)="commitRename()">
+    } @else {
+      <span class="build-name build-name-editable"
+        [title]="buildState.name ?? 'Untitled build'"
+        (click)="startRename()">{{ buildState.name || 'Untitled build' }}</span>
+    }
+
+    @if (isAuthenticated) {
+      <button type="button" class="build-switcher-caret" aria-label="My builds" title="My builds"
+        [attr.aria-expanded]="myBuildsOpen"
+        (click)="onMyBuildsClick()">
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+    }
+
+    @if (myBuildsOpen) {
+      <app-my-builds (closed)="closeMyBuilds()"></app-my-builds>
+    }
+  </div>
+
+  @if (renameError) {
+    <span class="build-name-error" role="alert">{{ renameError }}</span>
+  }
+
+  @if (showPrimarySave) {
+    <button
+      type="button"
+      class="build-action-button build-action-primary"
+      [disabled]="primarySaveDisabled"
+      (click)="onPrimarySaveClick()"
+    >{{ primarySaveLabel }}</button>
+  }
+
+  @if (showSaveAs) {
+    <button type="button" class="build-action-button" (click)="onSaveAsClick()">Save As…</button>
+  }
+
+  <div class="share-wrap">
+    <button type="button" class="build-action-button" [attr.aria-expanded]="shareMenuOpen" (click)="toggleShareMenu()">Share</button>
+
+    @if (shareMenuOpen) {
+      <div class="share-menu">
+        <button type="button" class="share-menu-item" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : (isAuthenticated ? 'Copy short link' : 'Copy link') }}</button>
+        <button type="button" class="share-menu-item" (click)="copyTextAndLink()">{{ justCopied === 'text-link' ? 'Copied!' : 'Copy text + link' }}</button>
+        <button type="button" class="share-menu-item" (click)="copyTextOnly()">{{ justCopied === 'text' ? 'Copied!' : 'Copy text only' }}</button>
+        @if (!isAuthenticated) {
+          <button type="button" class="share-menu-hint" (click)="signIn()">Sign in for a short link</button>
+        }
+      </div>
+      <button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closeShareMenu()"></button>
+    }
+  </div>
+
+  @if (isAuthenticated) {
+    <span class="build-actions-divider" aria-hidden="true"></span>
+    <div class="avatar-wrap">
+      <button type="button" class="avatar-button" [title]="userDisplayName ?? ''"
+        [attr.aria-expanded]="avatarMenuOpen" aria-label="Account menu"
+        (click)="toggleAvatarMenu()">
+        @if (userPicture) {
+          <img [src]="userPicture" alt="" class="avatar-image" referrerpolicy="no-referrer">
+        } @else {
+          <span class="avatar-initial">{{ userInitial }}</span>
+        }
+      </button>
+
+      @if (avatarMenuOpen) {
+        <div class="avatar-menu">
+          <div class="avatar-menu-header">{{ userDisplayName }}</div>
+          <button type="button" class="avatar-menu-item" (click)="signOut()">Sign out</button>
+        </div>
+        <button type="button" class="avatar-menu-backdrop" aria-label="Close account menu" (click)="closeAvatarMenu()"></button>
+      }
+    </div>
+  } @else {
+    <button type="button" class="build-action-button" (click)="signIn()">Sign in to save builds</button>
+  }
+</div>
+
+@if (dialogOpen) {
+  <app-save-build-dialog
+    [mode]="dialogMode"
+    [initialName]="dialogInitialName"
+    [saving]="dialogSaving"
+    [errorMessage]="dialogError"
+    (confirmed)="onDialogConfirmed($event)"
+    (cancelled)="closeDialog()"
+  ></app-save-build-dialog>
+}

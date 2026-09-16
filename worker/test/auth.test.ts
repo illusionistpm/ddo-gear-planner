@@ -23,7 +23,7 @@ function makeEnv(domain: string): Env {
     BUILD_CACHE: {} as unknown as KVNamespace,
     AUTH0_DOMAIN: domain,
     AUTH0_AUDIENCE: AUDIENCE,
-    ALLOWED_ORIGIN: 'https://ddo-gear-planner.com'
+    ALLOWED_ORIGINS: 'https://ddo-gear-planner.com'
   };
 }
 
@@ -59,7 +59,10 @@ describe('verifyAuthToken', () => {
     signingKey?: KeyLike;
     expiresInSeconds?: number;
   } = {}) {
-    return new SignJWT({ email: 'user@example.com', name: 'Test User' })
+    return new SignJWT({
+      [`${AUDIENCE}/email`]: 'user@example.com',
+      [`${AUDIENCE}/name`]: 'Test User'
+    })
       .setProtectedHeader({ alg: 'RS256', kid: KID })
       .setSubject('google-oauth2|12345')
       .setIssuedAt()
@@ -76,6 +79,26 @@ describe('verifyAuthToken', () => {
     });
 
     expect(await verifyAuthToken(request, makeEnv(domain))).toEqual({
+      sub: 'google-oauth2|12345',
+      email: 'user@example.com',
+      name: 'Test User'
+    });
+  });
+
+  it('still verifies correctly if AUTH0_DOMAIN was pasted with a scheme by mistake', async () => {
+    // Real incident: Auth0's dashboard shows the domain both bare and as a
+    // full origin in different places, and it's an easy copy-paste mistake
+    // to include "https://" in wrangler.toml's AUTH0_DOMAIN - which would
+    // otherwise silently break JWKS resolution (fetching from a mis-parsed
+    // host literally named "https").
+    const token = await signToken();
+    const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const envWithSchemePrefixed = makeEnv(`https://${domain}`);
+
+    expect(await verifyAuthToken(request, envWithSchemePrefixed)).toEqual({
       sub: 'google-oauth2|12345',
       email: 'user@example.com',
       name: 'Test User'

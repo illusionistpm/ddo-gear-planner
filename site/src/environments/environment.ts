@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  adminUrl: 'http://localhost:4201/admin'
+  adminUrl: 'http://localhost:4201/admin',
+  // Points at the real deployed Worker rather than a local `wrangler dev`
+  // instance, so `ng serve` works against real data out of the box - the
+  // Worker's ALLOWED_ORIGINS includes http://localhost:4200 for exactly
+  // this. Point this at http://localhost:8787 instead if you're actively
+  // developing the Worker itself and want to hit local changes.
+  apiBaseUrl: 'https://api.ddo-gear-planner.com',
+  auth0Domain: 'auth.ddo-gear-planner.com',
+  auth0ClientId: 'z8gndwHy0oBD2PUYI8I8ZzNukq7xUFTO',
+  auth0Audience: 'https://api.ddo-gear-planner.com'
 };
 
 /*

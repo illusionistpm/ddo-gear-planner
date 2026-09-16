@@ -1,0 +1,59 @@
+<div class="my-builds-backdrop" role="presentation" (click)="closed.emit()"></div>
+<section class="my-builds-panel" role="dialog" aria-modal="true" aria-label="My builds" (click)="$event.stopPropagation()">
+  <header class="my-builds-header">
+    <span class="my-builds-title-group">
+      <strong>My builds</strong>
+      @if (builds !== null) {
+        <span class="my-builds-count" [class.my-builds-count-at-limit]="builds.length >= maxBuilds"
+          [title]="'Saved builds: ' + builds.length + ' of ' + maxBuilds">
+          {{ builds.length }}/{{ maxBuilds }}
+        </span>
+      }
+    </span>
+    <button type="button" class="my-builds-close" aria-label="Close" (click)="closed.emit()">x</button>
+  </header>
+
+  <button type="button" class="my-builds-new" (click)="newBuild()">
+    <i class="fas fa-plus" aria-hidden="true"></i>
+    <span>New build</span>
+  </button>
+
+  @if (loadError) {
+    <p class="my-builds-error" role="alert">{{ loadError }}</p>
+  } @else if (builds === null) {
+    <p class="my-builds-status">Loading…</p>
+  } @else if (builds.length === 0) {
+    <p class="my-builds-status">You haven't saved any builds yet.</p>
+  } @else {
+    @if (deleteError) {
+      <p class="my-builds-error" role="alert">{{ deleteError }}</p>
+    }
+    <ul class="my-builds-list">
+      @for (build of builds; track build.id) {
+        <li class="my-builds-row" (click)="open(build)">
+          <span class="my-builds-name">{{ build.name }}</span>
+
+          @if (confirmingDeleteId === build.id) {
+            <span class="my-builds-confirm-delete">
+              <span>Delete?</span>
+              <button type="button" (click)="confirmDelete(build, $event)" [disabled]="deletingId === build.id">
+                {{ deletingId === build.id ? 'Deleting…' : 'Yes' }}
+              </button>
+              <button type="button" (click)="cancelDelete($event)" [disabled]="deletingId === build.id">No</button>
+            </span>
+          } @else if (isCurrentBuild(build)) {
+            <button type="button" class="my-builds-delete" disabled
+                aria-label="Can't delete the build you currently have open"
+                title="Can't delete the build you currently have open">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          } @else {
+            <button type="button" class="my-builds-delete" aria-label="Delete build" (click)="requestDelete(build, $event)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          }
+        </li>
+      }
+    </ul>
+  }
+</section>

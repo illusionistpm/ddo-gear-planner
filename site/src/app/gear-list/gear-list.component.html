@@ -10,7 +10,6 @@
         <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
           [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
       </div>
-      <button class="btn btn-outline-success btn-sm equipment-copy" (click)="copyGearToClipboard()">Copy Equipment</button>
     </div>
 
     <section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">

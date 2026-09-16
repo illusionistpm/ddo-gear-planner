@@ -194,6 +194,14 @@ export class EquippedService {
 
           } else if (this.gearList.getSlots().find(v => v === key)) {
             const itemName = params.get(key);
+            if (!itemName) {
+              // Already handled by the clearing loop above (a slot key
+              // present with a falsy value means "empty", same as the key
+              // being absent) - nothing to look up. Also guards against ever
+              // passing null/'' into findGearBySlot -> canonicalizeGenerated-
+              // CraftedItemName, which assumes a real string.
+              continue;
+            }
             const item = this.gearList.findGearBySlot(key, itemName);
             if (item) {
               this._set(item);
@@ -212,7 +220,12 @@ export class EquippedService {
         for (const entries of minLevels.entries()) {
           const slotSubject = this.slots.get(entries[0]);
           const item = slotSubject ? slotSubject.getValue() : null;
-          if (item) {
+          // An empty slot's Item(null) placeholder is truthy (see
+          // isValid()'s other call sites in this file) - without this check,
+          // an ml_<slot> param for a never-equipped slot mutated and
+          // re-published that placeholder with a stray .ml value stuck onto
+          // it instead of being a no-op.
+          if (item && item.isValid()) {
             if (item.isEssenceCrafted()) {
               this.essenceCrafting.setItemToML(item, entries[1]);
             } else {
@@ -228,7 +241,11 @@ export class EquippedService {
           }
           const itemSubj = this.slots.get(craftingParam['slot']);
           const item = itemSubj ? itemSubj.getValue() : null;
-          if (!item) {
+          // Same isValid() reasoning as the minLevels loop above - this was
+          // already harmless in practice only because getCraftingByName()
+          // happens to no-op on an invalid item's always-undefined
+          // .crafting, which is fragile to rely on rather than checking here.
+          if (!item || !item.isValid()) {
             console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
             continue;
           }
@@ -314,7 +331,21 @@ export class EquippedService {
     for (const kv of this.slots) {
       const slot = kv[0];
       const item = kv[1].getValue();
-      if (item) {
+      // An empty slot still holds a real Item(null) placeholder object (see
+      // clearSlot), which is truthy - checking isValid() too (name !==
+      // undefined) is what actually distinguishes "has an equipped item"
+      // from "cleared". Without it, every empty slot wrote `params[slot] =
+      // undefined` here, which a plain object spread (unlike JSON.stringify)
+      // still preserves as a real key - getCombinedParams() would then hand
+      // that key back out with value `undefined`, coerced to `null` by
+      // paramsAdapterFromRecord. Re-applying that (e.g. the "already this
+      // shortId" cache reapply in MainComponent.loadBuildFromRoute, right
+      // after an in-place Save) fed that null straight into
+      // canonicalizeGeneratedCraftedItemName(null), which throws - an
+      // uncaught error inside route.paramMap's subscribe callback silently
+      // kills that whole subscription, so the app never reacts to a route
+      // change again until a hard reload recreates it.
+      if (item && item.isValid()) {
         params[slot] = item.name;
 
         if (item.isEssenceCrafted()) {
@@ -501,7 +532,12 @@ export class EquippedService {
     for (const slot of this.slots.values()) {
       const item = slot.getValue();
 
-      if (item && item.getSets()) {
+      // isValid(), not bare truthiness - an empty slot's Item(null)
+      // placeholder is truthy, and this only avoided crashing here because
+      // getSets() happens to return undefined (falsy) for one instead of
+      // throwing - the same fragile-by-incidence pattern already fixed
+      // elsewhere in this file.
+      if (item && item.isValid() && item.getSets()) {
         for (const set of item.getSets()) {
 
           let val = setCounts.get(set);
@@ -1117,10 +1153,17 @@ export class EquippedService {
 
   public getGearDescription() {
     let msg = '';
-    for (const itemSubj of this.slots.values()) {
+    for (const [slot, itemSubj] of this.slots) {
       const item = itemSubj && itemSubj.getValue();
       if (item) {
-        msg += item.slot + ': ' + item.name + "\n";
+        // An empty slot is still a real Item(null) placeholder (truthy) -
+        // isValid() (name !== undefined) is what actually distinguishes
+        // "equipped" from "empty". Without it this printed "<slot>:
+        // undefined" for every unequipped slot. Label from the map key, not
+        // item.slot: a never-touched slot's Item(null) never had .slot set
+        // either (only clearSlot() and a real equip set it), so item.slot
+        // is itself undefined until the slot has been interacted with once.
+        msg += slot + ': ' + (item.isValid() ? item.name : 'empty') + "\n";
         if (item.crafting) {
           for (const crafting of item.crafting) {
             msg += ' - ' + crafting.name + ': ';

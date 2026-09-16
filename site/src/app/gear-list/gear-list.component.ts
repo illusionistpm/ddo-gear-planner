@@ -4,7 +4,6 @@ import { GearDbService } from '../gear-db.service';
 import { EquippedService, VisibleSetBonus } from '../equipped.service';
 import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
-import { Clipboard } from '../clipboard';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
@@ -115,13 +114,6 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
 
     return this.getAffixTooltip(affix);
-  }
-
-  copyGearToClipboard() {
-    Clipboard.copy(this.equipped.getGearDescription());
-    this.analytics.track('copy_build', {
-      equipped_slot_count: this.getEquippedSlotCount()
-    });
   }
 
   getAllGear() {

@@ -23,9 +23,13 @@ id = "0d0e72e33bd642bbb5ad01a3d3c60cb9"
 # No client secret needed here - the Worker only verifies Bearer tokens
 # (see src/auth.ts), it never runs the OAuth flow itself.
 [vars]
-AUTH0_DOMAIN = "https://dev-kh5sqt4zb3qzc6tr.us.auth0.com"
+#AUTH0_DOMAIN = "dev-kh5sqt4zb3qzc6tr.us.auth0.com"
+AUTH0_DOMAIN = "auth.ddo-gear-planner.com"
 AUTH0_AUDIENCE = "https://api.ddo-gear-planner.com"
-ALLOWED_ORIGIN = "https://ddo-gear-planner.com"
+# Comma-separated - local `ng serve` (localhost:4200) needs to be a
+# genuinely allowed origin too, not just production, so this can't be a
+# single fixed value. See src/cors.ts.
+ALLOWED_ORIGINS = "https://ddo-gear-planner.com,http://localhost:4200"
 
 # Cloudflare's "Custom Domain" feature (custom_domain = true) doesn't
 # support wildcards or paths in its pattern - it maps the whole hostname to

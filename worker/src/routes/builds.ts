@@ -1,9 +1,11 @@
 import { AuthenticatedUser, Env } from '../auth';
 import {
   BuildRow,
+  countBuildsByOwner,
   deleteBuild,
   getBuildById,
   getBuildByShortId,
+  getShortLinkByShortId,
   insertBuild,
   listBuildsByOwner,
   updateBuild,
@@ -16,7 +18,7 @@ import { withUniqueShortId } from '../shortId';
 // page <title>, and the derived slug. Mirrors the client-side validation in
 // save-build-dialog.component.ts - client-side alone isn't a real guarantee
 // since this API is callable directly.
-const MAX_NAME_LENGTH = 60;
+export const MAX_NAME_LENGTH = 60;
 
 // The Worker treats `blob` as opaque (it never parses it - see
 // build-url-codec.service.ts for why that matters for forward-compat), so
@@ -24,11 +26,23 @@ const MAX_NAME_LENGTH = 60;
 // writes. A real compact build payload should be well under 1-2 KB.
 const MAX_BLOB_LENGTH = 4096;
 
+// A generous ceiling, not a real storage/cost constraint at this scale -
+// mainly a backstop against a runaway client (or a scripted abuse of the
+// public API) piling up unbounded rows for one owner.
+export const MAX_BUILDS_PER_USER = 100;
+
 function buildCacheKey(shortId: string): string {
   return `build:${shortId}`;
 }
 
-function validateName(name: unknown): string | null {
+// Own namespace, kept separate from buildCacheKey's so the two lookup
+// spaces can never collide/mask each other even in the astronomically
+// unlikely case of a shortId collision across the two tables.
+function shortLinkCacheKey(shortId: string): string {
+  return `shortlink:${shortId}`;
+}
+
+export function validateName(name: unknown): string | null {
   if (typeof name !== 'string') {
     return null;
   }
@@ -36,7 +50,7 @@ function validateName(name: unknown): string | null {
   return trimmed && trimmed.length <= MAX_NAME_LENGTH ? trimmed : null;
 }
 
-function validateBlob(blob: unknown): string | null {
+export function validateBlob(blob: unknown): string | null {
   return typeof blob === 'string' && blob.length > 0 && blob.length <= MAX_BLOB_LENGTH ? blob : null;
 }
 
@@ -69,6 +83,12 @@ export async function handleCreateBuild(request: Request, user: AuthenticatedUse
   }
 
   const ownerUserId = await resolveOwnerUserId(env, user);
+
+  const existingCount = await countBuildsByOwner(env.DB, ownerUserId);
+  if (existingCount >= MAX_BUILDS_PER_USER) {
+    return errorResponse(403, `You've reached the limit of ${MAX_BUILDS_PER_USER} saved builds. Delete an existing build to save a new one.`);
+  }
+
   const now = new Date().toISOString();
 
   const row = await withUniqueShortId(async shortId => {
@@ -102,12 +122,30 @@ export async function handleGetByShortId(shortId: string, env: Env): Promise<Res
   }
 
   const row = await getBuildByShortId(env.DB, shortId);
-  if (!row) {
+  if (row) {
+    const payload = { name: row.name, blob: row.blob };
+    await env.BUILD_CACHE.put(cacheKey, JSON.stringify(payload));
+    return jsonResponse(payload);
+  }
+
+  // Not an owned build - see if it's an immutable share snapshot instead
+  // (routes/shortlinks.ts). Zero routing changes needed on the client: this
+  // shape-compatible {name, blob} fallback means /build/:shortId/:slug and
+  // BuildsService.getByShortId keep working whether the id came from a
+  // saved build or an anonymous share.
+  const shortLinkCache = shortLinkCacheKey(shortId);
+  const cachedShortLink = await env.BUILD_CACHE.get<{ name: string; blob: string }>(shortLinkCache, 'json');
+  if (cachedShortLink) {
+    return jsonResponse(cachedShortLink);
+  }
+
+  const shortLink = await getShortLinkByShortId(env.DB, shortId);
+  if (!shortLink) {
     return errorResponse(404, 'No build found for that link.');
   }
 
-  const payload = { name: row.name, blob: row.blob };
-  await env.BUILD_CACHE.put(cacheKey, JSON.stringify(payload));
+  const payload = JSON.parse(shortLink.blob) as { name: string; blob: string };
+  await env.BUILD_CACHE.put(shortLinkCache, JSON.stringify(payload));
   return jsonResponse(payload);
 }
 

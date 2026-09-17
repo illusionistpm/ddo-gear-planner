@@ -29,17 +29,31 @@
     <span class="build-name-error" role="alert">{{ renameError }}</span>
   }
 
-  @if (showPrimarySave) {
-    <button
-      type="button"
-      class="build-action-button build-action-primary"
-      [disabled]="primarySaveDisabled"
-      (click)="onPrimarySaveClick()"
-    >{{ primarySaveLabel }}</button>
-  }
+  @if (isAuthenticated) {
+    <div class="save-split" [class.save-split-with-menu]="saveControl.hasMenu">
+      <button
+        type="button"
+        class="build-action-button build-action-primary save-split-primary"
+        [disabled]="saveControl.disabled"
+        (click)="onSaveControlPrimaryClick()"
+      >{{ saveControl.label }}</button>
 
-  @if (showSaveAs) {
-    <button type="button" class="build-action-button" (click)="onSaveAsClick()">Save As…</button>
+      @if (saveControl.hasMenu) {
+        <button #saveCaret type="button" class="save-split-caret" aria-haspopup="menu" aria-label="More save options"
+          [attr.aria-expanded]="saveMenuOpen"
+          (click)="toggleSaveMenu()"
+          (keydown)="onSaveCaretKeydown($event)">
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+
+        @if (saveMenuOpen) {
+          <div class="save-menu" role="menu" (keydown)="onSaveMenuKeydown($event)">
+            <button #saveMenuItem type="button" class="save-menu-item" role="menuitem" (click)="onSaveAsMenuItemClick()">Save As…</button>
+          </div>
+          <button type="button" class="save-menu-backdrop" aria-label="Close save options" (click)="closeSaveMenu()"></button>
+        }
+      }
+    </div>
   }
 
   <div class="share-wrap">

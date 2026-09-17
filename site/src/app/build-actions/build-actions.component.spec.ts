@@ -103,71 +103,100 @@ describe('BuildActionsComponent', () => {
     component = create();
   });
 
-  it('hides Save and Save As entirely when anonymous, regardless of build state', () => {
-    expect(component.showPrimarySave).toBeFalse();
-    expect(component.showSaveAs).toBeFalse();
+  // Note there is no "hides Save entirely when anonymous" test any more -
+  // that gating moved into the template (`@if (isAuthenticated)`), so it's
+  // covered by the component-level HTML tests further down, not by
+  // asserting on a component property the way showPrimarySave/showSaveAs
+  // used to. saveControl itself is deliberately auth-agnostic (see its
+  // comment) - it has nothing meaningful to say about "signed out".
 
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-
-    expect(component.showPrimarySave).toBeFalse();
-    expect(component.showSaveAs).toBeFalse();
-  });
-
-  it('offers only "Save…" for an unnamed build', () => {
+  it('offers only "Save…", no caret, for an unnamed build', () => {
     auth.isAuthenticated$.next(true);
 
-    expect(component.showPrimarySave).toBeTrue();
-    expect(component.primarySaveLabel).toBe('Save…');
-    expect(component.showSaveAs).toBeFalse();
+    expect(component.saveControl).toEqual({ label: 'Save…', disabled: false, hasMenu: false });
   });
 
-  it('offers Save (enabled) and Save As for a named, dirty, owned build', () => {
+  it('offers Save (enabled) plus a Save As caret for a named, dirty, owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
-    expect(component.showPrimarySave).toBeTrue();
-    expect(component.primarySaveLabel).toBe('Save');
-    expect(component.primarySaveDisabled).toBeFalse();
-    expect(component.showSaveAs).toBeTrue();
+    expect(component.saveControl).toEqual({ label: 'Save', disabled: false, hasMenu: true });
   });
 
-  it('disables Save (but keeps Save As) for a named, clean, owned build', () => {
+  it('disables Save but keeps the Save As caret for a named, clean, owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
 
-    expect(component.showPrimarySave).toBeFalse();
-    expect(component.showSaveAs).toBeTrue();
+    expect(component.saveControl).toEqual({ label: 'Save', disabled: true, hasMenu: true });
   });
 
-  it('offers only Save As for a build not owned by the viewer', () => {
+  it('offers "Save a copy", with no caret, for a build not owned by the viewer', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, ownership: 'other' });
 
-    expect(component.showPrimarySave).toBeFalse();
-    expect(component.showSaveAs).toBeTrue();
+    expect(component.saveControl).toEqual({ label: 'Save a copy', disabled: false, hasMenu: false });
   });
 
-  it('triggers sign-in instead of the dialog when anonymous and clicking primary save', () => {
-    component.onPrimarySaveClick();
+  it('disables Save, with no caret, while ownership is still unknown - never assumes either way', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'unknown' });
 
-    expect(auth.signIn).toHaveBeenCalled();
-    expect(component.dialogOpen).toBeFalse();
+    expect(component.saveControl).toEqual({ label: 'Save', disabled: true, hasMenu: false });
   });
 
-  it('triggers sign-in instead of the dialog when anonymous and clicking Save As', () => {
-    component.onSaveAsClick();
-
-    expect(auth.signIn).toHaveBeenCalled();
-    expect(component.dialogOpen).toBeFalse();
-  });
-
-  it('opens the create dialog when signed in and the build is unnamed', () => {
+  it('opens the create dialog for an unnamed build', () => {
     auth.isAuthenticated$.next(true);
 
-    component.onPrimarySaveClick();
+    component.onSaveControlPrimaryClick();
 
     expect(component.dialogOpen).toBeTrue();
     expect(component.dialogMode).toBe('create');
+  });
+
+  it('opens the save-as dialog when the primary action is "Save a copy"', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, ownership: 'other' });
+
+    component.onSaveControlPrimaryClick();
+
+    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogMode).toBe('save-as');
+  });
+
+  it('does nothing when clicked while ownership is unknown, matching the disabled state', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'unknown' });
+
+    component.onSaveControlPrimaryClick();
+
+    expect(component.dialogOpen).toBeFalse();
+    expect(buildsService.update).not.toHaveBeenCalled();
+  });
+
+  it('opens the save-as dialog from the caret menu for an owned build', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+
+    component.toggleSaveMenu();
+    expect(component.saveMenuOpen).toBeTrue();
+    component.onSaveAsMenuItemClick();
+
+    expect(component.saveMenuOpen).toBeFalse();
+    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogMode).toBe('save-as');
+  });
+
+  it('closes the save menu on Escape and returns focus to the caret', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+    component.toggleSaveMenu();
+    const caret = jasmine.createSpyObj('caret', ['focus']);
+    (component as any).saveCaretRef = { nativeElement: caret };
+
+    component.onSaveMenuKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(component.saveMenuOpen).toBeFalse();
+    expect(caret.focus).toHaveBeenCalled();
   });
 
   it('saves in place (PUT) without a dialog for a named, dirty, owned build', () => {
@@ -175,7 +204,7 @@ describe('BuildActionsComponent', () => {
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
 
-    component.onPrimarySaveClick();
+    component.onSaveControlPrimaryClick();
 
     expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded' });
     expect(component.dialogOpen).toBeFalse();
@@ -194,19 +223,17 @@ describe('BuildActionsComponent', () => {
     const update$ = new Subject<{ id: string; shortId: string; name: string; blob: string }>();
     buildsService.update.and.returnValue(update$);
 
-    component.onPrimarySaveClick();
+    component.onSaveControlPrimaryClick();
 
-    expect(component.primarySaveLabel).toBe('Saving…');
-    expect(component.primarySaveDisabled).toBeTrue();
+    expect(component.saveControl).toEqual({ label: 'Saving…', disabled: true, hasMenu: false });
     // A repeat click (e.g. a fast double-click before the button visually
     // disables) must not fire a second PUT.
-    component.onPrimarySaveClick();
+    component.onSaveControlPrimaryClick();
     expect(buildsService.update).toHaveBeenCalledTimes(1);
 
     update$.next({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' });
     update$.complete();
 
-    expect(component.primarySaveLabel).toBe('Save');
     expect(component.savingInPlace).toBeFalse();
   });
 
@@ -215,10 +242,9 @@ describe('BuildActionsComponent', () => {
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     buildsService.update.and.returnValue(throwError(() => new Error('network down')));
 
-    component.onPrimarySaveClick();
+    component.onSaveControlPrimaryClick();
 
-    expect(component.primarySaveLabel).toBe('Save');
-    expect(component.primarySaveDisabled).toBeFalse();
+    expect(component.saveControl).toEqual({ label: 'Save', disabled: false, hasMenu: true });
   });
 
   it('creates and navigates to the new build on dialog confirm', () => {

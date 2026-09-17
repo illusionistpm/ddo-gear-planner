@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren
+} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
@@ -19,6 +21,23 @@ import { validateBuildName } from '../save-build-dialog/save-build-dialog.compon
 
 type DialogMode = 'create' | 'save-as';
 type ShareCopyKind = 'link' | 'text-link' | 'text';
+
+// The view model behind the single save split-button (see the plan's "Save
+// controls" section) - one primary action whose label/enabled-ness follows
+// buildState, plus an optional caret for a secondary action. Always shown
+// when signed in, even for a build the viewer doesn't own or hasn't had
+// ownership confirmed for yet: Save As/"Save a copy" is the ONLY save
+// affordance in those states, so hiding the whole control behind a
+// conditionally-rendered button (the old showPrimarySave/showSaveAs split)
+// would leave them with no way to save at all.
+export interface SaveControlViewModel {
+  label: string;
+  disabled: boolean;
+  // Whether the caret (revealing "Save As…") should render at all - only
+  // when there's a genuinely distinct secondary action, i.e. an owned build
+  // where the primary action is already "save in place".
+  hasMenu: boolean;
+}
 
 @Component({
   selector: 'app-build-actions',
@@ -49,6 +68,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   myBuildsOpen = false;
   avatarMenuOpen = false;
   shareMenuOpen = false;
+  saveMenuOpen = false;
   // Transient "Copied!" confirmation - which share-menu action last copied
   // something, cleared after a short delay. Not persisted/tested down to
   // the millisecond, just a nicety since copyLink/copyTextAndLink now have
@@ -68,6 +88,8 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   savingInPlace = false;
 
   @ViewChild('nameInput') private readonly nameInputRef?: ElementRef<HTMLInputElement>;
+  @ViewChild('saveCaret') private readonly saveCaretRef?: ElementRef<HTMLButtonElement>;
+  @ViewChildren('saveMenuItem') private readonly saveMenuItemRefs?: QueryList<ElementRef<HTMLButtonElement>>;
 
   private buildStateSub?: Subscription;
   private authSub?: Subscription;
@@ -127,6 +149,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   toggleAvatarMenu(): void {
     this.avatarMenuOpen = !this.avatarMenuOpen;
     this.myBuildsOpen = false;
+    this.saveMenuOpen = false;
   }
 
   closeAvatarMenu(): void {
@@ -137,6 +160,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     this.shareMenuOpen = !this.shareMenuOpen;
     this.myBuildsOpen = false;
     this.avatarMenuOpen = false;
+    this.saveMenuOpen = false;
   }
 
   closeShareMenu(): void {
@@ -228,57 +252,146 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Save/Save-As button-state matrix (see the plan): both require being
-  // signed in - there's nothing to click through to but a sign-in redirect
-  // otherwise, so anonymous visitors get a single "Sign in to save builds"
-  // button instead. Once authenticated: an unnamed build only offers
-  // "Save…"; a named+owned build offers in-place "Save" (disabled once
-  // clean) plus "Save As…"; anything not owned by the viewer only offers
-  // "Save As…".
-  get showPrimarySave(): boolean {
-    return this.isAuthenticated && (!this.buildState.shortId || (this.buildState.ownership === 'owned' && this.buildState.isDirty));
-  }
-
-  get primarySaveLabel(): string {
+  // Save control state matrix (see the plan's "Save controls: one split
+  // button"). Requiring sign-in is handled entirely by the template (the
+  // whole control only renders `@if (isAuthenticated)`, with a single "Sign
+  // in to save builds" button otherwise) - there's nothing to click through
+  // to here but a redirect anyway, and gating the getter itself would just
+  // let a caller invoke it against a meaningless anonymous state.
+  //
+  // Unlike the two-button version this replaced, the primary action is
+  // ALWAYS present in every signed-in state, never conditionally hidden:
+  // "Save a copy" (ownership 'other') and the disabled placeholder
+  // (ownership 'unknown', still waiting on confirmOwnership()) are each the
+  // ONLY save affordance available in their state - hiding the control
+  // behind a "does it apply" check would leave the viewer with no way to
+  // save at all. The caret (hasMenu), not the whole control, is what's
+  // conditional: it only appears when there's a genuinely distinct second
+  // action (an owned build, where Save As… is meaningfully different from
+  // the primary "save in place").
+  get saveControl(): SaveControlViewModel {
     if (this.savingInPlace) {
-      return 'Saving…';
+      return { label: 'Saving…', disabled: true, hasMenu: false };
     }
-    return this.buildState.shortId ? 'Save' : 'Save…';
+    if (!this.buildState.shortId) {
+      return { label: 'Save…', disabled: false, hasMenu: false };
+    }
+    switch (this.buildState.ownership) {
+      case 'owned':
+        return { label: 'Save', disabled: !this.buildState.isDirty, hasMenu: true };
+      case 'other':
+        return { label: 'Save a copy', disabled: false, hasMenu: false };
+      default:
+        // 'unknown' - confirmOwnership() hasn't resolved yet (see
+        // CurrentBuildService). Never assume either way; disabled rather
+        // than silently offering the wrong action for however long that
+        // check takes.
+        return { label: 'Save', disabled: true, hasMenu: false };
+    }
   }
 
-  get primarySaveDisabled(): boolean {
-    if (this.savingInPlace) {
-      return true;
-    }
-    return this.buildState.shortId != null && this.buildState.ownership === 'owned' && !this.buildState.isDirty;
-  }
-
-  get showSaveAs(): boolean {
-    return this.isAuthenticated && this.buildState.shortId != null;
-  }
-
-  onPrimarySaveClick(): void {
-    if (!this.isAuthenticated) {
-      this.auth.signIn();
-      return;
-    }
-
+  onSaveControlPrimaryClick(): void {
     if (!this.buildState.shortId) {
       this.openDialog('create', this.buildState.name ?? '');
       return;
     }
+    if (this.buildState.ownership === 'owned') {
+      if (this.buildState.savedBuildId && !this.savingInPlace) {
+        this.saveInPlace(this.buildState.savedBuildId);
+      }
+      return;
+    }
+    if (this.buildState.ownership === 'other') {
+      this.openDialog('save-as', this.buildState.name ?? '');
+    }
+    // 'unknown' falls through to nothing - the button is disabled in this
+    // state (see saveControl), so a click shouldn't reach here at all; this
+    // is just not assuming that stays true forever.
+  }
 
-    if (this.buildState.ownership === 'owned' && this.buildState.savedBuildId && !this.savingInPlace) {
-      this.saveInPlace(this.buildState.savedBuildId);
+  toggleSaveMenu(): void {
+    this.saveMenuOpen = !this.saveMenuOpen;
+    this.myBuildsOpen = false;
+    this.avatarMenuOpen = false;
+    this.shareMenuOpen = false;
+    if (this.saveMenuOpen) {
+      // The menu item doesn't exist in the DOM until the @if switches over
+      // on the next change-detection pass - defer the focus move until then
+      // instead of racing it (same pattern as startRename's nameInputRef).
+      setTimeout(() => this.focusFirstSaveMenuItem());
     }
   }
 
-  onSaveAsClick(): void {
-    if (!this.isAuthenticated) {
-      this.auth.signIn();
+  // `returnFocusToCaret`: true for every close that isn't itself already
+  // moving focus somewhere else (Escape, a menu item's own action) - a
+  // backdrop click already moved focus onto the backdrop's own click
+  // target, so forcing it back onto the caret there would fight the user.
+  closeSaveMenu(returnFocusToCaret = false): void {
+    this.saveMenuOpen = false;
+    if (returnFocusToCaret) {
+      this.saveCaretRef?.nativeElement.focus();
+    }
+  }
+
+  onSaveAsMenuItemClick(): void {
+    this.closeSaveMenu();
+    this.openDialog('save-as', this.buildState.name ?? '');
+  }
+
+  // ArrowDown/Enter/Space open the menu and move focus in - Enter/Space
+  // already trigger (click) on a <button> on their own, so this only needs
+  // to additionally handle ArrowDown (which wouldn't otherwise do anything)
+  // and Escape (closing a menu that's already open from here would be a
+  // mis-click; nothing to do if it's already closed).
+  onSaveCaretKeydown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (!this.saveMenuOpen) {
+        this.toggleSaveMenu();
+      } else {
+        this.focusFirstSaveMenuItem();
+      }
+    } else if (event.key === 'Escape' && this.saveMenuOpen) {
+      this.closeSaveMenu();
+    }
+  }
+
+  // Roving focus within the open menu (today just one item, but this
+  // doesn't assume that stays true) plus Escape-to-close-and-return-focus -
+  // neither of the two older menus this pattern is modeled on (Share,
+  // account) have this; see the plan for why they aren't retrofitted here.
+  onSaveMenuKeydown(event: KeyboardEvent): void {
+    // Escape/Tab close the menu regardless of whether there are any items to
+    // roam between - only the arrow-key roving-focus branches below actually
+    // need a non-empty item list.
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeSaveMenu(true);
       return;
     }
-    this.openDialog('save-as', this.buildState.name ?? '');
+    if (event.key === 'Tab') {
+      // Don't fight the browser's own focus move - just stop showing a menu
+      // that focus is about to leave.
+      this.closeSaveMenu();
+      return;
+    }
+
+    const items = this.saveMenuItemRefs?.toArray() ?? [];
+    if (items.length === 0) {
+      return;
+    }
+    const activeIndex = items.findIndex(item => item.nativeElement === document.activeElement);
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      items[(activeIndex + 1) % items.length]?.nativeElement.focus();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      items[(activeIndex - 1 + items.length) % items.length]?.nativeElement.focus();
+    }
+  }
+
+  private focusFirstSaveMenuItem(): void {
+    this.saveMenuItemRefs?.first?.nativeElement.focus();
   }
 
   openDialog(mode: DialogMode, initialName: string): void {
@@ -358,6 +471,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   onMyBuildsClick(): void {
     this.myBuildsOpen = true;
     this.avatarMenuOpen = false;
+    this.saveMenuOpen = false;
   }
 
   closeMyBuilds(): void {

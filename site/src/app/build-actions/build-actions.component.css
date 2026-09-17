@@ -257,6 +257,82 @@
   opacity: 0.9;
 }
 
+.save-split {
+  display: inline-flex;
+  position: relative;
+}
+
+/* Only visually merged with the caret when one is actually present - with
+   no caret (an unnamed build, "Save a copy", or the disabled 'unknown'
+   placeholder) the primary button just looks like any other button. */
+.save-split-with-menu .save-split-primary {
+  border-radius: 6px 0 0 6px;
+}
+
+.save-split-caret {
+  align-items: center;
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0 6px 6px 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.7rem;
+  justify-content: center;
+  min-height: 2rem;
+  width: 1.5rem;
+}
+
+.save-split-caret:hover,
+.save-split-caret:focus {
+  opacity: 0.9;
+}
+
+.save-menu-backdrop {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: default;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
+}
+
+.save-menu {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  min-width: 10rem;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.35rem);
+  z-index: 40;
+}
+
+.save-menu-item {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  width: 100%;
+}
+
+.save-menu-item:hover,
+.save-menu-item:focus {
+  background: var(--surface-subtle-color);
+  color: var(--primary-color);
+}
+
 @media (max-width: 767.98px) {
   .build-actions {
     flex-wrap: wrap;

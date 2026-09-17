@@ -7,18 +7,46 @@ export interface UserRow {
   last_login_at: string;
 }
 
+export type BuildVisibility = 'public' | 'private';
+
 export interface BuildRow {
   id: string;
   short_id: string;
   owner_user_id: string;
   name: string;
   blob: string;
+  visibility: BuildVisibility;
   created_at: string;
   updated_at: string;
 }
 
+// Same shape as BuildRow minus `blob` - listBuildsByOwner's callers (the
+// My Builds list, the duplicate-name checks on save/rename, ownership
+// confirmation) only ever read id/shortId/name/timestamps, never the gear
+// blob itself. At the 100-build cap, selecting the full blob for every row
+// just to discard it was up to ~400KB of dead weight per listMine() call.
+export type BuildSummaryRow = Omit<BuildRow, 'blob'>;
+
+export type ShortIdKind = 'build' | 'shortlink';
+
 export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promise<UserRow | null> {
   return await db.prepare('SELECT * FROM users WHERE auth0_sub = ?').bind(auth0Sub).first<UserRow>();
+}
+
+// Read-only - the id lookup every authenticated route except handleGetMe
+// actually needs. upsertUser (below) does a write on every call (an UPDATE
+// even when nothing changed), which made every GET/PUT/DELETE pay for a
+// last_login_at bump that has nothing to do with logging in - see
+// resolveOwnerUserId in routes/builds.ts. Returns null rather than creating
+// a row for an unrecognized sub - a route reaching here for a sub with no
+// row yet has nothing to look up anyway (no user row means no builds could
+// exist for it either), and creating one on the fly with fewer defaults
+// than upsertUser/ensureUser's own inserts would be the wrong way to paper
+// over that. See ensureUser below for the one place that DOES want
+// insert-if-missing.
+export async function getUserIdByAuth0Sub(db: D1Database, auth0Sub: string): Promise<string | null> {
+  const row = await db.prepare('SELECT id FROM users WHERE auth0_sub = ?').bind(auth0Sub).first<{ id: string }>();
+  return row?.id ?? null;
 }
 
 /**
@@ -26,7 +54,9 @@ export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promi
  * email/display_name in case they changed at the provider) if found, or
  * creates a new row. This is where "basic user tracking" lands - see the
  * plan's Phase 4 note that created_at/last_login_at alone satisfy that at
- * this scale.
+ * this scale. Reserved for handleGetMe, the one call site that actually
+ * means "a login just happened" - see getUserIdByAuth0Sub above for the
+ * read-only id lookup every other route should use instead.
  */
 export async function upsertUser(
   db: D1Database,
@@ -56,10 +86,83 @@ export async function upsertUser(
   return row;
 }
 
-export async function insertBuild(db: D1Database, row: BuildRow): Promise<void> {
+/**
+ * Insert-if-missing, with no write at all (not even to last_login_at) when
+ * the row already exists - unlike upsertUser, this never means "a login
+ * just happened," so it shouldn't touch that field. Reserved for
+ * handleCreateBuild: the real client always calls GET /api/users/me on
+ * login before anything else (see auth.service.ts, which is what actually
+ * creates the row in the common case), but this API is callable directly,
+ * so create is the one build-mutating route that still has to tolerate a
+ * genuinely first-ever call. Returns just the id, since that's all any
+ * caller has needed so far.
+ */
+export async function ensureUser(
+  db: D1Database,
+  params: { auth0Sub: string; email: string | null; displayName: string | null }
+): Promise<string> {
+  const existingId = await getUserIdByAuth0Sub(db, params.auth0Sub);
+  if (existingId) {
+    return existingId;
+  }
+  const now = new Date().toISOString();
+  const id = crypto.randomUUID();
   await db.prepare(
-    'INSERT INTO builds (id, short_id, owner_user_id, name, blob, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
-  ).bind(row.id, row.short_id, row.owner_user_id, row.name, row.blob, row.created_at, row.updated_at).run();
+    'INSERT INTO users (id, auth0_sub, email, display_name, created_at, last_login_at) VALUES (?, ?, ?, ?, ?, ?)'
+  ).bind(id, params.auth0Sub, params.email, params.displayName, now, now).run();
+  return id;
+}
+
+// Which table a shortId belongs to, from the shared allocator (see
+// migrations/0003) - handleGetByShortId uses this to go straight to the
+// right table in one lookup, instead of trying builds first and falling
+// back to shortlinks (which is also what let the two silently shadow each
+// other before the allocator existed).
+export async function getShortIdKind(db: D1Database, shortId: string): Promise<ShortIdKind | null> {
+  const row = await db.prepare('SELECT kind FROM short_ids WHERE short_id = ?').bind(shortId).first<{ kind: ShortIdKind }>();
+  return row?.kind ?? null;
+}
+
+/**
+ * Reserves `row.short_id` in the shared allocator and inserts the build row
+ * in one atomic batch - either both succeed or neither does. This is what
+ * actually makes the allocator meaningful: a plain insert with no
+ * corresponding short_ids row would let a build and a shortlink collide on
+ * the exact case this table exists to prevent. A UNIQUE violation on either
+ * statement (short_ids.short_id, or builds.short_id as a redundant second
+ * guard) rejects the whole batch - see shortId.ts's withUniqueShortId for
+ * the retry-with-a-fresh-id loop this is called from.
+ *
+ * The insert also re-checks the owner's build count live, in the same
+ * atomic statement (`WHERE (SELECT COUNT...) < limit.max`), rather than
+ * trusting a count checked in an earlier, separate query -
+ * handleCreateBuild's own pre-check is exactly that earlier, separate
+ * query, and exists purely so the common (non-racy) over-limit case never
+ * reaches this far; it is NOT what actually enforces the cap, since two
+ * near-simultaneous creates could otherwise both pass it before either
+ * finishes inserting. Returns whether the build was actually inserted -
+ * false means this live check blocked it. On a block, the short_ids
+ * reservation is still consumed (the two statements aren't independently
+ * conditional on each other) - an orphaned allocator row, acceptable and
+ * rare (only at the exact moment two creates from the same account race
+ * right at the limit), versus the alternative of a genuinely unbounded
+ * overshoot.
+ */
+export async function reserveAndInsertBuildIfUnderLimit(
+  db: D1Database,
+  row: BuildRow,
+  limit: { ownerUserId: string; max: number }
+): Promise<boolean> {
+  const result = await db.batch<unknown>([
+    db.prepare('INSERT INTO short_ids (short_id, kind, created_at) VALUES (?, ?, ?)')
+      .bind(row.short_id, 'build', row.created_at),
+    db.prepare(
+      `INSERT INTO builds (id, short_id, owner_user_id, name, blob, visibility, created_at, updated_at)
+       SELECT ?, ?, ?, ?, ?, ?, ?, ?
+       WHERE (SELECT COUNT(*) FROM builds WHERE owner_user_id = ?) < ?`
+    ).bind(row.id, row.short_id, row.owner_user_id, row.name, row.blob, row.visibility, row.created_at, row.updated_at, limit.ownerUserId, limit.max)
+  ]);
+  return (result[1]?.meta.changes ?? 0) > 0;
 }
 
 export async function getBuildByShortId(db: D1Database, shortId: string): Promise<BuildRow | null> {
@@ -70,16 +173,19 @@ export async function getBuildById(db: D1Database, id: string): Promise<BuildRow
   return await db.prepare('SELECT * FROM builds WHERE id = ?').bind(id).first<BuildRow>();
 }
 
-export async function listBuildsByOwner(db: D1Database, ownerUserId: string): Promise<BuildRow[]> {
-  const result = await db.prepare('SELECT * FROM builds WHERE owner_user_id = ? ORDER BY updated_at DESC')
+export async function listBuildSummariesByOwner(db: D1Database, ownerUserId: string): Promise<BuildSummaryRow[]> {
+  const result = await db.prepare(
+    'SELECT id, short_id, owner_user_id, name, visibility, created_at, updated_at FROM builds WHERE owner_user_id = ? ORDER BY updated_at DESC'
+  )
     .bind(ownerUserId)
-    .all<BuildRow>();
+    .all<BuildSummaryRow>();
   return result.results ?? [];
 }
 
-// A dedicated COUNT query rather than listBuildsByOwner(...).length - avoids
-// pulling every row's full blob back just to check a limit (see
-// handleCreateBuild's MAX_BUILDS_PER_USER check).
+// A dedicated COUNT query rather than listBuildSummariesByOwner(...).length -
+// avoids pulling every row back at all just to check a limit (see
+// handleCreateBuild's MAX_BUILDS_PER_USER check, and handleGetMe's
+// buildCount).
 export async function countBuildsByOwner(db: D1Database, ownerUserId: string): Promise<number> {
   const row = await db.prepare('SELECT COUNT(*) as count FROM builds WHERE owner_user_id = ?')
     .bind(ownerUserId)
@@ -113,17 +219,24 @@ export async function deleteBuild(db: D1Database, id: string): Promise<void> {
 // blob here is the JSON envelope {"name": ..., "blob": ...} (see
 // routes/shortlinks.ts), not the raw gear blob - the single UNIQUE
 // constraint on this column is what makes "same gear AND same name" dedupe
-// to one row.
+// to one row. creator_user_id is nullable: shortlinks predating this column
+// (and, in principle, any future anonymous-creation path) have no known
+// creator - see migrations/0003.
 export interface ShortLinkRow {
   short_id: string;
   blob: string;
+  creator_user_id: string | null;
   created_at: string;
 }
 
-export async function insertShortLink(db: D1Database, row: ShortLinkRow): Promise<void> {
-  await db.prepare(
-    'INSERT INTO shortlinks (short_id, blob, created_at) VALUES (?, ?, ?)'
-  ).bind(row.short_id, row.blob, row.created_at).run();
+/** Same atomicity rationale as reserveAndInsertBuild - see its comment. */
+export async function reserveAndInsertShortLink(db: D1Database, row: ShortLinkRow): Promise<void> {
+  await db.batch([
+    db.prepare('INSERT INTO short_ids (short_id, kind, created_at) VALUES (?, ?, ?)')
+      .bind(row.short_id, 'shortlink', row.created_at),
+    db.prepare('INSERT INTO shortlinks (short_id, blob, creator_user_id, created_at) VALUES (?, ?, ?, ?)')
+      .bind(row.short_id, row.blob, row.creator_user_id, row.created_at)
+  ]);
 }
 
 export async function getShortLinkByStoredBlob(db: D1Database, stored: string): Promise<ShortLinkRow | null> {

@@ -17,8 +17,10 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    namespace is labeled in the dashboard, kebab-case like the D1 database's
    name above it - unrelated to the `binding = "BUILD_CACHE"` that the code
    actually references as `env.BUILD_CACHE`.
-4. `npx wrangler d1 migrations apply DB --remote` - runs `migrations/0001_init.sql`
-   against the real (not local) database.
+4. `npx wrangler d1 migrations apply DB --remote` - runs every pending file
+   under `migrations/` (currently `0001_init.sql` through
+   `0004_build_name_unique.sql`) against the real (not local) database, in
+   order, skipping any already applied. Safe to re-run.
 5. In the Cloudflare dashboard, since `ddo-gear-planner.com`'s DNS is already
    on Cloudflare, deploying the Worker (step 7 below) with the
    `custom_domain = true` route in `wrangler.toml` will offer to provision

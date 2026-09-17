@@ -73,7 +73,7 @@ async function route(request: Request, env: Env): Promise<Response> {
     if (rateLimitResponse) return rateLimitResponse;
     const authResult = await requireAuth(request, env);
     if (authResult instanceof Response) return authResult;
-    return handleCreateShortLink(request, env);
+    return handleCreateShortLink(request, authResult, env);
   }
 
   if (method === 'GET' && pathname === '/api/builds/mine') {

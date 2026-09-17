@@ -1,5 +1,5 @@
 import { AuthenticatedUser, Env } from '../auth';
-import { listBuildsByOwner, upsertUser } from '../db';
+import { countBuildsByOwner, upsertUser } from '../db';
 import { jsonResponse } from '../http';
 
 export async function handleGetMe(user: AuthenticatedUser, env: Env): Promise<Response> {
@@ -8,12 +8,14 @@ export async function handleGetMe(user: AuthenticatedUser, env: Env): Promise<Re
     email: user.email ?? null,
     displayName: user.name ?? null
   });
-  const builds = await listBuildsByOwner(env.DB, row.id);
+  // A dedicated COUNT rather than listBuildSummariesByOwner(...).length -
+  // this only ever needs the number, not every row.
+  const buildCount = await countBuildsByOwner(env.DB, row.id);
 
   return jsonResponse({
     id: row.id,
     email: row.email,
     displayName: row.display_name,
-    buildCount: builds.length
+    buildCount
   });
 }

@@ -3,13 +3,16 @@ import {
   BuildRow,
   countBuildsByOwner,
   deleteBuild,
+  ensureUser,
   getBuildById,
   getBuildByShortId,
+  getShortIdKind,
   getShortLinkByShortId,
-  insertBuild,
-  listBuildsByOwner,
+  getUserIdByAuth0Sub,
+  listBuildSummariesByOwner,
+  reserveAndInsertBuildIfUnderLimit,
   updateBuild,
-  upsertUser
+  BuildSummaryRow
 } from '../db';
 import { errorResponse, jsonResponse } from '../http';
 import { withUniqueShortId } from '../shortId';
@@ -31,13 +34,36 @@ const MAX_BLOB_LENGTH = 4096;
 // public API) piling up unbounded rows for one owner.
 export const MAX_BUILDS_PER_USER = 100;
 
+// A genuine cross-table shortId collision (short_ids.short_id, or the
+// legacy builds.short_id column UNIQUE as a redundant second guard) is
+// what withUniqueShortId should retry with a fresh id. A duplicate-name
+// violation (below) also reads as "UNIQUE constraint failed" but retrying
+// with a different shortId would never fix it, so this pattern has to be
+// narrow enough to exclude it - see handleCreateBuild.
+const SHORT_ID_COLLISION_PATTERN = /UNIQUE constraint failed:\s*(short_ids\.short_id|builds\.short_id)/i;
+
+// Matches the exact message SQLite gives for migrations/0004's composite
+// UNIQUE index - verified against a real D1 instance (see the plan) rather
+// than assumed, since the qualifying column list's exact format
+// ("table.col1, table.col2") isn't otherwise documented.
+const DUPLICATE_NAME_PATTERN = /UNIQUE constraint failed:\s*builds\.owner_user_id/i;
+
+function isShortIdCollision(err: unknown): boolean {
+  return err instanceof Error && SHORT_ID_COLLISION_PATTERN.test(err.message);
+}
+
+function isDuplicateNameViolation(err: unknown): boolean {
+  return err instanceof Error && DUPLICATE_NAME_PATTERN.test(err.message);
+}
+
 function buildCacheKey(shortId: string): string {
   return `build:${shortId}`;
 }
 
-// Own namespace, kept separate from buildCacheKey's so the two lookup
-// spaces can never collide/mask each other even in the astronomically
-// unlikely case of a shortId collision across the two tables.
+// Own namespace, kept separate from buildCacheKey's - this only separates
+// the *cache*, though; the shortId lookup itself is unambiguous because of
+// the short_ids allocator (see migrations/0003 and getShortIdKind), not
+// because of this cache-key split.
 function shortLinkCacheKey(shortId: string): string {
   return `shortlink:${shortId}`;
 }
@@ -65,13 +91,32 @@ function toBuildResponse(row: BuildRow) {
   };
 }
 
-async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string> {
-  const row = await upsertUser(env.DB, {
+// No `blob` - see BuildSummaryRow's comment. listMine's callers (My Builds,
+// the duplicate-name checks, ownership confirmation) never read it.
+function toBuildSummaryResponse(row: BuildSummaryRow) {
+  return {
+    id: row.id,
+    shortId: row.short_id,
+    name: row.name,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  };
+}
+
+// Insert-if-missing, no write when the row already exists (see
+// db.ts's ensureUser) - reserved for create, the one build-mutating route
+// where the caller might genuinely be hitting the API for the very first
+// time (the real client always calls GET /api/users/me on login first,
+// which does the full upsertUser - see auth.service.ts - but this API is
+// callable directly). list/update/delete use the plain read-only lookup
+// below instead, since a build can only exist for a user who's already
+// been ensured at least once.
+async function resolveOwnerUserIdForCreate(env: Env, user: AuthenticatedUser): Promise<string> {
+  return ensureUser(env.DB, {
     auth0Sub: user.sub,
     email: user.email ?? null,
     displayName: user.name ?? null
   });
-  return row.id;
 }
 
 export async function handleCreateBuild(request: Request, user: AuthenticatedUser, env: Env): Promise<Response> {
@@ -82,8 +127,13 @@ export async function handleCreateBuild(request: Request, user: AuthenticatedUse
     return errorResponse(400, `A build needs a name (1-${MAX_NAME_LENGTH} chars) and a blob.`);
   }
 
-  const ownerUserId = await resolveOwnerUserId(env, user);
+  const ownerUserId = await resolveOwnerUserIdForCreate(env, user);
 
+  // Fast pre-check: rejects the common (non-racy) over-limit case without
+  // ever touching the shortId allocator. Not what actually enforces the
+  // cap, though - reserveAndInsertBuildIfUnderLimit's own live re-check
+  // (below) is, since two near-simultaneous creates could otherwise both
+  // pass this check before either finishes inserting.
   const existingCount = await countBuildsByOwner(env.DB, ownerUserId);
   if (existingCount >= MAX_BUILDS_PER_USER) {
     return errorResponse(403, `You've reached the limit of ${MAX_BUILDS_PER_USER} saved builds. Delete an existing build to save a new one.`);
@@ -91,27 +141,49 @@ export async function handleCreateBuild(request: Request, user: AuthenticatedUse
 
   const now = new Date().toISOString();
 
-  const row = await withUniqueShortId(async shortId => {
-    const build: BuildRow = {
-      id: crypto.randomUUID(),
-      short_id: shortId,
-      owner_user_id: ownerUserId,
-      name,
-      blob,
-      created_at: now,
-      updated_at: now
-    };
-    await insertBuild(env.DB, build);
-    return build;
-  });
+  try {
+    const attempt = await withUniqueShortId(
+      async shortId => {
+        const build: BuildRow = {
+          id: crypto.randomUUID(),
+          short_id: shortId,
+          owner_user_id: ownerUserId,
+          name,
+          blob,
+          visibility: 'public',
+          created_at: now,
+          updated_at: now
+        };
+        const inserted = await reserveAndInsertBuildIfUnderLimit(env.DB, build, { ownerUserId, max: MAX_BUILDS_PER_USER });
+        return { inserted, build };
+      },
+      { isUniqueConstraintError: isShortIdCollision }
+    );
 
-  return jsonResponse(toBuildResponse(row), { status: 201 });
+    if (!attempt.inserted) {
+      // Lost the race against the fast pre-check above - a second create
+      // from the same account landed in between. Same message either way;
+      // the viewer has no reason to see this as a different error.
+      return errorResponse(403, `You've reached the limit of ${MAX_BUILDS_PER_USER} saved builds. Delete an existing build to save a new one.`);
+    }
+    return jsonResponse(toBuildResponse(attempt.build), { status: 201 });
+  } catch (err) {
+    if (isDuplicateNameViolation(err)) {
+      return errorResponse(409, `You already have a build named "${name}". Choose a different name.`);
+    }
+    throw err;
+  }
 }
 
 export async function handleListMine(user: AuthenticatedUser, env: Env): Promise<Response> {
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  const builds = await listBuildsByOwner(env.DB, ownerUserId);
-  return jsonResponse(builds.map(toBuildResponse));
+  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  if (!ownerUserId) {
+    // No user row at all yet (see resolveOwnerUserIdForCreate's comment) -
+    // by construction, nothing they could have saved either.
+    return jsonResponse([]);
+  }
+  const builds = await listBuildSummariesByOwner(env.DB, ownerUserId);
+  return jsonResponse(builds.map(toBuildSummaryResponse));
 }
 
 export async function handleGetByShortId(shortId: string, env: Env): Promise<Response> {
@@ -121,32 +193,43 @@ export async function handleGetByShortId(shortId: string, env: Env): Promise<Res
     return jsonResponse(cached);
   }
 
-  const row = await getBuildByShortId(env.DB, shortId);
-  if (row) {
-    const payload = { name: row.name, blob: row.blob };
-    await env.BUILD_CACHE.put(cacheKey, JSON.stringify(payload));
-    return jsonResponse(payload);
-  }
-
-  // Not an owned build - see if it's an immutable share snapshot instead
-  // (routes/shortlinks.ts). Zero routing changes needed on the client: this
-  // shape-compatible {name, blob} fallback means /build/:shortId/:slug and
-  // BuildsService.getByShortId keep working whether the id came from a
-  // saved build or an anonymous share.
   const shortLinkCache = shortLinkCacheKey(shortId);
   const cachedShortLink = await env.BUILD_CACHE.get<{ name: string; blob: string }>(shortLinkCache, 'json');
   if (cachedShortLink) {
     return jsonResponse(cachedShortLink);
   }
 
-  const shortLink = await getShortLinkByShortId(env.DB, shortId);
-  if (!shortLink) {
-    return errorResponse(404, 'No build found for that link.');
+  // The allocator (see migrations/0003) says which table this id actually
+  // belongs to, if either - a single lookup instead of trying builds then
+  // falling back to shortlinks, which is also what let the two silently
+  // shadow each other before the allocator existed.
+  const kind = await getShortIdKind(env.DB, shortId);
+
+  if (kind === 'build') {
+    const row = await getBuildByShortId(env.DB, shortId);
+    // 404, not a distinct "this build is private" message - a private
+    // build should be indistinguishable from a nonexistent one to anyone
+    // but its owner (who reaches it through listMine/its own saved URL,
+    // not this public lookup).
+    if (!row || row.visibility === 'private') {
+      return errorResponse(404, 'No build found for that link.');
+    }
+    const payload = { name: row.name, blob: row.blob };
+    await env.BUILD_CACHE.put(cacheKey, JSON.stringify(payload));
+    return jsonResponse(payload);
   }
 
-  const payload = JSON.parse(shortLink.blob) as { name: string; blob: string };
-  await env.BUILD_CACHE.put(shortLinkCache, JSON.stringify(payload));
-  return jsonResponse(payload);
+  if (kind === 'shortlink') {
+    const shortLink = await getShortLinkByShortId(env.DB, shortId);
+    if (!shortLink) {
+      return errorResponse(404, 'No build found for that link.');
+    }
+    const payload = JSON.parse(shortLink.blob) as { name: string; blob: string };
+    await env.BUILD_CACHE.put(shortLinkCache, JSON.stringify(payload));
+    return jsonResponse(payload);
+  }
+
+  return errorResponse(404, 'No build found for that link.');
 }
 
 export async function handleUpdateBuild(
@@ -159,8 +242,8 @@ export async function handleUpdateBuild(
   if (!row) {
     return errorResponse(404, 'Build not found.');
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (row.owner_user_id !== ownerUserId) {
+  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
     return errorResponse(403, 'You do not own this build.');
   }
 
@@ -182,7 +265,14 @@ export async function handleUpdateBuild(
     fields.blob = blob;
   }
 
-  await updateBuild(env.DB, id, fields);
+  try {
+    await updateBuild(env.DB, id, fields);
+  } catch (err) {
+    if (isDuplicateNameViolation(err)) {
+      return errorResponse(409, `You already have a build named "${fields.name}". Choose a different name.`);
+    }
+    throw err;
+  }
   // Write-through: invalidate rather than pre-populate, since the next
   // GET /api/build/:shortId will repopulate it and this keeps the update
   // path from needing to duplicate the cache payload shape.
@@ -197,8 +287,8 @@ export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env
   if (!row) {
     return errorResponse(404, 'Build not found.');
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (row.owner_user_id !== ownerUserId) {
+  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
     return errorResponse(403, 'You do not own this build.');
   }
 

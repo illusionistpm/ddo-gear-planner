@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../analytics.service';
 import { AuthService } from '../auth.service';
-import { Build } from '../build';
+import { BuildSummary } from '../build';
 import { BuildUrlCodecService } from '../build-url-codec.service';
 import { BuildsService } from '../builds.service';
 import { Clipboard } from '../clipboard';
@@ -257,7 +257,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private rejectDuplicateRenameOrSave(name: string, savedBuildId: string, existingBuilds: Build[]): void {
+  private rejectDuplicateRenameOrSave(name: string, savedBuildId: string, existingBuilds: BuildSummary[]): void {
     const isDuplicate = existingBuilds.some(
       build => build.id !== savedBuildId && build.name.trim().toLowerCase() === name.trim().toLowerCase()
     );

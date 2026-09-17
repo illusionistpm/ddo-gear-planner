@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Ou
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { Build, MAX_BUILDS_PER_USER } from '../build';
+import { BuildSummary, MAX_BUILDS_PER_USER } from '../build';
 import { BuildsService } from '../builds.service';
 import { CurrentBuildService } from '../current-build.service';
 import { slugifyBuildName } from '../build-slug';
@@ -18,7 +18,7 @@ export class MyBuildsComponent {
   @Output() closed = new EventEmitter<void>();
 
   readonly maxBuilds = MAX_BUILDS_PER_USER;
-  builds: Build[] | null = null;
+  builds: BuildSummary[] | null = null;
   loadError: string | null = null;
   deletingId: string | null = null;
   deleteError: string | null = null;
@@ -51,7 +51,7 @@ export class MyBuildsComponent {
     });
   }
 
-  isCurrentBuild(build: Build): boolean {
+  isCurrentBuild(build: BuildSummary): boolean {
     return build.id === this.currentBuild.value.savedBuildId;
   }
 
@@ -70,7 +70,7 @@ export class MyBuildsComponent {
     this.closed.emit();
   }
 
-  open(build: Build): void {
+  open(build: BuildSummary): void {
     // Angular's CanDeactivate guard (unsaved-changes.guard.ts) doesn't fire
     // here: this and the destination both match the same /build/:shortId
     // route config, so the router reuses MainComponent rather than
@@ -83,7 +83,7 @@ export class MyBuildsComponent {
     this.closed.emit();
   }
 
-  requestDelete(build: Build, event: Event): void {
+  requestDelete(build: BuildSummary, event: Event): void {
     event.stopPropagation();
     // Belt-and-suspenders: the template already disables this button for
     // the currently open build (deleting it out from under yourself dumps
@@ -100,7 +100,7 @@ export class MyBuildsComponent {
     this.confirmingDeleteId = null;
   }
 
-  confirmDelete(build: Build, event: Event): void {
+  confirmDelete(build: BuildSummary, event: Event): void {
     event.stopPropagation();
     this.deleteError = null;
     this.deletingId = build.id;

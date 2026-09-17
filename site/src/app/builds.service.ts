@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Build } from './build';
+import { Build, BuildSummary } from './build';
 import { environment } from '../environments/environment';
 
 interface BuildResponse {
@@ -10,6 +10,17 @@ interface BuildResponse {
   shortId: string;
   name: string;
   blob: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// What GET /api/builds/mine actually returns - no `blob` (see
+// BuildSummary's comment and worker/src/routes/builds.ts's
+// toBuildSummaryResponse).
+interface BuildSummaryResponse {
+  id: string;
+  shortId: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -34,8 +45,8 @@ export class BuildsService {
     return this.http.post<BuildResponse>(`${this.baseUrl}/builds`, { name, blob });
   }
 
-  listMine(): Observable<Build[]> {
-    return this.http.get<BuildResponse[]>(`${this.baseUrl}/builds/mine`);
+  listMine(): Observable<BuildSummary[]> {
+    return this.http.get<BuildSummaryResponse[]>(`${this.baseUrl}/builds/mine`);
   }
 
   getByShortId(shortId: string): Observable<SharedBuildResponse> {

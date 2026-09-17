@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { UserGearService } from '../user-gear.service';
@@ -67,12 +67,23 @@ export class MainComponent implements OnInit, OnDestroy {
   // route.paramMap alone (shortId just becomes null either way).
   private latestRouteShortId: string | null = null;
 
+  // shortIds confirmOwnershipIfSignedIn has already resolved (successfully -
+  // see its comment) this component instance's lifetime, so repeatedly
+  // bouncing between the same couple of builds via browser back/forward
+  // doesn't re-hit listMine() on every single restore. Not a substitute for
+  // CurrentBuildService's own carry-forward of already-resolved ownership
+  // across a same-build restore (see restoreIdentity's comment) - this
+  // covers the case that doesn't help with: switching to a genuinely
+  // different build's identity, which always resets to 'unknown' there.
+  private ownershipCheckedForShortId = new Set<string>();
+
   private filterSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
   private tabSubscription?: Subscription;
   private routeParamsSubscription?: Subscription;
   private buildIdentitySubscription?: Subscription;
   private initialParamsAppliedSubscription?: Subscription;
+  private ownershipMemoAuthSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
 
   onSortOwnedToTopChanged(value: boolean) {
@@ -106,6 +117,29 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userGear.loadFromStorage();
+    // Clears ownershipCheckedForShortId (confirmOwnershipIfSignedIn's memo,
+    // below) on every genuine auth transition - it answers "is shortId X
+    // mine?" for whichever account is signed in right now, so it's stale
+    // across a real account switch. In practice AuthService's
+    // signIn()/signOut() always round-trip through a full page redirect
+    // (see its comments), which already wipes this memo along with the
+    // rest of the app's state, but clearing it explicitly here doesn't
+    // depend on that staying true. distinctUntilChanged because
+    // isAuthenticated$ can re-emit its current value without an actual
+    // transition, which would otherwise clear a memo that's still valid.
+    //
+    // Set up BEFORE routeParamsSubscription below, deliberately: with a
+    // synchronous auth source (a real login session restored from
+    // localstorage - or, in a test, an `of(...)`), subscribing here fires
+    // this clear() immediately, on this still-empty Set - harmless. Wiring
+    // it up AFTER routeParamsSubscription instead let a real bug through:
+    // routeParamsSubscription's own synchronous load-and-confirm cycle
+    // (below) would populate the memo, and then this subscription's first,
+    // redundant emission would immediately wipe out the entry it just
+    // added, defeating the memo on the very first load.
+    this.ownershipMemoAuthSubscription = this.auth.isAuthenticated$.pipe(distinctUntilChanged()).subscribe(() => {
+      this.ownershipCheckedForShortId.clear();
+    });
     // Subscribed rather than read once from the snapshot: Angular's default
     // RouteReuseStrategy reuses this same component instance across
     // navigations between two different /build/:shortId values (they match
@@ -117,17 +151,26 @@ export class MainComponent implements OnInit, OnDestroy {
     });
     // See buildIdentityFromUrl$'s comment in query-params.service.ts: this
     // is what actually restores a dirty, previously-loaded build's identity
-    // (name, savedBuildId, ownership) after the URL dropped its shortId path
-    // segment - on the initial drop itself (a self-triggered write) this
-    // never fires, which is correct, since CurrentBuildService's in-memory
-    // state is already right at that point; it's browser back/forward
-    // through those edits (a real navigation) that needs this to reapply
-    // what the URL says. Uses restoreIdentity(), not markLoaded() - see its
-    // comment for why treating every restored history point as a fresh
-    // clean load would be wrong.
+    // (name, shortId) after the URL dropped its shortId path segment - on
+    // the initial drop itself (a self-triggered write) this never fires,
+    // which is correct, since CurrentBuildService's in-memory state is
+    // already right at that point; it's browser back/forward through those
+    // edits (a real navigation) that needs this to reapply what the URL
+    // says. Uses restoreIdentity(), not markLoaded() - see its comment for
+    // why treating every restored history point as a fresh clean load would
+    // be wrong.
+    //
+    // Ownership never travels through the URL (see BuildUrlIdentity's
+    // comment), so restoreIdentity() alone can leave it at 'unknown' for a
+    // build the viewer actually owns - re-run the same confirmOwnershipIfSignedIn
+    // check loadBuildFromRoute uses on a fresh fetch, so history navigation
+    // resolves it too, not just the initial load.
     this.buildIdentitySubscription = this.queryParams.buildIdentityFromUrl$.subscribe(identity => {
       if (identity) {
         this.currentBuild.restoreIdentity(identity);
+        if (identity.shortId) {
+          this.confirmOwnershipIfSignedIn(identity.shortId);
+        }
       } else if (!this.latestRouteShortId) {
         this.currentBuild.reset();
       }
@@ -198,6 +241,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription?.unsubscribe();
     this.buildIdentitySubscription?.unsubscribe();
     this.initialParamsAppliedSubscription?.unsubscribe();
+    this.ownershipMemoAuthSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
     }
@@ -316,15 +360,35 @@ export class MainComponent implements OnInit, OnDestroy {
   // cross-reference their own build list instead of changing that public
   // endpoint's shape.
   private confirmOwnershipIfSignedIn(shortId: string) {
+    if (this.ownershipCheckedForShortId.has(shortId)) {
+      return;
+    }
     this.auth.isAuthenticated$.pipe(take(1)).subscribe(isAuthenticated => {
       if (!isAuthenticated) {
+        // Not memoized: signing in later (always a fresh page load - see
+        // AuthService) re-runs this from scratch anyway, and it's cheap to
+        // re-check (no network call) if it's ever hit again meanwhile.
         return;
       }
-      this.buildsService.listMine().subscribe(builds => {
-        const owned = builds.find(build => build.shortId === shortId);
-        if (owned) {
-          this.currentBuild.confirmOwnership(shortId, owned.id);
-        }
+      this.buildsService.listMine().subscribe({
+        next: builds => {
+          this.ownershipCheckedForShortId.add(shortId);
+          const owned = builds.find(build => build.shortId === shortId);
+          // Explicitly deny, not just skip, when there's no match -
+          // CurrentBuildService.confirmOwnership's savedBuildId: null branch
+          // is what actually resolves 'unknown' to 'other' for a build that
+          // genuinely isn't the viewer's; leaving this a no-op would strand
+          // it at 'unknown' forever.
+          this.currentBuild.confirmOwnership(shortId, owned?.id ?? null);
+        },
+        // Best-effort, and deliberately NOT memoized: a failed check still
+        // degrades ownership to 'other' (so "Save a copy" stays reachable
+        // instead of the save control sitting disabled forever - see
+        // CurrentBuildService.confirmOwnership's comment), but a transient
+        // blip gets a genuine retry the next time this shortId's identity
+        // is restored, rather than caching the failure as if it were an
+        // answer.
+        error: () => this.currentBuild.confirmOwnership(shortId, null)
       });
     });
   }

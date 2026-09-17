@@ -98,6 +98,43 @@ describe('build edit URL integration (real router)', () => {
     queryParams.buildIdentityFromUrl$.subscribe(value => identities.push(value));
     queryParams.updateFromParams(router.parseUrl(dirtyUrl).queryParamMap);
 
-    expect(identities[identities.length - 1]).toEqual({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', savedBuildId: 'build-1' });
+    // savedBuildId never rides in the URL identity (see BuildUrlIdentity's
+    // comment) - markLoaded knew it directly from the server response, but
+    // that never round-trips through router.url/b=, only {shortId, name} do.
+    expect(identities[identities.length - 1]).toEqual({ shortId: 'n11M5Pg9', name: 'Arcane Trickster' });
+  }));
+
+  it('never grants ownership merely by decoding a build identity from a URL - through the real codec/router, not a mock', fakeAsync(() => {
+    // This is the actual vulnerability the audit found: savedBuildId used
+    // to ride inside the b= blob's identity, so anyone who opened a copied
+    // live-edit link inherited whatever ownership state the URL happened to
+    // encode. Verifying through the real BuildUrlCodecService and Router
+    // (not a spy) proves the fix holds even if a URL were hand-crafted with
+    // extra/stale JSON fields.
+    const router = TestBed.inject(Router);
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const queryParams = TestBed.inject(QueryParamsService);
+    const equipped = TestBed.inject(EquippedService);
+
+    router.navigateByUrl('/build/n11M5Pg9/arcane-trickster');
+    tick();
+    queryParams.applyDecodedBuildParams({});
+    // No savedBuildId here - a signed-out or not-yet-confirmed viewer's load.
+    currentBuild.markLoaded({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', canonicalParams: {} });
+    expect(currentBuild.value.ownership).toBe('unknown');
+
+    const slot = equipped.getSlots().keys().next().value as string;
+    equipped.clearSlot(slot);
+    tick();
+    const dirtyUrl = router.url;
+
+    // A second "viewer" of this exact copied URL, from a clean slate.
+    currentBuild.reset();
+    queryParams.updateFromParams(router.parseUrl(dirtyUrl).queryParamMap);
+
+    // Decoding the copied URL must not have conjured ownership out of thin
+    // air - it stays exactly what it was, 'unknown', never 'owned'.
+    expect(currentBuild.value.ownership).not.toBe('owned');
+    expect(currentBuild.value.savedBuildId).toBeNull();
   }));
 });

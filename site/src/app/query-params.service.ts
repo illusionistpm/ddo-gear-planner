@@ -27,9 +27,20 @@ type DecodedParamsResult = {
 // channel from passthroughParams: that mechanism is deliberately designed to
 // survive into save payloads (so a viewer's manually-appended custom query
 // param sticks around through edits/saves), which is exactly what this must
-// NOT do - a build's internal savedBuildId has no business being embedded in
-// the publicly-served saved blob (GET /api/build/:shortId deliberately omits
-// it - see builds.service.ts).
+// NOT do - this identity has no business being embedded in the publicly-served
+// saved blob (GET /api/build/:shortId deliberately omits it - see
+// builds.service.ts).
+//
+// Deliberately excludes the build's savedBuildId (the internal id used for
+// PUT/DELETE). This is the address bar's own live-edit URL - copying it is
+// the single most common way a build gets shared - so anything here is
+// effectively public. savedBuildId used to ride along, and CurrentBuildService
+// trusted its mere presence as proof of ownership: open a copied link and the
+// UI offered an in-place Save aimed at someone else's build (the Worker
+// correctly 403s, but the client had no idea and just showed nothing).
+// Ownership can't be derived from the URL at all - see
+// CurrentBuildService.confirmOwnership(), which is the only legitimate source
+// (cross-referencing the signed-in viewer's own listMine() results).
 export interface BuildUrlIdentity {
   // null covers a build that's never been loaded/saved from a shortId at
   // all - a name typed onto a fresh scratch build still needs to survive
@@ -37,10 +48,13 @@ export interface BuildUrlIdentity {
   // though there's no shortId behind it yet.
   shortId: string | null;
   name: string;
-  savedBuildId: string | null;
 }
 
-const BUILD_IDENTITY_PARAM_KEY = '__buildRef';
+// Exported so BUILD_IDENTITY_PARAM_KEY has exactly one definition, following
+// the pattern already used for reserved/well-known param keys elsewhere (see
+// build-param-keys.ts, build-route.ts) rather than being a private literal
+// only this file can check.
+export const BUILD_IDENTITY_PARAM_KEY = '__buildRef';
 
 @Injectable({
   providedIn: 'root'
@@ -402,11 +416,14 @@ export class QueryParamsService {
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
+        // A bookmarked/previously-shared URL minted before savedBuildId was
+        // removed from BuildUrlIdentity may still carry one in its JSON - it's
+        // simply not read here, which is exactly the point (see
+        // BuildUrlIdentity's comment).
         if (parsed && (parsed.shortId === null || typeof parsed.shortId === 'string') && typeof parsed.name === 'string') {
           identity = {
             shortId: parsed.shortId,
-            name: parsed.name,
-            savedBuildId: typeof parsed.savedBuildId === 'string' ? parsed.savedBuildId : null
+            name: parsed.name
           };
         }
       } catch {

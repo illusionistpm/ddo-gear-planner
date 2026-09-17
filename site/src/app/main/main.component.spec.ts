@@ -284,9 +284,9 @@ describe('MainComponent - loading a build by shortId', () => {
     TestBed.createComponent(MainComponent).detectChanges();
     currentBuild.reset.calls.reset();
 
-    buildIdentity$.next({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
+    buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
 
-    expect(currentBuild.restoreIdentity).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
+    expect(currentBuild.restoreIdentity).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build' });
     expect(currentBuild.reset).not.toHaveBeenCalled();
   });
 
@@ -357,6 +357,102 @@ describe('MainComponent - loading a build by shortId', () => {
 
     expect(buildsService.listMine).not.toHaveBeenCalled();
     expect(currentBuild.confirmOwnership).not.toHaveBeenCalled();
+  });
+
+  it('denies ownership (confirmOwnership with null) when signed in but listMine has no matching build', () => {
+    // The negative case matters as much as the positive one: ownership must
+    // not be left at 'unknown' forever just because no match turned up -
+    // see CurrentBuildService.confirmOwnership's comment.
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.and.returnValue(of([
+      { id: 'build-2', shortId: 'other', name: 'Other', blob: 'z1.yyy' }
+    ]));
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+
+    expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', null);
+  });
+
+  it('degrades to not-owned if the ownership check itself fails, rather than leaving it unresolved forever', () => {
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+
+    expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', null);
+  });
+
+  it('confirms ownership after a history restore too, not just the initial fetch', () => {
+    // Ownership can't travel through the URL any more (see
+    // BuildUrlIdentity's comment) - restoreIdentity alone can't resolve it,
+    // so the buildIdentityFromUrl$ subscriber has to re-run the same check
+    // loadBuildFromRoute uses on a fresh fetch.
+    configure(null);
+    buildsService.listMine.and.returnValue(of([
+      { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
+    ]));
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+    buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
+
+    expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', 'build-1');
+  });
+
+  it('does not re-check listMine for a shortId already confirmed this session', () => {
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.and.returnValue(of([
+      { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
+    ]));
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+    expect(buildsService.listMine.calls.count()).toBe(1);
+
+    // A later history restore lands back on the same build's identity -
+    // already resolved this session, so bouncing through it again via
+    // browser back/forward must not spam listMine().
+    buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
+
+    expect(buildsService.listMine.calls.count()).toBe(1);
+  });
+
+  it('clears the ownership memo on an auth transition, so a re-check can happen', () => {
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.and.returnValue(of([
+      { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
+    ]));
+    const isAuthenticated$ = new BehaviorSubject(true);
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$, user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+    expect(buildsService.listMine.calls.count()).toBe(1);
+
+    isAuthenticated$.next(false);
+    isAuthenticated$.next(true);
+    buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
+
+    expect(buildsService.listMine.calls.count()).toBe(2);
   });
 
   it('keeps contentReady false while the shortId fetch is in flight, then flips it true once loaded', () => {

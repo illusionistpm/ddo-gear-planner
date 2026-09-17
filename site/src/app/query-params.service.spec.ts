@@ -344,7 +344,7 @@ describe('QueryParamsService', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
 
-    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' });
+    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build' });
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
@@ -376,7 +376,7 @@ describe('QueryParamsService', () => {
     const identityEmissions: any[] = [];
     service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
 
-    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' });
+    service.setBuildIdentityForUrl({ shortId: 'ab12cd34', name: 'My Build' });
     const withIdentity = (service as any).withBuildIdentityForUrl({ Weapon: 'Calamitous Battle Axe' });
     const compactParam = codec.encode(withIdentity);
 
@@ -390,14 +390,14 @@ describe('QueryParamsService', () => {
     const params = listener.updateFromParams.calls.mostRecent().args[0];
     expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
     expect(params.keys).not.toContain('__buildRef');
-    expect(identityEmissions).toEqual([{ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' }]);
+    expect(identityEmissions).toEqual([{ shortId: 'ab12cd34', name: 'My Build' }]);
   });
 
   it('never leaks the build identity into getCombinedParams (the save-payload composer)', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
     const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
-    const withIdentity = { Weapon: 'Calamitous Battle Axe', __buildRef: JSON.stringify({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' }) };
+    const withIdentity = { Weapon: 'Calamitous Battle Axe', __buildRef: JSON.stringify({ shortId: 'ab12cd34', name: 'My Build' }) };
     const compactParam = codec.encode(withIdentity);
 
     service.subscribe(listener);
@@ -410,6 +410,32 @@ describe('QueryParamsService', () => {
     expect(service.getCombinedParams()).toEqual({ Weapon: 'Calamitous Battle Axe' });
   });
 
+  it('ignores a stale savedBuildId in a bookmarked/pre-existing URL - it is no longer read at all', () => {
+    // A URL minted before savedBuildId was removed from the identity JSON
+    // may still be sitting in someone's bookmarks or browser history. It
+    // must decode exactly as if that field were never there, not error out
+    // or (worse) resurrect ownership from it.
+    const service: QueryParamsService = TestBed.inject(QueryParamsService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const identityEmissions: any[] = [];
+    service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
+    const withStaleIdentity = {
+      Weapon: 'Calamitous Battle Axe',
+      __buildRef: JSON.stringify({ shortId: 'ab12cd34', name: 'My Build', savedBuildId: 'build-1' })
+    };
+    const compactParam = codec.encode(withStaleIdentity);
+
+    service.subscribe(listener);
+    service.updateFromParams({
+      keys: ['b'],
+      get: (key: string) => key === 'b' ? compactParam : null,
+      getAll: (key: string) => key === 'b' ? [compactParam] : []
+    });
+
+    expect(identityEmissions).toEqual([{ shortId: 'ab12cd34', name: 'My Build' }]);
+  });
+
   it('round-trips a name-only identity (null shortId) for a never-saved build', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
@@ -417,7 +443,7 @@ describe('QueryParamsService', () => {
     const identityEmissions: any[] = [];
     service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
 
-    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build', savedBuildId: null });
+    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build' });
     const withIdentity = (service as any).withBuildIdentityForUrl({ Weapon: 'Calamitous Battle Axe' });
     const compactParam = codec.encode(withIdentity);
 
@@ -428,7 +454,7 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? [compactParam] : []
     });
 
-    expect(identityEmissions).toEqual([{ shortId: null, name: 'My New Build', savedBuildId: null }]);
+    expect(identityEmissions).toEqual([{ shortId: null, name: 'My New Build' }]);
   });
 
   it('refreshLiveEditUrl forces the current identity+params into the URL immediately, with replaceUrl', () => {
@@ -440,7 +466,7 @@ describe('QueryParamsService', () => {
     // register() alone doesn't subscribe until initialPageLoad flips false -
     // applyDecodedBuildParams (a no-op load) flips it, as in production.
     service.applyDecodedBuildParams({});
-    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build', savedBuildId: null });
+    service.setBuildIdentityForUrl({ shortId: null, name: 'My New Build' });
 
     service.refreshLiveEditUrl();
 
@@ -450,7 +476,7 @@ describe('QueryParamsService', () => {
     const queryParams = call.args[1]?.queryParams as any;
     expect(codec.decode(queryParams.b)).toEqual({
       levelrange: '1,36',
-      __buildRef: JSON.stringify({ shortId: null, name: 'My New Build', savedBuildId: null })
+      __buildRef: JSON.stringify({ shortId: null, name: 'My New Build' })
     });
   });
 

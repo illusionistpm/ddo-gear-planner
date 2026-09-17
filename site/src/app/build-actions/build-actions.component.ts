@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../analytics.service';
 import { AuthService } from '../auth.service';
-import { BuildSummary } from '../build';
+import { BuildSummary, MAX_BLOB_LENGTH } from '../build';
 import { BuildUrlCodecService } from '../build-url-codec.service';
 import { BuildsService } from '../builds.service';
 import { Clipboard } from '../clipboard';
@@ -114,6 +114,11 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // button needs its own indicator or clicking Save looks like nothing
   // happened for however long the request takes.
   savingInPlace = false;
+  // Same reasoning as above - saveInPlace has no dialog to surface an error
+  // in either, so it needs its own slot (rendered next to the save
+  // control) rather than silently clearing savingInPlace with nothing
+  // shown, which is what this path used to do for every failure.
+  savingInPlaceError: string | null = null;
 
   @ViewChild('nameInput') private readonly nameInputRef?: ElementRef<HTMLInputElement>;
   @ViewChild('saveCaret') private readonly saveCaretRef?: ElementRef<HTMLButtonElement>;
@@ -481,7 +486,20 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   private createBuild(name: string): void {
-    this.buildsService.create(name, this.currentBlob()).subscribe({
+    const blob = this.currentBlob();
+    if (blob.length > MAX_BLOB_LENGTH) {
+      // The worker's own validateBlob() stays the authoritative check (this
+      // API is callable directly) - this is just an earlier, friendlier
+      // rejection than waiting for its 400, which - unlike this one - has
+      // no way to say anything more specific than "a blob is required"
+      // (see worker/src/routes/builds.ts's shared 400 message for a
+      // missing OR oversized blob).
+      this.dialogSaving = false;
+      this.dialogError = 'This build is too large to save - try tracking fewer items or affixes.';
+      this.cdr.markForCheck();
+      return;
+    }
+    this.buildsService.create(name, blob).subscribe({
       next: build => {
         this.dialogSaving = false;
         this.dialogOpen = false;
@@ -524,10 +542,20 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   private saveInPlace(savedBuildId: string): void {
+    const blob = this.currentBlob();
+    if (blob.length > MAX_BLOB_LENGTH) {
+      // See createBuild()'s identical check - same reasoning, just with
+      // nowhere but savingInPlaceError to show it (no dialog on this path).
+      this.savingInPlaceError = 'This build is too large to save - try tracking fewer items or affixes.';
+      this.cdr.markForCheck();
+      return;
+    }
+    this.savingInPlaceError = null;
     this.savingInPlace = true;
-    this.buildsService.update(savedBuildId, { blob: this.currentBlob() }).subscribe({
+    this.buildsService.update(savedBuildId, { blob }).subscribe({
       next: build => {
         this.savingInPlace = false;
+        this.savingInPlaceError = null;
         // See createBuild()'s comment - same caching, so browser back to
         // this build's bare URL after further edits doesn't need a
         // network round trip to restore this saved content.
@@ -546,11 +574,12 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
         this.navigateToSavedBuild(build.shortId, build.name);
         this.cdr.markForCheck();
       },
-      // A failed in-place save leaves isDirty as-is (no dialog to show an
-      // error in for this path) - just clear the saving indicator so the
-      // button re-enables and the user can simply try again.
+      // A failed in-place save leaves isDirty as-is - clear the saving
+      // indicator so the button re-enables, and surface something (this
+      // used to fail completely silently, with no dialog to show it in).
       error: () => {
         this.savingInPlace = false;
+        this.savingInPlaceError = 'Could not save that build. Please try again.';
         this.cdr.markForCheck();
       }
     });

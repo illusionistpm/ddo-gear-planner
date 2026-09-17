@@ -5,6 +5,24 @@ import { isBuildShortIdRoute } from './build-route';
 import { CurrentBuildService } from './current-build.service';
 import { MainComponent } from './main/main.component';
 
+// Single source of truth for the confirm text - MyBuildsComponent's
+// newBuild()/open() show this same prompt (see confirmLeaveUnsavedChanges
+// below) for the two navigations this guard itself can't cover, since
+// they're both a fresh CanDeactivate-relevant transition. Previously each
+// of those three call sites duplicated its own copy of this string.
+export const UNSAVED_CHANGES_MESSAGE = 'You have unsaved changes. Leave without saving?';
+
+/**
+ * True if there's nothing unsaved to lose, or the user confirmed leaving
+ * anyway. Shared by MyBuildsComponent's newBuild()/open() - see their
+ * comments for why CanDeactivate itself doesn't fire for either of those
+ * navigations, and unsavedChangesGuard below for the third case this
+ * covers on the router's behalf.
+ */
+export function confirmLeaveUnsavedChanges(currentBuild: CurrentBuildService): boolean {
+  return !currentBuild.value.isDirty || window.confirm(UNSAVED_CHANGES_MESSAGE);
+}
+
 // Covers navigating in-app away from MainComponent to a different route.
 // Browser-chrome navigation (closing the tab, a hard refresh, typing a new
 // URL) is covered separately by AppComponent's beforeunload listener, which
@@ -39,5 +57,5 @@ export const unsavedChangesGuard: CanDeactivateFn<MainComponent> = (_component, 
     return true;
   }
 
-  return window.confirm('You have unsaved changes. Leave without saving?');
+  return window.confirm(UNSAVED_CHANGES_MESSAGE);
 };

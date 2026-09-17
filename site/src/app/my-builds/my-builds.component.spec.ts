@@ -42,10 +42,12 @@ describe('MyBuildsComponent', () => {
       ]
     });
 
-    return TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    component.ngOnInit();
+    return component;
   }
 
-  it('loads the list on construction', () => {
+  it('loads the list on init', () => {
     const component = create([makeBuild({ name: 'A' }), makeBuild({ id: 'build-2', name: 'B' })]);
 
     expect(component.builds?.length).toBe(2);
@@ -67,6 +69,7 @@ describe('MyBuildsComponent', () => {
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
     cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
     const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    component.ngOnInit();
 
     expect(component.builds).toBeNull();
     expect(component.loadError).toContain('Could not load');
@@ -219,6 +222,7 @@ describe('MyBuildsComponent', () => {
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
     cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
     const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    component.ngOnInit();
     const event = jasmine.createSpyObj('Event', ['stopPropagation']);
 
     component.confirmDelete(build, event);

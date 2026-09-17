@@ -39,6 +39,10 @@
     <span class="build-name-error" role="alert">{{ renameError }}</span>
   }
 
+  @if (savingInPlaceError) {
+    <span class="build-name-error" role="alert">{{ savingInPlaceError }}</span>
+  }
+
   @if (isAuthenticated) {
     <div class="save-split" [class.save-split-with-menu]="saveControl.hasMenu">
       <button

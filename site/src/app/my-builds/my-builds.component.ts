@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { BuildSummary, MAX_BUILDS_PER_USER } from '../build';
 import { BuildsService } from '../builds.service';
 import { CurrentBuildService } from '../current-build.service';
+import { confirmLeaveUnsavedChanges } from '../unsaved-changes.guard';
 import { slugifyBuildName } from '../build-slug';
 
 @Component({
@@ -14,7 +15,7 @@ import { slugifyBuildName } from '../build-slug';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class MyBuildsComponent {
+export class MyBuildsComponent implements OnInit {
   @Output() closed = new EventEmitter<void>();
 
   readonly maxBuilds = MAX_BUILDS_PER_USER;
@@ -29,7 +30,17 @@ export class MyBuildsComponent {
     private readonly currentBuild: CurrentBuildService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef
-  ) {
+  ) {}
+
+  // Not fetched from the constructor: DI construction order isn't the same
+  // guarantee as "this component is actually about to render" (a
+  // constructor can run during change detection setup, before Angular
+  // considers the component initialized), and firing an HTTP call from a
+  // constructor is a well-known way to end up doing it earlier or more
+  // often than intended if this component's instantiation timing ever
+  // changes. ngOnInit is the idiomatic place for a component's initial data
+  // fetch.
+  ngOnInit(): void {
     this.refresh();
   }
 
@@ -61,7 +72,7 @@ export class MyBuildsComponent {
     // CanDeactivate (so genuine browser back/forward and the drop-to-root-
     // on-dirty-edit mechanism never get blocked by it), so it never shows a
     // confirm on its own here - this is the only thing that will.
-    if (this.currentBuild.value.isDirty && !window.confirm('You have unsaved changes. Leave without saving?')) {
+    if (!confirmLeaveUnsavedChanges(this.currentBuild)) {
       return;
     }
 
@@ -75,7 +86,7 @@ export class MyBuildsComponent {
     // here: this and the destination both match the same /build/:shortId
     // route config, so the router reuses MainComponent rather than
     // deactivating it. Check directly instead.
-    if (this.currentBuild.value.isDirty && !window.confirm('You have unsaved changes. Leave without saving?')) {
+    if (!confirmLeaveUnsavedChanges(this.currentBuild)) {
       return;
     }
 

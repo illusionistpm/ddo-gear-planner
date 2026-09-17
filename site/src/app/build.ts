@@ -25,3 +25,13 @@ export interface Build extends BuildSummary {
 // directly), this is just so the UI can show "X/100" without hardcoding the
 // number twice. Keep these in sync by hand if the limit ever changes.
 export const MAX_BUILDS_PER_USER = 100;
+
+// Mirror of worker/src/routes/builds.ts's MAX_BLOB_LENGTH - unlike
+// MAX_BUILDS_PER_USER, this one previously had no client-side mirror at
+// all, so a blob that grew past it (in practice, from tracking an unusually
+// large number of items/affixes) was only ever caught by a 400 from the
+// server after a real save attempt, with no earlier warning. The worker
+// stays authoritative (its own validateBlob() is what's actually
+// enforced); this is just an early, friendlier check - see
+// BuildActionsComponent.currentBlob's use of it.
+export const MAX_BLOB_LENGTH = 4096;

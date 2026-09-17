@@ -237,7 +237,9 @@ describe('BuildActionsComponent', () => {
     expect(component.savingInPlace).toBeFalse();
   });
 
-  it('clears the "Saving…" indicator and re-enables the button if the in-place save fails', () => {
+  it('clears the "Saving…" indicator, re-enables the button, and surfaces an error if the in-place save fails', () => {
+    // Previously failed completely silently - no dialog exists on this
+    // path to show an error in, so it needs its own slot (savingInPlaceError).
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     buildsService.update.and.returnValue(throwError(() => new Error('network down')));
@@ -245,6 +247,19 @@ describe('BuildActionsComponent', () => {
     component.onSaveControlPrimaryClick();
 
     expect(component.saveControl).toEqual({ label: 'Save', disabled: false, hasMenu: true });
+    expect(component.savingInPlaceError).toContain('Could not save');
+  });
+
+  it('rejects an oversized blob client-side on save-in-place, without calling update()', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+    codec.encode.and.returnValue('x'.repeat(4097));
+
+    component.onSaveControlPrimaryClick();
+
+    expect(buildsService.update).not.toHaveBeenCalled();
+    expect(component.savingInPlaceError).toContain('too large');
+    expect(component.savingInPlace).toBeFalse();
   });
 
   it('creates and navigates to the new build on dialog confirm', () => {
@@ -312,6 +327,18 @@ describe('BuildActionsComponent', () => {
     component.onDialogConfirmed('My Build');
 
     expect(buildsService.create).toHaveBeenCalledWith('My Build', 'z1.encoded');
+  });
+
+  it('rejects an oversized blob client-side, before ever calling create()', () => {
+    auth.isAuthenticated$.next(true);
+    codec.encode.and.returnValue('x'.repeat(4097));
+
+    component.openDialog('create', '');
+    component.onDialogConfirmed('My Build');
+
+    expect(buildsService.create).not.toHaveBeenCalled();
+    expect(component.dialogError).toContain('too large');
+    expect(component.dialogSaving).toBeFalse();
   });
 
   it('shows an error and keeps the dialog open if create fails', () => {

@@ -21,7 +21,7 @@ function makeState(overrides: Partial<CurrentBuildState> = {}): CurrentBuildStat
     shortId: null,
     name: null,
     isDirty: false,
-    isOwnedByCurrentUser: false,
+    ownership: 'other',
     ...overrides
   };
 }
@@ -107,7 +107,7 @@ describe('BuildActionsComponent', () => {
     expect(component.showPrimarySave).toBeFalse();
     expect(component.showSaveAs).toBeFalse();
 
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
     expect(component.showPrimarySave).toBeFalse();
     expect(component.showSaveAs).toBeFalse();
@@ -123,7 +123,7 @@ describe('BuildActionsComponent', () => {
 
   it('offers Save (enabled) and Save As for a named, dirty, owned build', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
     expect(component.showPrimarySave).toBeTrue();
     expect(component.primarySaveLabel).toBe('Save');
@@ -133,7 +133,7 @@ describe('BuildActionsComponent', () => {
 
   it('disables Save (but keeps Save As) for a named, clean, owned build', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
 
     expect(component.showPrimarySave).toBeFalse();
     expect(component.showSaveAs).toBeTrue();
@@ -141,7 +141,7 @@ describe('BuildActionsComponent', () => {
 
   it('offers only Save As for a build not owned by the viewer', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, isOwnedByCurrentUser: false });
+    setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, ownership: 'other' });
 
     expect(component.showPrimarySave).toBeFalse();
     expect(component.showSaveAs).toBeTrue();
@@ -172,7 +172,7 @@ describe('BuildActionsComponent', () => {
 
   it('saves in place (PUT) without a dialog for a named, dirty, owned build', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
 
     component.onPrimarySaveClick();
@@ -190,7 +190,7 @@ describe('BuildActionsComponent', () => {
 
   it('shows a "Saving…" indicator on the primary button while an in-place save is in flight', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     const update$ = new Subject<{ id: string; shortId: string; name: string; blob: string }>();
     buildsService.update.and.returnValue(update$);
 
@@ -212,7 +212,7 @@ describe('BuildActionsComponent', () => {
 
   it('clears the "Saving…" indicator and re-enables the button if the in-place save fails', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     buildsService.update.and.returnValue(throwError(() => new Error('network down')));
 
     component.onPrimarySaveClick();
@@ -370,7 +370,7 @@ describe('BuildActionsComponent', () => {
   });
 
   it('starts renaming with the current name pre-filled, regardless of auth/save state', () => {
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
 
     component.startRename();
 
@@ -399,7 +399,7 @@ describe('BuildActionsComponent', () => {
 
   it('cancels renaming without saving', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     component.startRename();
     component.nameDraft = 'Something else';
 
@@ -411,7 +411,7 @@ describe('BuildActionsComponent', () => {
 
   it('commits a rename, updating state and navigating to the (possibly re-slugified) URL', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
     component.startRename();
     component.nameDraft = 'Renamed Build';
@@ -426,7 +426,7 @@ describe('BuildActionsComponent', () => {
 
   it('does nothing on commit when the name is unchanged', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     component.startRename();
 
     component.commitRename();
@@ -437,7 +437,7 @@ describe('BuildActionsComponent', () => {
 
   it('cancels the edit on commit when the draft is empty', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     component.startRename();
     component.nameDraft = '   ';
 
@@ -449,7 +449,7 @@ describe('BuildActionsComponent', () => {
 
   it('blocks a rename that duplicates another of the user\'s builds', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     buildsService.listMine.and.returnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.old' },
       { id: 'build-2', shortId: 'def456', name: 'Other Build', blob: 'z1.old' }
@@ -466,7 +466,7 @@ describe('BuildActionsComponent', () => {
 
   it('does not treat the build\'s own current name as a rename duplicate', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     buildsService.listMine.and.returnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.old' }
     ]));
@@ -481,7 +481,7 @@ describe('BuildActionsComponent', () => {
 
   it('proceeds with the rename if the duplicate-name check itself fails', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
     buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
     component.startRename();
@@ -494,7 +494,7 @@ describe('BuildActionsComponent', () => {
 
   it('shows an error and keeps editing if the rename request fails', () => {
     auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     buildsService.update.and.returnValue(throwError(() => new Error('nope')));
     component.startRename();
     component.nameDraft = 'Renamed Build';
@@ -532,7 +532,7 @@ describe('BuildActionsComponent', () => {
 
     it('mints a short link and copies it when signed in', () => {
       auth.isAuthenticated$.next(true);
-      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isOwnedByCurrentUser: true });
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
 
       component.copyLink();
 

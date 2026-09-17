@@ -218,7 +218,7 @@ describe('AppComponent', () => {
     currentBuild.markLoaded({ shortId: 'abc123', name: 'My Build', canonicalParams: {} });
 
     Object.defineProperty(currentBuild, 'value', {
-      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: false })
+      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
     const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
 
@@ -234,7 +234,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     currentBuild.markLoaded({ shortId: 'abc123', name: 'My Build', canonicalParams: {} });
     Object.defineProperty(currentBuild, 'value', {
-      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: false })
+      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
     authServiceStub.isRedirectingAwayForAuth = true;
 

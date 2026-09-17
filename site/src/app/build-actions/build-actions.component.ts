@@ -33,7 +33,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     shortId: null,
     name: null,
     isDirty: false,
-    isOwnedByCurrentUser: false
+    ownership: 'other'
   };
   isAuthenticated = false;
   userDisplayName: string | null = null;
@@ -236,7 +236,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // clean) plus "Save As…"; anything not owned by the viewer only offers
   // "Save As…".
   get showPrimarySave(): boolean {
-    return this.isAuthenticated && (!this.buildState.shortId || (this.buildState.isOwnedByCurrentUser && this.buildState.isDirty));
+    return this.isAuthenticated && (!this.buildState.shortId || (this.buildState.ownership === 'owned' && this.buildState.isDirty));
   }
 
   get primarySaveLabel(): string {
@@ -250,7 +250,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     if (this.savingInPlace) {
       return true;
     }
-    return this.buildState.shortId != null && this.buildState.isOwnedByCurrentUser && !this.buildState.isDirty;
+    return this.buildState.shortId != null && this.buildState.ownership === 'owned' && !this.buildState.isDirty;
   }
 
   get showSaveAs(): boolean {
@@ -268,7 +268,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.buildState.isOwnedByCurrentUser && this.buildState.savedBuildId && !this.savingInPlace) {
+    if (this.buildState.ownership === 'owned' && this.buildState.savedBuildId && !this.savingInPlace) {
       this.saveInPlace(this.buildState.savedBuildId);
     }
   }

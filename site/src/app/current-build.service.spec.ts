@@ -43,7 +43,7 @@ describe('CurrentBuildService', () => {
       shortId: null,
       name: null,
       isDirty: false,
-      isOwnedByCurrentUser: false
+      ownership: 'other'
     });
   });
 
@@ -85,14 +85,14 @@ describe('CurrentBuildService', () => {
   it('marks a build not owned by the caller on load unless a savedBuildId is given', () => {
     loadBuild({ shortId: 'abc123', name: 'Someone Else\'s Build' });
 
-    expect(service.value.isOwnedByCurrentUser).toBeFalse();
+    expect(service.value.ownership).toBe('other');
     expect(service.value.savedBuildId).toBeNull();
   });
 
   it('marks a build owned on load when a savedBuildId is already known', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
 
-    expect(service.value.isOwnedByCurrentUser).toBeTrue();
+    expect(service.value.ownership).toBe('owned');
     expect(service.value.savedBuildId).toBe('build-1');
   });
 
@@ -115,7 +115,7 @@ describe('CurrentBuildService', () => {
 
     service.confirmOwnership('abc123', 'build-1');
 
-    expect(service.value.isOwnedByCurrentUser).toBeTrue();
+    expect(service.value.ownership).toBe('owned');
     expect(service.value.savedBuildId).toBe('build-1');
     expect(setBuildIdentityForUrl).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
     expect(publishBuildIdentity).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
@@ -144,7 +144,7 @@ describe('CurrentBuildService', () => {
 
       service.restoreIdentity({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
 
-      expect(service.value.isOwnedByCurrentUser).toBeTrue();
+      expect(service.value.ownership).toBe('owned');
       expect(service.value.savedBuildId).toBe('build-1');
       expect(setBuildIdentityForUrl).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
     });
@@ -221,7 +221,7 @@ describe('CurrentBuildService', () => {
 
     service.confirmOwnership('abc123', 'build-1');
 
-    expect(service.value.isOwnedByCurrentUser).toBeFalse();
+    expect(service.value.ownership).toBe('other');
     expect(service.value.shortId).toBe('xyz789');
   });
 
@@ -234,7 +234,7 @@ describe('CurrentBuildService', () => {
     service.markSaved({ savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Axe' } });
 
     expect(service.value.isDirty).toBeFalse();
-    expect(service.value.isOwnedByCurrentUser).toBeTrue();
+    expect(service.value.ownership).toBe('owned');
     expect(setBuildIdentityForUrl).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
     expect(publishBuildIdentity).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
 
@@ -263,7 +263,7 @@ describe('CurrentBuildService', () => {
       shortId: null,
       name: null,
       isDirty: false,
-      isOwnedByCurrentUser: false
+      ownership: 'other'
     });
     expect(setBuildIdentityForUrl).toHaveBeenCalledWith(null);
     expect(publishBuildIdentity).toHaveBeenCalledWith(null);

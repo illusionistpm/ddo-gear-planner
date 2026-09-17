@@ -29,7 +29,7 @@ describe('MyBuildsComponent', () => {
     buildsService.listMine.and.returnValue(of(builds));
     buildsService.delete.and.returnValue(of(undefined));
     currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
-      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, isOwnedByCurrentUser: false }
+      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
     });
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
     cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
@@ -62,7 +62,7 @@ describe('MyBuildsComponent', () => {
     buildsService = jasmine.createSpyObj('BuildsService', ['listMine', 'delete']);
     buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
     currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
-      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, isOwnedByCurrentUser: false }
+      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
     });
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
     cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
@@ -86,7 +86,7 @@ describe('MyBuildsComponent', () => {
   it('confirms before switching away from a dirty build (CanDeactivate does not fire for same-route param changes)', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
     spyOn(window, 'confirm').and.returnValue(false);
 
@@ -99,7 +99,7 @@ describe('MyBuildsComponent', () => {
   it('proceeds if the user confirms leaving a dirty build', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
     spyOn(window, 'confirm').and.returnValue(true);
 
@@ -123,7 +123,7 @@ describe('MyBuildsComponent', () => {
   it('confirms before clearing a dirty build', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
     spyOn(window, 'confirm').and.returnValue(false);
 
@@ -137,7 +137,7 @@ describe('MyBuildsComponent', () => {
   it('proceeds clearing a dirty build if the user confirms', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
     spyOn(window, 'confirm').and.returnValue(true);
 
@@ -150,7 +150,7 @@ describe('MyBuildsComponent', () => {
   it('identifies the currently loaded build', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, ownership: 'owned' }
     });
 
     expect(component.isCurrentBuild(makeBuild({ id: 'build-1' }))).toBeTrue();
@@ -160,7 +160,7 @@ describe('MyBuildsComponent', () => {
   it('refuses to start a delete for the currently loaded build', () => {
     const component = create();
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, ownership: 'owned' }
     });
     const build = makeBuild({ id: 'build-1' });
     const event = jasmine.createSpyObj('Event', ['stopPropagation']);
@@ -198,7 +198,7 @@ describe('MyBuildsComponent', () => {
     const build = makeBuild();
     const component = create([build]);
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: build.id, shortId: build.shortId, name: build.name, isDirty: false, isOwnedByCurrentUser: true }
+      value: { savedBuildId: build.id, shortId: build.shortId, name: build.name, isDirty: false, ownership: 'owned' }
     });
     const event = jasmine.createSpyObj('Event', ['stopPropagation']);
 
@@ -214,7 +214,7 @@ describe('MyBuildsComponent', () => {
     buildsService.listMine.and.returnValue(of([build]));
     buildsService.delete.and.returnValue(throwError(() => new Error('nope')));
     currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
-      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, isOwnedByCurrentUser: false }
+      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
     });
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
     cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);

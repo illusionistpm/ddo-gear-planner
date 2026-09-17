@@ -151,10 +151,10 @@ describe('MainComponent - loading a build by shortId', () => {
       'CurrentBuildService',
       ['markLoaded', 'confirmOwnership', 'reset', 'restoreIdentity', 'getCanonicalParamsCache'],
       {
-        value: { savedBuildId: null, shortId: null, name: null, isDirty: false, isOwnedByCurrentUser: false },
+        value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
         // BuildActionsComponent (rendered inside MainComponent's template)
         // also injects CurrentBuildService and subscribes to state$.
-        state$: of({ savedBuildId: null, shortId: null, name: null, isDirty: false, isOwnedByCurrentUser: false })
+        state$: of({ savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' })
       }
     );
     currentBuild.getCanonicalParamsCache.and.returnValue(null);
@@ -243,7 +243,7 @@ describe('MainComponent - loading a build by shortId', () => {
     // a build that's already on screen.
     configure('abc123');
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'owned' }
     });
     currentBuild.getCanonicalParamsCache.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
 
@@ -261,7 +261,7 @@ describe('MainComponent - loading a build by shortId', () => {
   it('does not fetch or apply anything when returning to the bare shortId route with nothing cached', () => {
     configure('abc123');
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'owned' }
     });
     currentBuild.getCanonicalParamsCache.and.returnValue(null);
 
@@ -323,7 +323,7 @@ describe('MainComponent - loading a build by shortId', () => {
   it('does not re-fetch the same shortId that is already loaded', () => {
     configure('abc123');
     Object.defineProperty(currentBuild, 'value', {
-      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, isOwnedByCurrentUser: true }
+      value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, ownership: 'owned' }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();

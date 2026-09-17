@@ -3,12 +3,18 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { BuildUrlIdentity, QueryParamsService } from './query-params.service';
 
+// Replaces a plain boolean so "haven't checked ownership yet" can be told
+// apart from "checked, and it's not yours" - 'unknown' isn't produced
+// anywhere yet (nothing here derives ownership asynchronously), but the type
+// exists now so that follow-up doesn't need another state-shape migration.
+export type BuildOwnership = 'unknown' | 'owned' | 'other';
+
 export interface CurrentBuildState {
   savedBuildId: string | null;
   shortId: string | null;
   name: string | null;
   isDirty: boolean;
-  isOwnedByCurrentUser: boolean;
+  ownership: BuildOwnership;
 }
 
 const UNSAVED_STATE: CurrentBuildState = {
@@ -16,10 +22,10 @@ const UNSAVED_STATE: CurrentBuildState = {
   shortId: null,
   name: null,
   isDirty: false,
-  isOwnedByCurrentUser: false
+  ownership: 'other'
 };
 
-// Owns { savedBuildId, shortId, name, isDirty, isOwnedByCurrentUser } for
+// Owns { savedBuildId, shortId, name, isDirty, ownership } for
 // whatever build is currently loaded. Deliberately doesn't call
 // BuildsService itself: GET /api/build/:shortId is public and only returns
 // {name, blob} (no id, no owner - see builds.service.ts), so there's no way
@@ -88,7 +94,7 @@ export class CurrentBuildService {
       name: identity.name,
       savedBuildId: identity.savedBuildId,
       isDirty: opts.resetBaseline ? false : this.stateSubject.value.isDirty,
-      isOwnedByCurrentUser: identity.savedBuildId != null
+      ownership: identity.savedBuildId != null ? 'owned' : 'other'
     } : UNSAVED_STATE);
     if (opts.resetBaseline) {
       this.resetBaseline();

@@ -533,52 +533,132 @@ describe('BuildActionsComponent', () => {
 
   describe('share menu', () => {
     beforeEach(() => {
-      spyOn(Clipboard, 'copy');
+      spyOn(Clipboard, 'copy').and.returnValue(true);
     });
 
-    it('toggles open and closed, closing the other menus', () => {
+    it('toggles open and closed, closing the other menus, and mints/resolves the share link on open', () => {
       component.avatarMenuOpen = true;
       component.myBuildsOpen = true;
+      component.saveMenuOpen = true;
 
       component.toggleShareMenu();
       expect(component.shareMenuOpen).toBeTrue();
       expect(component.avatarMenuOpen).toBeFalse();
       expect(component.myBuildsOpen).toBeFalse();
+      expect(component.saveMenuOpen).toBeFalse();
+      // Resolved on open (signed out here, so synchronously to the long
+      // URL) - not deferred to the first copy click. See the plan for why:
+      // execCommand/navigator.clipboard.writeText both require the copy
+      // itself to be synchronous, so any network round-trip has to happen
+      // before the click, not during it.
+      expect(component.shareLink).toEqual({ status: 'ready', url: window.location.href, kind: 'long' });
 
       component.toggleShareMenu();
       expect(component.shareMenuOpen).toBeFalse();
     });
 
     it('copies the current long URL with no network call when signed out', () => {
+      component.toggleShareMenu();
+
       component.copyLink();
 
       expect(shortLinks.create).not.toHaveBeenCalled();
       expect(Clipboard.copy).toHaveBeenCalledWith(window.location.href);
     });
 
-    it('mints a short link and copies it when signed in', () => {
+    it('mints a short link and copies it when signed in with a dirty (unsaved) edit', () => {
       auth.isAuthenticated$.next(true);
-      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
+      component.toggleShareMenu();
       component.copyLink();
 
       expect(shortLinks.create).toHaveBeenCalledWith('z1.encoded', 'My Build');
       expect(Clipboard.copy).toHaveBeenCalledWith(`${window.location.origin}/build/shrt1234/my-build`);
     });
 
+    it('mints a short link (does not use the canonical URL) for a build the viewer does not own', () => {
+      auth.isAuthenticated$.next(true);
+      setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, ownership: 'other' });
+
+      component.toggleShareMenu();
+      component.copyLink();
+
+      expect(shortLinks.create).toHaveBeenCalled();
+    });
+
+    it('shares the build\'s own canonical URL, with no mint at all, for a clean owned saved build', () => {
+      // The audit's finding: sharing a saved build used to always mint a
+      // NEW immutable snapshot, pinning recipients to a stale copy the
+      // moment the build was edited again. A clean, owned, already-saved
+      // build should just share its own URL instead.
+      auth.isAuthenticated$.next(true);
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
+
+      component.toggleShareMenu();
+      expect(component.shareLink).toEqual({
+        status: 'ready', url: `${window.location.origin}/build/abc123/my-build`, kind: 'canonical'
+      });
+
+      component.copyLink();
+
+      expect(shortLinks.create).not.toHaveBeenCalled();
+      expect(Clipboard.copy).toHaveBeenCalledWith(`${window.location.origin}/build/abc123/my-build`);
+    });
+
     it('copies gear text plus the link for copyTextAndLink', () => {
       auth.isAuthenticated$.next(true);
+      component.toggleShareMenu();
 
       component.copyTextAndLink();
 
       expect(Clipboard.copy).toHaveBeenCalledWith(`Weapon: Sword\n${window.location.origin}/build/shrt1234`);
     });
 
-    it('copies just the gear text for copyTextOnly, with no network call', () => {
+    it('copies just the gear text for copyTextOnly, with no network call, even without opening the menu first', () => {
       component.copyTextOnly();
 
       expect(shortLinks.create).not.toHaveBeenCalled();
       expect(Clipboard.copy).toHaveBeenCalledWith('Weapon: Sword');
+    });
+
+    it('does not copy anything for a link action clicked before the mint resolves - no async fallback', () => {
+      auth.isAuthenticated$.next(true);
+      const create$ = new Subject<{ shortId: string }>();
+      shortLinks.create.and.returnValue(create$);
+
+      component.toggleShareMenu();
+      expect(component.shareLink).toEqual({ status: 'pending' });
+
+      component.copyLink();
+      expect(Clipboard.copy).not.toHaveBeenCalled();
+
+      create$.next({ shortId: 'shrt1234' });
+      // Resolves the link, but the earlier click is not retroactively
+      // honored - the menu shows it's ready now, and a fresh click copies it.
+      expect(component.shareLink).toEqual({ status: 'ready', url: `${window.location.origin}/build/shrt1234`, kind: 'short' });
+      component.copyLink();
+      expect(Clipboard.copy).toHaveBeenCalledWith(`${window.location.origin}/build/shrt1234`);
+    });
+
+    it('surfaces an error and disables the link items if minting the share link fails', () => {
+      auth.isAuthenticated$.next(true);
+      shortLinks.create.and.returnValue(throwError(() => new Error('network down')));
+
+      component.toggleShareMenu();
+
+      expect(component.shareLink).toEqual({ status: 'error', message: jasmine.any(String) });
+      component.copyLink();
+      expect(Clipboard.copy).not.toHaveBeenCalled();
+    });
+
+    it('surfaces an error, without a false "Copied!", when the clipboard write itself fails', () => {
+      (Clipboard.copy as jasmine.Spy).and.returnValue(false);
+
+      component.copyTextOnly();
+
+      expect(component.justCopied).toBeNull();
+      expect(component.shareCopyError).toContain('Could not copy');
     });
 
     it('shows a transient "Copied!" confirmation that clears itself', (done) => {
@@ -595,6 +675,16 @@ describe('BuildActionsComponent', () => {
       component.copyTextOnly();
 
       expect(analytics.track).toHaveBeenCalledWith('copy_build', jasmine.objectContaining({ copy_kind: 'text', link_kind: 'none' }));
+    });
+
+    it('tracks the resolved link kind (short/canonical/long), not just signed-in-ness', () => {
+      auth.isAuthenticated$.next(true);
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
+      component.toggleShareMenu();
+
+      component.copyLink();
+
+      expect(analytics.track).toHaveBeenCalledWith('copy_build', jasmine.objectContaining({ copy_kind: 'link', link_kind: 'canonical' }));
     });
   });
 });

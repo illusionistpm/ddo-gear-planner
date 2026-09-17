@@ -61,9 +61,15 @@
 
     @if (shareMenuOpen) {
       <div class="share-menu">
-        <button type="button" class="share-menu-item" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : (isAuthenticated ? 'Copy short link' : 'Copy link') }}</button>
-        <button type="button" class="share-menu-item" (click)="copyTextAndLink()">{{ justCopied === 'text-link' ? 'Copied!' : 'Copy text + link' }}</button>
+        <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : shareLinkLabel }}</button>
+        <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyTextAndLink()">{{ justCopied === 'text-link' ? 'Copied!' : shareTextAndLinkLabel }}</button>
         <button type="button" class="share-menu-item" (click)="copyTextOnly()">{{ justCopied === 'text' ? 'Copied!' : 'Copy text only' }}</button>
+        @if (shareLink.status === 'error') {
+          <span class="share-menu-error" role="alert">{{ shareLink.message }}</span>
+        }
+        @if (shareCopyError) {
+          <span class="share-menu-error" role="alert">{{ shareCopyError }}</span>
+        }
         @if (!isAuthenticated) {
           <button type="button" class="share-menu-hint" (click)="signIn()">Sign in for a short link</button>
         }

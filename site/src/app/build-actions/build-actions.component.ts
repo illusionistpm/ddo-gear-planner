@@ -3,8 +3,7 @@ import {
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../analytics.service';
 import { AuthService } from '../auth.service';
@@ -21,6 +20,25 @@ import { validateBuildName } from '../save-build-dialog/save-build-dialog.compon
 
 type DialogMode = 'create' | 'save-as';
 type ShareCopyKind = 'link' | 'text-link' | 'text';
+
+// 'canonical': the build's own existing /build/:shortId/:slug URL, shared
+// as-is with no mint at all - only possible for a clean, owned, already-
+// saved build (see canonicalShareUrl). 'short': a freshly minted immutable
+// snapshot link (shortLinks.create) - what a dirty edit or a build the
+// viewer doesn't own falls back to. 'long': the current ?b=... URL,
+// unauthenticated visitors only (see the plan for why short links are
+// locked behind sign-in).
+type ShareLinkKind = 'canonical' | 'short' | 'long';
+
+// The share menu's link needs a resolved-or-not lifecycle now that it's
+// minted the moment the menu opens (see refreshShareLink) rather than on
+// each individual copy click - a click that lands before the mint (or the
+// synchronous canonical/long branches) resolves has nothing to copy yet,
+// and the menu needs to say so rather than silently doing nothing.
+type ShareLinkState =
+  | { status: 'pending' }
+  | { status: 'ready'; url: string; kind: ShareLinkKind }
+  | { status: 'error'; message: string };
 
 // The view model behind the single save split-button (see the plan's "Save
 // controls" section) - one primary action whose label/enabled-ness follows
@@ -69,11 +87,21 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   avatarMenuOpen = false;
   shareMenuOpen = false;
   saveMenuOpen = false;
+  // Minted (or resolved synchronously) the moment the share menu opens -
+  // see refreshShareLink - so the actual copy click is synchronous and
+  // stays inside the click's own user gesture (document.execCommand/
+  // navigator.clipboard both require that - see clipboard.ts). Doing the
+  // mint on the copy click itself, as this used to, meant a real network
+  // round-trip sat between the gesture and the clipboard write, which
+  // silently failed the write in Firefox/Safari.
+  shareLink: ShareLinkState = { status: 'pending' };
+  private shareLinkSub?: Subscription;
+  // A copy that failed for a reason OTHER than the link not being ready
+  // yet (shareLink.status === 'error' covers that one) - specifically,
+  // Clipboard.copy() itself returning false.
+  shareCopyError: string | null = null;
   // Transient "Copied!" confirmation - which share-menu action last copied
-  // something, cleared after a short delay. Not persisted/tested down to
-  // the millisecond, just a nicety since copyLink/copyTextAndLink now have
-  // a real network round-trip when authenticated and aren't as obviously
-  // instant as a plain clipboard copy.
+  // something, cleared after a short delay.
   justCopied: ShareCopyKind | null = null;
 
   editingName = false;
@@ -135,6 +163,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     this.buildStateSub?.unsubscribe();
     this.authSub?.unsubscribe();
     this.userSub?.unsubscribe();
+    this.shareLinkSub?.unsubscribe();
   }
 
   signIn(): void {
@@ -157,10 +186,14 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   toggleShareMenu(): void {
-    this.shareMenuOpen = !this.shareMenuOpen;
+    const opening = !this.shareMenuOpen;
+    this.shareMenuOpen = opening;
     this.myBuildsOpen = false;
     this.avatarMenuOpen = false;
     this.saveMenuOpen = false;
+    if (opening) {
+      this.refreshShareLink();
+    }
   }
 
   closeShareMenu(): void {
@@ -519,47 +552,122 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/build/${encodeURIComponent(shortId)}/${slugifyBuildName(name)}`, { replaceUrl: true });
   }
 
-  // Link-copying is available to everyone - signed in gets a minted short
-  // link (network round trip), signed out gets the current long ?b=... URL
-  // (window.location.href, zero network - already reflects the current
-  // gear and name thanks to CurrentBuildService.setName()/
-  // QueryParamsService.refreshLiveEditUrl()). See the plan for why short
-  // links are locked behind sign-in.
-  private getShareUrl(): Observable<string> {
-    if (!this.isAuthenticated) {
-      return of(window.location.href);
+  // Resolves shareLink for the CURRENT build/auth state - called once when
+  // the share menu opens (see toggleShareMenu), not on every copy click, so
+  // that click stays synchronous (see clipboard.ts for why that matters).
+  // Three ways this resolves, checked in order:
+  //  1. Synchronously, to the build's own canonical URL - only for a clean,
+  //     owned, already-saved build (see canonicalShareUrl's comment).
+  //  2. Synchronously, to the current long ?b=... URL - signed-out visitors
+  //     only (window.location.href already reflects the current gear/name
+  //     thanks to CurrentBuildService.setName()/
+  //     QueryParamsService.refreshLiveEditUrl()). See the plan for why
+  //     short links are locked behind sign-in.
+  //  3. Asynchronously, via a freshly minted short link (a real network
+  //     round trip) - everything else: a dirty edit, or a build the viewer
+  //     doesn't own. shareLink sits at 'pending' for however long that
+  //     takes; a copy click that lands before it resolves is a no-op (see
+  //     performShareCopy) rather than falling back to an async copy.
+  private refreshShareLink(): void {
+    this.shareLinkSub?.unsubscribe();
+    this.shareCopyError = null;
+
+    const canonicalUrl = this.canonicalShareUrl();
+    if (canonicalUrl) {
+      this.shareLink = { status: 'ready', url: canonicalUrl, kind: 'canonical' };
+      return;
     }
-    return this.shortLinks.create(this.currentBlob(), this.buildState.name ?? '').pipe(
-      map(({ shortId }) => {
+    if (!this.isAuthenticated) {
+      this.shareLink = { status: 'ready', url: window.location.href, kind: 'long' };
+      return;
+    }
+
+    this.shareLink = { status: 'pending' };
+    this.shareLinkSub = this.shortLinks.create(this.currentBlob(), this.buildState.name ?? '').subscribe({
+      next: ({ shortId }) => {
         const slugSegment = this.buildState.name ? `/${slugifyBuildName(this.buildState.name)}` : '';
-        return `${window.location.origin}/build/${encodeURIComponent(shortId)}${slugSegment}`;
-      })
-    );
+        this.shareLink = {
+          status: 'ready',
+          url: `${window.location.origin}/build/${encodeURIComponent(shortId)}${slugSegment}`,
+          kind: 'short'
+        };
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.shareLink = { status: 'error', message: 'Could not create a share link. Please try again.' };
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+  // A clean, owned, already-saved build's own /build/:shortId/:slug URL
+  // always reflects its current content already - sharing that instead of
+  // minting a fresh immutable snapshot means recipients see live updates
+  // (further saves), not a copy pinned to this exact moment. Minting here
+  // would be actively wrong: it would hand out a second, divergent URL for
+  // the same build the moment it's edited and saved again. The isAuthenticated
+  // check is defensive (ownership can only ever resolve to 'owned' for a
+  // signed-in viewer's own confirmed build - see CurrentBuildService), not
+  // load-bearing, but it costs nothing to state the invariant explicitly
+  // rather than lean on it holding elsewhere.
+  private canonicalShareUrl(): string | null {
+    if (!this.isAuthenticated || this.buildState.ownership !== 'owned' || !this.buildState.shortId || this.buildState.isDirty) {
+      return null;
+    }
+    const slugSegment = this.buildState.name ? `/${slugifyBuildName(this.buildState.name)}` : '';
+    return `${window.location.origin}/build/${encodeURIComponent(this.buildState.shortId)}${slugSegment}`;
+  }
+
+  // Only 'short' (a freshly minted snapshot) gets its own distinct label -
+  // 'canonical' and 'long' are both still fundamentally "the link to this
+  // build", just resolved a different way, and don't need the viewer to
+  // care about that distinction.
+  get shareLinkLabel(): string {
+    if (this.shareLink.status === 'pending') {
+      return 'Preparing link…';
+    }
+    return this.shareLink.status === 'ready' && this.shareLink.kind === 'short' ? 'Copy short link' : 'Copy link';
+  }
+
+  get shareTextAndLinkLabel(): string {
+    return this.shareLink.status === 'pending' ? 'Preparing link…' : 'Copy text + link';
   }
 
   copyLink(): void {
-    this.getShareUrl().subscribe(url => {
-      Clipboard.copy(url);
-      this.trackShareCopy('link');
-      this.finishShareCopy('link');
-    });
+    this.performShareCopy('link', url => url);
   }
 
   copyTextAndLink(): void {
-    this.getShareUrl().subscribe(url => {
-      Clipboard.copy(`${this.equipped.getGearDescription()}\n${url}`);
-      this.trackShareCopy('text-link');
-      this.finishShareCopy('text-link');
-    });
+    this.performShareCopy('text-link', url => `${this.equipped.getGearDescription()}\n${url}`);
   }
 
   copyTextOnly(): void {
-    Clipboard.copy(this.equipped.getGearDescription());
-    this.trackShareCopy('text');
-    this.finishShareCopy('text');
+    // No link involved at all - always available, regardless of shareLink's
+    // state (still minting, or it failed).
+    this.finishShareCopy('text', Clipboard.copy(this.equipped.getGearDescription()));
   }
 
-  private finishShareCopy(kind: ShareCopyKind): void {
+  private performShareCopy(kind: ShareCopyKind, buildClipboardText: (url: string) => string): void {
+    if (this.shareLink.status !== 'ready') {
+      // Not ready yet (still minting) or failed - the menu already shows
+      // that state (see the template); nothing to copy from here. Once it
+      // resolves, this is naturally the retry, not a separate action.
+      return;
+    }
+    this.finishShareCopy(kind, Clipboard.copy(buildClipboardText(this.shareLink.url)));
+  }
+
+  private finishShareCopy(kind: ShareCopyKind, succeeded: boolean): void {
+    if (!succeeded) {
+      // Clipboard.copy() itself failed (see its comment for when that
+      // happens) - surface it rather than showing "Copied!" regardless, and
+      // don't track a copy that didn't actually happen.
+      this.shareCopyError = 'Could not copy to the clipboard. Please try again.';
+      this.cdr.markForCheck();
+      return;
+    }
+    this.shareCopyError = null;
+    this.trackShareCopy(kind);
     this.justCopied = kind;
     this.cdr.markForCheck();
     setTimeout(() => {
@@ -570,9 +678,10 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
 
   private trackShareCopy(kind: ShareCopyKind): void {
     const equippedSlotCount = Array.from(this.equipped.getSlotsSnapshot().values()).filter(item => item && item.isValid()).length;
+    const linkKind = kind === 'text' ? 'none' : (this.shareLink.status === 'ready' ? this.shareLink.kind : 'none');
     this.analytics.track('copy_build', {
       copy_kind: kind,
-      link_kind: kind === 'text' ? 'none' : (this.isAuthenticated ? 'short' : 'long'),
+      link_kind: linkKind,
       equipped_slot_count: equippedSlotCount
     });
   }

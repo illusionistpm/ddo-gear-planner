@@ -1,4 +1,24 @@
-@if (contentReady) {
+@if (loadError) {
+    <div class="planner-load-error" role="alert">
+        <img src="/favicon-96x96.png" alt="" class="planner-load-error-icon">
+        @switch (loadError) {
+            @case ('not-found') {
+                <div class="planner-load-error-title">No build found</div>
+                <div class="planner-load-error-message">This link doesn't point to a build that exists - it may have been deleted, or mistyped.</div>
+            }
+            @case ('invalid-link') {
+                <div class="planner-load-error-title">This link is from an older version</div>
+                <div class="planner-load-error-message">This build was saved in a format this page can no longer read.</div>
+            }
+            @case ('network') {
+                <div class="planner-load-error-title">Couldn't load this build</div>
+                <div class="planner-load-error-message">Check your connection and try again.</div>
+                <button type="button" class="planner-load-error-retry" (click)="retryLoad()">Try again</button>
+            }
+        }
+        <a class="planner-load-error-home" routerLink="/">Start a new build instead</a>
+    </div>
+} @else if (contentReady) {
 <div class="container planner-page">
     <header class="planner-workspace-bar">
         <div class="planner-brand">

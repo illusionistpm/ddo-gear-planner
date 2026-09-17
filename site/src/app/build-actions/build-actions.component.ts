@@ -221,6 +221,18 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     this.renameError = null;
   }
 
+  // Explicit cancel affordance alongside Escape (which isn't discoverable
+  // on its own) - bound to mousedown, not click, specifically so it can
+  // preventDefault() there: mousedown fires before the input's blur, and
+  // blur is what commits (see the input's own (blur)="commitRename()").
+  // Without the preventDefault, clicking this button would blur-and-commit
+  // the in-progress edit a moment before the click handler ran, making
+  // "cancel" silently save instead.
+  onCancelRenameMouseDown(event: MouseEvent): void {
+    event.preventDefault();
+    this.cancelRename();
+  }
+
   commitRename(): void {
     if (!this.editingName) {
       return;

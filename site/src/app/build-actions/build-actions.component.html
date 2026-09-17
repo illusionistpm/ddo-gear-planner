@@ -3,13 +3,23 @@
     @if (editingName) {
       <input #nameInput type="text" class="build-name-input" [(ngModel)]="nameDraft"
         maxlength="60"
+        aria-label="Build name"
         (keydown.enter)="commitRename()"
         (keydown.escape)="cancelRename()"
         (blur)="commitRename()">
+      <button type="button" class="build-name-cancel" aria-label="Cancel rename"
+        (mousedown)="onCancelRenameMouseDown($event)">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
     } @else {
       <span class="build-name build-name-editable"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Rename build: ' + (buildState.name || 'Untitled build')"
         [title]="buildState.name ?? 'Untitled build'"
-        (click)="startRename()">{{ buildState.name || 'Untitled build' }}</span>
+        (click)="startRename()"
+        (keydown.enter)="startRename()"
+        (keydown.space)="$event.preventDefault(); startRename()">{{ buildState.name || 'Untitled build' }}</span>
     }
 
     @if (isAuthenticated) {

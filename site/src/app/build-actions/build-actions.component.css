@@ -34,6 +34,11 @@
   background: var(--surface-subtle-color);
 }
 
+.build-name-editable:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 1px;
+}
+
 .build-name-input {
   background: var(--surface-color);
   border: 1px solid var(--primary-color);
@@ -44,6 +49,25 @@
   max-width: 14rem;
   min-width: 6rem;
   padding: 0.2rem 0.3rem;
+}
+
+.build-name-cancel {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.75rem;
+  height: 1.8rem;
+  justify-content: center;
+  width: 1.6rem;
+}
+
+.build-name-cancel:hover,
+.build-name-cancel:focus {
+  color: var(--danger-color, #d64545);
 }
 
 .build-name-error {

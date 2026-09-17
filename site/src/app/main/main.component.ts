@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
@@ -41,6 +42,17 @@ export class MainComponent implements OnInit, OnDestroy {
   // empty slots, or another build's data, before the real build has
   // actually populated in.
   contentReady = false;
+
+  // Set when a /build/:shortId(/:slug) fetch (loadBuildFromRoute) fails -
+  // rendered as a dedicated panel instead of the main UI, in place of the
+  // boot splash contentReady would otherwise still be gating. Previously
+  // ANY failure - a genuine 404, a decode failure against a URL from an
+  // older codec dictionary version, or a transient network blip - all
+  // redirected to '/' and threw the URL away with no way back; 404,
+  // "outdated/invalid link," and "couldn't load, try again" now read as
+  // three different situations, and the URL survives all three so a
+  // network-error retry doesn't need the link re-pasted.
+  loadError: 'not-found' | 'invalid-link' | 'network' | null = null;
 
   // The one-time gate from the original contentReady design: covers the
   // window between page load and the first build data actually reaching
@@ -266,6 +278,10 @@ export class MainComponent implements OnInit, OnDestroy {
   // (which explicitly skips this route shape - see build-route.ts).
   private loadBuildFromRoute(shortId: string | null) {
     this.latestRouteShortId = shortId;
+    // Clear any error from a previous attempt at this shortId (retryLoad)
+    // or a prior build entirely - a route reached without going through
+    // loadError's own retry/navigation should never inherit a stale one.
+    this.loadError = null;
     if (!shortId) {
       // Navigated to a route with no shortId - could be a genuinely fresh
       // scratch build (CurrentBuildService is a singleton and wouldn't
@@ -311,7 +327,13 @@ export class MainComponent implements OnInit, OnDestroy {
       next: ({ name, blob }) => {
         const decoded = this.buildUrlCodec.decode(blob);
         if (!decoded) {
-          this.router.navigateByUrl('/', { replaceUrl: true });
+          // The codec dictionary is versioned data that changes over time
+          // (see build-url-codec.service.ts) - a blob this old client can't
+          // decode isn't the same situation as a build that doesn't exist,
+          // and shouldn't read as one.
+          this.loadError = 'invalid-link';
+          this.isLoadingBuild = false;
+          this.updateContentReady();
           return;
         }
         this.queryParams.applyDecodedBuildParams(decoded);
@@ -320,8 +342,21 @@ export class MainComponent implements OnInit, OnDestroy {
         this.isLoadingBuild = false;
         this.updateContentReady();
       },
-      error: () => this.router.navigateByUrl('/', { replaceUrl: true })
+      error: (err: HttpErrorResponse) => {
+        // A 404 (genuinely no build at that shortId) is a different
+        // situation from anything else (offline, a 5xx, a CORS hiccup) -
+        // the former has no reason to ever resolve differently; the latter
+        // is exactly what retryLoad() is for.
+        this.loadError = err.status === 404 ? 'not-found' : 'network';
+        this.isLoadingBuild = false;
+        this.updateContentReady();
+      }
     });
+  }
+
+  /** Bound to the load-error panel's "Try again" action - see loadError. */
+  retryLoad(): void {
+    this.loadBuildFromRoute(this.latestRouteShortId);
   }
 
   private updateContentReady(): void {
@@ -341,7 +376,11 @@ export class MainComponent implements OnInit, OnDestroy {
     // then closed it again once real data landed - which is what actually
     // caused the "start page" flash chased across this whole conversation,
     // not a contentReady bug at all.
-    if (!previous && this.contentReady) {
+    // Also skipped on a load error: contentReady going true there means
+    // "stop showing the boot splash, the error panel takes over instead"
+    // (see the template), not "real build data just landed" - there's
+    // nothing here for the first-run heuristic to evaluate.
+    if (!previous && this.contentReady && !this.loadError) {
       this.maybeOpenAffixBuilderOnLoad();
     }
   }

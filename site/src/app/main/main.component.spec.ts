@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
@@ -200,24 +201,69 @@ describe('MainComponent - loading a build by shortId', () => {
     });
   });
 
-  it('redirects home if the blob fails to decode', () => {
+  it('shows an "outdated link" error, keeping the URL intact, if the blob fails to decode', () => {
+    // Previously redirected to '/' on ANY failure, throwing the URL away
+    // with no way back - a decode failure (the codec dictionary is
+    // versioned data - see build-url-codec.service.ts) is a genuinely
+    // different situation from a 404 and shouldn't read as one.
     configure('abc123');
     buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'garbage' }));
     codec.decode.and.returnValue(null);
 
-    TestBed.createComponent(MainComponent).detectChanges();
+    const fixture = TestBed.createComponent(MainComponent);
+    fixture.detectChanges();
 
     expect(queryParams.applyDecodedBuildParams).not.toHaveBeenCalled();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/', { replaceUrl: true });
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
+    expect(fixture.componentInstance.loadError).toBe('invalid-link');
+    // Must actually flip true, or the error panel never replaces the boot
+    // splash (see updateContentReady - isLoadingBuild has to go false on
+    // every path out of the fetch, not just the success one).
+    expect(fixture.componentInstance.contentReady).toBe(true);
   });
 
-  it('redirects home if the build cannot be found', () => {
+  it('shows a "not found" error, keeping the URL intact, for a 404', () => {
+    // throwError(value), not throwError(() => value): this project's rxjs
+    // (6.6.7) predates the factory-function overload other throwError call
+    // sites in this file use - with a factory, the component would receive
+    // the function ITSELF as the error, not an invocation of it, which
+    // only mattered here because this test (unlike those) reads err.status.
     configure('missing');
-    buildsService.getByShortId.and.returnValue(throwError(() => new Error('404')));
+    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 404 })));
 
-    TestBed.createComponent(MainComponent).detectChanges();
+    const fixture = TestBed.createComponent(MainComponent);
+    fixture.detectChanges();
 
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/', { replaceUrl: true });
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
+    expect(fixture.componentInstance.loadError).toBe('not-found');
+  });
+
+  it('shows a retryable "network" error, keeping the URL intact, for anything other than a 404', () => {
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 0 })));
+
+    const fixture = TestBed.createComponent(MainComponent);
+    fixture.detectChanges();
+
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
+    expect(fixture.componentInstance.loadError).toBe('network');
+  });
+
+  it('retries the same shortId when retryLoad() is called after a network error', () => {
+    configure('abc123');
+    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 0 })));
+    const fixture = TestBed.createComponent(MainComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.loadError).toBe('network');
+
+    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    fixture.componentInstance.retryLoad();
+
+    expect(fixture.componentInstance.loadError).toBeNull();
+    expect(currentBuild.markLoaded).toHaveBeenCalledWith({
+      shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Calamitous Battle Axe' }
+    });
   });
 
   it('resets CurrentBuildService when the route has no shortId', () => {

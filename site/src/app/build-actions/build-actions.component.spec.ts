@@ -435,6 +435,24 @@ describe('BuildActionsComponent', () => {
     expect(buildsService.update).not.toHaveBeenCalled();
   });
 
+  it('the explicit cancel button prevents the input\'s own blur, so clicking it discards rather than committing', () => {
+    // Regression guard for the swallowed-click bug (see the plan): mousedown
+    // fires before blur, so preventDefault() there is what stops
+    // commitRename() from firing first. Without it, "cancel" would silently
+    // save the in-progress edit instead of discarding it.
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
+    component.startRename();
+    component.nameDraft = 'Something else';
+    const event = jasmine.createSpyObj<MouseEvent>('MouseEvent', ['preventDefault']);
+
+    component.onCancelRenameMouseDown(event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(component.editingName).toBeFalse();
+    expect(buildsService.update).not.toHaveBeenCalled();
+  });
+
   it('commits a rename, updating state and navigating to the (possibly re-slugified) URL', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });

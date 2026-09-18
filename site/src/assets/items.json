@@ -1555,7 +1555,7 @@
         ],
         "ml": 11,
         "name": "Adherent's Pendant",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -3804,7 +3804,7 @@
         ],
         "ml": 8,
         "name": "Alveo",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -3832,7 +3832,7 @@
         ],
         "ml": 18,
         "name": "Amara's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -3858,7 +3858,7 @@
         ],
         "ml": 18,
         "name": "Amara's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -4188,7 +4188,7 @@
         ],
         "ml": 11,
         "name": "Anathema",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -4454,7 +4454,7 @@
         ],
         "ml": 10,
         "name": "Ancient Vulkoorim Dagger",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "An Offering of Blood"
         ],
@@ -4612,7 +4612,7 @@
         ],
         "ml": 18,
         "name": "Ann Velsing's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -4638,7 +4638,7 @@
         ],
         "ml": 18,
         "name": "Ann Velsing's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -4786,7 +4786,7 @@
         ],
         "ml": 12,
         "name": "Antithesis",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -5730,7 +5730,7 @@
         ],
         "ml": 12,
         "name": "Argenti's Armor",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -6068,7 +6068,7 @@
         ],
         "ml": 13,
         "name": "Armbands of the Silenced Ones",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -6446,7 +6446,7 @@
         ],
         "ml": 15,
         "name": "Arraetrikos' Bane (level 15)",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -6482,7 +6482,7 @@
         ],
         "ml": 29,
         "name": "Arraetrikos' Bane (level 29)",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -6838,7 +6838,7 @@
         ],
         "ml": 13,
         "name": "Ash Boots",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -7090,7 +7090,7 @@
         ],
         "ml": 12,
         "name": "Atonement",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -8536,7 +8536,7 @@
         ],
         "ml": 18,
         "name": "Awanahu Sash",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -8803,7 +8803,7 @@
         ],
         "ml": 14,
         "name": "Axe of the Unseen Blow",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -8922,7 +8922,7 @@
         ],
         "ml": 9,
         "name": "Azure Necklace of Prophecy",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -9771,7 +9771,7 @@
         ],
         "ml": 18,
         "name": "Band of Siberys",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -9863,7 +9863,7 @@
         ],
         "ml": 13,
         "name": "Banner Cloak",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -10034,7 +10034,7 @@
         ],
         "ml": 13,
         "name": "Bard's Cloak",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -13482,7 +13482,7 @@
         ],
         "ml": 10,
         "name": "Bejeweled Letter Opener",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -13703,7 +13703,7 @@
         ],
         "ml": 26,
         "name": "Belt of Braided Beards",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -13916,7 +13916,7 @@
         ],
         "ml": 13,
         "name": "Belt of Thoughtful Rememberance",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -13939,7 +13939,7 @@
         ],
         "ml": 13,
         "name": "Belt of Tongue",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -14181,7 +14181,7 @@
         ],
         "ml": 18,
         "name": "Belt of the Defenders of Siberys",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -14256,7 +14256,7 @@
         ],
         "ml": 9,
         "name": "Belt of the Mroranon",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -14780,7 +14780,7 @@
         ],
         "ml": 11,
         "name": "Bete Noir",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -16142,7 +16142,7 @@
         ],
         "ml": 13,
         "name": "Bleeding Edge",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -16937,7 +16937,7 @@
         ],
         "ml": 7,
         "name": "Bloodrage Symbiont",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Haywire Foundry"
         ],
@@ -17552,7 +17552,7 @@
         ],
         "ml": 13,
         "name": "Bluefire Necklace",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -17934,7 +17934,7 @@
         ],
         "ml": 18,
         "name": "Bonesplitter",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -18224,7 +18224,7 @@
         ],
         "ml": 26,
         "name": "Boots of Blessed Travels",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -18545,7 +18545,7 @@
         ],
         "ml": 15,
         "name": "Boots of the Devil Commander",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -18566,7 +18566,7 @@
         ],
         "ml": 13,
         "name": "Boots of the Innocent",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Desecrated Temple of Vol"
         ],
@@ -19022,7 +19022,7 @@
         ],
         "ml": 15,
         "name": "Boundless",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -19252,7 +19252,7 @@
         ],
         "ml": 12,
         "name": "Bow of the Elements (Ice)",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -19283,7 +19283,7 @@
         ],
         "ml": 12,
         "name": "Bow of the Elements (Ice)",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -19417,7 +19417,7 @@
         ],
         "ml": 20,
         "name": "Bracelet of Madness",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -19588,7 +19588,7 @@
         ],
         "ml": 11,
         "name": "Bracers of Deftness",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -20091,7 +20091,7 @@
         ],
         "ml": 11,
         "name": "Bracers of the Demon's Consort",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -20231,7 +20231,7 @@
         ],
         "ml": 13,
         "name": "Bracers of the Glacier",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -20654,7 +20654,7 @@
         ],
         "ml": 11,
         "name": "Bramble-Casters",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -21141,7 +21141,7 @@
         ],
         "ml": 15,
         "name": "Brazenband",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -21356,7 +21356,7 @@
         ],
         "ml": 14,
         "name": "Breastplate of Destruction",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -21392,7 +21392,7 @@
         ],
         "ml": 14,
         "name": "Breastplate of Vol",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -21464,7 +21464,7 @@
         ],
         "ml": 27,
         "name": "Breastplate of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -21536,7 +21536,7 @@
         ],
         "ml": 27,
         "name": "Breastplate of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -21658,7 +21658,7 @@
         ],
         "ml": 14,
         "name": "Breeze",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -23344,7 +23344,7 @@
         ],
         "ml": 27,
         "name": "Buckler of the Celestial Soldier",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -23385,7 +23385,7 @@
         ],
         "ml": 13,
         "name": "Buckler of the Demonic Soldier",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -25657,7 +25657,7 @@
         ],
         "ml": 18,
         "name": "Calitomes' Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -25683,7 +25683,7 @@
         ],
         "ml": 18,
         "name": "Calitomes' Sash",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -26590,7 +26590,7 @@
         ],
         "ml": 11,
         "name": "Cape of the Roc",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -26927,7 +26927,7 @@
         ],
         "ml": 12,
         "name": "Carved Bone Shield",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -28131,7 +28131,7 @@
         ],
         "ml": 27,
         "name": "Celestial Oak",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -28374,7 +28374,7 @@
         ],
         "ml": 14,
         "name": "Chain Shirt of Crippling",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -29226,7 +29226,7 @@
         ],
         "ml": 12,
         "name": "Chaosblade",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -30858,7 +30858,7 @@
         ],
         "ml": 13,
         "name": "Chord of Reprisals",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -30918,7 +30918,7 @@
         ],
         "ml": 18,
         "name": "Cinder's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -30949,7 +30949,7 @@
         ],
         "ml": 7,
         "name": "Cinder's Dance",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "Hold for Reinforcements"
         ],
@@ -31021,7 +31021,7 @@
         ],
         "ml": 13,
         "name": "Circle of Hatred",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -31079,7 +31079,7 @@
         ],
         "ml": 26,
         "name": "Circle of Malevolence",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -32004,7 +32004,7 @@
         ],
         "ml": 11,
         "name": "Cloak of Curses",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -32121,7 +32121,7 @@
         ],
         "ml": 13,
         "name": "Cloak of Ice",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -32317,7 +32317,7 @@
         ],
         "ml": 7,
         "name": "Cloak of Protection",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -33873,7 +33873,7 @@
         ],
         "ml": 9,
         "name": "Cloak of the Silver Concord",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -33952,7 +33952,7 @@
         ],
         "ml": 11,
         "name": "Cloak of the Zephyr",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -35246,7 +35246,7 @@
         ],
         "ml": 18,
         "name": "Colethenis's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -36190,7 +36190,7 @@
         ],
         "ml": 18,
         "name": "Connor's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -36216,7 +36216,7 @@
         ],
         "ml": 18,
         "name": "Connor's Pendant",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -36371,7 +36371,7 @@
         ],
         "ml": 15,
         "name": "Construct's Mantle",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -38764,7 +38764,7 @@
         ],
         "ml": 26,
         "name": "Countenance",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -39487,7 +39487,7 @@
         ],
         "ml": 9,
         "name": "Crimson Necklace of Prophecy",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -43678,7 +43678,7 @@
         ],
         "ml": 13,
         "name": "Dawnbringer (level 13)",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -43729,7 +43729,7 @@
         ],
         "ml": 28,
         "name": "Dawnbringer (level 28)",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -43956,7 +43956,7 @@
         ],
         "ml": 15,
         "name": "Death's Handiwork",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -47157,7 +47157,7 @@
         ],
         "ml": 13,
         "name": "Deific Diadem",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -47528,7 +47528,7 @@
         ],
         "ml": 12,
         "name": "Demon Scale Armor",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -47920,7 +47920,7 @@
         ],
         "ml": 12,
         "name": "Desecrated Leathers",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Desecrated Temple of Vol"
         ],
@@ -48269,7 +48269,7 @@
         ],
         "ml": 27,
         "name": "Devil's Defense",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -48461,7 +48461,7 @@
         ],
         "ml": 8,
         "name": "Devout Handwraps",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -50527,6 +50527,7 @@
         ],
         "ml": 1,
         "name": "Dirge's Bulwark",
+        "pack": "The Vault of Night",
         "quests": [
             "The Vault of Night"
         ],
@@ -50761,7 +50762,7 @@
         ],
         "ml": 26,
         "name": "Dissolution",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -50805,7 +50806,7 @@
         ],
         "ml": 13,
         "name": "Divine Artillery",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -50828,7 +50829,7 @@
         ],
         "ml": 18,
         "name": "Divine Vengeance",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -50936,7 +50937,7 @@
         ],
         "ml": 4,
         "name": "Docent of Blood",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -50967,7 +50968,7 @@
         ],
         "ml": 12,
         "name": "Docent of Corpsecraft",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -51030,7 +51031,7 @@
         ],
         "ml": 10,
         "name": "Docent of Defiance",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -51073,7 +51074,7 @@
         ],
         "ml": 10,
         "name": "Docent of Grace",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -51192,7 +51193,7 @@
         ],
         "ml": 12,
         "name": "Docent of Quickening",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -51559,7 +51560,7 @@
         ],
         "ml": 27,
         "name": "Docent of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -51626,7 +51627,7 @@
         ],
         "ml": 27,
         "name": "Docent of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -52936,7 +52937,7 @@
         ],
         "ml": 18,
         "name": "Draconic Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -52967,7 +52968,7 @@
         ],
         "ml": 18,
         "name": "Draconic Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -53074,7 +53075,7 @@
         ],
         "ml": 14,
         "name": "Dragon Sword of Acid",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -53102,7 +53103,7 @@
         ],
         "ml": 9,
         "name": "Dragon's Eye",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -53463,7 +53464,7 @@
         ],
         "ml": 18,
         "name": "Dragonmarked Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -53494,7 +53495,7 @@
         ],
         "ml": 18,
         "name": "Dragonmarked Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -58787,7 +58788,7 @@
         ],
         "ml": 8,
         "name": "Dusk",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -59003,7 +59004,7 @@
         ],
         "ml": 11,
         "name": "Dustless Boots",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -60120,7 +60121,7 @@
         ],
         "ml": 18,
         "name": "Eerie Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -60326,7 +60327,7 @@
         ],
         "ml": 13,
         "name": "Electric Haze",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -61707,7 +61708,7 @@
         ],
         "ml": 13,
         "name": "Eloquence",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -62182,7 +62183,7 @@
         ],
         "ml": 5,
         "name": "Emerald Claw Amulet",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -62210,7 +62211,7 @@
         ],
         "ml": 9,
         "name": "Emerald Claw Pendant",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -62243,7 +62244,7 @@
         ],
         "ml": 11,
         "name": "Emerald Claw Talisman",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -62567,7 +62568,7 @@
         ],
         "ml": 18,
         "name": "Encrusted Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -62608,7 +62609,7 @@
         ],
         "ml": 14,
         "name": "Enduring Conviction",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -63054,7 +63055,7 @@
         ],
         "ml": 14,
         "name": "Enlightened Vestments",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -63753,7 +63754,7 @@
         ],
         "ml": 28,
         "name": "Epic Armbands of the Silenced Ones",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -64513,7 +64514,7 @@
         ],
         "ml": 28,
         "name": "Epic Bleeding Edge",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -65837,7 +65838,7 @@
         ],
         "ml": 28,
         "name": "Epic Buckler of the Demonic Soldier",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -67225,6 +67226,7 @@
         ],
         "ml": 20,
         "name": "Epic Cloak of the Silver Concord",
+        "pack": "The Vault of Night",
         "quests": [
             "The Vault of Night"
         ],
@@ -68759,7 +68761,7 @@
         ],
         "ml": 26,
         "name": "Epic Deific Diadem",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -69257,7 +69259,7 @@
         ],
         "ml": 28,
         "name": "Epic Divine Artillery",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -70471,7 +70473,7 @@
         ],
         "ml": 28,
         "name": "Epic Eloquence",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -74294,7 +74296,7 @@
         ],
         "ml": 20,
         "name": "Epic Helm of the Red Dragon",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -74333,7 +74335,7 @@
         ],
         "ml": 28,
         "name": "Epic Hide of the Fallen",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -75453,6 +75455,7 @@
         ],
         "ml": 20,
         "name": "Epic Kundarak Delving Suit",
+        "pack": "The Vault of Night",
         "quests": [
             "The Vault of Night"
         ],
@@ -75537,6 +75540,7 @@
         ],
         "ml": 20,
         "name": "Epic Kundarak Warding Shield",
+        "pack": "The Vault of Night",
         "quests": [
             "The Vault of Night"
         ],
@@ -75904,7 +75908,7 @@
         ],
         "ml": 26,
         "name": "Epic Litany of the Dead",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -77267,7 +77271,7 @@
         ],
         "ml": 26,
         "name": "Epic Noxious Embers",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -77629,7 +77633,7 @@
         ],
         "ml": 28,
         "name": "Epic Pendant of Quiet Movements",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -78252,7 +78256,7 @@
         ],
         "ml": 26,
         "name": "Epic Purging the Pantheon",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -78313,7 +78317,7 @@
         ],
         "ml": 20,
         "name": "Epic Quiver of Alacrity",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -78699,7 +78703,7 @@
         ],
         "ml": 20,
         "name": "Epic Red Dragonhide Armor",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -78759,7 +78763,7 @@
         ],
         "ml": 20,
         "name": "Epic Red Dragonplate Armor",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Vault of Night"
         ],
@@ -78819,7 +78823,7 @@
         ],
         "ml": 20,
         "name": "Epic Red Dragonscale Armor",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -78879,7 +78883,7 @@
         ],
         "ml": 20,
         "name": "Epic Red Dragonscale Docent",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Vault of Night"
         ],
@@ -78939,7 +78943,7 @@
         ],
         "ml": 20,
         "name": "Epic Red Dragonscale Robe",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -79125,7 +79129,7 @@
         ],
         "ml": 28,
         "name": "Epic Riftmaker",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -79714,6 +79718,7 @@
         ],
         "ml": 20,
         "name": "Epic Ring of the Silver Concord",
+        "pack": "The Vault of Night",
         "quests": [
             "The Vault of Night"
         ],
@@ -80145,7 +80150,7 @@
         ],
         "ml": 28,
         "name": "Epic Rod of Mythant",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -81959,7 +81964,7 @@
         ],
         "ml": 28,
         "name": "Epic Shield of Tireless Aid",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -82005,7 +82010,7 @@
         ],
         "ml": 28,
         "name": "Epic Shield of the Demonic Soldier",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -88462,7 +88467,7 @@
         ],
         "ml": 13,
         "name": "Ethereal Bracers",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -89931,7 +89936,7 @@
         ],
         "ml": 13,
         "name": "Eye of the Beholder",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -90899,7 +90904,7 @@
         ],
         "ml": 13,
         "name": "Fanged Gloves",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -91205,7 +91210,7 @@
         ],
         "ml": 12,
         "name": "Fell Rapier of Ice",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ghosts of Perdition"
         ],
@@ -91442,7 +91447,7 @@
         ],
         "ml": 26,
         "name": "Fellblade (longsword)",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -93731,7 +93736,7 @@
         ],
         "ml": 13,
         "name": "Finger Necklace",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -101251,7 +101256,7 @@
         ],
         "ml": 14,
         "name": "Full Plate of the Defender",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -102180,7 +102185,7 @@
         ],
         "ml": 26,
         "name": "Gauntlets of the Arcane Soldier",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -103608,7 +103613,7 @@
         ],
         "ml": 18,
         "name": "Gilvaenor's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -103639,7 +103644,7 @@
         ],
         "ml": 18,
         "name": "Gilvaenor's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -104925,7 +104930,7 @@
         ],
         "ml": 13,
         "name": "Glimpse of the Soul",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -105566,7 +105571,7 @@
         ],
         "ml": 13,
         "name": "Gloves of Gnoll Hide",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -105720,7 +105725,7 @@
         ],
         "ml": 13,
         "name": "Gloves of the Glacier",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -106206,7 +106211,7 @@
         ],
         "ml": 18,
         "name": "Gnawed Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -106530,7 +106535,7 @@
         ],
         "ml": 5,
         "name": "Goggles of Intuition",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -106586,7 +106591,7 @@
         ],
         "ml": 5,
         "name": "Goggles of Shielding",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -106939,7 +106944,7 @@
         ],
         "ml": 11,
         "name": "Golden Greaves",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -110221,7 +110226,7 @@
         ],
         "ml": 12,
         "name": "Green Blade",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -111843,7 +111848,7 @@
         ],
         "ml": 12,
         "name": "Guardian of the Liturgy",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Desecrated Temple of Vol"
         ],
@@ -112865,7 +112870,7 @@
         ],
         "ml": 10,
         "name": "Hammer of Life",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -113400,7 +113405,7 @@
         ],
         "ml": 9,
         "name": "Hand of the Tombs",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -115908,7 +115913,7 @@
         ],
         "ml": 9,
         "name": "Helm of the Mroranon",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -116426,7 +116431,7 @@
         ],
         "ml": 13,
         "name": "Hide of the Fallen",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -116985,7 +116990,7 @@
         ],
         "ml": 11,
         "name": "Hruvayah's Medallion",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -119633,7 +119638,7 @@
         ],
         "ml": 13,
         "name": "Inferno Bracers",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -120066,7 +120071,7 @@
         ],
         "ml": 12,
         "name": "Insurrection",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Desecrated Temple of Vol"
         ],
@@ -120867,7 +120872,7 @@
         ],
         "ml": 10,
         "name": "Ironweave Robe",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -121913,7 +121918,7 @@
         ],
         "ml": 10,
         "name": "Jinx's Vexation",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -122675,7 +122680,7 @@
         ],
         "ml": 29,
         "name": "Keeper of the Crimson Covenant",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -123073,7 +123078,7 @@
         ],
         "ml": 18,
         "name": "Kilau's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -123099,7 +123104,7 @@
         ],
         "ml": 18,
         "name": "Kilau's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -123789,7 +123794,7 @@
         ],
         "ml": 26,
         "name": "Knives Eternal",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -123812,7 +123817,7 @@
         ],
         "ml": 18,
         "name": "Knost's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -124203,7 +124208,7 @@
         ],
         "ml": 18,
         "name": "Kormor's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -124234,7 +124239,7 @@
         ],
         "ml": 18,
         "name": "Kormor's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -124486,7 +124491,7 @@
         ],
         "ml": 9,
         "name": "Kundarak Delving Boots",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -124527,7 +124532,7 @@
         ],
         "ml": 9,
         "name": "Kundarak Delving Goggles",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -124578,7 +124583,7 @@
         ],
         "ml": 10,
         "name": "Kundarak Delving Suit",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -124644,7 +124649,7 @@
         ],
         "ml": 9,
         "name": "Kundarak Warding Bracers",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -124690,7 +124695,7 @@
         ],
         "ml": 10,
         "name": "Kundarak Warding Shield",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -124766,7 +124771,7 @@
         ],
         "ml": 18,
         "name": "Kyosho's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -124797,7 +124802,7 @@
         ],
         "ml": 18,
         "name": "Kyrian's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -124826,7 +124831,7 @@
         ],
         "ml": 4,
         "name": "Lacerator",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -125835,7 +125840,7 @@
         ],
         "ml": 27,
         "name": "Leathers of the Celestial Archer",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -125902,7 +125907,7 @@
         ],
         "ml": 27,
         "name": "Leathers of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -125974,7 +125979,7 @@
         ],
         "ml": 27,
         "name": "Leathers of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -126024,6 +126029,20 @@
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Leathers_of_the_Woodsman"
+    },
+    {
+        "affixes": [
+            {
+                "name": "TBD",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Leaves of the Forest",
+        "slot": "Armor",
+        "type": "Medium armor",
+        "url": "/page/Item:Leaves_of_the_Forest"
     },
     {
         "affixes": [
@@ -132105,7 +132124,7 @@
         ],
         "ml": 29,
         "name": "Legendary Boots of the Devil Commander",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -132328,7 +132347,7 @@
         ],
         "ml": 29,
         "name": "Legendary Boundless",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -133214,6 +133233,41 @@
     {
         "affixes": [
             {
+                "name": "Strength",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Spike-Studded",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Glass Jaw Strike",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "13"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Brawling Gloves (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Gloves",
+        "type": "Hand items",
+        "url": "/page/Item:Legendary_Brawling_Gloves_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Rage clicky",
                 "type": "Bool",
                 "value": 1
@@ -133286,7 +133340,7 @@
         ],
         "ml": 29,
         "name": "Legendary Brazenband",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -133472,6 +133526,46 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Anarchic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "143"
+            },
+            {
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "22"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Brigand's Cutlass (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Scimitars",
+        "url": "/page/Item:Legendary_Brigand%27s_Cutlass_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+15"
@@ -133553,6 +133647,46 @@
         "slot": "Weapon",
         "type": "Quarterstaffs",
         "url": "/page/Item:Legendary_Broken_Oar_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Bleeding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Impact",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "18"
+            },
+            {
+                "name": "Felling the Oak",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Broken Oar (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Quarterstaffs",
+        "url": "/page/Item:Legendary_Broken_Oar_(level_36)"
     },
     {
         "affixes": [
@@ -135698,6 +135832,41 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crippling",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Captain's Cutter (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Falchions",
+        "url": "/page/Item:Legendary_Captain%27s_Cutter_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Universal Spell Power",
                 "type": "Implement",
                 "value": "31"
@@ -137135,6 +137304,51 @@
         "slot": "Armor",
         "type": "Heavy armor",
         "url": "/page/Item:Legendary_Cavalry_Plate_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "43"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Improved Demonic Shield",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "60"
+            },
+            {
+                "name": "DR",
+                "type": "Chaotic",
+                "value": "30"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "12"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Cavalry Plate (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Armor",
+        "type": "Heavy armor",
+        "url": "/page/Item:Legendary_Cavalry_Plate_(level_36)"
     },
     {
         "affixes": [
@@ -139902,7 +140116,7 @@
         ],
         "ml": 29,
         "name": "Legendary Construct's Mantle",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -142095,6 +142309,46 @@
                 "value": "+15"
             },
             {
+                "name": "Bleeding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "18"
+            },
+            {
+                "name": "Hide",
+                "type": "Competence",
+                "value": "22"
+            },
+            {
+                "name": "Move Silently",
+                "type": "Competence",
+                "value": "22"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Cutthroat's Smallblade (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Short Swords",
+        "url": "/page/Item:Legendary_Cutthroat%27s_Smallblade_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
                 "name": "Tidal",
                 "type": "Bool",
                 "value": 1
@@ -142904,7 +143158,7 @@
         ],
         "ml": 29,
         "name": "Legendary Death's Handiwork",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -148833,6 +149087,51 @@
         "slot": "Armor",
         "type": "Light armor",
         "url": "/page/Item:Legendary_Duelist%27s_Leathers_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "24"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Feat: Mobility",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Balance",
+                "type": "Competence",
+                "value": "22"
+            },
+            {
+                "name": "Accuracy",
+                "type": "Competence",
+                "value": "24"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "15"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Duelist's Leathers (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Armor",
+        "type": "Light armor",
+        "url": "/page/Item:Legendary_Duelist%27s_Leathers_(level_36)"
     },
     {
         "affixes": [
@@ -158209,6 +158508,46 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Superior Disruption",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Bludgeoning",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Flotsam (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Legendary_Flotsam_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+13"
             },
             {
@@ -167063,6 +167402,51 @@
     {
         "affixes": [
             {
+                "name": "Universal Spell Power",
+                "type": "Implement",
+                "value": "36"
+            },
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Acid Spell Power",
+                "type": "Insight",
+                "value": "83"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "24"
+            },
+            {
+                "name": "Conjuration Focus",
+                "type": "Quality",
+                "value": "3"
+            },
+            {
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "83"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Hull-Melter's Mace (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Light Maces",
+        "url": "/page/Item:Legendary_Hull-Melter%27s_Mace_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
@@ -167094,6 +167478,41 @@
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Legendary_Hull-Wrecker%27s_Hammer_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Bludgeoning",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Construct Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Hull-Wrecker's Hammer (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "War Hammers",
+        "url": "/page/Item:Legendary_Hull-Wrecker%27s_Hammer_(level_36)"
     },
     {
         "affixes": [
@@ -177465,6 +177884,51 @@
     {
         "affixes": [
             {
+                "name": "Universal Spell Power",
+                "type": "Implement",
+                "value": "36"
+            },
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Concentration",
+                "type": "Competence",
+                "value": "22"
+            },
+            {
+                "name": "Potency",
+                "type": "Equipment",
+                "value": "117"
+            },
+            {
+                "name": "Spell Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Lesser Maximize clicky",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Orange Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Ornamented Dagger (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Legendary_Ornamented_Dagger_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "15"
@@ -178075,7 +178539,7 @@
         ],
         "ml": 29,
         "name": "Legendary Pendant of Apparition",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -178650,7 +179114,7 @@
         ],
         "ml": 29,
         "name": "Legendary Pendant of the Warrior's Focus",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -179903,7 +180367,7 @@
         ],
         "ml": 29,
         "name": "Legendary Planar Compass",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -183223,6 +183687,41 @@
         "slot": "Ring",
         "type": "Finger items",
         "url": "/page/Item:Legendary_Ring_of_the_Buccaneer_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Dexterity",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "Good Luck",
+                "type": "Luck",
+                "value": "4"
+            },
+            {
+                "name": "Underwater Action",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "12"
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Ring of the Buccaneer (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Ring",
+        "type": "Finger items",
+        "url": "/page/Item:Legendary_Ring_of_the_Buccaneer_(level_36)"
     },
     {
         "affixes": [
@@ -189697,6 +190196,46 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Holy",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Holy Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deadly",
+                "type": "Insight",
+                "value": "5"
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Ship-Chaplain's Sidearm (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Morningstars",
+        "url": "/page/Item:Legendary_Ship-Chaplain%27s_Sidearm_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "15"
@@ -189828,6 +190367,86 @@
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Legendary_Ship-Siege_Bow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Fiery",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Construct Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Keen",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Ship-Siege Bow (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Legendary_Ship-Siege_Bow_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Fiery",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Construct Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Keen",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Ship-Siege Bow (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Legendary_Ship-Siege_Bow_(level_36)"
     },
     {
         "affixes": [
@@ -194485,7 +195104,7 @@
         ],
         "ml": 29,
         "name": "Legendary Subtle Sound",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -195072,6 +195691,51 @@
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Legendary_Swashbuckler_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Armor Class",
+                "type": "Shield",
+                "value": "17"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
+                "value": "7"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "18"
+            },
+            {
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dexterity",
+                "type": "Insight",
+                "value": "7"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Swashbuckler (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Offhand",
+        "type": "Bucklers",
+        "url": "/page/Item:Legendary_Swashbuckler_(level_36)"
     },
     {
         "affixes": [
@@ -197864,6 +198528,51 @@
     {
         "affixes": [
             {
+                "name": "Universal Spell Power",
+                "type": "Implement",
+                "value": "36"
+            },
+            {
+                "name": "Orb Bonus",
+                "type": "Orb",
+                "value": "+15"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Insight",
+                "value": "83"
+            },
+            {
+                "name": "Cold Lore",
+                "type": "Equipment",
+                "value": "24"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Quality",
+                "value": "3"
+            },
+            {
+                "name": "Fortification",
+                "type": "Insight",
+                "value": "83"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary The Drowned (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Offhand",
+        "type": "Orbs",
+        "url": "/page/Item:Legendary_The_Drowned_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Acid Resistance",
                 "type": "Enhancement",
                 "value": "53"
@@ -199580,6 +200289,41 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Legendary_Treasure_Hunter%27s_Spyglass_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Intelligence",
+                "type": "Insight",
+                "value": "7"
+            },
+            {
+                "name": "Astute Skills Bonus",
+                "type": "Exceptional",
+                "value": "11"
+            },
+            {
+                "name": "Prudent Skills Bonus",
+                "type": "Exceptional",
+                "value": "11"
+            },
+            {
+                "name": "True Seeing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Green Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Treasure Hunter's Spyglass (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Trinket",
+        "type": "Trinket items",
+        "url": "/page/Item:Legendary_Treasure_Hunter%27s_Spyglass_(level_36)"
     },
     {
         "affixes": [
@@ -204085,7 +204829,7 @@
         ],
         "ml": 13,
         "name": "Lenses of Doom",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -204617,7 +205361,7 @@
         ],
         "ml": 13,
         "name": "Levik's Bracers",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -204658,7 +205402,7 @@
         ],
         "ml": 14,
         "name": "Levik's Defender",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -206227,7 +206971,7 @@
         ],
         "ml": 8,
         "name": "Lightning Rod",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Haywire Foundry"
         ],
@@ -206484,7 +207228,7 @@
         ],
         "ml": 11,
         "name": "Lion-headed Belt Buckle",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -206585,7 +207329,7 @@
         ],
         "ml": 13,
         "name": "Litany of the Dead",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -207066,7 +207810,7 @@
         ],
         "ml": 13,
         "name": "Locus of Vol",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Desecrated Temple of Vol"
         ],
@@ -207769,7 +208513,7 @@
         ],
         "ml": 14,
         "name": "Lorikk's Champion",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -207795,7 +208539,7 @@
         ],
         "ml": 18,
         "name": "Lorinthor's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -207826,7 +208570,7 @@
         ],
         "ml": 18,
         "name": "Lorinthor's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -207857,7 +208601,7 @@
         ],
         "ml": 13,
         "name": "Lorrik's Necklace",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -210324,7 +211068,7 @@
         ],
         "ml": 27,
         "name": "Machination of Madness",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -212899,7 +213643,7 @@
         ],
         "ml": 5,
         "name": "Mantle of Stria",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -213233,7 +213977,7 @@
         ],
         "ml": 26,
         "name": "Many-Hooked Greaves",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -213343,7 +214087,7 @@
         ],
         "ml": 12,
         "name": "Marilith Chain",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -214077,7 +214821,7 @@
         ],
         "ml": 12,
         "name": "Maul of Malice",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -214350,7 +215094,7 @@
         ],
         "ml": 18,
         "name": "Mechanic's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -214849,7 +215593,7 @@
         "ml": 1,
         "name": "Medium Shard Trinket",
         "quests": [
-            "House Deneith"
+            "House Deneith Enclave"
         ],
         "slot": "Trinket",
         "type": "Trinket items",
@@ -214870,7 +215614,7 @@
         ],
         "ml": 7,
         "name": "Melri's Breath",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "The Gate Chamber"
         ],
@@ -214968,7 +215712,7 @@
         ],
         "ml": 26,
         "name": "Memoriam",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -215487,7 +216231,7 @@
         ],
         "ml": 13,
         "name": "Mentau's Goggles",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -217093,7 +217837,7 @@
         ],
         "ml": 7,
         "name": "Molb's Fist",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "The Gate Chamber"
         ],
@@ -217598,7 +218342,7 @@
         ],
         "ml": 18,
         "name": "Morah's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -217629,7 +218373,7 @@
         ],
         "ml": 18,
         "name": "Morah's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -217655,7 +218399,7 @@
         ],
         "ml": 18,
         "name": "Morgana's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -217686,7 +218430,7 @@
         ],
         "ml": 18,
         "name": "Morgana's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -221299,7 +222043,7 @@
         ],
         "ml": 18,
         "name": "Mysterious Bauble",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "The Weapons Shipment"
         ],
@@ -221526,7 +222270,7 @@
         ],
         "ml": 11,
         "name": "Mysterious Ring",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -226600,7 +227344,7 @@
         ],
         "ml": 13,
         "name": "Noxious Embers",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -226892,7 +227636,7 @@
         ],
         "ml": 18,
         "name": "Nyoko's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -226918,7 +227662,7 @@
         ],
         "ml": 18,
         "name": "Nyoko's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -227455,7 +228199,7 @@
         ],
         "ml": 20,
         "name": "Omniscience",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -227963,7 +228707,7 @@
         ],
         "ml": 18,
         "name": "Oremi's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -227994,7 +228738,7 @@
         ],
         "ml": 18,
         "name": "Oremi's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -228713,7 +229457,7 @@
         ],
         "ml": 27,
         "name": "Outfit of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -228785,7 +229529,7 @@
         ],
         "ml": 27,
         "name": "Outfit of the Celestial Guardian",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -229722,7 +230466,7 @@
         ],
         "ml": 4,
         "name": "Pall of Blood",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -230198,7 +230942,7 @@
         ],
         "ml": 15,
         "name": "Pendant of Apparition",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -230416,7 +231160,7 @@
         ],
         "ml": 13,
         "name": "Pendant of Quiet Movements",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -230945,7 +231689,7 @@
         ],
         "ml": 15,
         "name": "Pendant of the Warrior's Focus",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -232965,7 +233709,7 @@
         ],
         "ml": 8,
         "name": "Phase Hammer",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -233863,7 +234607,7 @@
         ],
         "ml": 15,
         "name": "Planar Compass",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "To Curse the Sky"
         ],
@@ -234389,7 +235133,7 @@
         ],
         "ml": 27,
         "name": "Platemail of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -234461,7 +235205,7 @@
         ],
         "ml": 27,
         "name": "Platemail of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -234996,7 +235740,7 @@
         ],
         "ml": 11,
         "name": "Pouch of Jerky",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -236657,7 +237401,7 @@
         ],
         "ml": 13,
         "name": "Purging the Pantheon",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -237245,7 +237989,7 @@
         ],
         "ml": 1,
         "name": "Quiver of Alacrity",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -237874,7 +238618,7 @@
         ],
         "ml": 18,
         "name": "Radiant Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -238029,7 +238773,7 @@
         ],
         "ml": 18,
         "name": "Rahkir's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -238055,7 +238799,7 @@
         ],
         "ml": 18,
         "name": "Rahkir's Sash",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -238134,7 +238878,7 @@
         ],
         "ml": 8,
         "name": "Rahl's Wrath",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "Hold for Reinforcements"
         ],
@@ -239356,7 +240100,7 @@
         ],
         "ml": 12,
         "name": "Redemption",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Inferno of the Damned"
         ],
@@ -239897,7 +240641,7 @@
         ],
         "ml": 18,
         "name": "Renard's Elegant Hat",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Wrath of the Flame"
         ],
@@ -240426,7 +241170,7 @@
         ],
         "ml": 26,
         "name": "Resonation",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -241403,7 +242147,7 @@
         ],
         "ml": 13,
         "name": "Riftmaker",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -241534,7 +242278,7 @@
         ],
         "ml": 11,
         "name": "Ring of Baphomet",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -241728,7 +242472,7 @@
         ],
         "ml": 18,
         "name": "Ring of Deftness",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -242780,7 +243524,7 @@
         ],
         "ml": 13,
         "name": "Ring of Thelis",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -242853,7 +243597,7 @@
         ],
         "ml": 13,
         "name": "Ring of Unknown Origins",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -243511,7 +244255,7 @@
         ],
         "ml": 13,
         "name": "Ring of the High Priest",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -243612,7 +244356,7 @@
         ],
         "ml": 18,
         "name": "Ring of the Ravager",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -243709,7 +244453,7 @@
         ],
         "ml": 9,
         "name": "Ring of the Silver Concord",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -245711,7 +246455,7 @@
         ],
         "ml": 27,
         "name": "Robe of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -245895,7 +246639,7 @@
         ],
         "ml": 14,
         "name": "Robe of the Magi",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -246607,7 +247351,7 @@
         ],
         "ml": 13,
         "name": "Rod of Mythant",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -247200,7 +247944,7 @@
         ],
         "ml": 9,
         "name": "Ruby Encrusted Gauntlets",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -247573,7 +248317,7 @@
         ],
         "ml": 12,
         "name": "Runed Ogre Femur",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Flesh Maker's Laboratory"
         ],
@@ -248784,7 +249528,7 @@
         ],
         "ml": 26,
         "name": "Sanctified Gages",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -248910,7 +249654,7 @@
         ],
         "ml": 11,
         "name": "Sandstorm Glasses",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -248978,7 +249722,7 @@
         ],
         "ml": 18,
         "name": "Sanura's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -249442,7 +250186,7 @@
         ],
         "ml": 27,
         "name": "Scalemail of the Celestial Avenger",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -249509,7 +250253,7 @@
         ],
         "ml": 27,
         "name": "Scalemail of the Celestial Sage",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -251387,7 +252131,7 @@
         ],
         "ml": 11,
         "name": "Scourge Choker",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -251687,7 +252431,7 @@
         ],
         "ml": 11,
         "name": "Seal of the Earth",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -254770,7 +255514,7 @@
         "ml": 1,
         "name": "Shard Trinket of Sunburst",
         "quests": [
-            "House Deneith"
+            "House Deneith Enclave"
         ],
         "slot": "Trinket",
         "type": "Trinket items",
@@ -255387,7 +256131,7 @@
         ],
         "ml": 13,
         "name": "Shield of Tireless Aid",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "The Devil's Details"
         ],
@@ -255428,7 +256172,7 @@
         ],
         "ml": 13,
         "name": "Shield of the Demonic Soldier",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -255588,7 +256332,7 @@
         ],
         "ml": 18,
         "name": "Shimmering Arrowhead",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "The Weapons Shipment"
         ],
@@ -255717,7 +256461,7 @@
         ],
         "ml": 11,
         "name": "Shining Crest of St. Markus",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -255761,7 +256505,7 @@
         ],
         "ml": 14,
         "name": "Shining Devastation",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Litany of the Dead"
         ],
@@ -257982,7 +258726,7 @@
         ],
         "ml": 18,
         "name": "Shintao Cord",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -258008,7 +258752,7 @@
         ],
         "ml": 18,
         "name": "Shiona's Pendant",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -258039,7 +258783,7 @@
         ],
         "ml": 18,
         "name": "Shiona's Seal",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -259477,7 +260221,7 @@
         ],
         "ml": 26,
         "name": "Shroud of Ardent",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "The Mark of Death"
         ],
@@ -259530,7 +260274,7 @@
         ],
         "ml": 14,
         "name": "Shroud of the Abbot",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -260032,7 +260776,7 @@
         ],
         "ml": 26,
         "name": "Sightless",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -260752,7 +261496,7 @@
         ],
         "ml": 10,
         "name": "Silken Mail",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -260869,7 +261613,7 @@
         ],
         "ml": 5,
         "name": "Silver Flame Amulet",
-        "pack": "Part 1 - Litany of the Dead Part 1",
+        "pack": "The Necropolis Part 1",
         "quests": [
             "The Bloody Crypt"
         ],
@@ -260918,7 +261662,7 @@
         ],
         "ml": 9,
         "name": "Silver Flame Pendant",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -260946,7 +261690,7 @@
         ],
         "ml": 11,
         "name": "Silver Flame Talisman",
-        "pack": "Part 3 - Litany of the Dead Part 3",
+        "pack": "The Necropolis Part 3",
         "quests": [
             "The Cursed Crypt"
         ],
@@ -261377,7 +262121,7 @@
         ],
         "ml": 9,
         "name": "Silver Necklace of Prophecy",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -261641,7 +262385,7 @@
         ],
         "ml": 18,
         "name": "Singed Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -262037,7 +262781,7 @@
         ],
         "ml": 10,
         "name": "Sirocco",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -264019,7 +264763,7 @@
         ],
         "ml": 18,
         "name": "Smedgar's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -264050,7 +264794,7 @@
         ],
         "ml": 18,
         "name": "Smedgar's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -265185,7 +265929,7 @@
         ],
         "ml": 11,
         "name": "Spectacles of Spirit Sight",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -265532,7 +266276,7 @@
         ],
         "ml": 11,
         "name": "Spectral Gloves",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "An Offering of Blood"
         ],
@@ -268498,7 +269242,7 @@
         ],
         "ml": 12,
         "name": "Staff of Arcane Power",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -268596,7 +269340,7 @@
         ],
         "ml": 10,
         "name": "Staff of Inner Sight",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -268895,7 +269639,7 @@
         ],
         "ml": 14,
         "name": "Staff of the Petitioner",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -269149,7 +269893,7 @@
         ],
         "ml": 18,
         "name": "Stalwart Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -270873,7 +271617,7 @@
         ],
         "ml": 10,
         "name": "Stonemeld Plate Armor",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -271013,7 +271757,7 @@
         ],
         "ml": 12,
         "name": "Storm",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -271576,7 +272320,7 @@
         ],
         "ml": 26,
         "name": "Strange Tidings",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -271911,7 +272655,7 @@
         ],
         "ml": 15,
         "name": "Subtle Sound",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Creeping Death"
         ],
@@ -273539,7 +274283,7 @@
         ],
         "ml": 10,
         "name": "Sword of Shadow",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -277163,7 +277907,7 @@
         ],
         "ml": 18,
         "name": "Telvi's Sash",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Bastion of Power"
         ],
@@ -277194,7 +277938,7 @@
         ],
         "ml": 18,
         "name": "Telvi's Touch",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -277612,7 +278356,7 @@
         ],
         "ml": 8,
         "name": "Tenebrous Stiletto",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -277737,7 +278481,7 @@
         ],
         "ml": 27,
         "name": "Terminus",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Legendary Hound of Xoriat"
         ],
@@ -277932,7 +278676,7 @@
         ],
         "ml": 18,
         "name": "Thaarak Wraps",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -277972,7 +278716,7 @@
         ],
         "ml": 18,
         "name": "Thamor's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -278003,7 +278747,7 @@
         ],
         "ml": 18,
         "name": "Thamor's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -278090,7 +278834,7 @@
         ],
         "ml": 13,
         "name": "Tharne's Bracers",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -278126,7 +278870,7 @@
         ],
         "ml": 13,
         "name": "Tharne's Goggles",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -278551,7 +279295,7 @@
         ],
         "ml": 13,
         "name": "The Band Immaterial",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -280576,7 +281320,7 @@
         ],
         "ml": 9,
         "name": "The Disciplinator",
-        "pack": "Vault of Night",
+        "pack": "The Vault of Night",
         "quests": [
             "Plane of Night"
         ],
@@ -281105,7 +281849,7 @@
         ],
         "ml": 28,
         "name": "The Epic Band Immaterial",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Demon Assault"
         ],
@@ -283907,7 +284651,7 @@
         ],
         "ml": 18,
         "name": "The Mad Lute",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "The Weapons Shipment"
         ],
@@ -288033,7 +288777,7 @@
         ],
         "ml": 8,
         "name": "Threnalian War Blade",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "The Threnal Arena"
         ],
@@ -288055,7 +288799,7 @@
         ],
         "ml": 8,
         "name": "Threnalian War Dagger",
-        "pack": "Ruins of Threnal",
+        "pack": "The Ruins of Threnal",
         "quests": [
             "The Threnal Arena"
         ],
@@ -290861,7 +291605,7 @@
         ],
         "ml": 18,
         "name": "Tokala's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Genesis Point"
         ],
@@ -290995,7 +291739,7 @@
         ],
         "ml": 11,
         "name": "Torc of Prince Raiyum-de II",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Zawabi's Revenge"
         ],
@@ -291063,7 +291807,7 @@
         ],
         "ml": 18,
         "name": "Torin's Choker",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -292985,7 +293729,7 @@
         ],
         "ml": 13,
         "name": "Tumbleweed",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "Hound of Xoriat"
         ],
@@ -293633,7 +294377,7 @@
         ],
         "ml": 26,
         "name": "Ultimatum",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -294811,7 +295555,7 @@
         ],
         "ml": 10,
         "name": "Unkor's Cleaver",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "Chains of Flame"
         ],
@@ -294932,7 +295676,7 @@
         ],
         "ml": 14,
         "name": "Unwavering Ardency",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -294970,7 +295714,7 @@
         ],
         "ml": 14,
         "name": "Unwavering Ardency",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -295199,7 +295943,7 @@
         ],
         "ml": 10,
         "name": "Vambraces of Inner Light",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "The Chamber of Raiyum"
         ],
@@ -295769,7 +296513,7 @@
         ],
         "ml": 18,
         "name": "Vengeful Protector",
-        "pack": "The Vale of Twilight (Including The Subterrane )",
+        "pack": "The Vale of Twilight",
         "quests": [
             "A Vision of Destruction"
         ],
@@ -295973,7 +296717,7 @@
         ],
         "ml": 18,
         "name": "Verik's Necklace",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "A New Invasion"
         ],
@@ -296004,7 +296748,7 @@
         ],
         "ml": 18,
         "name": "Verik's Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -296307,7 +297051,7 @@
         ],
         "ml": 13,
         "name": "Vile Blasphemy",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],
@@ -296471,7 +297215,7 @@
         ],
         "ml": 26,
         "name": "Visions of Precision",
-        "pack": "Trials of the Archons - Amrath",
+        "pack": "Trials of the Archons",
         "quests": [
             "Defiler of the Just"
         ],
@@ -296868,7 +297612,7 @@
         ],
         "ml": 18,
         "name": "Vorne's Belt",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Sins of Attrition"
         ],
@@ -297009,7 +297753,7 @@
         ],
         "ml": 10,
         "name": "Vulkoorim Fighting Leathers",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "An Offering of Blood"
         ],
@@ -297720,7 +298464,7 @@
         ],
         "ml": 18,
         "name": "Warchanter's Band",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -297816,7 +298560,7 @@
         ],
         "ml": 10,
         "name": "Ward of Undeath",
-        "pack": "Demon Sands - Zawabi's Refuge",
+        "pack": "Demon Sands",
         "quests": [
             "An Offering of Blood"
         ],
@@ -298798,7 +299542,7 @@
         ],
         "ml": 18,
         "name": "Whisper Ring",
-        "pack": "The Devils of Shavarath - Amrath",
+        "pack": "The Devils of Shavarath",
         "quests": [
             "Tower of Despair"
         ],
@@ -300414,7 +301158,7 @@
         ],
         "ml": 8,
         "name": "Witching Hour",
-        "pack": "Part 2 - Litany of the Dead Part 2",
+        "pack": "The Necropolis Part 2",
         "quests": [
             "The Shadow Crypt"
         ],
@@ -301360,7 +302104,7 @@
         ],
         "ml": 13,
         "name": "Wretched Twilight",
-        "pack": "Part 4 - Litany of the Dead Part 4",
+        "pack": "The Necropolis Part 4",
         "quests": [
             "Ascension Chamber"
         ],

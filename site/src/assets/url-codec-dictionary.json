@@ -135,7 +135,8 @@
         "T3 (Weapon)",
         "Woeful (Accessory)",
         "Woeful (Weapon)",
-        "Yellow Augment Slot"
+        "Yellow Augment Slot",
+        "Active"
     ],
     "itemTypes": [
         "Back items",

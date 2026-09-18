@@ -117,6 +117,7 @@ async function resolveOwnerUserIdForCreate(env: Env, user: AuthenticatedUser): P
   return ensureUser(env.DB, {
     auth0Sub: user.sub,
     email: user.email ?? null,
+    emailVerified: user.emailVerified ?? false,
     displayName: user.name ?? null
   });
 }

@@ -19,7 +19,7 @@ const user: AuthenticatedUser = { sub: 'auth0|abc123', email: 'player@example.te
 const otherUser: AuthenticatedUser = { sub: 'auth0|xyz789', email: 'other@example.test', name: 'Other' };
 
 function seedUser(db: FakeD1, id: string, authUser: AuthenticatedUser): void {
-  db.users.push({ id, auth0_sub: authUser.sub, email: null, display_name: null, created_at: 'now', last_login_at: 'now' });
+  db.users.push({ id, auth0_sub: authUser.sub, email: null, email_verified: 0, display_name: null, created_at: 'now', last_login_at: 'now' });
 }
 
 function seedBuild(db: FakeD1, overrides: Partial<FakeD1['builds'][number]> & { id: string; short_id: string; owner_user_id: string }): void {
@@ -107,6 +107,50 @@ describe('handleCreateBuild duplicate names', () => {
     const response = await handleCreateBuild(request({ name: 'My Fighter', blob: 'z1.def' }), user, env);
 
     expect(response.status).toBe(201);
+  });
+});
+
+describe('handleCreateBuild cross-provider account linking', () => {
+  it('attaches the new build to the existing account when the caller logs in via a new provider with a matching verified email', async () => {
+    const { env, db } = makeEnv();
+    db.users.push({
+      id: 'user-1',
+      auth0_sub: 'google-oauth2|1',
+      email: 'player@example.test',
+      email_verified: 1,
+      display_name: 'Player',
+      created_at: 'now',
+      last_login_at: 'now'
+    });
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'Existing Build' });
+
+    const discordUser: AuthenticatedUser = { sub: 'discord|2', email: 'player@example.test', emailVerified: true, name: 'Player' };
+    const response = await handleCreateBuild(request({ name: 'New Build', blob: 'z1.abc' }), discordUser, env);
+
+    expect(response.status).toBe(201);
+    expect(db.users).toHaveLength(1);
+    expect(db.users[0].auth0_sub).toBe('discord|2');
+    expect(db.builds.filter(b => b.owner_user_id === 'user-1')).toHaveLength(2);
+  });
+
+  it('does not link, and creates a separate account, when the matching email is unverified', async () => {
+    const { env, db } = makeEnv();
+    db.users.push({
+      id: 'user-1',
+      auth0_sub: 'google-oauth2|1',
+      email: 'player@example.test',
+      email_verified: 1,
+      display_name: 'Player',
+      created_at: 'now',
+      last_login_at: 'now'
+    });
+
+    const unverifiedUser: AuthenticatedUser = { sub: 'auth0|2', email: 'player@example.test', emailVerified: false, name: 'Someone Else' };
+    const response = await handleCreateBuild(request({ name: 'New Build', blob: 'z1.abc' }), unverifiedUser, env);
+
+    expect(response.status).toBe(201);
+    expect(db.users).toHaveLength(2);
+    expect(db.builds[0].owner_user_id).not.toBe('user-1');
   });
 });
 

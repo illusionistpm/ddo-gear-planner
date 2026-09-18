@@ -12,6 +12,12 @@ export interface Env {
 export interface AuthenticatedUser {
   sub: string;
   email?: string;
+  // Only trustworthy as a link-accounts-by-email signal when true - see
+  // db.ts's getUserByVerifiedEmail. Auth0 passes this through from the
+  // provider unchecked (e.g. an email/password signup before the user
+  // clicks the confirmation link), so an unverified email is just a claim,
+  // not proof of ownership.
+  emailVerified?: boolean;
   name?: string;
 }
 
@@ -81,11 +87,13 @@ export async function verifyAuthToken(request: Request, env: Env): Promise<Authe
     // since Auth0 silently drops any non-namespaced custom claim.
     const claimNamespace = normalizeAudience(env.AUTH0_AUDIENCE);
     const email = payload[`${claimNamespace}/email`];
+    const emailVerified = payload[`${claimNamespace}/email_verified`];
     const name = payload[`${claimNamespace}/name`];
 
     return {
       sub: payload.sub,
       email: typeof email === 'string' ? email : undefined,
+      emailVerified: typeof emailVerified === 'boolean' ? emailVerified : undefined,
       name: typeof name === 'string' ? name : undefined
     };
   } catch {

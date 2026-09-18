@@ -6,6 +6,7 @@ export async function handleGetMe(user: AuthenticatedUser, env: Env): Promise<Re
   const row = await upsertUser(env.DB, {
     auth0Sub: user.sub,
     email: user.email ?? null,
+    emailVerified: user.emailVerified ?? false,
     displayName: user.name ?? null
   });
   // A dedicated COUNT rather than listBuildSummariesByOwner(...).length -

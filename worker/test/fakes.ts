@@ -16,6 +16,7 @@ export interface FakeUserRow {
   id: string;
   auth0_sub: string;
   email: string | null;
+  email_verified: number;
   display_name: string | null;
   created_at: string;
   last_login_at: string;
@@ -130,6 +131,9 @@ export class FakeD1 {
     if (sql.includes('FROM users WHERE auth0_sub')) {
       return this.users.find(u => u.auth0_sub === args[0]) ?? null;
     }
+    if (sql.includes('FROM users WHERE email') && sql.includes('email_verified = 1')) {
+      return this.users.find(u => u.email === args[0] && u.email_verified === 1) ?? null;
+    }
     if (sql.includes('SELECT kind FROM short_ids WHERE short_id')) {
       const row = this.shortIds.find(s => s.short_id === args[0]);
       return row ? { kind: row.kind } : null;
@@ -168,20 +172,53 @@ export class FakeD1 {
 
   _write(sql: string, args: unknown[]): { meta: { changes: number } } {
     if (sql.startsWith('INSERT INTO users')) {
-      const [id, auth0Sub, email, displayName, createdAt, lastLoginAt] = args as [string, string, string | null, string | null, string, string];
+      const [id, auth0Sub, email, emailVerified, displayName, createdAt, lastLoginAt] =
+        args as [string, string, string | null, number, string | null, string, string];
       if (unique(this.users, u => u.auth0_sub === auth0Sub)) {
         throw new Error('D1_ERROR: UNIQUE constraint failed: users.auth0_sub');
       }
-      this.users.push({ id, auth0_sub: auth0Sub, email, display_name: displayName, created_at: createdAt, last_login_at: lastLoginAt });
+      if (emailVerified === 1 && email !== null && unique(this.users, u => u.email === email && u.email_verified === 1)) {
+        throw new Error('D1_ERROR: UNIQUE constraint failed: idx_users_verified_email');
+      }
+      this.users.push({ id, auth0_sub: auth0Sub, email, email_verified: emailVerified, display_name: displayName, created_at: createdAt, last_login_at: lastLoginAt });
       return { meta: { changes: 1 } };
     }
 
+    // ensureUser's link-only write: just repoints auth0_sub onto an
+    // existing row found by verified email, nothing else changes.
+    if (sql.startsWith('UPDATE users SET auth0_sub = ? WHERE id')) {
+      const [auth0Sub, id] = args as [string, string];
+      const user = this.users.find(u => u.id === id);
+      if (user) {
+        user.auth0_sub = auth0Sub;
+      }
+      return { meta: { changes: user ? 1 : 0 } };
+    }
+
+    // upsertUser's link write: repoints auth0_sub AND refreshes the
+    // login/profile fields in one go, for the "found by email, not by sub"
+    // case.
+    if (sql.startsWith('UPDATE users SET auth0_sub = ?, last_login_at')) {
+      const [auth0Sub, lastLoginAt, email, emailVerified, displayName, id] =
+        args as [string, string, string | null, number, string | null, string];
+      const user = this.users.find(u => u.id === id);
+      if (user) {
+        user.auth0_sub = auth0Sub;
+        user.last_login_at = lastLoginAt;
+        user.email = email;
+        user.email_verified = emailVerified;
+        user.display_name = displayName;
+      }
+      return { meta: { changes: user ? 1 : 0 } };
+    }
+
     if (sql.startsWith('UPDATE users')) {
-      const [lastLoginAt, email, displayName, id] = args as [string, string | null, string | null, string];
+      const [lastLoginAt, email, emailVerified, displayName, id] = args as [string, string | null, number, string | null, string];
       const user = this.users.find(u => u.id === id);
       if (user) {
         user.last_login_at = lastLoginAt;
         user.email = email;
+        user.email_verified = emailVerified;
         user.display_name = displayName;
       }
       return { meta: { changes: user ? 1 : 0 } };

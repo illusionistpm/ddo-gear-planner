@@ -2,6 +2,7 @@ export interface UserRow {
   id: string;
   auth0_sub: string;
   email: string | null;
+  email_verified: number;
   display_name: string | null;
   created_at: string;
   last_login_at: string;
@@ -49,6 +50,14 @@ export async function getUserIdByAuth0Sub(db: D1Database, auth0Sub: string): Pro
   return row?.id ?? null;
 }
 
+// Only matches a row whose *stored* email was itself set from a verified
+// claim (see the email_verified column's comment in
+// migrations/0005_user_email_verified.sql) - an unverified email is not a
+// safe basis for handing a new sub access to an existing account's builds.
+export async function getUserByVerifiedEmail(db: D1Database, email: string): Promise<UserRow | null> {
+  return await db.prepare('SELECT * FROM users WHERE email = ? AND email_verified = 1').bind(email).first<UserRow>();
+}
+
 /**
  * Finds the user by auth0_sub, updating last_login_at (and refreshing
  * email/display_name in case they changed at the provider) if found, or
@@ -60,29 +69,48 @@ export async function getUserIdByAuth0Sub(db: D1Database, auth0Sub: string): Pro
  */
 export async function upsertUser(
   db: D1Database,
-  params: { auth0Sub: string; email: string | null; displayName: string | null }
+  params: { auth0Sub: string; email: string | null; emailVerified: boolean; displayName: string | null }
 ): Promise<UserRow> {
   const now = new Date().toISOString();
   const existing = await getUserByAuth0Sub(db, params.auth0Sub);
+  const emailVerified = params.email && params.emailVerified ? 1 : 0;
 
   if (existing) {
-    await db.prepare('UPDATE users SET last_login_at = ?, email = ?, display_name = ? WHERE id = ?')
-      .bind(now, params.email, params.displayName, existing.id)
+    await db.prepare('UPDATE users SET last_login_at = ?, email = ?, email_verified = ?, display_name = ? WHERE id = ?')
+      .bind(now, params.email, emailVerified, params.displayName, existing.id)
       .run();
-    return { ...existing, last_login_at: now, email: params.email, display_name: params.displayName };
+    return { ...existing, last_login_at: now, email: params.email, email_verified: emailVerified, display_name: params.displayName };
+  }
+
+  // A verified email lets us recognize the same person returning through a
+  // different Auth0 connection (e.g. signed up with Google, comes back via
+  // Discord using the same address) as the account they already have,
+  // instead of silently starting a second, empty one - see
+  // migrations/0005_user_email_verified.sql. Adopting the new sub onto the
+  // existing row (rather than the other way around) is what makes this
+  // self-correcting: whichever provider they log in with most recently is
+  // the one recognized directly next time, and either one still resolves
+  // back to this row via the email match if it doesn't match by sub.
+  const linkTarget = emailVerified ? await getUserByVerifiedEmail(db, params.email as string) : null;
+  if (linkTarget) {
+    await db.prepare('UPDATE users SET auth0_sub = ?, last_login_at = ?, email = ?, email_verified = ?, display_name = ? WHERE id = ?')
+      .bind(params.auth0Sub, now, params.email, emailVerified, params.displayName, linkTarget.id)
+      .run();
+    return { ...linkTarget, auth0_sub: params.auth0Sub, last_login_at: now, email: params.email, email_verified: emailVerified, display_name: params.displayName };
   }
 
   const row: UserRow = {
     id: crypto.randomUUID(),
     auth0_sub: params.auth0Sub,
     email: params.email,
+    email_verified: emailVerified,
     display_name: params.displayName,
     created_at: now,
     last_login_at: now
   };
   await db.prepare(
-    'INSERT INTO users (id, auth0_sub, email, display_name, created_at, last_login_at) VALUES (?, ?, ?, ?, ?, ?)'
-  ).bind(row.id, row.auth0_sub, row.email, row.display_name, row.created_at, row.last_login_at).run();
+    'INSERT INTO users (id, auth0_sub, email, email_verified, display_name, created_at, last_login_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
+  ).bind(row.id, row.auth0_sub, row.email, row.email_verified, row.display_name, row.created_at, row.last_login_at).run();
   return row;
 }
 
@@ -99,17 +127,33 @@ export async function upsertUser(
  */
 export async function ensureUser(
   db: D1Database,
-  params: { auth0Sub: string; email: string | null; displayName: string | null }
+  params: { auth0Sub: string; email: string | null; emailVerified: boolean; displayName: string | null }
 ): Promise<string> {
   const existingId = await getUserIdByAuth0Sub(db, params.auth0Sub);
   if (existingId) {
     return existingId;
   }
+
+  // See upsertUser's comment on why only a verified email links accounts.
+  // Repointing auth0_sub here is the one write this function makes for an
+  // already-known person - the "no write when already known" guarantee
+  // above is about not churning last_login_at on every request, not about
+  // never recognizing a returning user logging in through a second linked
+  // provider for the first time.
+  const emailVerified = params.email && params.emailVerified ? 1 : 0;
+  if (emailVerified) {
+    const linkTarget = await getUserByVerifiedEmail(db, params.email as string);
+    if (linkTarget) {
+      await db.prepare('UPDATE users SET auth0_sub = ? WHERE id = ?').bind(params.auth0Sub, linkTarget.id).run();
+      return linkTarget.id;
+    }
+  }
+
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
   await db.prepare(
-    'INSERT INTO users (id, auth0_sub, email, display_name, created_at, last_login_at) VALUES (?, ?, ?, ?, ?, ?)'
-  ).bind(id, params.auth0Sub, params.email, params.displayName, now, now).run();
+    'INSERT INTO users (id, auth0_sub, email, email_verified, display_name, created_at, last_login_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
+  ).bind(id, params.auth0Sub, params.email, emailVerified, params.displayName, now, now).run();
   return id;
 }
 

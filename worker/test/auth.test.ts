@@ -61,6 +61,7 @@ describe('verifyAuthToken', () => {
   } = {}) {
     return new SignJWT({
       [`${AUDIENCE}/email`]: 'user@example.com',
+      [`${AUDIENCE}/email_verified`]: true,
       [`${AUDIENCE}/name`]: 'Test User'
     })
       .setProtectedHeader({ alg: 'RS256', kid: KID })
@@ -81,6 +82,7 @@ describe('verifyAuthToken', () => {
     expect(await verifyAuthToken(request, makeEnv(domain))).toEqual({
       sub: 'google-oauth2|12345',
       email: 'user@example.com',
+      emailVerified: true,
       name: 'Test User'
     });
   });
@@ -101,8 +103,27 @@ describe('verifyAuthToken', () => {
     expect(await verifyAuthToken(request, envWithSchemePrefixed)).toEqual({
       sub: 'google-oauth2|12345',
       email: 'user@example.com',
+      emailVerified: true,
       name: 'Test User'
     });
+  });
+
+  it('leaves emailVerified undefined when the claim is absent (no Auth0 Action configured yet)', async () => {
+    const token = await new SignJWT({ [`${AUDIENCE}/email`]: 'user@example.com' })
+      .setProtectedHeader({ alg: 'RS256', kid: KID })
+      .setSubject('google-oauth2|12345')
+      .setIssuedAt()
+      .setIssuer(`https://${domain}/`)
+      .setAudience(AUDIENCE)
+      .setExpirationTime(Math.floor(Date.now() / 1000) + 3600)
+      .sign(privateKey);
+    const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const result = await verifyAuthToken(request, makeEnv(domain));
+
+    expect(result?.emailVerified).toBeUndefined();
   });
 
   it('returns null when there is no Authorization header', async () => {

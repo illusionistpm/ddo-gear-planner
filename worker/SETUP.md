@@ -19,7 +19,7 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    actually references as `env.BUILD_CACHE`.
 4. `npx wrangler d1 migrations apply DB --remote` - runs every pending file
    under `migrations/` (currently `0001_init.sql` through
-   `0004_build_name_unique.sql`) against the real (not local) database, in
+   `0005_user_email_verified.sql`) against the real (not local) database, in
    order, skipping any already applied. Safe to re-run.
 5. In the Cloudflare dashboard, since `ddo-gear-planner.com`'s DNS is already
    on Cloudflare, deploying the Worker (step 7 below) with the
@@ -83,6 +83,7 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
      const namespace = 'https://api.ddo-gear-planner.com';
      if (event.user.email) {
        api.accessToken.setCustomClaim(`${namespace}/email`, event.user.email);
+       api.accessToken.setCustomClaim(`${namespace}/email_verified`, !!event.user.email_verified);
      }
      if (event.user.name) {
        api.accessToken.setCustomClaim(`${namespace}/name`, event.user.name);
@@ -93,6 +94,14 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    **Actions -> Flows -> Login** and apply. Without this step, `/api/users/me`
    still works but creates/updates D1 `users` rows with `email`/`display_name`
    left `NULL`.
+
+   `email_verified` is what lets the backend recognize the same person
+   signing in through a different connection (e.g. Google, then Discord)
+   with the same address as their existing account instead of silently
+   creating a second, empty one - see `auth.ts` and `db.ts`'s
+   `getUserByVerifiedEmail`. Without it, every social connection's emails
+   are treated as unverified and cross-provider login always creates a
+   separate account.
 
 ## 3. Verifying it's live
 

@@ -33,7 +33,7 @@ describe('handleCreateShortLink', () => {
 
   it('attributes the shortlink to its creator when the caller has a user row', async () => {
     const { env, db } = makeEnv();
-    db.users.push({ id: 'user-1', auth0_sub: user.sub, email: null, display_name: null, created_at: 'now', last_login_at: 'now' });
+    db.users.push({ id: 'user-1', auth0_sub: user.sub, email: null, email_verified: 0, display_name: null, created_at: 'now', last_login_at: 'now' });
 
     await handleCreateShortLink(request({ blob: 'z1.abc', name: 'My Fighter' }), user, env);
 

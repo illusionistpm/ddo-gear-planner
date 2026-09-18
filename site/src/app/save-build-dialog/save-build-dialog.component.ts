@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 
-export const MAX_BUILD_NAME_LENGTH = 60;
+import sharedConstants from '../../../../shared/constants.json';
+
+// From shared/constants.json (see its README) - the same value worker/src/
+// routes/builds.ts's validateName() enforces, read directly rather than
+// hand-copied.
+export const MAX_BUILD_NAME_LENGTH = sharedConstants.maxNameLength;
 
 /**
  * Trims whitespace, rejects empty-after-trim, caps length. Mirrored

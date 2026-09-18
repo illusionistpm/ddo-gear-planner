@@ -2,7 +2,7 @@
   <div class="build-name-group">
     @if (editingName) {
       <input #nameInput type="text" class="build-name-input" [(ngModel)]="nameDraft"
-        maxlength="60"
+        [maxLength]="nameMaxLength"
         aria-label="Build name"
         (keydown.enter)="commitRename()"
         (keydown.escape)="cancelRename()"

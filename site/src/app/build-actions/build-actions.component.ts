@@ -16,7 +16,7 @@ import { EquippedService } from '../equipped.service';
 import { QueryParamsService } from '../query-params.service';
 import { ShortLinksService } from '../short-links.service';
 import { slugifyBuildName } from '../build-slug';
-import { validateBuildName } from '../save-build-dialog/save-build-dialog.component';
+import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 
 type DialogMode = 'create' | 'save-as';
 type ShareCopyKind = 'link' | 'text-link' | 'text';
@@ -107,6 +107,9 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   editingName = false;
   nameDraft = '';
   renameError: string | null = null;
+  // Bound to the rename input's [maxLength] - was a bare maxlength="60" in
+  // the template, hand-duplicating validateBuildName's own limit.
+  readonly nameMaxLength = MAX_BUILD_NAME_LENGTH;
 
   // True while an in-place Save (saveInPlace, below) is in flight - unlike
   // create/Save As, this path has no dialog to show its own "Saving…" state

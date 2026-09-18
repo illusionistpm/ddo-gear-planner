@@ -1,0 +1,5 @@
+{
+  "maxNameLength": 60,
+  "maxBuildsPerUser": 100,
+  "maxBlobLength": 4096
+}

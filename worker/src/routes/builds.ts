@@ -16,23 +16,25 @@ import {
 } from '../db';
 import { errorResponse, jsonResponse } from '../http';
 import { withUniqueShortId } from '../shortId';
+import sharedConstants from '../../../shared/constants.json';
 
 // Long enough to be descriptive, short enough to stay sane in a list UI, a
 // page <title>, and the derived slug. Mirrors the client-side validation in
-// save-build-dialog.component.ts - client-side alone isn't a real guarantee
-// since this API is callable directly.
-export const MAX_NAME_LENGTH = 60;
+// save-build-dialog.component.ts (both read shared/constants.json, so
+// there's nothing to keep in sync by hand) - client-side alone isn't a
+// real guarantee since this API is callable directly.
+export const MAX_NAME_LENGTH = sharedConstants.maxNameLength;
 
 // The Worker treats `blob` as opaque (it never parses it - see
 // build-url-codec.service.ts for why that matters for forward-compat), so
 // this is just a sanity ceiling against accidental or malicious oversized
 // writes. A real compact build payload should be well under 1-2 KB.
-const MAX_BLOB_LENGTH = 4096;
+const MAX_BLOB_LENGTH = sharedConstants.maxBlobLength;
 
 // A generous ceiling, not a real storage/cost constraint at this scale -
 // mainly a backstop against a runaway client (or a scripted abuse of the
 // public API) piling up unbounded rows for one owner.
-export const MAX_BUILDS_PER_USER = 100;
+export const MAX_BUILDS_PER_USER = sharedConstants.maxBuildsPerUser;
 
 // A genuine cross-table shortId collision (short_ids.short_id, or the
 // legacy builds.short_id column UNIQUE as a redundant second guard) is

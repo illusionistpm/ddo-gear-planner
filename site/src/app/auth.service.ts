@@ -20,15 +20,15 @@ const POST_LOGOUT_RETURN_TO_KEY = 'auth.postLogoutReturnTo';
   providedIn: 'root'
 })
 export class AuthService {
-  readonly isAuthenticated$: Observable<boolean> = this.auth0.isAuthenticated$;
-  readonly user$ = this.auth0.user$;
+  readonly isAuthenticated$: Observable<boolean>;
+  readonly user$: Auth0Service['user$'];
   // True for the whole callback-processing window after a login redirect
   // (and briefly on any fresh load, while the SDK checks for an existing
   // session) - stays true until after the SDK has already dispatched its
   // own restore-navigation back to appState.target, so code that needs to
   // know "has the real post-login URL landed yet" can gate on this instead
   // of racing it.
-  readonly isLoading$: Observable<boolean> = this.auth0.isLoading$;
+  readonly isLoading$: Observable<boolean>;
 
   // Set right before signIn()/signOut() trigger their real window.location
   // redirect to Auth0 - both round-trip back to this exact build (see their
@@ -45,6 +45,12 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly router: Router
   ) {
+    // Assigned here rather than as field initializers, which would read
+    // this.auth0 before it is set under standard class-field semantics.
+    this.isAuthenticated$ = this.auth0.isAuthenticated$;
+    this.user$ = this.auth0.user$;
+    this.isLoading$ = this.auth0.isLoading$;
+
     // GET /api/users/me both upserts the user's own D1 row (updating
     // last_login_at) and is the only thing that ever creates that row in
     // the first place - nothing else in the app calls it. Fired once per

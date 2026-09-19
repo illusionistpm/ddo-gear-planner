@@ -47,7 +47,7 @@ export class CurrentBuildService {
   // Compared against on every combinedParamsChanges emission to compute
   // isDirty - captured fresh every time the baseline should reset (a load
   // or a save just completed).
-  private baselineParamsJson = this.stableStringify(this.queryParams.getCombinedParams());
+  private baselineParamsJson: string;
 
   // The last-known-canonical (clean) param set for the currently loaded
   // build, keyed by shortId - set alongside markLoaded/markSaved (via
@@ -61,6 +61,9 @@ export class CurrentBuildService {
   private canonicalParamsCache: { shortId: string; params: Record<string, string | Array<string>> } | null = null;
 
   constructor(private readonly queryParams: QueryParamsService) {
+    // Not a field initializer: that would read this.queryParams before it is
+    // set under standard class-field semantics.
+    this.baselineParamsJson = this.stableStringify(this.queryParams.getCombinedParams());
     this.queryParams.combinedParamsChanges.subscribe(params => {
       this.setDirty(this.stableStringify(params) !== this.baselineParamsJson);
     });

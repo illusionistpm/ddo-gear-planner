@@ -180,5 +180,6 @@ export class Item {
                 return crafting;
             }
         }
+        return undefined;
     }
 }

@@ -16,7 +16,10 @@
       "node_modules/@types"
     ],
     "resolveJsonModule": true,
-    "strictNullChecks": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth.service';
-import { CurrentBuildService, CurrentBuildState } from '../current-build.service';
+import { AuthService } from '../shared/auth.service';
+import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
 

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { environment } from '../environments/environment';
-import { BuildUrlCodecService, BuildUrlInspection } from './build-url-codec.service';
-import { PlannerOnboardingService } from './planner-onboarding.service';
+import { BuildUrlCodecService, BuildUrlInspection } from './build/build-url-codec.service';
+import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 
 type UrlParamRecord = Record<string, string | string[]>;
 type UrlInspectorView = 'compact' | 'effective' | 'human';

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { AnalyticsService } from '../analytics.service';
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
+import { AnalyticsService } from '../shared/analytics.service';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
 import { SuggestionDrawerService } from './suggestion-drawer.service';
 
 /** Where in the suggestion drawer an equip came from, as reported to analytics. */

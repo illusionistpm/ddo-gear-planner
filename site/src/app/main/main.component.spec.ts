@@ -4,13 +4,13 @@ import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AuthService } from '../auth.service';
-import { BuildUrlCodecService } from '../build-url-codec.service';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService } from '../current-build.service';
-import { BuildUrlIdentity, QueryParamsService } from '../query-params.service';
+import { AuthService } from '../shared/auth.service';
+import { BuildUrlCodecService } from '../build/build-url-codec.service';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService } from '../build/current-build.service';
+import { BuildUrlIdentity, QueryParamsService } from '../build/query-params.service';
 import { MainComponent } from './main.component';
-import { EquippedService } from '../equipped.service';
+import { EquippedService } from '../planner/equipped.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 
 describe('MainComponent', () => {

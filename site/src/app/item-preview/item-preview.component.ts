@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
 import { ItemPreviewController } from './item-preview-controller';
 
 /**

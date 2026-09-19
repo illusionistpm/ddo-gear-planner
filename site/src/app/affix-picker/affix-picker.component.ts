@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService } from '../equipped.service';
-import { GearDbService } from '../gear-db.service';
-import { AffixService } from '../affix.service';
-import { AnalyticsService } from '../analytics.service';
-import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { EquippedService } from '../planner/equipped.service';
+import { GearDbService } from '../gear/gear-db.service';
+import { AffixService } from '../affixes/affix.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
-import { AffixPackagesService } from '../affix-packages.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 
-import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
+import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
 @Component({

@@ -5,20 +5,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
-import { AffixPackagesService } from '../affix-packages.service';
-import { UserGearService } from '../user-gear.service';
-import { GearDbService } from '../gear-db.service';
-import { AnalyticsService } from '../analytics.service';
-import { FiltersService } from '../filters.service';
-import { ItemFilters } from '../item-filters';
-import { EquippedService, PlannerTab } from '../equipped.service';
-import { PlannerOnboardingService } from '../planner-onboarding.service';
-import { ThemeService } from '../theme.service';
-import { AuthService } from '../auth.service';
-import { BuildUrlCodecService } from '../build-url-codec.service';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService } from '../current-build.service';
-import { QueryParamsService } from '../query-params.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { UserGearService } from '../planner/user-gear.service';
+import { GearDbService } from '../gear/gear-db.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { FiltersService } from '../planner/filters.service';
+import { ItemFilters } from '../gear/item-filters';
+import { EquippedService, PlannerTab } from '../planner/equipped.service';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { ThemeService } from '../shared/theme.service';
+import { AuthService } from '../shared/auth.service';
+import { BuildUrlCodecService } from '../build/build-url-codec.service';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService } from '../build/current-build.service';
+import { QueryParamsService } from '../build/query-params.service';
 
 
 @Component({

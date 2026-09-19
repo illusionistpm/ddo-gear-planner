@@ -3,11 +3,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
-import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build';
-import { buildPath } from '../build-route';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService } from '../current-build.service';
-import { QueryParamsService } from '../query-params.service';
+import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build/build';
+import { buildPath } from '../build/build-route';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService } from '../build/current-build.service';
+import { QueryParamsService } from '../build/query-params.service';
 
 /** A save/rename failure, carrying the message to show the user. */
 export class BuildSaveError extends Error { }

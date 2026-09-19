@@ -1,13 +1,13 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { of, Subject, throwError } from 'rxjs';
 
-import { AnalyticsService } from '../analytics.service';
-import { AuthService } from '../auth.service';
-import { Clipboard } from '../clipboard';
-import { CurrentBuildState } from '../current-build.service';
-import { EquippedService } from '../equipped.service';
-import { QueryParamsService } from '../query-params.service';
-import { ShortLinksService } from '../short-links.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { AuthService } from '../shared/auth.service';
+import { Clipboard } from '../shared/clipboard';
+import { CurrentBuildState } from '../build/current-build.service';
+import { EquippedService } from '../planner/equipped.service';
+import { QueryParamsService } from '../build/query-params.service';
+import { ShortLinksService } from '../build/short-links.service';
 import { BuildShareMenuComponent } from './build-share-menu.component';
 
 function makeState(overrides: Partial<CurrentBuildState> = {}): CurrentBuildState {

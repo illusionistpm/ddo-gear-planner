@@ -1,15 +1,15 @@
 import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../equipped.service';
-import { GearDbService } from '../gear-db.service';
-import { AffixService } from '../affix.service';
-import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
-import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../planner/equipped.service';
+import { GearDbService } from '../gear/gear-db.service';
+import { AffixService } from '../affixes/affix.service';
+import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
-import { AffixAvailabilityService, RemainingAvailability } from '../affix-availability.service';
-import { TrackedAffixDerivationService } from '../tracked-affix-derivation.service';
+import { AffixAvailabilityService, RemainingAvailability } from '../affixes/affix-availability.service';
+import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
 import {
   buildTrackedAffixGroups,
   classForBonusValue,
@@ -21,9 +21,9 @@ import {
   TrackedBonusTypeDisplay,
   TrackedBonusTypeRef,
   TrackedBonusTypeSource,
-} from '../tracked-affix-derivation';
-import { affixTypeKey } from '../affix-type-key';
-import { RECENT_CHANGE_HIGHLIGHT_MS } from '../recent-change-highlight';
+} from '../affixes/tracked-affix-derivation';
+import { affixTypeKey } from '../affixes/affix-type-key';
+import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 
 interface SlotGroupChip {
   sourceAffixName: string;

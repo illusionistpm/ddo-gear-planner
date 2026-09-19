@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { GearDbService } from '../gear-db.service';
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
-import { UserGearService, UserItemLocation } from '../user-gear.service';
-import { AnalyticsService } from '../analytics.service';
-import { perfAfterFrames, perfMeasure, perfStart } from '../perf-trace';
+import { GearDbService } from '../gear/gear-db.service';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
+import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { perfAfterFrames, perfMeasure, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 

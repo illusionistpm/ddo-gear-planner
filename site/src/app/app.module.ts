@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 
-import { GameDataService } from './game-data.service';
-import { GearDbService } from './gear-db.service';
+import { GameDataService } from './gear/game-data.service';
+import { GearDbService } from './gear/gear-db.service';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +25,7 @@ import { ItemPreviewComponent } from './item-preview/item-preview.component';
 import { BuildShareMenuComponent } from './build-share-menu/build-share-menu.component';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
-import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
+import { UserItemLocationTooltipPipe } from './shared/user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
 import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
@@ -36,7 +36,7 @@ import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/exter
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
-import { ShrinkToFitDirective } from './shrink-to-fit.directive';
+import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
 
 @NgModule({
     declarations: [

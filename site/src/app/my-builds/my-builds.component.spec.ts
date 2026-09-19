@@ -3,9 +3,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-import { Build } from '../build';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService } from '../current-build.service';
+import { Build } from '../build/build';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService } from '../build/current-build.service';
 import { MyBuildsComponent } from './my-builds.component';
 
 function makeBuild(overrides: Partial<Build> = {}): Build {

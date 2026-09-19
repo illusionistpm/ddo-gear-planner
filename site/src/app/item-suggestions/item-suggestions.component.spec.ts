@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
-import { FiltersService } from '../filters.service';
-import { GearDbService } from '../gear-db.service';
+import { FiltersService } from '../planner/filters.service';
+import { GearDbService } from '../gear/gear-db.service';
 import { ItemSuggestionsComponent } from './item-suggestions.component';
 
 describe('ItemSuggestionsComponent', () => {

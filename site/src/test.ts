@@ -7,8 +7,8 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-import { GameDataService } from './app/game-data.service';
-import { RawCraftingData, RawEssenceCraftingData, RawItem, RawSetData } from './app/game-data-types';
+import { GameDataService } from './app/gear/game-data.service';
+import { RawCraftingData, RawEssenceCraftingData, RawItem, RawSetData } from './app/gear/game-data-types';
 import itemsList from './assets/items.json';
 import craftingListRaw from './assets/crafting.json';
 import essenceCraftingList from './assets/essence-crafting.json';

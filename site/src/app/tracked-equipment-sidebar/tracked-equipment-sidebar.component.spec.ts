@@ -2,7 +2,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
-import { EquippedService } from '../equipped.service';
+import { EquippedService } from '../planner/equipped.service';
 import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar.component';
 
 describe('TrackedEquipmentSidebarComponent', () => {

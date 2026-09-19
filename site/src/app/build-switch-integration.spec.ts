@@ -4,14 +4,14 @@ import { of } from 'rxjs';
 
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
-import { AuthService } from './auth.service';
-import { BuildUrlCodecService } from './build-url-codec.service';
-import { BuildsService } from './builds.service';
-import { CurrentBuildService } from './current-build.service';
-import { EquippedService } from './equipped.service';
-import { FiltersService } from './filters.service';
-import { Item } from './item';
-import { QueryParamsService } from './query-params.service';
+import { AuthService } from './shared/auth.service';
+import { BuildUrlCodecService } from './build/build-url-codec.service';
+import { BuildsService } from './build/builds.service';
+import { CurrentBuildService } from './build/current-build.service';
+import { EquippedService } from './planner/equipped.service';
+import { FiltersService } from './planner/filters.service';
+import { Item } from './gear/item';
+import { QueryParamsService } from './build/query-params.service';
 
 // Uses the real AppComponent (not a bare <router-outlet> stub) as the root:
 // a build-shortId route (/build/:shortId(/:slug)) is loaded directly by

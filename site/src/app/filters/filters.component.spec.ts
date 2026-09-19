@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { FiltersComponent } from './filters.component';
-import { FiltersService } from '../filters.service';
+import { FiltersService } from '../planner/filters.service';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;

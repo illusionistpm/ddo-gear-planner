@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { migrateLegacyUrlIfNeeded } from './app/legacy-url-migration';
+import { migrateLegacyUrlIfNeeded } from './app/build/legacy-url-migration';
 
 if (environment.production) {
   enableProdMode();

@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GearDbService } from '../gear-db.service';
-import { EquippedService, VisibleSetBonus } from '../equipped.service';
-import { Affix } from '../affix';
-import { AffixUiService } from '../affix-ui.service';
-import { AnalyticsService } from '../analytics.service';
-import { perfAfterFrames, perfStart } from '../perf-trace';
+import { GearDbService } from '../gear/gear-db.service';
+import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
+import { Affix } from '../affixes/affix';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { TypeaheadResult } from '../typeahead/typeahead.component';
-import { Item } from '../item';
+import { Item } from '../gear/item';
 
 @Component({
     selector: 'app-gear-list',

@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { ItemsInSetComponent } from './items-in-set.component';
-import { Affix } from '../affix';
-import { Item } from '../item';
+import { Affix } from '../affixes/affix';
+import { Item } from '../gear/item';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 describe('ItemsInSetComponent', () => {

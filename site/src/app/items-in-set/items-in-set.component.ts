@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import { GearDbService, SetBonusThreshold } from '../gear-db.service';
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
-import { AffixUiService } from '../affix-ui.service';
+import { GearDbService, SetBonusThreshold } from '../gear/gear-db.service';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
+import { AffixUiService } from '../affixes/affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';

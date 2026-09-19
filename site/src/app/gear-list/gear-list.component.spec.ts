@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { EquippedService, VisibleSetBonus } from '../equipped.service';
+import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
 import { GearListComponent } from './gear-list.component';
 
 describe('GearListComponent', () => {

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, HostListener, OnDestroy } from '@an
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from './affix-builder-drawer.service';
-import { EquippedService } from '../equipped.service';
+import { EquippedService } from '../planner/equipped.service';
 
 @Component({
   selector: 'app-affix-builder-drawer',

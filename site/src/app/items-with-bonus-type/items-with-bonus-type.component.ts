@@ -1,25 +1,25 @@
-import { UserGearService, UserItemLocation } from '../user-gear.service';
+import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { GearDbService, SetAffixMatch } from '../gear-db.service';
-import { EquippedService } from '../equipped.service';
-import { ExternalAffixEntry } from '../external-affix';
-import { Item } from '../item';
-import { Affix } from '../affix';
-import { Craftable } from '../craftable';
+import { GearDbService, SetAffixMatch } from '../gear/gear-db.service';
+import { EquippedService } from '../planner/equipped.service';
+import { ExternalAffixEntry } from '../affixes/external-affix';
+import { Item } from '../gear/item';
+import { Affix } from '../affixes/affix';
+import { Craftable } from '../gear/craftable';
 
-import { AffixService } from '../affix.service';
-import { AffixAvailabilityService } from '../affix-availability.service';
-import { CraftableOption } from '../craftable-option';
-import { AffixUiService } from '../affix-ui.service';
-import { AnalyticsService } from '../analytics.service';
-import { perfAfterFrames, perfStart } from '../perf-trace';
-import { QuestService } from '../quest.service';
+import { AffixService } from '../affixes/affix.service';
+import { AffixAvailabilityService } from '../affixes/affix-availability.service';
+import { CraftableOption } from '../gear/craftable-option';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { perfAfterFrames, perfStart } from '../shared/perf-trace';
+import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
-import { isAugmentSystemName, isCraftingSlotAvailable } from '../augment-slots';
+import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {

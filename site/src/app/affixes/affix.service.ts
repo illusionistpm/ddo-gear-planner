@@ -1,0 +1,159 @@
+import { Injectable } from '@angular/core';
+
+import { Affix } from './affix';
+import { Item } from '../gear/item';
+
+import affixGroupsList from 'src/assets/affix-groups.json';
+import affixSynonymsList from 'src/assets/affix-synonyms.json';
+
+interface AffixGroupJson {
+  name: string;
+  affixes: Array<string>;
+  components?: Array<{ name: string; type: string; value: number | string }>;
+}
+
+/**
+ * The "universal" spell casting affixes. Each is an affix group whose members
+ * are the per-element flavors (Fire Spell Power, Cold Lore, ...), and each one
+ * stacks with those flavors. The effects table renders them as a
+ * "Universal <bonus type>" companion row under every member affix, so their
+ * contribution must not also surface as a plain per-element row.
+ */
+export const UNIVERSAL_COMPANION_AFFIXES = [
+  'Universal Spell Power',
+  'Universal Spell Lore',
+  'Universal Spell Critical Damage',
+];
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AffixService {
+  affixGroups = new Map<string, Array<string>>();
+  affixGroupComponents = new Map<string, Array<{ name: string; type: string; value: number | string }>>();
+  affixSynonyms = new Map<string, string>();
+  synonymsForAffix = new Map<string, Array<string>>();
+
+  constructor() {
+    for (const group of affixGroupsList as Array<AffixGroupJson>) {
+      const affixNames = [];
+      for (const affix of group['affixes']) {
+        affixNames.push(affix);
+      }
+      this.affixGroups.set(group['name'], affixNames);
+
+      if (group['components']) {
+        this.affixGroupComponents.set(
+          group['name'],
+          group['components']
+        );
+      }
+    }
+
+    for (const synonymGroup of affixSynonymsList) {
+      for (const syn of synonymGroup['synonyms']) {
+        this.affixSynonyms.set(this.getSynonymKey(syn), synonymGroup['name']);
+      }
+
+      this.synonymsForAffix.set(synonymGroup['name'], synonymGroup['synonyms']);
+    }
+  }
+
+  private getSynonymKey(affixName: string): string {
+    return affixName.trim().toLocaleLowerCase();
+  }
+
+  ungroupAffix(affixGroup: Affix) {
+    const affixes = [];
+    const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
+    if (fixedAffixes) {
+      for (const fixedAffix of fixedAffixes) {
+        const inheritsValue = fixedAffix.value === '<ValueAlreadyParsed>';
+        const affix = new Affix(fixedAffix);
+        if (affix.type === '<TypeAlreadyParsed>') {
+          affix.type = affixGroup.type;
+        }
+        if (inheritsValue) {
+          affix.value = affixGroup.value;
+        }
+        affixes.push(affix);
+      }
+      return affixes;
+    }
+
+    const affixNames = this.affixGroups.get(affixGroup.name);
+    if (affixNames) {
+      for (const affixName of affixNames) {
+        // Copy all properties from the affix group (mainly type and value)
+        const affix = new Affix(affixGroup);
+        affix.name = affixName;
+        affixes.push(affix);
+      }
+    }
+    return affixes;
+  }
+
+  resolvesToAffix(givenAffixName: string, targetAffixName: string): boolean {
+    if (givenAffixName === targetAffixName) {
+      return true;
+    }
+
+    const resolvedName = this.getCanonicalName(givenAffixName);
+
+    if (!this.affixGroups.has(resolvedName)) {
+      return false;
+    }
+
+    const affixNames = this.affixGroups.get(resolvedName);
+
+    if (!affixNames) {
+      return false;
+    }
+
+    for (const affixName of affixNames) {
+      if (affixName === targetAffixName) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  getSynonyms(affixName: string): Array<string> {
+    return this.synonymsForAffix.has(affixName) ? (this.synonymsForAffix.get(affixName) || []) : [];
+  }
+
+  flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
+    let flattened: Affix[] = [];
+    for (const affix of affixes) {
+      const ungroup = this.ungroupAffix(affix);
+      if (ungroup.length) {
+        if (includeOriginal) {
+          flattened.push(affix);
+        }
+        flattened = flattened.concat(ungroup);
+      } else {
+        flattened.push(affix);
+      }
+    }
+    return flattened;
+  }
+
+  /** True when ungroupAffix() would expand this affix into its members. */
+  isAffixGroup(affix: Affix) {
+    return this.affixGroups.has(affix.name) || this.affixGroupComponents.has(affix.name);
+  }
+
+  isGroupMember(affixName: string, groupName: string): boolean {
+    return (this.affixGroups.get(groupName) || []).includes(affixName);
+  }
+
+  getActiveAffixes(item: Item) {
+    const affixes = item.getActiveAffixes();
+    return this.flattenAffixGroups(affixes, true);
+  }
+
+  getCanonicalName(affixName: string): string {
+    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
+  }
+}

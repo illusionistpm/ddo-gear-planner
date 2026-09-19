@@ -4,10 +4,10 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
-import { AuthService } from '../auth.service';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService, CurrentBuildState } from '../current-build.service';
-import { QueryParamsService } from '../query-params.service';
+import { AuthService } from '../shared/auth.service';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
+import { QueryParamsService } from '../build/query-params.service';
 import { BuildActionsComponent, BuildActionsMenu } from './build-actions.component';
 import { BuildSaveService } from './build-save.service';
 

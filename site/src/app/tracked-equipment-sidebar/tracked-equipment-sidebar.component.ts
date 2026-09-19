@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, VisibleSetBonus } from '../equipped.service';
-import { ExternalAffixEntry } from '../external-affix';
-import { Item } from '../item';
-import { AffixUiService } from '../affix-ui.service';
+import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
+import { ExternalAffixEntry } from '../affixes/external-affix';
+import { Item } from '../gear/item';
+import { AffixUiService } from '../affixes/affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { RECENT_CHANGE_HIGHLIGHT_MS } from '../recent-change-highlight';
+import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 
 interface TrackedEquipmentSlotDisplay {
   slot: string;

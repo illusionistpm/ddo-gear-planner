@@ -1,21 +1,21 @@
-import { CraftableOption } from './../craftable-option';
+import { CraftableOption } from '../gear/craftable-option';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 
-import { EquippedService } from '../equipped.service';
-import { EssenceCraftingService } from '../essence-crafting.service';
-import { AffixService } from '../affix.service';
-import { AffixUiService } from '../affix-ui.service';
+import { EquippedService } from '../planner/equipped.service';
+import { EssenceCraftingService } from '../gear/essence-crafting.service';
+import { AffixService } from '../affixes/affix.service';
+import { AffixUiService } from '../affixes/affix-ui.service';
 
-import { Affix } from '../affix';
-import { Craftable } from '../craftable';
-import { Item } from '../item';
+import { Affix } from '../affixes/affix';
+import { Craftable } from '../gear/craftable';
+import { Item } from '../gear/item';
 import { Observable, Subscription } from 'rxjs';
 
-import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../perf-trace';
-import { QuestService } from '../quest.service';
+import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../shared/perf-trace';
+import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { UserGearService, UserItemLocation } from '../user-gear.service';
-import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../augment-slots';
+import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
 
 interface AffixDisplayRow {
   affix: Affix;

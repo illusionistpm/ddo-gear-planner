@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type.component';
-import { Item } from '../item';
-import { Craftable } from '../craftable';
-import { CraftableOption } from '../craftable-option';
+import { Item } from '../gear/item';
+import { Craftable } from '../gear/craftable';
+import { CraftableOption } from '../gear/craftable-option';
 import { AppModule } from '../app.module';
 import { ItemPreviewComponent } from '../item-preview/item-preview.component';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';

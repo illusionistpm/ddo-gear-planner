@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GearDescriptionComponent } from './gear-description.component';
-import { Craftable } from '../craftable';
-import { CraftableOption } from '../craftable-option';
-import { Item } from '../item';
+import { Craftable } from '../gear/craftable';
+import { CraftableOption } from '../gear/craftable-option';
+import { Item } from '../gear/item';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;

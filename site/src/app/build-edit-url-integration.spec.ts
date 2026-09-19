@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
-import { CurrentBuildService } from './current-build.service';
-import { EquippedService } from './equipped.service';
-import { QueryParamsService } from './query-params.service';
+import { CurrentBuildService } from './build/current-build.service';
+import { EquippedService } from './planner/equipped.service';
+import { QueryParamsService } from './build/query-params.service';
 
 // End-to-end check, through the REAL router (real route config, real
 // canDeactivate guard) and real EquippedService/QueryParamsService/

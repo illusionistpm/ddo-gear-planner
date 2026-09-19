@@ -4,9 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { AuthService } from './auth.service';
-import { CurrentBuildService } from './current-build.service';
-import { QueryParamsService } from './query-params.service';
+import { AuthService } from './shared/auth.service';
+import { CurrentBuildService } from './build/current-build.service';
+import { QueryParamsService } from './build/query-params.service';
 
 @Component({ selector: 'app-stub', template: '', standalone: false })
 class StubComponent { }

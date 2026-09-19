@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AffixUiService } from '../affix-ui.service';
-import { EquippedService } from '../equipped.service';
-import { externalAffixAsAffix, ExternalAffixEntry } from '../external-affix';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { EquippedService } from '../planner/equipped.service';
+import { externalAffixAsAffix, ExternalAffixEntry } from '../affixes/external-affix';
 
 @Component({
   selector: 'app-external-affix-slot-card',

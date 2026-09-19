@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SummaryGroup } from '../tracked-affix-summary.service';
-import { TrackedAffixSummaryService } from '../tracked-affix-summary.service';
+import { SummaryGroup } from '../affixes/tracked-affix-summary.service';
+import { TrackedAffixSummaryService } from '../affixes/tracked-affix-summary.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
-import { EquippedService } from '../equipped.service';
-import { getAffixGroupCssClass } from '../affix-organization';
+import { EquippedService } from '../planner/equipped.service';
+import { getAffixGroupCssClass } from '../affixes/affix-organization';
 
 @Component({
   selector: 'app-tracked-affix-sidebar',

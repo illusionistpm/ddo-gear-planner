@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
-import { EquippedService } from '../equipped.service';
+import { EquippedService } from '../planner/equipped.service';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card.component';
 
 describe('ExternalAffixSlotCardComponent', () => {

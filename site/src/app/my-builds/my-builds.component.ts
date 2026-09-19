@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, On
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
-import { BuildSummary, MAX_BUILDS_PER_USER } from '../build';
-import { BuildsService } from '../builds.service';
-import { CurrentBuildService } from '../current-build.service';
-import { confirmLeaveUnsavedChanges } from '../unsaved-changes.guard';
-import { buildPath } from '../build-route';
+import { BuildSummary, MAX_BUILDS_PER_USER } from '../build/build';
+import { BuildsService } from '../build/builds.service';
+import { CurrentBuildService } from '../build/current-build.service';
+import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
+import { buildPath } from '../build/build-route';
 
 @Component({
   selector: 'app-my-builds',

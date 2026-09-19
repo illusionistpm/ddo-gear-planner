@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { AdminLinkComponent } from './admin-link.component';
-import { BuildUrlCodecService } from './build-url-codec.service';
-import { PlannerOnboardingService } from './planner-onboarding.service';
+import { BuildUrlCodecService } from './build/build-url-codec.service';
+import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { environment } from '../environments/environment';
 
 describe('AdminLinkComponent', () => {

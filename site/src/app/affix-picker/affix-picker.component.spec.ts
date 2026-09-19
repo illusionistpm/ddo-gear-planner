@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { AffixPickerComponent } from './affix-picker.component';
-import { EquippedService } from '../equipped.service';
+import { EquippedService } from '../planner/equipped.service';
 
 describe('AffixPickerComponent', () => {
   let component: AffixPickerComponent;

@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { FiltersService } from '../filters.service';
-import { AnalyticsService } from '../analytics.service';
+import { FiltersService } from '../planner/filters.service';
+import { AnalyticsService } from '../shared/analytics.service';
 
 import itemTypesList from 'src/assets/item-types.json';
 

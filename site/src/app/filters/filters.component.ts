@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { UserGearService } from '../user-gear.service';
+import { UserGearService } from '../planner/user-gear.service';
 
-import { FiltersService } from '../filters.service';
-import { AnalyticsService } from '../analytics.service';
+import { FiltersService } from '../planner/filters.service';
+import { AnalyticsService } from '../shared/analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import buildInfo from 'src/assets/build-info.json';
-import { GameDataService } from '../game-data.service';
+import { GameDataService } from '../gear/game-data.service';
 
 @Component({
     selector: 'app-filters',

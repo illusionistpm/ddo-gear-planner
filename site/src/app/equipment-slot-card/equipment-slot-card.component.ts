@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AnalyticsService } from '../analytics.service';
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
-import { QuestService } from '../quest.service';
+import { AnalyticsService } from '../shared/analytics.service';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
+import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { UserGearService, UserItemLocation } from '../user-gear.service';
-import { perfAfterFrames, perfStart } from '../perf-trace';
+import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 
 @Component({
   selector: 'app-equipment-slot-card',

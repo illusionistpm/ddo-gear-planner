@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AnalyticsService } from '../analytics.service';
-import { EquippedService } from '../equipped.service';
-import { Item } from '../item';
+import { AnalyticsService } from '../shared/analytics.service';
+import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
 import { DrawerEquipService } from './drawer-equip.service';
 import { SuggestionDrawerService } from './suggestion-drawer.service';
 

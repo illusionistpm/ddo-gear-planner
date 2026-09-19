@@ -1,4 +1,4 @@
-import { Item } from '../item';
+import { Item } from '../gear/item';
 
 /**
  * Carousel state for the item preview shown beside a suggestion drawer's list.

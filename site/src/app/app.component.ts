@@ -4,13 +4,13 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 
 import { environment } from '../environments/environment';
-import { AuthService } from './auth.service';
-import { EquippedService } from './equipped.service';
-import { FiltersService } from './filters.service';
-import { QueryParamsService } from './query-params.service';
-import { CurrentBuildService } from './current-build.service';
-import { isBuildShortIdRoute } from './build-route';
-import { perfAfterFrames, perfStart } from './perf-trace';
+import { AuthService } from './shared/auth.service';
+import { EquippedService } from './planner/equipped.service';
+import { FiltersService } from './planner/filters.service';
+import { QueryParamsService } from './build/query-params.service';
+import { CurrentBuildService } from './build/current-build.service';
+import { isBuildShortIdRoute } from './build/build-route';
+import { perfAfterFrames, perfStart } from './shared/perf-trace';
 
 @Component({
     selector: 'app-root',

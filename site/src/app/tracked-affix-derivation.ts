@@ -9,22 +9,38 @@ import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '
  * that need live gear data live in TrackedAffixDerivationService.
  */
 
-export interface TrackedBonusTypeDisplay {
+/**
+ * One entry of EquippedService's covered-affix map: the best value equipped
+ * gear supplies for one bonus type of a tracked affix. A checklist affix has
+ * a single entry with the "Bool" pseudo-type.
+ */
+export interface CoveredBonusType {
   bonusType: string;
   value: number;
+}
+
+/**
+ * A bonus type as displayed. For a universal companion row, `sourceAffixName`
+ * is the universal affix (e.g. "Universal Spell Power") rather than the
+ * tracked affix it is shown under.
+ */
+export interface TrackedBonusTypeDisplay extends CoveredBonusType {
   label: string;
   sourceAffixName: string;
   sourceBonusType: string;
 }
+
+/** Either shape; display-only fields fall back to the tracked affix and bonusType. */
+export type TrackedBonusTypeRef = CoveredBonusType & Partial<TrackedBonusTypeDisplay>;
 
 export interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
 }
 
 export interface SplitCoveredAffixes {
-  affixMap: Map<string, Array<any>>;
+  affixMap: Map<string, CoveredBonusType[]>;
   affixNames: string[];
-  boolAffixMap: Map<string, Array<any>>;
+  boolAffixMap: Map<string, CoveredBonusType[]>;
   boolAffixNames: string[];
 }
 
@@ -59,16 +75,16 @@ export function classForBonusValue(bonusType: string, value: number, maxValue: n
 }
 
 /** A checklist affix: its only covered "type" is the Bool pseudo-type. */
-export function isBoolAffixTypes(types: Array<any>): boolean {
+export function isBoolAffixTypes(types: CoveredBonusType[]): boolean {
   return types.length === 1 && types[0].bonusType === 'Bool';
 }
 
 /** Split the covered-affix map into regular and checklist affixes. */
-export function splitCoveredAffixes(covered: Map<string, Array<any>>): SplitCoveredAffixes {
+export function splitCoveredAffixes(covered: Map<string, CoveredBonusType[]>): SplitCoveredAffixes {
   const split: SplitCoveredAffixes = {
-    affixMap: new Map<string, Array<any>>(),
+    affixMap: new Map<string, CoveredBonusType[]>(),
     affixNames: [],
-    boolAffixMap: new Map<string, Array<any>>(),
+    boolAffixMap: new Map<string, CoveredBonusType[]>(),
     boolAffixNames: [],
   };
   for (const [affixName, types] of covered.entries()) {

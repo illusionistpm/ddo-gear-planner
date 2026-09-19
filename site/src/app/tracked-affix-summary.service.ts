@@ -9,6 +9,7 @@ import { TrackedAffixDerivationService } from './tracked-affix-derivation.servic
 import {
   buildTrackedAffixGroups,
   classForBonusValue,
+  CoveredBonusType,
   splitCoveredAffixes,
   TrackedBonusTypeDisplay,
 } from './tracked-affix-derivation';
@@ -98,7 +99,7 @@ export class TrackedAffixSummaryService {
     return this.equipped.getCoveredAffixes().pipe(map(covered => this.buildGroups(covered)));
   }
 
-  private buildGroups(covered: Map<string, Array<any>>): SummaryGroup[] {
+  private buildGroups(covered: Map<string, CoveredBonusType[]>): SummaryGroup[] {
     const { affixMap, affixNames, boolAffixMap, boolAffixNames } = splitCoveredAffixes(covered);
     boolAffixNames.sort((left, right) => left.localeCompare(right));
 

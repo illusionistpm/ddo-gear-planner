@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { EquippedService } from './equipped.service';
 import { GearDbService } from './gear-db.service';
-import { sortBonusTypes, TrackedBonusTypeDisplay } from './tracked-affix-derivation';
+import { CoveredBonusType, sortBonusTypes, TrackedBonusTypeDisplay } from './tracked-affix-derivation';
 
 /**
  * Decides which bonus types a tracked affix shows, for both the full Tracked
@@ -25,7 +25,7 @@ export class TrackedAffixDerivationService {
    * could get in the level range, plus a "Universal <type>" row for each
    * universal companion affix it belongs to. Penalties are excluded.
    */
-  getVisibleTypes(affixMap: Map<string, Array<any>>, affixName: string): TrackedBonusTypeDisplay[] {
+  getVisibleTypes(affixMap: Map<string, CoveredBonusType[]>, affixName: string): TrackedBonusTypeDisplay[] {
     const currentTypes = affixMap.get(affixName) || [];
     const typeMap = new Map<string, TrackedBonusTypeDisplay>();
 

@@ -478,6 +478,7 @@ describe('EffectsTableComponent', () => {
 
     expect(trackVisibleType(0, {
       bonusType: 'Implement',
+      value: 0,
       sourceAffixName: 'Universal Spell Power',
       sourceBonusType: 'Implement',
     })).toBe('Universal Spell Power\0Implement');

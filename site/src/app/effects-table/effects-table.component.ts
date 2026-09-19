@@ -13,11 +13,13 @@ import { TrackedAffixDerivationService } from '../tracked-affix-derivation.servi
 import {
   buildTrackedAffixGroups,
   classForBonusValue,
+  CoveredBonusType,
   moderateValueThreshold,
   sortBonusTypes,
   splitCoveredAffixes,
   TrackedAffixGroupDisplay,
   TrackedBonusTypeDisplay,
+  TrackedBonusTypeRef,
 } from '../tracked-affix-derivation';
 
 interface SlotGroupChip {
@@ -54,10 +56,10 @@ interface SlotGroup {
 })
 export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
-  public affixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  public affixMap = new Map<string, CoveredBonusType[]>();
   public affixNames: Array<string> = [];
 
-  public boolAffixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  public boolAffixMap = new Map<string, CoveredBonusType[]>();
   public boolAffixNames: Array<string> = [];
 
   collapsedAffixGroups = new Set<string>();
@@ -187,7 +189,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
    * threshold (3/4 of the best available) for this bonus type — at that point
    * it is no longer worth flagging as scarce or hard to place.
    */
-  isBonusTypeSufficient(affixName: string, type: any): boolean {
+  isBonusTypeSufficient(affixName: string, type: TrackedBonusTypeRef): boolean {
     if (!type.value) {
       return false;
     }
@@ -402,11 +404,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  getSourcesForType(affixName: string, type: any): AffixSource[] {
+  getSourcesForType(affixName: string, type: TrackedBonusTypeRef): AffixSource[] {
     return this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
-  previewAffixTypeEquipment(affixName: string, type: any) {
+  previewAffixTypeEquipment(affixName: string, type: TrackedBonusTypeRef) {
     const sources = this.getSourcesForType(affixName, type);
     this.highlightedEquipmentSlots = new Set(
       sources.filter(source => source.kind === 'item').map(source => source.slot)
@@ -467,15 +469,15 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return sortBonusTypes(types);
   }
 
-  isBonusTypeAvailable(affixName: string, type: any): boolean {
+  isBonusTypeAvailable(affixName: string, type: TrackedBonusTypeRef): boolean {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
-  isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: any): boolean {
+  isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: TrackedBonusTypeRef): boolean {
     return !this.isBonusTypeAvailable(affixName, type);
   }
 
-  shouldShowMaxAvailable(affixName: string, type: any): boolean {
+  shouldShowMaxAvailable(affixName: string, type: TrackedBonusTypeRef): boolean {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
@@ -502,7 +504,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       .map(type => type.label || type.bonusType);
   }
 
-  getBonusTypeTooltip(affixName: string, type: any): string {
+  getBonusTypeTooltip(affixName: string, type: TrackedBonusTypeRef): string {
     if (this.equipped.isAffixTypeIgnored(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type))) {
       return 'Marked as ignored';
     }
@@ -634,11 +636,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.collapsedAffixGroups.has(groupName);
   }
 
-  getClassForValue(affixName: string, type: any) {
+  getClassForValue(affixName: string, type: TrackedBonusTypeRef) {
     return classForBonusValue(type.bonusType, type.value, this.getMaxValueForType(affixName, type));
   }
 
-  getValueTooltip(affixName: string, type: any): string {
+  getValueTooltip(affixName: string, type: TrackedBonusTypeRef): string {
     if (type.bonusType === 'Penalty') {
       return 'Penalty effect';
     }
@@ -663,7 +665,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  getBonusTypeLabel(type: any): string {
+  getBonusTypeLabel(type: TrackedBonusTypeRef): string {
     return type.label || (type.bonusType ? type.bonusType : 'Untyped');
   }
 
@@ -683,23 +685,23 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return chip.sourceAffixName + '\0' + chip.bonusType;
   }
 
-  trackVisibleType(index: number, type: any): string {
+  trackVisibleType(index: number, type: TrackedBonusTypeRef): string {
     return (type.sourceAffixName || '') + '\0' + (type.sourceBonusType || type.bonusType);
   }
 
-  isRecentlyChangedAffixType(affixName: string, type: any): boolean {
+  isRecentlyChangedAffixType(affixName: string, type: TrackedBonusTypeRef): boolean {
     return this.recentlyChangedAffixTypes.has(this.getDisplayedTypeKey(affixName, type));
   }
 
-  getSourceAffixName(affixName: string, type: any): string {
+  getSourceAffixName(affixName: string, type: TrackedBonusTypeRef): string {
     return type.sourceAffixName || affixName;
   }
 
-  getSourceBonusType(type: any): string {
+  getSourceBonusType(type: TrackedBonusTypeRef): string {
     return type.sourceBonusType || type.bonusType;
   }
 
-  getMaxValueForType(affixName: string, type: any): number {
+  getMaxValueForType(affixName: string, type: TrackedBonusTypeRef): number {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
@@ -707,7 +709,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return sourceAffixName + '\0' + bonusType;
   }
 
-  private getDisplayedTypeKey(affixName: string, type: any): string {
+  private getDisplayedTypeKey(affixName: string, type: TrackedBonusTypeRef): string {
     return this.getTypeMapKey(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
@@ -787,7 +789,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     });
     const affixes = this.affixNames.map(affixName => {
       const types = (this.affixMap.get(affixName) || [])
-        .map(type => [type.bonusType, type.value, type.sourceAffixName, type.sourceBonusType].join(':'))
+        .map(type => [type.bonusType, type.value].join(':'))
         .join(',');
       return affixName + '=' + types;
     });

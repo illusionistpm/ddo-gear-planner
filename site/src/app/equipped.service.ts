@@ -21,7 +21,7 @@ import { AffixService } from './affix.service';
 import { AffixAvailabilityService } from './affix-availability.service';
 import { EssenceCraftingService } from './essence-crafting.service';
 import { perfCount, perfMeasure, perfStart } from './perf-trace';
-import { moderateValueThreshold } from './tracked-affix-derivation';
+import { CoveredBonusType, moderateValueThreshold } from './tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry } from './external-affix';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
@@ -103,7 +103,7 @@ export class EquippedService {
 
   private unlockedSlots: Set<string>;
 
-  private coveredAffixes: BehaviorSubject<Map<string, Array<any>>>; // affix -> [{bonusType, value}]
+  private coveredAffixes: BehaviorSubject<Map<string, CoveredBonusType[]>>;
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
   private visibleSetBonuses = new BehaviorSubject<Array<VisibleSetBonus>>([]);
   private importantAffixesSubject = new BehaviorSubject<Set<string>>(new Set<string>());
@@ -137,7 +137,7 @@ export class EquippedService {
     private ngZone: NgZone
   ) {
     this.unlockedSlots = new Set(gearList.getSlots());
-    this.coveredAffixes = new BehaviorSubject<Map<string, Array<any>>>(new Map<string, Array<any>>());
+    this.coveredAffixes = new BehaviorSubject<Map<string, CoveredBonusType[]>>(new Map<string, CoveredBonusType[]>());
 
     this.importantAffixes = new Set();
 
@@ -1186,14 +1186,14 @@ export class EquippedService {
     // affixName => Array of {bonusType, Array of {slot: value}}
     this.setOnlyUncoveredSets = undefined;
     this.openAugmentSlotsCache.clear();
-    const newMap = new Map<string, Array<any>>();
+    const newMap = new Map<string, CoveredBonusType[]>();
 
     const importantAffixes = this._getImportantAffixesToTypes();
     for (const affix of importantAffixes) {
       const affixName = affix[0];
       const affixTypes = affix[1];
 
-      const array = new Array<object>();
+      const array: CoveredBonusType[] = [];
       for (const type of affixTypes.keys()) {
         const bestVal = this._getBestValueForAffixType(affixName, type);
         array.push({ bonusType: type, value: bestVal });

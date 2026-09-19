@@ -202,3 +202,11 @@ def test_convert_affix_text_map_can_include_debug_provenance(monkeypatch):
     assert am['sourceText'] == 'Artifact Universal Spell Power +20'
     assert am['sourceTooltip'] == '+20 Artifact bonus to Universal Spell Power'
     assert am['parserSource'] == 'convert_affix_text_map_to_affix_map'
+
+
+def test_convert_affix_text_map_bonus_imbue_dice_uses_imbue_dice_name():
+    tm = {'text': 'Artifact bonus Imbue Dice +3', 'tooltip': ''}
+    am = convert_affix_text_map_to_affix_map(tm)
+    assert am['name'] == 'Imbue Dice'
+    assert am['type'] == 'Artifact'
+    assert am['value'] == '3'

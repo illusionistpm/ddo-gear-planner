@@ -591,7 +591,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onTroveFileSelected(eventOrFile: Event | File) {
-    let file: File | null = null;
+    let file: File | null;
     if (eventOrFile instanceof File) {
       file = eventOrFile;
     } else {

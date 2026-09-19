@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-expanding-checkboxes',
@@ -7,7 +7,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class ExpandingCheckboxesComponent implements OnInit {
+export class ExpandingCheckboxesComponent {
   @Input() title: string = '';
   @Input() list: Array<{name: string, value: boolean}> = [];
   @Input() invert: boolean = false;
@@ -15,15 +15,13 @@ export class ExpandingCheckboxesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
 
   isTopLevelIndeterminate(): boolean {
     return this.list.some(e => e.value) && this.list.some(e => !e.value);
   }
   
   isTopLevelChecked(): boolean {
-    let b = this.list.every(e => e.value);
+    const b = this.list.every(e => e.value);
     return this.invert ? !b : b;
   }
   
@@ -37,7 +35,7 @@ export class ExpandingCheckboxesComponent implements OnInit {
   }
 
   isChecked(index: number): boolean {
-    let b = this.list[index].value;
+    const b = this.list[index].value;
     return this.invert ? !b : b;
   }
 

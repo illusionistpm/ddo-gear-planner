@@ -113,7 +113,7 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
       request.setRequestHeader('Content-Type', 'application/json');
     }
     request.onload = () => {
-      let parsed: any = {};
+      let parsed: any;
       try {
         parsed = request.responseText ? JSON.parse(request.responseText) : {};
       } catch (error) {

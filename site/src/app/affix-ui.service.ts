@@ -81,7 +81,7 @@ export class AffixUiService {
 
     const { rank: affixRank, sourceAffix } = this.getAffixRankDetails(affix, option);
 
-    let tooltip = '';
+    let tooltip: string;
     switch (affixRank) {
       case AffixRank.BetterThanBest:
         tooltip = 'Better than best equipped value';

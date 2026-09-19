@@ -107,7 +107,6 @@ describe('switching between two saved builds via the real router', () => {
     fixture.detectChanges();
     const router = TestBed.inject(Router);
     const currentBuild = TestBed.inject(CurrentBuildService);
-    const filters = TestBed.inject(FiltersService);
     const queryParams = TestBed.inject(QueryParamsService);
     const equipped = TestBed.inject(EquippedService);
 

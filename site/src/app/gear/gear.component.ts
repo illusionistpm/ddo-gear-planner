@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 
 import { Item } from '../item';
@@ -10,14 +10,12 @@ import { Item } from '../item';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class GearComponent implements OnInit {
+export class GearComponent {
   @Input() data: Array<Item> = [];
   @Input() onChange: ((value: any) => void) | null = null;
   @Input() item: Item | null = null;
 
   constructor() { }
 
-  ngOnInit() {
-  }
 
 }

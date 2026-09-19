@@ -7,7 +7,6 @@ import { AffixService } from '../affix.service';
 import { AffixUiService } from '../affix-ui.service';
 
 import { Affix } from '../affix';
-import { AffixRank } from '../affix-rank.enum';
 import { Craftable } from '../craftable';
 import { Item } from '../item';
 import { Observable, Subscription } from 'rxjs';
@@ -226,7 +225,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return true;
     }
 
-    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
     return this.canHaveSecondAugmentSlot();
   }
 

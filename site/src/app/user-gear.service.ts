@@ -101,6 +101,8 @@ export class UserGearService {
       for (const entry of arr) {
         this.userItems.set(entry.itemName.trim().toLowerCase(), entry);
       }
-    } catch {}
+    } catch {
+      // Corrupt or foreign data in storage: keep the empty collection.
+    }
   }
 }

@@ -254,7 +254,7 @@ export class GearDbService {
             const baseName = item.name.replace(' [Crafted]', '');
             const systemCraftables = this.craftingList.get(canonicalCraftingSystem);
             if (systemCraftables) {
-              let craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
+              const craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
               if (craftable) {
                 craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
               }
@@ -499,7 +499,7 @@ export class GearDbService {
 
   private _buildEssenceCraftingItems(gear: Map<string, Array<Item>>, maxLevel: number) {
     for (const slot of gear.keys()) {
-      let essenceCraftingSlots = null;
+      let essenceCraftingSlots: string[];
       switch (slot) {
         case 'Ring1':
         case 'Ring2':
@@ -845,8 +845,8 @@ export class GearDbService {
     switch (slot) {
       case 'Weapon': return 1;
       case 'Offhand': return 2;
-      default: return 3;
       case 'Quiver': return 4;
+      default: return 3;
     }
   }
 

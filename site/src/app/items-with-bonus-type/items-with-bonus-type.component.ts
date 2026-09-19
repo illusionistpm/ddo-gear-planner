@@ -149,7 +149,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     const matchingGear = this.equipped.getCompatibleGear(
       this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType)
     );
-    const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
     const unlocked: Item[] = [];
     const locked: Item[] = [];
     for (const item of matchingGear) {

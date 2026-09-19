@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FiltersService } from '../filters.service';
@@ -13,7 +13,7 @@ import itemTypesList from 'src/assets/item-types.json';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class FilterItemTypeComponent implements OnInit {
+export class FilterItemTypeComponent {
   typeToGroup = new Map<string, string>();
   hiddenTypesMap = new Map<string, Array<string>>();
   optionsMap = new Map<string, BehaviorSubject<Array<{name: string, value: boolean}>>>();
@@ -32,7 +32,7 @@ export class FilterItemTypeComponent implements OnInit {
     this.groups.push({name: "Armor", attributes: ['armor']});
 
     // Preload the groups so they're ready when we need them
-    for (let group of this.groups) {
+    for (const group of this.groups) {
       this.getTypesWithAttribute(group.attributes);
     }
 
@@ -51,8 +51,6 @@ export class FilterItemTypeComponent implements OnInit {
     });    
    }
 
-  ngOnInit(): void {
-  }
 
   getTypesWithAttribute(searchAttributes: Array<string>) {
     const key = searchAttributes.join(' ');
@@ -64,7 +62,7 @@ export class FilterItemTypeComponent implements OnInit {
     const types = new Array<{name: string, value: boolean}>();
     
     const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
-    for (let type in itemTypes) {
+    for (const type in itemTypes) {
       const attributes = itemTypes[type]?.attributes || [];
       if (searchAttributes.every(e => attributes.includes(e))) {
         types.push({name: type, value: false});
@@ -86,7 +84,7 @@ export class FilterItemTypeComponent implements OnInit {
 
       this.hiddenTypesMap.set(groupName, items.filter(e => e.value).map(e => e.name));
       
-      for (let key of this.hiddenTypesMap.keys()) {
+      for (const key of this.hiddenTypesMap.keys()) {
           const hiddenItems = this.hiddenTypesMap.get(key);
           if (hiddenItems) {
             hiddenItems.forEach(e => combinedItems.add(e));

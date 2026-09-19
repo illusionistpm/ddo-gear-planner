@@ -128,7 +128,7 @@
             } @else {
               <span class="slot-empty">No free slots available</span>
             }
-            <button class="equip-button slot-equip" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
+            <button class="equip-button slot-equip" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString !== elem.key">Equip</button>
           </div>
         </div>
       }
@@ -166,7 +166,7 @@
               }
             </select>
             <button class="equip-button slot-equip" (click)="equipCraftIntoEquipped()"
-              [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString != elem.key">Equip</button>
+              [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString !== elem.key">Equip</button>
           </div>
         </div>
       }

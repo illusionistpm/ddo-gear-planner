@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import sharedConstants from '../../../../shared/constants.json';
 
@@ -25,7 +25,7 @@ export function validateBuildName(name: string): string | null {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class SaveBuildDialogComponent {
+export class SaveBuildDialogComponent implements OnChanges {
   @Input() mode: 'create' | 'rename' | 'save-as' = 'create';
   @Input() initialName = '';
   @Input() saving = false;

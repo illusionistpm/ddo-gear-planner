@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { Item } from './item';
 
 import { ItemFilters } from './item-filters';
 

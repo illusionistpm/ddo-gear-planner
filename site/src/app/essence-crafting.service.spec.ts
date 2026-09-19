@@ -127,4 +127,17 @@ describe('EssenceCraftingService', () => {
       .map(affix => affix.value);
     expect(Math.max(...transmutationValues)).toBeGreaterThan(2);
   });
+
+  it('gives checklist options such as Bashing a value of 1', () => {
+    // The wiki lists Bashing's progression as damage dice ("1d6"); the data
+    // builder must still emit 1, or the crafted affix never counts as covered.
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const bashing = service.getValuesForML('Shield', 20)
+      .flatMap(craftable => craftable.options)
+      .flatMap(option => option.affixes)
+      .find(affix => affix.name === 'Bashing');
+
+    expect(bashing?.type).toBe('Bool');
+    expect(bashing?.value).toBe(1);
+  });
 });

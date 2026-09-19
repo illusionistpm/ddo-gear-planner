@@ -1,3 +1,4 @@
+import pytest
 from bs4 import BeautifulSoup
 
 import parse_essence_crafting as module
@@ -8,7 +9,7 @@ def build_wiki_progression(values):
     return ''.join(f'<td>{value}</td>' for value in values)
 
 
-def build_wiki_html(spell_power_35='??', spell_power_36='??'):
+def build_wiki_html(spell_power_35='??', spell_power_36='??', extra_rows=''):
     levels = ''.join(f'<th>{level}</th>' for level in range(1, 37))
     spell_power = list(range(101, 135)) + [spell_power_35, spell_power_36]
     insightful_spell_power = list(range(51, 85)) + ['??', '??']
@@ -21,16 +22,18 @@ def build_wiki_html(spell_power_35='??', spell_power_36='??'):
             <tr><th>Ins. Spellpower</th>{build_wiki_progression(insightful_spell_power)}</tr>
             <tr><th>Lore (all)</th>{build_wiki_progression(universal_lore)}</tr>
             <tr><th>Spell Focus (one type)</th>{build_wiki_progression(spell_focus)}</tr>
+            {extra_rows}
         </table>
     '''
 
 
-def stub_dependencies(monkeypatch, written, wiki_html):
+def stub_dependencies(monkeypatch, written, wiki_html, extra_bonus_types=None, extra_prefixes=()):
     monkeypatch.setattr(module, 'get_most_common_bonus_type', lambda: {
         'Songblade': 'Enhancement',
         'Fire Spell Power': 'Equipment',
         'Spell Lore': 'Equipment',
         'Evocation Focus': 'Equipment',
+        **(extra_bonus_types or {}),
     })
     monkeypatch.setattr(module, 'load_essence_crafting_item_types_from_wiki', lambda: {
         'Melee': {
@@ -40,6 +43,7 @@ def stub_dependencies(monkeypatch, written, wiki_html):
                 'Insightful Fire Spell Power',
                 'Spell Lore',
                 'Evocation Focus',
+                *extra_prefixes,
             ],
             'Suffix': [],
             'Extra': [],
@@ -169,3 +173,24 @@ def test_spell_lore_parentheticals_have_distinct_meanings():
     assert all_types == ['Spell Lore']
     assert universal == ['Spell Lore']
     assert one_type == module.SPELL_LORE_AFFIXES
+
+
+def test_parse_essence_crafting_gives_checklist_affixes_listed_with_dice_a_value_of_1(monkeypatch):
+    written = {}
+    dice = ['1d6'] * 8 + ['2d6'] * 26 + ['??', '??']
+    wiki_html = build_wiki_html(extra_rows=f'<tr><th>Bashing</th>{build_wiki_progression(dice)}</tr>')
+    stub_dependencies(monkeypatch, written, wiki_html, {'Bashing': 'Bool'}, ['Bashing'])
+
+    module.parse_essence_crafting()
+
+    assert written['essence-crafting']['progression']['Bashing'] == [1] * 34
+
+
+def test_parse_essence_crafting_rejects_dice_for_non_checklist_affixes(monkeypatch):
+    written = {}
+    dice = ['1d6'] * 34 + ['??', '??']
+    wiki_html = build_wiki_html(extra_rows=f'<tr><th>Bashing</th>{build_wiki_progression(dice)}</tr>')
+    stub_dependencies(monkeypatch, written, wiki_html, {'Bashing': 'Enhancement'}, ['Bashing'])
+
+    with pytest.raises(ValueError, match='Non-numeric'):
+        module.parse_essence_crafting()

@@ -559,7 +559,17 @@ def build_essence_crafting_data() -> dict:
         else:
             raise ValueError(f'Unable to find Essence Crafting progression for {affix}')
 
+        if assumedBonusTypeMap.get(affix) == 'Bool':
+            # Checklist affixes only need to be present. The wiki lists some
+            # (Bashing, Shield Spikes, Vampirism) with damage dice ("1d6").
+            progVals = [1] * len(progVals)
+
         progression[affix] = progVals
+
+    for affix, values in progression.items():
+        non_numeric = [value for value in values if isinstance(value, str)]
+        if non_numeric:
+            raise ValueError(f'Non-numeric Essence Crafting progression for {affix}: {non_numeric[0]!r}')
 
     # Only keep bonus types for things that are actually used by Essence Crafting.
     delKeys = []

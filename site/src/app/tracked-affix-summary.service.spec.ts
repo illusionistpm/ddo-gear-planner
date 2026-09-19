@@ -123,4 +123,28 @@ describe('TrackedAffixSummaryService', () => {
       done();
     });
   });
+
+  it('shows a universal-only bonus type both as a plain badge and as a Universal badge', done => {
+    // Pins current behaviour, which disagrees with the Tracked Affixes table
+    // (it shows only the Universal row). See the audit's F1.
+    spyOn(gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+      if (affixName === 'Fire Spell Power') { return ['Equipment', 'Implement']; }
+      if (affixName === 'Universal Spell Power') { return ['Implement']; }
+      return [];
+    });
+    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(30);
+    spyOn(gearDB, 'isBonusTypeOnlyFromUniversalCompanion').and.callFake((affixName: string, bonusType: string) =>
+      affixName === 'Fire Spell Power' && bonusType === 'Implement'
+    );
+    spyOn(equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+    emitCovered(new Map<string, Array<any>>([
+      ['Fire Spell Power', [{ bonusType: 'Equipment', value: 0 }]]
+    ]));
+
+    service.getSummaryGroups().subscribe(groups => {
+      const fire = groups.flatMap(group => group.affixes).find(affix => affix.name === 'Fire Spell Power');
+      expect(fire?.badges.map(badge => badge.label)).toEqual(['Equipment', 'Implement', 'Universal Implement']);
+      done();
+    });
+  });
 });

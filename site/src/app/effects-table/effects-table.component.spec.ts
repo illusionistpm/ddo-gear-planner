@@ -650,4 +650,62 @@ describe('EffectsTableComponent', () => {
     expect(groups.map(group => group.key)).toEqual(['fulfilled']);
     expect(remaining).not.toHaveBeenCalled();
   });
+
+  describe('getClassForValue', () => {
+    beforeEach(() => {
+      spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
+        affixName === 'Strength' && bonusType === 'Insight' ? 8 : 0
+      );
+    });
+
+    it('classifies penalties separately', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Penalty', value: -2 })).toBe('penalty-value');
+    });
+
+    it('treats zero as low value', () => {
+      // Templates never reach this for zero (they render "no-value" first),
+      // so this pins dead-but-current behaviour.
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 0 })).toBe('low-value');
+    });
+
+    it('treats values below three quarters of the best as low', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 5 })).toBe('low-value');
+    });
+
+    it('treats values at three quarters of the best as moderate', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 6 })).toBe('mid-value');
+    });
+
+    it('treats the best available value as max', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 8 })).toBe('max-value');
+    });
+
+    it('treats zero with nothing available as max', () => {
+      // Latent bug: 0/0 renders as "best possible". Unreachable today only
+      // because getVisibleTypes drops unavailable, empty types first.
+      expect(component.getClassForValue('Strength', { bonusType: 'Quality', value: 0 })).toBe('max-value');
+    });
+  });
+
+  describe('universal companion bonus types', () => {
+    beforeEach(() => {
+      spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+        if (affixName === 'Fire Spell Power') { return ['Equipment', 'Implement']; }
+        if (affixName === 'Universal Spell Power') { return ['Implement']; }
+        return [];
+      });
+      spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(30);
+      spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').and.callFake((affixName: string, bonusType: string) =>
+        affixName === 'Fire Spell Power' && bonusType === 'Implement'
+      );
+      spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+    });
+
+    it('shows a universal-only bonus type as a Universal row, not also as a plain row', () => {
+      component.affixMap.set('Fire Spell Power', [{ bonusType: 'Equipment', value: 0 }]);
+
+      expect(component.getVisibleTypes('Fire Spell Power').map(type => type.label))
+        .toEqual(['Equipment', 'Universal Implement']);
+    });
+  });
 });

@@ -9,6 +9,8 @@ import { CraftableOption } from './craftable-option';
 import { Item } from './item';
 import { ItemFilters } from './item-filters';
 import { FiltersService } from './filters.service';
+import { AffixService } from './affix.service';
+import { Affix } from './affix';
 
 describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -366,6 +368,20 @@ describe('GearDbService', () => {
 
     // The universal companion affix itself is never treated as companion-only.
     expect(service.isBonusTypeOnlyFromUniversalCompanion('Universal Spell Power', 'Implement')).toBe(false);
+  });
+
+  it('does not ungroup a group defined only by fixed components into the affix map', () => {
+    // Pins current behaviour: _addAffixesToMap gates ungrouping on
+    // isAffixGroup(), which only consults member-name groups. Shipped data
+    // always defines both, so this only matters for components-only groups.
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const affixSvc = TestBed.inject(AffixService);
+    affixSvc.affixGroupComponents.set('Test Components', [{ name: 'Perform', type: 'Enhancement', value: 2 }]);
+    const map = new Map<string, Map<string, number>>();
+
+    (service as any)._addAffixesToMap(map, [new Affix({ name: 'Test Components', type: 'Bool', value: 1 })]);
+
+    expect(Array.from(map.keys())).toEqual(['Test Components']);
   });
 
 });

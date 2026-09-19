@@ -52,4 +52,29 @@ describe('AffixService', () => {
     expect(service.getResolvedAffixName('all spell DCs')).toBe('Spell Focus Mastery');
     expect(service.getResolvedAffixName('all Ability Scores')).toBe('Well Rounded');
   });
+
+  describe('isAffixGroup', () => {
+    it('recognises a group defined by member names', () => {
+      const service: AffixService = TestBed.inject(AffixService);
+      service.affixGroups.set('Test Group', ['Strength']);
+
+      expect(service.isAffixGroup(new Affix({ name: 'Test Group', type: 'Enhancement', value: 1 }))).toBeTrue();
+    });
+
+    it('does not recognise a group defined only by fixed components', () => {
+      // Pins current behaviour: ungroupAffix() does expand such a group.
+      const service: AffixService = TestBed.inject(AffixService);
+      service.affixGroupComponents.set('Test Components', [{ name: 'Perform', type: 'Enhancement', value: 2 }]);
+      const affix = new Affix({ name: 'Test Components', type: 'Bool', value: 1 });
+
+      expect(service.isAffixGroup(affix)).toBeFalse();
+      expect(service.ungroupAffix(affix).length).toBe(1);
+    });
+
+    it('does not recognise an ordinary affix', () => {
+      const service: AffixService = TestBed.inject(AffixService);
+
+      expect(service.isAffixGroup(new Affix({ name: 'Deadly', type: 'Competence', value: 10 }))).toBeFalse();
+    });
+  });
 });

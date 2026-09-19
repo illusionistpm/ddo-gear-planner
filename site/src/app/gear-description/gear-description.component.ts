@@ -326,16 +326,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     perfAfterFrames('paint after crafting ML change');
   }
 
-  getAffixValue(affix: Affix) {
-    perfCount('GearDescriptionComponent.getAffixValue');
-    return this.affixUi.getAffixValue(affix);
-  }
-
-  getClassForAffix(affix: Affix, option?: CraftableOption) {
-    perfCount('GearDescriptionComponent.getClassForAffix');
-    return this.affixUi.getClassForAffix(affix, option);
-  }
-
   isHighlightedAffix(affix: Affix): boolean {
     const affixes = [affix].concat(this.affixSvc.ungroupAffix(affix));
     return affixes.some(candidate =>
@@ -346,21 +336,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   isHighlightedCraftingRow(row: CraftingDisplayRow): boolean {
     const selectedAffix = row.craft.selected?.affixes?.[0];
     return !!selectedAffix && this.isHighlightedAffix(selectedAffix);
-  }
-
-  getAffixTooltip(affix: Affix, option?: CraftableOption): string {
-    perfCount('GearDescriptionComponent.getAffixTooltip');
-    return this.affixUi.getAffixTooltip(affix, option, this.curItem?.slot);
-  }
-
-  getAffixGroupTooltip(affix: Affix): string {
-    perfCount('GearDescriptionComponent.getAffixGroupTooltip');
-    return this.affixUi.getAffixGroupTooltip(affix);
-  }
-
-  isAffixGroup(affix: Affix): boolean {
-    perfCount('GearDescriptionComponent.isAffixGroup');
-    return this.affixSvc.isAffixGroup(affix);
   }
 
   userOwnsItem(item: Item | null): boolean {
@@ -377,16 +352,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   getLootSourceLabel(item: Item | null): string {
     return this.questService.getLootSourceLabel(item);
-  }
-
-  getClassForCraftable(craft: Craftable) {
-    perfCount('GearDescriptionComponent.getClassForCraftable');
-    return this.affixUi.getClassForCraftable(craft);
-  }
-
-  getClassForCraftingOption(option: CraftableOption) {
-    perfCount('GearDescriptionComponent.getClassForCraftingOption');
-    return this.affixUi.getClassForCraftingOption(option);
   }
 
   showItemsInSet(setName: string) {

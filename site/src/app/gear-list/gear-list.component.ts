@@ -90,20 +90,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.suggestionDrawer.openSet(setName);
   }
 
-  getAffixValue(affix: Affix) {
-    return this.affixUi.getAffixValue(affix);
-  }
-
-  getClassForAffix(affix: Affix) {
-    return this.affixUi.getClassForAffix(affix);
-  }
-
-  getAffixTooltip(affix: Affix): string {
-    return this.affixUi.getAffixTooltip(affix);
-  }
-
   getSetBonusTooltip(eligible: boolean, threshold: number, pieces: number, affix: Affix): string {
-    return eligible ? this.getAffixTooltip(affix) : this.affixUi.getSetBonusLockedTooltip(threshold, pieces);
+    return eligible ? this.affixUi.getAffixTooltip(affix) : this.affixUi.getSetBonusLockedTooltip(threshold, pieces);
   }
 
   getAllGear() {

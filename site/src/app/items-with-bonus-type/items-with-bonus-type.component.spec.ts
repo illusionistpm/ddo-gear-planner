@@ -5,6 +5,8 @@ import { ItemsWithBonusTypeComponent } from './items-with-bonus-type.component';
 import { Item } from '../item';
 import { Craftable } from '../craftable';
 import { CraftableOption } from '../craftable-option';
+import { AppModule } from '../app.module';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -101,5 +103,129 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(equippedItem.name).toBe('Legendary Green Steel Necklace');
     expect(gearMap.get(equippedItem)!.map(c => c.name)).toEqual(['T2 (Equipment)']);
     expect(component.craftOptionMatchValue(keys[0])).toBe(7);
+  });
+});
+
+// Drives the item-preview carousel through the rendered DOM, so these tests
+// pin behaviour independent of how the preview is implemented.
+describe('ItemsWithBonusTypeComponent item preview', () => {
+  let component: ItemsWithBonusTypeComponent;
+  let fixture: ComponentFixture<ItemsWithBonusTypeComponent>;
+  let el: HTMLElement;
+
+  function makeItem(name: string, slot: string, value: number): Item {
+    return new Item({
+      name,
+      slot,
+      type: 'Test',
+      ml: 1,
+      affixes: [{ name: 'Kinetic Lore', type: 'Artifact', value }],
+      sets: [],
+      url: '/page/' + name.replace(/ /g, '_'),
+      crafting: [],
+      quests: [],
+      artifact: false,
+    });
+  }
+
+  function render(items: Item[]) {
+    component.affixName = 'Kinetic Lore';
+    component.bonusType = 'Artifact';
+    spyOn(component.gearDB, 'findGearWithAffixAndType').and.returnValue(items);
+    spyOn(component.gearDB, 'findAugmentsWithAffixAndType').and.returnValue([]);
+    spyOn(component.gearDB, 'findSetsWithAffixAndType').and.returnValue([]);
+    spyOn(component.equipped, 'getCompatibleGear').and.callFake(gear => gear);
+    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set(items.map(item => item.slot)));
+    fixture.detectChanges();
+  }
+
+  const rowLinks = () => Array.from(el.querySelectorAll<HTMLElement>('.item-preview-link'));
+  const panel = () => el.querySelector<HTMLElement>('.item-preview-panel');
+  const panelTitle = () => panel()?.querySelector('h3')?.textContent?.trim();
+  const button = (label: string) => el.querySelector<HTMLButtonElement>(`[aria-label="${label}"]`)!;
+  const selectedRows = () => Array.from(el.querySelectorAll('.selected-preview-row'));
+
+  function click(target: HTMLElement) {
+    target.click();
+    fixture.detectChanges();
+  }
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ItemsWithBonusTypeComponent);
+    component = fixture.componentInstance;
+    el = fixture.nativeElement;
+  });
+
+  it('opens on the clicked row and highlights it', () => {
+    render([makeItem('Alpha', 'Neck', 3), makeItem('Beta', 'Belt', 2), makeItem('Gamma', 'Boots', 1)]);
+    expect(panel()).toBeNull();
+
+    click(rowLinks()[1]);
+
+    expect(panelTitle()).toBe('Beta');
+    expect(selectedRows().length).toBe(1);
+    expect(selectedRows()[0].textContent).toContain('Beta');
+  });
+
+  it('steps through the rendered list and clamps at both ends', () => {
+    render([makeItem('Alpha', 'Neck', 3), makeItem('Beta', 'Belt', 2), makeItem('Gamma', 'Boots', 1)]);
+
+    click(rowLinks()[0]);
+    expect(button('Previous item').disabled).toBeTrue();
+    expect(button('Next item').disabled).toBeFalse();
+
+    click(button('Next item'));
+    expect(panelTitle()).toBe('Beta');
+    click(button('Next item'));
+    expect(panelTitle()).toBe('Gamma');
+    expect(button('Next item').disabled).toBeTrue();
+
+    click(button('Next item'));
+    expect(panelTitle()).toBe('Gamma');
+
+    click(button('Previous item'));
+    expect(panelTitle()).toBe('Beta');
+    expect(selectedRows()[0].textContent).toContain('Beta');
+  });
+
+  it('only carries the carousel across the 100 rows it renders', () => {
+    const items = Array.from({ length: 101 }, (_, i) => makeItem('Item ' + (101 - i), 'Neck', 101 - i));
+    render(items);
+    expect(rowLinks().length).toBe(100);
+
+    click(rowLinks()[99]);
+
+    expect(panelTitle()).toBe('Item 2');
+    expect(button('Next item').disabled).toBeTrue();
+  });
+
+  it('equips the previewed item and closes the drawer', () => {
+    render([makeItem('Alpha', 'Neck', 3), makeItem('Beta', 'Belt', 2)]);
+    const set = spyOn(component.equipped, 'set');
+    const close = spyOn(TestBed.inject(SuggestionDrawerService), 'close');
+
+    click(rowLinks()[0]);
+    click(button('Next item'));
+    click(el.querySelector<HTMLElement>('.preview-equip-button')!);
+
+    expect(set).toHaveBeenCalledTimes(1);
+    expect(set.calls.mostRecent().args[0].name).toBe('Beta');
+    expect(close).toHaveBeenCalled();
+  });
+
+  it('closes without equipping and clears the row highlight', () => {
+    render([makeItem('Alpha', 'Neck', 3)]);
+    const set = spyOn(component.equipped, 'set');
+
+    click(rowLinks()[0]);
+    click(button('Close item preview'));
+
+    expect(panel()).toBeNull();
+    expect(selectedRows().length).toBe(0);
+    expect(set).not.toHaveBeenCalled();
   });
 });

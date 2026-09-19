@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
 import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build';
 import { buildPath } from '../build-route';
@@ -43,7 +42,7 @@ export class BuildSaveService {
           // Surface the worker's specific reason when it gives one (e.g. the
           // per-account build limit - worker/src/routes/builds.ts's
           // MAX_BUILDS_PER_USER) rather than always the generic fallback.
-          catchError((err: HttpErrorResponse) => throwError(new BuildSaveError(
+          catchError((err: HttpErrorResponse) => throwError(() => new BuildSaveError(
             typeof err.error?.error === 'string' ? err.error.error : SAVE_FAILED
           )))
         );
@@ -57,7 +56,7 @@ export class BuildSaveService {
     return of(null).pipe(
       map(() => this.encodeWithinLimit()),
       switchMap(blob => this.buildsService.update(savedBuildId, { blob }).pipe(
-        catchError(() => throwError(new BuildSaveError(SAVE_FAILED)))
+        catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED)))
       )),
       tap(build => this.recordSaved(build, true)),
       map(() => undefined)
@@ -67,7 +66,7 @@ export class BuildSaveService {
   rename(savedBuildId: string, name: string): Observable<void> {
     return this.rejectDuplicateName(name, savedBuildId).pipe(
       switchMap(() => this.buildsService.update(savedBuildId, { name }).pipe(
-        catchError(() => throwError(new BuildSaveError(RENAME_FAILED)))
+        catchError(() => throwError(() => new BuildSaveError(RENAME_FAILED)))
       )),
       tap(build => this.recordSaved(build, false)),
       map(() => undefined)

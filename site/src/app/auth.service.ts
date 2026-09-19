@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService as Auth0Service } from '@auth0/auth0-angular';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { Observable, distinctUntilChanged, filter } from 'rxjs';
 
 import { environment } from '../environments/environment';
 

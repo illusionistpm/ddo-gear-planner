@@ -137,7 +137,7 @@ describe('BuildShareMenuComponent', () => {
   });
 
   it('surfaces an error and disables the link items if minting the share link fails', () => {
-    shortLinks.create.and.returnValue(throwError(new Error('network down')));
+    shortLinks.create.and.returnValue(throwError(() => new Error('network down')));
 
     const component = open(true);
 

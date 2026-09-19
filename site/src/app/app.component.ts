@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subscription, filter } from 'rxjs';
 
 import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';

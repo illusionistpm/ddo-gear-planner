@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs';
 
 import { BuildSummary, MAX_BUILDS_PER_USER } from '../build';
 import { BuildsService } from '../builds.service';

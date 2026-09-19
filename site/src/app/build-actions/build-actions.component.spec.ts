@@ -338,11 +338,7 @@ describe('BuildActionsComponent', () => {
 
   it('surfaces the server\'s specific error message (e.g. hitting the build limit) instead of the generic fallback', () => {
     auth.isAuthenticated$.next(true);
-    // RxJS 6 (this repo's version) - throwError() takes a plain value, not
-    // the RxJS 7+ factory form other tests in this file use; that form
-    // silently passes the factory *function itself* through as the error
-    // here, which every other test happens not to care about the shape of.
-    buildsService.create.and.returnValue(throwError(new HttpErrorResponse({
+    buildsService.create.and.returnValue(throwError(() => new HttpErrorResponse({
       status: 403,
       error: { error: 'You\'ve reached the limit of 100 saved builds. Delete an existing build to save a new one.' }
     })));

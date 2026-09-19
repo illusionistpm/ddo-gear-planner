@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { AnalyticsService } from '../analytics.service';
 
 export interface TypeaheadEntry {

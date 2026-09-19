@@ -250,13 +250,8 @@ describe('MainComponent - loading a build by shortId', () => {
   });
 
   it('shows a "not found" error, keeping the URL intact, for a 404', () => {
-    // throwError(value), not throwError(() => value): this project's rxjs
-    // (6.6.7) predates the factory-function overload other throwError call
-    // sites in this file use - with a factory, the component would receive
-    // the function ITSELF as the error, not an invocation of it, which
-    // only mattered here because this test (unlike those) reads err.status.
     configure('missing');
-    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 404 })));
+    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 404 })));
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -267,7 +262,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('shows a retryable "network" error, keeping the URL intact, for anything other than a 404', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 0 })));
+    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -278,7 +273,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('retries the same shortId when retryLoad() is called after a network error', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(throwError(new HttpErrorResponse({ status: 0 })));
+    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
     expect(fixture.componentInstance.loadError).toBe('network');

@@ -10,6 +10,8 @@ import { BuildsService } from '../builds.service';
 import { CurrentBuildService } from '../current-build.service';
 import { BuildUrlIdentity, QueryParamsService } from '../query-params.service';
 import { MainComponent } from './main.component';
+import { EquippedService } from '../equipped.service';
+import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -62,6 +64,8 @@ describe('MainComponent', () => {
   });
 
   beforeEach(() => {
+    // The empty-URL default adds a whole bundle, which would otherwise queue idle-time availability warmup.
+    spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup');
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -69,6 +73,29 @@ describe('MainComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('starts an empty URL on the Basic package, in the setup screen', () => {
+    const equipped = TestBed.inject(EquippedService);
+
+    expect(equipped.getImportantAffixes().has('Dodge')).toBeTrue();
+    expect(equipped.getImportantAffixes().has('Melee Power')).toBeFalse();
+    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBe('setup');
+  });
+
+  it('starts a new build (empty URL re-applied) on the Basic package, in the setup screen', () => {
+    const equipped = TestBed.inject(EquippedService);
+    const drawer = TestBed.inject(AffixBuilderDrawerService);
+
+    // What's left over from the build being replaced.
+    drawer.close();
+    equipped.setImportantAffixes(['Strength']);
+
+    TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
+
+    expect(equipped.getImportantAffixes().has('Strength')).toBeFalse();
+    expect(equipped.getImportantAffixes().has('Dodge')).toBeTrue();
+    expect(drawer.mode).toBe('setup');
   });
 
   it('renders non-production admin access in the workspace bar', () => {

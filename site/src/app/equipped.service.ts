@@ -1055,10 +1055,15 @@ export class EquippedService {
   }
 
   addImportantAffix(affix: string) {
-    const trackedAffixes = this.getTrackedAffixFamily(affix);
-    const addedAffixes = trackedAffixes.filter(trackedAffix => !this.importantAffixes.has(trackedAffix));
-    if (trackedAffixes.some(trackedAffix => !this.importantAffixes.has(trackedAffix))) {
-      for (const trackedAffix of trackedAffixes) {
+    return this.addImportantAffixes([affix]);
+  }
+
+  /** Tracks several affixes (and their companions) with a single recompute, rather than one per affix. */
+  addImportantAffixes(affixes: Iterable<string>) {
+    const addedAffixes = Array.from(this.expandTrackedAffixes(affixes))
+      .filter(trackedAffix => !this.importantAffixes.has(trackedAffix));
+    if (addedAffixes.length) {
+      for (const trackedAffix of addedAffixes) {
         this.importantAffixes.add(trackedAffix);
       }
       this.importantAffixesSubject.next(new Set(this.importantAffixes));
@@ -1068,10 +1073,14 @@ export class EquippedService {
   }
 
   removeImportantAffix(affix: string) {
-    const trackedAffixes = this.getTrackedAffixFamily(affix);
-    const removedAffixes = trackedAffixes.filter(trackedAffix => this.importantAffixes.has(trackedAffix));
-    if (trackedAffixes.some(trackedAffix => this.importantAffixes.has(trackedAffix))) {
-      for (const trackedAffix of trackedAffixes) {
+    return this.removeImportantAffixes([affix]);
+  }
+
+  removeImportantAffixes(affixes: Iterable<string>) {
+    const removedAffixes = Array.from(this.expandTrackedAffixes(affixes))
+      .filter(trackedAffix => this.importantAffixes.has(trackedAffix));
+    if (removedAffixes.length) {
+      for (const trackedAffix of removedAffixes) {
         this.importantAffixes.delete(trackedAffix);
       }
       this.importantAffixesSubject.next(new Set(this.importantAffixes));

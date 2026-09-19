@@ -192,11 +192,27 @@
   color: var(--info-chip-text-color);
 }
 
+.selected-affix-chip-remove {
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+/* Clicking a selected chip removes it, so preview that in the app's removal red. */
 .selected-affix-chip:hover,
-.selected-affix-chip:focus {
-  background: var(--info-chip-hover-bg);
-  border-color: var(--info-chip-hover-border-color);
-  color: var(--info-chip-hover-text-color);
+.selected-affix-chip:focus-visible {
+  background: color-mix(in srgb, var(--danger-color) 14%, var(--panel-bg));
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+  text-decoration: line-through;
+}
+
+.selected-affix-chip:hover .selected-affix-chip-remove,
+.selected-affix-chip:focus-visible .selected-affix-chip-remove {
+  display: inline-block;
+  opacity: 1;
+  text-decoration: none;
 }
 
 .empty-selected-affixes {

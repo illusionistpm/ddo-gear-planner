@@ -6,6 +6,7 @@ import { combineLatest, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixPackagesService } from '../affix-packages.service';
 import { UserGearService } from '../user-gear.service';
 import { GearDbService } from '../gear-db.service';
 import { AnalyticsService } from '../analytics.service';
@@ -111,6 +112,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private onboarding: PlannerOnboardingService,
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
+    private affixPackages: AffixPackagesService,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
@@ -220,8 +222,12 @@ export class MainComponent implements OnInit, OnDestroy {
       this.auth.isLoading$
     ]).subscribe(([, isLoading]) => {
       if (!isLoading && !this.isOnAuthRedirectCallbackUrl()) {
+        const alreadyReady = this.contentReady;
         this.initialGateReady = true;
         this.updateContentReady();
+        if (alreadyReady) {
+          this.onParamsReapplied();
+        }
       }
     });
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
@@ -259,9 +265,24 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Params applied again after the page was already up. "New build" lands here: MainComponent is
+  // recreated by the navigation to '/', but its first pass ran against the previous build's state
+  // (see the note above the subscription in ngOnInit), so it's this later application of the
+  // now-empty URL that has to treat the page like a fresh visit.
+  private onParamsReapplied() {
+    if (!this.latestRouteShortId && this.isBuildEmpty() && !this.equipped.getImportantAffixes().size) {
+      this.maybeOpenAffixBuilderOnLoad();
+    }
+  }
+
   private maybeOpenAffixBuilderOnLoad() {
     const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
     if (firstRun) {
+      // A genuinely empty URL - start them on Basic rather than a blank page. A build that's already
+      // got gear (or a saved id) but nothing tracked is theirs to leave as it is.
+      if (!this.latestRouteShortId && this.isBuildEmpty()) {
+        this.affixPackages.addDefaultPackage();
+      }
       this.affixBuilder.open('setup');
     } else if (this.affixBuilder.mode === 'setup') {
       // A prior call (against the pre-load empty state) opened the setup

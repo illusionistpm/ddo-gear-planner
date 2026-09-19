@@ -25,10 +25,18 @@ describe('AffixPickerComponent', () => {
   });
 
   beforeEach(() => {
+    // Adding whole bundles would otherwise queue a lot of idle-time availability warmup that outlives the test.
+    spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup');
     fixture = TestBed.createComponent(AffixPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  // State changes made straight on the component don't mark the fixture's view dirty on their own.
+  function refreshView() {
+    fixture.componentRef.changeDetectorRef.markForCheck();
+    fixture.detectChanges();
+  }
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -146,6 +154,118 @@ describe('AffixPickerComponent', () => {
       name: 'Utility & Checklist',
       affixes: ['Heroic Inspiration']
     });
+  });
+
+  it('includes Seeker in both the melee and ranged bundles', () => {
+    expect(component.packages.get('Melee')).toContain('Seeker');
+    expect(component.packages.get('Ranged')).toContain('Seeker');
+  });
+
+  it('adds a Trance insightful Deadly entry of 10 with the melee and ranged bundles', () => {
+    const equipped = TestBed.inject(EquippedService);
+
+    component.addPackage('Melee');
+
+    const entries = equipped.getExternalAffixesForType('Deadly', 'Insightful');
+    expect(entries.length).toBe(1);
+    expect(entries[0].kind).toBe('value');
+    expect(entries[0].value).toBe(10);
+    expect(entries[0].label).toBe('Trance');
+  });
+
+  it('keeps a value the user already entered instead of the suggested Trance entry', () => {
+    const equipped = TestBed.inject(EquippedService);
+    equipped.addExternalAffixValue('Deadly', 'Insightful', 20, 'Something else');
+
+    component.addPackage('Ranged');
+
+    const entries = equipped.getExternalAffixesForType('Deadly', 'Insightful');
+    expect(entries.length).toBe(1);
+    expect(entries[0].value).toBe(20);
+    expect(entries[0].label).toBe('Something else');
+  });
+
+  it('keeps shared affixes and the Trance entry while another bundle still needs them', () => {
+    const equipped = TestBed.inject(EquippedService);
+    component.addPackage('Melee');
+    component.addPackage('Ranged');
+
+    component.addPackage('Melee');
+
+    expect(component.isPackageSelected('Melee')).toBeFalse();
+    expect(component.isPackageSelected('Ranged')).toBeTrue();
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(1);
+
+    component.addPackage('Ranged');
+
+    expect(component.savedSet.has('Deadly')).toBeFalse();
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(0);
+  });
+
+  it('leaves a Trance entry the user changed when the bundle is removed', () => {
+    const equipped = TestBed.inject(EquippedService);
+    component.addPackage('Melee');
+    equipped.addExternalAffixValue('Deadly', 'Insightful', 15, 'Trance');
+
+    component.addPackage('Melee');
+
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(1);
+  });
+
+  it('keeps bundles highlighted for as long as the tracked affixes contain all of them', () => {
+    const equipped = TestBed.inject(EquippedService);
+    component.addPackage('Basic');
+    component.addPackage('Caster');
+    component.addSpellpower('Fire');
+
+    // A freshly opened page has no memory of what was clicked - only what is tracked.
+    const reopened = TestBed.createComponent(AffixPickerComponent).componentInstance;
+    reopened.ngOnInit();
+
+    expect(reopened.isPackageSelected('Basic')).toBeTrue();
+    expect(reopened.isPackageSelected('Caster')).toBeTrue();
+    expect(reopened.isSpellpowerSelected('Fire')).toBeTrue();
+    expect(reopened.isPackageSelected('Melee')).toBeFalse();
+    expect(reopened.showSpellSchools).toBeTrue();
+    expect(reopened.showSpellpowers).toBeTrue();
+
+    equipped.removeImportantAffix('Concentration');
+
+    expect(reopened.isPackageSelected('Caster')).toBeFalse();
+    expect(reopened.isPackageSelected('Basic')).toBeTrue();
+  });
+
+  it('marks spell schools and tactics selected, and toggles them off again', () => {
+    component.addSpellSchool('Evocation');
+    component.addTactic('Stunning');
+
+    expect(component.isSpellSchoolSelected('Evocation')).toBeTrue();
+    expect(component.isSpellSchoolSelected('Illusion')).toBeFalse();
+    expect(component.isTacticSelected('Stunning')).toBeTrue();
+
+    component.addSpellSchool('Evocation');
+    component.addTactic('Stunning');
+
+    expect(component.isSpellSchoolSelected('Evocation')).toBeFalse();
+    expect(component.isTacticSelected('Stunning')).toBeFalse();
+  });
+
+  it('renders selected spell schools with the selected style', () => {
+    component.addPackage('Caster');
+    component.addSpellSchool('Evocation');
+    refreshView();
+
+    const chips = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-selectable-chip.selected'));
+    expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBeTrue();
+  });
+
+  it('labels selected affix chips as removable', () => {
+    component.add('Strength');
+    refreshView();
+
+    const chip = (fixture.nativeElement as HTMLElement).querySelector('.selected-affix-chip')!;
+    expect(chip.getAttribute('aria-label')).toBe('Remove Strength');
+    expect(chip.querySelector('.selected-affix-chip-remove')).not.toBeNull();
   });
 
   it('clears saved affixes when tracked URL state is cleared', () => {

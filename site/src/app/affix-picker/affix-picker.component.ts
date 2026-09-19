@@ -7,6 +7,7 @@ import { AffixService } from '../affix.service';
 import { AnalyticsService } from '../analytics.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixPackagesService } from '../affix-packages.service';
 
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 
@@ -29,13 +30,11 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   public allAffixes: Array<any>; // is really Array<{name:string}>
 
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-  packages = new Map<string, Array<string>>();
-  packageKeys: string[] = [];
-  selectedPackages = new Set<string>();
+  packages: Map<string, Array<string>>;
+  packageKeys: string[];
 
-  spellpowerPackages = new Map<string, Array<string>>();
-  spellpowerPackageKeys: string[] = [];
-  selectedSpellpowerPackages = new Set<string>();
+  spellpowerPackages: Map<string, Array<string>>;
+  spellpowerPackageKeys: string[];
   onboardingActive = true;
   basicPackageHint = true;
   additionalPackageHint = false;
@@ -50,7 +49,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
     private onboarding: PlannerOnboardingService,
-    private affixBuilder: AffixBuilderDrawerService
+    private affixBuilder: AffixBuilderDrawerService,
+    private affixPackages: AffixPackagesService
   ) {
     this.savedSet = new Set<string>();
 
@@ -59,7 +59,10 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     this.spellSchools = ['Evocation', 'Transmutation', 'Abjuration', 'Conjuration', 'Enchantment', 'Illusion', 'Necromancy'];
     this.tactics = ['Stunning', 'Sundering', 'Vertigo'];
 
-    this._initPackages();
+    this.packages = this.affixPackages.packages;
+    this.packageKeys = this.affixPackages.packageKeys;
+    this.spellpowerPackages = this.affixPackages.spellpowerPackages;
+    this.spellpowerPackageKeys = this.affixPackages.spellpowerPackageKeys;
   }
 
   ngOnInit() {
@@ -82,52 +85,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     return this.affixBuilder.mode === 'setup';
   }
 
-  _initPackages() {
-    this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Blurry', 'Parrying', 'Ghostly',
-      'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
-      'Heroic Inspiration']);
-    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
-    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Accuracy', 'Armor-Piercing']);
-    this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Concentration']);
-    this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
-    this.packageKeys = Array.from(this.packages.keys());
-
-    this.spellpowerPackages.set('Healing', ['Devotion', 'Healing Lore', 'Heal', 'Healing Intensity']);
-    this.spellpowerPackages.set('Kinetic', ['Impulse', 'Kinetic Lore', 'Kinetic Intensity']);
-    this.spellpowerPackages.set('Fire', ['Combustion', 'Fire Lore', 'Fire Intensity']);
-    this.spellpowerPackages.set('Cold', ['Glaciation', 'Ice Lore', 'Ice Intensity']);
-    this.spellpowerPackages.set('Electric', ['Magnetism', 'Lightning Lore', 'Lightning Intensity']);
-    this.spellpowerPackages.set('Acid', ['Corrosion', 'Acid Lore', 'Acid Intensity']);
-    this.spellpowerPackages.set('Poison', ['Poison Spell Power', 'Poison Lore', 'Void Intensity']);
-    this.spellpowerPackages.set('Negative', ['Nullification', 'Void Lore', 'Void Intensity']);
-    this.spellpowerPackages.set('Light & Alignment', ['Radiance', 'Radiance Lore', 'Radiance Intensity']);
-    this.spellpowerPackages.set('Repair', ['Repair Spell Power', 'Rust Spell Power', 'Repair Lore', 'Repair Intensity', 'Repair']);
-    this.spellpowerPackages.set('Sonic', ['Resonance', 'Sonic Lore', 'Perform', 'Sonic Intensity']);
-    this.spellpowerPackageKeys = Array.from(this.spellpowerPackages.keys());
-    this.canonicalizePackages();
-  }
-
-  private canonicalizePackages() {
-    this.packages = this.canonicalizePackageMap(this.packages);
-    this.spellpowerPackages = this.canonicalizePackageMap(this.spellpowerPackages);
-  }
-
-  private canonicalizePackageMap(source: Map<string, Array<string>>) {
-    const canonicalized = new Map<string, Array<string>>();
-    for (const [key, affixes] of source.entries()) {
-      const canonicalAffixes: string[] = [];
-      for (const affix of affixes) {
-        const canonicalName = this.affixSvc.getCanonicalName(affix);
-        if (!canonicalAffixes.includes(canonicalName)) {
-          canonicalAffixes.push(canonicalName);
-        }
-      }
-      canonicalized.set(key, canonicalAffixes);
-    }
-    return canonicalized;
-  }
-
   toggleAttribute(attr: string) {
     if (this.isAttributeSelected(attr)) {
       this.remove(attr);
@@ -142,7 +99,7 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   addPackage(pkg: string) {
-    if (this.selectedPackages.has(pkg)) {
+    if (this.isPackageSelected(pkg)) {
       this.removePackage(pkg);
       return;
     }
@@ -151,27 +108,41 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
       package_type: 'basic',
       package_name: pkg
     });
-    const packageAffixes = this.packages.get(pkg);
-    if (packageAffixes) {
-      this.selectedPackages.add(pkg);
-      for (const affix of packageAffixes) {
-        this.add(affix, 'package', false);
-      }
-    }
-    this.updateConditionalSections();
-    this.refreshOnboardingHints();
+    this.affixPackages.addPackage(pkg);
   }
 
   addTactic(tactic: string) {
+    if (this.isTacticSelected(tactic)) {
+      this.remove(tactic);
+      return;
+    }
+
     this.add(tactic, 'tactic_button');
   }
 
+  isTacticSelected(tactic: string) {
+    return this.savedSet.has(tactic);
+  }
+
   addSpellSchool(spellSchool: string) {
-    this.add(spellSchool + ' Focus', 'spell_school_button');
+    if (this.isSpellSchoolSelected(spellSchool)) {
+      this.remove(this.getSpellSchoolAffix(spellSchool));
+      return;
+    }
+
+    this.add(this.getSpellSchoolAffix(spellSchool), 'spell_school_button');
+  }
+
+  isSpellSchoolSelected(spellSchool: string) {
+    return this.savedSet.has(this.affixSvc.getCanonicalName(this.getSpellSchoolAffix(spellSchool)));
+  }
+
+  private getSpellSchoolAffix(spellSchool: string) {
+    return spellSchool + ' Focus';
   }
 
   addSpellpower(spellpower: string) {
-    if (this.selectedSpellpowerPackages.has(spellpower)) {
+    if (this.isSpellpowerSelected(spellpower)) {
       this.removeSpellpower(spellpower);
       return;
     }
@@ -180,45 +151,19 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
       package_type: 'spellpower',
       package_name: spellpower
     });
-    const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
-    if (spellpowerAffixes) {
-      this.selectedSpellpowerPackages.add(spellpower);
-      for (const affix of spellpowerAffixes) {
-        this.add(affix, 'spellpower_package', false);
-      }
-    }
-    this.updateConditionalSections();
+    this.affixPackages.addSpellpower(spellpower);
   }
 
   removePackage(pkg: string) {
-    const packageAffixes = this.packages.get(pkg);
-    if (!packageAffixes) {
-      return;
-    }
-
-    this.selectedPackages.delete(pkg);
-    for (const affix of packageAffixes) {
-      this.remove(affix);
-    }
-    this.updateConditionalSections();
-    this.refreshOnboardingHints();
+    this.affixPackages.removePackage(pkg);
   }
 
   removeSpellpower(spellpower: string) {
-    const spellpowerAffixes = this.spellpowerPackages.get(spellpower);
-    if (!spellpowerAffixes) {
-      return;
-    }
-
-    this.selectedSpellpowerPackages.delete(spellpower);
-    for (const affix of spellpowerAffixes) {
-      this.remove(affix);
-    }
-    this.updateConditionalSections();
+    this.affixPackages.removeSpellpower(spellpower);
   }
 
   isPackageSelected(pkg: string) {
-    return this.selectedPackages.has(pkg);
+    return this.affixPackages.isSelected(this.packages.get(pkg), this.savedSet);
   }
 
   shouldHighlightStarterPackage(pkg: string) {
@@ -248,7 +193,7 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   isSpellpowerSelected(spellpower: string) {
-    return this.selectedSpellpowerPackages.has(spellpower);
+    return this.affixPackages.isSelected(this.spellpowerPackages.get(spellpower), this.savedSet);
   }
 
   getPackageTooltip(pkg: string) {
@@ -277,12 +222,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   private syncFromImportantAffixes(affixes: Set<string>) {
     this.savedSet = new Set(affixes);
-
-    if (!this.savedSet.size) {
-      this.selectedPackages.clear();
-      this.selectedSpellpowerPackages.clear();
-    }
-
     this.updateConditionalSections();
     this.refreshOnboardingHints();
   }
@@ -298,8 +237,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     for (const affix of Array.from(this.savedSet)) {
       this.remove(affix);
     }
-    this.selectedPackages.clear();
-    this.selectedSpellpowerPackages.clear();
     this.updateConditionalSections();
     this.refreshOnboardingHints();
   }
@@ -318,13 +255,13 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   private updateConditionalSections() {
-    this.showTactics = this.selectedPackages.has('Melee');
-    this.showSpellpowers = this.selectedPackages.has('Caster') || this.selectedSpellpowerPackages.size > 0;
-    this.showSpellSchools = this.selectedPackages.has('Caster');
+    this.showTactics = this.isPackageSelected('Melee');
+    this.showSpellpowers = this.isPackageSelected('Caster') || this.spellpowerPackageKeys.some(key => this.isSpellpowerSelected(key));
+    this.showSpellSchools = this.isPackageSelected('Caster');
   }
 
   private hasAdditionalStarterPackage() {
-    return Array.from(this.selectedPackages).some(pkg => pkg !== 'Basic');
+    return this.packageKeys.some(pkg => pkg !== 'Basic' && this.isPackageSelected(pkg));
   }
 
   private getPackageAffixesTooltip(affixes: string[] | undefined) {
@@ -336,8 +273,9 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   private refreshOnboardingHints() {
-    this.basicPackageHint = this.onboardingActive && !this.selectedPackages.has('Basic');
-    this.additionalPackageHint = this.onboardingActive && this.selectedPackages.has('Basic') && !this.hasAdditionalStarterPackage();
-    this.equipmentStepHint = this.onboardingActive && this.selectedPackages.has('Basic') && this.hasAdditionalStarterPackage();
+    const basicSelected = this.isPackageSelected('Basic');
+    this.basicPackageHint = this.onboardingActive && !basicSelected;
+    this.additionalPackageHint = this.onboardingActive && basicSelected && !this.hasAdditionalStarterPackage();
+    this.equipmentStepHint = this.onboardingActive && basicSelected && this.hasAdditionalStarterPackage();
   }
 }

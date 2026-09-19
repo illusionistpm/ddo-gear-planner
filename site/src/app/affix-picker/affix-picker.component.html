@@ -10,7 +10,7 @@
         <ng-template #affixSetupIntro>
           <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
             <h2>Add one build package</h2>
-            <p>Basic covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
+            <p>Basic is already selected for you - it covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
           </ng-container>
         </ng-template>
         <ng-template #basicAffixSetupIntro>
@@ -72,7 +72,10 @@
           </div>
           <div class="chip-grid">
             @for (tactic of tactics; track tactic) {
-              <button type="button" class="affix-chip" (click)="addTactic(tactic)">{{tactic}}</button>
+              <button type="button" class="affix-chip affix-selectable-chip"
+                [class.selected]="isTacticSelected(tactic)"
+                [attr.aria-pressed]="isTacticSelected(tactic)"
+                (click)="addTactic(tactic)">{{tactic}}</button>
             }
           </div>
         </section>
@@ -102,7 +105,10 @@
           </div>
           <div class="chip-grid">
             @for (spellSchool of spellSchools; track spellSchool) {
-              <button type="button" class="affix-chip" (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
+              <button type="button" class="affix-chip affix-selectable-chip"
+                [class.selected]="isSpellSchoolSelected(spellSchool)"
+                [attr.aria-pressed]="isSpellSchoolSelected(spellSchool)"
+                (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
             }
           </div>
         </section>
@@ -136,7 +142,10 @@
               <div class="saved-affix-group-title">{{group.name}}</div>
               <div class="selected-chip-grid">
                 @for (result of group.affixes; track result) {
-                  <button type="button" class="selected-affix-chip" (click)="remove(result)">{{result}}</button>
+                  <button type="button" class="selected-affix-chip"
+                    [title]="'Remove ' + result"
+                    [attr.aria-label]="'Remove ' + result"
+                    (click)="remove(result)">{{result}}<span class="selected-affix-chip-remove" aria-hidden="true">&times;</span></button>
                 }
               </div>
             </section>

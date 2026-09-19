@@ -21,6 +21,7 @@ import { MainComponent } from './main/main.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 import { AffixPickerComponent } from './affix-picker/affix-picker.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
+import { ItemPreviewComponent } from './item-preview/item-preview.component';
 import { ExpandingCheckboxesComponent } from './expanding-checkboxes/expanding-checkboxes.component';
 import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.component';
 import { UserItemLocationTooltipPipe } from './user-item-location-tooltip.pipe';
@@ -49,6 +50,7 @@ import { ShrinkToFitDirective } from './shrink-to-fit.directive';
         ItemSuggestionsComponent,
         AffixPickerComponent,
         ItemsInSetComponent,
+        ItemPreviewComponent,
         ExpandingCheckboxesComponent,
         FilterItemTypeComponent,
         UserItemLocationTooltipPipe,

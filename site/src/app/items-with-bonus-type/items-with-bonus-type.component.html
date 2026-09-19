@@ -57,43 +57,8 @@
   }
 </div>
 
-@if (previewItem) {
-  <aside class="item-preview-panel" aria-label="Item preview">
-    <div class="item-preview-header">
-      <div class="item-preview-title">
-        <button type="button" class="preview-nav-button" aria-label="Previous item"
-          (click)="showPreviousPreviewItem()" [disabled]="!canShowPreviousPreviewItem()">
-          &lsaquo;
-        </button>
-        <h3>{{previewItem.name}}</h3>
-        <button type="button" class="preview-nav-button" aria-label="Next item"
-          (click)="showNextPreviewItem()" [disabled]="!canShowNextPreviewItem()">
-          &rsaquo;
-        </button>
-      </div>
-      <button type="button" class="preview-close" aria-label="Close item preview" (click)="closeItemPreview()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="item-preview-card">
-      <app-gear-description
-        [item]="previewItem"
-        [readonly]="false"
-        [equipOnChange]="false"
-        [highlightAffixName]="affixName"
-        [highlightBonusType]="bonusType">
-      </app-gear-description>
-    </div>
-    <div class="item-preview-actions">
-      <a class="wiki-link" [href]="previewItem.getURL()" target="_blank" rel="noreferrer">
-        Open wiki page
-      </a>
-      <button type="button" class="equip-button preview-equip-button" (click)="equipPreviewItem()" [disabled]="!equipped.canEquip(previewItem)">
-        Equip
-      </button>
-    </div>
-  </aside>
-}
+<app-item-preview [preview]="preview" [highlightAffixName]="affixName" [highlightBonusType]="bonusType"
+  (equip)="equipPreviewItem($event)"></app-item-preview>
 
 @if (optionToEligibleGear.size) {
   <div class="drawer-section">
@@ -237,12 +202,12 @@
         <div class="col-7"><b>Name</b></div>
         <div class="col-2 text-end"><b>Value</b></div>
       </div>
-      @for (item of matches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
-        <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
+      @for (item of matches.slice(0, maxRenderedItems); track item.name + '|' + item.slot + '|' + $index) {
+        <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
           <div class="col-7">
-            <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches, $index)">
+            <button type="button" class="item-preview-link" (click)="preview.show(item, matches.slice(0, maxRenderedItems), $index)">
               {{item.name}}
             </button>
             @if (userOwnsItem(item)) {
@@ -268,12 +233,12 @@
         <div class="row">&nbsp;</div>
         <div class="drawer-subsection-title">Already Filled Slots</div>
         <i>
-          @for (item of lockedMatches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
-            <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
+          @for (item of lockedMatches.slice(0, maxRenderedItems); track item.name + '|' + item.slot + '|' + $index) {
+            <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
               <div class="col-1">{{item.ml}}</div>
               <div class="col-2">{{item.slot}}</div>
               <div class="col-7">
-                <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches, $index)">
+                <button type="button" class="item-preview-link" (click)="preview.show(item, lockedMatches.slice(0, maxRenderedItems), $index)">
                   {{item.name}}
                 </button>
                 @if (userOwnsItem(item)) {

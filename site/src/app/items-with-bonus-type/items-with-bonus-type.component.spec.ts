@@ -6,6 +6,7 @@ import { Item } from '../item';
 import { Craftable } from '../craftable';
 import { CraftableOption } from '../craftable-option';
 import { AppModule } from '../app.module';
+import { ItemPreviewComponent } from '../item-preview/item-preview.component';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 describe('ItemsWithBonusTypeComponent', () => {
@@ -14,7 +15,7 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemsWithBonusTypeComponent ],
+      declarations: [ ItemsWithBonusTypeComponent, ItemPreviewComponent ],
       imports: [ FormsModule ]
     })
     .compileComponents();

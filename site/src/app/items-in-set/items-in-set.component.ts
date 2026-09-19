@@ -7,6 +7,7 @@ import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
 import { AnalyticsService } from '../analytics.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { ItemPreviewController } from '../item-preview/item-preview-controller';
 
 @Component({
     selector: 'app-items-in-set',
@@ -22,9 +23,7 @@ export class ItemsInSetComponent implements OnInit {
   lockedMatches!: Array<Item>;
   setBonusTiers: Array<SetBonusThreshold> = [];
   equippedPieces = 0;
-  previewItem: Item | null = null;
-  previewItems: Item[] = [];
-  previewIndex = -1;
+  readonly preview = new ItemPreviewController();
 
   constructor(
     public gearDB: GearDbService,
@@ -86,64 +85,12 @@ export class ItemsInSetComponent implements OnInit {
     this.suggestionDrawer.close();
   }
 
-  showItemPreview(item: Item, items: Item[] = [], index = -1) {
-    this.previewItems = items.slice();
-    this.previewIndex = index >= 0
-      ? index
-      : this.previewItems.findIndex(candidate => this.isSameItem(candidate, item));
-    this.setPreviewItem(item);
-  }
-
-  private setPreviewItem(item: Item) {
-    this.previewItem = new Item(item);
-  }
-
-  closeItemPreview() {
-    this.previewItem = null;
-    this.previewItems = [];
-    this.previewIndex = -1;
-  }
-
-  showPreviousPreviewItem() {
-    if (!this.canShowPreviousPreviewItem()) {
+  equipPreviewItem(item: Item) {
+    if (!this.equipped.canEquip(item)) {
       return;
     }
 
-    this.previewIndex -= 1;
-    this.setPreviewItem(this.previewItems[this.previewIndex]);
-  }
-
-  showNextPreviewItem() {
-    if (!this.canShowNextPreviewItem()) {
-      return;
-    }
-
-    this.previewIndex += 1;
-    this.setPreviewItem(this.previewItems[this.previewIndex]);
-  }
-
-  canShowPreviousPreviewItem(): boolean {
-    return this.previewIndex > 0;
-  }
-
-  canShowNextPreviewItem(): boolean {
-    return this.previewIndex >= 0 && this.previewIndex < this.previewItems.length - 1;
-  }
-
-  isPreviewingItem(item: Item): boolean {
-    return !!this.previewItem && this.isSameItem(this.previewItem, item);
-  }
-
-  private isSameItem(left: Item, right: Item): boolean {
-    return left.name === right.name && left.slot === right.slot && left.ml === right.ml;
-  }
-
-  equipPreviewItem() {
-    if (!this.previewItem || !this.equipped.canEquip(this.previewItem)) {
-      return;
-    }
-
-    const itemToEquip = new Item(this.previewItem);
+    const itemToEquip = new Item(item);
     this.equipped.set(itemToEquip);
     this.analytics.track('planner_equip_item', {
       equip_source: 'set_preview',

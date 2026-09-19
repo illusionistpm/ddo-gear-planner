@@ -17,6 +17,7 @@ import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { ItemPreviewController } from '../item-preview/item-preview-controller';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -107,9 +108,13 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   private collapsedSections = new Set<string>();
 
   selectedAugmentSlot?: AugmentSlotChoice;
-  previewItem: Item | null = null;
-  previewItems: Item[] = [];
-  previewIndex = -1;
+  /** The item list renders at most this many rows, and the preview carousel spans only those. */
+  readonly maxRenderedItems = 100;
+  readonly preview = new ItemPreviewController(item => {
+    if (this.findMatchingValue(item)[0]) {
+      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+    }
+  });
   private userItemsChangedSubscription?: Subscription;
 
   constructor(
@@ -158,9 +163,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
     this.craftIntoEquippedOptions = new Map<string, CraftableOption>();
     this.selectedCraftSlot = undefined;
-    this.previewItem = null;
-    this.previewItems = [];
-    this.previewIndex = -1;
+    this.preview.close();
 
     const matchingGear = this.equipped.getCompatibleGear(
       this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType)
@@ -401,68 +404,13 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return [crafting, value];
   }
 
-  showItemPreview(item: Item, items: Item[] = [], index = -1) {
-    this.previewItems = items.slice(0, 100);
-    this.previewIndex = index >= 0
-      ? index
-      : this.previewItems.findIndex(candidate => this.isSameItem(candidate, item));
-    this.setPreviewItem(item);
-  }
-
-  private setPreviewItem(item: Item) {
-    this.previewItem = new Item(item);
-    if (this.findMatchingValue(this.previewItem)[0]) {
-      this.previewItem.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
-    }
-  }
-
-  closeItemPreview() {
-    this.previewItem = null;
-    this.previewItems = [];
-    this.previewIndex = -1;
-  }
-
-  showPreviousPreviewItem() {
-    if (!this.canShowPreviousPreviewItem()) {
-      return;
-    }
-
-    this.previewIndex -= 1;
-    this.setPreviewItem(this.previewItems[this.previewIndex]);
-  }
-
-  showNextPreviewItem() {
-    if (!this.canShowNextPreviewItem()) {
-      return;
-    }
-
-    this.previewIndex += 1;
-    this.setPreviewItem(this.previewItems[this.previewIndex]);
-  }
-
-  canShowPreviousPreviewItem(): boolean {
-    return this.previewIndex > 0;
-  }
-
-  canShowNextPreviewItem(): boolean {
-    return this.previewIndex >= 0 && this.previewIndex < this.previewItems.length - 1;
-  }
-
-  isPreviewingItem(item: Item): boolean {
-    return !!this.previewItem && this.isSameItem(this.previewItem, item);
-  }
-
-  private isSameItem(left: Item, right: Item): boolean {
-    return left.name === right.name && left.slot === right.slot && left.ml === right.ml;
-  }
-
-  equipPreviewItem() {
-    if (!this.previewItem || !this.equipped.canEquip(this.previewItem)) {
+  equipPreviewItem(item: Item) {
+    if (!this.equipped.canEquip(item)) {
       return;
     }
 
     const done = perfStart('ItemsWithBonusTypeComponent.equipPreviewItem');
-    const itemToEquip = new Item(this.previewItem);
+    const itemToEquip = new Item(item);
     this.equipped.set(itemToEquip);
     this.analytics.track('planner_equip_item', {
       equip_source: 'bonus_type_preview',

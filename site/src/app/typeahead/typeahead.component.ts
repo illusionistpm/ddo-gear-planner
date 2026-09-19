@@ -1,7 +1,20 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { AnalyticsService } from '../analytics.service';
+
+export interface TypeaheadEntry {
+  name: string;
+  synonyms?: string[];
+}
+
+/**
+ * A search hit: the matching entry itself, or - when the term matched one of
+ * its synonyms - a "Canonical Name (Synonym)" label with the canonical name
+ * in `original`.
+ */
+export type TypeaheadResult = TypeaheadEntry | { name: string; original: string };
 
 @Component({
     selector: 'app-typeahead',
@@ -10,12 +23,11 @@ import { AnalyticsService } from '../analytics.service';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class TypeaheadComponent implements OnInit {
-  @Input() source: any;
-  @Input() item: any;
-  @Input() onChange!: (val: string) => any;
+export class TypeaheadComponent {
+  @Input() source: TypeaheadEntry[] = [];
+  @Input() onChange!: (result: TypeaheadResult) => void;
   @Input() placeholder!: string;
-  @Input() resultFormatter!: (x: any) => string;
+  @Input() resultFormatter!: (result: TypeaheadResult) => string;
   @Input() inputClass!: string;
   @Input() searchType!: string;
 
@@ -29,28 +41,19 @@ export class TypeaheadComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => {
-        return this.source.filter((v: any) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 || (v.synonyms && v.synonyms.some((x: any) => x.toLowerCase().indexOf(term.toLowerCase()) > -1)))
+      map((term): TypeaheadResult[] => {
+        const matches = (value: string) => value.toLowerCase().indexOf(term.toLowerCase()) > -1;
+        return this.source.filter(v => matches(v.name) || (v.synonyms && v.synonyms.some(matches)))
         // If the entry has any synonyms, search on them as well. If they match, we want to show an entry like "Canonical Text (Synonym)".
         // If we matched on a synonym, we also add another field to the response, 'original', which is the canonical name.
-        .map((v: any) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ? v : {name: `${v.name} (${v.synonyms.find((x: any) => x.toLowerCase().indexOf(term.toLowerCase()) > -1)})`, original: v.name })
-        .sort(this._sortResults(term)).slice(0, 6)
+        .map((v): TypeaheadResult => matches(v.name) ? v : { name: `${v.name} (${v.synonyms!.find(matches)})`, original: v.name })
+        .sort(this._sortResults(term)).slice(0, 6);
       })
       );
 
   constructor(private analytics: AnalyticsService) { }
 
-  ngOnInit() {
-    if (this.item) {
-      this.item.subscribe((v: any) => {
-        if (v) {
-          this.itemName = v.name;
-        }
-      });
-    }
-  }
-
-  onSelectItemMine(e: any) {
+  onSelectItemMine(e: NgbTypeaheadSelectItemEvent<TypeaheadResult>) {
     if (this.searchType) {
       this.analytics.track('search', {
         search_type: this.searchType,
@@ -66,10 +69,10 @@ export class TypeaheadComponent implements OnInit {
     }, 0);
   }
 
-  _getSortIndex(term: string, str: any) {
-    const split = str.name.split(' ');
+  _getSortIndex(term: string, result: TypeaheadResult) {
+    const split = result.name.split(' ');
 
-    const matches = split.filter((v: any) => v.toLowerCase().startsWith(term.toLowerCase()));
+    const matches = split.filter(v => v.toLowerCase().startsWith(term.toLowerCase()));
     let index = split.indexOf(matches[0]);
     if (index < 0) {
       index = 999;
@@ -78,15 +81,16 @@ export class TypeaheadComponent implements OnInit {
   }
 
   _sortResults(term: string) {
-    return (a: any, b: any) => {
+    return (a: TypeaheadResult, b: TypeaheadResult) => {
       const aIndex = this._getSortIndex(term, a);
       const bIndex = this._getSortIndex(term, b);
 
       if (aIndex !== bIndex) {
         return aIndex - bIndex;
-      } else {
-        return a.name.toLowerCase() > b.name.toLowerCase();
       }
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
+      return aName < bName ? -1 : aName > bName ? 1 : 0;
     };
   }
 

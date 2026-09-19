@@ -8,6 +8,23 @@ type ValueMode = 'same_as_affix_number' | 'fixed' | 'boolean_one';
 type ReviewStatus = 'unreviewed' | 'accepted' | 'tweaked' | 'needs-tweak' | 'rejected';
 type AdminView = 'compound-affixes' | 'affix-names';
 
+/** An affix as the admin API reports it (data-builder/admin/admin_api.py _format_affix). */
+interface PreviewAffix {
+  name: string;
+  type?: string | null;
+  value?: number | string | null;
+  sourceText?: string | null;
+  sourceTooltip?: string | null;
+  parserSource?: string | null;
+}
+
+/** Evidence the admin API gathered for a compound affix candidate. */
+interface CompoundCandidateEvidence {
+  exampleItems: Array<{ itemName: string; itemUrl: string }>;
+  originalNames: string[];
+  sourceTooltips: string[];
+}
+
 interface CompoundAffixComponent {
   name: string;
   type: string;
@@ -26,18 +43,18 @@ interface ReviewEntry {
   reviewedAt?: string;
   suggestion?: CompoundAffixDefinition;
   reviewedDefinition?: CompoundAffixDefinition;
-  candidate?: any;
+  candidate?: CompoundCandidateEvidence;
   candidatePresent?: boolean;
   nameMatchesCurrentAffix?: boolean;
   suggestedCanonicalName?: string;
   staleReason?: string;
-  llmResult?: any;
+  llmResult?: unknown;
   exampleTooltip?: string;
   impact: Array<{
     itemName: string;
     itemUrl: string;
-    before: any[];
-    after: any[];
+    before: PreviewAffix[];
+    after: PreviewAffix[];
   }>;
 }
 
@@ -86,7 +103,7 @@ interface AffixNamePayload {
   entries: AffixNameEntry[];
   clusters: AffixNameCluster[];
   synonyms: Array<{ name: string; synonyms: string[] }>;
-  backlog: any[];
+  backlog: unknown[];
   summary: {
     totalNames: number;
     oneOffNames: number;
@@ -104,6 +121,12 @@ const ACTIVE_VIEW_STORAGE_KEY = 'ddo-admin-active-view';
 const SELECTED_AFFIX_STORAGE_KEY = 'ddo-admin-selected-affix';
 const SELECTED_AFFIX_NAME_STORAGE_KEY = 'ddo-admin-selected-affix-name';
 
+/** The message from a rejected requestJson call: the server's `error` field, if any. */
+function apiErrorMessage(error: unknown, fallback: string): string {
+  const message = (error as { error?: unknown } | null)?.error;
+  return typeof message === 'string' && message ? message : fallback;
+}
+
 function requestJson<T>(url: string, options: { method?: string; body?: unknown } = {}): Promise<T> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
@@ -113,7 +136,7 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
       request.setRequestHeader('Content-Type', 'application/json');
     }
     request.onload = () => {
-      let parsed: any;
+      let parsed: unknown;
       try {
         parsed = request.responseText ? JSON.parse(request.responseText) : {};
       } catch (error) {
@@ -704,8 +727,8 @@ export class AdminAppComponent {
           notes: this.affixNameReviewNotes,
         }
       });
-    } catch (error: any) {
-      this.affixNameSaveMessage = error?.error || 'Save failed';
+    } catch (error) {
+      this.affixNameSaveMessage = apiErrorMessage(error, 'Save failed');
       return;
     }
     this.affixNameSaveMessage = status === 'ok' ? 'Marked OK' : 'Review cleared';
@@ -727,8 +750,8 @@ export class AdminAppComponent {
           synonyms,
         }
       });
-    } catch (error: any) {
-      this.affixNameSaveMessage = error?.error || 'Save failed';
+    } catch (error) {
+      this.affixNameSaveMessage = apiErrorMessage(error, 'Save failed');
       return;
     }
     this.affixNameSaveMessage = 'Saved';
@@ -747,8 +770,8 @@ export class AdminAppComponent {
           examples: this.selectedAffixName.examples,
         }
       });
-    } catch (error: any) {
-      this.affixNameSaveMessage = error?.error || 'Save failed';
+    } catch (error) {
+      this.affixNameSaveMessage = apiErrorMessage(error, 'Save failed');
       return;
     }
     this.affixNameSaveMessage = 'Parser issue saved';
@@ -765,8 +788,8 @@ export class AdminAppComponent {
         method: 'POST',
         body: { name }
       });
-    } catch (error: any) {
-      this.affixNameSaveMessage = error?.error || 'Send failed';
+    } catch (error) {
+      this.affixNameSaveMessage = apiErrorMessage(error, 'Send failed');
       return;
     }
     this.affixNameSaveMessage = 'Sent to compound review';
@@ -836,8 +859,8 @@ export class AdminAppComponent {
         definition: this.draft
         }
       });
-    } catch (error: any) {
-      this.saveMessage = error?.error || 'Save failed';
+    } catch (error) {
+      this.saveMessage = apiErrorMessage(error, 'Save failed');
       return;
     }
     this.saveMessage = 'Saved';
@@ -853,8 +876,8 @@ export class AdminAppComponent {
       await requestJson(`${API_ROOT}/api/compound-affixes/stale-suggestions/${encodeURIComponent(name)}/quarantine`, {
         method: 'POST'
       });
-    } catch (error: any) {
-      this.saveMessage = error?.error || 'Quarantine failed';
+    } catch (error) {
+      this.saveMessage = apiErrorMessage(error, 'Quarantine failed');
       return;
     }
     this.saveMessage = 'Quarantined';
@@ -933,7 +956,7 @@ export class AdminAppComponent {
       || '';
   }
 
-  formatAffixes(affixes: any[]) {
+  formatAffixes(affixes: PreviewAffix[]) {
     return affixes.map(affix => {
       const value = affix.value && affix.value !== 1 ? ` ${affix.value}` : '';
       const type = affix.type && affix.type !== 'Bool' ? ` ${affix.type}` : '';
@@ -941,7 +964,7 @@ export class AdminAppComponent {
     }).join('; ');
   }
 
-  expandPreview(baseAffix: any) {
+  expandPreview(baseAffix: PreviewAffix | undefined): PreviewAffix[] {
     if (!baseAffix || !this.draft.components.length) {
       return baseAffix ? [baseAffix] : [];
     }
@@ -957,13 +980,13 @@ export class AdminAppComponent {
     return expanded.length ? expanded : [baseAffix];
   }
 
-  materializeType(component: CompoundAffixComponent, baseAffix: any) {
+  materializeType(component: CompoundAffixComponent, baseAffix: PreviewAffix) {
     return component.type === '<TypeAlreadyParsed>' || component.type === '__inherit_type__'
       ? baseAffix.type
       : component.type;
   }
 
-  materializeValue(component: CompoundAffixComponent, baseAffix: any) {
+  materializeValue(component: CompoundAffixComponent, baseAffix: PreviewAffix) {
     if (component.value.mode === 'fixed') {
       return Number(component.value.amount ?? 0);
     }

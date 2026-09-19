@@ -8,6 +8,8 @@ import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
+import { TypeaheadResult } from '../typeahead/typeahead.component';
+import { Item } from '../item';
 
 @Component({
     selector: 'app-gear-list',
@@ -124,10 +126,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return allGear;
   }
 
-  onGlobalItemSelected = (item: any) => {
+  onGlobalItemSelected = (item: TypeaheadResult) => {
     if (item) {
-      let actualItem: any = item;
-      if (item.original) {
+      let actualItem: Item | undefined;
+      if ('original' in item) {
         // This is a synonym match, find the actual item by name
         const allGear = this.getAllGear();
         actualItem = allGear.find(g => g.name === item.original);
@@ -135,7 +137,9 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
           console.log('Could not find item with name:', item.original);
           return;
         }
-      } else if (!item.slot) {
+      } else if (item instanceof Item) {
+        actualItem = item;
+      } else {
         // Not an Item object, maybe a fake object
         console.log('Invalid item selected:', item);
         return;
@@ -151,8 +155,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  globalResultFormatter = (item: any) => {
-    if (item.slot) {
+  globalResultFormatter = (item: TypeaheadResult) => {
+    if (item instanceof Item) {
       const current = this.equipped.getSlotsSnapshot().get(item.slot)?.name;
       return item.name + ' (' + item.slot + ')' + (current ? ' (replaces ' + current + ')' : '');
     }

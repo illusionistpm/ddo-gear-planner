@@ -8,6 +8,7 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 import { GameDataService } from './app/game-data.service';
+import { RawCraftingData, RawEssenceCraftingData, RawItem, RawSetData } from './app/game-data-types';
 import itemsList from './assets/items.json';
 import craftingListRaw from './assets/crafting.json';
 import essenceCraftingList from './assets/essence-crafting.json';
@@ -25,10 +26,10 @@ getTestBed().initTestEnvironment(
 // every testing module gets this pre-populated stand-in instead of waiting on that
 // async load.
 const fakeGameData: GameDataService = {
-  items: itemsList as any,
-  crafting: craftingListRaw as any,
-  essenceCrafting: essenceCraftingList as any,
-  sets: setList as any,
+  items: itemsList as RawItem[],
+  crafting: craftingListRaw as RawCraftingData,
+  essenceCrafting: essenceCraftingList as RawEssenceCraftingData,
+  sets: setList as RawSetData,
   load: () => Promise.resolve(),
 } as GameDataService;
 

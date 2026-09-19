@@ -612,8 +612,9 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     this.troveUploadStatus = 'File loaded. Parsing...';
     const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const text = e.target.result;
+    reader.onload = () => {
+      // readAsText always yields a string.
+      const text = reader.result as string;
       const validNames = this.getValidItemNames();
       const count = this.userGear.importFromTroveCsv(text, validNames);
       this.analytics.track('import_trove_csv', {

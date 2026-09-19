@@ -160,6 +160,8 @@ export function perfCount(label: string) {
 }
 
 function scheduleFrame(callback: FrameRequestCallback) {
-  const nativeRequestAnimationFrame = (window as any).__zone_symbol__requestAnimationFrame as typeof requestAnimationFrame | undefined;
+  // zone.js keeps the unpatched API here; using it avoids a change-detection pass per frame.
+  const nativeRequestAnimationFrame = (window as Window & { __zone_symbol__requestAnimationFrame?: typeof requestAnimationFrame })
+    .__zone_symbol__requestAnimationFrame;
   (nativeRequestAnimationFrame || requestAnimationFrame)(callback);
 }

@@ -7,7 +7,7 @@ type AnalyticsParams = Record<string, string | number | boolean | undefined | nu
 })
 export class AnalyticsService {
   track(eventName: string, params: AnalyticsParams = {}) {
-    const gtag = (window as any).gtag;
+    const gtag = (window as Window & { gtag?: unknown }).gtag;
     if (typeof gtag !== 'function') {
       return;
     }

@@ -4,17 +4,17 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ItemFilters } from './item-filters';
 
-import { QueryParamsService } from './query-params.service';
+import { ParamsAdapter, QueryParamRecord, QueryParamsListener, QueryParamsService } from './query-params.service';
 import { perfMeasure } from './perf-trace';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class FiltersService {
+export class FiltersService implements QueryParamsListener {
   static readonly NO_PACK_FILTER = '__NO_PACK__';
 
-  private params: BehaviorSubject<any>;
+  private params: BehaviorSubject<QueryParamRecord | null>;
 
   private itemFilters = new BehaviorSubject<ItemFilters>(new ItemFilters());
   private maxLevel = 30;
@@ -22,7 +22,7 @@ export class FiltersService {
   constructor(
     private queryParams: QueryParamsService
   ) {
-    this.params = new BehaviorSubject<any>(null);
+    this.params = new BehaviorSubject<QueryParamRecord | null>(null);
 
     this.setLevelRange(ItemFilters.MIN_LEVEL(), ItemFilters.MAX_LEVEL());
 
@@ -137,7 +137,7 @@ export class FiltersService {
     return true;
   }
 
-  updateFromParams(params: any) {
+  updateFromParams(params: ParamsAdapter) {
     return perfMeasure('FiltersService.updateFromParams', () => {
       const levelRangeParam = params.get('levelrange');
       if (levelRangeParam) {

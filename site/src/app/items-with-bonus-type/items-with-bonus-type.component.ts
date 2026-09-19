@@ -18,6 +18,21 @@ import { perfAfterFrames, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
+/** An open augment slot on an equipped item that could take the chosen augment. */
+interface AugmentSlotChoice {
+  item: Item;
+  craftable: Craftable;
+  systemName: string;
+  optionString: string;
+}
+
+/** An open crafting slot on an equipped item that could take the chosen option. */
+interface CraftSlotChoice {
+  item: Item;
+  craftable: Craftable;
+  optionString: string;
+}
+
 @Component({
     selector: 'app-items-with-bonus-type',
     templateUrl: './items-with-bonus-type.component.html',
@@ -76,7 +91,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   // string maps to the equipped items (and their open tiers) it could go into.
   craftIntoEquippedGear: Map<string, Map<Item, Array<Craftable>>> = new Map<string, Map<Item, Array<Craftable>>>();
   craftIntoEquippedOptions: Map<string, CraftableOption> = new Map<string, CraftableOption>();
-  selectedCraftSlot: any;
+  selectedCraftSlot?: CraftSlotChoice;
 
   sets: SetAffixMatch[] = [];
   unreachableSets: SetAffixMatch[] = [];
@@ -91,7 +106,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   private collapsedSections = new Set<string>();
 
-  selectedAugmentSlot: any;
+  selectedAugmentSlot?: AugmentSlotChoice;
   previewItem: Item | null = null;
   previewItems: Item[] = [];
   previewIndex = -1;
@@ -487,10 +502,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   equipAugment() {
     const done = perfStart('ItemsWithBonusTypeComponent.equipAugment');
-    const item = new Item(this.selectedAugmentSlot.item as Item);
-    const craftable = this.selectedAugmentSlot.craftable as Craftable;
-    const optionString = this.selectedAugmentSlot.optionString as string;
-    const systemName = this.selectedAugmentSlot.systemName as string;
+    if (!this.selectedAugmentSlot) {
+      done({ skipped: 'no selection' });
+      return;
+    }
+    const { craftable, optionString, systemName } = this.selectedAugmentSlot;
+    const item = new Item(this.selectedAugmentSlot.item);
 
     for (const itemCraftable of item.crafting) {
       if (itemCraftable.name == craftable.name) {
@@ -528,9 +545,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   equipCraftIntoEquipped() {
     const done = perfStart('ItemsWithBonusTypeComponent.equipCraftIntoEquipped');
-    const item = new Item(this.selectedCraftSlot.item as Item);
-    const craftable = this.selectedCraftSlot.craftable as Craftable;
-    const optionString = this.selectedCraftSlot.optionString as string;
+    if (!this.selectedCraftSlot) {
+      done({ skipped: 'no selection' });
+      return;
+    }
+    const { craftable, optionString } = this.selectedCraftSlot;
+    const item = new Item(this.selectedCraftSlot.item);
 
     for (const itemCraftable of item.crafting) {
       if (itemCraftable.name == craftable.name) {

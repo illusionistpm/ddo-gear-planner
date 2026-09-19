@@ -7,7 +7,7 @@ import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService, SetBonusThreshold } from './gear-db.service';
 import { canonicalizeCraftingSystemName } from './gear-db.service';
-import { QueryParamsService } from './query-params.service';
+import { ParamsAdapter, QueryParamRecord, QueryParamsListener, QueryParamsService } from './query-params.service';
 import {
   getStoredActiveTab,
   getStoredCollapsedTrackedAffixGroups,
@@ -94,7 +94,7 @@ export type PlannerTab = 'equipment' | 'affixes';
 @Injectable({
   providedIn: 'root'
 })
-export class EquippedService {
+export class EquippedService implements QueryParamsListener {
   private slots: Map<string, BehaviorSubject<Item>>;
   private importantAffixes: Set<string>;
   private externalAffixes: ExternalAffixEntry[] = [];
@@ -122,7 +122,7 @@ export class EquippedService {
   private derivedStateDirty = false;
   private importantAffixesDirty = false;
 
-  private params: BehaviorSubject<any>;
+  private params: BehaviorSubject<QueryParamRecord | null>;
 
   private setOnlyUncoveredSets?: Set<string>;
   private openAugmentSlotsCache = new Map<string, Set<string>>();
@@ -146,7 +146,7 @@ export class EquippedService {
       this.slots.set(slot, new BehaviorSubject<Item>(new Item(null)));
     }
 
-    this.params = new BehaviorSubject<any>(null);
+    this.params = new BehaviorSubject<QueryParamRecord | null>(null);
 
     this.activeMainTab = getStoredActiveTab();
     this.plannerTabSubject.next(this.activeMainTab);
@@ -165,7 +165,7 @@ export class EquippedService {
     }
   }
 
-  updateFromParams(params: any) {
+  updateFromParams(params: ParamsAdapter) {
     return perfMeasure('EquippedService.updateFromParams', () => {
       this.beginDerivedStateBatch();
       const craftingParams = [];
@@ -196,7 +196,8 @@ export class EquippedService {
               craftingParam = {};
               craftingParams[index] = craftingParam;
             }
-            craftingParam[field] = params.get(key);
+            // key comes from params.keys, so get() finds it
+            craftingParam[field] = params.get(key) ?? '';
 
           } else if (this.gearList.getSlots().find(v => v === key)) {
             const itemName = params.get(key);
@@ -215,7 +216,7 @@ export class EquippedService {
               console.log('Can\'t find ' + itemName + ' for slot ' + key);
             }
           } else if (isMlKey(key)) {
-            minLevels.set(getMlSlotFromKey(key)!, +params.get(key));
+            minLevels.set(getMlSlotFromKey(key)!, Number(params.get(key)));
           } else if (key.startsWith('craft_')) {
             console.log('Bad crafting key: ' + key);
           } else if (key.startsWith('ml_')) {

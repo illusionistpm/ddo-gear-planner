@@ -7,8 +7,8 @@ import { isBuildShortIdRoute } from './build-route';
 import { perfMark, perfStart } from './perf-trace';
 
 type QueryParamValue = string | number | boolean | Array<string | number | boolean>;
-type QueryParamRecord = Record<string, QueryParamValue>;
-type ParamsAdapter = {
+export type QueryParamRecord = Record<string, QueryParamValue>;
+export type ParamsAdapter = {
   keys: string[];
   get: (key: string) => string | null;
   getAll: (key: string) => string[];
@@ -56,15 +56,24 @@ export interface BuildUrlIdentity {
 // only this file can check.
 export const BUILD_IDENTITY_PARAM_KEY = '__buildRef';
 
+/** A service whose state is restored from the URL's build params. */
+export interface QueryParamsListener {
+  updateFromParams(params: ParamsAdapter): void;
+}
+
+/** Emits a registered source's current params, or null before it has any. */
+type ParamsSource = Observable<QueryParamRecord | null>;
+
 @Injectable({
   providedIn: 'root'
 })
 export class QueryParamsService {
-  private paramsFromCode: Map<any, any>;
+  // Keyed by the registering source (only its identity matters).
+  private paramsFromCode: Map<unknown, QueryParamRecord | null>;
 
-  private observables: Array<[any, Observable<any>]>;
+  private observables: Array<[unknown, ParamsSource]>;
 
-  private updateListeners: Array<any>;
+  private updateListeners: QueryParamsListener[];
 
   private initialPageLoad = true;
 
@@ -134,7 +143,7 @@ export class QueryParamsService {
     this.updateListeners = [];
     this.observables = [];
 
-    this.paramsFromCode = new Map<any, any>();
+    this.paramsFromCode = new Map<unknown, QueryParamRecord | null>();
   }
 
   // Called by CurrentBuildService whenever its own state changes - see
@@ -192,8 +201,8 @@ export class QueryParamsService {
     this.ownedSlots = slots;
   }
 
-  _makeNavigateFn(pair: [any, Observable<any>]) {
-    return (val: any) => {
+  _makeNavigateFn(pair: [unknown, ParamsSource]) {
+    return (val: QueryParamRecord | null) => {
         const done = perfStart('QueryParamsService.navigateFromObservable');
         this.paramsFromCode.set(pair[0], val);
 
@@ -295,7 +304,7 @@ export class QueryParamsService {
   }
 
   // Call to register your observable params with the system
-  register(source: any, obs: Observable<any>) {
+  register(source: unknown, obs: ParamsSource) {
     this.observables.push([source, obs]);
 
     if (!this.initialPageLoad) {
@@ -304,7 +313,7 @@ export class QueryParamsService {
   }
 
   // Call to be notified when the params change
-  subscribe(listener: any) {
+  subscribe(listener: QueryParamsListener) {
     this.updateListeners.push(listener);
   }
 

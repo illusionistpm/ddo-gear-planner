@@ -165,7 +165,7 @@ export class FiltersComponent implements OnInit {
     const packs = new Set<string>();
     let hasNoPack = false;
 
-    for (const item of this.gameData.items as Array<any>) {
+    for (const item of this.gameData.items) {
       if (item.pack) {
         packs.add(item.pack);
       } else {

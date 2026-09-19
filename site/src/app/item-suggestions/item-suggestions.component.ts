@@ -106,7 +106,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   }
 
   onChange(slot: string) {
-    return (newVal: any) => {
+    return (newVal: Item | string) => {
       if (newVal instanceof Item) {
         this.gear = [newVal];
       } else {
@@ -141,12 +141,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   }
 
   private getSearchTerms(item: Item) {
-    const terms = [item.name || ''];
-    const synonyms = (item as any).synonyms;
-    if (synonyms) {
-      terms.push(...synonyms);
-    }
-    return terms.map(term => term.toLowerCase());
+    return [(item.name || '').toLowerCase()];
   }
 
   private sortSearchResults(query: string) {

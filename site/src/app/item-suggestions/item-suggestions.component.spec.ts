@@ -38,7 +38,7 @@ describe('ItemSuggestionsComponent', () => {
     filters.setHiddenTypes(new Set(['War Hammers']));
     component.ngOnInit();
 
-    component.onChange('Weapon')(hiddenItem?.name);
+    component.onChange('Weapon')(hiddenItem!.name);
 
     expect(component.filteredGear.some(item => item.name === hiddenItem?.name)).toBeFalse();
     expect(component.gear).toEqual([]);

@@ -10,6 +10,7 @@ import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder
 import { AffixPackagesService } from '../affix-packages.service';
 
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
+import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
 @Component({
     selector: 'app-affix-picker',
@@ -27,7 +28,7 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   showSpellpowers: boolean = false;
   showSpellSchools: boolean = false;
 
-  public allAffixes: Array<any>; // is really Array<{name:string}>
+  public allAffixes: TypeaheadEntry[];
 
   attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
   packages: Map<string, Array<string>>;
@@ -242,8 +243,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   onChange() {
-    return (affix: any) => {
-      this.add(affix.original ? affix.original : affix.name, 'manual_search');
+    return (affix: TypeaheadResult) => {
+      this.add('original' in affix ? affix.original : affix.name, 'manual_search');
     };
   }
 

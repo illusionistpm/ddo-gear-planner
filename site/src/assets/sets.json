@@ -2926,7 +2926,7 @@
         {
             "affixes": [
                 {
-                    "name": "bonus Imbue Dice",
+                    "name": "Imbue Dice",
                     "type": "Artifact",
                     "value": "3"
                 }

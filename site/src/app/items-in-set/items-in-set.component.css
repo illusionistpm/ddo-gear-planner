@@ -134,7 +134,7 @@
     width: 0.75rem;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 1199.98px) {
     .item-preview-panel {
         margin: 0.75rem 0;
         max-height: none;

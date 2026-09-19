@@ -5,16 +5,13 @@ import { map } from 'rxjs/operators';
 import { EquippedService } from './equipped.service';
 import { GearDbService } from './gear-db.service';
 import { AffixService } from './affix.service';
-import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from './affix-organization';
-
-const UNIVERSAL_SPELL_POWER_AFFIX = 'Universal Spell Power';
-const UNIVERSAL_SPELL_LORE_AFFIX = 'Universal Spell Lore';
-const UNIVERSAL_SPELL_CRITICAL_DAMAGE_AFFIX = 'Universal Spell Critical Damage';
-const UNIVERSAL_COMPANION_GROUPS = [
-  UNIVERSAL_SPELL_POWER_AFFIX,
-  UNIVERSAL_SPELL_LORE_AFFIX,
-  UNIVERSAL_SPELL_CRITICAL_DAMAGE_AFFIX,
-];
+import { TrackedAffixDerivationService } from './tracked-affix-derivation.service';
+import {
+  buildTrackedAffixGroups,
+  classForBonusValue,
+  splitCoveredAffixes,
+  TrackedBonusTypeDisplay,
+} from './tracked-affix-derivation';
 
 export interface SummaryBonusBadge {
   label: string;
@@ -43,26 +40,16 @@ export interface SummaryGroup {
   count: number;
 }
 
-interface DisplayType {
-  bonusType: string;
-  value: number;
-  label: string;
-  sourceAffixName: string;
-  sourceBonusType: string;
-}
-
 /**
  * Produces a compact, grouped view of the tracked ("important") affixes and how
- * well the equipped gear covers each bonus type. Shares the bonus-type
- * derivation rules used by the full Tracked Affixes table so the compact
- * equipment-tab sidebar stays in agreement with it.
+ * well the equipped gear covers each bonus type. Uses the same bonus-type
+ * derivation (TrackedAffixDerivationService) as the full Tracked Affixes table
+ * so the compact equipment-tab sidebar stays in agreement with it.
  */
 @Injectable({
   providedIn: 'root'
 })
 export class TrackedAffixSummaryService {
-  private readonly sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
-
   private static readonly BONUS_TYPE_CODES: Record<string, string> = {
     'Equipment': 'Eq',
     'Enhancement': 'En',
@@ -103,7 +90,8 @@ export class TrackedAffixSummaryService {
   constructor(
     private equipped: EquippedService,
     private gearDB: GearDbService,
-    private affixSvc: AffixService
+    private affixSvc: AffixService,
+    private derivation: TrackedAffixDerivationService
   ) {}
 
   getSummaryGroups(): Observable<SummaryGroup[]> {
@@ -111,23 +99,10 @@ export class TrackedAffixSummaryService {
   }
 
   private buildGroups(covered: Map<string, Array<any>>): SummaryGroup[] {
-    const affixMap = new Map<string, Array<any>>();
-    const boolAffixMap = new Map<string, Array<any>>();
-    const affixNames: string[] = [];
-    const boolAffixNames: string[] = [];
-
-    for (const entry of covered.entries()) {
-      if (this.isBoolAffix(entry)) {
-        boolAffixMap.set(entry[0], entry[1]);
-        boolAffixNames.push(entry[0]);
-      } else {
-        affixMap.set(entry[0], entry[1]);
-        affixNames.push(entry[0]);
-      }
-    }
+    const { affixMap, affixNames, boolAffixMap, boolAffixNames } = splitCoveredAffixes(covered);
     boolAffixNames.sort((left, right) => left.localeCompare(right));
 
-    const groups = this.buildTrackedAffixGroups(affixNames, boolAffixNames);
+    const groups = buildTrackedAffixGroups(affixNames, boolAffixNames, this.affixSvc);
 
     return groups
       .map(group => {
@@ -160,7 +135,7 @@ export class TrackedAffixSummaryService {
         }
 
         for (const affixName of group.affixes) {
-          const types = this.getVisibleTypes(affixMap, affixName);
+          const types = this.derivation.getVisibleTypes(affixMap, affixName);
           const badges = types.map(type => this.makeBadge(type));
           affixes.push({
             name: affixName,
@@ -177,7 +152,7 @@ export class TrackedAffixSummaryService {
       .filter(group => group.count > 0);
   }
 
-  private makeBadge(type: DisplayType): SummaryBonusBadge {
+  private makeBadge(type: TrackedBonusTypeDisplay): SummaryBonusBadge {
     const maxValue = this.gearDB.getBestValueForAffixType(type.sourceAffixName, type.sourceBonusType);
     const ignored = this.equipped.isAffixTypeIgnored(type.sourceAffixName, type.sourceBonusType);
     return {
@@ -185,7 +160,7 @@ export class TrackedAffixSummaryService {
       code: this.abbreviateBonusType(type.label),
       value: type.value,
       maxValue,
-      qualityClass: ignored ? 'ignored-value' : this.getClassForValue(type, maxValue),
+      qualityClass: ignored ? 'ignored-value' : classForBonusValue(type.bonusType, type.value, maxValue),
       tooltip: ignored ? `${type.label}: marked as ignored` : this.getBadgeTooltip(type, maxValue),
       ignored,
       sourceAffixName: type.sourceAffixName,
@@ -228,7 +203,7 @@ export class TrackedAffixSummaryService {
     return prefix + shorten(words[0]) + words.slice(1).map(word => word[0].toUpperCase()).join('');
   }
 
-  private getBadgeTooltip(type: DisplayType, maxValue: number): string {
+  private getBadgeTooltip(type: TrackedBonusTypeDisplay, maxValue: number): string {
     if (type.bonusType === 'Penalty') {
       return `${type.label}: penalty`;
     }
@@ -238,129 +213,5 @@ export class TrackedAffixSummaryService {
     // Match the "current/max" convention used on the Tracked Affixes page
     // (e.g. "0/30") instead of a "+N" / "none" style unique to this tooltip.
     return `${type.label}: ${type.value || 0}/${maxValue}`;
-  }
-
-  private getClassForValue(type: DisplayType, maxValue: number): string {
-    if (type.bonusType === 'Penalty') {
-      return 'penalty-value';
-    }
-    if (!type.value) {
-      return 'no-value';
-    }
-    if (type.value >= maxValue) {
-      return 'max-value';
-    }
-    if (type.value >= maxValue * 3 / 4) {
-      return 'mid-value';
-    }
-    return 'low-value';
-  }
-
-  private isBoolAffix(entry: [string, Array<any>]): boolean {
-    return entry[1].length === 1 && entry[1][0].bonusType === 'Bool';
-  }
-
-  private buildTrackedAffixGroups(affixNames: string[], boolAffixNames: string[]): Array<AffixGroupDisplay & { checklistAffixes: string[] }> {
-    const groups = groupAffixNames(affixNames, '', this.affixSvc).map(group => ({
-      ...group,
-      checklistAffixes: [] as string[]
-    }));
-
-    if (!boolAffixNames.length) {
-      return groups;
-    }
-
-    const utilityGroup = groups.find(group => group.name === UTILITY_CHECKLIST_CATEGORY);
-    if (utilityGroup) {
-      utilityGroup.checklistAffixes = boolAffixNames;
-      return groups;
-    }
-
-    const utilityIndex = groups.findIndex(group => group.name === 'Immunities' || group.name === 'Other');
-    const insertIndex = utilityIndex >= 0 ? utilityIndex : groups.length;
-    groups.splice(insertIndex, 0, {
-      name: UTILITY_CHECKLIST_CATEGORY,
-      affixes: [],
-      checklistAffixes: boolAffixNames
-    });
-    return groups;
-  }
-
-  private getVisibleTypes(affixMap: Map<string, Array<any>>, affixName: string): DisplayType[] {
-    const currentTypes = affixMap.get(affixName) || [];
-    const typeMap = new Map<string, DisplayType>();
-
-    for (const type of currentTypes) {
-      if (type.bonusType !== 'Penalty' && (type.value || this.isBonusTypeAvailable(type.bonusType, type.value, affixName))) {
-        typeMap.set(
-          this.getTypeMapKey(affixName, type.bonusType),
-          this.makeDisplayType(affixName, type.bonusType, type.value)
-        );
-      }
-    }
-
-    for (const bonusType of this.gearDB.getAllLevelTypesForAffix(affixName)) {
-      const key = this.getTypeMapKey(affixName, bonusType);
-      if (bonusType !== 'Penalty' && !typeMap.has(key) && this.isBonusTypeAvailable(bonusType, 0, affixName)) {
-        typeMap.set(key, this.makeDisplayType(affixName, bonusType, 0));
-      }
-    }
-
-    for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
-      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
-        const value = this.equipped.getCurrentValueForAffixType(sourceAffixName, bonusType);
-        const key = this.getTypeMapKey(sourceAffixName, bonusType);
-        if (bonusType !== 'Penalty' && !typeMap.has(key) && (value || this.isBonusTypeAvailable(bonusType, value, sourceAffixName))) {
-          typeMap.set(key, this.makeDisplayType(sourceAffixName, bonusType, value));
-        }
-      }
-    }
-
-    return this.sortTypeList(Array.from(typeMap.values()));
-  }
-
-  private isBonusTypeAvailable(bonusType: string, _value: number, sourceAffixName: string): boolean {
-    return this.gearDB.getBestValueForAffixType(sourceAffixName, bonusType) > 0;
-  }
-
-  private makeDisplayType(sourceAffixName: string, bonusType: string, value: number): DisplayType {
-    const label = bonusType ? bonusType : 'Untyped';
-    return {
-      bonusType,
-      value,
-      label: UNIVERSAL_COMPANION_GROUPS.includes(sourceAffixName) ? 'Universal ' + label : label,
-      sourceAffixName,
-      sourceBonusType: bonusType
-    };
-  }
-
-  private getUniversalCompanionAffixes(affixName: string): string[] {
-    return UNIVERSAL_COMPANION_GROUPS.filter(groupName => this.affixSvc.isGroupMember(affixName, groupName));
-  }
-
-  private getTypeMapKey(sourceAffixName: string, bonusType: string): string {
-    return sourceAffixName + '\0' + bonusType;
-  }
-
-  private sortTypeList(types: DisplayType[]): DisplayType[] {
-    return types.sort((a, b) => {
-      let aIndex = this.sortOrder.indexOf(a.bonusType);
-      if (aIndex === -1) {
-        aIndex = this.sortOrder.indexOf('DUMMY');
-      }
-      let bIndex = this.sortOrder.indexOf(b.bonusType);
-      if (bIndex === -1) {
-        bIndex = this.sortOrder.indexOf('DUMMY');
-      }
-      const diff = aIndex - bIndex;
-      if (diff !== 0) {
-        return diff;
-      }
-      const affixDiff = a.sourceAffixName.localeCompare(b.sourceAffixName);
-      if (affixDiff !== 0) {
-        return affixDiff;
-      }
-      return (a.label || a.bonusType).localeCompare(b.label || b.bonusType);
-    });
   }
 }

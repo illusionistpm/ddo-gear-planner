@@ -21,6 +21,7 @@ import { AffixService } from './affix.service';
 import { AffixAvailabilityService } from './affix-availability.service';
 import { EssenceCraftingService } from './essence-crafting.service';
 import { perfCount, perfMeasure, perfStart } from './perf-trace';
+import { moderateValueThreshold } from './tracked-affix-derivation';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -840,7 +841,7 @@ export class EquippedService {
     if (best <= 0) {
       return false;
     }
-    return this.getCurrentValueForAffixType(affixName, bonusType) >= best * 3 / 4;
+    return this.getCurrentValueForAffixType(affixName, bonusType) >= moderateValueThreshold(best);
   }
 
   /**

@@ -662,10 +662,8 @@ describe('EffectsTableComponent', () => {
       expect(component.getClassForValue('Strength', { bonusType: 'Penalty', value: -2 })).toBe('penalty-value');
     });
 
-    it('treats zero as low value', () => {
-      // Templates never reach this for zero (they render "no-value" first),
-      // so this pins dead-but-current behaviour.
-      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 0 })).toBe('low-value');
+    it('treats zero as no value', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 0 })).toBe('no-value');
     });
 
     it('treats values below three quarters of the best as low', () => {
@@ -680,10 +678,8 @@ describe('EffectsTableComponent', () => {
       expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 8 })).toBe('max-value');
     });
 
-    it('treats zero with nothing available as max', () => {
-      // Latent bug: 0/0 renders as "best possible". Unreachable today only
-      // because getVisibleTypes drops unavailable, empty types first.
-      expect(component.getClassForValue('Strength', { bonusType: 'Quality', value: 0 })).toBe('max-value');
+    it('treats zero with nothing available as no value, not best possible', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Quality', value: 0 })).toBe('no-value');
     });
   });
 

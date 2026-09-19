@@ -3,16 +3,22 @@ import { Subscription } from 'rxjs';
 
 import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../equipped.service';
 import { GearDbService } from '../gear-db.service';
-import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affix.service';
+import { AffixService } from '../affix.service';
 import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affix-organization';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affix-availability.service';
-
-interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
-  checklistAffixes: string[];
-}
+import { TrackedAffixDerivationService } from '../tracked-affix-derivation.service';
+import {
+  buildTrackedAffixGroups,
+  classForBonusValue,
+  moderateValueThreshold,
+  sortBonusTypes,
+  splitCoveredAffixes,
+  TrackedAffixGroupDisplay,
+  TrackedBonusTypeDisplay,
+} from '../tracked-affix-derivation';
 
 interface SlotGroupChip {
   sourceAffixName: string;
@@ -39,16 +45,6 @@ interface SlotGroup {
   checklistAffixes: string[];
 }
 
-interface TrackedBonusTypeDisplay {
-  bonusType: string;
-  value: number;
-  label: string;
-  sourceAffixName: string;
-  sourceBonusType: string;
-}
-
-const UNIVERSAL_COMPANION_GROUPS = UNIVERSAL_COMPANION_AFFIXES;
-
 @Component({
     selector: 'app-effects-table',
     templateUrl: './effects-table.component.html',
@@ -64,7 +60,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   public boolAffixMap: Map<string, Array<any>> = new Map<string, Array<any>>();
   public boolAffixNames: Array<string> = [];
 
-  public sortOrder = ['Equipment', 'Enhancement', 'DUMMY', 'Insight', 'Quality', 'Exceptional', 'Artifact', undefined, 'Penalty'];
   collapsedAffixGroups = new Set<string>();
   groupMode: TrackedAffixGroupMode = 'category';
   onboardingActive = true;
@@ -93,7 +88,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private onboarding: PlannerOnboardingService,
     private suggestionDrawer: SuggestionDrawerService,
     private affixBuilder: AffixBuilderDrawerService,
-    private availability: AffixAvailabilityService
+    private availability: AffixAvailabilityService,
+    private derivation: TrackedAffixDerivationService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];
@@ -112,20 +108,12 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     });
 
     this.coveredAffixesSubscription = this.equipped.getCoveredAffixes().subscribe(map => {
-      this.affixMap = new Map<string, Array<any>>();
-      this.boolAffixMap = new Map<string, Array<any>>();
-      this.affixNames = [];
-      this.boolAffixNames = [];
-
-      for (const entry of map.entries()) {
-        if (this._isBoolAffix(entry)) {
-          this.boolAffixMap.set(entry[0], entry[1]);
-          this.boolAffixNames.push(entry[0]);
-        } else {
-          this.affixMap.set(entry[0], entry[1]);
-          this.affixNames.push(entry[0]);
-        }
-      }
+      ({
+        affixMap: this.affixMap,
+        affixNames: this.affixNames,
+        boolAffixMap: this.boolAffixMap,
+        boolAffixNames: this.boolAffixNames,
+      } = splitCoveredAffixes(map));
 
       this.updateRecentlyChangedAffixTypes();
       this.refreshSuppliedAffixCounts();
@@ -204,7 +192,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       return false;
     }
     const maxValue = this.getMaxValueForType(affixName, type);
-    return maxValue > 0 && type.value >= this.getModerateThreshold(maxValue);
+    return maxValue > 0 && type.value >= moderateValueThreshold(maxValue);
   }
 
   setGroupMode(mode: TrackedAffixGroupMode) {
@@ -476,33 +464,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   sortTypes(affixName: string) {
     const types = this.affixMap.get(affixName) || [];
-    return this.sortTypeList(types);
-  }
-
-  private sortTypeList<T extends { bonusType: string; label?: string; sourceAffixName?: string }>(types: Array<T>) {
-    return types.sort((a, b) => {
-      let aIndex = this.sortOrder.indexOf(a.bonusType);
-      if (aIndex === -1) {
-        aIndex = this.sortOrder.indexOf('DUMMY');
-      }
-
-      let bIndex = this.sortOrder.indexOf(b.bonusType);
-      if (bIndex === -1) {
-        bIndex = this.sortOrder.indexOf('DUMMY');
-      }
-
-      const diff = aIndex - bIndex;
-      if (diff !== 0) {
-        return diff;
-      }
-
-      const affixDiff = (a.sourceAffixName || '').localeCompare(b.sourceAffixName || '');
-      if (affixDiff !== 0) {
-        return affixDiff;
-      }
-
-      return (a.label || a.bonusType).localeCompare(b.label || b.bonusType);
-    });
+    return sortBonusTypes(types);
   }
 
   isBonusTypeAvailable(affixName: string, type: any): boolean {
@@ -518,48 +480,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   getVisibleTypes(affixName: string): TrackedBonusTypeDisplay[] {
-    const currentTypes = this.affixMap.get(affixName) || [];
-    const typeMap = new Map<string, TrackedBonusTypeDisplay>();
-
-    for (const type of currentTypes) {
-      if (this.isUniversalCompanionOnlyBonusType(affixName, type.bonusType)) {
-        continue;
-      }
-      if (type.bonusType !== 'Penalty' && (type.value || this.isBonusTypeAvailable(affixName, type))) {
-        typeMap.set(
-          this.getTypeMapKey(affixName, type.bonusType),
-          this.makeDisplayType(affixName, type.bonusType, type.value)
-        );
-      }
-    }
-
-    for (const bonusType of this.gearDB.getAllLevelTypesForAffix(affixName)) {
-      if (this.isUniversalCompanionOnlyBonusType(affixName, bonusType)) {
-        continue;
-      }
-      const type = { bonusType, value: 0 };
-      const key = this.getTypeMapKey(affixName, bonusType);
-      if (bonusType !== 'Penalty' && !typeMap.has(key) && this.isBonusTypeAvailable(affixName, type)) {
-        typeMap.set(key, this.makeDisplayType(affixName, bonusType, 0));
-      }
-    }
-
-    for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
-      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
-        const type = {
-          bonusType,
-          value: this.equipped.getCurrentValueForAffixType(sourceAffixName, bonusType),
-          sourceAffixName,
-          sourceBonusType: bonusType,
-        };
-        const key = this.getTypeMapKey(sourceAffixName, bonusType);
-        if (bonusType !== 'Penalty' && !typeMap.has(key) && (type.value || this.isBonusTypeAvailable(affixName, type))) {
-          typeMap.set(key, this.makeDisplayType(sourceAffixName, bonusType, type.value));
-        }
-      }
-    }
-
-    return this.sortTypeList(Array.from(typeMap.values()));
+    return this.derivation.getVisibleTypes(this.affixMap, affixName);
   }
 
   getUnavailableTypes(affixName: string) {
@@ -569,7 +490,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         .map(type => this.getTypeMapKey(type.sourceAffixName, type.sourceBonusType))
     );
 
-    const unavailableTypes = this.getAllLevelDisplayTypes(affixName)
+    const unavailableTypes = this.derivation.getAllLevelDisplayTypes(affixName)
       .filter(bonusType =>
         bonusType.sourceBonusType !== 'Penalty' &&
         !currentTypesWithValue.has(this.getTypeMapKey(bonusType.sourceAffixName, bonusType.sourceBonusType)) &&
@@ -577,7 +498,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       )
       .map(bonusType => bonusType.label);
 
-    return this.sortTypeList(unavailableTypes.map(bonusType => ({ bonusType, label: bonusType, value: 0 })))
+    return sortBonusTypes(unavailableTypes.map(bonusType => ({ bonusType, label: bonusType, value: 0 })))
       .map(type => type.label || type.bonusType);
   }
 
@@ -607,29 +528,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   private buildTrackedAffixGroups(): TrackedAffixGroupDisplay[] {
-    const groups = this.getAffixGroups().map(group => ({
-      ...group,
-      checklistAffixes: [] as string[]
-    }));
-    const checklistAffixes = this.getFilteredBoolAffixNames();
-    if (!checklistAffixes.length) {
-      return groups;
-    }
-
-    const utilityGroup = groups.find(group => group.name === UTILITY_CHECKLIST_CATEGORY);
-    if (utilityGroup) {
-      utilityGroup.checklistAffixes = checklistAffixes;
-      return groups;
-    }
-
-    const utilityIndex = groups.findIndex(group => group.name === 'Immunities' || group.name === 'Other');
-    const insertIndex = utilityIndex >= 0 ? utilityIndex : groups.length;
-    groups.splice(insertIndex, 0, {
-      name: UTILITY_CHECKLIST_CATEGORY,
-      affixes: [],
-      checklistAffixes
-    });
-    return groups;
+    return buildTrackedAffixGroups(this.affixNames, this.getFilteredBoolAffixNames(), this.affixSvc);
   }
 
   shouldShowAffixTypeHint(): boolean {
@@ -735,28 +634,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.collapsedAffixGroups.has(groupName);
   }
 
-  private _isBoolAffix(entry: [string, Array<any>]) {
-    return entry[1].length === 1 && entry[1][0].bonusType === 'Bool';
-  }
-
-  private getModerateThreshold(maxValue: number): number {
-    return maxValue * 3 / 4;
-  } 
-
   getClassForValue(affixName: string, type: any) {
-    if (type.bonusType === 'Penalty') {
-      return 'penalty-value';
-    }
-
-    const maxValue = this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
-
-    if (type.value >= maxValue) {
-      return 'max-value';
-    } else if (type.value >= this.getModerateThreshold(maxValue)) {
-      return 'mid-value';
-    } else {
-      return 'low-value';
-    }
+    return classForBonusValue(type.bonusType, type.value, this.getMaxValueForType(affixName, type));
   }
 
   getValueTooltip(affixName: string, type: any): string {
@@ -777,7 +656,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     if (type.value >= maxValue) {
       return 'Best possible value';
-    } else if (type.value >= this.getModerateThreshold(maxValue)) {
+    } else if (type.value >= moderateValueThreshold(maxValue)) {
       return `Moderate value (${shortBy} below max)`;
     } else {
       return `Low value (${shortBy} below max)`;
@@ -822,51 +701,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   getMaxValueForType(affixName: string, type: any): number {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
-  }
-
-  private getUniversalCompanionAffixes(affixName: string): string[] {
-    return UNIVERSAL_COMPANION_GROUPS.filter(groupName => this.affixSvc.isGroupMember(affixName, groupName));
-  }
-
-  /**
-   * A bonus type that only reaches this per-element affix by ungrouping a
-   * universal companion affix (e.g. "Implement" on "Cold Spell Power"). It is
-   * already rendered as a "Universal <type>" companion row, so the plain
-   * per-element row for it would be a duplicate.
-   */
-  private isUniversalCompanionOnlyBonusType(affixName: string, bonusType: string): boolean {
-    return this.gearDB.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType);
-  }
-
-  private makeDisplayType(sourceAffixName: string, bonusType: string, value: number): TrackedBonusTypeDisplay {
-    return {
-      bonusType,
-      value,
-      label: this.getDisplayTypeLabel(sourceAffixName, bonusType),
-      sourceAffixName,
-      sourceBonusType: bonusType,
-    };
-  }
-
-  private getDisplayTypeLabel(sourceAffixName: string, bonusType: string): string {
-    const label = bonusType ? bonusType : 'Untyped';
-    return UNIVERSAL_COMPANION_GROUPS.includes(sourceAffixName)
-      ? 'Universal ' + label
-      : label;
-  }
-
-  private getAllLevelDisplayTypes(affixName: string): TrackedBonusTypeDisplay[] {
-    const displayTypes = this.gearDB.getAllLevelTypesForAffix(affixName)
-      .filter(bonusType => !this.isUniversalCompanionOnlyBonusType(affixName, bonusType))
-      .map(bonusType => this.makeDisplayType(affixName, bonusType, 0));
-
-    for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
-      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
-        displayTypes.push(this.makeDisplayType(sourceAffixName, bonusType, 0));
-      }
-    }
-
-    return displayTypes;
   }
 
   private getTypeMapKey(sourceAffixName: string, bonusType: string): string {

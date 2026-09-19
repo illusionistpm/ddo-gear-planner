@@ -370,10 +370,9 @@ describe('GearDbService', () => {
     expect(service.isBonusTypeOnlyFromUniversalCompanion('Universal Spell Power', 'Implement')).toBe(false);
   });
 
-  it('does not ungroup a group defined only by fixed components into the affix map', () => {
-    // Pins current behaviour: _addAffixesToMap gates ungrouping on
-    // isAffixGroup(), which only consults member-name groups. Shipped data
-    // always defines both, so this only matters for components-only groups.
+  it('ungroups a group defined only by fixed components into the affix map', () => {
+    // Shipped data always defines member names too; this guards a
+    // components-only group added later.
     const service: GearDbService = TestBed.inject(GearDbService);
     const affixSvc = TestBed.inject(AffixService);
     affixSvc.affixGroupComponents.set('Test Components', [{ name: 'Perform', type: 'Enhancement', value: 2 }]);
@@ -381,7 +380,7 @@ describe('GearDbService', () => {
 
     (service as any)._addAffixesToMap(map, [new Affix({ name: 'Test Components', type: 'Bool', value: 1 })]);
 
-    expect(Array.from(map.keys())).toEqual(['Test Components']);
+    expect(Array.from(map.keys())).toEqual(['Test Components', 'Perform']);
   });
 
 });

@@ -47,10 +47,10 @@ describe('AffixService', () => {
   it('resolves synonyms case-insensitively', () => {
     const service: AffixService = TestBed.inject(AffixService);
 
-    expect(service.getResolvedAffixName('hit')).toBe('Accuracy');
-    expect(service.getResolvedAffixName('Fortification bypass')).toBe('Armor-Piercing');
-    expect(service.getResolvedAffixName('all spell DCs')).toBe('Spell Focus Mastery');
-    expect(service.getResolvedAffixName('all Ability Scores')).toBe('Well Rounded');
+    expect(service.getCanonicalName('hit')).toBe('Accuracy');
+    expect(service.getCanonicalName('Fortification bypass')).toBe('Armor-Piercing');
+    expect(service.getCanonicalName('all spell DCs')).toBe('Spell Focus Mastery');
+    expect(service.getCanonicalName('all Ability Scores')).toBe('Well Rounded');
   });
 
   describe('isAffixGroup', () => {
@@ -61,13 +61,12 @@ describe('AffixService', () => {
       expect(service.isAffixGroup(new Affix({ name: 'Test Group', type: 'Enhancement', value: 1 }))).toBeTrue();
     });
 
-    it('does not recognise a group defined only by fixed components', () => {
-      // Pins current behaviour: ungroupAffix() does expand such a group.
+    it('recognises a group defined only by fixed components, as ungroupAffix does', () => {
       const service: AffixService = TestBed.inject(AffixService);
       service.affixGroupComponents.set('Test Components', [{ name: 'Perform', type: 'Enhancement', value: 2 }]);
       const affix = new Affix({ name: 'Test Components', type: 'Bool', value: 1 });
 
-      expect(service.isAffixGroup(affix)).toBeFalse();
+      expect(service.isAffixGroup(affix)).toBeTrue();
       expect(service.ungroupAffix(affix).length).toBe(1);
     });
 

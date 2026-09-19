@@ -98,7 +98,7 @@ export class AffixService {
       return true;
     }
 
-    const resolvedName = this.getResolvedAffixName(givenAffixName);
+    const resolvedName = this.getCanonicalName(givenAffixName);
 
     if (!this.affixGroups.has(resolvedName)) {
       return false;
@@ -117,10 +117,6 @@ export class AffixService {
     }
 
     return false;
-  }
-
-  getResolvedAffixName(affixName: string): string {
-    return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 
   getSynonyms(affixName: string): Array<string> {
@@ -143,9 +139,9 @@ export class AffixService {
     return flattened;
   }
 
+  /** True when ungroupAffix() would expand this affix into its members. */
   isAffixGroup(affix: Affix) {
-    const affixNames = this.affixGroups.get(affix.name);
-    return affixNames != undefined;
+    return this.affixGroups.has(affix.name) || this.affixGroupComponents.has(affix.name);
   }
 
   isGroupMember(affixName: string, groupName: string): boolean {
@@ -157,7 +153,7 @@ export class AffixService {
     return this.flattenAffixGroups(affixes, true);
   }
 
-  getCanonicalName(affixName: string) {
+  getCanonicalName(affixName: string): string {
     return this.affixSynonyms.get(this.getSynonymKey(affixName)) || affixName;
   }
 }

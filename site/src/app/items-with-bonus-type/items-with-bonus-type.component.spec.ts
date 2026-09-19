@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type.component';
 import { Item } from '../item';
@@ -11,7 +12,8 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemsWithBonusTypeComponent ]
+      declarations: [ ItemsWithBonusTypeComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

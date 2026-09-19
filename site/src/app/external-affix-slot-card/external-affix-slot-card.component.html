@@ -1,0 +1,16 @@
+@if (entries.length) {
+  <div class="row slot-header">
+    <div class="col-12 text-start external-slot-title">Non-gear</div>
+  </div>
+  <div class="external-affix-list">
+    @for (entry of entries; track entry.id) {
+      <div class="row table-condensed small hover-helper external-affix-row" [ngClass]="getRowClass(entry)">
+        <button type="button" class="show-on-hover icon-x-button col-1" aria-label="Remove" (click)="remove(entry.id)">
+          <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+        </button>
+        <div class="col ps-1">{{getNameText(entry)}}</div>
+        <div class="col text-end" [class.external-affix-ignored-value]="entry.kind === 'ignored'">{{getValueText(entry)}}</div>
+      </div>
+    }
+  </div>
+}

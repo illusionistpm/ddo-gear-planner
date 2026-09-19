@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDe
 import { Subscription } from 'rxjs';
 
 import { GearDbService } from '../gear-db.service';
-import { EquippedService } from '../equipped.service';
+import { EquippedService, ExternalAffixEntry } from '../equipped.service';
 import { Item } from '../item';
 import { Affix } from '../affix';
 import { Craftable } from '../craftable';
@@ -82,6 +82,13 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   private equippedSetCounts = new Map<string, number>();
 
   setMatches: Array<[string, Array<Affix>, Array<Item>]> = [];
+
+  externalEntries: ExternalAffixEntry[] = [];
+  externalLabel = '';
+  externalValue: number | null = null;
+  externalChecked = false;
+
+  private collapsedSections = new Set<string>();
 
   selectedAugmentSlot: any;
   previewItem: Item | null = null;
@@ -275,6 +282,84 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);
+
+    this.externalEntries = this.equipped.getExternalAffixesForType(this.affixName, this.bonusType);
+  }
+
+  isChecklistBonusType(): boolean {
+    return this.bonusType === 'Bool';
+  }
+
+  canAddExternal(): boolean {
+    if (!this.externalLabel.trim()) {
+      return false;
+    }
+    return this.isChecklistBonusType() ? this.externalChecked : this.externalValue != null;
+  }
+
+  isValueEntryStarted(): boolean {
+    return this.isChecklistBonusType() ? this.externalChecked : this.externalValue != null;
+  }
+
+  addExternal() {
+    if (!this.canAddExternal()) {
+      return;
+    }
+    const label = this.externalLabel.trim();
+    if (this.isChecklistBonusType()) {
+      this.equipped.addExternalAffixValue(this.affixName, this.bonusType, 1, label);
+    } else {
+      this.equipped.addExternalAffixValue(this.affixName, this.bonusType, this.externalValue!, label);
+    }
+
+    this._resetExternalForm();
+    this.refreshMatches();
+  }
+
+  markIgnored() {
+    if (this.isValueEntryStarted()) {
+      return;
+    }
+    const label = this.externalLabel.trim();
+    this.equipped.addExternalAffixIgnored(this.affixName, this.bonusType, label || 'Ignored');
+    this._resetExternalForm();
+    this.refreshMatches();
+  }
+
+  toggleSection(key: string) {
+    if (this.collapsedSections.has(key)) {
+      this.collapsedSections.delete(key);
+    } else {
+      this.collapsedSections.add(key);
+    }
+  }
+
+  isSectionCollapsed(key: string): boolean {
+    return this.collapsedSections.has(key);
+  }
+
+  private _resetExternalForm() {
+    this.externalLabel = '';
+    this.externalValue = null;
+    this.externalChecked = false;
+  }
+
+  describeExternalEntry(entry: ExternalAffixEntry): string {
+    if (entry.kind === 'ignored') {
+      const value = Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
+      return value + ' (' + entry.label + ')';
+    }
+    if (this.isChecklistBonusType()) {
+      return 'Covered (' + entry.label + ')';
+    }
+    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
+    return [this.affixUi.getAffixValue(fakeAffix), entry.bonusType].filter(part => part).join(' ') + ' (' + entry.label + ')';
+  }
+
+  removeExternal(id: string, event?: Event) {
+    event?.stopPropagation();
+    this.equipped.removeExternalAffix(id);
+    this.refreshMatches();
   }
 
   private _sortSetsByValue(sets: Array<[string, number, number]>): Array<[string, number, number]> {

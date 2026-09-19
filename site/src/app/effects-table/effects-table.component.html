@@ -12,7 +12,8 @@
         [suppliedAffixCounts]="suppliedAffixCounts"
         [suppliedSetAffixCounts]="suppliedSetAffixCounts"
         [highlightedSlots]="highlightedEquipmentSlots"
-        [highlightedSets]="highlightedEquipmentSets">
+        [highlightedSets]="highlightedEquipmentSets"
+        [highlightedExternal]="highlightedExternal">
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
@@ -90,6 +91,7 @@
                         <button type="button" class="tracked-bonus-chip" *ngFor="let chip of row.chips; trackBy: trackSlotChip"
                             [class.no-value]="!chip.currentValue"
                             [class.bonus-eliminated]="chip.eliminated"
+                            [class.bonus-ignored]="chip.ignored"
                             [ngClass]="chip.valueClass"
                             [title]="chip.tooltip"
                             [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
@@ -199,6 +201,7 @@
                             (blur)="clearAffixTypeEquipmentPreview()"
                             [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
+                            [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [ngClass]="getClassForValue(affixName, types)">
                             <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}:</span>
                             <span class="tracked-bonus-value">{{types.value}}</span>
@@ -214,6 +217,7 @@
                                 (blur)="clearAffixTypeEquipmentPreview()"
                                 [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                                 [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
+                                [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                                 (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
                                 <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
                                 <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>

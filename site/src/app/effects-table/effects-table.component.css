@@ -411,6 +411,19 @@
     box-shadow: none;
 }
 
+/* A bonus type the user has explicitly marked as ignored - not being chased. */
+.tracked-bonus-chip.bonus-ignored {
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+}
+
+.tracked-bonus-chip.bonus-ignored:hover,
+.tracked-bonus-chip.bonus-ignored:focus {
+    border-color: var(--chip-border-color);
+    box-shadow: none;
+}
+
 /*
  * A checklist chip is a non-interactive wrapper (so it can host two sibling
  * buttons instead of nesting one inside the other): a plain button carrying

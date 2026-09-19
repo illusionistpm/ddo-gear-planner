@@ -17,6 +17,46 @@
   </div>
 </div>
 
+<div class="drawer-section external-affix-panel">
+  <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('external')" (click)="toggleSection('external')">
+    <span>Non-gear
+      <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
+    </span>
+    <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('external')" aria-hidden="true">&#8250;</span>
+  </button>
+  @if (!isSectionCollapsed('external')) {
+    @if (externalEntries.length) {
+      @for (entry of externalEntries; track entry.id) {
+        <div class="row table-condensed small external-affix-entry-row" [class.external-ignored-row]="entry.kind === 'ignored'">
+          <span class="col-12 icon-x-button-host">
+            {{describeExternalEntry(entry)}}
+            <button type="button" class="icon-x-button icon-x-button-overlay" aria-label="Remove"
+              (click)="removeExternal(entry.id, $event)">
+              <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+            </button>
+          </span>
+        </div>
+      }
+    } @else {
+      <div class="external-affix-form">
+        <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
+          [(ngModel)]="externalLabel">
+        @if (isChecklistBonusType()) {
+          <label class="external-affix-checkbox-label">
+            <input type="checkbox" [(ngModel)]="externalChecked"> Covered
+          </label>
+        } @else {
+          <input type="number" class="form-control form-control-sm external-affix-value-input" placeholder="Value"
+            [(ngModel)]="externalValue">
+        }
+        <button type="button" class="btn btn-secondary btn-sm" [disabled]="!canAddExternal()" (click)="addExternal()">Add</button>
+        <span class="external-affix-divider" aria-hidden="true"></span>
+        <button type="button" class="btn btn-secondary btn-sm" [disabled]="isValueEntryStarted()" (click)="markIgnored()">Ignore</button>
+      </div>
+    }
+  }
+</div>
+
 @if (previewItem) {
   <aside class="item-preview-panel" aria-label="Item preview">
     <div class="item-preview-header">
@@ -56,185 +96,169 @@
 }
 
 @if (optionToEligibleGear.size) {
-  <div>
-    <div class="row">
-      <div class="col-1"><b>ML</b></div>
-      <div class="col-8"><b>Available Augments</b></div>
-      <div class="col-1"><b>Value</b></div>
-      <div class="col-2"></div>
-    </div>
-    @for (elem of optionToEligibleGear | keyvalue; track elem.key) {
+  <div class="drawer-section">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('augments')" (click)="toggleSection('augments')">
+      <span>Augments</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('augments')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('augments')) {
       <div class="row">
-        <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
-        <!-- combo box for each item in entry.value-->
-        <div class="col-8">
-          <div class="row" style="background-color: transparent;">
-            {{stringToOption.get(elem.key).describe(false, false)}}
+        <div class="col-1"><b>ML</b></div>
+        <div class="col-8"><b>Available Augments</b></div>
+        <div class="col-1"><b>Value</b></div>
+        <div class="col-2"></div>
+      </div>
+      @for (elem of optionToEligibleGear | keyvalue; track elem.key) {
+        <div class="row">
+          <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
+          <!-- combo box for each item in entry.value-->
+          <div class="col-8">
+            <div class="row" style="background-color: transparent;">
+              {{stringToOption.get(elem.key).describe(false, false)}}
+            </div>
+            <div class="row" style="background-color: transparent;">
+              @if (elem.value.size > 0) {
+                <div>
+                  <select class="augment-slot-select" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
+                    @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
+                      @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
+                        <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
+                          [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])"
+                          [title]="innerElem.key.name + ' - ' + entry.craftable.name">
+                          {{innerElem.key.name}} - {{entry.craftable.name}}
+                        </option>
+                      }
+                    }
+                  </select>
+                </div>
+              }
+              @if (elem.value.size == 0) {
+                <div>
+                  <span><i>No free slots available</i></span>
+                </div>
+              }
+            </div>
           </div>
-          <div class="row" style="background-color: transparent;">
-            @if (elem.value.size > 0) {
+          <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
+          <button class="col-2 equip-button" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
+        </div>
+      }
+    }
+  </div>
+}
+
+@if (craftIntoEquippedGear.size) {
+  <div class="drawer-section">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('craft')" (click)="toggleSection('craft')">
+      <span>Craft Into Equipped Item</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('craft')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('craft')) {
+      <div class="row">
+        <div class="col-1"><b>ML</b></div>
+        <div class="col-8"><b>Item</b></div>
+        <div class="col-1"><b>Value</b></div>
+        <div class="col-2"></div>
+      </div>
+      @for (elem of craftIntoEquippedGear | keyvalue; track elem.key) {
+        <div class="row">
+          <div class="col-1">{{craftIntoEquippedOptions.get(elem.key).ml || ''}}</div>
+          <div class="col-8">
+            <div class="row" style="background-color: transparent;">
+              {{craftIntoEquippedOptions.get(elem.key).describe(false, false)}}
+            </div>
+            <div class="row" style="background-color: transparent;">
               <div>
-                <select class="augment-slot-select" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
+                <select class="augment-slot-select" [(ngModel)]="selectedCraftSlot"
+                  [title]="selectedCraftSlot ? selectedCraftSlot.item.name + ' - ' + selectedCraftSlot.craftable.name : ''">
                   @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
-                    @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
-                      <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
-                        [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])"
-                        [title]="innerElem.key.name + ' - ' + entry.craftable.name">
-                        {{innerElem.key.name}} - {{entry.craftable.name}}
+                    @for (craftable of innerElem.value; track craftable.name) {
+                      <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
+                        [title]="innerElem.key.name + ' - ' + craftable.name">
+                        {{innerElem.key.name}} - {{craftable.name}}
                       </option>
                     }
                   }
                 </select>
               </div>
-            }
-            @if (elem.value.size == 0) {
-              <div>
-                <span><i>No free slots available</i></span>
-              </div>
-            }
-          </div>
-        </div>
-        <div class="col-1">{{stringToOption.get(elem.key).affixes[0].value}}</div>
-        <button class="col-2 equip-button" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString != elem.key">Equip</button>
-      </div>
-    }
-    <hr/>
-  </div>
-}
-
-@if (craftIntoEquippedGear.size) {
-  <div>
-    <div class="row">
-      <div class="col-1"><b>ML</b></div>
-      <div class="col-8"><b>Craft Into Equipped Item</b></div>
-      <div class="col-1"><b>Value</b></div>
-      <div class="col-2"></div>
-    </div>
-    @for (elem of craftIntoEquippedGear | keyvalue; track elem.key) {
-      <div class="row">
-        <div class="col-1">{{craftIntoEquippedOptions.get(elem.key).ml || ''}}</div>
-        <div class="col-8">
-          <div class="row" style="background-color: transparent;">
-            {{craftIntoEquippedOptions.get(elem.key).describe(false, false)}}
-          </div>
-          <div class="row" style="background-color: transparent;">
-            <div>
-              <select class="augment-slot-select" [(ngModel)]="selectedCraftSlot"
-                [title]="selectedCraftSlot ? selectedCraftSlot.item.name + ' - ' + selectedCraftSlot.craftable.name : ''">
-                @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
-                  @for (craftable of innerElem.value; track craftable.name) {
-                    <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
-                      [title]="innerElem.key.name + ' - ' + craftable.name">
-                      {{innerElem.key.name}} - {{craftable.name}}
-                    </option>
-                  }
-                }
-              </select>
             </div>
           </div>
+          <div class="col-1">{{craftOptionMatchValue(elem.key)}}</div>
+          <button class="col-2 equip-button" (click)="equipCraftIntoEquipped()"
+            [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString != elem.key">Equip</button>
         </div>
-        <div class="col-1">{{craftOptionMatchValue(elem.key)}}</div>
-        <button class="col-2 equip-button" (click)="equipCraftIntoEquipped()"
-          [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString != elem.key">Equip</button>
-      </div>
+      }
     }
-    <hr/>
   </div>
 }
 
 @if (sets.length || unreachableSets.length) {
-  <div>
-    <div class="row">
-      <div class="col-2"><b>Pieces</b></div>
-      <div class="col-6"><b>Set</b></div>
-      <div class="col-2"><b>Value</b></div>
-      <div class="col-2"></div>
-    </div>
-    @for (set of sets; track set[0]) {
+  <div class="drawer-section">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('sets')" (click)="toggleSection('sets')">
+      <span>Sets</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('sets')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('sets')) {
       <div class="row">
-        <div class="col-2">
-          @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
-        </div>
-        <div class="col-6">{{set[0]}}</div>
-        <div class="col-2">{{set[2]}}</div>
-        <div class="col-2">
-          <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
-        </div>
+        <div class="col-2"><b>Pieces</b></div>
+        <div class="col-6"><b>Set</b></div>
+        <div class="col-2"><b>Value</b></div>
+        <div class="col-2"></div>
       </div>
-    }
-
-    @if (unreachableSets.length) {
-      <div class="row">&nbsp;</div>
-      <h3>Threshold Out of Reach</h3>
-      <i>
-        @for (set of unreachableSets; track set[0]) {
-          <div class="row">
-            <div class="col-2">
-              @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
-            </div>
-            <div class="col-6">{{set[0]}}</div>
-            <div class="col-2">{{set[2]}}</div>
-            <div class="col-2">
-              <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
-            </div>
+      @for (set of sets; track set[0]) {
+        <div class="row">
+          <div class="col-2">
+            @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
           </div>
-        }
-      </i>
-    }
-    <hr/>
-  </div>
-}
-
-@if (matches.length) {
-  <div>
-    <div class="row">
-      <div class="col-1"><b>ML</b></div>
-      <div class="col-2"><b>Slot</b></div>
-      <div class="col-8"><b>Name</b></div>
-      <div class="col-1"><b>Value</b></div>
-    </div>
-    @for (item of matches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
-      <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
-        <div class="col-1">{{item.ml}}</div>
-        <div class="col-2">{{item.slot}}</div>
-        <div class="col-8">
-          <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches, $index)">
-            {{item.name}}
-          </button>
-          @if (isRaidLoot(item)) {
-            <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
-          }
-          @if (item.rare) {
-            <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
-          }
-          @if (item.artifact) {
-            <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
-          }
-          {{findMatchingValue(item)[0]}}
-          @if (userOwnsItem(item)) {
-            <span class="user-owned-star"
-              [title]="getUserItemLocations(item) | userItemLocationTooltip">
-              ★
-            </span>
-          }
+          <div class="col-6">{{set[0]}}</div>
+          <div class="col-2">{{set[2]}}</div>
+          <div class="col-2">
+            <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
+          </div>
         </div>
-        <div class="col-1">{{findMatchingValue(item)[1]}}</div>
-      </div>
+      }
+
+      @if (unreachableSets.length) {
+        <div class="row">&nbsp;</div>
+        <div class="drawer-subsection-title">Threshold Out of Reach</div>
+        <i>
+          @for (set of unreachableSets; track set[0]) {
+            <div class="row">
+              <div class="col-2">
+                @if (equippedPiecesForSet(set[0]); as have) {<span class="set-pieces-have">{{have}}</span>/}{{set[1]}}
+              </div>
+              <div class="col-6">{{set[0]}}</div>
+              <div class="col-2">{{set[2]}}</div>
+              <div class="col-2">
+                <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
+              </div>
+            </div>
+          }
+        </i>
+      }
     }
   </div>
 }
 
-@if (lockedMatches.length > 0) {
-  <div>
-    <div class="row">&nbsp;</div>
-    <h3>Already Filled Slots</h3>
-    <i>
-      @for (item of lockedMatches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
+@if (matches.length || lockedMatches.length) {
+  <div class="drawer-section">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('items')" (click)="toggleSection('items')">
+      <span>Items</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('items')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('items')) {
+      <div class="row">
+        <div class="col-1"><b>ML</b></div>
+        <div class="col-2"><b>Slot</b></div>
+        <div class="col-8"><b>Name</b></div>
+        <div class="col-1"><b>Value</b></div>
+      </div>
+      @for (item of matches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
         <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
           <div class="col-8">
-            <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches, $index)">
+            <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches, $index)">
               {{item.name}}
             </button>
             @if (isRaidLoot(item)) {
@@ -257,6 +281,41 @@
           <div class="col-1">{{findMatchingValue(item)[1]}}</div>
         </div>
       }
-    </i>
+
+      @if (lockedMatches.length > 0) {
+        <div class="row">&nbsp;</div>
+        <div class="drawer-subsection-title">Already Filled Slots</div>
+        <i>
+          @for (item of lockedMatches.slice(0,100); track item.name + '|' + item.slot + '|' + $index) {
+            <div class="row item-result-row" [class.selected-preview-row]="isPreviewingItem(item)">
+              <div class="col-1">{{item.ml}}</div>
+              <div class="col-2">{{item.slot}}</div>
+              <div class="col-8">
+                <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches, $index)">
+                  {{item.name}}
+                </button>
+                @if (isRaidLoot(item)) {
+                  <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+                }
+                @if (item.rare) {
+                  <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+                }
+                @if (item.artifact) {
+                  <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+                }
+                {{findMatchingValue(item)[0]}}
+                @if (userOwnsItem(item)) {
+                  <span class="user-owned-star"
+                    [title]="getUserItemLocations(item) | userItemLocationTooltip">
+                    ★
+                  </span>
+                }
+              </div>
+              <div class="col-1">{{findMatchingValue(item)[1]}}</div>
+            </div>
+          }
+        </i>
+      }
+    }
   </div>
 }

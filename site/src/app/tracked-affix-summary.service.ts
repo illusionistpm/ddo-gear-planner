@@ -23,6 +23,7 @@ export interface SummaryBonusBadge {
   maxValue: number;
   qualityClass: string;
   tooltip: string;
+  ignored: boolean;
   sourceAffixName: string;
   sourceBonusType: string;
 }
@@ -137,6 +138,7 @@ export class TrackedAffixSummaryService {
           if (!boolAffix || boolAffix.bonusType === 'Penalty') {
             continue;
           }
+          const checklistIgnored = !boolAffix.value && this.equipped.isAffixTypeIgnored(affixName, boolAffix.bonusType);
           affixes.push({
             name: affixName,
             isChecklist: true,
@@ -146,8 +148,9 @@ export class TrackedAffixSummaryService {
               code: boolAffix.value ? '✓' : '–',
               value: boolAffix.value ? 1 : 0,
               maxValue: 1,
-              qualityClass: boolAffix.value ? 'max-value' : 'no-value',
-              tooltip: boolAffix.value ? `${affixName}: covered` : `${affixName}: not covered`,
+              qualityClass: checklistIgnored ? 'ignored-value' : (boolAffix.value ? 'max-value' : 'no-value'),
+              tooltip: checklistIgnored ? `${affixName}: marked as ignored` : (boolAffix.value ? `${affixName}: covered` : `${affixName}: not covered`),
+              ignored: checklistIgnored,
               sourceAffixName: affixName,
               sourceBonusType: boolAffix.bonusType
             }],
@@ -176,13 +179,15 @@ export class TrackedAffixSummaryService {
 
   private makeBadge(type: DisplayType): SummaryBonusBadge {
     const maxValue = this.gearDB.getBestValueForAffixType(type.sourceAffixName, type.sourceBonusType);
+    const ignored = this.equipped.isAffixTypeIgnored(type.sourceAffixName, type.sourceBonusType);
     return {
       label: type.label,
       code: this.abbreviateBonusType(type.label),
       value: type.value,
       maxValue,
-      qualityClass: this.getClassForValue(type, maxValue),
-      tooltip: this.getBadgeTooltip(type, maxValue),
+      qualityClass: ignored ? 'ignored-value' : this.getClassForValue(type, maxValue),
+      tooltip: ignored ? `${type.label}: marked as ignored` : this.getBadgeTooltip(type, maxValue),
+      ignored,
       sourceAffixName: type.sourceAffixName,
       sourceBonusType: type.sourceBonusType
     };

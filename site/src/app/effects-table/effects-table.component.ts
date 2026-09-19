@@ -22,6 +22,7 @@ interface SlotGroupChip {
   maxValue: number;
   valueClass: string;
   eliminated: boolean;
+  ignored: boolean;
   tooltip: string;
 }
 
@@ -74,6 +75,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   suppliedSetAffixCounts = new Map<string, number>();
   highlightedEquipmentSlots = new Set<string>();
   highlightedEquipmentSets = new Set<string>();
+  highlightedExternal = false;
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
@@ -265,7 +267,23 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
             maxValue: this.getMaxValueForType(affixName, type),
             valueClass: this.getClassForValue(affixName, type),
             eliminated: false,
+            ignored: false,
             tooltip: this.getValueTooltip(affixName, type)
+          });
+          continue;
+        }
+
+        if (this.equipped.isAffixTypeIgnored(sourceAffixName, bonusType)) {
+          rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push({
+            sourceAffixName,
+            bonusType,
+            label: this.getBonusTypeLabel(type),
+            currentValue: type.value || 0,
+            maxValue: this.getMaxValueForType(affixName, type),
+            valueClass: '',
+            eliminated: false,
+            ignored: true,
+            tooltip: 'Marked as ignored'
           });
           continue;
         }
@@ -300,6 +318,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
           maxValue: this.getMaxValueForType(affixName, type),
           valueClass: type.value ? this.getClassForValue(affixName, type) : '',
           eliminated: info.eliminated,
+          ignored: false,
           tooltip: this.getScarcityTooltip(info)
         });
       }
@@ -319,6 +338,21 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
       if (boolAffix.value) {
         bucket('fulfilled', 'Fulfilled', 100).checklistAffixes.push(affixName);
+        continue;
+      }
+
+      if (this.equipped.isAffixTypeIgnored(affixName, bonusType)) {
+        rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push({
+          sourceAffixName: affixName,
+          bonusType,
+          label: 'Checklist',
+          currentValue: 0,
+          maxValue: 0,
+          valueClass: '',
+          eliminated: false,
+          ignored: true,
+          tooltip: 'Marked as ignored'
+        });
         continue;
       }
 
@@ -352,6 +386,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         maxValue: 0,
         valueClass: '',
         eliminated: info.eliminated,
+        ignored: false,
         tooltip: this.getScarcityTooltip(info)
       });
     }
@@ -391,11 +426,14 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     this.highlightedEquipmentSets = new Set(
       sources.filter(source => source.kind === 'set').map(source => source.itemName)
     );
+    this.highlightedExternal = sources.some(source => source.kind === 'external')
+      || this.equipped.isAffixTypeIgnored(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
   clearAffixTypeEquipmentPreview() {
     this.highlightedEquipmentSlots = new Set<string>();
     this.highlightedEquipmentSets = new Set<string>();
+    this.highlightedExternal = false;
   }
 
   private refreshSuppliedAffixCounts() {
@@ -544,6 +582,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   getBonusTypeTooltip(affixName: string, type: any): string {
+    if (this.equipped.isAffixTypeIgnored(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type))) {
+      return 'Marked as ignored';
+    }
+
     if (this.isBonusTypeUnavailableAtCurrentLevelRange(affixName, type)) {
       return 'No gear with this bonus type is available in the current level range.';
     }

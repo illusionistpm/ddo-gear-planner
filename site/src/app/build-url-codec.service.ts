@@ -27,6 +27,13 @@ export interface CompactPayloadV1 {
   ml?: Record<string, string>;
   c?: Array<[string, DictionaryValue, string]>;
   t?: string[];
+  /**
+   * Non-gear affix entries (EquippedService.ExternalAffixEntry), positionally
+   * encoded as [affixName, bonusType, kind ('v'|'i'), value, label]. The
+   * entry's `id` isn't carried - it's only meaningful within a session, so a
+   * fresh sequential id is assigned on decode.
+   */
+  e?: Array<[string, string, string, number, string]>;
   x?: DecodedParamRecord;
 }
 
@@ -230,6 +237,11 @@ export class BuildUrlCodecService {
         minLevelPayload[SLOT_TO_CODE[slot] || slot] = values[0];
       } else if (key === 'tracked') {
         payload.t = values;
+      } else if (key === 'nongear') {
+        const encoded = this.encodeExternalAffixes(values[0]);
+        if (encoded.length) {
+          payload.e = encoded;
+        }
       } else if (key.startsWith('craft_')) {
         this.collectCraftingParam(craftingByIndex, key, values[0]);
       } else if (!KNOWN_FILTER_KEYS.has(key)) {
@@ -304,6 +316,10 @@ export class BuildUrlCodecService {
       params.tracked = payload.t;
     }
 
+    if (payload.e?.length) {
+      params.nongear = this.decodeExternalAffixes(payload.e);
+    }
+
     if (payload.x) {
       for (const [key, value] of Object.entries(payload.x)) {
         params[key] = value;
@@ -330,6 +346,36 @@ export class BuildUrlCodecService {
       craftingByIndex.set(index, craftingParam);
     }
     craftingParam[parts[2]] = value;
+  }
+
+  private encodeExternalAffixes(raw: string): Array<[string, string, string, number, string]> {
+    try {
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+      return parsed
+        .filter((entry): entry is { affixName: string; bonusType: string; kind: string; value: number; label: string } =>
+          !!entry && typeof entry.affixName === 'string' && typeof entry.bonusType === 'string'
+          && (entry.kind === 'value' || entry.kind === 'ignored')
+          && typeof entry.value === 'number' && typeof entry.label === 'string')
+        .map((entry): [string, string, string, number, string] =>
+          [entry.affixName, entry.bonusType, entry.kind === 'ignored' ? 'i' : 'v', entry.value, entry.label]);
+    } catch {
+      return [];
+    }
+  }
+
+  private decodeExternalAffixes(entries: Array<[string, string, string, number, string]>): string {
+    const decoded = entries.map((entry, index) => ({
+      id: String(index + 1),
+      affixName: entry[0],
+      bonusType: entry[1],
+      kind: entry[2] === 'i' ? 'ignored' : 'value',
+      value: entry[3],
+      label: entry[4]
+    }));
+    return JSON.stringify(decoded);
   }
 
   private listParamToArray(values: string[]) {
@@ -454,6 +500,7 @@ export class BuildUrlCodecService {
       minLevels: payload.ml ? Object.keys(payload.ml).length : 0,
       crafting: payload.c ? payload.c.length : 0,
       tracked: payload.t ? payload.t.length : 0,
+      external: payload.e ? payload.e.length : 0,
       unknown: payload.x ? Object.keys(payload.x).length : 0
     };
   }

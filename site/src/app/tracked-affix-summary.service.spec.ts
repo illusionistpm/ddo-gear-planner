@@ -88,6 +88,31 @@ describe('TrackedAffixSummaryService', () => {
     });
   });
 
+  it('shows an ignored bonus type as struck through with a tooltip explaining why', done => {
+    spyOn(gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(20);
+    equipped.addExternalAffixIgnored('Strength', 'Quality', 'Not chasing');
+    emitCovered(new Map<string, Array<any>>([
+      ['Strength', [{ bonusType: 'Quality', value: 0 }]],
+      ['Feather Falling', [{ bonusType: 'Bool', value: 0 }]]
+    ]));
+    equipped.addExternalAffixIgnored('Feather Falling', 'Bool', 'Covered by a spell');
+
+    service.getSummaryGroups().subscribe(groups => {
+      const affixes = groups.flatMap(group => group.affixes);
+      const strength = affixes.find(affix => affix.name === 'Strength');
+      const badge = strength?.badges.find(candidate => candidate.label === 'Quality');
+      expect(badge?.qualityClass).toBe('ignored-value');
+      expect(badge?.ignored).toBeTrue();
+      expect(badge?.tooltip).toContain('ignored');
+
+      const feather = affixes.find(affix => affix.name === 'Feather Falling');
+      expect(feather?.badges[0].qualityClass).toBe('ignored-value');
+      expect(feather?.badges[0].ignored).toBeTrue();
+      done();
+    });
+  });
+
   it('omits groups that have no tracked affixes', done => {
     spyOn(gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
     spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(0);

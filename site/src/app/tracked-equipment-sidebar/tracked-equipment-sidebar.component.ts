@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, VisibleSetBonus } from '../equipped.service';
+import { EquippedService, ExternalAffixEntry, VisibleSetBonus } from '../equipped.service';
 import { Item } from '../item';
 import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
@@ -28,13 +28,17 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   @Input() suppliedSetAffixCounts = new Map<string, number>();
   @Input() highlightedSlots = new Set<string>();
   @Input() highlightedSets = new Set<string>();
+  @Input() highlightedExternal = false;
 
   selectedSlot: string | null = null;
   hoveredSlot: string | null = null;
   hoveredSet: string | null = null;
+  hoveredExternal = false;
   recentlyEquippedSlot: string | null = null;
+  externalAffixes: ExternalAffixEntry[] = [];
   private equippedEventsSubscription: Subscription;
   private setBonusesSubscription: Subscription;
+  private externalAffixesSubscription: Subscription;
   private visibleSetBonuses: VisibleSetBonus[] = [];
   private recentlyEquippedTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -49,11 +53,15 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     this.setBonusesSubscription = this.equipped.getVisibleSetBonusesObservable().subscribe(bonuses => {
       this.visibleSetBonuses = bonuses;
     });
+    this.externalAffixesSubscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
+      this.externalAffixes = entries;
+    });
   }
 
   ngOnDestroy() {
     this.equippedEventsSubscription.unsubscribe();
     this.setBonusesSubscription.unsubscribe();
+    this.externalAffixesSubscription.unsubscribe();
     if (this.recentlyEquippedTimeout) {
       clearTimeout(this.recentlyEquippedTimeout);
     }
@@ -109,6 +117,27 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
 
   getClassForSetAffix(affix: Affix, eligible: boolean): string {
     return eligible ? this.affixUi.getClassForAffix(affix) : 'DisabledSetBonus';
+  }
+
+  describeExternalEntry(entry: ExternalAffixEntry): string {
+    if (entry.kind === 'ignored') {
+      return Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
+    }
+    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
+    return [this.affixUi.getAffixValue(fakeAffix), entry.bonusType].filter(part => part).join(' ');
+  }
+
+  removeExternal(id: string, event?: Event) {
+    event?.stopPropagation();
+    this.equipped.removeExternalAffix(id);
+  }
+
+  previewExternal() {
+    this.hoveredExternal = true;
+  }
+
+  clearPreviewExternal() {
+    this.hoveredExternal = false;
   }
 
   getFocusedItem(): Item | null {

@@ -274,6 +274,68 @@ describe('EquippedService', () => {
     }]);
   });
 
+  it('lets a manual external value outrank a weaker gear source and be removed again', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.set(makeItem('Weak Gloves', 'Gloves', 'Gloves', [
+      { name: 'Deadly', type: 'Insightful', value: 5 },
+    ]));
+
+    const id = service.addExternalAffixValue('Deadly', 'Insightful', 20, 'Trance');
+
+    expect(service.getCurrentValueForAffixType('Deadly', 'Insightful')).toBe(20);
+    expect(service.getSourcesForAffixType('Deadly', 'Insightful')).toEqual([{
+      kind: 'external',
+      slot: 'Non-gear',
+      itemName: 'Trance',
+      affixName: 'Deadly',
+      bonusType: 'Insightful',
+      value: 20,
+    }]);
+
+    service.removeExternalAffix(id);
+
+    expect(service.getCurrentValueForAffixType('Deadly', 'Insightful')).toBe(5);
+  });
+
+  it('replaces the existing external entry for a type instead of stacking a second one', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    const firstId = service.addExternalAffixValue('Deadly', 'Insightful', 10, 'Trance');
+    const secondId = service.addExternalAffixIgnored('Deadly', 'Insightful', 'Not chasing');
+
+    expect(service.getExternalAffixesForType('Deadly', 'Insightful')).toEqual([{
+      id: secondId,
+      affixName: 'Deadly',
+      bonusType: 'Insightful',
+      kind: 'ignored',
+      value: 0,
+      label: 'Not chasing',
+    }]);
+    expect(service.isAffixTypeIgnored('Deadly', 'Insightful')).toBeTrue();
+    expect(firstId).not.toBe(secondId);
+  });
+
+  it('records an ignored external affix without contributing to its value', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    const id = service.addExternalAffixIgnored('Concentration', 'Insight', 'Not worth chasing');
+
+    expect(service.getCurrentValueForAffixType('Concentration', 'Insight')).toBe(0);
+    expect(service.getExternalAffixesForType('Concentration', 'Insight')).toEqual([{
+      id,
+      affixName: 'Concentration',
+      bonusType: 'Insight',
+      kind: 'ignored',
+      value: 0,
+      label: 'Not worth chasing',
+    }]);
+
+    service.removeExternalAffix(id);
+
+    expect(service.getExternalAffixesForType('Concentration', 'Insight')).toEqual([]);
+  });
+
   it('emits an event when an item is equipped', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     const events: Array<{ slot: string; itemName: string }> = [];

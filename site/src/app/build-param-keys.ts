@@ -16,7 +16,8 @@ export const FIXED_BUILD_PARAM_KEYS = [
   'raids',
   'rare',
   'hiddentypes',
-  'hiddenpacks'
+  'hiddenpacks',
+  'nongear'
 ] as const;
 
 const ML_KEY_PATTERN = /^ml_(.+)$/;

@@ -67,12 +67,21 @@ export interface VisibleSetBonus {
 }
 
 export interface AffixSource {
-  kind: 'item' | 'set';
+  kind: 'item' | 'set' | 'external';
   slot: string;
   itemName: string;
   affixName: string;
   bonusType: string;
   value: number;
+}
+
+export interface ExternalAffixEntry {
+  id: string;
+  affixName: string;
+  bonusType: string;
+  kind: 'value' | 'ignored';
+  value: number;
+  label: string;
 }
 
 export interface EquippedItemEvent {
@@ -95,6 +104,9 @@ export type PlannerTab = 'equipment' | 'affixes';
 export class EquippedService {
   private slots: Map<string, BehaviorSubject<Item>>;
   private importantAffixes: Set<string>;
+  private externalAffixes: ExternalAffixEntry[] = [];
+  private externalAffixesSubject = new BehaviorSubject<ExternalAffixEntry[]>([]);
+  private nextExternalAffixId = 1;
 
   private unlockedSlots: Set<string>;
 
@@ -168,6 +180,7 @@ export class EquippedService {
 
       try {
         this.setImportantAffixes(params.getAll('tracked'));
+        this._restoreExternalAffixesFromParam(params.get('nongear'));
 
         for (const slot of this.gearList.getSlots()) {
           if (!params.get(slot)) {
@@ -178,7 +191,7 @@ export class EquippedService {
         }
 
         for (const key of params.keys) {
-          if (key === 'tracked') {
+          if (key === 'tracked' || key === 'nongear') {
             continue;
           } else if (isCraftKey(key)) {
             const { index, field } = parseCraftKey(key)!;
@@ -368,6 +381,10 @@ export class EquippedService {
     //params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
+
+    if (this.externalAffixes.length) {
+      params['nongear'] = JSON.stringify(this.externalAffixes);
+    }
 
     this.params.next(params);
     done({ keys: Object.keys(params).length });
@@ -603,6 +620,12 @@ export class EquippedService {
       }
     }
 
+    for (const entry of this.externalAffixes) {
+      if (entry.kind === 'value' && entry.affixName === affixName && entry.bonusType === bonusType) {
+        values.push({ slot: 'Non-gear', value: entry.value });
+      }
+    }
+
     return values.sort((a, b) => b.value - a.value);
   }
 
@@ -658,6 +681,19 @@ export class EquippedService {
             value: affix.value
           });
         }
+      }
+    }
+
+    for (const entry of this.externalAffixes) {
+      if (entry.kind === 'value' && entry.affixName === affixName && entry.bonusType === bonusType && entry.value === bestValue) {
+        sources.push({
+          kind: 'external',
+          slot: 'Non-gear',
+          itemName: entry.label,
+          affixName: entry.affixName,
+          bonusType: entry.bonusType,
+          value: entry.value
+        });
       }
     }
 
@@ -994,6 +1030,30 @@ export class EquippedService {
     this.emitImportantAffixesChanged();
   }
 
+  private _restoreExternalAffixesFromParam(raw: string | null) {
+    let entries: ExternalAffixEntry[] = [];
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          entries = parsed.filter((entry): entry is ExternalAffixEntry =>
+            !!entry && typeof entry.id === 'string'
+            && typeof entry.affixName === 'string'
+            && typeof entry.bonusType === 'string'
+            && (entry.kind === 'value' || entry.kind === 'ignored')
+            && typeof entry.value === 'number'
+            && typeof entry.label === 'string');
+        }
+      } catch {
+        console.log('Bad ext param, ignoring external affix entries: ' + raw);
+      }
+    }
+
+    this.externalAffixes = entries;
+    this.nextExternalAffixId = entries.reduce((max, entry) => Math.max(max, Number(entry.id) || 0), 0) + 1;
+    this.externalAffixesSubject.next(this.externalAffixes);
+  }
+
   addImportantAffix(affix: string) {
     const trackedAffixes = this.getTrackedAffixFamily(affix);
     const addedAffixes = trackedAffixes.filter(trackedAffix => !this.importantAffixes.has(trackedAffix));
@@ -1026,6 +1086,69 @@ export class EquippedService {
     } else {
       this.addImportantAffix(affix);
     }
+  }
+
+  getExternalAffixesObservable(): Observable<ExternalAffixEntry[]> {
+    return this.externalAffixesSubject.asObservable();
+  }
+
+  getExternalAffixesSnapshot(): ExternalAffixEntry[] {
+    return this.externalAffixes;
+  }
+
+  getExternalAffixesForType(affixName: string, bonusType: string): ExternalAffixEntry[] {
+    return this.externalAffixes.filter(entry => entry.affixName === affixName && entry.bonusType === bonusType);
+  }
+
+  addExternalAffixValue(affixName: string, bonusType: string, value: number, label: string): string {
+    return this._addExternalAffix({
+      id: String(this.nextExternalAffixId++),
+      affixName,
+      bonusType,
+      kind: 'value',
+      value,
+      label
+    });
+  }
+
+  addExternalAffixIgnored(affixName: string, bonusType: string, label: string): string {
+    return this._addExternalAffix({
+      id: String(this.nextExternalAffixId++),
+      affixName,
+      bonusType,
+      kind: 'ignored',
+      value: 0,
+      label
+    });
+  }
+
+  private _addExternalAffix(entry: ExternalAffixEntry): string {
+    // Only one external entry per (affixName, bonusType) - a new one replaces
+    // whatever was there before rather than stacking up duplicates.
+    this.externalAffixes = [
+      ...this.externalAffixes.filter(existing => existing.affixName !== entry.affixName || existing.bonusType !== entry.bonusType),
+      entry
+    ];
+    this._emitExternalAffixesChanged();
+    return entry.id;
+  }
+
+  removeExternalAffix(id: string) {
+    const before = this.externalAffixes.length;
+    this.externalAffixes = this.externalAffixes.filter(entry => entry.id !== id);
+    if (this.externalAffixes.length !== before) {
+      this._emitExternalAffixesChanged();
+    }
+  }
+
+  isAffixTypeIgnored(affixName: string, bonusType: string): boolean {
+    return this.externalAffixes.some(entry =>
+      entry.affixName === affixName && entry.bonusType === bonusType && entry.kind === 'ignored');
+  }
+
+  private _emitExternalAffixesChanged() {
+    this.externalAffixesSubject.next(this.externalAffixes);
+    this._updateCoveredAffixes();
   }
 
   isImportantAffix(affix: string) {

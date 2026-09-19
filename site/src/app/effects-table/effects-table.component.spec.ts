@@ -443,6 +443,36 @@ describe('EffectsTableComponent', () => {
     expect(component.highlightedEquipmentSets.size).toBe(0);
   });
 
+  it('highlights the External slot for a hovered affix type covered by an external entry', () => {
+    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+      {
+        kind: 'external',
+        slot: 'Non-gear',
+        itemName: 'Trance',
+        affixName: 'Deadly',
+        bonusType: 'Insightful',
+        value: 6,
+      },
+    ]);
+
+    component.previewAffixTypeEquipment('Deadly', { bonusType: 'Insightful', value: 6 });
+
+    expect(component.highlightedExternal).toBeTrue();
+
+    component.clearAffixTypeEquipmentPreview();
+
+    expect(component.highlightedExternal).toBeFalse();
+  });
+
+  it('highlights the External slot for a hovered affix type that is marked as ignored', () => {
+    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([]);
+    spyOn(component.equipped, 'isAffixTypeIgnored').and.returnValue(true);
+
+    component.previewAffixTypeEquipment('Concentration', { bonusType: 'Insight', value: 0 });
+
+    expect(component.highlightedExternal).toBeTrue();
+  });
+
   it('tracks visible type rows without depending on component method binding', () => {
     const trackVisibleType = component.trackVisibleType;
 

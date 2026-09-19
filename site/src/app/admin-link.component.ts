@@ -20,6 +20,7 @@ interface HumanReadableUrlData {
   filters: Record<string, unknown>;
   equipment: Record<string, { item: string; minimumLevel?: string; crafting?: Array<{ system: string; selected: string }> }>;
   tracked: string[];
+  nonGear: Array<{ affix: string; bonusType: string; kind: string; value: number; label: string }>;
   other: UrlParamRecord;
 }
 
@@ -683,6 +684,7 @@ export class AdminLinkComponent {
       filters: {},
       equipment: {},
       tracked: this.paramValueToArray(effectiveParams.tracked),
+      nonGear: this.parseNonGearAffixes(effectiveParams.nongear),
       other: {}
     };
     const craftingBySlot = this.getCraftingBySlot(effectiveParams);
@@ -694,7 +696,7 @@ export class AdminLinkComponent {
         humanData.equipment[key] = {
           item: this.firstParamValue(value)
         };
-      } else if (key === 'tracked' || key.startsWith('craft_') || key.startsWith('ml_')) {
+      } else if (key === 'tracked' || key === 'nongear' || key.startsWith('craft_') || key.startsWith('ml_')) {
         continue;
       } else {
         humanData.other[key] = value;
@@ -728,10 +730,38 @@ export class AdminLinkComponent {
     if (humanData.tracked.length) {
       result.tracked = humanData.tracked;
     }
+    if (humanData.nonGear.length) {
+      result.nonGear = humanData.nonGear;
+    }
     if (Object.keys(humanData.other).length) {
       result.other = humanData.other;
     }
     return result;
+  }
+
+  private parseNonGearAffixes(value: string | string[] | undefined): HumanReadableUrlData['nonGear'] {
+    if (value === undefined) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(this.firstParamValue(value));
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+      return parsed
+        .filter((entry): entry is { affixName: string; bonusType: string; kind: string; value: number; label: string } =>
+          !!entry && typeof entry.affixName === 'string')
+        .map(entry => ({
+          affix: entry.affixName,
+          bonusType: entry.bonusType,
+          kind: entry.kind,
+          value: entry.value,
+          label: entry.label
+        }));
+    } catch {
+      return [];
+    }
   }
 
   private getCraftingBySlot(effectiveParams: UrlParamRecord) {

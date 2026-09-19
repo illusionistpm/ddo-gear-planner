@@ -168,7 +168,10 @@ describe('BuildUrlCodecService', () => {
       raids: true,
       rare: true,
       hiddentypes: 'Bastard Swords',
-      hiddenpacks: 'Some Pack'
+      hiddenpacks: 'Some Pack',
+      nongear: JSON.stringify([
+        { id: '1', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' }
+      ])
     };
 
     for (const key of FIXED_BUILD_PARAM_KEYS) {
@@ -201,6 +204,28 @@ describe('BuildUrlCodecService', () => {
     });
     expect(service.inspect(craftEncoded).compactPayload?.c?.length).toBe(1);
     expect(service.inspect(craftEncoded).compactPayload?.x).toBeUndefined();
+  });
+
+  it('stores non-gear affix entries as positional tuples, regenerating ids on decode', () => {
+    const encoded = service.encode({
+      nongear: JSON.stringify([
+        { id: '7', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' },
+        { id: '9', affixName: 'Concentration', bonusType: 'Insight', kind: 'ignored', value: 0, label: 'Not chasing' }
+      ])
+    });
+    const inspection = service.inspect(encoded);
+
+    expect(inspection.compactPayload?.e).toEqual([
+      ['Deadly', 'Insightful', 'v', 6, 'Trance'],
+      ['Concentration', 'Insight', 'i', 0, 'Not chasing']
+    ]);
+    expect(inspection.compactPayload?.x?.['nongear']).toBeUndefined();
+
+    const decoded = service.decode(encoded);
+    expect(JSON.parse(decoded!['nongear'] as string)).toEqual([
+      { id: '1', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' },
+      { id: '2', affixName: 'Concentration', bonusType: 'Insight', kind: 'ignored', value: 0, label: 'Not chasing' }
+    ]);
   });
 
   it('works when performance logging is enabled', () => {

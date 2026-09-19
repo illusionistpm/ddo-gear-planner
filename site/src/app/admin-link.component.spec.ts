@@ -90,6 +90,26 @@ describe('AdminLinkComponent', () => {
     expect(component.urlInspectionJson).toContain('"equipment"');
   });
 
+  it('shows non-gear affix entries under their own section, not "other"', () => {
+    const codec = TestBed.inject(BuildUrlCodecService);
+    const compactParam = codec.encode({
+      nongear: JSON.stringify([
+        { id: '1', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' },
+        { id: '2', affixName: 'Concentration', bonusType: 'Insight', kind: 'ignored', value: 0, label: 'Not chasing' }
+      ])
+    });
+
+    component.inspectorInput = `http://localhost:4200/#/main?b=${compactParam}`;
+    component.inspectUrl();
+    fixture.detectChanges();
+
+    expect(component.urlInspectionJson).toContain('"nonGear"');
+    expect(component.urlInspectionJson).toContain('Trance');
+    expect(component.urlInspectionJson).toContain('Not chasing');
+    expect(component.urlInspectionJson).not.toContain('"other"');
+    expect(component.urlInspectionJson).not.toContain('"nongear"');
+  });
+
   it('opens the URL inspector from the admin menu', () => {
     fixture.detectChanges();
 

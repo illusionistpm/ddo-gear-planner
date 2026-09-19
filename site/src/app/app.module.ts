@@ -31,6 +31,7 @@ import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builde
 import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar/tracked-equipment-sidebar.component';
 import { TrackedAffixSidebarComponent } from './tracked-affix-sidebar/tracked-affix-sidebar.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
+import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -58,6 +59,7 @@ import { BuildActionsComponent } from './build-actions/build-actions.component';
         TrackedEquipmentSidebarComponent,
         TrackedAffixSidebarComponent,
         EquipmentSlotCardComponent,
+        ExternalAffixSlotCardComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent

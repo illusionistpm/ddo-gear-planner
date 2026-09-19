@@ -36,7 +36,7 @@
                             aria-label="Clear {{entry.slot}}"
                             title="Clear {{entry.slot}}"
                             (click)="clearSlot(entry.slot, $event)">
-                            <span aria-hidden="true">&times;</span>
+                            <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                         </button>
                     }
                 </div>
@@ -59,6 +59,23 @@
                             </div>
                         </div>
                     }
+                </div>
+            }
+            @if (externalAffixes.length) {
+                <div class="tracked-equipment-sets">
+                    <div class="tracked-equipment-sets-title">Non-gear
+                        <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
+                    </div>
+                    <div class="tracked-equipment-slot-shell tracked-equipment-set-shell"
+                        [class.focused]="hoveredExternal"
+                        [class.affix-source-highlight]="highlightedExternal"
+                        (mouseenter)="previewExternal()"
+                        (mouseleave)="clearPreviewExternal()">
+                        <div class="tracked-equipment-slot tracked-equipment-set">
+                            <span class="tracked-equipment-item-name">Non-gear</span>
+                            <span class="tracked-equipment-source-count">{{externalAffixes.length}}</span>
+                        </div>
+                    </div>
                 </div>
             }
     </aside>
@@ -89,6 +106,34 @@
                                 [ngClass]="getClassForSetAffix(affix, tier.eligible)">{{getSetAffixValue(affix)}} {{affix.type}}</span>
                         </div>
                     }
+                }
+            </div>
+        </div>
+    }
+
+    @if (hoveredExternal && externalAffixes.length) {
+        <div class="tracked-equipment-card" role="status"
+            (mouseenter)="previewExternal()"
+            (mouseleave)="clearPreviewExternal()">
+            <div class="tracked-equipment-card-title">
+                <span>Non-gear</span>
+            </div>
+            <div class="tracked-equipment-set-bonus-list">
+                @for (entry of externalAffixes; track entry.id) {
+                    <div class="tracked-equipment-external-row">
+                        <span class="tracked-equipment-set-bonus-name icon-x-button-host">
+                            {{entry.affixName}}
+                            <button type="button" class="icon-x-button icon-x-button-overlay"
+                                aria-label="Remove {{entry.affixName}}"
+                                title="Remove {{entry.affixName}}"
+                                (click)="removeExternal(entry.id, $event)">
+                                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+                            </button>
+                        </span>
+                        <span class="tracked-equipment-set-bonus-value" [class.tracked-equipment-external-ignored]="entry.kind === 'ignored'">
+                            {{describeExternalEntry(entry)}}
+                        </span>
+                    </div>
                 }
             </div>
         </div>

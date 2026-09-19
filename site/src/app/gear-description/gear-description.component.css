@@ -29,6 +29,18 @@
     font-size: 0.8125rem;
 }
 
+/*
+ * Compact the crafting dropdowns so their rows are close to the height of the plain
+ * affix rows; the global .form-control padding is sized for full-width form inputs.
+ */
+select.form-control.SmallFont {
+    background-position: right 0.5rem center;
+    background-size: 0.65rem;
+    border-radius: 6px;
+    line-height: 1.3;
+    padding: 0.25rem 1.75rem 0.25rem 0.5rem;
+}
+
 .BestTied {
     font-weight: 700;
     color: var(--primary-color);
@@ -76,12 +88,20 @@
     visibility: hidden;
 }
 
+/*
+ * Fixed narrow width rather than the col-1 fraction, so the affix names sit further left.
+ * The name column's own left padding (ps-1) adds space on the icon's right, so the same
+ * amount is added on its left to keep the icon centered between the card edge and the name.
+ */
 .heart {
     background: transparent;
     color: red;
     border: none;
-    padding-left: 0;
+    flex: 0 0 1.1rem;
+    padding-left: 0.25rem;
     padding-right: 0;
+    text-align: center;
+    width: 1.1rem;
 }
 
 .heart:hover,

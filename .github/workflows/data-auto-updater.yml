@@ -57,6 +57,24 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
+      # The site type-checks the generated JSON against game-data-types.ts, so
+      # build it before committing: data the site can't compile against fails
+      # this job instead of landing on master and breaking the next deploy.
+      - name: Setup Node
+        if: steps.data-changes.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Build site against new data
+        if: steps.data-changes.outputs.changed == 'true'
+        working-directory: site
+        run: |
+          npm ci
+          npm run build
+
       - name: Commit
         if: steps.data-changes.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4

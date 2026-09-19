@@ -36,7 +36,6 @@ describe('Item', () => {
       crafting: [
         {
           name: 'Test Crafting',
-          hiddenFromAffixSearch: false,
           options: [
             { name: 'First Option' },
           ],
@@ -56,7 +55,7 @@ describe('Item', () => {
   });
 
   it('keeps the selected crafting system when an option name is shared between systems', () => {
-    const slot = new Craftable('Augment Slot 1', [], false);
+    const slot = new Craftable('Augment Slot 1', []);
     slot.setCraftingSystemOptions(new Map([
       ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
       ['Blue Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
@@ -76,7 +75,7 @@ describe('Item', () => {
   });
 
   it('keeps the selected option when the available crafting systems are refreshed', () => {
-    const slot = new Craftable('Augment Slot 2', [], false);
+    const slot = new Craftable('Augment Slot 2', []);
     slot.setCraftingSystemOptions(new Map([
       ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
     ]), 'Colorless Augment Slot');
@@ -90,8 +89,8 @@ describe('Item', () => {
   });
 
   it('clones nested crafting-system selections without coupling empty augment slots', () => {
-    const slotOne = new Craftable('Augment Slot 1', [], false);
-    const slotTwo = new Craftable('Augment Slot 2', [], false);
+    const slotOne = new Craftable('Augment Slot 1', []);
+    const slotTwo = new Craftable('Augment Slot 2', []);
     const augmentOptions = new Map([
       ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
       ['Blue Augment Slot', [new CraftableOption({ name: 'Sapphire of Test' })]],
@@ -130,7 +129,6 @@ describe('Item', () => {
       crafting: [
         {
           name: 'Prefix',
-          hiddenFromAffixSearch: false,
           options: [],
         },
       ],
@@ -148,7 +146,6 @@ describe('Item', () => {
       crafting: [
         {
           name: 'Prefix',
-          hiddenFromAffixSearch: false,
           options: [],
         },
       ],

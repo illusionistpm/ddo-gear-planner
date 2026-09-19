@@ -88,7 +88,7 @@ function makeItemWithAugmentSlots() {
 }
 
 function makeAugmentSlot(name: string, systemNames: string[]) {
-  const craftable = new Craftable(name, [], false);
+  const craftable = new Craftable(name, []);
   const optionsByCraftingSystem = new Map<string, CraftableOption[]>();
   for (const systemName of systemNames) {
     optionsByCraftingSystem.set(systemName, [new CraftableOption({ name: systemName + ' Test' })]);

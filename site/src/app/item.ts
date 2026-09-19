@@ -61,7 +61,7 @@ export class Item {
                 this.crafting.push(Item.copyCraftable(crafting));
             } else {
                 const options = (crafting.options || []).map(option => new CraftableOption(option));
-                this.crafting.push(new Craftable(crafting.name, options, !!crafting.hiddenFromAffixSearch, true));
+                this.crafting.push(new Craftable(crafting.name, options));
             }
         }
     }
@@ -69,7 +69,7 @@ export class Item {
     private static copyCraftable(source: Craftable): Craftable {
         const selectedDescription = source.getSelectedParamDescription();
         const options = source.options.map(option => new CraftableOption(option));
-        const crafting = new Craftable(source.name, options, source.hiddenFromAffixSearch, false);
+        const crafting = new Craftable(source.name, options, false);
         if (source.hasCraftingSystemOptions()) {
             crafting.setCraftingSystemOptions(
                 source.getOptionsByCraftingSystem(),

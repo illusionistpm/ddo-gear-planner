@@ -5,14 +5,13 @@ export class Craftable {
     name!: string;
     options!: Array<CraftableOption>;
     selected!: CraftableOption;
-    hiddenFromAffixSearch!: boolean;
     isColoredAugmentSystem: boolean = false;
     craftingSystemOptions: string[] = [];
     selectedCraftingSystemName: string = '';
     private optionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
     private allOptionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
 
-    constructor(name: string, options: Array<CraftableOption>, hiddenFromAffixSearch: boolean, addEmptyOption: boolean = true) {
+    constructor(name: string, options: Array<CraftableOption>, addEmptyOption: boolean = true) {
         // Mark all of the traditional, "colored" augment systems. They're numerous and get filtered out sometimes.
         ['Blue ', 'Yellow ', 'Red ', 'Purple ', 'Orange ', 'Green ', 'Colorless '].forEach(color => {
             if (name && name.startsWith(color)) {
@@ -29,7 +28,6 @@ export class Craftable {
             this.options = options;
             this.selected = this.options[0];
         }
-        this.hiddenFromAffixSearch = hiddenFromAffixSearch;
     }
 
     setCraftingSystemOptions(optionsByCraftingSystem: Map<string, CraftableOption[]>, selectedCraftingSystemName: string = '') {
@@ -113,12 +111,10 @@ export class Craftable {
     }
 
     getMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): number | null {
-        if (!this.hiddenFromAffixSearch) {
-            for (const option of this.options) {
-                const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
-                if (value) {
-                    return value;
-                }
+        for (const option of this.options) {
+            const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
+            if (value) {
+                return value;
             }
         }
 
@@ -126,16 +122,14 @@ export class Craftable {
     }
 
     selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): boolean {
-        if (!this.hiddenFromAffixSearch) {
-            for (const option of this.options) {
-                const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
-                if (value) {
-                    this.selected = option;
-                    return true;
-                }
+        for (const option of this.options) {
+            const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
+            if (value) {
+                this.selected = option;
+                return true;
             }
         }
-        
+
         return false;
     }
 

@@ -180,9 +180,7 @@ export class GearDbService {
       const keyData = rawData[key];
       Object.keys(keyData).forEach((innerKey) => {
         const options = keyData[innerKey].map(option => new CraftableOption(option));
-        // crafting.json carries no hiddenFromAffixSearch flag
-        // (data-builder/build_crafting.py drops non-list entries).
-        const craftable = new Craftable(key, options, false);
+        const craftable = new Craftable(key, options);
         innerMap.set(innerKey, craftable);
       });
       this.craftingList.set(key, innerMap);
@@ -253,12 +251,12 @@ export class GearDbService {
             if (systemCraftables) {
               const craftable = systemCraftables.get(baseName) ?? systemCraftables.get('*');
               if (craftable) {
-                craftingOptions.push(new Craftable(craftable.name, craftable.options, craftable.hiddenFromAffixSearch, false));
+                craftingOptions.push(new Craftable(craftable.name, craftable.options, false));
               }
             }
           } else {
             // Not-yet-implemented crafting systems
-            craftingOptions.push(new Craftable(canonicalCraftingSystem, [], false));
+            craftingOptions.push(new Craftable(canonicalCraftingSystem, []));
           }
         }
         newItem.crafting = craftingOptions;
@@ -441,7 +439,6 @@ export class GearDbService {
     let itemCount = 0;
     let itemAffixCount = 0;
     let craftingSystemCount = 0;
-    let searchableCraftingSystemCount = 0;
     let craftingOptionCount = 0;
     const processedCraftingOptionLists = new Set<Array<CraftableOption>>();
     for (const items of gear.values()) {
@@ -449,10 +446,8 @@ export class GearDbService {
         itemCount++;
         itemAffixCount += item.affixes?.length || 0;
         craftingSystemCount += item.crafting?.length || 0;
-        searchableCraftingSystemCount += item.crafting
-          ?.filter(craftable => !craftable.hiddenFromAffixSearch).length || 0;
         craftingOptionCount += item.crafting
-          ?.reduce((count, craftable) => count + (craftable.hiddenFromAffixSearch ? 0 : craftable.options.length), 0) || 0;
+          ?.reduce((count, craftable) => count + craftable.options.length, 0) || 0;
         this._addAffixesToMap(affixToBonusTypes, item.affixes, universalTracker);
         this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel, processedCraftingOptionLists, universalTracker);
       }
@@ -461,10 +456,9 @@ export class GearDbService {
       itemCount,
       itemAffixCount,
       craftingSystemCount,
-      searchableCraftingSystemCount,
       craftingOptionCount,
       uniqueCraftingOptionListCount: processedCraftingOptionLists.size,
-      skippedDuplicateCraftingOptionListCount: searchableCraftingSystemCount - processedCraftingOptionLists.size
+      skippedDuplicateCraftingOptionListCount: craftingSystemCount - processedCraftingOptionLists.size
     });
 
     const rawSetList = this.gameData.sets;
@@ -576,7 +570,7 @@ export class GearDbService {
       optionsByCraftingSystem.set(systemName, this._getAugmentOptionsForColor(color));
     }
 
-    const craftable = new Craftable(name, [], false);
+    const craftable = new Craftable(name, []);
     craftable.setCraftingSystemOptions(optionsByCraftingSystem);
     return craftable;
   }
@@ -672,7 +666,7 @@ export class GearDbService {
       // every item in the game register as one for any commonly-augmentable
       // affix, flooding availability/scarcity results and the "which items
       // grant this" UI.
-      if (craftable.hiddenFromAffixSearch || craftable.isColoredAugmentSystem) {
+      if (craftable.isColoredAugmentSystem) {
         continue;
       }
       for (const [affixName, bonusType] of this._getCraftingOptionListPairs(craftable.options, craftingOptionListPairsCache)) {
@@ -782,10 +776,6 @@ export class GearDbService {
     }
 
     for (const craftable of crafting) {
-      if (craftable.hiddenFromAffixSearch) {
-        continue;
-      }
-
       if (processedCraftingOptionLists?.has(craftable.options)) {
         continue;
       }
@@ -1051,7 +1041,7 @@ export class GearDbService {
         }
       }
 
-      results = results.concat(new Craftable(augmentType, bestResults, true, false));
+      results = results.concat(new Craftable(augmentType, bestResults, false));
     }
 
     return results;

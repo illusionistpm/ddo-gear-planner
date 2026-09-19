@@ -73,11 +73,11 @@ describe('ItemsWithBonusTypeComponent', () => {
 
     const filledTier = new Craftable('T1 (Equipment)', [
       new CraftableOption({ affixes: [{ name: 'Disable Device', type: 'Competence', value: 22 }] }),
-    ], false);
+    ]);
     filledTier.selected = filledTier.options[1];
     const openTier = new Craftable('T2 (Equipment)', [
       new CraftableOption({ affixes: [{ name: 'Disable Device', type: 'Insight', value: 7 }] }),
-    ], false);
+    ]);
 
     const necklace = new Item(null);
     necklace.name = 'Legendary Green Steel Necklace';

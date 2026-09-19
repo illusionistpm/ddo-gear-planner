@@ -95,7 +95,7 @@ describe('EssenceCraftingService', () => {
   it('preserves non-essence crafting rows when ML changes', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
     const item = new Item(null);
-    const augmentSlot = new Craftable('Augment Slot 1', [], false);
+    const augmentSlot = new Craftable('Augment Slot 1', []);
     augmentSlot.setCraftingSystemOptions(new Map([
       ['Blue Augment Slot', [new CraftableOption({ name: 'Sapphire of Test' })]],
     ]), 'Blue Augment Slot');

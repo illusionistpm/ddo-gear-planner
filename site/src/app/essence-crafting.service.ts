@@ -134,6 +134,6 @@ export class EssenceCraftingService {
       slotOptions.push(new CraftableOption(option));
     }
 
-    return new Craftable(essenceCraftingSlot, slotOptions, false);
+    return new Craftable(essenceCraftingSlot, slotOptions);
   }
 }

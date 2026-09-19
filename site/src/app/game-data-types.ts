@@ -25,7 +25,6 @@ export interface CraftableOptionInit {
 export interface CraftableInit {
   name: string;
   options?: CraftableOptionInit[];
-  hiddenFromAffixSearch?: boolean;
 }
 
 /** One entry of items.json. `crafting` lists crafting system names. */

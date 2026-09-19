@@ -252,9 +252,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         if (craftable.name.endsWith(' Augment Slot') || craftable.hasCraftingSystemOptions()) {
           continue; // augment slots are handled by the scan above
         }
-        if (craftable.hiddenFromAffixSearch) {
-          continue;
-        }
 
         for (const option of craftable.options) {
           if (option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) == null) {

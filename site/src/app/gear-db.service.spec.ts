@@ -93,7 +93,6 @@ describe('GearDbService', () => {
       crafting: [
         {
           name: 'Test Crafting',
-          hiddenFromAffixSearch: false,
           options: [
             { name: 'First Option' },
           ],
@@ -176,7 +175,6 @@ describe('GearDbService', () => {
       crafting: [
         {
           name: 'Set Crafting',
-          hiddenFromAffixSearch: false,
           options: [
             { set: 'Parent Level Set' },
             { set: 'Option Level Set', ml: 30 },
@@ -208,7 +206,6 @@ describe('GearDbService', () => {
       crafting: [
         {
           name: 'Set Crafting',
-          hiddenFromAffixSearch: false,
           options: [
             { set: 'Other Set' },
             { set: 'Matching Set' },

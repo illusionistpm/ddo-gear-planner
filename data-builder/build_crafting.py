@@ -36,8 +36,7 @@ def build_crafting() -> None:
     # loop through all Crafting map entries to identify effect names that need to be transformed
     for CraftingSystemName, CraftingSystemMap in combined.items():
         for itemName, CraftingSelectionList in CraftingSystemMap.items():
-            # sometimes there is a non list entry inside the Crafting::Item element
-            # example : "hiddenFromAffixSearch" = true
+            # skip anything that isn't a list of options (e.g. a per-system flag)
             if type(CraftingSelectionList) != list:
                 # skip non list entries
                 continue

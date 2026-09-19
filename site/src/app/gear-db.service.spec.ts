@@ -268,6 +268,20 @@ describe('GearDbService', () => {
     expect(filtered.get('Trinket')?.map(item => item.name)).not.toContain('Rare Item');
   });
 
+  it('lists every item name across slots, ignoring filters', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const makeItem = (name: string, slot: string) => new Item({
+      name, slot, type: '', ml: 10, affixes: [], sets: [], url: '/page/' + name,
+      crafting: [], quests: [], artifact: false,
+    });
+    service['allGear'] = new Map<string, Array<Item>>([
+      ['Trinket', [makeItem('Trinket A', 'Trinket'), makeItem('Trinket B', 'Trinket')]],
+      ['Belt', [makeItem('Belt A', 'Belt')]],
+    ]);
+
+    expect(service.getAllItemNames().sort()).toEqual(['Belt A', 'Trinket A', 'Trinket B']);
+  });
+
   it('filters items from hidden packs while default hidden pack set shows everything', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const packItem = new Item({

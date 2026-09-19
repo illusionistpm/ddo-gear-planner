@@ -828,6 +828,17 @@ export class GearDbService {
     return this.allGear.get(type) || [];
   }
 
+  /** Every item name in the game data, across all slots, before any filtering. */
+  getAllItemNames(): string[] {
+    const names: string[] = [];
+    for (const items of this.allGear.values()) {
+      for (const item of items) {
+        names.push(item.name);
+      }
+    }
+    return names;
+  }
+
   private getSortIndex(slot: string) {
     switch (slot) {
       case 'Weapon': return 1;

@@ -624,13 +624,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private getValidItemNames(): Set<string> {
-    const validNames = new Set<string>();
-    for (const items of this.gearDb["allGear"].values()) {
-      for (const item of items) {
-        validNames.add(item.name.trim().toLowerCase());
-      }
-    }
-    return validNames;
+    return new Set(this.gearDb.getAllItemNames().map(name => name.trim().toLowerCase()));
   }
 
   private getImportCountBucket(count: number): string {

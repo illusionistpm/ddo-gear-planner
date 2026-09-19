@@ -19,6 +19,7 @@ import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
+import { isAugmentSystemName, isCraftingSlotAvailable } from '../augment-slots';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -213,7 +214,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
               continue;
             }
 
-            if (!this.canUseAugmentSlot(item, craftable)) {
+            if (!isCraftingSlotAvailable(item, craftable)) {
               continue;
             }
 
@@ -254,7 +255,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         if (craftable.selected.affixes.length != 0) {
           continue; // tier already committed to something
         }
-        if (craftable.name.endsWith(' Augment Slot') || craftable.hasCraftingSystemOptions()) {
+        if (isAugmentSystemName(craftable.name) || craftable.hasCraftingSystemOptions()) {
           continue; // augment slots are handled by the scan above
         }
 
@@ -375,15 +376,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return [...sets].sort((a, b) =>
       b[2] - a[2] ||
       a[0].localeCompare(b[0]));
-  }
-
-  private canUseAugmentSlot(item: Item, craftable: Craftable) {
-    if (craftable.name !== 'Augment Slot 2') {
-      return true;
-    }
-
-    const slotOneSystem = item.getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName;
-    return !!slotOneSystem && slotOneSystem !== 'Colorless Augment Slot';
   }
 
   isRealType(bonusType: string) {

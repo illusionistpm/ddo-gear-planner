@@ -14,6 +14,7 @@ import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { perfMeasure, perfStart } from './perf-trace';
 import { affixTypeKey } from './affix-type-key';
+import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, augmentSystemName, isAugmentSystemName, secondAugmentSlotColors } from './augment-slots';
 
 const groupBy = <T, K extends PropertyKey>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
@@ -126,8 +127,8 @@ export class GearDbService {
   }
 
   _mergeAugmentLists(left: string, right: string) {
-    left = left + ' Augment Slot';
-    right = right + ' Augment Slot';
+    left = augmentSystemName(left);
+    right = augmentSystemName(right);
 
     // Remove the empty item from the RHS so we don't end up with 2 of them
     const rightCraftable = this.craftingList.get(right);
@@ -142,7 +143,7 @@ export class GearDbService {
   }
 
   private _sortAugmentList(name: string) {
-    name = name + ' Augment Slot';
+    name = augmentSystemName(name);
     const craftable = this.craftingList.get(name);
     if (!craftable) return;
     const wildcard = craftable.get('*');
@@ -533,13 +534,9 @@ export class GearDbService {
       return [];
     }
 
-    const secondSlotColors = colors.includes('Green')
-      ? colors.filter(color => color !== 'Green')
-      : ['Colorless'];
-
     return [
-      this._buildEssenceCraftingAugmentSlot('Augment Slot 1', colors),
-      this._buildEssenceCraftingAugmentSlot('Augment Slot 2', secondSlotColors),
+      this._buildEssenceCraftingAugmentSlot(AUGMENT_SLOT_1, colors),
+      this._buildEssenceCraftingAugmentSlot(AUGMENT_SLOT_2, secondAugmentSlotColors(colors)),
     ];
   }
 
@@ -567,8 +564,7 @@ export class GearDbService {
     const optionsByCraftingSystem = new Map<string, CraftableOption[]>();
 
     for (const color of colors) {
-      const systemName = `${color} Augment Slot`;
-      optionsByCraftingSystem.set(systemName, this._getAugmentOptionsForColor(color));
+      optionsByCraftingSystem.set(augmentSystemName(color), this._getAugmentOptionsForColor(color));
     }
 
     const craftable = new Craftable(name, []);
@@ -577,7 +573,7 @@ export class GearDbService {
   }
 
   private _getAugmentOptionsForColor(color: string) {
-    const craftable = this.craftingList.get(`${color} Augment Slot`)?.get('*');
+    const craftable = this.craftingList.get(augmentSystemName(color))?.get('*');
     if (!craftable) {
       return [];
     }
@@ -1003,7 +999,7 @@ export class GearDbService {
     let results: Craftable[] = [];
     const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
-    const augmentTypes = Array.from(this.craftingList.keys()).filter(c => c.endsWith(' Augment Slot'));
+    const augmentTypes = Array.from(this.craftingList.keys()).filter(isAugmentSystemName);
     for (const augmentType of augmentTypes) {
       const craftable = this.craftingList.get(augmentType);
       if (!craftable) continue;

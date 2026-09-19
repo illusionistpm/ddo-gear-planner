@@ -15,6 +15,7 @@ import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../pe
 import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
+import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../augment-slots';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -205,33 +206,22 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private normalizeAugmentSlotRows() {
-    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
-    const slotTwo = this.curItem?.getCraftingByName('Augment Slot 2');
+    const slotOne = this.curItem?.getCraftingByName(AUGMENT_SLOT_1);
+    const slotTwo = this.curItem?.getCraftingByName(AUGMENT_SLOT_2);
 
     if (slotOne && slotTwo) {
-      const availableColors = slotOne.selectedCraftingSystemName === 'Green Augment Slot'
-        ? slotTwo.getOptionsByCraftingSystem().keys()
-        : ['Colorless Augment Slot'];
-      slotTwo.setAvailableCraftingSystemOptions(Array.from(availableColors), slotTwo.selectedCraftingSystemName);
+      const availableSystems = availableSecondSlotSystems(
+        slotOne.selectedCraftingSystemName, slotTwo.getOptionsByCraftingSystem().keys());
+      slotTwo.setAvailableCraftingSystemOptions(availableSystems, slotTwo.selectedCraftingSystemName);
 
-      if (!this.canHaveSecondAugmentSlot()) {
+      if (!canHaveSecondAugmentSlot(this.curItem)) {
         slotTwo.selectCraftingSystem('');
       }
     }
   }
 
   private shouldShowCraftingRow(craft: Craftable) {
-    if (craft.name !== 'Augment Slot 2') {
-      return true;
-    }
-
-    return this.canHaveSecondAugmentSlot();
-  }
-
-  private canHaveSecondAugmentSlot() {
-    const slotOne = this.curItem?.getCraftingByName('Augment Slot 1');
-    return !!slotOne?.selectedCraftingSystemName
-      && slotOne.selectedCraftingSystemName !== 'Colorless Augment Slot';
+    return isCraftingSlotAvailable(this.curItem, craft);
   }
 
   private buildCraftingOptionRows(craft: Craftable, includeRank: boolean, includeAllOptions: boolean): CraftingOptionDisplayRow[] {
@@ -291,8 +281,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   updateCraftingSystem(row: CraftingDisplayRow) {
     row.craft.selectCraftingSystem(row.craft.selectedCraftingSystemName);
-    if (row.craft.name === 'Augment Slot 1' && !this.canHaveSecondAugmentSlot()) {
-      this.curItem?.getCraftingByName('Augment Slot 2')?.selectCraftingSystem('');
+    if (row.craft.name === AUGMENT_SLOT_1 && !canHaveSecondAugmentSlot(this.curItem)) {
+      this.curItem?.getCraftingByName(AUGMENT_SLOT_2)?.selectCraftingSystem('');
     }
     this.loadedCraftingOptions.delete(row.craft);
     this.rankedCraftingOptions.delete(row.craft);

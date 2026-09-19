@@ -1,5 +1,6 @@
 import { CraftableOption } from './craftable-option';
 import { AffixService } from './affix.service';
+import { isAugmentSystemName } from './augment-slots';
 
 export class Craftable {
     name!: string;
@@ -13,11 +14,7 @@ export class Craftable {
 
     constructor(name: string, options: Array<CraftableOption>, addEmptyOption: boolean = true) {
         // Mark all of the traditional, "colored" augment systems. They're numerous and get filtered out sometimes.
-        ['Blue ', 'Yellow ', 'Red ', 'Purple ', 'Orange ', 'Green ', 'Colorless '].forEach(color => {
-            if (name && name.startsWith(color)) {
-                this.isColoredAugmentSystem = true;
-            }
-        });
+        this.isColoredAugmentSystem = !!name && isAugmentSystemName(name);
 
         this.name = name;
         if (addEmptyOption) {

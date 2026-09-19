@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 
+import { RawCraftingData, RawEssenceCraftingData, RawItem, RawSetData } from './game-data-types';
+
+/** A dynamically imported JSON module's value, whether or not the bundler wraps it in `default`. */
+function jsonModuleValue<T>(module: { default?: T }): T {
+  return module.default ?? (module as T);
+}
+
 /**
  * Loads the large game-data JSON files (items, crafting, essence crafting, sets) via
  * dynamic import so they land in their own lazy chunks instead of being inlined into
@@ -10,10 +17,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GameDataService {
-  items!: Array<any>;
-  crafting!: Record<string, any>;
-  essenceCrafting!: Record<string, any>;
-  sets!: Record<string, any>;
+  items!: RawItem[];
+  crafting!: RawCraftingData;
+  essenceCrafting!: RawEssenceCraftingData;
+  sets!: RawSetData;
 
   private loadPromise?: Promise<void>;
 
@@ -25,10 +32,10 @@ export class GameDataService {
         import('src/assets/essence-crafting.json'),
         import('src/assets/sets.json'),
       ]).then(([items, crafting, essenceCrafting, sets]) => {
-        this.items = (items as any).default ?? (items as any);
-        this.crafting = (crafting as any).default ?? (crafting as any);
-        this.essenceCrafting = (essenceCrafting as any).default ?? (essenceCrafting as any);
-        this.sets = (sets as any).default ?? (sets as any);
+        this.items = jsonModuleValue<RawItem[]>(items);
+        this.crafting = jsonModuleValue<RawCraftingData>(crafting);
+        this.essenceCrafting = jsonModuleValue<RawEssenceCraftingData>(essenceCrafting);
+        this.sets = jsonModuleValue<RawSetData>(sets);
       });
     }
     return this.loadPromise;

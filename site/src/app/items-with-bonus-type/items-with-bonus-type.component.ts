@@ -2,7 +2,7 @@ import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { GearDbService } from '../gear-db.service';
+import { GearDbService, SetAffixMatch } from '../gear-db.service';
 import { EquippedService } from '../equipped.service';
 import { ExternalAffixEntry } from '../external-affix';
 import { Item } from '../item';
@@ -78,8 +78,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   craftIntoEquippedOptions: Map<string, CraftableOption> = new Map<string, CraftableOption>();
   selectedCraftSlot: any;
 
-  sets: Array<[string, number, number]> = [];
-  unreachableSets: Array<[string, number, number]> = [];
+  sets: SetAffixMatch[] = [];
+  unreachableSets: SetAffixMatch[] = [];
   private equippedSetCounts = new Map<string, number>();
 
   setMatches: Array<[string, Array<Affix>, Array<Item>]> = [];
@@ -354,9 +354,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.refreshMatches();
   }
 
-  private _sortSetsByValue(sets: Array<[string, number, number]>): Array<[string, number, number]> {
+  private _sortSetsByValue(sets: SetAffixMatch[]): SetAffixMatch[] {
     return [...sets].sort((a, b) =>
-      Number(b[2]) - Number(a[2]) ||
+      b[2] - a[2] ||
       a[0].localeCompare(b[0]));
   }
 

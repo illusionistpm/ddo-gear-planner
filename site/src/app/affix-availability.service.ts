@@ -117,11 +117,7 @@ export class AffixAvailabilityService {
     const slots = Array.from(new Set(items.map((item: { slot: string }) => item.slot)));
 
     const setSources: AvailabilitySetSource[] = (this.gearDB.findSetsWithAffixAndType(affixName, bonusType) || [])
-      .map((entry: [string, number, string | number]) => ({
-        setName: entry[0],
-        threshold: Number(entry[1]),
-        value: Number(entry[2])
-      }));
+      .map(([setName, threshold, value]) => ({ setName, threshold, value }));
 
     // findAugmentsWithAffixAndType returns one (often empty) craftable per
     // augment colour, so count the actual options, not the craftables.

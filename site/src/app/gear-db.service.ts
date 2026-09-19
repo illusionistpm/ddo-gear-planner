@@ -14,11 +14,13 @@ import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { perfMeasure, perfStart } from './perf-trace';
 
-const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+const groupBy = <T, K extends PropertyKey>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     (groups[key(item)] ||= []).push(item);
     return groups;
   }, {} as Record<K, T[]>);
+
+export type SetAffixMatch = [setName: string, threshold: number, value: number];
 
 export interface SetBonusThreshold {
   threshold: number;
@@ -103,7 +105,6 @@ export class GearDbService {
   private augmentHostSlotsIndex: Map<string, Set<string>> | null = null;
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
-  bestValues: Map<any, number> = new Map<any, number>();
 
   constructor(
     public essenceCrafting: EssenceCraftingService,
@@ -173,19 +174,15 @@ export class GearDbService {
     // The craftables come in as raw JSON, but we'd really like them as their proper types. Build that now.
     this.craftingList = new Map<string, Map<string, Craftable>>();
 
-    const rawData = this.gameData.crafting as Record<string, Record<string, any>>;
+    const rawData = this.gameData.crafting;
     Object.keys(rawData).forEach((key) => {
       const innerMap = new Map<string, Craftable>();
       const keyData = rawData[key];
       Object.keys(keyData).forEach((innerKey) => {
-        // HACK! I probably need to fix the JSON format to remove this
-        if (innerKey === 'hiddenFromAffixSearch') {
-          return;
-        }
-
-        const rawOptions = keyData[innerKey] as Array<any>;
-        const options = rawOptions.map((option: any) => new CraftableOption(option));
-        const craftable = new Craftable(key, options, (keyData[innerKey] as any)['hiddenFromAffixSearch']);
+        const options = keyData[innerKey].map(option => new CraftableOption(option));
+        // crafting.json carries no hiddenFromAffixSearch flag
+        // (data-builder/build_crafting.py drops non-list entries).
+        const craftable = new Craftable(key, options, false);
         innerMap.set(innerKey, craftable);
       });
       this.craftingList.set(key, innerMap);
@@ -470,7 +467,7 @@ export class GearDbService {
       skippedDuplicateCraftingOptionListCount: searchableCraftingSystemCount - processedCraftingOptionLists.size
     });
 
-    const rawSetList = this.gameData.sets as Record<string, any[]>;
+    const rawSetList = this.gameData.sets;
     const setsDone = perfStart('GearDbService.buildAffixToBonusTypes.sets');
     let setCount = 0;
     let setThresholdCount = 0;
@@ -484,7 +481,7 @@ export class GearDbService {
       for (const threshold of rawSetList[setName]) {
         setThresholdCount++;
         setAffixCount += threshold.affixes?.length || 0;
-        this._addAffixesToMap(affixToBonusTypes, threshold.affixes, universalTracker);
+        this._addAffixesToMap(affixToBonusTypes, threshold.affixes.map(affix => new Affix(affix)), universalTracker);
       }
     }
     setsDone({ setCount, setThresholdCount, setAffixCount });
@@ -516,8 +513,7 @@ export class GearDbService {
       }
 
       for (const essenceCraftingSlot of essenceCraftingSlots) {
-        const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
-        const locations = essenceCraftingData['itemTypes']?.[essenceCraftingSlot];
+        const locations = this.gameData.essenceCrafting.itemTypes[essenceCraftingSlot];
         if (locations) {
           const ml = maxLevel;
           const craftingOptions = this.essenceCrafting.getValuesForML(essenceCraftingSlot, ml);
@@ -897,8 +893,8 @@ export class GearDbService {
     this._getAugmentHostSlotsIndex();
   }
 
-  findGearInSet(setName: string) {
-    const results: any[] = [];
+  findGearInSet(setName: string): Item[] {
+    const results: Item[] = [];
     const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
 
@@ -974,12 +970,13 @@ export class GearDbService {
     return slots;
   }
 
-  findSetsWithAffixAndType(affixName: string, bonusType: string) {
-    const results: any[] = [];
+  /** Sets granting the affix + bonus type. */
+  findSetsWithAffixAndType(affixName: string, bonusType: string): SetAffixMatch[] {
+    const results: SetAffixMatch[] = [];
     const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
 
-    const rawSetList = this.gameData.sets as Record<string, any[]>;
+    const rawSetList = this.gameData.sets;
     for (const setName of Object.getOwnPropertyNames(rawSetList)) {
       if (!this._isSetInLevelRange(setName, minLevel, maxLevel)) {
         continue;
@@ -991,7 +988,7 @@ export class GearDbService {
           // an umbrella affix (e.g. "Universal Spell Lore") also supplies each
           // affix that umbrella resolves to (e.g. "Kinetic Lore").
           if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
-            results.push([setName, threshold.threshold, affix.value]);
+            results.push([setName, threshold.threshold, Number(affix.value)]);
           }
         }
       }

@@ -15,8 +15,7 @@ export class EssenceCraftingService {
   maxLevel: number;
 
   constructor(private gameData: GameDataService) {
-    const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
-    this.maxLevel = Number(essenceCraftingData['maxLevel'] ?? 34);
+    this.maxLevel = Number(this.gameData.essenceCrafting.maxLevel ?? 34);
     this.levels = [];
     for (let ml = this.maxLevel; ml >= 1; ml--) {
       this.levels.push(ml);
@@ -81,7 +80,7 @@ export class EssenceCraftingService {
 
   getAllAffixesForML(ml: number): Array<Affix> {
     let affixes: Array<Affix> = [];
-    const itemTypes = Object.keys(this.gameData.essenceCrafting['itemTypes'] as Record<string, any>);
+    const itemTypes = Object.keys(this.gameData.essenceCrafting.itemTypes);
     for (const itemType of itemTypes) {
       const craftables = this._getOptionsForItemType(itemType, ml);
       affixes = affixes.concat(craftables.reduce((accum: Array<Affix>, a: Craftable) =>
@@ -103,19 +102,19 @@ export class EssenceCraftingService {
   }
 
   private _getOptionsForItemSlot(itemType: string, essenceCraftingSlot: string, ml: number): Craftable {
-    const essenceCraftingData = this.gameData.essenceCrafting as Record<string, any>;
-    const affixList = (essenceCraftingData['itemTypes']?.[itemType]?.[essenceCraftingSlot] ?? []) as Array<string>;
+    const essenceCraftingData = this.gameData.essenceCrafting;
+    const affixList = essenceCraftingData.itemTypes[itemType]?.[essenceCraftingSlot] ?? [];
     const cappedMl = Math.min(Math.max(ml, 1), this.maxLevel);
     
     const slotOptions: Array<CraftableOption> = [];
     for (const optionName of affixList) {
       const option = new CraftableOption(null);
-      const progression = essenceCraftingData['progression'] as Record<string, Array<number>>;
-      const value = (progression[optionName]?.[cappedMl - 1] ?? 0) as number;
-      const affixNames = (essenceCraftingData['affixes'] ?? {}) as Record<string, string | Array<string>>;
+      const progression = essenceCraftingData.progression;
+      const value = progression[optionName]?.[cappedMl - 1] ?? 0;
+      const affixNames = essenceCraftingData.affixes ?? {};
       const mappedAffixes = affixNames[optionName] ?? optionName;
       const optionAffixes = Array.isArray(mappedAffixes) ? mappedAffixes : [mappedAffixes];
-      const bonusTypes = essenceCraftingData['bonusTypes'] as Record<string, string>;
+      const bonusTypes = essenceCraftingData.bonusTypes;
 
       for (let affix of optionAffixes) {
         let type = 'Enhancement';

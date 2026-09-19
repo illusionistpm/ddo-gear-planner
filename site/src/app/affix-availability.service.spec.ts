@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AppModule } from './app.module';
 import { AffixAvailabilityService } from './affix-availability.service';
-import { GearDbService } from './gear-db.service';
+import { GearDbService, SetAffixMatch } from './gear-db.service';
 import { FiltersService } from './filters.service';
 
 describe('AffixAvailabilityService', () => {
@@ -23,13 +23,13 @@ describe('AffixAvailabilityService', () => {
 
   function stubSources(
     items: Array<{ slot: string }>,
-    sets: Array<[string, number, string | number]> = [],
+    sets: SetAffixMatch[] = [],
     augmentOptionCount = 0,
     augmentSlots: string[] = [],
     setSlots: string[] = []
   ) {
     spyOn(gearDB, 'findGearWithAffixAndType').and.returnValue(items as any);
-    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue(sets as any);
+    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue(sets);
     spyOn(gearDB, 'findAugmentsWithAffixAndType').and.returnValue(
       augmentOptionCount
         ? [{ name: 'Blue Augment Slot', options: new Array(augmentOptionCount).fill({}) } as any]
@@ -77,7 +77,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('flags a bonus type available only through a set as set-only', () => {
-    stubSources([], [['Elder\'s Knowledge', 2, '5']]);
+    stubSources([], [['Elder\'s Knowledge', 2, 5]]);
 
     const info = service.getAvailability('Fire Intensity', 'Legendary');
 
@@ -120,7 +120,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('treats a no-item bonus type as set-only even when an augment also grants it', () => {
-    stubSources([], [['Arcsteel Battlemage', 3, '5']], 1, ['Trinket']);
+    stubSources([], [['Arcsteel Battlemage', 3, 5]], 1, ['Trinket']);
 
     expect(service.getAvailability('Kinetic Lore', 'Artifact').tier).toBe('set-only');
   });
@@ -178,7 +178,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('does not eliminate a bonus type that a set still backs after its slots fill', () => {
-    stubSources(itemsAcrossSlots(1), [['Some Set', 3, '5']]);
+    stubSources(itemsAcrossSlots(1), [['Some Set', 3, 5]]);
 
     const info = service.getRemainingAvailability('Kinetic Lore', 'Artifact', new Set(['Belt']));
 
@@ -236,7 +236,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('drops a set-only type when the set can no longer reach its piece threshold', () => {
-    stubSources([], [['Big Set', 3, '5']], 0, [], ['Belt', 'Cloak', 'Trinket']);
+    stubSources([], [['Big Set', 3, 5]], 0, [], ['Belt', 'Cloak', 'Trinket']);
 
     const info = service.getRemainingAvailability('X', 'Y', new Set(['Cloak']), new Map());
 
@@ -245,7 +245,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('keeps a set-only type when equipped pieces plus open slots still reach the threshold', () => {
-    stubSources([], [['Big Set', 3, '5']], 0, [], ['Belt', 'Cloak', 'Trinket', 'Ring1']);
+    stubSources([], [['Big Set', 3, 5]], 0, [], ['Belt', 'Cloak', 'Trinket', 'Ring1']);
 
     const info = service.getRemainingAvailability(
       'X', 'Y', new Set(['Cloak', 'Ring1']), new Map([['Big Set', 1]])
@@ -256,7 +256,7 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('leaves set reachability unchecked when no equipped-set context is given', () => {
-    stubSources([], [['Big Set', 3, '5']], 0, [], ['Belt']);
+    stubSources([], [['Big Set', 3, 5]], 0, [], ['Belt']);
 
     expect(service.getRemainingAvailability('X', 'Y', new Set(['Cloak'])).tier).toBe('set-only');
   });

@@ -68,7 +68,7 @@ export class AffixService {
     const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
     if (fixedAffixes) {
       for (const fixedAffix of fixedAffixes) {
-        const inheritsValue = (fixedAffix as any).value === '<ValueAlreadyParsed>';
+        const inheritsValue = fixedAffix.value === '<ValueAlreadyParsed>';
         const affix = new Affix(fixedAffix);
         if (affix.type === '<TypeAlreadyParsed>') {
           affix.type = affixGroup.type;

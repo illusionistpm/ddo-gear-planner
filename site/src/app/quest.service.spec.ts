@@ -14,6 +14,8 @@ describe('QuestService', () => {
   it('treats regular raid drops as raid loot', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({
+      slot: 'Trinket',
+      ml: 1,
       name: 'Regular Raid Drop',
       quests: ['Too Hot to Handle'],
     });
@@ -24,6 +26,8 @@ describe('QuestService', () => {
   it('treats Ritual Table crafted items as raid loot', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({
+      slot: 'Trinket',
+      ml: 1,
       name: 'Bastard Sword of the Undying Age',
       quests: ['Ritual Table'],
     });
@@ -34,6 +38,8 @@ describe('QuestService', () => {
   it('does not treat Sharn quest rare drops as raid loot', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({
+      slot: 'Trinket',
+      ml: 1,
       name: 'Sigil of Regalport',
       pack: 'Masterminds of Sharn',
       rare: true,
@@ -46,6 +52,8 @@ describe('QuestService', () => {
   it('uses normalized Sharn quests source labels directly', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({
+      slot: 'Trinket',
+      ml: 1,
       name: 'Sigil of Regalport',
       pack: 'Masterminds of Sharn',
       rare: true,
@@ -58,6 +66,8 @@ describe('QuestService', () => {
   it('uses the first quest as the default loot source label', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({
+      slot: 'Trinket',
+      ml: 1,
       name: 'Regular Quest Drop',
       quests: ['The Snitch', 'Partycrashers'],
     });

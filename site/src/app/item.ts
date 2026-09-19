@@ -2,6 +2,10 @@ import { Affix } from './affix';
 import { AffixService } from './affix.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
+import { CraftableInit, RawItem } from './game-data-types';
+
+/** Raw item data, optionally with crafting slots given as objects rather than system names. */
+export type ItemInit = Omit<RawItem, 'crafting'> & { crafting?: Array<string | CraftableInit | Craftable> };
 import itemTypesList from 'src/assets/item-types.json';
 
 const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
@@ -22,45 +26,58 @@ export class Item {
 
     rawCrafting: Array<string> = Array<string>();
 
-    constructor(json: any) {
-        if (json) {
-            this.name = json.name;
-            this.slot = json.slot;
-            this.type = json.type || '';
-            this.ml = Number(json.ml || 0);
-            for (const affixJSON of json.affixes || []) {
-                this.affixes.push(new Affix(affixJSON));
-            }
-            this.sets = json.sets || [];
-            this.url = json.url || '';
-            this.pack = json.pack || '';
-            this.rare = !!json.rare;
-            this.rawCrafting = (json.rawCrafting || json.crafting || [])
-                .filter((crafting: any) => typeof crafting === 'string');
-            this.crafting = Array<Craftable>();
-            if (json.crafting) {
-                for (const craftingJSON of json.crafting) {
-                    if (craftingJSON instanceof Craftable) {
-                        const selectedDescription = craftingJSON.getSelectedParamDescription();
-                        const options = craftingJSON.options.map(option => new CraftableOption(option));
-                        const crafting = new Craftable(craftingJSON.name, options, craftingJSON.hiddenFromAffixSearch, false);
-                        if (craftingJSON.hasCraftingSystemOptions()) {
-                            crafting.setCraftingSystemOptions(
-                                craftingJSON.getOptionsByCraftingSystem(),
-                                craftingJSON.selectedCraftingSystemName
-                            );
-                        }
-                        crafting.selectByParamDescription(selectedDescription);
-                        this.crafting.push(crafting);
-                    } else {
-                        const options = (craftingJSON.options || []).map((option: any) => new CraftableOption(option));
-                        this.crafting.push(new Craftable(craftingJSON.name, options, craftingJSON.hiddenFromAffixSearch, true));
-                    }
-                }
-            }
-            this.quests = json.quests || [];
-            this.artifact = !!json.artifact;
+    /**
+     * Builds from raw items.json data (whose `crafting` lists system names,
+     * resolved later by GearDbService), from an init object whose crafting
+     * slots are objects or Craftables, or as a deep copy of another Item.
+     * Craftables are always deep-copied.
+     */
+    constructor(json: ItemInit | Item | null) {
+        if (!json) {
+            return;
         }
+        this.name = json.name;
+        this.slot = json.slot;
+        this.type = json.type || '';
+        this.ml = Number(json.ml || 0);
+        for (const affixJSON of json.affixes || []) {
+            this.affixes.push(new Affix(affixJSON));
+        }
+        this.sets = (json instanceof Item ? json.sets : json.sets) || [];
+        this.url = json.url || '';
+        this.pack = json.pack || '';
+        this.rare = !!json.rare;
+        this.quests = json.quests || [];
+        this.artifact = !!json.artifact;
+        this.crafting = Array<Craftable>();
+
+        if (json instanceof Item) {
+            this.rawCrafting = json.rawCrafting;
+        }
+        for (const crafting of json.crafting || []) {
+            if (typeof crafting === 'string') {
+                this.rawCrafting.push(crafting);
+            } else if (crafting instanceof Craftable) {
+                this.crafting.push(Item.copyCraftable(crafting));
+            } else {
+                const options = (crafting.options || []).map(option => new CraftableOption(option));
+                this.crafting.push(new Craftable(crafting.name, options, !!crafting.hiddenFromAffixSearch, true));
+            }
+        }
+    }
+
+    private static copyCraftable(source: Craftable): Craftable {
+        const selectedDescription = source.getSelectedParamDescription();
+        const options = source.options.map(option => new CraftableOption(option));
+        const crafting = new Craftable(source.name, options, source.hiddenFromAffixSearch, false);
+        if (source.hasCraftingSystemOptions()) {
+            crafting.setCraftingSystemOptions(
+                source.getOptionsByCraftingSystem(),
+                source.selectedCraftingSystemName
+            );
+        }
+        crafting.selectByParamDescription(selectedDescription);
+        return crafting;
     }
 
     getSets(): string[] {

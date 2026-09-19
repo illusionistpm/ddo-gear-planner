@@ -1,5 +1,6 @@
 import { Affix } from './affix';
 import { AffixService } from './affix.service';
+import { CraftableOptionInit } from './game-data-types';
 
 export class CraftableOption {
     affixes: Array<Affix> = new Array<Affix>();
@@ -7,7 +8,7 @@ export class CraftableOption {
     name: string = '';
     ml: number = 0;
 
-    constructor(json: any) {
+    constructor(json: CraftableOptionInit | null) {
         this.affixes = new Array<Affix>();
 
         if (json) {
@@ -17,7 +18,7 @@ export class CraftableOption {
                 }
             }
 
-            this.set = json.set;
+            this.set = json.set ?? '';
 
             if (json.name) {
                 this.name = json.name;

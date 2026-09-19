@@ -1,3 +1,5 @@
+import { AffixInit } from './game-data-types';
+
 export class Affix {
     name: string = '';
     value: number = 0;
@@ -8,7 +10,7 @@ export class Affix {
         return type !== 'Bool';
     }
 
-    constructor(json: any) {
+    constructor(json: AffixInit | null) {
         this.name = json?.name ?? '';
         this.value = Number(json?.value ?? 0);
         this.type = json?.type ?? '';

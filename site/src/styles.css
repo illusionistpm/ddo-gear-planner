@@ -54,11 +54,16 @@
   /* Affix ranking: the colour and glow for an affix better than anything else available. */
   --rank-better-than-best-color: #7c3aed;
   --rank-better-than-best-glow: 0 0 8px rgba(124, 58, 237, 0.3);
-  --rank-best-glow: 0 0 8px rgba(16, 185, 129, 0.3);
+  --success-glow-rgb: 16, 185, 129;
+  --rank-best-glow: 0 0 8px rgba(var(--success-glow-rgb), 0.3);
   --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   --rank-mixed-gradient-end: #f97316;
   /* Outline on the row/chip an affix chip is pointing at. */
   --highlight-outline-color: rgba(var(--primary-color-rgb), 0.7);
+  /* Row backing the item currently previewed in a drawer. */
+  --selected-row-bg: rgba(var(--primary-color-rgb), 0.1);
+  /* Hover/focus colour for a destructive text button. Same in both themes for now. */
+  --danger-strong-text-color: #b91c1c;
   --bs-body-bg: var(--background-color);
   --bs-body-color: var(--text-primary);
   --bs-border-color: var(--border-color);
@@ -110,10 +115,13 @@
   --rare-badge-border-color: #7c3aed;
   --rank-better-than-best-color: #a78bfa;
   --rank-better-than-best-glow: 0 0 8px rgba(167, 139, 250, 0.35);
-  --rank-best-glow: 0 0 8px rgba(16, 185, 129, 0.3);
+  --success-glow-rgb: 16, 185, 129;
+  --rank-best-glow: 0 0 8px rgba(var(--success-glow-rgb), 0.3);
   --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   --rank-mixed-gradient-end: #f97316;
   --highlight-outline-color: rgba(147, 197, 253, 0.9);
+  --selected-row-bg: rgba(var(--primary-color-rgb), 0.18);
+  --danger-strong-text-color: #b91c1c;
   --chip-border-color: #64748b;
   --progress-track-color: #475569;
   --selected-bg: rgba(34, 197, 94, 0.18);

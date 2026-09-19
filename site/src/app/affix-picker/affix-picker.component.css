@@ -94,7 +94,7 @@
 
 .clear-affixes-button:hover,
 .clear-affixes-button:focus {
-  color: #b91c1c;
+  color: var(--danger-strong-text-color);
 }
 
 .selected-affixes-panel {
@@ -141,17 +141,17 @@
 .affix-next-chip,
 .affix-next-chip:hover,
 .affix-next-chip:focus {
-  background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
-  border-color: #059669;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--success-color) 0%, var(--success-gradient-end) 100%);
+  border-color: var(--success-gradient-end);
+  box-shadow: 0 0 0 3px rgba(var(--success-glow-rgb), 0.2);
+  color: var(--on-accent-text-color);
 }
 
 .affix-next-chip-badge {
   background: rgba(255, 255, 255, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 999px;
-  color: #ffffff;
+  color: var(--on-accent-text-color);
   font-size: 0.68rem;
   font-weight: 900;
   line-height: 1;

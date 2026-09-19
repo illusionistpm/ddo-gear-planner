@@ -59,25 +59,20 @@
    external value is colored the same way a gear-supplied one would be. */
 .BetterThanBest {
     font-weight: 700;
-    color: #7c3aed;
-    text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
-}
-
-:host-context(.dark-theme) .BetterThanBest {
-    color: #a78bfa;
-    text-shadow: 0 0 8px rgba(167, 139, 250, 0.35);
+    color: var(--rank-better-than-best-color);
+    text-shadow: var(--rank-better-than-best-glow);
 }
 
 .Best {
     font-weight: 700;
     color: var(--success-color);
-    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    text-shadow: var(--rank-best-glow);
 }
 
 .BestTied {
     font-weight: 700;
     color: var(--primary-color);
-    text-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+    text-shadow: var(--rank-best-tied-glow);
 }
 
 .Outranked {
@@ -95,14 +90,14 @@
     color: var(--danger-color);
     font-weight: 600;
     text-decoration: line-through;
-    text-decoration-color: rgba(239, 68, 68, 0.5);
+    text-decoration-color: rgba(var(--danger-color-rgb), 0.5);
 }
 
 .Mixed {
     font-style: italic;
     font-weight: 600;
     color: var(--warning-color);
-    background: linear-gradient(45deg, var(--warning-color), #f97316);
+    background: linear-gradient(45deg, var(--warning-color), var(--rank-mixed-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

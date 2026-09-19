@@ -10,6 +10,7 @@
   --success-color: #16a34a;
   --warning-color: #d97706;
   --danger-color: #ef4444;
+  --danger-color-rgb: 239, 68, 68;
   --background-color: #f8fafc;
   --surface-color: #ffffff;
   --surface-elevated-color: #ffffff;
@@ -42,10 +43,20 @@
   --owned-badge-text-color: #166534;
   --owned-badge-bg: #dcfce7;
   --raid-badge-bg: #fef3c7;
+  --raid-badge-border-color: #b45309;
+  --rare-badge-border-color: #7c3aed;
   --rare-badge-bg: #ede9fe;
   --artifact-badge-text-color: #92400e;
   --artifact-badge-bg: #fef3c7;
   --artifact-badge-border-color: #b45309;
+  /* Affix ranking: the colour and glow for an affix better than anything else available. */
+  --rank-better-than-best-color: #7c3aed;
+  --rank-better-than-best-glow: 0 0 8px rgba(124, 58, 237, 0.3);
+  --rank-best-glow: 0 0 8px rgba(16, 185, 129, 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  --rank-mixed-gradient-end: #f97316;
+  /* Outline on the row/chip an affix chip is pointing at. */
+  --highlight-outline-color: rgba(var(--primary-color-rgb), 0.7);
   --bs-body-bg: var(--background-color);
   --bs-body-color: var(--text-primary);
   --bs-border-color: var(--border-color);
@@ -72,6 +83,7 @@
   --success-color: #22c55e;
   --warning-color: #f59e0b;
   --danger-color: #f87171;
+  --danger-color-rgb: 248, 113, 113;
   --background-color: #0f172a;
   --surface-color: #1e293b;
   --surface-elevated-color: #263449;
@@ -90,6 +102,14 @@
   --row-bg: #1e293b;
   --row-alt-bg: #263449;
   --chip-bg: #162033;
+  --raid-badge-border-color: #b45309;
+  --rare-badge-border-color: #7c3aed;
+  --rank-better-than-best-color: #a78bfa;
+  --rank-better-than-best-glow: 0 0 8px rgba(167, 139, 250, 0.35);
+  --rank-best-glow: 0 0 8px rgba(16, 185, 129, 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  --rank-mixed-gradient-end: #f97316;
+  --highlight-outline-color: rgba(147, 197, 253, 0.9);
   --chip-border-color: #64748b;
   --progress-track-color: #475569;
   --selected-bg: rgba(34, 197, 94, 0.18);

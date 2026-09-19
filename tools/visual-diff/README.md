@@ -37,6 +37,8 @@ URL, so a pinned URL pins the content.
 - **Machine-local.** Font rasterisation and GPU compositing differ across
   machines, so a baseline is only valid for before/after on one box. Don't
   commit the PNGs or use them as a CI gate (`shots/` is gitignored).
-- **Only what it drives.** Anything not scripted is unguarded.
+- **Only what it drives.** Anything not scripted is unguarded. Known gaps: the
+  pinned build never produces the `BetterThanBest`, `BestTied`, `Penalty` or
+  `Mixed` affix-rank classes, so rules for those are unverified here.
 - **Signed out.** Auth0 is out of scope, so My Builds, the save dialog and
   short links are captured in their signed-out form only.

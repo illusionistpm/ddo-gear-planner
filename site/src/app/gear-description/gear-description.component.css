@@ -10,19 +10,14 @@
 /* Modern affix ranking colors */
 .BetterThanBest {
     font-weight: 700;
-    color: #7c3aed; /* Modern purple */
-    text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
-}
-
-:host-context(.dark-theme) .BetterThanBest {
-    color: #a78bfa;
-    text-shadow: 0 0 8px rgba(167, 139, 250, 0.35);
+    color: var(--rank-better-than-best-color);
+    text-shadow: var(--rank-better-than-best-glow);
 }
 
 .Best {
     font-weight: 700;
     color: var(--success-color);
-    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    text-shadow: var(--rank-best-glow);
 }
 
 .SmallFont {
@@ -44,7 +39,7 @@ select.form-control.SmallFont {
 .BestTied {
     font-weight: 700;
     color: var(--primary-color);
-    text-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+    text-shadow: var(--rank-best-tied-glow);
 }
 
 .Outranked {
@@ -62,14 +57,14 @@ select.form-control.SmallFont {
     color: var(--danger-color);
     font-weight: 600;
     text-decoration: line-through;
-    text-decoration-color: rgba(239, 68, 68, 0.5);
+    text-decoration-color: rgba(var(--danger-color-rgb), 0.5);
 }
 
 .Mixed {
     font-style: italic;
     font-weight: 600;
     color: var(--warning-color);
-    background: linear-gradient(45deg, var(--warning-color), #f97316);
+    background: linear-gradient(45deg, var(--warning-color), var(--rank-mixed-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -115,12 +110,8 @@ select.form-control.SmallFont {
 
 .row.highlighted-affix-row {
     box-shadow: inset 0.25rem 0 0 var(--primary-color);
-    outline: 1px solid rgba(37, 99, 235, 0.7);
+    outline: 1px solid var(--highlight-outline-color);
     outline-offset: -1px;
-}
-
-:host-context(.dark-theme) .row.highlighted-affix-row {
-    outline-color: rgba(147, 197, 253, 0.9);
 }
 
 a {
@@ -154,13 +145,13 @@ a {
 }
 
 .raid-loot-badge {
-    border: 1px solid #b45309;
+    border: 1px solid var(--raid-badge-border-color);
     background: var(--raid-badge-bg);
     color: var(--raid-loot-text-color);
 }
 
 .rare-loot-badge {
-    border: 1px solid #7c3aed;
+    border: 1px solid var(--rare-badge-border-color);
     background: var(--rare-badge-bg);
     color: var(--rare-loot-text-color);
 }

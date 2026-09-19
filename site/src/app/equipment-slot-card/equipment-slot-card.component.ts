@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../analytics.service';
 import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
+import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
@@ -23,6 +24,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
 
   itemName = '';
   isArtifact = false;
+  isRare = false;
+  isRaid = false;
   private slotSubscription?: Subscription;
   private userItemsChangedSubscription?: Subscription;
 
@@ -30,6 +33,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     public equipped: EquippedService,
     public userGear: UserGearService,
     private analytics: AnalyticsService,
+    private questService: QuestService,
     private suggestionDrawer: SuggestionDrawerService,
     private changeDetector: ChangeDetectorRef
   ) { }
@@ -95,10 +99,6 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  getClassForSlot() {
-    return this.isArtifact ? 'MinorArtifact' : '';
-  }
-
   isSlotDisabled() {
     return this.slot === 'Offhand' && this.equipped.isOffhandDisabled();
   }
@@ -119,10 +119,14 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     if (item && item.isValid()) {
       this.itemName = item.name;
       this.isArtifact = !!item.artifact;
+      this.isRare = !!item.rare;
+      this.isRaid = this.questService.isRaidLoot(item);
       return;
     }
 
     this.itemName = '';
     this.isArtifact = false;
+    this.isRare = false;
+    this.isRaid = false;
   }
 }

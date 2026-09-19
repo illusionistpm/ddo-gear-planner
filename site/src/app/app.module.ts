@@ -35,6 +35,7 @@ import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/exter
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
+import { ShrinkToFitDirective } from './shrink-to-fit.directive';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { BuildActionsComponent } from './build-actions/build-actions.component';
         ExternalAffixSlotCardComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
-        BuildActionsComponent
+        BuildActionsComponent,
+        ShrinkToFitDirective
     ],
     imports: [
         AppRoutingModule,

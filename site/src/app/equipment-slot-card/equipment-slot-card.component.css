@@ -27,17 +27,42 @@
     position: relative;
 }
 
-:host-context(.dark-theme) .slot-select-button.btn-secondary,
-:host-context(.dark-theme) .slot-clear-button.btn-secondary {
+.slot-select-button {
+    padding-bottom: 0.3rem;
+    padding-top: 0.2rem;
+}
+
+/* Leave room on the right of the item name for the hover-revealed clear (x) button. */
+.slot-select-button.has-clear .item-name {
+    padding-right: 1.5rem;
+}
+
+/*
+ * Explicit sizing: as a direct child of .row, Bootstrap would stretch it to 100% width.
+ * It is centered on the first line of the item name: button top padding (0.2rem) +
+ * slot-name row (1.1rem) + half the item-name line (0.75rem).
+ */
+.slot-clear-button {
+    max-width: 1rem;
+    padding: 0;
+    right: 0.5rem;
+    top: 2.05rem;
+    width: 1rem;
+}
+
+.slot-header:hover .slot-clear-button,
+.slot-header:focus-within .slot-clear-button {
+    opacity: 1;
+}
+
+:host-context(.dark-theme) .slot-select-button.btn-secondary {
     background: var(--surface-subtle-color);
     border: 0;
     color: var(--text-primary);
 }
 
 :host-context(.dark-theme) .slot-select-button.btn-secondary:hover,
-:host-context(.dark-theme) .slot-select-button.btn-secondary:focus,
-:host-context(.dark-theme) .slot-clear-button.btn-secondary:hover,
-:host-context(.dark-theme) .slot-clear-button.btn-secondary:focus {
+:host-context(.dark-theme) .slot-select-button.btn-secondary:focus {
     background: var(--surface-muted-color);
     color: var(--text-primary);
 }
@@ -60,51 +85,80 @@
     font-size: 0.68rem;
     font-weight: 900;
     line-height: 1;
-    margin-left: 0.35rem;
     padding: 0.18rem 0.4rem;
     text-transform: uppercase;
     vertical-align: middle;
 }
 
-.user-owned-star {
+.slot-name-row {
     align-items: center;
-    color: #fbbf24;
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 1.2em;
-    line-height: 1;
-    position: relative;
-    top: -4px;
-    transition: all 0.2s ease-in-out;
-    vertical-align: middle;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    min-height: 1.1rem;
 }
 
-.user-owned-star:hover {
-  opacity: 0.8;
+.slot-badges {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+.loot-badge {
+    align-items: center;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0.05rem 0.3rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.raid-loot-badge {
+    background: var(--raid-badge-bg);
+    border: 1px solid #b45309;
+    color: var(--raid-loot-text-color);
+}
+
+.rare-loot-badge {
+    background: var(--rare-badge-bg);
+    border: 1px solid #7c3aed;
+    color: var(--rare-loot-text-color);
+}
+
+.artifact-loot-badge {
+    background: var(--artifact-badge-bg);
+    border: 1px solid var(--artifact-badge-border-color);
+    color: var(--artifact-badge-text-color);
+}
+
+.slot-name {
+    font-size: 0.875rem;
+    font-variant-caps: all-small-caps;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    opacity: 0.75;
 }
 
 .item-name {
     font-weight: 600;
+    min-height: 1.5em;
 }
 
-.slot-select-button.MinorArtifact,
-.slot-select-button.MinorArtifact .item-name {
-    color: var(--artifact-text-color);
+/*
+ * With nothing equipped the slot name is the card's only label: show it larger and
+ * vertically centered, in a row as tall as the equipped header (slot-name row 1.1rem +
+ * item-name line 1.5rem) so equipping an item doesn't change the card height.
+ */
+.slot-select-button.is-empty .slot-name-row {
+    min-height: 2.6rem;
 }
 
-:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact,
-:host-context(.dark-theme) .slot-select-button.btn-secondary.MinorArtifact .item-name {
-    color: var(--artifact-text-color);
-}
-
-.flat-left {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.flat-right {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+.slot-select-button.is-empty .slot-name {
+    font-size: 1.05rem;
+    opacity: 1;
 }
 
 :host(.disabled-slot) .btn:disabled,

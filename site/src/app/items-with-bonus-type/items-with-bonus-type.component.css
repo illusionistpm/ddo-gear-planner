@@ -1,14 +1,7 @@
-.user-owned-star {
-    color: gold;
-    font-size: 1.2em;
-    vertical-align: middle;
-    cursor: pointer;
-    line-height: 1;
-    position: relative;
-    top: -4px;
-    display: inline-flex;
-    align-items: center;
+.owned-badge {
+    margin-left: 0.25rem;
 }
+
 .row:nth-child(odd) {
     background-color: var(--row-alt-bg);
 }
@@ -211,13 +204,13 @@
 
 .raid-loot-badge {
     border: 1px solid #b45309;
-    background: rgba(245, 158, 11, 0.16);
+    background: var(--raid-badge-bg);
     color: var(--raid-loot-text-color);
 }
 
 .rare-loot-badge {
     border: 1px solid #7c3aed;
-    background: rgba(124, 58, 237, 0.16);
+    background: var(--rare-badge-bg);
     color: var(--rare-loot-text-color);
 }
 

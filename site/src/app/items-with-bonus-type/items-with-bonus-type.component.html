@@ -243,6 +243,10 @@
             <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches, $index)">
               {{item.name}}
             </button>
+            @if (userOwnsItem(item)) {
+              <span class="owned-badge"
+                [title]="getUserItemLocations(item) | userItemLocationTooltip">Owned</span>
+            }
             @if (isRaidLoot(item)) {
               <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
             }
@@ -253,12 +257,6 @@
               <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
             }
             {{findMatchingValue(item)[0]}}
-            @if (userOwnsItem(item)) {
-              <span class="user-owned-star"
-                [title]="getUserItemLocations(item) | userItemLocationTooltip">
-                ★
-              </span>
-            }
           </div>
           <div class="col-2 text-end">{{findMatchingValue(item)[1]}}</div>
         </div>
@@ -276,6 +274,10 @@
                 <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches, $index)">
                   {{item.name}}
                 </button>
+                @if (userOwnsItem(item)) {
+                  <span class="owned-badge"
+                    [title]="getUserItemLocations(item) | userItemLocationTooltip">Owned</span>
+                }
                 @if (isRaidLoot(item)) {
                   <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
                 }
@@ -286,12 +288,6 @@
                   <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
                 }
                 {{findMatchingValue(item)[0]}}
-                @if (userOwnsItem(item)) {
-                  <span class="user-owned-star"
-                    [title]="getUserItemLocations(item) | userItemLocationTooltip">
-                    ★
-                  </span>
-                }
               </div>
               <div class="col-2 text-end">{{findMatchingValue(item)[1]}}</div>
             </div>

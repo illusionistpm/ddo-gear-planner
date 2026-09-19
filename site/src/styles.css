@@ -38,9 +38,12 @@
   --info-chip-hover-text-color: #1e40af;
   --raid-loot-text-color: #92400e;
   --rare-loot-text-color: #5b21b6;
-  --artifact-text-color: #fbbf24;
+  --owned-badge-text-color: #166534;
+  --owned-badge-bg: #dcfce7;
+  --raid-badge-bg: #fef3c7;
+  --rare-badge-bg: #ede9fe;
   --artifact-badge-text-color: #92400e;
-  --artifact-badge-bg: rgba(251, 191, 36, 0.16);
+  --artifact-badge-bg: #fef3c7;
   --artifact-badge-border-color: #b45309;
   --bs-body-bg: var(--background-color);
   --bs-body-color: var(--text-primary);
@@ -96,7 +99,10 @@
   --info-chip-hover-text-color: #eff6ff;
   --raid-loot-text-color: #fbbf24;
   --rare-loot-text-color: #c4b5fd;
-  --artifact-text-color: #fbbf24;
+  --owned-badge-text-color: #86efac;
+  --owned-badge-bg: rgba(34, 197, 94, 0.16);
+  --raid-badge-bg: rgba(245, 158, 11, 0.16);
+  --rare-badge-bg: rgba(124, 58, 237, 0.16);
   --artifact-badge-text-color: #fbbf24;
   --artifact-badge-bg: rgba(251, 191, 36, 0.16);
   --artifact-badge-border-color: rgba(251, 191, 36, 0.65);
@@ -339,6 +345,21 @@ a:focus {
 
 .form-control::placeholder {
   color: var(--text-secondary);
+}
+
+/* Native dropdowns: draw our own chevron so they read as dropdowns in both themes. */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%231e293b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.75rem;
+  cursor: pointer;
+  padding-right: 2.25rem;
+}
+
+:root.dark-theme select.form-control {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f8fafc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
 
 .dropdown-menu,
@@ -1738,4 +1759,26 @@ a:focus {
   .tracked-affixes-workspace > app-tracked-equipment-sidebar {
     display: none;
   }
+}
+
+/*
+ * "Owned" badge shown next to an item the user has in their gear lists (the
+ * tooltip lists where). Self-contained so it can be dropped into any component;
+ * sized to match the per-component .loot-badge (Raid / Rare / Artifact) chips.
+ */
+.owned-badge {
+  align-items: center;
+  background: var(--owned-badge-bg);
+  border: 1px solid var(--success-color);
+  border-radius: 0.25rem;
+  color: var(--owned-badge-text-color);
+  cursor: help;
+  display: inline-flex;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 0.05rem 0.3rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
 }

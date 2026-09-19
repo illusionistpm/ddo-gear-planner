@@ -1,34 +1,42 @@
 <div class="row slot-header">
-  <button type="button" class="btn btn-secondary slot-select-button text-center" [ngClass]="getClassForSlot()"
-    [class.flat-right]="equipped.hasItem(slot)"
-    [class.col-11]="equipped.hasItem(slot)"
-    [class.col-12]="!equipped.hasItem(slot)"
+  <button type="button" class="btn btn-secondary slot-select-button text-start col-12"
+    [class.has-clear]="equipped.hasItem(slot)"
+    [class.is-empty]="!equipped.hasItem(slot)"
     [disabled]="isSlotDisabled()"
     [title]="getSlotTitle()"
     (click)="showSuggestedItems()">
-    <div class='row'>
-      <div class='col-3 text-start'>{{slot}}</div>
-      <div class="col-9 text-end item-name">
-        {{itemName}}
+    <div class="slot-name-row">
+      <span class="slot-name">{{slot}}</span>
+      <span class="slot-badges">
         @if (recommendedStart) {
           <span class="equipment-start-badge">Start Here</span>
         }
         @if (userOwnsItem()) {
-          <span class="user-owned-star"
-            [title]="getUserItemLocations() | userItemLocationTooltip">
-            ★
-          </span>
+          <span class="owned-badge"
+            [title]="getUserItemLocations() | userItemLocationTooltip">Owned</span>
         }
-      </div>
+        @if (isRaid) {
+          <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+        }
+        @if (isRare) {
+          <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+        }
+        @if (isArtifact) {
+          <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+        }
+      </span>
     </div>
+    @if (equipped.hasItem(slot)) {
+      <div class="item-name" appShrinkToFit>{{itemName}}</div>
+    }
   </button>
-  @if (equipped.hasItem(slot)) {
-    <button type="button" class="btn btn-secondary slot-clear-button flat-left col-1 fw-bold"
-      [disabled]="isSlotDisabled()"
-      [title]="getSlotTitle()"
+  @if (equipped.hasItem(slot) && !isSlotDisabled()) {
+    <button type="button" class="icon-x-button icon-x-button-overlay slot-clear-button"
+      aria-label="Clear {{slot}}"
+      title="Clear {{slot}}"
       (click)="clearSlot()">
-      &times;
+      <span class="glyph-center-fix" aria-hidden="true">&times;</span>
     </button>
   }
 </div>
-<app-gear-description [item]=equipped.getSlot(slot)></app-gear-description>
+<app-gear-description [item]=equipped.getSlot(slot) [showLootBadges]="false"></app-gear-description>

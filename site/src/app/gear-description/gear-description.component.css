@@ -135,13 +135,13 @@ a {
 
 .raid-loot-badge {
     border: 1px solid #b45309;
-    background: rgba(245, 158, 11, 0.16);
+    background: var(--raid-badge-bg);
     color: var(--raid-loot-text-color);
 }
 
 .rare-loot-badge {
     border: 1px solid #7c3aed;
-    background: rgba(124, 58, 237, 0.16);
+    background: var(--rare-badge-bg);
     color: var(--rare-loot-text-color);
 }
 

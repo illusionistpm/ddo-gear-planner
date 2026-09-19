@@ -15,6 +15,7 @@ import { Observable, Subscription } from 'rxjs';
 import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { UserGearService, UserItemLocation } from '../user-gear.service';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -62,6 +63,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() item: Observable<Item> | Item | null = null;
   @Input() readonly = false;
   @Input() equipOnChange = true;
+  // The equipment slot card shows the owned/raid/rare/artifact badges in its own header instead.
+  @Input() showLootBadges = true;
   @Input() highlightAffixName: string | null = null;
   @Input() highlightBonusType: string | null = null;
   curItem: Item | null = null;
@@ -79,6 +82,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private affixSvc: AffixService,
     private affixUi: AffixUiService,
     private questService: QuestService,
+    private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
     private suggestionDrawer: SuggestionDrawerService
   ) {
@@ -101,6 +105,9 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       this.setCurrentItem(this.item);
     }
 
+    this.subscriptions.add(this.userGear.userItemsChanged$.subscribe(() => {
+      this.changeDetector.markForCheck();
+    }));
     this.subscriptions.add(this.equipped.getImportantAffixesObservable().subscribe(() => {
       this.refreshDisplayRows();
       this.changeDetector.markForCheck();
@@ -356,6 +363,14 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   isAffixGroup(affix: Affix): boolean {
     perfCount('GearDescriptionComponent.isAffixGroup');
     return this.affixSvc.isAffixGroup(affix);
+  }
+
+  userOwnsItem(item: Item | null): boolean {
+    return !!item?.name && this.userGear.hasItem(item.name);
+  }
+
+  getUserItemLocations(item: Item | null): UserItemLocation[] | undefined {
+    return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
   }
 
   isRaidLoot(item: Item | null): boolean {

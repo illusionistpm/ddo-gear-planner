@@ -24,7 +24,7 @@
           <button class="btn btn-primary equip-button crafted-item-button" (click)="equipItem(item)">
             {{item.name}}
             @if (userOwnsItem(item)) {
-              <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
+              <span class="owned-badge" [title]="getUserItemLocations(item) | userItemLocationTooltip">Owned</span>
             }
           </button>
         </div>
@@ -41,11 +41,7 @@
       @for (item of gear; track item.name) {
         <div class="container">
           <div class="row">
-            <span class="col">{{item.name}}
-              @if (userOwnsItem(item)) {
-                <span class="user-owned-star" [title]="getUserItemLocations(item) | userItemLocationTooltip">★</span>
-              }
-            </span>
+            <span class="col">{{item.name}}</span>
             <button class="col-2 equip-button" (click)="equipItem(item)">Equip</button>
           </div>
           <div class="row">

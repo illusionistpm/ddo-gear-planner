@@ -4,14 +4,19 @@
       <div class="row ps-2">
         <div class="col-4"><b>ML: {{curItem.ml}}</b></div>
         <div class="col-8 text-end item-source-line">
-          @if (isRaidLoot(curItem)) {
-            <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
-          }
-          @if (curItem.rare) {
-            <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
-          }
-          @if (curItem.artifact) {
-            <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+          @if (showLootBadges) {
+            @if (userOwnsItem(curItem)) {
+              <span class="owned-badge" [title]="getUserItemLocations(curItem) | userItemLocationTooltip">Owned</span>
+            }
+            @if (isRaidLoot(curItem)) {
+              <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+            }
+            @if (curItem.rare) {
+              <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+            }
+            @if (curItem.artifact) {
+              <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+            }
           }
           <i>{{getLootSourceLabel(curItem)}}</i>
         </div>

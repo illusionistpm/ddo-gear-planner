@@ -108,17 +108,18 @@
         <div class="col-2 text-end"><b>Value</b></div>
       </div>
       @for (elem of optionToEligibleGear | keyvalue; track elem.key) {
+        @let option = stringToOption.get(elem.key)!;
         <div class="row">
-          <div class="col-1">{{stringToOption.get(elem.key).ml}}</div>
-          <div class="col-9">{{stringToOption.get(elem.key).describe(false, false)}}</div>
-          <div class="col-2 text-end">{{stringToOption.get(elem.key).affixes[0].value}}</div>
+          <div class="col-1">{{option.ml}}</div>
+          <div class="col-9">{{option.describe(false, false)}}</div>
+          <div class="col-2 text-end">{{option.affixes[0].value}}</div>
           <div class="col-12 slot-controls">
             @if (elem.value.size > 0) {
               <select class="augment-slot-select form-control border border-secondary" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
                 @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
                   @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
                     <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
-                      [ngClass]="affixUi.getClassForAffix(stringToOption.get(elem.key).affixes[0])"
+                      [ngClass]="affixUi.getClassForAffix(option.affixes[0])"
                       [title]="innerElem.key.name + ' - ' + entry.craftable.name">
                       {{innerElem.key.name}} - {{entry.craftable.name}}
                     </option>
@@ -149,9 +150,10 @@
         <div class="col-2 text-end"><b>Value</b></div>
       </div>
       @for (elem of craftIntoEquippedGear | keyvalue; track elem.key) {
+        @let craftOption = craftIntoEquippedOptions.get(elem.key)!;
         <div class="row">
-          <div class="col-1">{{craftIntoEquippedOptions.get(elem.key).ml || ''}}</div>
-          <div class="col-9">{{craftIntoEquippedOptions.get(elem.key).describe(false, false)}}</div>
+          <div class="col-1">{{craftOption.ml || ''}}</div>
+          <div class="col-9">{{craftOption.describe(false, false)}}</div>
           <div class="col-2 text-end">{{craftOptionMatchValue(elem.key)}}</div>
           <div class="col-12 slot-controls">
             <select class="augment-slot-select form-control border border-secondary" [(ngModel)]="selectedCraftSlot"

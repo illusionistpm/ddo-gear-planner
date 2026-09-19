@@ -33,6 +33,10 @@ export interface TrackedBonusTypeDisplay extends CoveredBonusType {
 /** Either shape; display-only fields fall back to the tracked affix and bonusType. */
 export type TrackedBonusTypeRef = CoveredBonusType & Partial<TrackedBonusTypeDisplay>;
 
+/** Just enough to locate where a bonus type comes from; no value needed. */
+export type TrackedBonusTypeSource = Pick<TrackedBonusTypeDisplay, 'bonusType'> &
+  Partial<Omit<TrackedBonusTypeDisplay, 'bonusType'>>;
+
 export interface TrackedAffixGroupDisplay extends AffixGroupDisplay {
   checklistAffixes: string[];
 }

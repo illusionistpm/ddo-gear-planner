@@ -3,7 +3,7 @@
   <div class="item-type-groups">
     @for (group of groups; track group.name) {
       <app-expanding-checkboxes [invert]="true" title="{{group.name}}"
-        [list]="getTypesWithAttribute(group.attributes) | async" [onChangeFn]="makeOnChangeFn(group.name.toLowerCase())">
+        [list]="(getTypesWithAttribute(group.attributes) | async) ?? []" [onChangeFn]="makeOnChangeFn(group.name.toLowerCase())">
       </app-expanding-checkboxes>
     }
   </div>

@@ -49,15 +49,15 @@
                     </div>
                     <div class="tracked-affix-chips">
                         <span class="tracked-bonus-chip max-value checklist-chip-wrap" *ngFor="let affixName of group.checklistAffixes"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
-                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, boolAffixMap.get(affixName)[0])">
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
+                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                             <button type="button" class="checklist-chip-button"
-                                [title]="getBonusTypeTooltip(affixName, boolAffixMap.get(affixName)[0])"
-                                (mouseenter)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
+                                (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                 (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                (focus)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                 (blur)="clearAffixTypeEquipmentPreview()"
-                                (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                                (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
                                 <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
                             </button>
@@ -65,7 +65,7 @@
                                 title="Remove {{affixName}}" (click)="removeAffix(affixName)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                         </span>
                     </div>
                 </div>
@@ -129,16 +129,16 @@
                 </div>
                 <div class="tracked-affix-chips">
                     <ng-container *ngFor="let affixName of group.checklistAffixes">
-                        <span class="tracked-bonus-chip max-value checklist-chip-wrap" *ngIf="boolAffixMap.get(affixName)[0].value; else noValueBools"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
-                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, boolAffixMap.get(affixName)[0])">
+                        <span class="tracked-bonus-chip max-value checklist-chip-wrap" *ngIf="getChecklistType(affixName).value; else noValueBools"
+                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
+                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                             <button type="button" class="checklist-chip-button"
-                                [title]="getBonusTypeTooltip(affixName, boolAffixMap.get(affixName)[0])"
-                                (mouseenter)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
+                                (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                 (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                (focus)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                 (blur)="clearAffixTypeEquipmentPreview()"
-                                (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                                (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
                                 <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
                             </button>
@@ -146,19 +146,19 @@
                                 title="Remove {{affixName}}" (click)="removeAffix(affixName)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
+                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                         </span>
                         <ng-template #noValueBools>
-                            <span [hidden]="boolAffixMap.get(affixName)[0].bonusType === 'Penalty'" class="tracked-bonus-chip no-value checklist-chip-wrap"
-                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)"
-                                [class.recently-changed]="isRecentlyChangedAffixType(affixName, boolAffixMap.get(affixName)[0])">
+                            <span [hidden]="getChecklistType(affixName).bonusType === 'Penalty'" class="tracked-bonus-chip no-value checklist-chip-wrap"
+                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
+                                [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                                 <button type="button" class="checklist-chip-button"
-                                    [title]="getBonusTypeTooltip(affixName, boolAffixMap.get(affixName)[0])"
-                                    (mouseenter)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                    [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
+                                    (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                     (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                    (focus)="previewAffixTypeEquipment(affixName, boolAffixMap.get(affixName)[0])"
+                                    (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
                                     (blur)="clearAffixTypeEquipmentPreview()"
-                                    (click)="showItemsWithBonusType(affixName, boolAffixMap.get(affixName)[0].bonusType)">
+                                    (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                     <span class="tracked-bonus-label">{{affixName}}</span>
                                     <span class="far fa-square no-value checklist-chip-icon" aria-hidden="true"></span>
                                 </button>
@@ -166,7 +166,7 @@
                                     title="Remove {{affixName}}" (click)="removeAffix(affixName)">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, boolAffixMap.get(affixName)[0].bonusType)">Click</span>
+                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                             </span>
                         </ng-template>
                     </ng-container>

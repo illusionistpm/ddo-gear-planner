@@ -12,7 +12,6 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GearListComponent } from './gear-list/gear-list.component';
-import { GearComponent } from './gear/gear.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
 import { EffectsTableComponent } from './effects-table/effects-table.component';
@@ -41,7 +40,6 @@ import { ShrinkToFitDirective } from './shrink-to-fit.directive';
     declarations: [
         AppComponent,
         GearListComponent,
-        GearComponent,
         TypeaheadComponent,
         GearDescriptionComponent,
         EffectsTableComponent,

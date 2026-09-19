@@ -16,6 +16,6 @@
     "src/**/*.spec.ts"
   ],
   "angularCompilerOptions": {
-    "strictTemplates": false
+    "strictTemplates": true
   }
 }

@@ -20,6 +20,7 @@ import {
   TrackedAffixGroupDisplay,
   TrackedBonusTypeDisplay,
   TrackedBonusTypeRef,
+  TrackedBonusTypeSource,
 } from '../tracked-affix-derivation';
 
 interface SlotGroupChip {
@@ -404,11 +405,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  getSourcesForType(affixName: string, type: TrackedBonusTypeRef): AffixSource[] {
+  getSourcesForType(affixName: string, type: TrackedBonusTypeSource): AffixSource[] {
     return this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
-  previewAffixTypeEquipment(affixName: string, type: TrackedBonusTypeRef) {
+  previewAffixTypeEquipment(affixName: string, type: TrackedBonusTypeSource) {
     const sources = this.getSourcesForType(affixName, type);
     this.highlightedEquipmentSlots = new Set(
       sources.filter(source => source.kind === 'item').map(source => source.slot)
@@ -469,15 +470,15 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return sortBonusTypes(types);
   }
 
-  isBonusTypeAvailable(affixName: string, type: TrackedBonusTypeRef): boolean {
+  isBonusTypeAvailable(affixName: string, type: TrackedBonusTypeSource): boolean {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
-  isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: TrackedBonusTypeRef): boolean {
+  isBonusTypeUnavailableAtCurrentLevelRange(affixName: string, type: TrackedBonusTypeSource): boolean {
     return !this.isBonusTypeAvailable(affixName, type);
   }
 
-  shouldShowMaxAvailable(affixName: string, type: TrackedBonusTypeRef): boolean {
+  shouldShowMaxAvailable(affixName: string, type: TrackedBonusTypeSource): boolean {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
   }
 
@@ -514,6 +515,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     return this.getValueTooltip(affixName, type);
+  }
+
+  /** The single covered entry of a checklist affix. */
+  getChecklistType(affixName: string): CoveredBonusType {
+    return this.boolAffixMap.get(affixName)?.[0] ?? { bonusType: 'Bool', value: 0 };
   }
 
   getFilteredBoolAffixNames(): string[] {
@@ -685,23 +691,23 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return chip.sourceAffixName + '\0' + chip.bonusType;
   }
 
-  trackVisibleType(index: number, type: TrackedBonusTypeRef): string {
+  trackVisibleType(index: number, type: TrackedBonusTypeSource): string {
     return (type.sourceAffixName || '') + '\0' + (type.sourceBonusType || type.bonusType);
   }
 
-  isRecentlyChangedAffixType(affixName: string, type: TrackedBonusTypeRef): boolean {
+  isRecentlyChangedAffixType(affixName: string, type: TrackedBonusTypeSource): boolean {
     return this.recentlyChangedAffixTypes.has(this.getDisplayedTypeKey(affixName, type));
   }
 
-  getSourceAffixName(affixName: string, type: TrackedBonusTypeRef): string {
+  getSourceAffixName(affixName: string, type: TrackedBonusTypeSource): string {
     return type.sourceAffixName || affixName;
   }
 
-  getSourceBonusType(type: TrackedBonusTypeRef): string {
+  getSourceBonusType(type: TrackedBonusTypeSource): string {
     return type.sourceBonusType || type.bonusType;
   }
 
-  getMaxValueForType(affixName: string, type: TrackedBonusTypeRef): number {
+  getMaxValueForType(affixName: string, type: TrackedBonusTypeSource): number {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
@@ -709,7 +715,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return sourceAffixName + '\0' + bonusType;
   }
 
-  private getDisplayedTypeKey(affixName: string, type: TrackedBonusTypeRef): string {
+  private getDisplayedTypeKey(affixName: string, type: TrackedBonusTypeSource): string {
     return this.getTypeMapKey(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 

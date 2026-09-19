@@ -5,9 +5,8 @@ import { BuildUrlCodecService } from './build-url-codec.service';
 import { isBuildParamKey } from './build-param-keys';
 import { isBuildShortIdRoute } from './build-route';
 import { perfMark, perfStart } from './perf-trace';
+import { QueryParamRecord } from './query-param-types';
 
-type QueryParamValue = string | number | boolean | Array<string | number | boolean>;
-export type QueryParamRecord = Record<string, QueryParamValue>;
 export type ParamsAdapter = {
   keys: string[];
   get: (key: string) => string | null;

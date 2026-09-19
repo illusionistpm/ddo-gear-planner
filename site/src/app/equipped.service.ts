@@ -7,7 +7,8 @@ import { AffixRank } from './affix-rank.enum';
 
 import { GearDbService, SetBonusThreshold } from './gear-db.service';
 import { canonicalizeCraftingSystemName } from './gear-db.service';
-import { ParamsAdapter, QueryParamRecord, QueryParamsListener, QueryParamsService } from './query-params.service';
+import { ParamsAdapter, QueryParamsListener, QueryParamsService } from './query-params.service';
+import { QueryParamRecord } from './query-param-types';
 import {
   getStoredActiveTab,
   getStoredCollapsedTrackedAffixGroups,

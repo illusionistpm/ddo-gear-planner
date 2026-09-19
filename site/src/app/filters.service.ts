@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ItemFilters } from './item-filters';
 
-import { ParamsAdapter, QueryParamRecord, QueryParamsListener, QueryParamsService } from './query-params.service';
+import { ParamsAdapter, QueryParamsListener, QueryParamsService } from './query-params.service';
+import { QueryParamRecord } from './query-param-types';
 import { perfMeasure } from './perf-trace';
 
 

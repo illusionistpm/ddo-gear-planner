@@ -12,7 +12,7 @@ import { GearDbService } from '../gear-db.service';
 import { AnalyticsService } from '../analytics.service';
 import { FiltersService } from '../filters.service';
 import { ItemFilters } from '../item-filters';
-import { EquippedService } from '../equipped.service';
+import { EquippedService, PlannerTab } from '../equipped.service';
 import { PlannerOnboardingService } from '../planner-onboarding.service';
 import { ThemeService } from '../theme.service';
 import { AuthService } from '../auth.service';
@@ -21,7 +21,6 @@ import { BuildsService } from '../builds.service';
 import { CurrentBuildService } from '../current-build.service';
 import { QueryParamsService } from '../query-params.service';
 
-type MainTab = 'equipment' | 'affixes';
 
 @Component({
     selector: 'app-main',
@@ -33,7 +32,7 @@ type MainTab = 'equipment' | 'affixes';
 export class MainComponent implements OnInit, OnDestroy {
   troveUploadStatus: string = '';
   sortOwnedToTop: boolean = true;
-  activeTab: MainTab = 'equipment';
+  activeTab: PlannerTab = 'equipment';
   filtersOpen: boolean = false;
   itemFilters = new ItemFilters();
   onboardingActive = true;
@@ -453,7 +452,7 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectTab(tab: MainTab) {
+  selectTab(tab: PlannerTab) {
     if (tab === this.activeTab) {
       this.closeFilters();
       return;
@@ -465,7 +464,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.refreshOnboardingState();
   }
 
-  isActiveTab(tab: MainTab) {
+  isActiveTab(tab: PlannerTab) {
     return this.activeTab === tab;
   }
 

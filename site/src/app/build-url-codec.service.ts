@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { deflate, inflate } from 'pako';
 
 import { perfStart } from './perf-trace';
+import { QueryParamRecord, QueryParamValue } from './query-param-types';
 import { isExternalAffixEntry } from './external-affix';
 import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
 
-type QueryParamValue = string | number | boolean | Array<string | number | boolean>;
-type QueryParamRecord = Record<string, QueryParamValue>;
 type DecodedParamRecord = Record<string, string | Array<string>>;
 type DictionaryKey = 'itemTypes' | 'packs' | 'craftingSystems';
 type DictionaryValue = string | number;

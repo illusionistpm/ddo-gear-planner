@@ -13,6 +13,7 @@ import { CraftableOption } from './craftable-option';
 import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { perfMeasure, perfStart } from './perf-trace';
+import { affixTypeKey } from './affix-type-key';
 
 const groupBy = <T, K extends PropertyKey>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
@@ -679,7 +680,7 @@ export class GearDbService {
     if (!affixName) {
       return;
     }
-    const key = affixName + '\0' + bonusType;
+    const key = affixTypeKey(affixName, bonusType);
     let entry = index.get(key);
     if (!entry) {
       entry = new Set<Item>();
@@ -713,7 +714,7 @@ export class GearDbService {
       if (!name) {
         return;
       }
-      const key = name + '\0' + type;
+      const key = affixTypeKey(name, type);
       if (seen.has(key)) {
         return;
       }
@@ -864,7 +865,7 @@ export class GearDbService {
   }
 
   findGearWithAffixAndType(affixName: string, bonusType: string) {
-    const entry = this._getItemAffixTypeIndex().get(affixName + '\0' + bonusType);
+    const entry = this._getItemAffixTypeIndex().get(affixTypeKey(affixName, bonusType));
     return entry ? Array.from(entry) : [];
   }
 

@@ -23,6 +23,7 @@ import { EssenceCraftingService } from './essence-crafting.service';
 import { perfCount, perfMeasure, perfStart } from './perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from './tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry } from './external-affix';
+import { affixTypeKey } from './affix-type-key';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -897,7 +898,7 @@ export class EquippedService implements QueryParamsListener {
    * is "locked". Memoised until the next equipped-gear change.
    */
   getSlotsWithOpenAugmentForAffixType(affixName: string, bonusType: string): Set<string> {
-    const key = affixName + '\0' + bonusType;
+    const key = affixTypeKey(affixName, bonusType);
     const cached = this.openAugmentSlotsCache.get(key);
     if (cached) {
       return cached;

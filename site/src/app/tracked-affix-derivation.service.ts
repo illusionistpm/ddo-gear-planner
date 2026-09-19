@@ -4,6 +4,7 @@ import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { EquippedService } from './equipped.service';
 import { GearDbService } from './gear-db.service';
 import { CoveredBonusType, sortBonusTypes, TrackedBonusTypeDisplay } from './tracked-affix-derivation';
+import { affixTypeKey } from './affix-type-key';
 
 /**
  * Decides which bonus types a tracked affix shows, for both the full Tracked
@@ -35,7 +36,7 @@ export class TrackedAffixDerivationService {
       }
       if (type.bonusType !== 'Penalty' && (type.value || this.isBonusTypeAvailable(affixName, type.bonusType))) {
         typeMap.set(
-          this.getTypeMapKey(affixName, type.bonusType),
+          affixTypeKey(affixName, type.bonusType),
           this.makeDisplayType(affixName, type.bonusType, type.value)
         );
       }
@@ -45,7 +46,7 @@ export class TrackedAffixDerivationService {
       if (this.isUniversalCompanionOnlyBonusType(affixName, bonusType)) {
         continue;
       }
-      const key = this.getTypeMapKey(affixName, bonusType);
+      const key = affixTypeKey(affixName, bonusType);
       if (bonusType !== 'Penalty' && !typeMap.has(key) && this.isBonusTypeAvailable(affixName, bonusType)) {
         typeMap.set(key, this.makeDisplayType(affixName, bonusType, 0));
       }
@@ -54,7 +55,7 @@ export class TrackedAffixDerivationService {
     for (const sourceAffixName of this.getUniversalCompanionAffixes(affixName)) {
       for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
         const value = this.equipped.getCurrentValueForAffixType(sourceAffixName, bonusType);
-        const key = this.getTypeMapKey(sourceAffixName, bonusType);
+        const key = affixTypeKey(sourceAffixName, bonusType);
         if (bonusType !== 'Penalty' && !typeMap.has(key) && (value || this.isBonusTypeAvailable(sourceAffixName, bonusType))) {
           typeMap.set(key, this.makeDisplayType(sourceAffixName, bonusType, value));
         }
@@ -109,9 +110,5 @@ export class TrackedAffixDerivationService {
    */
   private isUniversalCompanionOnlyBonusType(affixName: string, bonusType: string): boolean {
     return this.gearDB.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType);
-  }
-
-  private getTypeMapKey(sourceAffixName: string, bonusType: string): string {
-    return sourceAffixName + '\0' + bonusType;
   }
 }

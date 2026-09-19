@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { GearDbService } from './gear-db.service';
 import { FiltersService } from './filters.service';
+import { affixTypeKey } from './affix-type-key';
 
 export type AvailabilityTier =
   | 'common'
@@ -107,7 +108,7 @@ export class AffixAvailabilityService {
   }
 
   getAvailability(affixName: string, bonusType: string): AffixAvailability {
-    const key = affixName + '\0' + bonusType;
+    const key = affixTypeKey(affixName, bonusType);
     const cached = this.cache.get(key);
     if (cached) {
       return cached;

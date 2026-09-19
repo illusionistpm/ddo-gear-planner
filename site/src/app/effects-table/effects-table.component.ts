@@ -22,6 +22,7 @@ import {
   TrackedBonusTypeRef,
   TrackedBonusTypeSource,
 } from '../tracked-affix-derivation';
+import { affixTypeKey } from '../affix-type-key';
 
 interface SlotGroupChip {
   sourceAffixName: string;
@@ -243,7 +244,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         if (!bonusType || bonusType === 'Penalty' || bonusType === 'Bool') {
           continue;
         }
-        const key = sourceAffixName + '\0' + bonusType;
+        const key = affixTypeKey(sourceAffixName, bonusType);
         if (seen.has(key)) {
           continue;
         }
@@ -321,7 +322,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         continue;
       }
       const bonusType = boolAffix.bonusType;
-      const key = affixName + '\0' + bonusType;
+      const key = affixTypeKey(affixName, bonusType);
       if (seen.has(key)) {
         continue;
       }
@@ -450,14 +451,14 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       for (const affixName of group.checklistAffixes) {
         const boolAffix = this.boolAffixMap.get(affixName)?.[0];
         if (boolAffix && this.getSourcesForType(affixName, boolAffix).some(predicate)) {
-          supplied.add(affixName + '\0' + boolAffix.bonusType);
+          supplied.add(affixTypeKey(affixName, boolAffix.bonusType));
         }
       }
 
       for (const affixName of group.affixes) {
         for (const type of this.getVisibleTypes(affixName)) {
           if (this.getSourcesForType(affixName, type).some(predicate)) {
-            supplied.add(this.getSourceAffixName(affixName, type) + '\0' + this.getSourceBonusType(type));
+            supplied.add(this.getDisplayedTypeKey(affixName, type));
           }
         }
       }
@@ -490,13 +491,13 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const currentTypesWithValue = new Set(
       this.getVisibleTypes(affixName)
         .filter(type => type.value)
-        .map(type => this.getTypeMapKey(type.sourceAffixName, type.sourceBonusType))
+        .map(type => affixTypeKey(type.sourceAffixName, type.sourceBonusType))
     );
 
     const unavailableTypes = this.derivation.getAllLevelDisplayTypes(affixName)
       .filter(bonusType =>
         bonusType.sourceBonusType !== 'Penalty' &&
-        !currentTypesWithValue.has(this.getTypeMapKey(bonusType.sourceAffixName, bonusType.sourceBonusType)) &&
+        !currentTypesWithValue.has(affixTypeKey(bonusType.sourceAffixName, bonusType.sourceBonusType)) &&
         !this.isBonusTypeAvailable(affixName, bonusType)
       )
       .map(bonusType => bonusType.label);
@@ -550,7 +551,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   isOnboardingTargetChip(affixName: string, bonusType: string): boolean {
-    return this.shouldShowAffixTypeHint() && this.onboardingTargetChipKey === this.getOnboardingChipKey(affixName, bonusType);
+    return this.shouldShowAffixTypeHint() && this.onboardingTargetChipKey === affixTypeKey(affixName, bonusType);
   }
 
   private getOnboardingTargetChipKey(): string {
@@ -607,7 +608,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         continue;
       }
 
-      return this.getOnboardingChipKey(affixName, boolAffix.bonusType);
+      return affixTypeKey(affixName, boolAffix.bonusType);
     }
 
     for (const affixName of group.affixes) {
@@ -618,7 +619,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
         const chipAffixName = this.getSourceAffixName(affixName, type);
         const chipBonusType = this.getSourceBonusType(type);
-        return this.getOnboardingChipKey(chipAffixName, chipBonusType);
+        return affixTypeKey(chipAffixName, chipBonusType);
       }
     }
 
@@ -688,11 +689,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   trackSlotChip(index: number, chip: SlotGroupChip): string {
-    return chip.sourceAffixName + '\0' + chip.bonusType;
+    return affixTypeKey(chip.sourceAffixName, chip.bonusType);
   }
 
   trackVisibleType(index: number, type: TrackedBonusTypeSource): string {
-    return (type.sourceAffixName || '') + '\0' + (type.sourceBonusType || type.bonusType);
+    return affixTypeKey(type.sourceAffixName || '', type.sourceBonusType || type.bonusType);
   }
 
   isRecentlyChangedAffixType(affixName: string, type: TrackedBonusTypeSource): boolean {
@@ -711,12 +712,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
-  private getTypeMapKey(sourceAffixName: string, bonusType: string): string {
-    return sourceAffixName + '\0' + bonusType;
-  }
-
   private getDisplayedTypeKey(affixName: string, type: TrackedBonusTypeSource): string {
-    return this.getTypeMapKey(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+    return affixTypeKey(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
   }
 
   private updateRecentlyChangedAffixTypes() {
@@ -766,10 +763,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       this.recentlyChangedAffixTypes = new Set<string>();
       this.changedAffixTypesTimeout = null;
     }, 1900);
-  }
-
-  private getOnboardingChipKey(affixName: string, bonusType: string): string {
-    return affixName + '\0' + bonusType;
   }
 
   private refreshTrackedAffixDisplay() {

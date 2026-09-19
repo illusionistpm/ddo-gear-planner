@@ -97,7 +97,8 @@ export type PlannerTab = 'equipment' | 'affixes';
   providedIn: 'root'
 })
 export class EquippedService implements QueryParamsListener {
-  private slots: Map<string, BehaviorSubject<Item>>;
+  // null means the slot is empty.
+  private slots: Map<string, BehaviorSubject<Item | null>>;
   private importantAffixes: Set<string>;
   private externalAffixes: ExternalAffixEntry[] = [];
   private externalAffixesSubject = new BehaviorSubject<ExternalAffixEntry[]>([]);
@@ -140,9 +141,9 @@ export class EquippedService implements QueryParamsListener {
 
     this.importantAffixes = new Set();
 
-    this.slots = new Map<string, BehaviorSubject<Item>>();
+    this.slots = new Map<string, BehaviorSubject<Item | null>>();
     for (const slot of gearList.getSlots()) {
-      this.slots.set(slot, new BehaviorSubject<Item>(new Item(null)));
+      this.slots.set(slot, new BehaviorSubject<Item | null>(null));
     }
 
     this.params = new BehaviorSubject<QueryParamRecord | null>(null);
@@ -176,9 +177,7 @@ export class EquippedService implements QueryParamsListener {
 
         for (const slot of this.gearList.getSlots()) {
           if (!params.get(slot)) {
-            const dummy = new Item(null);
-            dummy.slot = slot;
-            this._set(dummy);
+            this.setSlot(slot, null);
           }
         }
 
@@ -224,14 +223,8 @@ export class EquippedService implements QueryParamsListener {
         }
 
         for (const entries of minLevels.entries()) {
-          const slotSubject = this.slots.get(entries[0]);
-          const item = slotSubject ? slotSubject.getValue() : null;
-          // An empty slot's Item(null) placeholder is truthy (see
-          // isValid()'s other call sites in this file) - without this check,
-          // an ml_<slot> param for a never-equipped slot mutated and
-          // re-published that placeholder with a stray .ml value stuck onto
-          // it instead of being a no-op.
-          if (item && item.isValid()) {
+          const item = this.getSlotValue(entries[0]);
+          if (item) {
             if (item.isEssenceCrafted()) {
               this.essenceCrafting.setItemToML(item, entries[1]);
             } else {
@@ -245,13 +238,8 @@ export class EquippedService implements QueryParamsListener {
           if (!craftingParam) {
             continue;
           }
-          const itemSubj = this.slots.get(craftingParam['slot']);
-          const item = itemSubj ? itemSubj.getValue() : null;
-          // Same isValid() reasoning as the minLevels loop above - this was
-          // already harmless in practice only because getCraftingByName()
-          // happens to no-op on an invalid item's always-undefined
-          // .crafting, which is fragile to rely on rather than checking here.
-          if (!item || !item.isValid()) {
+          const item = this.getSlotValue(craftingParam['slot']);
+          if (!item) {
             console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
             continue;
           }
@@ -333,21 +321,9 @@ export class EquippedService implements QueryParamsListener {
     for (const kv of this.slots) {
       const slot = kv[0];
       const item = kv[1].getValue();
-      // An empty slot still holds a real Item(null) placeholder object (see
-      // clearSlot), which is truthy - checking isValid() too (name !==
-      // undefined) is what actually distinguishes "has an equipped item"
-      // from "cleared". Without it, every empty slot wrote `params[slot] =
-      // undefined` here, which a plain object spread (unlike JSON.stringify)
-      // still preserves as a real key - getCombinedParams() would then hand
-      // that key back out with value `undefined`, coerced to `null` by
-      // paramsAdapterFromRecord. Re-applying that (e.g. the "already this
-      // shortId" cache reapply in MainComponent.loadBuildFromRoute, right
-      // after an in-place Save) fed that null straight into
-      // canonicalizeGeneratedCraftedItemName(null), which throws - an
-      // uncaught error inside route.paramMap's subscribe callback silently
-      // kills that whole subscription, so the app never reacts to a route
-      // change again until a hard reload recreates it.
-      if (item && item.isValid()) {
+      // An empty slot has no key at all - never `params[slot] = undefined`,
+      // which a later paramsAdapterFromRecord would turn into a null slot name.
+      if (item) {
         params[slot] = item.name;
 
         if (item.isEssenceCrafted()) {
@@ -378,15 +354,15 @@ export class EquippedService implements QueryParamsListener {
   }
 
   _set(item: Item) {
-    const slotSubject = this.slots.get(item.slot);
-    if (slotSubject) {
-      slotSubject.next(item);
-    }
+    this.setSlot(item.slot, item);
   }
 
-  private getSlotValue(slot: string) {
-    const slotSubject = this.slots.get(slot);
-    return slotSubject ? slotSubject.getValue() : null;
+  private setSlot(slot: string, item: Item | null) {
+    this.slots.get(slot)?.next(item);
+  }
+
+  private getSlotValue(slot: string): Item | null {
+    return this.slots.get(slot)?.getValue() ?? null;
   }
 
   private getMainHand() {
@@ -394,30 +370,24 @@ export class EquippedService implements QueryParamsListener {
   }
 
   private shouldEmptyOffhandForMainHand(mainHand: Item | null) {
-    return !!mainHand && mainHand.isValid() && mainHand.isTwoHandedWeapon() && !mainHand.isCrossbow();
+    return !!mainHand && mainHand.isTwoHandedWeapon() && !mainHand.isCrossbow();
   }
 
   private shouldLimitOffhandToRuneArms(mainHand: Item | null) {
-    return !!mainHand && mainHand.isValid() && mainHand.isTwoHandedWeapon() && mainHand.isCrossbow();
-  }
-
-  private _clearSlotWithoutRouterUpdate(slot: string) {
-    const dummy = new Item(null);
-    dummy.slot = slot;
-    this._set(dummy);
+    return !!mainHand && mainHand.isTwoHandedWeapon() && mainHand.isCrossbow();
   }
 
   private _enforceOffhandCompatibility() {
     const mainHand = this.getMainHand();
     const offhand = this.getSlotValue('Offhand');
-    if (!offhand || !offhand.isValid()) {
+    if (!offhand) {
       return;
     }
 
     if (this.shouldEmptyOffhandForMainHand(mainHand)) {
-      this._clearSlotWithoutRouterUpdate('Offhand');
+      this.setSlot('Offhand', null);
     } else if (this.shouldLimitOffhandToRuneArms(mainHand) && !offhand.isRuneArm()) {
-      this._clearSlotWithoutRouterUpdate('Offhand');
+      this.setSlot('Offhand', null);
     }
   }
 
@@ -481,12 +451,7 @@ export class EquippedService implements QueryParamsListener {
   }
 
   clearSlot(slot: string) {
-    const dummy = new Item(null);
-    dummy.slot = slot;
-    const slotSubject = this.slots.get(slot);
-    if (slotSubject) {
-      slotSubject.next(dummy);
-    }
+    this.setSlot(slot, null);
     this._updateRouterState();
   }
 
@@ -500,7 +465,7 @@ export class EquippedService implements QueryParamsListener {
   }
 
   getSlots() {
-    const slots = new Map<string, Observable<Item>>();
+    const slots = new Map<string, Observable<Item | null>>();
     for (const pair of this.slots.entries()) {
       slots.set(pair[0], pair[1].asObservable());
     }
@@ -512,8 +477,8 @@ export class EquippedService implements QueryParamsListener {
     return this.equippedItemSubject.asObservable();
   }
 
-  getSlotsSnapshot() : Map<string, Item> {
-    const slots = new Map<string, Item>();
+  getSlotsSnapshot(): Map<string, Item | null> {
+    const slots = new Map<string, Item | null>();
     for (const pair of this.slots.entries()) {
       slots.set(pair[0], pair[1].value);
     }
@@ -521,11 +486,10 @@ export class EquippedService implements QueryParamsListener {
     return slots;
   }
 
-  /** Slots holding a real item, as opposed to the empty-slot placeholder. */
   getEquippedItemCount(): number {
     let count = 0;
     for (const subject of this.slots.values()) {
-      if (subject.value.isValid()) {
+      if (subject.value) {
         count++;
       }
     }
@@ -555,13 +519,7 @@ export class EquippedService implements QueryParamsListener {
 
     for (const slot of this.slots.values()) {
       const item = slot.getValue();
-
-      // isValid(), not bare truthiness - an empty slot's Item(null)
-      // placeholder is truthy, and this only avoided crashing here because
-      // getSets() happens to return undefined (falsy) for one instead of
-      // throwing - the same fragile-by-incidence pattern already fixed
-      // elsewhere in this file.
-      if (item && item.isValid() && item.getSets()) {
+      if (item) {
         for (const set of item.getSets()) {
 
           let val = setCounts.get(set);
@@ -658,7 +616,7 @@ export class EquippedService implements QueryParamsListener {
     const sources: AffixSource[] = [];
     for (const slot of this.slots) {
       const item = slot[1].getValue();
-      if (!item || !item.isValid()) {
+      if (!item) {
         continue;
       }
 
@@ -707,11 +665,12 @@ export class EquippedService implements QueryParamsListener {
     return sources;
   }
 
-  private _getTotalValueForAffixTestingItem(affixName: string, testItem: Item) {
+  /** The affix's total across all slots, with `testSlot` holding `testItem` (null for empty) instead of its real item. */
+  private _getTotalValueForAffixTestingItem(affixName: string, testSlot: string, testItem: Item | null) {
     const map = new Map<string, number>();
 
     for (const slot of this.slots) {
-      const item = (testItem && (slot[0] === testItem.slot)) ? testItem : slot[1].getValue();
+      const item = slot[0] === testSlot ? testItem : slot[1].getValue();
       if (item) {
         for (const affix of this.affixSvc.getActiveAffixes(item)) {
           if (this.affixSvc.resolvesToAffix(affix.name, affixName)) {
@@ -729,22 +688,15 @@ export class EquippedService implements QueryParamsListener {
     return total;
   }
 
-  hasItem(slot: string) {
-    const slotSubject = this.slots.get(slot);
-    const item = slotSubject ? slotSubject.getValue() : null;
-    return item && item.isValid();
+  hasItem(slot: string): boolean {
+    return this.getSlotValue(slot) !== null;
   }
 
   isEquipped(item: Item) {
     if (!item) {
       return false;
     }
-    const slotSubject = this.slots.get(item.slot);
-    const itemAtSlot = slotSubject ? slotSubject.getValue() : null;
-    if (!itemAtSlot) {
-      return false;
-    }
-    return item.name === itemAtSlot.name;
+    return item.name === this.getSlotValue(item.slot)?.name;
   }
 
   /** A slot that can't take a suggested item: already filled, or disabled. */
@@ -773,12 +725,8 @@ export class EquippedService implements QueryParamsListener {
 
     for (const affix of this.affixSvc.getActiveAffixes(item)) {
       if (this.importantAffixes.has(affix.name)) {
-
-        const dummyItem = new Item(null);
-        dummyItem.slot = item.slot;
-
-        const valWithNewItem = this._getTotalValueForAffixTestingItem(affix.name, item);
-        const valWithCurItem = this._getTotalValueForAffixTestingItem(affix.name, dummyItem);
+        const valWithNewItem = this._getTotalValueForAffixTestingItem(affix.name, item.slot, item);
+        const valWithCurItem = this._getTotalValueForAffixTestingItem(affix.name, item.slot, null);
 
         const improvement = valWithNewItem - valWithCurItem;
 
@@ -1254,16 +1202,9 @@ export class EquippedService implements QueryParamsListener {
   public getGearDescription() {
     let msg = '';
     for (const [slot, itemSubj] of this.slots) {
-      const item = itemSubj && itemSubj.getValue();
+      const item = itemSubj.getValue();
+      msg += slot + ': ' + (item ? item.name : 'empty') + "\n";
       if (item) {
-        // An empty slot is still a real Item(null) placeholder (truthy) -
-        // isValid() (name !== undefined) is what actually distinguishes
-        // "equipped" from "empty". Without it this printed "<slot>:
-        // undefined" for every unequipped slot. Label from the map key, not
-        // item.slot: a never-touched slot's Item(null) never had .slot set
-        // either (only clearSlot() and a real equip set it), so item.slot
-        // is itself undefined until the slot has been interacted with once.
-        msg += slot + ': ' + (item.isValid() ? item.name : 'empty') + "\n";
         if (item.crafting) {
           for (const crafting of item.crafting) {
             msg += ' - ' + crafting.name + ': ';

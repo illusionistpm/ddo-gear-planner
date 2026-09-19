@@ -77,7 +77,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     for (const [slot, item] of this.equipped.getSlotsSnapshot().entries()) {
       slots.push({
         slot,
-        item: item && item.isValid() ? item : null,
+        item,
         suppliedCount: this.suppliedAffixCounts.get(slot) || 0
       });
     }
@@ -134,8 +134,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
       return null;
     }
 
-    const item = this.equipped.getSlotsSnapshot().get(this.focusedSlot);
-    return item && item.isValid() ? item : null;
+    return this.equipped.getSlotsSnapshot().get(this.focusedSlot) ?? null;
   }
 
   showSuggestedItems(slot: string) {

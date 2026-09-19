@@ -59,7 +59,7 @@ interface SetDisplayRow {
     standalone: false
 })
 export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() item: Observable<Item> | Item | null = null;
+  @Input() item: Observable<Item | null> | Item | null = null;
   @Input() readonly = false;
   @Input() equipOnChange = true;
   // The equipment slot card shows the owned/raid/rare/artifact badges in its own header instead.
@@ -142,7 +142,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     this.craftingRows = this.buildCraftingRows();
     this.setRows = this.buildSetRows();
     done({
-      validItems: this.curItem?.isValid() ? 1 : 0,
+      validItems: this.curItem ? 1 : 0,
       affixRows: this.affixRows.length,
       craftingRows: this.craftingRows.length,
       craftingOptionRows: this.craftingRows.reduce((count, row) => count + row.options.length, 0),

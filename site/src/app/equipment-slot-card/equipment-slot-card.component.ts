@@ -112,7 +112,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   }
 
   private setItem(item: Item | null) {
-    if (item && item.isValid()) {
+    if (item) {
       this.itemName = item.name;
       this.isArtifact = !!item.artifact;
       this.isRare = !!item.rare;

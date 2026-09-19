@@ -89,10 +89,6 @@ export class Item {
         }
     }
 
-    isValid() {
-        return this.name !== undefined;
-    }
-
     hasTypeAttribute(attribute: string) {
         return !!this.type && (itemTypes[this.type]?.attributes || []).includes(attribute);
     }

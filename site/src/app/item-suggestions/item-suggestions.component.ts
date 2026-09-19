@@ -20,7 +20,7 @@ import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   @Input() slot!: string;
 
-  current: Observable<Item> | null = null;
+  current: Observable<Item | null> | null = null;
   gear: Array<Item> = [];
   filteredGear: Array<Item> = [];
   essenceCrafting: Array<Item> = [];

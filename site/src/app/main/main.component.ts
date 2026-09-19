@@ -572,8 +572,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   isArmorEquipped() {
-    const armor = this.equipped.getSlotsSnapshot().get('Armor');
-    return !!armor && armor.isValid();
+    return this.equipped.hasItem('Armor');
   }
 
   shouldHighlightTrackedAffixes() {

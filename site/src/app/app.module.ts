@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, provideAppInitializer, inject, Injector, runInInjectionContext } from '@angular/core';
+import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -129,7 +129,15 @@ import { ShrinkToFitDirective } from './shrink-to-fit.directive';
         { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
         provideAppInitializer(() => {
             const injector = inject(Injector);
+            // The load can outlive the injector - every TestBed that imports
+            // AppModule tears down before it resolves - and injecting from a
+            // destroyed injector throws NG0205.
+            let destroyed = false;
+            inject(DestroyRef).onDestroy(() => destroyed = true);
             return inject(GameDataService).load().then(() => {
+                if (destroyed) {
+                    return;
+                }
                 // GearDbService does a fair amount of synchronous work building its
                 // gear/affix indexes in its constructor; instantiate it here so that
                 // work happens during startup instead of stalling the first click on

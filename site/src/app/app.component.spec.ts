@@ -221,11 +221,28 @@ describe('AppComponent', () => {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
     const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    fixture.componentInstance.warnOnUnload = true;
 
     fixture.componentInstance.warnOnUnsavedChanges(event as any);
 
     expect(event.preventDefault).toHaveBeenCalled();
     expect(event.returnValue).toBeTruthy();
+  });
+
+  it('does not warn on window unload for a dirty build in a dev build', () => {
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    Object.defineProperty(currentBuild, 'value', {
+      get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
+    });
+    fixture.componentInstance.warnOnUnload = false;
+
+    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    fixture.componentInstance.warnOnUnsavedChanges(event as any);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(event.returnValue).toBeUndefined();
   });
 
   it('does not warn on window unload for a dirty build mid sign-in/sign-out redirect', () => {
@@ -237,6 +254,7 @@ describe('AppComponent', () => {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
     authServiceStub.isRedirectingAwayForAuth = true;
+    fixture.componentInstance.warnOnUnload = true;
 
     const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnsavedChanges(event as any);

@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
 import { EquippedService } from './equipped.service';
 import { FiltersService } from './filters.service';
@@ -57,10 +58,15 @@ export class AppComponent implements OnInit, OnDestroy {
   // real confirm dialog instead of the browser's generic one. Excludes a
   // sign-in/sign-out redirect specifically (see AuthService.
   // isRedirectingAwayForAuth) - both round-trip back to this exact build,
-  // so the browser's generic warning there is a pure false alarm.
+  // so the browser's generic warning there is a pure false alarm. Also off in
+  // dev builds: ng serve's live reload triggers a full page reload on every
+  // rebuild, and since the URL already carries the whole edit state nothing
+  // is lost across it - a pure false alarm there too.
+  warnOnUnload = environment.production;
+
   @HostListener('window:beforeunload', ['$event'])
   warnOnUnsavedChanges(event: BeforeUnloadEvent) {
-    if (this.currentBuild.value.isDirty && !this.auth.isRedirectingAwayForAuth) {
+    if (this.warnOnUnload && this.currentBuild.value.isDirty && !this.auth.isRedirectingAwayForAuth) {
       event.preventDefault();
       event.returnValue = true;
     }

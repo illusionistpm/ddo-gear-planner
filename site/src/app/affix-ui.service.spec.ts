@@ -114,4 +114,29 @@ describe('AffixUiService', () => {
       value: 5,
     }));
   });
+
+  describe('describeExternalAffix', () => {
+    const service = new AffixUiService({} as any, {} as any, {} as any);
+    const entry = (overrides: object) => ({
+      id: '1', affixName: 'Strength', bonusType: 'Insight', kind: 'value' as const, value: 3, label: 'Spell', ...overrides
+    });
+
+    it('shows a value entry as its signed value and bonus type', () => {
+      expect(service.describeExternalAffix(entry({}))).toBe('+3 Insight');
+    });
+
+    it('shows a checklist entry as covered', () => {
+      expect(service.describeExternalAffix(entry({ bonusType: 'Bool', value: 1 }))).toBe('Covered');
+    });
+
+    it('shows an ignored entry as its bonus type, or Ignored for a checklist', () => {
+      expect(service.describeExternalAffix(entry({ kind: 'ignored', value: 0 }))).toBe('Insight');
+      expect(service.describeExternalAffix(entry({ kind: 'ignored', bonusType: 'Bool', value: 0 }))).toBe('Ignored');
+    });
+
+    it('appends the label on request', () => {
+      expect(service.describeExternalAffix(entry({}), true)).toBe('+3 Insight (Spell)');
+      expect(service.describeExternalAffix(entry({ bonusType: 'Bool', value: 1 }), true)).toBe('Covered (Spell)');
+    });
+  });
 });

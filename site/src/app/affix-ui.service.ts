@@ -7,6 +7,7 @@ import { GearDbService } from './gear-db.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { perfCount } from './perf-trace';
+import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,23 @@ export class AffixUiService {
       return (affix.value > 0 ? '+' : '') + affix.value;
     }
     return '';
+  }
+
+  /**
+   * The value column for a non-gear affix entry: "+5 Insight", "Covered" for a
+   * checklist entry, or the ignored bonus type. `includeLabel` appends the
+   * entry's own label, for views that do not show it separately.
+   */
+  describeExternalAffix(entry: ExternalAffixEntry, includeLabel = false): string {
+    let text: string;
+    if (entry.kind === 'ignored') {
+      text = Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
+    } else if (entry.bonusType === 'Bool') {
+      text = 'Covered';
+    } else {
+      text = [this.getAffixValue(externalAffixAsAffix(entry)), entry.bonusType].filter(part => part).join(' ');
+    }
+    return includeLabel ? `${text} (${entry.label})` : text;
   }
 
   getClassForAffix(affix: Affix, option?: CraftableOption): string {

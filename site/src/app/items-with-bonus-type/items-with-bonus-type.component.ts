@@ -3,7 +3,8 @@ import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDe
 import { Subscription } from 'rxjs';
 
 import { GearDbService } from '../gear-db.service';
-import { EquippedService, ExternalAffixEntry } from '../equipped.service';
+import { EquippedService } from '../equipped.service';
+import { ExternalAffixEntry } from '../external-affix';
 import { Item } from '../item';
 import { Affix } from '../affix';
 import { Craftable } from '../craftable';
@@ -344,15 +345,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
 
   describeExternalEntry(entry: ExternalAffixEntry): string {
-    if (entry.kind === 'ignored') {
-      const value = Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
-      return value + ' (' + entry.label + ')';
-    }
-    if (this.isChecklistBonusType()) {
-      return 'Covered (' + entry.label + ')';
-    }
-    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
-    return [this.affixUi.getAffixValue(fakeAffix), entry.bonusType].filter(part => part).join(' ') + ' (' + entry.label + ')';
+    return this.affixUi.describeExternalAffix(entry, true);
   }
 
   removeExternal(id: string, event?: Event) {

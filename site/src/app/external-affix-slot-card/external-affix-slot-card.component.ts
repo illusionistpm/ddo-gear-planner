@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
-import { EquippedService, ExternalAffixEntry } from '../equipped.service';
+import { EquippedService } from '../equipped.service';
+import { externalAffixAsAffix, ExternalAffixEntry } from '../external-affix';
 
 @Component({
   selector: 'app-external-affix-slot-card',
@@ -41,22 +41,14 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
   }
 
   getValueText(entry: ExternalAffixEntry): string {
-    if (entry.kind === 'ignored') {
-      return Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
-    }
-    if (entry.bonusType === 'Bool') {
-      return 'Covered';
-    }
-    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
-    return [this.affixUi.getAffixValue(fakeAffix), entry.bonusType].filter(part => part).join(' ');
+    return this.affixUi.describeExternalAffix(entry);
   }
 
   getRowClass(entry: ExternalAffixEntry): string {
     if (entry.kind === 'ignored') {
       return '';
     }
-    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
-    return this.affixUi.getClassForAffix(fakeAffix);
+    return this.affixUi.getClassForAffix(externalAffixAsAffix(entry));
   }
 
   remove(id: string) {

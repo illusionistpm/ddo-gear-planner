@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { deflate, inflate } from 'pako';
 
 import { perfStart } from './perf-trace';
+import { isExternalAffixEntry } from './external-affix';
 import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
 
 type QueryParamValue = string | number | boolean | Array<string | number | boolean>;
@@ -355,10 +356,7 @@ export class BuildUrlCodecService {
         return [];
       }
       return parsed
-        .filter((entry): entry is { affixName: string; bonusType: string; kind: string; value: number; label: string } =>
-          !!entry && typeof entry.affixName === 'string' && typeof entry.bonusType === 'string'
-          && (entry.kind === 'value' || entry.kind === 'ignored')
-          && typeof entry.value === 'number' && typeof entry.label === 'string')
+        .filter(entry => isExternalAffixEntry(entry, false))
         .map((entry): [string, string, string, number, string] =>
           [entry.affixName, entry.bonusType, entry.kind === 'ignored' ? 'i' : 'v', entry.value, entry.label]);
     } catch {

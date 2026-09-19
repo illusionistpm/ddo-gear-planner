@@ -22,6 +22,7 @@ import { AffixAvailabilityService } from './affix-availability.service';
 import { EssenceCraftingService } from './essence-crafting.service';
 import { perfCount, perfMeasure, perfStart } from './perf-trace';
 import { moderateValueThreshold } from './tracked-affix-derivation';
+import { ExternalAffixEntry, isExternalAffixEntry } from './external-affix';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -74,15 +75,6 @@ export interface AffixSource {
   affixName: string;
   bonusType: string;
   value: number;
-}
-
-export interface ExternalAffixEntry {
-  id: string;
-  affixName: string;
-  bonusType: string;
-  kind: 'value' | 'ignored';
-  value: number;
-  label: string;
 }
 
 export interface EquippedItemEvent {
@@ -1037,13 +1029,7 @@ export class EquippedService {
       try {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
-          entries = parsed.filter((entry): entry is ExternalAffixEntry =>
-            !!entry && typeof entry.id === 'string'
-            && typeof entry.affixName === 'string'
-            && typeof entry.bonusType === 'string'
-            && (entry.kind === 'value' || entry.kind === 'ignored')
-            && typeof entry.value === 'number'
-            && typeof entry.label === 'string');
+          entries = parsed.filter((entry): entry is ExternalAffixEntry => isExternalAffixEntry(entry));
         }
       } catch {
         console.log('Bad ext param, ignoring external affix entries: ' + raw);

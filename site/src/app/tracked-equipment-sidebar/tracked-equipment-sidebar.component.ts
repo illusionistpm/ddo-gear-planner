@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, ExternalAffixEntry, VisibleSetBonus } from '../equipped.service';
+import { EquippedService, VisibleSetBonus } from '../equipped.service';
+import { ExternalAffixEntry } from '../external-affix';
 import { Item } from '../item';
 import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
@@ -120,11 +121,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   }
 
   describeExternalEntry(entry: ExternalAffixEntry): string {
-    if (entry.kind === 'ignored') {
-      return Affix.isRealType(entry.bonusType) ? entry.bonusType : 'Ignored';
-    }
-    const fakeAffix = new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
-    return [this.affixUi.getAffixValue(fakeAffix), entry.bonusType].filter(part => part).join(' ');
+    return this.affixUi.describeExternalAffix(entry);
   }
 
   removeExternal(id: string, event?: Event) {

@@ -19,8 +19,14 @@ module.exports = tseslint.config(
       "@angular-eslint/prefer-standalone": "off",
       "@angular-eslint/prefer-on-push-component-change-detection": "off",
       "@typescript-eslint/no-unused-vars": ["error", { args: "none", caughtErrors: "none" }],
-      // Warn until typing the covered-affix map (audit F6) drives the count down.
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
+    },
+  },
+  {
+    // Specs use `as any` for partial mocks and to reach private members.
+    files: ["**/*.spec.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   {

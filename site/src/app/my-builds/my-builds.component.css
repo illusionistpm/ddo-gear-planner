@@ -98,7 +98,7 @@
 }
 
 .my-builds-error {
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
 }
 
 .my-builds-list {
@@ -138,7 +138,7 @@
 }
 
 .my-builds-delete:hover:not(:disabled) {
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
 }
 
 .my-builds-delete:disabled {

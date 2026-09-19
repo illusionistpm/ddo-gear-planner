@@ -1,7 +1,7 @@
 .save-dialog-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--modal-backdrop-bg);
   z-index: 1290;
 }
 
@@ -86,12 +86,12 @@
 }
 
 .save-dialog-char-count.over-limit {
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
 }
 
 .save-dialog-error {
   margin: 0;
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
   font-size: 0.85rem;
 }
 
@@ -119,7 +119,7 @@
 .save-dialog-confirm {
   background: var(--primary-color);
   border: 1px solid var(--primary-color);
-  color: #fff;
+  color: var(--on-accent-text-color);
 }
 
 .save-dialog-confirm:disabled,

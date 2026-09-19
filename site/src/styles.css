@@ -68,6 +68,8 @@
   --backdrop-rgb: 15, 23, 42;
   /* The support (Ko-fi) button's own brand blue - not a theme colour. */
   --support-brand-color: #5f7fff;
+  /* Scrim behind a modal dialog - darker than the drawer/filters scrim. */
+  --modal-backdrop-bg: rgba(0, 0, 0, 0.35);
   --bs-body-bg: var(--background-color);
   --bs-body-color: var(--text-primary);
   --bs-border-color: var(--border-color);
@@ -130,6 +132,8 @@
   --backdrop-rgb: 15, 23, 42;
   /* The support (Ko-fi) button's own brand blue - not a theme colour. */
   --support-brand-color: #5f7fff;
+  /* Scrim behind a modal dialog - darker than the drawer/filters scrim. */
+  --modal-backdrop-bg: rgba(0, 0, 0, 0.35);
   --chip-border-color: #64748b;
   --progress-track-color: #475569;
   --selected-bg: rgba(34, 197, 94, 0.18);

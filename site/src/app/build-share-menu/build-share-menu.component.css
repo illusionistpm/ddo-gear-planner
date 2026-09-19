@@ -60,7 +60,7 @@
 
 .share-menu-error {
   border-top: 1px solid var(--border-color);
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
   display: block;
   font-size: 0.8rem;
   padding: 0.55rem 0.75rem;

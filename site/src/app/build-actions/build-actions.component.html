@@ -24,14 +24,14 @@
 
     @if (isAuthenticated) {
       <button type="button" class="build-switcher-caret" aria-label="My builds" title="My builds"
-        [attr.aria-expanded]="myBuildsOpen"
+        [attr.aria-expanded]="isMenuOpen('myBuilds')"
         (click)="onMyBuildsClick()">
         <i class="fas fa-chevron-down" aria-hidden="true"></i>
       </button>
     }
 
-    @if (myBuildsOpen) {
-      <app-my-builds (closed)="closeMyBuilds()"></app-my-builds>
+    @if (isMenuOpen('myBuilds')) {
+      <app-my-builds (closed)="closeMenu()"></app-my-builds>
     }
   </div>
 
@@ -54,13 +54,13 @@
 
       @if (saveControl.hasMenu) {
         <button #saveCaret type="button" class="save-split-caret" aria-haspopup="menu" aria-label="More save options"
-          [attr.aria-expanded]="saveMenuOpen"
+          [attr.aria-expanded]="isMenuOpen('save')"
           (click)="toggleSaveMenu()"
           (keydown)="onSaveCaretKeydown($event)">
           <i class="fas fa-chevron-down" aria-hidden="true"></i>
         </button>
 
-        @if (saveMenuOpen) {
+        @if (isMenuOpen('save')) {
           <div class="save-menu" role="menu" (keydown)="onSaveMenuKeydown($event)">
             <button #saveMenuItem type="button" class="save-menu-item" role="menuitem" (click)="onSaveAsMenuItemClick()">Save As…</button>
           </div>
@@ -71,24 +71,10 @@
   }
 
   <div class="share-wrap">
-    <button type="button" class="build-action-button" [attr.aria-expanded]="shareMenuOpen" (click)="toggleShareMenu()">Share</button>
+    <button type="button" class="build-action-button" [attr.aria-expanded]="isMenuOpen('share')" (click)="toggleMenu('share')">Share</button>
 
-    @if (shareMenuOpen) {
-      <div class="share-menu">
-        <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : shareLinkLabel }}</button>
-        <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyTextAndLink()">{{ justCopied === 'text-link' ? 'Copied!' : shareTextAndLinkLabel }}</button>
-        <button type="button" class="share-menu-item" (click)="copyTextOnly()">{{ justCopied === 'text' ? 'Copied!' : 'Copy text only' }}</button>
-        @if (shareLink.status === 'error') {
-          <span class="share-menu-error" role="alert">{{ shareLink.message }}</span>
-        }
-        @if (shareCopyError) {
-          <span class="share-menu-error" role="alert">{{ shareCopyError }}</span>
-        }
-        @if (!isAuthenticated) {
-          <button type="button" class="share-menu-hint" (click)="signIn()">Sign in for a short link</button>
-        }
-      </div>
-      <button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closeShareMenu()"></button>
+    @if (isMenuOpen('share')) {
+      <app-build-share-menu [buildState]="buildState" [isAuthenticated]="isAuthenticated" (closed)="closeMenu()"></app-build-share-menu>
     }
   </div>
 
@@ -96,8 +82,8 @@
     <span class="build-actions-divider" aria-hidden="true"></span>
     <div class="avatar-wrap">
       <button type="button" class="avatar-button" [title]="userDisplayName ?? ''"
-        [attr.aria-expanded]="avatarMenuOpen" aria-label="Account menu"
-        (click)="toggleAvatarMenu()">
+        [attr.aria-expanded]="isMenuOpen('avatar')" aria-label="Account menu"
+        (click)="toggleMenu('avatar')">
         @if (userPicture) {
           <img [src]="userPicture" alt="" class="avatar-image" referrerpolicy="no-referrer">
         } @else {
@@ -105,12 +91,12 @@
         }
       </button>
 
-      @if (avatarMenuOpen) {
+      @if (isMenuOpen('avatar')) {
         <div class="avatar-menu">
           <div class="avatar-menu-header">{{ userDisplayName }}</div>
           <button type="button" class="avatar-menu-item" (click)="signOut()">Sign out</button>
         </div>
-        <button type="button" class="avatar-menu-backdrop" aria-label="Close account menu" (click)="closeAvatarMenu()"></button>
+        <button type="button" class="avatar-menu-backdrop" aria-label="Close account menu" (click)="closeMenu()"></button>
       }
     </div>
   } @else {

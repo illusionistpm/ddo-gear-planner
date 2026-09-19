@@ -1,44 +1,17 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AnalyticsService } from '../analytics.service';
 import { AuthService } from '../auth.service';
-import { BuildSummary, MAX_BLOB_LENGTH } from '../build';
-import { BuildUrlCodecService } from '../build-url-codec.service';
-import { BuildsService } from '../builds.service';
-import { Clipboard } from '../clipboard';
 import { CurrentBuildService, CurrentBuildState } from '../current-build.service';
-import { EquippedService } from '../equipped.service';
-import { QueryParamsService } from '../query-params.service';
-import { ShortLinksService } from '../short-links.service';
-import { slugifyBuildName } from '../build-slug';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
+import { BuildSaveError, BuildSaveService } from './build-save.service';
 
 type DialogMode = 'create' | 'save-as';
-type ShareCopyKind = 'link' | 'text-link' | 'text';
 
-// 'canonical': the build's own existing /build/:shortId/:slug URL, shared
-// as-is with no mint at all - only possible for a clean, owned, already-
-// saved build (see canonicalShareUrl). 'short': a freshly minted immutable
-// snapshot link (shortLinks.create) - what a dirty edit or a build the
-// viewer doesn't own falls back to. 'long': the current ?b=... URL,
-// unauthenticated visitors only (see the plan for why short links are
-// locked behind sign-in).
-type ShareLinkKind = 'canonical' | 'short' | 'long';
-
-// The share menu's link needs a resolved-or-not lifecycle now that it's
-// minted the moment the menu opens (see refreshShareLink) rather than on
-// each individual copy click - a click that lands before the mint (or the
-// synchronous canonical/long branches) resolves has nothing to copy yet,
-// and the menu needs to say so rather than silently doing nothing.
-type ShareLinkState =
-  | { status: 'pending' }
-  | { status: 'ready'; url: string; kind: ShareLinkKind }
-  | { status: 'error'; message: string };
+// The four popovers hanging off the build bar. At most one is open at a time.
+export type BuildActionsMenu = 'myBuilds' | 'avatar' | 'share' | 'save';
 
 // The view model behind the single save split-button (see the plan's "Save
 // controls" section) - one primary action whose label/enabled-ness follows
@@ -83,27 +56,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   dialogSaving = false;
   dialogError: string | null = null;
 
-  myBuildsOpen = false;
-  avatarMenuOpen = false;
-  shareMenuOpen = false;
-  saveMenuOpen = false;
-  // Minted (or resolved synchronously) the moment the share menu opens -
-  // see refreshShareLink - so the actual copy click is synchronous and
-  // stays inside the click's own user gesture (document.execCommand/
-  // navigator.clipboard both require that - see clipboard.ts). Doing the
-  // mint on the copy click itself, as this used to, meant a real network
-  // round-trip sat between the gesture and the clipboard write, which
-  // silently failed the write in Firefox/Safari.
-  shareLink: ShareLinkState = { status: 'pending' };
-  private shareLinkSub?: Subscription;
-  // A copy that failed for a reason OTHER than the link not being ready
-  // yet (shareLink.status === 'error' covers that one) - specifically,
-  // Clipboard.copy() itself returning false.
-  shareCopyError: string | null = null;
-  // Transient "Copied!" confirmation - which share-menu action last copied
-  // something, cleared after a short delay.
-  justCopied: ShareCopyKind | null = null;
-
+  openMenu: BuildActionsMenu | null = null;
   editingName = false;
   nameDraft = '';
   renameError: string | null = null;
@@ -133,14 +86,8 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly currentBuild: CurrentBuildService,
-    private readonly buildsService: BuildsService,
-    private readonly shortLinks: ShortLinksService,
-    private readonly queryParams: QueryParamsService,
-    private readonly codec: BuildUrlCodecService,
-    private readonly equipped: EquippedService,
-    private readonly analytics: AnalyticsService,
+    private readonly buildSave: BuildSaveService,
     private readonly auth: AuthService,
-    private readonly router: Router,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
@@ -171,7 +118,6 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     this.buildStateSub?.unsubscribe();
     this.authSub?.unsubscribe();
     this.userSub?.unsubscribe();
-    this.shareLinkSub?.unsubscribe();
   }
 
   signIn(): void {
@@ -179,33 +125,21 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   signOut(): void {
-    this.avatarMenuOpen = false;
+    this.closeMenu();
     this.auth.signOut();
   }
 
-  toggleAvatarMenu(): void {
-    this.avatarMenuOpen = !this.avatarMenuOpen;
-    this.myBuildsOpen = false;
-    this.saveMenuOpen = false;
+  isMenuOpen(menu: BuildActionsMenu): boolean {
+    return this.openMenu === menu;
   }
 
-  closeAvatarMenu(): void {
-    this.avatarMenuOpen = false;
+  /** Opens `menu` (closing whichever other one was open), or closes it if it's already open. */
+  toggleMenu(menu: BuildActionsMenu): void {
+    this.openMenu = this.openMenu === menu ? null : menu;
   }
 
-  toggleShareMenu(): void {
-    const opening = !this.shareMenuOpen;
-    this.shareMenuOpen = opening;
-    this.myBuildsOpen = false;
-    this.avatarMenuOpen = false;
-    this.saveMenuOpen = false;
-    if (opening) {
-      this.refreshShareLink();
-    }
-  }
-
-  closeShareMenu(): void {
-    this.shareMenuOpen = false;
+  closeMenu(): void {
+    this.openMenu = null;
   }
 
   // Naming is available to anyone, saved or not, signed in or not - see the
@@ -268,38 +202,14 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Same duplicate-name guard as Save As - check against the user's own
-    // builds (excluding this one) before committing, and don't let a failed
-    // check itself block the rename.
-    this.buildsService.listMine().subscribe({
-      next: builds => this.rejectDuplicateRenameOrSave(validated, savedBuildId, builds),
-      error: () => this.saveRename(savedBuildId, validated)
-    });
-  }
-
-  private rejectDuplicateRenameOrSave(name: string, savedBuildId: string, existingBuilds: BuildSummary[]): void {
-    const isDuplicate = existingBuilds.some(
-      build => build.id !== savedBuildId && build.name.trim().toLowerCase() === name.trim().toLowerCase()
-    );
-    if (isDuplicate) {
-      this.renameError = `You already have a build named "${name}". Choose a different name.`;
-      this.cdr.markForCheck();
-      return;
-    }
-    this.saveRename(savedBuildId, name);
-  }
-
-  private saveRename(savedBuildId: string, name: string): void {
-    this.buildsService.update(savedBuildId, { name }).subscribe({
-      next: build => {
+    this.buildSave.rename(savedBuildId, validated).subscribe({
+      next: () => {
         this.editingName = false;
         this.renameError = null;
-        this.currentBuild.markSaved({ savedBuildId: build.id, shortId: build.shortId, name: build.name });
-        this.navigateToSavedBuild(build.shortId, build.name);
         this.cdr.markForCheck();
       },
-      error: () => {
-        this.renameError = 'Could not rename that build. Please try again.';
+      error: (err: unknown) => {
+        this.renameError = saveErrorMessage(err);
         this.cdr.markForCheck();
       }
     });
@@ -363,11 +273,8 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   toggleSaveMenu(): void {
-    this.saveMenuOpen = !this.saveMenuOpen;
-    this.myBuildsOpen = false;
-    this.avatarMenuOpen = false;
-    this.shareMenuOpen = false;
-    if (this.saveMenuOpen) {
+    this.toggleMenu('save');
+    if (this.isMenuOpen('save')) {
       // The menu item doesn't exist in the DOM until the @if switches over
       // on the next change-detection pass - defer the focus move until then
       // instead of racing it (same pattern as startRename's nameInputRef).
@@ -380,7 +287,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // backdrop click already moved focus onto the backdrop's own click
   // target, so forcing it back onto the caret there would fight the user.
   closeSaveMenu(returnFocusToCaret = false): void {
-    this.saveMenuOpen = false;
+    this.closeMenu();
     if (returnFocusToCaret) {
       this.saveCaretRef?.nativeElement.focus();
     }
@@ -399,12 +306,12 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   onSaveCaretKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (!this.saveMenuOpen) {
+      if (!this.isMenuOpen('save')) {
         this.toggleSaveMenu();
       } else {
         this.focusFirstSaveMenuItem();
       }
-    } else if (event.key === 'Escape' && this.saveMenuOpen) {
+    } else if (event.key === 'Escape' && this.isMenuOpen('save')) {
       this.closeSaveMenu();
     }
   }
@@ -464,268 +371,45 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   onDialogConfirmed(name: string): void {
     this.dialogSaving = true;
     this.dialogError = null;
-
-    // 'create' and 'save-as' both end up here and both create a brand new
-    // build row - check for a name collision against the user's own builds
-    // first and block outright, since nothing else stops someone from
-    // ending up with two builds named the same thing otherwise. Best-
-    // effort: if the check itself fails, don't let that block the save -
-    // just proceed as if no duplicate was found.
-    this.buildsService.listMine().subscribe({
-      next: builds => this.rejectDuplicateNameOrCreate(name, builds),
-      error: () => this.createBuild(name)
-    });
-  }
-
-  private rejectDuplicateNameOrCreate(name: string, existingBuilds: { name: string }[]): void {
-    const isDuplicate = existingBuilds.some(build => build.name.trim().toLowerCase() === name.trim().toLowerCase());
-    if (isDuplicate) {
-      this.dialogSaving = false;
-      this.dialogError = `You already have a build named "${name}". Choose a different name.`;
-      this.cdr.markForCheck();
-      return;
-    }
-    this.createBuild(name);
-  }
-
-  private createBuild(name: string): void {
-    const blob = this.currentBlob();
-    if (blob.length > MAX_BLOB_LENGTH) {
-      // The worker's own validateBlob() stays the authoritative check (this
-      // API is callable directly) - this is just an earlier, friendlier
-      // rejection than waiting for its 400, which - unlike this one - has
-      // no way to say anything more specific than "a blob is required"
-      // (see worker/src/routes/builds.ts's shared 400 message for a
-      // missing OR oversized blob).
-      this.dialogSaving = false;
-      this.dialogError = 'This build is too large to save - try tracking fewer items or affixes.';
-      this.cdr.markForCheck();
-      return;
-    }
-    this.buildsService.create(name, blob).subscribe({
-      next: build => {
+    // 'create' and 'save-as' both create a brand new build row.
+    this.buildSave.create(name).subscribe({
+      next: () => {
         this.dialogSaving = false;
         this.dialogOpen = false;
-        // Cache this content locally before navigating - if the build is
-        // edited again and browser back later returns all the way to this
-        // bare /build/:shortId/:slug URL, MainComponent reapplies this cache
-        // synchronously instead of re-fetching over the network (see
-        // CurrentBuildService.getCanonicalParamsCache's comment).
-        this.currentBuild.markSaved({
-          savedBuildId: build.id,
-          shortId: build.shortId,
-          name: build.name,
-          canonicalParams: this.queryParams.getCombinedParams() as Record<string, string | string[]>
-        });
-        this.navigateToSavedBuild(build.shortId, build.name);
         this.cdr.markForCheck();
       },
-      error: (err: HttpErrorResponse) => {
+      error: (err: unknown) => {
         this.dialogSaving = false;
-        // Surface a specific, actionable message when the worker rejects
-        // the create for a known reason (e.g. hitting the per-account build
-        // limit - see worker/src/routes/builds.ts's MAX_BUILDS_PER_USER)
-        // rather than always showing the same generic fallback.
-        this.dialogError = typeof err.error?.error === 'string'
-          ? err.error.error
-          : 'Could not save that build. Please try again.';
+        this.dialogError = saveErrorMessage(err);
         this.cdr.markForCheck();
       }
     });
   }
 
   onMyBuildsClick(): void {
-    this.myBuildsOpen = true;
-    this.avatarMenuOpen = false;
-    this.saveMenuOpen = false;
-  }
-
-  closeMyBuilds(): void {
-    this.myBuildsOpen = false;
+    this.openMenu = 'myBuilds';
   }
 
   private saveInPlace(savedBuildId: string): void {
-    const blob = this.currentBlob();
-    if (blob.length > MAX_BLOB_LENGTH) {
-      // See createBuild()'s identical check - same reasoning, just with
-      // nowhere but savingInPlaceError to show it (no dialog on this path).
-      this.savingInPlaceError = 'This build is too large to save - try tracking fewer items or affixes.';
-      this.cdr.markForCheck();
-      return;
-    }
     this.savingInPlaceError = null;
     this.savingInPlace = true;
-    this.buildsService.update(savedBuildId, { blob }).subscribe({
-      next: build => {
+    this.buildSave.saveInPlace(savedBuildId).subscribe({
+      next: () => {
         this.savingInPlace = false;
-        this.savingInPlaceError = null;
-        // See createBuild()'s comment - same caching, so browser back to
-        // this build's bare URL after further edits doesn't need a
-        // network round trip to restore this saved content.
-        this.currentBuild.markSaved({
-          savedBuildId: build.id,
-          shortId: build.shortId,
-          name: build.name,
-          canonicalParams: this.queryParams.getCombinedParams() as Record<string, string | string[]>
-        });
-        // Editing a loaded build accumulates a ?b= query param on the root
-        // route (see QueryParamsService.navigateWithParams) once it's
-        // dirty, so a mid-edit refresh doesn't lose unsaved changes -
-        // navigate back to the clean /build/:shortId/:slug URL now that
-        // it's saved, or the address bar is left pointing at that
-        // now-stale root/b= URL for an already-clean build.
-        this.navigateToSavedBuild(build.shortId, build.name);
         this.cdr.markForCheck();
       },
       // A failed in-place save leaves isDirty as-is - clear the saving
-      // indicator so the button re-enables, and surface something (this
-      // used to fail completely silently, with no dialog to show it in).
-      error: () => {
+      // indicator so the button re-enables, and say why (there's no dialog
+      // on this path to show it in).
+      error: (err: unknown) => {
         this.savingInPlace = false;
-        this.savingInPlaceError = 'Could not save that build. Please try again.';
+        this.savingInPlaceError = saveErrorMessage(err);
         this.cdr.markForCheck();
       }
     });
   }
+}
 
-  private currentBlob(): string {
-    return this.codec.encode(this.queryParams.getCombinedParams());
-  }
-
-  private navigateToSavedBuild(shortId: string, name: string): void {
-    this.router.navigateByUrl(`/build/${encodeURIComponent(shortId)}/${slugifyBuildName(name)}`, { replaceUrl: true });
-  }
-
-  // Resolves shareLink for the CURRENT build/auth state - called once when
-  // the share menu opens (see toggleShareMenu), not on every copy click, so
-  // that click stays synchronous (see clipboard.ts for why that matters).
-  // Three ways this resolves, checked in order:
-  //  1. Synchronously, to the build's own canonical URL - only for a clean,
-  //     owned, already-saved build (see canonicalShareUrl's comment).
-  //  2. Synchronously, to the current long ?b=... URL - signed-out visitors
-  //     only (window.location.href already reflects the current gear/name
-  //     thanks to CurrentBuildService.setName()/
-  //     QueryParamsService.refreshLiveEditUrl()). See the plan for why
-  //     short links are locked behind sign-in.
-  //  3. Asynchronously, via a freshly minted short link (a real network
-  //     round trip) - everything else: a dirty edit, or a build the viewer
-  //     doesn't own. shareLink sits at 'pending' for however long that
-  //     takes; a copy click that lands before it resolves is a no-op (see
-  //     performShareCopy) rather than falling back to an async copy.
-  private refreshShareLink(): void {
-    this.shareLinkSub?.unsubscribe();
-    this.shareCopyError = null;
-
-    const canonicalUrl = this.canonicalShareUrl();
-    if (canonicalUrl) {
-      this.shareLink = { status: 'ready', url: canonicalUrl, kind: 'canonical' };
-      return;
-    }
-    if (!this.isAuthenticated) {
-      this.shareLink = { status: 'ready', url: window.location.href, kind: 'long' };
-      return;
-    }
-
-    this.shareLink = { status: 'pending' };
-    this.shareLinkSub = this.shortLinks.create(this.currentBlob(), this.buildState.name ?? '').subscribe({
-      next: ({ shortId }) => {
-        const slugSegment = this.buildState.name ? `/${slugifyBuildName(this.buildState.name)}` : '';
-        this.shareLink = {
-          status: 'ready',
-          url: `${window.location.origin}/build/${encodeURIComponent(shortId)}${slugSegment}`,
-          kind: 'short'
-        };
-        this.cdr.markForCheck();
-      },
-      error: () => {
-        this.shareLink = { status: 'error', message: 'Could not create a share link. Please try again.' };
-        this.cdr.markForCheck();
-      }
-    });
-  }
-
-  // A clean, owned, already-saved build's own /build/:shortId/:slug URL
-  // always reflects its current content already - sharing that instead of
-  // minting a fresh immutable snapshot means recipients see live updates
-  // (further saves), not a copy pinned to this exact moment. Minting here
-  // would be actively wrong: it would hand out a second, divergent URL for
-  // the same build the moment it's edited and saved again. The isAuthenticated
-  // check is defensive (ownership can only ever resolve to 'owned' for a
-  // signed-in viewer's own confirmed build - see CurrentBuildService), not
-  // load-bearing, but it costs nothing to state the invariant explicitly
-  // rather than lean on it holding elsewhere.
-  private canonicalShareUrl(): string | null {
-    if (!this.isAuthenticated || this.buildState.ownership !== 'owned' || !this.buildState.shortId || this.buildState.isDirty) {
-      return null;
-    }
-    const slugSegment = this.buildState.name ? `/${slugifyBuildName(this.buildState.name)}` : '';
-    return `${window.location.origin}/build/${encodeURIComponent(this.buildState.shortId)}${slugSegment}`;
-  }
-
-  // Only 'short' (a freshly minted snapshot) gets its own distinct label -
-  // 'canonical' and 'long' are both still fundamentally "the link to this
-  // build", just resolved a different way, and don't need the viewer to
-  // care about that distinction.
-  get shareLinkLabel(): string {
-    if (this.shareLink.status === 'pending') {
-      return 'Preparing link…';
-    }
-    return this.shareLink.status === 'ready' && this.shareLink.kind === 'short' ? 'Copy short link' : 'Copy link';
-  }
-
-  get shareTextAndLinkLabel(): string {
-    return this.shareLink.status === 'pending' ? 'Preparing link…' : 'Copy text + link';
-  }
-
-  copyLink(): void {
-    this.performShareCopy('link', url => url);
-  }
-
-  copyTextAndLink(): void {
-    this.performShareCopy('text-link', url => `${this.equipped.getGearDescription()}\n${url}`);
-  }
-
-  copyTextOnly(): void {
-    // No link involved at all - always available, regardless of shareLink's
-    // state (still minting, or it failed).
-    this.finishShareCopy('text', Clipboard.copy(this.equipped.getGearDescription()));
-  }
-
-  private performShareCopy(kind: ShareCopyKind, buildClipboardText: (url: string) => string): void {
-    if (this.shareLink.status !== 'ready') {
-      // Not ready yet (still minting) or failed - the menu already shows
-      // that state (see the template); nothing to copy from here. Once it
-      // resolves, this is naturally the retry, not a separate action.
-      return;
-    }
-    this.finishShareCopy(kind, Clipboard.copy(buildClipboardText(this.shareLink.url)));
-  }
-
-  private finishShareCopy(kind: ShareCopyKind, succeeded: boolean): void {
-    if (!succeeded) {
-      // Clipboard.copy() itself failed (see its comment for when that
-      // happens) - surface it rather than showing "Copied!" regardless, and
-      // don't track a copy that didn't actually happen.
-      this.shareCopyError = 'Could not copy to the clipboard. Please try again.';
-      this.cdr.markForCheck();
-      return;
-    }
-    this.shareCopyError = null;
-    this.trackShareCopy(kind);
-    this.justCopied = kind;
-    this.cdr.markForCheck();
-    setTimeout(() => {
-      this.justCopied = null;
-      this.cdr.markForCheck();
-    }, 1500);
-  }
-
-  private trackShareCopy(kind: ShareCopyKind): void {
-    const linkKind = kind === 'text' ? 'none' : (this.shareLink.status === 'ready' ? this.shareLink.kind : 'none');
-    this.analytics.track('copy_build', {
-      copy_kind: kind,
-      link_kind: linkKind,
-      equipped_slot_count: this.equipped.getEquippedItemCount()
-    });
-  }
+function saveErrorMessage(err: unknown): string {
+  return err instanceof BuildSaveError ? err.message : 'Could not save that build. Please try again.';
 }

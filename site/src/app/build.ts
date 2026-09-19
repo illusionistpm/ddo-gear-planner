@@ -26,8 +26,7 @@ export interface Build extends BuildSummary {
 // (worker/src/routes/builds.ts) is the authoritative enforcement point for
 // both of these (this API is callable directly); this is just so the UI
 // can show "X/100" without a separate number to keep in sync, and so
-// createBuild/saveInPlace can reject an oversized blob early with a
-// friendly message instead of waiting for the server's 400 - see
-// BuildActionsComponent.currentBlob's use of MAX_BLOB_LENGTH.
+// BuildSaveService can reject an oversized blob early with a friendly
+// message instead of waiting for the server's 400.
 export const MAX_BUILDS_PER_USER = sharedConstants.maxBuildsPerUser;
 export const MAX_BLOB_LENGTH = sharedConstants.maxBlobLength;

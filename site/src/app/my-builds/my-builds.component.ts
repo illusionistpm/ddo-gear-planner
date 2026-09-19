@@ -6,7 +6,7 @@ import { BuildSummary, MAX_BUILDS_PER_USER } from '../build';
 import { BuildsService } from '../builds.service';
 import { CurrentBuildService } from '../current-build.service';
 import { confirmLeaveUnsavedChanges } from '../unsaved-changes.guard';
-import { slugifyBuildName } from '../build-slug';
+import { buildPath } from '../build-route';
 
 @Component({
   selector: 'app-my-builds',
@@ -90,7 +90,7 @@ export class MyBuildsComponent implements OnInit {
       return;
     }
 
-    this.router.navigateByUrl(`/build/${encodeURIComponent(build.shortId)}/${slugifyBuildName(build.name)}`);
+    this.router.navigateByUrl(buildPath(build.shortId, build.name));
     this.closed.emit();
   }
 

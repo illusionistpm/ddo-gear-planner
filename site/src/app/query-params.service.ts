@@ -446,6 +446,11 @@ export class QueryParamsService {
   // directly (e.g. right after a load/save completes, to set its dirty-
   // tracking baseline) without waiting for the next combinedParamsChanges
   // emission, which only fires on subsequent edits.
+  /** The current build as the compact blob stored for saved builds and short links. */
+  encodeCurrentBuild(): string {
+    return this.buildUrlCodec.encode(this.getCombinedParams());
+  }
+
   getCombinedParams(): QueryParamRecord {
     let combinedParams: QueryParamRecord = { ...this.passthroughParams };
     for (const param of this.paramsFromCode.values()) {

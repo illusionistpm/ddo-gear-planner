@@ -12,18 +12,39 @@
     --bs-gutter-x: 0;
     background: var(--surface-subtle-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    /*
+     * The header is flush with the card's edge and the card clips it (overflow: hidden) at
+     * --border-radius-lg, so the top corners must use that same radius; a smaller one gets
+     * its border shaved off at the corners by the card's clip.
+     */
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) var(--border-radius) var(--border-radius);
     box-sizing: border-box;
     margin-left: -0.75rem;
     margin-right: -0.75rem;
-    overflow: hidden;
     position: relative;
     width: calc(100% + 1.5rem);
 }
 
+/*
+ * A 1px border is anti-aliased along the curved corners and reads fainter there than on the
+ * straight edges. Repaint the same 1px ring on top (doubled): it leaves fully-covered edge
+ * pixels unchanged but strengthens the partially-covered ones on the curves. It sits over the
+ * border itself (inset: -1px), so the header must not clip it (no overflow: hidden here).
+ */
+.slot-header::after {
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px var(--border-color), inset 0 0 0 1px var(--border-color);
+    content: '';
+    inset: -1px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 3;
+}
+
+/* With no overflow clip on the header, the button rounds itself to the header's inner corners. */
 .slot-header > .btn {
     border: 0;
-    border-radius: 0;
+    border-radius: calc(var(--border-radius-lg) - 1px) calc(var(--border-radius-lg) - 1px) calc(var(--border-radius) - 1px) calc(var(--border-radius) - 1px);
     position: relative;
 }
 

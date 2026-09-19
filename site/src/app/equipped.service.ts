@@ -103,8 +103,6 @@ export class EquippedService implements QueryParamsListener {
   private externalAffixesSubject = new BehaviorSubject<ExternalAffixEntry[]>([]);
   private nextExternalAffixId = 1;
 
-  private unlockedSlots: Set<string>;
-
   private coveredAffixes: BehaviorSubject<Map<string, CoveredBonusType[]>>;
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
   private visibleSetBonuses = new BehaviorSubject<Array<VisibleSetBonus>>([]);
@@ -138,7 +136,6 @@ export class EquippedService implements QueryParamsListener {
     private availability: AffixAvailabilityService,
     private ngZone: NgZone
   ) {
-    this.unlockedSlots = new Set(gearList.getSlots());
     this.coveredAffixes = new BehaviorSubject<Map<string, CoveredBonusType[]>>(new Map<string, CoveredBonusType[]>());
 
     this.importantAffixes = new Set();
@@ -271,10 +268,6 @@ export class EquippedService implements QueryParamsListener {
         }
 
         this._enforceOffhandCompatibility();
-
-        // for (const lockedSlot of params.getAll('locked')) {
-        //   this.setLock(lockedSlot, true);
-        // }
       } finally {
         this.endDerivedStateBatch();
       }
@@ -373,8 +366,6 @@ export class EquippedService implements QueryParamsListener {
         }
       }
     }
-
-    //params['locked'] = this.getLockedSlots();
 
     params['tracked'] = Array.from(this.importantAffixes);
 
@@ -756,45 +747,12 @@ export class EquippedService implements QueryParamsListener {
     return item.name === itemAtSlot.name;
   }
 
-  setLock(slot: string, lock: boolean) {
-    if (this.unlockedSlots.has(slot)) {
-      if (lock) {
-        this.unlockedSlots.delete(slot);
-      }
-    } else if (!lock) {
-      this.unlockedSlots.add(slot);
-    }
-
-    this._updateRouterState();
-  }
-
-  toggleLock(slot: string) {
-    if (this.unlockedSlots.has(slot)) {
-      this.unlockedSlots.delete(slot);
-    } else {
-      this.unlockedSlots.add(slot);
-    }
-
-    this._updateRouterState();
-  }
-
+  /** A slot that can't take a suggested item: already filled, or disabled. */
   isLocked(slot: string) {
-    //return !this.unlockedSlots.has(slot);
-    return this.hasItem(slot) || (slot === 'Offhand' && this.isOffhandDisabled());
-  }
-
-  getLockedSlots() {
-    const lockedSlots = [];
-    for (const slot of this.getSlotNames()) {
-      if (this.isLocked(slot)) {
-        lockedSlots.push(slot);
-      }
-    }
-    return lockedSlots;
+    return this.hasItem(slot) || this.isSlotDisabled(slot);
   }
 
   getUnlockedSlots() {
-    //return this.unlockedSlots;
     const unlockedSlots = new Set<string>();
     for (const slot of this.getSlotNames()) {
       if (!this.isLocked(slot)) {

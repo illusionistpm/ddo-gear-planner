@@ -8,7 +8,7 @@
 
 .item-preview-link:hover,
 .item-preview-link:focus {
-    color: var(--link-hover-color, #1d4ed8);
+    color: var(--link-hover-color);
 }
 
 .item-result-row {
@@ -16,9 +16,9 @@
 }
 
 .row.selected-preview-row {
-    background: rgba(37, 99, 235, 0.1);
+    background: var(--selected-row-bg);
     box-shadow: inset 0.25rem 0 0 var(--primary-color);
-    outline: 1px solid rgba(37, 99, 235, 0.7);
+    outline: 1px solid var(--highlight-outline-color);
     outline-offset: -1px;
 }
 
@@ -36,11 +36,6 @@
     .selected-preview-row::before {
         display: none;
     }
-}
-
-:host-context(.dark-theme) .row.selected-preview-row {
-    background: rgba(96, 165, 250, 0.18);
-    outline-color: rgba(147, 197, 253, 0.9);
 }
 
 /* "Set Bonuses" summary table shown above the item list. */
@@ -117,7 +112,7 @@
     white-space: nowrap;
 }
 
-.set-bonus-summary-value.BetterThanBest { color: #7c3aed; }
+.set-bonus-summary-value.BetterThanBest { color: var(--rank-better-than-best-color); }
 .set-bonus-summary-value.Best { color: var(--success-color); }
 .set-bonus-summary-value.BestTied { color: var(--primary-color); }
 .set-bonus-summary-value.Outranked { color: var(--warning-color); }

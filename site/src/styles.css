@@ -64,6 +64,10 @@
   --selected-row-bg: rgba(var(--primary-color-rgb), 0.1);
   /* Hover/focus colour for a destructive text button. Same in both themes for now. */
   --danger-strong-text-color: #b91c1c;
+  /* Scrim behind the filters panel and the suggestion drawer. */
+  --backdrop-rgb: 15, 23, 42;
+  /* The support (Ko-fi) button's own brand blue - not a theme colour. */
+  --support-brand-color: #5f7fff;
   --bs-body-bg: var(--background-color);
   --bs-body-color: var(--text-primary);
   --bs-border-color: var(--border-color);
@@ -122,6 +126,10 @@
   --highlight-outline-color: rgba(147, 197, 253, 0.9);
   --selected-row-bg: rgba(var(--primary-color-rgb), 0.18);
   --danger-strong-text-color: #b91c1c;
+  /* Scrim behind the filters panel and the suggestion drawer. */
+  --backdrop-rgb: 15, 23, 42;
+  /* The support (Ko-fi) button's own brand blue - not a theme colour. */
+  --support-brand-color: #5f7fff;
   --chip-border-color: #64748b;
   --progress-track-color: #475569;
   --selected-bg: rgba(34, 197, 94, 0.18);

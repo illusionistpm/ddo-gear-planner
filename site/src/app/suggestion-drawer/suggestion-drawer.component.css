@@ -1,5 +1,5 @@
 .suggestion-drawer-backdrop {
-  background: rgba(15, 23, 42, 0.28);
+  background: rgba(var(--backdrop-rgb), 0.28);
   border: 0;
   bottom: 0;
   cursor: default;

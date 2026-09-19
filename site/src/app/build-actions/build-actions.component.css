@@ -67,11 +67,11 @@
 
 .build-name-cancel:hover,
 .build-name-cancel:focus {
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
 }
 
 .build-name-error {
-  color: var(--danger-color, #d64545);
+  color: var(--danger-color);
   font-size: 0.8rem;
 }
 
@@ -216,12 +216,12 @@
 .build-action-primary {
   background: var(--primary-color);
   border-color: var(--primary-color);
-  color: #fff;
+  color: var(--on-accent-text-color);
 }
 
 .build-action-primary:hover:not(:disabled),
 .build-action-primary:focus:not(:disabled) {
-  color: #fff;
+  color: var(--on-accent-text-color);
   opacity: 0.9;
 }
 
@@ -243,7 +243,7 @@
   border: 1px solid var(--primary-color);
   border-left: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 0 6px 6px 0;
-  color: #fff;
+  color: var(--on-accent-text-color);
   cursor: pointer;
   display: inline-flex;
   font-size: 0.7rem;

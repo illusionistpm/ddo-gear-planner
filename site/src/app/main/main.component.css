@@ -238,10 +238,10 @@
 
 .planner-support-link {
   align-items: center;
-  background: #5f7fff;
-  border: 1px solid #5f7fff;
+  background: var(--support-brand-color);
+  border: 1px solid var(--support-brand-color);
   border-radius: 6px;
-  color: #ffffff;
+  color: var(--on-accent-text-color);
   cursor: pointer;
   display: inline-flex;
   flex: 0 0 auto;
@@ -257,7 +257,7 @@
 .planner-support-link:hover,
 .planner-support-link:focus,
 .planner-support-link.open {
-  color: #ffffff;
+  color: var(--on-accent-text-color);
   filter: brightness(1.07);
 }
 
@@ -367,7 +367,7 @@
 
 .planner-filter-backdrop {
   animation: planner-filter-backdrop-in 0.12s ease-out;
-  background: rgba(15, 23, 42, 0.34);
+  background: rgba(var(--backdrop-rgb), 0.34);
   border: 0;
   bottom: 0;
   cursor: default;
@@ -531,7 +531,7 @@
   background: var(--primary-color);
   border: 1px solid var(--primary-color);
   border-radius: 6px;
-  color: #fff;
+  color: var(--on-accent-text-color);
   cursor: pointer;
   font: inherit;
   font-weight: 700;

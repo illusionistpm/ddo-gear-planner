@@ -8,6 +8,8 @@
   --secondary-color: #64748b;
   --accent-color: #f59e0b;
   --success-color: #16a34a;
+  --success-color-rgb: 22, 163, 74;
+  --success-gradient-end: #059669;
   --warning-color: #d97706;
   --danger-color: #ef4444;
   --danger-color-rgb: 239, 68, 68;
@@ -81,6 +83,8 @@
   --secondary-color: #94a3b8;
   --accent-color: #fbbf24;
   --success-color: #22c55e;
+  --success-color-rgb: 34, 197, 94;
+  --success-gradient-end: #059669;
   --warning-color: #f59e0b;
   --danger-color: #f87171;
   --danger-color-rgb: 248, 113, 113;

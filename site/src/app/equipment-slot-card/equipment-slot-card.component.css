@@ -1,6 +1,6 @@
 :host(.recommended-start-slot) {
-    border: 1px solid #86efac;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16), var(--shadow-md);
+    border: 1px solid var(--selected-border-color);
+    box-shadow: 0 0 0 3px rgba(var(--success-color-rgb), 0.16), var(--shadow-md);
 }
 
 :host(.disabled-slot) {
@@ -89,8 +89,8 @@
 }
 
 :host(.recommended-start-slot) .btn-secondary {
-    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
-    color: #ffffff;
+    background: linear-gradient(135deg, var(--success-color) 0%, var(--success-gradient-end) 100%);
+    color: var(--on-accent-text-color);
 }
 
 :host(.recommended-start-slot) .btn-secondary:hover {
@@ -101,7 +101,7 @@
     background: rgba(255, 255, 255, 0.22);
     border: 1px solid rgba(255, 255, 255, 0.42);
     border-radius: 999px;
-    color: #ffffff;
+    color: var(--on-accent-text-color);
     display: inline-flex;
     font-size: 0.68rem;
     font-weight: 900;
@@ -138,13 +138,13 @@
 
 .raid-loot-badge {
     background: var(--raid-badge-bg);
-    border: 1px solid #b45309;
+    border: 1px solid var(--raid-badge-border-color);
     color: var(--raid-loot-text-color);
 }
 
 .rare-loot-badge {
     background: var(--rare-badge-bg);
-    border: 1px solid #7c3aed;
+    border: 1px solid var(--rare-badge-border-color);
     color: var(--rare-loot-text-color);
 }
 

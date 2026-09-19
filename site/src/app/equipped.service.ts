@@ -433,6 +433,11 @@ export class EquippedService implements QueryParamsListener {
     return this.shouldEmptyOffhandForMainHand(this.getMainHand());
   }
 
+  /** True for a slot that can't take an item right now - only the Offhand, behind a two-hander. */
+  isSlotDisabled(slot: string): boolean {
+    return slot === 'Offhand' && this.isOffhandDisabled();
+  }
+
   isOffhandRuneArmOnly() {
     return this.shouldLimitOffhandToRuneArms(this.getMainHand());
   }

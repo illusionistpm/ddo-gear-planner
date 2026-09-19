@@ -23,6 +23,7 @@ import {
   TrackedBonusTypeSource,
 } from '../tracked-affix-derivation';
 import { affixTypeKey } from '../affix-type-key';
+import { RECENT_CHANGE_HIGHLIGHT_MS } from '../recent-change-highlight';
 
 interface SlotGroupChip {
   sourceAffixName: string;
@@ -762,7 +763,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     this.changedAffixTypesTimeout = setTimeout(() => {
       this.recentlyChangedAffixTypes = new Set<string>();
       this.changedAffixTypesTimeout = null;
-    }, 1900);
+    }, RECENT_CHANGE_HIGHLIGHT_MS);
   }
 
   private refreshTrackedAffixDisplay() {

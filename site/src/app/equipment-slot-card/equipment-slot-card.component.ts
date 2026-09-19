@@ -45,7 +45,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.disabled-slot')
   get disabledSlotClass() {
-    return this.isSlotDisabled();
+    return this.equipped.isSlotDisabled(this.slot);
   }
 
   @HostBinding('attr.title')
@@ -75,7 +75,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   }
 
   showSuggestedItems() {
-    if (this.isSlotDisabled()) {
+    if (this.equipped.isSlotDisabled(this.slot)) {
       return;
     }
 
@@ -89,7 +89,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   }
 
   clearSlot() {
-    if (this.isSlotDisabled()) {
+    if (this.equipped.isSlotDisabled(this.slot)) {
       return;
     }
 
@@ -99,12 +99,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  isSlotDisabled() {
-    return this.slot === 'Offhand' && this.equipped.isOffhandDisabled();
-  }
-
   getSlotTitle() {
-    if (this.isSlotDisabled()) {
+    if (this.equipped.isSlotDisabled(this.slot)) {
       return 'Offhand unavailable while a two-handed weapon is equipped.';
     }
 

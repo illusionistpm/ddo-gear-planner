@@ -132,6 +132,8 @@ describe('EquippedService', () => {
 
     expect(service.hasItem('Offhand')).toBeFalse();
     expect(service.isOffhandDisabled()).toBeTrue();
+    expect(service.isSlotDisabled('Offhand')).toBeTrue();
+    expect(service.isSlotDisabled('Weapon')).toBeFalse();
     expect(service.canEquip(makeItem('Test Rune Arm', 'Offhand', 'Rune Arms'))).toBeFalse();
     expect(service.isLocked('Offhand')).toBeTrue();
     expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();

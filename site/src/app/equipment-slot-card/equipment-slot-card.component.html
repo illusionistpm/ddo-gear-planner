@@ -2,7 +2,7 @@
   <button type="button" class="btn btn-secondary slot-select-button text-start col-12"
     [class.has-clear]="equipped.hasItem(slot)"
     [class.is-empty]="!equipped.hasItem(slot)"
-    [disabled]="isSlotDisabled()"
+    [disabled]="equipped.isSlotDisabled(slot)"
     [title]="getSlotTitle()"
     (click)="showSuggestedItems()">
     <div class="slot-name-row">
@@ -30,7 +30,7 @@
       <div class="item-name" appShrinkToFit>{{itemName}}</div>
     }
   </button>
-  @if (equipped.hasItem(slot) && !isSlotDisabled()) {
+  @if (equipped.hasItem(slot) && !equipped.isSlotDisabled(slot)) {
     <button type="button" class="icon-x-button icon-x-button-overlay slot-clear-button"
       aria-label="Clear {{slot}}"
       title="Clear {{slot}}"

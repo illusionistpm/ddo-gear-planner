@@ -6,6 +6,7 @@ import { ExternalAffixEntry } from '../external-affix';
 import { Item } from '../item';
 import { AffixUiService } from '../affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { RECENT_CHANGE_HIGHLIGHT_MS } from '../recent-change-highlight';
 
 interface TrackedEquipmentSlotDisplay {
   slot: string;
@@ -138,7 +139,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   }
 
   showSuggestedItems(slot: string) {
-    if (this.isSlotDisabled(slot)) {
+    if (this.equipped.isSlotDisabled(slot)) {
       return;
     }
 
@@ -147,7 +148,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
 
   clearSlot(slot: string, event?: Event) {
     event?.stopPropagation();
-    if (this.isSlotDisabled(slot)) {
+    if (this.equipped.isSlotDisabled(slot)) {
       return;
     }
 
@@ -158,10 +159,6 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     if (this.hoveredSlot === slot) {
       this.hoveredSlot = null;
     }
-  }
-
-  isSlotDisabled(slot: string): boolean {
-    return slot === 'Offhand' && this.equipped.isOffhandDisabled();
   }
 
   previewSlot(slot: string | null) {
@@ -201,7 +198,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     this.recentlyEquippedTimeout = setTimeout(() => {
       this.recentlyEquippedSlot = null;
       this.recentlyEquippedTimeout = null;
-    }, 1900);
+    }, RECENT_CHANGE_HIGHLIGHT_MS);
   }
 
   get focusedSlot(): string | null {

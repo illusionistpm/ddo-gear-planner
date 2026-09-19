@@ -181852,6 +181852,46 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Stunning",
+                "type": "Enhancement",
+                "value": "16"
+            },
+            {
+                "name": "Staggering Blow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Earthgrab",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Animal Bane",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 32,
+        "name": "Legendary Ratkiller (level 36)",
+        "quests": [
+            "Treasure of Crystal Cove"
+        ],
+        "slot": "Weapon",
+        "type": "Mauls",
+        "url": "/page/Item:Legendary_Ratkiller_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Wisdom",
                 "type": "Insight",
                 "value": "6"
@@ -198716,6 +198756,11 @@
             },
             {
                 "name": "Revel in Blood (Slashing)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Freedom of Movement",
                 "type": "Bool",
                 "value": 1
             }
@@ -273558,9 +273603,8 @@
         ],
         "ml": 11,
         "name": "Sventusk's Gem",
-        "pack": "Ruins of Gianthold",
         "quests": [
-            "Ruins of Gianthold"
+            "Ruins of Gianthold (heroic)"
         ],
         "slot": "Trinket",
         "type": "Trinket items",

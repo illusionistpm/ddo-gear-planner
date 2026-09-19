@@ -60,7 +60,18 @@ export class Craftable {
             }
         }
 
+        // Refreshing the available systems shouldn't discard an augment chosen in a system that's still available.
+        const previousSystemName = this.selectedCraftingSystemName;
+        const previousDescription = this.selected?.getParamDescription() || '';
+
         this.selectCraftingSystem(this.craftingSystemOptions.includes(selectedCraftingSystemName) ? selectedCraftingSystemName : '');
+
+        if (previousDescription && this.selectedCraftingSystemName && this.selectedCraftingSystemName === previousSystemName) {
+            const previousOption = this.options.find(option => option.matchesParamDescription(previousDescription));
+            if (previousOption) {
+                this.selected = previousOption;
+            }
+        }
     }
 
     selectCraftingSystem(systemName: string) {
@@ -81,10 +92,17 @@ export class Craftable {
         return this.craftingSystemOptions.length > 0;
     }
 
+    // Options in different crafting systems can share a name (e.g. a Diamond is
+    // available in both Colorless and Blue augment slots), so a selection made
+    // within a system carries that system's name to be restored unambiguously.
+    private static readonly SYSTEM_SELECTION_SEPARATOR = ': ';
+
     getSelectedParamDescription() {
         const selectedDescription = this.selected?.getParamDescription() || '';
         if (selectedDescription) {
-            return selectedDescription;
+            return this.selectedCraftingSystemName
+                ? `${this.selectedCraftingSystemName}${Craftable.SYSTEM_SELECTION_SEPARATOR}${selectedDescription}`
+                : selectedDescription;
         }
 
         if (this.selectedCraftingSystemName) {
@@ -128,14 +146,28 @@ export class Craftable {
                 return true;
             }
 
-            for (const systemName of this.craftingSystemOptions) {
+            // Prefer the currently selected system for descriptions that don't
+            // name one (older URLs), so a shared option name doesn't switch it.
+            const currentSystemName = this.selectedCraftingSystemName;
+            const systemNames = this.craftingSystemOptions.includes(currentSystemName)
+                ? [currentSystemName].concat(this.craftingSystemOptions.filter(name => name !== currentSystemName))
+                : this.craftingSystemOptions;
+
+            for (const systemName of systemNames) {
                 this.selectCraftingSystem(systemName);
                 if (desc === `${systemName} (empty)`) {
                     return true;
                 }
 
+                const systemPrefix = `${systemName}${Craftable.SYSTEM_SELECTION_SEPARATOR}`;
+                const optionDesc = desc.startsWith(systemPrefix) ? desc.substring(systemPrefix.length) : null;
+                if (optionDesc === null && systemNames.some(name => desc.startsWith(`${name}${Craftable.SYSTEM_SELECTION_SEPARATOR}`))) {
+                    // Names another system explicitly - not this one.
+                    continue;
+                }
+
                 for (const option of this.options) {
-                    if (option.matchesParamDescription(desc)) {
+                    if (option.matchesParamDescription(optionDesc ?? desc)) {
                         this.selected = option;
                         return true;
                     }

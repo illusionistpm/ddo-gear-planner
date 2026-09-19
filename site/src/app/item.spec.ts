@@ -55,6 +55,40 @@ describe('Item', () => {
     expect(clone.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('First Option');
   });
 
+  it('keeps the selected crafting system when an option name is shared between systems', () => {
+    const slot = new Craftable('Augment Slot 1', [], false);
+    slot.setCraftingSystemOptions(new Map([
+      ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
+      ['Blue Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
+    ]), 'Blue Augment Slot');
+    slot.selectByParamDescription('Diamond of Test');
+
+    expect(slot.selectedCraftingSystemName).toBe('Blue Augment Slot');
+    expect(slot.selected.getParamDescription()).toBe('Diamond of Test');
+
+    // Round trip through the description used for URLs, from a different starting system.
+    const description = slot.getSelectedParamDescription();
+    slot.selectCraftingSystem('Colorless Augment Slot');
+    slot.selectByParamDescription(description);
+
+    expect(slot.selectedCraftingSystemName).toBe('Blue Augment Slot');
+    expect(slot.selected.getParamDescription()).toBe('Diamond of Test');
+  });
+
+  it('keeps the selected option when the available crafting systems are refreshed', () => {
+    const slot = new Craftable('Augment Slot 2', [], false);
+    slot.setCraftingSystemOptions(new Map([
+      ['Colorless Augment Slot', [new CraftableOption({ name: 'Diamond of Test' })]],
+    ]), 'Colorless Augment Slot');
+    slot.selectByParamDescription('Diamond of Test');
+
+    slot.setAvailableCraftingSystemOptions(['Colorless Augment Slot'], slot.selectedCraftingSystemName);
+
+    expect(slot.selectedCraftingSystemName).toBe('Colorless Augment Slot');
+    expect(slot.selected.getParamDescription()).toBe('Diamond of Test');
+    expect(slot.options).toContain(slot.selected);
+  });
+
   it('clones nested crafting-system selections without coupling empty augment slots', () => {
     const slotOne = new Craftable('Augment Slot 1', [], false);
     const slotTwo = new Craftable('Augment Slot 2', [], false);

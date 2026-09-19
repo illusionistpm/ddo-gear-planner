@@ -137,6 +137,25 @@ describe('EquippedService', () => {
     expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();
   });
 
+  it('counts only real items as equipped, not empty-slot placeholders', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    expect(service.getEquippedItemCount()).toBe(0);
+    expect(service.isBuildEmpty()).toBeTrue();
+
+    service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
+    service.set(makeItem('Test Ring', 'Ring1', 'Jewelry'));
+    expect(service.getEquippedItemCount()).toBe(2);
+
+    // A two-hander evicts the offhand, leaving a placeholder behind.
+    service.set(makeItem('Test Great Sword', 'Weapon', 'Great Swords'));
+    expect(service.getEquippedItemCount()).toBe(2);
+
+    service.clearSlot('Ring1');
+    service.clearSlot('Weapon');
+    expect(service.getEquippedItemCount()).toBe(0);
+    expect(service.isBuildEmpty()).toBeTrue();
+  });
+
   it('omits empty slots from the params it publishes, rather than an undefined-valued key', () => {
     // Regression test: an empty slot's dummy Item(null) is a real, truthy
     // object (isValid() is what actually means "has an item" - name !==

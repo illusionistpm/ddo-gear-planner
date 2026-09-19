@@ -270,7 +270,7 @@ export class MainComponent implements OnInit, OnDestroy {
   // (see the note above the subscription in ngOnInit), so it's this later application of the
   // now-empty URL that has to treat the page like a fresh visit.
   private onParamsReapplied() {
-    if (!this.latestRouteShortId && this.isBuildEmpty() && !this.equipped.getImportantAffixes().size) {
+    if (!this.latestRouteShortId && this.equipped.isBuildEmpty() && !this.equipped.getImportantAffixes().size) {
       this.maybeOpenAffixBuilderOnLoad();
     }
   }
@@ -280,7 +280,7 @@ export class MainComponent implements OnInit, OnDestroy {
     if (firstRun) {
       // A genuinely empty URL - start them on Basic rather than a blank page. A build that's already
       // got gear (or a saved id) but nothing tracked is theirs to leave as it is.
-      if (!this.latestRouteShortId && this.isBuildEmpty()) {
+      if (!this.latestRouteShortId && this.equipped.isBuildEmpty()) {
         this.affixPackages.addDefaultPackage();
       }
       this.affixBuilder.open('setup');
@@ -570,10 +570,6 @@ export class MainComponent implements OnInit, OnDestroy {
   getHiddenTypesSummary() {
     const hiddenTypeCount = this.itemFilters.hiddenItemTypes.size;
     return `${hiddenTypeCount} type${hiddenTypeCount === 1 ? '' : 's'}`;
-  }
-
-  isBuildEmpty() {
-    return Array.from(this.equipped.getSlotsSnapshot().values()).every(item => !item || !item.isValid());
   }
 
   isArmorEquipped() {

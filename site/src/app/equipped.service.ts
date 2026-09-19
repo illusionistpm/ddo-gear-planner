@@ -524,6 +524,21 @@ export class EquippedService implements QueryParamsListener {
     return slots;
   }
 
+  /** Slots holding a real item, as opposed to the empty-slot placeholder. */
+  getEquippedItemCount(): number {
+    let count = 0;
+    for (const subject of this.slots.values()) {
+      if (subject.value.isValid()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  isBuildEmpty(): boolean {
+    return this.getEquippedItemCount() === 0;
+  }
+
   getSlotNames() {
     const slots = new Array<string>();
     for (const slot of this.slots.keys()) {

@@ -163,14 +163,6 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return item.name;
   }
 
-  private getEquippedSlotCount() {
-    return Array.from(this.equipped.getSlotsSnapshot().values()).filter(item => item && item.isValid()).length;
-  }
-
-  isBuildEmpty() {
-    return this.getEquippedSlotCount() === 0;
-  }
-
   shouldShowArmorStartHint() {
     return this.armorStartHint;
   }
@@ -182,6 +174,6 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   private refreshOnboardingState() {
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
-    this.armorStartHint = this.onboardingActive && this.isBuildEmpty();
+    this.armorStartHint = this.onboardingActive && this.equipped.isBuildEmpty();
   }
 }

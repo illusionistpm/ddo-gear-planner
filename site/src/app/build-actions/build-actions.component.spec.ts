@@ -58,9 +58,9 @@ describe('BuildActionsComponent', () => {
     queryParams.getCombinedParams.and.returnValue({ Weapon: 'Sword' });
     codec = jasmine.createSpyObj('BuildUrlCodecService', ['encode']);
     codec.encode.and.returnValue('z1.encoded');
-    equipped = jasmine.createSpyObj('EquippedService', ['getGearDescription', 'getSlotsSnapshot']);
+    equipped = jasmine.createSpyObj('EquippedService', ['getGearDescription', 'getEquippedItemCount']);
     equipped.getGearDescription.and.returnValue('Weapon: Sword');
-    equipped.getSlotsSnapshot.and.returnValue(new Map());
+    equipped.getEquippedItemCount.and.returnValue(0);
     analytics = jasmine.createSpyObj('AnalyticsService', ['track']);
 
     const isAuthenticated$ = new BehaviorSubject(false);

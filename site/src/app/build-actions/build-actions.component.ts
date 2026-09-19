@@ -721,12 +721,11 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   }
 
   private trackShareCopy(kind: ShareCopyKind): void {
-    const equippedSlotCount = Array.from(this.equipped.getSlotsSnapshot().values()).filter(item => item && item.isValid()).length;
     const linkKind = kind === 'text' ? 'none' : (this.shareLink.status === 'ready' ? this.shareLink.kind : 'none');
     this.analytics.track('copy_build', {
       copy_kind: kind,
       link_kind: linkKind,
-      equipped_slot_count: equippedSlotCount
+      equipped_slot_count: this.equipped.getEquippedItemCount()
     });
   }
 }

@@ -3,6 +3,7 @@
 /* Modern color palette and typography */
 :root {
   --primary-color: #2563eb;
+  --primary-color-rgb: 37, 99, 235;
   --primary-dark: #1d4ed8;
   --secondary-color: #64748b;
   --accent-color: #f59e0b;
@@ -55,6 +56,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  /* Text on a filled accent/danger/primary surface - white in both themes. */
+  --on-accent-text-color: #ffffff;
   --border-radius: 8px;
   --border-radius-lg: 12px;
 }
@@ -62,6 +65,7 @@
 :root.dark-theme {
   color-scheme: dark;
   --primary-color: #60a5fa;
+  --primary-color-rgb: 96, 165, 250;
   --primary-dark: #3b82f6;
   --secondary-color: #94a3b8;
   --accent-color: #fbbf24;

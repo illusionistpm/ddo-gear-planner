@@ -35,12 +35,11 @@ def compare(before_dir: Path, after_dir: Path) -> int:
         bbox = delta.getbbox()
         if bbox is None:
             continue
-        changed = sum(1 for px in delta.getdata() if px != (0, 0, 0))
-        print(f'DIFF     {name}: {changed} px in box {bbox}')
+        mask = delta.convert('L').point(lambda v: 255 if v else 0)
+        print(f'DIFF     {name}: {mask.histogram()[255]} px in box {bbox}')
         failures += 1
         diff_dir.mkdir(exist_ok=True)
         # The after image dimmed, with every changed pixel in solid magenta.
-        mask = delta.convert('L').point(lambda v: 255 if v else 0)
         highlight = Image.blend(b, Image.new('RGB', b.size, 'white'), 0.6)
         highlight.paste(Image.new('RGB', b.size, (255, 0, 255)), mask=mask)
         highlight.save(diff_dir / name)

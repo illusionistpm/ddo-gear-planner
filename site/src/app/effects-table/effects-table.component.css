@@ -9,7 +9,7 @@
 
 .tracked-affix-start-hint {
     align-items: center;
-    background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), var(--surface-color) 55%);
+    background: linear-gradient(90deg, rgba(var(--primary-color-rgb), 0.08), var(--surface-color) 55%);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--success-color);
     border-radius: var(--border-radius);
@@ -117,7 +117,7 @@
 }
 
 .tracked-affix-progress-fill {
-    background-color: #64748b;
+    background-color: var(--secondary-color);
     border-radius: inherit;
     display: block;
     height: 100%;
@@ -153,7 +153,7 @@
 .tracked-affix-remove:focus {
     background: var(--danger-color);
     border-color: var(--danger-color);
-    color: #ffffff;
+    color: var(--on-accent-text-color);
 }
 
 .tracked-affix-name:hover .tracked-affix-remove,
@@ -225,7 +225,7 @@
 .tracked-bonus-chip:hover,
 .tracked-bonus-chip:focus {
     border-color: var(--tracked-affix-accent, var(--primary-color));
-    box-shadow: 0 0 0 2px var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
+    box-shadow: 0 0 0 2px var(--tracked-affix-accent-soft, rgba(var(--primary-color-rgb), 0.1));
 }
 
 .tracked-bonus-label {
@@ -273,7 +273,7 @@
 }
 
 .tracked-affix-group-title:focus-visible {
-    outline: 3px solid var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
+    outline: 3px solid var(--tracked-affix-accent-soft, rgba(var(--primary-color-rgb), 0.1));
     outline-offset: 3px;
 }
 
@@ -284,7 +284,7 @@
 }
 
 .tracked-affix-count {
-    background-color: var(--tracked-affix-accent-soft, rgba(37, 99, 235, 0.1));
+    background-color: var(--tracked-affix-accent-soft, rgba(var(--primary-color-rgb), 0.1));
     border-radius: 999px;
     color: var(--tracked-affix-accent, var(--primary-color));
     font-size: 0.75rem;
@@ -363,7 +363,7 @@
 .tracked-affix-groupby-option.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    color: #fff;
+    color: var(--on-accent-text-color);
 }
 
 .tracked-affix-edit-affixes {
@@ -395,7 +395,7 @@
 
 .slot-group-section {
     --tracked-affix-accent: var(--primary-color);
-    --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
+    --tracked-affix-accent-soft: rgba(var(--primary-color-rgb), 0.1);
 }
 
 /* A bonus type whose every candidate slot is now filled — ruled out by gear. */

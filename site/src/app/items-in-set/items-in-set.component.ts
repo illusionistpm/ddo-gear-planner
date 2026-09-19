@@ -5,8 +5,8 @@ import { EquippedService } from '../equipped.service';
 import { Item } from '../item';
 import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
-import { AnalyticsService } from '../analytics.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 
 @Component({
@@ -29,7 +29,7 @@ export class ItemsInSetComponent implements OnInit {
     public gearDB: GearDbService,
     public equipped: EquippedService,
     private affixUi: AffixUiService,
-    private analytics: AnalyticsService,
+    private drawerEquip: DrawerEquipService,
     private suggestionDrawer: SuggestionDrawerService
   ) { }
 
@@ -77,12 +77,7 @@ export class ItemsInSetComponent implements OnInit {
       return;
     }
 
-    this.equipped.set(item);
-    this.analytics.track('planner_equip_item', {
-      equip_source: 'set_modal',
-      slot: item.slot
-    });
-    this.suggestionDrawer.close();
+    this.drawerEquip.equip(item, 'set_modal');
   }
 
   equipPreviewItem(item: Item) {
@@ -91,12 +86,7 @@ export class ItemsInSetComponent implements OnInit {
     }
 
     const itemToEquip = new Item(item);
-    this.equipped.set(itemToEquip);
-    this.analytics.track('planner_equip_item', {
-      equip_source: 'set_preview',
-      slot: itemToEquip.slot
-    });
-    this.suggestionDrawer.close();
+    this.drawerEquip.equip(itemToEquip, 'set_preview');
   }
 
   get canGoBack(): boolean {

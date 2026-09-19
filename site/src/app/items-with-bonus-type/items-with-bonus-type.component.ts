@@ -17,6 +17,7 @@ import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfStart } from '../perf-trace';
 import { QuestService } from '../quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
@@ -127,6 +128,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private analytics: AnalyticsService,
     private questService: QuestService,
     private suggestionDrawer: SuggestionDrawerService,
+    private drawerEquip: DrawerEquipService,
     private changeDetector: ChangeDetectorRef
   ) {
   }
@@ -411,13 +413,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
     const done = perfStart('ItemsWithBonusTypeComponent.equipPreviewItem');
     const itemToEquip = new Item(item);
-    this.equipped.set(itemToEquip);
-    this.analytics.track('planner_equip_item', {
-      equip_source: 'bonus_type_preview',
-      slot: itemToEquip.slot,
-      crafted: !!itemToEquip.isEssenceCrafted()
-    });
-    this.suggestionDrawer.close();
+    this.drawerEquip.equip(itemToEquip, 'bonus_type_preview');
     done({ slot: itemToEquip.slot, item: itemToEquip.name });
     perfAfterFrames('paint after bonus type preview equip');
   }
@@ -434,13 +430,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
     }
 
-    this.equipped.set(itemToEquip);
-    this.analytics.track('planner_equip_item', {
-      equip_source: 'bonus_type_modal',
-      slot: itemToEquip.slot,
-      crafted: !!itemToEquip.isEssenceCrafted()
-    });
-    this.suggestionDrawer.close();
+    this.drawerEquip.equip(itemToEquip, 'bonus_type_modal');
     done({ slot: itemToEquip.slot, item: itemToEquip.name });
     perfAfterFrames('paint after bonus type equip');
   }
@@ -463,12 +453,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         for (const option of itemCraftable.options) {
           if (option.describe() == optionString) {
             itemCraftable.selected = option;
-            this.equipped.set(item);
-            this.analytics.track('planner_equip_item', {
-              equip_source: 'augment_modal',
-              slot: item.slot
-            });
-            this.suggestionDrawer.close();
+            this.drawerEquip.equip(item, 'augment_modal');
             done({ slot: item.slot, item: item.name });
             perfAfterFrames('paint after augment equip');
             return;
@@ -502,12 +487,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         for (const option of itemCraftable.options) {
           if (option.describe() == optionString) {
             itemCraftable.selected = option;
-            this.equipped.set(item);
-            this.analytics.track('planner_equip_item', {
-              equip_source: 'bonus_type_craft_into_equipped',
-              slot: item.slot
-            });
-            this.suggestionDrawer.close();
+            this.drawerEquip.equip(item, 'bonus_type_craft_into_equipped');
             done({ slot: item.slot, item: item.name, craftable: craftable.name });
             perfAfterFrames('paint after bonus type craft-into-equipped');
             return;

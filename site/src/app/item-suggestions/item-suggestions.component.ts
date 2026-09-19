@@ -8,6 +8,7 @@ import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { AnalyticsService } from '../analytics.service';
 import { perfAfterFrames, perfMeasure, perfStart } from '../perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 
 @Component({
     selector: 'app-item-suggestions',
@@ -33,6 +34,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     public userGear: UserGearService,
     private analytics: AnalyticsService,
     private suggestionDrawer: SuggestionDrawerService,
+    private drawerEquip: DrawerEquipService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -96,13 +98,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   }
 
   equipItem(item: Item) {
-    this.equipped.set(item);
-    this.analytics.track('planner_equip_item', {
-      equip_source: 'slot_suggestions',
-      slot: item.slot,
-      crafted: !!item.isEssenceCrafted()
-    });
-    this.suggestionDrawer.close();
+    this.drawerEquip.equip(item, 'slot_suggestions');
   }
 
   onChange(slot: string) {

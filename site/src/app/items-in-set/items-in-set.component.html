@@ -29,7 +29,7 @@
             }
             <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
             <span class="set-bonus-summary-name">{{affix.name}}</span>
-            <span class="set-bonus-summary-value" [ngClass]="getClassForSetAffix(affix, tier.eligible)">{{getSetAffixValue(affix)}} {{affix.type}}</span>
+            <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValue(affix)}} {{affix.type}}</span>
           </div>
         }
       }

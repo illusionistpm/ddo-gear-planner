@@ -37,8 +37,18 @@ describe('ItemsInSetComponent', () => {
   it('marks not-yet-active tier bonuses as disabled', () => {
     const affix = new Affix({ name: 'Dodge', type: 'Quality', value: '3' });
 
-    expect(component.getClassForSetAffix(affix, false)).toBe('DisabledSetBonus');
-    expect(component.getClassForSetAffix(affix, true)).not.toBe('DisabledSetBonus');
+    expect(component.affixUi.getClassForSetAffix(affix, false)).toBe('DisabledSetBonus');
+    expect(component.affixUi.getClassForSetAffix(affix, true)).not.toBe('DisabledSetBonus');
+  });
+
+  it('explains a locked tier with the shared set-bonus wording', () => {
+    component.setName = 'Some Set';
+    component.equippedPieces = 1;
+
+    expect(component.getSetBonusTooltip({ threshold: 3, eligible: false, affixes: [] }))
+      .toBe('Needs 3 set items (currently have 1)');
+    expect(component.getSetBonusTooltip({ threshold: 3, eligible: true, affixes: [] }))
+      .toBe('Active — 3 of Some Set equipped');
   });
 });
 

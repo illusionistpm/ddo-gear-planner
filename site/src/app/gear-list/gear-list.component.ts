@@ -22,7 +22,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   constructor(
     public gearList: GearDbService,
     public equipped: EquippedService,
-    private affixUi: AffixUiService,
+    public affixUi: AffixUiService,
     private analytics: AnalyticsService,
     private suggestionDrawer: SuggestionDrawerService,
     private onboarding: PlannerOnboardingService
@@ -98,24 +98,12 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     return this.affixUi.getClassForAffix(affix);
   }
 
-  getClassForSetBonusAffix(affix: Affix, eligible: boolean) {
-    if (!eligible) {
-      return 'DisabledSetBonus';
-    }
-
-    return this.getClassForAffix(affix);
-  }
-
   getAffixTooltip(affix: Affix): string {
     return this.affixUi.getAffixTooltip(affix);
   }
 
   getSetBonusTooltip(eligible: boolean, threshold: number, pieces: number, affix: Affix): string {
-    if (!eligible) {
-      return `Need ${threshold} set items (currently have ${pieces})`;
-    }
-
-    return this.getAffixTooltip(affix);
+    return eligible ? this.getAffixTooltip(affix) : this.affixUi.getSetBonusLockedTooltip(threshold, pieces);
   }
 
   getAllGear() {

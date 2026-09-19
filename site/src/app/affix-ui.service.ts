@@ -9,6 +9,9 @@ import { CraftableOption } from './craftable-option';
 import { perfCount } from './perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 
+/** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
+export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +50,15 @@ export class AffixUiService {
   getClassForAffix(affix: Affix, option?: CraftableOption): string {
     perfCount('AffixUiService.getClassForAffix');
     return AffixRank[this.getAffixRank(affix, option)];
+  }
+
+  /** A set-bonus affix is ranked like any other once its tier is active, and greyed out until then. */
+  getClassForSetAffix(affix: Affix, eligible: boolean): string {
+    return eligible ? this.getClassForAffix(affix) : DISABLED_SET_BONUS_CLASS;
+  }
+
+  getSetBonusLockedTooltip(threshold: number, equippedPieces: number): string {
+    return `Needs ${threshold} set items (currently have ${equippedPieces})`;
   }
 
   private getAffixRank(affix: Affix, option?: CraftableOption): AffixRank {

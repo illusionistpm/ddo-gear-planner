@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { EquippedService, VisibleSetBonus } from '../equipped.service';
 import { ExternalAffixEntry } from '../external-affix';
 import { Item } from '../item';
-import { Affix } from '../affix';
 import { AffixUiService } from '../affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
@@ -110,14 +109,6 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     }
 
     return this.visibleSetBonuses.find(bonus => bonus.setName === this.hoveredSet) || null;
-  }
-
-  getSetAffixValue(affix: Affix): string {
-    return this.affixUi.getAffixValue(affix);
-  }
-
-  getClassForSetAffix(affix: Affix, eligible: boolean): string {
-    return eligible ? this.affixUi.getClassForAffix(affix) : 'DisabledSetBonus';
   }
 
   describeExternalEntry(entry: ExternalAffixEntry): string {

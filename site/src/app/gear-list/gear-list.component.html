@@ -52,7 +52,7 @@
                 @for (affix of tier.affixes; track $index) {
                   <div class="row table-condensed small hover-helper set-bonus-affix-row"
                     [class.disabled-set-tier]="!tier.eligible"
-                    [ngClass]="getClassForSetBonusAffix(affix, tier.eligible)"
+                    [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)"
                     [title]="getSetBonusTooltip(tier.eligible, tier.threshold, setBonus.pieces, affix)">
                     @if (equipped.isImportantAffix(affix.name)) {
                       <button class="show-on-hover fas fa-heart heart col-1"

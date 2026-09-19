@@ -103,7 +103,7 @@
                             <span class="tracked-equipment-set-bonus-threshold">{{tier.threshold}} pc</span>
                             <span class="tracked-equipment-set-bonus-name">{{affix.name}}</span>
                             <span class="tracked-equipment-set-bonus-value"
-                                [ngClass]="getClassForSetAffix(affix, tier.eligible)">{{getSetAffixValue(affix)}} {{affix.type}}</span>
+                                [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValue(affix)}} {{affix.type}}</span>
                         </div>
                     }
                 }

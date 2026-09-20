@@ -20,7 +20,7 @@ describe('QuestService', () => {
       quests: ['Too Hot to Handle'],
     });
 
-    expect(service.isRaidLoot(item)).toBeTrue();
+    expect(service.isRaidLoot(item)).toBe(true);
   });
 
   it('treats Ritual Table crafted items as raid loot', () => {
@@ -32,7 +32,7 @@ describe('QuestService', () => {
       quests: ['Ritual Table'],
     });
 
-    expect(service.isRaidLoot(item)).toBeTrue();
+    expect(service.isRaidLoot(item)).toBe(true);
   });
 
   it('does not treat Sharn quest rare drops as raid loot', () => {
@@ -46,7 +46,7 @@ describe('QuestService', () => {
       quests: ['Sharn quests'],
     });
 
-    expect(service.isRaidLoot(item)).toBeFalse();
+    expect(service.isRaidLoot(item)).toBe(false);
   });
 
   it('uses normalized Sharn quests source labels directly', () => {

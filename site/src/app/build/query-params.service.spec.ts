@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -13,7 +14,7 @@ describe('QueryParamsService', () => {
           provide: Router,
           useValue: {
             url: '',
-            navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true))
+            navigate: vi.fn().mockName('navigate').mockResolvedValue(true)
           }
         }
       ]
@@ -26,7 +27,7 @@ describe('QueryParamsService', () => {
   });
 
   it('preserves the current (root) route path when syncing query params', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     (router as any).url = '/';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
@@ -34,22 +35,19 @@ describe('QueryParamsService', () => {
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      [],
-      jasmine.objectContaining({
-        queryParams: { b: jasmine.stringMatching(/^z1\./) },
-        replaceUrl: false
-      })
-    );
-    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({
+      queryParams: { b: expect.stringMatching(/^z1\./) },
+      replaceUrl: false
+    }));
+    const queryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
     const codec = TestBed.inject(BuildUrlCodecService);
     expect(codec.decode(queryParams.b)).toEqual({ levelrange: '1,36' });
-    const navigateOptions = router.navigate.calls.mostRecent().args[1] as any;
+    const navigateOptions = vi.mocked(router.navigate).mock.lastCall![1] as any;
     expect(navigateOptions.queryParamsHandling).toBeUndefined();
   });
 
   it('preserves a build route path (with shortId/slug segments) when syncing query params', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     (router as any).url = '/build/ab12cd34/my-build';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
@@ -57,14 +55,11 @@ describe('QueryParamsService', () => {
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      ['build', 'ab12cd34', 'my-build'],
-      jasmine.objectContaining({
-        queryParams: { b: jasmine.stringMatching(/^z1\./) },
-        replaceUrl: false
-      })
-    );
-    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate).toHaveBeenCalledWith(['build', 'ab12cd34', 'my-build'], expect.objectContaining({
+      queryParams: { b: expect.stringMatching(/^z1\./) },
+      replaceUrl: false
+    }));
+    const queryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
     const codec = TestBed.inject(BuildUrlCodecService);
     expect(codec.decode(queryParams.b)).toEqual({ levelrange: '1,36' });
   });
@@ -72,7 +67,7 @@ describe('QueryParamsService', () => {
   it('applies every URL param update to listeners', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams')
+      updateFromParams: vi.fn().mockName('updateFromParams')
     };
     const firstParams = { keys: ['levelrange'], get: (key: string) => key === 'levelrange' ? '1,30' : null, getAll: () => [] };
     const secondParams = { keys: ['levelrange'], get: (key: string) => key === 'levelrange' ? '5,20' : null, getAll: () => [] };
@@ -83,12 +78,12 @@ describe('QueryParamsService', () => {
     service.updateFromParams(secondParams);
 
     expect(listener.updateFromParams).toHaveBeenCalledTimes(2);
-    expect(listener.updateFromParams.calls.argsFor(0)[0]).toBe(firstParams);
-    expect(listener.updateFromParams.calls.argsFor(1)[0]).toBe(secondParams);
+    expect(vi.mocked(listener.updateFromParams).mock.calls[0][0]).toBe(firstParams);
+    expect(vi.mocked(listener.updateFromParams).mock.calls[1][0]).toBe(secondParams);
   });
 
   it('does not write URL history while applying URL params', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>(null);
     const params = { keys: ['tracked'], get: () => null, getAll: () => ['Strength'] };
@@ -100,24 +95,18 @@ describe('QueryParamsService', () => {
     service.subscribe(listener);
     service.updateFromParams(params);
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      [],
-      jasmine.objectContaining({
-        queryParams: { b: jasmine.stringMatching(/^z1\./) },
-        replaceUrl: true
-      })
-    );
+    expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({
+      queryParams: { b: expect.stringMatching(/^z1\./) },
+      replaceUrl: true
+    }));
 
     source.next({ tracked: ['Strength', 'Constitution'] });
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      [],
-      jasmine.objectContaining({
-        queryParams: { b: jasmine.stringMatching(/^z1\./) },
-        replaceUrl: false
-      })
-    );
-    const latestQueryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
+    expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({
+      queryParams: { b: expect.stringMatching(/^z1\./) },
+      replaceUrl: false
+    }));
+    const latestQueryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
     expect(TestBed.inject(BuildUrlCodecService).decode(latestQueryParams.b))
       .toEqual({ tracked: ['Strength', 'Constitution'] });
   });
@@ -151,18 +140,18 @@ describe('QueryParamsService', () => {
 
   it('applies an already-decoded build record directly to listeners, bypassing URL decoding', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
-    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const listener = { updateFromParams: vi.fn().mockName('updateFromParams') };
     service.subscribe(listener);
 
     service.applyDecodedBuildParams({ Weapon: 'Calamitous Battle Axe', tracked: ['Strength', 'Constitution'] });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
     expect(params.getAll('tracked')).toEqual(['Strength', 'Constitution']);
   });
 
   it('does not write URL history while applying decoded build params', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
 
     service.applyDecodedBuildParams({ Weapon: 'Calamitous Battle Axe' });
@@ -174,20 +163,20 @@ describe('QueryParamsService', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ tracked: ['Strength'] });
 
-    expect(service.consumeAppUrlWrite()).toBeFalse();
+    expect(service.consumeAppUrlWrite()).toBe(false);
 
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ tracked: ['Strength'] });
 
-    expect(service.consumeAppUrlWrite()).toBeTrue();
-    expect(service.consumeAppUrlWrite()).toBeFalse();
+    expect(service.consumeAppUrlWrite()).toBe(true);
+    expect(service.consumeAppUrlWrite()).toBe(false);
   });
 
   it('decodes compact URL params before applying them to listeners', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams')
+      updateFromParams: vi.fn().mockName('updateFromParams')
     };
     const compactParam = codec.encode({
       levelrange: '1,18',
@@ -203,7 +192,7 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? [compactParam] : []
     });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.get('levelrange')).toBe('1,18');
     expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
     expect(params.getAll('tracked')).toEqual(['Strength', 'False Life (%)']);
@@ -211,12 +200,12 @@ describe('QueryParamsService', () => {
   });
 
   it('preserves route-level params alongside compact URL params', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
     const source = new BehaviorSubject<any>(null);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams').and.callFake((params: any) => {
+      updateFromParams: vi.fn().mockName('updateFromParams').mockImplementation((params: any) => {
         source.next({ tracked: params.getAll('tracked') });
       })
     };
@@ -230,12 +219,12 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? [compactParam] : (key === 'tab' ? ['affixes'] : [])
     });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.getAll('tracked')).toEqual(['Strength']);
     expect(params.get('tab')).toBe('affixes');
 
-    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
-    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    const queryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
+    expect(vi.mocked(router.navigate).mock.lastCall![1]?.replaceUrl).toBe(true);
     expect(codec.decode(queryParams.b)).toEqual({ tracked: ['Strength'], tab: 'affixes' });
   });
 
@@ -243,7 +232,7 @@ describe('QueryParamsService', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams')
+      updateFromParams: vi.fn().mockName('updateFromParams')
     };
     const compactParam = codec.encode({ tracked: ['Strength'], tab: 'equipment' });
 
@@ -254,12 +243,12 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? [compactParam] : (key === 'tab' ? ['affixes'] : [])
     });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.get('tab')).toBe('affixes');
   });
 
   it('canonicalizes legacy params with replaceUrl', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>(null);
     const listener = {
@@ -274,35 +263,38 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'tracked' ? ['Strength'] : (key === 'tab' ? ['affixes'] : [])
     });
 
-    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
-    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    const queryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
+    expect(vi.mocked(router.navigate).mock.lastCall![1]?.replaceUrl).toBe(true);
     expect(TestBed.inject(BuildUrlCodecService).decode(queryParams.b))
       .toEqual({ tracked: ['Strength'], tab: 'affixes' });
   });
 
   it('canonicalizes legacy params directly from the URL without waiting for listeners to publish state', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
 
     service.updateFromParams({
       keys: ['levelrange', 'tracked', 'tracked', 'tab'],
       get: (key: string) => key === 'levelrange' ? '1,36' : (key === 'tab' ? 'affixes' : null),
       getAll: (key: string) => {
-        if (key === 'levelrange') return ['1,36'];
-        if (key === 'tracked') return ['Strength', 'Constitution'];
-        if (key === 'tab') return ['affixes'];
+        if (key === 'levelrange')
+          return ['1,36'];
+        if (key === 'tracked')
+          return ['Strength', 'Constitution'];
+        if (key === 'tab')
+          return ['affixes'];
         return [];
       }
     });
 
-    const queryParams = router.navigate.calls.mostRecent().args[1]?.queryParams as any;
-    expect(router.navigate.calls.mostRecent().args[1]?.replaceUrl).toBeTrue();
+    const queryParams = vi.mocked(router.navigate).mock.lastCall![1]?.queryParams as any;
+    expect(vi.mocked(router.navigate).mock.lastCall![1]?.replaceUrl).toBe(true);
     expect(TestBed.inject(BuildUrlCodecService).decode(queryParams.b))
       .toEqual({
-        levelrange: '1,36',
-        tracked: ['Strength', 'Constitution'],
-        tab: 'affixes'
-      });
+      levelrange: '1,36',
+      tracked: ['Strength', 'Constitution'],
+      tab: 'affixes'
+    });
   });
 
   it('does not canonicalize Auth0 callback params (code/state) or hand them to listeners', () => {
@@ -315,10 +307,10 @@ describe('QueryParamsService', () => {
     // exactly the race that caused a "start page" flash on sign-in even
     // after MainComponent started checking the URL for code/state, since
     // this canonicalize navigation had already stripped them by then.
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams')
+      updateFromParams: vi.fn().mockName('updateFromParams')
     };
     service.subscribe(listener);
 
@@ -329,7 +321,7 @@ describe('QueryParamsService', () => {
     });
 
     expect(router.navigate).not.toHaveBeenCalled();
-    const appliedParams = listener.updateFromParams.calls.mostRecent().args[0];
+    const appliedParams = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(appliedParams.keys).toEqual([]);
   });
 
@@ -339,7 +331,7 @@ describe('QueryParamsService', () => {
     // root". An earlier version of this exact drop-the-shortId behavior
     // shipped with [] here and silently did nothing, since the current URL
     // was already the build route being "dropped" from.
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     (router as any).url = '/build/ab12cd34/my-build';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
@@ -348,14 +340,11 @@ describe('QueryParamsService', () => {
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      ['/'],
-      jasmine.objectContaining({ replaceUrl: false })
-    );
+    expect(router.navigate).toHaveBeenCalledWith(['/'], expect.objectContaining({ replaceUrl: false }));
   });
 
   it('does not drop the build route path when no identity has been set', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     (router as any).url = '/build/ab12cd34/my-build';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
@@ -363,16 +352,13 @@ describe('QueryParamsService', () => {
     const navigateFn = (service as any)._makeNavigateFn(['source', source]);
     navigateFn({ levelrange: '1,36' });
 
-    expect(router.navigate).toHaveBeenCalledWith(
-      ['build', 'ab12cd34', 'my-build'],
-      jasmine.objectContaining({ replaceUrl: false })
-    );
+    expect(router.navigate).toHaveBeenCalledWith(['build', 'ab12cd34', 'my-build'], expect.objectContaining({ replaceUrl: false }));
   });
 
   it('restores a build identity decoded from the URL and keeps it out of gear/filter params handed to listeners', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
-    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const listener = { updateFromParams: vi.fn().mockName('updateFromParams') };
     const identityEmissions: any[] = [];
     service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
 
@@ -387,7 +373,7 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? [compactParam] : []
     });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
     expect(params.keys).not.toContain('__buildRef');
     expect(identityEmissions).toEqual([{ shortId: 'ab12cd34', name: 'My Build' }]);
@@ -396,7 +382,7 @@ describe('QueryParamsService', () => {
   it('never leaks the build identity into getCombinedParams (the save-payload composer)', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
-    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const listener = { updateFromParams: vi.fn().mockName('updateFromParams') };
     const withIdentity = { Weapon: 'Calamitous Battle Axe', __buildRef: JSON.stringify({ shortId: 'ab12cd34', name: 'My Build' }) };
     const compactParam = codec.encode(withIdentity);
 
@@ -417,7 +403,7 @@ describe('QueryParamsService', () => {
     // or (worse) resurrect ownership from it.
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
-    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const listener = { updateFromParams: vi.fn().mockName('updateFromParams') };
     const identityEmissions: any[] = [];
     service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
     const withStaleIdentity = {
@@ -439,7 +425,7 @@ describe('QueryParamsService', () => {
   it('round-trips a name-only identity (null shortId) for a never-saved build', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);
-    const listener = { updateFromParams: jasmine.createSpy('updateFromParams') };
+    const listener = { updateFromParams: vi.fn().mockName('updateFromParams') };
     const identityEmissions: any[] = [];
     service.buildIdentityFromUrl$.subscribe(value => identityEmissions.push(value));
 
@@ -458,7 +444,7 @@ describe('QueryParamsService', () => {
   });
 
   it('refreshLiveEditUrl forces the current identity+params into the URL immediately, with replaceUrl', () => {
-    const router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const router = TestBed.inject(Router) as MockedObject<Router>;
     (router as any).url = '/';
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const source = new BehaviorSubject<any>({ levelrange: '1,36' });
@@ -470,10 +456,10 @@ describe('QueryParamsService', () => {
 
     service.refreshLiveEditUrl();
 
-    const call = router.navigate.calls.mostRecent();
-    expect(call.args[1]?.replaceUrl).toBeTrue();
+    const call = vi.mocked(router.navigate).mock.lastCall!;
+    expect(call[1]?.replaceUrl).toBe(true);
     const codec = TestBed.inject(BuildUrlCodecService);
-    const queryParams = call.args[1]?.queryParams as any;
+    const queryParams = call[1]?.queryParams as any;
     expect(codec.decode(queryParams.b)).toEqual({
       levelrange: '1,36',
       __buildRef: JSON.stringify({ shortId: null, name: 'My New Build' })
@@ -493,7 +479,7 @@ describe('QueryParamsService', () => {
   it('falls back to legacy params when compact decode fails', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const listener = {
-      updateFromParams: jasmine.createSpy('updateFromParams')
+      updateFromParams: vi.fn().mockName('updateFromParams')
     };
 
     service.subscribe(listener);
@@ -503,7 +489,7 @@ describe('QueryParamsService', () => {
       getAll: (key: string) => key === 'b' ? ['z1.not-valid'] : (key === 'tracked' ? ['Strength'] : [])
     });
 
-    const params = listener.updateFromParams.calls.mostRecent().args[0];
+    const params = vi.mocked(listener.updateFromParams).mock.lastCall![0];
     expect(params.getAll('tracked')).toEqual(['Strength']);
     expect(params.get('b')).toBeNull();
   });

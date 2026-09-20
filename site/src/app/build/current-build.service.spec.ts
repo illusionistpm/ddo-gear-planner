@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,18 +7,18 @@ import { QueryParamsService } from './query-params.service';
 
 describe('CurrentBuildService', () => {
   let combinedParamsChanges: BehaviorSubject<Record<string, unknown>>;
-  let getCombinedParams: jasmine.Spy;
-  let setBuildIdentityForUrl: jasmine.Spy;
-  let publishBuildIdentity: jasmine.Spy;
-  let refreshLiveEditUrl: jasmine.Spy;
+  let getCombinedParams: Mock;
+  let setBuildIdentityForUrl: Mock;
+  let publishBuildIdentity: Mock;
+  let refreshLiveEditUrl: Mock;
   let service: CurrentBuildService;
 
   beforeEach(() => {
     combinedParamsChanges = new BehaviorSubject<Record<string, unknown>>({ Weapon: 'Sword' });
-    getCombinedParams = jasmine.createSpy('getCombinedParams').and.returnValue({ Weapon: 'Sword' });
-    setBuildIdentityForUrl = jasmine.createSpy('setBuildIdentityForUrl');
-    publishBuildIdentity = jasmine.createSpy('publishBuildIdentity');
-    refreshLiveEditUrl = jasmine.createSpy('refreshLiveEditUrl');
+    getCombinedParams = vi.fn().mockName('getCombinedParams').mockReturnValue({ Weapon: 'Sword' });
+    setBuildIdentityForUrl = vi.fn().mockName('setBuildIdentityForUrl');
+    publishBuildIdentity = vi.fn().mockName('publishBuildIdentity');
+    refreshLiveEditUrl = vi.fn().mockName('refreshLiveEditUrl');
 
     TestBed.configureTestingModule({
       providers: [
@@ -33,7 +34,11 @@ describe('CurrentBuildService', () => {
 
   // markLoaded's canonicalParams is required (see current-build.service.ts) -
   // most tests below don't care what it is, just that a load happened.
-  function loadBuild(params: { shortId: string; name: string; savedBuildId?: string | null }): void {
+  function loadBuild(params: {
+    shortId: string;
+    name: string;
+    savedBuildId?: string | null;
+  }): void {
     service.markLoaded({ ...params, canonicalParams: { Weapon: 'Sword' } });
   }
 
@@ -49,21 +54,21 @@ describe('CurrentBuildService', () => {
 
   it('becomes dirty when combinedParams changes after a load', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build' });
-    expect(service.value.isDirty).toBeFalse();
+    expect(service.value.isDirty).toBe(false);
 
     combinedParamsChanges.next({ Weapon: 'Axe' });
 
-    expect(service.value.isDirty).toBeTrue();
+    expect(service.value.isDirty).toBe(true);
   });
 
   it('is not marked dirty by a change that round-trips back to the same params', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build' });
 
     combinedParamsChanges.next({ Weapon: 'Axe' });
-    expect(service.value.isDirty).toBeTrue();
+    expect(service.value.isDirty).toBe(true);
 
     combinedParamsChanges.next({ Weapon: 'Sword' });
-    expect(service.value.isDirty).toBeFalse();
+    expect(service.value.isDirty).toBe(false);
   });
 
   it('ignores key insertion order when comparing params (stable stringify)', () => {
@@ -71,7 +76,7 @@ describe('CurrentBuildService', () => {
 
     // Same logical params, different key order - must not appear dirty.
     combinedParamsChanges.next({ Armor: 'Plate', Weapon: 'Sword' });
-    getCombinedParams.and.returnValue({ Weapon: 'Sword', Armor: 'Plate' });
+    getCombinedParams.mockReturnValue({ Weapon: 'Sword', Armor: 'Plate' });
 
     // markLoaded re-snapshots via getCombinedParams(), which now also has
     // both keys in the opposite order - the dirty check right after should
@@ -79,7 +84,7 @@ describe('CurrentBuildService', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build' });
     combinedParamsChanges.next({ Weapon: 'Sword', Armor: 'Plate' });
 
-    expect(service.value.isDirty).toBeFalse();
+    expect(service.value.isDirty).toBe(false);
   });
 
   it('leaves ownership unknown on load unless a savedBuildId is already given - it is never assumed', () => {
@@ -146,7 +151,7 @@ describe('CurrentBuildService', () => {
     it('updates identity fields without resetting the dirty-tracking baseline', () => {
       loadBuild({ shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1' });
       combinedParamsChanges.next({ Weapon: 'Axe' });
-      expect(service.value.isDirty).toBeTrue();
+      expect(service.value.isDirty).toBe(true);
 
       service.restoreIdentity({ shortId: 'abc123', name: 'My Build' });
 
@@ -154,9 +159,9 @@ describe('CurrentBuildService', () => {
       // not reset it the way markLoaded does, or browser back/forward
       // through an edit session would make every restored point look
       // artificially "clean".
-      expect(service.value.isDirty).toBeTrue();
+      expect(service.value.isDirty).toBe(true);
       combinedParamsChanges.next({ Weapon: 'Sword' });
-      expect(service.value.isDirty).toBeFalse();
+      expect(service.value.isDirty).toBe(false);
     });
 
     // This is the actual bug the URL-embedded savedBuildId caused: anyone
@@ -203,7 +208,7 @@ describe('CurrentBuildService', () => {
 
     it('never publishes an identity - it only ever reacts to one already on the stream, and re-publishing would recurse into that same subscriber', () => {
       loadBuild({ shortId: 'abc123', name: 'My Build' });
-      publishBuildIdentity.calls.reset();
+      publishBuildIdentity.mockClear();
 
       service.restoreIdentity({ shortId: 'abc123', name: 'My Build' });
 
@@ -222,7 +227,7 @@ describe('CurrentBuildService', () => {
   describe('setName', () => {
     it('updates the name without requiring a savedBuildId or resetting the dirty baseline', () => {
       combinedParamsChanges.next({ Weapon: 'Axe' });
-      expect(service.value.isDirty).toBeTrue();
+      expect(service.value.isDirty).toBe(true);
 
       service.setName('My New Build');
 
@@ -231,9 +236,9 @@ describe('CurrentBuildService', () => {
       expect(service.value.shortId).toBeNull();
       // Still dirty relative to the ORIGINAL baseline - setName must not
       // reset it, or naming would incorrectly clear the dirty indicator.
-      expect(service.value.isDirty).toBeTrue();
+      expect(service.value.isDirty).toBe(true);
       combinedParamsChanges.next({ Weapon: 'Sword' });
-      expect(service.value.isDirty).toBeFalse();
+      expect(service.value.isDirty).toBe(false);
     });
 
     it('tells QueryParamsService the new identity and forces an immediate URL refresh', () => {
@@ -284,19 +289,19 @@ describe('CurrentBuildService', () => {
   it('resets the dirty baseline on markSaved', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build' });
     combinedParamsChanges.next({ Weapon: 'Axe' });
-    expect(service.value.isDirty).toBeTrue();
+    expect(service.value.isDirty).toBe(true);
 
-    getCombinedParams.and.returnValue({ Weapon: 'Axe' });
+    getCombinedParams.mockReturnValue({ Weapon: 'Axe' });
     service.markSaved({ savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Axe' } });
 
-    expect(service.value.isDirty).toBeFalse();
+    expect(service.value.isDirty).toBe(false);
     expect(service.value.ownership).toBe('owned');
     expect(service.value.savedBuildId).toBe('build-1');
     expect(setBuildIdentityForUrl).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build' });
     expect(publishBuildIdentity).toHaveBeenCalledWith({ shortId: 'abc123', name: 'My Build' });
 
     combinedParamsChanges.next({ Weapon: 'Axe' });
-    expect(service.value.isDirty).toBeFalse();
+    expect(service.value.isDirty).toBe(false);
   });
 
   describe('markSaved without canonicalParams (a name-only rename)', () => {
@@ -333,8 +338,8 @@ describe('CurrentBuildService', () => {
     // every reset() re-triggers that subscriber, which calls reset() again,
     // forever (a real stack overflow this exact scenario hit).
     service.reset();
-    setBuildIdentityForUrl.calls.reset();
-    publishBuildIdentity.calls.reset();
+    setBuildIdentityForUrl.mockClear();
+    publishBuildIdentity.mockClear();
 
     service.reset();
 

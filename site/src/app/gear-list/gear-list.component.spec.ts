@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
@@ -11,14 +11,14 @@ describe('GearListComponent', () => {
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
   const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   afterEach(() => {
     localStorage.removeItem(onboardingStateKey);
@@ -27,7 +27,7 @@ describe('GearListComponent', () => {
 
   function createComponentWithSetBonuses(setBonuses: Array<VisibleSetBonus>) {
     const equipped = TestBed.inject(EquippedService);
-    spyOn(equipped, 'getVisibleSetBonusesObservable').and.returnValue(of(setBonuses));
+    vi.spyOn(equipped, 'getVisibleSetBonusesObservable').mockReturnValue(of(setBonuses));
 
     fixture = TestBed.createComponent(GearListComponent);
     component = fixture.componentInstance;
@@ -48,10 +48,10 @@ describe('GearListComponent', () => {
 
   it('shows the equipment/set divider when sets are equipped', () => {
     createComponentWithSetBonuses([{
-      setName: 'Test Set',
-      pieces: 2,
-      tiers: []
-    }]);
+        setName: 'Test Set',
+        pieces: 2,
+        tiers: []
+      }]);
 
     expect(fixture.nativeElement.querySelector('.equipment-set-divider')).not.toBeNull();
   });
@@ -71,6 +71,6 @@ describe('GearListComponent', () => {
 
     component.dismissIntro();
 
-    expect(component.shouldShowArmorStartHint()).toBeFalse();
+    expect(component.shouldShowArmorStartHint()).toBe(false);
   });
 });

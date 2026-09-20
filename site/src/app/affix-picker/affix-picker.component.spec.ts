@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { AffixPickerComponent } from './affix-picker.component';
@@ -10,14 +10,14 @@ describe('AffixPickerComponent', () => {
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
   const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   afterEach(() => {
     localStorage.removeItem(onboardingStateKey);
@@ -26,7 +26,7 @@ describe('AffixPickerComponent', () => {
 
   beforeEach(() => {
     // Adding whole bundles would otherwise queue a lot of idle-time availability warmup that outlives the test.
-    spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup');
+    vi.spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup').mockReturnValue(undefined);
     fixture = TestBed.createComponent(AffixPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -53,28 +53,28 @@ describe('AffixPickerComponent', () => {
   it('cues one additional build package after Basic is selected', () => {
     component.addPackage('Basic');
 
-    expect(component.shouldHighlightEquipmentStep()).toBeFalse();
-    expect(component.shouldHighlightStarterPackage('Melee')).toBeTrue();
-    expect(component.shouldHighlightStarterPackage('Basic')).toBeFalse();
-    expect(component.shouldShowAdditionalPackageHint()).toBeTrue();
+    expect(component.shouldHighlightEquipmentStep()).toBe(false);
+    expect(component.shouldHighlightStarterPackage('Melee')).toBe(true);
+    expect(component.shouldHighlightStarterPackage('Basic')).toBe(false);
+    expect(component.shouldShowAdditionalPackageHint()).toBe(true);
   });
 
   it('pairs the equipment tab green cue with intro text after Basic and another package are selected', () => {
     component.addPackage('Basic');
     component.addPackage('Melee');
 
-    expect(component.shouldHighlightEquipmentStep()).toBeTrue();
-    expect(component.shouldShowAdditionalPackageHint()).toBeFalse();
-    expect(component.shouldShowBasicPackageHint()).toBeFalse();
+    expect(component.shouldHighlightEquipmentStep()).toBe(true);
+    expect(component.shouldShowAdditionalPackageHint()).toBe(false);
+    expect(component.shouldShowBasicPackageHint()).toBe(false);
   });
 
   it('hides affix setup onboarding cues when dismissed', () => {
     component.dismissIntro();
 
-    expect(component.onboardingActive).toBeFalse();
-    expect(component.shouldShowBasicPackageHint()).toBeFalse();
-    expect(component.shouldShowAdditionalPackageHint()).toBeFalse();
-    expect(component.shouldHighlightEquipmentStep()).toBeFalse();
+    expect(component.onboardingActive).toBe(false);
+    expect(component.shouldShowBasicPackageHint()).toBe(false);
+    expect(component.shouldShowAdditionalPackageHint()).toBe(false);
+    expect(component.shouldHighlightEquipmentStep()).toBe(false);
   });
 
   it('offers canonical affix names in spellpower bundles', () => {
@@ -133,8 +133,8 @@ describe('AffixPickerComponent', () => {
   it('shows tracked companion affixes immediately when an affix is added', () => {
     component.add('Armor Class');
 
-    expect(component.savedSet.has('Armor Class')).toBeTrue();
-    expect(component.savedSet.has('Armor Class (%)')).toBeTrue();
+    expect(component.savedSet.has('Armor Class')).toBe(true);
+    expect(component.savedSet.has('Armor Class (%)')).toBe(true);
   });
 
   it('groups saved affixes for easier scanning', () => {
@@ -143,14 +143,14 @@ describe('AffixPickerComponent', () => {
 
     const groups = component.getSavedAffixGroups();
 
-    expect(groups).toContain({ name: 'Attributes', affixes: ['Strength'] });
-    expect(groups).toContain({ name: 'Offense', affixes: ['Armor-Piercing'] });
+    expect(groups).toContainEqual({ name: 'Attributes', affixes: ['Strength'] });
+    expect(groups).toContainEqual({ name: 'Offense', affixes: ['Armor-Piercing'] });
   });
 
   it('groups bool-only saved affixes with utility and checklist', () => {
     component.savedSet.add('Heroic Inspiration');
 
-    expect(component.getSavedAffixGroups()).toContain({
+    expect(component.getSavedAffixGroups()).toContainEqual({
       name: 'Utility & Checklist',
       affixes: ['Heroic Inspiration']
     });
@@ -192,13 +192,13 @@ describe('AffixPickerComponent', () => {
 
     component.addPackage('Melee');
 
-    expect(component.isPackageSelected('Melee')).toBeFalse();
-    expect(component.isPackageSelected('Ranged')).toBeTrue();
+    expect(component.isPackageSelected('Melee')).toBe(false);
+    expect(component.isPackageSelected('Ranged')).toBe(true);
     expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(1);
 
     component.addPackage('Ranged');
 
-    expect(component.savedSet.has('Deadly')).toBeFalse();
+    expect(component.savedSet.has('Deadly')).toBe(false);
     expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(0);
   });
 
@@ -222,32 +222,32 @@ describe('AffixPickerComponent', () => {
     const reopened = TestBed.createComponent(AffixPickerComponent).componentInstance;
     reopened.ngOnInit();
 
-    expect(reopened.isPackageSelected('Basic')).toBeTrue();
-    expect(reopened.isPackageSelected('Caster')).toBeTrue();
-    expect(reopened.isSpellpowerSelected('Fire')).toBeTrue();
-    expect(reopened.isPackageSelected('Melee')).toBeFalse();
-    expect(reopened.showSpellSchools).toBeTrue();
-    expect(reopened.showSpellpowers).toBeTrue();
+    expect(reopened.isPackageSelected('Basic')).toBe(true);
+    expect(reopened.isPackageSelected('Caster')).toBe(true);
+    expect(reopened.isSpellpowerSelected('Fire')).toBe(true);
+    expect(reopened.isPackageSelected('Melee')).toBe(false);
+    expect(reopened.showSpellSchools).toBe(true);
+    expect(reopened.showSpellpowers).toBe(true);
 
     equipped.removeImportantAffix('Concentration');
 
-    expect(reopened.isPackageSelected('Caster')).toBeFalse();
-    expect(reopened.isPackageSelected('Basic')).toBeTrue();
+    expect(reopened.isPackageSelected('Caster')).toBe(false);
+    expect(reopened.isPackageSelected('Basic')).toBe(true);
   });
 
   it('marks spell schools and tactics selected, and toggles them off again', () => {
     component.addSpellSchool('Evocation');
     component.addTactic('Stunning');
 
-    expect(component.isSpellSchoolSelected('Evocation')).toBeTrue();
-    expect(component.isSpellSchoolSelected('Illusion')).toBeFalse();
-    expect(component.isTacticSelected('Stunning')).toBeTrue();
+    expect(component.isSpellSchoolSelected('Evocation')).toBe(true);
+    expect(component.isSpellSchoolSelected('Illusion')).toBe(false);
+    expect(component.isTacticSelected('Stunning')).toBe(true);
 
     component.addSpellSchool('Evocation');
     component.addTactic('Stunning');
 
-    expect(component.isSpellSchoolSelected('Evocation')).toBeFalse();
-    expect(component.isTacticSelected('Stunning')).toBeFalse();
+    expect(component.isSpellSchoolSelected('Evocation')).toBe(false);
+    expect(component.isTacticSelected('Stunning')).toBe(false);
   });
 
   it('renders selected spell schools with the selected style', () => {
@@ -256,7 +256,7 @@ describe('AffixPickerComponent', () => {
     refreshView();
 
     const chips = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-selectable-chip.selected'));
-    expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBeTrue();
+    expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBe(true);
   });
 
   it('labels selected affix chips as removable', () => {
@@ -272,7 +272,7 @@ describe('AffixPickerComponent', () => {
     const equipped = TestBed.inject(EquippedService);
 
     component.add('Strength');
-    expect(component.savedSet.has('Strength')).toBeTrue();
+    expect(component.savedSet.has('Strength')).toBe(true);
 
     equipped.setImportantAffixes([]);
 

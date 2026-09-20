@@ -56,19 +56,19 @@ describe('affix organization', () => {
   });
 
   it('matches canonical names generously', () => {
-    expect(matchesAffixSearch('Armor-Piercing', 'armor piercing', affixSvc)).toBeTrue();
-    expect(matchesAffixSearch('Armor-Piercing', 'arm pier', affixSvc)).toBeTrue();
-    expect(matchesAffixSearch('Armor-Piercing', 'pier arm', affixSvc)).toBeTrue();
+    expect(matchesAffixSearch('Armor-Piercing', 'armor piercing', affixSvc)).toBe(true);
+    expect(matchesAffixSearch('Armor-Piercing', 'arm pier', affixSvc)).toBe(true);
+    expect(matchesAffixSearch('Armor-Piercing', 'pier arm', affixSvc)).toBe(true);
   });
 
   it('matches synonyms generously', () => {
-    expect(matchesAffixSearch('Armor-Piercing', 'fort bypass', affixSvc)).toBeTrue();
-    expect(matchesAffixSearch('Spell Focus Mastery', 'all dc', affixSvc)).toBeTrue();
+    expect(matchesAffixSearch('Armor-Piercing', 'fort bypass', affixSvc)).toBe(true);
+    expect(matchesAffixSearch('Spell Focus Mastery', 'all dc', affixSvc)).toBe(true);
   });
 
   it('matches containing affix groups and sibling group components', () => {
-    expect(matchesAffixSearch('Cold Lore', 'spell lore', affixSvc)).toBeTrue();
-    expect(matchesAffixSearch('Negative Energy Absorption', 'lifesealed death', affixSvc)).toBeTrue();
+    expect(matchesAffixSearch('Cold Lore', 'spell lore', affixSvc)).toBe(true);
+    expect(matchesAffixSearch('Negative Energy Absorption', 'lifesealed death', affixSvc)).toBe(true);
   });
 
   it('groups only matching affixes', () => {
@@ -95,7 +95,7 @@ describe('affix organization', () => {
     affixSvc.affixGroups.set('Mixed Test Parent', ['Strength', 'Deadly']);
     const groups = groupAffixNames(['Spell Focus Mastery', 'Mixed Test Parent'], '', affixSvc);
 
-    expect(groups).toContain({ name: 'Casting', affixes: ['Spell Focus Mastery'] });
-    expect(groups).toContain({ name: 'Other', affixes: ['Mixed Test Parent'] });
+    expect(groups).toContainEqual({ name: 'Casting', affixes: ['Spell Focus Mastery'] });
+    expect(groups).toContainEqual({ name: 'Other', affixes: ['Mixed Test Parent'] });
   });
 });

@@ -1,3 +1,4 @@
+import type { Mock, MockedObject } from 'vitest';
 import { ChangeDetectorRef } from '@angular/core';
 import { of, Subject, throwError } from 'rxjs';
 
@@ -22,29 +23,43 @@ function makeState(overrides: Partial<CurrentBuildState> = {}): CurrentBuildStat
 }
 
 describe('BuildShareMenuComponent', () => {
-  let shortLinks: jasmine.SpyObj<ShortLinksService>;
-  let queryParams: jasmine.SpyObj<QueryParamsService>;
-  let equipped: jasmine.SpyObj<EquippedService>;
-  let analytics: jasmine.SpyObj<AnalyticsService>;
-  let auth: jasmine.SpyObj<AuthService>;
+  let shortLinks: MockedObject<ShortLinksService>;
+  let queryParams: MockedObject<QueryParamsService>;
+  let equipped: MockedObject<EquippedService>;
+  let analytics: MockedObject<AnalyticsService>;
+  let auth: MockedObject<AuthService>;
 
   beforeEach(() => {
-    shortLinks = jasmine.createSpyObj('ShortLinksService', ['create']);
-    shortLinks.create.and.returnValue(of({ shortId: 'shrt1234' }));
-    queryParams = jasmine.createSpyObj('QueryParamsService', ['encodeCurrentBuild']);
-    queryParams.encodeCurrentBuild.and.returnValue('z1.encoded');
-    equipped = jasmine.createSpyObj('EquippedService', ['getGearDescription', 'getEquippedItemCount']);
-    equipped.getGearDescription.and.returnValue('Weapon: Sword');
-    equipped.getEquippedItemCount.and.returnValue(0);
-    analytics = jasmine.createSpyObj('AnalyticsService', ['track']);
-    auth = jasmine.createSpyObj('AuthService', ['signIn']);
-    spyOn(Clipboard, 'copy').and.returnValue(true);
+    shortLinks = {
+      create: vi.fn().mockName('ShortLinksService.create')
+    } as unknown as MockedObject<ShortLinksService>;
+    shortLinks.create.mockReturnValue(of({ shortId: 'shrt1234' }));
+    queryParams = {
+      encodeCurrentBuild: vi.fn().mockName('QueryParamsService.encodeCurrentBuild')
+    } as unknown as MockedObject<QueryParamsService>;
+    queryParams.encodeCurrentBuild.mockReturnValue('z1.encoded');
+    equipped = {
+      getGearDescription: vi.fn().mockName('EquippedService.getGearDescription'),
+      getEquippedItemCount: vi.fn().mockName('EquippedService.getEquippedItemCount')
+    } as unknown as MockedObject<EquippedService>;
+    equipped.getGearDescription.mockReturnValue('Weapon: Sword');
+    equipped.getEquippedItemCount.mockReturnValue(0);
+    analytics = {
+      track: vi.fn().mockName('AnalyticsService.track')
+    };
+    auth = {
+      signIn: vi.fn().mockName('AuthService.signIn')
+    } as unknown as MockedObject<AuthService>;
+    vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
   });
 
   /** Opens the menu: the component exists only while open, and resolves its link on init. */
   function open(isAuthenticated = false, state: Partial<CurrentBuildState> = {}): BuildShareMenuComponent {
-    const cdr = jasmine.createSpyObj<ChangeDetectorRef>('ChangeDetectorRef', ['markForCheck']);
-    const component = new BuildShareMenuComponent(shortLinks, queryParams, equipped, analytics, auth, cdr);
+    const cdr = {
+      markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
+    };
+    const component = new BuildShareMenuComponent(shortLinks, queryParams, equipped, analytics, auth,
+      cdr as unknown as ChangeDetectorRef);
     component.buildState = makeState(state);
     component.isAuthenticated = isAuthenticated;
     component.ngOnInit();
@@ -119,8 +134,10 @@ describe('BuildShareMenuComponent', () => {
   });
 
   it('does not copy anything for a link action clicked before the mint resolves - no async fallback', () => {
-    const create$ = new Subject<{ shortId: string }>();
-    shortLinks.create.and.returnValue(create$);
+    const create$ = new Subject<{
+      shortId: string;
+    }>();
+    shortLinks.create.mockReturnValue(create$);
 
     const component = open(true);
     expect(component.shareLink).toEqual({ status: 'pending' });
@@ -137,17 +154,17 @@ describe('BuildShareMenuComponent', () => {
   });
 
   it('surfaces an error and disables the link items if minting the share link fails', () => {
-    shortLinks.create.and.returnValue(throwError(() => new Error('network down')));
+    shortLinks.create.mockReturnValue(throwError(() => new Error('network down')));
 
     const component = open(true);
 
-    expect(component.shareLink).toEqual({ status: 'error', message: jasmine.any(String) });
+    expect(component.shareLink).toEqual({ status: 'error', message: expect.any(String) });
     component.copyLink();
     expect(Clipboard.copy).not.toHaveBeenCalled();
   });
 
   it('surfaces an error, without a false "Copied!", when the clipboard write itself fails', () => {
-    (Clipboard.copy as jasmine.Spy).and.returnValue(false);
+    (Clipboard.copy as Mock).mockReturnValue(false);
     const component = open();
 
     component.copyTextOnly();
@@ -156,7 +173,7 @@ describe('BuildShareMenuComponent', () => {
     expect(component.shareCopyError).toContain('Could not copy');
   });
 
-  it('shows a transient "Copied!" confirmation that clears itself', (done) => {
+  it('shows a transient "Copied!" confirmation that clears itself', async () => {
     const component = open();
 
     component.copyTextOnly();
@@ -164,7 +181,7 @@ describe('BuildShareMenuComponent', () => {
     expect(component.justCopied).toBe('text');
     setTimeout(() => {
       expect(component.justCopied).toBeNull();
-      done();
+      ;
     }, 1600);
   });
 
@@ -173,7 +190,7 @@ describe('BuildShareMenuComponent', () => {
 
     component.copyTextOnly();
 
-    expect(analytics.track).toHaveBeenCalledWith('copy_build', jasmine.objectContaining({ copy_kind: 'text', link_kind: 'none' }));
+    expect(analytics.track).toHaveBeenCalledWith('copy_build', expect.objectContaining({ copy_kind: 'text', link_kind: 'none' }));
   });
 
   it('tracks the resolved link kind (short/canonical/long), not just signed-in-ness', () => {
@@ -181,12 +198,14 @@ describe('BuildShareMenuComponent', () => {
 
     component.copyLink();
 
-    expect(analytics.track).toHaveBeenCalledWith('copy_build', jasmine.objectContaining({ copy_kind: 'link', link_kind: 'canonical' }));
+    expect(analytics.track).toHaveBeenCalledWith('copy_build', expect.objectContaining({ copy_kind: 'link', link_kind: 'canonical' }));
   });
 
   it('stops a pending mint when the menu closes', () => {
-    const create$ = new Subject<{ shortId: string }>();
-    shortLinks.create.and.returnValue(create$);
+    const create$ = new Subject<{
+      shortId: string;
+    }>();
+    shortLinks.create.mockReturnValue(create$);
     const component = open(true);
 
     component.ngOnDestroy();

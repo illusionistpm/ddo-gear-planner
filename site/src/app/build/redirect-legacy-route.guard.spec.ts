@@ -17,7 +17,7 @@ describe('redirectLegacyRouteToRootGuard', () => {
 
     const result = TestBed.runInInjectionContext(() => redirectLegacyRouteToRootGuard(route, {} as any)) as UrlTree;
 
-    expect(result instanceof UrlTree).toBeTrue();
+    expect(result instanceof UrlTree).toBe(true);
     expect(result.toString()).toBe(router.createUrlTree(['/'], {
       queryParams: { levelrange: '1,36', Weapon: 'Calamitous Battle Axe' }
     }).toString());

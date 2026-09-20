@@ -1,10 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import {
-  canonicalizeCraftingSystemName,
-  canonicalizeGeneratedCraftedItemName,
-  GearDbService,
-} from './gear-db.service';
+import { canonicalizeCraftingSystemName, canonicalizeGeneratedCraftedItemName, GearDbService, } from './gear-db.service';
 import { CraftableOption } from './craftable-option';
 import { Item } from './item';
 import { ItemFilters } from './item-filters';
@@ -120,10 +116,10 @@ describe('GearDbService', () => {
   it('matches craftable options with MLs inside the requested level range', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
 
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 8 }), 8, 12)).toBeTrue();
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 7 }), 8, 12)).toBeFalse();
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 13 }), 8, 12)).toBeFalse();
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({}), 8, 12)).toBeTrue();
+    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 8 }), 8, 12)).toBe(true);
+    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 7 }), 8, 12)).toBe(false);
+    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 13 }), 8, 12)).toBe(false);
+    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({}), 8, 12)).toBe(true);
   });
 
   it('matches sets only when their gear levels overlap the requested level range', () => {
@@ -157,9 +153,9 @@ describe('GearDbService', () => {
       ['Trinket', [heroicItem, legendaryItem]],
     ]));
 
-    expect(service['_isSetInLevelRange']('Example Set', 8, 12)).toBeTrue();
-    expect(service['_isSetInLevelRange']('Legendary Example Set', 8, 12)).toBeFalse();
-    expect(service['_isSetInLevelRange']('Unknown Set', 8, 12)).toBeFalse();
+    expect(service['_isSetInLevelRange']('Example Set', 8, 12)).toBe(true);
+    expect(service['_isSetInLevelRange']('Legendary Example Set', 8, 12)).toBe(false);
+    expect(service['_isSetInLevelRange']('Unknown Set', 8, 12)).toBe(false);
   });
 
   it('indexes set levels from crafting options', () => {
@@ -189,8 +185,8 @@ describe('GearDbService', () => {
       ['Trinket', [item]],
     ]));
 
-    expect(service['_isSetInLevelRange']('Parent Level Set', 15, 18)).toBeTrue();
-    expect(service['_isSetInLevelRange']('Option Level Set', 15, 18)).toBeFalse();
+    expect(service['_isSetInLevelRange']('Parent Level Set', 15, 18)).toBe(true);
+    expect(service['_isSetInLevelRange']('Option Level Set', 15, 18)).toBe(false);
   });
 
   it('finds gear that can craft a requested set and preselects that set', () => {
@@ -314,7 +310,7 @@ describe('GearDbService', () => {
     ]);
 
     expect(service.applyItemFilters(new ItemFilters()).get('Trinket')?.map(item => item.name))
-      .toEqual(jasmine.arrayContaining(['Pack Item', 'No Pack Item']));
+      .toEqual(expect.arrayContaining(['Pack Item', 'No Pack Item']));
 
     const filters = new ItemFilters();
     filters.hiddenPacks = new Set(['Test Pack', FiltersService.NO_PACK_FILTER]);

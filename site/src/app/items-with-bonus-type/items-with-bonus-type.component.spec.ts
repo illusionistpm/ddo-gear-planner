@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type.component';
@@ -13,13 +13,13 @@ describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
   let fixture: ComponentFixture<ItemsWithBonusTypeComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ItemsWithBonusTypeComponent, ItemPreviewComponent ],
-      imports: [ FormsModule ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent],
+      imports: [FormsModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsWithBonusTypeComponent);
@@ -34,18 +34,16 @@ describe('ItemsWithBonusTypeComponent', () => {
   it('splits sets into reachable and out-of-reach by piece threshold', () => {
     component.affixName = 'Kinetic Lore';
     component.bonusType = 'Artifact';
-    spyOn(component.gearDB, 'findGearWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findAugmentsWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findSetsWithAffixAndType').and.returnValue([
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([
       ['Reachable Set', 2, 5],
       ['Out Of Reach Set', 3, 6],
     ] as any);
-    spyOn(component.equipped, 'getCompatibleGear').and.returnValue([]);
-    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set(['Cloak', 'Boots']));
-    spyOn(component.equipped, 'getActiveSets').and.returnValue(new Map());
-    spyOn((component as any).availability, 'isSetReachable').and.callFake(
-      (setName: string) => setName === 'Reachable Set'
-    );
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set(['Cloak', 'Boots']));
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map());
+    vi.spyOn((component as any).availability, 'isSetReachable').mockImplementation((setName: any) => setName === 'Reachable Set');
 
     (component as any).refreshMatches();
 
@@ -56,13 +54,13 @@ describe('ItemsWithBonusTypeComponent', () => {
   it('reports how many pieces of a set are already equipped', () => {
     component.affixName = 'Kinetic Lore';
     component.bonusType = 'Artifact';
-    spyOn(component.gearDB, 'findGearWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findAugmentsWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findSetsWithAffixAndType').and.returnValue([['Owned Set', 3, 6]] as any);
-    spyOn(component.equipped, 'getCompatibleGear').and.returnValue([]);
-    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set(['Cloak', 'Boots', 'Gloves']));
-    spyOn(component.equipped, 'getActiveSets').and.returnValue(new Map([['Owned Set', 2]]));
-    spyOn((component as any).availability, 'isSetReachable').and.returnValue(true);
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([['Owned Set', 3, 6]] as any);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set(['Cloak', 'Boots', 'Gloves']));
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map([['Owned Set', 2]]));
+    vi.spyOn((component as any).availability, 'isSetReachable').mockReturnValue(true);
 
     (component as any).refreshMatches();
 
@@ -87,13 +85,13 @@ describe('ItemsWithBonusTypeComponent', () => {
     necklace.slot = 'Neck';
     necklace.crafting = [filledTier, openTier];
 
-    spyOn(component.gearDB, 'findGearWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findAugmentsWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findSetsWithAffixAndType').and.returnValue([] as any);
-    spyOn(component.equipped, 'getCompatibleGear').and.returnValue([]);
-    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set());
-    spyOn(component.equipped, 'getActiveSets').and.returnValue(new Map());
-    spyOn(component.equipped, 'getSlotsSnapshot').and.returnValue(new Map([['Neck', necklace]]));
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set());
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map());
+    vi.spyOn(component.equipped, 'getSlotsSnapshot').mockReturnValue(new Map([['Neck', necklace]]));
 
     (component as any).refreshMatches();
 
@@ -132,11 +130,11 @@ describe('ItemsWithBonusTypeComponent item preview', () => {
   function render(items: Item[]) {
     component.affixName = 'Kinetic Lore';
     component.bonusType = 'Artifact';
-    spyOn(component.gearDB, 'findGearWithAffixAndType').and.returnValue(items);
-    spyOn(component.gearDB, 'findAugmentsWithAffixAndType').and.returnValue([]);
-    spyOn(component.gearDB, 'findSetsWithAffixAndType').and.returnValue([]);
-    spyOn(component.equipped, 'getCompatibleGear').and.callFake(gear => gear);
-    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set(items.map(item => item.slot)));
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue(items);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockImplementation(gear => gear);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set(items.map(item => item.slot)));
     fixture.detectChanges();
   }
 
@@ -151,9 +149,9 @@ describe('ItemsWithBonusTypeComponent item preview', () => {
     fixture.detectChanges();
   }
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsWithBonusTypeComponent);
@@ -176,14 +174,14 @@ describe('ItemsWithBonusTypeComponent item preview', () => {
     render([makeItem('Alpha', 'Neck', 3), makeItem('Beta', 'Belt', 2), makeItem('Gamma', 'Boots', 1)]);
 
     click(rowLinks()[0]);
-    expect(button('Previous item').disabled).toBeTrue();
-    expect(button('Next item').disabled).toBeFalse();
+    expect(button('Previous item').disabled).toBe(true);
+    expect(button('Next item').disabled).toBe(false);
 
     click(button('Next item'));
     expect(panelTitle()).toBe('Beta');
     click(button('Next item'));
     expect(panelTitle()).toBe('Gamma');
-    expect(button('Next item').disabled).toBeTrue();
+    expect(button('Next item').disabled).toBe(true);
 
     click(button('Next item'));
     expect(panelTitle()).toBe('Gamma');
@@ -201,26 +199,26 @@ describe('ItemsWithBonusTypeComponent item preview', () => {
     click(rowLinks()[99]);
 
     expect(panelTitle()).toBe('Item 2');
-    expect(button('Next item').disabled).toBeTrue();
+    expect(button('Next item').disabled).toBe(true);
   });
 
   it('equips the previewed item and closes the drawer', () => {
     render([makeItem('Alpha', 'Neck', 3), makeItem('Beta', 'Belt', 2)]);
-    const set = spyOn(component.equipped, 'set');
-    const close = spyOn(TestBed.inject(SuggestionDrawerService), 'close');
+    const set = vi.spyOn(component.equipped, 'set').mockReturnValue(undefined);
+    const close = vi.spyOn(TestBed.inject(SuggestionDrawerService), 'close').mockReturnValue(undefined);
 
     click(rowLinks()[0]);
     click(button('Next item'));
     click(el.querySelector<HTMLElement>('.preview-equip-button')!);
 
     expect(set).toHaveBeenCalledTimes(1);
-    expect(set.calls.mostRecent().args[0].name).toBe('Beta');
+    expect(vi.mocked(set).mock.lastCall![0].name).toBe('Beta');
     expect(close).toHaveBeenCalled();
   });
 
   it('closes without equipping and clears the row highlight', () => {
     render([makeItem('Alpha', 'Neck', 3)]);
-    const set = spyOn(component.equipped, 'set');
+    const set = vi.spyOn(component.equipped, 'set').mockReturnValue(undefined);
 
     click(rowLinks()[0]);
     click(button('Close item preview'));

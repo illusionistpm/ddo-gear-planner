@@ -1,4 +1,5 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ApplicationRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -6,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { CurrentBuildService } from './build/current-build.service';
 import { EquippedService } from './planner/equipped.service';
 import { QueryParamsService } from './build/query-params.service';
+
+// Router navigation is promise-driven; wait for it (and anything it scheduled) to finish.
+const settle = () => TestBed.inject(ApplicationRef).whenStable();
 
 // End-to-end check, through the REAL router (real route config, real
 // canDeactivate guard) and real EquippedService/QueryParamsService/
@@ -39,14 +43,14 @@ describe('build edit URL integration (real router)', () => {
     }
   });
 
-  it('drops the shortId to the root route on the first edit, without ever triggering the unsaved-changes confirm dialog', fakeAsync(() => {
+  it('drops the shortId to the root route on the first edit, without ever triggering the unsaved-changes confirm dialog', async () => {
     const router = TestBed.inject(Router);
     const location = TestBed.inject(Location);
     const currentBuild = TestBed.inject(CurrentBuildService);
     const equipped = TestBed.inject(EquippedService);
 
     router.navigateByUrl('/build/n11M5Pg9/arcane-trickster');
-    tick();
+    await settle();
     // Mirrors MainComponent.loadBuildFromRoute()'s success path: applying
     // decoded params is what flips QueryParamsService past its
     // initialPageLoad gate and actually subscribes EquippedService's live
@@ -56,33 +60,33 @@ describe('build edit URL integration (real router)', () => {
     TestBed.inject(QueryParamsService).applyDecodedBuildParams({});
     currentBuild.markLoaded({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', canonicalParams: {} });
 
-    spyOn(window, 'confirm');
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     const slot = equipped.getSlots().keys().next().value as string;
     equipped.clearSlot(slot);
     // navigateWithParams's router.navigate() is async - let it settle.
-    tick();
+    await settle();
 
     expect(window.confirm).not.toHaveBeenCalled();
     expect(location.path()).not.toContain('/build/n11M5Pg9/arcane-trickster');
     expect(location.path()).toMatch(/^\/?\?b=/);
     expect(currentBuild.value.shortId).toBe('n11M5Pg9');
-  }));
+  });
 
-  it('restores the build\'s identity when browser back returns through the edit history', fakeAsync(() => {
+  it('restores the build\'s identity when browser back returns through the edit history', async () => {
     const router = TestBed.inject(Router);
     const currentBuild = TestBed.inject(CurrentBuildService);
     const queryParams = TestBed.inject(QueryParamsService);
     const equipped = TestBed.inject(EquippedService);
 
     router.navigateByUrl('/build/n11M5Pg9/arcane-trickster');
-    tick();
+    await settle();
     queryParams.applyDecodedBuildParams({});
     currentBuild.markLoaded({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', savedBuildId: 'build-1', canonicalParams: {} });
 
     const slot = equipped.getSlots().keys().next().value as string;
     equipped.clearSlot(slot);
-    tick();
+    await settle();
 
     const dirtyUrl = router.url;
     expect(dirtyUrl).toMatch(/^\/\?b=/);
@@ -102,9 +106,9 @@ describe('build edit URL integration (real router)', () => {
     // comment) - markLoaded knew it directly from the server response, but
     // that never round-trips through router.url/b=, only {shortId, name} do.
     expect(identities[identities.length - 1]).toEqual({ shortId: 'n11M5Pg9', name: 'Arcane Trickster' });
-  }));
+  });
 
-  it('never grants ownership merely by decoding a build identity from a URL - through the real codec/router, not a mock', fakeAsync(() => {
+  it('never grants ownership merely by decoding a build identity from a URL - through the real codec/router, not a mock', async () => {
     // This is the actual vulnerability the audit found: savedBuildId used
     // to ride inside the b= blob's identity, so anyone who opened a copied
     // live-edit link inherited whatever ownership state the URL happened to
@@ -117,7 +121,7 @@ describe('build edit URL integration (real router)', () => {
     const equipped = TestBed.inject(EquippedService);
 
     router.navigateByUrl('/build/n11M5Pg9/arcane-trickster');
-    tick();
+    await settle();
     queryParams.applyDecodedBuildParams({});
     // No savedBuildId here - a signed-out or not-yet-confirmed viewer's load.
     currentBuild.markLoaded({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', canonicalParams: {} });
@@ -125,7 +129,7 @@ describe('build edit URL integration (real router)', () => {
 
     const slot = equipped.getSlots().keys().next().value as string;
     equipped.clearSlot(slot);
-    tick();
+    await settle();
     const dirtyUrl = router.url;
 
     // A second "viewer" of this exact copied URL, from a clean slate.
@@ -136,5 +140,5 @@ describe('build edit URL integration (real router)', () => {
     // air - it stays exactly what it was, 'unknown', never 'owned'.
     expect(currentBuild.value.ownership).not.toBe('owned');
     expect(currentBuild.value.savedBuildId).toBeNull();
-  }));
+  });
 });

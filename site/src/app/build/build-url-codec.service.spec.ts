@@ -84,7 +84,10 @@ describe('BuildUrlCodecService', () => {
       hiddenpacks: '__NO_PACK__,Masterminds of Sharn'
     });
     const inspection = service.inspect(encoded);
-    const dictionary = urlCodecDictionary as { itemTypes: string[]; packs: string[] };
+    const dictionary = urlCodecDictionary as {
+      itemTypes: string[];
+      packs: string[];
+    };
 
     expect(inspection.compactPayload?.f?.ht).toBe(bitfieldFor([
       dictionary.itemTypes.indexOf('Bastard Swords'),
@@ -123,7 +126,9 @@ describe('BuildUrlCodecService', () => {
       craft_0_selected: 'Iridiscent Claw: Force'
     });
     const inspection = service.inspect(encoded);
-    const dictionary = urlCodecDictionary as { craftingSystems: string[] };
+    const dictionary = urlCodecDictionary as {
+      craftingSystems: string[];
+    };
 
     expect(inspection.compactPayload?.c?.[0]).toEqual([
       'w',
@@ -149,7 +154,7 @@ describe('BuildUrlCodecService', () => {
   it('does not duplicate the version inside the payload - the z1. prefix already carries it', () => {
     const encoded = service.encode({ Weapon: 'Dinosaur Bone Great Crossbow' });
 
-    expect(service.inspect(encoded).compactPayload).not.toEqual(jasmine.objectContaining({ v: jasmine.anything() }));
+    expect(service.inspect(encoded).compactPayload).not.toEqual(expect.objectContaining({ v: expect.anything() }));
     expect(service.decode(encoded)).toEqual({ Weapon: 'Dinosaur Bone Great Crossbow' });
   });
 
@@ -197,18 +202,14 @@ describe('BuildUrlCodecService', () => {
       const encoded = service.encode({ [key]: sampleValueByKey[key] });
       const inspection = service.inspect(encoded);
 
-      expect(inspection.compactPayload?.x?.[key])
-        .withContext(`"${key}" fell through to generic passthrough instead of an explicit codec case`)
-        .toBeUndefined();
+      expect(inspection.compactPayload?.x?.[key], `"${key}" fell through to generic passthrough instead of an explicit codec case`).toBeUndefined();
     }
 
     for (const slot of KNOWN_SLOT_KEYS) {
       const encoded = service.encode({ [slot]: 'Some Item' });
       const inspection = service.inspect(encoded);
 
-      expect(inspection.compactPayload?.g?.[Object.keys(inspection.compactPayload?.g ?? {})[0]])
-        .withContext(`slot "${slot}" was not encoded into the gear (g) field`)
-        .toBe('Some Item');
+      expect(inspection.compactPayload?.g?.[Object.keys(inspection.compactPayload?.g ?? {})[0]], `slot "${slot}" was not encoded into the gear (g) field`).toBe('Some Item');
       expect(inspection.compactPayload?.x?.[slot]).toBeUndefined();
     }
 
@@ -248,12 +249,13 @@ describe('BuildUrlCodecService', () => {
   });
 
   it('works when performance logging is enabled', () => {
-    spyOn(console, 'log');
+    vi.spyOn(console, 'log').mockReturnValue(undefined);
     localStorage.setItem('ddoPerf', '1');
     try {
       const encoded = service.encode({ tracked: ['Strength'] });
       expect(service.decode(encoded)).toEqual({ tracked: ['Strength'] });
-    } finally {
+    }
+    finally {
       localStorage.removeItem('ddoPerf');
     }
   });

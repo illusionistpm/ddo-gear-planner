@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
@@ -9,14 +9,14 @@ describe('EffectsTableComponent', () => {
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
   const legacyOnboardingKey = 'ddo-planner-onboarding-affix-type-opened';
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   afterEach(() => {
     localStorage.removeItem(onboardingStateKey);
@@ -39,9 +39,9 @@ describe('EffectsTableComponent', () => {
     component.affixNames = ['Strength', 'Armor-Piercing', 'Cold Lore'];
 
     expect(component.getFilteredBoolAffixNames()).toEqual(['Deathblock']);
-    expect(component.getAffixGroups()).toContain({ name: 'Attributes', affixes: ['Strength'] });
-    expect(component.getAffixGroups()).toContain({ name: 'Offense', affixes: ['Armor-Piercing'] });
-    expect(component.getAffixGroups()).toContain({ name: 'Casting', affixes: ['Cold Lore'] });
+    expect(component.getAffixGroups()).toContainEqual({ name: 'Attributes', affixes: ['Strength'] });
+    expect(component.getAffixGroups()).toContainEqual({ name: 'Offense', affixes: ['Armor-Piercing'] });
+    expect(component.getAffixGroups()).toContainEqual({ name: 'Casting', affixes: ['Cold Lore'] });
   });
 
   it('combines checklist affixes with utility affixes in one display group', () => {
@@ -49,7 +49,7 @@ describe('EffectsTableComponent', () => {
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
     component.affixNames = ['Speed', 'Deadly'];
 
-    expect(component.getTrackedAffixGroups()).toContain({
+    expect(component.getTrackedAffixGroups()).toContainEqual({
       name: 'Utility & Checklist',
       affixes: ['Speed'],
       checklistAffixes: ['Feather Falling']
@@ -66,17 +66,13 @@ describe('EffectsTableComponent', () => {
       { bonusType: 'Enhancement', value: 0 },
       { bonusType: 'Equipment', value: 13 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) =>
-      affixName === 'Strength' ? ['Enhancement', 'Equipment'] : []
-    );
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
-      affixName === 'Strength' && bonusType === 'Enhancement' ? 8 : 0
-    );
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => affixName === 'Strength' ? ['Enhancement', 'Equipment'] : []);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => affixName === 'Strength' && bonusType === 'Enhancement' ? 8 : 0);
     (component as any).refreshTrackedAffixDisplay();
 
-    expect(component.isOnboardingTargetChip('Speed', 'Enhancement')).toBeFalse();
-    expect(component.isOnboardingTargetChip('Strength', 'Enhancement')).toBeTrue();
-    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeFalse();
+    expect(component.isOnboardingTargetChip('Speed', 'Enhancement')).toBe(false);
+    expect(component.isOnboardingTargetChip('Strength', 'Enhancement')).toBe(true);
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBe(false);
   });
 
   it('falls back to a covered chip when every onboarding chip already has value', () => {
@@ -85,10 +81,10 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
     (component as any).refreshTrackedAffixDisplay();
 
-    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeTrue();
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBe(true);
   });
 
   it('falls back to the first utility checklist chip when it is the only onboarding group', () => {
@@ -97,7 +93,7 @@ describe('EffectsTableComponent', () => {
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
     (component as any).refreshTrackedAffixDisplay();
 
-    expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBeTrue();
+    expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBe(true);
   });
 
   it('pairs the tracked affix chip green cue with intro text and a skip action', () => {
@@ -106,11 +102,11 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
     (component as any).refreshTrackedAffixDisplay();
 
-    expect(component.shouldShowAffixTypeHint()).toBeTrue();
-    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeTrue();
+    expect(component.shouldShowAffixTypeHint()).toBe(true);
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBe(true);
   });
 
   it('completes onboarding when a tracked affix chip opens item suggestions', () => {
@@ -119,13 +115,13 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn((component as any).suggestionDrawer, 'openBonusType');
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn((component as any).suggestionDrawer, 'openBonusType').mockReturnValue(undefined);
     (component as any).refreshTrackedAffixDisplay();
 
     component.showItemsWithBonusType('Strength', 'Equipment');
 
-    expect(component.onboardingActive).toBeFalse();
+    expect(component.onboardingActive).toBe(false);
     expect((component as any).suggestionDrawer.openBonusType).toHaveBeenCalledWith('Strength', 'Equipment', true);
   });
 
@@ -135,23 +131,23 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
     (component as any).refreshTrackedAffixDisplay();
 
     component.dismissIntro();
 
-    expect(component.shouldShowAffixTypeHint()).toBeFalse();
-    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBeFalse();
+    expect(component.shouldShowAffixTypeHint()).toBe(false);
+    expect(component.isOnboardingTargetChip('Strength', 'Equipment')).toBe(false);
   });
 
   it('toggles category collapse state by group name', () => {
-    expect(component.isAffixGroupCollapsed('Offense')).toBeFalse();
+    expect(component.isAffixGroupCollapsed('Offense')).toBe(false);
 
     component.toggleAffixGroup('Offense');
-    expect(component.isAffixGroupCollapsed('Offense')).toBeTrue();
+    expect(component.isAffixGroupCollapsed('Offense')).toBe(true);
 
     component.toggleAffixGroup('Offense');
-    expect(component.isAffixGroupCollapsed('Offense')).toBeFalse();
+    expect(component.isAffixGroupCollapsed('Offense')).toBe(false);
   });
 
   it('lists all-level bonus types unavailable due to filtering', () => {
@@ -159,8 +155,8 @@ describe('EffectsTableComponent', () => {
       { bonusType: 'Equipment', value: 0 },
       { bonusType: 'Insight', value: 0 },
     ]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight', 'Quality']);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(0);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue(['Equipment', 'Insight', 'Quality']);
 
     expect(component.getVisibleTypes('Strength')).toEqual([]);
     expect(component.getUnavailableTypes('Strength')).toEqual(['Equipment', 'Insight', 'Quality']);
@@ -171,10 +167,8 @@ describe('EffectsTableComponent', () => {
       { bonusType: 'Equipment', value: 0 },
       { bonusType: 'Insight', value: 0 },
     ]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName, bonusType) =>
-      bonusType === 'Equipment' ? 12 : 0
-    );
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment', 'Insight']);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName, bonusType) => bonusType === 'Equipment' ? 12 : 0);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue(['Equipment', 'Insight']);
 
     expect(component.getVisibleTypes('Strength')).toEqual([
       {
@@ -186,18 +180,15 @@ describe('EffectsTableComponent', () => {
       },
     ]);
     expect(component.getUnavailableTypes('Strength')).toEqual(['Insight']);
-    expect(component.isBonusTypeUnavailableAtCurrentLevelRange(
-      'Strength',
-      { bonusType: 'Equipment', value: 0 }
-    )).toBeFalse();
+    expect(component.isBonusTypeUnavailableAtCurrentLevelRange('Strength', { bonusType: 'Equipment', value: 0 })).toBe(false);
   });
 
   it('keeps equipped bonus type buttons even when the filtered max is zero', () => {
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 12 },
     ]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue(['Equipment']);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(0);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue(['Equipment']);
 
     expect(component.getVisibleTypes('Strength')).toEqual([
       {
@@ -214,7 +205,7 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Light Spell Power', [
       { bonusType: 'Enhancement', value: 120 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => {
       if (affixName === 'Light Spell Power') {
         return ['Enhancement'];
       }
@@ -223,7 +214,7 @@ describe('EffectsTableComponent', () => {
       }
       return [];
     });
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) => {
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => {
       if (affixName === 'Light Spell Power' && bonusType === 'Enhancement') {
         return 150;
       }
@@ -235,27 +226,25 @@ describe('EffectsTableComponent', () => {
       }
       return 0;
     });
-    spyOn(component.equipped, 'getCurrentValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
-      affixName === 'Universal Spell Power' && bonusType === 'Implement' ? 30 : 0
-    );
+    vi.spyOn(component.equipped, 'getCurrentValueForAffixType').mockImplementation((affixName: string, bonusType: string) => affixName === 'Universal Spell Power' && bonusType === 'Implement' ? 30 : 0);
 
     const visibleTypes = component.getVisibleTypes('Light Spell Power');
 
-    expect(visibleTypes).toContain({
+    expect(visibleTypes).toContainEqual({
       bonusType: 'Enhancement',
       value: 120,
       label: 'Enhancement',
       sourceAffixName: 'Light Spell Power',
       sourceBonusType: 'Enhancement',
     });
-    expect(visibleTypes).toContain({
+    expect(visibleTypes).toContainEqual({
       bonusType: 'Implement',
       value: 30,
       label: 'Universal Implement',
       sourceAffixName: 'Universal Spell Power',
       sourceBonusType: 'Implement',
     });
-    expect(visibleTypes).toContain({
+    expect(visibleTypes).toContainEqual({
       bonusType: 'Profane',
       value: 0,
       label: 'Universal Profane',
@@ -267,7 +256,7 @@ describe('EffectsTableComponent', () => {
   it('does not also show a plain per-element row for a universal-companion-only bonus type', () => {
     // "Implement" spell power only ever comes from Universal Spell Power, so
     // ungrouping the companion affix leaks it onto Cold Spell Power's level types.
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => {
       if (affixName === 'Cold Spell Power') {
         return ['Equipment', 'Implement'];
       }
@@ -276,11 +265,8 @@ describe('EffectsTableComponent', () => {
       }
       return [];
     });
-    spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').and.callFake(
-      (affixName: string, bonusType: string) =>
-        affixName === 'Cold Spell Power' && bonusType === 'Implement'
-    );
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) => {
+    vi.spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').mockImplementation((affixName: string, bonusType: string) => affixName === 'Cold Spell Power' && bonusType === 'Implement');
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => {
       if (affixName === 'Cold Spell Power' && bonusType === 'Equipment') {
         return 150;
       }
@@ -289,7 +275,7 @@ describe('EffectsTableComponent', () => {
       }
       return 0;
     });
-    spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+    vi.spyOn(component.equipped, 'getCurrentValueForAffixType').mockReturnValue(0);
 
     const visibleTypes = component.getVisibleTypes('Cold Spell Power');
     const implementRows = visibleTypes.filter(type => type.bonusType === 'Implement');
@@ -323,7 +309,7 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Light Lore', [
       { bonusType: 'Equipment', value: 22 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => {
       if (affixName === 'Light Lore') {
         return ['Equipment'];
       }
@@ -332,12 +318,10 @@ describe('EffectsTableComponent', () => {
       }
       return [];
     });
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
-      affixName === 'Universal Spell Lore' && bonusType === 'Artifact' ? 5 : 1
-    );
-    spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => affixName === 'Universal Spell Lore' && bonusType === 'Artifact' ? 5 : 1);
+    vi.spyOn(component.equipped, 'getCurrentValueForAffixType').mockReturnValue(0);
 
-    expect(component.getVisibleTypes('Light Lore')).toContain({
+    expect(component.getVisibleTypes('Light Lore')).toContainEqual({
       bonusType: 'Artifact',
       value: 0,
       label: 'Universal Artifact',
@@ -350,7 +334,7 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Fire Intensity', [
       { bonusType: 'Equipment', value: 12 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => {
       if (affixName === 'Fire Intensity') {
         return ['Equipment'];
       }
@@ -359,12 +343,10 @@ describe('EffectsTableComponent', () => {
       }
       return [];
     });
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
-      affixName === 'Universal Spell Critical Damage' && bonusType === 'Legendary' ? 15 : 1
-    );
-    spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => affixName === 'Universal Spell Critical Damage' && bonusType === 'Legendary' ? 15 : 1);
+    vi.spyOn(component.equipped, 'getCurrentValueForAffixType').mockReturnValue(0);
 
-    expect(component.getVisibleTypes('Fire Intensity')).toContain({
+    expect(component.getVisibleTypes('Fire Intensity')).toContainEqual({
       bonusType: 'Legendary',
       value: 0,
       label: 'Universal Legendary',
@@ -374,29 +356,29 @@ describe('EffectsTableComponent', () => {
   });
 
   it('explains unavailable bonus types in the tooltip', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(0);
 
     expect(component.getBonusTypeTooltip('Strength', { bonusType: 'Equipment', value: 0 }))
       .toBe('No gear with this bonus type is available in the current level range.');
   });
 
   it('says a zero-value available bonus type is not covered yet, rather than calling it low', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(10);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(10);
 
     expect(component.getBonusTypeTooltip('Strength', { bonusType: 'Equipment', value: 0 }))
       .toBe('Not covered yet (best available: 10)');
   });
 
   it('does not show a numeric best-available value for an uncovered checklist affix', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(1);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(1);
 
     expect(component.getBonusTypeTooltip('Deathblock', { bonusType: 'Bool', value: 0 }))
       .toBe('Not covered yet');
   });
 
   it('does not include source equipment names in bonus type tooltips', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(10);
-    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(10);
+    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
       {
         kind: 'item',
         slot: 'Goggles',
@@ -412,7 +394,7 @@ describe('EffectsTableComponent', () => {
   });
 
   it('highlights item slots that supply the hovered affix type', () => {
-    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
       {
         kind: 'item',
         slot: 'Goggles',
@@ -433,9 +415,9 @@ describe('EffectsTableComponent', () => {
 
     component.previewAffixTypeEquipment('Accuracy', { bonusType: 'Equipment', value: 8 });
 
-    expect(component.highlightedEquipmentSlots.has('Goggles')).toBeTrue();
-    expect(component.highlightedEquipmentSlots.has('Set')).toBeFalse();
-    expect(component.highlightedEquipmentSets.has('Focused Sight')).toBeTrue();
+    expect(component.highlightedEquipmentSlots.has('Goggles')).toBe(true);
+    expect(component.highlightedEquipmentSlots.has('Set')).toBe(false);
+    expect(component.highlightedEquipmentSets.has('Focused Sight')).toBe(true);
 
     component.clearAffixTypeEquipmentPreview();
 
@@ -444,7 +426,7 @@ describe('EffectsTableComponent', () => {
   });
 
   it('highlights the External slot for a hovered affix type covered by an external entry', () => {
-    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([
+    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
       {
         kind: 'external',
         slot: 'Non-gear',
@@ -457,20 +439,20 @@ describe('EffectsTableComponent', () => {
 
     component.previewAffixTypeEquipment('Deadly', { bonusType: 'Insightful', value: 6 });
 
-    expect(component.highlightedExternal).toBeTrue();
+    expect(component.highlightedExternal).toBe(true);
 
     component.clearAffixTypeEquipmentPreview();
 
-    expect(component.highlightedExternal).toBeFalse();
+    expect(component.highlightedExternal).toBe(false);
   });
 
   it('highlights the External slot for a hovered affix type that is marked as ignored', () => {
-    spyOn(component.equipped, 'getSourcesForAffixType').and.returnValue([]);
-    spyOn(component.equipped, 'isAffixTypeIgnored').and.returnValue(true);
+    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'isAffixTypeIgnored').mockReturnValue(true);
 
     component.previewAffixTypeEquipment('Concentration', { bonusType: 'Insight', value: 0 });
 
-    expect(component.highlightedExternal).toBeTrue();
+    expect(component.highlightedExternal).toBe(true);
   });
 
   it('tracks visible type rows without depending on component method binding', () => {
@@ -485,15 +467,15 @@ describe('EffectsTableComponent', () => {
   });
 
   it('hides max available badges when the filtered max is zero', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(0);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(0);
 
-    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBeFalse();
+    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBe(false);
   });
 
   it('shows max available badges when the filtered max is positive', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(12);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(12);
 
-    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBeTrue();
+    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBe(true);
   });
 
   it('toggles the tracked-affix grouping mode', () => {
@@ -509,10 +491,10 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
     component.affixMap.set('Fire Intensity', [{ bonusType: 'Legendary', value: 0 }]);
     component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(5);
-    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(5);
-    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) => {
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(5);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(5);
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockImplementation((_affixName: any, bonusType: any) => {
       if (bonusType === 'Legendary') {
         return { tier: 'set-only', slotCount: 0, eliminated: false, setSources: [] };
       }
@@ -535,10 +517,10 @@ describe('EffectsTableComponent', () => {
       { bonusType: 'Insight', value: 0 },
       { bonusType: 'Resistance', value: 0 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(5);
-    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(5);
-    spyOn((component as any).availability, 'getRemainingAvailability').and.returnValue({
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(5);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(5);
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockReturnValue({
       tier: 'scarce', slotCount: 2, eliminated: false, setSources: [],
     });
 
@@ -557,9 +539,9 @@ describe('EffectsTableComponent', () => {
       { bonusType: 'Enhancement', value: 6 },
       { bonusType: 'Insight', value: 0 },
     ]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
-    const remaining = spyOn((component as any).availability, 'getRemainingAvailability').and.returnValue({
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(8);
+    const remaining = vi.spyOn((component as any).availability, 'getRemainingAvailability').mockReturnValue({
       tier: 'common', slotCount: 9, eliminated: false, setSources: [],
     });
 
@@ -577,19 +559,17 @@ describe('EffectsTableComponent', () => {
     component.affixNames = ['Strength', 'Dexterity'];
     component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
     component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(6);
-    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(6);
-    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) =>
-      bonusType === 'Profane'
-        ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
-        : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] }
-    );
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(6);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(6);
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockImplementation((_affixName: any, bonusType: any) => bonusType === 'Profane'
+      ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
+      : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] });
 
     const groups = component.getSlotGroups();
 
     expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out']);
-    expect(groups[1].rows[0].chips[0].eliminated).toBeTrue();
+    expect(groups[1].rows[0].chips[0].eliminated).toBe(true);
   });
 
   it('puts the fulfilled bucket after the ruled-out bucket', () => {
@@ -597,14 +577,12 @@ describe('EffectsTableComponent', () => {
     component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
     component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
     component.affixMap.set('Wisdom', [{ bonusType: 'Enhancement', value: 6 }]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(6);
-    spyOn(component.gearDB, 'getBestValueForAffix').and.returnValue(6);
-    spyOn((component as any).availability, 'getRemainingAvailability').and.callFake((_affixName: string, bonusType: string) =>
-      bonusType === 'Profane'
-        ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
-        : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] }
-    );
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(6);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(6);
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockImplementation((_affixName: any, bonusType: any) => bonusType === 'Profane'
+      ? { tier: 'unavailable', slotCount: 0, eliminated: true, setSources: [] }
+      : { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] });
 
     const groups = component.getSlotGroups();
 
@@ -624,7 +602,7 @@ describe('EffectsTableComponent', () => {
   });
 
   it('routes a set-only need through the bonus-type drawer, which lists the sets', () => {
-    spyOn((component as any).suggestionDrawer, 'openBonusType');
+    vi.spyOn((component as any).suggestionDrawer, 'openBonusType').mockReturnValue(undefined);
 
     component.showItemsWithBonusType('Kinetic Lore', 'Artifact');
 
@@ -632,19 +610,19 @@ describe('EffectsTableComponent', () => {
   });
 
   it('treats a type at or above 3/4 of the best value as sufficient', () => {
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(8);
 
-    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 6 })).toBeTrue();
-    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 5 })).toBeFalse();
-    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 0 })).toBeFalse();
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 6 })).toBe(true);
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 5 })).toBe(false);
+    expect(component.isBonusTypeSufficient('Strength', { bonusType: 'Profane', value: 0 })).toBe(false);
   });
 
   it('does not query availability for sufficiently-covered types when grouping by slots', () => {
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 7 }]);
-    spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.returnValue([]);
-    spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(8);
-    const remaining = spyOn((component as any).availability, 'getRemainingAvailability');
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(8);
+    const remaining = vi.spyOn((component as any).availability, 'getRemainingAvailability').mockReturnValue(undefined);
 
     const groups = component.getSlotGroups();
 
@@ -654,9 +632,7 @@ describe('EffectsTableComponent', () => {
 
   describe('getClassForValue', () => {
     beforeEach(() => {
-      spyOn(component.gearDB, 'getBestValueForAffixType').and.callFake((affixName: string, bonusType: string) =>
-        affixName === 'Strength' && bonusType === 'Insight' ? 8 : 0
-      );
+      vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockImplementation((affixName: string, bonusType: string) => affixName === 'Strength' && bonusType === 'Insight' ? 8 : 0);
     });
 
     it('classifies penalties separately', () => {
@@ -686,16 +662,18 @@ describe('EffectsTableComponent', () => {
 
   describe('universal companion bonus types', () => {
     beforeEach(() => {
-      spyOn(component.gearDB, 'getAllLevelTypesForAffix').and.callFake((affixName: string) => {
-        if (affixName === 'Fire Spell Power') { return ['Equipment', 'Implement']; }
-        if (affixName === 'Universal Spell Power') { return ['Implement']; }
+      vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockImplementation((affixName: string) => {
+        if (affixName === 'Fire Spell Power') {
+          return ['Equipment', 'Implement'];
+        }
+        if (affixName === 'Universal Spell Power') {
+          return ['Implement'];
+        }
         return [];
       });
-      spyOn(component.gearDB, 'getBestValueForAffixType').and.returnValue(30);
-      spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').and.callFake((affixName: string, bonusType: string) =>
-        affixName === 'Fire Spell Power' && bonusType === 'Implement'
-      );
-      spyOn(component.equipped, 'getCurrentValueForAffixType').and.returnValue(0);
+      vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(30);
+      vi.spyOn(component.gearDB, 'isBonusTypeOnlyFromUniversalCompanion').mockImplementation((affixName: string, bonusType: string) => affixName === 'Fire Spell Power' && bonusType === 'Implement');
+      vi.spyOn(component.equipped, 'getCurrentValueForAffixType').mockReturnValue(0);
     });
 
     it('shows a universal-only bonus type as a Universal row, not also as a plain row', () => {

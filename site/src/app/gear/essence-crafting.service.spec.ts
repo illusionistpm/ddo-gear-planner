@@ -30,7 +30,7 @@ describe('EssenceCraftingService', () => {
     service.setItemToML(item, 30);
 
     expect(item.crafting.length).toBe(3);
-    expect(item.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
+    expect(item.crafting.every(craftable => craftable.options.length > 1)).toBe(true);
   });
 
   it('rebuilds crafted items from their raw Essence Crafting system when ML changes', () => {
@@ -56,7 +56,7 @@ describe('EssenceCraftingService', () => {
     service.setItemToML(item, 30);
 
     expect(item.crafting.length).toBe(3);
-    expect(item.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
+    expect(item.crafting.every(craftable => craftable.options.length > 1)).toBe(true);
   });
 
   it('rebuilds cloned crafted items from their raw Essence Crafting system when ML changes', () => {
@@ -89,7 +89,7 @@ describe('EssenceCraftingService', () => {
       'Essence Crafting: Rune Arm - Suffix',
     ]);
     expect(clone.crafting.length).toBe(3);
-    expect(clone.crafting.every(craftable => craftable.options.length > 1)).toBeTrue();
+    expect(clone.crafting.every(craftable => craftable.options.length > 1)).toBe(true);
   });
 
   it('preserves non-essence crafting rows when ML changes', () => {
@@ -120,7 +120,7 @@ describe('EssenceCraftingService', () => {
     const affixes = service.getAllAffixesForML(service.maxLevel);
 
     const affixNames = new Set(affixes.map(affix => affix.name));
-    expect(affixNames.has('Transmutation Focus')).toBeTrue();
+    expect(affixNames.has('Transmutation Focus')).toBe(true);
 
     const transmutationValues = affixes
       .filter(affix => affix.name === 'Transmutation Focus')

@@ -17,27 +17,23 @@ describe('AffixAvailabilityService', () => {
     service = TestBed.inject(AffixAvailabilityService);
   });
 
-  function itemsAcrossSlots(count: number): Array<{ slot: string }> {
+  function itemsAcrossSlots(count: number): Array<{
+    slot: string;
+  }> {
     return Array.from({ length: count }, (_unused, index) => ({ slot: 'Slot' + index }));
   }
 
-  function stubSources(
-    items: Array<{ slot: string }>,
-    sets: SetAffixMatch[] = [],
-    augmentOptionCount = 0,
-    augmentSlots: string[] = [],
-    setSlots: string[] = []
-  ) {
-    spyOn(gearDB, 'findGearWithAffixAndType').and.returnValue(items as any);
-    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue(sets);
-    spyOn(gearDB, 'findAugmentsWithAffixAndType').and.returnValue(
-      augmentOptionCount
-        ? [{ name: 'Blue Augment Slot', options: new Array(augmentOptionCount).fill({}) } as any]
-        : []
-    );
-    spyOn(gearDB, 'findSlotsForAugmentAffixAndType').and.returnValue(augmentSlots);
-    spyOn(gearDB, 'findSlotsForSet').and.returnValue(setSlots);
-    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(10);
+  function stubSources(items: Array<{
+    slot: string;
+  }>, sets: SetAffixMatch[] = [], augmentOptionCount = 0, augmentSlots: string[] = [], setSlots: string[] = []) {
+    vi.spyOn(gearDB, 'findGearWithAffixAndType').mockReturnValue(items as any);
+    vi.spyOn(gearDB, 'findSetsWithAffixAndType').mockReturnValue(sets);
+    vi.spyOn(gearDB, 'findAugmentsWithAffixAndType').mockReturnValue(augmentOptionCount
+      ? [{ name: 'Blue Augment Slot', options: new Array(augmentOptionCount).fill({}) } as any]
+      : []);
+    vi.spyOn(gearDB, 'findSlotsForAugmentAffixAndType').mockReturnValue(augmentSlots);
+    vi.spyOn(gearDB, 'findSlotsForSet').mockReturnValue(setSlots);
+    vi.spyOn(gearDB, 'getBestValueForAffixType').mockReturnValue(10);
   }
 
   it('rates a bonus type carried by many slots as common with no scarcity weight', () => {
@@ -61,13 +57,10 @@ describe('AffixAvailabilityService', () => {
 
   it('weights a single-slot bonus type more heavily than a two-slot one', () => {
     const twoSlot = new AffixAvailabilityService(gearDB, filters);
-    spyOn(gearDB, 'findGearWithAffixAndType').and.returnValues(
-      itemsAcrossSlots(1) as any,
-      itemsAcrossSlots(2) as any
-    );
-    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'findAugmentsWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(10);
+    vi.spyOn(gearDB, 'findGearWithAffixAndType').mockReturnValueOnce(itemsAcrossSlots(1) as any).mockReturnValueOnce(itemsAcrossSlots(2) as any);
+    vi.spyOn(gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'getBestValueForAffixType').mockReturnValue(10);
 
     const oneSlotWeight = twoSlot.getAvailability('Strength', 'A').scarcityWeight;
     const twoSlotWeight = twoSlot.getAvailability('Strength', 'B').scarcityWeight;
@@ -82,7 +75,7 @@ describe('AffixAvailabilityService', () => {
     const info = service.getAvailability('Fire Intensity', 'Legendary');
 
     expect(info.tier).toBe('set-only');
-    expect(info.hasItemSource).toBeFalse();
+    expect(info.hasItemSource).toBe(false);
     expect(info.setSources).toEqual([{ setName: 'Elder\'s Knowledge', threshold: 2, value: 5 }]);
     expect(info.scarcityWeight).toBe(1);
   });
@@ -103,14 +96,14 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('ignores empty augment craftables (one per colour) as phantom sources', () => {
-    spyOn(gearDB, 'findGearWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'findAugmentsWithAffixAndType').and.returnValue([
+    vi.spyOn(gearDB, 'findGearWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([
       { name: 'Blue Augment Slot', options: [] },
       { name: 'Sun Augment Slot', options: [] },
     ] as any);
-    const slotSpy = spyOn(gearDB, 'findSlotsForAugmentAffixAndType').and.returnValue([]);
-    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(0);
+    const slotSpy = vi.spyOn(gearDB, 'findSlotsForAugmentAffixAndType').mockReturnValue([]);
+    vi.spyOn(gearDB, 'getBestValueForAffixType').mockReturnValue(0);
 
     const info = service.getAvailability('Dodge', 'Quality');
 
@@ -132,10 +125,10 @@ describe('AffixAvailabilityService', () => {
   });
 
   it('memoises results and clears the cache when the item filters change', () => {
-    const spy = spyOn(gearDB, 'findGearWithAffixAndType').and.returnValue(itemsAcrossSlots(2) as any);
-    spyOn(gearDB, 'findSetsWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'findAugmentsWithAffixAndType').and.returnValue([] as any);
-    spyOn(gearDB, 'getBestValueForAffixType').and.returnValue(10);
+    const spy = vi.spyOn(gearDB, 'findGearWithAffixAndType').mockReturnValue(itemsAcrossSlots(2) as any);
+    vi.spyOn(gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(gearDB, 'getBestValueForAffixType').mockReturnValue(10);
 
     const first = service.getAvailability('Strength', 'Enhancement');
     const second = service.getAvailability('Strength', 'Enhancement');
@@ -163,9 +156,7 @@ describe('AffixAvailabilityService', () => {
     const narrowed = service.getRemainingAvailability('Strength', 'Insight', nearlyFull);
     expect(narrowed.tier).toBe('scarce');
     expect(narrowed.remainingSlotCount).toBe(1);
-    expect(narrowed.scarcityWeight).toBeGreaterThan(
-      service.getRemainingAvailability('Strength', 'Insight', wideOpen).scarcityWeight
-    );
+    expect(narrowed.scarcityWeight).toBeGreaterThan(service.getRemainingAvailability('Strength', 'Insight', wideOpen).scarcityWeight);
   });
 
   it('marks an item-only bonus type eliminated once no open slot can carry it', () => {
@@ -173,7 +164,7 @@ describe('AffixAvailabilityService', () => {
 
     const info = service.getRemainingAvailability('Strength', 'Insight', new Set(['Belt']));
 
-    expect(info.eliminated).toBeTrue();
+    expect(info.eliminated).toBe(true);
     expect(info.tier).toBe('unavailable');
   });
 
@@ -182,7 +173,7 @@ describe('AffixAvailabilityService', () => {
 
     const info = service.getRemainingAvailability('Kinetic Lore', 'Artifact', new Set(['Belt']));
 
-    expect(info.eliminated).toBeFalse();
+    expect(info.eliminated).toBe(false);
     expect(info.tier).toBe('set-only');
   });
 
@@ -192,7 +183,7 @@ describe('AffixAvailabilityService', () => {
     const info = service.getRemainingAvailability('Constitution', 'Quality', new Set(['Cloak', 'Quiver']));
 
     expect(info.tier).toBe('unavailable');
-    expect(info.eliminated).toBeTrue();
+    expect(info.eliminated).toBe(true);
   });
 
   it('counts augment-hostable open slots toward the remaining supply, not just item slots', () => {
@@ -201,11 +192,9 @@ describe('AffixAvailabilityService', () => {
     const oneOpen = service.getRemainingAvailability('Constitution', 'Quality', new Set(['Cloak']));
     expect(oneOpen.tier).toBe('scarce');
     expect(oneOpen.remainingSlotCount).toBe(1);
-    expect(oneOpen.eliminated).toBeFalse();
+    expect(oneOpen.eliminated).toBe(false);
 
-    const manyOpen = service.getRemainingAvailability(
-      'Constitution', 'Quality', new Set(['Cloak', 'Boots', 'Gloves', 'Bracers', 'Necklace'])
-    );
+    const manyOpen = service.getRemainingAvailability('Constitution', 'Quality', new Set(['Cloak', 'Boots', 'Gloves', 'Bracers', 'Necklace']));
     expect(manyOpen.tier).toBe('common');
     expect(manyOpen.remainingSlotCount).toBe(5);
   });
@@ -215,21 +204,17 @@ describe('AffixAvailabilityService', () => {
 
     // Goggles is filled (not in openSlots) but its equipped item has a free
     // compatible augment slot -> Cloak + Goggles = 2 places.
-    const info = service.getRemainingAvailability(
-      'Fortitude Save', 'Artifact', new Set(['Cloak', 'Quiver']), undefined, new Set(['Goggles'])
-    );
+    const info = service.getRemainingAvailability('Fortitude Save', 'Artifact', new Set(['Cloak', 'Quiver']), undefined, new Set(['Goggles']));
 
     expect(info.remainingSlotCount).toBe(2);
     expect(info.tier).toBe('scarce');
-    expect(info.eliminated).toBeFalse();
+    expect(info.eliminated).toBe(false);
   });
 
   it('merges native item slots and augment-hostable slots without double counting', () => {
     stubSources([{ slot: 'Cloak' }, { slot: 'Boots' }], [], 2, ['Boots', 'Gloves']);
 
-    const info = service.getRemainingAvailability(
-      'Constitution', 'Quality', new Set(['Cloak', 'Boots', 'Gloves'])
-    );
+    const info = service.getRemainingAvailability('Constitution', 'Quality', new Set(['Cloak', 'Boots', 'Gloves']));
 
     expect(info.remainingSlotCount).toBe(3); // Cloak, Boots, Gloves
     expect(info.tier).toBe('limited');
@@ -241,18 +226,16 @@ describe('AffixAvailabilityService', () => {
     const info = service.getRemainingAvailability('X', 'Y', new Set(['Cloak']), new Map());
 
     expect(info.tier).toBe('unavailable');
-    expect(info.eliminated).toBeTrue();
+    expect(info.eliminated).toBe(true);
   });
 
   it('keeps a set-only type when equipped pieces plus open slots still reach the threshold', () => {
     stubSources([], [['Big Set', 3, 5]], 0, [], ['Belt', 'Cloak', 'Trinket', 'Ring1']);
 
-    const info = service.getRemainingAvailability(
-      'X', 'Y', new Set(['Cloak', 'Ring1']), new Map([['Big Set', 1]])
-    );
+    const info = service.getRemainingAvailability('X', 'Y', new Set(['Cloak', 'Ring1']), new Map([['Big Set', 1]]));
 
     expect(info.tier).toBe('set-only');
-    expect(info.eliminated).toBeFalse();
+    expect(info.eliminated).toBe(false);
   });
 
   it('leaves set reachability unchecked when no equipped-set context is given', () => {

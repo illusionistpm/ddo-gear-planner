@@ -9,9 +9,9 @@ describe('FilterItemTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ AppModule ]
+      imports: [AppModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe('FilterItemTypeComponent', () => {
     const options = component.getTypesWithAttribute(['one-handed', 'melee'])?.getValue() || [];
 
     expect(component.hiddenTypesMap.get('one-handed melee')).toEqual([]);
-    expect(options.find(option => option.name === 'War Hammers')?.value).toBeFalse();
+    expect(options.find(option => option.name === 'War Hammers')?.value).toBe(false);
   });
 
   it('shows all one-handed melee options even when one type is hidden', () => {

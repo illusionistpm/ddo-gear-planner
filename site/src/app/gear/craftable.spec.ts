@@ -44,7 +44,7 @@ describe('Craftable', () => {
       expect(craftable.options.length).toBe(3);
       expect(craftable.selected.getParamDescription()).toBe('');
       expect(craftable.getSelectedParamDescription()).toBe('');
-      expect(craftable.hasCraftingSystemOptions()).toBeFalse();
+      expect(craftable.hasCraftingSystemOptions()).toBe(false);
     });
 
     it('keeps the caller-supplied first option when addEmptyOption is false', () => {
@@ -55,14 +55,14 @@ describe('Craftable', () => {
     });
 
     it('selects by description and round-trips it', () => {
-      expect(craftable.selectByParamDescription('Meltfang')).toBeTrue();
+      expect(craftable.selectByParamDescription('Meltfang')).toBe(true);
       expect(craftable.getSelectedParamDescription()).toBe('Meltfang');
     });
 
     it('reports failure, leaving the selection alone, for an unknown description', () => {
       craftable.selectByParamDescription('Meltfang');
 
-      expect(craftable.selectByParamDescription('Not An Option')).toBeFalse();
+      expect(craftable.selectByParamDescription('Not An Option')).toBe(false);
       expect(craftable.getSelectedParamDescription()).toBe('Meltfang');
     });
   });
@@ -75,7 +75,7 @@ describe('Craftable', () => {
     });
 
     it('offers its systems, with nothing selected until asked', () => {
-      expect(craftable.hasCraftingSystemOptions()).toBeTrue();
+      expect(craftable.hasCraftingSystemOptions()).toBe(true);
       expect(craftable.craftingSystemOptions).toEqual(['Colorless Augment Slot', 'Blue Augment Slot']);
       expect(craftable.selectedCraftingSystemName).toBe('');
       expect(craftable.getSelectedParamDescription()).toBe('');
@@ -102,13 +102,13 @@ describe('Craftable', () => {
     });
 
     it('round-trips a system-scoped selection', () => {
-      expect(craftable.selectByParamDescription('Blue Augment Slot: Sapphire')).toBeTrue();
+      expect(craftable.selectByParamDescription('Blue Augment Slot: Sapphire')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
     it('round-trips the (empty) sentinel', () => {
-      expect(craftable.selectByParamDescription('Blue Augment Slot (empty)')).toBeTrue();
+      expect(craftable.selectByParamDescription('Blue Augment Slot (empty)')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot (empty)');
     });
@@ -116,7 +116,7 @@ describe('Craftable', () => {
     it('clears the system for an empty description', () => {
       craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
-      expect(craftable.selectByParamDescription('')).toBeTrue();
+      expect(craftable.selectByParamDescription('')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('');
       expect(craftable.getSelectedParamDescription()).toBe('');
     });
@@ -124,22 +124,22 @@ describe('Craftable', () => {
     it('resolves an option name shared by two systems to the one that names it', () => {
       // "Diamond" exists in both systems - this is why descriptions carry
       // their system name (SYSTEM_SELECTION_SEPARATOR's comment).
-      expect(craftable.selectByParamDescription('Blue Augment Slot: Diamond')).toBeTrue();
+      expect(craftable.selectByParamDescription('Blue Augment Slot: Diamond')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
 
-      expect(craftable.selectByParamDescription('Colorless Augment Slot: Diamond')).toBeTrue();
+      expect(craftable.selectByParamDescription('Colorless Augment Slot: Diamond')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Colorless Augment Slot');
     });
 
     it('keeps the current system for a bare description it also offers (older URLs)', () => {
       craftable.selectCraftingSystem('Blue Augment Slot');
 
-      expect(craftable.selectByParamDescription('Diamond')).toBeTrue();
+      expect(craftable.selectByParamDescription('Diamond')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
     });
 
     it('falls back to the first system offering a bare description', () => {
-      expect(craftable.selectByParamDescription('Sapphire')).toBeTrue();
+      expect(craftable.selectByParamDescription('Sapphire')).toBe(true);
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
     });
 
@@ -148,14 +148,14 @@ describe('Craftable', () => {
     it('leaves the selection alone for a description naming an unavailable system', () => {
       craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
-      expect(craftable.selectByParamDescription('Green Augment Slot: Emerald')).toBeFalse();
+      expect(craftable.selectByParamDescription('Green Augment Slot: Emerald')).toBe(false);
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
     it('leaves the selection alone for an unknown option within a known system', () => {
       craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
-      expect(craftable.selectByParamDescription('Blue Augment Slot: Nonexistent')).toBeFalse();
+      expect(craftable.selectByParamDescription('Blue Augment Slot: Nonexistent')).toBe(false);
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
@@ -189,8 +189,7 @@ describe('Craftable', () => {
     it('keeps the chosen option when its system survives and is re-selected', () => {
       craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
-      craftable.setAvailableCraftingSystemOptions(
-        ['Colorless Augment Slot', 'Blue Augment Slot'], 'Blue Augment Slot');
+      craftable.setAvailableCraftingSystemOptions(['Colorless Augment Slot', 'Blue Augment Slot'], 'Blue Augment Slot');
 
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
@@ -198,8 +197,7 @@ describe('Craftable', () => {
     it('drops the chosen option when a different system is selected', () => {
       craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
-      craftable.setAvailableCraftingSystemOptions(
-        ['Colorless Augment Slot', 'Blue Augment Slot'], 'Colorless Augment Slot');
+      craftable.setAvailableCraftingSystemOptions(['Colorless Augment Slot', 'Blue Augment Slot'], 'Colorless Augment Slot');
 
       expect(craftable.getSelectedParamDescription()).toBe('Colorless Augment Slot (empty)');
     });
@@ -260,7 +258,7 @@ describe('Craftable', () => {
 
       expect(copy.options.map(o => o.getParamDescription())).toEqual(['', 'Meltfang', 'Iridescent Claw']);
       expect(copy.getSelectedParamDescription()).toBe('Iridescent Claw');
-      expect(copy.hasCraftingSystemOptions()).toBeFalse();
+      expect(copy.hasCraftingSystemOptions()).toBe(false);
     });
   });
 
@@ -272,7 +270,7 @@ describe('Craftable', () => {
       ]);
 
       expect(craftable.getMatchingBonusType('Constitution', 'Enhancement')).toBe(14);
-      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBeTrue();
+      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBe(true);
       expect(craftable.getSelectedParamDescription()).toBe('Con 14');
     });
 
@@ -280,7 +278,7 @@ describe('Craftable', () => {
       const craftable = new Craftable('Prefix', [option('Meltfang')]);
 
       expect(craftable.getMatchingBonusType('Constitution', 'Enhancement')).toBeNull();
-      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBeFalse();
+      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBe(false);
       expect(craftable.getSelectedParamDescription()).toBe('');
     });
   });

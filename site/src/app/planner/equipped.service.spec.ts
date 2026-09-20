@@ -65,16 +65,16 @@ describe('EquippedService', () => {
     expect(service.addImportantAffix('Armor Class')).toEqual(['Armor Class', 'Armor Class (%)']);
     service.addImportantAffix('False Life');
 
-    expect(service.isImportantAffix('Armor Class')).toBeTrue();
-    expect(service.isImportantAffix('Armor Class (%)')).toBeTrue();
-    expect(service.isImportantAffix('False Life')).toBeTrue();
-    expect(service.isImportantAffix('False Life (%)')).toBeTrue();
+    expect(service.isImportantAffix('Armor Class')).toBe(true);
+    expect(service.isImportantAffix('Armor Class (%)')).toBe(true);
+    expect(service.isImportantAffix('False Life')).toBe(true);
+    expect(service.isImportantAffix('False Life (%)')).toBe(true);
 
     expect(service.removeImportantAffix('Armor Class')).toEqual(['Armor Class', 'Armor Class (%)']);
 
-    expect(service.isImportantAffix('Armor Class')).toBeFalse();
-    expect(service.isImportantAffix('Armor Class (%)')).toBeFalse();
-    expect(service.isImportantAffix('False Life (%)')).toBeTrue();
+    expect(service.isImportantAffix('Armor Class')).toBe(false);
+    expect(service.isImportantAffix('Armor Class (%)')).toBe(false);
+    expect(service.isImportantAffix('False Life (%)')).toBe(true);
   });
 
   it('expands tracked affixes loaded from query params', () => {
@@ -90,8 +90,8 @@ describe('EquippedService', () => {
 
     service.setImportantAffixes(['Devotion']);
 
-    expect(service.isImportantAffix('Positive Spell Power')).toBeTrue();
-    expect(service.isImportantAffix('Devotion')).toBeFalse();
+    expect(service.isImportantAffix('Positive Spell Power')).toBe(true);
+    expect(service.isImportantAffix('Devotion')).toBe(false);
   });
 
   it('does not track universal spell power when a specific spell power is selected', () => {
@@ -100,8 +100,8 @@ describe('EquippedService', () => {
     const addedAffixes = service.addImportantAffix('Light Spell Power');
 
     expect(addedAffixes).toEqual(['Light Spell Power']);
-    expect(service.isImportantAffix('Light Spell Power')).toBeTrue();
-    expect(service.isImportantAffix('Universal Spell Power')).toBeFalse();
+    expect(service.isImportantAffix('Light Spell Power')).toBe(true);
+    expect(service.isImportantAffix('Universal Spell Power')).toBe(false);
   });
 
   it('does not expand universal spell power into its components when selected', () => {
@@ -110,8 +110,8 @@ describe('EquippedService', () => {
     const addedAffixes = service.addImportantAffix('Universal Spell Power');
 
     expect(addedAffixes).toEqual(['Universal Spell Power']);
-    expect(service.isImportantAffix('Universal Spell Power')).toBeTrue();
-    expect(service.isImportantAffix('Fire Spell Power')).toBeFalse();
+    expect(service.isImportantAffix('Universal Spell Power')).toBe(true);
+    expect(service.isImportantAffix('Fire Spell Power')).toBe(false);
   });
 
   it('does not expand spell lore into its components when selected', () => {
@@ -120,8 +120,8 @@ describe('EquippedService', () => {
     const addedAffixes = service.addImportantAffix('Spell Lore');
 
     expect(addedAffixes).toEqual(['Spell Lore']);
-    expect(service.isImportantAffix('Spell Lore')).toBeTrue();
-    expect(service.isImportantAffix('Force Lore')).toBeFalse();
+    expect(service.isImportantAffix('Spell Lore')).toBe(true);
+    expect(service.isImportantAffix('Force Lore')).toBe(false);
   });
 
   it('empties and disables offhand when equipping a non-crossbow two-handed weapon', () => {
@@ -130,19 +130,19 @@ describe('EquippedService', () => {
     service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
     service.set(makeItem('Test Great Sword', 'Weapon', 'Great Swords'));
 
-    expect(service.hasItem('Offhand')).toBeFalse();
-    expect(service.isOffhandDisabled()).toBeTrue();
-    expect(service.isSlotDisabled('Offhand')).toBeTrue();
-    expect(service.isSlotDisabled('Weapon')).toBeFalse();
-    expect(service.canEquip(makeItem('Test Rune Arm', 'Offhand', 'Rune Arms'))).toBeFalse();
-    expect(service.isLocked('Offhand')).toBeTrue();
-    expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();
+    expect(service.hasItem('Offhand')).toBe(false);
+    expect(service.isOffhandDisabled()).toBe(true);
+    expect(service.isSlotDisabled('Offhand')).toBe(true);
+    expect(service.isSlotDisabled('Weapon')).toBe(false);
+    expect(service.canEquip(makeItem('Test Rune Arm', 'Offhand', 'Rune Arms'))).toBe(false);
+    expect(service.isLocked('Offhand')).toBe(true);
+    expect(service.getUnlockedSlots().has('Offhand')).toBe(false);
   });
 
   it('counts equipped items, not empty slots', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     expect(service.getEquippedItemCount()).toBe(0);
-    expect(service.isBuildEmpty()).toBeTrue();
+    expect(service.isBuildEmpty()).toBe(true);
 
     service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
     service.set(makeItem('Test Ring', 'Ring1', 'Jewelry'));
@@ -155,7 +155,7 @@ describe('EquippedService', () => {
     service.clearSlot('Ring1');
     service.clearSlot('Weapon');
     expect(service.getEquippedItemCount()).toBe(0);
-    expect(service.isBuildEmpty()).toBeTrue();
+    expect(service.isBuildEmpty()).toBe(true);
   });
 
   it('omits empty slots from the params it publishes, rather than an undefined-valued key', () => {
@@ -178,7 +178,7 @@ describe('EquippedService', () => {
     const combined = queryParams.getCombinedParams();
 
     expect(combined['Offhand']).toBe('Test Shield');
-    expect('Weapon' in combined).toBeFalse();
+    expect('Weapon' in combined).toBe(false);
     expect(() => service.updateFromParams({
       keys: Object.keys(combined),
       get: (key: string) => {
@@ -231,13 +231,13 @@ describe('EquippedService', () => {
     service.set(makeItem('Test Heavy Crossbow', 'Weapon', 'Heavy Crossbows'));
 
     expect(service.getSlotsSnapshot().get('Offhand')?.name).toBe('Test Rune Arm');
-    expect(service.isOffhandDisabled()).toBeFalse();
-    expect(service.isOffhandRuneArmOnly()).toBeTrue();
-    expect(service.canEquip(runeArm)).toBeTrue();
-    expect(service.canEquip(shield)).toBeFalse();
+    expect(service.isOffhandDisabled()).toBe(false);
+    expect(service.isOffhandRuneArmOnly()).toBe(true);
+    expect(service.canEquip(runeArm)).toBe(true);
+    expect(service.canEquip(shield)).toBe(false);
     expect(service.getCompatibleGearForSlot('Offhand', [runeArm, shield])).toEqual([runeArm]);
     expect(service.getCompatibleGear([runeArm, shield])).toEqual([runeArm]);
-    expect(service.getUnlockedSlots().has('Offhand')).toBeFalse();
+    expect(service.getUnlockedSlots().has('Offhand')).toBe(false);
   });
 
   it('evicts non-rune offhands when equipping a crossbow', () => {
@@ -246,9 +246,9 @@ describe('EquippedService', () => {
     service.set(makeItem('Test Shield', 'Offhand', 'Large shields'));
     service.set(makeItem('Test Great Crossbow', 'Weapon', 'Great Crossbows'));
 
-    expect(service.hasItem('Offhand')).toBeFalse();
-    expect(service.isOffhandDisabled()).toBeFalse();
-    expect(service.isOffhandRuneArmOnly()).toBeTrue();
+    expect(service.hasItem('Offhand')).toBe(false);
+    expect(service.isOffhandDisabled()).toBe(false);
+    expect(service.isOffhandRuneArmOnly()).toBe(true);
   });
 
   it('reports the equipped item currently supplying an affix type', () => {
@@ -262,13 +262,13 @@ describe('EquippedService', () => {
     ]));
 
     expect(service.getSourcesForAffixType('Strength', 'Enhancement')).toEqual([{
-      kind: 'item',
-      slot: 'Belt',
-      itemName: 'Strong Belt',
-      affixName: 'Strength',
-      bonusType: 'Enhancement',
-      value: 10,
-    }]);
+        kind: 'item',
+        slot: 'Belt',
+        itemName: 'Strong Belt',
+        affixName: 'Strength',
+        bonusType: 'Enhancement',
+        value: 10,
+      }]);
   });
 
   it('lets a manual external value outrank a weaker gear source and be removed again', () => {
@@ -282,13 +282,13 @@ describe('EquippedService', () => {
 
     expect(service.getCurrentValueForAffixType('Deadly', 'Insightful')).toBe(20);
     expect(service.getSourcesForAffixType('Deadly', 'Insightful')).toEqual([{
-      kind: 'external',
-      slot: 'Non-gear',
-      itemName: 'Trance',
-      affixName: 'Deadly',
-      bonusType: 'Insightful',
-      value: 20,
-    }]);
+        kind: 'external',
+        slot: 'Non-gear',
+        itemName: 'Trance',
+        affixName: 'Deadly',
+        bonusType: 'Insightful',
+        value: 20,
+      }]);
 
     service.removeExternalAffix(id);
 
@@ -302,14 +302,14 @@ describe('EquippedService', () => {
     const secondId = service.addExternalAffixIgnored('Deadly', 'Insightful', 'Not chasing');
 
     expect(service.getExternalAffixesForType('Deadly', 'Insightful')).toEqual([{
-      id: secondId,
-      affixName: 'Deadly',
-      bonusType: 'Insightful',
-      kind: 'ignored',
-      value: 0,
-      label: 'Not chasing',
-    }]);
-    expect(service.isAffixTypeIgnored('Deadly', 'Insightful')).toBeTrue();
+        id: secondId,
+        affixName: 'Deadly',
+        bonusType: 'Insightful',
+        kind: 'ignored',
+        value: 0,
+        label: 'Not chasing',
+      }]);
+    expect(service.isAffixTypeIgnored('Deadly', 'Insightful')).toBe(true);
     expect(firstId).not.toBe(secondId);
   });
 
@@ -320,13 +320,13 @@ describe('EquippedService', () => {
 
     expect(service.getCurrentValueForAffixType('Concentration', 'Insight')).toBe(0);
     expect(service.getExternalAffixesForType('Concentration', 'Insight')).toEqual([{
-      id,
-      affixName: 'Concentration',
-      bonusType: 'Insight',
-      kind: 'ignored',
-      value: 0,
-      label: 'Not worth chasing',
-    }]);
+        id,
+        affixName: 'Concentration',
+        bonusType: 'Insight',
+        kind: 'ignored',
+        value: 0,
+        label: 'Not worth chasing',
+      }]);
 
     service.removeExternalAffix(id);
 
@@ -335,7 +335,10 @@ describe('EquippedService', () => {
 
   it('emits an event when an item is equipped', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
-    const events: Array<{ slot: string; itemName: string }> = [];
+    const events: Array<{
+      slot: string;
+      itemName: string;
+    }> = [];
     const subscription = service.getEquippedItemEvents().subscribe(event => events.push(event));
 
     service.set(makeItem('Flashy Gloves', 'Gloves', 'Gloves'));
@@ -367,9 +370,7 @@ describe('EquippedService', () => {
     const availability = TestBed.inject(AffixAvailabilityService);
     service.setImportantAffixes(['Strength']);
 
-    spyOn(availability, 'getScarcityWeight').and.callFake((_affixName: string, bonusType: string) =>
-      bonusType === 'Profane' ? 2.2 : 1
-    );
+    vi.spyOn(availability, 'getScarcityWeight').mockImplementation((_affixName: string, bonusType: string) => bonusType === 'Profane' ? 2.2 : 1);
 
     const commonItem = makeItem('Common Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Enhancement', value: 6 }]);
     const scarceItem = makeItem('Scarce Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Profane', value: 6 }]);
@@ -382,9 +383,9 @@ describe('EquippedService', () => {
     const availability = TestBed.inject(AffixAvailabilityService);
     service.setImportantAffixes(['Strength']);
 
-    spyOn(service, 'getCurrentValueForAffixType').and.returnValue(10);
-    spyOn((service as any).gearList, 'getBestValueForAffixType').and.returnValue(10);
-    const scarcitySpy = spyOn(availability, 'getScarcityWeight').and.returnValue(2.2);
+    vi.spyOn(service, 'getCurrentValueForAffixType').mockReturnValue(10);
+    vi.spyOn((service as any).gearList, 'getBestValueForAffixType').mockReturnValue(10);
+    const scarcitySpy = vi.spyOn(availability, 'getScarcityWeight').mockReturnValue(2.2);
 
     const scarceItem = makeItem('Scarce Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Profane', value: 6 }]);
     service.getScore(scarceItem);
@@ -397,8 +398,8 @@ describe('EquippedService', () => {
     const availability = TestBed.inject(AffixAvailabilityService);
     service.setImportantAffixes(['Strength']);
 
-    spyOn(availability, 'getScarcityWeight').and.returnValue(1);
-    spyOn(availability, 'getRemainingAvailability').and.callFake((affixName: string, bonusType: string) => ({
+    vi.spyOn(availability, 'getScarcityWeight').mockReturnValue(1);
+    vi.spyOn(availability, 'getRemainingAvailability').mockImplementation((affixName: string, bonusType: string) => ({
       affixName,
       bonusType,
       slots: [],
@@ -455,8 +456,7 @@ describe('EquippedService', () => {
 
     service.updateFromParams({
       keys: ['tracked', 'tab', 'taGroup', 'taCollapsed'],
-      get: (key: string) =>
-        ({ tab: 'affixes', taGroup: 'slots', taCollapsed: 'set-only,2' } as Record<string, string>)[key] ?? null,
+      get: (key: string) => ({ tab: 'affixes', taGroup: 'slots', taCollapsed: 'set-only,2' } as Record<string, string>)[key] ?? null,
       getAll: () => [],
     });
 
@@ -475,7 +475,10 @@ describe('EquippedService', () => {
 
     let tab: string | undefined;
     service.getActiveMainTab().subscribe(value => (tab = value)).unsubscribe();
-    let state: { groupMode: string; collapsed: string[] } | undefined;
+    let state: {
+      groupMode: string;
+      collapsed: string[];
+    } | undefined;
     service.getTrackedAffixViewState().subscribe(value => (state = value)).unsubscribe();
 
     expect(tab).toBe('affixes');

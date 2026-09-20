@@ -1,4 +1,4 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 
@@ -9,26 +9,26 @@ describe('AffixPackagesService', () => {
   let service: AffixPackagesService;
   let equipped: EquippedService;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   beforeEach(() => {
     service = TestBed.inject(AffixPackagesService);
     equipped = TestBed.inject(EquippedService);
     // Adding whole bundles would otherwise queue a lot of idle-time availability warmup that outlives the test.
-    spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup');
+    vi.spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup').mockReturnValue(undefined);
     equipped.setImportantAffixes([]);
   });
 
   it('starts an empty build on the Basic package', () => {
     service.addDefaultPackage();
 
-    expect(service.isSelected(service.packages.get('Basic'), equipped.getImportantAffixes())).toBeTrue();
-    expect(service.isSelected(service.packages.get('Melee'), equipped.getImportantAffixes())).toBeFalse();
+    expect(service.isSelected(service.packages.get('Basic'), equipped.getImportantAffixes())).toBe(true);
+    expect(service.isSelected(service.packages.get('Melee'), equipped.getImportantAffixes())).toBe(false);
   });
 
   it('leaves a build that already tracks something alone', () => {
@@ -36,12 +36,12 @@ describe('AffixPackagesService', () => {
 
     service.addDefaultPackage();
 
-    expect(equipped.getImportantAffixes().has('Strength')).toBeTrue();
-    expect(equipped.getImportantAffixes().has('Dodge')).toBeFalse();
+    expect(equipped.getImportantAffixes().has('Strength')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(false);
   });
 
   it('never treats an empty list as selected', () => {
-    expect(service.isSelected([], new Set())).toBeFalse();
-    expect(service.isSelected(undefined, new Set(['Strength']))).toBeFalse();
+    expect(service.isSelected([], new Set())).toBe(false);
+    expect(service.isSelected(undefined, new Set(['Strength']))).toBe(false);
   });
 });

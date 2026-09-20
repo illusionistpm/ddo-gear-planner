@@ -21,7 +21,7 @@ describe('Item', () => {
 
     expect(item).toBeTruthy();
     expect(item.pack).toBe('Test Pack');
-    expect(item.rare).toBeTrue();
+    expect(item.rare).toBe(true);
   });
 
   it('preserves selected crafting options when cloning an item', () => {
@@ -154,8 +154,8 @@ describe('Item', () => {
     });
 
     expect(blank.isEssenceCrafted()).toBeTruthy();
-    expect(blank.isGeneratedEssenceCraftingBlank()).toBeTrue();
+    expect(blank.isGeneratedEssenceCraftingBlank()).toBe(true);
     expect(namedCraftable.isEssenceCrafted()).toBeTruthy();
-    expect(namedCraftable.isGeneratedEssenceCraftingBlank()).toBeFalse();
+    expect(namedCraftable.isGeneratedEssenceCraftingBlank()).toBe(false);
   });
 });

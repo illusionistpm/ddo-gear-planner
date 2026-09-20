@@ -58,7 +58,7 @@ describe('AffixService', () => {
       const service: AffixService = TestBed.inject(AffixService);
       service.affixGroups.set('Test Group', ['Strength']);
 
-      expect(service.isAffixGroup(new Affix({ name: 'Test Group', type: 'Enhancement', value: 1 }))).toBeTrue();
+      expect(service.isAffixGroup(new Affix({ name: 'Test Group', type: 'Enhancement', value: 1 }))).toBe(true);
     });
 
     it('recognises a group defined only by fixed components, as ungroupAffix does', () => {
@@ -66,14 +66,14 @@ describe('AffixService', () => {
       service.affixGroupComponents.set('Test Components', [{ name: 'Perform', type: 'Enhancement', value: 2 }]);
       const affix = new Affix({ name: 'Test Components', type: 'Bool', value: 1 });
 
-      expect(service.isAffixGroup(affix)).toBeTrue();
+      expect(service.isAffixGroup(affix)).toBe(true);
       expect(service.ungroupAffix(affix).length).toBe(1);
     });
 
     it('does not recognise an ordinary affix', () => {
       const service: AffixService = TestBed.inject(AffixService);
 
-      expect(service.isAffixGroup(new Affix({ name: 'Deadly', type: 'Competence', value: 10 }))).toBeFalse();
+      expect(service.isAffixGroup(new Affix({ name: 'Deadly', type: 'Competence', value: 10 }))).toBe(false);
     });
   });
 });

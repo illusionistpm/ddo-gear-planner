@@ -19,7 +19,7 @@ describe('AdminLinkComponent', () => {
         {
           provide: PlannerOnboardingService,
           useValue: {
-            resetIntro: jasmine.createSpy('resetIntro')
+            resetIntro: vi.fn().mockName('resetIntro')
           }
         }
       ]
@@ -119,7 +119,7 @@ describe('AdminLinkComponent', () => {
     fixture.debugElement.queryAll(By.css('.admin-panel-action'))[1].triggerEventHandler('click');
     fixture.detectChanges();
 
-    expect(component.inspectorOpen).toBeTrue();
+    expect(component.inspectorOpen).toBe(true);
     expect(fixture.debugElement.query(By.css('.admin-url-inspector'))).not.toBeNull();
   });
 
@@ -132,7 +132,8 @@ describe('AdminLinkComponent', () => {
 
       expect(fixture.debugElement.query(By.css('.admin-menu'))).toBeNull();
       expect(fixture.nativeElement.textContent.trim()).toBe('');
-    } finally {
+    }
+    finally {
       environment.production = originalProduction;
     }
   });

@@ -62,7 +62,7 @@ describe('SaveBuildDialogComponent', () => {
   });
 
   it('does not emit confirmed for an invalid name', () => {
-    const spy = jasmine.createSpy('confirmed');
+    const spy = vi.fn().mockName('confirmed');
     component.confirmed.subscribe(spy);
     component.name = '   ';
 
@@ -72,7 +72,7 @@ describe('SaveBuildDialogComponent', () => {
   });
 
   it('emits the trimmed name on submit when valid', () => {
-    const spy = jasmine.createSpy('confirmed');
+    const spy = vi.fn().mockName('confirmed');
     component.confirmed.subscribe(spy);
     component.name = '  My Build  ';
 
@@ -82,7 +82,7 @@ describe('SaveBuildDialogComponent', () => {
   });
 
   it('does not emit confirmed while saving', () => {
-    const spy = jasmine.createSpy('confirmed');
+    const spy = vi.fn().mockName('confirmed');
     component.confirmed.subscribe(spy);
     component.name = 'My Build';
     component.saving = true;
@@ -107,7 +107,7 @@ describe('SaveBuildDialogComponent', () => {
   });
 
   it('does not close on backdrop click while saving', () => {
-    const spy = jasmine.createSpy('cancelled');
+    const spy = vi.fn().mockName('cancelled');
     component.cancelled.subscribe(spy);
     component.saving = true;
 
@@ -117,7 +117,7 @@ describe('SaveBuildDialogComponent', () => {
   });
 
   it('closes on backdrop click when not saving', () => {
-    const spy = jasmine.createSpy('cancelled');
+    const spy = vi.fn().mockName('cancelled');
     component.cancelled.subscribe(spy);
 
     component.onBackdropClick();

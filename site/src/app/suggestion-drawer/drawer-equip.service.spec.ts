@@ -8,9 +8,15 @@ import { SuggestionDrawerService } from './suggestion-drawer.service';
 
 describe('DrawerEquipService', () => {
   it('equips the item, reports its source, and closes the drawer', () => {
-    const equipped = jasmine.createSpyObj<EquippedService>('EquippedService', ['set']);
-    const analytics = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['track']);
-    const drawer = jasmine.createSpyObj<SuggestionDrawerService>('SuggestionDrawerService', ['close']);
+    const equipped = {
+      set: vi.fn().mockName('EquippedService.set')
+    };
+    const analytics = {
+      track: vi.fn().mockName('AnalyticsService.track')
+    };
+    const drawer = {
+      close: vi.fn().mockName('SuggestionDrawerService.close')
+    };
     TestBed.configureTestingModule({
       providers: [
         { provide: EquippedService, useValue: equipped },
@@ -26,8 +32,11 @@ describe('DrawerEquipService', () => {
 
     TestBed.inject(DrawerEquipService).equip(item, 'set_preview');
 
-    expect(equipped.set).toHaveBeenCalledOnceWith(item);
-    expect(analytics.track).toHaveBeenCalledOnceWith('planner_equip_item', {
+    expect(equipped.set).toHaveBeenCalledTimes(1);
+
+    expect(equipped.set).toHaveBeenCalledWith(item);
+    expect(analytics.track).toHaveBeenCalledTimes(1);
+    expect(analytics.track).toHaveBeenCalledWith('planner_equip_item', {
       equip_source: 'set_preview',
       slot: 'Ring1',
       crafted: false

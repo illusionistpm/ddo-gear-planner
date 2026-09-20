@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import type { MockedObject } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
@@ -24,16 +25,16 @@ describe('MainComponent', () => {
     'ddo-gear-planner-tracked-affix-collapsed'
   ];
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     localStorage.removeItem(onboardingStateKey);
     localStorage.removeItem(legacyOnboardingKey);
     for (const key of viewStateKeys) {
       localStorage.removeItem(key);
     }
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
+      .compileComponents();
     // Real AppModule pulls in the real (Auth0) AuthService, whose
     // isLoading$ doesn't resolve synchronously - contentReady would stay
     // false through this describe block's single synchronous
@@ -41,9 +42,9 @@ describe('MainComponent', () => {
     // app-admin-link) these tests check. Stub it the same way the
     // "loading a build by shortId" describe block below does.
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(false), user$: of(null), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(false), user$: of(null), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
-  }));
+  });
 
   // contentReady's other half - queryParams.initialParamsApplied$ - is
   // normally driven by AppComponent's NavigationEnd handler calling
@@ -65,7 +66,7 @@ describe('MainComponent', () => {
 
   beforeEach(() => {
     // The empty-URL default adds a whole bundle, which would otherwise queue idle-time availability warmup.
-    spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup');
+    vi.spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup').mockReturnValue(undefined);
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -78,8 +79,8 @@ describe('MainComponent', () => {
   it('starts an empty URL on the Basic package, in the setup screen', () => {
     const equipped = TestBed.inject(EquippedService);
 
-    expect(equipped.getImportantAffixes().has('Dodge')).toBeTrue();
-    expect(equipped.getImportantAffixes().has('Melee Power')).toBeFalse();
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
     expect(TestBed.inject(AffixBuilderDrawerService).mode).toBe('setup');
   });
 
@@ -93,8 +94,8 @@ describe('MainComponent', () => {
 
     TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
 
-    expect(equipped.getImportantAffixes().has('Strength')).toBeFalse();
-    expect(equipped.getImportantAffixes().has('Dodge')).toBeTrue();
+    expect(equipped.getImportantAffixes().has('Strength')).toBe(false);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(drawer.mode).toBe('setup');
   });
 
@@ -106,21 +107,21 @@ describe('MainComponent', () => {
 
   it('starts on the equipment tab', () => {
     expect(component.activeTab).toBe('equipment');
-    expect(component.filtersOpen).toBeFalse();
+    expect(component.filtersOpen).toBe(false);
   });
 
   it('toggles the filter sheet', () => {
     component.toggleFilters();
 
-    expect(component.filtersOpen).toBeTrue();
+    expect(component.filtersOpen).toBe(true);
 
     component.closeFilters();
 
-    expect(component.filtersOpen).toBeFalse();
+    expect(component.filtersOpen).toBe(false);
   });
 
   it('switches tabs without forcing a scroll position', () => {
-    spyOn(window, 'scrollTo');
+    vi.spyOn(window, 'scrollTo').mockReturnValue(undefined);
 
     component.selectTab('affixes');
 
@@ -132,14 +133,14 @@ describe('MainComponent', () => {
     component.toggleFilters();
     component.selectTab('affixes');
 
-    expect(component.filtersOpen).toBeFalse();
+    expect(component.filtersOpen).toBe(false);
     expect(component.activeTab).toBe('affixes');
   });
 
   it('pairs the tracked affixes tab green cue with intro text and a skip action', () => {
     component.trackedAffixesHint = true;
 
-    expect(component.shouldHighlightTrackedAffixes()).toBeTrue();
+    expect(component.shouldHighlightTrackedAffixes()).toBe(true);
   });
 
   it('hides the tracked affixes onboarding cue when dismissed', () => {
@@ -147,18 +148,18 @@ describe('MainComponent', () => {
 
     component.dismissIntro();
 
-    expect(component.shouldHighlightTrackedAffixes()).toBeFalse();
+    expect(component.shouldHighlightTrackedAffixes()).toBe(false);
   });
 });
 
 describe('MainComponent - loading a build by shortId', () => {
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
 
-  let buildsService: jasmine.SpyObj<BuildsService>;
-  let queryParams: jasmine.SpyObj<QueryParamsService>;
-  let currentBuild: jasmine.SpyObj<CurrentBuildService>;
-  let codec: jasmine.SpyObj<BuildUrlCodecService>;
-  let router: jasmine.SpyObj<Router>;
+  let buildsService: MockedObject<BuildsService>;
+  let queryParams: MockedObject<QueryParamsService>;
+  let currentBuild: MockedObject<CurrentBuildService>;
+  let codec: MockedObject<BuildUrlCodecService>;
+  let router: MockedObject<Router>;
   let paramMap$: BehaviorSubject<ReturnType<typeof convertToParamMap>>;
   let buildIdentity$: BehaviorSubject<BuildUrlIdentity | null>;
 
@@ -169,29 +170,45 @@ describe('MainComponent - loading a build by shortId', () => {
 
     paramMap$ = new BehaviorSubject(convertToParamMap(initialShortId ? { shortId: initialShortId } : {}));
     buildIdentity$ = new BehaviorSubject<BuildUrlIdentity | null>(null);
-    buildsService = jasmine.createSpyObj('BuildsService', ['getByShortId', 'listMine']);
-    queryParams = jasmine.createSpyObj('QueryParamsService', ['applyDecodedBuildParams', 'getCombinedParams', 'registerOwnedSlots', 'register', 'subscribe'], {
+    buildsService = {
+      getByShortId: vi.fn().mockName('BuildsService.getByShortId'),
+      listMine: vi.fn().mockName('BuildsService.listMine')
+    } as unknown as MockedObject<BuildsService>;
+    queryParams = {
+      applyDecodedBuildParams: vi.fn().mockName('QueryParamsService.applyDecodedBuildParams'),
+      getCombinedParams: vi.fn().mockName('QueryParamsService.getCombinedParams'),
+      registerOwnedSlots: vi.fn().mockName('QueryParamsService.registerOwnedSlots'),
+      register: vi.fn().mockName('QueryParamsService.register'),
+      subscribe: vi.fn().mockName('QueryParamsService.subscribe'),
       initialParamsApplied$: of(undefined),
       buildIdentityFromUrl$: buildIdentity$
-    });
-    queryParams.getCombinedParams.and.returnValue({});
-    currentBuild = jasmine.createSpyObj(
-      'CurrentBuildService',
-      ['markLoaded', 'confirmOwnership', 'reset', 'restoreIdentity', 'getCanonicalParamsCache'],
-      {
-        value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
-        // BuildActionsComponent (rendered inside MainComponent's template)
-        // also injects CurrentBuildService and subscribes to state$.
-        state$: of({ savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' })
-      }
-    );
-    currentBuild.getCanonicalParamsCache.and.returnValue(null);
-    codec = jasmine.createSpyObj('BuildUrlCodecService', ['decode', 'encode']);
-    router = jasmine.createSpyObj('Router', ['navigateByUrl', 'parseUrl'], { url: '/' });
+    } as unknown as MockedObject<QueryParamsService>;
+    queryParams.getCombinedParams.mockReturnValue({});
+    currentBuild = {
+      markLoaded: vi.fn().mockName('CurrentBuildService.markLoaded'),
+      confirmOwnership: vi.fn().mockName('CurrentBuildService.confirmOwnership'),
+      reset: vi.fn().mockName('CurrentBuildService.reset'),
+      restoreIdentity: vi.fn().mockName('CurrentBuildService.restoreIdentity'),
+      getCanonicalParamsCache: vi.fn().mockName('CurrentBuildService.getCanonicalParamsCache'),
+      value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
+      // BuildActionsComponent (rendered inside MainComponent's template)
+      // also injects CurrentBuildService and subscribes to state$.
+      state$: of({ savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' })
+    } as unknown as MockedObject<CurrentBuildService>;
+    currentBuild.getCanonicalParamsCache.mockReturnValue(null);
+    codec = {
+      decode: vi.fn().mockName('BuildUrlCodecService.decode'),
+      encode: vi.fn().mockName('BuildUrlCodecService.encode')
+    } as unknown as MockedObject<BuildUrlCodecService>;
+    router = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl'),
+      parseUrl: vi.fn().mockName('Router.parseUrl'),
+      url: '/'
+    } as unknown as MockedObject<Router>;
     // Real Router.parseUrl(url).queryParamMap is what isOnAuthRedirectCallbackUrl()
     // reads to detect Auth0's transient code/state callback URL - none of
     // these tests exercise that URL, so a plain empty map is enough here.
-    router.parseUrl.and.returnValue({ queryParamMap: convertToParamMap({}) } as any);
+    router.parseUrl.mockReturnValue({ queryParamMap: convertToParamMap({}) } as any);
 
     TestBed.configureTestingModule({
       imports: [AppModule],
@@ -204,7 +221,7 @@ describe('MainComponent - loading a build by shortId', () => {
         { provide: Router, useValue: router },
         {
           provide: AuthService,
-          useValue: { isAuthenticated$: of(false), user$: of(null), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+          useValue: { isAuthenticated$: of(false), user$: of(null), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
         }
       ]
     });
@@ -216,8 +233,8 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('fetches, decodes, and applies the build when the route has a shortId', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     TestBed.createComponent(MainComponent).detectChanges();
 
@@ -234,8 +251,8 @@ describe('MainComponent - loading a build by shortId', () => {
     // versioned data - see build-url-codec.service.ts) is a genuinely
     // different situation from a 404 and shouldn't read as one.
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'garbage' }));
-    codec.decode.and.returnValue(null);
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'garbage' }));
+    codec.decode.mockReturnValue(null);
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -251,7 +268,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('shows a "not found" error, keeping the URL intact, for a 404', () => {
     configure('missing');
-    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 404 })));
+    buildsService.getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 404 })));
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -262,7 +279,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('shows a retryable "network" error, keeping the URL intact, for anything other than a 404', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
+    buildsService.getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -273,13 +290,13 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('retries the same shortId when retryLoad() is called after a network error', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
+    buildsService.getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
     expect(fixture.componentInstance.loadError).toBe('network');
 
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
     fixture.componentInstance.retryLoad();
 
     expect(fixture.componentInstance.loadError).toBeNull();
@@ -313,7 +330,7 @@ describe('MainComponent - loading a build by shortId', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'owned' }
     });
-    currentBuild.getCanonicalParamsCache.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    currentBuild.getCanonicalParamsCache.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     TestBed.createComponent(MainComponent).detectChanges();
     expect(buildsService.getByShortId).not.toHaveBeenCalled();
@@ -331,7 +348,7 @@ describe('MainComponent - loading a build by shortId', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'owned' }
     });
-    currentBuild.getCanonicalParamsCache.and.returnValue(null);
+    currentBuild.getCanonicalParamsCache.mockReturnValue(null);
 
     TestBed.createComponent(MainComponent).detectChanges();
 
@@ -350,7 +367,7 @@ describe('MainComponent - loading a build by shortId', () => {
     configure(null);
 
     TestBed.createComponent(MainComponent).detectChanges();
-    currentBuild.reset.calls.reset();
+    currentBuild.reset.mockClear();
 
     buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
 
@@ -364,11 +381,11 @@ describe('MainComponent - loading a build by shortId', () => {
     // all (AppComponent skips updateFromParams for that navigation) - route
     // paramMap going to null on its own must not wipe state in that gap.
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     TestBed.createComponent(MainComponent).detectChanges();
-    currentBuild.reset.calls.reset();
+    currentBuild.reset.mockClear();
 
     paramMap$.next(convertToParamMap({}));
 
@@ -377,8 +394,8 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('re-fetches when the route reuses the component but the shortId changes', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     TestBed.createComponent(MainComponent).detectChanges();
     expect(buildsService.getByShortId).toHaveBeenCalledWith('abc123');
@@ -401,15 +418,15 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('confirms ownership against listMine() when the viewer is signed in', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' },
       { id: 'build-2', shortId: 'other', name: 'Other', blob: 'z1.yyy' }
     ]));
 
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
     TestBed.createComponent(MainComponent).detectChanges();
 
@@ -418,8 +435,8 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('does not confirm ownership when signed out', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     TestBed.createComponent(MainComponent).detectChanges();
 
@@ -432,13 +449,13 @@ describe('MainComponent - loading a build by shortId', () => {
     // not be left at 'unknown' forever just because no match turned up -
     // see CurrentBuildService.confirmOwnership's comment.
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-2', shortId: 'other', name: 'Other', blob: 'z1.yyy' }
     ]));
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();
@@ -448,11 +465,11 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('degrades to not-owned if the ownership check itself fails, rather than leaving it unresolved forever', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(throwError(() => new Error('network down')));
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();
@@ -466,11 +483,11 @@ describe('MainComponent - loading a build by shortId', () => {
     // so the buildIdentityFromUrl$ subscriber has to re-run the same check
     // loadBuildFromRoute uses on a fresh fetch.
     configure(null);
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
     ]));
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();
@@ -481,53 +498,56 @@ describe('MainComponent - loading a build by shortId', () => {
 
   it('does not re-check listMine for a shortId already confirmed this session', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
     ]));
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();
-    expect(buildsService.listMine.calls.count()).toBe(1);
+    expect(vi.mocked(buildsService.listMine).mock.calls.length).toBe(1);
 
     // A later history restore lands back on the same build's identity -
     // already resolved this session, so bouncing through it again via
     // browser back/forward must not spam listMine().
     buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
 
-    expect(buildsService.listMine.calls.count()).toBe(1);
+    expect(vi.mocked(buildsService.listMine).mock.calls.length).toBe(1);
   });
 
   it('clears the ownership memo on an auth transition, so a re-check can happen', () => {
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.xxx' }
     ]));
     const isAuthenticated$ = new BehaviorSubject(true);
     TestBed.overrideProvider(AuthService, {
-      useValue: { isAuthenticated$, user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => {}, signOut: () => {} }
+      useValue: { isAuthenticated$, user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
 
     TestBed.createComponent(MainComponent).detectChanges();
-    expect(buildsService.listMine.calls.count()).toBe(1);
+    expect(vi.mocked(buildsService.listMine).mock.calls.length).toBe(1);
 
     isAuthenticated$.next(false);
     isAuthenticated$.next(true);
     buildIdentity$.next({ shortId: 'abc123', name: 'My Build' });
 
-    expect(buildsService.listMine.calls.count()).toBe(2);
+    expect(vi.mocked(buildsService.listMine).mock.calls.length).toBe(2);
   });
 
   it('keeps contentReady false while the shortId fetch is in flight, then flips it true once loaded', () => {
     configure('abc123');
-    const response = new Subject<{ name: string; blob: string }>();
-    buildsService.getByShortId.and.returnValue(response.asObservable());
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
+    const response = new Subject<{
+      name: string;
+      blob: string;
+    }>();
+    buildsService.getByShortId.mockReturnValue(response.asObservable());
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();
@@ -550,9 +570,9 @@ describe('MainComponent - loading a build by shortId', () => {
     // let this component briefly render as "no build loaded" before the
     // router's own navigation replaced it.
     configure('abc123');
-    buildsService.getByShortId.and.returnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
-    codec.decode.and.returnValue({ Weapon: 'Calamitous Battle Axe' });
-    router.parseUrl.and.returnValue({ queryParamMap: convertToParamMap({ code: 'abc', state: 'xyz' }) } as any);
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    router.parseUrl.mockReturnValue({ queryParamMap: convertToParamMap({ code: 'abc', state: 'xyz' }) } as any);
 
     const fixture = TestBed.createComponent(MainComponent);
     fixture.detectChanges();

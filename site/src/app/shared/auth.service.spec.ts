@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
@@ -13,15 +14,17 @@ const POST_LOGOUT_RETURN_TO_KEY = 'auth.postLogoutReturnTo';
 describe('AuthService', () => {
   let httpMock: HttpTestingController;
   let isAuthenticated$: BehaviorSubject<boolean>;
-  let auth0: jasmine.SpyObj<Auth0Service>;
+  let auth0: MockedObject<Auth0Service>;
 
   function create(): AuthService {
     isAuthenticated$ = new BehaviorSubject<boolean>(false);
-    auth0 = jasmine.createSpyObj('Auth0Service', ['loginWithRedirect', 'logout'], {
+    auth0 = {
+      loginWithRedirect: vi.fn().mockName('Auth0Service.loginWithRedirect'),
+      logout: vi.fn().mockName('Auth0Service.logout'),
       isAuthenticated$,
       user$: of(null),
       isLoading$: of(false)
-    });
+    } as unknown as MockedObject<Auth0Service>;
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
@@ -86,7 +89,7 @@ describe('AuthService', () => {
   describe('signOut', () => {
     it('stashes the current path/query and logs out with a bare-origin returnTo', () => {
       // window.location isn't configurable in this test environment, so
-      // this asserts against whatever it actually is (Karma's runner page)
+      // this asserts against whatever it actually is (the test page's URL)
       // rather than a mocked build URL - still exercises the real
       // pathname+search/origin plumbing signOut() does.
       const service = create();
@@ -103,7 +106,7 @@ describe('AuthService', () => {
   describe('post-logout restore', () => {
     it('navigates back to a stashed path once and clears it', () => {
       sessionStorage.setItem(POST_LOGOUT_RETURN_TO_KEY, '/build/abc123/my-build?foo=bar');
-      const navigateSpy = spyOn(Router.prototype, 'navigateByUrl');
+      const navigateSpy = vi.spyOn(Router.prototype, 'navigateByUrl').mockResolvedValue(true);
 
       create();
 
@@ -112,7 +115,7 @@ describe('AuthService', () => {
     });
 
     it('does nothing when there is no stashed path', () => {
-      const navigateSpy = spyOn(Router.prototype, 'navigateByUrl');
+      const navigateSpy = vi.spyOn(Router.prototype, 'navigateByUrl').mockResolvedValue(true);
 
       create();
 

@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
@@ -23,40 +24,58 @@ function makeState(overrides: Partial<CurrentBuildState> = {}): CurrentBuildStat
 }
 
 describe('BuildActionsComponent', () => {
-  let currentBuild: jasmine.SpyObj<CurrentBuildService> & { state$: BehaviorSubject<CurrentBuildState> };
-  let buildsService: jasmine.SpyObj<BuildsService>;
-  let queryParams: jasmine.SpyObj<QueryParamsService>;
-  let auth: jasmine.SpyObj<AuthService> & { isAuthenticated$: BehaviorSubject<boolean>; user$: BehaviorSubject<unknown> };
-  let router: jasmine.SpyObj<Router>;
+  let currentBuild: MockedObject<CurrentBuildService> & {
+    state$: BehaviorSubject<CurrentBuildState>;
+  };
+  let buildsService: MockedObject<BuildsService>;
+  let queryParams: MockedObject<QueryParamsService>;
+  let auth: MockedObject<AuthService> & {
+    isAuthenticated$: BehaviorSubject<boolean>;
+    user$: BehaviorSubject<unknown>;
+  };
+  let router: MockedObject<Router>;
   let component: BuildActionsComponent;
 
   function create(): BuildActionsComponent {
     const state$ = new BehaviorSubject<CurrentBuildState>(makeState());
-    currentBuild = Object.assign(
-      jasmine.createSpyObj<CurrentBuildService>(
-        'CurrentBuildService',
-        ['markLoaded', 'markSaved', 'confirmOwnership', 'reset', 'restoreIdentity', 'getCanonicalParamsCache', 'setName'],
-        { value: makeState() }
-      ),
-      { state$ }
-    ) as any;
+    currentBuild = Object.assign({
+      markLoaded: vi.fn().mockName('CurrentBuildService.markLoaded'),
+      markSaved: vi.fn().mockName('CurrentBuildService.markSaved'),
+      confirmOwnership: vi.fn().mockName('CurrentBuildService.confirmOwnership'),
+      reset: vi.fn().mockName('CurrentBuildService.reset'),
+      restoreIdentity: vi.fn().mockName('CurrentBuildService.restoreIdentity'),
+      getCanonicalParamsCache: vi.fn().mockName('CurrentBuildService.getCanonicalParamsCache'),
+      setName: vi.fn().mockName('CurrentBuildService.setName'),
+      value: makeState()
+    }, { state$ }) as any;
     Object.defineProperty(currentBuild, 'state$', { value: state$ });
 
-    buildsService = jasmine.createSpyObj('BuildsService', ['create', 'update', 'listMine']);
-    buildsService.listMine.and.returnValue(of([]));
-    queryParams = jasmine.createSpyObj('QueryParamsService', ['getCombinedParams', 'encodeCurrentBuild']);
-    queryParams.getCombinedParams.and.returnValue({ Weapon: 'Sword' });
-    queryParams.encodeCurrentBuild.and.returnValue('z1.encoded');
+    buildsService = {
+      create: vi.fn().mockName('BuildsService.create'),
+      update: vi.fn().mockName('BuildsService.update'),
+      listMine: vi.fn().mockName('BuildsService.listMine')
+    } as unknown as MockedObject<BuildsService>;
+    buildsService.listMine.mockReturnValue(of([]));
+    queryParams = {
+      getCombinedParams: vi.fn().mockName('QueryParamsService.getCombinedParams'),
+      encodeCurrentBuild: vi.fn().mockName('QueryParamsService.encodeCurrentBuild')
+    } as unknown as MockedObject<QueryParamsService>;
+    queryParams.getCombinedParams.mockReturnValue({ Weapon: 'Sword' });
+    queryParams.encodeCurrentBuild.mockReturnValue('z1.encoded');
 
     const isAuthenticated$ = new BehaviorSubject(false);
     const user$ = new BehaviorSubject<unknown>(null);
-    auth = Object.assign(
-      jasmine.createSpyObj<AuthService>('AuthService', ['signIn', 'signOut']),
-      { isAuthenticated$, user$ }
-    ) as any;
+    auth = Object.assign({
+      signIn: vi.fn().mockName('AuthService.signIn'),
+      signOut: vi.fn().mockName('AuthService.signOut')
+    }, { isAuthenticated$, user$ }) as any;
 
-    router = jasmine.createSpyObj('Router', ['navigateByUrl']);
-    const cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+    router = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
+    } as unknown as MockedObject<Router>;
+    const cdr = {
+      markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -70,10 +89,10 @@ describe('BuildActionsComponent', () => {
     });
 
     const instance = TestBed.runInInjectionContext(
-      // The real BuildSaveService (over the mocked services above), so these
-      // tests exercise the actual save/rename logic, not a stub of it.
-      () => new BuildActionsComponent(currentBuild, TestBed.inject(BuildSaveService), auth, cdr)
-    );
+    // The real BuildSaveService (over the mocked services above), so these
+    // tests exercise the actual save/rename logic, not a stub of it.
+    () => new BuildActionsComponent(currentBuild, TestBed.inject(BuildSaveService), auth,
+      cdr as unknown as ChangeDetectorRef));
     instance.ngOnInit();
     return instance;
   }
@@ -132,7 +151,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogOpen).toBe(true);
     expect(component.dialogMode).toBe('create');
   });
 
@@ -142,7 +161,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogOpen).toBe(true);
     expect(component.dialogMode).toBe('save-as');
   });
 
@@ -152,7 +171,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(component.dialogOpen).toBeFalse();
+    expect(component.dialogOpen).toBe(false);
     expect(buildsService.update).not.toHaveBeenCalled();
   });
 
@@ -161,11 +180,11 @@ describe('BuildActionsComponent', () => {
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
     component.toggleSaveMenu();
-    expect(component.isMenuOpen('save')).toBeTrue();
+    expect(component.isMenuOpen('save')).toBe(true);
     component.onSaveAsMenuItemClick();
 
-    expect(component.isMenuOpen('save')).toBeFalse();
-    expect(component.dialogOpen).toBeTrue();
+    expect(component.isMenuOpen('save')).toBe(false);
+    expect(component.dialogOpen).toBe(true);
     expect(component.dialogMode).toBe('save-as');
   });
 
@@ -173,24 +192,26 @@ describe('BuildActionsComponent', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
     component.toggleSaveMenu();
-    const caret = jasmine.createSpyObj('caret', ['focus']);
+    const caret = {
+      focus: vi.fn().mockName('caret.focus')
+    };
     (component as any).saveCaretRef = { nativeElement: caret };
 
     component.onSaveMenuKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-    expect(component.isMenuOpen('save')).toBeFalse();
+    expect(component.isMenuOpen('save')).toBe(false);
     expect(caret.focus).toHaveBeenCalled();
   });
 
   it('saves in place (PUT) without a dialog for a named, dirty, owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-    buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
 
     component.onSaveControlPrimaryClick();
 
     expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded' });
-    expect(component.dialogOpen).toBeFalse();
+    expect(component.dialogOpen).toBe(false);
     expect(currentBuild.markSaved).toHaveBeenCalledWith({
       savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Sword' }
     });
@@ -203,8 +224,13 @@ describe('BuildActionsComponent', () => {
   it('shows a "Saving…" indicator on the primary button while an in-place save is in flight', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-    const update$ = new Subject<{ id: string; shortId: string; name: string; blob: string }>();
-    buildsService.update.and.returnValue(update$);
+    const update$ = new Subject<{
+      id: string;
+      shortId: string;
+      name: string;
+      blob: string;
+    }>();
+    buildsService.update.mockReturnValue(update$);
 
     component.onSaveControlPrimaryClick();
 
@@ -217,7 +243,7 @@ describe('BuildActionsComponent', () => {
     update$.next({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' });
     update$.complete();
 
-    expect(component.savingInPlace).toBeFalse();
+    expect(component.savingInPlace).toBe(false);
   });
 
   it('clears the "Saving…" indicator, re-enables the button, and surfaces an error if the in-place save fails', () => {
@@ -225,7 +251,7 @@ describe('BuildActionsComponent', () => {
     // path to show an error in, so it needs its own slot (savingInPlaceError).
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-    buildsService.update.and.returnValue(throwError(() => new Error('network down')));
+    buildsService.update.mockReturnValue(throwError(() => new Error('network down')));
 
     component.onSaveControlPrimaryClick();
 
@@ -236,18 +262,18 @@ describe('BuildActionsComponent', () => {
   it('rejects an oversized blob client-side on save-in-place, without calling update()', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-    queryParams.encodeCurrentBuild.and.returnValue('x'.repeat(4097));
+    queryParams.encodeCurrentBuild.mockReturnValue('x'.repeat(4097));
 
     component.onSaveControlPrimaryClick();
 
     expect(buildsService.update).not.toHaveBeenCalled();
     expect(component.savingInPlaceError).toContain('too large');
-    expect(component.savingInPlace).toBeFalse();
+    expect(component.savingInPlace).toBe(false);
   });
 
   it('creates and navigates to the new build on dialog confirm', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.create.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My New Build', blob: 'z1.encoded' }));
+    buildsService.create.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My New Build', blob: 'z1.encoded' }));
 
     component.openDialog('create', '');
     component.onDialogConfirmed('My New Build');
@@ -257,12 +283,12 @@ describe('BuildActionsComponent', () => {
       savedBuildId: 'build-1', shortId: 'abc123', name: 'My New Build', canonicalParams: { Weapon: 'Sword' }
     });
     expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/my-new-build', { replaceUrl: true });
-    expect(component.dialogOpen).toBeFalse();
+    expect(component.dialogOpen).toBe(false);
   });
 
   it('blocks creating a build whose name duplicates an existing one', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.old' }
     ]));
 
@@ -270,14 +296,14 @@ describe('BuildActionsComponent', () => {
     component.onDialogConfirmed('My Build');
 
     expect(buildsService.create).not.toHaveBeenCalled();
-    expect(component.dialogSaving).toBeFalse();
-    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogSaving).toBe(false);
+    expect(component.dialogOpen).toBe(true);
     expect(component.dialogError).toContain('already have a build named "My Build"');
   });
 
   it('matches duplicate names case-insensitively and ignoring surrounding whitespace', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: '  my build  ', blob: 'z1.old' }
     ]));
 
@@ -290,10 +316,10 @@ describe('BuildActionsComponent', () => {
 
   it('creates the build when the name has no duplicate', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'Some Other Build', blob: 'z1.old' }
     ]));
-    buildsService.create.and.returnValue(of({ id: 'build-2', shortId: 'def456', name: 'My Build', blob: 'z1.encoded' }));
+    buildsService.create.mockReturnValue(of({ id: 'build-2', shortId: 'def456', name: 'My Build', blob: 'z1.encoded' }));
 
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
@@ -303,8 +329,8 @@ describe('BuildActionsComponent', () => {
 
   it('proceeds with the save if the duplicate-name check itself fails', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
-    buildsService.create.and.returnValue(of({ id: 'build-2', shortId: 'def456', name: 'My Build', blob: 'z1.encoded' }));
+    buildsService.listMine.mockReturnValue(throwError(() => new Error('network down')));
+    buildsService.create.mockReturnValue(of({ id: 'build-2', shortId: 'def456', name: 'My Build', blob: 'z1.encoded' }));
 
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
@@ -314,31 +340,31 @@ describe('BuildActionsComponent', () => {
 
   it('rejects an oversized blob client-side, before ever calling create()', () => {
     auth.isAuthenticated$.next(true);
-    queryParams.encodeCurrentBuild.and.returnValue('x'.repeat(4097));
+    queryParams.encodeCurrentBuild.mockReturnValue('x'.repeat(4097));
 
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
 
     expect(buildsService.create).not.toHaveBeenCalled();
     expect(component.dialogError).toContain('too large');
-    expect(component.dialogSaving).toBeFalse();
+    expect(component.dialogSaving).toBe(false);
   });
 
   it('shows an error and keeps the dialog open if create fails', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.create.and.returnValue(throwError(() => new Error('nope')));
+    buildsService.create.mockReturnValue(throwError(() => new Error('nope')));
 
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
 
-    expect(component.dialogOpen).toBeTrue();
+    expect(component.dialogOpen).toBe(true);
     expect(component.dialogError).toContain('Could not save');
-    expect(component.dialogSaving).toBeFalse();
+    expect(component.dialogSaving).toBe(false);
   });
 
   it('surfaces the server\'s specific error message (e.g. hitting the build limit) instead of the generic fallback', () => {
     auth.isAuthenticated$.next(true);
-    buildsService.create.and.returnValue(throwError(() => new HttpErrorResponse({
+    buildsService.create.mockReturnValue(throwError(() => new HttpErrorResponse({
       status: 403,
       error: { error: 'You\'ve reached the limit of 100 saved builds. Delete an existing build to save a new one.' }
     })));
@@ -350,12 +376,12 @@ describe('BuildActionsComponent', () => {
   });
 
   it('shows sign-in when anonymous and sign-out with a display name when authenticated', () => {
-    expect(component.isAuthenticated).toBeFalse();
+    expect(component.isAuthenticated).toBe(false);
 
     auth.isAuthenticated$.next(true);
     auth.user$.next({ name: 'Jane Doe' });
 
-    expect(component.isAuthenticated).toBeTrue();
+    expect(component.isAuthenticated).toBe(true);
     expect(component.userDisplayName).toBe('Jane Doe');
   });
 
@@ -376,11 +402,11 @@ describe('BuildActionsComponent', () => {
     component.openMenu = 'myBuilds';
 
     component.toggleMenu('avatar');
-    expect(component.isMenuOpen('avatar')).toBeTrue();
-    expect(component.isMenuOpen('myBuilds')).toBeFalse();
+    expect(component.isMenuOpen('avatar')).toBe(true);
+    expect(component.isMenuOpen('myBuilds')).toBe(false);
 
     component.toggleMenu('avatar');
-    expect(component.isMenuOpen('avatar')).toBeFalse();
+    expect(component.isMenuOpen('avatar')).toBe(false);
   });
 
   it('closes the avatar menu on sign out', () => {
@@ -389,7 +415,7 @@ describe('BuildActionsComponent', () => {
     component.signOut();
 
     expect(auth.signOut).toHaveBeenCalled();
-    expect(component.isMenuOpen('avatar')).toBeFalse();
+    expect(component.isMenuOpen('avatar')).toBe(false);
   });
 
   it('opens My Builds and closes the avatar menu', () => {
@@ -397,8 +423,8 @@ describe('BuildActionsComponent', () => {
 
     component.onMyBuildsClick();
 
-    expect(component.isMenuOpen('myBuilds')).toBeTrue();
-    expect(component.isMenuOpen('avatar')).toBeFalse();
+    expect(component.isMenuOpen('myBuilds')).toBe(true);
+    expect(component.isMenuOpen('avatar')).toBe(false);
   });
 
   it('keeps at most one menu open: opening any menu closes the others', () => {
@@ -414,14 +440,14 @@ describe('BuildActionsComponent', () => {
 
     component.startRename();
 
-    expect(component.editingName).toBeTrue();
+    expect(component.editingName).toBe(true);
     expect(component.nameDraft).toBe('My Build');
   });
 
   it('allows starting a rename on a never-saved, anonymous build', () => {
     component.startRename();
 
-    expect(component.editingName).toBeTrue();
+    expect(component.editingName).toBe(true);
     expect(component.nameDraft).toBe('');
   });
 
@@ -431,7 +457,7 @@ describe('BuildActionsComponent', () => {
 
     component.commitRename();
 
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
     expect(buildsService.update).not.toHaveBeenCalled();
     expect(buildsService.listMine).not.toHaveBeenCalled();
     expect(currentBuild.setName).toHaveBeenCalledWith('My New Build');
@@ -445,7 +471,7 @@ describe('BuildActionsComponent', () => {
 
     component.cancelRename();
 
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
     expect(buildsService.update).not.toHaveBeenCalled();
   });
 
@@ -458,26 +484,28 @@ describe('BuildActionsComponent', () => {
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
     component.startRename();
     component.nameDraft = 'Something else';
-    const event = jasmine.createSpyObj<MouseEvent>('MouseEvent', ['preventDefault']);
+    const event = {
+      preventDefault: vi.fn().mockName('MouseEvent.preventDefault')
+    };
 
-    component.onCancelRenameMouseDown(event);
+    component.onCancelRenameMouseDown(event as unknown as MouseEvent);
 
     expect(event.preventDefault).toHaveBeenCalled();
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
     expect(buildsService.update).not.toHaveBeenCalled();
   });
 
   it('commits a rename, updating state and navigating to the (possibly re-slugified) URL', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
     component.startRename();
     component.nameDraft = 'Renamed Build';
 
     component.commitRename();
 
     expect(buildsService.update).toHaveBeenCalledWith('build-1', { name: 'Renamed Build' });
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
     expect(currentBuild.markSaved).toHaveBeenCalledWith({ savedBuildId: 'build-1', shortId: 'abc123', name: 'Renamed Build' });
     expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/renamed-build', { replaceUrl: true });
   });
@@ -490,7 +518,7 @@ describe('BuildActionsComponent', () => {
     component.commitRename();
 
     expect(buildsService.update).not.toHaveBeenCalled();
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
   });
 
   it('cancels the edit on commit when the draft is empty', () => {
@@ -502,13 +530,13 @@ describe('BuildActionsComponent', () => {
     component.commitRename();
 
     expect(buildsService.update).not.toHaveBeenCalled();
-    expect(component.editingName).toBeFalse();
+    expect(component.editingName).toBe(false);
   });
 
   it('blocks a rename that duplicates another of the user\'s builds', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.old' },
       { id: 'build-2', shortId: 'def456', name: 'Other Build', blob: 'z1.old' }
     ]));
@@ -518,17 +546,17 @@ describe('BuildActionsComponent', () => {
     component.commitRename();
 
     expect(buildsService.update).not.toHaveBeenCalled();
-    expect(component.editingName).toBeTrue();
+    expect(component.editingName).toBe(true);
     expect(component.renameError).toContain('already have a build named "Other Build"');
   });
 
   it('does not treat the build\'s own current name as a rename duplicate', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    buildsService.listMine.and.returnValue(of([
+    buildsService.listMine.mockReturnValue(of([
       { id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.old' }
     ]));
-    buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
     component.startRename();
     component.nameDraft = 'Renamed Build';
 
@@ -540,8 +568,8 @@ describe('BuildActionsComponent', () => {
   it('proceeds with the rename if the duplicate-name check itself fails', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
-    buildsService.update.and.returnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
+    buildsService.listMine.mockReturnValue(throwError(() => new Error('network down')));
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'Renamed Build', blob: 'z1.old' }));
     component.startRename();
     component.nameDraft = 'Renamed Build';
 
@@ -553,13 +581,13 @@ describe('BuildActionsComponent', () => {
   it('shows an error and keeps editing if the rename request fails', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    buildsService.update.and.returnValue(throwError(() => new Error('nope')));
+    buildsService.update.mockReturnValue(throwError(() => new Error('nope')));
     component.startRename();
     component.nameDraft = 'Renamed Build';
 
     component.commitRename();
 
-    expect(component.editingName).toBeTrue();
+    expect(component.editingName).toBe(true);
     expect(component.renameError).toContain('Could not rename');
   });
 
@@ -567,10 +595,10 @@ describe('BuildActionsComponent', () => {
     component.openMenu = 'save';
 
     component.toggleMenu('share');
-    expect(component.isMenuOpen('share')).toBeTrue();
-    expect(component.isMenuOpen('save')).toBeFalse();
+    expect(component.isMenuOpen('share')).toBe(true);
+    expect(component.isMenuOpen('save')).toBe(false);
 
     component.toggleMenu('share');
-    expect(component.isMenuOpen('share')).toBeFalse();
+    expect(component.isMenuOpen('share')).toBe(false);
   });
 });

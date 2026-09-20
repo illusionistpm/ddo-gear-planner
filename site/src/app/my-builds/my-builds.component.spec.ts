@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,20 +20,28 @@ function makeBuild(overrides: Partial<Build> = {}): Build {
 }
 
 describe('MyBuildsComponent', () => {
-  let buildsService: jasmine.SpyObj<BuildsService>;
-  let currentBuild: jasmine.SpyObj<CurrentBuildService>;
-  let router: jasmine.SpyObj<Router>;
-  let cdr: jasmine.SpyObj<ChangeDetectorRef>;
+  let buildsService: MockedObject<BuildsService>;
+  let currentBuild: MockedObject<CurrentBuildService>;
+  let router: MockedObject<Router>;
+  let cdr: MockedObject<ChangeDetectorRef>;
 
   function create(builds: Build[] = [makeBuild()]): MyBuildsComponent {
-    buildsService = jasmine.createSpyObj('BuildsService', ['listMine', 'delete']);
-    buildsService.listMine.and.returnValue(of(builds));
-    buildsService.delete.and.returnValue(of(undefined));
-    currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
+    buildsService = {
+      listMine: vi.fn().mockName('BuildsService.listMine'),
+      delete: vi.fn().mockName('BuildsService.delete')
+    } as unknown as MockedObject<BuildsService>;
+    buildsService.listMine.mockReturnValue(of(builds));
+    buildsService.delete.mockReturnValue(of(undefined));
+    currentBuild = {
+      reset: vi.fn().mockName('CurrentBuildService.reset'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
-    });
-    router = jasmine.createSpyObj('Router', ['navigateByUrl']);
-    cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+    } as unknown as MockedObject<CurrentBuildService>;
+    router = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
+    } as unknown as MockedObject<Router>;
+    cdr = {
+      markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
+    } as unknown as MockedObject<ChangeDetectorRef>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -61,13 +70,21 @@ describe('MyBuildsComponent', () => {
   });
 
   it('surfaces a load error without throwing', () => {
-    buildsService = jasmine.createSpyObj('BuildsService', ['listMine', 'delete']);
-    buildsService.listMine.and.returnValue(throwError(() => new Error('network down')));
-    currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
+    buildsService = {
+      listMine: vi.fn().mockName('BuildsService.listMine'),
+      delete: vi.fn().mockName('BuildsService.delete')
+    } as unknown as MockedObject<BuildsService>;
+    buildsService.listMine.mockReturnValue(throwError(() => new Error('network down')));
+    currentBuild = {
+      reset: vi.fn().mockName('CurrentBuildService.reset'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
-    });
-    router = jasmine.createSpyObj('Router', ['navigateByUrl']);
-    cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+    } as unknown as MockedObject<CurrentBuildService>;
+    router = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
+    } as unknown as MockedObject<Router>;
+    cdr = {
+      markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
+    } as unknown as MockedObject<ChangeDetectorRef>;
     const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
     component.ngOnInit();
 
@@ -77,7 +94,7 @@ describe('MyBuildsComponent', () => {
 
   it('navigates to the build route with a slugified name and closes the panel', () => {
     const component = create();
-    const closedSpy = jasmine.createSpy('closed');
+    const closedSpy = vi.fn().mockName('closed');
     component.closed.subscribe(closedSpy);
 
     component.open(makeBuild({ shortId: 'abc123', name: 'Fire Wizard Build' }));
@@ -91,7 +108,7 @@ describe('MyBuildsComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
-    spyOn(window, 'confirm').and.returnValue(false);
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     component.open(makeBuild({ shortId: 'abc123', name: 'Fire Wizard Build' }));
 
@@ -104,7 +121,7 @@ describe('MyBuildsComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
-    spyOn(window, 'confirm').and.returnValue(true);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
 
     component.open(makeBuild({ shortId: 'abc123', name: 'Fire Wizard Build' }));
 
@@ -113,7 +130,7 @@ describe('MyBuildsComponent', () => {
 
   it('resets the current build and navigates home for a clean build, closing the panel', () => {
     const component = create();
-    const closedSpy = jasmine.createSpy('closed');
+    const closedSpy = vi.fn().mockName('closed');
     component.closed.subscribe(closedSpy);
 
     component.newBuild();
@@ -128,7 +145,7 @@ describe('MyBuildsComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
-    spyOn(window, 'confirm').and.returnValue(false);
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     component.newBuild();
 
@@ -142,7 +159,7 @@ describe('MyBuildsComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: 'build-9', shortId: 'current', name: 'Current', isDirty: true, ownership: 'owned' }
     });
-    spyOn(window, 'confirm').and.returnValue(true);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
 
     component.newBuild();
 
@@ -156,8 +173,8 @@ describe('MyBuildsComponent', () => {
       value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, ownership: 'owned' }
     });
 
-    expect(component.isCurrentBuild(makeBuild({ id: 'build-1' }))).toBeTrue();
-    expect(component.isCurrentBuild(makeBuild({ id: 'build-2' }))).toBeFalse();
+    expect(component.isCurrentBuild(makeBuild({ id: 'build-1' }))).toBe(true);
+    expect(component.isCurrentBuild(makeBuild({ id: 'build-2' }))).toBe(false);
   });
 
   it('refuses to start a delete for the currently loaded build', () => {
@@ -166,9 +183,11 @@ describe('MyBuildsComponent', () => {
       value: { savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', isDirty: false, ownership: 'owned' }
     });
     const build = makeBuild({ id: 'build-1' });
-    const event = jasmine.createSpyObj('Event', ['stopPropagation']);
+    const event = {
+      stopPropagation: vi.fn().mockName('Event.stopPropagation')
+    };
 
-    component.requestDelete(build, event);
+    component.requestDelete(build, event as unknown as Event);
 
     expect(component.confirmingDeleteId).toBeNull();
     expect(buildsService.delete).not.toHaveBeenCalled();
@@ -177,22 +196,26 @@ describe('MyBuildsComponent', () => {
   it('requires a confirm step before deleting', () => {
     const component = create();
     const build = makeBuild();
-    const event = jasmine.createSpyObj('Event', ['stopPropagation']);
+    const event = {
+      stopPropagation: vi.fn().mockName('Event.stopPropagation')
+    };
 
-    component.requestDelete(build, event);
+    component.requestDelete(build, event as unknown as Event);
     expect(component.confirmingDeleteId).toBe(build.id);
     expect(buildsService.delete).not.toHaveBeenCalled();
 
-    component.confirmDelete(build, event);
+    component.confirmDelete(build, event as unknown as Event);
     expect(buildsService.delete).toHaveBeenCalledWith(build.id);
   });
 
   it('removes the deleted build from the list', () => {
     const build = makeBuild();
     const component = create([build]);
-    const event = jasmine.createSpyObj('Event', ['stopPropagation']);
+    const event = {
+      stopPropagation: vi.fn().mockName('Event.stopPropagation')
+    };
 
-    component.confirmDelete(build, event);
+    component.confirmDelete(build, event as unknown as Event);
 
     expect(component.builds).toEqual([]);
   });
@@ -203,29 +226,41 @@ describe('MyBuildsComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       value: { savedBuildId: build.id, shortId: build.shortId, name: build.name, isDirty: false, ownership: 'owned' }
     });
-    const event = jasmine.createSpyObj('Event', ['stopPropagation']);
+    const event = {
+      stopPropagation: vi.fn().mockName('Event.stopPropagation')
+    };
 
-    component.confirmDelete(build, event);
+    component.confirmDelete(build, event as unknown as Event);
 
     expect(currentBuild.reset).toHaveBeenCalled();
     expect(router.navigateByUrl).toHaveBeenCalledWith('/');
   });
 
   it('surfaces a delete error without removing the build', () => {
-    buildsService = jasmine.createSpyObj('BuildsService', ['listMine', 'delete']);
+    buildsService = {
+      listMine: vi.fn().mockName('BuildsService.listMine'),
+      delete: vi.fn().mockName('BuildsService.delete')
+    } as unknown as MockedObject<BuildsService>;
     const build = makeBuild();
-    buildsService.listMine.and.returnValue(of([build]));
-    buildsService.delete.and.returnValue(throwError(() => new Error('nope')));
-    currentBuild = jasmine.createSpyObj('CurrentBuildService', ['reset'], {
+    buildsService.listMine.mockReturnValue(of([build]));
+    buildsService.delete.mockReturnValue(throwError(() => new Error('nope')));
+    currentBuild = {
+      reset: vi.fn().mockName('CurrentBuildService.reset'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' }
-    });
-    router = jasmine.createSpyObj('Router', ['navigateByUrl']);
-    cdr = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+    } as unknown as MockedObject<CurrentBuildService>;
+    router = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
+    } as unknown as MockedObject<Router>;
+    cdr = {
+      markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
+    } as unknown as MockedObject<ChangeDetectorRef>;
     const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
     component.ngOnInit();
-    const event = jasmine.createSpyObj('Event', ['stopPropagation']);
+    const event = {
+      stopPropagation: vi.fn().mockName('Event.stopPropagation')
+    };
 
-    component.confirmDelete(build, event);
+    component.confirmDelete(build, event as unknown as Event);
 
     expect(component.deleteError).toContain('Could not delete');
     expect(component.builds).toEqual([build]);

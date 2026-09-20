@@ -105,11 +105,11 @@ describe('AffixUiService', () => {
       value: 5,
     }));
 
-    expect(universalPower.find(affix => affix.name === 'Force Spell Power')).toEqual(jasmine.objectContaining({
+    expect(universalPower.find(affix => affix.name === 'Force Spell Power')).toEqual(expect.objectContaining({
       type: 'Artifact',
       value: 15,
     }));
-    expect(universalLore.find(affix => affix.name === 'Force Lore')).toEqual(jasmine.objectContaining({
+    expect(universalLore.find(affix => affix.name === 'Force Lore')).toEqual(expect.objectContaining({
       type: 'Exceptional',
       value: 5,
     }));

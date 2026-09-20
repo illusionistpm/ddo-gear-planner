@@ -1,5 +1,6 @@
+import type { Mock } from 'vitest';
 import { Component } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,7 +10,8 @@ import { CurrentBuildService } from './build/current-build.service';
 import { QueryParamsService } from './build/query-params.service';
 
 @Component({ selector: 'app-stub', template: '', standalone: false })
-class StubComponent { }
+class StubComponent {
+}
 
 describe('AppComponent', () => {
   const onboardingStateKey = 'ddo-planner-onboarding-state-v1';
@@ -27,12 +29,14 @@ describe('AppComponent', () => {
     window.location.hash = '';
   });
 
-  let authServiceStub: { isRedirectingAwayForAuth: boolean };
+  let authServiceStub: {
+    isRedirectingAwayForAuth: boolean;
+  };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     authServiceStub = { isRedirectingAwayForAuth: false };
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         StubComponent
@@ -46,7 +50,7 @@ describe('AppComponent', () => {
         { provide: AuthService, useValue: authServiceStub }
       ]
     }).compileComponents();
-  }));
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -77,7 +81,7 @@ describe('AppComponent', () => {
 
   it('updates query params on a navigation to a new route', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
-    spyOn(queryParams, 'updateFromParams');
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
     const router = TestBed.inject(Router);
 
     const fixture = TestBed.createComponent(AppComponent);
@@ -86,7 +90,7 @@ describe('AppComponent', () => {
 
     await router.navigateByUrl('/main?levelrange=1,18&Weapon=Calamitous%20Battle%20Axe&tracked=Strength&tracked=False%20Life%20(%25)');
 
-    const params = (queryParams.updateFromParams as jasmine.Spy).calls.mostRecent().args[0];
+    const params = vi.mocked((queryParams.updateFromParams as Mock)).mock.lastCall![0];
     expect(params.get('levelrange')).toBe('1,18');
     expect(params.get('Weapon')).toBe('Calamitous Battle Axe');
     expect(params.getAll('tracked')).toEqual(['Strength', 'False Life (%)']);
@@ -94,14 +98,14 @@ describe('AppComponent', () => {
 
   it('does not reapply URL params for an app-originated navigation', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
-    spyOn(queryParams, 'updateFromParams');
-    spyOn(queryParams, 'consumeAppUrlWrite').and.returnValue(true);
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
+    vi.spyOn(queryParams, 'consumeAppUrlWrite').mockReturnValue(true);
     const router = TestBed.inject(Router);
 
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+    (queryParams.updateFromParams as Mock).mockClear();
 
     await router.navigateByUrl('/main?levelrange=1,18');
 
@@ -126,13 +130,13 @@ describe('AppComponent', () => {
 
   it('does not call updateFromParams when navigating to a /build/:shortId route', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
-    spyOn(queryParams, 'updateFromParams');
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
     const router = TestBed.inject(Router);
 
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+    (queryParams.updateFromParams as Mock).mockClear();
 
     await router.navigateByUrl('/build/abc123/my-build');
 
@@ -141,13 +145,13 @@ describe('AppComponent', () => {
 
   it('does not call updateFromParams for a /build/:shortId route with no slug', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
-    spyOn(queryParams, 'updateFromParams');
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
     const router = TestBed.inject(Router);
 
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+    (queryParams.updateFromParams as Mock).mockClear();
 
     await router.navigateByUrl('/build/abc123');
 
@@ -163,17 +167,17 @@ describe('AppComponent', () => {
     // back/forward through an edit session silently do nothing - the
     // address bar changed but nothing downstream of it re-applied.
     const queryParams = TestBed.inject(QueryParamsService);
-    spyOn(queryParams, 'updateFromParams');
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
     const router = TestBed.inject(Router);
 
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    (queryParams.updateFromParams as jasmine.Spy).calls.reset();
+    (queryParams.updateFromParams as Mock).mockClear();
 
     await router.navigateByUrl('/build/abc123/my-build?b=z1.test');
 
-    const params = (queryParams.updateFromParams as jasmine.Spy).calls.mostRecent().args[0];
+    const params = vi.mocked((queryParams.updateFromParams as Mock)).mock.lastCall![0];
     expect(params.get('b')).toBe('z1.test');
   });
 
@@ -220,7 +224,7 @@ describe('AppComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
-    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnload = true;
 
     fixture.componentInstance.warnOnUnsavedChanges(event as any);
@@ -238,7 +242,7 @@ describe('AppComponent', () => {
     });
     fixture.componentInstance.warnOnUnload = false;
 
-    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnsavedChanges(event as any);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -256,7 +260,7 @@ describe('AppComponent', () => {
     authServiceStub.isRedirectingAwayForAuth = true;
     fixture.componentInstance.warnOnUnload = true;
 
-    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnsavedChanges(event as any);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -267,7 +271,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
 
-    const event = { preventDefault: jasmine.createSpy('preventDefault'), returnValue: undefined as any };
+    const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnsavedChanges(event as any);
 
     expect(event.preventDefault).not.toHaveBeenCalled();

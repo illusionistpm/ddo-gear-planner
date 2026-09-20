@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { ItemsInSetComponent } from './items-in-set.component';
@@ -10,11 +10,11 @@ describe('ItemsInSetComponent', () => {
   let component: ItemsInSetComponent;
   let fixture: ComponentFixture<ItemsInSetComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [AppModule]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsInSetComponent);
@@ -22,10 +22,10 @@ describe('ItemsInSetComponent', () => {
   });
 
   it('loads the set bonus tiers for the set before the item list', () => {
-    spyOn(component.gearDB, 'getSetBonusThresholdDetails').and.returnValue([
+    vi.spyOn(component.gearDB, 'getSetBonusThresholdDetails').mockReturnValue([
       { threshold: 3, eligible: false, affixes: [new Affix({ name: 'Dodge', type: 'Quality', value: '3' })] },
     ]);
-    spyOn(component.gearDB, 'findGearInSet').and.returnValue([]);
+    vi.spyOn(component.gearDB, 'findGearInSet').mockReturnValue([]);
 
     component.setName = 'Some Set';
     component.ngOnInit();
@@ -77,9 +77,9 @@ describe('ItemsInSetComponent item preview', () => {
   // _sortBySlot orders these Alpha (Belt), Beta (Boots), Gamma (Neck).
   function render(items: Item[] = [makeItem('Gamma', 'Neck'), makeItem('Alpha', 'Belt'), makeItem('Beta', 'Boots')]) {
     component.setName = 'Some Set';
-    spyOn(component.gearDB, 'findGearInSet').and.returnValue(items);
-    spyOn(component.equipped, 'getCompatibleGear').and.callFake(gear => gear);
-    spyOn(component.equipped, 'getUnlockedSlots').and.returnValue(new Set(items.map(item => item.slot)));
+    vi.spyOn(component.gearDB, 'findGearInSet').mockReturnValue(items);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockImplementation(gear => gear);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set(items.map(item => item.slot)));
     fixture.detectChanges();
   }
 
@@ -94,9 +94,9 @@ describe('ItemsInSetComponent item preview', () => {
     fixture.detectChanges();
   }
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsInSetComponent);
@@ -119,14 +119,14 @@ describe('ItemsInSetComponent item preview', () => {
     render();
 
     click(rowLinks()[0]);
-    expect(button('Previous item').disabled).toBeTrue();
-    expect(button('Next item').disabled).toBeFalse();
+    expect(button('Previous item').disabled).toBe(true);
+    expect(button('Next item').disabled).toBe(false);
 
     click(button('Next item'));
     expect(panelTitle()).toBe('Beta');
     click(button('Next item'));
     expect(panelTitle()).toBe('Gamma');
-    expect(button('Next item').disabled).toBeTrue();
+    expect(button('Next item').disabled).toBe(true);
 
     click(button('Next item'));
     expect(panelTitle()).toBe('Gamma');
@@ -142,28 +142,28 @@ describe('ItemsInSetComponent item preview', () => {
     expect(rowLinks().length).toBe(101);
 
     click(rowLinks()[99]);
-    expect(button('Next item').disabled).toBeFalse();
+    expect(button('Next item').disabled).toBe(false);
     click(button('Next item'));
     expect(panelTitle()).toBe('Item 100');
   });
 
   it('equips the previewed item and closes the drawer', () => {
     render();
-    const set = spyOn(component.equipped, 'set');
-    const close = spyOn(TestBed.inject(SuggestionDrawerService), 'close');
+    const set = vi.spyOn(component.equipped, 'set').mockReturnValue(undefined);
+    const close = vi.spyOn(TestBed.inject(SuggestionDrawerService), 'close').mockReturnValue(undefined);
 
     click(rowLinks()[0]);
     click(button('Next item'));
     click(el.querySelector<HTMLElement>('.preview-equip-button')!);
 
     expect(set).toHaveBeenCalledTimes(1);
-    expect(set.calls.mostRecent().args[0].name).toBe('Beta');
+    expect(vi.mocked(set).mock.lastCall![0].name).toBe('Beta');
     expect(close).toHaveBeenCalled();
   });
 
   it('closes without equipping and clears the row highlight', () => {
     render();
-    const set = spyOn(component.equipped, 'set');
+    const set = vi.spyOn(component.equipped, 'set').mockReturnValue(undefined);
 
     click(rowLinks()[0]);
     click(button('Close item preview'));

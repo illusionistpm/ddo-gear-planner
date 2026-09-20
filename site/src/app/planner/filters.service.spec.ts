@@ -27,13 +27,13 @@ describe('FiltersService', () => {
 
     let current = { showRaidItems: false, showRareItems: false };
     service.getItemFilters().subscribe(value => (current = value));
-    expect(current.showRaidItems).toBeTrue();
-    expect(current.showRareItems).toBeTrue();
+    expect(current.showRaidItems).toBe(true);
+    expect(current.showRareItems).toBe(true);
 
     const emitted = queryParams.getCombinedParams();
     queryParams.applyDecodedBuildParams(emitted as Record<string, string>);
 
-    expect(current.showRaidItems).toBeTrue();
-    expect(current.showRareItems).toBeTrue();
+    expect(current.showRaidItems).toBe(true);
+    expect(current.showRareItems).toBe(true);
   });
 });

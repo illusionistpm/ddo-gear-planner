@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GearDescriptionComponent } from './gear-description.component';
 import { Craftable } from '../gear/craftable';
@@ -9,12 +9,12 @@ describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
   let fixture: ComponentFixture<GearDescriptionComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ GearDescriptionComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GearDescriptionComponent);

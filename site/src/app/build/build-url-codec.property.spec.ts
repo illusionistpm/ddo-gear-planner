@@ -12,7 +12,11 @@ import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
  * The generator is seeded, so a failure names a reproducible case.
  */
 
-const dictionary = urlCodecDictionary as { itemTypes: string[]; packs: string[]; craftingSystems: string[] };
+const dictionary = urlCodecDictionary as {
+  itemTypes: string[];
+  packs: string[];
+  craftingSystems: string[];
+};
 
 const SLOTS = [
   'Weapon', 'Offhand', 'Armor', 'Belt', 'Boots', 'Bracers', 'Cloak',
@@ -69,19 +73,25 @@ function generate(random: () => number): Params {
     const low = Math.floor(random() * 30) + 1;
     params['levelrange'] = `${low},${low + Math.floor(random() * 6)}`;
   }
-  if (chance(0.5)) params['raids'] = chance(0.5);
-  if (chance(0.5)) params['rare'] = chance(0.5);
-  if (chance(0.4)) params['hiddentypes'] = dictionary.itemTypes.filter(() => chance(0.2)).join(',');
-  if (chance(0.4)) params['hiddenpacks'] = dictionary.packs.filter(() => chance(0.2)).join(',');
-  if (chance(0.6)) params['tracked'] = AFFIX_NAMES.filter(() => chance(0.5));
+  if (chance(0.5))
+    params['raids'] = chance(0.5);
+  if (chance(0.5))
+    params['rare'] = chance(0.5);
+  if (chance(0.4))
+    params['hiddentypes'] = dictionary.itemTypes.filter(() => chance(0.2)).join(',');
+  if (chance(0.4))
+    params['hiddenpacks'] = dictionary.packs.filter(() => chance(0.2)).join(',');
+  if (chance(0.6))
+    params['tracked'] = AFFIX_NAMES.filter(() => chance(0.5));
   if (chance(0.3)) {
     params['nongear'] = JSON.stringify([{
-      id: '1', affixName: pick(AFFIX_NAMES), bonusType: pick(BONUS_TYPES),
-      kind: chance(0.5) ? 'value' : 'ignored', value: Math.floor(random() * 20), label: 'Past life',
-    }]);
+        id: '1', affixName: pick(AFFIX_NAMES), bonusType: pick(BONUS_TYPES),
+        kind: chance(0.5) ? 'value' : 'ignored', value: Math.floor(random() * 20), label: 'Past life',
+      }]);
   }
   // An unrecognised key rides along in the passthrough field.
-  if (chance(0.2)) params['someFutureKey'] = 'value';
+  if (chance(0.2))
+    params['someFutureKey'] = 'value';
 
   return params;
 }
@@ -119,17 +129,17 @@ describe('BuildUrlCodecService round-trip properties', () => {
       const want = expected(params);
       const context = `case ${i}: ${JSON.stringify(params)}`;
 
-      expect(decoded).withContext(context).not.toBeNull();
-      expect(Object.keys(decoded ?? {}).sort()).withContext(context).toEqual(Object.keys(want).sort());
+      expect(decoded, context).not.toBeNull();
+      expect(Object.keys(decoded ?? {}).sort(), context).toEqual(Object.keys(want).sort());
 
       for (const [key, value] of Object.entries(want)) {
         const actual = decoded?.[key];
         if (key === 'hiddentypes' || key === 'hiddenpacks') {
           // Dictionary sets come back in dictionary order, not input order.
-          expect(String(actual).split(',').sort()).withContext(`${context} [${key}]`)
-            .toEqual(String(value).split(',').sort());
-        } else {
-          expect(actual).withContext(`${context} [${key}]`).toEqual(value);
+          expect(String(actual).split(',').sort(), `${context} [${key}]`).toEqual(String(value).split(',').sort());
+        }
+        else {
+          expect(actual, `${context} [${key}]`).toEqual(value);
         }
       }
     }
@@ -142,7 +152,7 @@ describe('BuildUrlCodecService round-trip properties', () => {
       const once = service.decode(service.encode(generate(random)));
       const twice = service.decode(service.encode(once ?? {}));
 
-      expect(twice).withContext(`case ${i}: ${JSON.stringify(once)}`).toEqual(once);
+      expect(twice, `case ${i}: ${JSON.stringify(once)}`).toEqual(once);
     }
   });
 });

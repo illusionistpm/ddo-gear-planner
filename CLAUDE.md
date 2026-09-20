@@ -32,7 +32,7 @@ and `admin-link.component.ts` (named by path in `angular.json`) stay in `app/`.
 From `site/`, all four:
 
 ```sh
-npx ng test --watch=false   # Karma, ~560 specs
+npx ng test --watch=false   # Vitest under jsdom, ~560 specs, ~70s
 npm run lint                # ESLint over both projects, plus the CSS-colour check
 npm run build               # the site project
 npm run admin:build         # the admin project - a separate build, easy to forget
@@ -43,10 +43,9 @@ What "green" means:
 - **Zero failures**, and **zero `ERROR` lines in the test log.** The log is
   deliberately clean: a stray `ERROR` means a real problem (usually an async
   callback outliving its TestBed). Don't let that signal rot.
-- `ng test` prints a deprecation warning for the
-  `@angular-devkit/build-angular:karma` builder. **Expected** - the test runner
-  hasn't moved off Karma yet, and it is also the source of every current
-  `npm audit` finding. Build and serve already use `@angular/build`.
+- **No worker crashes.** A `JavaScript heap out of memory` / `Worker forks emitted
+  error` line means a file's later specs silently never ran - the pass count
+  drops rather than anything failing. Compare the total against the spec count.
 
 ## Invariants worth knowing before you refactor
 
@@ -101,6 +100,31 @@ on filled buttons - the only literals left in the tree.
   the component's internals; specs that call its methods do not. Prefer the
   former when the point is to pin behaviour before changing structure.
 
+## Specs run under Vitest + jsdom
+
+Tests are `@angular/build:unit-test` with the Vitest runner, not a browser.
+Things that behave differently from the Jasmine/Chrome days, and cost real time:
+
+- **`fakeAsync` and `waitForAsync` don't work** - zone.js only wires up its
+  ProxyZone for Jasmine/Jest/Mocha, so they throw "Expected to be running in
+  'ProxyZone'". Use `async` specs; wait on router work with
+  `TestBed.inject(ApplicationRef).whenStable()`.
+- **`src/test-setup.ts` is load-bearing**, not boilerplate. It stubs game data,
+  the layout APIs jsdom lacks (`ResizeObserver`, `Range` rects), and works
+  around two Vitest 4 behaviours that exhaust the heap: `vi.spyOn` mocks are
+  retained forever along with the object they spied on (so `vi.spyOn` is
+  replaced with a leaner one), and specs no longer yield to the event loop
+  (so a `beforeEach` does). Delete those two once `@angular/build` accepts
+  Vitest 5, which fixes the first.
+- `vi.spyOn` calls through by default, where Jasmine's `spyOn` stubbed
+  (returned `undefined`). A spy that must not run the real method needs
+  `.mockReturnValue(...)`.
+- `toContain` is `===`; use `toContainEqual` for objects. `vi.fn()` mocks of a
+  class need a cast (`as unknown as MockedObject<T>`).
+- The unit-test builder takes its polyfills from the `build` target and only
+  loads `zone.js/testing` if `"zone.js"` is listed there literally. It is, so
+  don't move it behind a polyfills file again.
+
 ## Conventions
 
 - Commit messages: say plainly when a commit changes behaviour, and why.
@@ -119,7 +143,7 @@ of every session:
 
 "Angular works like X" doesn't qualify; "this repo's `trackBy` change broke 16
 specs because those functions run unbound" does. **Delete entries that go
-stale** — the Karma note above dies the moment the test runner moves, and
+stale** — the Vitest 4 workarounds above die when Vitest 5 is supported, and
 guidance that is no longer true is worse than none. This file was written after
 a large cleanup branch; if something here contradicts the code, the code wins,
 and the entry should be fixed or removed.

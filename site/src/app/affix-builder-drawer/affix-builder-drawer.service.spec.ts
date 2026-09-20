@@ -8,17 +8,17 @@ describe('AffixBuilderDrawerService', () => {
   });
 
   it('starts closed', () => {
-    expect(service.isOpen).toBeFalse();
+    expect(service.isOpen).toBe(false);
     expect(service.mode).toBeNull();
   });
 
   it('opens in edit mode by default and closes', () => {
     service.open();
-    expect(service.isOpen).toBeTrue();
+    expect(service.isOpen).toBe(true);
     expect(service.mode).toBe('edit');
 
     service.close();
-    expect(service.isOpen).toBeFalse();
+    expect(service.isOpen).toBe(false);
     expect(service.mode).toBeNull();
   });
 

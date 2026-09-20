@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { FiltersService } from '../planner/filters.service';
@@ -9,12 +9,12 @@ describe('ItemSuggestionsComponent', () => {
   let component: ItemSuggestionsComponent;
   let fixture: ComponentFixture<ItemSuggestionsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ AppModule ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemSuggestionsComponent);
@@ -40,7 +40,7 @@ describe('ItemSuggestionsComponent', () => {
 
     component.onChange('Weapon')(hiddenItem!.name);
 
-    expect(component.filteredGear.some(item => item.name === hiddenItem?.name)).toBeFalse();
+    expect(component.filteredGear.some(item => item.name === hiddenItem?.name)).toBe(false);
     expect(component.gear).toEqual([]);
   });
 
@@ -54,8 +54,8 @@ describe('ItemSuggestionsComponent', () => {
     component.onSearchQueryChanged();
 
     expect(component.gear.length).toBeGreaterThan(0);
-    expect(component.gear.every(gear => gear.name.toLowerCase().includes(component.searchQuery.toLowerCase()))).toBeTrue();
-    expect(component.gear.some(gear => gear.name === item?.name)).toBeTrue();
+    expect(component.gear.every(gear => gear.name.toLowerCase().includes(component.searchQuery.toLowerCase()))).toBe(true);
+    expect(component.gear.some(gear => gear.name === item?.name)).toBe(true);
   });
 
   it('returns to suggested items when the search query is cleared', () => {

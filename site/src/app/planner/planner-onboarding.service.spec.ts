@@ -17,7 +17,7 @@ describe('PlannerOnboardingService', () => {
   it('starts onboarding when no completion or dismissal has been stored', () => {
     const service = new PlannerOnboardingService();
 
-    expect(service.shouldShowOnboarding()).toBeTrue();
+    expect(service.shouldShowOnboarding()).toBe(true);
   });
 
   it('persists completed onboarding in localStorage', () => {
@@ -25,12 +25,12 @@ describe('PlannerOnboardingService', () => {
 
     service.completeIntro();
 
-    expect(service.shouldShowOnboarding()).toBeFalse();
+    expect(service.shouldShowOnboarding()).toBe(false);
     expect(JSON.parse(localStorage.getItem(stateKey) || '{}')).toEqual({
       completed: true,
       dismissed: false
     });
-    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBeFalse();
+    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBe(false);
   });
 
   it('persists dismissed onboarding in localStorage', () => {
@@ -38,18 +38,18 @@ describe('PlannerOnboardingService', () => {
 
     service.dismissIntro();
 
-    expect(service.shouldShowOnboarding()).toBeFalse();
+    expect(service.shouldShowOnboarding()).toBe(false);
     expect(JSON.parse(localStorage.getItem(stateKey) || '{}')).toEqual({
       completed: false,
       dismissed: true
     });
-    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBeFalse();
+    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBe(false);
   });
 
   it('treats the old affix-type flag as completed onboarding', () => {
     localStorage.setItem(legacyKey, '1');
 
-    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBeFalse();
+    expect(new PlannerOnboardingService().shouldShowOnboarding()).toBe(false);
   });
 
   it('resets completed and legacy onboarding state', () => {
@@ -62,17 +62,19 @@ describe('PlannerOnboardingService', () => {
 
     service.resetIntro();
 
-    expect(service.shouldShowOnboarding()).toBeTrue();
+    expect(service.shouldShowOnboarding()).toBe(true);
     expect(localStorage.getItem(stateKey)).toBeNull();
     expect(localStorage.getItem(legacyKey)).toBeNull();
   });
 
   it('updates the in-memory state when localStorage writes fail', () => {
     const service = new PlannerOnboardingService();
-    spyOn(Storage.prototype, 'setItem').and.throwError('storage unavailable');
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('storage unavailable');
+    });
 
     service.dismissIntro();
 
-    expect(service.shouldShowOnboarding()).toBeFalse();
+    expect(service.shouldShowOnboarding()).toBe(false);
   });
 });

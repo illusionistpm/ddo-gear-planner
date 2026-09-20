@@ -1,12 +1,4 @@
-import {
-  AUGMENT_SLOT_1,
-  AUGMENT_SLOT_2,
-  availableSecondSlotSystems,
-  canHaveSecondAugmentSlot,
-  isAugmentSystemName,
-  isCraftingSlotAvailable,
-  secondAugmentSlotColors,
-} from './augment-slots';
+import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isAugmentSystemName, isCraftingSlotAvailable, secondAugmentSlotColors, } from './augment-slots';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { Item } from './item';
@@ -26,9 +18,9 @@ function itemWithSlotOne(system: string): Item {
 
 describe('augment slots', () => {
   it('recognises coloured augment systems, not the generic slots', () => {
-    expect(isAugmentSystemName('Blue Augment Slot')).toBeTrue();
-    expect(isAugmentSystemName(AUGMENT_SLOT_1)).toBeFalse();
-    expect(isAugmentSystemName('Green Steel Augment: Cometfall')).toBeFalse();
+    expect(isAugmentSystemName('Blue Augment Slot')).toBe(true);
+    expect(isAugmentSystemName(AUGMENT_SLOT_1)).toBe(false);
+    expect(isAugmentSystemName('Green Steel Augment: Cometfall')).toBe(false);
   });
 
   it('builds slot 2 without Green when slot 1 can be Green, else Colorless only', () => {
@@ -44,18 +36,18 @@ describe('augment slots', () => {
   });
 
   it('allows slot 2 only once slot 1 has a colour other than Colorless', () => {
-    expect(canHaveSecondAugmentSlot(itemWithSlotOne(''))).toBeFalse();
-    expect(canHaveSecondAugmentSlot(itemWithSlotOne('Colorless Augment Slot'))).toBeFalse();
-    expect(canHaveSecondAugmentSlot(itemWithSlotOne('Blue Augment Slot'))).toBeTrue();
-    expect(canHaveSecondAugmentSlot(null)).toBeFalse();
+    expect(canHaveSecondAugmentSlot(itemWithSlotOne(''))).toBe(false);
+    expect(canHaveSecondAugmentSlot(itemWithSlotOne('Colorless Augment Slot'))).toBe(false);
+    expect(canHaveSecondAugmentSlot(itemWithSlotOne('Blue Augment Slot'))).toBe(true);
+    expect(canHaveSecondAugmentSlot(null)).toBe(false);
   });
 
   it('treats every other crafting slot as always available', () => {
     const item = itemWithSlotOne('');
     const [slotOne, slotTwo] = item.crafting;
 
-    expect(isCraftingSlotAvailable(item, slotOne)).toBeTrue();
-    expect(isCraftingSlotAvailable(item, slotTwo)).toBeFalse();
-    expect(isCraftingSlotAvailable(item, new Craftable('Prefix', []))).toBeTrue();
+    expect(isCraftingSlotAvailable(item, slotOne)).toBe(true);
+    expect(isCraftingSlotAvailable(item, slotTwo)).toBe(false);
+    expect(isCraftingSlotAvailable(item, new Craftable('Prefix', []))).toBe(true);
   });
 });

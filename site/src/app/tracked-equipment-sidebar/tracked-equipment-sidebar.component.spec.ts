@@ -1,5 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { EquippedService } from '../planner/equipped.service';
@@ -9,11 +9,11 @@ describe('TrackedEquipmentSidebarComponent', () => {
   let fixture: ComponentFixture<TrackedEquipmentSidebarComponent>;
   let equipped: EquippedService;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [AppModule]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     equipped = TestBed.inject(EquippedService);

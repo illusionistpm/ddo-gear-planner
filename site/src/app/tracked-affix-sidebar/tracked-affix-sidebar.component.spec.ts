@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { TrackedAffixSidebarComponent } from './tracked-affix-sidebar.component';
@@ -7,11 +7,11 @@ describe('TrackedAffixSidebarComponent', () => {
   let component: TrackedAffixSidebarComponent;
   let fixture: ComponentFixture<TrackedAffixSidebarComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [AppModule]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TrackedAffixSidebarComponent);
@@ -24,9 +24,9 @@ describe('TrackedAffixSidebarComponent', () => {
   });
 
   it('tracks per-group collapse independently', () => {
-    expect(component.isGroupCollapsed('Attributes')).toBeFalse();
+    expect(component.isGroupCollapsed('Attributes')).toBe(false);
     component.toggleGroup('Attributes');
-    expect(component.isGroupCollapsed('Attributes')).toBeTrue();
-    expect(component.isGroupCollapsed('Defense')).toBeFalse();
+    expect(component.isGroupCollapsed('Attributes')).toBe(true);
+    expect(component.isGroupCollapsed('Defense')).toBe(false);
   });
 });

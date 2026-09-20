@@ -994,6 +994,15 @@ select.form-control {
  */
 .glyph-center-fix {
   display: block;
+  transform: translateY(-0.135em);
+}
+
+/*
+ * The nudge above is tuned for the 1rem / 0.75rem buttons (measured: it lands
+ * the glyph within 0.1px of centre). The larger sidebar clear button has a
+ * different glyph size, where the same nudge overshoots, so it keeps its own.
+ */
+.tracked-equipment-clear .glyph-center-fix {
   transform: translateY(-0.05em);
 }
 
@@ -1653,11 +1662,6 @@ select.form-control {
   top: 50%;
   transform: translateY(-50%);
   width: 1rem;
-}
-
-.affix-summary-remove span {
-  display: block;
-  transform: translateY(-0.05em);
 }
 
 .affix-summary-row:hover .affix-summary-remove,

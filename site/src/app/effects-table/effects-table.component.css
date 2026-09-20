@@ -144,11 +144,6 @@
     transform: translateY(-50%);
 }
 
-.tracked-affix-remove span {
-    display: block;
-    transform: translateY(-0.05em);
-}
-
 .tracked-affix-remove:hover,
 .tracked-affix-remove:focus {
     background: var(--danger-color);

@@ -63,7 +63,7 @@
                             </button>
                             <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
                                 title="Remove {{affixName}}" (click)="removeAffix(affixName)">
-                                <span aria-hidden="true">&times;</span>
+                                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                             </button>
                             <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                         </span>
@@ -75,7 +75,7 @@
                             {{row.affixName}}
                             <button type="button" class="tracked-affix-remove" aria-label="Remove {{row.affixName}}"
                                 (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
-                                <span aria-hidden="true">&times;</span>
+                                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                             </button>
                         </span>
                         <span class="tracked-affix-total">
@@ -144,7 +144,7 @@
                             </button>
                             <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
                                 title="Remove {{affixName}}" (click)="removeAffix(affixName)">
-                                <span aria-hidden="true">&times;</span>
+                                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                             </button>
                             <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                         </span>
@@ -164,7 +164,7 @@
                                 </button>
                                 <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
                                     title="Remove {{affixName}}" (click)="removeAffix(affixName)">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                                 </button>
                                 <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
                             </span>
@@ -178,7 +178,7 @@
                         {{affixName}}
                         <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}" (click)="removeAffix(affixName)"
                             title="Remove {{affixName}}">
-                            <span aria-hidden="true">&times;</span>
+                            <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                         </button>
                     </span>
                     <span class="tracked-affix-total">

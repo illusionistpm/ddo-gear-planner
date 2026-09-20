@@ -64,6 +64,15 @@ select.form-control.SmallFont {
     font-style: italic;
     font-weight: 600;
     color: var(--warning-color);
+}
+
+/*
+ * The gradient text needs `background` and a transparent text fill. On a <select> or
+ * <option> (the crafting dropdowns carry the rank class) that wipes the control's own
+ * background-color and chevron - so the native popup falls back to white in dark mode -
+ * and leaves the selected text unreadable. Form controls keep the solid colour above.
+ */
+.Mixed:not(select, option) {
     background: linear-gradient(45deg, var(--warning-color), var(--rank-mixed-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

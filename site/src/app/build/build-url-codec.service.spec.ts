@@ -62,6 +62,22 @@ describe('BuildUrlCodecService', () => {
     });
   });
 
+  // Craftable encodes a system-scoped selection as "<system>: <option>", or
+  // "<system> (empty)" for a system with nothing chosen yet (see
+  // craftable.spec.ts). Those strings travel in the URL, colon and all.
+  it('round-trips a system-scoped crafting selection and its (empty) sentinel', () => {
+    for (const selected of ['Blue Augment Slot: Diamond of Constitution +15', 'Blue Augment Slot (empty)']) {
+      const params = {
+        Armor: 'Chainmail of the First Snow',
+        craft_0_slot: 'Armor',
+        craft_0_system: 'Augment Slot 1',
+        craft_0_selected: selected,
+      };
+
+      expect(service.decode(service.encode(params))).toEqual(params);
+    }
+  });
+
   it('stores hidden type and pack filters as stable dictionary bitfields', () => {
     const encoded = service.encode({
       hiddentypes: 'Bastard Swords,Battle Axes',

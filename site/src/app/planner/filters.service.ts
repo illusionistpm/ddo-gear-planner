@@ -6,6 +6,9 @@ import { ItemFilters } from '../gear/item-filters';
 
 import { ParamsAdapter, QueryParamsListener, QueryParamsService } from '../build/query-params.service';
 import { QueryParamRecord } from '../build/query-param-types';
+import {
+  HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY, LEVEL_RANGE_KEY, RAIDS_KEY, RARE_KEY
+} from '../build/build-param-keys';
 import { perfMeasure } from '../shared/perf-trace';
 
 
@@ -140,7 +143,7 @@ export class FiltersService implements QueryParamsListener {
 
   updateFromParams(params: ParamsAdapter) {
     return perfMeasure('FiltersService.updateFromParams', () => {
-      const levelRangeParam = params.get('levelrange');
+      const levelRangeParam = params.get(LEVEL_RANGE_KEY);
       if (levelRangeParam) {
         const vals = levelRangeParam.split(',');
         const min = Number(vals[0]);
@@ -152,14 +155,14 @@ export class FiltersService implements QueryParamsListener {
         this.setLevelRange(ItemFilters.MIN_LEVEL(), this.maxLevel);
       }
 
-      const raidsParam = params.get('raids');
+      const raidsParam = params.get(RAIDS_KEY);
       this.setShowRaidItems(raidsParam === null ? true : raidsParam === 'true');
 
-      const rareParam = params.get('rare');
+      const rareParam = params.get(RARE_KEY);
       this.setShowRareItems(rareParam === null ? true : rareParam === 'true');
 
       const hiddenTypes = new Set<string>();
-      const hiddenTypesParam = params.get('hiddentypes');
+      const hiddenTypesParam = params.get(HIDDEN_TYPES_KEY);
       if (hiddenTypesParam) {
         hiddenTypesParam.split(',')
           .filter((element: string) => element)
@@ -170,7 +173,7 @@ export class FiltersService implements QueryParamsListener {
       this.setHiddenTypes(hiddenTypes);
 
       const hiddenPacks = new Set<string>();
-      const hiddenPacksParam = params.get('hiddenpacks');
+      const hiddenPacksParam = params.get(HIDDEN_PACKS_KEY);
       if (hiddenPacksParam) {
         hiddenPacksParam.split(',')
           .filter((element: string) => element)
@@ -184,7 +187,7 @@ export class FiltersService implements QueryParamsListener {
 
   _updateRouterState() {
     const params: Record<string, string> = {};
-    params['levelrange'] = this.itemFilters.getValue().levelRange.join(',');
+    params[LEVEL_RANGE_KEY] = this.itemFilters.getValue().levelRange.join(',');
     // Stringified, not raw booleans: updateFromParams above does a strict
     // === 'true' string comparison. Round-tripping through an actual URL
     // (or BuildUrlCodecService) coerces this automatically, but
@@ -193,10 +196,10 @@ export class FiltersService implements QueryParamsListener {
     // after an in-place Save navigates back to the build's own canonical
     // URL - doesn't. A real boolean here silently flipped showRaidItems/
     // showRareItems to false after every save (true !== 'true').
-    params['raids'] = String(this.itemFilters.getValue().showRaidItems);
-    params['rare'] = String(this.itemFilters.getValue().showRareItems);
-    params['hiddentypes'] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');
-    params['hiddenpacks'] = Array.from(this.itemFilters.getValue().hiddenPacks).join(',');
+    params[RAIDS_KEY] = String(this.itemFilters.getValue().showRaidItems);
+    params[RARE_KEY] = String(this.itemFilters.getValue().showRareItems);
+    params[HIDDEN_TYPES_KEY] = Array.from(this.itemFilters.getValue().hiddenItemTypes).join(',');
+    params[HIDDEN_PACKS_KEY] = Array.from(this.itemFilters.getValue().hiddenPacks).join(',');
     this.params.next(params);
   }
 }

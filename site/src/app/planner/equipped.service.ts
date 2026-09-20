@@ -17,7 +17,10 @@ import {
   storeCollapsedTrackedAffixGroups,
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
-import { getMlSlotFromKey, isCraftKey, isMlKey, parseCraftKey } from '../build/build-param-keys';
+import {
+  craftKey, CRAFT_KEY_PREFIX, getMlSlotFromKey, isCraftKey, isMlKey, ML_KEY_PREFIX, mlKey, NONGEAR_KEY,
+  parseCraftKey, TRACKED_KEY
+} from '../build/build-param-keys';
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
@@ -172,8 +175,8 @@ export class EquippedService implements QueryParamsListener {
       const minLevels = new Map<string, number>();
 
       try {
-        this.setImportantAffixes(params.getAll('tracked'));
-        this._restoreExternalAffixesFromParam(params.get('nongear'));
+        this.setImportantAffixes(params.getAll(TRACKED_KEY));
+        this._restoreExternalAffixesFromParam(params.get(NONGEAR_KEY));
 
         for (const slot of this.gearList.getSlots()) {
           if (!params.get(slot)) {
@@ -182,7 +185,7 @@ export class EquippedService implements QueryParamsListener {
         }
 
         for (const key of params.keys) {
-          if (key === 'tracked' || key === 'nongear') {
+          if (key === TRACKED_KEY || key === NONGEAR_KEY) {
             continue;
           } else if (isCraftKey(key)) {
             const { index, field } = parseCraftKey(key)!;
@@ -215,9 +218,9 @@ export class EquippedService implements QueryParamsListener {
             }
           } else if (isMlKey(key)) {
             minLevels.set(getMlSlotFromKey(key)!, Number(params.get(key)));
-          } else if (key.startsWith('craft_')) {
+          } else if (key.startsWith(CRAFT_KEY_PREFIX)) {
             console.log('Bad crafting key: ' + key);
-          } else if (key.startsWith('ml_')) {
+          } else if (key.startsWith(ML_KEY_PREFIX)) {
             console.log('Bad ml key: ' + key);
           }
         }
@@ -327,15 +330,15 @@ export class EquippedService implements QueryParamsListener {
         params[slot] = item.name;
 
         if (item.isEssenceCrafted()) {
-          params["ml_" + slot] = item.ml;
+          params[mlKey(slot)] = item.ml;
         }
 
         if (item.crafting) {
           for (const crafting of item.crafting) {
             if (crafting.selected.affixes.length || crafting.selected.set || crafting.selected.name || crafting.selectedCraftingSystemName) {
-              params['craft_' + craftingIdx + "_slot"] = slot;
-              params['craft_' + craftingIdx + "_system"] = crafting.name;
-              params['craft_' + craftingIdx + "_selected"] = crafting.getSelectedParamDescription();
+              params[craftKey(craftingIdx, 'slot')] = slot;
+              params[craftKey(craftingIdx, 'system')] = crafting.name;
+              params[craftKey(craftingIdx, 'selected')] = crafting.getSelectedParamDescription();
               craftingIdx++;
             }
           }
@@ -343,10 +346,10 @@ export class EquippedService implements QueryParamsListener {
       }
     }
 
-    params['tracked'] = Array.from(this.importantAffixes);
+    params[TRACKED_KEY] = Array.from(this.importantAffixes);
 
     if (this.externalAffixes.length) {
-      params['nongear'] = JSON.stringify(this.externalAffixes);
+      params[NONGEAR_KEY] = JSON.stringify(this.externalAffixes);
     }
 
     this.params.next(params);

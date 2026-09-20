@@ -1,18 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BuildUrlCodecService } from './build-url-codec.service';
+import { BuildUrlCodecService, SLOT_TO_CODE } from './build-url-codec.service';
 import { FIXED_BUILD_PARAM_KEYS } from './build-param-keys';
+import { GearDbService } from '../gear/gear-db.service';
 import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
 
-// Mirrors build-url-codec.service.ts's own SLOT_TO_CODE map (not exported).
-// Equipment slots are data-driven at runtime (GearDbService.getSlots()),
-// but that data isn't available to a plain unit spec, so this is a
-// hand-maintained snapshot - if it drifts from SLOT_TO_CODE, this test
-// (rather than a real shared build) is where the gap surfaces.
-const KNOWN_SLOT_KEYS = [
-  'Weapon', 'Offhand', 'Armor', 'Belt', 'Boots', 'Bracers', 'Cloak',
-  'Gloves', 'Goggles', 'Helm', 'Necklace', 'Ring1', 'Ring2', 'Trinket', 'Quiver'
-];
+const KNOWN_SLOT_KEYS = Object.keys(SLOT_TO_CODE);
 
 describe('BuildUrlCodecService', () => {
   let service: BuildUrlCodecService;
@@ -20,6 +13,16 @@ describe('BuildUrlCodecService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(BuildUrlCodecService);
+  });
+
+  // Slots are data-driven (GearDbService.getSlots()), so a new slot in the
+  // game data would otherwise fall through to the uncompressed passthrough
+  // field and quietly grow every shared URL. Fail here instead.
+  it('has a compact code for every slot the game data defines', () => {
+    const slots = TestBed.inject(GearDbService).getSlots();
+
+    expect(slots.length).toBeGreaterThan(0);
+    expect(slots.filter(slot => !SLOT_TO_CODE[slot])).toEqual([]);
   });
 
   it('round-trips representative build params', () => {

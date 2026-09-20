@@ -4,6 +4,10 @@ import { deflate, inflate } from 'pako';
 import { perfStart } from '../shared/perf-trace';
 import { QueryParamRecord, QueryParamValue } from './query-param-types';
 import { isExternalAffixEntry } from '../affixes/external-affix';
+import {
+  craftKey, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
+  isCraftKey, isMlKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
+} from './build-param-keys';
 import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
 
 type DecodedParamRecord = Record<string, string | Array<string>>;
@@ -48,7 +52,13 @@ export interface BuildUrlInspection {
 
 const COMPACT_URL_PREFIX = 'z1.';
 
-const SLOT_TO_CODE: Record<string, string> = {
+/**
+ * Compact codes for the gear slots. A slot missing here still round-trips,
+ * through the uncompressed passthrough field - build-url-codec.service.spec
+ * asserts this covers every slot the game data defines, so a new slot shows
+ * up as a failing test rather than as quietly larger URLs.
+ */
+export const SLOT_TO_CODE: Record<string, string> = {
   Weapon: 'w',
   Offhand: 'o',
   Armor: 'a',
@@ -72,7 +82,7 @@ const CODE_TO_SLOT = Object.keys(SLOT_TO_CODE)
     return accum;
   }, {});
 
-const KNOWN_FILTER_KEYS = new Set(['levelrange', 'raids', 'rare', 'hiddentypes', 'hiddenpacks']);
+const KNOWN_FILTER_KEYS = new Set<string>(FILTER_PARAM_KEYS);
 
 const URL_CODEC_DICTIONARY = urlCodecDictionary as {
   version: number;
@@ -220,29 +230,29 @@ export class BuildUrlCodecService {
         continue;
       }
 
-      if (key === 'levelrange') {
+      if (key === LEVEL_RANGE_KEY) {
         filterPayload.l = values[0];
-      } else if (key === 'raids') {
+      } else if (key === RAIDS_KEY) {
         filterPayload.r = values[0] === 'true';
-      } else if (key === 'rare') {
+      } else if (key === RARE_KEY) {
         filterPayload.rr = values[0] === 'true';
-      } else if (key === 'hiddentypes') {
+      } else if (key === HIDDEN_TYPES_KEY) {
         filterPayload.ht = this.encodeDictionarySet(this.listParamToArray(values), 'itemTypes');
-      } else if (key === 'hiddenpacks') {
+      } else if (key === HIDDEN_PACKS_KEY) {
         filterPayload.hp = this.encodeDictionarySet(this.listParamToArray(values), 'packs');
       } else if (SLOT_TO_CODE[key]) {
         gearPayload[SLOT_TO_CODE[key]] = values[0];
-      } else if (key.startsWith('ml_')) {
-        const slot = key.slice(3);
+      } else if (isMlKey(key)) {
+        const slot = getMlSlotFromKey(key)!;
         minLevelPayload[SLOT_TO_CODE[slot] || slot] = values[0];
-      } else if (key === 'tracked') {
+      } else if (key === TRACKED_KEY) {
         payload.t = values;
-      } else if (key === 'nongear') {
+      } else if (key === NONGEAR_KEY) {
         const encoded = this.encodeExternalAffixes(values[0]);
         if (encoded.length) {
           payload.e = encoded;
         }
-      } else if (key.startsWith('craft_')) {
+      } else if (isCraftKey(key)) {
         this.collectCraftingParam(craftingByIndex, key, values[0]);
       } else if (!KNOWN_FILTER_KEYS.has(key)) {
         unknownPayload[key] = values.length === 1 ? values[0] : values;
@@ -284,11 +294,11 @@ export class BuildUrlCodecService {
     const params: DecodedParamRecord = {};
 
     if (payload.f) {
-      if (payload.f.l !== undefined) params.levelrange = payload.f.l;
-      if (payload.f.r !== undefined) params.raids = String(payload.f.r);
-      if (payload.f.rr !== undefined) params.rare = String(payload.f.rr);
-      if (payload.f.ht) params.hiddentypes = this.decodeDictionarySet(payload.f.ht, 'itemTypes').join(',');
-      if (payload.f.hp) params.hiddenpacks = this.decodeDictionarySet(payload.f.hp, 'packs').join(',');
+      if (payload.f.l !== undefined) params[LEVEL_RANGE_KEY] = payload.f.l;
+      if (payload.f.r !== undefined) params[RAIDS_KEY] = String(payload.f.r);
+      if (payload.f.rr !== undefined) params[RARE_KEY] = String(payload.f.rr);
+      if (payload.f.ht) params[HIDDEN_TYPES_KEY] = this.decodeDictionarySet(payload.f.ht, 'itemTypes').join(',');
+      if (payload.f.hp) params[HIDDEN_PACKS_KEY] = this.decodeDictionarySet(payload.f.hp, 'packs').join(',');
     }
 
     if (payload.g) {
@@ -299,16 +309,16 @@ export class BuildUrlCodecService {
 
     if (payload.ml) {
       for (const [code, minLevel] of Object.entries(payload.ml)) {
-        params['ml_' + (CODE_TO_SLOT[code] || code)] = minLevel;
+        params[mlKey(CODE_TO_SLOT[code] || code)] = minLevel;
       }
     }
 
     if (payload.c) {
       payload.c.forEach((craftingParam, index) => {
         const slot = CODE_TO_SLOT[craftingParam[0]] || craftingParam[0];
-        params[`craft_${index}_slot`] = slot;
-        params[`craft_${index}_system`] = this.decodeDictionaryValue(craftingParam[1], 'craftingSystems') || '';
-        params[`craft_${index}_selected`] = craftingParam[2];
+        params[craftKey(index, 'slot')] = slot;
+        params[craftKey(index, 'system')] = this.decodeDictionaryValue(craftingParam[1], 'craftingSystems') || '';
+        params[craftKey(index, 'selected')] = craftingParam[2];
       });
     }
 
@@ -330,22 +340,17 @@ export class BuildUrlCodecService {
   }
 
   private collectCraftingParam(craftingByIndex: Map<number, Record<string, string>>, key: string, value: string) {
-    const parts = key.split('_');
-    if (parts.length !== 3) {
+    const parsed = parseCraftKey(key);
+    if (!parsed) {
       return;
     }
 
-    const index = Number(parts[1]);
-    if (!Number.isFinite(index)) {
-      return;
-    }
-
-    let craftingParam = craftingByIndex.get(index);
+    let craftingParam = craftingByIndex.get(parsed.index);
     if (!craftingParam) {
       craftingParam = {};
-      craftingByIndex.set(index, craftingParam);
+      craftingByIndex.set(parsed.index, craftingParam);
     }
-    craftingParam[parts[2]] = value;
+    craftingParam[parsed.field] = value;
   }
 
   private encodeExternalAffixes(raw: string): Array<[string, string, string, number, string]> {

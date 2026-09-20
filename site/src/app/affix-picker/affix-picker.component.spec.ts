@@ -166,7 +166,7 @@ describe('AffixPickerComponent', () => {
 
     component.addPackage('Melee');
 
-    const entries = equipped.getExternalAffixesForType('Deadly', 'Insightful');
+    const entries = equipped.getExternalAffixesForType('Deadly', 'Insight');
     expect(entries.length).toBe(1);
     expect(entries[0].kind).toBe('value');
     expect(entries[0].value).toBe(10);
@@ -175,11 +175,11 @@ describe('AffixPickerComponent', () => {
 
   it('keeps a value the user already entered instead of the suggested Trance entry', () => {
     const equipped = TestBed.inject(EquippedService);
-    equipped.addExternalAffixValue('Deadly', 'Insightful', 20, 'Something else');
+    equipped.addExternalAffixValue('Deadly', 'Insight', 20, 'Something else');
 
     component.addPackage('Ranged');
 
-    const entries = equipped.getExternalAffixesForType('Deadly', 'Insightful');
+    const entries = equipped.getExternalAffixesForType('Deadly', 'Insight');
     expect(entries.length).toBe(1);
     expect(entries[0].value).toBe(20);
     expect(entries[0].label).toBe('Something else');
@@ -194,22 +194,22 @@ describe('AffixPickerComponent', () => {
 
     expect(component.isPackageSelected('Melee')).toBe(false);
     expect(component.isPackageSelected('Ranged')).toBe(true);
-    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(1);
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insight').length).toBe(1);
 
     component.addPackage('Ranged');
 
     expect(component.savedSet.has('Deadly')).toBe(false);
-    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(0);
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insight').length).toBe(0);
   });
 
   it('leaves a Trance entry the user changed when the bundle is removed', () => {
     const equipped = TestBed.inject(EquippedService);
     component.addPackage('Melee');
-    equipped.addExternalAffixValue('Deadly', 'Insightful', 15, 'Trance');
+    equipped.addExternalAffixValue('Deadly', 'Insight', 15, 'Trance');
 
     component.addPackage('Melee');
 
-    expect(equipped.getExternalAffixesForType('Deadly', 'Insightful').length).toBe(1);
+    expect(equipped.getExternalAffixesForType('Deadly', 'Insight').length).toBe(1);
   });
 
   it('keeps bundles highlighted for as long as the tracked affixes contain all of them', () => {

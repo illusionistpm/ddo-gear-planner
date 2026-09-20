@@ -15,7 +15,7 @@ const DEFAULT_PACKAGE = 'Basic';
 
 const TRANCE_INSIGHTFUL_DEADLY: AffixPackageExternal = {
   affixName: 'Deadly',
-  bonusType: 'Insightful',
+  bonusType: 'Insight',
   value: 10,
   label: 'Trance'
 };

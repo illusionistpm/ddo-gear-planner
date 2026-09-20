@@ -242702,8 +242702,9 @@
                 "value": 1
             },
             {
-                "name": "Increases spellcasting, melee, and ranged threat by",
-                "value": "15"
+                "name": "Increases spellcasting, melee, and ranged threat by 15%\u2714",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Upgradeable Item",

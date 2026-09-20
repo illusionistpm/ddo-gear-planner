@@ -125,10 +125,39 @@
     color: var(--text-primary);
 }
 
-.set-piece-count,
 .set-threshold {
     color: var(--text-secondary);
     font-weight: 700;
+}
+
+/* Header layout mirrors equipment-slot-card: label row on top, name underneath. */
+.set-bonus-button {
+    padding-bottom: 0.3rem;
+    padding-top: 0.2rem;
+}
+
+.set-name-row {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    min-height: 1.1rem;
+}
+
+.set-label {
+    font-size: 0.875rem;
+    font-variant-caps: all-small-caps;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    opacity: 0.75;
+}
+
+.set-piece-count {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .set-bonus-affixes {
@@ -168,6 +197,7 @@
 
 .item-name {
     font-weight: 600;
+    min-height: 1.5em;
 }
 
 .locked {

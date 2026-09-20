@@ -39,13 +39,13 @@
       @for (setBonus of visibleSetBonuses; track setBonus.setName) {
         <div class="mb-3 card active-set-bonus col-sm-12 col-md-6 col-lg-4">
           <div class="row set-bonus-card">
-            <button type="button" class="btn set-bonus-button col-12 text-center"
+            <button type="button" class="btn set-bonus-button col-12 text-start"
               (click)="showItemsInSet(setBonus.setName)">
-              <div class='row'>
-                <div class='col-2 text-start'>Set</div>
-                <div class="col-8 text-end item-name">{{setBonus.setName}}</div>
-                <div class="col-2 text-end set-piece-count">{{setBonus.pieces}}</div>
+              <div class="set-name-row">
+                <span class="set-label">Set</span>
+                <span class="set-piece-count">{{setBonus.pieces}} Equipped</span>
               </div>
+              <div class="item-name">{{setBonus.setName}}</div>
             </button>
             <div class="set-bonus-affixes col">
               @for (tier of setBonus.tiers; track tier.threshold) {

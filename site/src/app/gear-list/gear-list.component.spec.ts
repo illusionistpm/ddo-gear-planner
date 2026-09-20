@@ -56,6 +56,15 @@ describe('GearListComponent', () => {
     expect(fixture.nativeElement.querySelector('.equipment-set-divider')).not.toBeNull();
   });
 
+  it('shows the set label and piece count on the top row with the set name beneath', () => {
+    createComponentWithSetBonuses([{ setName: 'Test Set', pieces: 3, tiers: [] }]);
+
+    const button = fixture.nativeElement.querySelector('.set-bonus-button');
+    expect(button.querySelector('.set-name-row .set-label').textContent).toBe('Set');
+    expect(button.querySelector('.set-name-row .set-piece-count').textContent).toBe('3 Equipped');
+    expect(button.querySelector('.item-name').textContent).toBe('Test Set');
+  });
+
   it('pairs the armor green cue with intro text and a skip action', () => {
     createComponentWithSetBonuses([]);
     const compiled: HTMLElement = fixture.nativeElement;

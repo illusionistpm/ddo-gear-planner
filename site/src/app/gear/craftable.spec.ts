@@ -143,17 +143,20 @@ describe('Craftable', () => {
       expect(craftable.selectedCraftingSystemName).toBe('Blue Augment Slot');
     });
 
-    it('clears the selection for a description naming an unavailable system', () => {
-      craftable.selectCraftingSystem('Blue Augment Slot');
+    // A failed restore reports false and changes nothing. (It used to clear the
+    // craftable, because the search selected each candidate system in turn.)
+    it('leaves the selection alone for a description naming an unavailable system', () => {
+      craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
 
       expect(craftable.selectByParamDescription('Green Augment Slot: Emerald')).toBeFalse();
-      expect(craftable.selectedCraftingSystemName).toBe('');
-      expect(craftable.getSelectedParamDescription()).toBe('');
+      expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
-    it('clears the selection for an unknown option within a known system', () => {
+    it('leaves the selection alone for an unknown option within a known system', () => {
+      craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
+
       expect(craftable.selectByParamDescription('Blue Augment Slot: Nonexistent')).toBeFalse();
-      expect(craftable.selectedCraftingSystemName).toBe('');
+      expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
     it('hands out defensive copies of its per-system options', () => {
@@ -217,6 +220,47 @@ describe('Craftable', () => {
 
       expect(craftable.craftingSystemOptions).toEqual(['Colorless Augment Slot']);
       expect(craftable.selectedCraftingSystemName).toBe('');
+    });
+  });
+
+  describe('clone', () => {
+    it('copies options, availability and selection without a string round-trip', () => {
+      const craftable = augmentSlot();
+      craftable.setAvailableCraftingSystemOptions(['Blue Augment Slot'], 'Blue Augment Slot');
+      craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
+
+      const copy = craftable.clone();
+
+      expect(copy.name).toBe(craftable.name);
+      expect(copy.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
+      // The narrowed availability survives the copy. Copying via the param
+      // description used to re-offer every system the craftable was built with.
+      expect(copy.craftingSystemOptions).toEqual(['Blue Augment Slot']);
+      expect(Array.from(copy.getOptionsByCraftingSystem().keys()))
+        .toEqual(['Colorless Augment Slot', 'Blue Augment Slot']);
+    });
+
+    it('is independent of its source', () => {
+      const craftable = augmentSlot();
+      craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
+
+      const copy = craftable.clone();
+      copy.selectByParamDescription('Colorless Augment Slot: Topaz');
+      copy.options[1].name = 'Mutated';
+
+      expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
+      expect(craftable.options[1].name).not.toBe('Mutated');
+    });
+
+    it('copies a plain option list and its selection', () => {
+      const craftable = new Craftable('Prefix', [option('Meltfang'), option('Iridescent Claw')]);
+      craftable.selectByParamDescription('Iridescent Claw');
+
+      const copy = craftable.clone();
+
+      expect(copy.options.map(o => o.getParamDescription())).toEqual(['', 'Meltfang', 'Iridescent Claw']);
+      expect(copy.getSelectedParamDescription()).toBe('Iridescent Claw');
+      expect(copy.hasCraftingSystemOptions()).toBeFalse();
     });
   });
 

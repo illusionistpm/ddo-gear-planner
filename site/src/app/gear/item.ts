@@ -67,17 +67,7 @@ export class Item {
     }
 
     private static copyCraftable(source: Craftable): Craftable {
-        const selectedDescription = source.getSelectedParamDescription();
-        const options = source.options.map(option => new CraftableOption(option));
-        const crafting = new Craftable(source.name, options, false);
-        if (source.hasCraftingSystemOptions()) {
-            crafting.setCraftingSystemOptions(
-                source.getOptionsByCraftingSystem(),
-                source.selectedCraftingSystemName
-            );
-        }
-        crafting.selectByParamDescription(selectedDescription);
-        return crafting;
+        return source.clone();
     }
 
     getSets(): string[] {

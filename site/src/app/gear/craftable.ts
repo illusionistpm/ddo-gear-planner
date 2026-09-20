@@ -9,7 +9,6 @@ export class Craftable {
     isColoredAugmentSystem: boolean = false;
     craftingSystemOptions: string[] = [];
     selectedCraftingSystemName: string = '';
-    private optionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
     private allOptionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
 
     constructor(name: string, options: Array<CraftableOption>, addEmptyOption: boolean = true) {
@@ -46,14 +45,7 @@ export class Craftable {
     }
 
     setAvailableCraftingSystemOptions(systemNames: string[], selectedCraftingSystemName: string = '') {
-        this.optionsByCraftingSystem = new Map<string, CraftableOption[]>();
         this.craftingSystemOptions = systemNames.filter(systemName => this.allOptionsByCraftingSystem.has(systemName));
-        for (const systemName of this.craftingSystemOptions) {
-            const options = this.allOptionsByCraftingSystem.get(systemName);
-            if (options) {
-                this.optionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
-            }
-        }
 
         // Refreshing the available systems shouldn't discard an augment chosen in a system that's still available.
         const previousSystemName = this.selectedCraftingSystemName;
@@ -78,13 +70,32 @@ export class Craftable {
             return;
         }
 
-        const options = this.optionsByCraftingSystem.get(systemName) || [];
-        this.options = [emptyOption].concat(options.map(option => new CraftableOption(option)));
+        this.options = [emptyOption].concat(this.availableOptionsFor(systemName).map(option => new CraftableOption(option)));
         this.selected = emptyOption;
     }
 
     hasCraftingSystemOptions() {
         return this.craftingSystemOptions.length > 0;
+    }
+
+    /** The options of a system, or none if it isn't currently on offer. */
+    private availableOptionsFor(systemName: string): CraftableOption[] {
+        return this.craftingSystemOptions.includes(systemName)
+            ? this.allOptionsByCraftingSystem.get(systemName) ?? []
+            : [];
+    }
+
+    /** A copy holding the same options, availability and selection - no string round-trip. */
+    clone(): Craftable {
+        const copy = new Craftable(this.name, this.options.map(option => new CraftableOption(option)), false);
+        for (const [systemName, options] of this.allOptionsByCraftingSystem.entries()) {
+            copy.allOptionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
+        }
+        copy.craftingSystemOptions = this.craftingSystemOptions.slice();
+        copy.selectedCraftingSystemName = this.selectedCraftingSystemName;
+        // By position: option names repeat across systems, so identity is the index.
+        copy.selected = copy.options[this.options.indexOf(this.selected)] ?? copy.options[0];
+        return copy;
     }
 
     // Options in different crafting systems can share a name (e.g. a Diamond is
@@ -137,36 +148,20 @@ export class Craftable {
                 return true;
             }
 
-            // Prefer the currently selected system for descriptions that don't
-            // name one (older URLs), so a shared option name doesn't switch it.
-            const currentSystemName = this.selectedCraftingSystemName;
-            const systemNames = this.craftingSystemOptions.includes(currentSystemName)
-                ? [currentSystemName].concat(this.craftingSystemOptions.filter(name => name !== currentSystemName))
-                : this.craftingSystemOptions;
-
-            for (const systemName of systemNames) {
-                this.selectCraftingSystem(systemName);
-                if (desc === `${systemName} (empty)`) {
-                    return true;
-                }
-
-                const systemPrefix = `${systemName}${Craftable.SYSTEM_SELECTION_SEPARATOR}`;
-                const optionDesc = desc.startsWith(systemPrefix) ? desc.substring(systemPrefix.length) : null;
-                if (optionDesc === null && systemNames.some(name => desc.startsWith(`${name}${Craftable.SYSTEM_SELECTION_SEPARATOR}`))) {
-                    // Names another system explicitly - not this one.
-                    continue;
-                }
-
-                for (const option of this.options) {
-                    if (option.matchesParamDescription(optionDesc ?? desc)) {
-                        this.selected = option;
-                        return true;
-                    }
-                }
+            const match = this.resolveSystemSelection(desc);
+            if (!match) {
+                // Nothing matched - leave the craftable as it was.
+                return false;
             }
 
-            this.selectCraftingSystem('');
-            return desc === '';
+            this.selectCraftingSystem(match.systemName);
+            if (match.optionDesc !== null) {
+                const option = this.options.find(candidate => candidate.matchesParamDescription(match.optionDesc!));
+                if (option) {
+                    this.selected = option;
+                }
+            }
+            return true;
         }
 
         for (const option of this.options) {
@@ -176,5 +171,40 @@ export class Craftable {
             }
         }
         return false;
+    }
+
+    /**
+     * Which system (and option within it, or null for the "(empty)" sentinel) a
+     * description names - without changing anything.
+     */
+    private resolveSystemSelection(desc: string): { systemName: string; optionDesc: string | null } | null {
+        // Prefer the currently selected system for descriptions that don't name
+        // one (older URLs), so a shared option name doesn't switch it.
+        const currentSystemName = this.selectedCraftingSystemName;
+        const systemNames = this.craftingSystemOptions.includes(currentSystemName)
+            ? [currentSystemName].concat(this.craftingSystemOptions.filter(name => name !== currentSystemName))
+            : this.craftingSystemOptions;
+
+        for (const systemName of systemNames) {
+            if (desc === `${systemName} (empty)`) {
+                return { systemName, optionDesc: null };
+            }
+
+            const systemPrefix = `${systemName}${Craftable.SYSTEM_SELECTION_SEPARATOR}`;
+            const optionDesc = desc.startsWith(systemPrefix) ? desc.substring(systemPrefix.length) : null;
+            if (optionDesc === null && systemNames.some(name => desc.startsWith(`${name}${Craftable.SYSTEM_SELECTION_SEPARATOR}`))) {
+                // Names another system explicitly - not this one.
+                continue;
+            }
+
+            const wanted = optionDesc ?? desc;
+            // The empty option is always offered alongside a system's own options.
+            const offered = [new CraftableOption(null)].concat(this.availableOptionsFor(systemName));
+            if (offered.some(option => option.matchesParamDescription(wanted))) {
+                return { systemName, optionDesc: wanted };
+            }
+        }
+
+        return null;
     }
 }

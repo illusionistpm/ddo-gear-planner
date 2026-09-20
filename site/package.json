@@ -8,7 +8,7 @@
     "admin:build": "ng build admin",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint && node tools/check-css-colors.js"
   },
   "engines": {
     "node": ">=20.0.0"

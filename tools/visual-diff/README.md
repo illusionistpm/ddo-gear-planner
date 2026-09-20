@@ -20,6 +20,20 @@ python compare.py shots/baseline shots/after
 `shots/after/diff/` if anything differs. **The expected result is zero
 differing pixels.** A diff is a defect to explain, not noise to triage.
 
+## Running it without tripping over the dev server
+
+- **Pick a port that isn't 4200.** That one is usually already taken by a dev
+  server you're running yourself; `ng serve` exits with "Port 4200 is already in
+  use" rather than sharing it.
+- **Let the rebuild finish before capturing.** Editing CSS while a capture is
+  starting makes the page reload mid-run, and the capture aborts with no
+  screenshots. Wait for "Application bundle generation complete", then capture.
+- **`ng serve` outlives the shell that started it.** Stopping a background task
+  kills the wrapper, not node. Stop it by port:
+  `Get-NetTCPConnection -LocalPort 4300 -State Listen | %{ Stop-Process -Id $_.OwningProcess -Force }`
+- Check the server is serving *your* build before trusting a zero-diff:
+  `curl -s http://localhost:4300/main.js | grep -c <a symbol you just added>`
+
 ## What it captures
 
 15 scenes (`capture.py`'s `SCENES`), each in light and dark: empty and

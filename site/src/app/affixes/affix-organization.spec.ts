@@ -41,6 +41,10 @@ describe('affix organization', () => {
     expect(getAffixCategory('Silver')).toBe('Offense');
     expect(getAffixCategory('Keen')).toBe('Offense');
     expect(getAffixCategory('Chilling')).toBe('Offense');
+    expect(getAffixCategory('Imbue Dice')).toBe('Offense');
+    expect(getAffixCategory('Sneak Attack Dice')).toBe('Offense');
+    expect(getAffixCategory('Sneak Attack Bonus')).toBe('Offense');
+    expect(getAffixCategory('Sneak Attack Damage')).toBe('Offense');
   });
 
   it('uses a shared child category for affix group parents without direct classification', () => {

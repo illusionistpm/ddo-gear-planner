@@ -178,7 +178,7 @@ function getDirectAffixCategory(affixName: string): string {
   if (/\b(Magical Efficiency|Efficient Metamagic)\b/.test(affixName)) {
     return 'Casting';
   }
-  if (OFFENSE_AFFIXES.has(affixName) || /\b(Deadly|Accuracy|Armor-Piercing|Doublestrike|Doubleshot|Melee Power|Ranged Power|Alacrity|Assassinate|Stunning|Sundering|Vertigo|Seeker|Deception)\b/.test(affixName)) {
+  if (OFFENSE_AFFIXES.has(affixName) || /\b(Deadly|Accuracy|Armor-Piercing|Doublestrike|Doubleshot|Melee Power|Ranged Power|Alacrity|Assassinate|Stunning|Sundering|Vertigo|Seeker|Deception|Imbue Dice|Sneak Attack)\b/.test(affixName)) {
     return 'Offense';
   }
   if (DEFENSE_AFFIXES.has(affixName) || /\b(Sheltering|Armor Class|Fortification|Resistance|Absorption|False Life|Dodge|Parrying|Ghostly|Blurry|Protection|Guard|Diversion)\b/.test(affixName)) {

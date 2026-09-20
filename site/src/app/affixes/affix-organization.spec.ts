@@ -35,6 +35,7 @@ describe('affix organization', () => {
     expect(getAffixCategory('Efficient Metamagic - Maximize')).toBe('Casting');
     expect(getAffixCategory('Efficient Metamagic - Empower Healing')).toBe('Casting');
     expect(getAffixCategory('Returning')).toBe(UTILITY_CHECKLIST_CATEGORY);
+    expect(getAffixCategory('Max Filigree Slots')).toBe(UTILITY_CHECKLIST_CATEGORY);
     expect(getAffixCategory('Shield Bashing')).toBe('Offense');
     expect(getAffixCategory('Holy')).toBe('Offense');
     expect(getAffixCategory('Adamantine')).toBe('Offense');

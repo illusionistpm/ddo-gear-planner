@@ -8,6 +8,7 @@ import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { perfCount } from '../shared/perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
+import { getCountAffixUnit } from './count-affix';
 
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
 export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
@@ -28,6 +29,18 @@ export class AffixUiService {
       return (affix.value > 0 ? '+' : '') + affix.value;
     }
     return '';
+  }
+
+  /**
+   * The value column for an affix on an item: "+5 Insight", or "3 slots" for the affixes that count
+   * something rather than add a bonus (where the "Untyped" bonus type would only be noise).
+   */
+  getAffixValueText(affix: Affix): string {
+    const unit = getCountAffixUnit(affix.name);
+    if (unit && affix.value) {
+      return `${affix.value} ${unit}`;
+    }
+    return [this.getAffixValue(affix), affix.type].filter(part => part).join(' ');
   }
 
   /**
@@ -179,8 +192,7 @@ export class AffixUiService {
       return affix.name;
     }
 
-    const value = this.getAffixValue(affix);
-    const bonus = [value, affix.type].filter(part => part).join(' ');
+    const bonus = this.getAffixValueText(affix);
     return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 

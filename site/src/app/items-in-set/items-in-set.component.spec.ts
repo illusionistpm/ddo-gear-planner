@@ -34,6 +34,38 @@ describe('ItemsInSetComponent', () => {
     expect(component.gearDB.getSetBonusThresholdDetails).toHaveBeenCalledWith('Some Set', component.equippedPieces);
   });
 
+  it('lists set items for an already-filled slot apart from the ones that could be equipped', () => {
+    const makeItem = (name: string, slot: string) => new Item({
+      name, slot, type: 'Test', ml: 1, affixes: [], sets: ['Some Set'],
+      url: '/page/' + name.replace(/ /g, '_'), crafting: [], quests: [], artifact: false,
+    });
+    component.equipped.set(makeItem('Worn Boots', 'Boots'));
+    vi.spyOn(component.gearDB, 'findGearInSet')
+      .mockReturnValue([makeItem('Other Boots', 'Boots'), makeItem('Some Gloves', 'Gloves')]);
+
+    component.setName = 'Some Set';
+    component.ngOnInit();
+
+    expect(component.matches.map(item => item.name)).toEqual(['Some Gloves']);
+    expect(component.lockedMatches.map(item => item.name)).toEqual(['Other Boots']);
+  });
+
+  it('lists a set Minor Artifact under the equipment exclusions once another one is worn', () => {
+    const makeArtifact = (name: string, slot: string) => new Item({
+      name, slot, type: 'Test', ml: 30, affixes: [], sets: ['Some Set'],
+      url: '/page/' + name.replace(/ /g, '_'), crafting: [], quests: [], artifact: true,
+    });
+    component.equipped.set(makeArtifact('Artifact Ring', 'Ring1'));
+    vi.spyOn(component.gearDB, 'findGearInSet').mockReturnValue([makeArtifact('Artifact Boots', 'Boots')]);
+
+    component.setName = 'Some Set';
+    component.ngOnInit();
+
+    expect(component.matches).toEqual([]);
+    expect(component.lockedMatches.map(item => item.name)).toEqual(['Artifact Boots']);
+    expect(component.artifactLimited.size).toBe(1);
+  });
+
   it('marks not-yet-active tier bonuses as disabled', () => {
     const affix = new Affix({ name: 'Dodge', type: 'Quality', value: '3' });
 

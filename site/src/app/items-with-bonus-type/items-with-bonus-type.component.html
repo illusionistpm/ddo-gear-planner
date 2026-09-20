@@ -5,7 +5,7 @@
         <span aria-hidden="true">&lsaquo;</span> Back
       </button>
       <h2>
-        <span>{{affixName}}</span>@if (isRealType(bonusType)) {
+        <span>{{affixName}}</span>@if (showsBonusType()) {
         <span>: {{bonusType}}</span>
       }
     </h2>
@@ -17,45 +17,47 @@
   </div>
 </div>
 
-<div class="drawer-section external-affix-panel">
-  <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('external')" (click)="toggleSection('external')">
-    <span>Non-gear
-      <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
-    </span>
-    <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('external')" aria-hidden="true">&#8250;</span>
-  </button>
-  @if (!isSectionCollapsed('external')) {
-    @if (externalEntries.length) {
-      @for (entry of externalEntries; track entry.id) {
-        <div class="row table-condensed small external-affix-entry-row" [class.external-ignored-row]="entry.kind === 'ignored'">
-          <span class="col-12 icon-x-button-host">
-            {{describeExternalEntry(entry)}}
-            <button type="button" class="icon-x-button icon-x-button-overlay" aria-label="Remove"
-              (click)="removeExternal(entry.id, $event)">
-              <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-            </button>
-          </span>
+@if (allowsNonGearSource()) {
+  <div class="drawer-section external-affix-panel">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('external')" (click)="toggleSection('external')">
+      <span>Non-gear
+        <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
+      </span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('external')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('external')) {
+      @if (externalEntries.length) {
+        @for (entry of externalEntries; track entry.id) {
+          <div class="row table-condensed small external-affix-entry-row" [class.external-ignored-row]="entry.kind === 'ignored'">
+            <span class="col-12 icon-x-button-host">
+              {{describeExternalEntry(entry)}}
+              <button type="button" class="icon-x-button icon-x-button-overlay" aria-label="Remove"
+                (click)="removeExternal(entry.id, $event)">
+                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+              </button>
+            </span>
+          </div>
+        }
+      } @else {
+        <div class="external-affix-form">
+          <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
+            [(ngModel)]="externalLabel">
+          @if (isChecklistBonusType()) {
+            <label class="external-affix-checkbox-label">
+              <input type="checkbox" [(ngModel)]="externalChecked"> Covered
+            </label>
+          } @else {
+            <input type="number" class="form-control form-control-sm external-affix-value-input" placeholder="Value"
+              [(ngModel)]="externalValue">
+          }
+          <button type="button" class="btn btn-secondary btn-sm" [disabled]="!canAddExternal()" (click)="addExternal()">Add</button>
+          <span class="external-affix-divider" aria-hidden="true"></span>
+          <button type="button" class="btn btn-secondary btn-sm" [disabled]="isValueEntryStarted()" (click)="markIgnored()">Ignore</button>
         </div>
       }
-    } @else {
-      <div class="external-affix-form">
-        <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
-          [(ngModel)]="externalLabel">
-        @if (isChecklistBonusType()) {
-          <label class="external-affix-checkbox-label">
-            <input type="checkbox" [(ngModel)]="externalChecked"> Covered
-          </label>
-        } @else {
-          <input type="number" class="form-control form-control-sm external-affix-value-input" placeholder="Value"
-            [(ngModel)]="externalValue">
-        }
-        <button type="button" class="btn btn-secondary btn-sm" [disabled]="!canAddExternal()" (click)="addExternal()">Add</button>
-        <span class="external-affix-divider" aria-hidden="true"></span>
-        <button type="button" class="btn btn-secondary btn-sm" [disabled]="isValueEntryStarted()" (click)="markIgnored()">Ignore</button>
-      </div>
     }
-  }
-</div>
+  </div>
+}
 
 <app-item-preview [preview]="preview" [highlightAffixName]="affixName" [highlightBonusType]="bonusType"
   (equip)="equipPreviewItem($event)"></app-item-preview>
@@ -231,7 +233,7 @@
 
       @if (lockedMatches.length > 0) {
         <div class="row">&nbsp;</div>
-        <div class="drawer-subsection-title">Already Filled Slots</div>
+        <div class="drawer-subsection-title">Excluded by equipment</div>
         <i>
           @for (item of lockedMatches.slice(0, maxRenderedItems); track item.name + '|' + item.slot + '|' + $index) {
             <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
@@ -255,6 +257,9 @@
                   <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
                 }
                 {{findMatchingValue(item)[0]}}
+                @if (artifactLimited.has(item)) {
+                  <span class="exclusion-note">Only one Minor Artifact</span>
+                }
               </div>
               <div class="col-2 text-end">{{findMatchingValue(item)[1]}}</div>
             </div>

@@ -51,6 +51,80 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(component.unreachableSets.map(entry => entry[0])).toEqual(['Out Of Reach Set']);
   });
 
+  it('lists items for an already-filled slot apart from the ones that could be equipped', () => {
+    const makeItem = (name: string, slot: string) => new Item({
+      name, slot, type: 'Test', ml: 1, affixes: [{ name: 'Kinetic Lore', type: 'Artifact', value: 5 }],
+      sets: [], url: '/page/' + name.replace(/ /g, '_'), crafting: [], quests: [], artifact: false,
+    });
+    const worn = makeItem('Worn Boots', 'Boots');
+    const otherBoots = makeItem('Other Boots', 'Boots');
+    const gloves = makeItem('Some Gloves', 'Gloves');
+    component.affixName = 'Kinetic Lore';
+    component.bonusType = 'Artifact';
+    component.equipped.set(worn);
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([otherBoots, gloves]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+
+    fixture.detectChanges();
+    (component as any).refreshMatches();
+    fixture.detectChanges();
+
+    expect(component.matches.map(item => item.name)).toEqual(['Some Gloves']);
+    expect(component.lockedMatches.map(item => item.name)).toEqual(['Other Boots']);
+    expect(fixture.nativeElement.textContent).toContain('Excluded by equipment');
+  });
+
+  it('lists a Minor Artifact under the equipment exclusions once another one is worn', () => {
+    const makeArtifact = (name: string, slot: string) => new Item({
+      name, slot, type: 'Test', ml: 30, affixes: [{ name: 'Kinetic Lore', type: 'Artifact', value: 5 }],
+      sets: [], url: '/page/' + name.replace(/ /g, '_'), crafting: [], quests: [], artifact: true,
+    });
+    const boots = makeArtifact('Artifact Boots', 'Boots');
+    component.affixName = 'Kinetic Lore';
+    component.bonusType = 'Artifact';
+    component.equipped.set(makeArtifact('Artifact Ring', 'Ring1'));
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([boots]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+
+    fixture.detectChanges();
+    (component as any).refreshMatches();
+    fixture.detectChanges();
+
+    expect(component.matches).toEqual([]);
+    expect(component.lockedMatches.map(item => item.name)).toEqual(['Artifact Boots']);
+    expect(fixture.nativeElement.textContent).toContain('Only one Minor Artifact');
+  });
+
+  describe('drawer header and non-gear panel', () => {
+    function open(affixName: string, bonusType: string) {
+      component.affixName = affixName;
+      component.bonusType = bonusType;
+      vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+      vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+      vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+      fixture.detectChanges();
+      (component as any).refreshMatches();
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('titles an ordinary affix with its bonus type and offers non-gear sources', () => {
+      const el = open('Kinetic Lore', 'Artifact');
+
+      expect(el.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Kinetic Lore: Artifact');
+      expect(el.querySelector('.external-affix-panel')).not.toBeNull();
+    });
+
+    it('titles a count affix by name alone and offers no non-gear sources', () => {
+      const el = open('Max Filigree Slots', 'Untyped');
+
+      expect(el.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Max Filigree Slots');
+      expect(el.querySelector('.external-affix-panel')).toBeNull();
+    });
+  });
+
   it('reports how many pieces of a set are already equipped', () => {
     component.affixName = 'Kinetic Lore';
     component.bonusType = 'Artifact';

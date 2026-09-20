@@ -1,5 +1,6 @@
 import { Affix } from './affix';
 import { AffixService } from './affix.service';
+import { MAX_FILIGREE_SLOTS_AFFIX } from './filigree-affix';
 
 export interface AffixGroupDisplay {
   name: string;
@@ -81,7 +82,8 @@ const DEFENSE_AFFIXES = new Set([
 ]);
 
 const UTILITY_CHECKLIST_AFFIXES = new Set([
-  'Returning'
+  'Returning',
+  MAX_FILIGREE_SLOTS_AFFIX
 ]);
 
 function normalize(value: string): string {

@@ -67,6 +67,10 @@ export class TrackedAffixSidebarComponent implements OnInit, OnDestroy {
     this.suggestionDrawer.openBonusType(sourceAffixName, sourceBonusType, this.sortOwnedToTop);
   }
 
+  isDerivedTrackedAffix(affixName: string) {
+    return this.equipped.isDerivedTrackedAffix(affixName);
+  }
+
   removeAffix(affixName: string, event?: Event) {
     event?.stopPropagation();
     this.equipped.removeImportantAffix(affixName);

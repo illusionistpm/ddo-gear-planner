@@ -61,7 +61,7 @@
   @if (lockedMatches.length > 0) {
     <div>
       <div class="row">&nbsp;</div>
-      <h3>Already Filled Slots</h3>
+      <h3>Excluded by equipment</h3>
       <i>
         @for (item of lockedMatches; track item.name + '|' + item.slot + '|' + $index) {
           <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
@@ -71,6 +71,9 @@
               <a class="item-preview-link" [href]="item.getURL()" (click)="preview.show(item, lockedMatches, $index); $event.preventDefault()">
                 {{item.name}}
               </a>
+              @if (artifactLimited.has(item)) {
+                <span class="exclusion-note">Only one Minor Artifact</span>
+              }
             </div>
           </div>
         }

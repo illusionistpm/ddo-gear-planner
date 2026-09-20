@@ -366,6 +366,11 @@ export class GearDbService {
     return Array.from(levels).some(level => this._isLevelInRange(level, minLevel, maxLevel));
   }
 
+  /** The top of the current level filter range. */
+  getMaxLevelFilter() {
+    return this.currentItemFilters.levelRange[1];
+  }
+
   applyItemFilters(filters: ItemFilters) {
     return perfMeasure('GearDbService.applyItemFilters', () => {
       const minLevel = filters.levelRange[0];

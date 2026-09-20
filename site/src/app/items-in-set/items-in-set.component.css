@@ -119,3 +119,9 @@
 .set-bonus-summary-value.Irrelevant { color: var(--text-primary); }
 .set-bonus-summary-value.Penalty { color: var(--danger-color); text-decoration: line-through; }
 .set-bonus-summary-value.DisabledSetBonus { color: var(--text-secondary); font-weight: 400; }
+
+.exclusion-note {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+}

@@ -232,3 +232,9 @@
     flex: 0 0 auto;
     width: 1px;
 }
+
+.exclusion-note {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+}

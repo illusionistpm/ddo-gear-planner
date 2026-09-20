@@ -20,6 +20,8 @@ export class ItemsInSetComponent implements OnInit {
 
   matches!: Array<Item>;
   lockedMatches!: Array<Item>;
+  /** Locked items whose slot is free: only the one-Minor-Artifact limit rules them out. */
+  artifactLimited = new Set<Item>();
   setBonusTiers: Array<SetBonusThreshold> = [];
   equippedPieces = 0;
   readonly preview = new ItemPreviewController();
@@ -40,11 +42,17 @@ export class ItemsInSetComponent implements OnInit {
     this.setBonusTiers = this.gearDB.getSetBonusThresholdDetails(this.setName, this.equippedPieces);
 
     const matchingGear = this.equipped.getCompatibleGear(this.gearDB.findGearInSet(this.setName));
+    const unlockedSlots = this.equipped.getUnlockedSlots();
+    this.artifactLimited = new Set<Item>();
     for (const item of matchingGear) {
-      if (this.equipped.getUnlockedSlots().has(item.slot)) {
-        this.matches.push(item);
-      } else {
+      if (!unlockedSlots.has(item.slot)) {
         this.lockedMatches.push(item);
+      } else if (this.equipped.isBlockedByArtifactLimit(item)) {
+        // Its slot is free, so the artifact limit is the only thing keeping it out.
+        this.artifactLimited.add(item);
+        this.lockedMatches.push(item);
+      } else {
+        this.matches.push(item);
       }
     }
 

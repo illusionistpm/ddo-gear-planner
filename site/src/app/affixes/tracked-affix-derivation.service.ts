@@ -5,6 +5,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { CoveredBonusType, sortBonusTypes, TrackedBonusTypeDisplay } from './tracked-affix-derivation';
 import { affixTypeKey } from './affix-type-key';
+import { getCountAffixChipLabel } from './count-affix';
 
 /**
  * Decides which bonus types a tracked affix shows, for both the full Tracked
@@ -84,7 +85,7 @@ export class TrackedAffixDerivationService {
   }
 
   makeDisplayType(sourceAffixName: string, bonusType: string, value: number): TrackedBonusTypeDisplay {
-    const label = bonusType ? bonusType : 'Untyped';
+    const label = getCountAffixChipLabel(sourceAffixName) ?? (bonusType ? bonusType : 'Untyped');
     return {
       bonusType,
       value,

@@ -9512,6 +9512,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Wisdom",
                 "type": "Enhancement",
                 "value": "14"
@@ -9916,6 +9921,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "False Life (%)",
                 "type": "Legendary",
@@ -14636,6 +14646,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Dexterity",
                 "type": "Quality",
                 "value": "3"
@@ -15307,6 +15322,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Wisdom",
                 "type": "Enhancement",
                 "value": "14"
@@ -15697,6 +15717,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Constitution",
                 "type": "Quality",
@@ -20806,6 +20831,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Strength",
                 "type": "Enhancement",
                 "value": "14"
@@ -21590,6 +21620,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Healing Lore",
                 "type": "Quality",
                 "value": "9"
@@ -21957,6 +21992,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "14"
@@ -21993,6 +22033,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Charisma",
                 "type": "Enhancement",
@@ -23196,6 +23241,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Strength",
                 "type": "Quality",
@@ -29713,6 +29763,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Strength",
                 "type": "Enhancement",
                 "value": "14"
@@ -35013,6 +35068,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Wisdom",
                 "type": "Enhancement",
                 "value": "14"
@@ -40187,6 +40247,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Enhancement",
@@ -47331,6 +47396,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Fortification",
                 "type": "Insight",
                 "value": "87"
@@ -47930,6 +48000,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Intelligence",
                 "type": "Quality",
@@ -48808,7 +48883,13 @@
         "url": "/page/Item:Dinosaur_Bone_Battle_Axe"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -48833,7 +48914,13 @@
         "url": "/page/Item:Dinosaur_Bone_Belt"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -48858,7 +48945,13 @@
         "url": "/page/Item:Dinosaur_Bone_Boots"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -49100,7 +49193,13 @@
         "url": "/page/Item:Dinosaur_Bone_Falchion"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -49758,7 +49857,13 @@
         "url": "/page/Item:Dinosaur_Bone_Morningstar"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -49948,7 +50053,13 @@
         "url": "/page/Item:Dinosaur_Bone_Repeating_Light_Crossbow"
     },
     {
-        "affixes": [],
+        "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            }
+        ],
         "artifact": true,
         "crafting": [
             "Claw (Accessory) (artifact)",
@@ -52196,6 +52307,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Wisdom",
                 "type": "Insight",
                 "value": "6"
@@ -52283,6 +52399,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Insight",
@@ -87447,6 +87568,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "1"
+            },
+            {
                 "name": "Heroic Inspiration",
                 "type": "Bool",
                 "value": 1
@@ -89847,6 +89973,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Constitution",
                 "type": "Enhancement",
                 "value": "14"
@@ -89963,6 +90094,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Wisdom",
                 "type": "Quality",
@@ -99200,6 +99336,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Sheltering",
                 "type": "Enhancement",
                 "value": "39"
@@ -100100,6 +100241,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Kinetic Lore",
                 "type": "Equipment",
@@ -101912,6 +102058,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Constitution",
                 "type": "Enhancement",
                 "value": "14"
@@ -103540,6 +103691,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Wisdom",
                 "type": "Enhancement",
@@ -108447,6 +108603,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Linguistics",
                 "type": "Untyped",
                 "value": "15"
@@ -111680,6 +111841,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Charisma",
                 "type": "Enhancement",
@@ -120351,6 +120517,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Dexterity",
                 "type": "Enhancement",
                 "value": "14"
@@ -122098,6 +122269,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Sheltering",
                 "type": "Insight",
                 "value": "21"
@@ -122757,6 +122933,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Enhancement",
@@ -126888,6 +127069,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Sound and Silence",
                 "type": "Bool",
@@ -153206,6 +153392,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Jet Propulsion",
                 "type": "Bool",
                 "value": 1
@@ -177229,6 +177420,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Spell Focus Mastery",
                 "type": "Insight",
@@ -207913,6 +208109,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Freedom of Movement",
                 "type": "Bool",
                 "value": 1
@@ -211994,6 +212195,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Alchemical Fire Attunement",
                 "type": "Bool",
@@ -217444,6 +217650,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Charisma",
                 "type": "Quality",
                 "value": "3"
@@ -218573,6 +218784,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Wisdom",
                 "type": "Enhancement",
@@ -228646,6 +228862,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Negative Lore",
                 "type": "Insight",
                 "value": "15"
@@ -231880,6 +232101,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Seeker",
                 "type": "Enhancement",
                 "value": "14"
@@ -231920,6 +232146,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Legendary Demonic Curse",
                 "type": "Bool",
@@ -231977,6 +232208,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Sovereign Lightning Strike",
                 "type": "Bool",
                 "value": 1
@@ -232022,6 +232258,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Alchemical Fire Attunement",
                 "type": "Bool",
@@ -232115,6 +232356,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Call Lightning Storm clicky",
                 "type": "Bool",
                 "value": 1
@@ -232167,6 +232413,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Superior Efficacy clicky",
                 "type": "Bool",
@@ -232265,6 +232516,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Haste clicky",
                 "type": "Bool",
                 "value": 1
@@ -232312,6 +232568,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Ghostly",
                 "type": "Bool",
@@ -232402,6 +232663,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Fire Shield (fire version) clicky",
                 "type": "Bool",
                 "value": 1
@@ -232457,6 +232723,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Armor Class",
                 "type": "Armor",
@@ -232752,6 +233023,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Fire Spell Power",
                 "type": "Equipment",
                 "value": "157"
@@ -232799,6 +233075,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Charisma",
                 "type": "Insight",
@@ -232933,6 +233214,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Control Undead clicky",
                 "type": "Bool",
                 "value": 1
@@ -232978,6 +233264,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Blood Sacrifice clicky",
                 "type": "Bool",
@@ -233036,6 +233327,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Vulkoor's Bite",
                 "type": "Bool",
@@ -238588,6 +238884,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Quori Mind Shield",
                 "type": "Bool",
                 "value": 1
@@ -238676,6 +238977,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Wisdom",
                 "type": "Enhancement",
@@ -244312,6 +244618,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "14"
@@ -247031,6 +247342,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Improved Deception",
                 "type": "Enhancement",
                 "value": "22"
@@ -247567,6 +247883,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Thorn of the Rose",
                 "type": "Bool",
@@ -249781,6 +250102,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Dexterity",
                 "type": "Enhancement",
@@ -260833,6 +261159,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "14"
@@ -260898,6 +261229,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Dexterity",
                 "type": "Enhancement",
@@ -271214,6 +271550,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "14"
@@ -272376,6 +272717,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Enhancement",
@@ -275701,6 +276047,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Melody: Imperial Resonance",
                 "type": "Bool",
@@ -279251,6 +279602,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Earth Attunement",
                 "type": "Bool",
                 "value": 1
@@ -279350,6 +279706,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Memory of Binding",
                 "type": "Bool",
@@ -279832,6 +280193,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Intelligence",
                 "type": "Enhancement",
                 "value": "14"
@@ -279963,6 +280329,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Strength",
                 "type": "Enhancement",
@@ -281016,6 +281387,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Constitution",
                 "type": "Quality",
@@ -282162,6 +282538,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Constitution",
                 "type": "Quality",
                 "value": "3"
@@ -282454,6 +282835,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
+            {
                 "name": "Strength",
                 "type": "Quality",
                 "value": "3"
@@ -282535,6 +282921,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "The Golden Curse",
                 "type": "Bool",
@@ -282659,6 +283050,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Memory of Shattered Life",
                 "type": "Bool",
                 "value": 1
@@ -282727,6 +283123,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Constitution",
                 "type": "Quality",
@@ -283130,6 +283531,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "False Life",
                 "type": "Enhancement",
                 "value": "58"
@@ -283418,6 +283824,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Wisdom",
                 "type": "Quality",
@@ -284522,6 +284933,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Memory of Animated Objects",
                 "type": "Bool",
                 "value": 1
@@ -284880,6 +285296,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Memory of Butchery",
                 "type": "Bool",
                 "value": 1
@@ -284990,6 +285411,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Dexterity",
                 "type": "Quality",
@@ -286084,6 +286510,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Lifeblood of the Undead Prince",
                 "type": "Bool",
                 "value": 1
@@ -286448,6 +286879,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Intelligence",
                 "type": "Quality",
@@ -286922,6 +287358,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Air Attunement",
                 "type": "Bool",
                 "value": 1
@@ -287031,6 +287472,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Fire Attunement",
                 "type": "Bool",
                 "value": 1
@@ -287101,6 +287547,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Earth Attunement",
                 "type": "Bool",
                 "value": 1
@@ -287140,6 +287591,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Alchemical Air Attunement",
                 "type": "Bool",
@@ -287181,6 +287637,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Fire Attunement",
                 "type": "Bool",
                 "value": 1
@@ -287220,6 +287681,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Alchemical Water Attunement",
                 "type": "Bool",
@@ -287280,6 +287746,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "4"
+            },
             {
                 "name": "Charisma",
                 "type": "Quality",
@@ -287493,6 +287964,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Enhancement",
@@ -287975,6 +288451,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Alchemical Water Attunement",
                 "type": "Bool",
                 "value": 1
@@ -288014,6 +288495,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
             {
                 "name": "Intelligence",
                 "type": "Enhancement",
@@ -291501,6 +291987,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Kinetic Lore",
                 "type": "Equipment",
                 "value": "22"
@@ -293608,6 +294099,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Doubleshot",
                 "type": "Enhancement",
@@ -302382,6 +302878,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
                 "name": "Bloodrage",
                 "type": "Bool",
                 "value": 1
@@ -302571,6 +303072,11 @@
     },
     {
         "affixes": [
+            {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "5"
+            },
             {
                 "name": "Acid Lore",
                 "type": "Equipment",

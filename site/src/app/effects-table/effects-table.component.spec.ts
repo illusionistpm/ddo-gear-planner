@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
+import { FiltersService } from '../planner/filters.service';
 
 describe('EffectsTableComponent', () => {
   let component: EffectsTableComponent;
@@ -26,6 +27,10 @@ describe('EffectsTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EffectsTableComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
+    // From level 20 the Max Filigree Slots affix is tracked automatically; keep it out of these specs' rows.
+    // (After creation, because restoring the URL resets the level range.)
+    TestBed.inject(FiltersService).setLevelRange(1, 19);
     fixture.detectChanges();
   });
 
@@ -509,6 +514,28 @@ describe('EffectsTableComponent', () => {
     expect(groups.map(group => group.key)).toEqual(['set-only', '1', '5plus']);
     expect(groups[0].rows[0].affixName).toBe('Fire Intensity');
     expect(groups[1].rows[0].chips[0].bonusType).toBe('Profane');
+  });
+
+  it('puts Max Filigree Slots in its own Minor Artifact bucket above the set-only one', () => {
+    component.affixNames = ['Strength', 'Fire Intensity', 'Max Filigree Slots'];
+    component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
+    component.affixMap.set('Fire Intensity', [{ bonusType: 'Legendary', value: 0 }]);
+    component.affixMap.set('Max Filigree Slots', [{ bonusType: 'Untyped', value: 0 }]);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(5);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(5);
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockImplementation((_affixName: any, bonusType: any) => {
+      if (bonusType === 'Legendary') {
+        return { tier: 'set-only', slotCount: 0, eliminated: false, setSources: [] };
+      }
+      return { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] };
+    });
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => group.key)).toEqual(['minor-artifact', 'set-only', '2']);
+    expect(groups[0].label).toBe('Minor Artifact');
+    expect(groups[0].rows.map(row => row.affixName)).toEqual(['Max Filigree Slots']);
   });
 
   it('keeps every bonus type of one affix on a single row within a bucket', () => {

@@ -4,6 +4,7 @@ import { EquippedService } from './equipped.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { Item } from '../gear/item';
 import { QueryParamsService } from '../build/query-params.service';
+import { FiltersService } from './filters.service';
 
 function makeParamsAdapter(record: Record<string, unknown>) {
   return {
@@ -345,6 +346,107 @@ describe('EquippedService', () => {
     subscription.unsubscribe();
 
     expect(events).toEqual([{ slot: 'Gloves', itemName: 'Flashy Gloves' }]);
+  });
+
+  describe('one Minor Artifact at a time', () => {
+    function artifact(name: string, slot: string, type: string) {
+      return new Item({
+        name, slot, type, ml: 30, affixes: [], sets: [], url: '/page/' + name.replace(/ /g, '_'),
+        crafting: [], quests: [], artifact: true,
+      });
+    }
+
+    it('refuses a second artifact in another slot', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      service.set(artifact('Artifact Ring', 'Ring1', 'Rings'));
+
+      const boots = artifact('Artifact Boots', 'Boots', 'Boots');
+      expect(service.isBlockedByArtifactLimit(boots)).toBe(true);
+      expect(service.canEquip(boots)).toBe(false);
+
+      service.set(boots);
+      expect(service.hasItem('Boots')).toBe(false);
+    });
+
+    it('allows swapping the artifact in its own slot, and any ordinary item', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      service.set(artifact('Artifact Ring', 'Ring1', 'Rings'));
+
+      expect(service.canEquip(artifact('Other Artifact Ring', 'Ring1', 'Rings'))).toBe(true);
+      expect(service.canEquip(makeItem('Plain Boots', 'Boots', 'Boots'))).toBe(true);
+    });
+
+    it('allows an artifact again once the equipped one is removed', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      service.set(artifact('Artifact Ring', 'Ring1', 'Rings'));
+      service.clearSlot('Ring1');
+
+      expect(service.canEquip(artifact('Artifact Boots', 'Boots', 'Boots'))).toBe(true);
+    });
+
+    it('leaves a build that already has two artifacts alone, but will not take one back once removed', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      const ring = artifact('Artifact Ring', 'Ring1', 'Rings');
+      const boots = artifact('Artifact Boots', 'Boots', 'Boots');
+      // How a URL restore fills slots: it bypasses set(), so an old link with two artifacts still loads.
+      (service as any)._set(ring);
+      (service as any)._set(boots);
+
+      expect(service.hasItem('Ring1')).toBe(true);
+      expect(service.hasItem('Boots')).toBe(true);
+
+      service.clearSlot('Boots');
+      expect(service.canEquip(boots)).toBe(false);
+    });
+
+    it('drops blocked artifacts from slot suggestions but not from the drawer-facing list', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      service.set(artifact('Artifact Ring', 'Ring1', 'Rings'));
+      const blocked = artifact('Artifact Boots', 'Boots', 'Boots');
+      const plain = makeItem('Plain Boots', 'Boots', 'Boots');
+
+      expect(service.getCompatibleGearForSlot('Boots', [blocked, plain])).toEqual([plain]);
+      expect(service.getCompatibleGear([blocked, plain])).toEqual([blocked, plain]);
+    });
+  });
+
+  describe('filigree slots tracking', () => {
+    function coveredNames(service: EquippedService) {
+      let covered = new Map<string, Array<any>>();
+      service.getCoveredAffixes().subscribe(map => (covered = map)).unsubscribe();
+      return Array.from(covered.keys());
+    }
+
+    it('tracks Max Filigree Slots without storing it while the level range reaches 20', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      TestBed.inject(FiltersService).setLevelRange(1, 20);
+      service.setImportantAffixes(['Strength']);
+
+      expect(coveredNames(service)).toContain('Max Filigree Slots');
+      expect(service.isImportantAffix('Max Filigree Slots')).toBe(true);
+      expect(service.isDerivedTrackedAffix('Max Filigree Slots')).toBe(true);
+      expect(Array.from(service.getImportantAffixes())).toEqual(['Strength']);
+    });
+
+    it('drops it when the level range stops short of 20, and brings it back', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+      const filters = TestBed.inject(FiltersService);
+      service.setImportantAffixes(['Strength']);
+
+      filters.setLevelRange(1, 19);
+      expect(coveredNames(service)).not.toContain('Max Filigree Slots');
+      expect(service.isImportantAffix('Max Filigree Slots')).toBe(false);
+      expect(service.isDerivedTrackedAffix('Max Filigree Slots')).toBe(false);
+
+      filters.setLevelRange(1, 25);
+      expect(coveredNames(service)).toContain('Max Filigree Slots');
+    });
+
+    it('does not derive any other affix', () => {
+      const service: EquippedService = TestBed.inject(EquippedService);
+
+      expect(service.isDerivedTrackedAffix('Strength')).toBe(false);
+    });
   });
 
   it('reports set-granted affix-group bonuses on the tracked member affixes', () => {

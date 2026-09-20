@@ -28,6 +28,7 @@ import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry } from '../affixes/external-affix';
 import { affixTypeKey } from '../affixes/affix-type-key';
+import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -166,6 +167,16 @@ export class EquippedService implements QueryParamsListener {
         this.refreshDerivedStateAfterSlotChange();
       });
     }
+
+    // GearDbService subscribed first, so its filtered gear is already current when this runs.
+    let filigreeTracked = this.isFiligreeTrackingActive();
+    this.gearList.filters.getItemFilters().subscribe(() => {
+      const nowTracked = this.isFiligreeTrackingActive();
+      if (nowTracked !== filigreeTracked) {
+        filigreeTracked = nowTracked;
+        this._updateCoveredAffixes(false);
+      }
+    });
   }
 
   updateFromParams(params: ParamsAdapter) {
@@ -407,7 +418,7 @@ export class EquippedService implements QueryParamsListener {
     return this.shouldLimitOffhandToRuneArms(this.getMainHand());
   }
 
-  canEquip(item: Item) {
+  private isOffhandCompatible(item: Item) {
     if (!item || item.slot !== 'Offhand') {
       return true;
     }
@@ -419,24 +430,41 @@ export class EquippedService implements QueryParamsListener {
     return !this.isOffhandRuneArmOnly() || item.isRuneArm();
   }
 
-  getCompatibleGearForSlot(slot: string, gear: Array<Item>) {
-    if (slot !== 'Offhand') {
-      return gear;
-    }
-
-    if (this.isOffhandDisabled()) {
-      return [];
-    }
-
-    if (this.isOffhandRuneArmOnly()) {
-      return gear.filter(item => item.isRuneArm());
-    }
-
-    return gear;
+  /**
+   * The game allows one Minor Artifact at a time, so an artifact can't go on while a different slot already
+   * holds one (replacing the artifact in its own slot is fine). A build loaded with two artifacts keeps both;
+   * once one is removed, it can't be put back.
+   */
+  isBlockedByArtifactLimit(item: Item) {
+    return !!item?.artifact
+      && this.getSlotNames().some(slot => slot !== item.slot && !!this.getSlotValue(slot)?.artifact);
   }
 
+  canEquip(item: Item) {
+    return this.isOffhandCompatible(item) && !this.isBlockedByArtifactLimit(item);
+  }
+
+  getCompatibleGearForSlot(slot: string, gear: Array<Item>) {
+    let compatible = gear;
+    if (slot === 'Offhand') {
+      if (this.isOffhandDisabled()) {
+        return [];
+      }
+
+      if (this.isOffhandRuneArmOnly()) {
+        compatible = gear.filter(item => item.isRuneArm());
+      }
+    }
+
+    return compatible.filter(item => !this.isBlockedByArtifactLimit(item));
+  }
+
+  /**
+   * The gear that fits the current main hand. It does not apply the Minor Artifact limit: the item drawers
+   * still list artifacts that limit rules out, under "Excluded by equipment" (see isBlockedByArtifactLimit).
+   */
   getCompatibleGear(gear: Array<Item>) {
-    return gear.filter(item => this.canEquip(item));
+    return gear.filter(item => this.isOffhandCompatible(item));
   }
 
   set(item: Item) {
@@ -869,7 +897,12 @@ export class EquippedService implements QueryParamsListener {
 
   private _getImportantAffixesToTypes() {
     const important = new Map<string, Map<string, number>>();
-    for (const affixName of this.importantAffixes) {
+    const affixNames = [...this.importantAffixes];
+    if (this.isFiligreeTrackingActive() && !this.importantAffixes.has(MAX_FILIGREE_SLOTS_AFFIX)) {
+      affixNames.push(MAX_FILIGREE_SLOTS_AFFIX);
+    }
+
+    for (const affixName of affixNames) {
       let bonusTypes = this.gearList.affixToBonusTypes.get(affixName);
       if (!bonusTypes) {
         bonusTypes = new Map<string, number>();
@@ -877,6 +910,19 @@ export class EquippedService implements QueryParamsListener {
       important.set(affixName, bonusTypes);
     }
     return important;
+  }
+
+  private isFiligreeTrackingActive() {
+    return this.gearList.getMaxLevelFilter() >= FILIGREE_TRACKING_MIN_LEVEL;
+  }
+
+  /**
+   * True for an affix that's tracked because of the current filters rather than because the user picked it
+   * (Max Filigree Slots, once the level range reaches Minor Artifacts). It isn't in the stored tracked set, so
+   * it never reaches a URL and can't be removed.
+   */
+  isDerivedTrackedAffix(affix: string) {
+    return affix === MAX_FILIGREE_SLOTS_AFFIX && this.isFiligreeTrackingActive();
   }
 
   getImportantAffixes() {
@@ -1081,7 +1127,7 @@ export class EquippedService implements QueryParamsListener {
 
   isImportantAffix(affix: string) {
     perfCount('EquippedService.isImportantAffix');
-    return this.importantAffixes.has(affix);
+    return this.importantAffixes.has(affix) || this.isDerivedTrackedAffix(affix);
   }
 
   getAffixRanking(affix: Affix) {

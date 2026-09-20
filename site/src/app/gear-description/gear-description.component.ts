@@ -167,7 +167,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         important: this.equipped.isImportantAffix(affix.name),
         affixGroup,
         groupTooltip: affixGroup ? this.affixUi.getAffixGroupTooltip(affix) : '',
-        valueText: affix.hasRealType() ? [this.affixUi.getAffixValue(affix), affix.type].filter(part => part).join(' ') : ''
+        valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : ''
       };
     });
     done({ rows: rows.length });

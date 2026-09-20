@@ -10,6 +10,7 @@ import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
 
 import { AffixService } from '../affixes/affix.service';
+import { isCountAffix } from '../affixes/count-affix';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { AffixUiService } from '../affixes/affix-ui.service';
@@ -83,6 +84,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   matches: Array<Item> = [];
   lockedMatches: Array<Item> = [];
+  /** Locked items whose slot is free: only the one-Minor-Artifact limit rules them out. */
+  artifactLimited = new Set<Item>();
 
   optionToEligibleGear: Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>> =
     new Map<string, Map<Item, Array<{ craftable: Craftable, systemName: string }>>>();
@@ -173,11 +176,17 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     );
     const unlocked: Item[] = [];
     const locked: Item[] = [];
+    const unlockedSlots = this.equipped.getUnlockedSlots();
+    this.artifactLimited = new Set<Item>();
     for (const item of matchingGear) {
-      if (this.equipped.getUnlockedSlots().has(item.slot)) {
-        unlocked.push(item);
-      } else {
+      if (!unlockedSlots.has(item.slot)) {
         locked.push(item);
+      } else if (this.equipped.isBlockedByArtifactLimit(item)) {
+        // Its slot is free, so the artifact limit is the only thing keeping it out.
+        this.artifactLimited.add(item);
+        locked.push(item);
+      } else {
+        unlocked.push(item);
       }
     }
     // Sort both lists by value and ownership
@@ -380,6 +389,16 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   isRealType(bonusType: string) {
     return Affix.isRealType(bonusType);
+  }
+
+  /** A count affix (Max Filigree Slots) has a placeholder bonus type that isn't worth showing. */
+  showsBonusType() {
+    return this.isRealType(this.bonusType) && !isCountAffix(this.affixName);
+  }
+
+  /** Non-gear sources add bonuses; a count of filigree slots can't come from a spell or trance. */
+  allowsNonGearSource() {
+    return !isCountAffix(this.affixName);
   }
 
   _sortByValue(array: Array<Item>) {

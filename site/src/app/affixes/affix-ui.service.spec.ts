@@ -41,6 +41,17 @@ describe('AffixUiService', () => {
       .toBe('Purifying Flame Lore is:\n- Fire Lore: +21 Enhancement\n- Radiance Lore: +21 Enhancement');
   });
 
+  it('shows filigree slots as a count, without the Untyped bonus type', () => {
+    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const filigree = new Affix({ name: 'Max Filigree Slots', type: 'Untyped', value: '3' });
+
+    expect(service.getAffixValueText(filigree)).toBe('3 slots');
+    expect(service.getCraftingOptionTooltip({ name: 'Artifact', affixes: [filigree] } as any))
+      .toBe('Artifact is:\n- Max Filigree Slots: 3 slots');
+    expect(service.getAffixValueText(new Affix({ name: 'Dexterity', type: 'Enhancement', value: 14 })))
+      .toBe('+14 Enhancement');
+  });
+
   it('describes crafting option affixes', () => {
     const service = new AffixUiService({} as any, new AffixService(), {} as any);
     const option = { name: 'Flamehorn', affixes: [new Affix({ name: 'Legendary Ash', type: 'Bool', value: 1 })] } as any;

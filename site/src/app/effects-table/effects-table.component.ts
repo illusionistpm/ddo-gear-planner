@@ -23,6 +23,7 @@ import {
   TrackedBonusTypeSource,
 } from '../affixes/tracked-affix-derivation';
 import { affixTypeKey } from '../affixes/affix-type-key';
+import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 
 interface SlotGroupChip {
@@ -137,6 +138,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   ngDoCheck() {
     this.refreshTrackedAffixDisplay();
+  }
+
+  isDerivedTrackedAffix(affixName: string) {
+    return this.equipped.isDerivedTrackedAffix(affixName);
   }
 
   removeAffix(affixName: string) {
@@ -289,10 +294,13 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         let group: SlotGroup;
         if (info.eliminated) {
           group = bucket('ruled-out', 'Ruled out by gear', 99);
-        } else if (info.tier === 'set-only') {
-          group = bucket('set-only', 'Set only', 0);
         } else if (info.tier === 'unavailable') {
           continue;
+        } else if (sourceAffixName === MAX_FILIGREE_SLOTS_AFFIX) {
+          // The artifact you wear shapes the rest of the build, so it sits above everything else.
+          group = bucket('minor-artifact', 'Minor Artifact', -1);
+        } else if (info.tier === 'set-only') {
+          group = bucket('set-only', 'Set only', 0);
         } else if (info.slotCount >= 5) {
           group = bucket('5plus', '5+ open slots', 5);
         } else {

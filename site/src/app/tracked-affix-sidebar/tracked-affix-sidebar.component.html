@@ -44,12 +44,14 @@
                                         <div class="affix-summary-heading">
                                             <span class="affix-summary-name" [title]="affix.name">{{affix.name}}</span>
                                             <span class="affix-summary-trailing">
-                                                <button type="button" class="affix-summary-remove"
-                                                    aria-label="Stop tracking {{affix.name}}"
-                                                    title="Stop tracking {{affix.name}}"
-                                                    (click)="removeAffix(affix.name, $event)">
-                                                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                                                </button>
+                                                @if (!isDerivedTrackedAffix(affix.name)) {
+                                                    <button type="button" class="affix-summary-remove"
+                                                        aria-label="Stop tracking {{affix.name}}"
+                                                        title="Stop tracking {{affix.name}}"
+                                                        (click)="removeAffix(affix.name, $event)">
+                                                        <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+                                                    </button>
+                                                }
                                                 @if (affix.isChecklist) {
                                                     <button type="button"
                                                         class="affix-summary-code"

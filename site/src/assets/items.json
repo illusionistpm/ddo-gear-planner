@@ -286705,11 +286705,6 @@
                 "name": "Dodge",
                 "type": "Quality",
                 "value": "3"
-            },
-            {
-                "name": "This Minor Artifact has a maximum of 3 filigree slots.",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "artifact": true,

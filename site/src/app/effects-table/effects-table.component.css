@@ -48,6 +48,7 @@
     border: 1px solid var(--border-color);
     border-radius: 6px;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     min-width: 0;
     padding: 0.22rem 0.35rem;
@@ -165,7 +166,9 @@
 
 .tracked-affix-chips {
     display: flex;
-    flex: 1 1 auto;
+    /* Zero basis so the chips fill the rest of the row instead of wrapping under the summary;
+       only the full-width unavailable-types line starts a new row. */
+    flex: 1 1 0;
     flex-wrap: wrap;
     gap: 0.25rem;
     min-width: 0;
@@ -322,6 +325,10 @@
     .tracked-affix-summary {
         flex-basis: auto;
         width: 100%;
+    }
+
+    .tracked-affix-chips {
+        flex: 0 0 auto;
     }
 
     .tracked-affix-unavailable-types {

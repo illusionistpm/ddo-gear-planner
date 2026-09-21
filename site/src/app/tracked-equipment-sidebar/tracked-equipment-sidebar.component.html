@@ -64,7 +64,7 @@
             @if (externalAffixes.length) {
                 <div class="tracked-equipment-sets">
                     <div class="tracked-equipment-sets-title">Non-gear
-                        <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
+                        <i class="fas fa-eye small ms-1" [title]="nonGearDescription"></i>
                     </div>
                     <div class="tracked-equipment-slot-shell tracked-equipment-set-shell"
                         [class.focused]="hoveredExternal"
@@ -131,7 +131,7 @@
                             </button>
                         </span>
                         <span class="tracked-equipment-set-bonus-value" [class.tracked-equipment-external-ignored]="entry.kind === 'ignored'">
-                            {{describeExternalEntry(entry)}}
+                            <app-external-affix-value [entry]="entry"></app-external-affix-value>
                         </span>
                     </div>
                 }

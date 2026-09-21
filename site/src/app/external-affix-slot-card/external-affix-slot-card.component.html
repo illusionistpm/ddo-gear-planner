@@ -1,7 +1,36 @@
-@if (entries.length) {
-  <div class="row slot-header">
-    <div class="col-12 text-start external-slot-title">Non-gear</div>
+<div class="row slot-header">
+  <div class="col text-start external-slot-title">Non-gear</div>
+  <button type="button" class="col-auto external-add-button"
+    [attr.aria-expanded]="adding"
+    [attr.aria-label]="adding ? 'Cancel adding a non-gear affix' : 'Add a non-gear affix'"
+    [title]="adding ? 'Cancel' : 'Add a non-gear affix'"
+    (click)="toggleAdd()">
+    <span class="fas" [ngClass]="adding ? 'fa-times' : 'fa-plus'" aria-hidden="true"></span>
+  </button>
+</div>
+@if (adding) {
+  <div class="external-add-panel">
+    <app-typeahead placeholder="Search for an affix" [source]="affixSource" [onChange]="onAffixSelected"
+      inputClass="form-control-sm" container="body" searchType="external_affix"></app-typeahead>
+    @if (selectedAffix) {
+      <div class="external-add-selection">
+        <span class="external-add-affix" [title]="selectedAffix">{{selectedAffix}}</span>
+        <select class="form-select form-select-sm external-add-bonus-type" aria-label="Bonus type"
+          [(ngModel)]="selectedBonusType">
+          <option value="" disabled>Bonus type</option>
+          @for (bonusType of bonusTypes; track bonusType) {
+            <option [value]="bonusType">{{bonusType}}</option>
+          }
+        </select>
+      </div>
+      @if (selectedBonusType) {
+        <app-external-affix-form [affixName]="selectedAffix" [bonusType]="selectedBonusType"
+          (done)="closeAdd()"></app-external-affix-form>
+      }
+    }
   </div>
+}
+@if (entries.length) {
   <div class="external-affix-list">
     @for (entry of entries; track entry.id) {
       <div class="row table-condensed small hover-helper external-affix-row" [ngClass]="getRowClass(entry)">
@@ -9,8 +38,10 @@
           <span class="glyph-center-fix" aria-hidden="true">&times;</span>
         </button>
         <div class="col ps-1">{{getNameText(entry)}}</div>
-        <div class="col text-end" [class.external-affix-ignored-value]="entry.kind === 'ignored'">{{getValueText(entry)}}</div>
+        <div class="col text-end" [class.external-affix-ignored-value]="entry.kind === 'ignored'"><app-external-affix-value [entry]="entry"></app-external-affix-value></div>
       </div>
     }
   </div>
+} @else if (!adding) {
+  <div class="external-affix-empty">{{description}}</div>
 }

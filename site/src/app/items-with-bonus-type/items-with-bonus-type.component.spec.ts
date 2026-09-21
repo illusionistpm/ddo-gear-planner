@@ -7,6 +7,8 @@ import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { AppModule } from '../app.module';
 import { ItemPreviewComponent } from '../item-preview/item-preview.component';
+import { ExternalAffixFormComponent } from '../external-affix-form/external-affix-form.component';
+import { ExternalAffixValueComponent } from '../external-affix-value/external-affix-value.component';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 describe('ItemsWithBonusTypeComponent', () => {
@@ -15,7 +17,7 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent],
+      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent],
       imports: [FormsModule]
     })
       .compileComponents();
@@ -122,6 +124,84 @@ describe('ItemsWithBonusTypeComponent', () => {
 
       expect(el.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Max Filigree Slots');
       expect(el.querySelector('.external-affix-panel')).toBeNull();
+    });
+
+    describe('non-gear form', () => {
+      function buttonNamed(el: HTMLElement, text: string) {
+        return Array.from(el.querySelectorAll<HTMLButtonElement>('.external-affix-form button'))
+          .find(button => button.textContent!.trim() === text)!;
+      }
+
+      async function type(input: HTMLInputElement, text: string) {
+        input.value = text;
+        input.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+      }
+
+      async function check(input: HTMLInputElement) {
+        input.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+      }
+
+      it('needs a source and a value before Add is enabled', async () => {
+        const el = open('Kinetic Lore', 'Artifact');
+        expect(buttonNamed(el, 'Add').disabled).toBe(true);
+
+        await type(el.querySelector('.external-affix-label-input')!, 'Trance');
+        expect(buttonNamed(el, 'Add').disabled).toBe(true);
+
+        await type(el.querySelector('.external-affix-value-input')!, '5');
+        expect(buttonNamed(el, 'Add').disabled).toBe(false);
+      });
+
+      it('adds the value under the trimmed source, then lists it in place of the form', async () => {
+        const el = open('Kinetic Lore', 'Artifact');
+        await type(el.querySelector('.external-affix-label-input')!, '  Trance ');
+        await type(el.querySelector('.external-affix-value-input')!, '5');
+
+        buttonNamed(el, 'Add').click();
+        fixture.detectChanges();
+
+        expect(component.equipped.getExternalAffixesForType('Kinetic Lore', 'Artifact'))
+          .toEqual([expect.objectContaining({ kind: 'value', value: 5, label: 'Trance' })]);
+        expect(el.querySelector('.external-affix-form')).toBeNull();
+        expect(el.querySelector('.external-affix-entry-row')?.textContent).toContain('+5 Artifact (Trance)');
+      });
+
+      it('offers a Covered checkbox instead of a value for a checklist type', async () => {
+        const el = open('Feather Falling', 'Bool');
+        expect(el.querySelector('.external-affix-value-input')).toBeNull();
+
+        await type(el.querySelector('.external-affix-label-input')!, 'Ring');
+        expect(buttonNamed(el, 'Add').disabled).toBe(true);
+
+        await check(el.querySelector('.external-affix-checkbox-label input')!);
+        buttonNamed(el, 'Add').click();
+
+        expect(component.equipped.getExternalAffixesForType('Feather Falling', 'Bool'))
+          .toEqual([expect.objectContaining({ kind: 'value', value: 1, label: 'Ring' })]);
+      });
+
+      it('ignores the type without a source, labelling it Ignored', () => {
+        const el = open('Kinetic Lore', 'Artifact');
+
+        buttonNamed(el, 'Ignore').click();
+        fixture.detectChanges();
+
+        expect(component.equipped.getExternalAffixesForType('Kinetic Lore', 'Artifact'))
+          .toEqual([expect.objectContaining({ kind: 'ignored', label: 'Ignored' })]);
+      });
+
+      it('cannot ignore once a value has been started', async () => {
+        const el = open('Kinetic Lore', 'Artifact');
+        await type(el.querySelector('.external-affix-value-input')!, '5');
+
+        expect(buttonNamed(el, 'Ignore').disabled).toBe(true);
+      });
     });
   });
 

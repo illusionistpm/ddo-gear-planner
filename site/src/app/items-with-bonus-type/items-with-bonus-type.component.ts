@@ -106,9 +106,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   setMatches: Array<[string, Array<Affix>, Array<Item>]> = [];
 
   externalEntries: ExternalAffixEntry[] = [];
-  externalLabel = '';
-  externalValue: number | null = null;
-  externalChecked = false;
 
   private collapsedSections = new Set<string>();
 
@@ -163,7 +160,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  private refreshMatches() {
+  protected refreshMatches() {
     this.matches = [];
     this.lockedMatches = [];
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
@@ -313,46 +310,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.externalEntries = this.equipped.getExternalAffixesForType(this.affixName, this.bonusType);
   }
 
-  isChecklistBonusType(): boolean {
-    return this.bonusType === 'Bool';
-  }
-
-  canAddExternal(): boolean {
-    if (!this.externalLabel.trim()) {
-      return false;
-    }
-    return this.isChecklistBonusType() ? this.externalChecked : this.externalValue != null;
-  }
-
-  isValueEntryStarted(): boolean {
-    return this.isChecklistBonusType() ? this.externalChecked : this.externalValue != null;
-  }
-
-  addExternal() {
-    if (!this.canAddExternal()) {
-      return;
-    }
-    const label = this.externalLabel.trim();
-    if (this.isChecklistBonusType()) {
-      this.equipped.addExternalAffixValue(this.affixName, this.bonusType, 1, label);
-    } else {
-      this.equipped.addExternalAffixValue(this.affixName, this.bonusType, this.externalValue!, label);
-    }
-
-    this._resetExternalForm();
-    this.refreshMatches();
-  }
-
-  markIgnored() {
-    if (this.isValueEntryStarted()) {
-      return;
-    }
-    const label = this.externalLabel.trim();
-    this.equipped.addExternalAffixIgnored(this.affixName, this.bonusType, label || 'Ignored');
-    this._resetExternalForm();
-    this.refreshMatches();
-  }
-
   toggleSection(key: string) {
     if (this.collapsedSections.has(key)) {
       this.collapsedSections.delete(key);
@@ -363,16 +320,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   isSectionCollapsed(key: string): boolean {
     return this.collapsedSections.has(key);
-  }
-
-  private _resetExternalForm() {
-    this.externalLabel = '';
-    this.externalValue = null;
-    this.externalChecked = false;
-  }
-
-  describeExternalEntry(entry: ExternalAffixEntry): string {
-    return this.affixUi.describeExternalAffix(entry, true);
   }
 
   removeExternal(id: string, event?: Event) {

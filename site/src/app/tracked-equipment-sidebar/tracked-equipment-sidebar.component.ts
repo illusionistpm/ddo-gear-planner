@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
-import { ExternalAffixEntry } from '../affixes/external-affix';
+import { ExternalAffixEntry, NON_GEAR_DESCRIPTION } from '../affixes/external-affix';
 import { Item } from '../gear/item';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
@@ -36,6 +36,7 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
   hoveredSet: string | null = null;
   hoveredExternal = false;
   recentlyEquippedSlot: string | null = null;
+  readonly nonGearDescription = NON_GEAR_DESCRIPTION;
   externalAffixes: ExternalAffixEntry[] = [];
   private equippedEventsSubscription: Subscription;
   private setBonusesSubscription: Subscription;
@@ -110,10 +111,6 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     }
 
     return this.visibleSetBonuses.find(bonus => bonus.setName === this.hoveredSet) || null;
-  }
-
-  describeExternalEntry(entry: ExternalAffixEntry): string {
-    return this.affixUi.describeExternalAffix(entry);
   }
 
   removeExternal(id: string, event?: Event) {

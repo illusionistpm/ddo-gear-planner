@@ -29,6 +29,8 @@ export class TypeaheadComponent {
   @Input() resultFormatter!: (result: TypeaheadResult) => string;
   @Input() inputClass!: string;
   @Input() searchType!: string;
+  /** Set to 'body' when an ancestor clips overflow, so the results popup isn't cut off. */
+  @Input() container?: string;
 
   @ViewChild('inputElement', { static: true }) inputElement!: ElementRef;
 

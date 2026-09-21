@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
+import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
@@ -55,7 +56,7 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   ) {
     this.savedSet = new Set<string>();
 
-    this.allAffixes = this.gearDB.getAllAffixes().map(e => ({ name: e, synonyms: this.affixSvc.getSynonyms(e) }));
+    this.allAffixes = buildAffixTypeaheadEntries(this.gearDB.getAllAffixes(), this.affixSvc);
 
     this.spellSchools = ['Evocation', 'Transmutation', 'Abjuration', 'Conjuration', 'Enchantment', 'Illusion', 'Necromancy'];
     this.tactics = ['Stunning', 'Sundering', 'Vertigo'];

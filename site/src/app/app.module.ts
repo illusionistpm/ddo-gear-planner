@@ -33,6 +33,8 @@ import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar/tr
 import { TrackedAffixSidebarComponent } from './tracked-affix-sidebar/tracked-affix-sidebar.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
+import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
+import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -63,6 +65,8 @@ import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
         TrackedAffixSidebarComponent,
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,
+        ExternalAffixFormComponent,
+        ExternalAffixValueComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,

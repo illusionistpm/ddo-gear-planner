@@ -1,0 +1,5 @@
+@if (covered) {
+  <span class="far fa-check-square" role="img" [attr.aria-label]="description" [title]="description"></span>@if (includeLabel) {<span> ({{entry.label}})</span>}
+} @else {
+  {{includeLabel ? describedWithLabel : description}}
+}

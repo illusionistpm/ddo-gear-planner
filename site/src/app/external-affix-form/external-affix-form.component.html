@@ -1,0 +1,15 @@
+<div class="external-affix-form">
+  <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
+    [(ngModel)]="label">
+  @if (isChecklistBonusType()) {
+    <label class="external-affix-checkbox-label">
+      <input type="checkbox" [(ngModel)]="checked"> Covered
+    </label>
+  } @else {
+    <input type="number" class="form-control form-control-sm external-affix-value-input" placeholder="Value"
+      [(ngModel)]="value">
+  }
+  <button type="button" class="btn btn-secondary btn-sm" [disabled]="!canAdd()" (click)="add()">Add</button>
+  <span class="external-affix-divider" aria-hidden="true"></span>
+  <button type="button" class="btn btn-secondary btn-sm" [disabled]="isValueEntryStarted()" (click)="markIgnored()">Ignore</button>
+</div>

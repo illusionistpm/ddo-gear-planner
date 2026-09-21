@@ -14,6 +14,9 @@ export interface ExternalAffixEntry {
   label: string;
 }
 
+/** What the Non-gear card and the equipment sidebar's Non-gear entry are for. */
+export const NON_GEAR_DESCRIPTION = 'Bonuses gear could provide but you get elsewhere, like Greater Heroism or a trance.';
+
 /**
  * Validates an entry parsed from the URL. `requireId` is false for the codec,
  * which encodes entries positionally and drops their ids.
@@ -34,4 +37,9 @@ export function isExternalAffixEntry(value: unknown, requireId = true): boolean 
 /** The entry as an Affix, so it can be valued and ranked like gear affixes. */
 export function externalAffixAsAffix(entry: ExternalAffixEntry): Affix {
   return new Affix({ name: entry.affixName, type: entry.bonusType, value: entry.value });
+}
+
+/** A checklist affix (Bool bonus type) the player has recorded as covered, as opposed to ignored. */
+export function isCoveredExternalAffix(entry: ExternalAffixEntry): boolean {
+  return entry.kind === 'value' && entry.bonusType === 'Bool';
 }

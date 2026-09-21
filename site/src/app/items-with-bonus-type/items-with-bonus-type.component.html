@@ -30,7 +30,7 @@
         @for (entry of externalEntries; track entry.id) {
           <div class="row table-condensed small external-affix-entry-row" [class.external-ignored-row]="entry.kind === 'ignored'">
             <span class="col-12 icon-x-button-host">
-              {{describeExternalEntry(entry)}}
+              <app-external-affix-value [entry]="entry" [includeLabel]="true"></app-external-affix-value>
               <button type="button" class="icon-x-button icon-x-button-overlay" aria-label="Remove"
                 (click)="removeExternal(entry.id, $event)">
                 <span class="glyph-center-fix" aria-hidden="true">&times;</span>
@@ -39,21 +39,7 @@
           </div>
         }
       } @else {
-        <div class="external-affix-form">
-          <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
-            [(ngModel)]="externalLabel">
-          @if (isChecklistBonusType()) {
-            <label class="external-affix-checkbox-label">
-              <input type="checkbox" [(ngModel)]="externalChecked"> Covered
-            </label>
-          } @else {
-            <input type="number" class="form-control form-control-sm external-affix-value-input" placeholder="Value"
-              [(ngModel)]="externalValue">
-          }
-          <button type="button" class="btn btn-secondary btn-sm" [disabled]="!canAddExternal()" (click)="addExternal()">Add</button>
-          <span class="external-affix-divider" aria-hidden="true"></span>
-          <button type="button" class="btn btn-secondary btn-sm" [disabled]="isValueEntryStarted()" (click)="markIgnored()">Ignore</button>
-        </div>
+        <app-external-affix-form [affixName]="affixName" [bonusType]="bonusType" (done)="refreshMatches()"></app-external-affix-form>
       }
     }
   </div>

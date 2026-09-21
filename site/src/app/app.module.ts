@@ -39,6 +39,7 @@ import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
 import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
+import { AutofocusDirective } from './shared/autofocus.directive';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,
-        ShrinkToFitDirective
+        ShrinkToFitDirective,
+        AutofocusDirective
     ],
     imports: [
         AppRoutingModule,

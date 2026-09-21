@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import sharedConstants from '../../../../shared/constants.json';
 
@@ -25,7 +25,7 @@ export function validateBuildName(name: string): string | null {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class SaveBuildDialogComponent implements OnChanges {
+export class SaveBuildDialogComponent implements OnChanges, AfterViewInit {
   @Input() mode: 'create' | 'rename' | 'save-as' = 'create';
   @Input() initialName = '';
   @Input() saving = false;
@@ -87,7 +87,16 @@ export class SaveBuildDialogComponent implements OnChanges {
     this.confirmed.emit(validated);
   }
 
+  ngAfterViewInit(): void {
+    // ngModel writes the name into the input on a later tick, so selecting
+    // now would select an empty field - wait for the value to land.
+    setTimeout(() => this.focusInput());
+  }
+
+  /** Focuses the name field with the whole name selected, so typing replaces it. */
   focusInput(): void {
-    this.nameInputRef?.nativeElement.focus();
+    const input = this.nameInputRef?.nativeElement;
+    input?.focus();
+    input?.select();
   }
 }

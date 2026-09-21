@@ -39,6 +39,21 @@ describe('SaveBuildDialogComponent', () => {
     component = fixture.componentInstance;
   });
 
+  it('opens with the whole existing name selected, ready to be typed over', async () => {
+    component.mode = 'save-as';
+    component.initialName = 'Existing Build';
+    component.ngOnChanges({ initialName: {} as any });
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await new Promise(resolve => setTimeout(resolve));
+
+    const input = (fixture.nativeElement as HTMLElement).querySelector('input')!;
+    expect(document.activeElement).toBe(input);
+    expect(input.value).toBe('Existing Build');
+    expect(input.selectionStart).toBe(0);
+    expect(input.selectionEnd).toBe('Existing Build'.length);
+  });
+
   it('seeds the name field from initialName on changes', () => {
     component.initialName = 'Existing Build';
     component.ngOnChanges({ initialName: {} as any });

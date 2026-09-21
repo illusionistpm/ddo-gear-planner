@@ -31,6 +31,8 @@ export class TypeaheadComponent {
   @Input() searchType!: string;
   /** Set to 'body' when an ancestor clips overflow, so the results popup isn't cut off. */
   @Input() container?: string;
+  /** Focus the input when the typeahead appears. For ones that open on demand; not for always-visible search boxes. */
+  @Input() autofocus = false;
 
   @ViewChild('inputElement', { static: true }) inputElement!: ElementRef;
 

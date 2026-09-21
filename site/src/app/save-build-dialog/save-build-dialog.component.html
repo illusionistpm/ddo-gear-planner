@@ -22,7 +22,6 @@
         [maxlength]="maxLength"
         [disabled]="saving"
         autocomplete="off"
-        autofocus
       >
       <small class="save-dialog-char-count" [class.over-limit]="trimmedLength > maxLength">
         {{ trimmedLength }}/{{ maxLength }}

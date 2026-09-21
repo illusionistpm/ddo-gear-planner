@@ -27,6 +27,12 @@ describe('ItemSuggestionsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('puts keyboard focus in the name search when it opens', () => {
+    const search = (fixture.nativeElement as HTMLElement).querySelector('input[placeholder="Enter an item name"]');
+    expect(search).not.toBeNull();
+    expect(document.activeElement).toBe(search);
+  });
+
   it('does not select items excluded by item type filters', () => {
     const filters = TestBed.inject(FiltersService);
     const gearDB = TestBed.inject(GearDbService);

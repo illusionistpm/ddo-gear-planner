@@ -18,6 +18,8 @@ export class ExternalAffixFormComponent {
   @Input({ required: true }) affixName!: string;
   @Input({ required: true }) bonusType!: string;
   @Output() done = new EventEmitter<void>();
+  /** Focus the source label when the form appears. Off by default: the drawer shows this form unprompted. */
+  @Input() autofocus = false;
 
   label = '';
   value: number | null = null;

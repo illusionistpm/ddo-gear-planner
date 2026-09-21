@@ -10,6 +10,7 @@ import { ItemPreviewComponent } from '../item-preview/item-preview.component';
 import { ExternalAffixFormComponent } from '../external-affix-form/external-affix-form.component';
 import { ExternalAffixValueComponent } from '../external-affix-value/external-affix-value.component';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { AutofocusDirective } from '../shared/autofocus.directive';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -17,7 +18,7 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent],
+      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective],
       imports: [FormsModule]
     })
       .compileComponents();

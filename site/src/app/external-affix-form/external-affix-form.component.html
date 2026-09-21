@@ -1,5 +1,5 @@
 <div class="external-affix-form">
-  <input type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
+  <input [appAutofocus]="autofocus" type="text" class="form-control form-control-sm external-affix-label-input" placeholder="Source (e.g. Trance)"
     [(ngModel)]="label">
   @if (isChecklistBonusType()) {
     <label class="external-affix-checkbox-label">

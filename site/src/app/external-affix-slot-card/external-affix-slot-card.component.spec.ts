@@ -76,6 +76,34 @@ describe('ExternalAffixSlotCardComponent', () => {
     await settle();
   }
 
+  describe('keyboard focus while adding', () => {
+    const focusedIs = (selector: string) => document.activeElement === el().querySelector(selector);
+
+    it('goes to the affix search when the panel opens', async () => {
+      await openAddPanel();
+      expect(focusedIs('app-typeahead input')).toBe(true);
+    });
+
+    it('goes to the bonus type when the affix has several to choose from', async () => {
+      await openAddPanel();
+      await pickAffix('Strength');
+      expect(focusedIs('.external-add-bonus-type')).toBe(true);
+    });
+
+    it('goes to the source label once the bonus type is chosen', async () => {
+      await openAddPanel();
+      await pickAffix('Strength');
+      await chooseBonusType('Insight');
+      expect(focusedIs('.external-affix-label-input')).toBe(true);
+    });
+
+    it('skips straight to the source label when the affix has only one bonus type', async () => {
+      await openAddPanel();
+      await pickAffix('Feather Falling');
+      expect(focusedIs('.external-affix-label-input')).toBe(true);
+    });
+  });
+
   it('shows its title and a hint when there are no entries', () => {
     expect(el().querySelector('.external-slot-title')?.textContent?.trim()).toBe('Non-gear');
     expect(el().querySelector('.external-affix-empty')).not.toBeNull();

@@ -11,12 +11,12 @@
 @if (adding) {
   <div class="external-add-panel">
     <app-typeahead placeholder="Search for an affix" [source]="affixSource" [onChange]="onAffixSelected"
-      inputClass="form-control-sm" container="body" searchType="external_affix"></app-typeahead>
+      inputClass="form-control-sm" container="body" searchType="external_affix" [autofocus]="true"></app-typeahead>
     @if (selectedAffix) {
       <div class="external-add-selection">
         <span class="external-add-affix" [title]="selectedAffix">{{selectedAffix}}</span>
         <select class="form-select form-select-sm external-add-bonus-type" aria-label="Bonus type"
-          [(ngModel)]="selectedBonusType">
+          [appAutofocus]="!selectedBonusType" [(ngModel)]="selectedBonusType">
           <option value="" disabled>Bonus type</option>
           @for (bonusType of bonusTypes; track bonusType) {
             <option [value]="bonusType">{{bonusType}}</option>
@@ -25,7 +25,7 @@
       </div>
       @if (selectedBonusType) {
         <app-external-affix-form [affixName]="selectedAffix" [bonusType]="selectedBonusType"
-          (done)="closeAdd()"></app-external-affix-form>
+          [autofocus]="true" (done)="closeAdd()"></app-external-affix-form>
       }
     }
   </div>

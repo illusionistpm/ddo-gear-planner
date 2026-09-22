@@ -735,6 +735,7 @@ select.form-control {
   justify-content: center;
   line-height: 1;
   padding: 0;
+  position: relative;
   text-decoration: none;
   width: 1rem;
 }
@@ -747,13 +748,25 @@ select.form-control {
 }
 
 /*
- * Overlays an .icon-x-button at the right edge of a full-width name label,
- * revealed on hover/focus of the name - the standard "x to the right of the
- * affix name" placement used for tracked affixes and external entries. The
- * containing name element needs position: relative and some right padding
- * to leave room for it, plus its own :hover/:focus-within rule to set
- * opacity: 1 (that part stays local since the trigger selector differs per
- * component).
+ * Coarse pointers (touch) get a bigger invisible tap target than the drawn
+ * circle, rather than growing the circle itself - keeps dense lists visually
+ * quiet while still giving touch users room to hit it reliably.
+ */
+@media (pointer: coarse) {
+  .icon-x-button::before {
+    content: '';
+    inset: -0.3rem;
+    position: absolute;
+  }
+}
+
+/*
+ * Overlays an .icon-x-button at the right edge of a full-width name label -
+ * the standard "x to the right of the affix name" placement used for tracked
+ * affixes and external entries. Hidden until hover/focus of the name on a
+ * mouse; on touch (no hover) it stays dimly visible at rest instead, since
+ * there's nothing to hover. The containing name element needs
+ * position: relative and some right padding to leave room for it.
  */
 .icon-x-button-overlay {
   opacity: 0;
@@ -765,6 +778,12 @@ select.form-control {
 
 .icon-x-button-overlay:focus {
   opacity: 1;
+}
+
+@media (hover: none) {
+  .icon-x-button-overlay {
+    opacity: 0.5;
+  }
 }
 
 /*

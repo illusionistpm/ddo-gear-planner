@@ -50,7 +50,7 @@
                 <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows; trackBy: trackSlotRow">
                     <div class="tracked-affix-summary">
                         <span class="tracked-affix-name" [title]="row.affixName">
-                            {{row.affixName}}
+                            <span class="tracked-affix-name-text" appShrinkToFit>{{row.affixName}}</span>
                             @if (!isDerivedTrackedAffix(row.affixName)) {
                                 <button type="button" class="tracked-affix-remove" aria-label="Remove {{row.affixName}}"
                                     (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
@@ -147,7 +147,7 @@
             <div class="tracked-affix-row" *ngFor="let affixName of group.affixes">
                 <div class="tracked-affix-summary">
                     <span class="tracked-affix-name" [title]="affixName">
-                        {{affixName}}
+                        <span class="tracked-affix-name-text" appShrinkToFit>{{affixName}}</span>
                         @if (!isDerivedTrackedAffix(affixName)) {
                             <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}" (click)="removeAffix(affixName)"
                                 title="Remove {{affixName}}">

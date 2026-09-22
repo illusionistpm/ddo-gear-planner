@@ -81,7 +81,9 @@
                 [class.open]="filtersOpen"
                 [attr.aria-expanded]="filtersOpen"
                 aria-controls="filtersPanel"
+                aria-label="Filters"
                 (click)="toggleFilters()">
+                <i class="fas fa-filter planner-filter-icon" aria-hidden="true"></i>
                 <span class="planner-tab-label">Filters</span>
                 @if (activeFilterCount()) {
                     <span class="planner-filter-count"

@@ -108,8 +108,17 @@
   order: 10;
 }
 
+/*
+ * min-width: 0 (the default is auto, a min-content floor) is what lets this
+ * whole element give way to .planner-chrome's wrap once the brand has
+ * already dropped to its own line - without it, app-build-actions stays
+ * pinned to its content width and its own build-name shrinking (see
+ * build-actions.component.css) never gets triggered because nothing upstream
+ * of it is actually under pressure.
+ */
 app-build-actions {
   order: 40;
+  min-width: 0;
 }
 
 .planner-support-wrap,
@@ -169,6 +178,12 @@ app-admin-link {
 
 .planner-tab-label {
   flex: 0 0 auto;
+}
+
+/* Font Awesome rather than an emoji: emoji render as a different glyph on
+   every platform and ignore the button's colour (see build-actions.component.css). */
+.planner-filter-icon {
+  display: inline-block;
 }
 
 .planner-filter-caret {
@@ -702,6 +717,12 @@ app-admin-link {
     right: 0;
   }
 
+  /* The icon carries the same meaning on its own, same as Share's label
+     going at this width in build-actions.component.css - the text buys back
+     room for the filter chip strip next to it. */
+  .planner-tab-label {
+    display: none;
+  }
 }
 
 /*

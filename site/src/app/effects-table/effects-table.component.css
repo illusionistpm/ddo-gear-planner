@@ -63,7 +63,7 @@
 }
 
 .tracked-affix-row {
-    align-items: center;
+    align-items: flex-start;
     --tracked-affix-row-bg: var(--row-bg);
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -99,15 +99,25 @@
 
 .tracked-affix-name {
     color: var(--text-primary);
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    position: relative;
+}
+
+/*
+ * The remove button sits inside .tracked-affix-name but must stay out of what
+ * appShrinkToFit measures - it's absolutely positioned against the full row
+ * width, not the end of the text, so including it in the shrink target would
+ * make every name measure as wildly overflowing. Text-only sibling instead.
+ */
+.tracked-affix-name-text {
     flex: 1 1 auto;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.2;
     min-width: 0;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding-right: 1.1rem;
 }
 
 .tracked-affix-total {
@@ -337,22 +347,23 @@
 }
 
 @media (max-width: 767.98px) {
-    .tracked-affix-row {
-        align-items: stretch;
-        flex-direction: column;
+    /*
+     * Below this width the progress bar reads as a sliver too thin to convey
+     * anything, so it's dropped. The name/value pair stays stacked (the base
+     * rule already does this) rather than going side-by-side, and the summary
+     * column's floor width comes down too - at these container widths the
+     * 9rem floor was overriding the cqw share and holding the box at the same
+     * width the side-by-side layout needed, leaving badges (routinely several
+     * per affix, each wrapping onto its own line) no wider to work with.
+     * appShrinkToFit on the name absorbs the narrower box by shrinking/wrapping
+     * instead of the old ellipsis truncating it.
+     */
+    .tracked-affix-list {
+        --tracked-affix-summary-width: clamp(6rem, 24cqw, 12rem);
     }
 
-    .tracked-affix-summary {
-        flex-basis: auto;
-        width: 100%;
-    }
-
-    .tracked-affix-chips {
-        flex: 0 0 auto;
-    }
-
-    .tracked-affix-unavailable-types {
-        margin-left: 0;
+    .tracked-affix-progress {
+        display: none;
     }
 }
 
@@ -397,8 +408,11 @@
 /*
  * A checklist chip is a non-interactive wrapper (so it can host two sibling
  * buttons instead of nesting one inside the other): a plain button carrying
- * the chip's own look via .tracked-bonus-chip, plus a remove button that sits
- * directly over the checkbox icon and is only revealed on hover/focus.
+ * the chip's own look via .tracked-bonus-chip, plus a remove button that
+ * sits directly over the checkbox icon and is only revealed on hover/focus,
+ * swapping places with it. Touch has no hover to swap on, so it instead
+ * gets its own small reserved gutter and stays dimly visible at rest,
+ * leaving the checkbox alone - see the hover: none block below.
  */
 .checklist-chip-wrap {
     padding: 0;
@@ -437,8 +451,13 @@
 }
 
 @media (hover: none) {
+    .checklist-chip-wrap {
+        padding-right: 0.9rem;
+    }
+
     .checklist-chip-remove {
-        opacity: 0.7;
+        opacity: 0.5;
+        right: 0.1rem;
     }
 }
 

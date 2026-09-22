@@ -13,6 +13,7 @@
       </button>
     } @else {
       <span class="build-name build-name-editable"
+        appShrinkToFit
         tabindex="0"
         role="button"
         [attr.aria-label]="'Rename build: ' + (buildState.name || 'Untitled build')"
@@ -52,7 +53,7 @@
         [attr.aria-label]="saveControl.label"
         [title]="saveControl.label"
         (click)="onSaveControlPrimaryClick()"
-      ><span class="save-label-full">{{ saveControl.label }}</span><span
+      ><i class="fas fa-save save-icon" aria-hidden="true"></i><span class="save-label-full">{{ saveControl.label }}</span><span
           class="save-label-short">{{ saveControl.shortLabel }}</span></button>
 
       @if (saveControl.hasMenu) {

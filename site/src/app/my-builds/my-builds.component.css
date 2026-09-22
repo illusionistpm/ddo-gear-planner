@@ -138,6 +138,13 @@
   padding: var(--space-4);
 }
 
+@media (pointer: coarse) {
+  .my-builds-delete {
+    min-height: 2rem;
+    min-width: 2rem;
+  }
+}
+
 .my-builds-delete:hover:not(:disabled) {
   color: var(--danger-color);
 }

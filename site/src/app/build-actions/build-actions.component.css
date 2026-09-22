@@ -1,25 +1,72 @@
+/*
+ * flex: 0 1 auto plus min-width: 0 on the host (app-build-actions, in
+ * main.component.css) is what lets .planner-chrome compress this element
+ * once the brand has already wrapped to its own line, instead of it
+ * overflowing the chrome. width: 100% then hands that shrunk width down to
+ * this row as a definite size - inline-flex alone sizes to its content's
+ * preferred width (an auto-width flex box doesn't shrink-to-fit through
+ * nested flex the way a plain inline-block would), so without it the host
+ * shrinks but this row just overflows the host instead. Once it has a real
+ * width, .build-name-group's own flex-shrink (below) can actually engage.
+ */
 .build-actions {
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  min-width: 0;
   position: relative;
+  width: 100%;
 }
 
+/*
+ * flex: 0 1 26rem and min-width: 0 is the same "give up the leftover space
+ * last" trick .build-actions itself now uses against .planner-chrome -
+ * nested one level deeper, against the row's other buttons. It used to only
+ * apply below the mobile breakpoint; unqualified, it also covers the
+ * in-between widths where the toolbar has room for a wider name than the old
+ * flat cap allowed, but not always enough for the name at its full content
+ * width.
+ *
+ * The explicit width: 26rem (not just the matching flex-basis) is
+ * load-bearing: .build-name carries appShrinkToFit, which resizes its own
+ * font to fit its box. Without a definite width somewhere in this chain,
+ * this group's *own* size - what .build-actions hands it, and in turn what
+ * .planner-chrome hands the host - gets computed from its content, which
+ * includes that live font size. Shrink the font and the layout hands back
+ * less room next pass, which shrinks the fit again. flex-basis alone doesn't
+ * break that loop: flexbox's own intrinsic-size algorithm still falls back
+ * to a shrinkable item's real content over its declared basis once
+ * flex-shrink is nonzero (needed here, since the group must still shrink
+ * when the row really is tight). A fast window drag can catch that loop
+ * mid-cycle - the browser's own ResizeObserver loop-limit guard cuts it off
+ * - and leave the name stuck small even once there's room to grow. A plain
+ * `width` sidesteps the intrinsic-size algorithm instead of negotiating with
+ * it, which is what actually breaks the loop; flex-shrink (below) still
+ * compresses this element below that width exactly as it would without it.
+ * (`contain: inline-size` forces the same decoupling and was tried first,
+ * but it also silently stops ResizeObserver from firing on .build-name -
+ * appShrinkToFit needs that observer, so it's out.)
+ */
 .build-name-group {
   display: inline-flex;
   align-items: center;
+  flex: 0 1 26rem;
   gap: var(--space-2);
   min-width: 0;
   position: relative;
+  width: 26rem;
 }
 
 .build-name {
   color: var(--text-primary);
+  flex: 1 1 0;
   font-weight: 700;
-  max-width: 14rem;
+  max-width: 26rem;
+  min-width: 0;
   overflow: hidden;
   padding: var(--space-4) var(--space-4);
+  text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -44,9 +91,10 @@
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   color: var(--text-primary);
+  flex: 1 1 0;
   font: inherit;
   font-weight: 700;
-  max-width: 14rem;
+  max-width: 26rem;
   min-width: 6rem;
   padding: var(--space-4) var(--space-4);
 }
@@ -324,41 +372,35 @@
   gap: var(--space-4);
 }
 
+.save-split-primary {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-4);
+}
+
 /* Font Awesome rather than an emoji: emoji render as a different glyph on
-   every platform and ignore the button's colour. */
-.build-share-icon {
-  display: none;
+   every platform and ignore the button's colour. Shown alongside the label
+   at every width - see the media query for the narrow-width exception. */
+.build-share-icon,
+.save-icon {
+  display: inline-block;
 }
 
 @media (max-width: 767.98px) {
   /*
-   * width: 100% so this fills the host element, which is what the chrome
-   * actually shrinks - inline-flex alone sizes to content and just overflows
-   * it. nowrap so the name shrinks into the leftover width rather than wrapping
-   * to a line of its own.
+   * width: 100% is unqualified now (see the base rule above) - this just adds
+   * nowrap, so the name shrinks into the leftover width rather than wrapping
+   * to a line of its own, and right-alignment, since the view switch that
+   * shares this line sits to the left of it here rather than the brand.
    */
   .build-actions {
     flex-wrap: nowrap;
     justify-content: flex-end;
-    min-width: 0;
-    width: 100%;
   }
 
-  /*
-   * Takes the line's leftover width - see the note in main.component.css.
-   * flex-basis 0 on both the group and the name itself, or the name's own
-   * min-content width keeps the group from shrinking at all.
-   */
-  .build-name-group {
-    flex: 0 1 auto;
-    min-width: 0;
-  }
-
-  /* Shrink, but never grow past the name itself - basis auto, not 0. */
-  .build-name,
+  /* The edit box keeps a 6rem floor everywhere else - a narrow phone needs
+     it to shrink past that too, or renaming overflows the row. */
   .build-name-input {
-    flex: 0 1 auto;
-    max-width: none;
     min-width: 0;
   }
 
@@ -377,8 +419,10 @@
     display: none;
   }
 
-  .build-share-icon {
-    display: inline;
+  /* Wide screens pair it with the label (see the base rule); this narrow
+     layout has no room to spare, so the icon goes rather than the label. */
+  .save-icon {
+    display: none;
   }
 
   .build-overflow-wrap {

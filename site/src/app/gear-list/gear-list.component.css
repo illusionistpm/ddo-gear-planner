@@ -182,13 +182,21 @@
     font-weight: 500;
 }
 
-/* Hover effects for better interactivity */
-.hover-helper:hover .show-on-hover {
+.hover-helper .show-on-hover {
+    visibility: hidden;
+}
+
+.hover-helper:hover .show-on-hover,
+.hover-helper:focus-within .show-on-hover {
     visibility: visible;
 }
 
-.hover-helper .show-on-hover {
-    visibility: hidden;
+/* No hover to reveal on touch - stay dimly visible at rest instead. */
+@media (hover: none) {
+    .hover-helper .show-on-hover {
+        opacity: 0.5;
+        visibility: visible;
+    }
 }
 
 .heart {

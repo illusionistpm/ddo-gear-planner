@@ -60,14 +60,20 @@
 
 /*
  * Explicit sizing: as a direct child of .row, Bootstrap would stretch it to 100% width.
- * It is centered on the first line of the item name: button top padding (0.2rem) +
- * slot-name row (1.1rem) + half the item-name line (0.75rem).
+ * .icon-x-button-overlay's top: 50%/transform: translateY(-50%) center it on the whole
+ * card by default - both are overridden here (top: auto, transform: none) so bottom
+ * takes over instead, anchoring it to the item name line regardless of how tall the
+ * slot-name row above it gets (wrapped loot badges, the owned badge, etc. can all add
+ * height there): button bottom padding (0.25rem) + half the item-name line (0.75rem) -
+ * half the button's own height (0.5rem) = 0.5rem.
  */
 .slot-clear-button {
+    bottom: 0.5rem;
     max-width: 1rem;
     padding: 0;
     right: 0.5rem;
-    top: 2.05rem;
+    top: auto;
+    transform: none;
     width: 1rem;
 }
 

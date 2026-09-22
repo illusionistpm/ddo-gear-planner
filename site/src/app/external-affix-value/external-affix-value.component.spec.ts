@@ -14,7 +14,7 @@ describe('ExternalAffixValueComponent', () => {
 
   const el = () => fixture.nativeElement as HTMLElement;
   const text = () => el().textContent!.replace(/\s+/g, ' ').trim();
-  const box = () => el().querySelector('.fa-check-square');
+  const box = () => el().querySelector('.fa-square-check');
 
   function show(entry: Partial<ExternalAffixEntry>, includeLabel = false) {
     fixture.componentRef.setInput('entry', { id: '1', affixName: 'Strength', bonusType: 'Insight', kind: 'value', value: 3, label: 'Spell', ...entry });

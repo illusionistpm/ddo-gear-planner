@@ -5,7 +5,7 @@
     [attr.aria-label]="adding ? 'Cancel adding a non-gear affix' : 'Add a non-gear affix'"
     [title]="adding ? 'Cancel' : 'Add a non-gear affix'"
     (click)="toggleAdd()">
-    <span class="fas" [ngClass]="adding ? 'fa-times' : 'fa-plus'" aria-hidden="true"></span>
+    <span class="fas" [ngClass]="adding ? 'fa-xmark' : 'fa-plus'" aria-hidden="true"></span>
   </button>
 </div>
 @if (adding) {

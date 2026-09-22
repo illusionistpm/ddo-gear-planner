@@ -127,7 +127,7 @@ describe('ExternalAffixSlotCardComponent', () => {
     fixture.detectChanges();
 
     expect(rowTexts()).toEqual(['Feather Falling (Ring) | ']);
-    expect(el().querySelector('.external-affix-row .fa-check-square')?.getAttribute('aria-label')).toBe('Covered');
+    expect(el().querySelector('.external-affix-row .fa-square-check')?.getAttribute('aria-label')).toBe('Covered');
   });
 
   describe('adding an entry from the heading', () => {

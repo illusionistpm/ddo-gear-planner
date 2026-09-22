@@ -35,7 +35,7 @@
                                 [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
                                 (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
-                                <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
+                                <span class="far fa-square-check max-value checklist-chip-icon" aria-hidden="true"></span>
                             </button>
                             @if (!isDerivedTrackedAffix(affixName)) {
                                 <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
@@ -112,7 +112,7 @@
                                 [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
                                 (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
-                                <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
+                                <span class="far fa-square-check max-value checklist-chip-icon" aria-hidden="true"></span>
                             </button>
                             @if (!isDerivedTrackedAffix(affixName)) {
                                 <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"

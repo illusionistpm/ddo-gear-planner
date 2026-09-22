@@ -1,0 +1,285 @@
+/*
+ * The tracked-affix coverage rail shown beside the Equipment view.
+ *
+ * These lived in the global styles.css until this component gained a
+ * stylesheet of its own - every selector here is one only this template can
+ * match, so scoping them changes nothing but where they live.
+ */
+
+.affix-summary-dock {
+  min-width: 0;
+  position: relative;
+}
+
+.affix-summary-rail {
+  display: grid;
+  max-height: calc(var(--planner-panel-height, 100svh) - 1.25rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: var(--space-8) 0 0;
+  scrollbar-gutter: stable;
+}
+
+.affix-summary-sticky {
+  background: var(--background-color);
+  display: grid;
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Cover the rail's top padding so scrolled content can't peek above the header. */
+.affix-summary-sticky::before {
+  background: var(--background-color);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -0.45rem;
+  height: 0.45rem;
+}
+
+.affix-summary-title {
+  color: var(--info-chip-text-color);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin: 0;
+  padding: var(--space-4) var(--space-2);
+  text-transform: uppercase;
+}
+
+.affix-summary-empty {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  padding: 0 var(--space-2);
+}
+
+.affix-summary-groups {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.affix-summary-group-title {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  justify-content: space-between;
+  letter-spacing: 0.02em;
+  padding: var(--space-2);
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.affix-summary-group-title:hover,
+.affix-summary-group-title:focus-visible {
+  color: var(--tracked-affix-accent, var(--primary-color));
+  outline: none;
+}
+
+.affix-summary-group-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-4);
+}
+
+.affix-summary-group-count {
+  background: var(--tracked-affix-accent-soft, var(--surface-subtle-color));
+  border-radius: 999px;
+  color: var(--tracked-affix-accent, var(--text-secondary));
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0 var(--space-4);
+}
+
+.affix-summary-collapse-indicator {
+  transform: rotate(90deg);
+  transition: transform 0.15s ease;
+}
+
+.affix-summary-collapse-indicator.collapsed {
+  transform: rotate(0deg);
+}
+
+.affix-summary-list {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.affix-summary-row + .affix-summary-row {
+  border-top: 1px solid var(--border-color);
+}
+
+.affix-summary-heading {
+  align-items: baseline;
+  column-gap: var(--space-8);
+  display: flex;
+  min-width: 0;
+}
+
+.affix-summary-name {
+  color: var(--text-primary);
+  flex: 0 1 auto;
+  font-size: 0.76rem;
+  font-weight: 650;
+  margin-right: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.affix-summary-trailing {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.affix-summary-value {
+  color: var(--text-secondary);
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.affix-summary-value-max {
+  font-weight: 600;
+  opacity: 0.65;
+}
+
+.affix-summary-codes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  min-width: 0;
+  padding-left: var(--space-4);
+}
+
+.affix-summary-remove {
+  align-items: center;
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--danger-color);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 800;
+  height: 1rem;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: calc(100% + 0.15rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+}
+
+.affix-summary-row:hover .affix-summary-remove,
+.affix-summary-row:focus-within .affix-summary-remove,
+.affix-summary-remove:focus {
+  opacity: 1;
+}
+
+.affix-summary-remove:hover,
+.affix-summary-remove:focus {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  color: var(--on-accent-text-color);
+}
+
+.affix-summary-row.is-checklist {
+  align-items: center;
+  flex-direction: row;
+  column-gap: var(--space-8);
+  padding: var(--space-2) var(--space-2);
+}
+
+.affix-summary-row.is-checklist + .affix-summary-row.is-checklist {
+  border-top: none;
+}
+
+.affix-summary-row.is-checklist .affix-summary-heading {
+  flex: 1 1 auto;
+}
+
+.affix-summary-row.is-checklist .affix-summary-name {
+  color: var(--text-secondary);
+  font-weight: 550;
+}
+
+.affix-summary-code {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  min-width: 1.6rem;
+  padding: var(--space-2) var(--space-4);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.affix-summary-code:hover,
+.affix-summary-code:focus-visible {
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+  outline: none;
+}
+
+.affix-summary-code.max-value {
+  background: rgba(var(--value-max-rgb), 0.12);
+  border-color: rgba(var(--value-max-rgb), 0.55);
+  color: var(--success-color);
+}
+
+.affix-summary-code.mid-value {
+  background: rgba(var(--value-mid-rgb), 0.12);
+  border-color: rgba(var(--value-mid-rgb), 0.55);
+  color: var(--warning-color);
+}
+
+.affix-summary-code.low-value {
+  background: rgba(var(--value-low-rgb), 0.12);
+  border-color: rgba(var(--value-low-rgb), 0.55);
+  color: var(--danger-color);
+}
+
+.affix-summary-code.penalty-value {
+  background: rgba(var(--value-low-rgb), 0.12);
+  border-color: rgba(var(--value-low-rgb), 0.7);
+  color: var(--danger-color);
+  text-decoration: line-through;
+}
+
+.affix-summary-code.no-value {
+  background: transparent;
+  border-color: var(--border-color);
+  border-style: dashed;
+  color: var(--text-secondary);
+}
+
+.affix-summary-code.ignored-value {
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  opacity: 0.65;
+  text-decoration: line-through;
+}

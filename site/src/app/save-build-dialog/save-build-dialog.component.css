@@ -12,9 +12,9 @@
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: var(--space-12);
   width: min(28rem, calc(100vw - 2rem));
-  padding: 1rem;
+  padding: var(--space-16);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--surface-elevated-color);
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-16);
 }
 
 .save-dialog-header strong {
@@ -62,14 +62,14 @@
 
 .save-dialog-input span {
   display: block;
-  margin-bottom: 0.35rem;
+  margin-bottom: var(--space-4);
   color: var(--text-secondary);
   font-size: 0.8rem;
 }
 
 .save-dialog-input input {
   width: 100%;
-  padding: 0.55rem;
+  padding: var(--space-8);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--surface-color);
@@ -79,7 +79,7 @@
 
 .save-dialog-char-count {
   display: block;
-  margin-top: 0.3rem;
+  margin-top: var(--space-4);
   color: var(--text-secondary);
   font-size: 0.75rem;
   text-align: right;
@@ -98,12 +98,12 @@
 .save-dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: var(--space-8);
 }
 
 .save-dialog-cancel,
 .save-dialog-confirm {
-  padding: 0.5rem 1rem;
+  padding: var(--space-8) var(--space-16);
   border-radius: 6px;
   font: inherit;
   font-weight: 700;

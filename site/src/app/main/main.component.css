@@ -2,41 +2,56 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100svh;
   max-width: none;
   overflow: hidden;
-  padding-left: 1rem;
+  padding-left: var(--space-16);
   padding-right: 0;
-  padding-top: 0.5rem;
+  padding-top: 0;
   width: 100%;
 }
 
-.planner-workspace-bar {
+/*
+ * The page chrome: one panel that wraps onto two lines. Every control is a
+ * direct flex child - app-planner-toolbar is display: contents - so which
+ * line each lands on is decided by `order` alone, and .planner-chrome-break
+ * forces the wrap between them.
+ *
+ * Flush with the top of the viewport rather than a floating rounded
+ * rectangle: square top corners, no top border (the viewport's own edge
+ * already draws that line), and no gap above it to that edge - .planner-page
+ * used to spend --space-8 on one. Left, right and bottom keep their existing
+ * treatment; only the top edge reads as "attached" rather than "a card".
+ */
+.planner-chrome {
   align-items: center;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border-top: 0;
   box-shadow: var(--shadow-sm);
+  column-gap: var(--space-8);
   display: flex;
   flex: 0 0 auto;
-  margin-bottom: 0.8rem;
-  margin-right: 1rem;
-  padding: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+  margin-right: var(--space-16);
+  padding: var(--space-8);
   position: relative;
-  top: 0;
+  row-gap: var(--space-4);
   z-index: 1100;
 }
 
 /*
  * The blur+background lives on a pseudo-element rather than directly on
- * .planner-workspace-bar. backdrop-filter (like transform) creates a new
- * containing block for any position:fixed descendant - since
- * app-build-actions (and the Save/My Builds overlays it renders) lives
- * inside this bar, having backdrop-filter here made those overlays center
- * within the bar's small box instead of the viewport, landing mostly
- * off-screen. A pseudo-element isn't part of its siblings' ancestor chain,
- * so it gets the same visual effect without hijacking fixed positioning.
+ * .planner-chrome. backdrop-filter (like transform) creates a new containing
+ * block for any position:fixed descendant - since app-build-actions (and the
+ * Save/My Builds overlays it renders) lives inside this bar, having
+ * backdrop-filter here made those overlays center within the bar's small box
+ * instead of the viewport, landing mostly off-screen. A pseudo-element isn't
+ * part of its siblings' ancestor chain, so it gets the same visual effect
+ * without hijacking fixed positioning.
  */
-.planner-workspace-bar::before {
+.planner-chrome::before {
   background: var(--top-bar-bg);
   backdrop-filter: blur(12px);
   border-radius: inherit;
@@ -46,6 +61,21 @@
   z-index: -1;
 }
 
+/* Forces the wrap, and draws the line between the two rows. */
+.planner-chrome-break {
+  border-top: 1px solid var(--border-color);
+  flex: 1 0 100%;
+  height: 0;
+  margin: var(--space-2) calc(-1 * var(--space-8)) 0;
+  order: 60;
+}
+
+.planner-chrome-spacer {
+  flex: 1 1 auto;
+  min-width: 0;
+  order: 30;
+}
+
 .planner-brand {
   align-items: center;
   color: var(--text-primary);
@@ -53,9 +83,9 @@
   flex: 0 0 auto;
   font-size: 0.95rem;
   font-weight: 800;
-  gap: 0.4rem;
+  gap: var(--space-8);
   letter-spacing: 0;
-  padding: 0 0.45rem 0 0.2rem;
+  padding: 0 var(--space-8) 0 var(--space-4);
   white-space: nowrap;
 }
 
@@ -64,28 +94,54 @@
   width: 1.4rem;
 }
 
-.planner-workspace-spacer {
-  flex: 1 1 auto;
-  min-width: 0;
+.planner-filter-count {
+  display: none;
 }
 
-.planner-toolbar-divider {
-  align-self: stretch;
-  border-left: 1px solid var(--border-color);
-  flex: 0 0 auto;
-  margin: 0.3rem 0;
+/*
+ * Positions within .planner-chrome. Ko-fi, the theme toggle and Admin are
+ * projected into app-build-actions' overflow menu, which is display: contents
+ * on a wide screen - so they are flex items of this bar, and an unset order
+ * would sort them ahead of the brand.
+ */
+.planner-brand {
+  order: 10;
+}
+
+app-build-actions {
+  order: 40;
+}
+
+.planner-support-wrap,
+.theme-toggle,
+app-admin-link {
+  order: 40;
 }
 
 .planner-filter-control {
   align-items: center;
+  /*
+   * Swapped with the affix builder button's order (was 100, after it): see
+   * that rule's comment in planner-toolbar.component.css. Desktop pushes this
+   * further forward, ahead of Group by / the search box too - Filters is the
+   * one control that applies regardless of which view you're on, and
+   * Group by / Add-edit affixes are properties of the affix UI specifically.
+   */
+  order: 90;
   border: 1px solid transparent;
   border-radius: 7px;
   display: flex;
   flex: 0 1 auto;
-  gap: 0.45rem;
-  margin-left: 0.5rem;
+  gap: var(--space-8);
+  margin-left: auto;
   min-width: 0;
-  padding: 0.15rem 0.3rem;
+  padding: var(--space-2) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .planner-filter-control {
+    order: 75;
+  }
 }
 
 .planner-filter-control.open {
@@ -104,11 +160,11 @@
   flex: 0 0 auto;
   font-size: 0.9rem;
   font-weight: 700;
-  gap: 0.35rem;
+  gap: var(--space-4);
   justify-content: flex-start;
   line-height: 1.2;
   min-height: 1.7rem;
-  padding: 0.25rem 0.4rem;
+  padding: var(--space-4) var(--space-8);
 }
 
 .planner-tab-label {
@@ -128,7 +184,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: var(--space-4);
   min-width: 0;
 }
 
@@ -155,9 +211,9 @@
   display: inline-flex;
   font-size: 0.78rem;
   font-weight: 650;
-  gap: 0.3rem;
+  gap: var(--space-4);
   line-height: 1.2;
-  padding: 0.18rem 0.45rem;
+  padding: var(--space-2) var(--space-8);
   white-space: nowrap;
 }
 
@@ -213,7 +269,7 @@
   flex: 0 0 auto;
   font-size: 0.78rem;
   font-weight: 650;
-  padding: 0.18rem 0.3rem;
+  padding: var(--space-2) var(--space-4);
   text-decoration: underline;
   white-space: nowrap;
 }
@@ -232,7 +288,7 @@
   align-self: stretch;
   display: inline-flex;
   flex: 0 0 auto;
-  margin-left: 0.4rem;
+  margin-left: var(--space-8);
   position: relative;
 }
 
@@ -250,7 +306,7 @@
   line-height: 1.2;
   min-height: 2rem;
   min-width: 2.25rem;
-  padding: 0.35rem;
+  padding: var(--space-4);
   width: 100%;
 }
 
@@ -286,7 +342,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-lg);
-  max-height: calc(100vh - 4.5rem);
+  max-height: calc(100svh - var(--planner-chrome-height, 4.5rem) - 0.5rem);
   overflow: hidden;
   position: absolute;
   right: 0;
@@ -329,7 +385,7 @@
   border: 0;
   display: block;
   height: 640px;
-  max-height: calc(100vh - 4.5rem);
+  max-height: calc(100svh - var(--planner-chrome-height, 4.5rem) - 0.5rem);
   width: 100%;
 }
 
@@ -345,10 +401,10 @@
   font-size: 0.95rem;
   justify-content: center;
   line-height: 1.2;
-  margin-left: 0.4rem;
+  margin-left: var(--space-8);
   min-height: 2rem;
   min-width: 2.25rem;
-  padding: 0.35rem;
+  padding: var(--space-4);
 }
 
 .theme-toggle:hover,
@@ -386,9 +442,9 @@
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-lg);
   left: 0;
-  max-height: calc(100vh - 4.5rem);
+  max-height: calc(100svh - var(--planner-chrome-height, 4.5rem) - 0.5rem);
   overflow: auto;
-  padding: 0.75rem;
+  padding: var(--space-12);
   position: absolute;
   right: 0;
   top: calc(100% + 0.35rem);
@@ -399,7 +455,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-8);
 }
 
 .planner-filter-sheet-title {
@@ -414,10 +470,19 @@
   border-left: 4px solid var(--success-color);
   border-radius: var(--border-radius);
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-12);
   justify-content: space-between;
-  margin: -0.25rem 1rem 0.75rem 0;
-  padding: 0.7rem 0.85rem;
+  margin: -0.25rem var(--space-16) var(--space-12) 0;
+  padding: var(--space-12) var(--space-12);
+}
+
+.planner-onboarding-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  justify-content: flex-end;
 }
 
 .planner-onboarding-hint h2 {
@@ -425,7 +490,7 @@
   font-size: 1rem;
   font-weight: 800;
   line-height: 1.2;
-  margin: 0 0 0.2rem;
+  margin: 0 0 var(--space-4);
 }
 
 .planner-onboarding-hint p {
@@ -477,7 +542,7 @@
   background: var(--background-color);
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: var(--space-16);
   height: 100vh;
   justify-content: center;
   width: 100%;
@@ -501,7 +566,7 @@
   background: var(--background-color);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: var(--space-8);
   height: 100vh;
   justify-content: center;
   padding: 1.5rem;
@@ -511,7 +576,7 @@
 
 .planner-load-error-icon {
   height: 3rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-8);
   opacity: 0.6;
   width: 3rem;
 }
@@ -535,8 +600,8 @@
   cursor: pointer;
   font: inherit;
   font-weight: 700;
-  margin-top: 0.4rem;
-  padding: 0.5rem 1.1rem;
+  margin-top: var(--space-8);
+  padding: var(--space-8) 1.1rem;
 }
 
 .planner-load-error-retry:hover,
@@ -546,7 +611,7 @@
 
 .planner-load-error-home {
   color: var(--text-secondary);
-  margin-top: 0.3rem;
+  margin-top: var(--space-4);
   text-decoration: underline;
 }
 
@@ -571,45 +636,92 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-bottom: 1rem;
-  padding-left: 0.75rem;
-  padding-right: 1rem;
+  scrollbar-gutter: stable;
+  padding-bottom: var(--space-16);
+  /* No left inset: .planner-page's padding already holds the gutter, so the
+     rail and the first gear card start on the same line as the bar above. */
+  padding-left: 0;
+  padding-right: var(--space-16);
 }
 
+/*
+ * Narrow screens. The bar used to become flex-direction: column here, giving
+ * every control its own row - 306px of chrome at 375px wide, 38% of the
+ * viewport before any content. It stays a single row now: the wordmark drops
+ * to just the icon, the sign-in label shortens, and the three utility controls
+ * fold behind one button.
+ */
 @media (max-width: 767.98px) {
-  .planner-workspace-bar {
-    align-items: stretch;
-    flex-direction: column;
+  .planner-page {
+    padding-left: var(--space-8);
+    padding-right: 0;
   }
 
-  .planner-workspace-spacer {
+  .planner-tab-panel {
+    padding-left: 0;
+    padding-right: var(--space-8);
+  }
+
+  .planner-chrome {
+    /* The first line carries the switch, Share, the save control and the
+       overflow button - a couple of pixels per gap decides whether the last of
+       those stays on it. */
+    column-gap: var(--space-4);
+    margin-right: var(--space-8);
+  }
+
+  /* The favicon gives up its corner: that first line needs every pixel. */
+  .planner-brand {
     display: none;
   }
 
-  .planner-toolbar-divider {
-    align-self: stretch;
-    border-left: 0;
-    border-top: 1px solid var(--border-color);
-    margin: 0.4rem 0;
+  /*
+   * A phone is not one width: 360px and 500px differ by more than the whole
+   * overflow button. Rather than snap everything to the tightest form across
+   * that range, hand the slack to the build controls and let the build name
+   * inside them take whatever is left.
+   */
+  .planner-chrome-spacer {
+    flex: 0 0 0;
   }
 
-  .planner-brand {
-    padding: 0.1rem 0.2rem;
+  /*
+   * flex-basis 0, not auto. .planner-chrome wraps, and a wrapping flex
+   * container moves an item to the next line when its *content* width does not
+   * fit rather than shrinking it - so with basis auto this lands on a line of
+   * its own at 360px instead of letting the name give way.
+   */
+  app-build-actions {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
-  .theme-toggle,
-  .planner-support-wrap {
-    align-self: flex-end;
-    margin-left: 0;
-    margin-top: 0.4rem;
-  }
-
-  .planner-filter-control {
-    margin-left: 0;
-  }
-
+  /* The overflow button and its menu live in app-build-actions now, so that
+     there is one menu here rather than two beside each other. */
   .planner-support-popover {
     right: 0;
+  }
+
+  /* The chip strip is what used to wrap this row onto extra lines; the count
+     carries the same "something is filtered" signal, and the sheet shows what. */
+  .planner-tab-badges,
+  .planner-filter-reset-all {
+    display: none;
+  }
+
+  .planner-filter-count {
+    align-items: center;
+    background: var(--primary-color);
+    border-radius: 999px;
+    color: var(--on-accent-text-color);
+    display: inline-flex;
+    font-size: 0.7rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    min-height: 1.1rem;
+    min-width: 1.1rem;
+    padding: 0 var(--space-4);
   }
 }
 
@@ -624,6 +736,6 @@
   }
 
   .planner-filter-reset-all {
-    margin-left: 0.4rem;
+    margin-left: var(--space-8);
   }
 }

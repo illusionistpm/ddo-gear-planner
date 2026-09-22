@@ -5,7 +5,7 @@
         <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
         <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Close this panel to start choosing items. You can reopen it any time from the Tracked Affixes panel.</p>
+          <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
         </ng-container>
         <ng-template #affixSetupIntro>
           <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
@@ -22,7 +22,7 @@
         <ng-template #savedAffixSetupIntro>
           <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
             <h2>Your gear targets are ready</h2>
-            <p>Close this panel to start choosing items. You can reopen it any time from the Tracked Affixes panel.</p>
+            <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
           </ng-container>
         </ng-template>
         <ng-template #emptyAffixSetupIntro>

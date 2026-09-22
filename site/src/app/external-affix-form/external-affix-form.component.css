@@ -2,7 +2,7 @@
     align-items: center;
     display: flex;
     flex-wrap: nowrap;
-    gap: 0.35rem;
+    gap: var(--space-4);
 }
 
 .external-affix-label-input {
@@ -20,7 +20,7 @@
     display: flex;
     flex: 0 0 auto;
     font-size: 0.85rem;
-    gap: 0.3rem;
+    gap: var(--space-4);
     margin: 0;
     white-space: nowrap;
 }

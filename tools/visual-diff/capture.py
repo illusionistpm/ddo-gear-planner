@@ -12,8 +12,9 @@ content.
 
 Three viewports, because the layout is genuinely different at each: the page
 chrome restacks below 768px, and the two compact rails stop rendering below
-992px. The phone pass emulates touch as well, or the (pointer: coarse) rules
-that size tap targets would not apply.
+992px. The phone pass is 360px - the narrowest width this app supports, rather
+than a comfortable one above it - and emulates touch, or the (pointer: coarse)
+rules that size tap targets would not apply.
 
 Screenshots are only comparable on the same machine: font rasterisation and
 GPU compositing differ elsewhere. Don't commit them as a baseline.
@@ -39,7 +40,7 @@ class Viewport:
 VIEWPORTS = [
     Viewport('desktop', 1440, 900),
     Viewport('tablet', 768, 1024, touch=True),
-    Viewport('mobile', 375, 812, touch=True),
+    Viewport('mobile', 360, 800, touch=True),
 ]
 
 # Set pieces from two sets (so set bonuses render), a slot left empty for the

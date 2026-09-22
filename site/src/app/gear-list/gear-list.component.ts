@@ -8,8 +8,6 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { TypeaheadResult } from '../typeahead/typeahead.component';
-import { Item } from '../gear/item';
 
 @Component({
     selector: 'app-gear-list',
@@ -92,51 +90,6 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   getSetBonusTooltip(eligible: boolean, threshold: number, pieces: number, affix: Affix): string {
     return eligible ? this.affixUi.getAffixTooltip(affix) : this.affixUi.getSetBonusLockedTooltip(threshold, pieces);
-  }
-
-  getAllGear() {
-    const allGear = [];
-    for (const slot of this.gearList.getSlots()) {
-      allGear.push(...this.gearList.getGearBySlot(slot));
-    }
-    return allGear;
-  }
-
-  onGlobalItemSelected = (item: TypeaheadResult) => {
-    if (item) {
-      let actualItem: Item | undefined;
-      if ('original' in item) {
-        // This is a synonym match, find the actual item by name
-        const allGear = this.getAllGear();
-        actualItem = allGear.find(g => g.name === item.original);
-        if (!actualItem) {
-          console.log('Could not find item with name:', item.original);
-          return;
-        }
-      } else if (item instanceof Item) {
-        actualItem = item;
-      } else {
-        // Not an Item object, maybe a fake object
-        console.log('Invalid item selected:', item);
-        return;
-      }
-      if (!this.equipped.canEquip(actualItem)) {
-        return;
-      }
-      this.equipped.set(actualItem);
-      this.analytics.track('planner_equip_item', {
-        equip_source: 'global_search',
-        slot: actualItem.slot
-      });
-    }
-  }
-
-  globalResultFormatter = (item: TypeaheadResult) => {
-    if (item instanceof Item) {
-      const current = this.equipped.getSlotsSnapshot().get(item.slot)?.name;
-      return item.name + ' (' + item.slot + ')' + (current ? ' (replaces ' + current + ')' : '');
-    }
-    return item.name;
   }
 
   shouldShowArmorStartHint() {

@@ -7,7 +7,6 @@ import { AffixService } from '../affixes/affix.service';
 import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affixes/affix-availability.service';
 import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
 import {
@@ -93,7 +92,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private affixSvc: AffixService,
     private onboarding: PlannerOnboardingService,
     private suggestionDrawer: SuggestionDrawerService,
-    private affixBuilder: AffixBuilderDrawerService,
     private availability: AffixAvailabilityService,
     private derivation: TrackedAffixDerivationService
   ) {
@@ -203,14 +201,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
     const maxValue = this.getMaxValueForType(affixName, type);
     return maxValue > 0 && type.value >= moderateValueThreshold(maxValue);
-  }
-
-  setGroupMode(mode: TrackedAffixGroupMode) {
-    this.equipped.setTrackedAffixGroupMode(mode);
-  }
-
-  openBuilder() {
-    this.affixBuilder.open('edit');
   }
 
   /**

@@ -48,7 +48,7 @@ URL, so a pinned URL pins the content.
 
 ### Viewports
 
-`desktop` 1440x900, `tablet` 768x1024, `mobile` 375x812 - the last two with
+`desktop` 1440x900, `tablet` 768x1024, `mobile` 360x800 - the last two with
 touch emulated, or the `(pointer: coarse)` rules that size tap targets don't
 apply. All three by default, 90 screenshots; narrow it while iterating with
 `--viewport desktop`.

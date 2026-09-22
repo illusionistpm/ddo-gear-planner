@@ -11,7 +11,7 @@
     max-height: calc(100vh - 1rem);
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0.75rem;
+    padding: var(--space-12);
     position: fixed;
     right: 34.75rem;
     top: 0.5rem;
@@ -32,16 +32,16 @@
 .item-preview-header {
     align-items: flex-start;
     display: flex;
-    gap: 0.75rem;
+    gap: var(--space-12);
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-8);
 }
 
 .item-preview-title {
     align-items: center;
     display: grid;
     flex: 1;
-    gap: 0.35rem;
+    gap: var(--space-4);
     grid-template-columns: 2rem minmax(0, 1fr) 2rem;
     min-width: 0;
 }
@@ -85,13 +85,13 @@
 
 .item-preview-card {
     border: 1px solid var(--border-color);
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--space-12);
 }
 
 .item-preview-actions {
     align-items: center;
     display: flex;
-    gap: 0.75rem;
+    gap: var(--space-12);
     justify-content: space-between;
 }
 
@@ -104,9 +104,21 @@
     text-decoration: underline;
 }
 
-@media (max-width: 1199.98px) {
+/*
+ * This panel floats fixed at right: 34.75rem, width: 28rem - so its left edge
+ * sits at (viewport - 1004px) regardless of anything else on the page. Below
+ * 992px that's moot (the tracked-affix/tracked-equipment rail that would
+ * otherwise sit under it isn't rendered), but from 992px up to the 1400px
+ * side-by-side threshold, that rail occupies the page's left 256px (16px
+ * gutter + up to 240px of rail). 1199.98px left the panel overlapping the
+ * rail by up to 60px - real overlap, not a hypothetical one, confirmed by
+ * measuring both boxes at 1200px. 1299.98px clears the rail's known width
+ * with ~40px to spare (1004 + 256 = 1260); below it, the panel stacks inline
+ * instead of floating, same as it always did below 1199.98px.
+ */
+@media (max-width: 1299.98px) {
     .item-preview-panel {
-        margin: 0.75rem 0;
+        margin: var(--space-12) 0;
         max-height: none;
         position: static;
         width: auto;

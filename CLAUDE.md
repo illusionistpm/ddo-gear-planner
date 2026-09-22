@@ -70,6 +70,17 @@ name, distinguished by `isValid()`, which caused four separate bugs. The
 placeholder and `isValid()` are gone; `EquippedService` stores `Item | null` and
 the compiler enforces the check. Don't reintroduce a sentinel object.
 
+**Bootstrap is loaded globally**, from `angular.json`'s styles array, and its
+reboot carries `[hidden] { display: none !important }`. Nothing short of
+`!important` overrides it, so any rule that reveals a `[hidden]` element needs
+its own - which is why `.planner-tab-panel`'s ultrawide rule has always had one.
+A rule without it fails silently: the selector matches, the media query matches,
+and the element stays hidden. The `col-*` grid classes are Bootstrap's too, and
+they are media-queried on the **viewport**, which is wrong for anything sitting
+in a narrower column - that was the equipment grid's "cards get tiny before a
+column drops" bug. The grid is intrinsic now (`--gear-card-min`); don't
+reintroduce `col-sm-*`/`col-md-*`/`col-lg-*` for layout.
+
 **Colours live in `site/src/styles.css` as tokens**, defined per theme. Never put
 a colour literal in component CSS: a hardcoded value is a light-mode colour that
 silently leaks into dark mode, which is exactly the bug the token sweep removed

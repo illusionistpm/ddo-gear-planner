@@ -11,7 +11,7 @@ import { BuildSaveError, BuildSaveService } from './build-save.service';
 type DialogMode = 'create' | 'save-as';
 
 // The four popovers hanging off the build bar. At most one is open at a time.
-export type BuildActionsMenu = 'myBuilds' | 'avatar' | 'share' | 'save';
+export type BuildActionsMenu = 'myBuilds' | 'avatar' | 'share' | 'save' | 'overflow';
 
 // The view model behind the single save split-button (see the plan's "Save
 // controls" section) - one primary action whose label/enabled-ness follows
@@ -23,6 +23,10 @@ export type BuildActionsMenu = 'myBuilds' | 'avatar' | 'share' | 'save';
 // would leave them with no way to save at all.
 export interface SaveControlViewModel {
   label: string;
+  // Shown instead of `label` below 768px, where the first line of the page
+  // chrome has about 65px for this button. Only "Save a copy" needs one; the
+  // rest already fit, so they repeat their own label.
+  shortLabel: string;
   disabled: boolean;
   // Whether the caret (revealing "Save As…") should render at all - only
   // when there's a genuinely distinct secondary action, i.e. an owned build
@@ -234,22 +238,22 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // the primary "save in place").
   get saveControl(): SaveControlViewModel {
     if (this.savingInPlace) {
-      return { label: 'Saving…', disabled: true, hasMenu: false };
+      return { label: 'Saving…', shortLabel: 'Saving', disabled: true, hasMenu: false };
     }
     if (!this.buildState.shortId) {
-      return { label: 'Save…', disabled: false, hasMenu: false };
+      return { label: 'Save…', shortLabel: 'Save', disabled: false, hasMenu: false };
     }
     switch (this.buildState.ownership) {
       case 'owned':
-        return { label: 'Save', disabled: !this.buildState.isDirty, hasMenu: true };
+        return { label: 'Save', shortLabel: 'Save', disabled: !this.buildState.isDirty, hasMenu: true };
       case 'other':
-        return { label: 'Save a copy', disabled: false, hasMenu: false };
+        return { label: 'Save a copy', shortLabel: 'Copy', disabled: false, hasMenu: false };
       default:
         // 'unknown' - confirmOwnership() hasn't resolved yet (see
         // CurrentBuildService). Never assume either way; disabled rather
         // than silently offering the wrong action for however long that
         // check takes.
-        return { label: 'Save', disabled: true, hasMenu: false };
+        return { label: 'Save', shortLabel: 'Save', disabled: true, hasMenu: false };
     }
   }
 

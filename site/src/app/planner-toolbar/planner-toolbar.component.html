@@ -1,0 +1,40 @@
+<div class="planner-view-switch" role="tablist" aria-label="Planner view">
+  <button type="button" id="equipmentTab" class="planner-view-option" role="tab"
+    [class.active]="isActiveTab('equipment')"
+    [attr.aria-selected]="isActiveTab('equipment')"
+    [attr.tabindex]="isActiveTab('equipment') ? 0 : -1"
+    aria-controls="equipmentPanel"
+    (click)="selectTab('equipment')"><span class="planner-view-option-full">Equipment</span><span
+      class="planner-view-option-short">Gear</span></button>
+  <button type="button" id="affixesTab" class="planner-view-option" role="tab"
+    [class.active]="isActiveTab('affixes')"
+    [attr.aria-selected]="isActiveTab('affixes')"
+    [attr.tabindex]="isActiveTab('affixes') ? 0 : -1"
+    aria-controls="affixesPanel"
+    (click)="selectTab('affixes')"><span class="planner-view-option-full">Tracked Affixes</span><span class="planner-view-option-short">Affixes</span></button>
+</div>
+
+<div class="equipment-search" [hidden]="!isActiveTab('equipment')">
+  <i class="fas fa-search equipment-search-icon" aria-hidden="true"></i>
+  <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
+    [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter"
+    [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
+</div>
+
+<div class="tracked-affix-groupby" role="group" aria-label="Group tracked affixes by"
+  [hidden]="!isActiveTab('affixes')">
+  <span class="tracked-affix-groupby-label">Group by</span>
+  <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
+    [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
+  <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
+    [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
+</div>
+
+<!-- Outside both view controls: what the planner tracks is worth changing from
+     either view, and the affix rail's copy of this button has gone. -->
+<button type="button" class="tracked-affix-edit-affixes"
+  title="Add / edit affixes" aria-label="Add / edit affixes" (click)="openBuilder()">
+  <span class="fas fa-plus" aria-hidden="true"></span>
+  <span class="tracked-affix-edit-affixes-label">Add / edit affixes</span>
+  <span class="tracked-affix-edit-affixes-short">Affixes</span>
+</button>

@@ -23,7 +23,7 @@
 
 .external-slot-title {
     font-weight: 600;
-    padding: 0.375rem 0.75rem;
+    padding: var(--space-4) var(--space-12);
 }
 
 .external-add-button {
@@ -34,7 +34,7 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
-    padding: 0 0.75rem;
+    padding: 0 var(--space-12);
 }
 
 .external-add-button:hover,
@@ -46,14 +46,14 @@
 .external-add-panel {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    margin-top: 0.35rem;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
 }
 
 .external-add-selection {
     align-items: center;
     display: flex;
-    gap: 0.35rem;
+    gap: var(--space-4);
 }
 
 .external-add-affix {
@@ -73,11 +73,11 @@
 .external-affix-empty {
     color: var(--text-secondary);
     font-size: 0.78rem;
-    margin-top: 0.35rem;
+    margin-top: var(--space-4);
 }
 
 .external-affix-list {
-    margin-top: 0.35rem;
+    margin-top: var(--space-4);
 }
 
 .external-affix-row:nth-child(odd) {

@@ -4,13 +4,13 @@ import { Subscription } from 'rxjs';
 import { SummaryGroup } from '../affixes/tracked-affix-summary.service';
 import { TrackedAffixSummaryService } from '../affixes/tracked-affix-summary.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { EquippedService } from '../planner/equipped.service';
 import { getAffixGroupCssClass } from '../affixes/affix-organization';
 
 @Component({
   selector: 'app-tracked-affix-sidebar',
   templateUrl: './tracked-affix-sidebar.component.html',
+  styleUrls: ['./tracked-affix-sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
@@ -25,17 +25,8 @@ export class TrackedAffixSidebarComponent implements OnInit, OnDestroy {
   constructor(
     private summary: TrackedAffixSummaryService,
     private suggestionDrawer: SuggestionDrawerService,
-    private affixBuilder: AffixBuilderDrawerService,
     private equipped: EquippedService
   ) {}
-
-  openBuilder() {
-    this.affixBuilder.open('edit');
-  }
-
-  openFullView() {
-    this.equipped.setActiveMainTab('affixes');
-  }
 
   ngOnInit() {
     this.subscription = this.summary.getSummaryGroups().subscribe(groups => {

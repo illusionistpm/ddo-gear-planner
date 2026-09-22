@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,6 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
 
-
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
@@ -28,7 +27,7 @@ import { QueryParamsService } from '../build/query-params.service';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   troveUploadStatus: string = '';
   sortOwnedToTop: boolean = true;
   activeTab: PlannerTab = 'equipment';
@@ -52,6 +51,12 @@ export class MainComponent implements OnInit, OnDestroy {
   // three different situations, and the URL survives all three so a
   // network-error retry doesn't need the link re-pasted.
   loadError: 'not-found' | 'invalid-link' | 'network' | null = null;
+
+  @ViewChild('plannerPage') private plannerPage?: ElementRef<HTMLElement>;
+  @ViewChild('plannerChrome') private plannerChrome?: ElementRef<HTMLElement>;
+  @ViewChild('tabPanels') private tabPanels?: ElementRef<HTMLElement>;
+
+  private chromeObserver?: ResizeObserver;
 
   // The one-time gate from the original contentReady design: covers the
   // window between page load and the first build data actually reaching
@@ -250,7 +255,26 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit() {
+    this.publishChromeMetrics();
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+    // The chrome changes height on its own: filter chips wrap in and out of
+    // row 2, the build name grows, and the narrow layout restacks it.
+    this.chromeObserver = new ResizeObserver(() => this.publishChromeMetrics());
+    if (this.plannerChrome) {
+      this.chromeObserver.observe(this.plannerChrome.nativeElement);
+    }
+    // This one is how the rails learn that row 1 has slid away: the panels
+    // grow into the space it leaves, and the observer fires through the slide.
+    if (this.tabPanels) {
+      this.chromeObserver.observe(this.tabPanels.nativeElement);
+    }
+  }
+
   ngOnDestroy() {
+    this.chromeObserver?.disconnect();
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
     this.tabSubscription?.unsubscribe();
@@ -451,6 +475,39 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Two measurements the CSS cannot work out for itself, both of which used to
+   * be hand-measured `calc(100vh - 5.5rem)` / `- 4.5rem` stand-ins for a bar
+   * that has since gained a second line.
+   *
+   * --planner-chrome-height is how much of the viewport the chrome occupies,
+   * for the things anchored underneath it: the filter sheet and the Ko-fi
+   * popover. --planner-panel-height is the visible height of the scroll
+   * container, for the sticky rails inside it - they are stuck to the top of
+   * that container, so its height, not the viewport's, is what they fit in.
+   */
+  private publishChromeMetrics() {
+    const chrome = this.plannerChrome?.nativeElement;
+    const page = this.plannerPage?.nativeElement;
+    if (!chrome || !page) {
+      return;
+    }
+
+    const px = (value: string) => {
+      const parsed = parseFloat(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+    const chromeBox = chrome.offsetHeight + px(getComputedStyle(chrome).marginBottom);
+    page.style.setProperty('--planner-chrome-height',
+      `${px(getComputedStyle(page).paddingTop) + chromeBox}px`);
+
+    const panels = this.tabPanels?.nativeElement;
+    if (panels) {
+      page.style.setProperty('--planner-panel-height', `${panels.clientHeight}px`);
+    }
+  }
+
+
   selectTab(tab: PlannerTab) {
     if (tab === this.activeTab) {
       this.closeFilters();
@@ -513,11 +570,21 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   hasAnyActiveFilter() {
-    return !this.isLevelRangeDefault()
-      || !this.itemFilters.showRaidItems
-      || !this.itemFilters.showRareItems
-      || this.hasHiddenPacks()
-      || this.hasHiddenTypes();
+    return this.activeFilterCount() > 0;
+  }
+
+  /**
+   * Narrow screens show this on the Filters button in place of the chip strip,
+   * which is what used to wrap the header onto extra rows.
+   */
+  activeFilterCount() {
+    return [
+      !this.isLevelRangeDefault(),
+      !this.itemFilters.showRaidItems,
+      !this.itemFilters.showRareItems,
+      this.hasHiddenPacks(),
+      this.hasHiddenTypes()
+    ].filter(Boolean).length;
   }
 
   resetLevelRange(event: Event) {

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
 import { FiltersService } from '../planner/filters.service';
+import { EquippedService } from '../planner/equipped.service';
 
 describe('EffectsTableComponent', () => {
   let component: EffectsTableComponent;
@@ -483,11 +484,15 @@ describe('EffectsTableComponent', () => {
     expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBe(true);
   });
 
-  it('toggles the tracked-affix grouping mode', () => {
+  it('follows the tracked-affix grouping mode', () => {
+    // The Group by control lives in the workspace toolbar now; this component
+    // only renders whichever mode EquippedService reports.
+    const equipped = TestBed.inject(EquippedService);
+
     expect(component.groupMode).toBe('category');
-    component.setGroupMode('slots');
+    equipped.setTrackedAffixGroupMode('slots');
     expect(component.groupMode).toBe('slots');
-    component.setGroupMode('category');
+    equipped.setTrackedAffixGroupMode('category');
     expect(component.groupMode).toBe('category');
   });
 

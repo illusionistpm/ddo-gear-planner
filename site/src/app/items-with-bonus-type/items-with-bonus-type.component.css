@@ -1,5 +1,5 @@
 .owned-badge {
-    margin-left: 0.25rem;
+    margin-left: var(--space-4);
 }
 
 .row:nth-child(odd) {
@@ -14,9 +14,9 @@
    line with the slot dropdown and an Equip button sized to match it. */
 .slot-controls {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.375rem;
-    margin-top: 0.25rem;
+    gap: var(--space-8);
+    margin-bottom: var(--space-4);
+    margin-top: var(--space-4);
 }
 
 .slot-empty {
@@ -31,8 +31,8 @@
     font-size: 0.8125rem;
     min-width: 0;
     overflow: hidden;
-    padding-bottom: 0.375rem;
-    padding-top: 0.375rem;
+    padding-bottom: var(--space-4);
+    padding-top: var(--space-4);
     text-overflow: ellipsis;
     width: auto;
 }
@@ -40,7 +40,7 @@
 .slot-equip {
     flex: 0 0 auto;
     font-size: 0.8125rem;
-    padding: 0.25rem 0.875rem;
+    padding: var(--space-4) var(--space-12);
 }
 
 .item-preview-link {
@@ -61,7 +61,7 @@
 
 .set-view-button {
     font-size: 0.82rem;
-    padding: 0.28rem 0.55rem;
+    padding: var(--space-4) var(--space-8);
     width: 100%;
 }
 
@@ -90,8 +90,8 @@
     display: inline-flex;
     align-items: center;
     border-radius: 0.25rem;
-    padding: 0.05rem 0.3rem;
-    margin-left: 0.25rem;
+    padding: var(--space-2) var(--space-4);
+    margin-left: var(--space-4);
     font-size: 0.65rem;
     font-weight: 700;
     line-height: 1.2;
@@ -118,7 +118,10 @@
     color: var(--artifact-badge-text-color);
 }
 
-@media (max-width: 1199.98px) {
+/* This connector points at app-item-preview, which only floats beside the
+   drawer above 1299.98px - see that component's own comment on this same
+   threshold, which the two exist to stay in sync with. */
+@media (max-width: 1299.98px) {
     .selected-preview-row::before {
         display: none;
     }
@@ -132,8 +135,8 @@
 
 .drawer-section {
     border-top: 1px solid var(--border-color);
-    margin-top: 0.6rem;
-    padding-top: 0.5rem;
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
 }
 
 /* The External panel is always the first section in the drawer - no divider needed above it. */
@@ -157,10 +160,10 @@
     font-weight: 800;
     justify-content: space-between;
     letter-spacing: 0.04em;
-    margin-bottom: 0.35rem;
+    margin-bottom: var(--space-4);
     margin-left: -0.75rem;
     margin-right: -0.75rem;
-    padding: 0.32rem 0.55rem;
+    padding: var(--space-4) var(--space-8);
     text-transform: uppercase;
     width: calc(100% + 1.5rem);
 }
@@ -185,7 +188,7 @@
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.03em;
-    margin: 0.5rem 0 0.3rem;
+    margin: var(--space-8) 0 var(--space-4);
     text-transform: uppercase;
 }
 
@@ -201,5 +204,5 @@
 .exclusion-note {
     color: var(--text-secondary);
     font-size: 0.75rem;
-    margin-left: 0.25rem;
+    margin-left: var(--space-4);
 }

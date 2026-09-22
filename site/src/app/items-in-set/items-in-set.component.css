@@ -32,7 +32,10 @@
     width: 0.75rem;
 }
 
-@media (max-width: 1199.98px) {
+/* This connector points at app-item-preview, which only floats beside the
+   drawer above 1299.98px - see that component's own comment on this same
+   threshold, which the two exist to stay in sync with. */
+@media (max-width: 1299.98px) {
     .selected-preview-row::before {
         display: none;
     }
@@ -40,13 +43,13 @@
 
 /* "Set Bonuses" summary table shown above the item list. */
 .set-bonus-summary {
-    padding-bottom: 0.25rem;
-    padding-top: 0.25rem;
+    padding-bottom: var(--space-4);
+    padding-top: var(--space-4);
 }
 
 .set-bonus-summary-title {
     font-size: 1rem;
-    margin: 0 0 0.4rem;
+    margin: 0 0 var(--space-8);
 }
 
 .set-bonus-summary-list {
@@ -57,11 +60,11 @@
 
 .set-bonus-summary-row {
     align-items: baseline;
-    column-gap: 0.5rem;
+    column-gap: var(--space-8);
     display: grid;
     font-size: 0.82rem;
     grid-template-columns: 1.4rem 2.8rem minmax(0, 1fr) auto;
-    padding: 0.25rem 0.5rem;
+    padding: var(--space-4) var(--space-8);
 }
 
 .set-bonus-summary-row:nth-child(odd) {
@@ -123,5 +126,5 @@
 .exclusion-note {
     color: var(--text-secondary);
     font-size: 0.75rem;
-    margin-left: 0.25rem;
+    margin-left: var(--space-4);
 }

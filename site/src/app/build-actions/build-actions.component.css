@@ -1,7 +1,7 @@
 .build-actions {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--space-8);
   flex: 0 0 auto;
   position: relative;
 }
@@ -9,7 +9,7 @@
 .build-name-group {
   display: inline-flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: var(--space-2);
   min-width: 0;
   position: relative;
 }
@@ -19,7 +19,7 @@
   font-weight: 700;
   max-width: 14rem;
   overflow: hidden;
-  padding: 0.2rem 0.3rem;
+  padding: var(--space-4) var(--space-4);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -48,7 +48,7 @@
   font-weight: 700;
   max-width: 14rem;
   min-width: 6rem;
-  padding: 0.2rem 0.3rem;
+  padding: var(--space-4) var(--space-4);
 }
 
 .build-name-cancel {
@@ -97,7 +97,7 @@
 .build-actions-divider {
   align-self: stretch;
   border-left: 1px solid var(--border-color);
-  margin: 0 0.15rem;
+  margin: 0 var(--space-2);
 }
 
 .share-wrap {
@@ -166,7 +166,7 @@
   color: var(--text-secondary);
   font-size: 0.85rem;
   overflow: hidden;
-  padding: 0.6rem 0.75rem;
+  padding: var(--space-8) var(--space-12);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -178,7 +178,7 @@
   cursor: pointer;
   display: block;
   font: inherit;
-  padding: 0.55rem 0.75rem;
+  padding: var(--space-8) var(--space-12);
   text-align: left;
   width: 100%;
 }
@@ -190,7 +190,7 @@
 }
 
 .build-action-button {
-  padding: 0.35rem 0.65rem;
+  padding: var(--space-4) var(--space-12);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--surface-subtle-color);
@@ -290,7 +290,7 @@
   cursor: pointer;
   display: block;
   font: inherit;
-  padding: 0.55rem 0.75rem;
+  padding: var(--space-8) var(--space-12);
   text-align: left;
   width: 100%;
 }
@@ -301,19 +301,239 @@
   color: var(--primary-color);
 }
 
+/* These only exist below the breakpoint - see the media query. */
+.build-sign-in-short,
+.save-label-short {
+  display: none;
+}
+
+.build-overflow-wrap,
+.build-overflow-menu,
+.build-overflow-utilities {
+  display: contents;
+}
+
+.build-overflow-toggle,
+.build-overflow-item {
+  display: none;
+}
+
+.build-share {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-4);
+}
+
+/* Font Awesome rather than an emoji: emoji render as a different glyph on
+   every platform and ignore the button's colour. */
+.build-share-icon {
+  display: none;
+}
+
 @media (max-width: 767.98px) {
+  /*
+   * width: 100% so this fills the host element, which is what the chrome
+   * actually shrinks - inline-flex alone sizes to content and just overflows
+   * it. nowrap so the name shrinks into the leftover width rather than wrapping
+   * to a line of its own.
+   */
   .build-actions {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-end;
+    min-width: 0;
+    width: 100%;
   }
 
+  /*
+   * Takes the line's leftover width - see the note in main.component.css.
+   * flex-basis 0 on both the group and the name itself, or the name's own
+   * min-content width keeps the group from shrinking at all.
+   */
   .build-name-group {
-    flex-shrink: 1;
+    flex: 0 1 auto;
     min-width: 0;
   }
 
+  /* Shrink, but never grow past the name itself - basis auto, not 0. */
   .build-name,
   .build-name-input {
-    max-width: 8rem;
+    flex: 0 1 auto;
+    max-width: none;
+    min-width: 0;
   }
+
+  /* "Sign in to save builds" is 182px - over half a phone's width, and the
+     single widest thing in the row. */
+  .build-sign-in-full {
+    display: none;
+  }
+
+  .build-sign-in-short,
+  .save-label-short {
+    display: inline;
+  }
+
+  .save-label-full {
+    display: none;
+  }
+
+  .build-share-icon {
+    display: inline;
+  }
+
+  .build-overflow-wrap {
+    display: inline-flex;
+    flex: 0 0 auto;
+    position: relative;
+  }
+
+  .build-overflow-toggle {
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    min-height: 2rem;
+    min-width: 2.25rem;
+  }
+
+  .build-overflow-toggle.open,
+  .build-overflow-toggle:hover,
+  .build-overflow-toggle:focus {
+    color: var(--primary-color);
+  }
+
+  .build-overflow-toggle:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 2px;
+  }
+
+  .build-overflow-menu {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    display: none;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 11rem;
+    padding: var(--space-8);
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-4));
+    z-index: 40;
+  }
+
+  .build-overflow-menu.open {
+    display: flex;
+  }
+
+  .build-overflow-item {
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: block;
+    font: inherit;
+    font-weight: 700;
+    padding: var(--space-8);
+    text-align: left;
+    width: 100%;
+  }
+
+  .build-overflow-item:hover,
+  .build-overflow-item:focus {
+    background: var(--surface-subtle-color);
+    color: var(--primary-color);
+  }
+
+  /* The projected controls are small square icon buttons; a column would
+     stretch them the width of the menu. Give them a row of their own. */
+  .build-overflow-utilities {
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: var(--space-8);
+    margin-top: var(--space-4);
+    padding-top: var(--space-8);
+  }
+
+  /* The overflow menu carries the account actions here, so this goes. */
+  .avatar-wrap {
+    display: none;
+  }
+
+  /*
+   * Signed in, this row carries Share, the save button and the avatar, and it
+   * shares the line with the view switch and the overflow button. The two
+   * icon-only controls are mostly padding, so that is where the slack comes
+   * from rather than from anything with a word in it.
+   */
+  .build-share {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+
+  .avatar-button {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  /*
+   * The first line has to hold the view switch, Share, the save/sign-in
+   * control and the overflow button. The build name is the one thing here
+   * that is purely informational, so it is what gives way - but the group
+   * itself stays rendered, because the My Builds panel lives inside it.
+   */
+  /*
+   * Both carets go: the actions they open - My Builds and Save As - are in the
+   * account menu at this width, and 20px each is the difference between the
+   * overflow button staying on this line and not.
+   */
+  /*
+   * The Save As caret stays: dropping the avatar (its actions moved into the
+   * overflow menu) paid for it. My Builds' caret does not - that action is in
+   * the menu, and this line has no room for two carets.
+   */
+  .build-switcher-caret,
+  .build-actions-divider,
+  .build-share-label {
+    display: none;
+  }
+
+  .avatar-menu-item-narrow {
+    display: block;
+  }
+}
+
+/*
+ * Below this the name has so little width left that it renders as a sliver of
+ * one clipped glyph, which reads as a rendering fault rather than as a name.
+ * The group itself stays - the My Builds panel is inside it - so only the name
+ * goes; renaming is off the table at this width, which is the trade for having
+ * Share and the save control on screen at all.
+ */
+@media (max-width: 399.98px) {
+  .build-name,
+  .build-name-input,
+  .build-name-cancel {
+    display: none;
+  }
+}
+
+.build-overflow-backdrop {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: default;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
 }

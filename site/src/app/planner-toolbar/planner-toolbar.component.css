@@ -1,0 +1,268 @@
+:host {
+    display: contents;
+}
+
+/*
+ * Positions within .planner-chrome. Second line on a wide screen - the switch
+ * sits under the identity controls - and see the narrow block below for the
+ * one change a phone makes.
+ */
+.planner-view-switch {
+    order: 70;
+}
+
+.equipment-search,
+.tracked-affix-groupby {
+    order: 80;
+}
+
+/* Swapped with Filters' order (was 100, before it) - see that rule's comment
+   in main.component.css. */
+.tracked-affix-edit-affixes {
+    order: 100;
+}
+
+/* The Equipment / Tracked Affixes switch. */
+.planner-view-switch {
+    background: var(--surface-subtle-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: var(--space-2);
+    padding: var(--space-2);
+}
+
+.planner-view-option {
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: var(--space-4) var(--space-12);
+    white-space: nowrap;
+}
+
+.planner-view-option:hover,
+.planner-view-option:focus {
+    color: var(--primary-color);
+}
+
+.planner-view-option:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 2px;
+}
+
+.planner-view-option.active {
+    background: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.planner-view-option.active:hover,
+.planner-view-option.active:focus {
+    color: var(--on-accent-text-color);
+}
+
+/* The short label only exists below the breakpoint - see the media query. */
+.planner-view-option-short {
+    display: none;
+}
+
+/* Equipment view: the global gear search. Moved here from gear-list's own
+   toolbar, where it scrolled away with the content. */
+.equipment-search {
+    align-items: center;
+    display: flex;
+    flex: 1 1 24rem;
+    gap: var(--space-8);
+    max-width: 42rem;
+    min-width: 0;
+}
+
+.equipment-search-icon {
+    color: var(--text-secondary);
+    flex: 0 0 auto;
+}
+
+.equipment-search app-typeahead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Tracked affixes view: grouping and the affix builder entry point. Moved here
+   from effects-table's content column, for the same reason. */
+.tracked-affix-groupby {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    min-width: 0;
+}
+
+.tracked-affix-groupby-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.tracked-affix-groupby-option {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    padding: var(--space-2) var(--space-12);
+}
+
+.tracked-affix-groupby-option.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.tracked-affix-edit-affixes {
+    align-items: center;
+    background: var(--selected-bg);
+    border: 1px solid var(--selected-border-color);
+    border-radius: 999px;
+    color: var(--selected-text-color);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 700;
+    gap: var(--space-8);
+    margin-left: auto;
+    padding: var(--space-2) var(--space-12);
+}
+
+/* The short label only exists below the breakpoint - see the media query. */
+.tracked-affix-edit-affixes-short {
+    display: none;
+}
+
+.tracked-affix-edit-affixes:hover,
+.tracked-affix-edit-affixes:focus-visible {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/*
+ * On a phone the view's control needs the full width, which would otherwise
+ * make this host take a whole line on its own and push Filters - a sibling of
+ * this component, over in MainComponent's template - onto a third. Dissolving
+ * the host lets all of row 2 wrap as one flex row: the switch and Filters
+ * share the first line, the control gets the second.
+ */
+/*
+ * A phone hasn't room for a line of identity controls and a line of workspace
+ * controls, so the switch moves up to share the first line with the brand and
+ * the build/account controls, leaving the second for the view's own control,
+ * the affix builder and Filters. One `order` does it.
+ */
+@media (max-width: 767.98px) {
+    .planner-view-switch {
+        order: 20;
+    }
+
+    /* The first line is decided by a handful of pixels - see the gap note in
+       main.component.css. This is where the slack comes from. */
+    .planner-view-option {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
+
+    /* "Tracked Affixes" alone made the switch 231px of the 344px available. */
+    .planner-view-option-full {
+        display: none;
+    }
+
+    .planner-view-option-short {
+        display: inline;
+    }
+
+    .tracked-affix-edit-affixes {
+        margin-left: 0;
+        padding: var(--space-2) var(--space-8);
+    }
+
+    .tracked-affix-edit-affixes-label {
+        display: none;
+    }
+
+    .tracked-affix-edit-affixes-short {
+        display: inline;
+    }
+
+    /*
+     * Shares the second line with the affix builder and Filters rather than
+     * taking a line of its own - two lines is the whole budget here. The basis
+     * is what decides whether it wraps, so it is small enough to survive a
+     * 320px screen; flex-grow spends whatever is actually going spare.
+     */
+    .equipment-search,
+    .tracked-affix-groupby {
+        flex: 1 1 5rem;
+    }
+
+    /*
+     * Group by used to wrap "Scarcity" onto a third line of its own - the
+     * label plus two pills needed more width than this got, where the search
+     * box (a single flexible input) never wraps. That gave the Affixes view a
+     * taller chrome than the Equipment view, which jostled on every tab
+     * switch. The label goes (the "Group by" role/aria-label on the parent
+     * still names it for a screen reader), the pills lose some padding, and
+     * nowrap + a horizontal scroll is the backstop if a translation or a
+     * narrower phone than 360px ever makes them not fit anyway - a scrollbar
+     * inside one control, not a taller bar.
+     */
+    .tracked-affix-groupby-label {
+        display: none;
+    }
+
+    .tracked-affix-groupby {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .tracked-affix-groupby-option {
+        flex: 0 0 auto;
+        padding: var(--space-2) var(--space-8);
+    }
+}
+
+/*
+ * Above this both panels are on screen at once (see styles.css), so there is
+ * nothing to switch between - and both views' controls have to be reachable.
+ *
+ * !important because Bootstrap's reboot carries `[hidden] { display: none
+ * !important }`, which nothing short of it can override. .planner-tab-panel's
+ * own rule in styles.css needs it for the same reason.
+ */
+@media (min-width: 1400px) {
+    .planner-view-switch {
+        display: none;
+    }
+
+    .equipment-search[hidden],
+    .tracked-affix-groupby[hidden] {
+        display: flex !important;
+    }
+}
+
+/*
+ * Touch. WCAG 2.2's minimum target is 24x24px; these sit below it at rest
+ * because they were sized for a mouse.
+ */
+@media (pointer: coarse) {
+    .planner-view-option,
+    .tracked-affix-groupby-option,
+    .tracked-affix-edit-affixes {
+        min-height: 2.5rem;
+    }
+}

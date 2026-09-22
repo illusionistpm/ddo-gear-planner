@@ -1,13 +1,13 @@
 .filters-shell {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-12);
 }
 
 .filters-topline {
   align-items: baseline;
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-12);
   justify-content: space-between;
 }
 
@@ -19,7 +19,7 @@
 
 .filters-grid {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--space-12);
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -29,20 +29,20 @@
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   min-width: 0;
-  padding: 0.8rem;
+  padding: var(--space-12);
 }
 
 .filter-panel-title {
   color: var(--text-primary);
   font-size: 0.9rem;
   font-weight: 800;
-  margin: 0 0 0.65rem;
+  margin: 0 0 var(--space-12);
 }
 
 .level-range-control {
   display: grid;
-  gap: 0.35rem;
-  margin-bottom: 0.65rem;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
 }
 
 .level-range-control label {
@@ -55,13 +55,13 @@
   align-items: center;
   display: grid;
   grid-template-columns: minmax(4rem, 1fr) auto minmax(4rem, 1fr);
-  gap: 0.4rem;
+  gap: var(--space-8);
 }
 
 .filter-toggle-list {
   display: grid;
-  gap: 0.35rem;
-  margin-bottom: 0.55rem;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
 }
 
 .filter-link-button {
@@ -84,16 +84,16 @@
   display: flex;
   font-size: 0.85rem;
   font-weight: 700;
-  gap: 0.5rem;
+  gap: var(--space-8);
   justify-content: space-between;
-  margin-bottom: 0.45rem;
+  margin-bottom: var(--space-8);
 }
 
 .owned-gear-help {
   color: var(--text-secondary);
   font-size: 0.76rem;
   line-height: 1.4;
-  margin: 0 0 0.65rem;
+  margin: 0 0 var(--space-12);
 }
 
 .owned-gear-help code {
@@ -108,9 +108,9 @@
 .pack-filter-header {
   align-items: center;
   display: flex;
-  gap: 1rem;
+  gap: var(--space-16);
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-8);
 }
 
 .pack-filter-header .filter-panel-title {
@@ -120,8 +120,8 @@
 .pack-filter-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  column-gap: 1rem;
-  row-gap: 0.2rem;
+  column-gap: var(--space-16);
+  row-gap: var(--space-4);
 }
 
 .pack-filter-option {

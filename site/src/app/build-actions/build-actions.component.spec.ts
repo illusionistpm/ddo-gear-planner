@@ -1,10 +1,11 @@
 import type { MockedObject } from 'vitest';
 import { ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
+import { AppModule } from '../app.module';
 import { AuthService } from '../shared/auth.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
@@ -115,35 +116,35 @@ describe('BuildActionsComponent', () => {
   it('offers only "Save…", no caret, for an unnamed build', () => {
     auth.isAuthenticated$.next(true);
 
-    expect(component.saveControl).toEqual({ label: 'Save…', disabled: false, hasMenu: false });
+    expect(component.saveControl).toEqual({ label: 'Save…', shortLabel: 'Save', disabled: false, hasMenu: false });
   });
 
   it('offers Save (enabled) plus a Save As caret for a named, dirty, owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
-    expect(component.saveControl).toEqual({ label: 'Save', disabled: false, hasMenu: true });
+    expect(component.saveControl).toEqual({ label: 'Save', shortLabel: 'Save', disabled: false, hasMenu: true });
   });
 
   it('disables Save but keeps the Save As caret for a named, clean, owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
 
-    expect(component.saveControl).toEqual({ label: 'Save', disabled: true, hasMenu: true });
+    expect(component.saveControl).toEqual({ label: 'Save', shortLabel: 'Save', disabled: true, hasMenu: true });
   });
 
   it('offers "Save a copy", with no caret, for a build not owned by the viewer', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', name: 'Someone Else\'s Build', isDirty: false, ownership: 'other' });
 
-    expect(component.saveControl).toEqual({ label: 'Save a copy', disabled: false, hasMenu: false });
+    expect(component.saveControl).toEqual({ label: 'Save a copy', shortLabel: 'Copy', disabled: false, hasMenu: false });
   });
 
   it('disables Save, with no caret, while ownership is still unknown - never assumes either way', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'unknown' });
 
-    expect(component.saveControl).toEqual({ label: 'Save', disabled: true, hasMenu: false });
+    expect(component.saveControl).toEqual({ label: 'Save', shortLabel: 'Save', disabled: true, hasMenu: false });
   });
 
   it('opens the create dialog for an unnamed build', () => {
@@ -234,7 +235,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(component.saveControl).toEqual({ label: 'Saving…', disabled: true, hasMenu: false });
+    expect(component.saveControl).toEqual({ label: 'Saving…', shortLabel: 'Saving', disabled: true, hasMenu: false });
     // A repeat click (e.g. a fast double-click before the button visually
     // disables) must not fire a second PUT.
     component.onSaveControlPrimaryClick();
@@ -255,7 +256,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(component.saveControl).toEqual({ label: 'Save', disabled: false, hasMenu: true });
+    expect(component.saveControl).toEqual({ label: 'Save', shortLabel: 'Save', disabled: false, hasMenu: true });
     expect(component.savingInPlaceError).toContain('Could not save');
   });
 
@@ -600,5 +601,75 @@ describe('BuildActionsComponent', () => {
 
     component.toggleMenu('share');
     expect(component.isMenuOpen('share')).toBe(false);
+  });
+});
+
+/*
+ * Rendered-markup checks, which the block above cannot do - it builds the
+ * component directly, with no fixture. These exist because hiding the build
+ * name group on narrow screens once took My Builds and Save As with it: both
+ * the caret that opened them and, for My Builds, the panel itself live inside
+ * that group.
+ */
+describe('BuildActionsComponent markup', () => {
+  let fixture: ComponentFixture<BuildActionsComponent>;
+  const isAuthenticated$ = new BehaviorSubject(true);
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
+    TestBed.overrideProvider(AuthService, {
+      useValue: {
+        isAuthenticated$, user$: of({ name: 'Tester', picture: null }),
+        isLoading$: of(false), signIn: () => { }, signOut: () => { }
+      }
+    });
+    fixture = TestBed.createComponent(BuildActionsComponent);
+    fixture.detectChanges();
+  });
+
+  function openOverflowMenu() {
+    (fixture.nativeElement.querySelector('.build-overflow-toggle') as HTMLButtonElement).click();
+    fixture.detectChanges();
+  }
+
+  function overflowItems(): (string | undefined)[] {
+    return [...fixture.nativeElement.querySelectorAll('.build-overflow-item')]
+      .map((e: Element) => e.textContent?.trim());
+  }
+
+  it('offers My Builds and Sign out from the one overflow menu', () => {
+    openOverflowMenu();
+
+    expect(overflowItems()).toContain('My builds');
+    expect(overflowItems()).toContain('Sign out');
+  });
+
+  it('opens the My Builds panel from it, with the panel still rendered', () => {
+    openOverflowMenu();
+    const myBuilds = [...fixture.nativeElement.querySelectorAll('.build-overflow-item')]
+      .find((e: Element) => e.textContent?.trim() === 'My builds') as HTMLButtonElement;
+
+    myBuilds.click();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('app-my-builds')).not.toBeNull();
+  });
+
+  it('keeps the build name group in the DOM, since the panel lives inside it', () => {
+    expect(fixture.nativeElement.querySelector('.build-name-group')).not.toBeNull();
+  });
+
+  it('projects whatever the page passes in into that same menu', () => {
+    // MainComponent hands it Ko-fi, the theme toggle and Admin, so there is
+    // one overflow menu rather than two sitting next to each other.
+    expect(fixture.nativeElement.querySelector('.build-overflow-utilities')).not.toBeNull();
+  });
+
+  it('gives Share a label and an icon, so either can carry it', () => {
+    const share = fixture.nativeElement.querySelector('.build-share');
+
+    expect(share.querySelector('.build-share-label')?.textContent?.trim()).toBe('Share');
+    expect(share.querySelector('.build-share-icon')).not.toBeNull();
+    expect(share.getAttribute('aria-label')).toBe('Share');
   });
 });

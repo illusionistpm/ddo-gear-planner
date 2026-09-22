@@ -1,0 +1,43 @@
+/*
+ * The input's own padding + line-height render it taller than the buttons
+ * that sit beside it in the workspace toolbar row, so that row was a
+ * different height on the Equipment view (which shows this input) than on
+ * the Affixes view (which doesn't) - a visible shift on every tab switch.
+ * Pinned to match those buttons' own height at each pointer type, by
+ * construction rather than by coincidence.
+ *
+ * 1.7rem is .planner-filter-toggle's own explicit min-height, which the row's
+ * other buttons already meet without needing one - they compute to the same
+ * 27px from their own padding and font-size. This mouse/desktop value shrinks
+ * the input rather than growing everything else, which would have undone the
+ * desktop chrome's already-tuned height. line-height and padding are trimmed
+ * to match .planner-filter-toggle's own box model too (padding: space-4
+ * space-8, line-height: 1.2) - .form-control-sm's roomier space-8 vertical
+ * padding, plus the 1.6 line-height every other input on the page inherits
+ * from body, together need more like 41px and would get clipped inside 27px.
+ * The input still has 4px more to fit than a button does (this rule can't
+ * touch .form-control's 2px border without affecting every input on the
+ * site), so it comes right up against that height rather than sitting
+ * comfortably inside it - as tight as it goes without doing that.
+ */
+input.form-control {
+  /* min-height, not just height: Chromium gives <input> a native 31px
+     min-height that otherwise wins over an explicit, smaller height - the
+     usual box-sizing/height rules don't apply to it the way they do to a div. */
+  box-sizing: border-box;
+  height: 1.7rem;
+  line-height: 1.2;
+  min-height: 1.7rem;
+  padding: var(--space-4) var(--space-8);
+}
+
+/* 2.5rem is the row's touch-target rule (see planner-toolbar.component.css) -
+   the buttons grow for touch, so the input grows to match them here too, with
+   enough room to go back to form-control-sm's own padding. */
+@media (pointer: coarse) {
+  input.form-control {
+    height: 2.5rem;
+    min-height: 2.5rem;
+    padding: var(--space-8) var(--space-12);
+  }
+}

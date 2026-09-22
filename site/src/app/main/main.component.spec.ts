@@ -12,6 +12,7 @@ import { CurrentBuildService } from '../build/current-build.service';
 import { BuildUrlIdentity, QueryParamsService } from '../build/query-params.service';
 import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
+import { FiltersService } from '../planner/filters.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 
 describe('MainComponent', () => {
@@ -102,7 +103,34 @@ describe('MainComponent', () => {
   it('renders non-production admin access in the workspace bar', () => {
     const compiled: HTMLElement = fixture.nativeElement;
 
-    expect(compiled.querySelector('.planner-workspace-bar app-admin-link')).not.toBeNull();
+    expect(compiled.querySelector('.planner-chrome app-admin-link')).not.toBeNull();
+  });
+
+  it('switches views from the workspace toolbar', () => {
+    const compiled: HTMLElement = fixture.nativeElement;
+    const affixesTab: HTMLButtonElement = compiled.querySelector('.planner-chrome #affixesTab')!;
+    expect(affixesTab).not.toBeNull();
+
+    affixesTab.click();
+    fixture.detectChanges();
+
+    expect(component.activeTab).toBe('affixes');
+    expect(compiled.querySelector('#affixesPanel')!.hasAttribute('hidden')).toBe(false);
+    expect(compiled.querySelector('#equipmentPanel')!.hasAttribute('hidden')).toBe(true);
+  });
+
+  it('closes the filter sheet when the toolbar switches view', () => {
+    // The toolbar sets the tab on EquippedService rather than calling
+    // selectTab(), so this housekeeping has to come off the tab subscription.
+    // Filters sits right beside the switch now, so leaving its sheet open over
+    // the view you just moved to would be obvious.
+    component.toggleFilters();
+    fixture.detectChanges();
+
+    (fixture.nativeElement.querySelector('#affixesTab') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(component.filtersOpen).toBe(false);
   });
 
   it('starts on the equipment tab', () => {
@@ -137,10 +165,80 @@ describe('MainComponent', () => {
     expect(component.activeTab).toBe('affixes');
   });
 
+  describe('narrow-screen chrome', () => {
+    // The bar used to become flex-direction: column below 768px, one control
+    // per row: 306px of chrome on a 375px-wide screen. These pin the pieces
+    // that let it stay a single row. The widths themselves are CSS, so what is
+    // testable here is that each piece exists and is wired up.
+
+    it('hands the utility controls to the build actions overflow menu', () => {
+      // Ko-fi, theme and Admin are projected into app-build-actions rather
+      // than living in a second menu of their own beside it. That menu is
+      // display: contents on desktop, so they still lay out inline there.
+      const actions: HTMLElement = fixture.nativeElement.querySelector('app-build-actions');
+
+      expect(actions.querySelector('.planner-support-wrap')).not.toBeNull();
+      expect(actions.querySelector('.theme-toggle')).not.toBeNull();
+      expect(actions.querySelector('app-admin-link')).not.toBeNull();
+    });
+
+    it('has exactly one overflow button', () => {
+      // There were briefly two next to each other - an account menu and a
+      // separate utility menu - which is how My Builds ended up somewhere
+      // nobody looked.
+      expect(fixture.nativeElement.querySelectorAll('.build-overflow-toggle').length).toBe(1);
+      expect(fixture.nativeElement.querySelector('.planner-overflow-toggle')).toBeNull();
+    });
+
+    it('has a wordmark that can be dropped for the icon alone', () => {
+      expect(fixture.nativeElement.querySelector('.planner-brand-name')?.textContent)
+        .toContain('DDO Gear Planner');
+    });
+
+    it('counts nothing when no filter is set', () => {
+      expect(component.activeFilterCount()).toBe(0);
+      expect(fixture.nativeElement.querySelector('.planner-filter-count')).toBeNull();
+    });
+
+    it('counts each active filter for the badge that replaces the chip strip', () => {
+      const filters = TestBed.inject(FiltersService);
+      filters.setLevelRange(1, 20);
+      filters.setShowRaidItems(false);
+      fixture.detectChanges();
+
+      expect(component.activeFilterCount()).toBe(2);
+      expect(fixture.nativeElement.querySelector('.planner-filter-count').textContent.trim()).toBe('2');
+    });
+
+    it('still reports whether anything is filtered at all', () => {
+      expect(component.hasAnyActiveFilter()).toBe(false);
+
+      TestBed.inject(FiltersService).setShowRaidItems(false);
+
+      expect(component.hasAnyActiveFilter()).toBe(true);
+    });
+  });
+
   it('pairs the tracked affixes tab green cue with intro text and a skip action', () => {
     component.trackedAffixesHint = true;
 
     expect(component.shouldHighlightTrackedAffixes()).toBe(true);
+  });
+
+  it('switches to the tracked affixes view from the onboarding cue', () => {
+    // The cue used to say "Open Tracked Affixes", meaning a button inside the
+    // opposite view's compact rail - which no longer renders below 992px. It
+    // performs the step itself now.
+    component.trackedAffixesHint = true;
+    fixture.detectChanges();
+
+    const action: HTMLButtonElement = fixture.nativeElement
+      .querySelector('.planner-onboarding-hint .onboarding-action-button');
+    expect(action).not.toBeNull();
+    action.click();
+    fixture.detectChanges();
+
+    expect(component.activeTab).toBe('affixes');
   });
 
   it('hides the tracked affixes onboarding cue when dismissed', () => {

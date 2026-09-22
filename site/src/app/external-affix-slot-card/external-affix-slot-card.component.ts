@@ -15,7 +15,7 @@ import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.componen
   templateUrl: './external-affix-slot-card.component.html',
   styleUrls: ['./external-affix-slot-card.component.css'],
   host: {
-    class: 'mb-3 card col-sm-12 col-md-6 col-lg-4'
+    class: 'card'
   },
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false

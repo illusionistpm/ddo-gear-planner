@@ -36,7 +36,7 @@
   cursor: pointer;
   display: block;
   font: inherit;
-  padding: 0.55rem 0.75rem;
+  padding: var(--space-8) var(--space-12);
   text-align: left;
   width: 100%;
 }
@@ -63,5 +63,5 @@
   color: var(--danger-color);
   display: block;
   font-size: 0.8rem;
-  padding: 0.55rem 0.75rem;
+  padding: var(--space-8) var(--space-12);
 }

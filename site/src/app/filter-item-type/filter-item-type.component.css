@@ -4,17 +4,17 @@
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   min-width: 0;
-  padding: 0.8rem;
+  padding: var(--space-12);
 }
 
 .filter-panel-title {
   color: var(--text-primary);
   font-size: 0.9rem;
   font-weight: 800;
-  margin: 0 0 0.65rem;
+  margin: 0 0 var(--space-12);
 }
 
 .item-type-groups {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-4);
 }

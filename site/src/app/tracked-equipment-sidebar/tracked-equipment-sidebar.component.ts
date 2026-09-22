@@ -22,6 +22,7 @@ interface TrackedEquipmentSetDisplay {
 @Component({
   selector: 'app-tracked-equipment-sidebar',
   templateUrl: './tracked-equipment-sidebar.component.html',
+  styleUrls: ['./tracked-equipment-sidebar.component.css'],
   standalone: false
 })
 export class TrackedEquipmentSidebarComponent implements OnDestroy {
@@ -67,10 +68,6 @@ export class TrackedEquipmentSidebarComponent implements OnDestroy {
     if (this.recentlyEquippedTimeout) {
       clearTimeout(this.recentlyEquippedTimeout);
     }
-  }
-
-  openFullView() {
-    this.equipped.setActiveMainTab('equipment');
   }
 
   getEquippedSlots(): TrackedEquipmentSlotDisplay[] {

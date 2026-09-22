@@ -4,14 +4,6 @@
   </app-tracked-affix-sidebar>
 
   <div class="equipment-affix-main">
-    <div class="equipment-toolbar">
-      <div class="equipment-search">
-        <i class="fas fa-search equipment-search-icon" aria-hidden="true"></i>
-        <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
-          [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter" [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
-      </div>
-    </div>
-
     <section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
       <div>
         <div class="onboarding-step-label">Next step</div>
@@ -21,7 +13,7 @@
       <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
     </section>
 
-    <div class="row equipment-grid">
+    <div class="equipment-grid">
       @for (slot of gearList.getSlots(); track slot) {
         <app-equipment-slot-card
           [slot]="slot"
@@ -33,11 +25,11 @@
 
       <!-- Describe Sets -->
       @if (visibleSetBonuses.length) {
-        <div class="equipment-set-divider col-12" aria-hidden="true"></div>
+        <div class="equipment-set-divider" aria-hidden="true"></div>
       }
 
       @for (setBonus of visibleSetBonuses; track setBonus.setName) {
-        <div class="mb-3 card active-set-bonus col-sm-12 col-md-6 col-lg-4">
+        <div class="card active-set-bonus">
           <div class="row set-bonus-card">
             <button type="button" class="btn set-bonus-button col-12 text-start"
               (click)="showItemsInSet(setBonus.setName)">

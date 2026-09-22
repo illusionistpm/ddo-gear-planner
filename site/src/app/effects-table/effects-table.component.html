@@ -17,21 +17,9 @@
     </app-tracked-equipment-sidebar>
 
     <div class="tracked-affixes-content">
-    <div class="tracked-affix-groupby" role="group" aria-label="Group tracked affixes by">
-        <span class="tracked-affix-groupby-label">Group by</span>
-        <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
-            [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
-        <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
-            [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
-        <button type="button" class="tracked-affix-edit-affixes" (click)="openBuilder()">
-            <span class="fas fa-plus" aria-hidden="true"></span>
-            <span>Add / edit affixes</span>
-        </button>
-    </div>
-
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!getSlotGroups().length">
-            No tracked affixes yet. Add some from the "Add / edit affixes" button.
+            No tracked affixes yet. Add some with Add / edit affixes in the toolbar above.
         </p>
         <div class="tracked-affix-section slot-group-section" *ngFor="let group of getSlotGroups(); trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"

@@ -14,7 +14,7 @@ import { perfAfterFrames, perfStart } from '../shared/perf-trace';
   templateUrl: './equipment-slot-card.component.html',
   styleUrls: ['./equipment-slot-card.component.css'],
   host: {
-    class: 'mb-3 card col-sm-12 col-md-6 col-lg-4'
+    class: 'card'
   },
   standalone: false
 })

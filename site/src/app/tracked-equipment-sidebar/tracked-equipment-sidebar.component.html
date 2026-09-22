@@ -1,14 +1,7 @@
 <div class="tracked-equipment-dock">
     <aside class="tracked-equipment-rail" aria-label="Equipped gear">
         <div class="tracked-equipment-sticky">
-            <div class="tracked-equipment-header">
-                <button type="button" class="tracked-equipment-nav"
-                    title="Open the full Equipment view"
-                    (click)="openFullView()">
-                    <span>Equipment</span>
-                    <span class="fas fa-external-link-alt tracked-equipment-nav-icon" aria-hidden="true"></span>
-                </button>
-            </div>
+            <h2 class="tracked-equipment-title">Equipment</h2>
         </div>
         <div class="tracked-equipment-slots">
             @for (entry of getEquippedSlots(); track entry.slot) {

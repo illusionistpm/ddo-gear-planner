@@ -1,18 +1,22 @@
-.equipment-toolbar {
-    align-items: center;
-    display: flex;
-    gap: 0.75rem;
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0.8rem;
-    max-width: 1400px;
-}
-
+/*
+ * Column count follows the width actually available to the grid rather than the
+ * viewport. These cards sit in a column up to ~311px narrower than the window
+ * (the tracked-affix rail plus gutters), so the viewport media queries this
+ * replaced dropped a column far too late: at a 992px window the three-across
+ * layout gave 219px cards. --gear-card-min is the only knob - raise it and
+ * every column transition moves with it, correctly, at every width including
+ * the ultrawide dual-pane layout.
+ */
 .equipment-grid {
+    display: grid;
+    /* Row gap matches the Affixes view's own vertical spacing between
+       category sections (--space-12) - it had been --space-16, 4px more,
+       for no reason tied to anything on this page. */
+    gap: var(--space-12) var(--space-8);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--gear-card-min)), 1fr));
     margin-left: auto;
     margin-right: auto;
-    max-width: 1400px;
+    max-width: 1800px;
 }
 
 .equipment-onboarding-hint {
@@ -22,11 +26,11 @@
     border-left: 4px solid var(--success-color);
     border-radius: var(--border-radius);
     display: flex;
-    gap: 0.75rem;
+    gap: var(--space-12);
     justify-content: space-between;
-    margin: 0 auto 0.8rem;
-    max-width: 1400px;
-    padding: 0.7rem 0.85rem;
+    margin: 0 auto var(--space-12);
+    max-width: 1800px;
+    padding: var(--space-12) var(--space-12);
 }
 
 .equipment-onboarding-hint h2 {
@@ -34,7 +38,7 @@
     font-size: 1rem;
     font-weight: 800;
     line-height: 1.2;
-    margin: 0 0 0.2rem;
+    margin: 0 0 var(--space-4);
 }
 
 .equipment-onboarding-hint p {
@@ -44,53 +48,19 @@
     margin: 0;
 }
 
+/* Replaces the gutter padding these cards used to inherit from Bootstrap's
+   `.row > *`, which no longer applies now that the grid isn't a .row. */
 .equipment-grid > .card,
 .equipment-grid > .active-set-bonus {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    width: calc(100% - 0.5rem);
+    padding-left: var(--space-12);
+    padding-right: var(--space-12);
 }
 
 .equipment-set-divider {
     border-top: 1px solid var(--border-color);
-    flex: 0 0 100%;
-    margin: 0.25rem 0 1rem;
-    max-width: 100%;
+    grid-column: 1 / -1;
+    margin: var(--space-4) 0 var(--space-16);
     padding: 0;
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    .equipment-grid > .card,
-    .equipment-grid > .active-set-bonus {
-        width: calc(50% - 0.5rem);
-    }
-}
-
-@media (min-width: 992px) {
-    .equipment-grid > .card,
-    .equipment-grid > .active-set-bonus {
-        width: calc(33.333333% - 0.5rem);
-    }
-}
-
-.equipment-search {
-    align-items: center;
-    display: flex;
-    flex: 1 1 32rem;
-    gap: 0.45rem;
-    max-width: 42rem;
-    min-width: 0;
-}
-
-.equipment-search-icon {
-    color: var(--text-secondary);
-    flex: 0 0 auto;
-}
-
-.equipment-search app-typeahead {
-    flex: 1 1 auto;
-    min-width: 0;
 }
 
 .equipment-copy {
@@ -132,14 +102,14 @@
 
 /* Header layout mirrors equipment-slot-card: label row on top, name underneath. */
 .set-bonus-button {
-    padding-bottom: 0.3rem;
-    padding-top: 0.2rem;
+    padding-bottom: var(--space-4);
+    padding-top: var(--space-4);
 }
 
 .set-name-row {
     align-items: center;
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-8);
     justify-content: space-between;
     min-height: 1.1rem;
 }
@@ -288,14 +258,3 @@
     background-clip: text;
 }
 
-@media (max-width: 575.98px) {
-    .equipment-toolbar {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .equipment-search {
-        max-width: none;
-    }
-
-}

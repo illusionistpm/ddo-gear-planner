@@ -58,7 +58,7 @@
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
-  padding: 0.6rem 0.9rem;
+  padding: var(--space-8) var(--space-16);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -75,8 +75,8 @@
   background: transparent;
   border-bottom: 0;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 1.4rem 1.1rem 0.9rem;
+  gap: var(--space-4);
+  padding: 1.4rem 1.1rem var(--space-16);
   position: static;
 }
 
@@ -97,7 +97,7 @@
 .affix-builder-setup-heading p {
   color: var(--text-secondary);
   font-size: 0.9rem;
-  margin: 0.25rem 0 0;
+  margin: var(--space-4) 0 0;
 }
 
 .affix-builder-drawer-close {
@@ -108,7 +108,7 @@
   cursor: pointer;
   font-size: 1.4rem;
   line-height: 1;
-  padding: 0.1rem 0.5rem;
+  padding: var(--space-2) var(--space-8);
 }
 
 .affix-builder-drawer-close:hover,
@@ -125,11 +125,11 @@
   flex: 1 1 auto;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.5rem 0.9rem 0.9rem;
+  padding: var(--space-8) var(--space-16) var(--space-16);
 }
 
 .affix-builder-drawer.setup-mode .affix-builder-drawer-body {
-  padding: 0.5rem 1.1rem 1.1rem;
+  padding: var(--space-8) 1.1rem 1.1rem;
 }
 
 .affix-builder-setup-foot {
@@ -138,9 +138,9 @@
   border-top: 1px solid var(--border-color);
   display: flex;
   flex: 0 0 auto;
-  gap: 1rem;
+  gap: var(--space-16);
   justify-content: space-between;
-  padding: 0.8rem 1.1rem;
+  padding: var(--space-12) 1.1rem;
 }
 
 .affix-builder-setup-count {
@@ -156,7 +156,7 @@
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 800;
-  padding: 0.55rem 1.1rem;
+  padding: var(--space-8) 1.1rem;
 }
 
 .affix-builder-setup-continue:hover,

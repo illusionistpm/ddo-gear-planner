@@ -19,12 +19,62 @@
         <a class="planner-load-error-home" routerLink="/">Start a new build instead</a>
     </div>
 } @else if (contentReady) {
-<div class="container planner-page">
-    <header class="planner-workspace-bar">
+<div class="container planner-page" #plannerPage>
+    <!--
+      One bar, wrapping onto two lines. Every control is a direct flex child
+      (app-planner-toolbar is display: contents), so `order` alone decides which
+      line each one lands on - which is how the view switch sits on the second
+      line on a desktop and the first on a phone, without being in the markup
+      twice. .planner-chrome-break is the forced wrap between them.
+    -->
+    <header class="planner-chrome" #plannerChrome>
         <div class="planner-brand">
             <img src="/favicon-96x96.png" alt="" class="planner-brand-icon">
-            DDO Gear Planner
+            <span class="planner-brand-name">DDO Gear Planner</span>
         </div>
+
+        <app-planner-toolbar></app-planner-toolbar>
+
+        <div class="planner-chrome-spacer"></div>
+
+        <!-- Ko-fi, the theme toggle and Admin are projected into the build
+             actions' overflow menu: one menu rather than two next to each other.
+             On a wide screen that menu is display: contents, so they still lay
+             out inline here exactly as before. -->
+        <app-build-actions>
+        <div class="planner-support-wrap">
+            <button type="button" class="planner-support-link"
+                [class.open]="supportPopoverOpen"
+                [attr.aria-expanded]="supportPopoverOpen"
+                title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
+                (click)="toggleSupportPopover()">
+                <i class="fas fa-mug-hot" aria-hidden="true"></i>
+            </button>
+
+            @if (supportPopoverOpen) {
+                <section class="planner-support-popover" aria-label="Support DDO Gear Planner">
+                    <button type="button" class="planner-support-popover-close" aria-label="Close" title="Close"
+                        (click)="closeSupportPopover()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <iframe class="planner-support-iframe" [src]="supportPopoverUrl"
+                        title="Support DDO Gear Planner"></iframe>
+                </section>
+            }
+        </div>
+
+        <button type="button" class="theme-toggle"
+            [class.dark]="theme.isDarkTheme()"
+            [attr.aria-pressed]="theme.isDarkTheme()"
+            [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+            [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+            (click)="toggleTheme()">
+            <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
+        </button>
+        <app-admin-link></app-admin-link>
+        </app-build-actions>
+
+        <div class="planner-chrome-break" aria-hidden="true"></div>
 
         <div class="planner-filter-control" [class.open]="filtersOpen">
             <button type="button" class="planner-filter-toggle"
@@ -33,6 +83,10 @@
                 aria-controls="filtersPanel"
                 (click)="toggleFilters()">
                 <span class="planner-tab-label">Filters</span>
+                @if (activeFilterCount()) {
+                    <span class="planner-filter-count"
+                        [attr.aria-label]="activeFilterCount() + ' filters active'">{{activeFilterCount()}}</span>
+                }
                 <i class="fas fa-chevron-down planner-filter-caret" [class.rotated]="filtersOpen" aria-hidden="true"></i>
             </button>
 
@@ -83,43 +137,6 @@
             }
         </div>
 
-        <div class="planner-workspace-spacer"></div>
-
-        <span class="planner-toolbar-divider" aria-hidden="true"></span>
-
-        <app-build-actions></app-build-actions>
-
-        <div class="planner-support-wrap">
-            <button type="button" class="planner-support-link"
-                [class.open]="supportPopoverOpen"
-                [attr.aria-expanded]="supportPopoverOpen"
-                title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
-                (click)="toggleSupportPopover()">
-                <i class="fas fa-mug-hot" aria-hidden="true"></i>
-            </button>
-
-            @if (supportPopoverOpen) {
-                <section class="planner-support-popover" aria-label="Support DDO Gear Planner">
-                    <button type="button" class="planner-support-popover-close" aria-label="Close" title="Close"
-                        (click)="closeSupportPopover()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <iframe class="planner-support-iframe" [src]="supportPopoverUrl"
-                        title="Support DDO Gear Planner"></iframe>
-                </section>
-            }
-        </div>
-
-        <button type="button" class="theme-toggle"
-            [class.dark]="theme.isDarkTheme()"
-            [attr.aria-pressed]="theme.isDarkTheme()"
-            [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-            [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-            (click)="toggleTheme()">
-            <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
-        </button>
-        <app-admin-link></app-admin-link>
-
         @if (filtersOpen) {
             <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
                 <app-filters (troveFileSelected)="onTroveFileSelected($event)"
@@ -133,9 +150,12 @@
             <div>
                 <div class="onboarding-step-label">Next step</div>
                 <h2>Check which bonuses your gear covers</h2>
-                <p>Open Tracked Affixes to see what your equipped items already satisfy and what still needs better gear.</p>
+                <p>Switch to Tracked Affixes to see what your equipped items already satisfy and what still needs better gear.</p>
             </div>
-            <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+            <div class="planner-onboarding-actions">
+                <button type="button" class="onboarding-action-button" (click)="selectTab('affixes')">Tracked Affixes</button>
+                <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+            </div>
         </section>
     }
 
@@ -147,7 +167,8 @@
         <button type="button" class="planner-support-backdrop" aria-label="Close support popover" (click)="closeSupportPopover()"></button>
     }
 
-    <div class="planner-tab-panels">
+
+    <div class="planner-tab-panels" #tabPanels>
         <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
             <app-gear-list [sortOwnedToTop]="sortOwnedToTop"></app-gear-list>
         </section>

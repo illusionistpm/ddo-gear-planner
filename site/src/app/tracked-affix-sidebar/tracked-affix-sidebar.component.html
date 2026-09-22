@@ -1,24 +1,12 @@
 <div class="affix-summary-dock">
     <aside class="affix-summary-rail" aria-label="Tracked affix coverage">
         <div class="affix-summary-sticky">
-            <div class="affix-summary-header">
-                <button type="button" class="affix-summary-nav"
-                    title="Open the full Tracked Affixes view"
-                    (click)="openFullView()">
-                    <span>Tracked Affixes</span>
-                    <span class="fas fa-external-link-alt affix-summary-nav-icon" aria-hidden="true"></span>
-                </button>
-            </div>
-
-            <button type="button" class="affix-summary-add" (click)="openBuilder()">
-                <span class="fas fa-plus" aria-hidden="true"></span>
-                <span>Add / edit affixes</span>
-            </button>
+            <h2 class="affix-summary-title">Tracked Affixes</h2>
         </div>
 
         @if (!trackedCount) {
             <div class="affix-summary-empty">
-                No affixes tracked yet. Use <button type="button" class="affix-summary-empty-link" (click)="openBuilder()">Add / edit affixes</button> to choose what the planner should cover.
+                No affixes tracked yet. Use Add / edit affixes in the toolbar to choose what the planner should cover.
             </div>
         } @else {
             <div class="affix-summary-groups">

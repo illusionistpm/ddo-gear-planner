@@ -18,6 +18,7 @@ import { EffectsTableComponent } from './effects-table/effects-table.component';
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
 import { FiltersComponent } from './filters/filters.component';
 import { MainComponent } from './main/main.component';
+import { PlannerToolbarComponent } from './planner-toolbar/planner-toolbar.component';
 import { ItemSuggestionsComponent } from './item-suggestions/item-suggestions.component';
 import { AffixPickerComponent } from './affix-picker/affix-picker.component';
 import { ItemsInSetComponent } from './items-in-set/items-in-set.component';
@@ -51,6 +52,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
         ItemsWithBonusTypeComponent,
         FiltersComponent,
         MainComponent,
+        PlannerToolbarComponent,
         ItemSuggestionsComponent,
         AffixPickerComponent,
         ItemsInSetComponent,

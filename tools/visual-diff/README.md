@@ -36,15 +36,34 @@ differing pixels.** A diff is a defect to explain, not noise to triage.
 
 ## What it captures
 
-15 scenes (`capture.py`'s `SCENES`), each in light and dark: empty and
-richly-populated builds, both tracked-affix group modes, hover states, the
-filters panel, the share menu, all three drawers, an item preview and the
-affix builder. Add a scene there when a state isn't covered.
+15 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
+viewports: empty and richly-populated builds, both tracked-affix group modes,
+hover states, the filters panel, the share menu, all three drawers, an item
+preview and the affix builder. Add a scene there when a state isn't covered.
 
 Each scene gets a fresh browser context with localStorage seeded (theme,
 active tab, onboarding), animations disabled, and the data-build timestamp
 masked, then loads a pinned build URL. The app keeps all build state in the
 URL, so a pinned URL pins the content.
+
+### Viewports
+
+`desktop` 1440x900, `tablet` 768x1024, `mobile` 375x812 - the last two with
+touch emulated, or the `(pointer: coarse)` rules that size tap targets don't
+apply. All three by default, 90 screenshots; narrow it while iterating with
+`--viewport desktop`.
+
+They aren't three sizes of the same layout. The page chrome restacks below
+768px (icon-only brand, the utility controls behind one button, the filter
+chips replaced by a count) and the two compact rails stop rendering below
+992px, so a desktop-only run says nothing about either.
+
+## When zero-diff is the goal
+
+Only for a change that is *meant* to look like nothing happened. A change that
+deliberately alters the layout can't be gated this way - capture before and
+after anyway, but read the diffs rather than counting them, and expect the
+count to be large.
 
 ## Limits
 

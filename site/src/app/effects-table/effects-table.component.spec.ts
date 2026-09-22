@@ -399,68 +399,6 @@ describe('EffectsTableComponent', () => {
       .toBe('Moderate value (2 below max)');
   });
 
-  it('highlights item slots that supply the hovered affix type', () => {
-    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
-      {
-        kind: 'item',
-        slot: 'Goggles',
-        itemName: 'Precise Lenses',
-        affixName: 'Accuracy',
-        bonusType: 'Equipment',
-        value: 8,
-      },
-      {
-        kind: 'set',
-        slot: 'Set',
-        itemName: 'Focused Sight',
-        affixName: 'Accuracy',
-        bonusType: 'Equipment',
-        value: 8,
-      },
-    ]);
-
-    component.previewAffixTypeEquipment('Accuracy', { bonusType: 'Equipment', value: 8 });
-
-    expect(component.highlightedEquipmentSlots.has('Goggles')).toBe(true);
-    expect(component.highlightedEquipmentSlots.has('Set')).toBe(false);
-    expect(component.highlightedEquipmentSets.has('Focused Sight')).toBe(true);
-
-    component.clearAffixTypeEquipmentPreview();
-
-    expect(component.highlightedEquipmentSlots.size).toBe(0);
-    expect(component.highlightedEquipmentSets.size).toBe(0);
-  });
-
-  it('highlights the External slot for a hovered affix type covered by an external entry', () => {
-    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
-      {
-        kind: 'external',
-        slot: 'Non-gear',
-        itemName: 'Trance',
-        affixName: 'Deadly',
-        bonusType: 'Insightful',
-        value: 6,
-      },
-    ]);
-
-    component.previewAffixTypeEquipment('Deadly', { bonusType: 'Insightful', value: 6 });
-
-    expect(component.highlightedExternal).toBe(true);
-
-    component.clearAffixTypeEquipmentPreview();
-
-    expect(component.highlightedExternal).toBe(false);
-  });
-
-  it('highlights the External slot for a hovered affix type that is marked as ignored', () => {
-    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([]);
-    vi.spyOn(component.equipped, 'isAffixTypeIgnored').mockReturnValue(true);
-
-    component.previewAffixTypeEquipment('Concentration', { bonusType: 'Insight', value: 0 });
-
-    expect(component.highlightedExternal).toBe(true);
-  });
-
   it('tracks visible type rows without depending on component method binding', () => {
     const trackVisibleType = component.trackVisibleType;
 

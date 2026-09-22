@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService, AffixSource, TrackedAffixGroupMode } from '../planner/equipped.service';
+import { EquippedService, TrackedAffixGroupMode } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
 import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
@@ -71,11 +71,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
   onboardingTargetChipKey = '';
-  suppliedAffixCounts = new Map<string, number>();
-  suppliedSetAffixCounts = new Map<string, number>();
-  highlightedEquipmentSlots = new Set<string>();
-  highlightedEquipmentSets = new Set<string>();
-  highlightedExternal = false;
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
@@ -120,7 +115,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       } = splitCoveredAffixes(map));
 
       this.updateRecentlyChangedAffixTypes();
-      this.refreshSuppliedAffixCounts();
       this.refreshTrackedAffixDisplay();
     });
   }
@@ -403,66 +397,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       default:
         return '';
     }
-  }
-
-  getSourcesForType(affixName: string, type: TrackedBonusTypeSource): AffixSource[] {
-    return this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
-  }
-
-  previewAffixTypeEquipment(affixName: string, type: TrackedBonusTypeSource) {
-    const sources = this.getSourcesForType(affixName, type);
-    this.highlightedEquipmentSlots = new Set(
-      sources.filter(source => source.kind === 'item').map(source => source.slot)
-    );
-    this.highlightedEquipmentSets = new Set(
-      sources.filter(source => source.kind === 'set').map(source => source.itemName)
-    );
-    this.highlightedExternal = sources.some(source => source.kind === 'external')
-      || this.equipped.isAffixTypeIgnored(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
-  }
-
-  clearAffixTypeEquipmentPreview() {
-    this.highlightedEquipmentSlots = new Set<string>();
-    this.highlightedEquipmentSets = new Set<string>();
-    this.highlightedExternal = false;
-  }
-
-  private refreshSuppliedAffixCounts() {
-    const counts = new Map<string, number>();
-    for (const slot of this.equipped.getSlotNames()) {
-      counts.set(slot, this.countSuppliedAffixes(source => source.kind === 'item' && source.slot === slot));
-    }
-    this.suppliedAffixCounts = counts;
-
-    const setCounts = new Map<string, number>();
-    for (const [setName] of this.equipped.getActiveSetBonuses()) {
-      const count = this.countSuppliedAffixes(source => source.kind === 'set' && source.itemName === setName);
-      if (count > 0) {
-        setCounts.set(setName, count);
-      }
-    }
-    this.suppliedSetAffixCounts = setCounts;
-  }
-
-  private countSuppliedAffixes(predicate: (source: AffixSource) => boolean): number {
-    const supplied = new Set<string>();
-    for (const group of this.getTrackedAffixGroups()) {
-      for (const affixName of group.checklistAffixes) {
-        const boolAffix = this.boolAffixMap.get(affixName)?.[0];
-        if (boolAffix && this.getSourcesForType(affixName, boolAffix).some(predicate)) {
-          supplied.add(affixTypeKey(affixName, boolAffix.bonusType));
-        }
-      }
-
-      for (const affixName of group.affixes) {
-        for (const type of this.getVisibleTypes(affixName)) {
-          if (this.getSourcesForType(affixName, type).some(predicate)) {
-            supplied.add(this.getDisplayedTypeKey(affixName, type));
-          }
-        }
-      }
-    }
-    return supplied.size;
   }
 
   sortTypes(affixName: string) {

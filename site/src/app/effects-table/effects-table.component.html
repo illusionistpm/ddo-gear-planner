@@ -8,14 +8,6 @@
 </section>
 
 <div class="tracked-affixes-workspace">
-    <app-tracked-equipment-sidebar
-        [suppliedAffixCounts]="suppliedAffixCounts"
-        [suppliedSetAffixCounts]="suppliedSetAffixCounts"
-        [highlightedSlots]="highlightedEquipmentSlots"
-        [highlightedSets]="highlightedEquipmentSets"
-        [highlightedExternal]="highlightedExternal">
-    </app-tracked-equipment-sidebar>
-
     <div class="tracked-affixes-content">
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!getSlotGroups().length">
@@ -41,10 +33,6 @@
                             [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                             <button type="button" class="checklist-chip-button"
                                 [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                (blur)="clearAffixTypeEquipmentPreview()"
                                 (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
                                 <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
@@ -88,10 +76,6 @@
                             [title]="chip.tooltip"
                             [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
                             [class.recently-changed]="isRecentlyChangedAffixType(chip.sourceAffixName, chip)"
-                            (mouseenter)="previewAffixTypeEquipment(chip.sourceAffixName, chip)"
-                            (mouseleave)="clearAffixTypeEquipmentPreview()"
-                            (focus)="previewAffixTypeEquipment(chip.sourceAffixName, chip)"
-                            (blur)="clearAffixTypeEquipmentPreview()"
                             (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
                             <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
                             <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
@@ -126,10 +110,6 @@
                             [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                             <button type="button" class="checklist-chip-button"
                                 [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                (blur)="clearAffixTypeEquipmentPreview()"
                                 (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                 <span class="tracked-bonus-label max-value">{{affixName}}</span>
                                 <span class="far fa-check-square max-value checklist-chip-icon" aria-hidden="true"></span>
@@ -148,10 +128,6 @@
                                 [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
                                 <button type="button" class="checklist-chip-button"
                                     [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                    (mouseenter)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                    (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                    (focus)="previewAffixTypeEquipment(affixName, getChecklistType(affixName))"
-                                    (blur)="clearAffixTypeEquipmentPreview()"
                                     (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
                                     <span class="tracked-bonus-label">{{affixName}}</span>
                                     <span class="far fa-square no-value checklist-chip-icon" aria-hidden="true"></span>
@@ -193,10 +169,6 @@
                         <button type="button" class="tracked-bonus-chip" *ngIf="types.value; else noValue"
                             (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [title]="getBonusTypeTooltip(affixName, types)"
-                            (mouseenter)="previewAffixTypeEquipment(affixName, types)"
-                            (mouseleave)="clearAffixTypeEquipmentPreview()"
-                            (focus)="previewAffixTypeEquipment(affixName, types)"
-                            (blur)="clearAffixTypeEquipmentPreview()"
                             [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                             [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
                             [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"
@@ -209,10 +181,6 @@
                         <ng-template #noValue>
                             <button type="button" class="tracked-bonus-chip no-value"
                                 [title]="getBonusTypeTooltip(affixName, types)"
-                                (mouseenter)="previewAffixTypeEquipment(affixName, types)"
-                                (mouseleave)="clearAffixTypeEquipmentPreview()"
-                                (focus)="previewAffixTypeEquipment(affixName, types)"
-                                (blur)="clearAffixTypeEquipmentPreview()"
                                 [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
                                 [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
                                 [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"

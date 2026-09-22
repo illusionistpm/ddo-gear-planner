@@ -686,22 +686,12 @@ select.form-control {
   outline-offset: 2px;
 }
 
-/* Tracked affixes equipment rail */
+/* display: grid (rather than a plain block) keeps .tracked-affixes-content's
+   own margin from collapsing into this element's - see that component's
+   own comment on .tracked-affixes-content > *:first-child. */
 .tracked-affixes-workspace {
-  align-items: start;
   display: grid;
-  gap: var(--space-12);
-  grid-template-columns: minmax(12.5rem, 15rem) minmax(0, 1fr);
   position: relative;
-}
-
-.tracked-affixes-workspace > app-tracked-equipment-sidebar {
-  align-self: start;
-  display: block;
-  min-width: 0;
-  position: sticky;
-  top: 0.25rem;
-  z-index: 45;
 }
 
 /*
@@ -1022,27 +1012,6 @@ select.form-control {
   }
 }
 
-/* Equipment tab: tracked affix coverage rail */
-.equipment-affix-workspace {
-  align-items: start;
-  display: grid;
-  gap: var(--space-12);
-  grid-template-columns: minmax(12.5rem, 15rem) minmax(0, 1fr);
-}
-
-.equipment-affix-main {
-  min-width: 0;
-}
-
-.equipment-affix-workspace > app-tracked-affix-sidebar {
-  align-self: start;
-  display: block;
-  min-width: 0;
-  position: sticky;
-  top: 0.25rem;
-  z-index: 45;
-}
-
 /* Each category gets its own bordered card with an accent stripe (colors come
    from the .tracked-affix-section-* classes applied via [ngClass], shared with
    the Tracked Affixes page) so a scroll through the list reads as distinct
@@ -1087,8 +1056,7 @@ select.form-control {
  *             and planner-toolbar.component.css)
  *   399.98px  the build name drops - below this it has too little width left
  *             to read as a name (build-actions.component.css)
- *   991.98px  the two mirror rails stop rendering
- *   1400px    both views show side by side
+ *   995px     both views show side by side instead of one at a time
  *
  * Equipment column counts are deliberately NOT here: --gear-card-min drives
  * them intrinsically, from the space the grid actually has. See
@@ -1097,37 +1065,22 @@ select.form-control {
  */
 
 /*
- * Each view carries a compact rail summarising the other. On a wide screen
- * that is useful density. Below this it was stacked *above* the content, so
- * reaching your gear meant scrolling past a twelve-slot equipment list, and
- * reaching your affixes meant scrolling past the whole coverage rail. The view
- * switch in the workspace toolbar is the way across at these widths.
- */
-@media (max-width: 991.98px) {
-  .equipment-affix-workspace,
-  .tracked-affixes-workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .equipment-affix-workspace > app-tracked-affix-sidebar,
-  .tracked-affixes-workspace > app-tracked-equipment-sidebar {
-    display: none;
-  }
-}
-
-/*
  * On a wide enough screen, stop making people flip between the Equipment and
- * Tracked Affixes views: show both in full, side by side, and drop the compact
- * rails since each page is now showing the other for real.
+ * Tracked Affixes views: show both in full, side by side.
  *
  * The threshold is what the two panels actually need rather than a round
- * number. The affix side wants 38rem (see the split below). The equipment side
- * wants two columns, which is 2 x --gear-card-min plus a gap plus its padding
- * and scrollbar, about 44rem. Together with the gutters that is ~1400px, and
- * from there the equipment side picks up a third column near 1700px and a
- * fourth near 2200px on its own, because its grid is intrinsic.
+ * number. The affix side wants 38rem (see the split below). The equipment
+ * side only needs to fit one card's worth - 2 x --gear-card-min plus a gap
+ * and its padding/scrollbar overhead, about 22rem - rather than the two
+ * columns this used to hold out for; there used to be a compact rail filling
+ * the gap between "one column fits" and "two columns fit", but real traffic
+ * data showed almost nothing landing in that ~400px-wide window, so below
+ * this threshold you switch views instead of reading a squeezed second view
+ * in the margins. Together with the gutters that puts the actual threshold
+ * at 995px, and from there the equipment side picks up a second column near
+ * 1400px and further ones on its own, because its grid is intrinsic.
  */
-@media (min-width: 1400px) {
+@media (min-width: 995px) {
   .planner-tab-panels {
     display: grid;
     gap: var(--space-8);
@@ -1153,22 +1106,11 @@ select.form-control {
   #affixesPanel {
     padding-left: var(--space-4);
   }
-
-  .equipment-affix-workspace,
-  .tracked-affixes-workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .equipment-affix-workspace > app-tracked-affix-sidebar,
-  .tracked-affixes-workspace > app-tracked-equipment-sidebar {
-    display: none;
-  }
 }
 
 /*
  * Touch. A mouse can hit a 20px chip; a fingertip cannot. These are the
- * controls small enough to matter that are not inside a rail (the rails only
- * render at widths where a pointing device is the norm).
+ * controls small enough to matter that are not inside a rail.
  */
 @media (pointer: coarse) {
   .tracked-equipment-slot {

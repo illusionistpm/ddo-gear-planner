@@ -1,9 +1,4 @@
 <div class="equipment-affix-workspace">
-  <app-tracked-affix-sidebar
-    [sortOwnedToTop]="sortOwnedToTop">
-  </app-tracked-affix-sidebar>
-
-  <div class="equipment-affix-main">
     <section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
       <div>
         <div class="onboarding-step-label">Next step</div>
@@ -65,5 +60,4 @@
         </div>
       }
     </div>
-  </div>
 </div>

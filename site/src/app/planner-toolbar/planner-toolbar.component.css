@@ -244,7 +244,7 @@
  * !important }`, which nothing short of it can override. .planner-tab-panel's
  * own rule in styles.css needs it for the same reason.
  */
-@media (min-width: 1400px) {
+@media (min-width: 995px) {
     .planner-view-switch {
         display: none;
     }

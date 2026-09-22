@@ -30,8 +30,6 @@ import { UserItemLocationTooltipPipe } from './shared/user-item-location-tooltip
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
 import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
-import { TrackedEquipmentSidebarComponent } from './tracked-equipment-sidebar/tracked-equipment-sidebar.component';
-import { TrackedAffixSidebarComponent } from './tracked-affix-sidebar/tracked-affix-sidebar.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
@@ -64,8 +62,6 @@ import { AutofocusDirective } from './shared/autofocus.directive';
         AdminLinkComponent,
         SuggestionDrawerComponent,
         AffixBuilderDrawerComponent,
-        TrackedEquipmentSidebarComponent,
-        TrackedAffixSidebarComponent,
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,
         ExternalAffixFormComponent,

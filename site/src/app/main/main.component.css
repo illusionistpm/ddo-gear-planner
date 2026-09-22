@@ -702,8 +702,21 @@ app-admin-link {
     right: 0;
   }
 
-  /* The chip strip is what used to wrap this row onto extra lines; the count
-     carries the same "something is filtered" signal, and the sheet shows what. */
+}
+
+/*
+ * The chip strip (and the affix builder's full label - see that rule in
+ * planner-toolbar.component.css) is what used to wrap this row onto extra
+ * lines once any filter was active, all the way up through the dual-pane
+ * threshold: the view switch and Filters alone leave room for it, but add
+ * the group-by pills and a chip or two and it doesn't fit. The count badge
+ * carries the same "something is filtered" signal in a fraction of the
+ * width, and the sheet shows what's active - so the collapsed form covers
+ * this whole range rather than just the narrow phone block above, and only
+ * gives way once both views share the bar (995px) and there's usually
+ * nothing else competing for the line.
+ */
+@media (max-width: 994.98px) {
   .planner-tab-badges,
   .planner-filter-reset-all {
     display: none;

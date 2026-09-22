@@ -191,14 +191,6 @@
         padding: var(--space-2) var(--space-8);
     }
 
-    .tracked-affix-edit-affixes-label {
-        display: none;
-    }
-
-    .tracked-affix-edit-affixes-short {
-        display: inline;
-    }
-
     /*
      * Shares the second line with the affix builder and Filters rather than
      * taking a line of its own - two lines is the whole budget here. The basis
@@ -233,6 +225,22 @@
     .tracked-affix-groupby-option {
         flex: 0 0 auto;
         padding: var(--space-2) var(--space-8);
+    }
+}
+
+/*
+ * The full label ("Add / edit affixes") is what used to push this row onto a
+ * second line once a filter chip or two was also showing, all the way up
+ * through the dual-pane threshold - see the matching comment on
+ * .planner-tab-badges in main.component.css, which this stays in sync with.
+ */
+@media (max-width: 994.98px) {
+    .tracked-affix-edit-affixes-label {
+        display: none;
+    }
+
+    .tracked-affix-edit-affixes-short {
+        display: inline;
     }
 }
 

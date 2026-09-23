@@ -42,6 +42,7 @@
   border: 0;
   box-shadow: none;
   height: 100vh;
+  height: 100dvh;
   left: 50%;
   margin: 0 auto;
   max-width: 64rem;
@@ -183,6 +184,7 @@
 
   .affix-builder-drawer.setup-mode {
     height: 100vh;
+    height: 100dvh;
     left: 0;
     max-width: none;
     transform: none;

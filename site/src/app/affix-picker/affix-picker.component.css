@@ -264,7 +264,6 @@
 
   .selected-affixes-panel {
     max-height: none;
-    order: -1;
     position: static;
   }
 }

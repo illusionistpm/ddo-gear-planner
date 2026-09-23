@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { EquippedService, TrackedAffixGroupMode } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
@@ -139,6 +140,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   removeAffix(affixName: string) {
     this.equipped.removeImportantAffix(affixName);
   }
+
+  readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
 
   currentBonus(affixName: string) {
     const boolAffix = this.boolAffixMap.get(affixName)?.[0];

@@ -15,6 +15,7 @@ import { AffixAvailabilityService } from '../affixes/affix-availability.service'
 import { CraftableOption } from '../gear/craftable-option';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { AnalyticsService } from '../shared/analytics.service';
+import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
@@ -327,6 +328,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.equipped.removeExternalAffix(id);
     this.refreshMatches();
   }
+
+  readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
 
   private _sortSetsByValue(sets: SetAffixMatch[]): SetAffixMatch[] {
     return [...sets].sort((a, b) =>

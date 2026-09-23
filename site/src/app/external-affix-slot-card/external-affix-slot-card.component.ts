@@ -5,6 +5,7 @@ import { AffixService } from '../affixes/affix.service';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { isCountAffix } from '../affixes/count-affix';
+import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { externalAffixAsAffix, ExternalAffixEntry, NON_GEAR_DESCRIPTION } from '../affixes/external-affix';
@@ -68,6 +69,8 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
   remove(id: string) {
     this.equipped.removeExternalAffix(id);
   }
+
+  readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
 
   toggleAdd() {
     if (this.adding) {

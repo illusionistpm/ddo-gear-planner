@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
+import { MainRouteReuseStrategy } from './build/main-route-reuse-strategy';
 import { redirectLegacyRouteToRootGuard } from './build/redirect-legacy-route.guard';
 import { unsavedChangesGuard } from './build/unsaved-changes.guard';
 
@@ -23,5 +24,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: MainRouteReuseStrategy }
+  ]
 })
 export class AppRoutingModule { }

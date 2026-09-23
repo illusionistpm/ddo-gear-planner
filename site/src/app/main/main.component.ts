@@ -287,10 +287,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Params applied again after the page was already up. "New build" lands here: MainComponent is
-  // recreated by the navigation to '/', but its first pass ran against the previous build's state
-  // (see the note above the subscription in ngOnInit), so it's this later application of the
-  // now-empty URL that has to treat the page like a fresh visit.
+  // Params applied again after the page was already up - not a one-shot (see
+  // the note above the subscription in ngOnInit). "New build" lands here:
+  // MyBuildsComponent.newBuild() navigates to '/' with reset state, and this
+  // is what treats that as a fresh visit rather than leaving whatever the
+  // previous build applied still on screen.
   private onParamsReapplied() {
     if (!this.latestRouteShortId && this.equipped.isBuildEmpty() && !this.equipped.getImportantAffixes().size) {
       this.maybeOpenAffixBuilderOnLoad();

@@ -43,15 +43,17 @@ export const unsavedChangesGuard: CanDeactivateFn<MainComponent> = (_component, 
 
   // Every route in app-routing.module.ts resolves to this same
   // MainComponent - '' and build/:shortId(/:slug) are only different route
-  // *configs* (so Angular deactivates/reactivates across them instead of
-  // reusing the component, per RouteReuseStrategy's default same-object
-  // comparison), not different destinations a user could meaningfully
-  // "leave" the build editor for. QueryParamsService's navigateWithParams
-  // crosses exactly this boundary on purpose, dropping/restoring a loaded
-  // build's shortId from the URL as it goes dirty/clean - confirming on
-  // every single edit would defeat the point. Only prompt when the
-  // destination is genuinely outside that set (there isn't one today, but
-  // this keeps the guard meaningful if one's ever added).
+  // *configs*, not different destinations a user could meaningfully "leave"
+  // the build editor for. MainRouteReuseStrategy reuses the component
+  // across all of them, which likely keeps Angular from even considering a
+  // route "deactivated" for CanDeactivate purposes here in the first place -
+  // this allowlist is belt-and-suspenders for that. QueryParamsService's
+  // navigateWithParams crosses exactly this boundary on purpose,
+  // dropping/restoring a loaded build's shortId from the URL as it goes
+  // dirty/clean - confirming on every single edit would defeat the point.
+  // Only prompt when the destination is genuinely outside that set (there
+  // isn't one today, but this keeps the guard meaningful if one's ever
+  // added).
   const nextPath = nextState.url.split('?')[0];
   if (nextPath === '' || nextPath === '/' || isBuildShortIdRoute(nextPath)) {
     return true;

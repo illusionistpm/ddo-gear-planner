@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } f
 import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../shared/analytics.service';
+import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
 import { QuestService } from '../gear/quest.service';
@@ -98,6 +99,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
       slot: this.slot
     });
   }
+
+  readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
 
   getSlotTitle() {
     if (this.equipped.isSlotDisabled(this.slot)) {

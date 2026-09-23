@@ -34,6 +34,7 @@
     <button type="button" class="icon-x-button icon-x-button-overlay slot-clear-button"
       aria-label="Clear {{slot}}"
       title="Clear {{slot}}"
+      (mousedown)="preserveScrollOnMouseDown($event)"
       (click)="clearSlot()">
       <span class="glyph-center-fix" aria-hidden="true">&times;</span>
     </button>

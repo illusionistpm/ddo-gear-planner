@@ -39,7 +39,7 @@
                             </button>
                             @if (!isDerivedTrackedAffix(affixName)) {
                                 <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                    title="Remove {{affixName}}" (click)="removeAffix(affixName)">
+                                    title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
                                     <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                                 </button>
                             }
@@ -53,7 +53,7 @@
                             <span class="tracked-affix-name-text" appShrinkToFit>{{row.affixName}}</span>
                             @if (!isDerivedTrackedAffix(row.affixName)) {
                                 <button type="button" class="tracked-affix-remove" aria-label="Remove {{row.affixName}}"
-                                    (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
+                                    (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
                                     <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                                 </button>
                             }
@@ -116,7 +116,7 @@
                             </button>
                             @if (!isDerivedTrackedAffix(affixName)) {
                                 <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                    title="Remove {{affixName}}" (click)="removeAffix(affixName)">
+                                    title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
                                     <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                                 </button>
                             }
@@ -134,7 +134,7 @@
                                 </button>
                                 @if (!isDerivedTrackedAffix(affixName)) {
                                     <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                        title="Remove {{affixName}}" (click)="removeAffix(affixName)">
+                                        title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
                                         <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                                     </button>
                                 }
@@ -149,7 +149,8 @@
                     <span class="tracked-affix-name" [title]="affixName">
                         <span class="tracked-affix-name-text" appShrinkToFit>{{affixName}}</span>
                         @if (!isDerivedTrackedAffix(affixName)) {
-                            <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}" (click)="removeAffix(affixName)"
+                            <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}"
+                                (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)"
                                 title="Remove {{affixName}}">
                                 <span class="glyph-center-fix" aria-hidden="true">&times;</span>
                             </button>

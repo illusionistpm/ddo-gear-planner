@@ -287123,6 +287123,11 @@
     {
         "affixes": [
             {
+                "name": "Max Filigree Slots",
+                "type": "Untyped",
+                "value": "3"
+            },
+            {
                 "name": "Dexterity",
                 "type": "Enhancement",
                 "value": "14"

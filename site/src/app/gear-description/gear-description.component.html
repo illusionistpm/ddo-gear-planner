@@ -47,7 +47,13 @@
           <button class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
-        <div class="col ps-1">{{row.affix.name}} @if (row.affixGroup) { <i class="fas fa-eye small ms-1" [title]="row.groupTooltip"></i> }</div>
+        <div class="col ps-1">{{row.affix.name}}
+          @if (row.affixGroup) {
+            <app-tap-tooltip [text]="row.groupTooltip" label="Show grouped affix details">
+              <i class="fas fa-eye small ms-1" aria-hidden="true"></i>
+            </app-tap-tooltip>
+          }
+        </div>
         @if (row.valueText) {
           <div class="col-5">{{row.valueText}}</div>
         }
@@ -92,14 +98,18 @@
               }
             </select>
             @if (row.selectedOptionTooltip) {
-              <i class="fas fa-eye small ms-2 flex-shrink-0" [ngClass]="row.className" [title]="row.selectedOptionTooltip"></i>
+              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
+                <i class="fas fa-eye small ms-2" [ngClass]="row.className" aria-hidden="true"></i>
+              </app-tap-tooltip>
             }
           </div>
         } @else {
           <div class="col-8 readonly-crafting-option" [ngClass]="row.className" [title]="row.tooltip">
             {{describe(row.craft.selected) || 'Empty'}}
             @if (row.selectedOptionTooltip) {
-              <i class="fas fa-eye small ms-1" [title]="row.selectedOptionTooltip"></i>
+              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
+                <i class="fas fa-eye small ms-1" aria-hidden="true"></i>
+              </app-tap-tooltip>
             }
           </div>
         }

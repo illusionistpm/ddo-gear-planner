@@ -115,6 +115,12 @@
  * measuring both boxes at 1200px. 1299.98px clears the rail's known width
  * with ~40px to spare (1004 + 256 = 1260); below it, the panel stacks inline
  * instead of floating, same as it always did below 1199.98px.
+ *
+ * Below 767.98px a second override (further down) replaces this inline
+ * placement with a full-screen overlay instead: the drawer that hosts this
+ * panel becomes a bottom sheet with its own internal scroll there, so an
+ * inline panel can render above the user's current scroll position in the
+ * item list and go unnoticed.
  */
 @media (max-width: 1299.98px) {
     .item-preview-panel {
@@ -126,5 +132,18 @@
 
     .item-preview-panel::after {
         display: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .item-preview-panel {
+        border-radius: 0;
+        height: 100%;
+        inset: 0;
+        margin: 0;
+        max-height: none;
+        position: fixed;
+        width: 100%;
+        z-index: 1220;
     }
 }

@@ -172,13 +172,12 @@
 @media (max-width: 767.98px) {
   .affix-builder-drawer {
     border-left: 0;
-    border-top: 1px solid var(--border-color);
     bottom: 0;
-    height: min(92vh, 60rem);
+    height: 100%;
     left: 0;
     max-width: none;
     right: 0;
-    top: auto;
+    top: 0;
     width: 100%;
   }
 

@@ -1,0 +1,7 @@
+<button type="button" class="tap-tooltip-trigger flex-shrink-0" [title]="text" [attr.aria-label]="label"
+    [attr.aria-expanded]="isOpen" (click)="toggle($event)">
+  <ng-content></ng-content>
+</button>
+@if (isOpen) {
+  <div class="tap-tooltip-bubble">{{text}}</div>
+}

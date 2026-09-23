@@ -1,0 +1,26 @@
+.tap-tooltip-trigger {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+}
+
+.tap-tooltip-bubble {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-top: var(--space-4);
+    padding: var(--space-4) var(--space-8);
+    white-space: pre-line;
+    width: 100%;
+}
+
+/* A hover-capable device already gets the tooltip from [title] - the tap bubble
+   would just be dead space taking up room below the icon. Touch has no hover,
+   so that's the only place a tap needs to reveal it. */
+@media (hover: hover) {
+    .tap-tooltip-bubble {
+        display: none;
+    }
+}

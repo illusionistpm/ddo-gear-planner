@@ -39,6 +39,7 @@ import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
 import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
 import { AutofocusDirective } from './shared/autofocus.directive';
+import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
         GearListComponent,
         TypeaheadComponent,
         GearDescriptionComponent,
+        TapTooltipComponent,
         EffectsTableComponent,
         ItemsWithBonusTypeComponent,
         FiltersComponent,

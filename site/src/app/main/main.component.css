@@ -208,7 +208,11 @@ app-admin-link {
   color: var(--primary-color);
 }
 
-.planner-filter-toggle:focus-visible {
+.planner-filter-toggle:focus-visible,
+.planner-filter-reset-all:focus-visible,
+.planner-support-link:focus-visible,
+.planner-support-popover-close:focus-visible,
+.theme-toggle:focus-visible {
   outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
@@ -294,11 +298,6 @@ app-admin-link {
   color: var(--primary-color);
 }
 
-.planner-filter-reset-all:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
-}
-
 .planner-support-wrap {
   align-self: stretch;
   display: inline-flex;
@@ -330,11 +329,6 @@ app-admin-link {
 .planner-support-link.open {
   color: var(--on-accent-text-color);
   filter: brightness(1.07);
-}
-
-.planner-support-link:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
 }
 
 .planner-support-backdrop {
@@ -391,11 +385,6 @@ app-admin-link {
   color: var(--primary-color);
 }
 
-.planner-support-popover-close:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
-}
-
 .planner-support-iframe {
   border: 0;
   display: block;
@@ -425,11 +414,6 @@ app-admin-link {
 .theme-toggle:hover,
 .theme-toggle:focus {
   color: var(--primary-color);
-}
-
-.theme-toggle:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
 }
 
 .theme-toggle.dark {
@@ -464,18 +448,6 @@ app-admin-link {
   right: 0;
   top: calc(100% + 0.35rem);
   z-index: 35;
-}
-
-.planner-filter-sheet-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--space-8);
-}
-
-.planner-filter-sheet-title {
-  color: var(--text-primary);
-  font-weight: 800;
 }
 
 .planner-onboarding-hint {

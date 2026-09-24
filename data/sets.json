@@ -338,7 +338,7 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Exceptional",
                     "value": "2"
                 },
@@ -2133,7 +2133,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Quality",
                     "value": "2"
                 }
@@ -4186,7 +4186,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4933,7 +4933,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -5411,7 +5411,7 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Exceptional",
                     "value": "2"
                 },
@@ -5642,7 +5642,7 @@
         {
             "affixes": [
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Insight",
                     "value": "5"
                 },
@@ -6377,7 +6377,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Quality",
                     "value": "1"
                 }
@@ -7129,7 +7129,7 @@
                     "value": 1
                 },
                 {
-                    "name": "Sneak Attack Bonus",
+                    "name": "Deception",
                     "type": "Enhancement",
                     "value": "5"
                 }

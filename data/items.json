@@ -6899,7 +6899,7 @@
                 "value": "+4"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "2"
             },
@@ -6935,7 +6935,7 @@
                 "value": "+5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "2"
             },
@@ -6971,7 +6971,7 @@
                 "value": "+5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "3"
             },
@@ -9134,7 +9134,7 @@
                 "value": "10"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "3"
             },
@@ -9162,7 +9162,7 @@
                 "value": "11"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "4"
             },
@@ -9190,7 +9190,7 @@
                 "value": "13"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "4"
             },
@@ -9221,12 +9221,12 @@
                 "value": "17"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "1"
             },
@@ -9257,12 +9257,12 @@
                 "value": "20"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "2"
             },
@@ -9293,12 +9293,12 @@
                 "value": "20"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "3"
             },
@@ -20906,7 +20906,7 @@
                 "value": "+3"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             }
@@ -48774,7 +48774,7 @@
                 "value": "15"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "2"
             },
@@ -55538,7 +55538,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             }
@@ -69313,7 +69313,7 @@
                 "value": "20"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "6"
             },
@@ -75800,7 +75800,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "6"
             }
@@ -78426,7 +78426,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "4"
             },
@@ -106681,7 +106681,7 @@
     {
         "affixes": [
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "2"
             }
@@ -205123,7 +205123,7 @@
                 "value": "4"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "3"
             },
@@ -205570,7 +205570,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "2"
             }
@@ -235893,7 +235893,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "3"
             },
@@ -240192,7 +240192,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
@@ -252697,12 +252697,12 @@
     {
         "affixes": [
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "3"
             },
@@ -255994,7 +255994,7 @@
     {
         "affixes": [
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "4"
             },
@@ -264830,7 +264830,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "3"
             }
@@ -279244,7 +279244,7 @@
     {
         "affixes": [
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "5"
             },
@@ -293857,7 +293857,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "3"
             },
@@ -300122,7 +300122,7 @@
                 "value": "20"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "1"
             },
@@ -300170,7 +300170,7 @@
                 "value": "20"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "1"
             },
@@ -300218,7 +300218,7 @@
                 "value": "30"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "2"
             },
@@ -300266,7 +300266,7 @@
                 "value": "40"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "3"
             },
@@ -300314,7 +300314,7 @@
                 "value": "40"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "4"
             },
@@ -300362,7 +300362,7 @@
                 "value": "40"
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Insight",
                 "value": "5"
             },
@@ -302633,7 +302633,7 @@
                 "value": 1
             },
             {
-                "name": "Sneak Attack Bonus",
+                "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "4"
             },

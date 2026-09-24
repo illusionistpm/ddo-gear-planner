@@ -3,6 +3,9 @@
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
     "baseUrl": "./",
+    "paths": {
+      "@data/*": ["../data/*"]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

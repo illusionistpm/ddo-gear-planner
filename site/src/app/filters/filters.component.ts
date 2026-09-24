@@ -5,7 +5,7 @@ import { FiltersService } from '../planner/filters.service';
 import { AnalyticsService } from '../shared/analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
-import buildInfo from 'src/assets/build-info.json';
+import buildInfo from '@data/build-info.json';
 import { GameDataService } from '../gear/game-data.service';
 
 @Component({

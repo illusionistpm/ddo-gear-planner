@@ -1,5 +1,5 @@
 /**
- * Shapes of the generated game-data JSON in src/assets (written by
+ * Shapes of the generated game-data JSON in data/ (written by
  * data-builder/), and of the init objects the model constructors accept.
  */
 

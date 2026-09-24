@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { BuildUrlCodecService, SLOT_TO_CODE } from './build-url-codec.service';
 import { FIXED_BUILD_PARAM_KEYS } from './build-param-keys';
 import { GearDbService } from '../gear/gear-db.service';
-import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
+import urlCodecDictionary from '@data/url-codec-dictionary.json';
 
 const KNOWN_SLOT_KEYS = Object.keys(SLOT_TO_CODE);
 

@@ -7,7 +7,8 @@ non-obvious or have caused real bugs - the rest is discoverable from the code.
 
 - `site/` — the Angular 22 planner app (projects `site` and `admin`).
 - `worker/` — Cloudflare Worker API: saved builds, short links, auth.
-- `data-builder/` — Python scrapers that regenerate `site/src/assets/*.json`.
+- `data-builder/` — Python scrapers that regenerate `data/*.json`.
+- `data/` — the generated game-data JSON. Build-time input only: the site imports it via the `@data/*` alias (`site/tsconfig.json`) and it is bundled into JS chunks, never served as raw files.
 - `shared/constants.json` — values both the site and worker must agree on
   (blob size limits, per-user build caps). Change them **here**, not in either
   copy; see `shared/README.md`.

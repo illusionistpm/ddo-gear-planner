@@ -6,7 +6,7 @@ import { CraftableInit, RawItem } from './game-data-types';
 
 /** Raw item data, optionally with crafting slots given as objects rather than system names. */
 export type ItemInit = Omit<RawItem, 'crafting'> & { crafting?: Array<string | CraftableInit | Craftable> };
-import itemTypesList from 'src/assets/item-types.json';
+import itemTypesList from '@data/item-types.json';
 
 const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
 

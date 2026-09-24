@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Affix } from './affix';
 import { Item } from '../gear/item';
 
-import affixGroupsList from 'src/assets/affix-groups.json';
-import affixSynonymsList from 'src/assets/affix-synonyms.json';
+import affixGroupsList from '@data/affix-groups.json';
+import affixSynonymsList from '@data/affix-synonyms.json';
 
 interface AffixGroupJson {
   name: string;

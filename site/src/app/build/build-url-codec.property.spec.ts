@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BuildUrlCodecService } from './build-url-codec.service';
-import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
+import urlCodecDictionary from '@data/url-codec-dictionary.json';
 
 /**
  * Property-style round-trip: for a few hundred generated param records,

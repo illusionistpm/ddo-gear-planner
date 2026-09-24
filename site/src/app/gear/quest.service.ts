@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import questList from 'src/assets/quests.json';
+import questList from '@data/quests.json';
 import { Item } from './item';
 
 @Injectable({

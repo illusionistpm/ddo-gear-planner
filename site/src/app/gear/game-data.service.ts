@@ -27,10 +27,10 @@ export class GameDataService {
   load(): Promise<void> {
     if (!this.loadPromise) {
       this.loadPromise = Promise.all([
-        import('src/assets/items.json'),
-        import('src/assets/crafting.json'),
-        import('src/assets/essence-crafting.json'),
-        import('src/assets/sets.json'),
+        import('@data/items.json'),
+        import('@data/crafting.json'),
+        import('@data/essence-crafting.json'),
+        import('@data/sets.json'),
       ]).then(([items, crafting, essenceCrafting, sets]) => {
         this.items = jsonModuleValue<RawItem[]>(items);
         this.crafting = jsonModuleValue<RawCraftingData>(crafting);

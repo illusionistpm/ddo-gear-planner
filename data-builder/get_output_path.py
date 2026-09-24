@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 def get_output_path():
-    path = f"{os.path.dirname(__file__)}/../site/src/assets"
+    path = f"{os.path.dirname(__file__)}/../data"
 
     Path(path).mkdir(parents=True, exist_ok=True)
 

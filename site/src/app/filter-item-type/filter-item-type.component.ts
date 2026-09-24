@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FiltersService } from '../planner/filters.service';
 import { AnalyticsService } from '../shared/analytics.service';
 
-import itemTypesList from 'src/assets/item-types.json';
+import itemTypesList from '@data/item-types.json';
 
 @Component({
     selector: 'app-filter-item-type',

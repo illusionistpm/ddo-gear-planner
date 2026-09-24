@@ -46,8 +46,8 @@ jobs:
         id: data-changes
         shell: bash
         run: |
-          changes=$(git status --porcelain site/src/assets \
-            | grep -v 'site/src/assets/build-info.json' || true)
+          changes=$(git status --porcelain data \
+            | grep -v 'data/build-info.json' || true)
 
           if [ -n "$changes" ]; then
             echo "Data changed."
@@ -81,5 +81,5 @@ jobs:
         with:
           commit_message: "[auto-update] Latest data"
           commit_user_name: Data Auto Updater
-          file_pattern: site/src/assets/*.json
+          file_pattern: data/*.json
 

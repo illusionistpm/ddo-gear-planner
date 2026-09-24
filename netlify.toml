@@ -1,3 +1,11 @@
+[build]
+  base = "site"
+  command = "ng build --configuration production"
+  # Runs from `base`. Exit 0 skips the build, so this skips only when nothing
+  # the site is built from changed: site/ itself, data/ (the generated game
+  # data, imported via @data/*) and shared/ (constants.json).
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ../data ../shared"
+
 [[redirects]]
   from = "https://ddo-gear-planner.netlify.app/*"
   to = "https://ddo-gear-planner.com/:splat"

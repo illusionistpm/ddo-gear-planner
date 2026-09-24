@@ -8,7 +8,7 @@ import {
   craftKey, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
   isCraftKey, isMlKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
 } from './build-param-keys';
-import urlCodecDictionary from 'src/assets/url-codec-dictionary.json';
+import urlCodecDictionary from '@data/url-codec-dictionary.json';
 
 type DecodedParamRecord = Record<string, string | Array<string>>;
 type DictionaryKey = 'itemTypes' | 'packs' | 'craftingSystems';

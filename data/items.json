@@ -211476,7 +211476,7 @@
                 "value": "20"
             },
             {
-                "name": "Shield Proficiency: Tower Shield",
+                "name": "Proficiency: Tower Shield",
                 "type": "Bool",
                 "value": 1
             },
@@ -211575,7 +211575,7 @@
                 "value": "+5"
             },
             {
-                "name": "Shield Proficiency: Tower Shield",
+                "name": "Proficiency: Tower Shield",
                 "type": "Bool",
                 "value": 1
             },
@@ -301172,12 +301172,12 @@
                 "value": 1
             },
             {
-                "name": "Feat: Longbow",
+                "name": "Proficiency: Longbow",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Feat: Shortbow",
+                "name": "Proficiency: Shortbow",
                 "type": "Bool",
                 "value": 1
             },

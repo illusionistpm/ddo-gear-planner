@@ -1141,12 +1141,14 @@ export class EquippedService implements QueryParamsListener {
       return AffixRank.Irrelevant;
     }
 
-    if (affix.type === 'Penalty') {
-      return AffixRank.Penalty;
-    }
-
+    // A penalty only matters to an affix the build tracks - otherwise it would turn options red
+    // (or tracked bonuses Mixed) over an affix nobody asked about.
     if (!this.importantAffixes.has(affix.name)) {
       return AffixRank.Irrelevant;
+    }
+
+    if (affix.type === 'Penalty') {
+      return AffixRank.Penalty;
     }
 
     const values = this.getValuesForAffixType(affix.name, affix.type);

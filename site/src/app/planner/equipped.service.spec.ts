@@ -5,6 +5,10 @@ import { AffixAvailabilityService } from '../affixes/affix-availability.service'
 import { Item } from '../gear/item';
 import { QueryParamsService } from '../build/query-params.service';
 import { FiltersService } from './filters.service';
+import { Affix } from '../affixes/affix';
+import { AffixRank } from '../affixes/affix-rank.enum';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { CraftableOption } from '../gear/craftable-option';
 
 function makeParamsAdapter(record: Record<string, unknown>) {
   return {
@@ -612,5 +616,34 @@ describe('EquippedService', () => {
     expect(tab).toBe('affixes');
     expect(state?.groupMode).toBe('slots');
     expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'set-only']);
+  });
+
+  describe('ranking a penalty', () => {
+    const penalty = new Affix({ name: 'Hide', type: 'Penalty', value: -6 });
+
+    it('ignores a penalty to an affix that is not tracked', () => {
+      const service = TestBed.inject(EquippedService);
+
+      expect(service.getAffixRanking(penalty)).toBe(AffixRank.Irrelevant);
+    });
+
+    it('ranks a penalty to a tracked affix as a penalty', () => {
+      const service = TestBed.inject(EquippedService);
+      service.addImportantAffix('Hide');
+
+      expect(service.getAffixRanking(penalty)).toBe(AffixRank.Penalty);
+    });
+
+    // Command groups several skills with a -6 Hide penalty; the penalty alone used to turn
+    // augments granting it red for builds tracking none of them.
+    it('does not rank an affix group as a penalty for an untracked penalty inside it', () => {
+      const service = TestBed.inject(EquippedService);
+      const command = new CraftableOption({ name: 'Brightbane Emerald', affixes: [{ name: 'Command', type: 'Insight', value: 4 }] });
+
+      expect(TestBed.inject(AffixUiService).getClassForCraftingOption(command)).toBe('Irrelevant');
+
+      service.addImportantAffix('Hide');
+      expect(TestBed.inject(AffixUiService).getClassForCraftingOption(command)).toBe('Penalty');
+    });
   });
 });

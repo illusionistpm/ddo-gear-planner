@@ -2,6 +2,7 @@ import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
 import { AffixService } from './affix.service';
 import { AffixUiService } from './affix-ui.service';
+import { CraftableOption } from '../gear/craftable-option';
 
 describe('AffixUiService', () => {
   it('describes fixed affix group components', () => {
@@ -148,6 +149,47 @@ describe('AffixUiService', () => {
     it('appends the label on request', () => {
       expect(service.describeExternalAffix(entry({}), true)).toBe('+3 Insight (Spell)');
       expect(service.describeExternalAffix(entry({ bonusType: 'Bool', value: 1 }), true)).toBe('Covered (Spell)');
+    });
+  });
+
+  describe('set augments', () => {
+    const quickblade = [
+      new Affix({ name: 'Doublestrike', type: 'Artifact', value: 15 }),
+      new Affix({ name: 'Doubleshot', type: 'Artifact', value: 15 }),
+    ];
+
+    function makeService(ranks: Record<string, AffixRank>) {
+      const equipped = {
+        getAffixRanking: (affix: Affix) => ranks[affix.name] ?? AffixRank.Irrelevant,
+        // No pieces of any set equipped.
+        getActiveSets: () => new Map<string, number>(),
+      };
+      const gearDb = {
+        getSetBonusThresholdDetails: (set: string) => set === 'Quickblade' ? [{ threshold: 3, eligible: false, affixes: quickblade }] : [],
+        getSetBonusThresholds: (set: string) => set === 'Quickblade' ? [3] : [],
+      };
+      return new AffixUiService(equipped as any, new AffixService(), gearDb as any);
+    }
+    const setAugment = new CraftableOption({ name: 'Set Augment: Quickblade', set: 'Quickblade' });
+
+    it('are ranked by their set bonus, as if the set were complete', () => {
+      expect(makeService({ Doublestrike: AffixRank.BetterThanBest }).getClassForCraftingOption(setAugment)).toBe('BetterThanBest');
+      expect(makeService({ Doublestrike: AffixRank.Outranked }).getClassForCraftingOption(setAugment)).toBe('Outranked');
+    });
+
+    it('are Mixed when their set bonuses rank differently', () => {
+      const service = makeService({ Doublestrike: AffixRank.BetterThanBest, Doubleshot: AffixRank.Outranked });
+
+      expect(service.getClassForCraftingOption(setAugment)).toBe('Mixed');
+    });
+
+    it('are irrelevant when no set bonus is tracked', () => {
+      expect(makeService({}).getClassForCraftingOption(setAugment)).toBe('Irrelevant');
+    });
+
+    it('describe their set bonus and the pieces it takes', () => {
+      expect(makeService({}).getCraftingOptionTooltip(setAugment))
+        .toBe('Quickblade set bonus at 3 pieces:\n- Doublestrike: +15 Artifact\n- Doubleshot: +15 Artifact');
     });
   });
 });

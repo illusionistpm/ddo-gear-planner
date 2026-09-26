@@ -178,6 +178,12 @@ export class AffixUiService {
 
   getCraftingOptionTooltip(option: CraftableOption): string {
     perfCount('AffixUiService.getCraftingOptionTooltip');
+    if (!option?.affixes?.length && option?.set) {
+      return this.gearDb.getSetBonusThresholdDetails(option.set, 0)
+        .map(tier => `${option.set} set bonus at ${tier.threshold} pieces:\n`
+          + tier.affixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n'))
+        .join('\n');
+    }
     if (!option?.affixes?.length) return '';
     const optionName = option.name || option.set || option.describe(false);
     const optionAffixes = option.affixes.flatMap(affix => {
@@ -203,22 +209,37 @@ export class AffixUiService {
 
   getClassForCraftingOption(option: CraftableOption): string {
     perfCount('AffixUiService.getClassForCraftingOption');
-    if (!option?.affixes?.length) {
-      return AffixRank[AffixRank.Irrelevant];
+    if (option?.affixes?.length) {
+      return AffixRank[this.combineRanks(option.affixes.map(affix => this.getAffixRank(affix, option)))];
     }
-    let optionRank = AffixRank.Irrelevant;
-    for (const affix of option.affixes) {
-      const affixRank = this.getAffixRank(affix, option);
-      if (affixRank === AffixRank.Irrelevant) {
+    if (option?.set) {
+      // A set augment has no affixes of its own, so it is ranked by its set's bonuses - as if
+      // the set were complete, which is what choosing it is working towards. (Ranking them with
+      // the option would make every set short of its pieces a Penalty.)
+      return AffixRank[this.combineRanks(this.getSetBonusAffixes(option.set).map(affix => this.getAffixRank(affix)))];
+    }
+    return AffixRank[AffixRank.Irrelevant];
+  }
+
+  /** One rank for several affixes: the one rank they share, ignoring irrelevant ones, or Mixed. */
+  private combineRanks(ranks: AffixRank[]): AffixRank {
+    let combined = AffixRank.Irrelevant;
+    for (const rank of ranks) {
+      if (rank === AffixRank.Irrelevant) {
         continue;
       }
-      if (optionRank === AffixRank.Irrelevant) {
-        optionRank = affixRank;
-      } else if (optionRank !== affixRank) {
-        return AffixRank[AffixRank.Mixed];
+      if (combined === AffixRank.Irrelevant) {
+        combined = rank;
+      } else if (combined !== rank) {
+        return AffixRank.Mixed;
       }
     }
-    return AffixRank[optionRank];
+    return combined;
+  }
+
+  /** Every bonus of a set, at any piece count. */
+  private getSetBonusAffixes(set: string): Affix[] {
+    return this.gearDb.getSetBonusThresholdDetails(set, 0).flatMap(tier => tier.affixes);
   }
 
   private getAffixGroupRankDetails(affixGroup: Affix): { rank: AffixRank; sourceAffix: Affix } {

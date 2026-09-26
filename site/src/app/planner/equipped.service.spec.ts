@@ -449,6 +449,32 @@ describe('EquippedService', () => {
     });
   });
 
+  it('recomputes which equipped items can host an augment when the item filters change', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const filters = TestBed.inject(FiltersService);
+    const gearDb = (service as any).gearList;
+
+    // Which augments exist depends on the filtered gear: none at 33-36, one from level 1.
+    let minLevel = 1;
+    filters.getItemFilters().subscribe(f => (minLevel = f.levelRange[0]));
+    const augment = { name: 'Blue Augment Slot', options: [{}] };
+    vi.spyOn(gearDb, 'findAugmentsWithAffixAndType').mockImplementation(
+      () => (minLevel === 1 ? [augment] : []));
+
+    const ring = makeItem('Augment Ring', 'Ring1', 'Ring');
+    (ring as any).crafting = [{
+      name: 'Blue Augment Slot', selected: null,
+      hasCraftingSystemOptions: () => false, craftingSystemOptions: []
+    }];
+    service.set(ring);
+
+    filters.setLevelRange(33, 36);
+    expect(service.getSlotsWithOpenAugmentForAffixType('Heroic Inspiration', 'Bool').size).toBe(0);
+
+    filters.setLevelRange(1, 36);
+    expect(Array.from(service.getSlotsWithOpenAugmentForAffixType('Heroic Inspiration', 'Bool'))).toEqual(['Ring1']);
+  });
+
   it('reports set-granted affix-group bonuses on the tracked member affixes', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     const setName = 'Legendary Delight of the Devourer';

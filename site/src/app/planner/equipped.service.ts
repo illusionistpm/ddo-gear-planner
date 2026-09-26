@@ -171,6 +171,10 @@ export class EquippedService implements QueryParamsListener {
     // GearDbService subscribed first, so its filtered gear is already current when this runs.
     let filigreeTracked = this.isFiligreeTrackingActive();
     this.gearList.filters.getItemFilters().subscribe(() => {
+      // Both caches are derived from the filtered gear (which augments and sets exist),
+      // not just from what's equipped, so a filter change invalidates them too.
+      this.setOnlyUncoveredSets = undefined;
+      this.openAugmentSlotsCache.clear();
       const nowTracked = this.isFiligreeTrackingActive();
       if (nowTracked !== filigreeTracked) {
         filigreeTracked = nowTracked;

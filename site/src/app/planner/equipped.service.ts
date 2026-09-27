@@ -94,6 +94,8 @@ export interface RankCandidate {
   slot: string | null;
   /** Every affix it would contribute, the one being ranked among them, with affix groups flattened. */
   activeAffixes: Affix[];
+  /** The sets it would count as a piece of. */
+  sets: string[];
 }
 
 export interface AsEquippedRanking {
@@ -613,11 +615,16 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this.visibleSetBonuses.asObservable();
   }
 
-  private getValuesForAffixType(affixName: string, bonusType: string, excludeSlot: string | null = null) {
+  /**
+   * Every value the build gets for an affix type, best first. With a `candidate`, the build as it
+   * would be once the candidate replaced its slot: that slot's item left out, and set bonuses
+   * recounted with the candidate's sets. The candidate's own affixes are not included.
+   */
+  private getValuesForAffixType(affixName: string, bonusType: string, candidate?: RankCandidate) {
     const values: Array<{ slot: string; value: number }> = [];
     for (const slot of this.slots) {
       const slotValue = slot[1].getValue();
-      if (slotValue && slot[0] !== excludeSlot) {
+      if (slotValue && slot[0] !== candidate?.slot) {
         for (const affix of this.affixSvc.getActiveAffixes(slotValue)) {
           if (affix.name === affixName && affix.type === bonusType) {
             values.push({ slot: slot[0], value: affix.value });
@@ -626,7 +633,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
-    for (const setToAffixes of this.getActiveSetBonuses()) {
+    const setBonuses = candidate ? this.getSetBonusesWith(candidate) : this.getActiveSetBonuses();
+    for (const setToAffixes of setBonuses) {
       for (const affix of setToAffixes[1]) {
         if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
           values.push({ slot: 'set', value: affix.value });
@@ -641,6 +649,19 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     return values.sort((a, b) => b.value - a.value);
+  }
+
+  /** The set bonuses the build would have once `candidate` replaced its slot. */
+  private getSetBonusesWith(candidate: RankCandidate): Array<[string, Array<Affix>]> {
+    const setCounts = new Map<string, number>();
+    const count = (set: string) => setCounts.set(set, (setCounts.get(set) || 0) + 1);
+    for (const [slot, subject] of this.slots) {
+      if (slot !== candidate.slot) {
+        subject.getValue()?.getSets().forEach(count);
+      }
+    }
+    candidate.sets.forEach(count);
+    return [...setCounts].map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
@@ -1185,8 +1206,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
    * so green/blue/orange mean the same as they do on equipped gear. BetterThanBest is kept for an
    * upgrade: the best value after the swap and higher than the build's best today. A value that
    * would be the best after the swap but is lower than today's is a downgrade, shown Outranked.
-   *
-   * Set bonuses are not recomputed for the swap: replacing a set piece keeps its set's bonus.
+   * Set bonuses are recounted for the swap, so replacing a set piece can lose its set's bonus.
    */
   getAffixRankingAsEquipped(affix: Affix, candidate: RankCandidate): AsEquippedRanking {
     perfCount('EquippedService.getAffixRankingAsEquipped');
@@ -1202,7 +1222,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     if (!own.includes(affix.value)) {
       own.push(affix.value);
     }
-    const after = this.getValuesForAffixType(affix.name, affix.type, candidate.slot)
+    const after = this.getValuesForAffixType(affix.name, affix.type, candidate)
       .map(entry => entry.value)
       .concat(own);
     const best = Math.max(...after);

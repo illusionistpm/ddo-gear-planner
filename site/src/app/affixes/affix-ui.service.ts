@@ -95,18 +95,45 @@ export class AffixUiService {
   /** What equipping `item` in its slot would contribute, with `option` chosen in `craft` when given. */
   candidateFor(item: Item, craft?: Craftable, option?: CraftableOption | null): RankCandidate {
     const affixes = item.affixes.slice();
+    const craftedSets: string[] = [];
     for (const itemCraft of item.crafting || []) {
       const selected = itemCraft === craft ? option : itemCraft.selected;
       if (selected?.affixes) {
         affixes.push(...selected.affixes);
       }
+      if (selected?.set) {
+        craftedSets.push(selected.set);
+      }
     }
-    return { slot: item.slot, activeAffixes: this.affixSvc.flattenAffixGroups(affixes, true) };
+    return {
+      slot: item.slot,
+      activeAffixes: this.affixSvc.flattenAffixGroups(affixes, true),
+      // As Item.getSets: a set augment takes the place of the item's own sets.
+      sets: craftedSets.length ? craftedSets : item.getOwnSets()
+    };
+  }
+
+  /**
+   * A set augment ranked by one of its set's bonuses: as if the augment granted that bonus itself,
+   * and without the piece it adds. So the bonus counts as already there when the set is complete
+   * without the augment, and a set it would complete, or leave short, is ranked as if complete.
+   */
+  private candidateForSetBonus(candidate: RankCandidate, set: string, bonus: Affix): RankCandidate {
+    const sets = candidate.sets.slice();
+    const piece = sets.indexOf(set);
+    if (piece >= 0) {
+      sets.splice(piece, 1);
+    }
+    return {
+      slot: candidate.slot,
+      activeAffixes: candidate.activeAffixes.concat(this.affixSvc.flattenAffixGroups([bonus], true)),
+      sets
+    };
   }
 
   /** An augment going into an empty slot: added to the build without replacing anything. */
   candidateForAddedOption(option: CraftableOption): RankCandidate {
-    return { slot: null, activeAffixes: this.affixSvc.flattenAffixGroups(option.affixes || [], true) };
+    return { slot: null, activeAffixes: this.affixSvc.flattenAffixGroups(option.affixes || [], true), sets: [] };
   }
 
   /** A set-bonus affix is ranked like any other once its tier is active, and greyed out until then. */
@@ -265,10 +292,31 @@ export class AffixUiService {
    * Ranks a crafting option for a list of options. `alreadyEquipped` says the option is the
    * chosen one on an equipped item, so a set augment already counts as one of its set's pieces.
    */
+  /**
+   * Why a crafting option has its rank colour: its first affix's ranking tooltip or, for a set
+   * augment, each set bonus's, ranked the same way getClassForCraftingOption ranks them.
+   */
+  getCraftingOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate): string {
+    if (option?.affixes?.[0]) {
+      return this.getAffixTooltip(option.affixes[0], option, slot, candidate);
+    }
+    if (!option?.set) {
+      return '';
+    }
+    const set = option.set;
+    const bonuses = this.getSetBonusAffixes(set);
+    const tooltips = bonuses.map(affix => {
+      const tooltip = this.getAffixTooltip(affix, undefined, slot, candidate && this.candidateForSetBonus(candidate, set, affix));
+      // With several bonuses, say which one each line is about.
+      return tooltip && bonuses.length > 1 ? `${this.getAffixDescription(affix)}: ${tooltip}` : tooltip;
+    });
+    return tooltips.filter(tooltip => tooltip).join('\n');
+  }
+
   rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false, context?: CraftingOptionContext): CraftingOptionRanking {
     // Ranked as if chosen: on its item, in place of whatever that crafting slot holds now.
     const candidate = context ? this.candidateFor(context.item, context.craft, option) : undefined;
-    const rankingTooltip = option.affixes?.[0] ? this.getAffixTooltip(option.affixes[0], option, slot, candidate) : '';
+    const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
     return {
       className: this.getClassForCraftingOption(option, candidate),
@@ -304,7 +352,9 @@ export class AffixUiService {
       // A set augment has no affixes of its own, so it is ranked by its set's bonuses - as if
       // the set were complete, which is what choosing it is working towards. (Ranking them with
       // the option would make every set short of its pieces a Penalty.)
-      return AffixRank[this.combineRanks(this.getSetBonusAffixes(option.set).map(affix => this.getAffixRank(affix)))];
+      const set = option.set;
+      return AffixRank[this.combineRanks(this.getSetBonusAffixes(set).map(affix =>
+        this.getAffixRank(affix, undefined, candidate && this.candidateForSetBonus(candidate, set, affix))))];
     }
     return AffixRank[AffixRank.Irrelevant];
   }

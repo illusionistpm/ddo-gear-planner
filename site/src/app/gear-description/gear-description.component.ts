@@ -194,7 +194,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         craft,
         context: { item, craft },
         className: this.affixUi.getClassForCraftable(craft, candidate),
-        tooltip: selectedAffix ? this.affixUi.getAffixTooltip(selectedAffix, craft.selected, item.slot, candidate) : '',
+        tooltip: this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate),
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',

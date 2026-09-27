@@ -30,6 +30,30 @@ export function isAugmentSystemName(name: string): boolean {
 export const COLORLESS_AUGMENT_SYSTEM = augmentSystemName('Colorless');
 export const GREEN_AUGMENT_SYSTEM = augmentSystemName('Green');
 
+/**
+ * Necropolis 4 and Vol raid items' augment upgrades: each adds one slot that
+ * can become any one of the colours the item lists for it (items.json's
+ * augmentUpgrades), picked the way an essence-crafted slot's system is.
+ */
+export const PRIMARY_AUGMENT_UPGRADE = 'Upgradeable - Primary Augment';
+export const SECONDARY_AUGMENT_UPGRADE = 'Upgradeable - Secondary Augment';
+
+export function isAugmentUpgradeSystemName(name: string): boolean {
+  return name === PRIMARY_AUGMENT_UPGRADE || name === SECONDARY_AUGMENT_UPGRADE;
+}
+
+/**
+ * Augment upgrades were once modelled as a plain slot of each colour, so saved
+ * builds name those ("Blue Augment Slot"). The upgrade slot that can become that
+ * colour, and the selection that puts the augment there.
+ */
+export function findAugmentUpgradeForLegacySlot(item: Item, colorSystemName: string, selected: string):
+    { craftable: Craftable; selection: string } | null {
+  const craftable = item.crafting?.find(candidate =>
+    isAugmentUpgradeSystemName(candidate.name) && candidate.craftingSystemOptions.includes(colorSystemName));
+  return craftable ? { craftable, selection: `${colorSystemName}: ${selected}` } : null;
+}
+
 /** The colours slot 2 is built with, given the colours slot 1 is built with. */
 export function secondAugmentSlotColors(slotOneColors: string[]): string[] {
   return slotOneColors.includes('Green')

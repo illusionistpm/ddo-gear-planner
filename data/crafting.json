@@ -47748,6 +47748,12 @@
             }
         ]
     },
+    "Upgradeable - Primary Augment": {
+        "*": []
+    },
+    "Upgradeable - Secondary Augment": {
+        "*": []
+    },
     "Upgradeable Item": {
         "Amulet of the Stormreaver": [
             {

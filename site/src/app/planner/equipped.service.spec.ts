@@ -609,6 +609,24 @@ describe('EquippedService', () => {
     expect(selectedAugments).toContain('Brightbane Emerald');
   });
 
+  it('persists and restores an augment chosen in a raid item\'s augment upgrade slot', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const diadem = service['gearList'].findGearBySlot('Helm', 'Epic Deific Diadem') as Item;
+    diadem.getCraftingByName('Upgradeable - Primary Augment')?.selectByParamDescription('Blue Augment Slot: Golem\'s Heart');
+    service.set(diadem);
+    const params = { ...service['params'].getValue()! };
+
+    expect(params['craft_0_system']).toBe('Upgradeable - Primary Augment');
+    expect(params['craft_0_selected']).toBe('Blue Augment Slot: Golem\'s Heart');
+
+    service.set(service['gearList'].findGearBySlot('Helm', 'Epic Deific Diadem') as Item);
+    service.updateFromParams(makeParamsAdapter(params));
+
+    const primary = service.getSlotsSnapshot().get('Helm')?.getCraftingByName('Upgradeable - Primary Augment');
+    expect(primary?.selectedCraftingSystemName).toBe('Blue Augment Slot');
+    expect(primary?.selected.getParamDescription()).toBe('Golem\'s Heart');
+  });
+
   it('does not persist planner view state to params - it lives in localStorage instead', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 

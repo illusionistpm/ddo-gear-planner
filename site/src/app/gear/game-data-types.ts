@@ -35,6 +35,8 @@ export interface RawItem {
   ml: number;
   affixes?: RawAffix[];
   crafting?: string[];
+  /** An augment upgrade's crafting system -> the augment colours it can become. */
+  augmentUpgrades?: Record<string, string[]>;
   sets?: string[];
   quests?: string[];
   url?: string;

@@ -31109,22 +31109,20 @@
                 "name": "Incite",
                 "type": "Enhancement",
                 "value": "120"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Circle of Malevolence",
@@ -62428,25 +62426,23 @@
                 "name": "Speed",
                 "type": "Enhancement",
                 "value": "15"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue",
+                "Red"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green",
+                "Orange",
+                "Purple"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Orange Augment Slot",
-            "Purple Augment Slot",
-            "Red Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Emerald Twilight",
@@ -64108,22 +64104,20 @@
                 "name": "Greater Regeneration",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Belt of Thoughtful Rememberance",
@@ -64940,22 +64934,20 @@
                 "name": "Greater Heroism",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Boots of the Innocent",
@@ -66742,22 +66734,20 @@
                 "name": "Fortitude Save",
                 "type": "Insight",
                 "value": "2"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Chain of Conviction",
@@ -67009,22 +66999,20 @@
                 "name": "Sheltering",
                 "type": "Enhancement",
                 "value": "24"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Chord of Reprisals",
@@ -67117,22 +67105,20 @@
                 "name": "Freezing Ice",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Cloak of Ice",
@@ -68794,22 +68780,20 @@
                 "name": "Fortitude Save",
                 "type": "Insight",
                 "value": "2"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Death's Rampart",
@@ -68849,22 +68833,20 @@
                 "name": "Charisma",
                 "type": "Enhancement",
                 "value": "13"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Epic Deific Diadem",
@@ -70684,22 +70666,20 @@
                 "name": "Tendon Slice",
                 "type": "Untyped",
                 "value": "6"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Emerald Gaze",
@@ -70754,22 +70734,20 @@
                 "name": "Greater Nimbleness",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Emerald Guard",
@@ -71015,22 +70993,20 @@
                 "name": "Feather Falling",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Ethereal Bracers",
@@ -72776,22 +72752,20 @@
                 "name": "Spell Save",
                 "type": "Enhancement",
                 "value": "1"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Eye of the Beholder",
@@ -72823,22 +72797,20 @@
                 "name": "Magical Efficiency",
                 "type": "Enhancement",
                 "value": "10"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Fanged Gloves",
@@ -73504,22 +73476,20 @@
                 "name": "Wisdom",
                 "type": "Enhancement",
                 "value": "11"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Glimpse of the Soul",
@@ -75050,22 +75020,20 @@
                 "name": "Spellcraft",
                 "type": "Competence",
                 "value": "20"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Inferno Bracers",
@@ -75996,22 +75964,20 @@
                 "name": "Light of Dawn",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Epic Litany of the Dead",
@@ -76144,22 +76110,20 @@
                 "name": "Intimidate",
                 "type": "Competence",
                 "value": "20"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Locus of Vol",
@@ -76701,22 +76665,20 @@
                 "name": "Dexterity",
                 "type": "Enhancement",
                 "value": "11"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Mentau's Goggles",
@@ -76797,22 +76759,20 @@
                 "name": "Sheltering",
                 "type": "Enhancement",
                 "value": "24"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Minos Legens",
@@ -77186,22 +77146,20 @@
                 "name": "Assassinate",
                 "type": "Enhancement",
                 "value": "2"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Muffled Veneer",
@@ -77359,22 +77317,20 @@
                 "name": "Spell Lore",
                 "type": "Equipment",
                 "value": "12"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Epic Noxious Embers",
@@ -78344,22 +78300,20 @@
                 "name": "Light Absorption",
                 "type": "Enhancement",
                 "value": "10"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Epic Purging the Pantheon",
@@ -79396,22 +79350,20 @@
                 "name": "Whirlwind Ward",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Ring of Unknown Origins",
@@ -80935,22 +80887,20 @@
                 "name": "Greater Nimbleness",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Scales of Surety",
@@ -81571,22 +81521,20 @@
                 "name": "Deathblock",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Epic Seraphim",
@@ -123938,22 +123886,20 @@
                 "name": "Spiked",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Knives Eternal",
@@ -249844,22 +249790,20 @@
                 "name": "Use Magic Device",
                 "type": "Competence",
                 "value": "5"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Sanctified Gages",
@@ -260542,22 +260486,20 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "13"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 26,
         "name": "Shroud of Ardent",
@@ -262365,25 +262307,23 @@
                 "name": "Hardened Spikes",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue",
+                "Red"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green",
+                "Orange",
+                "Purple"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Orange Augment Slot",
-            "Purple Augment Slot",
-            "Red Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "Silver Lining",
@@ -282426,25 +282366,23 @@
                 "name": "Spearblock",
                 "type": "Untyped",
                 "value": "7"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue",
+                "Red"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green",
+                "Orange",
+                "Purple"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Orange Augment Slot",
-            "Purple Augment Slot",
-            "Red Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "The Falling Darkness",
@@ -286787,25 +286725,23 @@
                 "name": "Armor Class",
                 "type": "Deflection",
                 "value": "10"
-            },
-            {
-                "name": "Upgradeable - Primary Augment",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Upgradeable - Secondary Augment",
-                "type": "Bool",
-                "value": 1
             }
         ],
+        "augmentUpgrades": {
+            "Upgradeable - Primary Augment": [
+                "Yellow",
+                "Blue",
+                "Red"
+            ],
+            "Upgradeable - Secondary Augment": [
+                "Green",
+                "Orange",
+                "Purple"
+            ]
+        },
         "crafting": [
-            "Green Augment Slot",
-            "Orange Augment Slot",
-            "Purple Augment Slot",
-            "Red Augment Slot",
-            "Yellow Augment Slot",
-            "Blue Augment Slot"
+            "Upgradeable - Primary Augment",
+            "Upgradeable - Secondary Augment"
         ],
         "ml": 27,
         "name": "The Rising Light",

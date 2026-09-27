@@ -14,7 +14,9 @@ import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
 import { perfMeasure, perfStart } from '../shared/perf-trace';
 import { affixTypeKey } from '../affixes/affix-type-key';
-import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, augmentSystemName, isAugmentSystemName, secondAugmentSlotColors } from './augment-slots';
+import {
+  AUGMENT_SLOT_1, AUGMENT_SLOT_2, augmentSystemName, isAugmentSystemName, isAugmentUpgradeSystemName, secondAugmentSlotColors
+} from './augment-slots';
 
 const groupBy = <T, K extends PropertyKey>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
@@ -247,6 +249,9 @@ export class GearDbService {
             if (craftingFn) {
               craftingOptions.push(craftingFn(newItem.ml));
             }
+          } else if (canonicalCraftingSystem && isAugmentUpgradeSystemName(canonicalCraftingSystem)) {
+            const colors = item.augmentUpgrades?.[canonicalCraftingSystem] ?? [];
+            craftingOptions.push(this._buildEssenceCraftingAugmentSlot(canonicalCraftingSystem, colors));
           } else if (canonicalCraftingSystem && this.craftingList.get(canonicalCraftingSystem)) {
             const baseName = item.name.replace(' [Crafted]', '');
             const systemCraftables = this.craftingList.get(canonicalCraftingSystem);

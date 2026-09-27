@@ -123,6 +123,33 @@ describe('GearDbService', () => {
       .toEqual([[], [['Speed', 'Enhancement', 30]]]);
   });
 
+  it('gives an augment upgrade one slot that can become any colour the item lists for it', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const diadem = service.findGearBySlot('Helm', 'Epic Deific Diadem');
+    const shield = service.findGearBySlot('Offhand', 'Emerald Twilight');
+    const systemsOf = (item: Item | undefined) => item?.crafting.map(craftable => [craftable.name, craftable.craftingSystemOptions]);
+
+    expect(systemsOf(diadem)).toEqual([
+      ['Upgradeable - Primary Augment', ['Yellow Augment Slot', 'Blue Augment Slot']],
+      ['Upgradeable - Secondary Augment', ['Green Augment Slot']],
+    ]);
+    expect(systemsOf(shield)).toEqual([
+      ['Upgradeable - Primary Augment', ['Yellow Augment Slot', 'Blue Augment Slot', 'Red Augment Slot']],
+      ['Upgradeable - Secondary Augment', ['Green Augment Slot', 'Orange Augment Slot', 'Purple Augment Slot']],
+    ]);
+    expect(diadem?.affixes.map(affix => affix.name)).not.toContain('Upgradeable - Primary Augment');
+  });
+
+  it('offers a colour\'s augments once that colour is picked for an augment upgrade', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const primary = service.findGearBySlot('Helm', 'Epic Deific Diadem')?.getCraftingByName('Upgradeable - Primary Augment');
+
+    expect(primary?.options.length).toBe(1);
+    primary?.selectCraftingSystem('Blue Augment Slot');
+
+    expect(primary?.options.map(option => option.getParamDescription())).toContain('Golem\'s Heart');
+  });
+
   describe('crafting options with minimum levels', () => {
     function makeLeveledCraftingItem() {
       return new Item({

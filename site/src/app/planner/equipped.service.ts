@@ -24,6 +24,7 @@ import {
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
+import { findAugmentUpgradeForLegacySlot } from '../gear/augment-slots';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry } from '../affixes/external-affix';
@@ -277,12 +278,18 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
             console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
             continue;
           }
-          const crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
+          let crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
+          let selected = craftingParam['selected'];
+          if (!crafting) {
+            const upgrade = findAugmentUpgradeForLegacySlot(item, craftingParam['system'], selected);
+            crafting = upgrade?.craftable;
+            selected = upgrade?.selection ?? selected;
+          }
           if (!crafting) {
             console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
             continue;
           }
-          if(!crafting.selectByParamDescription(craftingParam['selected'])) {
+          if(!crafting.selectByParamDescription(selected)) {
             console.log('Couldn\'t set craftable. Couldn\'t find option matching ' + craftingParam['selected']);
             continue;
           }

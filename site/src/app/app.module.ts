@@ -40,6 +40,7 @@ import { BuildActionsComponent } from './build-actions/build-actions.component';
 import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
 import { AutofocusDirective } from './shared/autofocus.directive';
 import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
+import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
         GearListComponent,
         TypeaheadComponent,
         GearDescriptionComponent,
+        CraftingOptionPickerComponent,
         TapTooltipComponent,
         EffectsTableComponent,
         ItemsWithBonusTypeComponent,

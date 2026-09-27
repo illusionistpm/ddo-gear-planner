@@ -15,6 +15,7 @@ import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../sh
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
 
 interface AffixDisplayRow {
@@ -72,6 +73,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   affixRows: AffixDisplayRow[] = [];
   craftingRows: CraftingDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
+  readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
   private subscriptions = new Subscription();
   private rankedCraftingOptions = new WeakSet<Craftable>();
   private loadedCraftingOptions = new WeakSet<Craftable>();
@@ -233,14 +235,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
     const options = includeAllOptions ? (craft.options || []) : [craft.selected];
     const rows = options.map(option => {
-      const rankingTooltip = includeRank && option.affixes?.[0]
-        ? this.affixUi.getAffixTooltip(option.affixes[0], option, this.curItem?.slot)
-        : '';
-      const optionTooltip = this.affixUi.getCraftingOptionTooltip(option);
+      const ranking = includeRank ? this.affixUi.rankCraftingOption(option, this.curItem?.slot) : null;
       return {
         option,
-        className: includeRank ? this.affixUi.getClassForCraftingOption(option) : undefined,
-        tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n') || undefined,
+        className: ranking?.className,
+        tooltip: (ranking ? ranking.tooltip : this.affixUi.getCraftingOptionTooltip(option)) || undefined,
         description: option.describe()
       };
     });
@@ -277,6 +276,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     this.changeDetector.markForCheck();
     done();
     perfAfterFrames('paint after crafting option change');
+  }
+
+  chooseCraftingOption(row: CraftingDisplayRow, option: CraftableOption) {
+    row.craft.selected = option;
+    this.updateItem();
   }
 
   updateCraftingSystem(row: CraftingDisplayRow) {

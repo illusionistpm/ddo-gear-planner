@@ -187,9 +187,39 @@ describe('AffixUiService', () => {
       expect(makeService({}).getClassForCraftingOption(setAugment)).toBe('Irrelevant');
     });
 
+    it('are ranked for a list with the set pieces they would make, while the set is short', () => {
+      const ranking = makeService({ Doublestrike: AffixRank.Best }).rankCraftingOption(setAugment);
+
+      expect(ranking.className).toBe('Best');
+      expect(ranking.note).toBe('1 of 3 set pieces');
+      expect(ranking.tooltip).toContain('Quickblade set bonus at 3 pieces');
+    });
+
     it('describe their set bonus and the pieces it takes', () => {
       expect(makeService({}).getCraftingOptionTooltip(setAugment))
         .toBe('Quickblade set bonus at 3 pieces:\n- Doublestrike: +15 Artifact\n- Doubleshot: +15 Artifact');
+    });
+  });
+
+  describe('getSetPieces', () => {
+    function makeService(piecesEquipped: number) {
+      const equipped = { getActiveSets: () => new Map([['Quickblade', piecesEquipped]]) };
+      const gearDb = { getSetBonusThresholds: () => [3] };
+      return new AffixUiService(equipped as any, new AffixService(), gearDb as any);
+    }
+    const setAugment = new CraftableOption({ name: 'Set Augment: Quickblade', set: 'Quickblade' });
+
+    it('counts the augment itself as a piece', () => {
+      expect(makeService(0).getSetPieces(setAugment, false)).toEqual({ pieces: 1, required: 3 });
+      expect(makeService(2).getSetPieces(setAugment, false)).toEqual({ pieces: 3, required: 3 });
+    });
+
+    it('does not count the augment twice when it is already an equipped piece', () => {
+      expect(makeService(1).getSetPieces(setAugment, true)).toEqual({ pieces: 1, required: 3 });
+    });
+
+    it('has nothing to say about an option that is not a set augment', () => {
+      expect(makeService(0).getSetPieces(new CraftableOption({ name: 'Plain' }), false)).toBeNull();
     });
   });
 });

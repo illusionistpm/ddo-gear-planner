@@ -11,6 +11,7 @@ import type { PlannerTab, TrackedAffixGroupMode } from './equipped.service';
 const ACTIVE_TAB_KEY = 'ddo-gear-planner-active-tab';
 const TRACKED_AFFIX_GROUP_MODE_KEY = 'ddo-gear-planner-tracked-affix-group-mode';
 const TRACKED_AFFIX_COLLAPSED_KEY = 'ddo-gear-planner-tracked-affix-collapsed';
+const HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY = 'ddo-gear-planner-hide-irrelevant-crafting-options';
 
 export function getStoredActiveTab(): PlannerTab {
   return readValue(ACTIVE_TAB_KEY) === 'affixes' ? 'affixes' : 'equipment';
@@ -35,6 +36,15 @@ export function getStoredCollapsedTrackedAffixGroups(): Set<string> {
 
 export function storeCollapsedTrackedAffixGroups(groups: ReadonlySet<string>): void {
   writeValue(TRACKED_AFFIX_COLLAPSED_KEY, Array.from(groups).join(','));
+}
+
+// On unless the user has turned it off, so only 'off' is ever meaningful here.
+export function getStoredHideIrrelevantCraftingOptions(): boolean {
+  return readValue(HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY) !== 'off';
+}
+
+export function storeHideIrrelevantCraftingOptions(hide: boolean): void {
+  writeValue(HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY, hide ? 'on' : 'off');
 }
 
 function readValue(key: string): string | null {

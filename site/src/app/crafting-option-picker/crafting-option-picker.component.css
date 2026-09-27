@@ -1,0 +1,174 @@
+.crafting-picker {
+    min-width: 0;
+    width: 100%;
+}
+
+.SmallFont {
+    font-size: 0.8125rem;
+}
+
+/* Sized like gear-description's compact crafting selects, which it stands in for. */
+.crafting-picker-toggle {
+    border-radius: 6px;
+    line-height: 1.3;
+    padding: var(--space-4) 1.75rem var(--space-4) var(--space-8);
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
+.crafting-picker-toggle-label {
+    display: block;
+    /* Keeps a blank toggle as tall as one with a label. */
+    min-height: 1.3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Bootstrap's dropdown-toggle caret, placed where a select's chevron sits. */
+.crafting-picker-toggle::after {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.crafting-picker-menu {
+    flex-direction: column;
+    /* Set on open to the room beside the toggle; see fitMenuToViewport. */
+    max-height: var(--crafting-picker-max-height, 70vh);
+    gap: var(--space-4);
+    max-width: min(28rem, calc(100vw - 2rem));
+    min-width: 18rem;
+    padding: var(--space-8);
+    font-size: 0.8125rem;
+}
+
+/* Bootstrap hides the menu until ngbDropdown adds `.show`. */
+.crafting-picker-menu.show {
+    display: flex;
+}
+
+.crafting-picker-hide {
+    align-items: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    gap: var(--space-4);
+    margin: 0;
+}
+
+.crafting-picker-list {
+    flex: 1 1 auto;
+    max-height: 50vh;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.crafting-picker-entry {
+    align-items: baseline;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: var(--text-primary);
+    display: flex;
+    gap: var(--space-8);
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-8);
+    text-align: left;
+    width: 100%;
+}
+
+.crafting-picker-entry.active {
+    background: var(--surface-muted-color);
+}
+
+.crafting-picker-entry.selected {
+    box-shadow: inset 0.2rem 0 0 var(--primary-color);
+}
+
+.crafting-picker-entry-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.crafting-picker-entry-aside {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    color: var(--text-secondary);
+    flex: 0 1 auto;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* Muted beside the rank-coloured name: the bonus type and value. */
+.crafting-picker-entry-detail {
+    color: var(--text-secondary);
+    margin-left: var(--space-4);
+}
+
+.crafting-picker-entry-note {
+    font-style: italic;
+}
+
+.crafting-picker-tier {
+    padding-left: 1.75rem;
+}
+
+.crafting-picker-expander {
+    display: inline-block;
+    transition: transform 0.15s ease;
+    width: 0.75rem;
+}
+
+.crafting-picker-expander.expanded {
+    transform: rotate(90deg);
+}
+
+.crafting-picker-none {
+    color: var(--text-secondary);
+    padding: var(--space-8);
+    text-align: center;
+}
+
+/* Phones: a panel across the viewport (the wrapper is placed in styles.css, .crafting-picker-container). */
+@media (max-width: 575.98px) {
+    .crafting-picker-menu.show {
+        max-height: 70dvh;
+        max-width: none;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .crafting-picker-list {
+        max-height: none;
+    }
+
+    .crafting-picker-entry {
+        min-height: 40px;
+        align-items: center;
+    }
+
+    /*
+     * Too narrow for three columns: the range, augment name or set pieces would be cut off,
+     * so they drop to a line of their own under the name.
+     */
+    .crafting-picker-family {
+        flex-wrap: wrap;
+        row-gap: 0;
+    }
+
+    .crafting-picker-family .crafting-picker-entry-label {
+        flex: 1 1 100%;
+    }
+
+    .crafting-picker-family .crafting-picker-entry-aside {
+        flex: 1 1 100%;
+        padding-left: 0.75rem;
+        text-align: left;
+        white-space: normal;
+    }
+}

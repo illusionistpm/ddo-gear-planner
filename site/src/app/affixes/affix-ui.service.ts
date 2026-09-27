@@ -10,6 +10,15 @@ import { perfCount } from '../shared/perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 import { getCountAffixUnit } from './count-affix';
 
+/** How a crafting option ranks against the build, as a list of options shows it. */
+export interface CraftingOptionRanking {
+  /** Rank class, e.g. 'Best'. */
+  className: string;
+  tooltip: string;
+  /** A caveat to show beside the option: the set pieces a set augment would make, while short. */
+  note: string;
+}
+
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
 export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
 
@@ -200,6 +209,38 @@ export class AffixUiService {
 
     const bonus = this.getAffixValueText(affix);
     return bonus ? `${affix.name}: ${bonus}` : affix.name;
+  }
+
+  /** A set's bonuses in brief: "Doublestrike: +15 Artifact, Doubleshot: +15 Artifact". */
+  describeSetBonus(set: string): string {
+    return this.getSetBonusAffixes(set).map(affix => this.getAffixDescription(affix)).join(', ');
+  }
+
+  /**
+   * Ranks a crafting option for a list of options. `alreadyEquipped` says the option is the
+   * chosen one on an equipped item, so a set augment already counts as one of its set's pieces.
+   */
+  rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false): CraftingOptionRanking {
+    const rankingTooltip = option.affixes?.[0] ? this.getAffixTooltip(option.affixes[0], option, slot) : '';
+    const setPieces = this.getSetPieces(option, alreadyEquipped);
+    return {
+      className: this.getClassForCraftingOption(option),
+      tooltip: [this.getCraftingOptionTooltip(option), rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
+      // Only while the set is short; a complete set's colour already says what it gives.
+      note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : ''
+    };
+  }
+
+  /**
+   * The pieces of a set augment's set there would be with the augment - counting it unless it
+   * is already one of the equipped pieces - against the pieces its first bonus needs.
+   */
+  getSetPieces(option: CraftableOption, alreadyEquipped: boolean): { pieces: number; required: number } | null {
+    const setReq = option?.set ? this.checkSetRequirements(option.set) : null;
+    if (!setReq) {
+      return null;
+    }
+    return { pieces: setReq.currentCount + (alreadyEquipped ? 0 : 1), required: setReq.requiredCount };
   }
 
   getClassForCraftable(craft: Craftable): string {

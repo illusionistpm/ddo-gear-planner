@@ -88,15 +88,23 @@
         </div>
         @if (!readonly) {
           <div class="col-8 d-flex align-items-center">
-            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
-              @for (optionRow of row.options; track optionRow.description) {
-                <option [ngValue]="optionRow.option"
-                  [ngClass]="optionRow.className"
-                  [title]="optionRow.tooltip">
-                  {{optionRow.description}}
-                </option>
-              }
-            </select>
+            @if (row.craft.options.length >= craftingPickerMinOptions) {
+              <app-crafting-option-picker class="crafting-option-picker"
+                [options]="row.craft.options" [selected]="row.craft.selected" [className]="row.className"
+                [slot]="curItem.slot" [itemIsEquipped]="equipOnChange"
+                (selectedChange)="chooseCraftingOption(row, $event)">
+              </app-crafting-option-picker>
+            } @else {
+              <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
+                @for (optionRow of row.options; track optionRow.description) {
+                  <option [ngValue]="optionRow.option"
+                    [ngClass]="optionRow.className"
+                    [title]="optionRow.tooltip">
+                    {{optionRow.description}}
+                  </option>
+                }
+              </select>
+            }
             @if (row.selectedOptionTooltip) {
               <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
                 <i class="fas fa-eye small ms-2" [ngClass]="row.className" aria-hidden="true"></i>

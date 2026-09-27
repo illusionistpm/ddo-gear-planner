@@ -121,12 +121,27 @@
 }
 
 .slot-name {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--space-4);
     font-size: 0.875rem;
     font-variant-caps: all-small-caps;
     font-weight: 600;
     letter-spacing: 0.06em;
     line-height: 1.2;
+}
+
+/*
+ * The icon is what you scan for, so only the text is dimmed. On an equipped card the
+ * icon is also a size up; the negative margin keeps it from growing the 1.1rem row.
+ */
+.slot-name-text {
     opacity: 0.75;
+}
+
+.slot-select-button:not(.is-empty) .slot-name app-slot-icon {
+    font-size: 1.15em;
+    margin-block: -0.1rem;
 }
 
 .item-name {
@@ -145,6 +160,9 @@
 
 .slot-select-button.is-empty .slot-name {
     font-size: 1.05rem;
+}
+
+.slot-select-button.is-empty .slot-name-text {
     opacity: 1;
 }
 

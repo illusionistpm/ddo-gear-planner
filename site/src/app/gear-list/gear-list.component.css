@@ -105,6 +105,9 @@
 }
 
 .set-label {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--space-4);
     font-size: 0.875rem;
     font-variant-caps: all-small-caps;
     font-weight: 600;

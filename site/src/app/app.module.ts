@@ -34,6 +34,8 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
 import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
+import { SlotIconComponent } from './slot-icon/slot-icon.component';
+import { CreditsComponent } from './credits/credits.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -71,6 +73,8 @@ import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting
         ExternalAffixSlotCardComponent,
         ExternalAffixFormComponent,
         ExternalAffixValueComponent,
+        SlotIconComponent,
+        CreditsComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,

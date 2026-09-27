@@ -29,7 +29,7 @@
             <button type="button" class="btn set-bonus-button col-12 text-start"
               (click)="showItemsInSet(setBonus.setName)">
               <div class="set-name-row">
-                <span class="set-label">Set</span>
+                <span class="set-label"><app-slot-icon icon="linked-rings"></app-slot-icon>Set</span>
                 <span class="set-piece-count">{{setBonus.pieces}} Equipped</span>
               </div>
               <div class="item-name">{{setBonus.setName}}</div>

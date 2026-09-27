@@ -4,19 +4,6 @@
   gap: var(--space-12);
 }
 
-.filters-topline {
-  align-items: baseline;
-  display: flex;
-  gap: var(--space-12);
-  justify-content: space-between;
-}
-
-.filters-meta {
-  color: var(--text-secondary);
-  font-size: 0.72rem;
-  text-align: right;
-}
-
 .filters-grid {
   display: grid;
   gap: var(--space-12);
@@ -139,14 +126,9 @@
 }
 
 @media (max-width: 575.98px) {
-  .filters-topline,
   .pack-filter-header,
   .owned-gear-status {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .filters-meta {
-    text-align: left;
   }
 }

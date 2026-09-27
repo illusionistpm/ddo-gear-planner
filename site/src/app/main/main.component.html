@@ -47,7 +47,7 @@
                 [class.open]="supportPopoverOpen"
                 [attr.aria-expanded]="supportPopoverOpen"
                 title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
-                (click)="toggleSupportPopover()">
+                (click)="toggleSupportPopover(); credits.close()">
                 <i class="fas fa-mug-hot" aria-hidden="true"></i>
             </button>
 
@@ -71,6 +71,7 @@
             (click)="toggleTheme()">
             <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
         </button>
+        <app-credits #credits (opened)="closeSupportPopover()"></app-credits>
         <app-admin-link></app-admin-link>
         </app-build-actions>
 

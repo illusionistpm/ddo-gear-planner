@@ -1,0 +1,41 @@
+<button type="button" class="credits-toggle"
+  [class.open]="open"
+  [attr.aria-expanded]="open"
+  aria-label="About and credits" title="About and credits"
+  (click)="toggle()">
+  <i class="fas fa-circle-info" aria-hidden="true"></i>
+</button>
+
+@if (open) {
+  <section class="credits-popover" aria-label="About and credits" [style.--credits-top.px]="popoverTop">
+    <button type="button" class="credits-close" aria-label="Close" title="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h2 class="credits-heading">About and credits</h2>
+
+    <h3>Game data</h3>
+    <p>
+      Item data comes from <a href="https://ddowiki.com" target="_blank" rel="noreferrer">DDO Wiki</a>,
+      used under <a href="https://creativecommons.org/licenses/by-sa/2.5/" target="_blank" rel="noreferrer">CC BY-SA 2.5</a>.
+    </p>
+    <p class="credits-built">Data built: {{dataBuiltAt}}</p>
+
+    <h3>Icons</h3>
+    <p>
+      Slot icons by {{iconAuthorList}}, from
+      <a href="https://game-icons.net" target="_blank" rel="noreferrer">game-icons.net</a>, under
+      <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noreferrer">CC BY 3.0</a>.
+    </p>
+    <p>
+      Interface icons from <a href="https://fontawesome.com" target="_blank" rel="noreferrer">Font Awesome Free</a>, under
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>.
+    </p>
+
+    <h3>Fan project</h3>
+    <p>
+      DDO Gear Planner is an unofficial fan project, not affiliated with or endorsed by Standing Stone Games.
+      Dungeons &amp; Dragons Online and its content belong to their respective owners.
+    </p>
+  </section>
+}

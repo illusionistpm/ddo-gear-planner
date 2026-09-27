@@ -5,9 +5,7 @@ import { FiltersService } from '../planner/filters.service';
 import { AnalyticsService } from '../shared/analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
-import buildInfo from '@data/build-info.json';
 import { GameDataService } from '../gear/game-data.service';
-import { formatBuiltAt } from '../shared/format-built-at';
 
 @Component({
     selector: 'app-filters',
@@ -24,7 +22,6 @@ export class FiltersComponent implements OnInit {
   showRareItems: boolean = true;
   showPackFilters: boolean = false;
   packOptions: Array<{name: string, value: boolean}> = [];
-  readonly dataBuiltAt: string = formatBuiltAt(buildInfo.builtAt);
 
   sortOwnedToTop: boolean = true;
 

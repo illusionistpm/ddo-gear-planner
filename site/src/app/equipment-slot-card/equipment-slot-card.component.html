@@ -6,7 +6,7 @@
     [title]="getSlotTitle()"
     (click)="showSuggestedItems()">
     <div class="slot-name-row">
-      <span class="slot-name">{{slot}}</span>
+      <span class="slot-name"><app-slot-icon [slot]="slot"></app-slot-icon><span class="slot-name-text">{{label}}</span></span>
       <span class="slot-badges">
         @if (recommendedStart) {
           <span class="equipment-start-badge">Start Here</span>
@@ -32,8 +32,8 @@
   </button>
   @if (equipped.hasItem(slot) && !equipped.isSlotDisabled(slot)) {
     <button type="button" class="icon-x-button icon-x-button-overlay slot-clear-button"
-      aria-label="Clear {{slot}}"
-      title="Clear {{slot}}"
+      aria-label="Clear {{label}}"
+      title="Clear {{label}}"
       (mousedown)="preserveScrollOnMouseDown($event)"
       (click)="clearSlot()">
       <span class="glyph-center-fix" aria-hidden="true">&times;</span>

@@ -1,4 +1,7 @@
 .external-slot-title {
+    align-items: center;
+    display: flex;
+    gap: var(--space-4);
     font-weight: 600;
     padding: var(--space-4) var(--space-12);
 }

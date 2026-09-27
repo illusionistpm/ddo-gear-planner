@@ -123,6 +123,7 @@ app-build-actions {
 
 .planner-support-wrap,
 .theme-toggle,
+app-credits,
 app-admin-link {
   order: 40;
 }

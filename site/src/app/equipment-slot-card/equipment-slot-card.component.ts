@@ -5,6 +5,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
+import { slotLabel } from '../gear/slot-display';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
@@ -101,6 +102,10 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   }
 
   readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
+
+  get label() {
+    return slotLabel(this.slot);
+  }
 
   getSlotTitle() {
     if (this.equipped.isSlotDisabled(this.slot)) {

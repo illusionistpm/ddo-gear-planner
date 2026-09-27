@@ -68,6 +68,7 @@ describe('Tracked affix chips', () => {
     [affixTypeKey('Dexterity', 'Artifact'), { tier: 'set-only', slotCount: 0, eliminated: false }],
     [affixTypeKey('Wisdom', 'Competence'), { tier: 'unavailable', slotCount: 0, eliminated: true }],
     [affixTypeKey('Feather Falling', 'Bool'), { tier: 'limited', slotCount: 3, eliminated: false }],
+    [affixTypeKey('Water Breathing', 'Bool'), { tier: 'unavailable', slotCount: 0, eliminated: true }],
   ]);
 
   beforeEach(async () => {
@@ -161,7 +162,10 @@ describe('Tracked affix chips', () => {
     it('shows uncovered chips as no-value', () => {
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(modifiers(chip('Competence'))).toEqual(['no-value']);
+    });
+
+    it('strikes through ruled-out types, as the scarcity view does', () => {
+      expect(modifiers(chip('Competence'))).toEqual(['bonus-eliminated', 'no-value']);
     });
 
     it('strikes through ignored chips, keeping their value class', () => {
@@ -224,6 +228,34 @@ describe('Tracked affix chips', () => {
       expect(chipText(chip('Checklist'))).toBe('Checklist');
       expect(modifiers(chip('Checklist'))).toEqual(['no-value']);
       expect(chip('Checklist').title).toBe(uncheckedTooltip);
+    });
+  });
+
+  describe('a ruled-out checklist affix', () => {
+    const ruledOutTooltip = 'Not covered yet\nRuled out by your gear — no open slot, augment, or reachable set can still supply this.';
+
+    beforeEach(() => {
+      best.set(affixTypeKey('Water Breathing', 'Bool'), 1);
+      coveredAffixes.next(new Map([['Water Breathing', [{ bonusType: 'Bool', value: 0 }]]]));
+      fixture.detectChanges();
+    });
+
+    afterEach(() => {
+      best.delete(affixTypeKey('Water Breathing', 'Bool'));
+    });
+
+    it('is struck through in the category view', () => {
+      const wrap = checklistChip('Water Breathing').closest('.checklist-chip-wrap') as HTMLElement;
+      expect(modifiers(wrap)).toEqual(['bonus-eliminated', 'checklist-chip-wrap', 'no-value']);
+      expect(checklistChip('Water Breathing').title).toBe(ruledOutTooltip);
+    });
+
+    it('is struck through in the scarcity view', () => {
+      equipped.setTrackedAffixGroupMode('slots');
+      fixture.detectChanges();
+
+      expect(modifiers(chip('Checklist'))).toEqual(['bonus-eliminated', 'no-value']);
+      expect(chip('Checklist').title).toBe(ruledOutTooltip);
     });
   });
 

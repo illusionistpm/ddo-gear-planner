@@ -45,6 +45,7 @@ interface ChecklistChip {
   bonusType: string;
   checked: boolean;
   ignored: boolean;
+  eliminated: boolean;
   tooltip: string;
 }
 
@@ -303,6 +304,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         bonusType: boolAffix.bonusType,
         checked,
         ignored,
+        eliminated: availability?.eliminated ?? false,
         tooltip: this.getChipTooltip(affixName, boolAffix, availability)
       });
     }
@@ -333,7 +335,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         currentValue: type.value || 0,
         maxValue: this.getMaxValueForType(affixName, type),
         valueClass: type.value ? this.getClassForValue(affixName, type) : '',
-        eliminated: false,
+        eliminated: availability?.eliminated ?? false,
         ignored,
         tooltip: this.getChipTooltip(affixName, type, availability)
       },
@@ -389,7 +391,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const fileByScarcity = (affixName: string, chip: TrackedChip, info: RemainingAvailability) => {
       const group = scarcityBucket(chip.sourceAffixName, info);
       if (group) {
-        rowFor(group, affixName).chips.push({ ...chip, eliminated: info.eliminated });
+        rowFor(group, affixName).chips.push(chip);
       }
     };
 
@@ -436,7 +438,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         currentValue: 0,
         maxValue: 0,
         valueClass: '',
-        eliminated: false,
+        eliminated: checklist.eliminated,
         ignored: checklist.ignored,
         tooltip: checklist.tooltip
       };

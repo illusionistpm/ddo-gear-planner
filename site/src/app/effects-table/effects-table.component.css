@@ -431,6 +431,12 @@
     padding: var(--space-2) var(--space-8);
 }
 
+/* The wrapper's strike-through doesn't reach into its button's label. */
+.checklist-chip-wrap.bonus-eliminated .tracked-bonus-label {
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+}
+
 .checklist-chip-remove {
     opacity: 0;
     position: absolute;

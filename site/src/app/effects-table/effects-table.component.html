@@ -29,6 +29,7 @@
     <span class="tracked-bonus-chip checklist-chip-wrap"
         [class.max-value]="item.checked"
         [class.no-value]="!item.checked"
+        [class.bonus-eliminated]="item.eliminated"
         [hidden]="!item.checked && item.bonusType === 'Penalty'"
         [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(item.affixName, item.bonusType)"
         [class.recently-changed]="isRecentlyChangedAffixType(item.affixName, item)">

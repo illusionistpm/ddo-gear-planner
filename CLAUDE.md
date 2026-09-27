@@ -128,6 +128,11 @@ Things that behave differently from the Jasmine/Chrome days, and cost real time:
   replaced with a leaner one), and specs no longer yield to the event loop
   (so a `beforeEach` does). Delete those two once `@angular/build` accepts
   Vitest 5, which fixes the first.
+- **A timer chain that reschedules itself outlives that one yield** and pins its
+  spec's whole service graph (~550MB with game data) until it finishes. A
+  root service that starts one must cancel it in `ngOnDestroy`, which TestBed
+  teardown calls, as `EquippedService`'s availability warmup does. Symptom: a
+  spec file dies of heap exhaustion only once it has enough specs.
 - `vi.spyOn` calls through by default, where Jasmine's `spyOn` stubbed
   (returned `undefined`). A spy that must not run the real method needs
   `.mockReturnValue(...)`.

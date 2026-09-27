@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 import { Item } from '../gear/item';
@@ -100,7 +100,7 @@ export type PlannerTab = 'equipment' | 'affixes';
 @Injectable({
   providedIn: 'root'
 })
-export class EquippedService implements QueryParamsListener {
+export class EquippedService implements QueryParamsListener, OnDestroy {
   // null means the slot is empty.
   private slots: Map<string, BehaviorSubject<Item | null>>;
   private importantAffixes: Set<string>;
@@ -1210,6 +1210,12 @@ export class EquippedService implements QueryParamsListener {
    * per-pair rather than assumed away. A newer call supersedes an in-flight
    * one via the token, so a rapid affix toggle doesn't pile up redundant work.
    */
+  // Only ever destroyed with a spec's TestBed. A warmup still rescheduling itself would pin the
+  // spec's whole service graph and game data until it finished, and a few of those exhaust the heap.
+  ngOnDestroy() {
+    this.availabilityWarmupToken++;
+  }
+
   private _scheduleAvailabilityWarmup(importantAffixes: Map<string, Map<string, number>>) {
     const pairs: Array<[string, string]> = [];
     for (const [affixName, types] of importantAffixes) {

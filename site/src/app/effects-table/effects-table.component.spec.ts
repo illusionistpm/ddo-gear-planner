@@ -399,27 +399,20 @@ describe('EffectsTableComponent', () => {
       .toBe('Moderate value (2 below max)');
   });
 
-  it('tracks visible type rows without depending on component method binding', () => {
-    const trackVisibleType = component.trackVisibleType;
+  it('tracks chips without depending on component method binding', () => {
+    const trackChip = component.trackChip;
 
-    expect(trackVisibleType(0, {
-      bonusType: 'Implement',
-      value: 0,
+    expect(trackChip(0, {
       sourceAffixName: 'Universal Spell Power',
-      sourceBonusType: 'Implement',
+      bonusType: 'Implement',
+      label: 'Universal Implement',
+      currentValue: 0,
+      maxValue: 32,
+      valueClass: '',
+      eliminated: false,
+      ignored: false,
+      tooltip: '',
     })).toBe('Universal Spell Power\0Implement');
-  });
-
-  it('hides max available badges when the filtered max is zero', () => {
-    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(0);
-
-    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBe(false);
-  });
-
-  it('shows max available badges when the filtered max is positive', () => {
-    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(12);
-
-    expect(component.shouldShowMaxAvailable('Strength', { bonusType: 'Equipment', value: 0 })).toBe(true);
   });
 
   it('follows the tracked-affix grouping mode', () => {

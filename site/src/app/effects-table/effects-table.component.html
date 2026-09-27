@@ -7,13 +7,91 @@
     <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
 </section>
 
+<!-- Shared by both groupings, so the same bonus type looks the same in each. -->
+<ng-template #bonusChip let-chip>
+    <button type="button" class="tracked-bonus-chip"
+        [class.no-value]="!chip.currentValue"
+        [class.bonus-eliminated]="chip.eliminated"
+        [class.bonus-ignored]="chip.ignored"
+        [ngClass]="chip.valueClass"
+        [title]="chip.tooltip"
+        [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
+        [class.recently-changed]="isRecentlyChangedAffixType(chip.sourceAffixName, chip)"
+        (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
+        <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
+        <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
+        <span class="max-available" *ngIf="chip.maxValue > 0">/{{chip.maxValue}}</span>
+        <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)">Click</span>
+    </button>
+</ng-template>
+
+<ng-template #checklistChip let-item>
+    <span class="tracked-bonus-chip checklist-chip-wrap"
+        [class.max-value]="item.checked"
+        [class.no-value]="!item.checked"
+        [hidden]="!item.checked && item.bonusType === 'Penalty'"
+        [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(item.affixName, item.bonusType)"
+        [class.recently-changed]="isRecentlyChangedAffixType(item.affixName, item)">
+        <button type="button" class="checklist-chip-button"
+            [title]="item.tooltip"
+            (click)="showItemsWithBonusType(item.affixName, item.bonusType)">
+            <span class="tracked-bonus-label" [class.max-value]="item.checked">{{item.affixName}}</span>
+            <span class="far checklist-chip-icon" [ngClass]="item.checked ? 'fa-square-check max-value' : 'fa-square no-value'" aria-hidden="true"></span>
+        </button>
+        @if (!isDerivedTrackedAffix(item.affixName)) {
+            <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{item.affixName}}"
+                title="Remove {{item.affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(item.affixName)">
+                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+            </button>
+        }
+        <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(item.affixName, item.bonusType)">Click</span>
+    </span>
+</ng-template>
+
+<ng-template #checklistRow let-affixNames>
+    <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="affixNames.length">
+        <div class="tracked-affix-summary">
+            <span class="tracked-affix-name">Checklist Affixes</span>
+        </div>
+        <div class="tracked-affix-chips">
+            <ng-container *ngFor="let affixName of affixNames">
+                <ng-container *ngIf="checklistChipFor(affixName) as item">
+                    <ng-container *ngTemplateOutlet="checklistChip; context: { $implicit: item }"></ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #affixSummary let-affixName>
+    <div class="tracked-affix-summary">
+        <span class="tracked-affix-name" [title]="affixName">
+            <span class="tracked-affix-name-text" appShrinkToFit>{{affixName}}</span>
+            @if (!isDerivedTrackedAffix(affixName)) {
+                <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}"
+                    (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)" title="Remove {{affixName}}">
+                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+                </button>
+            }
+        </span>
+        <span class="tracked-affix-total">
+            <span class="tracked-affix-total-value">{{currentBonus(affixName)}}<span
+                    class="max-available">/{{maxBonus(affixName)}}</span></span>
+            <span class="tracked-affix-progress" aria-hidden="true">
+                <span class="tracked-affix-progress-fill"
+                    [style.width.%]="getTotalProgressPercent(affixName)"></span>
+            </span>
+        </span>
+    </div>
+</ng-template>
+
 <div class="tracked-affixes-workspace">
     <div class="tracked-affixes-content">
     <ng-container *ngIf="groupMode === 'slots'">
-        <p class="tracked-affix-slots-empty" *ngIf="!getSlotGroups().length">
+        <p class="tracked-affix-slots-empty" *ngIf="!trackedDisplay.slotGroups.length">
             No tracked affixes yet. Add some with Add / edit affixes in the toolbar above.
         </p>
-        <div class="tracked-affix-section slot-group-section" *ngFor="let group of getSlotGroups(); trackBy: trackSlotGroup">
+        <div class="tracked-affix-section slot-group-section" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"
                 [attr.aria-expanded]="!isAffixGroupCollapsed(group.key)">
                 <span>{{group.label}}</span>
@@ -23,65 +101,13 @@
                 </span>
             </button>
             <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.key)">
-                <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="group.checklistAffixes.length">
-                    <div class="tracked-affix-summary">
-                        <span class="tracked-affix-name">Checklist Affixes</span>
-                    </div>
-                    <div class="tracked-affix-chips">
-                        <span class="tracked-bonus-chip max-value checklist-chip-wrap" *ngFor="let affixName of group.checklistAffixes"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
-                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
-                            <button type="button" class="checklist-chip-button"
-                                [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
-                                <span class="tracked-bonus-label max-value">{{affixName}}</span>
-                                <span class="far fa-square-check max-value checklist-chip-icon" aria-hidden="true"></span>
-                            </button>
-                            @if (!isDerivedTrackedAffix(affixName)) {
-                                <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                    title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
-                                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                                </button>
-                            }
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
-                        </span>
-                    </div>
-                </div>
+                <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes }"></ng-container>
                 <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows; trackBy: trackSlotRow">
-                    <div class="tracked-affix-summary">
-                        <span class="tracked-affix-name" [title]="row.affixName">
-                            <span class="tracked-affix-name-text" appShrinkToFit>{{row.affixName}}</span>
-                            @if (!isDerivedTrackedAffix(row.affixName)) {
-                                <button type="button" class="tracked-affix-remove" aria-label="Remove {{row.affixName}}"
-                                    (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(row.affixName)" title="Remove {{row.affixName}}">
-                                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                                </button>
-                            }
-                        </span>
-                        <span class="tracked-affix-total">
-                            <span class="tracked-affix-total-value">{{currentBonus(row.affixName)}}<span
-                                    class="max-available">/{{maxBonus(row.affixName)}}</span></span>
-                            <span class="tracked-affix-progress" aria-hidden="true">
-                                <span class="tracked-affix-progress-fill"
-                                    [style.width.%]="getTotalProgressPercent(row.affixName)"></span>
-                            </span>
-                        </span>
-                    </div>
+                    <ng-container *ngTemplateOutlet="affixSummary; context: { $implicit: row.affixName }"></ng-container>
                     <div class="tracked-affix-chips">
-                        <button type="button" class="tracked-bonus-chip" *ngFor="let chip of row.chips; trackBy: trackSlotChip"
-                            [class.no-value]="!chip.currentValue"
-                            [class.bonus-eliminated]="chip.eliminated"
-                            [class.bonus-ignored]="chip.ignored"
-                            [ngClass]="chip.valueClass"
-                            [title]="chip.tooltip"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
-                            [class.recently-changed]="isRecentlyChangedAffixType(chip.sourceAffixName, chip)"
-                            (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
-                            <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
-                            <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
-                            <span class="max-available" *ngIf="chip.maxValue">/{{chip.maxValue}}</span>
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)">Click</span>
-                        </button>
+                        <ng-container *ngFor="let chip of row.chips; trackBy: trackChip">
+                            <ng-container *ngTemplateOutlet="bonusChip; context: { $implicit: chip }"></ng-container>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -99,98 +125,12 @@
             </span>
         </button>
         <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.name)">
-            <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="group.checklistAffixes.length">
-                <div class="tracked-affix-summary">
-                    <span class="tracked-affix-name">Checklist Affixes</span>
-                </div>
-                <div class="tracked-affix-chips">
-                    <ng-container *ngFor="let affixName of group.checklistAffixes">
-                        <span class="tracked-bonus-chip max-value checklist-chip-wrap" *ngIf="getChecklistType(affixName).value; else noValueBools"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
-                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
-                            <button type="button" class="checklist-chip-button"
-                                [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
-                                <span class="tracked-bonus-label max-value">{{affixName}}</span>
-                                <span class="far fa-square-check max-value checklist-chip-icon" aria-hidden="true"></span>
-                            </button>
-                            @if (!isDerivedTrackedAffix(affixName)) {
-                                <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                    title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
-                                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                                </button>
-                            }
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
-                        </span>
-                        <ng-template #noValueBools>
-                            <span [hidden]="getChecklistType(affixName).bonusType === 'Penalty'" class="tracked-bonus-chip no-value checklist-chip-wrap"
-                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)"
-                                [class.recently-changed]="isRecentlyChangedAffixType(affixName, getChecklistType(affixName))">
-                                <button type="button" class="checklist-chip-button"
-                                    [title]="getBonusTypeTooltip(affixName, getChecklistType(affixName))"
-                                    (click)="showItemsWithBonusType(affixName, getChecklistType(affixName).bonusType)">
-                                    <span class="tracked-bonus-label">{{affixName}}</span>
-                                    <span class="far fa-square no-value checklist-chip-icon" aria-hidden="true"></span>
-                                </button>
-                                @if (!isDerivedTrackedAffix(affixName)) {
-                                    <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{affixName}}"
-                                        title="Remove {{affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)">
-                                        <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                                    </button>
-                                }
-                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(affixName, getChecklistType(affixName).bonusType)">Click</span>
-                            </span>
-                        </ng-template>
-                    </ng-container>
-                </div>
-            </div>
+            <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes }"></ng-container>
             <div class="tracked-affix-row" *ngFor="let affixName of group.affixes">
-                <div class="tracked-affix-summary">
-                    <span class="tracked-affix-name" [title]="affixName">
-                        <span class="tracked-affix-name-text" appShrinkToFit>{{affixName}}</span>
-                        @if (!isDerivedTrackedAffix(affixName)) {
-                            <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}"
-                                (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)"
-                                title="Remove {{affixName}}">
-                                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
-                            </button>
-                        }
-                    </span>
-                    <span class="tracked-affix-total">
-                        <span class="tracked-affix-total-value">{{currentBonus(affixName)}}<span
-                                class="max-available">/{{maxBonus(affixName)}}</span></span>
-                        <span class="tracked-affix-progress" aria-hidden="true">
-                            <span class="tracked-affix-progress-fill"
-                                [style.width.%]="getTotalProgressPercent(affixName)"></span>
-                        </span>
-                    </span>
-                </div>
+                <ng-container *ngTemplateOutlet="affixSummary; context: { $implicit: affixName }"></ng-container>
                 <div class="tracked-affix-chips">
-                    <ng-container *ngFor="let types of getVisibleTypes(affixName); trackBy: trackVisibleType">
-                        <button type="button" class="tracked-bonus-chip" *ngIf="types.value; else noValue"
-                            (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                            [title]="getBonusTypeTooltip(affixName, types)"
-                            [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                            [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
-                            [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                            [ngClass]="getClassForValue(affixName, types)">
-                            <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}:</span>
-                            <span class="tracked-bonus-value">{{types.value}}</span>
-                            <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
-                            <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))">Click</span>
-                        </button>
-                        <ng-template #noValue>
-                            <button type="button" class="tracked-bonus-chip no-value"
-                                [title]="getBonusTypeTooltip(affixName, types)"
-                                [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                                [class.recently-changed]="isRecentlyChangedAffixType(affixName, types)"
-                                [class.bonus-ignored]="equipped.isAffixTypeIgnored(getSourceAffixName(affixName, types), getSourceBonusType(types))"
-                                (click)="showItemsWithBonusType(getSourceAffixName(affixName, types), getSourceBonusType(types))">
-                                <span class="tracked-bonus-label">{{getBonusTypeLabel(types)}}</span>
-                                <span class="max-available" *ngIf="shouldShowMaxAvailable(affixName, types)">/{{getMaxValueForType(affixName, types)}}</span>
-                                <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(getSourceAffixName(affixName, types), getSourceBonusType(types))">Click</span>
-                            </button>
-                        </ng-template>
+                    <ng-container *ngFor="let chip of chipsFor(affixName); trackBy: trackChip">
+                        <ng-container *ngTemplateOutlet="bonusChip; context: { $implicit: chip }"></ng-container>
                     </ng-container>
                 </div>
                 <div class="tracked-affix-unavailable-types" *ngIf="getUnavailableTypes(affixName).length">

@@ -1,6 +1,6 @@
 // Pins what each tracked-affix chip shows - classes, text and tooltip - in both
-// the category view and the scarcity ("Group by: Scarcity") view, before the
-// two views' separate chip markup is merged into one.
+// the category view and the scarcity ("Group by: Scarcity") view. Written
+// before the two views' separate chip markup was merged into one.
 //
 // Driven through the rendered DOM, with covered affixes pushed through
 // EquippedService.getCoveredAffixes() the way the real service delivers them,
@@ -15,6 +15,7 @@ import { affixTypeKey } from '../affixes/affix-type-key';
 import { CoveredBonusType } from '../affixes/tracked-affix-derivation';
 import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
+import { FiltersService } from '../planner/filters.service';
 import { EffectsTableComponent } from './effects-table.component';
 
 describe('Tracked affix chips', () => {
@@ -26,6 +27,7 @@ describe('Tracked affix chips', () => {
 
   let fixture: ComponentFixture<EffectsTableComponent>;
   let equipped: EquippedService;
+  let coveredAffixes: BehaviorSubject<Map<string, CoveredBonusType[]>>;
 
   // Strength covers every value/ignore combination; the other affixes each
   // carry one availability outcome. Best values are keyed by affixTypeKey.
@@ -86,7 +88,8 @@ describe('Tracked affix chips', () => {
     vi.spyOn(gearDB, 'getBestValueForAffix').mockReturnValue(8);
 
     equipped = TestBed.inject(EquippedService);
-    vi.spyOn(equipped, 'getCoveredAffixes').mockReturnValue(new BehaviorSubject(covered));
+    coveredAffixes = new BehaviorSubject(covered);
+    vi.spyOn(equipped, 'getCoveredAffixes').mockReturnValue(coveredAffixes);
     vi.spyOn(equipped, 'isAffixTypeIgnored').mockImplementation(
       (affixName: string, bonusType: string) => ignored.has(affixTypeKey(affixName, bonusType)));
 
@@ -202,17 +205,17 @@ describe('Tracked affix chips', () => {
       expect(chip('Profane').title).toBe('Moderate value (1 below max)');
     });
 
-    it('drops the value class from ignored types', () => {
+    it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
       expect(chip('Quality').title).toBe('Marked as ignored');
 
-      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored']);
+      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
       expect(chip('Sacred').title).toBe('Marked as ignored');
     });
 
-    it('shows an ignored type that is already sufficient as a plain fulfilled chip', () => {
-      expect(modifiers(chip('Exceptional'))).toEqual(['max-value']);
-      expect(chip('Exceptional').title).toBe('Best possible value');
+    it('files an ignored type that is already sufficient as fulfilled, still marked ignored', () => {
+      expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
+      expect(chip('Exceptional').title).toBe('Marked as ignored');
     });
 
     it('shows checked checklist affixes in the fulfilled row and unchecked ones as chips', () => {
@@ -221,6 +224,30 @@ describe('Tracked affix chips', () => {
       expect(chipText(chip('Checklist'))).toBe('Checklist');
       expect(modifiers(chip('Checklist'))).toEqual(['no-value']);
       expect(chip('Checklist').title).toBe('');
+    });
+  });
+
+  describe('staying current', () => {
+    it('rebuilds chips when covered affixes re-emit', () => {
+      coveredAffixes.next(new Map([
+        ['Strength', [{ bonusType: 'Enhancement', value: 8 }]],
+      ]));
+      fixture.detectChanges();
+
+      expect(chipText(chip('Enhancement'))).toBe('Enhancement:8/8');
+      expect(chip('Enhancement').title).toBe('Best possible value');
+    });
+
+    it('rebuilds chips when the level range changes the best available value', () => {
+      best.set(affixTypeKey('Strength', 'Insight'), 6);
+      try {
+        TestBed.inject(FiltersService).setLevelRange(1, 20);
+        fixture.detectChanges();
+
+        expect(chipText(chip('Insight'))).toBe('Insight/6');
+      } finally {
+        best.set(affixTypeKey('Strength', 'Insight'), 4);
+      }
     });
   });
 });

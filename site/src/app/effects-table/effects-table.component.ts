@@ -26,7 +26,8 @@ import { affixTypeKey } from '../affixes/affix-type-key';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 
-interface SlotGroupChip {
+/** One bonus-type chip. Both groupings render the same chip for the same type. */
+interface TrackedChip {
   sourceAffixName: string;
   bonusType: string;
   label: string;
@@ -38,9 +39,17 @@ interface SlotGroupChip {
   tooltip: string;
 }
 
+/** A checklist affix's chip, which names the affix rather than a bonus type. */
+interface ChecklistChip {
+  affixName: string;
+  bonusType: string;
+  checked: boolean;
+  tooltip: string;
+}
+
 interface SlotGroupRow {
   affixName: string;
-  chips: SlotGroupChip[];
+  chips: TrackedChip[];
 }
 
 interface SlotGroup {
@@ -49,6 +58,22 @@ interface SlotGroup {
   order: number;
   rows: SlotGroupRow[];
   checklistAffixes: string[];
+}
+
+/** Everything both groupings render, built once per change to what they show. */
+interface TrackedDisplay {
+  /** Category view: each tracked affix's visible bonus types, in display order. */
+  chipsByAffix: Map<string, TrackedChip[]>;
+  checklistChips: Map<string, ChecklistChip>;
+  slotGroups: SlotGroup[];
+}
+
+/** A chip plus what the scarcity grouping needs to file it. */
+interface ChipBuild {
+  chip: TrackedChip;
+  sufficient: boolean;
+  /** Absent for sufficient or ignored types, which never ask. */
+  availability?: RemainingAvailability;
 }
 
 @Component({
@@ -79,6 +104,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   private previousAffixTypeValues?: Map<string, number>;
   private changedAffixTypesTimeout: ReturnType<typeof setTimeout> | null = null;
   private trackedAffixDisplaySignature = '';
+  trackedDisplay: TrackedDisplay = { chipsByAffix: new Map(), checklistChips: new Map(), slotGroups: [] };
+  private trackedDisplayDirty = true;
+  private itemFiltersSubscription?: Subscription;
 
   @Input() sortOwnedToTop: boolean = true;
 
@@ -117,6 +145,13 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
       this.updateRecentlyChangedAffixTypes();
       this.refreshTrackedAffixDisplay();
+      this.trackedDisplayDirty = true;
+    });
+
+    // Covered affixes re-emit on any gear or ignore change, but not when the level
+    // range moves the best available values and remaining slots.
+    this.itemFiltersSubscription = this.gearDB.filters.getItemFilters().subscribe(() => {
+      this.trackedDisplayDirty = true;
     });
   }
 
@@ -124,6 +159,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     this.onboardingSubscription?.unsubscribe();
     this.coveredAffixesSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
+    this.itemFiltersSubscription?.unsubscribe();
     if (this.changedAffixTypesTimeout) {
       clearTimeout(this.changedAffixTypesTimeout);
     }
@@ -131,6 +167,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
   ngDoCheck() {
     this.refreshTrackedAffixDisplay();
+    if (this.trackedDisplayDirty) {
+      this.trackedDisplayDirty = false;
+      this.trackedDisplay = this.buildTrackedDisplay();
+    }
   }
 
   isDerivedTrackedAffix(affixName: string) {
@@ -207,8 +247,98 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
    * moderate-value threshold last. Backs the "Group by: Scarcity" view.
    */
   getSlotGroups(): SlotGroup[] {
+    return this.buildTrackedDisplay().slotGroups;
+  }
+
+  chipsFor(affixName: string): TrackedChip[] {
+    return this.trackedDisplay.chipsByAffix.get(affixName) ?? [];
+  }
+
+  checklistChipFor(affixName: string): ChecklistChip | undefined {
+    return this.trackedDisplay.checklistChips.get(affixName);
+  }
+
+  /**
+   * Builds every chip once, for both groupings, so the template reads fields
+   * instead of re-deriving each chip on every change-detection pass.
+   */
+  private buildTrackedDisplay(): TrackedDisplay {
     const openSlots = this.equipped.getUnlockedSlots();
     const equippedSetCounts = this.equipped.getActiveSets();
+    // A universal companion type shows under every affix it feeds; ask once.
+    const availabilityByKey = new Map<string, RemainingAvailability>();
+    const remainingFor = (affixName: string, bonusType: string): RemainingAvailability => {
+      const key = affixTypeKey(affixName, bonusType);
+      let info = availabilityByKey.get(key);
+      if (!info) {
+        info = this.availability.getRemainingAvailability(
+          affixName, bonusType, openSlots, equippedSetCounts,
+          this.equipped.getSlotsWithOpenAugmentForAffixType(affixName, bonusType)
+        );
+        availabilityByKey.set(key, info);
+      }
+      return info;
+    };
+
+    const chipsByAffix = new Map<string, TrackedChip[]>();
+    const builds = new Map<string, ChipBuild[]>();
+    for (const affixName of this.affixNames) {
+      const affixBuilds = this.getVisibleTypes(affixName)
+        .map(type => this.buildChip(affixName, type, remainingFor));
+      builds.set(affixName, affixBuilds);
+      chipsByAffix.set(affixName, affixBuilds.map(build => build.chip));
+    }
+
+    const checklistChips = new Map<string, ChecklistChip>();
+    for (const affixName of this.boolAffixNames) {
+      const boolAffix = this.boolAffixMap.get(affixName)?.[0] ?? { bonusType: 'Bool', value: 0 };
+      checklistChips.set(affixName, {
+        affixName,
+        bonusType: boolAffix.bonusType,
+        checked: !!boolAffix.value,
+        tooltip: this.getBonusTypeTooltip(affixName, boolAffix)
+      });
+    }
+
+    return {
+      chipsByAffix,
+      checklistChips,
+      slotGroups: this.groupBySlots(builds, checklistChips, remainingFor)
+    };
+  }
+
+  private buildChip(
+    affixName: string,
+    type: TrackedBonusTypeDisplay,
+    remainingFor: (affixName: string, bonusType: string) => RemainingAvailability
+  ): ChipBuild {
+    const sourceAffixName = this.getSourceAffixName(affixName, type);
+    const bonusType = this.getSourceBonusType(type);
+    const ignored = this.equipped.isAffixTypeIgnored(sourceAffixName, bonusType);
+    const sufficient = this.isBonusTypeSufficient(affixName, type);
+    const asksAvailability = !sufficient && !ignored && bonusType !== 'Penalty' && bonusType !== 'Bool';
+    return {
+      chip: {
+        sourceAffixName,
+        bonusType,
+        label: this.getBonusTypeLabel(type),
+        currentValue: type.value || 0,
+        maxValue: this.getMaxValueForType(affixName, type),
+        valueClass: type.value ? this.getClassForValue(affixName, type) : '',
+        eliminated: false,
+        ignored,
+        tooltip: this.getBonusTypeTooltip(affixName, type)
+      },
+      sufficient,
+      availability: asksAvailability ? remainingFor(sourceAffixName, bonusType) : undefined
+    };
+  }
+
+  private groupBySlots(
+    builds: Map<string, ChipBuild[]>,
+    checklistChips: Map<string, ChecklistChip>,
+    remainingFor: (affixName: string, bonusType: string) => RemainingAvailability
+  ): SlotGroup[] {
     const seen = new Set<string>();
     const buckets = new Map<string, SlotGroup>();
     const bucket = (key: string, label: string, order: number): SlotGroup => {
@@ -229,154 +359,88 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       }
       return row;
     };
+    const scarcityBucket = (sourceAffixName: string, info: RemainingAvailability): SlotGroup | null => {
+      if (info.eliminated) {
+        return bucket('ruled-out', 'Ruled out by gear', 99);
+      } else if (info.tier === 'unavailable') {
+        return null;
+      } else if (sourceAffixName === MAX_FILIGREE_SLOTS_AFFIX) {
+        // The artifact you wear shapes the rest of the build, so it sits above everything else.
+        return bucket('minor-artifact', 'Minor Artifact', -1);
+      } else if (info.tier === 'set-only') {
+        return bucket('set-only', 'Set only', 0);
+      } else if (info.slotCount >= 5) {
+        return bucket('5plus', '5+ open slots', 5);
+      }
+      return bucket(
+        String(info.slotCount),
+        `${info.slotCount} open slot${info.slotCount === 1 ? '' : 's'}`,
+        info.slotCount
+      );
+    };
+    const fileByScarcity = (affixName: string, chip: TrackedChip, info: RemainingAvailability) => {
+      const group = scarcityBucket(chip.sourceAffixName, info);
+      if (group) {
+        rowFor(group, affixName).chips.push({
+          ...chip,
+          eliminated: info.eliminated,
+          tooltip: this.getScarcityTooltip(info)
+        });
+      }
+    };
 
-    for (const affixName of this.affixNames) {
-      for (const type of this.getVisibleTypes(affixName)) {
-        const sourceAffixName = this.getSourceAffixName(affixName, type);
-        const bonusType = this.getSourceBonusType(type);
-        if (!bonusType || bonusType === 'Penalty' || bonusType === 'Bool') {
+    for (const [affixName, affixBuilds] of builds) {
+      for (const { chip, sufficient, availability } of affixBuilds) {
+        if (chip.bonusType === 'Penalty' || chip.bonusType === 'Bool') {
           continue;
         }
-        const key = affixTypeKey(sourceAffixName, bonusType);
+        const key = affixTypeKey(chip.sourceAffixName, chip.bonusType);
         if (seen.has(key)) {
           continue;
         }
         seen.add(key);
 
-        if (this.isBonusTypeSufficient(affixName, type)) {
-          rowFor(bucket('fulfilled', 'Fulfilled', 100), affixName).chips.push({
-            sourceAffixName,
-            bonusType,
-            label: this.getBonusTypeLabel(type),
-            currentValue: type.value || 0,
-            maxValue: this.getMaxValueForType(affixName, type),
-            valueClass: this.getClassForValue(affixName, type),
-            eliminated: false,
-            ignored: false,
-            tooltip: this.getValueTooltip(affixName, type)
-          });
-          continue;
+        if (sufficient) {
+          rowFor(bucket('fulfilled', 'Fulfilled', 100), affixName).chips.push(chip);
+        } else if (chip.ignored) {
+          rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push(chip);
+        } else if (availability) {
+          fileByScarcity(affixName, chip, availability);
         }
-
-        if (this.equipped.isAffixTypeIgnored(sourceAffixName, bonusType)) {
-          rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push({
-            sourceAffixName,
-            bonusType,
-            label: this.getBonusTypeLabel(type),
-            currentValue: type.value || 0,
-            maxValue: this.getMaxValueForType(affixName, type),
-            valueClass: '',
-            eliminated: false,
-            ignored: true,
-            tooltip: 'Marked as ignored'
-          });
-          continue;
-        }
-
-        const info = this.availability.getRemainingAvailability(
-          sourceAffixName, bonusType, openSlots, equippedSetCounts,
-          this.equipped.getSlotsWithOpenAugmentForAffixType(sourceAffixName, bonusType)
-        );
-
-        let group: SlotGroup;
-        if (info.eliminated) {
-          group = bucket('ruled-out', 'Ruled out by gear', 99);
-        } else if (info.tier === 'unavailable') {
-          continue;
-        } else if (sourceAffixName === MAX_FILIGREE_SLOTS_AFFIX) {
-          // The artifact you wear shapes the rest of the build, so it sits above everything else.
-          group = bucket('minor-artifact', 'Minor Artifact', -1);
-        } else if (info.tier === 'set-only') {
-          group = bucket('set-only', 'Set only', 0);
-        } else if (info.slotCount >= 5) {
-          group = bucket('5plus', '5+ open slots', 5);
-        } else {
-          group = bucket(
-            String(info.slotCount),
-            `${info.slotCount} open slot${info.slotCount === 1 ? '' : 's'}`,
-            info.slotCount
-          );
-        }
-
-        rowFor(group, affixName).chips.push({
-          sourceAffixName,
-          bonusType,
-          label: this.getBonusTypeLabel(type),
-          currentValue: type.value || 0,
-          maxValue: this.getMaxValueForType(affixName, type),
-          valueClass: type.value ? this.getClassForValue(affixName, type) : '',
-          eliminated: info.eliminated,
-          ignored: false,
-          tooltip: this.getScarcityTooltip(info)
-        });
       }
     }
 
-    for (const affixName of this.boolAffixNames) {
-      const boolAffix = this.boolAffixMap.get(affixName)?.[0];
-      if (!boolAffix || boolAffix.bonusType === 'Penalty') {
+    for (const [affixName, checklist] of checklistChips) {
+      if (checklist.bonusType === 'Penalty') {
         continue;
       }
-      const bonusType = boolAffix.bonusType;
-      const key = affixTypeKey(affixName, bonusType);
+      const key = affixTypeKey(affixName, checklist.bonusType);
       if (seen.has(key)) {
         continue;
       }
       seen.add(key);
 
-      if (boolAffix.value) {
+      if (checklist.checked) {
         bucket('fulfilled', 'Fulfilled', 100).checklistAffixes.push(affixName);
         continue;
       }
 
-      if (this.equipped.isAffixTypeIgnored(affixName, bonusType)) {
-        rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push({
-          sourceAffixName: affixName,
-          bonusType,
-          label: 'Checklist',
-          currentValue: 0,
-          maxValue: 0,
-          valueClass: '',
-          eliminated: false,
-          ignored: true,
-          tooltip: 'Marked as ignored'
-        });
-        continue;
-      }
-
-      const info = this.availability.getRemainingAvailability(
-        affixName, bonusType, openSlots, equippedSetCounts,
-        this.equipped.getSlotsWithOpenAugmentForAffixType(affixName, bonusType)
-      );
-
-      let group: SlotGroup;
-      if (info.eliminated) {
-        group = bucket('ruled-out', 'Ruled out by gear', 99);
-      } else if (info.tier === 'set-only') {
-        group = bucket('set-only', 'Set only', 0);
-      } else if (info.tier === 'unavailable') {
-        continue;
-      } else if (info.slotCount >= 5) {
-        group = bucket('5plus', '5+ open slots', 5);
-      } else {
-        group = bucket(
-          String(info.slotCount),
-          `${info.slotCount} open slot${info.slotCount === 1 ? '' : 's'}`,
-          info.slotCount
-        );
-      }
-
-      rowFor(group, affixName).chips.push({
+      const chip: TrackedChip = {
         sourceAffixName: affixName,
-        bonusType,
+        bonusType: checklist.bonusType,
         label: 'Checklist',
         currentValue: 0,
         maxValue: 0,
         valueClass: '',
-        eliminated: info.eliminated,
-        ignored: false,
-        tooltip: this.getScarcityTooltip(info)
-      });
+        eliminated: false,
+        ignored: this.equipped.isAffixTypeIgnored(affixName, checklist.bonusType),
+        tooltip: checklist.tooltip
+      };
+      if (chip.ignored) {
+        rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push(chip);
+      } else {
+        fileByScarcity(affixName, chip, remainingFor(affixName, checklist.bonusType));
+      }
     }
 
     const groups = Array.from(buckets.values()).sort((a, b) => a.order - b.order);
@@ -415,10 +479,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return !this.isBonusTypeAvailable(affixName, type);
   }
 
-  shouldShowMaxAvailable(affixName: string, type: TrackedBonusTypeSource): boolean {
-    return this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type)) > 0;
-  }
-
   getVisibleTypes(affixName: string): TrackedBonusTypeDisplay[] {
     return this.derivation.getVisibleTypes(this.affixMap, affixName);
   }
@@ -452,11 +512,6 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     return this.getValueTooltip(affixName, type);
-  }
-
-  /** The single covered entry of a checklist affix. */
-  getChecklistType(affixName: string): CoveredBonusType {
-    return this.boolAffixMap.get(affixName)?.[0] ?? { bonusType: 'Bool', value: 0 };
   }
 
   getFilteredBoolAffixNames(): string[] {
@@ -624,12 +679,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return row.affixName;
   }
 
-  trackSlotChip(index: number, chip: SlotGroupChip): string {
+  trackChip(index: number, chip: TrackedChip): string {
     return affixTypeKey(chip.sourceAffixName, chip.bonusType);
-  }
-
-  trackVisibleType(index: number, type: TrackedBonusTypeSource): string {
-    return affixTypeKey(type.sourceAffixName || '', type.sourceBonusType || type.bonusType);
   }
 
   isRecentlyChangedAffixType(affixName: string, type: TrackedBonusTypeSource): boolean {

@@ -7,6 +7,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { Output, EventEmitter } from '@angular/core';
 import buildInfo from '@data/build-info.json';
 import { GameDataService } from '../gear/game-data.service';
+import { formatBuiltAt } from '../shared/format-built-at';
 
 @Component({
     selector: 'app-filters',
@@ -23,7 +24,7 @@ export class FiltersComponent implements OnInit {
   showRareItems: boolean = true;
   showPackFilters: boolean = false;
   packOptions: Array<{name: string, value: boolean}> = [];
-  readonly dataBuiltAt: string = this.formatBuiltAt(buildInfo.builtAt);
+  readonly dataBuiltAt: string = formatBuiltAt(buildInfo.builtAt);
 
   sortOwnedToTop: boolean = true;
 
@@ -147,18 +148,6 @@ export class FiltersComponent implements OnInit {
 
   onSortOwnedToTopChanged() {
     this.sortOwnedToTopChanged.emit(this.sortOwnedToTop);
-  }
-
-  private formatBuiltAt(value: string): string {
-    const builtAt = new Date(value);
-    if (Number.isNaN(builtAt.getTime())) {
-      return value;
-    }
-
-    return builtAt.toLocaleString(undefined, {
-      dateStyle: 'medium',
-      timeStyle: 'short'
-    });
   }
 
   private getAllPackOptions(): Array<{name: string, value: boolean}> {

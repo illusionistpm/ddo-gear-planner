@@ -71,32 +71,22 @@
     border-color: rgba(var(--primary-color-rgb), 0.32);
 }
 
-.set-bonus-card {
-    --bs-gutter-x: 0;
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-    overflow: hidden;
-    width: calc(100% + 1.5rem);
-}
-
+/* The border and corners come from the shared .slot-header in styles.css. */
 .set-bonus-button {
     background: var(--surface-subtle-color);
-    border: 1px solid var(--border-color);
-    border-left: 4px solid var(--primary-color);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
     color: var(--text-primary);
 }
 
 .set-bonus-button:hover,
 .set-bonus-button:focus {
     background: var(--surface-muted-color);
-    border-color: var(--border-color);
-    border-left-color: var(--primary-color);
     color: var(--text-primary);
 }
 
+/* A fixed width, so the affix names line up down the card whatever the tier's piece count. */
 .set-threshold {
     color: var(--text-secondary);
+    flex: 0 0 2.6rem;
     font-weight: 700;
 }
 
@@ -128,14 +118,6 @@
     font-size: 0.75rem;
     font-weight: 700;
     white-space: nowrap;
-}
-
-.set-bonus-affixes {
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    overflow: hidden;
 }
 
 .set-bonus-affix-row {
@@ -199,19 +181,16 @@
     }
 }
 
+/* Sized and placed exactly as app-gear-description's hearts, so the two cards' rows line up. */
 .heart {
-    align-items: center;
     background: transparent;
-    border: 0;
     color: red;
-    display: inline-flex;
-    justify-content: center;
-    padding-left: 0;
+    border: none;
+    flex: 0 0 1.1rem;
+    padding-left: var(--space-4);
     padding-right: 0;
-}
-
-.set-bonus-affix-row .heart {
-    align-self: stretch;
+    text-align: center;
+    width: 1.1rem;
 }
 
 .heart:hover,

@@ -1,4 +1,4 @@
-<div class="row slot-header">
+<div class="row slot-header" [class.header-only]="!equipped.hasItem(slot)">
   <button type="button" class="btn btn-secondary slot-select-button text-start col-12"
     [class.has-clear]="equipped.hasItem(slot)"
     [class.is-empty]="!equipped.hasItem(slot)"

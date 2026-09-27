@@ -170,7 +170,7 @@
     }
 
 
-    <div class="planner-tab-panels" #tabPanels>
+    <div class="planner-tab-panels" #tabPanels appPanelSwipe>
         <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
             <app-gear-list></app-gear-list>
         </section>

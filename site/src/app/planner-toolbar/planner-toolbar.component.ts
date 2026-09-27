@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
@@ -30,12 +30,15 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class PlannerToolbarComponent implements OnInit, OnDestroy {
+export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
   groupMode: TrackedAffixGroupMode = 'category';
 
+  @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
+
   private tabSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
+  private switchObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
   // the flattened list never changes. Worth caching: this component is mounted
   // for the whole session and the template reads it on every change-detection
@@ -46,7 +49,8 @@ export class PlannerToolbarComponent implements OnInit, OnDestroy {
     public equipped: EquippedService,
     private gearList: GearDbService,
     private affixBuilder: AffixBuilderDrawerService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -58,9 +62,49 @@ export class PlannerToolbarComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+    // The labels swap between full and short forms at a breakpoint, so the
+    // buttons are re-measured whenever the switch changes size.
+    this.zone.runOutsideAngular(() => {
+      this.switchObserver = new ResizeObserver(() => this.measureViewSwitch());
+      if (this.viewSwitch) {
+        this.switchObserver.observe(this.viewSwitch.nativeElement);
+      }
+    });
+  }
+
   ngOnDestroy() {
+    this.switchObserver?.disconnect();
     this.tabSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
+  }
+
+  /**
+   * The switch's highlight is one thumb that slides between the two buttons,
+   * following a swipe's progress (--planner-swipe-progress, set by
+   * PanelSwipeDirective) as well as the active tab. The buttons keep their
+   * natural, unequal widths - the phone's first line has no room to spare -
+   * so the thumb interpolates between their measured positions instead. Until
+   * that measurement lands, the CSS falls back to highlighting the active
+   * button itself.
+   */
+  private measureViewSwitch() {
+    const viewSwitch = this.viewSwitch?.nativeElement;
+    if (!viewSwitch) {
+      return;
+    }
+    const options = viewSwitch.querySelectorAll<HTMLElement>('.planner-view-option');
+    if (options.length !== 2 || !options[0].offsetWidth) {
+      return;
+    }
+    options.forEach((option, index) => {
+      viewSwitch.style.setProperty(`--planner-view-${index}-left`, `${option.offsetLeft}px`);
+      viewSwitch.style.setProperty(`--planner-view-${index}-width`, `${option.offsetWidth}px`);
+    });
+    viewSwitch.classList.add('thumb-ready');
   }
 
   isActiveTab(tab: PlannerTab) {

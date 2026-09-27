@@ -1,4 +1,6 @@
-<div class="planner-view-switch" role="tablist" aria-label="Planner view">
+<div class="planner-view-switch" role="tablist" aria-label="Planner view" #viewSwitch
+  [style.--planner-view-index]="isActiveTab('affixes') ? 1 : 0">
+  <span class="planner-view-thumb" aria-hidden="true"></span>
   <button type="button" id="equipmentTab" class="planner-view-option" role="tab"
     [class.active]="isActiveTab('equipment')"
     [attr.aria-selected]="isActiveTab('equipment')"

@@ -302,6 +302,15 @@ describe('Tracked affix chips', () => {
     });
   });
 
+  it('tags each scarcity group with its bucket, which colours its stripe by pressure', () => {
+    equipped.setTrackedAffixGroupMode('slots');
+    fixture.detectChanges();
+
+    const sections = Array.from(fixture.nativeElement.querySelectorAll('.slot-group-section')) as HTMLElement[];
+    expect(sections.map(section => Array.from(section.classList).find(name => name.startsWith('slot-group-') && name !== 'slot-group-section')))
+      .toEqual(['slot-group-set-only', 'slot-group-1', 'slot-group-3', 'slot-group-5plus', 'slot-group-ignored', 'slot-group-ruled-out', 'slot-group-fulfilled']);
+  });
+
   describe('staying current', () => {
     it('rebuilds chips when covered affixes re-emit', () => {
       coveredAffixes.next(new Map([

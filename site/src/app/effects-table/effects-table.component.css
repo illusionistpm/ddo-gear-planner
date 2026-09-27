@@ -364,9 +364,46 @@
     margin: var(--space-8) 0;
 }
 
+/*
+ * Scarcity groups are coloured by pressure: red where only one place (or a
+ * set, or the artifact) can still supply a type, easing through amber to green
+ * at five or more places. Fulfilled is blue; ruled out and ignored, which are
+ * no longer being chased, are gray.
+ */
 .slot-group-section {
     --tracked-affix-accent: var(--primary-color);
-    --tracked-affix-accent-soft: rgba(var(--primary-color-rgb), 0.1);
+    --tracked-affix-accent-soft: color-mix(in srgb, var(--tracked-affix-accent) 10%, transparent);
+}
+
+.slot-group-minor-artifact,
+.slot-group-set-only,
+.slot-group-1 {
+    --tracked-affix-accent: var(--danger-color);
+}
+
+.slot-group-2 {
+    --tracked-affix-accent: color-mix(in srgb, var(--danger-color) 50%, var(--warning-color));
+}
+
+.slot-group-3 {
+    --tracked-affix-accent: var(--warning-color);
+}
+
+.slot-group-4 {
+    --tracked-affix-accent: color-mix(in srgb, var(--warning-color) 50%, var(--success-color));
+}
+
+.slot-group-5plus {
+    --tracked-affix-accent: var(--success-color);
+}
+
+.slot-group-ruled-out,
+.slot-group-ignored {
+    --tracked-affix-accent: var(--secondary-color);
+}
+
+.slot-group-fulfilled {
+    --tracked-affix-accent: var(--primary-color);
 }
 
 /*

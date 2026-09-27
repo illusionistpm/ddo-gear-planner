@@ -94,7 +94,7 @@
         <p class="tracked-affix-slots-empty" *ngIf="!trackedDisplay.slotGroups.length">
             No tracked affixes yet. Add some with Add / edit affixes in the toolbar above.
         </p>
-        <div class="tracked-affix-section slot-group-section" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">
+        <div class="tracked-affix-section slot-group-section" [ngClass]="'slot-group-' + group.key" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"
                 [attr.aria-expanded]="!isAffixGroupCollapsed(group.key)">
                 <span>{{group.label}}</span>

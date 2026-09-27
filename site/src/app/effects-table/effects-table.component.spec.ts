@@ -4,6 +4,7 @@ import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
 import { FiltersService } from '../planner/filters.service';
 import { EquippedService } from '../planner/equipped.service';
+import { Item } from '../gear/item';
 
 describe('EffectsTableComponent', () => {
   let component: EffectsTableComponent;
@@ -382,21 +383,24 @@ describe('EffectsTableComponent', () => {
       .toBe('Not covered yet');
   });
 
-  it('does not include source equipment names in bonus type tooltips', () => {
-    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(10);
-    vi.spyOn(component.equipped, 'getSourcesForAffixType').mockReturnValue([
-      {
-        kind: 'item',
-        slot: 'Goggles',
-        itemName: 'Precise Lenses',
-        affixName: 'Accuracy',
-        bonusType: 'Equipment',
-        value: 8,
-      },
-    ]);
+  it('names every slot and item tied for the counted value in a bonus type\'s tooltip', async () => {
+    const equipped = TestBed.inject(EquippedService);
+    const strength = (value: number) => [{ name: 'Strength', type: 'Enhancement', value }];
+    const item = (name: string, slot: string, affixes: Array<{ name: string; type: string; value: number }>) =>
+      new Item({ name, slot, type: slot, ml: 1, affixes, url: '', crafting: [], quests: [] });
+    equipped.addImportantAffix('Strength');
+    equipped.set(item('Mighty Belt', 'Belt', strength(10)));
+    equipped.set(item('Mighty Gloves', 'Gloves', strength(10)));
+    equipped.set(item('Weaker Boots', 'Boots', strength(8)));
+    await fixture.whenStable();
+    fixture.detectChanges();
 
-    expect(component.getBonusTypeTooltip('Accuracy', { bonusType: 'Equipment', value: 8 }))
-      .toBe('Moderate value (2 below max)');
+    const chip = Array.from(fixture.nativeElement.querySelectorAll('.tracked-bonus-chip') as NodeListOf<HTMLElement>)
+      .find(element => element.textContent?.includes('Enhancement:'));
+    const title = chip?.getAttribute('title') ?? '';
+
+    expect(title).toContain('Provided by:\n- Belt: Mighty Belt\n- Gloves: Mighty Gloves');
+    expect(title).not.toContain('Weaker Boots');
   });
 
   it('tracks chips without depending on component method binding', () => {

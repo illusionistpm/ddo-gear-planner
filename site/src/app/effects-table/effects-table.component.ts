@@ -482,13 +482,26 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   /**
-   * The chip's value tooltip, plus - for a type still worth chasing - how many
-   * places can still supply it. The same text in both groupings.
+   * The chip's value tooltip, what supplies the value that counts, and - for a
+   * type still worth chasing - how many places can still supply it. The same
+   * text in both groupings.
    */
   private getChipTooltip(affixName: string, type: TrackedBonusTypeRef, availability?: RemainingAvailability): string {
     const valueTooltip = this.getBonusTypeTooltip(affixName, type);
+    const sourcesTooltip = this.getSourcesTooltip(affixName, type);
     const scarcityTooltip = availability ? this.getScarcityTooltip(availability) : '';
-    return [valueTooltip, scarcityTooltip].filter(Boolean).join('\n');
+    return [valueTooltip, sourcesTooltip, scarcityTooltip].filter(Boolean).join('\n');
+  }
+
+  /** Every source of the best value - several when they tie. */
+  private getSourcesTooltip(affixName: string, type: TrackedBonusTypeRef): string {
+    const sources = this.equipped.getSourcesForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
+    if (!sources.length) {
+      return '';
+    }
+    return 'Provided by:\n' + sources
+      .map(source => '- ' + (source.kind === 'set' ? `${source.itemName} set bonus` : `${source.slot}: ${source.itemName}`))
+      .join('\n');
   }
 
   private getScarcityTooltip(info: RemainingAvailability): string {

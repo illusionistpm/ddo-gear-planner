@@ -4101,12 +4101,10 @@
                 "name": "Armor Class",
                 "type": "Deflection",
                 "value": "4"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Amulet of the Stormreaver",
@@ -21684,12 +21682,10 @@
                 "name": "Slicing Winds",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Breeze",
@@ -31067,12 +31063,10 @@
                 "name": "Incite",
                 "type": "Enhancement",
                 "value": "20"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Circle of Hatred",
@@ -34122,12 +34116,10 @@
                 "name": "Cloudburst",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Cloudburst",
@@ -47213,12 +47205,10 @@
                 "name": "Intelligence",
                 "type": "Enhancement",
                 "value": "6"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Deific Diadem",
@@ -55092,12 +55082,10 @@
                 "name": "Suppressed Power",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Dreamspitter",
@@ -62721,12 +62709,10 @@
                 "name": "Evil Outsider Bane",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Enduring Conviction",
@@ -102159,12 +102145,10 @@
                 "name": "Eternal Faith",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Gauntlets of Eternity",
@@ -114070,12 +114054,10 @@
                 "name": "Fortification",
                 "type": "Enhancement",
                 "value": "75"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Head of Good Fortune",
@@ -207561,12 +207543,10 @@
                 "name": "Litany of the Dead - Combat Bonus",
                 "type": "Profane",
                 "value": "1"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Litany of the Dead",
@@ -211522,12 +211502,10 @@
                 "name": "Madstone Reaction",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Madstone Boots",
@@ -211578,12 +211556,10 @@
                 "name": "Proficiency: Tower Shield",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Madstone Shield",
@@ -227596,12 +227572,10 @@
                 "name": "Spell Lore",
                 "type": "Equipment",
                 "value": "3"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Noxious Embers",
@@ -237733,12 +237707,10 @@
                 "name": "Armor Class",
                 "type": "Deflection",
                 "value": "5"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Purging the Pantheon",
@@ -238321,12 +238293,10 @@
                 "name": "Ranged Alacrity",
                 "type": "Enhancement",
                 "value": "10"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 1,
         "name": "Quiver of Alacrity",
@@ -243011,12 +242981,10 @@
                 "name": "Increases spellcasting, melee, and ranged threat by 15%\u2714",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Ring of Lies",
@@ -260637,12 +260605,10 @@
                 "name": "Light Resistance",
                 "type": "Enhancement",
                 "value": "20"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Shroud of the Abbot",
@@ -270012,12 +269978,10 @@
                 "name": "Spell Penetration",
                 "type": "Equipment",
                 "value": "3"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Staff of the Petitioner",
@@ -272465,12 +272429,10 @@
                 "name": "Spell Focus",
                 "type": "Equipment",
                 "value": "1"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Stormreaver's Napkin",
@@ -278702,12 +278664,10 @@
                 "name": "Maladroit",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Tenderizer",
@@ -293870,12 +293830,10 @@
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Treason",
@@ -296208,12 +296166,10 @@
                 "name": "Smoke Screen",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Unwavering Ardency",
@@ -296246,12 +296202,10 @@
                 "name": "Smoke Screen",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 14,
         "name": "Unwavering Ardency",
@@ -297226,12 +297180,10 @@
                 "name": "Air Guard",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Ventilated Bracers",
@@ -297583,12 +297535,10 @@
                 "name": "Use Magic Device",
                 "type": "Competence",
                 "value": "3"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Vile Blasphemy",
@@ -302636,12 +302586,10 @@
                 "name": "Deception",
                 "type": "Sneak Attack",
                 "value": "4"
-            },
-            {
-                "name": "Upgradeable Item",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgradeable Item"
         ],
         "ml": 13,
         "name": "Wretched Twilight",

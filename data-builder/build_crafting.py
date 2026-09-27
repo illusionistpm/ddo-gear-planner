@@ -22,6 +22,9 @@ def build_crafting() -> None:
     synonymMap = get_inverted_synonym_map()
 
     nearlyFinished: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/nearly-finished.json", "r", encoding='utf-8'))
+    # Pulled once from each item's own wiki page: what a Seal of the Black Abbot
+    # (Ascension Chamber) or of the Stormreaver (The Reaver's Fate) adds.
+    sealUpgrades: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/seal-upgrades.json", "r", encoding='utf-8'))
     nearly_complete: dict[str, SystemDict] = parse_nearly_complete_crafting()
     slavers: dict[str, SystemDict] = parse_slavers_crafting()
     item_crafting: dict[str, SystemDict] = get_item_crafting()
@@ -29,6 +32,7 @@ def build_crafting() -> None:
 
     combined: dict[str, SystemDict] = {}
     combined.update(nearlyFinished)
+    combined.update(sealUpgrades)
     combined.update(nearly_complete)
     combined.update(slavers)
     combined.update(item_crafting)

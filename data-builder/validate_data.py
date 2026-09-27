@@ -161,6 +161,24 @@ def audit_items(items: list[dict[str, Any]], expectations: list[dict[str, Any]] 
     return issues
 
 
+SEAL_UPGRADE_SYSTEM = 'Upgradeable Item'
+# Their upgrade only removes an effect, which a crafting option can't express.
+SEAL_UPGRADES_WITH_NOTHING_TO_ADD = {'Litany of the Dead'}
+
+
+def audit_seal_upgrades(items: list[dict[str, Any]], crafting: dict[str, Any]) -> list[dict[str, str]]:
+    """Seal-upgradeable items missing from seal-upgrades.json would silently lose their upgrade."""
+    known = crafting.get(SEAL_UPGRADE_SYSTEM, {})
+    return [
+        _issue('missing-seal-upgrade', 'error', item, {'name': SEAL_UPGRADE_SYSTEM},
+               'no entry in seal-upgrades.json - extract its upgrade from the item page')
+        for item in items
+        if SEAL_UPGRADE_SYSTEM in (item.get('crafting') or [])
+        and item.get('name') not in known
+        and item.get('name') not in SEAL_UPGRADES_WITH_NOTHING_TO_ADD
+    ]
+
+
 def write_report(issues: list[dict[str, str]], report_basename: str | None = None) -> None:
     os.makedirs(REPORT_OUTPUT_PATH, exist_ok=True)
     base = report_basename or 'validation_report'
@@ -191,7 +209,7 @@ def audit_generated_assets(report_basename: str | None = None) -> list[str]:
             'sourceTooltip': '',
         }]
     else:
-        issues = audit_items(items)
+        issues = audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {})
 
     write_report(issues, report_basename)
     return [f"{issue['severity'].upper()} {issue['category']}: Item '{issue['item']}' affix '{issue['affix']}': {issue['issue']}" for issue in issues]

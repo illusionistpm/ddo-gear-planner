@@ -1,4 +1,4 @@
-from validate_data import audit_items
+from validate_data import audit_items, audit_seal_upgrades
 
 
 def test_audit_items_detects_unknown_type_and_missing_numeric_value():
@@ -62,3 +62,17 @@ def test_audit_items_detects_expectation_regression_from_provenance():
 
     issues = audit_items(items, expectations=expectations)
     assert any(issue['category'] == 'expectation-regression' for issue in issues)
+
+
+def test_audit_seal_upgrades_flags_upgradeable_items_without_extracted_upgrade():
+    items = [
+        {'name': 'Quiver of Alacrity', 'crafting': ['Upgradeable Item']},
+        {'name': 'New Raid Hat', 'crafting': ['Upgradeable Item']},
+        {'name': 'Litany of the Dead', 'crafting': ['Upgradeable Item']},
+        {'name': 'Plain Ring', 'affixes': []},
+    ]
+    crafting = {'Upgradeable Item': {'Quiver of Alacrity': [{'affixes': []}]}}
+
+    issues = audit_seal_upgrades(items, crafting)
+
+    assert [(issue['category'], issue['item']) for issue in issues] == [('missing-seal-upgrade', 'New Raid Hat')]

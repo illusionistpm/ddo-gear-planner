@@ -112,6 +112,17 @@ describe('GearDbService', () => {
     expect(secondLookup?.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('');
   });
 
+  it('offers a Seal upgrade as an option carrying what the upgrade adds', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const quiver = service.findGearBySlot('Quiver', 'Quiver of Alacrity');
+    const upgrade = quiver?.getCraftingByName('Upgradeable Item');
+
+    expect(quiver?.affixes.map(affix => affix.name)).not.toContain('Upgradeable Item');
+    expect(upgrade?.selected.affixes).toEqual([]);
+    expect(upgrade?.options.map(option => option.affixes.map(affix => [affix.name, affix.type, Number(affix.value)])))
+      .toEqual([[], [['Speed', 'Enhancement', 30]]]);
+  });
+
   describe('crafting options with minimum levels', () => {
     function makeLeveledCraftingItem() {
       return new Item({

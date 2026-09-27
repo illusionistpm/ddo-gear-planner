@@ -9,11 +9,14 @@ import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
 import { Item } from '../gear/item';
 import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../shared/perf-trace';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { FiltersService } from '../planner/filters.service';
+import { ItemFilters } from '../gear/item-filters';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
 
@@ -37,6 +40,8 @@ interface CraftingOptionDisplayRow {
 interface CraftingDisplayRow {
   craft: Craftable;
   context: CraftingOptionContext;
+  /** The options offered: those within the level filter's maximum, plus the chosen one. */
+  visibleOptions: CraftableOption[];
   className: string;
   tooltip: string;
   important: boolean;
@@ -77,6 +82,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   private subscriptions = new Subscription();
   private rankedCraftingOptions = new WeakSet<Craftable>();
   private loadedCraftingOptions = new WeakSet<Craftable>();
+  private maxLevel = ItemFilters.MAX_LEVEL();
+  private optionsWithinMaxLevel = new WeakMap<CraftableOption[], { maxLevel: number, options: CraftableOption[] }>();
 
   constructor(
     public equipped: EquippedService,
@@ -86,8 +93,18 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private questService: QuestService,
     private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    filters: FiltersService
   ) {
+    // Subscribed here, not in ngOnInit, so the level is known before ngOnChanges first builds the rows.
+    this.subscriptions.add(filters.getItemFilters().pipe(
+      map(itemFilters => itemFilters.levelRange[1]),
+      distinctUntilChanged()
+    ).subscribe(maxLevel => {
+      this.maxLevel = maxLevel;
+      this.refreshDisplayRows();
+      this.changeDetector.markForCheck();
+    }));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -188,18 +205,20 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     const item = this.curItem;
     const candidate = this.affixUi.candidateFor(item);
     const rows = item.crafting.filter(craft => this.shouldShowCraftingRow(craft)).map(craft => {
+      const visibleOptions = this.visibleOptions(craft);
       const selectedAffix = craft.selected?.affixes?.[0];
       const selectedAffixGroup = selectedAffix ? this.affixSvc.isAffixGroup(selectedAffix) : false;
       return {
         craft,
         context: { item, craft },
+        visibleOptions,
         className: this.affixUi.getClassForCraftable(craft, candidate),
         tooltip: this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate),
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
         selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(craft.selected),
-        options: this.buildCraftingOptionRows(craft, this.rankedCraftingOptions.has(craft), this.loadedCraftingOptions.has(craft)),
+        options: this.buildCraftingOptionRows(craft, visibleOptions, this.rankedCraftingOptions.has(craft), this.loadedCraftingOptions.has(craft)),
         optionsRanked: this.readonly || this.rankedCraftingOptions.has(craft),
         optionsLoaded: this.readonly || this.loadedCraftingOptions.has(craft)
       };
@@ -231,14 +250,36 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     return isCraftingSlotAvailable(this.curItem, craft);
   }
 
-  private buildCraftingOptionRows(craft: Craftable, includeRank: boolean, includeAllOptions: boolean): CraftingOptionDisplayRow[] {
+  /**
+   * The options a character within the level filter can use. Only the maximum excludes one: an
+   * option below the minimum still slots in, and some effects only exist at low levels. The chosen
+   * option stays, even above the maximum, so the control can still show it.
+   */
+  private visibleOptions(craft: Craftable): CraftableOption[] {
+    const all = craft.options || [];
+    let cached = this.optionsWithinMaxLevel.get(all);
+    if (!cached || cached.maxLevel !== this.maxLevel) {
+      const within = all.filter(option => option.isWithinMaxLevel(this.maxLevel));
+      // The same array when nothing is left out, so the picker's grouping of it stays cached.
+      cached = { maxLevel: this.maxLevel, options: within.length === all.length ? all : within };
+      this.optionsWithinMaxLevel.set(all, cached);
+    }
+    const selected = craft.selected;
+    return !selected || selected.isWithinMaxLevel(this.maxLevel)
+      ? cached.options
+      : all.filter(option => option === selected || option.isWithinMaxLevel(this.maxLevel));
+  }
+
+  private buildCraftingOptionRows(
+    craft: Craftable, visibleOptions: CraftableOption[], includeRank: boolean, includeAllOptions: boolean
+  ): CraftingOptionDisplayRow[] {
     const done = perfAggregateStart('GearDescriptionComponent.buildCraftingOptionRows');
     if (this.readonly) {
       done();
       return [];
     }
 
-    const options = includeAllOptions ? (craft.options || []) : [craft.selected];
+    const options = includeAllOptions ? visibleOptions : [craft.selected];
     const rows = options.map(option => {
       const ranking = includeRank && this.curItem
         ? this.affixUi.rankCraftingOption(option, this.curItem.slot, false, { item: this.curItem, craft })
@@ -307,7 +348,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
     this.loadedCraftingOptions.add(row.craft);
     this.rankedCraftingOptions.add(row.craft);
-    row.options = this.buildCraftingOptionRows(row.craft, true, true);
+    row.options = this.buildCraftingOptionRows(row.craft, row.visibleOptions, true, true);
     row.optionsLoaded = true;
     row.optionsRanked = true;
     this.changeDetector.markForCheck();

@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { canonicalizeCraftingSystemName, canonicalizeGeneratedCraftedItemName, GearDbService, } from './gear-db.service';
-import { CraftableOption } from './craftable-option';
 import { Item } from './item';
 import { ItemFilters } from './item-filters';
 import { FiltersService } from '../planner/filters.service';
@@ -113,13 +112,56 @@ describe('GearDbService', () => {
     expect(secondLookup?.getCraftingByName('Test Crafting')?.selected.getParamDescription()).toBe('');
   });
 
-  it('matches craftable options with MLs inside the requested level range', () => {
-    const service: GearDbService = TestBed.inject(GearDbService);
+  describe('crafting options with minimum levels', () => {
+    function makeLeveledCraftingItem() {
+      return new Item({
+        name: 'Leveled Crafting Item',
+        slot: 'Trinket',
+        type: '',
+        ml: 18,
+        affixes: [],
+        sets: [],
+        url: '/page/Leveled_Crafting_Item',
+        crafting: [
+          {
+            name: 'Leveled Crafting',
+            options: [
+              { ml: 5, affixes: [{ name: 'Low Level Affix', type: 'Enhancement', value: 1 }] },
+              { ml: 30, affixes: [{ name: 'High Level Affix', type: 'Enhancement', value: 1 }] },
+            ],
+          },
+        ],
+        quests: [],
+        artifact: false,
+      });
+    }
 
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 8 }), 8, 12)).toBe(true);
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 7 }), 8, 12)).toBe(false);
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({ ml: 13 }), 8, 12)).toBe(false);
-    expect(service['_isCraftableOptionInLevelRange'](new CraftableOption({}), 8, 12)).toBe(true);
+    it('offers affixes up to the maximum level, however far below the minimum', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      service['allGear'] = new Map<string, Array<Item>>([
+        ['Trinket', [makeLeveledCraftingItem()]],
+      ]);
+      const filters = new ItemFilters();
+      filters.levelRange = [15, 20];
+
+      service.applyItemFilters(filters);
+
+      expect(service.getAllAffixes()).toContain('Low Level Affix');
+      expect(service.getAllAffixes()).not.toContain('High Level Affix');
+    });
+
+    it('counts an item as a source only through options up to the maximum level', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      service['gear'] = new Map<string, Array<Item>>([
+        ['Trinket', [makeLeveledCraftingItem()]],
+      ]);
+      service['currentItemFilters'].levelRange = [15, 20];
+      service['itemAffixTypeIndex'] = null;
+
+      expect(service.findGearWithAffixAndType('Low Level Affix', 'Enhancement').map(item => item.name))
+        .toEqual(['Leveled Crafting Item']);
+      expect(service.findGearWithAffixAndType('High Level Affix', 'Enhancement')).toEqual([]);
+    });
   });
 
   it('matches sets only when their gear levels overlap the requested level range', () => {
@@ -174,6 +216,7 @@ describe('GearDbService', () => {
           options: [
             { set: 'Parent Level Set' },
             { set: 'Option Level Set', ml: 30 },
+            { set: 'Low Option Level Set', ml: 5 },
           ],
         },
       ],
@@ -187,6 +230,8 @@ describe('GearDbService', () => {
 
     expect(service['_isSetInLevelRange']('Parent Level Set', 15, 18)).toBe(true);
     expect(service['_isSetInLevelRange']('Option Level Set', 15, 18)).toBe(false);
+    // Below the minimum, the option still slots into the item, which is in range.
+    expect(service['_isSetInLevelRange']('Low Option Level Set', 15, 18)).toBe(true);
   });
 
   it('finds gear that can craft a requested set and preselects that set', () => {

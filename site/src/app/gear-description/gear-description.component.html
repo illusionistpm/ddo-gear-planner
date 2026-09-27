@@ -88,14 +88,14 @@
         </div>
         @if (!readonly) {
           <div class="col-8 d-flex align-items-center">
-            @if (row.craft.options.length >= craftingPickerMinOptions) {
+            @if (row.visibleOptions.length >= craftingPickerMinOptions) {
               <app-crafting-option-picker class="crafting-option-picker"
-                [options]="row.craft.options" [selected]="row.craft.selected" [className]="row.className"
+                [options]="row.visibleOptions" [selected]="row.craft.selected" [className]="row.className"
                 [slot]="curItem.slot" [itemIsEquipped]="equipOnChange" [context]="row.context"
                 (selectedChange)="chooseCraftingOption(row, $event)">
               </app-crafting-option-picker>
             } @else {
-              <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.craft.options.length < 2">
+              <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.visibleOptions.length < 2">
                 @for (optionRow of row.options; track optionRow.description) {
                   <option [ngValue]="optionRow.option"
                     [ngClass]="optionRow.className"

@@ -30,6 +30,15 @@ export class CraftableOption {
         }
     }
 
+    /**
+     * Whether a character of at most `maxLevel` can use this option. Only the top of a
+     * level range excludes an option: one below the minimum still slots in, and some
+     * effects only exist at low levels.
+     */
+    isWithinMaxLevel(maxLevel: number) {
+        return !this.ml || this.ml <= maxLevel;
+    }
+
     matchesParamDescription(desc: string) {
         return desc === this.getParamDescription();
     }

@@ -338,7 +338,9 @@ export class GearDbService {
           for (const craftable of item.crafting) {
             for (const option of craftable.options) {
               if (option.set) {
-                addSetLevel(option.set, option.ml || item.ml);
+                // The lowest level it can be had at: the item's own, unless the option needs more.
+                // An option below the level filter's minimum still counts, as it slots in just the same.
+                addSetLevel(option.set, Math.max(option.ml, item.ml));
               }
             }
           }
@@ -351,10 +353,6 @@ export class GearDbService {
 
   private _isLevelInRange(ml: number, minLevel: number, maxLevel: number) {
     return ml >= minLevel && ml <= maxLevel;
-  }
-
-  private _isCraftableOptionInLevelRange(option: CraftableOption, minLevel: number, maxLevel: number) {
-    return !option.ml || this._isLevelInRange(option.ml, minLevel, maxLevel);
   }
 
   private _isSetInLevelRange(setName: string, minLevel: number, maxLevel: number) {
@@ -456,7 +454,7 @@ export class GearDbService {
         craftingOptionCount += item.crafting
           ?.reduce((count, craftable) => count + craftable.options.length, 0) || 0;
         this._addAffixesToMap(affixToBonusTypes, item.affixes, universalTracker);
-        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, minLevel, maxLevel, processedCraftingOptionLists, universalTracker);
+        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, maxLevel, processedCraftingOptionLists, universalTracker);
       }
     }
     itemsDone({
@@ -629,10 +627,11 @@ export class GearDbService {
       this.itemAffixTypeIndex = perfMeasure('GearDbService.buildItemAffixTypeIndex', () => {
         const index: ItemAffixTypeIndex = new Map();
         const craftingOptionListPairsCache = new Map<Array<CraftableOption>, Array<[string, string]>>();
+        const maxLevel = this.getMaxLevelFilter();
         for (const items of this.gear.values()) {
           for (const item of items) {
             this._recordItemAffixSources(index, item, item.affixes);
-            this._recordItemCraftingSources(index, item, item.crafting, craftingOptionListPairsCache);
+            this._recordItemCraftingSources(index, item, item.crafting, maxLevel, craftingOptionListPairsCache);
           }
         }
         return index;
@@ -656,6 +655,7 @@ export class GearDbService {
     index: ItemAffixTypeIndex,
     item: Item,
     crafting: Array<Craftable> | undefined,
+    maxLevel: number,
     craftingOptionListPairsCache: Map<Array<CraftableOption>, Array<[string, string]>>
   ) {
     if (!crafting) {
@@ -671,7 +671,7 @@ export class GearDbService {
       if (craftable.isColoredAugmentSystem) {
         continue;
       }
-      for (const [affixName, bonusType] of this._getCraftingOptionListPairs(craftable.options, craftingOptionListPairsCache)) {
+      for (const [affixName, bonusType] of this._getCraftingOptionListPairs(craftable.options, maxLevel, craftingOptionListPairsCache)) {
         this._recordItemSource(index, item, affixName, bonusType);
       }
     }
@@ -695,13 +695,13 @@ export class GearDbService {
    * reference can grant, memoised per array reference so scanning its
    * (potentially large) option list happens once no matter how many items
    * share it - mirroring the sharing _buildAffixToBonusTypes already exploits
-   * via processedCraftingOptionLists. Deliberately not level-filtered,
-   * matching Item.canHaveBonusType (whose O(items) linear scan this index
-   * replaces) - crafting options there aren't level-gated either, only the
-   * item itself is via the already-filtered gear.
+   * via processedCraftingOptionLists. Options above the level filter's
+   * maximum are left out; one below its minimum still counts, as it slots in
+   * just the same. The cache must not outlive one `maxLevel`.
    */
   private _getCraftingOptionListPairs(
     options: Array<CraftableOption>,
+    maxLevel: number,
     cache: Map<Array<CraftableOption>, Array<[string, string]>>
   ): Array<[string, string]> {
     const cached = cache.get(options);
@@ -724,6 +724,9 @@ export class GearDbService {
     };
 
     for (const option of options) {
+      if (!option.isWithinMaxLevel(maxLevel)) {
+        continue;
+      }
       for (const affix of option.affixes) {
         collect(affix.name, affix.type);
         if (this.affixSvc.isAffixGroup(affix)) {
@@ -768,7 +771,6 @@ export class GearDbService {
   private _addCraftingAffixesToMap(
     affixToBonusTypes: Map<string, Map<string, number>>,
     crafting: Array<Craftable> | undefined,
-    minLevel: number,
     maxLevel: number,
     processedCraftingOptionLists?: Set<Array<CraftableOption>>,
     universalTracker?: UniversalCompanionContributionTracker
@@ -784,7 +786,7 @@ export class GearDbService {
 
       processedCraftingOptionLists?.add(craftable.options);
       for (const option of craftable.options) {
-        if (!this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)) {
+        if (!option.isWithinMaxLevel(maxLevel)) {
           continue;
         }
 
@@ -898,7 +900,6 @@ export class GearDbService {
 
   findGearInSet(setName: string): Item[] {
     const results: Item[] = [];
-    const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
 
     if (!setName) {
@@ -919,7 +920,7 @@ export class GearDbService {
         for (const craftable of item.crafting) {
           const matchingOption = craftable.options.find(option =>
             option.set === setName &&
-            this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)
+            option.isWithinMaxLevel(maxLevel)
           );
 
           if (matchingOption) {
@@ -947,7 +948,6 @@ export class GearDbService {
     if (!setName) {
       return [];
     }
-    const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
     const slots: string[] = [];
 
@@ -960,7 +960,7 @@ export class GearDbService {
         }
         const craftableForSet = item.crafting?.some(craftable =>
           craftable.options.some(option =>
-            option.set === setName && this._isCraftableOptionInLevelRange(option, minLevel, maxLevel)
+            option.set === setName && option.isWithinMaxLevel(maxLevel)
           )
         );
         if (craftableForSet) {
@@ -1002,7 +1002,6 @@ export class GearDbService {
 
   findAugmentsWithAffixAndType(affixName: string, bonusType: string): Array<Craftable> {
     let results: Craftable[] = [];
-    const minLevel = this.currentItemFilters.levelRange[0];
     const maxLevel = this.currentItemFilters.levelRange[1];
     const augmentTypes = Array.from(this.craftingList.keys()).filter(isAugmentSystemName);
     for (const augmentType of augmentTypes) {
@@ -1014,7 +1013,7 @@ export class GearDbService {
 
       // Filter the augments to only those that have the affix and type we are looking for
       let filteredAugments = augments.filter(aug =>
-        this._isCraftableOptionInLevelRange(aug, minLevel, maxLevel) &&
+        aug.isWithinMaxLevel(maxLevel) &&
         aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)
       ) as CraftableOption[];
 

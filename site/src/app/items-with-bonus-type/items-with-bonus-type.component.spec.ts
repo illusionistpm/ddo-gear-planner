@@ -258,6 +258,34 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(gearMap.get(equippedItem)!.map(c => c.name)).toEqual(['T2 (Equipment)']);
     expect(component.craftOptionMatchValue(keys[0])).toBe(7);
   });
+
+  it('offers crafting tiers up to the maximum level, however far below the minimum', () => {
+    component.affixName = 'Disable Device';
+    component.bonusType = 'Insight';
+
+    const openTier = new Craftable('T2 (Equipment)', [
+      new CraftableOption({ ml: 5, affixes: [{ name: 'Disable Device', type: 'Insight', value: 7 }] }),
+      new CraftableOption({ ml: 30, affixes: [{ name: 'Disable Device', type: 'Insight', value: 9 }] }),
+    ]);
+    const necklace = new Item(null);
+    necklace.name = 'Legendary Green Steel Necklace';
+    necklace.slot = 'Neck';
+    necklace.crafting = [openTier];
+
+    vi.spyOn(component.gearDB, 'getMaxLevelFilter').mockReturnValue(20);
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set());
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map());
+    vi.spyOn(component.equipped, 'getSlotsSnapshot').mockReturnValue(new Map([['Neck', necklace]]));
+
+    (component as any).refreshMatches();
+
+    const keys = Array.from(component.craftIntoEquippedGear.keys());
+    expect(keys.map(key => component.craftOptionMatchValue(key))).toEqual([7]);
+  });
 });
 
 // Drives the item-preview carousel through the rendered DOM, so these tests

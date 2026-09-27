@@ -5,6 +5,13 @@ describe('CraftableOption', () => {
     expect(new CraftableOption(null)).toBeTruthy();
   });
 
+  it('is within a maximum level at or above its ML, however low its ML is', () => {
+    expect(new CraftableOption({ ml: 1 }).isWithinMaxLevel(20)).toBe(true);
+    expect(new CraftableOption({ ml: 20 }).isWithinMaxLevel(20)).toBe(true);
+    expect(new CraftableOption({ ml: 21 }).isWithinMaxLevel(20)).toBe(false);
+    expect(new CraftableOption({}).isWithinMaxLevel(1)).toBe(true);
+  });
+
   it('describes compound affix options', () => {
     const option = new CraftableOption({
       affixes: [

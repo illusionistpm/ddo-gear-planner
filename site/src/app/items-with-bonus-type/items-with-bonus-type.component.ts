@@ -253,6 +253,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     // fills open augment slots on equipped gear; this does the same for plain
     // option-list crafting tiers (Legendary Green Steel T1/T2/T3, etc.) so a
     // partly-crafted piece still offers its remaining tiers.
+    const maxLevel = this.gearDB.getMaxLevelFilter();
     for (const item of this.equipped.getSlotsSnapshot().values()) {
       if (!item || !item.crafting) {
         continue;
@@ -267,6 +268,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
 
         for (const option of craftable.options) {
+          if (!option.isWithinMaxLevel(maxLevel)) {
+            continue;
+          }
           if (option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) == null) {
             continue;
           }

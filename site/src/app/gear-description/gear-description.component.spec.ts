@@ -8,6 +8,7 @@ import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { Affix } from '../affixes/affix';
 import { EquippedService } from '../planner/equipped.service';
+import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 
@@ -79,6 +80,75 @@ describe('GearDescriptionComponent', () => {
 
     expect(item.getCraftingByName('Augment Slot 2')?.selectedCraftingSystemName).toBe('');
     expect(component.craftingRows.map(row => row.craft.name)).toEqual(['Augment Slot 1']);
+  });
+
+  describe('crafting options with minimum levels', () => {
+    let filters: FiltersService;
+
+    beforeEach(() => {
+      filters = TestBed.inject(FiltersService);
+      filters.setLevelRange(15, 20);
+    });
+
+    function showItem(item: Item) {
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    /** The option names the item's crafting select offers, once focused as a user would. */
+    function offeredOptions(): string[] {
+      const select = Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
+        .find(element => element.closest('.row')?.textContent?.includes('Colorless Augment Slot'));
+      expect(select).toBeTruthy();
+      select!.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(Boolean);
+    }
+
+    it('offers options up to the maximum level, however far below the minimum', () => {
+      showItem(makeItemWithLeveledOptions());
+
+      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
+    });
+
+    it('still offers the chosen option when it is above the maximum level', () => {
+      const item = makeItemWithLeveledOptions();
+      const craft = item.crafting[0];
+      craft.selected = craft.options.find(option => option.name === 'High Augment')!;
+      showItem(item);
+
+      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
+    });
+
+    it('lists options up to the maximum level in the picker, however far below the minimum', async () => {
+      showItem(makeItemWithLongCraftingList());
+      (fixture.nativeElement.querySelector('.crafting-picker-toggle') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
+
+      const familyNames = Array.from(document.body.querySelectorAll('.crafting-picker-family'))
+        .map(button => button.textContent ?? '');
+      expect(familyNames.some(name => name.includes('Quickblade set'))).toBe(false);
+
+      Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family'))
+        .find(button => button.querySelector('.crafting-picker-family-name')?.textContent?.trim() === 'Charisma')!
+        .click();
+      fixture.detectChanges();
+      const tierLabels = Array.from(document.body.querySelectorAll('.crafting-picker-tier .crafting-picker-entry-label'))
+        .map(label => label.textContent?.trim());
+      expect(tierLabels).toEqual(['+1 (ML 1)', '+3 (ML 5)', '+5 (ML 9)', '+7 (ML 13)', '+9 (ML 17)']);
+    });
+
+    it('offers the options again when the maximum level is raised', () => {
+      showItem(makeItemWithLeveledOptions());
+      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
+
+      filters.setLevelRange(15, 30);
+      fixture.detectChanges();
+
+      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
+    });
   });
 
   describe('choosing an option from a long crafting list', () => {
@@ -281,6 +351,21 @@ async function chooseCraftingOption(fixture: ComponentFixture<GearDescriptionCom
   expect(tier).toBeTruthy();
   tier!.click();
   fixture.detectChanges();
+}
+
+/** An item with a short list of augments, one below the level range, one inside it and one above it. */
+function makeItemWithLeveledOptions() {
+  const options = [
+    new CraftableOption({ name: 'Low Augment', ml: 5, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),
+    new CraftableOption({ name: 'Mid Augment', ml: 20, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 5 }] }),
+    new CraftableOption({ name: 'High Augment', ml: 30, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 9 }] }),
+  ];
+  const item = new Item(null);
+  item.name = 'Test Ring';
+  item.slot = 'Ring';
+  item.ml = 18;
+  item.crafting = [new Craftable('Colorless Augment Slot', options)];
+  return item;
 }
 
 /** An item with one augment slot offering more than a screenful of options, several of them tiers of one augment. */

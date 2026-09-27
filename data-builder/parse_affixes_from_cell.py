@@ -433,6 +433,30 @@ def strip_charges(name):
     return newName.strip() + " clicky" if newName != name else name
 
 
+AUGMENT_UPGRADE_PATTERN = re.compile(r'^(Upgradeable - (?:Primary|Secondary) Augment)')
+AUGMENT_SLOT_PATTERN = re.compile(r'^([A-Za-z]+) Augment Slot$')
+
+
+def parse_augment_upgrade(tag, primary_tooltip_text):
+    """
+    Necropolis 4 / Vol raid items: "Upgradeable - Primary Augment (Yellow Augment
+    Slot or Blue Augment Slot)" is one slot that can become any one of those
+    colours, not a slot of each. Returns the upgrade with its colour choices in
+    'augmentColors', which parse_items lifts onto the item.
+    """
+    search = AUGMENT_UPGRADE_PATTERN.search(primary_tooltip_text or '')
+    if not search:
+        return None
+
+    colors = []
+    for span in get_has_tooltip_spans(tag)[1:]:
+        slot = AUGMENT_SLOT_PATTERN.search(cleanup_whitespace(get_text_map_from_tooltip_span(span)['text']))
+        if slot:
+            colors.append(slot.group(1))
+
+    return {'name': search.group(1), 'type': 'Bool', 'value': 1, 'augmentColors': colors}
+
+
 def strip_necro4_upgrades(name):
     search = re.search(r'^(Upgradeable - [A-Za-z]+ Augment)', name)
     if search:
@@ -607,6 +631,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
                     craftingSystems[keyName][itemName] = discoveredCraftingSystem[keyName]
 
     primary_tooltip_text = get_primary_tooltip_text(tag)
+    augment_upgrade = parse_augment_upgrade(tag, primary_tooltip_text)
+    if augment_upgrade:
+        return add_affix_provenance(augment_upgrade, source_text, '', 'translate_list_tag_to_affix_map:augment-upgrade')
+
     if primary_tooltip_text in craftingSystems and '*' in craftingSystems[primary_tooltip_text]:
         aff['name'] = primary_tooltip_text
         return aff

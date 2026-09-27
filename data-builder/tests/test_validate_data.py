@@ -1,4 +1,4 @@
-from validate_data import audit_items, audit_seal_upgrades
+from validate_data import audit_augment_upgrades, audit_items, audit_seal_upgrades
 
 
 def test_audit_items_detects_unknown_type_and_missing_numeric_value():
@@ -76,3 +76,25 @@ def test_audit_seal_upgrades_flags_upgradeable_items_without_extracted_upgrade()
     issues = audit_seal_upgrades(items, crafting)
 
     assert [(issue['category'], issue['item']) for issue in issues] == [('missing-seal-upgrade', 'New Raid Hat')]
+
+
+def test_audit_augment_upgrades_flags_upgrade_slots_without_colours():
+    items = [
+        {
+            'name': 'Epic Deific Diadem',
+            'crafting': ['Upgradeable - Primary Augment', 'Upgradeable - Secondary Augment'],
+            'augmentUpgrades': {'Upgradeable - Primary Augment': ['Yellow', 'Blue'], 'Upgradeable - Secondary Augment': ['Green']},
+        },
+        {
+            'name': 'Broken Trinket',
+            'crafting': ['Upgradeable - Primary Augment', 'Upgradeable - Secondary Augment'],
+            'augmentUpgrades': {'Upgradeable - Primary Augment': []},
+        },
+    ]
+
+    issues = audit_augment_upgrades(items)
+
+    assert [(issue['item'], issue['affix']) for issue in issues] == [
+        ('Broken Trinket', 'Upgradeable - Primary Augment'),
+        ('Broken Trinket', 'Upgradeable - Secondary Augment'),
+    ]

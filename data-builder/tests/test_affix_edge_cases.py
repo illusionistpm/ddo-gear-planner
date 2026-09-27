@@ -344,3 +344,36 @@ def test_known_tooltip_crafting_system_ignores_embedded_effect_options(system_na
     )
 
     assert aff == {'name': system_name}
+
+
+def augment_upgrade_li(upgrade, colors):
+    """The wiki's markup for an "Upgradeable - <upgrade> Augment" entry, trimmed to its structure."""
+    slots = ' or '.join(
+        f'<span class="popup has_tooltip with-icon augment {color.lower()}"><span class="title">'
+        f'<a href="/page/Augment_Slot" title="Augment Slot">{color} Augment Slot</a></span>'
+        f'<span class="popup tooltip wide left below">{color} and Colorless</span></span>'
+        for color in colors
+    )
+    return BeautifulSoup(
+        f'<li><span class="popup has_tooltip with-icon basic">Upgradeable - {upgrade} Augment'
+        f'<span class="popup tooltip wide left below"><b>Upgradeable - {upgrade} Augment:</b> This item can be '
+        f'upgraded to contain a Yellow, Blue or Red (weapons and shields only) augment.</span></span> ({slots})</li>',
+        'html.parser',
+    ).li
+
+
+@pytest.mark.parametrize(
+    'upgrade,colors',
+    [
+        ('Primary', ['Yellow', 'Blue']),
+        ('Primary', ['Yellow', 'Blue', 'Red']),
+        ('Secondary', ['Green', 'Orange', 'Purple']),
+    ],
+)
+def test_augment_upgrade_is_one_slot_offering_each_listed_colour(upgrade, colors):
+    # The upgrade systems are known crafting systems, which must not short-circuit the colours away.
+    crafting_systems = {f'Upgradeable - {upgrade} Augment': {'*': []}, 'Blue Augment Slot': {'*': []}}
+
+    aff = translate_list_tag_to_affix_map('Epic Test Item', augment_upgrade_li(upgrade, colors), {}, get_fake_bonuses(), 26, crafting_systems, {})
+
+    assert aff == {'name': f'Upgradeable - {upgrade} Augment', 'type': 'Bool', 'value': 1, 'augmentColors': colors}

@@ -457,6 +457,9 @@ def get_items_from_page(
                     ):
                     affix['name'] = affix['name'] + ' (artifact)'
 
+                if 'augmentColors' in affix:
+                    item.setdefault('augmentUpgrades', {})[affix['name']] = affix.pop('augmentColors')
+
                 assert 'crafting' in item
                 item['crafting'].append(affix['name'])
                 specialize_nearly_complete_crafting_for_item(craftingSystems, affix['name'], item)

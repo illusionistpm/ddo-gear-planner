@@ -179,6 +179,21 @@ def audit_seal_upgrades(items: list[dict[str, Any]], crafting: dict[str, Any]) -
     ]
 
 
+AUGMENT_UPGRADE_SYSTEMS = ('Upgradeable - Primary Augment', 'Upgradeable - Secondary Augment')
+
+
+def audit_augment_upgrades(items: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """An augment upgrade slot with no colours to choose from can't hold anything."""
+    return [
+        _issue('augment-upgrade-without-colors', 'error', item, {'name': system_name},
+               'no colours parsed for this upgrade slot')
+        for item in items
+        for system_name in AUGMENT_UPGRADE_SYSTEMS
+        if system_name in (item.get('crafting') or [])
+        and not (item.get('augmentUpgrades') or {}).get(system_name)
+    ]
+
+
 def write_report(issues: list[dict[str, str]], report_basename: str | None = None) -> None:
     os.makedirs(REPORT_OUTPUT_PATH, exist_ok=True)
     base = report_basename or 'validation_report'
@@ -209,7 +224,7 @@ def audit_generated_assets(report_basename: str | None = None) -> list[str]:
             'sourceTooltip': '',
         }]
     else:
-        issues = audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {})
+        issues = audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {}) + audit_augment_upgrades(items)
 
     write_report(issues, report_basename)
     return [f"{issue['severity'].upper()} {issue['category']}: Item '{issue['item']}' affix '{issue['affix']}': {issue['issue']}" for issue in issues]

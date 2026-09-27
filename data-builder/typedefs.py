@@ -13,6 +13,8 @@ class Affix(TypedDict):
     sourceText: NotRequired[str]
     sourceTooltip: NotRequired[str]
     parserSource: NotRequired[str]
+    # An "Upgradeable - Primary/Secondary Augment" upgrade's colour choices, until parse_items lifts them onto the item.
+    augmentColors: NotRequired[list[str]]
 
 class CompoundAffixValue(TypedDict, total=False):
     mode: Literal["same_as_affix_number", "fixed", "boolean_one"]
@@ -58,6 +60,8 @@ class Item(TypedDict):
     set: NotRequired[str]
     sets: NotRequired[list]
     crafting: NotRequired[list]
+    # Upgrade crafting system -> the augment colours it can become, e.g. {"Upgradeable - Primary Augment": ["Yellow", "Blue"]}.
+    augmentUpgrades: NotRequired[dict[str, list[str]]]
 
 class SetAugment(TypedDict):
     name: str

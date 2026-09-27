@@ -18,6 +18,16 @@ def add_sealed_in_fire_crafting(item_crafting: dict[str, SystemDict]) -> None:
         item_crafting['Sealed in Fire'] = deepcopy(item_crafting['Sealed in Mist'])
 
 
+# Each item's colour choices for these live on the item, as 'augmentUpgrades'.
+AUGMENT_UPGRADE_SYSTEMS = ['Upgradeable - Primary Augment', 'Upgradeable - Secondary Augment']
+
+
+def add_augment_upgrade_systems(crafting: dict[str, SystemDict]) -> None:
+    """Known system names are what parse_items moves from an item's affixes into its crafting."""
+    for system_name in AUGMENT_UPGRADE_SYSTEMS:
+        crafting[system_name] = {'*': []}
+
+
 def build_crafting() -> None:
     synonymMap = get_inverted_synonym_map()
 
@@ -36,6 +46,7 @@ def build_crafting() -> None:
     combined.update(nearly_complete)
     combined.update(slavers)
     combined.update(item_crafting)
+    add_augment_upgrade_systems(combined)
 
     # loop through all Crafting map entries to identify effect names that need to be transformed
     for CraftingSystemName, CraftingSystemMap in combined.items():

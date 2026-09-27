@@ -165,7 +165,7 @@ describe('EffectsTableComponent', () => {
     vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue(['Equipment', 'Insight', 'Quality']);
 
     expect(component.getVisibleTypes('Strength')).toEqual([]);
-    expect(component.getUnavailableTypes('Strength')).toEqual(['Equipment', 'Insight', 'Quality']);
+    expect(component.getUnavailableTypes('Strength').map(type => type.label)).toEqual(['Equipment', 'Insight', 'Quality']);
   });
 
   it('keeps zero-value bonus type buttons when filtered gear can provide that type', () => {
@@ -185,7 +185,7 @@ describe('EffectsTableComponent', () => {
         sourceBonusType: 'Equipment',
       },
     ]);
-    expect(component.getUnavailableTypes('Strength')).toEqual(['Insight']);
+    expect(component.getUnavailableTypes('Strength').map(type => type.label)).toEqual(['Insight']);
     expect(component.isBonusTypeUnavailableAtCurrentLevelRange('Strength', { bonusType: 'Equipment', value: 0 })).toBe(false);
   });
 
@@ -411,6 +411,7 @@ describe('EffectsTableComponent', () => {
       valueClass: '',
       eliminated: false,
       ignored: false,
+      unavailable: false,
       tooltip: '',
     })).toBe('Universal Spell Power\0Implement');
   });

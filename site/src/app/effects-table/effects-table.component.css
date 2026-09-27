@@ -196,8 +196,7 @@
 
 .tracked-affix-chips {
     display: flex;
-    /* Zero basis so the chips fill the rest of the row instead of wrapping under the summary;
-       only the full-width unavailable-types line starts a new row. */
+    /* Zero basis so the chips fill the rest of the row instead of wrapping under the summary. */
     flex: 1 1 0;
     flex-wrap: wrap;
     gap: var(--space-4);
@@ -337,15 +336,6 @@
     transform: rotate(0deg);
 }
 
-.tracked-affix-unavailable-types {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    flex-basis: 100%;
-    line-height: 1.25;
-    margin-left: calc(var(--tracked-affix-summary-width) + 0.5rem);
-    padding: 0 var(--space-4);
-}
-
 @media (max-width: 767.98px) {
     /*
      * Below this width the progress bar reads as a sliver too thin to convey
@@ -379,15 +369,20 @@
     --tracked-affix-accent-soft: rgba(var(--primary-color-rgb), 0.1);
 }
 
-/* A bonus type whose every candidate slot is now filled — ruled out by gear. */
-.tracked-bonus-chip.bonus-eliminated {
+/*
+ * A bonus type whose every candidate slot is now filled — ruled out by gear —
+ * or that no gear in the current level range has at all.
+ */
+.tracked-bonus-chip.bonus-eliminated,
+.tracked-bonus-chip.bonus-unavailable {
     opacity: 0.55;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }
 
 .tracked-bonus-chip.bonus-eliminated:hover,
-.tracked-bonus-chip.bonus-eliminated:focus {
+.tracked-bonus-chip.bonus-eliminated:focus,
+.tracked-bonus-chip.bonus-unavailable:hover {
     border-color: var(--chip-border-color);
     box-shadow: none;
 }

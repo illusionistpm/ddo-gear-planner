@@ -13,6 +13,8 @@
         [class.no-value]="!chip.currentValue"
         [class.bonus-eliminated]="chip.eliminated"
         [class.bonus-ignored]="chip.ignored"
+        [class.bonus-unavailable]="chip.unavailable"
+        [disabled]="chip.unavailable"
         [ngClass]="chip.valueClass"
         [title]="chip.tooltip"
         [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
@@ -133,9 +135,6 @@
                     <ng-container *ngFor="let chip of chipsFor(affixName); trackBy: trackChip">
                         <ng-container *ngTemplateOutlet="bonusChip; context: { $implicit: chip }"></ng-container>
                     </ng-container>
-                </div>
-                <div class="tracked-affix-unavailable-types" *ngIf="getUnavailableTypes(affixName).length">
-                    Filtered types: {{getUnavailableTypes(affixName).join(', ')}}
                 </div>
             </div>
         </div>

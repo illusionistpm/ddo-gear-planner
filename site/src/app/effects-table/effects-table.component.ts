@@ -36,6 +36,8 @@ interface TrackedChip {
   valueClass: string;
   eliminated: boolean;
   ignored: boolean;
+  /** Filtered out by the level range: shown disabled, so the row still lists every type. */
+  unavailable: boolean;
   tooltip: string;
 }
 
@@ -288,7 +290,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       const affixBuilds = this.getVisibleTypes(affixName)
         .map(type => this.buildChip(affixName, type, remainingFor));
       builds.set(affixName, affixBuilds);
-      chipsByAffix.set(affixName, affixBuilds.map(build => build.chip));
+      // Filtered-out types sit in the same list, in the same order, as the rest.
+      chipsByAffix.set(affixName, sortBonusTypes([
+        ...affixBuilds.map(build => build.chip),
+        ...this.getUnavailableTypes(affixName).map(type => this.buildUnavailableChip(type))
+      ]));
     }
 
     const checklistChips = new Map<string, ChecklistChip>();
@@ -337,10 +343,26 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         valueClass: type.value ? this.getClassForValue(affixName, type) : '',
         eliminated: availability?.eliminated ?? false,
         ignored,
+        unavailable: false,
         tooltip: this.getChipTooltip(affixName, type, availability)
       },
       sufficient,
       availability
+    };
+  }
+
+  private buildUnavailableChip(type: TrackedBonusTypeDisplay): TrackedChip {
+    return {
+      sourceAffixName: type.sourceAffixName,
+      bonusType: type.sourceBonusType,
+      label: this.getBonusTypeLabel(type),
+      currentValue: 0,
+      maxValue: 0,
+      valueClass: '',
+      eliminated: false,
+      ignored: false,
+      unavailable: true,
+      tooltip: 'No gear with this bonus type is available in the current level range.'
     };
   }
 
@@ -440,6 +462,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         valueClass: '',
         eliminated: checklist.eliminated,
         ignored: checklist.ignored,
+        unavailable: false,
         tooltip: checklist.tooltip
       };
       if (chip.ignored) {
@@ -502,23 +525,28 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.derivation.getVisibleTypes(this.affixMap, affixName);
   }
 
-  getUnavailableTypes(affixName: string) {
+  /** Bonus types the affix has at some level, but not from any gear in the current level range. */
+  getUnavailableTypes(affixName: string): TrackedBonusTypeDisplay[] {
     const currentTypesWithValue = new Set(
       this.getVisibleTypes(affixName)
         .filter(type => type.value)
         .map(type => affixTypeKey(type.sourceAffixName, type.sourceBonusType))
     );
 
+    const seen = new Set<string>();
     const unavailableTypes = this.derivation.getAllLevelDisplayTypes(affixName)
-      .filter(bonusType =>
-        bonusType.sourceBonusType !== 'Penalty' &&
-        !currentTypesWithValue.has(affixTypeKey(bonusType.sourceAffixName, bonusType.sourceBonusType)) &&
-        !this.isBonusTypeAvailable(affixName, bonusType)
-      )
-      .map(bonusType => bonusType.label);
+      .filter(bonusType => {
+        const key = affixTypeKey(bonusType.sourceAffixName, bonusType.sourceBonusType);
+        if (seen.has(key)) {
+          return false;
+        }
+        seen.add(key);
+        return bonusType.sourceBonusType !== 'Penalty' &&
+          !currentTypesWithValue.has(key) &&
+          !this.isBonusTypeAvailable(affixName, bonusType);
+      });
 
-    return sortBonusTypes(unavailableTypes.map(bonusType => ({ bonusType, label: bonusType, value: 0 })))
-      .map(type => type.label || type.bonusType);
+    return sortBonusTypes(unavailableTypes);
   }
 
   getBonusTypeTooltip(affixName: string, type: TrackedBonusTypeRef): string {

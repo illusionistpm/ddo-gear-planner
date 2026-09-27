@@ -16,6 +16,7 @@ import { CoveredBonusType } from '../affixes/tracked-affix-derivation';
 import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { EffectsTableComponent } from './effects-table.component';
 
 describe('Tracked affix chips', () => {
@@ -228,6 +229,48 @@ describe('Tracked affix chips', () => {
       expect(chipText(chip('Checklist'))).toBe('Checklist');
       expect(modifiers(chip('Checklist'))).toEqual(['no-value']);
       expect(chip('Checklist').title).toBe(uncheckedTooltip);
+    });
+  });
+
+  describe('a bonus type no gear in the level range has', () => {
+    beforeEach(() => {
+      // Strength has Equipment at some level, but nothing in range carries it (best value 0).
+      vi.spyOn(TestBed.inject(GearDbService), 'getAllLevelTypesForAffix').mockImplementation(
+        (affixName: string) => affixName === 'Strength' ? ['Equipment'] : []);
+      coveredAffixes.next(covered);
+      fixture.detectChanges();
+    });
+
+    it('is a disabled, struck-through chip', () => {
+      expect(chipText(chip('Equipment'))).toBe('Equipment');
+      expect(modifiers(chip('Equipment'))).toEqual(['bonus-unavailable', 'no-value']);
+      expect((chip('Equipment') as HTMLButtonElement).disabled).toBe(true);
+      expect(chip('Equipment').title).toBe('No gear with this bonus type is available in the current level range.');
+      expect(fixture.nativeElement.textContent).not.toContain('Filtered types');
+    });
+
+    it('sits in the affix row in normal bonus-type order, not after the rest', () => {
+      const row = chip('Equipment').closest('.tracked-affix-chips') as HTMLElement;
+      const labels = (Array.from(row.querySelectorAll('.tracked-bonus-label')) as HTMLElement[])
+        .map(element => text(element).replace(/:$/, ''));
+      expect(labels).toEqual(['Equipment', 'Enhancement', 'Profane', 'Sacred', 'Insight', 'Quality', 'Exceptional']);
+    });
+
+    it('does not open suggestions when clicked', () => {
+      const open = vi.spyOn(TestBed.inject(SuggestionDrawerService), 'openBonusType').mockReturnValue(undefined);
+
+      chip('Equipment').click();
+
+      expect(open).not.toHaveBeenCalled();
+    });
+
+    it('is left out of the scarcity view, which groups types gear can still supply', () => {
+      equipped.setTrackedAffixGroupMode('slots');
+      fixture.detectChanges();
+
+      const labels = (Array.from(fixture.nativeElement.querySelectorAll('.tracked-bonus-label')) as HTMLElement[])
+        .map(element => text(element));
+      expect(labels).not.toContain('Equipment');
     });
   });
 

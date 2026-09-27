@@ -72,7 +72,7 @@
                 @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
                   @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
                     <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
-                      [ngClass]="affixUi.getClassForAffix(option.affixes[0])"
+                      [ngClass]="getAugmentClass(option)"
                       [title]="innerElem.key.name + ' - ' + entry.craftable.name">
                       {{innerElem.key.name}} - {{entry.craftable.name}}
                     </option>

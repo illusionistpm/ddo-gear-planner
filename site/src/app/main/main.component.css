@@ -731,6 +731,35 @@ app-admin-link {
   }
 }
 
+/*
+ * One view at a time, swiped between (see PanelSwipeDirective). pan-y keeps
+ * vertical scrolling the browser's and hands horizontal drags to the
+ * directive. .planner-tab-panels' own overflow: hidden (above) clips the
+ * panel coming in.
+ */
+@media (max-width: 994.98px) {
+  .planner-tab-panels {
+    position: relative;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .planner-tab-panels.swiping .planner-tab-panel {
+    will-change: transform;
+  }
+
+  /* The panel coming in is still [hidden] until the swipe commits, and
+     Bootstrap's [hidden] rule is !important - see CLAUDE.md. */
+  .planner-tab-panel.swipe-peer {
+    display: block !important;
+    inset: 0;
+    position: absolute;
+  }
+
+  .planner-tab-panels.swipe-settling .planner-tab-panel {
+    transition: transform 0.2s ease-out;
+  }
+}
+
 @media (max-width: 575.98px) {
   .planner-filter-control {
     align-items: flex-start;

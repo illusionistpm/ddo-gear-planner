@@ -31,6 +31,44 @@
     flex: 0 0 auto;
     gap: var(--space-2);
     padding: var(--space-2);
+    /* The thumb's containing block, and the buttons' offsetParent it is measured against. */
+    position: relative;
+}
+
+/*
+ * The active highlight: one thumb sliding between the buttons rather than a
+ * background on whichever is active, so it can follow a swipe (see
+ * measureViewSwitch). --planner-swipe-progress is 0 at Equipment and 1 at
+ * Tracked Affixes, and only set while a swipe is under way.
+ */
+.planner-view-thumb {
+    --planner-view-progress: var(--planner-swipe-progress, var(--planner-view-index));
+    background: var(--primary-color);
+    border-radius: 999px;
+    bottom: var(--space-2);
+    display: none;
+    left: calc(var(--planner-view-0-left)
+        + (var(--planner-view-1-left) - var(--planner-view-0-left)) * var(--planner-view-progress));
+    position: absolute;
+    top: var(--space-2);
+    transition: left 0.2s ease-out, width 0.2s ease-out;
+    width: calc(var(--planner-view-0-width)
+        + (var(--planner-view-1-width) - var(--planner-view-0-width)) * var(--planner-view-progress));
+}
+
+.planner-view-switch.thumb-ready .planner-view-thumb {
+    display: block;
+}
+
+/* Mid-swipe the thumb tracks the finger; a transition would make it lag. */
+:host-context(.planner-swiping) .planner-view-thumb {
+    transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .planner-view-thumb {
+        transition: none;
+    }
 }
 
 .planner-view-option {
@@ -43,6 +81,8 @@
     font-weight: 700;
     line-height: 1.2;
     padding: var(--space-4) var(--space-12);
+    /* Paints above the thumb, which comes first in the markup. */
+    position: relative;
     white-space: nowrap;
 }
 
@@ -57,8 +97,12 @@
 }
 
 .planner-view-option.active {
-    background: var(--primary-color);
     color: var(--on-accent-text-color);
+}
+
+/* Until the thumb has been measured (or where it never is), the button carries it. */
+.planner-view-switch:not(.thumb-ready) .planner-view-option.active {
+    background: var(--primary-color);
 }
 
 .planner-view-option.active:hover,

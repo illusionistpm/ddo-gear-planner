@@ -1,9 +1,11 @@
 import {
   getStoredActiveTab,
   getStoredCollapsedTrackedAffixGroups,
+  getStoredHideIrrelevantCraftingOptions,
   getStoredTrackedAffixGroupMode,
   storeActiveTab,
   storeCollapsedTrackedAffixGroups,
+  storeHideIrrelevantCraftingOptions,
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 
@@ -11,7 +13,8 @@ describe('planner-view-state-storage', () => {
   const keys = [
     'ddo-gear-planner-active-tab',
     'ddo-gear-planner-tracked-affix-group-mode',
-    'ddo-gear-planner-tracked-affix-collapsed'
+    'ddo-gear-planner-tracked-affix-collapsed',
+    'ddo-gear-planner-hide-irrelevant-crafting-options'
   ];
 
   beforeEach(() => {
@@ -24,6 +27,17 @@ describe('planner-view-state-storage', () => {
     for (const key of keys) {
       localStorage.removeItem(key);
     }
+  });
+
+  it('hides irrelevant crafting options when nothing is stored', () => {
+    expect(getStoredHideIrrelevantCraftingOptions()).toBe(true);
+  });
+
+  it('round-trips hiding irrelevant crafting options', () => {
+    storeHideIrrelevantCraftingOptions(false);
+    expect(getStoredHideIrrelevantCraftingOptions()).toBe(false);
+    storeHideIrrelevantCraftingOptions(true);
+    expect(getStoredHideIrrelevantCraftingOptions()).toBe(true);
   });
 
   it('defaults active tab to equipment when nothing is stored', () => {

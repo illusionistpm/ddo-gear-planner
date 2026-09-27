@@ -4,8 +4,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetection
 import { EquippedService } from '../planner/equipped.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { AffixService } from '../affixes/affix.service';
-import { AffixUiService } from '../affixes/affix-ui.service';
-
+import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
 import { Item } from '../gear/item';
@@ -15,6 +14,7 @@ import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../sh
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
+import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
 
 interface AffixDisplayRow {
@@ -36,6 +36,7 @@ interface CraftingOptionDisplayRow {
 
 interface CraftingDisplayRow {
   craft: Craftable;
+  context: CraftingOptionContext;
   className: string;
   tooltip: string;
   important: boolean;
@@ -72,6 +73,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   affixRows: AffixDisplayRow[] = [];
   craftingRows: CraftingDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
+  readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
   private subscriptions = new Subscription();
   private rankedCraftingOptions = new WeakSet<Craftable>();
   private loadedCraftingOptions = new WeakSet<Craftable>();
@@ -158,12 +160,14 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return [];
     }
 
+    // Ranked as if this item were equipped in its slot - which, for the equipped item, it is.
+    const candidate = this.affixUi.candidateFor(this.curItem);
     const rows = this.curItem.affixes.map(affix => {
       const affixGroup = this.affixSvc.isAffixGroup(affix);
       return {
         affix,
-        className: this.affixUi.getClassForAffix(affix),
-        tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot),
+        className: this.affixUi.getClassForAffix(affix, undefined, candidate),
+        tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot, candidate),
         important: this.equipped.isImportantAffix(affix.name),
         affixGroup,
         groupTooltip: affixGroup ? this.affixUi.getAffixGroupTooltip(affix) : '',
@@ -181,13 +185,16 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       return [];
     }
 
-    const rows = this.curItem.crafting.filter(craft => this.shouldShowCraftingRow(craft)).map(craft => {
+    const item = this.curItem;
+    const candidate = this.affixUi.candidateFor(item);
+    const rows = item.crafting.filter(craft => this.shouldShowCraftingRow(craft)).map(craft => {
       const selectedAffix = craft.selected?.affixes?.[0];
       const selectedAffixGroup = selectedAffix ? this.affixSvc.isAffixGroup(selectedAffix) : false;
       return {
         craft,
-        className: this.affixUi.getClassForCraftable(craft),
-        tooltip: selectedAffix ? this.affixUi.getAffixTooltip(selectedAffix, craft.selected, this.curItem?.slot) : '',
+        context: { item, craft },
+        className: this.affixUi.getClassForCraftable(craft, candidate),
+        tooltip: this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate),
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedAffixGroup,
         selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
@@ -233,14 +240,13 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
     const options = includeAllOptions ? (craft.options || []) : [craft.selected];
     const rows = options.map(option => {
-      const rankingTooltip = includeRank && option.affixes?.[0]
-        ? this.affixUi.getAffixTooltip(option.affixes[0], option, this.curItem?.slot)
-        : '';
-      const optionTooltip = this.affixUi.getCraftingOptionTooltip(option);
+      const ranking = includeRank && this.curItem
+        ? this.affixUi.rankCraftingOption(option, this.curItem.slot, false, { item: this.curItem, craft })
+        : null;
       return {
         option,
-        className: includeRank ? this.affixUi.getClassForCraftingOption(option) : undefined,
-        tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n') || undefined,
+        className: ranking?.className,
+        tooltip: (ranking ? ranking.tooltip : this.affixUi.getCraftingOptionTooltip(option)) || undefined,
         description: option.describe()
       };
     });
@@ -277,6 +283,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     this.changeDetector.markForCheck();
     done();
     perfAfterFrames('paint after crafting option change');
+  }
+
+  chooseCraftingOption(row: CraftingDisplayRow, option: CraftableOption) {
+    row.craft.selected = option;
+    this.updateItem();
   }
 
   updateCraftingSystem(row: CraftingDisplayRow) {

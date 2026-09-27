@@ -79,6 +79,11 @@ export class Item {
         }
     }
 
+    /** The sets the item belongs to on its own, which a set augment replaces (see getSets). */
+    getOwnSets(): string[] {
+        return this.sets?.slice() ?? [];
+    }
+
     hasTypeAttribute(attribute: string) {
         return !!this.type && (itemTypes[this.type]?.attributes || []).includes(attribute);
     }

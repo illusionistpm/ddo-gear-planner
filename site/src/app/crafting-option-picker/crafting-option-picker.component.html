@@ -1,0 +1,72 @@
+<div class="crafting-picker">
+  <div ngbDropdown class="crafting-picker-dropdown" container="body" dropdownClass="crafting-picker-container" autoClose="outside"
+      [display]="useStaticMenu ? 'static' : 'dynamic'" placement="bottom-start bottom-end top-start top-end"
+      (openChange)="onOpenChange($event)">
+    <button #toggle type="button" ngbDropdownToggle
+        class="form-control SmallFont border border-secondary crafting-picker-toggle"
+        [attr.aria-label]="selectedLabel ? 'Choose option: ' + selectedLabel : 'Choose option'">
+      <span class="crafting-picker-toggle-label" [ngClass]="className">{{selectedLabel}}</span>
+    </button>
+    <div #menu ngbDropdownMenu class="crafting-picker-menu">
+      @if (isOpen) {
+        <input #searchBox type="search" class="form-control form-control-sm crafting-picker-search"
+            placeholder="Search options" aria-label="Search options"
+            role="combobox" aria-expanded="true" [attr.aria-controls]="id + '-list'"
+            [attr.aria-activedescendant]="entries.length ? entryId(activeIndex) : null"
+            [ngModel]="search" (ngModelChange)="onSearchChange($event)" (keydown)="onSearchKeydown($event)" />
+        <label class="crafting-picker-hide">
+          <input type="checkbox" [ngModel]="hideIrrelevant" (ngModelChange)="onHideIrrelevantChange($event)" />
+          Hide options that don't help{{hiddenCount ? ' (' + hiddenCount + ')' : ''}}
+        </label>
+        <div #list class="crafting-picker-list" role="listbox" aria-label="Options" [id]="id + '-list'">
+          @for (entry of entries; track entry.tier ? entry.tier.option : entry.family.key; let i = $index) {
+            @if (entry.tier; as tier) {
+              <button type="button" role="option" class="crafting-picker-entry crafting-picker-tier" [id]="entryId(i)"
+                  [class.active]="i === activeIndex" [class.selected]="tier.option === selected"
+                  [attr.aria-selected]="tier.option === selected" [title]="tier.tooltip"
+                  (click)="pickTier(tier)" (mouseenter)="activeIndex = i">
+                <span class="crafting-picker-entry-label" [ngClass]="tier.className">{{tier.label}}</span>
+                @if (tier.name) {
+                  <span class="crafting-picker-entry-aside">{{tier.name}}</span>
+                }
+              </button>
+            } @else {
+              @let family = entry.family;
+              @let single = family.tiers.length === 1;
+              <button type="button" role="option" class="crafting-picker-entry crafting-picker-family" [id]="entryId(i)"
+                  [class.active]="i === activeIndex"
+                  [class.selected]="single && family === selectedFamily"
+                  [attr.aria-selected]="single && family === selectedFamily"
+                  [attr.aria-expanded]="single ? null : family === expandedFamily"
+                  [title]="single ? family.tiers[0].tooltip : ''"
+                  (click)="activateFamily(family)" (mouseenter)="activeIndex = i">
+                <span class="crafting-picker-entry-label">
+                  @if (!single) {
+                    <span class="crafting-picker-expander" [class.expanded]="family === expandedFamily" aria-hidden="true">&#8250;</span>
+                  }
+                  <span class="crafting-picker-family-name" [ngClass]="family.className">{{family.label || 'Empty'}}</span>
+                  @if (family.detail) {
+                    <span class="crafting-picker-entry-detail">{{family.detail}}</span>
+                  }
+                </span>
+                @if (family.aside) {
+                  <span class="crafting-picker-entry-aside" [class.crafting-picker-entry-note]="family.asideIsNote">{{family.aside}}</span>
+                }
+              </button>
+            }
+          } @empty {
+            <div class="crafting-picker-none">
+              @if (hiddenCount) {
+                <button type="button" class="btn btn-link btn-sm crafting-picker-show-hidden" (click)="onHideIrrelevantChange(false)">
+                  {{hiddenCount}} hidden {{hiddenCount === 1 ? 'match' : 'matches'}} - show them
+                </button>
+              } @else {
+                No matching options
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

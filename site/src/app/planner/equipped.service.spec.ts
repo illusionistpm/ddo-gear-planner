@@ -5,6 +5,11 @@ import { AffixAvailabilityService } from '../affixes/affix-availability.service'
 import { Item } from '../gear/item';
 import { QueryParamsService } from '../build/query-params.service';
 import { FiltersService } from './filters.service';
+import { Affix } from '../affixes/affix';
+import { AffixRank } from '../affixes/affix-rank.enum';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { CraftableOption } from '../gear/craftable-option';
+import { Craftable } from '../gear/craftable';
 
 function makeParamsAdapter(record: Record<string, unknown>) {
   return {
@@ -449,6 +454,32 @@ describe('EquippedService', () => {
     });
   });
 
+  it('recomputes which equipped items can host an augment when the item filters change', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const filters = TestBed.inject(FiltersService);
+    const gearDb = (service as any).gearList;
+
+    // Which augments exist depends on the filtered gear: none at 33-36, one from level 1.
+    let minLevel = 1;
+    filters.getItemFilters().subscribe(f => (minLevel = f.levelRange[0]));
+    const augment = { name: 'Blue Augment Slot', options: [{}] };
+    vi.spyOn(gearDb, 'findAugmentsWithAffixAndType').mockImplementation(
+      () => (minLevel === 1 ? [augment] : []));
+
+    const ring = makeItem('Augment Ring', 'Ring1', 'Ring');
+    (ring as any).crafting = [{
+      name: 'Blue Augment Slot', selected: null,
+      hasCraftingSystemOptions: () => false, craftingSystemOptions: []
+    }];
+    service.set(ring);
+
+    filters.setLevelRange(33, 36);
+    expect(service.getSlotsWithOpenAugmentForAffixType('Heroic Inspiration', 'Bool').size).toBe(0);
+
+    filters.setLevelRange(1, 36);
+    expect(Array.from(service.getSlotsWithOpenAugmentForAffixType('Heroic Inspiration', 'Bool'))).toEqual(['Ring1']);
+  });
+
   it('reports set-granted affix-group bonuses on the tracked member affixes', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     const setName = 'Legendary Delight of the Devourer';
@@ -586,5 +617,153 @@ describe('EquippedService', () => {
     expect(tab).toBe('affixes');
     expect(state?.groupMode).toBe('slots');
     expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'set-only']);
+  });
+
+  describe('ranking as if equipped', () => {
+    const strength = (value: number) => new Affix({ name: 'Strength', type: 'Enhancement', value });
+    let service: EquippedService;
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      service.addImportantAffix('Strength');
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Enhancement', value: 5 }]));
+      service.set(makeItem('Gloves', 'Gloves', 'Gloves', [{ name: 'Strength', type: 'Enhancement', value: 3 }]));
+    });
+
+    it('ranks an augment that adds a value the build already has as tied', () => {
+      expect(service.getAffixRankingAsEquipped(strength(5), { slot: null, activeAffixes: [strength(5)], sets: [] }))
+        .toEqual({ rank: AffixRank.BestTied });
+    });
+
+    it('ranks an upgrade over the build as better than best', () => {
+      expect(service.getAffixRankingAsEquipped(strength(6), { slot: null, activeAffixes: [strength(6)], sets: [] }))
+        .toEqual({ rank: AffixRank.BetterThanBest });
+    });
+
+    it('leaves the replaced slot out, so an equal value from it is still the best', () => {
+      expect(service.getAffixRankingAsEquipped(strength(5), { slot: 'Belt', activeAffixes: [strength(5)], sets: [] }))
+        .toEqual({ rank: AffixRank.Best });
+    });
+
+    it('ranks a value below the one it replaces as a downgrade', () => {
+      expect(service.getAffixRankingAsEquipped(strength(4), { slot: 'Belt', activeAffixes: [strength(4)], sets: [] }))
+        .toEqual({ rank: AffixRank.Outranked, downgradeFrom: 5 });
+    });
+
+    it('counts the candidate\'s other affixes, so a stronger one of its own outranks it', () => {
+      expect(service.getAffixRankingAsEquipped(strength(6), { slot: 'Gloves', activeAffixes: [strength(6), strength(7)], sets: [] }))
+        .toEqual({ rank: AffixRank.Outranked });
+    });
+
+    it('matches today\'s ranking for the equipped item itself', () => {
+      expect(service.getAffixRankingAsEquipped(strength(3), { slot: 'Gloves', activeAffixes: [strength(3)], sets: [] }))
+        .toEqual({ rank: service.getAffixRanking(strength(3)) });
+    });
+  });
+
+  // Brutal Blows gives +3 Artifact Strength at three pieces.
+  describe('ranking a set augment as if chosen', () => {
+    const brutalBlows = new CraftableOption({ name: 'Set Augment: Brutal Blows', set: 'Brutal Blows' });
+    let service: EquippedService;
+    let affixUi: AffixUiService;
+
+    function withAugment(name: string, slot: string, selected: CraftableOption | null) {
+      const item = makeItem(name, slot, slot);
+      const craft = new Craftable('Colorless Augment Slot', [brutalBlows]);
+      craft.selected = selected ?? new CraftableOption({ name: '' });
+      item.crafting = [craft];
+      return { item, craft };
+    }
+
+    function rank(item: Item, craft: Craftable) {
+      return affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft }).className;
+    }
+
+    function tooltip(item: Item, craft: Craftable) {
+      return affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft }).tooltip;
+    }
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      affixUi = TestBed.inject(AffixUiService);
+      service.addImportantAffix('Strength');
+    });
+
+    it('is tied when another item already gives the set bonus\'s value', () => {
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Artifact', value: 3 }]));
+      const { item, craft } = withAugment('Gloves', 'Gloves', null);
+
+      expect(rank(item, craft)).toBe('BestTied');
+      expect(tooltip(item, craft)).toContain('Tied with Belt (Belt)');
+    });
+
+    it('is tied when the set is already complete without it', () => {
+      for (const slot of ['Belt', 'Boots', 'Cloak']) {
+        service.set(makeItem(slot, slot, slot, [], ['Brutal Blows']));
+      }
+      const { item, craft } = withAugment('Gloves', 'Gloves', null);
+
+      expect(rank(item, craft)).toBe('BestTied');
+      expect(tooltip(item, craft)).toContain('Tied with Brutal Blows set bonus');
+    });
+
+    it('is the best value when it is the piece that completes the set', () => {
+      for (const slot of ['Belt', 'Boots']) {
+        service.set(makeItem(slot, slot, slot, [], ['Brutal Blows']));
+      }
+      const { item, craft } = withAugment('Gloves', 'Gloves', brutalBlows);
+      service.set(item);
+
+      expect(rank(item, craft)).toBe('Best');
+      expect(affixUi.getClassForCraftable(craft, affixUi.candidateFor(item))).toBe('Best');
+    });
+
+    it('is an upgrade when nothing gives the bonus yet', () => {
+      const { item, craft } = withAugment('Gloves', 'Gloves', null);
+
+      expect(rank(item, craft)).toBe('BetterThanBest');
+    });
+  });
+
+  it('recounts set bonuses when a preview would replace a set piece', () => {
+    const service = TestBed.inject(EquippedService);
+    service.addImportantAffix('Strength');
+    for (const slot of ['Belt', 'Boots', 'Cloak']) {
+      service.set(makeItem(slot, slot, slot, [], ['Brutal Blows']));
+    }
+    const strength = new Affix({ name: 'Strength', type: 'Artifact', value: 3 });
+
+    // Replacing the cloak breaks the set, so the preview's +3 is the only one left.
+    expect(service.getAffixRankingAsEquipped(strength, { slot: 'Cloak', activeAffixes: [strength], sets: [] }))
+      .toEqual({ rank: AffixRank.Best });
+  });
+
+  describe('ranking a penalty', () => {
+    const penalty = new Affix({ name: 'Hide', type: 'Penalty', value: -6 });
+
+    it('ignores a penalty to an affix that is not tracked', () => {
+      const service = TestBed.inject(EquippedService);
+
+      expect(service.getAffixRanking(penalty)).toBe(AffixRank.Irrelevant);
+    });
+
+    it('ranks a penalty to a tracked affix as a penalty', () => {
+      const service = TestBed.inject(EquippedService);
+      service.addImportantAffix('Hide');
+
+      expect(service.getAffixRanking(penalty)).toBe(AffixRank.Penalty);
+    });
+
+    // Command groups several skills with a -6 Hide penalty; the penalty alone used to turn
+    // augments granting it red for builds tracking none of them.
+    it('does not rank an affix group as a penalty for an untracked penalty inside it', () => {
+      const service = TestBed.inject(EquippedService);
+      const command = new CraftableOption({ name: 'Brightbane Emerald', affixes: [{ name: 'Command', type: 'Insight', value: 4 }] });
+
+      expect(TestBed.inject(AffixUiService).getClassForCraftingOption(command)).toBe('Irrelevant');
+
+      service.addImportantAffix('Hide');
+      expect(TestBed.inject(AffixUiService).getClassForCraftingOption(command)).toBe('Penalty');
+    });
   });
 });

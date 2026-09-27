@@ -466,6 +466,86 @@ select.form-control {
   color: var(--text-primary);
 }
 
+/*
+ * Rank colours: the classes AffixUiService.getClassFor* return. Scoped to the views that
+ * show them in full - items-in-set and items-with-bonus-type apply the same class names with
+ * styling of their own, or none, so bare class selectors would change them. The picker's
+ * menu is listed by class because it lives in <body>, outside the component.
+ */
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .BetterThanBest {
+  font-weight: 700;
+  color: var(--rank-better-than-best-color);
+  text-shadow: var(--rank-better-than-best-glow);
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Best {
+  font-weight: 700;
+  color: var(--success-color);
+  text-shadow: var(--rank-best-glow);
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .BestTied {
+  font-weight: 700;
+  color: var(--primary-color);
+  text-shadow: var(--rank-best-tied-glow);
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Outranked {
+  font-weight: 600;
+  color: var(--warning-color);
+  opacity: 0.8;
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Irrelevant {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Penalty {
+  color: var(--danger-color);
+  font-weight: 600;
+  text-decoration: line-through;
+  text-decoration-color: rgba(var(--danger-color-rgb), 0.5);
+}
+
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Mixed {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--warning-color);
+}
+
+/*
+ * The gradient text needs `background` and a transparent text fill. On a <select> or
+ * <option> (the crafting dropdowns carry the rank class) that wipes the control's own
+ * background-color and chevron - so the native popup falls back to white in dark mode -
+ * and leaves the selected text unreadable. Form controls keep the solid colour above.
+ */
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Mixed:not(select, option) {
+  background: linear-gradient(45deg, var(--warning-color), var(--rank-mixed-gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/*
+ * The crafting option picker's menu lives in <body>, inside a wrapper ngbDropdown creates and
+ * styles inline (z-index 1055, below the drawers the picker can sit in), so it can only be
+ * reached from here, and only with !important. On phones the wrapper becomes a panel across
+ * the viewport; the menu inside it stays position: static, which ngbDropdown also sets inline.
+ */
+.crafting-picker-container {
+  z-index: 1300 !important;
+}
+
+@media (max-width: 575.98px) {
+  .crafting-picker-container {
+    position: fixed !important;
+    left: 16px !important;
+    right: 16px !important;
+    top: 10dvh !important;
+  }
+}
+
 .filter-popover.popover {
   z-index: 1200;
 }

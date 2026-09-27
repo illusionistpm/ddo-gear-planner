@@ -599,6 +599,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         tiers: this.gearList.getSetBonusThresholdDetails(pair[0], pair[1])
       });
     }
+    // Slot order would put a set wherever its first piece happens to be; the ones doing most go first.
+    visibleSetBonuses.sort((a, b) => b.pieces - a.pieces || a.setName.localeCompare(b.setName));
     this.activeSetBonuses.next(setToAffixes);
     this.visibleSetBonuses.next(visibleSetBonuses);
   }

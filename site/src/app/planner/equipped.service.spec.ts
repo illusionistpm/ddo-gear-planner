@@ -215,6 +215,19 @@ describe('EquippedService', () => {
     expect(service.getActiveSets().get('Devourer of Souls')).toBe(1);
   });
 
+  it('lists set bonuses by pieces equipped, then by name, whatever slots they are in', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    service.set(makeItem('Mid Belt', 'Belt', 'Belt', [], ['Mid Set']));
+    service.set(makeItem('Alpha Boots', 'Boots', 'Boots', [], ['Alpha Set']));
+    service.set(makeItem('Zulu Gloves', 'Gloves', 'Gloves', [], ['Zulu Set']));
+    service.set(makeItem('Zulu Goggles', 'Goggles', 'Goggles', [], ['Zulu Set']));
+
+    let setNames: string[] = [];
+    service.getVisibleSetBonusesObservable().subscribe(bonuses => setNames = bonuses.map(bonus => bonus.setName)).unsubscribe();
+
+    expect(setNames).toEqual(['Zulu Set', 'Alpha Set', 'Mid Set']);
+  });
+
   it('labels an empty slot "empty" in the shared text description, not "undefined"', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 

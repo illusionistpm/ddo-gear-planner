@@ -584,6 +584,31 @@ describe('EquippedService', () => {
     expect(params['craft_0_selected']).toBe('Red Augment Slot (empty)');
   });
 
+  it('restores augments that an old link put in a raid item\'s coloured augment slots', () => {
+    // Saved builds and shared links name the crafting system an augment went in.
+    // Epic Deific Diadem's upgrade slots were once modelled as plain Blue and Green
+    // Augment Slots, so those links must keep restoring the same augments.
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.updateFromParams(makeParamsAdapter({
+      Helm: 'Epic Deific Diadem',
+      craft_0_slot: 'Helm',
+      craft_0_system: 'Blue Augment Slot',
+      craft_0_selected: 'Golem\'s Heart',
+      craft_1_slot: 'Helm',
+      craft_1_system: 'Green Augment Slot',
+      craft_1_selected: 'Brightbane Emerald',
+    }));
+
+    const helm = service.getSlotsSnapshot().get('Helm');
+    const selectedAugments = (helm?.crafting ?? [])
+      .map(craftable => craftable.selected?.getParamDescription())
+      .filter(description => !!description);
+    expect(helm?.name).toBe('Epic Deific Diadem');
+    expect(selectedAugments).toContain('Golem\'s Heart');
+    expect(selectedAugments).toContain('Brightbane Emerald');
+  });
+
   it('does not persist planner view state to params - it lives in localStorage instead', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 

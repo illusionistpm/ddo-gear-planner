@@ -6,6 +6,7 @@ import { GearDescriptionComponent } from './gear-description.component';
 import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
+import { Affix } from '../affixes/affix';
 import { EquippedService } from '../planner/equipped.service';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
@@ -112,7 +113,70 @@ describe('GearDescriptionComponent', () => {
       expect(quickblade?.querySelector('.crafting-picker-entry-note')?.textContent?.trim()).toBe('1 of 3 set pieces');
     });
   });
+
+  describe('rank colours on an equipped item', () => {
+    let equipped: EquippedService;
+
+    beforeEach(() => {
+      equipped = TestBed.inject(EquippedService);
+      equipped.addImportantAffix('Strength');
+    });
+
+    function showEquipped(item: Item) {
+      equipped.set(item);
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    it('shows the unique best value as Best', () => {
+      equipped.set(makeGear('Weak Belt', 'Belt', 3));
+      showEquipped(makeGear('Strong Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('Best');
+    });
+
+    it('shows a value tied with another slot as BestTied', () => {
+      equipped.set(makeGear('Tied Belt', 'Belt', 5));
+      showEquipped(makeGear('Strong Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('BestTied');
+    });
+
+    it('shows a value beaten by another slot as Outranked', () => {
+      equipped.set(makeGear('Strong Belt', 'Belt', 7));
+      showEquipped(makeGear('Weak Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('Outranked');
+    });
+
+    it('colours the selected crafting option like the rest of the item', async () => {
+      const item = makeItemWithLongCraftingList();
+      item.slot = 'Ring1';
+      item.crafting[0].options.push(new CraftableOption({ name: 'Diamond of Strength +5', ml: 1, affixes: [{ name: 'Strength', type: 'Enhancement', value: 5 }] }));
+      item.crafting[0].selected = item.crafting[0].options[item.crafting[0].options.length - 1];
+      showEquipped(item);
+
+      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle-label').classList).toContain('Best');
+    });
+  });
 });
+
+function makeGear(name: string, slot: string, strength: number) {
+  const item = new Item(null);
+  item.name = name;
+  item.slot = slot;
+  item.ml = 1;
+  item.affixes = [new Affix({ name: 'Strength', type: 'Enhancement', value: strength })];
+  item.crafting = [];
+  return item;
+}
+
+function affixRowClasses(fixture: ComponentFixture<GearDescriptionComponent>): string[] {
+  const row = Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+    .find(element => element.textContent?.includes('Strength') && element.textContent?.includes('Enhancement'));
+  expect(row).toBeTruthy();
+  return Array.from(row!.classList);
+}
 
 /** Picks an option in the item's only crafting row the way a user would: expand its family in the picker, pick the tier. */
 async function chooseCraftingOption(fixture: ComponentFixture<GearDescriptionComponent>, familyLabel: string, tierLabel: string) {

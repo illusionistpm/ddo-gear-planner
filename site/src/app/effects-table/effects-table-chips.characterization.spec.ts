@@ -134,43 +134,53 @@ describe('Tracked affix chips', () => {
       .sort();
   }
 
+  // Both groupings show the same tooltip for the same bonus type: the value
+  // summary, then how many places can still supply it while it is worth chasing.
+  const tooltips: Record<string, string> = {
+    Enhancement: 'Low value (3 below max)\nOnly 1 place can still supply this — fit it early.',
+    Insight: 'Not covered yet (best available: 4)\n7 places can still supply this.',
+    Profane: 'Moderate value (1 below max)',
+    Quality: 'Marked as ignored',
+    Sacred: 'Marked as ignored',
+    Exceptional: 'Marked as ignored',
+    Artifact: 'Not covered yet (best available: 2)\nNeeds a multi-piece set — no single item or augment supplies it.',
+    Competence: 'Not covered yet (best available: 5)\nRuled out by your gear — no open slot, augment, or reachable set can still supply this.',
+  };
+  const checkedTooltip = 'Best possible value';
+  const uncheckedTooltip = 'Not covered yet\n3 places can still supply this.';
+
   describe('in the category view', () => {
-    it('shows value chips with their value class, max and value tooltip', () => {
+    it('shows value chips with their value class and max', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
       expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
-      expect(chip('Enhancement').title).toBe('Low value (3 below max)');
 
       expect(chipText(chip('Profane'))).toBe('Profane:7/8');
       expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
-      expect(chip('Profane').title).toBe('Moderate value (1 below max)');
     });
 
-    it('shows uncovered chips as no-value, with the best available value', () => {
+    it('shows uncovered chips as no-value', () => {
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(chip('Insight').title).toBe('Not covered yet (best available: 4)');
-
-      expect(chip('Artifact').title).toBe('Not covered yet (best available: 2)');
-      expect(chip('Competence').title).toBe('Not covered yet (best available: 5)');
       expect(modifiers(chip('Competence'))).toEqual(['no-value']);
     });
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(chip('Quality').title).toBe('Marked as ignored');
-
       expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
-      expect(chip('Sacred').title).toBe('Marked as ignored');
-
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
-      expect(chip('Exceptional').title).toBe('Marked as ignored');
+    });
+
+    it('shows each chip\'s value and scarcity in its tooltip', () => {
+      for (const [label, tooltip] of Object.entries(tooltips)) {
+        expect(chip(label).title, label).toBe(tooltip);
+      }
     });
 
     it('shows checklist affixes as checked or unchecked chips', () => {
-      expect(checklistChip('Deathblock').title).toBe('Best possible value');
+      expect(checklistChip('Deathblock').title).toBe(checkedTooltip);
       expect(checklistChip('Deathblock').querySelector('.fa-square-check')).not.toBeNull();
 
-      expect(checklistChip('Feather Falling').title).toBe('Not covered yet');
+      expect(checklistChip('Feather Falling').title).toBe(uncheckedTooltip);
       expect(checklistChip('Feather Falling').querySelector('.fa-square')).not.toBeNull();
     });
   });
@@ -181,49 +191,39 @@ describe('Tracked affix chips', () => {
       fixture.detectChanges();
     });
 
-    it('replaces the value tooltip with the scarcity one on still-open types', () => {
+    it('shows the same chips as the category view', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
       expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
-      expect(chip('Enhancement').title).toBe('Only 1 place can still supply this — fit it early.');
-
-      expect(chip('Artifact').title).toBe('Needs a multi-piece set — no single item or augment supplies it.');
-    });
-
-    it('leaves types with five or more places without a tooltip', () => {
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(chip('Insight').title).toBe('');
-    });
-
-    it('strikes through ruled-out types and says why', () => {
-      expect(modifiers(chip('Competence'))).toEqual(['bonus-eliminated', 'no-value']);
-      expect(chip('Competence').title).toBe('Ruled out by your gear — no open slot, augment, or reachable set can still supply this.');
-    });
-
-    it('keeps the value tooltip on fulfilled types', () => {
       expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
-      expect(chip('Profane').title).toBe('Moderate value (1 below max)');
+    });
+
+    it('shows the same tooltips as the category view', () => {
+      for (const [label, tooltip] of Object.entries(tooltips)) {
+        expect(chip(label).title, label).toBe(tooltip);
+      }
+    });
+
+    it('strikes through ruled-out types', () => {
+      expect(modifiers(chip('Competence'))).toEqual(['bonus-eliminated', 'no-value']);
     });
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(chip('Quality').title).toBe('Marked as ignored');
-
       expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
-      expect(chip('Sacred').title).toBe('Marked as ignored');
     });
 
     it('files an ignored type that is already sufficient as fulfilled, still marked ignored', () => {
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
-      expect(chip('Exceptional').title).toBe('Marked as ignored');
     });
 
     it('shows checked checklist affixes in the fulfilled row and unchecked ones as chips', () => {
-      expect(checklistChip('Deathblock').title).toBe('Best possible value');
+      expect(checklistChip('Deathblock').title).toBe(checkedTooltip);
 
       expect(chipText(chip('Checklist'))).toBe('Checklist');
       expect(modifiers(chip('Checklist'))).toEqual(['no-value']);
-      expect(chip('Checklist').title).toBe('');
+      expect(chip('Checklist').title).toBe(uncheckedTooltip);
     });
   });
 

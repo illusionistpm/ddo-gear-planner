@@ -44,6 +44,7 @@ interface ChecklistChip {
   affixName: string;
   bonusType: string;
   checked: boolean;
+  ignored: boolean;
   tooltip: string;
 }
 
@@ -292,11 +293,17 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const checklistChips = new Map<string, ChecklistChip>();
     for (const affixName of this.boolAffixNames) {
       const boolAffix = this.boolAffixMap.get(affixName)?.[0] ?? { bonusType: 'Bool', value: 0 };
+      const checked = !!boolAffix.value;
+      const ignored = this.equipped.isAffixTypeIgnored(affixName, boolAffix.bonusType);
+      const availability = !checked && !ignored && boolAffix.bonusType !== 'Penalty'
+        ? remainingFor(affixName, boolAffix.bonusType)
+        : undefined;
       checklistChips.set(affixName, {
         affixName,
         bonusType: boolAffix.bonusType,
-        checked: !!boolAffix.value,
-        tooltip: this.getBonusTypeTooltip(affixName, boolAffix)
+        checked,
+        ignored,
+        tooltip: this.getChipTooltip(affixName, boolAffix, availability)
       });
     }
 
@@ -317,6 +324,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const ignored = this.equipped.isAffixTypeIgnored(sourceAffixName, bonusType);
     const sufficient = this.isBonusTypeSufficient(affixName, type);
     const asksAvailability = !sufficient && !ignored && bonusType !== 'Penalty' && bonusType !== 'Bool';
+    const availability = asksAvailability ? remainingFor(sourceAffixName, bonusType) : undefined;
     return {
       chip: {
         sourceAffixName,
@@ -327,10 +335,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         valueClass: type.value ? this.getClassForValue(affixName, type) : '',
         eliminated: false,
         ignored,
-        tooltip: this.getBonusTypeTooltip(affixName, type)
+        tooltip: this.getChipTooltip(affixName, type, availability)
       },
       sufficient,
-      availability: asksAvailability ? remainingFor(sourceAffixName, bonusType) : undefined
+      availability
     };
   }
 
@@ -381,11 +389,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const fileByScarcity = (affixName: string, chip: TrackedChip, info: RemainingAvailability) => {
       const group = scarcityBucket(chip.sourceAffixName, info);
       if (group) {
-        rowFor(group, affixName).chips.push({
-          ...chip,
-          eliminated: info.eliminated,
-          tooltip: this.getScarcityTooltip(info)
-        });
+        rowFor(group, affixName).chips.push({ ...chip, eliminated: info.eliminated });
       }
     };
 
@@ -433,7 +437,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         maxValue: 0,
         valueClass: '',
         eliminated: false,
-        ignored: this.equipped.isAffixTypeIgnored(affixName, checklist.bonusType),
+        ignored: checklist.ignored,
         tooltip: checklist.tooltip
       };
       if (chip.ignored) {
@@ -452,6 +456,16 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return groups;
   }
 
+  /**
+   * The chip's value tooltip, plus - for a type still worth chasing - how many
+   * places can still supply it. The same text in both groupings.
+   */
+  private getChipTooltip(affixName: string, type: TrackedBonusTypeRef, availability?: RemainingAvailability): string {
+    const valueTooltip = this.getBonusTypeTooltip(affixName, type);
+    const scarcityTooltip = availability ? this.getScarcityTooltip(availability) : '';
+    return [valueTooltip, scarcityTooltip].filter(Boolean).join('\n');
+  }
+
   private getScarcityTooltip(info: RemainingAvailability): string {
     if (info.eliminated) {
       return 'Ruled out by your gear — no open slot, augment, or reachable set can still supply this.';
@@ -461,6 +475,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         return 'Needs a multi-piece set — no single item or augment supplies it.';
       case 'scarce':
         return `Only ${info.slotCount === 1 ? '1 place' : info.slotCount + ' places'} can still supply this — fit it early.`;
+      case 'limited':
+      case 'common':
+        return `${info.slotCount} places can still supply this.`;
       default:
         return '';
     }

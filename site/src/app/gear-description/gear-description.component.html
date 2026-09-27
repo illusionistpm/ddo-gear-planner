@@ -91,7 +91,7 @@
             @if (row.craft.options.length >= craftingPickerMinOptions) {
               <app-crafting-option-picker class="crafting-option-picker"
                 [options]="row.craft.options" [selected]="row.craft.selected" [className]="row.className"
-                [slot]="curItem.slot" [itemIsEquipped]="equipOnChange"
+                [slot]="curItem.slot" [itemIsEquipped]="equipOnChange" [context]="row.context"
                 (selectedChange)="chooseCraftingOption(row, $event)">
               </app-crafting-option-picker>
             } @else {

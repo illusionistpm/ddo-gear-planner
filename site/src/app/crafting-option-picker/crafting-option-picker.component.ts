@@ -6,7 +6,7 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { CraftableOption } from '../gear/craftable-option';
 import { CraftingOptionFamily, groupCraftingOptions } from '../gear/crafting-option-families';
-import { AffixUiService } from '../affixes/affix-ui.service';
+import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOptions } from '../planner/planner-view-state-storage';
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
 
@@ -46,6 +46,8 @@ export class CraftingOptionPickerComponent implements OnChanges {
   @Input() slot?: string;
   /** Whether the item is the equipped one, so its chosen set augment already counts as a set piece. */
   @Input() itemIsEquipped = false;
+  /** The item and crafting slot the options are for, so each is ranked as if chosen in place of the current one. */
+  @Input() context?: CraftingOptionContext;
   @Output() selectedChange = new EventEmitter<CraftableOption>();
 
   @ViewChild(NgbDropdown) dropdown?: NgbDropdown;
@@ -165,7 +167,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
       this.groupedOptions = this.options;
     }
     this.families = buildFamilyRows(this.groups,
-      option => this.affixUi.rankCraftingOption(option, this.slot, this.itemIsEquipped && option === this.selected),
+      option => this.affixUi.rankCraftingOption(option, this.slot, this.itemIsEquipped && option === this.selected, this.context),
       this.affixUi);
     this.selectedFamily = this.families.find(family => family.tiers.some(tier => tier.option === this.selected)) ?? null;
     this.expandedFamily = this.selectedFamily && this.selectedFamily.tiers.length > 1 ? this.selectedFamily : null;

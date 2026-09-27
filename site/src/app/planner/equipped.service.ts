@@ -88,6 +88,20 @@ export interface EquippedItemEvent {
   itemName: string;
 }
 
+/** Something not yet equipped - a previewed item, a crafting option, an augment - ranked as if it were. */
+export interface RankCandidate {
+  /** The equipment slot it would replace, or null when it is added without replacing anything. */
+  slot: string | null;
+  /** Every affix it would contribute, the one being ranked among them, with affix groups flattened. */
+  activeAffixes: Affix[];
+}
+
+export interface AsEquippedRanking {
+  rank: AffixRank;
+  /** Set when the swap would lower the build's best value: the value it would lose. */
+  downgradeFrom?: number;
+}
+
 export type TrackedAffixGroupMode = 'category' | 'slots';
 
 export interface TrackedAffixViewState {
@@ -599,11 +613,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this.visibleSetBonuses.asObservable();
   }
 
-  private getValuesForAffixType(affixName: string, bonusType: string) {
+  private getValuesForAffixType(affixName: string, bonusType: string, excludeSlot: string | null = null) {
     const values: Array<{ slot: string; value: number }> = [];
     for (const slot of this.slots) {
       const slotValue = slot[1].getValue();
-      if (slotValue) {
+      if (slotValue && slot[0] !== excludeSlot) {
         for (const affix of this.affixSvc.getActiveAffixes(slotValue)) {
           if (affix.name === affixName && affix.type === bonusType) {
             values.push({ slot: slot[0], value: affix.value });
@@ -1164,6 +1178,45 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     } else {
       return AffixRank.Outranked;
     }
+  }
+
+  /**
+   * Ranks an affix as it would be once `candidate` is equipped, replacing whatever is in its slot,
+   * so green/blue/orange mean the same as they do on equipped gear. BetterThanBest is kept for an
+   * upgrade: the best value after the swap and higher than the build's best today. A value that
+   * would be the best after the swap but is lower than today's is a downgrade, shown Outranked.
+   *
+   * Set bonuses are not recomputed for the swap: replacing a set piece keeps its set's bonus.
+   */
+  getAffixRankingAsEquipped(affix: Affix, candidate: RankCandidate): AsEquippedRanking {
+    perfCount('EquippedService.getAffixRankingAsEquipped');
+    // Today's ranking: how the value compares with the build as it is now.
+    const rankNow = this.getAffixRanking(affix);
+    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty) {
+      return { rank: rankNow };
+    }
+
+    const own = candidate.activeAffixes
+      .filter(candidateAffix => candidateAffix.name === affix.name && candidateAffix.type === affix.type)
+      .map(candidateAffix => candidateAffix.value);
+    if (!own.includes(affix.value)) {
+      own.push(affix.value);
+    }
+    const after = this.getValuesForAffixType(affix.name, affix.type, candidate.slot)
+      .map(entry => entry.value)
+      .concat(own);
+    const best = Math.max(...after);
+    if (affix.value < best) {
+      return { rank: AffixRank.Outranked };
+    }
+
+    if (rankNow === AffixRank.BetterThanBest) {
+      return { rank: AffixRank.BetterThanBest };
+    }
+    if (rankNow === AffixRank.Outranked) {
+      return { rank: AffixRank.Outranked, downgradeFrom: this._getBestValueForAffixType(affix.name, affix.type) };
+    }
+    return { rank: after.filter(value => value === best).length > 1 ? AffixRank.BestTied : AffixRank.Best };
   }
 
   private _updateCoveredAffixes(updateRouterState = true) {

@@ -618,6 +618,48 @@ describe('EquippedService', () => {
     expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'set-only']);
   });
 
+  describe('ranking as if equipped', () => {
+    const strength = (value: number) => new Affix({ name: 'Strength', type: 'Enhancement', value });
+    let service: EquippedService;
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      service.addImportantAffix('Strength');
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Enhancement', value: 5 }]));
+      service.set(makeItem('Gloves', 'Gloves', 'Gloves', [{ name: 'Strength', type: 'Enhancement', value: 3 }]));
+    });
+
+    it('ranks an augment that adds a value the build already has as tied', () => {
+      expect(service.getAffixRankingAsEquipped(strength(5), { slot: null, activeAffixes: [strength(5)] }))
+        .toEqual({ rank: AffixRank.BestTied });
+    });
+
+    it('ranks an upgrade over the build as better than best', () => {
+      expect(service.getAffixRankingAsEquipped(strength(6), { slot: null, activeAffixes: [strength(6)] }))
+        .toEqual({ rank: AffixRank.BetterThanBest });
+    });
+
+    it('leaves the replaced slot out, so an equal value from it is still the best', () => {
+      expect(service.getAffixRankingAsEquipped(strength(5), { slot: 'Belt', activeAffixes: [strength(5)] }))
+        .toEqual({ rank: AffixRank.Best });
+    });
+
+    it('ranks a value below the one it replaces as a downgrade', () => {
+      expect(service.getAffixRankingAsEquipped(strength(4), { slot: 'Belt', activeAffixes: [strength(4)] }))
+        .toEqual({ rank: AffixRank.Outranked, downgradeFrom: 5 });
+    });
+
+    it('counts the candidate\'s other affixes, so a stronger one of its own outranks it', () => {
+      expect(service.getAffixRankingAsEquipped(strength(6), { slot: 'Gloves', activeAffixes: [strength(6), strength(7)] }))
+        .toEqual({ rank: AffixRank.Outranked });
+    });
+
+    it('matches today\'s ranking for the equipped item itself', () => {
+      expect(service.getAffixRankingAsEquipped(strength(3), { slot: 'Gloves', activeAffixes: [strength(3)] }))
+        .toEqual({ rank: service.getAffixRanking(strength(3)) });
+    });
+  });
+
   describe('ranking a penalty', () => {
     const penalty = new Affix({ name: 'Hide', type: 'Penalty', value: -6 });
 

@@ -159,6 +159,91 @@ describe('GearDescriptionComponent', () => {
       expect(fixture.nativeElement.querySelector('.crafting-picker-toggle-label').classList).toContain('Best');
     });
   });
+
+  // A preview is ranked as if it were equipped in its slot, replacing what is there now.
+  describe('rank colours on a previewed item', () => {
+    let equipped: EquippedService;
+
+    beforeEach(() => {
+      equipped = TestBed.inject(EquippedService);
+      equipped.addImportantAffix('Strength');
+    });
+
+    function showPreview(item: Item) {
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    function affixRowTooltip(): string {
+      return (fixture.nativeElement.querySelector('.row.Outranked, .row.Best, .row.BestTied, .row.BetterThanBest') as HTMLElement).title;
+    }
+
+    it('shows a value another slot already provides as BestTied, since equipping it would tie', () => {
+      equipped.set(makeGear('Belt', 'Belt', 5));
+      showPreview(makeGear('Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('BestTied');
+    });
+
+    it('shows an upgrade over the build as BetterThanBest', () => {
+      equipped.set(makeGear('Belt', 'Belt', 5));
+      showPreview(makeGear('Gloves', 'Gloves', 7));
+
+      expect(affixRowClasses(fixture)).toContain('BetterThanBest');
+    });
+
+    it('shows the same value as the item it replaces as Best', () => {
+      equipped.set(makeGear('Old Gloves', 'Gloves', 5));
+      showPreview(makeGear('New Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('Best');
+    });
+
+    it('shows a downgrade of the item it replaces as Outranked, naming what it would lose', () => {
+      equipped.set(makeGear('Old Gloves', 'Gloves', 7));
+      showPreview(makeGear('New Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('Outranked');
+      expect(affixRowTooltip()).toBe('Lower than current +7 from Old Gloves (Gloves)');
+    });
+
+    it('shows a value beaten by another slot as Outranked', () => {
+      equipped.set(makeGear('Belt', 'Belt', 7));
+      showPreview(makeGear('Gloves', 'Gloves', 5));
+
+      expect(affixRowClasses(fixture)).toContain('Outranked');
+      expect(affixRowTooltip()).toBe('Overpowered by Belt (Belt)');
+    });
+
+    it('replaces only the ring slot the preview is for', () => {
+      equipped.set(makeGear('Left Ring', 'Ring1', 5));
+      showPreview(makeGear('New Ring', 'Ring2', 5));
+
+      expect(affixRowClasses(fixture)).toContain('BestTied');
+    });
+
+    it('ranks crafting options as if chosen in place of the current one', async () => {
+      equipped.set(makeGear('Belt', 'Belt', 5));
+      const item = makeItemWithLongCraftingList();
+      item.slot = 'Ring1';
+      const strength = [5, 7].map(value => new CraftableOption({ name: `Diamond of Strength +${value}`, ml: 1, affixes: [{ name: 'Strength', type: 'Enhancement', value }] }));
+      item.crafting[0].options.push(...strength);
+      item.crafting[0].selected = strength[1];
+      showPreview(item);
+
+      (fixture.nativeElement.querySelector('.crafting-picker-toggle') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
+
+      // The selected +7 matches its row; the +5 would only tie the belt.
+      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle-label').classList).toContain('BetterThanBest');
+      const tierClass = (label: string) => Array.from(document.body.querySelectorAll('.crafting-picker-tier .crafting-picker-entry-label'))
+        .find(element => element.textContent?.trim().startsWith(label))?.classList;
+      expect(tierClass('+7')).toContain('BetterThanBest');
+      expect(tierClass('+5')).toContain('BestTied');
+    });
+  });
 });
 
 function makeGear(name: string, slot: string, strength: number) {

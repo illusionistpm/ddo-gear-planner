@@ -396,6 +396,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     perfAfterFrames('paint after bonus type equip');
   }
 
+  /** An augment fills an empty slot, so it is ranked as added to the build, replacing nothing. */
+  getAugmentClass(option: CraftableOption): string {
+    return this.affixUi.getClassForAffix(option.affixes[0], undefined, this.affixUi.candidateForAddedOption(option));
+  }
+
   equipAugment() {
     const done = perfStart('ItemsWithBonusTypeComponent.equipAugment');
     if (!this.selectedAugmentSlot) {

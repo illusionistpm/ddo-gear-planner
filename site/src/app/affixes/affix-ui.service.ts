@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
-import { EquippedService } from '../planner/equipped.service';
+import { EquippedService, RankCandidate } from '../planner/equipped.service';
 import { AffixService } from './affix.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
+import { Item } from '../gear/item';
 import { perfCount } from '../shared/perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 import { getCountAffixUnit } from './count-affix';
@@ -21,6 +22,19 @@ export interface CraftingOptionRanking {
 
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
 export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
+
+/** The item a crafting option is being chosen for, and the crafting slot it would go in. */
+export interface CraftingOptionContext {
+  item: Item;
+  craft: Craftable;
+}
+
+interface RankDetails {
+  rank: AffixRank;
+  sourceAffix: Affix;
+  /** The build's best value today, when choosing the affix would lower it. */
+  downgradeFrom?: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -69,9 +83,30 @@ export class AffixUiService {
     return includeLabel ? `${text} (${entry.label})` : text;
   }
 
-  getClassForAffix(affix: Affix, option?: CraftableOption): string {
+  /**
+   * The rank class for an affix. With a `candidate`, the affix is ranked as it would be once the
+   * candidate is equipped; without one, against the build as it is (for things already counted in it).
+   */
+  getClassForAffix(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getClassForAffix');
-    return AffixRank[this.getAffixRank(affix, option)];
+    return AffixRank[this.getAffixRank(affix, option, candidate)];
+  }
+
+  /** What equipping `item` in its slot would contribute, with `option` chosen in `craft` when given. */
+  candidateFor(item: Item, craft?: Craftable, option?: CraftableOption | null): RankCandidate {
+    const affixes = item.affixes.slice();
+    for (const itemCraft of item.crafting || []) {
+      const selected = itemCraft === craft ? option : itemCraft.selected;
+      if (selected?.affixes) {
+        affixes.push(...selected.affixes);
+      }
+    }
+    return { slot: item.slot, activeAffixes: this.affixSvc.flattenAffixGroups(affixes, true) };
+  }
+
+  /** An augment going into an empty slot: added to the build without replacing anything. */
+  candidateForAddedOption(option: CraftableOption): RankCandidate {
+    return { slot: null, activeAffixes: this.affixSvc.flattenAffixGroups(option.affixes || [], true) };
   }
 
   /** A set-bonus affix is ranked like any other once its tier is active, and greyed out until then. */
@@ -83,14 +118,14 @@ export class AffixUiService {
     return `Needs ${threshold} set items (currently have ${equippedPieces})`;
   }
 
-  private getAffixRank(affix: Affix, option?: CraftableOption): AffixRank {
-    return this.getAffixRankDetails(affix, option).rank;
+  private getAffixRank(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): AffixRank {
+    return this.getAffixRankDetails(affix, option, candidate).rank;
   }
 
   // Compound affixes (affix groups) get their rank from whichever component affix is
   // responsible for it. We need to know which component that is, not just the overall
   // rank, so tooltips can point at the specific competing item/set for that component.
-  private getAffixRankDetails(affix: Affix, option?: CraftableOption): { rank: AffixRank; sourceAffix: Affix } {
+  private getAffixRankDetails(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): RankDetails {
     if (!affix) {
       return { rank: AffixRank.Irrelevant, sourceAffix: affix };
     }
@@ -103,23 +138,28 @@ export class AffixUiService {
       }
     }
 
-    let affixRank = this.equipped.getAffixRanking(affix);
-    let sourceAffix = affix;
-    if (affixRank === AffixRank.Irrelevant && this.affixSvc?.isAffixGroup(affix)) {
-      const groupResult = this.getAffixGroupRankDetails(affix);
-      affixRank = groupResult.rank;
-      sourceAffix = groupResult.sourceAffix;
+    let details = this.rankOne(affix, candidate);
+    if (details.rank === AffixRank.Irrelevant && this.affixSvc?.isAffixGroup(affix)) {
+      details = this.getAffixGroupRankDetails(affix, candidate);
     }
+    let affixRank = details.rank;
 
     if (option?.set && affixRank === AffixRank.BestTied) {
       // If this is a set bonus, and tied for best, downgrade to Best so that they don't all show in Blue
       affixRank = AffixRank.Best;
     }
 
-    return { rank: affixRank, sourceAffix };
+    return { ...details, rank: affixRank };
   }
 
-  getAffixTooltip(affix: Affix, option?: CraftableOption, currentSlot?: string): string {
+  private rankOne(affix: Affix, candidate?: RankCandidate): RankDetails {
+    if (!candidate) {
+      return { rank: this.equipped.getAffixRanking(affix), sourceAffix: affix };
+    }
+    return { ...this.equipped.getAffixRankingAsEquipped(affix, candidate), sourceAffix: affix };
+  }
+
+  getAffixTooltip(affix: Affix, option?: CraftableOption, currentSlot?: string, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
 
@@ -131,7 +171,12 @@ export class AffixUiService {
       }
     }
 
-    const { rank: affixRank, sourceAffix } = this.getAffixRankDetails(affix, option);
+    const { rank: affixRank, sourceAffix, downgradeFrom } = this.getAffixRankDetails(affix, option, candidate);
+    if (downgradeFrom !== undefined) {
+      // The value it would lose comes from the slot being replaced, so that slot's source is named.
+      const current = this.describeCompetingSources(sourceAffix);
+      return `Lower than current ${downgradeFrom > 0 ? '+' : ''}${downgradeFrom}` + (current ? ` from ${current}` : '');
+    }
 
     let tooltip: string;
     switch (affixRank) {
@@ -220,11 +265,13 @@ export class AffixUiService {
    * Ranks a crafting option for a list of options. `alreadyEquipped` says the option is the
    * chosen one on an equipped item, so a set augment already counts as one of its set's pieces.
    */
-  rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false): CraftingOptionRanking {
-    const rankingTooltip = option.affixes?.[0] ? this.getAffixTooltip(option.affixes[0], option, slot) : '';
+  rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false, context?: CraftingOptionContext): CraftingOptionRanking {
+    // Ranked as if chosen: on its item, in place of whatever that crafting slot holds now.
+    const candidate = context ? this.candidateFor(context.item, context.craft, option) : undefined;
+    const rankingTooltip = option.affixes?.[0] ? this.getAffixTooltip(option.affixes[0], option, slot, candidate) : '';
     const setPieces = this.getSetPieces(option, alreadyEquipped);
     return {
-      className: this.getClassForCraftingOption(option),
+      className: this.getClassForCraftingOption(option, candidate),
       tooltip: [this.getCraftingOptionTooltip(option), rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
       // Only while the set is short; a complete set's colour already says what it gives.
       note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : ''
@@ -243,15 +290,15 @@ export class AffixUiService {
     return { pieces: setReq.currentCount + (alreadyEquipped ? 0 : 1), required: setReq.requiredCount };
   }
 
-  getClassForCraftable(craft: Craftable): string {
+  getClassForCraftable(craft: Craftable, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getClassForCraftable');
-    return this.getClassForCraftingOption(craft?.selected);
+    return this.getClassForCraftingOption(craft?.selected, candidate);
   }
 
-  getClassForCraftingOption(option: CraftableOption): string {
+  getClassForCraftingOption(option: CraftableOption, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getClassForCraftingOption');
     if (option?.affixes?.length) {
-      return AffixRank[this.combineRanks(option.affixes.map(affix => this.getAffixRank(affix, option)))];
+      return AffixRank[this.combineRanks(option.affixes.map(affix => this.getAffixRank(affix, option, candidate)))];
     }
     if (option?.set) {
       // A set augment has no affixes of its own, so it is ranked by its set's bonuses - as if
@@ -283,22 +330,20 @@ export class AffixUiService {
     return this.gearDb.getSetBonusThresholdDetails(set, 0).flatMap(tier => tier.affixes);
   }
 
-  private getAffixGroupRankDetails(affixGroup: Affix): { rank: AffixRank; sourceAffix: Affix } {
-    let affixRank = AffixRank.Irrelevant;
-    let sourceAffix = affixGroup;
+  private getAffixGroupRankDetails(affixGroup: Affix, candidate?: RankCandidate): RankDetails {
+    let details: RankDetails = { rank: AffixRank.Irrelevant, sourceAffix: affixGroup };
     const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
     for (const aff of affixes) {
-      const curRank = this.equipped.getAffixRanking(aff);
-      if (affixRank === AffixRank.Irrelevant) {
-        affixRank = curRank;
-        sourceAffix = aff;
-      } else if (curRank === AffixRank.Irrelevant) {
+      const cur = this.rankOne(aff, candidate);
+      if (details.rank === AffixRank.Irrelevant) {
+        details = cur;
+      } else if (cur.rank === AffixRank.Irrelevant) {
         // Do nothing
-      } else if (affixRank !== curRank) {
+      } else if (details.rank !== cur.rank) {
         return { rank: AffixRank.Mixed, sourceAffix: affixGroup };
       }
     }
-    return { rank: affixRank, sourceAffix };
+    return details;
   }
 
   private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } | null {

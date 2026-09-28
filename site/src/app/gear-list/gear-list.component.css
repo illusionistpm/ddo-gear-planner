@@ -214,7 +214,9 @@
  *   (none)                  icon only; the title carries the name
  *   .dense                  icon only, tighter
  *   .dense.merge-sets       ... and the set chips fold into one, with a menu
- * Past that it scrolls sideways. It isn't shown on a phone.
+ *   .no-room                even that doesn't fit: hidden
+ * The last happens in the side-by-side layout when the gear gets a single narrow
+ * column. It isn't shown on a phone either.
  */
 .slot-jump-bar-wrap {
     background: var(--background-color);
@@ -223,6 +225,21 @@
     position: sticky;
     top: 0;
     z-index: 5;
+}
+
+/*
+ * Hidden without display: none, which would leave it no width - the ResizeObserver
+ * would never see room come back. Collapsed to no height, it keeps its width.
+ */
+.slot-jump-bar-wrap:has(.no-room) {
+    margin-bottom: 0;
+}
+
+.slot-jump-bar.no-room {
+    height: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    visibility: hidden;
 }
 
 /* Not on a phone for now: the app's phone layout (main.component.css, 575.98px). */

@@ -17,7 +17,8 @@ const JUMP_HIGHLIGHT_MS = 1200;
 /**
  * The jump bar's layouts, roomiest first; fitJumpBar takes the first that fits.
  * Each is a set of classes on the bar - see gear-list.component.css. If even the
- * last overflows, the bar scrolls sideways.
+ * last overflows (the side-by-side layout with a single column of gear), the bar
+ * gets no-room and is hidden.
  */
 const JUMP_BAR_FITS: ReadonlyArray<ReadonlyArray<string>> = [
   ['show-labels'],
@@ -25,7 +26,7 @@ const JUMP_BAR_FITS: ReadonlyArray<ReadonlyArray<string>> = [
   ['dense'],
   ['dense', 'merge-sets']
 ];
-const JUMP_BAR_FIT_CLASSES = ['show-labels', 'dense', 'merge-sets'];
+const JUMP_BAR_FIT_CLASSES = ['show-labels', 'dense', 'merge-sets', 'no-room'];
 
 @Component({
     selector: 'app-gear-list',
@@ -191,17 +192,18 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
 
     this.fittedSetCount = this.activeSets.length;
-    for (const fit of JUMP_BAR_FITS) {
+    const fits = JUMP_BAR_FITS.some(fit => {
       bar.classList.remove(...JUMP_BAR_FIT_CLASSES);
       bar.classList.add(...fit);
-      if (bar.scrollWidth <= bar.clientWidth) {
-        break;
-      }
+      return bar.scrollWidth <= bar.clientWidth;
+    });
+    if (!fits) {
+      bar.classList.add('no-room');
     }
 
     // The sets menu belongs to the merged chip; with the sets back as their own
     // chips it has nothing to hang off. Deferred, as this can run mid change detection.
-    if (this.setMenuOpen && !bar.classList.contains('merge-sets')) {
+    if (this.setMenuOpen && (!bar.classList.contains('merge-sets') || !fits)) {
       queueMicrotask(() => this.setMenuOpen = false);
     }
   }

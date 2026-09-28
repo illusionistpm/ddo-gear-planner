@@ -276,7 +276,7 @@ describe('GearListComponent', () => {
             : classes.contains('dense') ? 620
               : 820;
 
-      it('takes the roomiest layout that fits', () => {
+      it('takes the roomiest layout that fits, and hides the bar when none does', () => {
         createComponentWithSetBonuses(twoSets);
         const fitFor = (width: number) => {
           fakeBarWidths(width, contentWidth);
@@ -288,7 +288,7 @@ describe('GearListComponent', () => {
         expect(fitFor(900)).toEqual([]);
         expect(fitFor(700)).toEqual(['dense']);
         expect(fitFor(560)).toEqual(['dense', 'merge-sets']);
-        expect(fitFor(400)).toEqual(['dense', 'merge-sets']);
+        expect(fitFor(400)).toEqual(['dense', 'merge-sets', 'no-room']);
         expect(fitFor(1600)).toEqual(['show-labels']);
       });
 

@@ -1,5 +1,5 @@
 import { SLOT_ICON_PATHS } from '../slot-icon/slot-icon-paths';
-import { slotIcon, slotLabel } from './slot-display';
+import { slotIcon, slotLabel, sortSlotsForDisplay } from './slot-display';
 
 const SLOTS = [
   'Weapon', 'Offhand', 'Armor', 'Belt', 'Boots', 'Bracers', 'Cloak', 'Gloves',
@@ -27,6 +27,26 @@ describe('slot display', () => {
   it('leaves every other slot\'s name alone', () => {
     expect(slotLabel('Helm')).toBe('Helm');
     expect(slotLabel('Offhand')).toBe('Offhand');
+  });
+
+  it('puts the weapons first, then runs head to toe', () => {
+    expect(sortSlotsForDisplay(SLOTS)).toEqual([
+      'Weapon', 'Offhand',
+      'Helm', 'Goggles', 'Necklace', 'Trinket', 'Armor', 'Cloak', 'Bracers', 'Belt', 'Gloves', 'Ring1', 'Ring2', 'Boots',
+      'Quiver'
+    ]);
+  });
+
+  it('puts a slot it doesn\'t know last, alphabetically, rather than dropping it', () => {
+    expect(sortSlotsForDisplay(['Tail', 'Boots', 'Horns', 'Helm'])).toEqual(['Helm', 'Boots', 'Horns', 'Tail']);
+  });
+
+  it('leaves the list it was given alone', () => {
+    const slots = ['Boots', 'Helm'];
+
+    sortSlotsForDisplay(slots);
+
+    expect(slots).toEqual(['Boots', 'Helm']);
   });
 
   it('records an author for every icon, for the credits', () => {

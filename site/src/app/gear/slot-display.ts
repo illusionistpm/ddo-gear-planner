@@ -22,6 +22,28 @@ const SLOT_ICONS: Readonly<Record<string, string>> = {
   Quiver: 'quiver'
 };
 
+/**
+ * The order slots are shown in: the weapons first, as they shape the rest of the
+ * build, then head to toe - with the trinket beside the necklace - then the quiver.
+ */
+export const SLOT_DISPLAY_ORDER: ReadonlyArray<string> = [
+  'Weapon', 'Offhand',
+  'Helm', 'Goggles', 'Necklace', 'Trinket', 'Armor', 'Cloak', 'Bracers', 'Belt', 'Gloves', 'Ring1', 'Ring2', 'Boots',
+  'Quiver'
+];
+
+/**
+ * Slots in display order. One this doesn't know goes last, alphabetically - slots
+ * come from the game data, so a new one mustn't vanish.
+ */
+export function sortSlotsForDisplay(slots: ReadonlyArray<string>): string[] {
+  const rank = (slot: string) => {
+    const index = SLOT_DISPLAY_ORDER.indexOf(slot);
+    return index === -1 ? SLOT_DISPLAY_ORDER.length : index;
+  };
+  return [...slots].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+}
+
 /** The key into SLOT_ICON_PATHS for a slot, or undefined when it has no icon. */
 export function slotIcon(slot: string): string | undefined {
   return SLOT_ICONS[slot];

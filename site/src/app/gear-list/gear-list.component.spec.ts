@@ -85,6 +85,16 @@ describe('GearListComponent', () => {
     expect(component.shouldShowArmorStartHint()).toBe(false);
   });
 
+  it('shows the slot cards weapons first, then head to toe', () => {
+    createComponentWithSetBonuses([]);
+    const slots = Array.from(fixture.nativeElement.querySelectorAll('app-equipment-slot-card') as NodeListOf<HTMLElement>)
+      .map(card => card.dataset['jumpTarget']);
+
+    expect(slots.slice(0, 5)).toEqual(['Weapon', 'Offhand', 'Helm', 'Goggles', 'Necklace']);
+    expect(slots.indexOf('Boots')).toBeGreaterThan(slots.indexOf('Ring2'));
+    expect(slots.indexOf('Ring2')).toBeGreaterThan(slots.indexOf('Belt'));
+  });
+
   describe('jump-to-slot bar', () => {
     const realScrollIntoView = Element.prototype.scrollIntoView;
     let scrolledTo: Element[];

@@ -8,7 +8,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { slotLabel } from '../gear/slot-display';
+import { slotLabel, sortSlotsForDisplay } from '../gear/slot-display';
 import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setJumpTarget } from '../planner/affix-source-highlight.service';
 
 /** How long a card stays highlighted after the jump bar scrolls to it - matches the CSS animation. */
@@ -47,6 +47,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   ) { }
 
   readonly slotLabel = slotLabel;
+  /** The slots head to toe, for the grid and the jump bar - not GearDbService's order, which other code relies on. */
+  readonly displaySlots = sortSlotsForDisplay(this.gearList.getSlots());
   readonly nonGearTarget = NON_GEAR_JUMP_TARGET;
   readonly setTarget = setJumpTarget;
 

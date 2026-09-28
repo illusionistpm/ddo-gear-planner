@@ -12,7 +12,7 @@
          clip the sets menu if it lived inside it. -->
     <div class="slot-jump-bar-wrap">
       <nav class="slot-jump-bar" aria-label="Jump to a card" #jumpBar>
-        @for (slot of gearList.getSlots(); track slot) {
+        @for (slot of displaySlots; track slot) {
           <button type="button" class="slot-jump-chip"
             [class.is-equipped]="equipped.hasItem(slot)"
             [class.is-disabled]="equipped.isSlotDisabled(slot)"
@@ -86,7 +86,7 @@
     </div>
 
     <div class="equipment-grid">
-      @for (slot of gearList.getSlots(); track slot) {
+      @for (slot of displaySlots; track slot) {
         <app-equipment-slot-card
           [slot]="slot"
           [recommendedStart]="shouldShowArmorStartHint() && slot === 'Armor'">

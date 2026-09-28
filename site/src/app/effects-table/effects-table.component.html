@@ -19,7 +19,11 @@
         [title]="chip.tooltip"
         [class.tracked-bonus-chip-onboarding-target]="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)"
         [class.recently-changed]="isRecentlyChangedAffixType(chip.sourceAffixName, chip)"
-        (click)="showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
+        (mouseenter)="sourceHighlight.showSourcesOf(chip.sourceAffixName, chip.bonusType)"
+        (focus)="sourceHighlight.showSourcesOf(chip.sourceAffixName, chip.bonusType)"
+        (mouseleave)="sourceHighlight.clear()"
+        (blur)="sourceHighlight.clear()"
+        (click)="sourceHighlight.clear(); showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
         <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
         <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
         <span class="max-available" *ngIf="chip.maxValue > 0">/{{chip.maxValue}}</span>
@@ -37,7 +41,11 @@
         [class.recently-changed]="isRecentlyChangedAffixType(item.affixName, item)">
         <button type="button" class="checklist-chip-button"
             [title]="item.tooltip"
-            (click)="showItemsWithBonusType(item.affixName, item.bonusType)">
+            (mouseenter)="sourceHighlight.showSourcesOf(item.affixName, item.bonusType)"
+            (focus)="sourceHighlight.showSourcesOf(item.affixName, item.bonusType)"
+            (mouseleave)="sourceHighlight.clear()"
+            (blur)="sourceHighlight.clear()"
+            (click)="sourceHighlight.clear(); showItemsWithBonusType(item.affixName, item.bonusType)">
             <span class="tracked-bonus-label" [class.max-value]="item.checked">{{item.affixName}}</span>
             <span class="far checklist-chip-icon" [ngClass]="item.checked ? 'fa-square-check max-value' : 'fa-square no-value'" aria-hidden="true"></span>
         </button>

@@ -8,6 +8,83 @@
       <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
     </section>
 
+    <!-- Sticky wrapper: the bar itself scrolls sideways as a last resort, which would
+         clip the sets menu if it lived inside it. -->
+    <div class="slot-jump-bar-wrap">
+      <nav class="slot-jump-bar" aria-label="Jump to a card" #jumpBar>
+        @for (slot of gearList.getSlots(); track slot) {
+          <button type="button" class="slot-jump-chip"
+            [class.is-equipped]="equipped.hasItem(slot)"
+            [class.is-disabled]="equipped.isSlotDisabled(slot)"
+            [class.is-source]="sourceTargets.has(slot)"
+            [attr.aria-label]="getJumpLabel(slot)"
+            [title]="getJumpLabel(slot)"
+            (click)="jumpTo(slot, jumpBar)">
+            <app-slot-icon [slot]="slot"></app-slot-icon>
+            <span class="slot-jump-label">{{slotLabel(slot)}}</span>
+            @if (getSlotNumber(slot)) {
+              <span class="slot-jump-number" aria-hidden="true">{{getSlotNumber(slot)}}</span>
+            }
+          </button>
+        }
+
+        <span class="slot-jump-divider" aria-hidden="true"></span>
+        <button type="button" class="slot-jump-chip"
+          [class.is-equipped]="nonGearCount > 0"
+          [class.is-source]="sourceTargets.has(nonGearTarget)"
+          [attr.aria-label]="getNonGearJumpLabel()"
+          [title]="getNonGearJumpLabel()"
+          (click)="jumpTo(nonGearTarget, jumpBar)">
+          <app-slot-icon icon="aura"></app-slot-icon>
+          <span class="slot-jump-label">Non-gear</span>
+        </button>
+
+        <!-- A set's name is too long for a chip, so set chips are always icon-only, with
+             the pieces equipped where a ring's number goes; the title names the set.
+             When the bar is short of room (fitJumpBar), they give way to one merged
+             chip that opens a menu of them. -->
+        @if (activeSets.length) {
+          <span class="slot-jump-divider" aria-hidden="true"></span>
+        }
+        @for (setBonus of activeSets; track setBonus.setName) {
+          <button type="button" class="slot-jump-chip is-equipped is-set is-set-single"
+            [class.is-source]="sourceTargets.has(setTarget(setBonus.setName))"
+            [attr.aria-label]="getSetJumpLabel(setBonus)"
+            [title]="getSetJumpLabel(setBonus)"
+            (click)="jumpTo(setTarget(setBonus.setName), jumpBar)">
+            <app-slot-icon icon="linked-rings"></app-slot-icon>
+            <span class="slot-jump-number" aria-hidden="true">{{setBonus.pieces}}</span>
+          </button>
+        }
+        @if (activeSets.length) {
+          <button type="button" class="slot-jump-chip is-equipped is-set is-set-merged"
+            [class.is-source]="isAnySetSource()"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="setMenuOpen"
+            [attr.aria-label]="getSetsJumpLabel()"
+            [title]="getSetsJumpLabel()"
+            (click)="toggleSetMenu(setsChip)" #setsChip>
+            <app-slot-icon icon="linked-rings"></app-slot-icon>
+            <span class="slot-jump-number" aria-hidden="true">{{activeSets.length}}</span>
+          </button>
+        }
+      </nav>
+
+      @if (setMenuOpen && activeSets.length) {
+        <div class="slot-jump-set-menu" role="menu" aria-label="Jump to a set" [style.right.px]="setMenuRight">
+          @for (setBonus of activeSets; track setBonus.setName) {
+            <button type="button" class="slot-jump-set-item" role="menuitem"
+              [class.is-source]="sourceTargets.has(setTarget(setBonus.setName))"
+              (click)="setMenuOpen = false; jumpTo(setTarget(setBonus.setName), jumpBar)">
+              <app-slot-icon icon="linked-rings"></app-slot-icon>
+              <span class="slot-jump-set-name">{{setBonus.setName}}</span>
+              <span class="slot-jump-set-pieces">{{setBonus.pieces}} pc</span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
     <div class="equipment-grid">
       @for (slot of gearList.getSlots(); track slot) {
         <app-equipment-slot-card
@@ -16,7 +93,7 @@
         </app-equipment-slot-card>
       }
 
-      <app-external-affix-slot-card></app-external-affix-slot-card>
+      <app-external-affix-slot-card [attr.data-jump-target]="nonGearTarget"></app-external-affix-slot-card>
 
       <!-- Describe Sets -->
       @if (visibleSetBonuses.length) {
@@ -24,7 +101,7 @@
       }
 
       @for (setBonus of visibleSetBonuses; track setBonus.setName) {
-        <div class="card active-set-bonus">
+        <div class="card active-set-bonus" [attr.data-jump-target]="setTarget(setBonus.setName)">
           <div class="row slot-header">
             <button type="button" class="btn set-bonus-button col-12 text-start"
               (click)="showItemsInSet(setBonus.setName)">

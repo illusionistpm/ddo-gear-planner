@@ -40,6 +40,12 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     private changeDetector: ChangeDetectorRef
   ) { }
 
+  /** Lets the gear list's jump bar find this card. */
+  @HostBinding('attr.data-jump-target')
+  get dataSlot() {
+    return this.slot;
+  }
+
   @HostBinding('class.recommended-start-slot')
   get isRecommendedStart() {
     return this.recommendedStart;

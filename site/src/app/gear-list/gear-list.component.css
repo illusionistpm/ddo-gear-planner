@@ -200,3 +200,222 @@
 .heart:focus {
     background: transparent;
 }
+
+/*
+ * Jump-to-slot bar: one chip per slot, then Non-gear, then one per set with an
+ * active bonus - sticky at the top of the scrolling panel so it can be reached
+ * mid-scroll. A filled chip means something is equipped there; an outlined one is
+ * empty, which makes the bar a "what's still missing" summary. Hovering a bonus
+ * type on the affix panel lights the chips supplying it (.is-source).
+ *
+ * The bar has to fit one line however many sets are active, so it steps down as
+ * room runs out - GearListComponent.fitJumpBar picks the first that fits:
+ *   .show-labels            icon and name
+ *   (none)                  icon only; the title carries the name
+ *   .dense                  icon only, tighter
+ *   .dense.merge-sets       ... and the set chips fold into one, with a menu
+ * Past that it scrolls sideways. It isn't shown on a phone.
+ */
+.slot-jump-bar-wrap {
+    background: var(--background-color);
+    margin: 0 auto var(--space-8);
+    max-width: 1800px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+/* Not on a phone for now: the app's phone layout (main.component.css, 575.98px). */
+@media (max-width: 575.98px) {
+    .slot-jump-bar-wrap {
+        display: none;
+    }
+}
+
+.slot-jump-bar {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    padding: var(--space-4) 0;
+    scrollbar-width: none;
+}
+
+.slot-jump-chip {
+    align-items: center;
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    font-weight: 600;
+    gap: var(--space-4);
+    line-height: 1;
+    padding: var(--space-4) var(--space-8);
+    position: relative;
+}
+
+.slot-jump-chip.is-equipped {
+    background: var(--surface-color);
+    border-style: solid;
+    color: var(--text-primary);
+}
+
+.slot-jump-chip.is-disabled {
+    cursor: help;
+    opacity: 0.5;
+}
+
+/* Supplies the bonus type being hovered on the affix panel. */
+.slot-jump-chip.is-source {
+    background: rgba(var(--primary-color-rgb), 0.18);
+    border-color: var(--primary-color);
+    border-style: solid;
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.35);
+    color: var(--primary-color);
+}
+
+/* Not :focus - a clicked chip would stay blue and look selected. */
+.slot-jump-chip:hover,
+.slot-jump-chip:focus-visible {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.slot-jump-chip:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 1px;
+}
+
+.slot-jump-chip app-slot-icon {
+    font-size: 1.1rem;
+}
+
+.slot-jump-label {
+    display: none;
+    white-space: nowrap;
+}
+
+.slot-jump-bar.show-labels .slot-jump-label {
+    display: inline;
+}
+
+/* Separates the slots from Non-gear, and Non-gear from the sets. */
+.slot-jump-divider {
+    align-self: stretch;
+    border-left: 1px solid var(--border-color);
+    flex: 0 0 auto;
+    margin: var(--space-2);
+}
+
+/* Tells Ring 1 from Ring 2 when the label is hidden, and counts a set's pieces. */
+.slot-jump-number {
+    bottom: 1px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    position: absolute;
+    right: 3px;
+}
+
+/* A set chip never has a label, so its count shows even with labels on. */
+.slot-jump-bar.show-labels .slot-jump-chip:not(.is-set) .slot-jump-number {
+    display: none;
+}
+
+.slot-jump-bar.dense {
+    gap: var(--space-2);
+}
+
+.slot-jump-bar.dense .slot-jump-chip {
+    padding: var(--space-4);
+}
+
+.slot-jump-bar.dense .slot-jump-number {
+    right: 1px;
+}
+
+.slot-jump-bar.dense .slot-jump-divider {
+    margin: var(--space-2) 1px;
+}
+
+/* One chip for all the sets; it opens .slot-jump-set-menu. */
+.slot-jump-chip.is-set-merged,
+.slot-jump-bar.merge-sets .slot-jump-chip.is-set-single {
+    display: none;
+}
+
+.slot-jump-bar.merge-sets .slot-jump-chip.is-set-merged {
+    display: inline-flex;
+}
+
+.slot-jump-set-menu {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    max-width: min(22rem, 100%);
+    padding: var(--space-4);
+    position: absolute;
+    right: 0;
+    top: calc(100% - var(--space-2));
+    z-index: 6;
+}
+
+.slot-jump-set-item {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    font-size: 0.85rem;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-8);
+    text-align: left;
+}
+
+.slot-jump-set-item:hover,
+.slot-jump-set-item:focus-visible,
+.slot-jump-set-item.is-source {
+    background: rgba(var(--primary-color-rgb), 0.12);
+    color: var(--primary-color);
+}
+
+.slot-jump-set-name {
+    flex: 1 1 auto;
+    font-weight: 600;
+}
+
+.slot-jump-set-pieces {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* The card the jump bar just scrolled to. */
+.equipment-grid > .slot-jump-highlight {
+    animation: slot-jump-highlight 1.2s ease-out;
+}
+
+@keyframes slot-jump-highlight {
+    0%,
+    35% {
+        box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .equipment-grid > .slot-jump-highlight {
+        animation: none;
+        box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.6);
+    }
+}

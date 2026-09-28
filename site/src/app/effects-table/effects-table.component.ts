@@ -25,6 +25,7 @@ import {
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
+import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
 /** One bonus-type chip. Both groupings render the same chip for the same type. */
 interface TrackedChip {
@@ -121,7 +122,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private onboarding: PlannerOnboardingService,
     private suggestionDrawer: SuggestionDrawerService,
     private availability: AffixAvailabilityService,
-    private derivation: TrackedAffixDerivationService
+    private derivation: TrackedAffixDerivationService,
+    public sourceHighlight: AffixSourceHighlightService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];
@@ -160,6 +162,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.sourceHighlight.clear();
     this.onboardingSubscription?.unsubscribe();
     this.coveredAffixesSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();

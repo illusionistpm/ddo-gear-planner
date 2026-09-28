@@ -5,6 +5,7 @@ import { EffectsTableComponent } from './effects-table.component';
 import { FiltersService } from '../planner/filters.service';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
+import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
 describe('EffectsTableComponent', () => {
   let component: EffectsTableComponent;
@@ -401,6 +402,31 @@ describe('EffectsTableComponent', () => {
 
     expect(title).toContain('Provided by:\n- Belt: Mighty Belt\n- Gloves: Mighty Gloves');
     expect(title).not.toContain('Weaker Boots');
+  });
+
+  it('points the gear list at the slots supplying a bonus type while its chip is hovered', async () => {
+    const equipped = TestBed.inject(EquippedService);
+    const strength = (value: number) => [{ name: 'Strength', type: 'Enhancement', value }];
+    const item = (name: string, slot: string, affixes: Array<{ name: string; type: string; value: number }>) =>
+      new Item({ name, slot, type: slot, ml: 1, affixes, url: '', crafting: [], quests: [] });
+    equipped.addImportantAffix('Strength');
+    equipped.set(item('Mighty Belt', 'Belt', strength(10)));
+    equipped.set(item('Weaker Boots', 'Boots', strength(8)));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    let targets: ReadonlySet<string> = new Set();
+    const subscription = TestBed.inject(AffixSourceHighlightService).targets$.subscribe(value => targets = value);
+
+    const chip = Array.from(fixture.nativeElement.querySelectorAll('.tracked-bonus-chip') as NodeListOf<HTMLElement>)
+      .find(element => element.textContent?.includes('Enhancement:'))!;
+    chip.dispatchEvent(new MouseEvent('mouseenter'));
+
+    expect([...targets]).toEqual(['Belt']);
+
+    chip.dispatchEvent(new MouseEvent('mouseleave'));
+
+    expect([...targets]).toEqual([]);
+    subscription.unsubscribe();
   });
 
   it('tracks chips without depending on component method binding', () => {

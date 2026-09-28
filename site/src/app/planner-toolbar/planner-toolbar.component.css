@@ -185,9 +185,18 @@
     padding: var(--space-2) var(--space-12);
 }
 
-/* The short label only exists below the breakpoint - see the media query. */
+/* The short label only exists below the breakpoint - see the media query - or
+   when the full one wouldn't fit on the workspace line (fitEditAffixesLabel). */
 .tracked-affix-edit-affixes-short {
     display: none;
+}
+
+.tracked-affix-edit-affixes.short-label .tracked-affix-edit-affixes-label {
+    display: none;
+}
+
+.tracked-affix-edit-affixes.short-label .tracked-affix-edit-affixes-short {
+    display: inline;
 }
 
 .tracked-affix-edit-affixes:hover,
@@ -289,6 +298,19 @@
 }
 
 /*
+ * A wrapping flex row moves an item to a new line before it shrinks anything,
+ * so the basis is what decides whether the workspace controls share one line.
+ * 24rem put the affix builder button on a line of its own - at ~800px with the
+ * view switch beside it, and up to ~1250px with both panels showing. The box
+ * still grows into whatever room is left. (A phone has its own, smaller basis.)
+ */
+@media (min-width: 768px) {
+    .equipment-search {
+        flex-basis: 12rem;
+    }
+}
+
+/*
  * Above this both panels are on screen at once (see styles.css), so there is
  * nothing to switch between - and both views' controls have to be reachable.
  *
@@ -304,6 +326,12 @@
     .equipment-search[hidden],
     .tracked-affix-groupby[hidden] {
         display: flex !important;
+    }
+
+
+    /* Two pills don't need the spare room; the search box does. */
+    .tracked-affix-groupby {
+        flex-grow: 0;
     }
 }
 

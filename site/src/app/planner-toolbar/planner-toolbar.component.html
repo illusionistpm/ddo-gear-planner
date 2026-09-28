@@ -16,7 +16,7 @@
     (click)="selectTab('affixes')"><span class="planner-view-option-full">Tracked Affixes</span><span class="planner-view-option-short">Affixes</span></button>
 </div>
 
-<div class="equipment-search" [hidden]="!isActiveTab('equipment')">
+<div class="equipment-search" [hidden]="!isActiveTab('equipment')" #gearSearch>
   <i class="fas fa-search equipment-search-icon" aria-hidden="true"></i>
   <app-typeahead id="globalSearch" type="text" placeholder="Search all gear..."
     [source]="getAllGear()" [onChange]="onGlobalItemSelected" [resultFormatter]="globalResultFormatter"
@@ -34,7 +34,7 @@
 
 <!-- Outside both view controls: what the planner tracks is worth changing from
      either view, and the affix rail's copy of this button has gone. -->
-<button type="button" class="tracked-affix-edit-affixes"
+<button type="button" class="tracked-affix-edit-affixes" #editAffixes
   title="Add / edit affixes" aria-label="Add / edit affixes" (click)="openBuilder()">
   <span class="fas fa-plus" aria-hidden="true"></span>
   <span class="tracked-affix-edit-affixes-label">Add / edit affixes</span>

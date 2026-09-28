@@ -154,4 +154,55 @@ describe('PlannerToolbarComponent', () => {
       expect(component.getAllGear()).toBe(first);
     });
   });
+  describe('the affix builder button\'s label, with both panels on screen', () => {
+    function button(): HTMLElement {
+      return fixture.nativeElement.querySelector('.tracked-affix-edit-affixes');
+    }
+
+    /** jsdom has no layout: put the search box on the first line, and the button on `buttonLine`. */
+    function layOut(buttonLine: 1 | 2) {
+      const search = fixture.nativeElement.querySelector('.equipment-search') as HTMLElement;
+      Object.defineProperty(search, 'offsetWidth', { configurable: true, get: () => 300 });
+      search.getBoundingClientRect = () => ({ top: 50, bottom: 80 }) as DOMRect;
+      button().getBoundingClientRect = () => {
+        // The full label is what pushes it down; the short one always fits here.
+        const top = buttonLine === 2 && !button().classList.contains('short-label') ? 90 : 52;
+        return { top, bottom: top + 26 } as DOMRect;
+      };
+    }
+
+    it('spells out "Add / edit affixes" when it fits on the line with the search box', () => {
+      layOut(1);
+
+      component.fitEditAffixesLabel();
+
+      expect(button().classList).not.toContain('short-label');
+    });
+
+    it('falls back to "Affixes" rather than taking a line of its own', () => {
+      layOut(2);
+
+      component.fitEditAffixesLabel();
+
+      expect(button().classList).toContain('short-label');
+    });
+
+    it('goes back to the full label once there is room', () => {
+      layOut(2);
+      component.fitEditAffixesLabel();
+      layOut(1);
+
+      component.fitEditAffixesLabel();
+
+      expect(button().classList).not.toContain('short-label');
+    });
+
+    it('leaves it alone while the search box isn\'t laid out', () => {
+      button().getBoundingClientRect = () => ({ top: 90, bottom: 116 }) as DOMRect;
+
+      component.fitEditAffixesLabel();
+
+      expect(button().classList).not.toContain('short-label');
+    });
+  });
 });

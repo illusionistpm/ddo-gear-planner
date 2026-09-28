@@ -71,7 +71,8 @@
 }
 
 .planner-chrome-spacer {
-  flex: 1 1 auto;
+  /* app-build-actions takes the slack instead - see its rule below. */
+  flex: 0 0 0;
   min-width: 0;
   order: 30;
 }
@@ -119,6 +120,15 @@
 app-build-actions {
   order: 40;
   min-width: 0;
+  /*
+   * flex-basis 0, not auto. .planner-chrome wraps, and a wrapping flex
+   * container moves an item to the next line when its *content* width does not
+   * fit rather than shrinking it - so with basis auto this lands on a line of
+   * its own (a phone at 360px, or the brand's line at ~840px and ~1000px with a
+   * long build name) instead of letting the name give way. It takes the line's
+   * slack, and build-actions right-aligns its controls within it.
+   */
+  flex: 1 1 0;
 }
 
 .planner-support-wrap,
@@ -661,27 +671,6 @@ app-admin-link {
   /* The favicon gives up its corner: that first line needs every pixel. */
   .planner-brand {
     display: none;
-  }
-
-  /*
-   * A phone is not one width: 360px and 500px differ by more than the whole
-   * overflow button. Rather than snap everything to the tightest form across
-   * that range, hand the slack to the build controls and let the build name
-   * inside them take whatever is left.
-   */
-  .planner-chrome-spacer {
-    flex: 0 0 0;
-  }
-
-  /*
-   * flex-basis 0, not auto. .planner-chrome wraps, and a wrapping flex
-   * container moves an item to the next line when its *content* width does not
-   * fit rather than shrinking it - so with basis auto this lands on a line of
-   * its own at 360px instead of letting the name give way.
-   */
-  app-build-actions {
-    flex: 1 1 0;
-    min-width: 0;
   }
 
   /* The Ko-fi button sits mid-row in build-actions' overflow menu here, so

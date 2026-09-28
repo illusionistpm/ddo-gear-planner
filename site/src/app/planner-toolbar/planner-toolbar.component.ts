@@ -35,10 +35,13 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   groupMode: TrackedAffixGroupMode = 'category';
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
+  @ViewChild('gearSearch') private gearSearch?: ElementRef<HTMLElement>;
+  @ViewChild('editAffixes') private editAffixes?: ElementRef<HTMLElement>;
 
   private tabSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
   private switchObserver?: ResizeObserver;
+  private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
   // the flattened list never changes. Worth caching: this component is mounted
   // for the whole session and the template reads it on every change-detection
@@ -73,11 +76,27 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
       if (this.viewSwitch) {
         this.switchObserver.observe(this.viewSwitch.nativeElement);
       }
+
+      // The row's width, and Filters' - which grows and shrinks with its chips -
+      // decide whether the affix builder button's full label fits beside the rest.
+      // Not the button's parent: that is this component's host, display: contents,
+      // which has no box for a ResizeObserver to see. Filters lives in main's template.
+      const button = this.editAffixes?.nativeElement;
+      const chrome = button?.closest('.planner-chrome');
+      if (button && chrome) {
+        this.workspaceRowObserver = new ResizeObserver(() => this.fitEditAffixesLabel());
+        this.workspaceRowObserver.observe(chrome);
+        const filters = chrome.querySelector('.planner-filter-control');
+        if (filters) {
+          this.workspaceRowObserver.observe(filters);
+        }
+      }
     });
   }
 
   ngOnDestroy() {
     this.switchObserver?.disconnect();
+    this.workspaceRowObserver?.disconnect();
     this.tabSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
   }
@@ -105,6 +124,26 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
       viewSwitch.style.setProperty(`--planner-view-${index}-width`, `${option.offsetWidth}px`);
     });
     viewSwitch.classList.add('thumb-ready');
+  }
+
+  /**
+   * With both panels on screen, the affix builder button spells out "Add / edit
+   * affixes" only when that still fits on the workspace line with Filters, the
+   * gear search and Group by; otherwise it is "+ Affixes" rather than a line of its
+   * own. Measured, because Filters' width depends on how many filter chips it
+   * carries. Below the dual-panel breakpoint the CSS keeps the short label.
+   */
+  fitEditAffixesLabel() {
+    const button = this.editAffixes?.nativeElement;
+    const search = this.gearSearch?.nativeElement;
+    if (!button || !search || !search.offsetWidth || window.matchMedia?.('(max-width: 994.98px)')?.matches) {
+      return;
+    }
+
+    button.classList.remove('short-label');
+    if (button.getBoundingClientRect().top >= search.getBoundingClientRect().bottom) {
+      button.classList.add('short-label');
+    }
   }
 
   isActiveTab(tab: PlannerTab) {

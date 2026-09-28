@@ -540,9 +540,14 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   // small popover anchored under our own button instead.
   readonly supportPopoverUrl: SafeResourceUrl;
   supportPopoverOpen = false;
+  /** Where the popover's top goes on a narrow screen, where it is pinned to the viewport's sides. */
+  supportPopoverTop = 0;
 
-  toggleSupportPopover() {
+  toggleSupportPopover(button?: HTMLElement) {
     this.supportPopoverOpen = !this.supportPopoverOpen;
+    if (this.supportPopoverOpen && button) {
+      this.supportPopoverTop = button.getBoundingClientRect().bottom + 6;
+    }
   }
 
   closeSupportPopover() {

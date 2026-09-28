@@ -684,10 +684,21 @@ app-admin-link {
     min-width: 0;
   }
 
-  /* The overflow button and its menu live in app-build-actions now, so that
-     there is one menu here rather than two beside each other. */
+  /* The Ko-fi button sits mid-row in build-actions' overflow menu here, so
+     anchoring the popover to it pushed it off the left edge. Pin it to the
+     viewport's sides instead, just under the button (supportPopoverTop) -
+     the same as the credits popover beside it. */
   .planner-support-popover {
-    right: 0;
+    left: var(--space-16);
+    max-height: calc(100svh - var(--support-popover-top) - var(--space-8));
+    position: fixed;
+    right: var(--space-16);
+    top: var(--support-popover-top);
+    width: auto;
+  }
+
+  .planner-support-iframe {
+    max-height: calc(100svh - var(--support-popover-top) - var(--space-8));
   }
 
   /* The icon carries the same meaning on its own, same as Share's label

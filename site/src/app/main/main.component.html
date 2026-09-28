@@ -47,12 +47,13 @@
                 [class.open]="supportPopoverOpen"
                 [attr.aria-expanded]="supportPopoverOpen"
                 title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
-                (click)="toggleSupportPopover(); credits.close()">
+                (click)="toggleSupportPopover(supportButton); credits.close()" #supportButton>
                 <i class="fas fa-mug-hot" aria-hidden="true"></i>
             </button>
 
             @if (supportPopoverOpen) {
-                <section class="planner-support-popover" aria-label="Support DDO Gear Planner">
+                <section class="planner-support-popover" aria-label="Support DDO Gear Planner"
+                    [style.--support-popover-top.px]="supportPopoverTop">
                     <button type="button" class="planner-support-popover-close" aria-label="Close" title="Close"
                         (click)="closeSupportPopover()">
                         <span aria-hidden="true">&times;</span>

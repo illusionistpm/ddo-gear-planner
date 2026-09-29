@@ -376,12 +376,13 @@
     {
         "affixes": [
             "Acid Lore",
-            "Alignment Lore",
+            "Chaos Lore",
             "Cold Lore",
             "Evil Lore",
             "Fire Lore",
             "Force Lore",
             "Healing Lore",
+            "Lawful Lore",
             "Light Lore",
             "Lightning Lore",
             "Negative Lore",
@@ -397,12 +398,13 @@
     {
         "affixes": [
             "Acid Lore",
-            "Alignment Lore",
+            "Chaos Lore",
             "Cold Lore",
             "Evil Lore",
             "Fire Lore",
             "Force Lore",
             "Healing Lore",
+            "Lawful Lore",
             "Light Lore",
             "Lightning Lore",
             "Negative Lore",

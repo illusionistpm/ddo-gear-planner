@@ -142,7 +142,8 @@ def get_slavers_recipe_rows_from_wiki(soup: BeautifulSoup) -> list[tuple[str, st
     current_group = None
 
     for row in table.find_all('tr')[2:]:
-        cells = [cell.get_text(' ', strip=True) for cell in row.find_all(['th', 'td'], recursive=False)]
+        # The wiki writes some names with non-breaking spaces ("Green&nbsp;Augment&nbsp;Slot").
+        cells = [cell.get_text(' ', strip=True).replace(chr(0xA0), ' ') for cell in row.find_all(['th', 'td'], recursive=False)]
         if not cells:
             continue
 

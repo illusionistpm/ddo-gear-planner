@@ -21,7 +21,8 @@ def slavers_html():
             <tr><td>Bonus Note: values</td><td>Quality Attributes</td><td>+1</td><td>+3</td><td></td><td></td></tr>
             <tr><td>Quality False Life</td><td>+4</td><td>+12</td></tr>
             <tr><td>Quality MRR</td><td>+2</td><td>+8</td></tr>
-            <tr><td>Augment Slot addition</td><td>Colorless Augment Slot</td><td></td><td></td></tr>
+            <tr><td>Augment Slot addition</td><td colspan="3">Colorless&nbsp;Augment&nbsp;Slot</td><td></td><td></td></tr>
+            <tr><td colspan="3">Green&nbsp;Augment&nbsp;Slot Blue, Green, Yellow, and Colorless</td><td>30 Staff Splinters</td><td>100 Legendary Staff Splinters</td></tr>
         </table>
         <table>
             <tr><th>Name</th><th colspan="2">Heroic</th><th colspan="2">Legendary</th></tr>
@@ -60,6 +61,16 @@ def test_parse_slavers_crafting_expands_wiki_groups_and_uses_wiki_values(monkeyp
     assert {'affixes': [{'name': 'Spell Focus Mastery', 'type': 'Equipment', 'value': 6}]} in crafting["Legendary Slaver's Extra Slot"]['*']
     assert {'affixes': [{'name': 'False Life', 'type': 'Quality', 'value': 4}]} in crafting["Slaver's Bonus Slot"]['*']
     assert {'affixes': [{'name': 'Magical Resistance Rating', 'type': 'Quality', 'value': 8}]} in crafting["Legendary Slaver's Bonus Slot"]['*']
+
+
+def test_parse_slavers_crafting_skips_augment_slot_rows_with_their_own_cost(monkeypatch):
+    # The wiki gives the Green Augment Slot its own cost cells, so its row has
+    # as many cells as a recipe row; it is named with non-breaking spaces.
+    monkeypatch.setattr(module, 'load_slavers_crafting_soup', slavers_html)
+
+    crafting = module.parse_slavers_crafting()
+
+    assert 'Augment' not in repr(crafting)
 
 
 def test_parse_slavers_sets_preserves_legacy_output_shape(monkeypatch):

@@ -41425,6 +41425,43 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Tendon Slice",
+                "type": "Untyped",
+                "value": "12"
+            },
+            {
+                "name": "Electrifying",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Freezing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "24"
+            }
+        ],
+        "ml": 36,
+        "name": "Crystallized Eternity (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Great Clubs",
+        "url": "/page/Item:Crystallized_Eternity_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {
@@ -138667,6 +138704,48 @@
     {
         "affixes": [
             {
+                "name": "Invisibility Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deathblock",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Nightmare Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "15"
+            },
+            {
+                "name": "DR",
+                "type": "Good",
+                "value": "15"
+            }
+        ],
+        "ml": 36,
+        "name": "Legendary Cloak of Night (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Cloak",
+        "type": "Back items",
+        "url": "/page/Item:Legendary_Cloak_of_Night_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Electric Absorption",
                 "type": "Enhancement",
                 "value": "34"
@@ -147358,6 +147437,48 @@
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Docent_of_Shadow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "166"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "24"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Legendary Docent of Shadow (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Docents",
+        "url": "/page/Item:Legendary_Docent_of_Shadow_(level_36)"
     },
     {
         "affixes": [
@@ -184432,6 +184553,48 @@
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Robe_of_Shadow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Nightshield clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "166"
+            },
+            {
+                "name": "Negative Lore",
+                "type": "Equipment",
+                "value": "24"
+            },
+            {
+                "name": "False Life",
+                "type": "Enhancement",
+                "value": "40"
+            },
+            {
+                "name": "Necromancy Focus",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Boon of Undeath",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Legendary Robe of Shadow (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Armor",
+        "type": "Cloth armor",
+        "url": "/page/Item:Legendary_Robe_of_Shadow_(level_36)"
     },
     {
         "affixes": [
@@ -234414,6 +234577,43 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Pick of Endless Light (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Light Picks",
+        "url": "/page/Item:Pick_of_Endless_Light_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {
@@ -266475,6 +266675,43 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Dagger (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Daggers",
+        "url": "/page/Item:Spectral_Dagger_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {
@@ -267842,6 +268079,48 @@
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Returning",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Throwing Dagger (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Throwing Daggers",
+        "url": "/page/Item:Spectral_Throwing_Dagger_(level_36)"
     },
     {
         "affixes": [
@@ -270543,6 +270822,43 @@
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Unholy",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Smashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Piercing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Enhancement",
+                "value": "12"
+            }
+        ],
+        "ml": 36,
+        "name": "Star of Endless Night (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Morningstars",
+        "url": "/page/Item:Star_of_Endless_Night_(level_36)"
     },
     {
         "affixes": [
@@ -302221,6 +302537,43 @@
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Wraps of Endless Light (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Wraps_of_Endless_Light_(level_36)"
     },
     {
         "affixes": [

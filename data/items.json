@@ -182104,7 +182104,7 @@
             {
                 "name": "Stunning",
                 "type": "Enhancement",
-                "value": "16"
+                "value": "18"
             },
             {
                 "name": "Staggering Blow",
@@ -182125,7 +182125,7 @@
         "crafting": [
             "Red Augment Slot"
         ],
-        "ml": 32,
+        "ml": 36,
         "name": "Legendary Ratkiller (level 36)",
         "quests": [
             "Treasure of Crystal Cove"

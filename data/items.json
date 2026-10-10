@@ -52387,12 +52387,12 @@
             {
                 "name": "Sheltering",
                 "type": "Enhancement",
-                "value": "35"
+                "value": "37"
             },
             {
                 "name": "Deception",
                 "type": "Enhancement",
-                "value": "11"
+                "value": "12"
             },
             {
                 "name": "Speed",
@@ -132108,7 +132108,7 @@
                 "value": "151"
             },
             {
-                "name": "Disintegration Guard",
+                "name": "Utter Disintegration Guard",
                 "type": "Bool",
                 "value": 1
             },
@@ -132545,8 +132545,8 @@
             }
         ],
         "crafting": [
-            "Red Augment Slot",
-            "Colorless Augment Slot"
+            "Purple Augment Slot",
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Bow of the Elements (Air)",
@@ -132599,8 +132599,8 @@
             }
         ],
         "crafting": [
-            "Red Augment Slot",
-            "Colorless Augment Slot"
+            "Purple Augment Slot",
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Bow of the Elements (Air)",
@@ -137993,6 +137993,7 @@
             }
         ],
         "crafting": [
+            "Purple Augment Slot",
             "Red Augment Slot"
         ],
         "ml": 30,
@@ -138036,7 +138037,8 @@
             }
         ],
         "crafting": [
-            "Yellow Augment Slot"
+            "Yellow Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Charged Gauntlets",
@@ -139603,8 +139605,8 @@
             }
         ],
         "crafting": [
-            "Red Augment Slot",
-            "Colorless Augment Slot"
+            "Purple Augment Slot",
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Collapsible Shortbow",
@@ -152100,6 +152102,7 @@
             }
         ],
         "crafting": [
+            "Purple Augment Slot",
             "Red Augment Slot"
         ],
         "ml": 30,
@@ -153098,7 +153101,7 @@
     {
         "affixes": [
             {
-                "name": "Greater Poison Guard",
+                "name": "Legendary Virulent Poison Guard",
                 "type": "Bool",
                 "value": 1
             },
@@ -153119,7 +153122,8 @@
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Envenomed Cloak",
@@ -166981,7 +166985,8 @@
             }
         ],
         "crafting": [
-            "Yellow Augment Slot"
+            "Yellow Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Helm of Frost",
@@ -187102,7 +187107,8 @@
             }
         ],
         "crafting": [
-            "Green Augment Slot"
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Scorched Bracers",
@@ -193767,6 +193773,96 @@
     {
         "affixes": [
             {
+                "name": "Armor Class",
+                "type": "Shield",
+                "value": "15"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+13"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Deflection",
+                "value": "6"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Lifesealed",
+                "type": "Enhancement",
+                "value": "36"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 32,
+        "name": "Legendary Spectre Deflector (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Offhand",
+        "type": "Bucklers",
+        "url": "/page/Item:Legendary_Spectre_Deflector_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Armor Class",
+                "type": "Shield",
+                "value": "17"
+            },
+            {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Deflection",
+                "value": "7"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostly",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Lifesealed",
+                "type": "Enhancement",
+                "value": "39"
+            }
+        ],
+        "crafting": [
+            "Blue Augment Slot"
+        ],
+        "ml": 36,
+        "name": "Legendary Spectre Deflector (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Offhand",
+        "type": "Bucklers",
+        "url": "/page/Item:Legendary_Spectre_Deflector_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
@@ -194068,6 +194164,7 @@
             }
         ],
         "crafting": [
+            "Orange Augment Slot",
             "Purple Augment Slot"
         ],
         "ml": 30,
@@ -194115,7 +194212,7 @@
                 "value": "7"
             },
             {
-                "name": "True Seeing",
+                "name": "Eversight",
                 "type": "Bool",
                 "value": 1
             },
@@ -194132,7 +194229,7 @@
         ],
         "crafting": [
             "Purple Augment Slot",
-            "Colorless Augment Slot"
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Staff of Inner Sight",
@@ -204105,8 +204202,8 @@
             }
         ],
         "crafting": [
-            "Red Augment Slot",
-            "Colorless Augment Slot"
+            "Purple Augment Slot",
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Whirlwind",
@@ -205084,7 +205181,7 @@
         ],
         "crafting": [
             "Purple Augment Slot",
-            "Colorless Augment Slot"
+            "Red Augment Slot"
         ],
         "ml": 30,
         "name": "Legendary Xuum",
@@ -205127,6 +205224,7 @@
             }
         ],
         "crafting": [
+            "Purple Augment Slot",
             "Red Augment Slot"
         ],
         "ml": 30,
@@ -273402,9 +273500,6 @@
         ],
         "ml": 1,
         "name": "Sun Flask",
-        "quests": [
-            "Festivult"
-        ],
         "slot": "Weapon",
         "type": "Darts",
         "url": "/page/Item:Sun_Flask"

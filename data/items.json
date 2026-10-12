@@ -267793,6 +267793,154 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 32,
+        "name": "Spectral Longbow (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Spectral_Longbow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 32,
+        "name": "Spectral Longbow (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Spectral_Longbow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Longbow (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Spectral_Longbow_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Longbow (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Spectral_Longbow_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {

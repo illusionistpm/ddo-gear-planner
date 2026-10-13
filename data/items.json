@@ -18807,16 +18807,13 @@
     {
         "affixes": [
             {
-                "name": "AoE Phantasmal Killer CL10",
+                "name": "AoE Phantasmal Killer",
                 "type": "Bool",
                 "value": 1
             }
         ],
-        "ml": 5,
+        "ml": 1,
         "name": "Bottled Fear",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Darts",
         "url": "/page/Item:Bottled_Fear"
@@ -32261,11 +32258,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Cloak of Night (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Cloak_of_Night_(level_12)"
@@ -32298,11 +32292,8 @@
                 "value": "2"
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Cloak of Night (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Cloak_of_Night_(level_16)"
@@ -32315,11 +32306,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Cloak of Night (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Cloak_of_Night_(level_4)"
@@ -32337,11 +32325,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Cloak of Night (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Cloak_of_Night_(level_8)"
@@ -67199,11 +67184,8 @@
                 "value": "5"
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Epic Cloak of Night (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Epic_Cloak_of_Night_(level_20)"
@@ -67241,11 +67223,8 @@
                 "value": "10"
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Epic Cloak of Night (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Epic_Cloak_of_Night_(level_24)"
@@ -67283,11 +67262,8 @@
                 "value": "15"
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Epic Cloak of Night (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Epic_Cloak_of_Night_(level_28)"

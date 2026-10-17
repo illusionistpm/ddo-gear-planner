@@ -155,3 +155,38 @@ def test_item_metadata_infers_lamordia_pack_from_row_source_text(tmp_path, monke
     ''', set(), {}, monkeypatch)
 
     assert items[0]['pack'] == 'Lamordia'
+
+
+def test_item_with_non_numeric_ml_is_skipped_not_fatal(tmp_path, monkeypatch):
+    # A new wiki page can list its minimum level as a placeholder ('???') before
+    # it is filled in. That row must be skipped, not crash the whole build.
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Placeholder_Lantern" title="Item:Placeholder Lantern">Placeholder Lantern</a></td>
+        <td></td><td>???</td><td>Bound to Account on Acquire</td>
+        <td><a href="/page/The_Court_of_Strahd" title="The Court of Strahd">The Court of Strahd</a></td>
+        <td>end chest</td>
+      </tr>
+      <tr>
+        <td><a href="/page/Item:Heartshard" title="Item:Heartshard">Heartshard</a></td>
+        <td></td><td>8</td><td>Bound to Account on Acquire</td>
+        <td><a href="/page/Snowfall_and_Sunlight" title="Snowfall and Sunlight">Snowfall and Sunlight</a></td>
+        <td>end chest</td>
+      </tr>
+    ''', monkeypatch=monkeypatch)
+
+    assert [item['name'] for item in items] == ['Heartshard']
+    assert items[0]['ml'] == 8
+
+
+def test_item_with_ml_none_still_defaults_to_one(tmp_path, monkeypatch):
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Heartshard" title="Item:Heartshard">Heartshard</a></td>
+        <td></td><td>None</td><td>Bound to Account on Acquire</td>
+        <td><a href="/page/Snowfall_and_Sunlight" title="Snowfall and Sunlight">Snowfall and Sunlight</a></td>
+        <td>end chest</td>
+      </tr>
+    ''', monkeypatch=monkeypatch)
+
+    assert items[0]['ml'] == 1

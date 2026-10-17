@@ -1921,6 +1921,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "4"
+            },
+            {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 15,
@@ -4716,6 +4721,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -9417,6 +9427,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -10066,6 +10081,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "8"
+            },
+            {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Elemental Resistance",
@@ -11996,6 +12016,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -12691,6 +12716,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -13186,6 +13216,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -16154,6 +16189,21 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flametouched Iron",
                 "type": "Bool",
                 "value": 1
@@ -16570,6 +16620,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "4"
+            },
+            {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 15,
@@ -20611,6 +20666,21 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Attuned to Heroism",
                 "type": "Bool",
                 "value": 1
@@ -22006,7 +22076,13 @@
             },
             {
                 "name": "Radiant Glory",
+                "type": "Untyped",
                 "value": "2"
+            },
+            {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "artifact": true,
@@ -26714,6 +26790,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -26745,6 +26826,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -26784,6 +26870,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -26815,6 +26906,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -34290,6 +34386,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -37048,6 +37149,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doublestrike",
                 "type": "Quality",
                 "value": "2"
@@ -37840,6 +37946,21 @@
             },
             {
                 "name": "Ribcracker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -40109,6 +40230,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -41206,16 +41332,18 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "10"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Crystallized Eternity (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_12)"
@@ -41243,16 +41371,18 @@
                 "value": 1
             },
             {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "12"
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Crystallized Eternity (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_16)"
@@ -41280,16 +41410,18 @@
                 "value": 1
             },
             {
+                "name": "10d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "15"
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Crystallized Eternity (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_20)"
@@ -41317,16 +41449,18 @@
                 "value": 1
             },
             {
+                "name": "12d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "17"
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Crystallized Eternity (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_24)"
@@ -41354,16 +41488,18 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "20"
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Crystallized Eternity (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_28)"
@@ -41391,16 +41527,18 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "22"
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Crystallized Eternity (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_32)"
@@ -41428,16 +41566,18 @@
                 "value": 1
             },
             {
+                "name": "16d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "24"
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Crystallized Eternity (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_36)"
@@ -41465,16 +41605,18 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "5"
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Crystallized Eternity (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_4)"
@@ -41502,16 +41644,18 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor-Piercing",
                 "type": "Enhancement",
                 "value": "8"
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Crystallized Eternity (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Clubs",
         "url": "/page/Item:Crystallized_Eternity_(level_8)"
@@ -42483,6 +42627,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -43460,6 +43609,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -43703,6 +43857,11 @@
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghost Touch",
                 "type": "Bool",
                 "value": 1
@@ -43741,6 +43900,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -43787,6 +43961,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -44210,9 +44399,6 @@
         ],
         "ml": 1,
         "name": "Death's Smile",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Death%27s_Smile"
@@ -44429,6 +44615,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -47324,9 +47525,6 @@
         ],
         "ml": 1,
         "name": "Delighter's Docent",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Delighter%27s_Docent"
@@ -50904,7 +51102,13 @@
             },
             {
                 "name": "Eldritch",
+                "type": "Untyped",
                 "value": "3"
+            },
+            {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Vorpal",
@@ -51350,11 +51554,8 @@
                 "value": "1"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Docent of Shadow (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Docent_of_Shadow_(level_12)"
@@ -51387,11 +51588,8 @@
                 "value": "1"
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Docent of Shadow (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Docent_of_Shadow_(level_16)"
@@ -51414,11 +51612,8 @@
                 "value": "5"
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Docent of Shadow (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Docent_of_Shadow_(level_4)"
@@ -51446,11 +51641,8 @@
                 "value": "10"
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Docent of Shadow (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Docent_of_Shadow_(level_8)"
@@ -59346,6 +59538,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -60284,6 +60481,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Force Blast",
                 "type": "Bool",
                 "value": 1
@@ -60534,7 +60736,17 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60544,7 +60756,17 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -60572,7 +60794,17 @@
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60582,7 +60814,17 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -60610,7 +60852,17 @@
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60620,7 +60872,17 @@
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -60648,7 +60910,17 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60658,7 +60930,17 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -60686,7 +60968,17 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60696,7 +60988,17 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -60724,7 +61026,17 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -60734,7 +61046,17 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -62438,6 +62760,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "7"
+            },
+            {
+                "name": "7d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Guardbreaking",
@@ -64621,6 +64948,21 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vampirism",
                 "type": "Bool",
                 "value": 1
@@ -66322,6 +66664,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -66357,6 +66704,11 @@
                 "value": 1
             },
             {
+                "name": "5d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -66388,6 +66740,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -69338,7 +69695,13 @@
             },
             {
                 "name": "Eldritch",
+                "type": "Untyped",
                 "value": "6"
+            },
+            {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Sovereign Vorpal",
@@ -69486,11 +69849,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Epic Docent of Shadow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Epic_Docent_of_Shadow_(level_20)"
@@ -69528,11 +69888,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Epic Docent of Shadow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Epic_Docent_of_Shadow_(level_24)"
@@ -69570,11 +69927,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Epic Docent of Shadow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Epic_Docent_of_Shadow_(level_28)"
@@ -70908,6 +71262,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -70944,6 +71303,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -70986,6 +71350,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "9"
+            },
+            {
+                "name": "9d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Ghostly",
@@ -71043,6 +71412,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71083,6 +71457,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71119,6 +71498,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71168,6 +71552,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71204,6 +71593,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71248,6 +71642,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71284,6 +71683,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71328,6 +71732,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71364,6 +71773,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71408,6 +71822,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71444,6 +71863,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71488,6 +71912,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71524,6 +71953,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71568,6 +72002,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71604,6 +72043,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71648,6 +72092,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71684,6 +72133,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71728,6 +72182,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71764,6 +72223,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71808,6 +72272,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -71844,6 +72313,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71888,42 +72362,7 @@
                 "value": 1
             },
             {
-                "name": "Ghostbane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Weaken Undead",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Adamantine",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Red Augment Slot"
-        ],
-        "ml": 20,
-        "name": "Epic Ethereal Longbow",
-        "quests": [
-            "Morten Edgewright"
-        ],
-        "slot": "Weapon",
-        "type": "Long Bows",
-        "url": "/page/Item:Epic_Ethereal_Longbow"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+6"
-            },
-            {
-                "name": "Impactful",
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -71964,6 +72403,56 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Weaken Undead",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Adamantine",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "crafting": [
+            "Red Augment Slot"
+        ],
+        "ml": 20,
+        "name": "Epic Ethereal Longbow",
+        "quests": [
+            "Morten Edgewright"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Epic_Ethereal_Longbow"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+6"
+            },
+            {
+                "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72008,6 +72497,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72044,6 +72538,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72088,6 +72587,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72124,6 +72628,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72168,6 +72677,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72204,6 +72718,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72292,6 +72811,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72328,6 +72852,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72372,6 +72901,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72408,6 +72942,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72457,6 +72996,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72493,6 +73037,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -72542,6 +73091,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72587,6 +73141,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -72628,6 +73187,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -75762,6 +76326,21 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frostbite",
                 "type": "Bool",
                 "value": 1
@@ -75793,6 +76372,11 @@
             },
             {
                 "name": "Solar",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -78346,6 +78930,11 @@
                 "value": 1
             },
             {
+                "name": "1d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Blunted Ammunition",
                 "type": "Bool",
                 "value": 1
@@ -79097,6 +79686,11 @@
                 "value": 1
             },
             {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Greater Bleeding",
                 "type": "Bool",
                 "value": 1
@@ -79143,6 +79737,11 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Chilling",
                 "type": "Bool",
                 "value": 1
@@ -79179,6 +79778,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -80069,11 +80683,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Epic Robe of Shadow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Epic_Robe_of_Shadow_(level_20)"
@@ -80111,11 +80722,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Epic Robe of Shadow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Epic_Robe_of_Shadow_(level_24)"
@@ -80153,11 +80761,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Epic Robe of Shadow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Epic_Robe_of_Shadow_(level_28)"
@@ -81435,6 +82040,11 @@
                 "value": 1
             },
             {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Impact",
                 "type": "Bool",
                 "value": 1
@@ -82216,6 +82826,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "10"
+            },
+            {
+                "name": "10d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Balance",
@@ -83161,6 +83776,21 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Seeker",
                 "type": "Insight",
                 "value": "6"
@@ -83592,11 +84222,6 @@
     {
         "affixes": [
             {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "8"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+6"
@@ -83625,22 +84250,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Epic Spectre Deflector (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Epic_Spectre_Deflector_(level_20)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "9"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -83670,22 +84287,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Epic Spectre Deflector (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Epic_Spectre_Deflector_(level_24)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "14"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -83715,11 +84324,8 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Epic Spectre Deflector (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Epic_Spectre_Deflector_(level_28)"
@@ -88042,11 +88648,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Epic Wraps of Endless Light (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_20)"
@@ -88079,11 +88682,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Epic Wraps of Endless Light (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_24)"
@@ -88116,11 +88716,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Epic Wraps of Endless Light (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_28)"
@@ -88344,6 +88941,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -90615,6 +91217,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -91039,6 +91646,21 @@
             },
             {
                 "name": "Ribcracker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -94591,6 +95213,21 @@
                 "value": 1
             },
             {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doublestrike",
                 "type": "Enhancement",
                 "value": "8"
@@ -94620,6 +95257,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -94657,6 +95309,21 @@
                 "value": 1
             },
             {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doublestrike",
                 "type": "Enhancement",
                 "value": "10"
@@ -94686,6 +95353,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -94723,6 +95405,21 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doublestrike",
                 "type": "Enhancement",
                 "value": "14"
@@ -94752,6 +95449,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -99654,6 +100366,21 @@
                 "name": "Bloodletter",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 15,
@@ -100060,6 +100787,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "4"
+            },
+            {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Fortification",
@@ -100533,6 +101265,11 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frostbite",
                 "type": "Bool",
                 "value": 1
@@ -100560,6 +101297,11 @@
             },
             {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -100595,6 +101337,11 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frostbite",
                 "type": "Bool",
                 "value": 1
@@ -100622,6 +101369,11 @@
             },
             {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -100658,6 +101410,11 @@
                 "value": 1
             },
             {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frostbite",
                 "type": "Bool",
                 "value": 1
@@ -100686,6 +101443,11 @@
             },
             {
                 "name": "Frost",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -101157,6 +101919,11 @@
             },
             {
                 "name": "Freezing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "10d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -108859,6 +109626,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -109398,6 +110170,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -109604,6 +110381,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -110155,6 +110937,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -111952,6 +112739,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -112014,6 +112816,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "8"
+            },
+            {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 15,
@@ -112032,6 +112839,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "9"
+            },
+            {
+                "name": "9d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Fire Guard",
@@ -113385,6 +114197,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -113700,6 +114517,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -113997,9 +114819,6 @@
         ],
         "ml": 1,
         "name": "Hat of the Night Hag",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Hat_of_the_Night_Hag"
@@ -114698,6 +115517,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -114858,6 +115682,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -115014,6 +115843,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -116859,9 +117693,6 @@
         ],
         "ml": 1,
         "name": "Hood of Unrest",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Hood_of_Unrest"
@@ -117476,6 +118307,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -122363,6 +123209,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -123013,6 +123864,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -123686,6 +124542,11 @@
             },
             {
                 "name": "Flaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -124483,6 +125344,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -125585,7 +126451,13 @@
             },
             {
                 "name": "Radiant Glory",
+                "type": "Untyped",
                 "value": "2"
+            },
+            {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Zhentarim Attuned",
@@ -129013,6 +129885,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -129603,6 +130480,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -129725,6 +130607,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -129875,6 +130762,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -135934,6 +136826,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
                 "type": "Bool",
                 "value": 1
@@ -135965,6 +136862,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -138670,11 +139572,8 @@
                 "value": "15"
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Legendary Cloak of Night (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Cloak_of_Night_(level_32)"
@@ -138712,11 +139611,8 @@
                 "value": "15"
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Legendary Cloak of Night (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Legendary_Cloak_of_Night_(level_36)"
@@ -139359,6 +140255,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -140431,6 +141332,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -141574,6 +142480,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -142612,6 +143523,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -142987,6 +143903,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -147407,11 +148328,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Legendary Docent of Shadow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Docent_of_Shadow_(level_32)"
@@ -147449,11 +148367,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Legendary Docent of Shadow (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Docents",
         "url": "/page/Item:Legendary_Docent_of_Shadow_(level_36)"
@@ -151978,6 +152893,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -153842,6 +154762,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -159682,6 +160607,11 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Legendary Cooking By the Book",
                 "type": "Bool",
                 "value": 1
@@ -162745,6 +163675,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -163259,6 +164194,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -163381,6 +164321,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -163548,6 +164493,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -165547,6 +166497,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -165747,6 +166702,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -166446,6 +167406,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -166572,6 +167537,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -166694,6 +167664,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -167759,6 +168734,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -169468,6 +170458,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -169784,6 +170779,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -170300,6 +171300,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -172061,6 +173066,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -172183,6 +173193,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -172313,6 +173328,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -172435,6 +173455,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -173020,6 +174045,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -173059,6 +174089,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -173226,6 +174261,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -175451,6 +176491,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -176104,6 +177149,11 @@
                 "value": 1
             },
             {
+                "name": "16d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Freezing Ice",
                 "type": "Bool",
                 "value": 1
@@ -176564,6 +177614,11 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Limb Chopper",
                 "type": "Bool",
                 "value": 1
@@ -176797,6 +177852,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -180663,6 +181723,21 @@
                 "value": 1
             },
             {
+                "name": "15d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "15d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Screeching",
                 "type": "Bool",
                 "value": 1
@@ -181758,6 +182833,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -181930,6 +183010,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -182705,6 +183790,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -182827,6 +183917,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -184526,11 +185621,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Legendary Robe of Shadow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Robe_of_Shadow_(level_32)"
@@ -184568,11 +185660,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Legendary Robe of Shadow (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Legendary_Robe_of_Shadow_(level_36)"
@@ -186199,6 +187288,21 @@
                 "value": 1
             },
             {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
@@ -186988,6 +188092,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -187239,6 +188348,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -190962,6 +192076,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -191084,6 +192203,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -191215,6 +192339,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -191396,6 +192525,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -193749,11 +194883,6 @@
     {
         "affixes": [
             {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "15"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+13"
@@ -193782,22 +194911,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Legendary Spectre Deflector (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Legendary_Spectre_Deflector_(level_32)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "17"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -193827,11 +194948,8 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Legendary Spectre Deflector (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Legendary_Spectre_Deflector_(level_36)"
@@ -195175,6 +196293,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -198061,6 +199184,11 @@
                 "value": 1
             },
             {
+                "name": "16d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Legendary Freezing Ice",
                 "type": "Bool",
                 "value": 1
@@ -199503,6 +200631,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -199644,6 +200777,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -199776,6 +200914,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -203709,6 +204852,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -204678,6 +205826,11 @@
             },
             {
                 "name": "Freezing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "16d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -205730,6 +206883,21 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Frostbite",
                 "type": "Bool",
                 "value": 1
@@ -206574,6 +207742,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -206730,6 +207903,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -206894,6 +208072,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -207054,6 +208237,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -207164,6 +208352,11 @@
             },
             {
                 "name": "Solar",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -208336,9 +209529,6 @@
         ],
         "ml": 1,
         "name": "Long Broom of Mystery",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Quarterstaffs",
         "url": "/page/Item:Long_Broom_of_Mystery"
@@ -208478,6 +209668,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -208516,6 +209711,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -208753,6 +209953,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -214939,6 +216144,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "6"
+            },
+            {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -214966,6 +216176,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "7"
+            },
+            {
+                "name": "7d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -214993,6 +216208,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "8"
+            },
+            {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -215020,6 +216240,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "10"
+            },
+            {
+                "name": "10d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -215047,6 +216272,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "11"
+            },
+            {
+                "name": "11d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -215074,6 +216304,11 @@
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "12"
+            },
+            {
+                "name": "12d4",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -215341,6 +216576,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -216667,6 +217907,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Freezing Ice",
                 "type": "Bool",
                 "value": 1
@@ -216853,6 +218098,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Combat Mastery",
                 "type": "Enhancement",
                 "value": "2"
@@ -216878,6 +218128,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -216921,6 +218176,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Combat Mastery",
                 "type": "Enhancement",
                 "value": "6"
@@ -216956,6 +218216,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -216999,6 +218264,11 @@
                 "value": 1
             },
             {
+                "name": "5d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Combat Mastery",
                 "type": "Enhancement",
                 "value": "9"
@@ -217038,6 +218308,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Combat Mastery",
                 "type": "Enhancement",
                 "value": "11"
@@ -217073,6 +218348,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -218210,6 +219490,11 @@
                 "value": 1
             },
             {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Anarchic",
                 "type": "Bool",
                 "value": 1
@@ -218597,6 +219882,11 @@
             },
             {
                 "name": "Freezing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -220824,6 +222114,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -222352,6 +223647,11 @@
             },
             {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -224507,6 +225807,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Stunning",
                 "type": "Enhancement",
                 "value": "4"
@@ -224739,6 +226044,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -234457,11 +235767,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Pick of Endless Light (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_12)"
@@ -234489,11 +235796,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Pick of Endless Light (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_16)"
@@ -234526,11 +235830,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Pick of Endless Light (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_20)"
@@ -234563,11 +235864,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Pick of Endless Light (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_24)"
@@ -234600,11 +235898,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Pick of Endless Light (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_28)"
@@ -234637,11 +235932,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Pick of Endless Light (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_32)"
@@ -234674,11 +235966,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Pick of Endless Light (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_36)"
@@ -234701,11 +235990,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Pick of Endless Light (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_4)"
@@ -234728,11 +236014,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Pick of Endless Light (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Light Picks",
         "url": "/page/Item:Pick_of_Endless_Light_(level_8)"
@@ -235283,6 +236566,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -236228,6 +237526,11 @@
             },
             {
                 "name": "Freezing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             }
@@ -237897,16 +239200,13 @@
     {
         "affixes": [
             {
-                "name": "None",
+                "name": "",
                 "type": "Bool",
                 "value": 1
             }
         ],
-        "ml": 5,
+        "ml": 1,
         "name": "Pumpkin Head",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Darts",
         "url": "/page/Item:Pumpkin_Head"
@@ -237946,6 +239246,11 @@
         "affixes": [
             {
                 "name": "Burning Ammunition - 1d2",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d2",
                 "type": "Bool",
                 "value": 1
             }
@@ -238342,6 +239647,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -239626,6 +240936,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -241297,6 +242612,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -241453,6 +242773,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -242477,6 +243802,11 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Phlebotomizing",
                 "type": "Bool",
                 "value": 1
@@ -242546,6 +243876,11 @@
                 "value": 1
             },
             {
+                "name": "8d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Chilling",
                 "type": "Bool",
                 "value": 1
@@ -242578,9 +243913,6 @@
         ],
         "ml": 1,
         "name": "Reveler's Regalia",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Reveler%27s_Regalia"
@@ -242599,6 +243931,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -242674,6 +244021,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -245371,6 +246733,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 15,
@@ -245406,37 +246783,19 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
-            }
-        ],
-        "ml": 16,
-        "name": "Roadwatch Bow (level 16)",
-        "pack": "The High Road of Shadows",
-        "quests": [
-            "Rest Stop"
-        ],
-        "slot": "Weapon",
-        "type": "Long Bows",
-        "url": "/page/Item:Roadwatch_Bow_(level_16)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+5"
             },
             {
-                "name": "Axiomatic",
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Aligned",
+                "name": "7d8",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Heartseeker",
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -245472,6 +246831,69 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 16,
+        "name": "Roadwatch Bow (level 16)",
+        "pack": "The High Road of Shadows",
+        "quests": [
+            "Rest Stop"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Roadwatch_Bow_(level_16)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Axiomatic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Aligned",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 17,
@@ -245505,6 +246927,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 17,
@@ -245538,6 +246975,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 18,
@@ -245571,6 +247023,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 18,
@@ -245604,6 +247071,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 23,
@@ -245637,6 +247119,21 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 23,
@@ -245670,37 +247167,19 @@
                 "name": "Heartseeker",
                 "type": "Bool",
                 "value": 1
-            }
-        ],
-        "ml": 24,
-        "name": "Roadwatch Bow (level 24)",
-        "pack": "The High Road of Shadows",
-        "quests": [
-            "Rest Stop"
-        ],
-        "slot": "Weapon",
-        "type": "Long Bows",
-        "url": "/page/Item:Roadwatch_Bow_(level_24)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+7"
             },
             {
-                "name": "Supreme Law",
+                "name": "11d6",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Aligned",
+                "name": "11d8",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Heartseeker",
+                "name": "11d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -245734,6 +247213,69 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 24,
+        "name": "Roadwatch Bow (level 24)",
+        "pack": "The High Road of Shadows",
+        "quests": [
+            "Rest Stop"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Roadwatch_Bow_(level_24)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+7"
+            },
+            {
+                "name": "Supreme Law",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Aligned",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -245767,6 +247309,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -246614,11 +248171,8 @@
                 "value": "1"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Robe of Shadow (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Robe_of_Shadow_(level_12)"
@@ -246651,11 +248205,8 @@
                 "value": "1"
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Robe of Shadow (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Robe_of_Shadow_(level_16)"
@@ -246678,11 +248229,8 @@
                 "value": "5"
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Robe of Shadow (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Robe_of_Shadow_(level_4)"
@@ -246710,11 +248258,8 @@
                 "value": "10"
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Robe of Shadow (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Armor",
         "type": "Cloth armor",
         "url": "/page/Item:Robe_of_Shadow_(level_8)"
@@ -248305,6 +249850,21 @@
                 "name": "Bloodletter",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "5d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 12,
@@ -248331,6 +249891,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -248364,6 +249939,21 @@
                 "name": "Bloodletter",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -248393,6 +249983,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -248425,6 +250030,21 @@
                 "name": "Bloodletter",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -248453,6 +250073,21 @@
             },
             {
                 "name": "Bloodletter",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -250513,6 +252148,21 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
@@ -250539,6 +252189,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -252162,6 +253817,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -252747,6 +254407,11 @@
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Impact",
                 "type": "Bool",
                 "value": 1
@@ -253134,6 +254799,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -254582,6 +256252,11 @@
                 "name": "Impactful",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 1,
@@ -254604,6 +256279,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -254642,6 +256322,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Force Blast",
                 "type": "Bool",
                 "value": 1
@@ -254672,6 +256357,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -254710,6 +256400,11 @@
                 "value": 1
             },
             {
+                "name": "5d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Force Blast",
                 "type": "Bool",
                 "value": 1
@@ -254744,6 +256439,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Force Blast",
                 "type": "Bool",
                 "value": 1
@@ -254774,6 +256474,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -259365,6 +261070,11 @@
                 "value": "5"
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Balance",
                 "type": "Competence",
                 "value": "15"
@@ -260376,9 +262086,6 @@
         ],
         "ml": 1,
         "name": "Short Broom of Mystery",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Clubs",
         "url": "/page/Item:Short_Broom_of_Mystery"
@@ -260438,6 +262145,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -260598,6 +262310,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -260920,6 +262637,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -261151,6 +262873,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -261983,9 +263710,6 @@
         ],
         "ml": 1,
         "name": "Silence of the Tasty Hams",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Silence_of_the_Tasty_Hams"
@@ -264011,16 +265735,13 @@
     {
         "affixes": [
             {
-                "name": "None",
+                "name": "",
                 "type": "Bool",
                 "value": 1
             }
         ],
-        "ml": 5,
+        "ml": 1,
         "name": "Skull Head",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Darts",
         "url": "/page/Item:Skull_Head"
@@ -264343,6 +266064,21 @@
                 "name": "Ribcracker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -264372,6 +266108,21 @@
             },
             {
                 "name": "Ribcracker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -264405,6 +266156,21 @@
                 "name": "Ribcracker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -264434,6 +266200,21 @@
             },
             {
                 "name": "Ribcracker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "11d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -264467,6 +266248,21 @@
                 "name": "Ribcracker",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -264496,6 +266292,21 @@
             },
             {
                 "name": "Ribcracker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "13d10",
                 "type": "Bool",
                 "value": 1
             }
@@ -265034,6 +266845,21 @@
             },
             {
                 "name": "Heartseeker",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d8",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "9d10",
                 "type": "Bool",
                 "value": 1
             },
@@ -267076,6 +268902,80 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 32,
+        "name": "Spectral Great Axe (level 32)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Great Axes",
+        "url": "/page/Item:Spectral_Great_Axe_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Great Axe (level 36)",
+        "quests": [
+            "The Night Revels"
+        ],
+        "slot": "Weapon",
+        "type": "Great Axes",
+        "url": "/page/Item:Spectral_Great_Axe_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {
@@ -267316,14 +269216,82 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 28)",
+        "slot": "Weapon",
+        "type": "Great Crossbows",
+        "url": "/page/Item:Spectral_Great_Crossbow_(level_28)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Spectral Great Crossbow (level 32)",
+        "slot": "Weapon",
+        "type": "Great Crossbows",
+        "url": "/page/Item:Spectral_Great_Crossbow_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 36,
+        "name": "Spectral Great Crossbow (level 36)",
         "quests": [
             "The Night Revels"
         ],
         "slot": "Weapon",
         "type": "Great Crossbows",
-        "url": "/page/Item:Spectral_Great_Crossbow_(level_28)"
+        "url": "/page/Item:Spectral_Great_Crossbow_(level_36)"
     },
     {
         "affixes": [
@@ -268613,6 +270581,74 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Spectral Warhammer (level 32)",
+        "slot": "Weapon",
+        "type": "War Hammers",
+        "url": "/page/Item:Spectral_Warhammer_(level_32)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Evil Outsider Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Superior Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Spectral Warhammer (level 36)",
+        "slot": "Weapon",
+        "type": "War Hammers",
+        "url": "/page/Item:Spectral_Warhammer_(level_36)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
                 "value": "+2"
             },
             {
@@ -268718,11 +270754,6 @@
     {
         "affixes": [
             {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "5"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+4"
@@ -268751,22 +270782,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectre Deflector (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Spectre_Deflector_(level_12)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "7"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -268796,22 +270819,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectre Deflector (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Spectre_Deflector_(level_16)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "3"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -268836,22 +270851,14 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectre Deflector (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Spectre_Deflector_(level_4)"
     },
     {
         "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Shield",
-                "value": "4"
-            },
             {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
@@ -268876,11 +270883,8 @@
         "crafting": [
             "Blue Augment Slot"
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectre Deflector (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Offhand",
         "type": "Bucklers",
         "url": "/page/Item:Spectre_Deflector_(level_8)"
@@ -272532,6 +274536,11 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Deadly",
                 "type": "Competence",
                 "value": "4"
@@ -272785,6 +274794,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -278351,6 +280365,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Freezing Ice",
                 "type": "Bool",
                 "value": 1
@@ -279983,56 +282002,6 @@
         "slot": "Offhand",
         "type": "Rune Arms",
         "url": "/page/Item:The_Arc_Welder_(long_range)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Maximum Charge Tier",
-                "type": "Untyped",
-                "value": "3"
-            },
-            {
-                "name": "Rune Arm Imbue: Evil Shot",
-                "type": "Untyped",
-                "value": "2"
-            },
-            {
-                "name": "Ghost Shot",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Radiance",
-                "type": "Equipment",
-                "value": "66"
-            },
-            {
-                "name": "Lifesealed",
-                "type": "Enhancement",
-                "value": "18"
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Disrupting Weapons",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Green Augment Slot"
-        ],
-        "ml": 7,
-        "name": "The Astral Projector",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Offhand",
-        "type": "Rune Arms",
-        "url": "/page/Item:The_Astral_Projector"
     },
     {
         "affixes": [
@@ -281924,6 +283893,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Distant Diversion",
                 "type": "Enhancement",
                 "value": "9"
@@ -281960,6 +283934,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -282004,6 +283983,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Distant Diversion",
                 "type": "Enhancement",
                 "value": "15"
@@ -282040,6 +284024,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -282084,6 +284073,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Distant Diversion",
                 "type": "Enhancement",
                 "value": "21"
@@ -282120,6 +284114,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -282630,56 +284629,6 @@
     {
         "affixes": [
             {
-                "name": "Maximum Charge Tier",
-                "type": "Untyped",
-                "value": "5"
-            },
-            {
-                "name": "Rune Arm Imbue: Evil Shot",
-                "type": "Untyped",
-                "value": "4"
-            },
-            {
-                "name": "Ghost Shot",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Radiance",
-                "type": "Equipment",
-                "value": "115"
-            },
-            {
-                "name": "Lifesealed",
-                "type": "Enhancement",
-                "value": "28"
-            },
-            {
-                "name": "Ghostly",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Disrupting Weapons",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "crafting": [
-            "Green Augment Slot"
-        ],
-        "ml": 21,
-        "name": "The Epic Astral Projector",
-        "quests": [
-            "The Night Revels"
-        ],
-        "slot": "Offhand",
-        "type": "Rune Arms",
-        "url": "/page/Item:The_Epic_Astral_Projector"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Illusion Focus",
                 "type": "Equipment",
                 "value": "5"
@@ -282727,6 +284676,11 @@
             },
             {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -283028,6 +284982,11 @@
             },
             {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -283522,6 +285481,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -284820,6 +286784,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Crushing",
                 "type": "Bool",
                 "value": 1
@@ -285907,12 +287876,27 @@
                 "value": 1
             },
             {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             }
@@ -285948,12 +287932,27 @@
                 "value": 1
             },
             {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -285989,12 +287988,27 @@
                 "value": 1
             },
             {
+                "name": "2d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "3d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -286030,12 +288044,27 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -286071,12 +288100,27 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -286112,12 +288156,27 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
             },
             {
+                "name": "6d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Ghostbane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             }
@@ -289868,6 +291927,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -290039,6 +292103,11 @@
             },
             {
                 "name": "Impactful",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -290218,6 +292287,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -290386,7 +292460,17 @@
                 "value": 1
             },
             {
+                "name": "4d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -290422,7 +292506,17 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -290458,7 +292552,17 @@
                 "value": 1
             },
             {
+                "name": "5d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -290494,7 +292598,17 @@
                 "value": 1
             },
             {
+                "name": "7d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -290530,7 +292644,17 @@
                 "value": 1
             },
             {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -290566,7 +292690,17 @@
                 "value": 1
             },
             {
+                "name": "8d4",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shrieking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -293866,6 +296000,11 @@
                 "value": 1
             },
             {
+                "name": "4d3",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doubleshot",
                 "type": "Enhancement",
                 "value": "5"
@@ -293890,6 +296029,11 @@
         "affixes": [
             {
                 "name": "Poison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d3",
                 "type": "Bool",
                 "value": 1
             },
@@ -293922,6 +296066,11 @@
                 "value": 1
             },
             {
+                "name": "5d3",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doubleshot",
                 "type": "Enhancement",
                 "value": "6"
@@ -293946,6 +296095,11 @@
         "affixes": [
             {
                 "name": "Poison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d3",
                 "type": "Bool",
                 "value": 1
             },
@@ -293978,6 +296132,11 @@
                 "value": 1
             },
             {
+                "name": "8d3",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Doubleshot",
                 "type": "Enhancement",
                 "value": "8"
@@ -294002,6 +296161,11 @@
         "affixes": [
             {
                 "name": "Poison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d3",
                 "type": "Bool",
                 "value": 1
             },
@@ -299706,6 +301870,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Vorpal",
                 "type": "Bool",
                 "value": 1
@@ -301960,6 +304129,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Banishing",
                 "type": "Bool",
                 "value": 1
@@ -302679,11 +304853,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_12)"
@@ -302711,11 +304882,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_16)"
@@ -302748,11 +304916,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_32)"
@@ -302785,11 +304950,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_36)"
@@ -302812,11 +304974,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_4)"
@@ -302839,11 +304998,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Wraps of Endless Light (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_8)"

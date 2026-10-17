@@ -323,6 +323,9 @@ def get_items_from_page(
             continue
 
         rawML = fields[cols['ML']].getText().strip()
+        if rawML != 'None' and not rawML.isdigit():
+            print(f"Skipping row in {itemPageURL}: non-numeric ML {rawML!r}")
+            continue
 
         item: Item|SetAugment = {
             'type': category,

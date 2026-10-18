@@ -88625,40 +88625,6 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "+6"
-            },
-            {
-                "name": "Greater Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Brilliance",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Radiant Blast",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Epic Wraps of Endless Light (level 20)",
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_20)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
                 "value": "+7"
             },
             {
@@ -88721,6 +88687,40 @@
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_28)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Epic Wraps of Endless Light (level 32)",
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_32)"
     },
     {
         "affixes": [
@@ -206081,6 +206081,40 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+15"
+            },
+            {
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Legendary Wraps of Endless Light (level 36)",
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Legendary_Wraps_of_Endless_Light_(level_36)"
+    },
+    {
+        "affixes": [
+            {
                 "name": "Armor Class",
                 "type": "Shield",
                 "value": "22"
@@ -304893,49 +304927,15 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "+15"
+                "value": "+6"
             },
             {
-                "name": "Undead Bane",
+                "name": "Greater Undead Bane",
                 "type": "Bool",
                 "value": 1
             },
             {
-                "name": "Coruscating",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Sunburst",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Wraps of Endless Light (level 32)",
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Wraps_of_Endless_Light_(level_32)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+15"
-            },
-            {
-                "name": "Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Coruscating",
+                "name": "Brilliance",
                 "type": "Bool",
                 "value": 1
             },
@@ -304945,16 +304945,16 @@
                 "value": 1
             },
             {
-                "name": "Greater Sunburst",
+                "name": "Radiant Blast",
                 "type": "Bool",
                 "value": 1
             }
         ],
         "ml": 1,
-        "name": "Wraps of Endless Light (level 36)",
+        "name": "Wraps of Endless Light (level 20)",
         "slot": "Weapon",
         "type": "Handwraps",
-        "url": "/page/Item:Wraps_of_Endless_Light_(level_36)"
+        "url": "/page/Item:Wraps_of_Endless_Light_(level_20)"
     },
     {
         "affixes": [

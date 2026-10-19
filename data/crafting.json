@@ -16736,62 +16736,6 @@
                 ]
             }
         ],
-        "Legendary Bracers of the Spider Queen": [
-            {
-                "affixes": [
-                    {
-                        "name": "Charisma",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Constitution",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Dexterity",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Intelligence",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Strength",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Wisdom",
-                        "type": "Enhancement",
-                        "value": "15"
-                    }
-                ]
-            }
-        ],
         "Legendary Burrowing Claws": [
             {
                 "affixes": [

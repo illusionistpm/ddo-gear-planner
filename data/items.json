@@ -88659,40 +88659,6 @@
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "+12"
-            },
-            {
-                "name": "Greater Undead Bane",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Coruscating",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Light Bringer",
-                "type": "Bool",
-                "value": 1
-            },
-            {
-                "name": "Greater Sunburst",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Epic Wraps of Endless Light (level 28)",
-        "slot": "Weapon",
-        "type": "Handwraps",
-        "url": "/page/Item:Epic_Wraps_of_Endless_Light_(level_28)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
                 "value": "+15"
             },
             {
@@ -134056,7 +134022,7 @@
             "Green Augment Slot",
             "Colorless Augment Slot"
         ],
-        "ml": 35,
+        "ml": 1,
         "name": "Legendary Bracers of the Spider Queen",
         "pack": "Terror of Demogorgon",
         "quests": [
@@ -268410,11 +268376,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Dagger (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_12)"
@@ -268447,11 +268410,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Dagger (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_16)"
@@ -268484,11 +268444,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Dagger (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_20)"
@@ -268521,11 +268478,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Dagger (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_24)"
@@ -268558,11 +268512,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Dagger (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_28)"
@@ -268595,11 +268546,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Spectral Dagger (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_32)"
@@ -268632,11 +268580,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Dagger (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_36)"
@@ -268664,11 +268609,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Dagger (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_4)"
@@ -268701,11 +268643,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Dagger (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Daggers",
         "url": "/page/Item:Spectral_Dagger_(level_8)"
@@ -268774,11 +268713,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Great Axe (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_12)"
@@ -268811,11 +268747,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Great Axe (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_16)"
@@ -268848,11 +268781,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Great Axe (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_20)"
@@ -268885,11 +268815,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Great Axe (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_24)"
@@ -268922,11 +268849,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Great Axe (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_28)"
@@ -268959,11 +268883,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Spectral Great Axe (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_32)"
@@ -268996,11 +268917,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Great Axe (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_36)"
@@ -269028,11 +268946,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Great Axe (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_4)"
@@ -269065,11 +268980,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Great Axe (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Axes",
         "url": "/page/Item:Spectral_Great_Axe_(level_8)"
@@ -269102,11 +269014,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_12)"
@@ -269139,11 +269048,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_16)"
@@ -269176,11 +269082,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_20)"
@@ -269213,11 +269116,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_24)"
@@ -269318,11 +269218,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_36)"
@@ -269350,11 +269247,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_4)"
@@ -269387,11 +269281,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Great Crossbow (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Great Crossbows",
         "url": "/page/Item:Spectral_Great_Crossbow_(level_8)"
@@ -269424,11 +269315,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Longbow (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_12)"
@@ -269461,11 +269349,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Longbow (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_12)"
@@ -269498,11 +269383,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Longbow (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_16)"
@@ -269535,11 +269417,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Longbow (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_16)"
@@ -269572,11 +269451,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Longbow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_20)"
@@ -269609,11 +269485,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Longbow (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_20)"
@@ -269646,11 +269519,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Longbow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_24)"
@@ -269683,11 +269553,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Longbow (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_24)"
@@ -269720,11 +269587,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Longbow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_28)"
@@ -269757,11 +269621,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Longbow (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_28)"
@@ -269794,11 +269655,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Spectral Longbow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_32)"
@@ -269831,11 +269689,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Spectral Longbow (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_32)"
@@ -269868,11 +269723,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Longbow (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_36)"
@@ -269905,11 +269757,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Longbow (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_36)"
@@ -269937,11 +269786,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Longbow (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_4)"
@@ -269969,11 +269815,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Longbow (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_4)"
@@ -270006,11 +269849,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Longbow (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_8)"
@@ -270043,11 +269883,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Longbow (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Long Bows",
         "url": "/page/Item:Spectral_Longbow_(level_8)"
@@ -270085,11 +269922,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_12)"
@@ -270127,11 +269961,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_16)"
@@ -270169,11 +270000,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_20)"
@@ -270211,11 +270039,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_24)"
@@ -270253,11 +270078,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_28)"
@@ -270295,11 +270117,8 @@
                 "value": 1
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_32)"
@@ -270337,11 +270156,8 @@
                 "value": 1
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_36)"
@@ -270374,11 +270190,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_4)"
@@ -270416,11 +270229,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Throwing Dagger (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Throwing Daggers",
         "url": "/page/Item:Spectral_Throwing_Dagger_(level_8)"
@@ -270453,11 +270263,8 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Spectral Warhammer (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_12)"
@@ -270490,11 +270297,8 @@
                 "value": 1
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Spectral Warhammer (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_16)"
@@ -270527,11 +270331,8 @@
                 "value": 1
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Spectral Warhammer (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_20)"
@@ -270564,11 +270365,8 @@
                 "value": 1
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Spectral Warhammer (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_24)"
@@ -270601,11 +270399,8 @@
                 "value": 1
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Spectral Warhammer (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_28)"
@@ -270701,11 +270496,8 @@
                 "value": 1
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Spectral Warhammer (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_4)"
@@ -270738,11 +270530,8 @@
                 "value": 1
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Spectral Warhammer (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "War Hammers",
         "url": "/page/Item:Spectral_Warhammer_(level_8)"
@@ -272889,11 +272678,8 @@
                 "value": "5"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Star of Endless Night (level 12)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_12)"
@@ -272926,11 +272712,8 @@
                 "value": "6"
             }
         ],
-        "ml": 16,
+        "ml": 1,
         "name": "Star of Endless Night (level 16)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_16)"
@@ -272963,11 +272746,8 @@
                 "value": "8"
             }
         ],
-        "ml": 20,
+        "ml": 1,
         "name": "Star of Endless Night (level 20)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_20)"
@@ -273000,11 +272780,8 @@
                 "value": "9"
             }
         ],
-        "ml": 24,
+        "ml": 1,
         "name": "Star of Endless Night (level 24)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_24)"
@@ -273037,11 +272814,8 @@
                 "value": "10"
             }
         ],
-        "ml": 28,
+        "ml": 1,
         "name": "Star of Endless Night (level 28)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_28)"
@@ -273074,11 +272848,8 @@
                 "value": "11"
             }
         ],
-        "ml": 32,
+        "ml": 1,
         "name": "Star of Endless Night (level 32)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_32)"
@@ -273111,11 +272882,8 @@
                 "value": "12"
             }
         ],
-        "ml": 36,
+        "ml": 1,
         "name": "Star of Endless Night (level 36)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_36)"
@@ -273148,11 +272916,8 @@
                 "value": "3"
             }
         ],
-        "ml": 4,
+        "ml": 1,
         "name": "Star of Endless Night (level 4)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_4)"
@@ -273185,11 +272950,8 @@
                 "value": "4"
             }
         ],
-        "ml": 8,
+        "ml": 1,
         "name": "Star of Endless Night (level 8)",
-        "quests": [
-            "The Night Revels"
-        ],
         "slot": "Weapon",
         "type": "Morningstars",
         "url": "/page/Item:Star_of_Endless_Night_(level_8)"
@@ -304955,6 +304717,40 @@
         "slot": "Weapon",
         "type": "Handwraps",
         "url": "/page/Item:Wraps_of_Endless_Light_(level_20)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+12"
+            },
+            {
+                "name": "Greater Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Coruscating",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Light Bringer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sunburst",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 1,
+        "name": "Wraps of Endless Light (level 28)",
+        "slot": "Weapon",
+        "type": "Handwraps",
+        "url": "/page/Item:Wraps_of_Endless_Light_(level_28)"
     },
     {
         "affixes": [

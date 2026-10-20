@@ -54882,6 +54882,11 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
                 "name": "Fortification",
                 "type": "Enhancement",
                 "value": "77"
@@ -54900,11 +54905,6 @@
                 "name": "Don't Count Me Out!",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Enhancement Bonus (Armor)",
-                "type": "Enhancement",
-                "value": "+5"
             }
         ],
         "crafting": [
@@ -149566,6 +149566,11 @@
     {
         "affixes": [
             {
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+14"
+            },
+            {
                 "name": "Fortification",
                 "type": "Enhancement",
                 "value": "142"
@@ -149584,11 +149589,6 @@
                 "name": "Don't Count Me Out!",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Enhancement Bonus (Armor)",
-                "type": "Enhancement",
-                "value": "+14"
             }
         ],
         "crafting": [

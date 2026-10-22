@@ -5779,7 +5779,7 @@
         {
             "affixes": [
                 {
-                    "name": "chance to inflict damage over time effect (Ravager's Cut: 2d6 slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended\u00a0ARCHIVE ME!.)",
+                    "name": "chance to inflict damage over time effect (Ravager's Cut: 2d6 slashing damage vs creatures that can bleed on melee hit or glancing blow plus four rounds of additional damage. Does not work with handwraps. This is Working As Intended UPDATE ME!.)",
                     "type": "Bool",
                     "value": 1
                 }

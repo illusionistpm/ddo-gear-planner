@@ -35378,6 +35378,11 @@
                 "name": "Seeker",
                 "type": "Enhancement",
                 "value": "2"
+            },
+            {
+                "name": "This is working as intended??",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 18,
@@ -246254,6 +246259,11 @@
                 "name": "Strength",
                 "type": "Exceptional",
                 "value": "1"
+            },
+            {
+                "name": "This is working as intended??",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Incredible Potential",

@@ -64,7 +64,12 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
 4. On the SPA application from step 2, under **Settings -> Advanced
    Settings -> Grant Types**, confirm **Refresh Token** is checked (on by
    default for SPA apps created through Auth0's current dashboard, but
-   worth confirming).
+   worth confirming). Under **Settings -> Refresh Token Rotation**, set
+   **Reuse Interval** to about 30 seconds. The SDK serializes refreshes
+   across tabs with a lock that gives up after 5s; on a slow network a
+   second tab can then present the refresh token the first tab just
+   rotated, and with an interval of 0 Auth0's reuse detection revokes the
+   whole token family, signing the user out in every tab.
 5. **Authentication -> Social:** enable Google and Discord connections (both
    free). Under each connection's "Applications" tab, make sure the SPA
    application from step 2 is enabled for it.

@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService as Auth0Service } from '@auth0/auth0-angular';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Subject, of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
@@ -15,16 +15,20 @@ describe('AuthService', () => {
   let httpMock: HttpTestingController;
   let isAuthenticated$: BehaviorSubject<boolean>;
   let auth0: MockedObject<Auth0Service>;
+  let error$: Subject<Error>;
 
   function create(): AuthService {
     isAuthenticated$ = new BehaviorSubject<boolean>(false);
+    error$ = new Subject<Error>();
     auth0 = {
       loginWithRedirect: vi.fn().mockName('Auth0Service.loginWithRedirect'),
       logout: vi.fn().mockName('Auth0Service.logout'),
       isAuthenticated$,
+      error$,
       user$: of(null),
       isLoading$: of(false)
     } as unknown as MockedObject<Auth0Service>;
+    auth0.logout.mockReturnValue(of(undefined));
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
@@ -100,6 +104,30 @@ describe('AuthService', () => {
       expect(auth0.logout).toHaveBeenCalledWith({
         logoutParams: { returnTo: window.location.origin }
       });
+    });
+  });
+
+  describe('a session that can no longer get tokens', () => {
+    // auth0-spa-js's GenericError shape: message plus an OAuth error code.
+    function tokenError(error: string): Error {
+      return Object.assign(new Error(error), { error, error_description: error });
+    }
+
+    it.each(['invalid_grant', 'missing_refresh_token'])('clears the local session, without redirecting, on %s', code => {
+      create();
+
+      error$.next(tokenError(code));
+
+      expect(auth0.logout).toHaveBeenCalledWith({ openUrl: false });
+    });
+
+    it('leaves the session alone for other errors', () => {
+      create();
+
+      error$.next(tokenError('login_required'));
+      error$.next(new Error('network down'));
+
+      expect(auth0.logout).not.toHaveBeenCalled();
     });
   });
 

@@ -11,6 +11,11 @@ import { environment } from '../../environments/environment';
 // instead of just passing the path as returnTo.
 const POST_LOGOUT_RETURN_TO_KEY = 'auth.postLogoutReturnTo';
 
+// Token-fetch error codes (auth0-spa-js's GenericError.error) meaning the
+// stored session can never produce another access token - see the error$
+// subscription in the constructor.
+const DEAD_SESSION_ERRORS = new Set(['invalid_grant', 'missing_refresh_token']);
+
 // Thin wrapper around @auth0/auth0-angular's AuthService. BuildsService
 // needs no auth-specific code of its own - the SDK's AuthHttpInterceptor
 // (registered in app.module.ts) attaches the Authorization: Bearer header
@@ -62,6 +67,20 @@ export class AuthService {
       this.http.get(`${environment.apiBaseUrl}/api/users/me`).subscribe({
         error: () => { /* best-effort - a failed login-recording call shouldn't surface to the user */ }
       });
+    });
+
+    // A refresh token Auth0 no longer accepts (expired, revoked, or gone
+    // from localstorage) can't come back, but the SDK leaves the session in
+    // place: the cached ID token keeps isAuthenticated$ true, so the user
+    // looks signed in while every API call fails its token exchange. Clear
+    // the local session so the UI says what's actually true - signed out -
+    // and offers Sign in. openUrl: false skips the redirect to Auth0's
+    // /v2/logout; there's no server session worth ending and no reason to
+    // navigate away from the build on screen.
+    this.auth0.error$.pipe(
+      filter(error => DEAD_SESSION_ERRORS.has((error as { error?: string }).error ?? ''))
+    ).subscribe(() => {
+      this.auth0.logout({ openUrl: false }).subscribe();
     });
 
     // Restores whatever path signOut() stashed before redirecting to Auth0,

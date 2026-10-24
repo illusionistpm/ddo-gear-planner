@@ -23,8 +23,14 @@ id = "0d0e72e33bd642bbb5ad01a3d3c60cb9"
 # No client secret needed here - the Worker only verifies Bearer tokens
 # (see src/auth.ts), it never runs the OAuth flow itself.
 [vars]
-#AUTH0_DOMAIN = "dev-kh5sqt4zb3qzc6tr.us.auth0.com"
-AUTH0_DOMAIN = "auth.ddo-gear-planner.com"
+# The canonical tenant domain, not a custom one: it always resolves, so the
+# JWKS fetch never depends on a custom domain that is being switched. Tokens
+# issued through the custom domains are accepted via AUTH0_ISSUER_DOMAINS -
+# see auth.ts. auth.ddo-gear-planner.com was retired in 2026-10 to cut off a
+# browser tab stuck in a refresh-token loop; keep it here until its last
+# tokens have expired, then drop it, and never reuse that hostname.
+AUTH0_DOMAIN = "dev-kh5sqt4zb3qzc6tr.us.auth0.com"
+AUTH0_ISSUER_DOMAINS = "auth.ddo-gear-planner.com,login.ddo-gear-planner.com"
 AUTH0_AUDIENCE = "https://api.ddo-gear-planner.com"
 # Comma-separated - local `ng serve` (localhost:4200) needs to be a
 # genuinely allowed origin too, not just production, so this can't be a

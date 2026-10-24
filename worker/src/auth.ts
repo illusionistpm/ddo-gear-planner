@@ -5,6 +5,12 @@ export interface Env {
   BUILD_CACHE: KVNamespace;
   AUTH0_DOMAIN: string;
   AUTH0_AUDIENCE: string;
+  // Comma-separated hosts, accepted as token issuers alongside AUTH0_DOMAIN.
+  // A token's `iss` is whichever of the tenant's domains (canonical or
+  // custom) it was issued through, and lives up to 24h, so a domain switch
+  // leaves tokens from the old one in circulation. All of a tenant's domains
+  // share its signing keys, so JWKS still comes from AUTH0_DOMAIN alone.
+  AUTH0_ISSUER_DOMAINS?: string;
   // Comma-separated - see cors.ts for why this isn't a single origin.
   ALLOWED_ORIGINS: string;
 }
@@ -71,8 +77,11 @@ export async function verifyAuthToken(request: Request, env: Env): Promise<Authe
   try {
     const domain = normalizeDomain(env.AUTH0_DOMAIN);
     const jwks = getJwks(domain);
+    const issuerDomains = [domain, ...(env.AUTH0_ISSUER_DOMAINS ?? '').split(',')
+      .map(extra => normalizeDomain(extra.trim()))
+      .filter(extra => extra.length > 0)];
     const { payload } = await jwtVerify(token, jwks, {
-      issuer: `https://${domain}/`,
+      issuer: issuerDomains.map(issuerDomain => `https://${issuerDomain}/`),
       audience: env.AUTH0_AUDIENCE
     });
 

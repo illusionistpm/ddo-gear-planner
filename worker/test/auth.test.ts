@@ -154,6 +154,30 @@ describe('verifyAuthToken', () => {
     expect(await verifyAuthToken(request, makeEnv(domain))).toBeNull();
   });
 
+  it('accepts a token issued through one of AUTH0_ISSUER_DOMAINS, still fetching keys from AUTH0_DOMAIN', async () => {
+    // A custom-domain switch: tokens issued through the old domain stay
+    // valid until they expire, and the tenant's keys are the same on every
+    // one of its domains. The fetch stub only answers for `domain`, so this
+    // also pins that JWKS never comes from an issuer domain.
+    const token = await signToken({ issuer: 'https://auth.ddo-gear-planner.com/' });
+    const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const env = { ...makeEnv(domain), AUTH0_ISSUER_DOMAINS: ' auth.ddo-gear-planner.com , https://login.ddo-gear-planner.com/' };
+
+    expect((await verifyAuthToken(request, env))?.sub).toBe('google-oauth2|12345');
+  });
+
+  it('returns null for an issuer in neither AUTH0_DOMAIN nor AUTH0_ISSUER_DOMAINS', async () => {
+    const token = await signToken({ issuer: 'https://some-other-tenant.us.auth0.com/' });
+    const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const env = { ...makeEnv(domain), AUTH0_ISSUER_DOMAINS: 'auth.ddo-gear-planner.com,login.ddo-gear-planner.com' };
+
+    expect(await verifyAuthToken(request, env)).toBeNull();
+  });
+
   it('returns null for an expired token', async () => {
     const token = await signToken({ expiresInSeconds: -10 });
     const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {

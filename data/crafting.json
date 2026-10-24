@@ -12049,6 +12049,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12071,6 +12076,11 @@
                     },
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "16d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -12299,6 +12309,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12321,6 +12336,11 @@
                     },
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "16d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32475,6 +32495,11 @@
                         "name": "Improved Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32643,6 +32668,11 @@
                         "name": "Improved Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32809,6 +32839,11 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34182,6 +34217,11 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "+2d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34255,6 +34295,11 @@
                 "affixes": [
                     {
                         "name": "Bashing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "+2d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34332,6 +34377,11 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "+2d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34405,6 +34455,11 @@
                 "affixes": [
                     {
                         "name": "Bashing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "+4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34491,6 +34546,11 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "+4d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34573,6 +34633,11 @@
                 "affixes": [
                     {
                         "name": "Bashing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "+4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37128,6 +37193,11 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37314,6 +37384,11 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37498,6 +37573,11 @@
                 "affixes": [
                     {
                         "name": "Banishing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37728,6 +37808,11 @@
                         "name": "Greater Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37896,6 +37981,11 @@
                         "name": "Greater Banishing",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38062,6 +38152,11 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38469,6 +38564,11 @@
                 "affixes": [
                     {
                         "name": "Banishing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39495,6 +39595,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "10d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 36,
@@ -39507,6 +39612,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39523,6 +39633,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -39535,6 +39650,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39551,6 +39671,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -39563,6 +39688,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39579,6 +39709,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "6d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -39591,6 +39726,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "7d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39607,6 +39747,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "8d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -39619,6 +39764,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "9d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -42792,6 +42942,11 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "15d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -42949,6 +43104,11 @@
                     },
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "15d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -46959,6 +47119,11 @@
                 "affixes": [
                     {
                         "name": "Acidic",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "12d6",
                         "type": "Bool",
                         "value": 1
                     }

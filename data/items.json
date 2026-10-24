@@ -15,6 +15,11 @@
                 "name": "Acid",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 2,
@@ -534,6 +539,11 @@
                 "name": "Acid",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 8,
@@ -954,6 +964,11 @@
             },
             {
                 "name": "Legendary Acid Torrent",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "30d6+90",
                 "type": "Bool",
                 "value": 1
             },
@@ -1914,6 +1929,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "+2d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -4678,6 +4698,26 @@
             },
             {
                 "name": "Antipodal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -12068,6 +12108,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -12140,6 +12185,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shield Bashing",
                 "type": "Enhancement",
                 "value": "10"
@@ -12179,6 +12229,11 @@
             },
             {
                 "name": "Improved Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -12226,6 +12281,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shield Bashing",
                 "type": "Enhancement",
                 "value": "10"
@@ -12265,6 +12325,11 @@
             },
             {
                 "name": "Improved Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -12312,6 +12377,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Shield Bashing",
                 "type": "Enhancement",
                 "value": "20"
@@ -12351,6 +12421,11 @@
             },
             {
                 "name": "Improved Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -12764,6 +12839,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -16613,6 +16693,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "+2d4",
                 "type": "Bool",
                 "value": 1
             },
@@ -21315,6 +21400,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "2"
@@ -23629,6 +23719,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -31788,6 +31883,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Corroding",
                 "value": "7"
             },
@@ -34487,6 +34587,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -35596,6 +35701,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -42718,6 +42828,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -43667,6 +43782,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -48547,6 +48667,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             }
@@ -56725,6 +56850,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -56762,6 +56897,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -56972,6 +57117,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57046,6 +57201,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57083,6 +57248,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57171,6 +57346,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57208,6 +57393,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57253,6 +57448,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57290,6 +57495,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57335,6 +57550,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57372,6 +57597,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57417,6 +57652,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57454,6 +57699,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57499,6 +57754,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57540,6 +57805,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57577,6 +57852,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57655,6 +57940,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57696,6 +57991,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57733,6 +58038,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57824,6 +58139,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57861,6 +58186,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57906,6 +58241,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -57943,6 +58288,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -57988,6 +58343,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58025,6 +58390,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58070,6 +58445,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58111,6 +58496,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58148,6 +58543,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58279,6 +58684,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58316,6 +58731,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58361,6 +58786,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58398,6 +58833,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58532,6 +58977,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58573,6 +59028,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58610,6 +59075,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58688,6 +59163,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58730,6 +59215,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -58821,6 +59316,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58867,6 +59372,16 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -58909,6 +59424,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -59001,6 +59526,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -59435,6 +59970,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Glass Jaw Strike",
                 "type": "Bool",
                 "value": 1
@@ -59591,6 +60131,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -61413,6 +61958,11 @@
                 "value": 1
             },
             {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Acid Resistance",
                 "type": "Enhancement",
                 "value": "11"
@@ -61436,6 +61986,11 @@
             },
             {
                 "name": "Acid",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -76401,6 +76956,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Holy",
                 "type": "Bool",
                 "value": 1
@@ -79778,6 +80338,11 @@
             },
             {
                 "name": "Improved Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -91240,6 +91805,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -92088,6 +92658,11 @@
             },
             {
                 "name": "Improved Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -109649,6 +110224,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -110193,6 +110773,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -110404,6 +110989,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -110960,6 +111550,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -114220,6 +114815,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -114543,6 +115143,11 @@
                 "name": "Legendary Acid Torrent",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "30d6+90",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -114580,6 +115185,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -115540,6 +116150,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -115705,6 +116320,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -115866,6 +116486,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -117795,6 +118420,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Armor Class",
                 "type": "Natural",
                 "value": "11"
@@ -117836,6 +118466,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -118631,6 +119266,11 @@
             },
             {
                 "name": "Sounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -123232,6 +123872,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -123887,6 +124532,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -125371,6 +126021,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -126463,7 +127118,13 @@
             },
             {
                 "name": "Burning Glory",
+                "type": "Untyped",
                 "value": "1"
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Armor Class",
@@ -126601,6 +127262,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -130504,6 +131170,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -130631,6 +131302,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -134366,6 +135042,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Riposte",
                 "type": "Insight",
                 "value": "6"
@@ -135072,6 +135753,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -139273,6 +139959,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Corroding",
                 "value": "16"
             },
@@ -140279,6 +140970,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -143587,6 +144283,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -143932,6 +144633,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -150255,6 +150961,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150293,6 +151009,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -150508,6 +151234,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150584,6 +151320,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150622,6 +151368,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -150712,6 +151468,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150750,6 +151516,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -150796,6 +151572,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150834,6 +151620,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -150880,6 +151676,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -150918,6 +151724,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -150964,6 +151780,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151002,6 +151828,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151048,6 +151884,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151090,6 +151936,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151128,6 +151984,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151208,6 +152074,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151250,6 +152126,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151288,6 +152174,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151381,6 +152277,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151419,6 +152325,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151465,6 +152381,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151503,6 +152429,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151549,6 +152485,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151587,6 +152533,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151633,6 +152589,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151675,6 +152641,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151713,6 +152689,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151847,6 +152833,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151885,6 +152881,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -151931,6 +152937,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -151969,6 +152985,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -152106,6 +153132,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -152148,6 +153184,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -152186,6 +153232,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -152266,6 +153322,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -152309,6 +153375,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -152402,6 +153478,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -152449,6 +153535,16 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Improved Destruction",
                 "type": "Bool",
                 "value": 1
@@ -152492,6 +153588,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -152586,6 +153692,16 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d20",
                 "type": "Bool",
                 "value": 1
             },
@@ -152787,6 +153903,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Glass Jaw Strike",
                 "type": "Bool",
                 "value": 1
@@ -152913,6 +154034,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -154786,6 +155912,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -163699,6 +164830,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -164218,6 +165354,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -164345,6 +165486,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -164517,6 +165663,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -166521,6 +167672,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -166726,6 +167882,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -167430,6 +168591,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -167561,6 +168727,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -167688,6 +168859,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -170482,6 +171658,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -170803,6 +171984,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -171324,6 +172510,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -172156,7 +173347,13 @@
             },
             {
                 "name": "Burning Glory",
+                "type": "Untyped",
                 "value": "6"
+            },
+            {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Armor Class",
@@ -172297,6 +173494,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -173090,6 +174292,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -173217,6 +174424,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -173352,6 +174564,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -173479,6 +174696,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -174117,6 +175339,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -174154,6 +175381,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -174285,6 +175517,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -176515,6 +177752,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -177310,6 +178552,11 @@
                 "name": "Sounding",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -177880,6 +179127,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -178052,6 +179304,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -182857,6 +184114,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -183034,6 +184296,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -183814,6 +185081,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -183941,6 +185213,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -188116,6 +189393,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -191863,6 +193145,11 @@
                 "name": "Acidic",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -192100,6 +193387,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -192227,6 +193519,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -192368,6 +193665,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -192549,6 +193851,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -194051,6 +195358,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -196830,6 +198142,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flametouched Iron",
                 "type": "Bool",
                 "value": 1
@@ -196996,6 +198313,11 @@
             },
             {
                 "name": "Sovereign Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -200660,6 +201982,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -200806,6 +202133,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -200943,6 +202275,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -201642,6 +202979,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "7d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -204876,6 +206218,11 @@
                 "value": 1
             },
             {
+                "name": "7d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -205811,6 +207158,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
@@ -206107,6 +207459,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -207799,6 +209156,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -207960,6 +209322,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -208129,6 +209496,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -208294,6 +209666,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -208377,6 +209754,11 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -209772,6 +211154,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -209808,6 +211195,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -210010,6 +211402,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -212840,6 +214237,11 @@
             },
             {
                 "name": "Improved Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -216633,6 +218035,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -222202,6 +223609,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -223722,6 +225134,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -226124,6 +227541,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Accuracy",
                 "type": "Competence",
                 "value": "5"
@@ -226153,6 +227575,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -235610,6 +237037,11 @@
                 "value": 1
             },
             {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Critical Weakening",
                 "type": "Bool",
                 "value": 1
@@ -239463,7 +240895,13 @@
             },
             {
                 "name": "Improved Bashing",
-                "value": "10"
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
+                "name": "+5d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Sovereign Vorpal",
@@ -239704,6 +241142,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -240993,6 +242436,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -242669,6 +244117,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -242830,6 +244283,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -243031,6 +244489,11 @@
             },
             {
                 "name": "Sounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             }
@@ -244021,6 +245484,11 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -253879,6 +255347,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -254301,6 +255774,11 @@
             },
             {
                 "name": "Acid",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -261648,6 +263126,11 @@
                 "name": "Acidic",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "2d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -262211,6 +263694,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -262372,6 +263860,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -262704,6 +264197,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -262935,6 +264433,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -267086,6 +268589,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -275633,6 +277141,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Flametouched Iron",
                 "type": "Bool",
                 "value": 1
@@ -275799,6 +277312,11 @@
             },
             {
                 "name": "Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -278321,6 +279839,11 @@
             },
             {
                 "name": "Sounding",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             }
@@ -281129,6 +282652,11 @@
                 "name": "Bashing",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -281960,6 +283488,11 @@
             },
             {
                 "name": "Improved Banishing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -288018,6 +289551,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -288059,6 +289597,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -288108,6 +289651,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -288149,6 +289697,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -288198,6 +289751,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Bludgeoning",
                 "type": "Bool",
                 "value": 1
@@ -288239,6 +289797,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -291179,6 +292742,11 @@
                 "name": "Acidic",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "1d6",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 1,
@@ -291201,6 +292769,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -291235,6 +292808,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -291278,6 +292856,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Poison Blast",
                 "type": "Bool",
                 "value": 1
@@ -291308,6 +292891,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "5d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -291351,6 +292939,11 @@
                 "value": 1
             },
             {
+                "name": "6d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Poison Blast",
                 "type": "Bool",
                 "value": 1
@@ -291386,6 +292979,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "2d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -291790,6 +293388,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -291970,6 +293573,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -292146,6 +293754,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -294820,27 +296433,9 @@
                 "name": "Acid Arrow",
                 "type": "Bool",
                 "value": 1
-            }
-        ],
-        "ml": 12,
-        "name": "Tortured Livewood Bow (historic)",
-        "pack": "Ruins of Gianthold",
-        "quests": [
-            "Gianthold Tor"
-        ],
-        "slot": "Weapon",
-        "type": "Long Bows",
-        "url": "/page/Item:Tortured_Livewood_Bow_(historic)"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+5"
             },
             {
-                "name": "Acid Arrow",
+                "name": "3d4+3",
                 "type": "Bool",
                 "value": 1
             }
@@ -294866,17 +296461,22 @@
                 "name": "Acid Arrow",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "3d4+3",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 12,
-        "name": "Tortured Livewood Bow (level 12)",
+        "name": "Tortured Livewood Bow (historic)",
         "pack": "Ruins of Gianthold",
         "quests": [
             "Gianthold Tor"
         ],
         "slot": "Weapon",
         "type": "Long Bows",
-        "url": "/page/Item:Tortured_Livewood_Bow_(level_12)"
+        "url": "/page/Item:Tortured_Livewood_Bow_(historic)"
     },
     {
         "affixes": [
@@ -294887,6 +296487,11 @@
             },
             {
                 "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4+3",
                 "type": "Bool",
                 "value": 1
             }
@@ -294910,6 +296515,39 @@
             },
             {
                 "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4+3",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "ml": 12,
+        "name": "Tortured Livewood Bow (level 12)",
+        "pack": "Ruins of Gianthold",
+        "quests": [
+            "Gianthold Tor"
+        ],
+        "slot": "Weapon",
+        "type": "Long Bows",
+        "url": "/page/Item:Tortured_Livewood_Bow_(level_12)"
+    },
+    {
+        "affixes": [
+            {
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4+3",
                 "type": "Bool",
                 "value": 1
             }
@@ -294933,6 +296571,11 @@
             },
             {
                 "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d4+3",
                 "type": "Bool",
                 "value": 1
             }
@@ -294956,6 +296599,11 @@
             },
             {
                 "name": "Improved Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4+4",
                 "type": "Bool",
                 "value": 1
             }
@@ -294982,6 +296630,11 @@
             },
             {
                 "name": "Improved Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "4d4+4",
                 "type": "Bool",
                 "value": 1
             }
@@ -295008,6 +296661,11 @@
             },
             {
                 "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d4+6",
                 "type": "Bool",
                 "value": 1
             }
@@ -295033,6 +296691,11 @@
             },
             {
                 "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "6d4+6",
                 "type": "Bool",
                 "value": 1
             }
@@ -295058,6 +296721,11 @@
             },
             {
                 "name": "Superior Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d4+8",
                 "type": "Bool",
                 "value": 1
             }
@@ -295083,6 +296751,11 @@
             },
             {
                 "name": "Superior Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "8d4+8",
                 "type": "Bool",
                 "value": 1
             }
@@ -295108,6 +296781,11 @@
             },
             {
                 "name": "Sovereign Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "10d4+10",
                 "type": "Bool",
                 "value": 1
             }
@@ -295134,6 +296812,11 @@
             },
             {
                 "name": "Sovereign Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "10d4+10",
                 "type": "Bool",
                 "value": 1
             }
@@ -295475,6 +297158,11 @@
             },
             {
                 "name": "Acidic",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "3d6",
                 "type": "Bool",
                 "value": 1
             },
@@ -297293,7 +298981,13 @@
             },
             {
                 "name": "Improved Bashing",
-                "value": "10"
+                "type": "Untyped",
+                "value": "5"
+            },
+            {
+                "name": "+5d4",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Holy",
@@ -301728,6 +303422,11 @@
                 "value": 1
             },
             {
+                "name": "3d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Destructive Acid",
                 "type": "Bool",
                 "value": 1
@@ -303945,6 +305644,11 @@
                 "value": 1
             },
             {
+                "name": "4d6",
+                "type": "Bool",
+                "value": 1
+            },
+            {
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
@@ -304880,6 +306584,11 @@
             },
             {
                 "name": "Bashing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "1d6",
                 "type": "Bool",
                 "value": 1
             },

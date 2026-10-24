@@ -1,5 +1,5 @@
 import { AuthenticatedUser, Env } from '../auth';
-import { getShortLinkByStoredBlob, getUserIdByAuth0Sub, reserveAndInsertShortLink, ShortLinkRow } from '../db';
+import { getShortLinkByStoredBlob, reserveAndInsertShortLink, resolveUserId, ShortLinkRow } from '../db';
 import { jsonResponse, errorResponse } from '../http';
 import { withUniqueShortId } from '../shortId';
 import { MAX_NAME_LENGTH, validateBlob, validateName } from './builds';
@@ -67,7 +67,11 @@ export async function handleCreateShortLink(request: Request, user: Authenticate
   // calling this API directly, bypassing the client's own GET
   // /api/users/me-on-login) still gets to create the link, just without a
   // creator recorded.
-  const creatorUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  const creatorUserId = await resolveUserId(env.DB, {
+    auth0Sub: user.sub,
+    email: user.email ?? null,
+    emailVerified: user.emailVerified ?? false
+  });
   const row = await mintShortLink(env, stored, creatorUserId);
   return jsonResponse({ shortId: row.short_id }, { status: 201 });
 }

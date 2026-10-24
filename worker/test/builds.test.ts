@@ -268,6 +268,82 @@ describe('handleListMine', () => {
   });
 });
 
+// Linking by verified email moves auth0_sub onto the existing row, so a
+// second device still holding a token from the provider the person signed
+// in with before carries a sub that no longer matches. It's still them -
+// the verified email says so - and must keep reaching their builds.
+describe('list/update/delete with a sub moved away by cross-provider linking', () => {
+  function seedLinkedAccount(db: FakeD1): void {
+    db.users.push({
+      id: 'user-1',
+      auth0_sub: 'discord|2',
+      email: 'player@example.test',
+      email_verified: 1,
+      display_name: 'Player',
+      created_at: 'now',
+      last_login_at: 'now'
+    });
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
+  }
+
+  const googleUser: AuthenticatedUser = { sub: 'google-oauth2|1', email: 'player@example.test', emailVerified: true, name: 'Player' };
+
+  it('lists the account\'s builds', async () => {
+    const { env, db } = makeEnv();
+    seedLinkedAccount(db);
+
+    const response = await handleListMine(googleUser, env);
+
+    const body = await response.json() as Array<{ id: string }>;
+    expect(body.map(b => b.id)).toEqual(['build-1']);
+  });
+
+  it('allows an update and a delete', async () => {
+    const { env, db } = makeEnv();
+    seedLinkedAccount(db);
+
+    const updateResponse = await handleUpdateBuild(request({ name: 'Renamed' }, 'PUT'), 'build-1', googleUser, env);
+    const deleteResponse = await handleDeleteBuild('build-1', googleUser, env);
+
+    expect(updateResponse.status).toBe(200);
+    expect(deleteResponse.status).toBe(204);
+  });
+
+  it('does not write to the user row - only /api/users/me and create relink', async () => {
+    const { env, db } = makeEnv();
+    seedLinkedAccount(db);
+
+    await handleListMine(googleUser, env);
+
+    expect(db.users[0].auth0_sub).toBe('discord|2');
+  });
+
+  it('does not match on an unverified email claim', async () => {
+    const { env, db } = makeEnv();
+    seedLinkedAccount(db);
+    const unverified: AuthenticatedUser = { ...googleUser, emailVerified: false };
+
+    const listResponse = await handleListMine(unverified, env);
+    const updateResponse = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', unverified, env);
+    const deleteResponse = await handleDeleteBuild('build-1', unverified, env);
+
+    expect(await listResponse.json()).toEqual([]);
+    expect(updateResponse.status).toBe(403);
+    expect(deleteResponse.status).toBe(403);
+    expect(db.builds[0].name).toBe('My Fighter');
+  });
+
+  it('does not match a row whose stored email was never verified', async () => {
+    const { env, db } = makeEnv();
+    seedLinkedAccount(db);
+    db.users[0].email_verified = 0;
+
+    const response = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', googleUser, env);
+
+    expect(response.status).toBe(403);
+  });
+});
+
 describe('handleGetByShortId', () => {
   it('serves a public build by its shortId', async () => {
     const { env, db } = makeEnv();

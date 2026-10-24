@@ -40,6 +40,16 @@ describe('handleCreateShortLink', () => {
     expect(db.shortlinks[0].creator_user_id).toBe('user-1');
   });
 
+  it('attributes the shortlink by verified email when cross-provider linking moved the row\'s sub away', async () => {
+    const { env, db } = makeEnv();
+    db.users.push({ id: 'user-1', auth0_sub: 'discord|2', email: 'player@example.test', email_verified: 1, display_name: null, created_at: 'now', last_login_at: 'now' });
+    const googleUser: AuthenticatedUser = { sub: 'google-oauth2|1', email: 'player@example.test', emailVerified: true };
+
+    await handleCreateShortLink(request({ blob: 'z1.abc', name: 'My Fighter' }), googleUser, env);
+
+    expect(db.shortlinks[0].creator_user_id).toBe('user-1');
+  });
+
   it('leaves creator_user_id null (rather than failing) for a caller with no user row yet', async () => {
     const { env, db } = makeEnv();
 

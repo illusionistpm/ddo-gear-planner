@@ -83,30 +83,35 @@ describe('authHttpInterceptorConfig', () => {
     req.flush({});
   });
 
-  it('attaches a token to the public shared-build fetch when one is available', async () => {
-    await send('GET', `${api}/build/abc123`);
-
-    const req = httpMock.expectOne(`${api}/build/abc123`);
-    expect(req.request.headers.get('Authorization')).toBe('Bearer access-token');
-    req.flush({});
-  });
-
-  it('sends the public shared-build fetch anonymously when signed out', async () => {
-    getTokenSilently.mockRejectedValue({ error: 'missing_refresh_token' });
-
+  // The worker never reads a token on the public shared-build fetch, so
+  // asking Auth0 for one only costs a refresh - or, with a dead refresh
+  // token, fails the request outright.
+  it('asks for no token on the public shared-build fetch, even when one is available', async () => {
     await send('GET', `${api}/build/abc123`);
 
     const req = httpMock.expectOne(`${api}/build/abc123`);
     expect(req.request.headers.has('Authorization')).toBe(false);
+    expect(getTokenSilently).not.toHaveBeenCalled();
     req.flush({});
   });
 
-  it('fails the public shared-build fetch when the refresh token is dead', async () => {
+  it('still sends the public shared-build fetch when the refresh token is dead', async () => {
     getTokenSilently.mockRejectedValue({ error: 'invalid_grant' });
 
     const outcome = await send('GET', `${api}/build/abc123`);
 
-    httpMock.expectNone(`${api}/build/abc123`);
+    const req = httpMock.expectOne(`${api}/build/abc123`);
+    expect(req.request.headers.has('Authorization')).toBe(false);
+    req.flush({});
+    expect(outcome.error).toBeUndefined();
+  });
+
+  it('fails an authenticated request when the refresh token is dead', async () => {
+    getTokenSilently.mockRejectedValue({ error: 'invalid_grant' });
+
+    const outcome = await send('GET', `${api}/builds/mine`);
+
+    httpMock.expectNone(`${api}/builds/mine`);
     expect(outcome.error).toEqual({ error: 'invalid_grant' });
   });
 });

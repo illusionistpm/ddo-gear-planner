@@ -2,23 +2,23 @@ import { HttpInterceptorConfig } from '@auth0/auth0-angular';
 
 import { environment } from '../../environments/environment';
 
+const API_PREFIX = `${environment.apiBaseUrl}/api/`;
+// The trailing slash is what keeps /api/builds (plural, authenticated) out.
+const PUBLIC_BUILD_PREFIX = `${environment.apiBaseUrl}/api/build/`;
+
 // Lets BuildsService stay auth-agnostic: any request whose URL matches gets
 // an Authorization: Bearer header attached automatically by
 // AuthHttpInterceptor (registered in app.module.ts).
 //
-// GET /api/build/:shortId (singular - the public shared-link fetch) needs
-// its own entry with allowAnonymous: true. Without it, a signed-out visitor
-// opening a shared build link fails silently: the interceptor tries to
-// attach a token anyway (because the URL still matches an allowedList
-// entry), that token fetch throws login_required since there's no session,
-// and the interceptor - by default - turns that into an error on the whole
-// HTTP request rather than letting it through unauthenticated.
-// MainComponent's error handler for that request then redirects to '/',
-// which looks like the build URL "blanks itself" for a signed-out viewer
-// even though the build still exists.
+// GET /api/build/:shortId (singular - the public shared-link fetch) is left
+// out entirely, since the worker never reads a token there. It used to be
+// an allowAnonymous entry, which still asked Auth0 for a token first: that
+// cost a signed-in viewer a refresh-token exchange just to open a shared
+// link, and when the refresh token was dead the exchange failed with
+// invalid_grant - which allowAnonymous doesn't cover - and took the whole
+// request down with it, so the link showed the network-error panel.
 export const authHttpInterceptorConfig: HttpInterceptorConfig = {
   allowedList: [
-    { uri: `${environment.apiBaseUrl}/api/build/*`, allowAnonymous: true },
-    `${environment.apiBaseUrl}/api/*`
+    { uriMatcher: url => url.startsWith(API_PREFIX) && !url.startsWith(PUBLIC_BUILD_PREFIX) }
   ]
 };

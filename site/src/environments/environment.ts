@@ -11,7 +11,7 @@ export const environment = {
   // this. Point this at http://localhost:8787 instead if you're actively
   // developing the Worker itself and want to hit local changes.
   apiBaseUrl: 'https://api.ddo-gear-planner.com',
-  auth0Domain: 'auth.ddo-gear-planner.com',
+  auth0Domain: 'login.ddo-gear-planner.com',
   auth0ClientId: 'z8gndwHy0oBD2PUYI8I8ZzNukq7xUFTO',
   auth0Audience: 'https://api.ddo-gear-planner.com'
 };

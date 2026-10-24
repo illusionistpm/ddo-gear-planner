@@ -575,6 +575,33 @@ describe('MainComponent - loading a build by shortId', () => {
     expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', null);
   });
 
+  it('does not re-check listMine after a failed check republishes the build identity', () => {
+    // The real confirmOwnership() republishes the identity on
+    // buildIdentityFromUrl$, which re-enters confirmOwnershipIfSignedIn. A
+    // failure that wasn't memoized retried from there, forever - with a
+    // dead Auth0 refresh token, each lap was a failed /oauth/token exchange,
+    // and enough clients doing that exhausted the tenant's rate limit.
+    configure('abc123');
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    buildsService.listMine.mockReturnValue(throwError(() => new Error('invalid refresh token')));
+    let republished = 0;
+    currentBuild.confirmOwnership.mockImplementation((shortId: string) => {
+      // Bounded so a regression fails the assertion below rather than
+      // recursing until the stack overflows.
+      if (republished++ < 5) {
+        buildIdentity$.next({ shortId, name: 'My Build' });
+      }
+    });
+    TestBed.overrideProvider(AuthService, {
+      useValue: { isAuthenticated$: of(true), user$: of({ sub: 'user-1' }), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
+    });
+
+    TestBed.createComponent(MainComponent).detectChanges();
+
+    expect(vi.mocked(buildsService.listMine).mock.calls.length).toBe(1);
+  });
+
   it('confirms ownership after a history restore too, not just the initial fetch', () => {
     // Ownership can't travel through the URL any more (see
     // BuildUrlIdentity's comment) - restoreIdentity alone can't resolve it,

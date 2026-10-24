@@ -464,14 +464,20 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
           // it at 'unknown' forever.
           this.currentBuild.confirmOwnership(shortId, owned?.id ?? null);
         },
-        // Best-effort, and deliberately NOT memoized: a failed check still
-        // degrades ownership to 'other' (so "Save a copy" stays reachable
-        // instead of the save control sitting disabled forever - see
-        // CurrentBuildService.confirmOwnership's comment), but a transient
-        // blip gets a genuine retry the next time this shortId's identity
-        // is restored, rather than caching the failure as if it were an
-        // answer.
-        error: () => this.currentBuild.confirmOwnership(shortId, null)
+        // Best-effort: a failed check still degrades ownership to 'other' (so
+        // "Save a copy" stays reachable instead of the save control sitting
+        // disabled forever - see CurrentBuildService.confirmOwnership's
+        // comment). Memoized like a success, and before confirmOwnership():
+        // that call republishes this shortId's identity, which re-enters
+        // here through buildIdentityFromUrl$. Unmemoized, a failure that
+        // keeps failing - a dead Auth0 refresh token, say - retried in an
+        // unbounded loop of failed token exchanges, which exhausted the
+        // Auth0 tenant's rate limit and blocked every login. An auth
+        // transition or a reload still clears the memo for a real retry.
+        error: () => {
+          this.ownershipCheckedForShortId.add(shortId);
+          this.currentBuild.confirmOwnership(shortId, null);
+        }
       });
     });
   }

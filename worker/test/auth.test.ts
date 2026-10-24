@@ -194,6 +194,28 @@ describe('verifyAuthToken', () => {
     });
     expect(await verifyAuthToken(request, makeEnv(domain))).toBeNull();
   });
+
+  // A JWKS key with no `alg` only constrains the key type, so without an
+  // explicit algorithm list any RSA algorithm would verify against it.
+  it('returns null for a validly signed token using an algorithm other than RS256', async () => {
+    const { publicKey, privateKey: rsaKey } = await generateKeyPair('PS256');
+    const algFreeJwk = { ...(await exportJWK(publicKey)), kid: KID, use: 'sig' };
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ keys: [algFreeJwk] }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    })));
+    const token = await new SignJWT({})
+      .setProtectedHeader({ alg: 'PS256', kid: KID })
+      .setSubject('google-oauth2|12345')
+      .setIssuer(`https://${domain}/`)
+      .setAudience(AUDIENCE)
+      .setExpirationTime('1h')
+      .sign(rsaKey);
+    const request = new Request('https://api.ddo-gear-planner.com/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    expect(await verifyAuthToken(request, makeEnv(domain))).toBeNull();
+  });
 });
 
 describe('requireAuth', () => {

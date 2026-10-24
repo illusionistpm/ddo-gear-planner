@@ -81,6 +81,9 @@ export async function verifyAuthToken(request: Request, env: Env): Promise<Authe
       .map(extra => normalizeDomain(extra.trim()))
       .filter(extra => extra.length > 0)];
     const { payload } = await jwtVerify(token, jwks, {
+      // Auth0 signs with RS256. Without this, a JWKS key published with no
+      // `alg` would accept any algorithm of its key type.
+      algorithms: ['RS256'],
       issuer: issuerDomains.map(issuerDomain => `https://${issuerDomain}/`),
       audience: env.AUTH0_AUDIENCE
     });

@@ -8292,6 +8292,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "6d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -8787,6 +8792,11 @@
                     },
                     {
                         "name": "Flaming",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26245,6 +26255,11 @@
                         "name": "Improved Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -26252,6 +26267,11 @@
                 "affixes": [
                     {
                         "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26414,6 +26434,11 @@
                         "name": "Improved Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -26421,6 +26446,11 @@
                 "affixes": [
                     {
                         "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26583,6 +26613,11 @@
                         "name": "Improved Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -26590,6 +26625,11 @@
                 "affixes": [
                     {
                         "name": "Improved Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27434,6 +27474,11 @@
                         "name": "Greater Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -27441,6 +27486,11 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27594,6 +27644,11 @@
                         "name": "Greater Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -27601,6 +27656,11 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27754,6 +27814,11 @@
                         "name": "Greater Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -27761,6 +27826,11 @@
                 "affixes": [
                     {
                         "name": "Greater Smiting",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -31979,6 +32049,26 @@
                         "name": "Acid Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32020,6 +32110,26 @@
                         "name": "Flaming Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32043,6 +32153,26 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32055,6 +32185,11 @@
                     },
                     {
                         "name": "2d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32087,6 +32222,26 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32128,6 +32283,26 @@
                         "name": "Acid Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32169,6 +32344,26 @@
                         "name": "Flaming Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32192,6 +32387,26 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32204,6 +32419,11 @@
                     },
                     {
                         "name": "2d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32236,6 +32456,26 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32277,6 +32517,26 @@
                         "name": "Acid Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32318,6 +32578,26 @@
                         "name": "Flaming Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32341,6 +32621,26 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32353,6 +32653,11 @@
                     },
                     {
                         "name": "2d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32385,6 +32690,26 @@
                 "affixes": [
                     {
                         "name": "Shocking Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32530,6 +32855,11 @@
                     },
                     {
                         "name": "6d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32705,6 +33035,11 @@
                         "name": "6d3",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -32876,6 +33211,11 @@
                     },
                     {
                         "name": "6d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33492,6 +33832,11 @@
                         "name": "Bleed",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d8",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -33499,6 +33844,11 @@
                 "affixes": [
                     {
                         "name": "Force",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33519,6 +33869,11 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             }
@@ -33530,6 +33885,11 @@
                         "name": "Constitution Poison, Virulent",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -33539,6 +33899,11 @@
                         "name": "Dexterity Poison, Virulent",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -33546,6 +33911,11 @@
                 "affixes": [
                     {
                         "name": "Strength Poison, Virulent",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34733,6 +35103,11 @@
                         "name": "Disruption",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34740,6 +35115,26 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34751,6 +35146,11 @@
                         "name": "Greater Good",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -34758,6 +35158,26 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37258,6 +37678,26 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37265,6 +37705,11 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37279,6 +37724,11 @@
                     },
                     {
                         "name": "4d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37449,6 +37899,26 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37456,6 +37926,11 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37470,6 +37945,11 @@
                     },
                     {
                         "name": "4d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37640,6 +38120,26 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -37647,6 +38147,11 @@
                 "affixes": [
                     {
                         "name": "Improved Roaring",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37661,6 +38166,11 @@
                     },
                     {
                         "name": "4d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37854,6 +38364,11 @@
                         "name": "8d3",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38027,6 +38542,11 @@
                         "name": "8d3",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d4",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38198,6 +38718,11 @@
                     },
                     {
                         "name": "8d3",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38530,6 +39055,11 @@
                         "name": "Absolute Law",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38587,6 +39117,11 @@
                 "affixes": [
                     {
                         "name": "Cursespewing",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38704,6 +39239,11 @@
                 "affixes": [
                     {
                         "name": "Greater Good",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38832,6 +39372,11 @@
                         "name": "Pure Good",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38859,6 +39404,11 @@
                         "name": "Smiting",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38877,6 +39427,11 @@
                         "name": "True Law",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ]
             },
@@ -38893,6 +39448,16 @@
                 "affixes": [
                     {
                         "name": "Vicious",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d3",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39351,6 +39916,26 @@
                         "name": "Greater Acid Blast",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "8d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 30,
@@ -39365,6 +39950,26 @@
                         "name": "Greater Flaming Blast",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "8d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 30,
@@ -39377,6 +39982,26 @@
                 "affixes": [
                     {
                         "name": "Greater Icy Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "8d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39481,6 +40106,26 @@
                 "affixes": [
                     {
                         "name": "Greater Shocking Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "8d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39783,6 +40428,26 @@
                 "affixes": [
                     {
                         "name": "Acid Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40297,6 +40962,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "10d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 36,
@@ -40306,6 +40976,11 @@
                 "affixes": [
                     {
                         "name": "Flaming",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40322,6 +40997,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "2d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -40334,6 +41014,11 @@
                 "affixes": [
                     {
                         "name": "Flaming",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40350,6 +41035,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -40362,6 +41052,11 @@
                 "affixes": [
                     {
                         "name": "Flaming",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40378,6 +41073,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "6d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -40390,6 +41090,11 @@
                 "affixes": [
                     {
                         "name": "Flaming",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "7d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40406,6 +41111,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "8d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -40420,6 +41130,11 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "9d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -40432,6 +41147,26 @@
                 "affixes": [
                     {
                         "name": "Flaming Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40803,6 +41538,26 @@
                 "affixes": [
                     {
                         "name": "Icy Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41913,6 +42668,26 @@
                         "name": "Shocking Blast",
                         "type": "Bool",
                         "value": 1
+                    },
+                    {
+                        "name": "1d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d10",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "4d6",
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -42056,6 +42831,26 @@
                 "affixes": [
                     {
                         "name": "Tidal Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d4",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "1d8",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "2d8",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "3d8",
                         "type": "Bool",
                         "value": 1
                     }

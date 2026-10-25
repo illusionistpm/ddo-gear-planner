@@ -6,7 +6,8 @@ import { SLOT_ICON_PATHS } from '../slot-icon/slot-icon-paths';
 
 /**
  * The info button in the top bar and its popover: where the game data comes from,
- * when it was built, and the credits the icons' licences require. Projected into
+ * when it was built, where to send feedback, the source repo, and the credits the
+ * icons' licences require. Projected into
  * build-actions' overflow menu on narrow screens, like the Ko-fi and theme buttons.
  */
 @Component({

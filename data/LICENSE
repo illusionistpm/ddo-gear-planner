@@ -1,0 +1,23 @@
+The files in this directory are derived from content on DDO Wiki
+(https://ddowiki.com), by the DDO Wiki contributors, and were extracted and
+transformed by the scrapers in `data-builder/`.
+
+DDO Wiki content is licensed under the Creative Commons Attribution-ShareAlike
+2.5 Generic license (CC BY-SA 2.5). As an adaptation of that content, these
+files are distributed under the same license:
+
+    https://creativecommons.org/licenses/by-sa/2.5/
+
+If you reuse or adapt these files, you must credit DDO Wiki and its
+contributors, link to the license, and distribute your adaptation under
+CC BY-SA 2.5 or a compatible license.
+
+Not required, but appreciated: a link back to https://ddo-gear-planner.com
+or https://github.com/illusionistpm/ddo-gear-planner.
+
+Dungeons & Dragons Online and its game content are trademarks and property of
+their respective owners. This project is not affiliated with or endorsed by
+them or by DDO Wiki.
+
+The MIT license in the repository root applies to the code that generates
+these files, not to the files themselves.

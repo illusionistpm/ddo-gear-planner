@@ -58,6 +58,18 @@ describe('CreditsComponent', () => {
     expect(links).toContain('https://creativecommons.org/licenses/by/3.0/');
   });
 
+  it('points feedback at the wiki first, then the forum thread or issue tracker, and links the repo', () => {
+    toggle();
+    const text = popover()!.textContent!.replace(/\s+/g, ' ');
+    const links = Array.from(popover()!.querySelectorAll('a')).map(a => a.getAttribute('href'));
+
+    expect(text).toContain('Check its page on DDO Wiki first');
+    expect(text).toContain('contributions are welcome');
+    expect(links).toContain('https://forums.ddo.com/index.php?threads/ddo-gear-planner-website.7294');
+    expect(links).toContain('https://github.com/illusionistpm/ddo-gear-planner/issues');
+    expect(links).toContain('https://github.com/illusionistpm/ddo-gear-planner');
+  });
+
   it('opens every link in a new tab without a referrer', () => {
     toggle();
 

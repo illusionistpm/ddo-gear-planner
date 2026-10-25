@@ -75,6 +75,21 @@ jobs:
           npm ci
           npm run build
 
+      # Data that compiles can still break behaviour the specs pin. Same
+      # pass criteria as PR Checks: exit code, plus no ERROR lines or worker
+      # crashes in the log.
+      - name: Test site against new data
+        if: steps.data-changes.outputs.changed == 'true'
+        working-directory: site
+        shell: bash
+        run: |
+          set -o pipefail
+          npx ng test --watch=false 2>&1 | tee test.log
+          if grep -nE 'ERROR|JavaScript heap out of memory|Worker forks emitted error' test.log; then
+            echo "::error::Test log contains ERROR lines or a worker crash (see above)."
+            exit 1
+          fi
+
       - name: Commit
         if: steps.data-changes.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4

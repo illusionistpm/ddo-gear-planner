@@ -33,7 +33,7 @@ and `admin-link.component.ts` (named by path in `angular.json`) stay in `app/`.
 From `site/`, all four:
 
 ```sh
-npx ng test --watch=false   # Vitest under jsdom, ~560 specs, ~70s
+npx ng test --watch=false   # Vitest under jsdom, a few minutes
 npm run lint                # ESLint over both projects, plus the CSS-colour check
 npm run build               # the site project
 npm run admin:build         # the admin project - a separate build, easy to forget
@@ -46,7 +46,13 @@ What "green" means:
   callback outliving its TestBed). Don't let that signal rot.
 - **No worker crashes.** A `JavaScript heap out of memory` / `Worker forks emitted
   error` line means a file's later specs silently never ran - the pass count
-  drops rather than anything failing. Compare the total against the spec count.
+  drops rather than anything failing. Compare the total against master's run.
+
+`.github/workflows/pr-checks.yml` runs this gate (and the worker's and
+data-builder's tests) on every PR and push to master, and fails on those log
+lines as well as on the exit code. The Data Auto Updater runs the site build
+and tests before it commits new data. Neither replaces running the gate
+locally - a red check is just the backstop.
 
 ## Invariants worth knowing before you refactor
 

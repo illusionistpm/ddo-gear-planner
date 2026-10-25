@@ -1,20 +1,20 @@
 name: Data Auto Updater
 
 on:
+  # A push regenerates data only when the scrapers changed; anything else
+  # waits for the daily run. This workflow's own commits touch only data/,
+  # so they don't retrigger it.
   push:
     branches:
       - master
+    paths:
+      - 'data-builder/**'
   schedule:
     # Run at 5:18 UTC daily
     - cron: '18 5 * * *'
 
 jobs:
   build-data:
-    # Scheduled runs always execute. Pushes created by this workflow do not.
-    if: |
-      github.event_name == 'schedule' ||
-      !startsWith(github.event.head_commit.message, '[auto-update]')
-
     runs-on: ubuntu-latest
 
     steps:

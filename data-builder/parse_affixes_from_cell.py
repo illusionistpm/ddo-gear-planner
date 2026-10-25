@@ -1253,6 +1253,11 @@ def get_affix_map_list_from_tag(tag):
     if (tag.name == 'ul'):
         for li_tag in tag.find_all('li', recursive=False):
             if len(get_has_tooltip_spans(li_tag)) > 1:
+                # a timed, stacking proc (ex: Crystallized Drop of Tea's "Once every three seconds when you take
+                # physical damage, you get Psionic Universal Spell Power +8 ... up to +24") is not a passive bonus,
+                # but each of its tooltips would otherwise parse as one
+                if get_text_map_from_tag(li_tag)['text'].startswith('Once every'):
+                    continue
                 affixMapList.extend(get_affix_map_list_from_multi_tooltip_tag(li_tag))
             else:
                 textMap = get_text_map_from_tag(li_tag)

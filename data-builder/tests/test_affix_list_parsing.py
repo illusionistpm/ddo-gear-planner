@@ -32,6 +32,30 @@ def test_get_affix_map_list_from_tag_splits_multiple_tooltips_in_one_li():
     ]
 
 
+def test_get_affix_map_list_from_tag_skips_timed_stacking_proc_with_multiple_tooltips():
+    html = '''
+    <ul>
+      <li>
+        <span class="has_tooltip">Efficient Metamagic - Empower IV
+          <span class="tooltip">Efficient Metamagic - Empower IV: The additional spell point cost for using the Empower Metamagic feat is reduced by 4 SP.</span>
+        </span>
+      </li>
+      <li>Once every three seconds when you take physical damage, you get
+        <span class="has_tooltip">Psionic Universal Spell Power +8
+          <span class="tooltip">Psionic Universal Spell Power +8: Passive: +8 Psionic bonus to Universal Spell Power.</span>
+        </span>. This can stack up to three times (up to
+        <span class="has_tooltip">Psionic Universal Spell Power +24
+          <span class="tooltip">Psionic Universal Spell Power +24: Passive: +24 Psionic bonus to Universal Spell Power.</span>
+        </span>) and each stack lasts for 20 seconds.
+      </li>
+    </ul>
+    '''
+    ul = BeautifulSoup(html, 'html.parser').ul
+    assert get_affix_map_list_from_tag(ul) == [
+        {'name': 'Efficient Metamagic - Empower', 'value': '4', 'type': 'Enhancement'},
+    ]
+
+
 def test_get_affix_map_list_from_tag_parses_sacred_turn_undead_bonus():
     html = '''
     <ul>

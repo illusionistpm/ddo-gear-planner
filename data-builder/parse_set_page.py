@@ -11,6 +11,23 @@ from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_affixes_from_cell import get_affix_map_list_from_tag
 
+# Since Update 81.4, a set bonus labelled "Universal" spell power / lore / crit damage
+# is applied to each element separately, so it no longer stacks with a same-type
+# element bonus. Item affixes (Exceptional, Implement, ...) keep the stacking Universal
+# behaviour, so only set bonuses are rewritten to the per-element groups.
+SET_UNIVERSAL_TO_PER_ELEMENT = {
+    'Universal Spell Power': 'Potency',
+    'Universal Spell Lore': 'Spell Lore',
+    'Universal Spell Critical Damage': 'Spell Critical Damage',
+}
+
+def normalize_set_universal_affixes(sets):
+    for tiers in sets.values():
+        for tier in tiers:
+            for affix in tier['affixes']:
+                affix['name'] = SET_UNIVERSAL_TO_PER_ELEMENT.get(affix['name'], affix['name'])
+    return sets
+
 def get_sets_from_page(soup):
     synMap = get_inverted_synonym_map()
 
@@ -91,7 +108,7 @@ def parse_set_page():
 
     slaversSets = parse_slavers_sets()
 
-    sets = {**sets, **slaversSets}
+    sets = normalize_set_universal_affixes({**sets, **slaversSets})
 
     write_json(sets, 'sets')
 

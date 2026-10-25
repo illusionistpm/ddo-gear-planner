@@ -153,7 +153,8 @@ def build_affix_groups() -> None:
     add(groups, 'Parrying', parrying)
     add(groups, 'Sheltering', ['Physical Sheltering', 'Magical Sheltering'])
     add(groups, 'Potency', get_all_spell_power_types())
-    # Universal Spell Power and Spell Lore DO stack with non-Universal flavors; we handle that at the website level and not in the data
+    # Universal Spell Power and Spell Lore from item affixes DO stack with non-Universal flavors; we handle that at the website level and not in the data.
+    # Set bonuses labelled Universal don't (Update 81.4); parse_set_page.py rewrites them to Potency / Spell Lore / Spell Critical Damage
     add(groups, 'Universal Spell Power', get_all_spell_power_types())
     add(groups, 'Spell Lore', get_all_lore_types())
     add(groups, 'Universal Spell Lore', get_all_lore_types())

@@ -8,9 +8,11 @@ on:
     branches:
       - master
 
+# A new push to a PR supersedes its last run. Runs on master each check a
+# commit that landed, so they never cancel each other.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   site:

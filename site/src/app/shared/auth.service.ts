@@ -11,6 +11,11 @@ import { environment } from '../../environments/environment';
 // instead of just passing the path as returnTo.
 const POST_LOGOUT_RETURN_TO_KEY = 'auth.postLogoutReturnTo';
 
+// The same idea for signIn(): the SDK carries the build path through the
+// login redirect in appState, but drops it when the callback fails - see
+// the error$ subscription in the constructor.
+const SIGN_IN_RETURN_TO_KEY = 'auth.signInReturnTo';
+
 // Token-fetch error codes (auth0-spa-js's GenericError.error) meaning the
 // stored session can never produce another access token - see the error$
 // subscription in the constructor.
@@ -77,10 +82,30 @@ export class AuthService {
     // and offers Sign in. openUrl: false skips the redirect to Auth0's
     // /v2/logout; there's no server session worth ending and no reason to
     // navigate away from the build on screen.
-    this.auth0.error$.pipe(
-      filter(error => DEAD_SESSION_ERRORS.has((error as { error?: string }).error ?? ''))
-    ).subscribe(() => {
-      this.auth0.logout({ openUrl: false }).subscribe();
+    //
+    // Any other error on a page load that is the login callback means the
+    // login itself failed (an Action denied it, consent was refused, or a
+    // stale ?code&state was reloaded). The SDK then navigates to '/' and
+    // loses appState, so the build the user was on would vanish - restore
+    // the path signIn() stashed. Only on the callback load: a stash left
+    // behind by an abandoned login must not redirect on some later error.
+    const isLoginCallback = AuthService.isLoginCallback(window.location.search);
+    if (!isLoginCallback) {
+      sessionStorage.removeItem(SIGN_IN_RETURN_TO_KEY);
+    }
+    this.auth0.error$.subscribe(error => {
+      if (DEAD_SESSION_ERRORS.has((error as { error?: string }).error ?? '')) {
+        this.auth0.logout({ openUrl: false }).subscribe();
+        return;
+      }
+      const signInReturnTo = isLoginCallback ? sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY) : null;
+      if (signInReturnTo) {
+        sessionStorage.removeItem(SIGN_IN_RETURN_TO_KEY);
+        this.router.navigateByUrl(signInReturnTo, { replaceUrl: true });
+      }
+    });
+    this.isAuthenticated$.pipe(filter(isAuthenticated => isAuthenticated)).subscribe(() => {
+      sessionStorage.removeItem(SIGN_IN_RETURN_TO_KEY);
     });
 
     // Restores whatever path signOut() stashed before redirecting to Auth0,
@@ -95,6 +120,7 @@ export class AuthService {
 
   signIn(): void {
     this.redirectingAwayForAuth = true;
+    sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, window.location.pathname + window.location.search);
     // appState.target is the field the SDK actually reads to decide where to
     // land after the redirect callback (defaults to '/' otherwise, wiping
     // whatever build was in progress) - since build state already lives in
@@ -102,6 +128,13 @@ export class AuthService {
     this.auth0.loginWithRedirect({
       appState: { target: window.location.pathname + window.location.search }
     });
+  }
+
+  // The SDK's own test (auth0-angular's shouldHandleCallback): Auth0
+  // returns to redirect_uri with code or error, plus state.
+  private static isLoginCallback(search: string): boolean {
+    const params = new URLSearchParams(search);
+    return (params.has('code') || params.has('error')) && params.has('state');
   }
 
   signOut(): void {

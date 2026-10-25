@@ -34,8 +34,8 @@ export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promi
   return await db.prepare('SELECT * FROM users WHERE auth0_sub = ?').bind(auth0Sub).first<UserRow>();
 }
 
-// Read-only - the id lookup every authenticated route except handleGetMe
-// actually needs. upsertUser (below) does a write on every call (an UPDATE
+// Read-only - by sub alone; routes go through resolveUserId (below), which
+// also covers a sub moved away by cross-provider linking. upsertUser (below) does a write on every call (an UPDATE
 // even when nothing changed), which made every GET/PUT/DELETE pay for a
 // last_login_at bump that has nothing to do with logging in - see
 // resolveOwnerUserId in routes/builds.ts. Returns null rather than creating
@@ -56,6 +56,29 @@ export async function getUserIdByAuth0Sub(db: D1Database, auth0Sub: string): Pro
 // safe basis for handing a new sub access to an existing account's builds.
 export async function getUserByVerifiedEmail(db: D1Database, email: string): Promise<UserRow | null> {
   return await db.prepare('SELECT * FROM users WHERE email = ? AND email_verified = 1').bind(email).first<UserRow>();
+}
+
+/**
+ * The read-only id lookup for every authenticated route except
+ * handleGetMe and create: by sub, then by verified email.
+ *
+ * The email fallback exists because linking (upsertUser/ensureUser) moves
+ * auth0_sub onto the existing row. A second device still holding a token
+ * from the provider the person signed in with before carries a sub that no
+ * longer matches, and by sub alone it would see no builds and get 403s on
+ * its own until a reload relinked it - flipping the other device the same
+ * way. Matching on the verified email extends exactly the trust linking
+ * already does, without the write: only upsertUser/ensureUser relink.
+ */
+export async function resolveUserId(
+  db: D1Database,
+  params: { auth0Sub: string; email: string | null; emailVerified: boolean }
+): Promise<string | null> {
+  const bySub = await getUserIdByAuth0Sub(db, params.auth0Sub);
+  if (bySub || !params.email || !params.emailVerified) {
+    return bySub;
+  }
+  return (await getUserByVerifiedEmail(db, params.email))?.id ?? null;
 }
 
 /**

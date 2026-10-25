@@ -8,9 +8,9 @@ import {
   getBuildByShortId,
   getShortIdKind,
   getShortLinkByShortId,
-  getUserIdByAuth0Sub,
   listBuildSummariesByOwner,
   reserveAndInsertBuildIfUnderLimit,
+  resolveUserId,
   updateBuild,
   BuildSummaryRow
 } from '../db';
@@ -105,6 +105,16 @@ function toBuildSummaryResponse(row: BuildSummaryRow) {
   };
 }
 
+// The read-only lookup list/update/delete use - see db.ts's resolveUserId
+// for why it falls back to the verified email.
+async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string | null> {
+  return resolveUserId(env.DB, {
+    auth0Sub: user.sub,
+    email: user.email ?? null,
+    emailVerified: user.emailVerified ?? false
+  });
+}
+
 // Insert-if-missing, no write when the row already exists (see
 // db.ts's ensureUser) - reserved for create, the one build-mutating route
 // where the caller might genuinely be hitting the API for the very first
@@ -179,7 +189,7 @@ export async function handleCreateBuild(request: Request, user: AuthenticatedUse
 }
 
 export async function handleListMine(user: AuthenticatedUser, env: Env): Promise<Response> {
-  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  const ownerUserId = await resolveOwnerUserId(env, user);
   if (!ownerUserId) {
     // No user row at all yet (see resolveOwnerUserIdForCreate's comment) -
     // by construction, nothing they could have saved either.
@@ -245,7 +255,7 @@ export async function handleUpdateBuild(
   if (!row) {
     return errorResponse(404, 'Build not found.');
   }
-  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  const ownerUserId = await resolveOwnerUserId(env, user);
   if (!ownerUserId || row.owner_user_id !== ownerUserId) {
     return errorResponse(403, 'You do not own this build.');
   }
@@ -290,7 +300,7 @@ export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env
   if (!row) {
     return errorResponse(404, 'Build not found.');
   }
-  const ownerUserId = await getUserIdByAuth0Sub(env.DB, user.sub);
+  const ownerUserId = await resolveOwnerUserId(env, user);
   if (!ownerUserId || row.owner_user_id !== ownerUserId) {
     return errorResponse(403, 'You do not own this build.');
   }

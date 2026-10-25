@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 const POST_LOGOUT_RETURN_TO_KEY = 'auth.postLogoutReturnTo';
+const SIGN_IN_RETURN_TO_KEY = 'auth.signInReturnTo';
 
 describe('AuthService', () => {
   let httpMock: HttpTestingController;
@@ -42,6 +43,7 @@ describe('AuthService', () => {
   afterEach(() => {
     httpMock.verify();
     sessionStorage.removeItem(POST_LOGOUT_RETURN_TO_KEY);
+    sessionStorage.removeItem(SIGN_IN_RETURN_TO_KEY);
   });
 
   it('calls GET /api/users/me once when isAuthenticated$ transitions to true', () => {
@@ -128,6 +130,61 @@ describe('AuthService', () => {
       error$.next(new Error('network down'));
 
       expect(auth0.logout).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('a failed login', () => {
+    const originalUrl = window.location.pathname + window.location.search;
+
+    function landOnLoginCallback(): void {
+      window.history.replaceState(null, '', '/?code=abc&state=xyz');
+    }
+
+    afterEach(() => {
+      window.history.replaceState(null, '', originalUrl);
+    });
+
+    it('signIn stashes the current path/query alongside appState', () => {
+      const service = create();
+
+      service.signIn();
+
+      const target = window.location.pathname + window.location.search;
+      expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBe(target);
+      expect(auth0.loginWithRedirect).toHaveBeenCalledWith({ appState: { target } });
+    });
+
+    it('navigates back to the stashed build when the callback errors, and clears it', () => {
+      sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, '/build/abc123/my-build');
+      landOnLoginCallback();
+      const navigateSpy = vi.spyOn(Router.prototype, 'navigateByUrl').mockResolvedValue(true);
+      create();
+
+      error$.next(Object.assign(new Error('denied'), { error: 'access_denied' }));
+
+      expect(navigateSpy).toHaveBeenCalledWith('/build/abc123/my-build', { replaceUrl: true });
+      expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBeNull();
+    });
+
+    it('drops a stash left by an abandoned login on any other load, and never acts on it', () => {
+      sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, '/build/abc123/my-build');
+      const navigateSpy = vi.spyOn(Router.prototype, 'navigateByUrl').mockResolvedValue(true);
+      create();
+
+      expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBeNull();
+      error$.next(new Error('network down'));
+      expect(navigateSpy).not.toHaveBeenCalled();
+    });
+
+    it('clears the stash once the login succeeds', () => {
+      sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, '/build/abc123/my-build');
+      landOnLoginCallback();
+      create();
+
+      isAuthenticated$.next(true);
+      httpMock.expectOne(`${environment.apiBaseUrl}/api/users/me`).flush({});
+
+      expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBeNull();
     });
   });
 

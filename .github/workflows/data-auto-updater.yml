@@ -2,13 +2,15 @@ name: Data Auto Updater
 
 on:
   # A push regenerates data only when the scrapers changed; anything else
-  # waits for the daily run. This workflow's own commits touch only data/,
-  # so they don't retrigger it.
+  # waits for the daily run. This workflow's own commits touch only data/
+  # and the crafting-device cache, which is excluded here, so they don't
+  # retrigger it.
   push:
     branches:
       - master
     paths:
       - 'data-builder/**'
+      - '!data-builder/crafting_device_packs.json'
   schedule:
     # Run at 5:18 UTC daily
     - cron: '18 5 * * *'
@@ -46,7 +48,7 @@ jobs:
         id: data-changes
         shell: bash
         run: |
-          changes=$(git status --porcelain data \
+          changes=$(git status --porcelain data data-builder/crafting_device_packs.json \
             | grep -v 'data/build-info.json' || true)
 
           if [ -n "$changes" ]; then
@@ -96,5 +98,6 @@ jobs:
         with:
           commit_message: "[auto-update] Latest data"
           commit_user_name: Data Auto Updater
-          file_pattern: data/*.json
+          # A build scrapes newly listed crafting devices into this cache.
+          file_pattern: data/*.json data-builder/crafting_device_packs.json
 

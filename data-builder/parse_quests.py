@@ -2,6 +2,13 @@ from bs4 import BeautifulSoup
 import os
 import re
 from write_json import write_json
+from crafting_device_packs import (
+    DEVICE_PAGES_CACHE_DIR,
+    get_crafting_devices_from_category,
+    load_device_packs,
+    resolve_missing_device_packs,
+    save_device_packs,
+)
 
 # What the wiki writes for content with no pack.
 FREE_TO_PLAY = 'Free to Play'
@@ -381,6 +388,37 @@ def get_official_packs(pack_name_map, expansion_pack_titles):
     )
 
 
+def _read_cached_page(path):
+    if not os.path.exists(path):
+        return None
+    return BeautifulSoup(open(path, "r", encoding='utf-8').read(), 'html.parser')
+
+
+def add_crafting_device_packs(quest_packs, official_packs):
+    """Items crafted at a device take the device's pack, via the same
+    quest -> pack map items already look their source up in."""
+    soup = _read_cached_page('./cache/quests/Crafting_devices.html')
+    if soup is None:
+        return quest_packs
+
+    device_packs = load_device_packs()
+    added = resolve_missing_device_packs(
+        get_crafting_devices_from_category(soup),
+        device_packs,
+        quest_packs,
+        official_packs,
+        lambda page: _read_cached_page(f'{DEVICE_PAGES_CACHE_DIR}{page}.html'),
+    )
+    if added:
+        save_device_packs(device_packs)
+
+    return merge_pack_layer(
+        quest_packs,
+        {device: pack for device, pack in device_packs.items() if pack},
+        'crafting_device_packs.json',
+    )
+
+
 def parse_quests():
     out = {}
     out['packs'] = {}
@@ -438,6 +476,8 @@ def parse_quests():
     add_quest_pack_additions(out['packs'])
 
     out['officialPacks'] = get_official_packs(pack_name_map, expansion_pack_pages.values())
+
+    add_crafting_device_packs(out['packs'], set(out['officialPacks']))
 
     write_json(out, 'quests')
 

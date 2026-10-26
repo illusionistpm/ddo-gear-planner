@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
 from parse_quests import get_expansion_pack_pages_from_category
+from crafting_device_packs import DEVICE_PAGES_CACHE_DIR, get_crafting_devices_from_category, get_missing_devices, load_device_packs
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
 DEFAULT_HEADERS = {
@@ -286,6 +287,23 @@ def download_item_augments_page(session=None):
     download_page('Raw data/Item augments', cacheDir, session=session)
 
 
+def download_new_crafting_device_pages(category_path, session=None):
+    # Only devices missing from crafting_device_packs.json need their page.
+    if not os.path.exists(category_path):
+        return
+
+    category_page = open(category_path, 'r', encoding='utf-8').read()
+    devices = get_crafting_devices_from_category(BeautifulSoup(category_page, 'html.parser'))
+    missing = get_missing_devices(devices, load_device_packs())
+    if not missing:
+        return
+
+    if not os.path.exists(DEVICE_PAGES_CACHE_DIR):
+        os.makedirs(DEVICE_PAGES_CACHE_DIR)
+    for page in missing:
+        download_page(page, DEVICE_PAGES_CACHE_DIR, session=session)
+
+
 def download_quest_pages(session=None):
     cacheDir = 'cache/quests/'
     if not os.path.exists(cacheDir):
@@ -296,6 +314,7 @@ def download_quest_pages(session=None):
     download_page('Quests_by_level_and_XP', cacheDir, session=session)
     download_page('Wilderness_adventure_area', cacheDir, session=session)
     download_page('Category:Crafting_devices', cacheDir, session=session)
+    download_new_crafting_device_pages(os.path.join(cacheDir, 'Crafting_devices.html'), session=session)
     download_page('Quests_by_Adventure_Pack', cacheDir, session=session)
     download_page('Category:Expansion_Packs', cacheDir, session=session)
 

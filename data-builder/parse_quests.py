@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import os
+import re
 from write_json import write_json
+
+# What the wiki writes for content with no pack.
+FREE_TO_PLAY = 'Free to Play'
 
 CRAFTING_RAID_SOURCES = (
     'Ritual Table',
@@ -214,6 +218,8 @@ def get_quest_pack_map_from_pack_page(soup, pack):
         'public zones',
         'public area',
         'public areas',
+        'city zone',
+        'wilderness',
         'wilderness adventure area',
         'wilderness adventure areas',
     }
@@ -231,6 +237,91 @@ def get_quest_pack_map_from_pack_page(soup, pack):
                 if _is_real_quest_name(title):
                     quest_packs[title] = pack
 
+    return quest_packs
+
+
+def _add_linked_name(names, cell, pack):
+    # Link titles are page names, which is what item pages cite ("Vecna
+    # Unleashed (quest)", "ToEE: Fire Node"); the visible text is kept too
+    # unless it already means something else.
+    link = cell.find('a', href=True)
+    title = str(link.get('title') or '').replace('\xa0', ' ').strip() if link else ''
+    text = _cell_text(link) if link else _cell_text(cell)
+    if title and _is_real_quest_name(title):
+        names[title] = pack
+    if text and _is_real_quest_name(text):
+        names.setdefault(text, pack)
+
+
+def get_quest_pack_map_from_level_page(soup):
+    """Quests_by_level_and_XP: one row per quest, with its Adventure Pack."""
+    quest_packs = {}
+
+    for table in soup.find_all('table', class_='wikitable'):
+        table_body = table.find('tbody') or table
+        header_row = table_body.find('tr')
+        if header_row is None:
+            continue
+
+        headers = [_cell_text(cell) for cell in header_row.find_all(['th', 'td'])]
+        if 'Quest Name' not in headers or 'Adventure Pack' not in headers:
+            continue
+
+        quest_idx = headers.index('Quest Name')
+        pack_idx = headers.index('Adventure Pack')
+        for row in table_body.find_all('tr', recursive=False)[1:]:
+            cells = row.find_all(['td', 'th'], recursive=False)
+            if len(cells) <= max(quest_idx, pack_idx):
+                continue
+
+            pack = _cell_text(cells[pack_idx])
+            if not pack or pack == FREE_TO_PLAY:
+                continue
+            _add_linked_name(quest_packs, cells[quest_idx], pack)
+
+    return quest_packs
+
+
+def get_area_pack_map_from_wilderness_page(soup):
+    """Wilderness_adventure_area: one row per area. The Access column reads
+    "<pack> <store price>"; its link titles aren't pack names ("Gianthold",
+    "Amrath"), so the pack comes from the text."""
+    area_packs = {}
+
+    for table in soup.find_all('table', class_='wikitable'):
+        rows = (table.find('tbody') or table).find_all('tr', recursive=False)
+        header_row = next(
+            (row for row in rows if 'Access' in [_cell_text(cell) for cell in row.find_all(['th', 'td'])]),
+            None,
+        )
+        if header_row is None:
+            continue
+
+        headers = [_cell_text(cell) for cell in header_row.find_all(['th', 'td'])]
+        if 'Area' not in headers:
+            continue
+
+        area_idx = headers.index('Area')
+        access_idx = headers.index('Access')
+        for row in rows[rows.index(header_row) + 1:]:
+            cells = row.find_all(['td', 'th'], recursive=False)
+            if len(cells) <= max(area_idx, access_idx):
+                continue
+
+            pack = re.sub(r'\s+[\d,]+$', '', _cell_text(cells[access_idx])).strip()
+            if not pack or pack == FREE_TO_PLAY:
+                continue
+            _add_linked_name(area_packs, cells[area_idx], pack)
+
+    return area_packs
+
+
+def merge_pack_layer(quest_packs, layer, source):
+    # Earlier layers are the better sources; a later one only fills gaps.
+    for quest, pack in layer.items():
+        existing = quest_packs.setdefault(quest, pack)
+        if existing != pack:
+            print(f"Pack conflict for '{quest}': keeping '{existing}', {source} says '{pack}'")
     return quest_packs
 
 
@@ -283,11 +374,17 @@ def parse_quests():
         soup = BeautifulSoup(page, 'html.parser')
         pack_name_map = get_adventure_pack_name_map_from_page(soup)
 
-    quests_path = './cache/quests/Quests_by_Adventure_Pack.html'
-    if os.path.exists(quests_path):
-        page = open(quests_path, "r", encoding='utf-8').read()
+    level_path = './cache/quests/Quests_by_level_and_XP.html'
+    if os.path.exists(level_path):
+        page = open(level_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
-        out['packs'].update(get_quest_pack_map_from_sectioned_page(soup, pack_name_map))
+        merge_pack_layer(out['packs'], get_quest_pack_map_from_level_page(soup), 'Quests_by_level_and_XP')
+
+    wilderness_path = './cache/quests/Wilderness_adventure_area.html'
+    if os.path.exists(wilderness_path):
+        page = open(wilderness_path, "r", encoding='utf-8').read()
+        soup = BeautifulSoup(page, 'html.parser')
+        merge_pack_layer(out['packs'], get_area_pack_map_from_wilderness_page(soup), 'Wilderness_adventure_area')
 
     expansion_pack_pages = {}
     expansion_pack_category_path = './cache/quests/Expansion_Packs.html'
@@ -301,7 +398,13 @@ def parse_quests():
         if os.path.exists(pack_path):
             page = open(pack_path, "r", encoding='utf-8').read()
             soup = BeautifulSoup(page, 'html.parser')
-            out['packs'].update(get_quest_pack_map_from_pack_page(soup, pack))
+            merge_pack_layer(out['packs'], get_quest_pack_map_from_pack_page(soup, pack), page_name)
+
+    quests_path = './cache/quests/Quests_by_Adventure_Pack.html'
+    if os.path.exists(quests_path):
+        page = open(quests_path, "r", encoding='utf-8').read()
+        soup = BeautifulSoup(page, 'html.parser')
+        merge_pack_layer(out['packs'], get_quest_pack_map_from_sectioned_page(soup, pack_name_map), 'Quests_by_Adventure_Pack')
 
     add_quest_pack_additions(out['packs'])
 

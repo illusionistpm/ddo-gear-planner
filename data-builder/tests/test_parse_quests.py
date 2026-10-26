@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import merge_pack_layer, add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
@@ -239,3 +239,93 @@ def test_get_official_packs_combines_adventure_pack_table_and_expansion_titles()
     assert get_official_packs(pack_name_map, ['Vecna Unleashed', 'Tangleroot Gorge']) == [
         'Tangleroot Gorge', 'The Vault of Night', 'Vecna Unleashed',
     ]
+
+
+# Trimmed from the wiki's Quests_by_level_and_XP page.
+LEVEL_PAGE = '''
+<div id="mw-content-text">
+  <h2>Heroic</h2>
+  <table class="wikitable sortable"><tbody>
+    <tr><th>Quest Name</th><th>Quest Level</th><th>Casual/Solo</th><th>Duration</th><th>Adventure Pack</th><th>Patron</th></tr>
+    <tr><td><a href="/page/Vecna_Unleashed_(quest)" title="Vecna Unleashed (quest)">Vecna Unleashed</a></td><td>20</td><td>1</td><td>Long</td><td><a href="/page/Vecna_Unleashed" title="Vecna Unleashed">Vecna Unleashed</a></td><td>The Twelve</td></tr>
+    <tr><td><a href="/page/Korthos_Village" title="Korthos Village">Korthos Village</a></td><td>1</td><td>1</td><td>Short</td><td><a href="/page/Free_to_Play" title="Free to Play">Free to Play</a></td><td></td></tr>
+  </tbody></table>
+  <h2>Epic</h2>
+  <table class="wikitable sortable"><tbody>
+    <tr><th>Quest Name</th><th>Quest Level</th><th>Casual/Solo</th><th>Duration</th><th>Adventure Pack</th><th>Patron</th></tr>
+    <tr><td><a href="/page/Return_to_Gianthold_Tor" title="Return to Gianthold Tor">Return to Gianthold Tor</a></td><td>25</td><td>1</td><td>Long</td><td>Ruins of Gianthold</td><td></td></tr>
+    <tr><td><a href="/page/ToEE:_Fire_Node" title="ToEE: Fire Node">Temple of Elemental Evil: Fire Node</a></td><td>27</td><td>1</td><td>Long</td><td>The Temple of Elemental Evil</td><td></td></tr>
+  </tbody></table>
+</div>
+'''
+
+
+def test_get_quest_pack_map_from_level_page_keys_quests_by_page_title_and_text():
+    quest_packs = get_quest_pack_map_from_level_page(BeautifulSoup(LEVEL_PAGE, 'html.parser'))
+
+    assert quest_packs == {
+        'Vecna Unleashed (quest)': 'Vecna Unleashed',
+        'Vecna Unleashed': 'Vecna Unleashed',
+        'Return to Gianthold Tor': 'Ruins of Gianthold',
+        'ToEE: Fire Node': 'The Temple of Elemental Evil',
+        'Temple of Elemental Evil: Fire Node': 'The Temple of Elemental Evil',
+    }
+
+
+def test_get_quest_pack_map_from_level_page_leaves_free_to_play_quests_without_a_pack():
+    quest_packs = get_quest_pack_map_from_level_page(BeautifulSoup(LEVEL_PAGE, 'html.parser'))
+
+    assert 'Korthos Village' not in quest_packs
+
+
+# Trimmed from the wiki's Wilderness_adventure_area page: a grouping header
+# row comes first, and the Access column's links aren't pack names.
+WILDERNESS_PAGE = '''
+<div id="mw-content-text">
+  <table class="wikitable"><tbody>
+    <tr><th></th><th colspan="2">Explorer XP</th><th></th></tr>
+    <tr><th>Area</th><th>Released</th><th>Level Range</th><th>Access</th></tr>
+    <tr><td><a href="/page/Korthos_Island" title="Korthos Island">Korthos Island</a> (<a href="/page/Korthos_Island_map">map</a>)</td><td>Module 8</td><td>1</td><td><a href="/page/Free_to_Play" title="Free to Play">Free to Play</a></td></tr>
+    <tr><td><a href="/page/The_Darklake" title="The Darklake">The Darklake</a></td><td>Update 70</td><td>31</td><td><a href="/page/Terror_of_Demogorgon" title="Terror of Demogorgon">Terror of Demogorgon</a></td></tr>
+    <tr><td><a href="/page/Sands_of_Menechtarun" title="Sands of Menechtarun">Sands of Menechtarun</a></td><td>Module 6</td><td>12</td><td><a href="/page/Zawabi%27s_Refuge" title="Zawabi's Refuge">Demon Sands</a> 950</td></tr>
+    <tr><td><a href="/page/Ruins_of_Gianthold_(heroic)" title="Ruins of Gianthold (heroic)">Ruins of Gianthold (heroic)</a></td><td>Module 7</td><td>15</td><td><a href="/page/Gianthold" title="Gianthold">The Ruins of Gianthold</a> 1,950</td></tr>
+  </tbody></table>
+</div>
+'''
+
+
+def test_get_area_pack_map_from_wilderness_page_reads_pack_from_access_text():
+    area_packs = get_area_pack_map_from_wilderness_page(BeautifulSoup(WILDERNESS_PAGE, 'html.parser'))
+
+    assert area_packs['The Darklake'] == 'Terror of Demogorgon'
+    assert area_packs['Sands of Menechtarun'] == 'Demon Sands'
+    assert area_packs['Ruins of Gianthold (heroic)'] == 'The Ruins of Gianthold'
+    assert 'Korthos Island' not in area_packs
+
+
+def test_merge_pack_layer_keeps_the_earlier_source_and_reports_conflicts(capsys):
+    quest_packs = {'Quest': 'Better Source Pack'}
+
+    merge_pack_layer(quest_packs, {'Quest': 'Stale Pack', 'New Quest': 'Pack'}, 'Old_Page')
+
+    assert quest_packs == {'Quest': 'Better Source Pack', 'New Quest': 'Pack'}
+    assert "Pack conflict for 'Quest'" in capsys.readouterr().out
+
+
+def test_get_quest_pack_map_from_pack_page_reads_wilderness_and_city_zone_sections():
+    # Keep on the Borderlands' page uses these shorter headings.
+    html = '''
+    <div id="mw-content-text">
+      <h2>Wilderness</h2>
+      <p><a href="/page/The_Borderlands" title="The Borderlands">The Borderlands</a></p>
+      <h2>Quests</h2>
+      <h2>City zone</h2>
+      <p><a href="/page/The_Keep_on_the_Borderlands" title="The Keep on the Borderlands">The Keep</a></p>
+      <h2>Loot</h2>
+    </div>
+    '''
+
+    assert get_quest_pack_map_from_pack_page(BeautifulSoup(html, 'html.parser'), 'Keep on the Borderlands') == {
+        'The Borderlands': 'Keep on the Borderlands',
+        'The Keep on the Borderlands': 'Keep on the Borderlands',
+    }

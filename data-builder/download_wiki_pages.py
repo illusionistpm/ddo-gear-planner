@@ -293,6 +293,9 @@ def download_quest_pages(session=None):
 
     download_page('Raids', cacheDir, session=session)
     download_page('Adventure_Pack', cacheDir, session=session)
+    download_page('Quests_by_level_and_XP', cacheDir, session=session)
+    download_page('Wilderness_adventure_area', cacheDir, session=session)
+    download_page('Category:Crafting_devices', cacheDir, session=session)
     download_page('Quests_by_Adventure_Pack', cacheDir, session=session)
     download_page('Category:Expansion_Packs', cacheDir, session=session)
 

@@ -176,3 +176,59 @@ def test_load_aliases_reads_every_dictionary_key_from_the_checked_in_file():
     assert set(aliases) == set(module.DICTIONARY_KEYS)
     for mapping in aliases.values():
         assert all(isinstance(old, str) and isinstance(new, str) for old, new in mapping.items())
+
+
+def new_pack_assets(item_packs, official_packs=None):
+    return {
+        'url-codec-dictionary': {'packs': ['The Vault of Night']},
+        'item-types': {},
+        'items': [{'name': f'Item {pack}', 'pack': pack} for pack in item_packs],
+        'quests': {'packs': {}, 'officialPacks': official_packs or []},
+        'crafting': {},
+        'essence-crafting': {}
+    }
+
+
+def run_with(monkeypatch, assets, pack_aliases=None):
+    written = {}
+    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {
+        'itemTypes': {}, 'packs': pack_aliases or {}, 'craftingSystems': {}
+    })
+    module.build_url_codec_dictionary()
+    return written['url-codec-dictionary']
+
+
+def test_build_url_codec_dictionary_accepts_many_new_packs_on_the_wiki_pack_list(monkeypatch):
+    # A backfill of real packs (e.g. after switching to a more complete
+    # quest source) arrives all at once and is fine.
+    new = ['Grip of the Hidden Hand', 'Keep on the Borderlands', 'The Soul Splitter']
+    dictionary = run_with(monkeypatch, new_pack_assets(new, official_packs=new))
+
+    assert dictionary['packs'] == ['The Vault of Night', *new]
+
+
+def test_build_url_codec_dictionary_still_rejects_many_unofficial_new_packs(monkeypatch):
+    assets = new_pack_assets(['Bogus A', 'Bogus B', 'Real Pack'], official_packs=['Real Pack'])
+
+    with pytest.raises(module.TooManyNewPacksError, match='Bogus A.*Bogus B'):
+        run_with(monkeypatch, assets)
+
+
+@pytest.mark.parametrize('variant', ['Vault of Night', 'the vault of night', 'The Vault-of-Night'])
+def test_build_url_codec_dictionary_rejects_near_duplicate_pack_even_when_official(monkeypatch, variant):
+    # The guard's original case: the wiki dropping a leading "The" would
+    # otherwise split one pack into two filter entries.
+    assets = new_pack_assets([variant], official_packs=[variant])
+
+    with pytest.raises(module.NearDuplicatePackError, match="existing: 'The Vault of Night'"):
+        run_with(monkeypatch, assets)
+
+
+def test_build_url_codec_dictionary_allows_near_duplicate_declared_by_an_alias(monkeypatch):
+    assets = new_pack_assets(['Vault of Night'], official_packs=['Vault of Night'])
+
+    dictionary = run_with(monkeypatch, assets, pack_aliases={'The Vault of Night': 'Vault of Night'})
+
+    assert dictionary['packs'] == ['The Vault of Night', 'Vault of Night']

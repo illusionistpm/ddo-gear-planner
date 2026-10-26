@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from read_json import read_json
 from write_json import write_json
@@ -14,17 +15,20 @@ ALIASES_SOURCE_PATH = os.path.join(os.path.dirname(__file__), 'url_codec_aliases
 DICTIONARY_KEYS = ('itemTypes', 'packs', 'craftingSystems')
 
 # Adventure packs release only a handful of times a year, so more than this
-# many "new" pack names discovered in a single build almost always means the
-# wiki renamed or reformatted an existing pack (e.g. dropping a leading
-# "The", or a saga getting split into per-chapter pages) rather than genuine
-# new content - which would otherwise silently split one real pack across
-# two dictionary entries. If this legitimately fires for real new packs,
-# bump the threshold for that run; if it fires because of a rename, add an
-# alias in url_codec_aliases.json instead.
+# many new pack names that aren't on the wiki's own pack list, in a single
+# build, almost always means a reformat produced bogus names. Names that are
+# on that list (quests.json's 'officialPacks') don't count, so a backfill of
+# real packs can land at once. If this fires for real packs, check why they
+# aren't on the official list; if it fires because of a rename, add an alias
+# in url_codec_aliases.json instead.
 MAX_NEW_PACKS_PER_BUILD = 1
 
 
 class TooManyNewPacksError(Exception):
+    pass
+
+
+class NearDuplicatePackError(Exception):
     pass
 
 
@@ -111,22 +115,49 @@ def _discover_crafting_systems():
     return systems
 
 
-def _check_new_pack_count(existing_packs, discovered_packs):
+def _pack_name_key(pack):
+    # "The Vault of Night", "Vault of Night" and "vault of night" are one pack.
+    key = pack.casefold()
+    if key.startswith('the '):
+        key = key[4:]
+    return re.sub(r'[^0-9a-z]', '', key)
+
+
+def _check_new_packs(existing_packs, discovered_packs, official_packs, aliases):
     existing_set = set(existing_packs)
     new_packs = sorted(
         (pack for pack in discovered_packs if pack not in existing_set),
         key=lambda entry: entry.casefold()
     )
-    if len(new_packs) > MAX_NEW_PACKS_PER_BUILD:
+
+    # A near-duplicate is never a new pack: it splits an existing one across
+    # two filter entries. An alias pointing at it declares the rename.
+    alias_targets = set(aliases.get('packs', {}).values())
+    existing_keys = {_pack_name_key(pack): pack for pack in existing_packs}
+    near_duplicates = [
+        f"'{pack}' (existing: '{existing_keys[_pack_name_key(pack)]}')"
+        for pack in new_packs
+        if _pack_name_key(pack) in existing_keys and pack not in alias_targets
+    ]
+    if near_duplicates:
+        raise NearDuplicatePackError(
+            f"New pack name(s) that only differ from an existing pack in case, a leading 'The' or "
+            f"punctuation: {', '.join(near_duplicates)}. Canonicalise the name in parse_quests.py so "
+            "items keep the existing name, or - if the wiki really renamed the pack - add the old "
+            "name to 'packs' in data-builder/url_codec_aliases.json so old saved/shared builds "
+            "resolve to the new one."
+        )
+
+    official_set = set(official_packs)
+    unofficial = [pack for pack in new_packs if pack not in official_set and pack != NO_PACK_FILTER]
+    if len(unofficial) > MAX_NEW_PACKS_PER_BUILD:
         raise TooManyNewPacksError(
-            f"{len(new_packs)} new adventure pack name(s) discovered in one build, more than the "
-            f"expected max of {MAX_NEW_PACKS_PER_BUILD}: {', '.join(new_packs)}. Packs release rarely, "
-            "so this usually means a wiki rename or formatting change split an existing pack into a "
-            "near-duplicate dictionary entry rather than genuine new content - check these against the "
-            "existing 'packs' list in url-codec-dictionary.json before proceeding. If they're genuinely "
-            "new packs, raise MAX_NEW_PACKS_PER_BUILD for this run; if one is a rename, add it to "
-            "'packs' in data-builder/url_codec_aliases.json instead so old saved/shared builds still "
-            "resolve to the same pack."
+            f"{len(unofficial)} new adventure pack name(s) that aren't on the wiki's pack list "
+            f"discovered in one build, more than the expected max of {MAX_NEW_PACKS_PER_BUILD}: "
+            f"{', '.join(unofficial)}. This usually means a wiki reformat produced bogus pack names "
+            "(e.g. section headings) - check where these came from before proceeding. If one is a "
+            "rename, add it to 'packs' in data-builder/url_codec_aliases.json instead so old "
+            "saved/shared builds still resolve to the same pack."
         )
 
 
@@ -134,8 +165,14 @@ def build_url_codec_dictionary():
     existing_dictionary = _read_json_or_empty('url-codec-dictionary')
     existing_packs = existing_dictionary.get('packs', [])
     discovered_packs = _discover_packs()
+    aliases = load_aliases()
 
-    _check_new_pack_count(existing_packs, discovered_packs)
+    _check_new_packs(
+        existing_packs,
+        discovered_packs,
+        _read_json_or_empty('quests').get('officialPacks') or [],
+        aliases,
+    )
 
     dictionary = {
         'version': 1,
@@ -151,7 +188,7 @@ def build_url_codec_dictionary():
             existing_dictionary.get('craftingSystems', []),
             _discover_crafting_systems()
         ),
-        'aliases': load_aliases()
+        'aliases': aliases
     }
 
     _check_aliases(dictionary)

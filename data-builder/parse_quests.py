@@ -251,6 +251,16 @@ def get_expansion_pack_pages_from_category(soup):
     return expansion_pack_pages
 
 
+def get_official_packs(pack_name_map, expansion_pack_titles):
+    # The wiki's own pack list, so the URL codec dictionary step can tell a
+    # newly released pack from a renamed or misparsed one.
+    return sorted(
+        {_canonical_pack_name(pack, pack_name_map=pack_name_map) for pack in pack_name_map.values()}
+        | set(expansion_pack_titles),
+        key=str.casefold,
+    )
+
+
 def parse_quests():
     out = {}
     out['packs'] = {}
@@ -294,6 +304,8 @@ def parse_quests():
             out['packs'].update(get_quest_pack_map_from_pack_page(soup, pack))
 
     add_quest_pack_additions(out['packs'])
+
+    out['officialPacks'] = get_official_packs(pack_name_map, expansion_pack_pages.values())
 
     write_json(out, 'quests')
 

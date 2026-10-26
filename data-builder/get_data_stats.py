@@ -103,7 +103,12 @@ def get_data_stats():
         quests = {
             'raids': []
         }
-    stats['quests'] = {'raids': len(quests['raids'])}
+    # The pack map comes from a handful of wiki pages; a reformat of one
+    # would shrink it, and strand items without a pack, without failing.
+    stats['quests'] = {
+        'raids': len(quests['raids']),
+        'pack map entries': len(quests.get('packs', {})),
+    }
 
     try:
         sets = read_json('sets')
@@ -120,7 +125,8 @@ def get_data_stats():
         items = []
     stats['items'] = {
         'items': len(items),
-        'affixes': _count_affixes(items)
+        'affixes': _count_affixes(items),
+        'with pack': sum(1 for item in items if item.get('pack')),
     }
 
     return stats

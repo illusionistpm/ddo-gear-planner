@@ -1,3 +1,4 @@
+import get_data_stats as module
 from get_data_stats import _count_affixes, check_stats_thresholds
 
 
@@ -37,3 +38,22 @@ def test_check_stats_thresholds_ignores_increase():
     newStats = {'items': {'items': 150}}
 
     assert check_stats_thresholds(newStats, oldStats, threshold=0.1) == []
+
+
+def test_get_data_stats_counts_pack_map_and_items_with_a_pack(monkeypatch):
+    assets = {
+        'quests': {'raids': ['A Raid'], 'packs': {'Quest A': 'Pack', 'Quest B': 'Pack'}},
+        'items': [{'name': 'Packed', 'pack': 'Pack'}, {'name': 'Free'}, {'name': 'Blank', 'pack': ''}],
+    }
+
+    def fake_read_json(name):
+        if name in assets:
+            return assets[name]
+        raise FileNotFoundError(name)
+
+    monkeypatch.setattr(module, 'read_json', fake_read_json)
+
+    stats = module.get_data_stats()
+
+    assert stats['quests'] == {'raids': 1, 'pack map entries': 2}
+    assert stats['items']['with pack'] == 1

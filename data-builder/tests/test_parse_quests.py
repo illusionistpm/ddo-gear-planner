@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_expansion_pack_pages_from_category, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
@@ -231,3 +231,11 @@ def test_get_expansion_pack_pages_from_category_reads_pack_links():
         'Mists_of_Ravenloft': 'Mists of Ravenloft',
         'Masterminds_of_Sharn': 'Masterminds of Sharn',
     }
+
+
+def test_get_official_packs_combines_adventure_pack_table_and_expansion_titles():
+    pack_name_map = {'Vault of Night': 'The Vault of Night', 'The Vault of Night': 'The Vault of Night', 'Tangleroot Gorge': 'Tangleroot Gorge'}
+
+    assert get_official_packs(pack_name_map, ['Vecna Unleashed', 'Tangleroot Gorge']) == [
+        'Tangleroot Gorge', 'The Vault of Night', 'Vecna Unleashed',
+    ]

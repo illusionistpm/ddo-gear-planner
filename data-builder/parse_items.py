@@ -122,6 +122,7 @@ def infer_item_pack(quests_cell, quests: list[str], quest_pack_map: dict[str, st
         'Viktranium Experiment': 'The Chill of Ravenloft',
         'Isle of Dread:': 'The Isle of Dread',
         'Dinosaur Bone crafting': 'The Isle of Dread',
+        'ToEE:': 'The Temple of Elemental Evil',
     }
     for hint, pack in source_hints.items():
         if hint in row_text:

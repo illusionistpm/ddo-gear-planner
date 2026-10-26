@@ -1,11 +1,25 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_expansion_pack_pages_from_category, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_expansion_pack_pages_from_category, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
     assert add_crafting_raid_sources(['Tempest Spine']) == ['Tempest Spine', 'Ritual Table']
     assert add_crafting_raid_sources(['Ritual Table']) == ['Ritual Table']
+
+
+def test_add_quest_pack_additions_maps_epic_gianthold_return_quests():
+    quest_packs = add_quest_pack_additions({'Gianthold Tor': 'Ruins of Gianthold'})
+
+    assert quest_packs['Return to Gianthold Tor'] == 'Ruins of Gianthold'
+    assert quest_packs['Return to Prison of the Planes'] == 'Ruins of Gianthold'
+    assert quest_packs['Gianthold Tor'] == 'Ruins of Gianthold'
+
+
+def test_add_quest_pack_additions_keeps_a_pack_the_wiki_already_gives():
+    quest_packs = add_quest_pack_additions({'Return to Gianthold Tor': 'Some Other Pack'})
+
+    assert quest_packs['Return to Gianthold Tor'] == 'Some Other Pack'
 
 
 def test_get_quest_pack_map_from_sectioned_page_uses_pack_heading():

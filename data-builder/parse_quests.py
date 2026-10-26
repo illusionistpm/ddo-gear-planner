@@ -6,6 +6,15 @@ CRAFTING_RAID_SOURCES = (
     'Ritual Table',
 )
 
+# Quests the wiki's pack pages don't list under their pack. The Epic
+# Gianthold "Return to" quests are only named in raid-flagging text.
+QUEST_PACK_ADDITIONS = {
+    'Return to Cabal for One': 'Ruins of Gianthold',
+    'Return to Gianthold Tor': 'Ruins of Gianthold',
+    'Return to Madstone Crater': 'Ruins of Gianthold',
+    'Return to Prison of the Planes': 'Ruins of Gianthold',
+}
+
 
 def _cell_text(cell):
     return cell.getText().replace('\xa0', ' ').strip()
@@ -43,6 +52,13 @@ def add_crafting_raid_sources(raids):
         if source not in raids:
             raids.append(source)
     return raids
+
+
+def add_quest_pack_additions(quest_packs):
+    # The wiki wins if it ever lists one of these itself.
+    for quest, pack in QUEST_PACK_ADDITIONS.items():
+        quest_packs.setdefault(quest, pack)
+    return quest_packs
 
 
 # The wiki's reference table column has been observed under both names -
@@ -276,6 +292,8 @@ def parse_quests():
             page = open(pack_path, "r", encoding='utf-8').read()
             soup = BeautifulSoup(page, 'html.parser')
             out['packs'].update(get_quest_pack_map_from_pack_page(soup, pack))
+
+    add_quest_pack_additions(out['packs'])
 
     write_json(out, 'quests')
 

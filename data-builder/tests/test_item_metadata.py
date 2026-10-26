@@ -157,6 +157,21 @@ def test_item_metadata_infers_lamordia_pack_from_row_source_text(tmp_path, monke
     assert items[0]['pack'] == 'The Chill of Ravenloft'
 
 
+def test_item_metadata_infers_temple_of_elemental_evil_pack_from_toee_source(tmp_path, monkeypatch):
+    # Item pages name ToEE sources by area ("ToEE: Air Node"), which no quest
+    # in the pack map matches.
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Elemental_Trinket" title="Item:Elemental Trinket">Elemental Trinket</a></td>
+        <td></td><td>12</td><td>Bound to Account on Acquire</td>
+        <td>ToEE: Air Node</td>
+        <td>end chest</td>
+      </tr>
+    ''', set(), {'Temple of Elemental Evil Part One': 'The Temple of Elemental Evil'}, monkeypatch)
+
+    assert items[0]['pack'] == 'The Temple of Elemental Evil'
+
+
 def test_item_with_non_numeric_ml_is_skipped_not_fatal(tmp_path, monkeypatch):
     # A new wiki page can list its minimum level as a placeholder ('???') before
     # it is filled in. That row must be skipped, not crash the whole build.

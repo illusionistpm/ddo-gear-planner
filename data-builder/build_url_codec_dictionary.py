@@ -1,7 +1,17 @@
+import json
+import os
+
 from read_json import read_json
 from write_json import write_json
 
 NO_PACK_FILTER = '__NO_PACK__'
+
+# The dictionary's value lists are build state: each build appends to the
+# copy in data/, and their order is what existing links decode against.
+# Aliases are hand-maintained, so they live here and replace whatever the
+# data/ copy holds on every build.
+ALIASES_SOURCE_PATH = os.path.join(os.path.dirname(__file__), 'url_codec_aliases.json')
+DICTIONARY_KEYS = ('itemTypes', 'packs', 'craftingSystems')
 
 # Adventure packs release only a handful of times a year, so more than this
 # many "new" pack names discovered in a single build almost always means the
@@ -10,12 +20,39 @@ NO_PACK_FILTER = '__NO_PACK__'
 # new content - which would otherwise silently split one real pack across
 # two dictionary entries. If this legitimately fires for real new packs,
 # bump the threshold for that run; if it fires because of a rename, add an
-# alias in the checked-in url-codec-dictionary.json instead.
+# alias in url_codec_aliases.json instead.
 MAX_NEW_PACKS_PER_BUILD = 1
 
 
 class TooManyNewPacksError(Exception):
     pass
+
+
+class InvalidAliasError(Exception):
+    pass
+
+
+def load_aliases():
+    with open(ALIASES_SOURCE_PATH, 'r', encoding='utf-8') as file:
+        aliases = json.load(file)
+    return {key: dict(aliases.get(key) or {}) for key in DICTIONARY_KEYS}
+
+
+def _check_aliases(dictionary):
+    # Decoding only aliases values that are in the dictionary, and an alias
+    # pointing at a name nothing uses would quietly empty an old link's filter.
+    problems = []
+    for key in DICTIONARY_KEYS:
+        known = set(dictionary[key])
+        for old_value, new_value in dictionary['aliases'][key].items():
+            if old_value not in known:
+                problems.append(f"{key}: '{old_value}' is not in the dictionary")
+            if new_value not in known:
+                problems.append(f"{key}: '{old_value}' points at '{new_value}', which is not in the dictionary")
+    if problems:
+        raise InvalidAliasError(
+            'url_codec_aliases.json has aliases that would not resolve:\n - ' + '\n - '.join(problems)
+        )
 
 
 def _read_json_or_empty(asset_name):
@@ -87,8 +124,9 @@ def _check_new_pack_count(existing_packs, discovered_packs):
             "so this usually means a wiki rename or formatting change split an existing pack into a "
             "near-duplicate dictionary entry rather than genuine new content - check these against the "
             "existing 'packs' list in url-codec-dictionary.json before proceeding. If they're genuinely "
-            "new packs, raise MAX_NEW_PACKS_PER_BUILD for this run; if one is a rename, add it to that "
-            "file's 'aliases.packs' instead so old saved/shared builds still resolve to the same pack."
+            "new packs, raise MAX_NEW_PACKS_PER_BUILD for this run; if one is a rename, add it to "
+            "'packs' in data-builder/url_codec_aliases.json instead so old saved/shared builds still "
+            "resolve to the same pack."
         )
 
 
@@ -113,15 +151,10 @@ def build_url_codec_dictionary():
             existing_dictionary.get('craftingSystems', []),
             _discover_crafting_systems()
         ),
-        'aliases': existing_dictionary.get('aliases', {
-            'itemTypes': {},
-            'packs': {},
-            'craftingSystems': {}
-        })
+        'aliases': load_aliases()
     }
-    dictionary['aliases'].setdefault('itemTypes', {})
-    dictionary['aliases'].setdefault('packs', {})
-    dictionary['aliases'].setdefault('craftingSystems', {})
+
+    _check_aliases(dictionary)
 
     write_json(dictionary, 'url-codec-dictionary')
 

@@ -14,11 +14,6 @@ def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(m
             # below for the anomaly-detection behavior itself.
             'packs': ['Existing Pack', 'New Pack', 'Quest Pack'],
             'craftingSystems': ['Existing Crafting'],
-            'aliases': {
-                'itemTypes': {'Old Type': 'Existing Type'},
-                'packs': {'Old Pack': 'Existing Pack'},
-                'craftingSystems': {'Old Crafting': 'Existing Crafting'}
-            }
         },
         'item-types': {
             'New Type': {},
@@ -49,6 +44,11 @@ def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(m
 
     monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {
+        'itemTypes': {'Existing Type': 'New Type'},
+        'packs': {},
+        'craftingSystems': {'Existing Crafting': 'New Crafting'}
+    })
 
     module.build_url_codec_dictionary()
 
@@ -60,8 +60,8 @@ def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(m
         'Essence Crafting: Ring - Prefix',
         'New Crafting'
     ]
-    assert dictionary['aliases']['itemTypes']['Old Type'] == 'Existing Type'
-    assert dictionary['aliases']['craftingSystems']['Old Crafting'] == 'Existing Crafting'
+    assert dictionary['aliases']['itemTypes'] == {'Existing Type': 'New Type'}
+    assert dictionary['aliases']['craftingSystems'] == {'Existing Crafting': 'New Crafting'}
 
 
 def test_build_url_codec_dictionary_rejects_too_many_new_packs(monkeypatch):
@@ -108,6 +108,7 @@ def test_build_url_codec_dictionary_creates_empty_alias_maps(monkeypatch):
 
     monkeypatch.setattr(module, 'read_json', fake_read_json)
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}})
 
     module.build_url_codec_dictionary()
 
@@ -117,3 +118,61 @@ def test_build_url_codec_dictionary_creates_empty_alias_maps(monkeypatch):
     assert dictionary['packs'] == ['Masterminds of Sharn']
     assert dictionary['craftingSystems'] == ['Blue Augment Slot']
     assert dictionary['aliases'] == {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}}
+
+
+def alias_assets(existing_aliases=None):
+    return {
+        'url-codec-dictionary': {
+            'itemTypes': [],
+            'packs': ['Old Pack', 'New Pack'],
+            'craftingSystems': [],
+            'aliases': existing_aliases or {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}}
+        },
+        'item-types': {},
+        'items': [{'name': 'Pack Item', 'pack': 'New Pack'}],
+        'quests': {'packs': {}},
+        'crafting': {},
+        'essence-crafting': {}
+    }
+
+
+def test_build_url_codec_dictionary_takes_aliases_from_the_source_file(monkeypatch):
+    # The data/ copy is build output: an alias edited only there is replaced,
+    # and one removed from the source file is dropped.
+    assets = alias_assets({'itemTypes': {}, 'packs': {'Stale': 'New Pack'}, 'craftingSystems': {}})
+    written = {}
+
+    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {
+        'itemTypes': {}, 'packs': {'Old Pack': 'New Pack'}, 'craftingSystems': {}
+    })
+
+    module.build_url_codec_dictionary()
+
+    assert written['url-codec-dictionary']['aliases']['packs'] == {'Old Pack': 'New Pack'}
+
+
+@pytest.mark.parametrize('packs_alias, message', [
+    ({'Typo Pack': 'New Pack'}, "'Typo Pack' is not in the dictionary"),
+    ({'Old Pack': 'Typo Pack'}, "points at 'Typo Pack'"),
+])
+def test_build_url_codec_dictionary_rejects_aliases_that_would_not_resolve(monkeypatch, packs_alias, message):
+    assets = alias_assets()
+
+    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'write_json', lambda data, name: pytest.fail('should not write on violation'))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {
+        'itemTypes': {}, 'packs': packs_alias, 'craftingSystems': {}
+    })
+
+    with pytest.raises(module.InvalidAliasError, match=message):
+        module.build_url_codec_dictionary()
+
+
+def test_load_aliases_reads_every_dictionary_key_from_the_checked_in_file():
+    aliases = module.load_aliases()
+
+    assert set(aliases) == set(module.DICTIONARY_KEYS)
+    for mapping in aliases.values():
+        assert all(isinstance(old, str) and isinstance(new, str) for old, new in mapping.items())

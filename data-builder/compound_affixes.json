@@ -1366,32 +1366,32 @@
         "name": "Armor Class",
         "type": "Insight",
         "value": {
-          "mode": "same_as_affix_number"
+          "mode": "half_round_up"
         }
       },
       {
         "name": "Fortitude Save",
         "type": "Insight",
         "value": {
-          "mode": "same_as_affix_number"
+          "mode": "half_round_down"
         }
       },
       {
         "name": "Reflex Save",
         "type": "Insight",
         "value": {
-          "mode": "same_as_affix_number"
+          "mode": "half_round_down"
         }
       },
       {
         "name": "Will Save",
         "type": "Insight",
         "value": {
-          "mode": "same_as_affix_number"
+          "mode": "half_round_down"
         }
       }
     ],
-    "notes": "The Riposte affix grants a permanent Insight bonus to AC and all three saving throws. Damage dealt when missed by attack is a triggered effect and thus excluded."
+    "notes": "Riposte's value is its tier: Riposte N grants an Insight bonus of N/2 rounded up to AC and N/2 rounded down to all three saving throws (the older Riposte +N is parsed as tier 2N). Damage dealt when missed by attack is a triggered effect and thus excluded."
   },
   "Sacred Ground Lore": {
     "components": [

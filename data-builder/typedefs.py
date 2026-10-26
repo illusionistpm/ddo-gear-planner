@@ -17,7 +17,7 @@ class Affix(TypedDict):
     augmentColors: NotRequired[list[str]]
 
 class CompoundAffixValue(TypedDict, total=False):
-    mode: Literal["same_as_affix_number", "fixed", "boolean_one"]
+    mode: Literal["same_as_affix_number", "fixed", "boolean_one", "half_round_up", "half_round_down"]
     amount: int
 
 class CompoundAffixComponent(TypedDict):

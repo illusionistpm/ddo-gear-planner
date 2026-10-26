@@ -1,3 +1,5 @@
+import pytest
+
 from compound_affixes import expand_single_affix, load_compound_affixes
 import parse_items
 from parse_items import expand_affix_names_with_compounds
@@ -64,12 +66,43 @@ def test_expand_affix_names_with_compounds_uses_parsed_component_names(monkeypat
     }
 
 
-def test_riposte_expands_to_insight_ac_and_saves_from_the_real_compound_map():
-    affix = {'name': 'Riposte', 'type': 'Insight', 'value': '8'}
+@pytest.mark.parametrize('tier,armor_class,saves', [('8', 4, 4), ('7', 4, 3), ('12', 6, 6)])
+def test_riposte_expands_to_insight_ac_and_saves_from_the_real_compound_map(tier, armor_class, saves):
+    affix = {'name': 'Riposte', 'type': 'Insight', 'value': tier}
 
     assert expand_single_affix(affix, load_compound_affixes()) == [
-        {'name': 'Armor Class', 'type': 'Insight', 'value': '8'},
-        {'name': 'Fortitude Save', 'type': 'Insight', 'value': '8'},
-        {'name': 'Reflex Save', 'type': 'Insight', 'value': '8'},
-        {'name': 'Will Save', 'type': 'Insight', 'value': '8'},
+        {'name': 'Armor Class', 'type': 'Insight', 'value': armor_class},
+        {'name': 'Fortitude Save', 'type': 'Insight', 'value': saves},
+        {'name': 'Reflex Save', 'type': 'Insight', 'value': saves},
+        {'name': 'Will Save', 'type': 'Insight', 'value': saves},
+    ]
+
+
+def test_expand_single_affix_halves_the_value_rounding_each_way():
+    compound_map = {
+        'Halves': {
+            'components': [
+                {'name': 'Armor Class', 'type': 'Insight', 'value': {'mode': 'half_round_up'}},
+                {'name': 'Will Save', 'type': 'Insight', 'value': {'mode': 'half_round_down'}},
+            ]
+        }
+    }
+
+    assert expand_single_affix({'name': 'Halves', 'type': 'Insight', 'value': '5'}, compound_map) == [
+        {'name': 'Armor Class', 'type': 'Insight', 'value': 3},
+        {'name': 'Will Save', 'type': 'Insight', 'value': 2},
+    ]
+
+
+def test_expand_single_affix_halving_tolerates_a_name_only_affix():
+    compound_map = {
+        'Halves': {
+            'components': [
+                {'name': 'Armor Class', 'type': 'Insight', 'value': {'mode': 'half_round_up'}},
+            ]
+        }
+    }
+
+    assert expand_single_affix({'name': 'Halves'}, compound_map) == [
+        {'name': 'Armor Class', 'type': 'Insight', 'value': None},
     ]

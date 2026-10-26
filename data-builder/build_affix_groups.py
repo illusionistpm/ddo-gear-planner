@@ -94,6 +94,10 @@ def _convert_compound_component(component: CompoundAffixComponent) -> Affix:
         value = value_spec['amount']
     elif mode == 'boolean_one':
         value = 1
+    elif mode == 'half_round_up':
+        value = '<HalfValueRoundedUp>'
+    elif mode == 'half_round_down':
+        value = '<HalfValueRoundedDown>'
     else:
         value = '<ValueAlreadyParsed>'
 

@@ -37,6 +37,20 @@ describe('AffixService', () => {
     ]);
   });
 
+  it('flattens fixed affix group components that halve the parsed value', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+    service.affixGroups.set('Test Riposte', ['Armor Class', 'Will Save']);
+    service.affixGroupComponents.set('Test Riposte', [
+      { name: 'Armor Class', type: 'Insight', value: '<HalfValueRoundedUp>' },
+      { name: 'Will Save', type: 'Insight', value: '<HalfValueRoundedDown>' }
+    ]);
+
+    expect(service.flattenAffixGroups([new Affix({ name: 'Test Riposte', type: 'Insight', value: 7 })])).toEqual([
+      new Affix({ name: 'Armor Class', type: 'Insight', value: 4 }),
+      new Affix({ name: 'Will Save', type: 'Insight', value: 3 })
+    ]);
+  });
+
   it('preserves non-group affixes when flattening', () => {
     const service: AffixService = TestBed.inject(AffixService);
     const deadly = new Affix({ name: 'Deadly', type: 'Competence', value: 10 });

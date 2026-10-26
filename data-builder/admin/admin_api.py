@@ -203,7 +203,7 @@ def _validate_definition(definition: Any) -> CompoundAffixDefinition:
             raise ValueError(f'component {index + 1} value must be an object')
 
         mode = value.get('mode')
-        if mode not in ('same_as_affix_number', 'fixed', 'boolean_one'):
+        if mode not in ('same_as_affix_number', 'fixed', 'boolean_one', 'half_round_up', 'half_round_down'):
             raise ValueError(f'component {index + 1} has unsupported value mode')
         normalized_value: dict[str, Any] = {'mode': mode}
         if mode == 'fixed':

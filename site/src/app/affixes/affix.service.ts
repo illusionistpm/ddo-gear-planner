@@ -68,13 +68,16 @@ export class AffixService {
     const fixedAffixes = this.affixGroupComponents.get(affixGroup.name);
     if (fixedAffixes) {
       for (const fixedAffix of fixedAffixes) {
-        const inheritsValue = fixedAffix.value === '<ValueAlreadyParsed>';
         const affix = new Affix(fixedAffix);
         if (affix.type === '<TypeAlreadyParsed>') {
           affix.type = affixGroup.type;
         }
-        if (inheritsValue) {
+        if (fixedAffix.value === '<ValueAlreadyParsed>') {
           affix.value = affixGroup.value;
+        } else if (fixedAffix.value === '<HalfValueRoundedUp>') {
+          affix.value = Math.ceil(affixGroup.value / 2);
+        } else if (fixedAffix.value === '<HalfValueRoundedDown>') {
+          affix.value = Math.floor(affixGroup.value / 2);
         }
         affixes.push(affix);
       }

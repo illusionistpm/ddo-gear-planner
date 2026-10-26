@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
-type ValueMode = 'same_as_affix_number' | 'fixed' | 'boolean_one';
+type ValueMode = 'same_as_affix_number' | 'fixed' | 'boolean_one' | 'half_round_up' | 'half_round_down';
 type ReviewStatus = 'unreviewed' | 'accepted' | 'tweaked' | 'needs-tweak' | 'rejected';
 type AdminView = 'compound-affixes' | 'affix-names';
 
@@ -325,6 +325,8 @@ function requestJson<T>(url: string, options: { method?: string; body?: unknown 
               <option value="same_as_affix_number">same as affix number</option>
               <option value="fixed">fixed</option>
               <option value="boolean_one">boolean one</option>
+              <option value="half_round_up">half, rounded up</option>
+              <option value="half_round_down">half, rounded down</option>
             </select>
             <input class="form-control form-control-sm" type="number"
               [disabled]="component.value.mode !== 'fixed'"
@@ -992,6 +994,12 @@ export class AdminAppComponent {
     }
     if (component.value.mode === 'boolean_one') {
       return 1;
+    }
+    if (component.value.mode === 'half_round_up') {
+      return Math.ceil(Number(baseAffix.value) / 2);
+    }
+    if (component.value.mode === 'half_round_down') {
+      return Math.floor(Number(baseAffix.value) / 2);
     }
     return baseAffix.value;
   }

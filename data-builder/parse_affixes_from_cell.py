@@ -656,6 +656,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     affixName = cleanup_unicode(affixName)
     affixName = cleanup_whitespace(affixName)
+    affixLabel = affixName
     sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(affixName, source_tooltip)
     if sacred_turn_undead_affix:
         return add_affix_provenance(sacred_turn_undead_affix, source_text, source_tooltip, 'translate_list_tag_to_affix_map:sacred-turn-undead')
@@ -840,6 +841,11 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['value'] = tooltipSearch.group(1)
     elif aff['name'] in {'Dazing', 'Sundering'} and 'value' in aff and 'type' not in aff:
         aff['type'] = 'Enhancement'
+        aff['value'] = str(int(aff['value']) * 2)
+
+    # Riposte values are tiers: Riposte VIII is tier 8, worth +4 AC and +4 saves (see compound_affixes.json).
+    # The older Riposte +N gives the full N to both, which is tier 2N.
+    if aff['name'] == 'Riposte' and 'value' in aff and re.search(r'Riposte \+[0-9]+$', affixLabel):
         aff['value'] = str(int(aff['value']) * 2)
 
     tooltipSearch = re.search(r'^.*?provides a \+([0-9]+) enhancement bonus to Bluff checks.*$', words)

@@ -249,7 +249,7 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Riposte +6<span class="tooltip">Riposte +6: This item enchants its user with incredible awareness and speed, granting a +6 Insight bonus to AC and to Saves.</span></span></li>',
-            {'name': 'Riposte', 'type': 'Insight', 'value': '6'},
+            {'name': 'Riposte', 'type': 'Insight', 'value': '12'},
         ),
         (
             '<li>Maximum Charge Tier: III</li>',

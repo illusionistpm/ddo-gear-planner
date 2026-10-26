@@ -48,6 +48,10 @@ def _materialize_component_affix(component: CompoundAffixComponent, base_value: 
         value = value_spec.get('amount', base_value)
     elif mode == 'boolean_one':
         value = 1
+    elif mode == 'half_round_up' and base_value is not None:
+        value = (int(base_value) + 1) // 2
+    elif mode == 'half_round_down' and base_value is not None:
+        value = int(base_value) // 2
     else:
         value = base_value
 

@@ -162,9 +162,9 @@ def test_build_affix_groups_riposte_components_from_the_real_compound_map(monkey
         'name': 'Riposte',
         'affixes': ['Armor Class', 'Fortitude Save', 'Reflex Save', 'Will Save'],
         'components': [
-            {'name': 'Armor Class', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
-            {'name': 'Fortitude Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
-            {'name': 'Reflex Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
-            {'name': 'Will Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
+            {'name': 'Armor Class', 'type': 'Insight', 'value': '<HalfValueRoundedUp>'},
+            {'name': 'Fortitude Save', 'type': 'Insight', 'value': '<HalfValueRoundedDown>'},
+            {'name': 'Reflex Save', 'type': 'Insight', 'value': '<HalfValueRoundedDown>'},
+            {'name': 'Will Save', 'type': 'Insight', 'value': '<HalfValueRoundedDown>'},
         ],
     }

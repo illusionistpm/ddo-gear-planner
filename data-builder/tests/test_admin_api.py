@@ -349,3 +349,21 @@ def test_queue_affix_name_for_compound_review_merges_existing_candidate(monkeypa
         'Paired Defenses: You gain bonuses to both defenses.',
     ]
     assert candidate['knownBonusType'] == 'Insight'
+
+
+def test_save_review_decision_accepts_halving_value_modes(monkeypatch):
+    saved = {}
+
+    monkeypatch.setattr(admin_api, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(admin_api, 'save_compound_affixes', lambda data: saved.update(data))
+    monkeypatch.setattr(admin_api, '_load_review_state', lambda: {})
+    monkeypatch.setattr(admin_api, '_save_review_state', lambda data: None)
+    monkeypatch.setattr(admin_api, 'get_allowed_bonus_types', lambda: {'Insight'})
+
+    components = [
+        {'name': 'Armor Class', 'type': 'Insight', 'value': {'mode': 'half_round_up'}},
+        {'name': 'Will Save', 'type': 'Insight', 'value': {'mode': 'half_round_down'}},
+    ]
+    admin_api.save_review_decision('Halves', {'status': 'accepted', 'definition': {'components': components}})
+
+    assert saved['Halves'] == {'components': components}

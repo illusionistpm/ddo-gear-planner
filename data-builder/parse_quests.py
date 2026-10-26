@@ -116,7 +116,36 @@ def _clean_section_heading(heading):
     return heading.get_text(' ', strip=True).replace('[ edit ]', '').strip()
 
 
+# Each wiki page spells some packs its own way. Items keep the name they
+# already carry - it's in url-codec-dictionary.json and in saved links - so
+# every source's spelling is mapped back to it. The URL codec step fails on
+# any new near-duplicate (case, leading "The", punctuation), naming it.
+PACK_NAME_OVERRIDES = {
+    'Haunted Halls of Eveningstar': 'The Haunted Halls of Eveningstar',
+    'High Road of Shadows': 'The High Road of Shadows',
+    'Isle of Dread': 'The Isle of Dread',
+    'Ruins of Threnal': 'The Ruins of Threnal',
+    'The Borderlands': 'Keep on the Borderlands',
+    'The Necropolis, Part 1': 'The Necropolis Part 1',
+    'The Necropolis, Part 2': 'The Necropolis Part 2',
+    'The Necropolis, Part 3': 'The Necropolis Part 3',
+    'The Necropolis, Part 4': 'The Necropolis Part 4',
+    "The Reaver's Reach": "Reaver's Reach",
+    'The Ruins of Gianthold': 'Ruins of Gianthold',
+    'Vault of Night': 'The Vault of Night',
+}
+
+
 def _canonical_pack_name(pack, heading=None, pack_name_map=None):
+    pack = _lookup_pack_name(PACK_NAME_OVERRIDES.get(pack, pack), heading, pack_name_map)
+    return PACK_NAME_OVERRIDES.get(pack, pack)
+
+
+def canonicalise_pack_layer(layer, pack_name_map):
+    return {quest: _canonical_pack_name(pack, pack_name_map=pack_name_map) for quest, pack in layer.items()}
+
+
+def _lookup_pack_name(pack, heading=None, pack_name_map=None):
     if not pack_name_map:
         return pack
 
@@ -347,7 +376,7 @@ def get_official_packs(pack_name_map, expansion_pack_titles):
     # newly released pack from a renamed or misparsed one.
     return sorted(
         {_canonical_pack_name(pack, pack_name_map=pack_name_map) for pack in pack_name_map.values()}
-        | set(expansion_pack_titles),
+        | {_canonical_pack_name(title, pack_name_map=pack_name_map) for title in expansion_pack_titles},
         key=str.casefold,
     )
 
@@ -378,13 +407,13 @@ def parse_quests():
     if os.path.exists(level_path):
         page = open(level_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
-        merge_pack_layer(out['packs'], get_quest_pack_map_from_level_page(soup), 'Quests_by_level_and_XP')
+        merge_pack_layer(out['packs'], canonicalise_pack_layer(get_quest_pack_map_from_level_page(soup), pack_name_map), 'Quests_by_level_and_XP')
 
     wilderness_path = './cache/quests/Wilderness_adventure_area.html'
     if os.path.exists(wilderness_path):
         page = open(wilderness_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
-        merge_pack_layer(out['packs'], get_area_pack_map_from_wilderness_page(soup), 'Wilderness_adventure_area')
+        merge_pack_layer(out['packs'], canonicalise_pack_layer(get_area_pack_map_from_wilderness_page(soup), pack_name_map), 'Wilderness_adventure_area')
 
     expansion_pack_pages = {}
     expansion_pack_category_path = './cache/quests/Expansion_Packs.html'
@@ -398,7 +427,7 @@ def parse_quests():
         if os.path.exists(pack_path):
             page = open(pack_path, "r", encoding='utf-8').read()
             soup = BeautifulSoup(page, 'html.parser')
-            merge_pack_layer(out['packs'], get_quest_pack_map_from_pack_page(soup, pack), page_name)
+            merge_pack_layer(out['packs'], canonicalise_pack_layer(get_quest_pack_map_from_pack_page(soup, pack), pack_name_map), page_name)
 
     quests_path = './cache/quests/Quests_by_Adventure_Pack.html'
     if os.path.exists(quests_path):

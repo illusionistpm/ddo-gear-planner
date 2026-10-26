@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import merge_pack_layer, add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import canonicalise_pack_layer, merge_pack_layer, add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
@@ -329,3 +329,32 @@ def test_get_quest_pack_map_from_pack_page_reads_wilderness_and_city_zone_sectio
         'The Borderlands': 'Keep on the Borderlands',
         'The Keep on the Borderlands': 'Keep on the Borderlands',
     }
+
+
+def test_canonicalise_pack_layer_keeps_the_names_items_already_carry():
+    layer = {
+        'Tomb of the Shadow King': 'The Necropolis, Part 2',
+        'Haywire Foundry': 'Vault of Night',
+        'The Borderlands': 'The Borderlands',
+        'Grip Quest': 'Grip of the Hidden Hand',
+    }
+
+    assert canonicalise_pack_layer(layer, {}) == {
+        'Tomb of the Shadow King': 'The Necropolis Part 2',
+        'Haywire Foundry': 'The Vault of Night',
+        'The Borderlands': 'Keep on the Borderlands',
+        'Grip Quest': 'Grip of the Hidden Hand',
+    }
+
+
+def test_canonicalise_pack_layer_applies_overrides_after_the_adventure_pack_table():
+    # The table can resolve a name to its own spelling; the override still wins.
+    assert canonicalise_pack_layer({'Quest': 'Reavers Reach'}, {'Reavers Reach': "The Reaver's Reach"}) == {
+        'Quest': "Reaver's Reach",
+    }
+
+
+def test_get_official_packs_uses_the_canonical_spelling():
+    assert get_official_packs({'Haunted Halls of Eveningstar': 'Haunted Halls of Eveningstar'}, []) == [
+        'The Haunted Halls of Eveningstar',
+    ]

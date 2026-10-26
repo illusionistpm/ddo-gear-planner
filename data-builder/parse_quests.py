@@ -191,18 +191,20 @@ def get_quest_pack_map_from_pack_page(soup, pack):
             if _is_real_quest_name(quest):
                 quest_packs[quest] = pack
 
+    # Matched case-insensitively: pack pages capitalise these headings
+    # inconsistently ("Wilderness Adventure Area" on Terror of Demogorgon).
     location_section_names = {
-        'Public zone',
-        'Public zones',
-        'Public area',
-        'Public areas',
-        'Wilderness adventure area',
-        'Wilderness adventure areas',
+        'public zone',
+        'public zones',
+        'public area',
+        'public areas',
+        'wilderness adventure area',
+        'wilderness adventure areas',
     }
     content = soup.find(id='mw-content-text') or soup
     for heading in content.find_all(['h2', 'h3', 'h4']):
         section_name = _clean_section_heading(heading)
-        if section_name not in location_section_names:
+        if section_name.casefold() not in location_section_names:
             continue
 
         for sibling in heading.find_next_siblings():

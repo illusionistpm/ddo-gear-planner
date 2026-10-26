@@ -180,6 +180,30 @@ def test_get_quest_pack_map_from_pack_page_includes_public_zone_locations():
     }
 
 
+def test_get_quest_pack_map_from_pack_page_matches_location_headings_in_any_case():
+    # Terror of Demogorgon's page capitalises both headings; matching them
+    # exactly left The Darklake's items with no pack.
+    html = '''
+    <div id="mw-content-text">
+      <h3>Public Zone <span class="mw-editsection">[ edit ]</span></h3>
+      <ul>
+        <li><a href="/page/Gravenhollow" title="Gravenhollow">Gravenhollow</a></li>
+      </ul>
+      <h3>Wilderness Adventure Area <span class="mw-editsection">[ edit ]</span></h3>
+      <ul>
+        <li><a href="/page/The_Darklake" title="The Darklake">The Darklake</a></li>
+      </ul>
+      <h2>Quests</h2>
+    </div>
+    '''
+    soup = BeautifulSoup(html, 'html.parser')
+
+    assert get_quest_pack_map_from_pack_page(soup, 'Terror of Demogorgon') == {
+        'Gravenhollow': 'Terror of Demogorgon',
+        'The Darklake': 'Terror of Demogorgon',
+    }
+
+
 def test_get_expansion_pack_pages_from_category_reads_pack_links():
     html = '''
     <div id="mw-pages">

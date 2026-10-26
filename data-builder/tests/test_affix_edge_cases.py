@@ -240,6 +240,18 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Lifesealed', 'type': 'Enhancement', 'value': '28'},
         ),
         (
+            '<li><span class="has_tooltip">Riposte VIII<span class="tooltip">Riposte VIII: When Missed by an attack: Deals 8d4 damage to your attacker. Passive: +4 Insight bonus to Armor Class, +4 Insight bonus to Fortitude, Reflex, and Will Saving Throws.</span></span></li>',
+            {'name': 'Riposte', 'type': 'Insight', 'value': '8'},
+        ),
+        (
+            '<li><span class="has_tooltip">Riposte VII<span class="tooltip">Riposte VII: When Missed by an attack: Deals 7d4 damage to your attacker. Passive: +4 Insight bonus to Armor Class, +3 Insight bonus to Fortitude, Reflex, and Will Saving Throws.</span></span></li>',
+            {'name': 'Riposte', 'type': 'Insight', 'value': '7'},
+        ),
+        (
+            '<li><span class="has_tooltip">Riposte +6<span class="tooltip">Riposte +6: This item enchants its user with incredible awareness and speed, granting a +6 Insight bonus to AC and to Saves.</span></span></li>',
+            {'name': 'Riposte', 'type': 'Insight', 'value': '6'},
+        ),
+        (
             '<li>Maximum Charge Tier: III</li>',
             {'name': 'Maximum Charge Tier', 'type': 'Untyped', 'value': '3'},
         ),

@@ -1,4 +1,4 @@
-from compound_affixes import expand_single_affix
+from compound_affixes import expand_single_affix, load_compound_affixes
 import parse_items
 from parse_items import expand_affix_names_with_compounds
 
@@ -62,3 +62,14 @@ def test_expand_affix_names_with_compounds_uses_parsed_component_names(monkeypat
         'Bludgeoning Spell Power',
         'Anathema',
     }
+
+
+def test_riposte_expands_to_insight_ac_and_saves_from_the_real_compound_map():
+    affix = {'name': 'Riposte', 'type': 'Insight', 'value': '8'}
+
+    assert expand_single_affix(affix, load_compound_affixes()) == [
+        {'name': 'Armor Class', 'type': 'Insight', 'value': '8'},
+        {'name': 'Fortitude Save', 'type': 'Insight', 'value': '8'},
+        {'name': 'Reflex Save', 'type': 'Insight', 'value': '8'},
+        {'name': 'Will Save', 'type': 'Insight', 'value': '8'},
+    ]

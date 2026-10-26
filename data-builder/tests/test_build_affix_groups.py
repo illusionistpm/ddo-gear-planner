@@ -145,3 +145,26 @@ def test_add_rejects_nested_affix_lists():
 
     with pytest.raises(TypeError, match='non-string affixes'):
         module.add(groups, 'Bad Group', [['Search'], 'Spot'])
+
+
+def test_build_affix_groups_riposte_components_from_the_real_compound_map(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == 'Riposte')
+    assert group == {
+        'name': 'Riposte',
+        'affixes': ['Armor Class', 'Fortitude Save', 'Reflex Save', 'Will Save'],
+        'components': [
+            {'name': 'Armor Class', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
+            {'name': 'Fortitude Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
+            {'name': 'Reflex Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
+            {'name': 'Will Save', 'type': 'Insight', 'value': '<ValueAlreadyParsed>'},
+        ],
+    }

@@ -9823,7 +9823,7 @@
                 "affixes": [
                     {
                         "name": "Rage Charges",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "3"
                     }
                 ],
@@ -50714,7 +50714,7 @@
                 "affixes": [
                     {
                         "name": "Action Boost Charges",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "3"
                     }
                 ],
@@ -50742,7 +50742,7 @@
                 "affixes": [
                     {
                         "name": "Action Boost Charges",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -51836,7 +51836,7 @@
                 "affixes": [
                     {
                         "name": "Lesser Dragonmark Charges",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],
@@ -51945,7 +51945,7 @@
                 "affixes": [
                     {
                         "name": "Rage Charges",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "1"
                     }
                 ],

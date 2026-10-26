@@ -167,7 +167,7 @@ def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
                 'text': 'Greater Dragonmark Enhancement',
                 'tooltip': 'Greater Dragonmark Enhancement: This will increase the total number of Greater Dragonmarks you can use by 3.',
             },
-            {'name': 'Greater Dragonmark Charges', 'type': 'Untyped', 'value': '3'},
+            {'name': 'Greater Dragonmark Charges', 'type': 'Enhancement', 'value': '3'},
         ),
         (
             {'text': 'Greater Dragonmark charges +1', 'tooltip': ''},

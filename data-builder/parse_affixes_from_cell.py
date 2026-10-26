@@ -1172,6 +1172,8 @@ def convert_affix_text_map_to_affix_map(textMap):
         if (('name' not in affixMap) and (affixTextSearch)):
             affixMap['name'] = affixTextSearch.group(1)
             affixMap['value'] = affixTextSearch.group(2)
+            # matches the item-row parser, which types these the same way
+            affixMap['type'] = 'Enhancement'
 
         # check if the tooltip indicates that this grants a feat
         affixTooltipSearch = re.search(r'^.*?grants you the (.*) feat.*$', textMap['tooltip'])

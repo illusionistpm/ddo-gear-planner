@@ -103,6 +103,13 @@ describe('BuildUrlCodecService', () => {
     });
   });
 
+  it('decodes a renamed pack in an existing link to its current name', () => {
+    // Viktranium Experiment items used to carry a separate "Lamordia" pack.
+    const encoded = service.encode({ hiddenpacks: 'Lamordia' });
+
+    expect(service.decode(encoded)).toEqual({ hiddenpacks: 'The Chill of Ravenloft' });
+  });
+
   it('keeps unknown hidden filter values as bitfield text fallbacks', () => {
     const encoded = service.encode({
       hiddentypes: 'Brand New Weapon Type',

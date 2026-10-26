@@ -115,11 +115,11 @@ def infer_item_pack(quests_cell, quests: list[str], quest_pack_map: dict[str, st
         if 'Myth Drannor' in title:
             return title
         if 'Lamordia' in title:
-            return 'Lamordia'
+            return 'The Chill of Ravenloft'
 
     source_hints = {
-        'Lamordia:': 'Lamordia',
-        'Viktranium Experiment': 'Lamordia',
+        'Lamordia:': 'The Chill of Ravenloft',
+        'Viktranium Experiment': 'The Chill of Ravenloft',
         'Isle of Dread:': 'The Isle of Dread',
         'Dinosaur Bone crafting': 'The Isle of Dread',
     }

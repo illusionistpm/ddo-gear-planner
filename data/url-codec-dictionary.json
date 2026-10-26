@@ -2,7 +2,9 @@
     "aliases": {
         "craftingSystems": {},
         "itemTypes": {},
-        "packs": {}
+        "packs": {
+            "Lamordia": "The Chill of Ravenloft"
+        }
     },
     "craftingSystems": [
         "Almost There",

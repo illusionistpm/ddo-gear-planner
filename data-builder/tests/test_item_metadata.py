@@ -154,7 +154,7 @@ def test_item_metadata_infers_lamordia_pack_from_row_source_text(tmp_path, monke
       </tr>
     ''', set(), {}, monkeypatch)
 
-    assert items[0]['pack'] == 'Lamordia'
+    assert items[0]['pack'] == 'The Chill of Ravenloft'
 
 
 def test_item_with_non_numeric_ml_is_skipped_not_fatal(tmp_path, monkeypatch):

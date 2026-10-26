@@ -16,7 +16,13 @@ const dictionary = urlCodecDictionary as {
   itemTypes: string[];
   packs: string[];
   craftingSystems: string[];
+  aliases: Record<'itemTypes' | 'packs' | 'craftingSystems', Record<string, string>>;
 };
+
+// An aliased value decodes to its canonical name by design, so it can't
+// round-trip unchanged. Filtered after the random draw to keep the seeded
+// sequence stable as aliases are added.
+const isUnaliased = (key: 'itemTypes' | 'packs') => (value: string) => !(value in dictionary.aliases[key]);
 
 const SLOTS = [
   'Weapon', 'Offhand', 'Armor', 'Belt', 'Boots', 'Bracers', 'Cloak',
@@ -78,9 +84,9 @@ function generate(random: () => number): Params {
   if (chance(0.5))
     params['rare'] = chance(0.5);
   if (chance(0.4))
-    params['hiddentypes'] = dictionary.itemTypes.filter(() => chance(0.2)).join(',');
+    params['hiddentypes'] = dictionary.itemTypes.filter(() => chance(0.2)).filter(isUnaliased('itemTypes')).join(',');
   if (chance(0.4))
-    params['hiddenpacks'] = dictionary.packs.filter(() => chance(0.2)).join(',');
+    params['hiddenpacks'] = dictionary.packs.filter(() => chance(0.2)).filter(isUnaliased('packs')).join(',');
   if (chance(0.6))
     params['tracked'] = AFFIX_NAMES.filter(() => chance(0.5));
   if (chance(0.3)) {

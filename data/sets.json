@@ -33,7 +33,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "10"
                 }
@@ -75,7 +75,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "15"
                 }
@@ -247,7 +247,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -407,7 +407,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -439,7 +439,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -608,12 +608,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -853,12 +853,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -941,12 +941,12 @@
                     "value": "30"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -963,12 +963,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -1142,7 +1142,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "15"
                 }
@@ -1154,7 +1154,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -1335,7 +1335,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -1352,7 +1352,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 }
@@ -1362,7 +1362,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 }
@@ -1412,7 +1412,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Critical Damage",
+                    "name": "Spell Critical Damage",
                     "type": "Legendary",
                     "value": "15"
                 }
@@ -1713,7 +1713,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -1730,7 +1730,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "4"
                 },
@@ -1757,7 +1757,7 @@
                     "value": "20"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Quality",
                     "value": "20"
                 }
@@ -2005,7 +2005,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "10"
                 },
@@ -2319,7 +2319,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -2600,7 +2600,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -2617,7 +2617,7 @@
         {
             "affixes": [
                 {
-                    "name": "Rage Charge",
+                    "name": "Rage Charges",
                     "type": "Untyped",
                     "value": "1"
                 },
@@ -3232,12 +3232,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3313,12 +3313,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3404,7 +3404,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3463,7 +3463,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -3480,7 +3480,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -3676,7 +3676,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "25"
                 },
@@ -4154,7 +4154,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -4270,7 +4270,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -4768,7 +4768,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -4817,12 +4817,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "6"
                 },
@@ -5016,7 +5016,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -5117,7 +5117,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Alchemical",
                     "value": "12"
                 }
@@ -5603,7 +5603,7 @@
                     "value": "9"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Psionic",
                     "value": "15"
                 },
@@ -5684,7 +5684,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 },
@@ -6707,7 +6707,7 @@
                     "value": "5"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "10"
                 },
@@ -7006,7 +7006,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Profane",
                     "value": "25"
                 },
@@ -7058,7 +7058,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },
@@ -7141,7 +7141,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "25"
                 }
@@ -7272,12 +7272,12 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },
                 {
-                    "name": "Universal Spell Lore",
+                    "name": "Spell Lore",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -7570,7 +7570,7 @@
         {
             "affixes": [
                 {
-                    "name": "Universal Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": "20"
                 },

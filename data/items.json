@@ -9048,7 +9048,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             }
         ],
         "crafting": [
@@ -15847,7 +15847,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "4"
+                "value": "8"
             }
         ],
         "crafting": [
@@ -21787,7 +21787,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "2"
+                "value": "4"
             }
         ],
         "crafting": [
@@ -36862,7 +36862,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "2"
+                "value": "4"
             },
             {
                 "name": "Dodge",
@@ -86812,7 +86812,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "4"
+                "value": "8"
             },
             {
                 "name": "Parrying",
@@ -139084,7 +139084,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             }
         ],
         "crafting": [
@@ -145757,7 +145757,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             },
             {
                 "name": "Dodge",
@@ -185982,7 +185982,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             },
             {
                 "name": "Resistance",
@@ -186709,7 +186709,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             },
             {
                 "name": "Lesser Displacement",
@@ -188644,7 +188644,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "7"
+                "value": "14"
             }
         ],
         "crafting": [
@@ -201970,7 +201970,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             },
             {
                 "name": "Parrying",
@@ -213171,7 +213171,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             }
         ],
         "crafting": [
@@ -246231,7 +246231,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "3"
+                "value": "6"
             }
         ],
         "crafting": [
@@ -279237,7 +279237,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "1"
+                "value": "2"
             },
             {
                 "name": "Combat Mastery",
@@ -311599,7 +311599,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "2"
+                "value": "4"
             },
             {
                 "name": "Shield Bashing",
@@ -311653,7 +311653,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "6"
+                "value": "12"
             },
             {
                 "name": "Shield Bashing",
@@ -314416,7 +314416,7 @@
             {
                 "name": "Riposte",
                 "type": "Insight",
-                "value": "2"
+                "value": "4"
             }
         ],
         "crafting": [

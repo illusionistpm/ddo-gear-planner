@@ -210,22 +210,22 @@
             {
                 "name": "Armor Class",
                 "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
+                "value": "<HalfValueRoundedUp>"
             },
             {
                 "name": "Fortitude Save",
                 "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
+                "value": "<HalfValueRoundedDown>"
             },
             {
                 "name": "Reflex Save",
                 "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
+                "value": "<HalfValueRoundedDown>"
             },
             {
                 "name": "Will Save",
                 "type": "Insight",
-                "value": "<ValueAlreadyParsed>"
+                "value": "<HalfValueRoundedDown>"
             }
         ],
         "name": "Riposte"

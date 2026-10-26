@@ -38939,11 +38939,6 @@
                         "name": "Efficient Metamagic - Maximize",
                         "type": "Enhancement",
                         "value": "6"
-                    },
-                    {
-                        "name": "Universal Spell Power",
-                        "type": "Psionic",
-                        "value": "24"
                     }
                 ],
                 "ml": 28,
@@ -50585,11 +50580,6 @@
                         "name": "Efficient Metamagic - Empower",
                         "type": "Enhancement",
                         "value": "4"
-                    },
-                    {
-                        "name": "Universal Spell Power",
-                        "type": "Psionic",
-                        "value": "24"
                     }
                 ],
                 "ml": 28,

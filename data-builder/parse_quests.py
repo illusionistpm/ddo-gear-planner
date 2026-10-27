@@ -10,21 +10,14 @@ from crafting_device_packs import (
     save_device_packs,
 )
 
-# What the wiki writes for content with no pack.
+# What the wiki writes for content with no pack. The level and wilderness
+# pages' parsers keep it as a pack value while layers merge, so an older
+# source can't give one of those quests a pack; drop_free_to_play removes it.
 FREE_TO_PLAY = 'Free to Play'
 
 CRAFTING_RAID_SOURCES = (
     'Ritual Table',
 )
-
-# Quests the wiki's pack pages don't list under their pack. The Epic
-# Gianthold "Return to" quests are only named in raid-flagging text.
-QUEST_PACK_ADDITIONS = {
-    'Return to Cabal for One': 'Ruins of Gianthold',
-    'Return to Gianthold Tor': 'Ruins of Gianthold',
-    'Return to Madstone Crater': 'Ruins of Gianthold',
-    'Return to Prison of the Planes': 'Ruins of Gianthold',
-}
 
 
 def _cell_text(cell):
@@ -65,10 +58,9 @@ def add_crafting_raid_sources(raids):
     return raids
 
 
-def add_quest_pack_additions(quest_packs):
-    # The wiki wins if it ever lists one of these itself.
-    for quest, pack in QUEST_PACK_ADDITIONS.items():
-        quest_packs.setdefault(quest, pack)
+def drop_free_to_play(quest_packs):
+    for quest in [quest for quest, pack in quest_packs.items() if pack == FREE_TO_PLAY]:
+        del quest_packs[quest]
     return quest_packs
 
 
@@ -149,7 +141,10 @@ def _canonical_pack_name(pack, heading=None, pack_name_map=None):
 
 
 def canonicalise_pack_layer(layer, pack_name_map):
-    return {quest: _canonical_pack_name(pack, pack_name_map=pack_name_map) for quest, pack in layer.items()}
+    return {
+        quest: pack if pack == FREE_TO_PLAY else _canonical_pack_name(pack, pack_name_map=pack_name_map)
+        for quest, pack in layer.items()
+    }
 
 
 def _lookup_pack_name(pack, heading=None, pack_name_map=None):
@@ -311,7 +306,7 @@ def get_quest_pack_map_from_level_page(soup):
                 continue
 
             pack = _cell_text(cells[pack_idx])
-            if not pack or pack == FREE_TO_PLAY:
+            if not pack:
                 continue
             _add_linked_name(quest_packs, cells[quest_idx], pack)
 
@@ -345,7 +340,7 @@ def get_area_pack_map_from_wilderness_page(soup):
                 continue
 
             pack = re.sub(r'\s+[\d,]+$', '', _cell_text(cells[access_idx])).strip()
-            if not pack or pack == FREE_TO_PLAY:
+            if not pack:
                 continue
             _add_linked_name(area_packs, cells[area_idx], pack)
 
@@ -473,7 +468,7 @@ def parse_quests():
         soup = BeautifulSoup(page, 'html.parser')
         merge_pack_layer(out['packs'], get_quest_pack_map_from_sectioned_page(soup, pack_name_map), 'Quests_by_Adventure_Pack')
 
-    add_quest_pack_additions(out['packs'])
+    drop_free_to_play(out['packs'])
 
     out['officialPacks'] = get_official_packs(pack_name_map, expansion_pack_pages.values())
 

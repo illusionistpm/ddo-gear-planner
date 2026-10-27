@@ -1,25 +1,11 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import canonicalise_pack_layer, merge_pack_layer, add_crafting_raid_sources, add_quest_pack_additions, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import FREE_TO_PLAY, canonicalise_pack_layer, drop_free_to_play, merge_pack_layer, add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
     assert add_crafting_raid_sources(['Tempest Spine']) == ['Tempest Spine', 'Ritual Table']
     assert add_crafting_raid_sources(['Ritual Table']) == ['Ritual Table']
-
-
-def test_add_quest_pack_additions_maps_epic_gianthold_return_quests():
-    quest_packs = add_quest_pack_additions({'Gianthold Tor': 'Ruins of Gianthold'})
-
-    assert quest_packs['Return to Gianthold Tor'] == 'Ruins of Gianthold'
-    assert quest_packs['Return to Prison of the Planes'] == 'Ruins of Gianthold'
-    assert quest_packs['Gianthold Tor'] == 'Ruins of Gianthold'
-
-
-def test_add_quest_pack_additions_keeps_a_pack_the_wiki_already_gives():
-    quest_packs = add_quest_pack_additions({'Return to Gianthold Tor': 'Some Other Pack'})
-
-    assert quest_packs['Return to Gianthold Tor'] == 'Some Other Pack'
 
 
 def test_get_quest_pack_map_from_sectioned_page_uses_pack_heading():
@@ -269,13 +255,23 @@ def test_get_quest_pack_map_from_level_page_keys_quests_by_page_title_and_text()
         'Return to Gianthold Tor': 'Ruins of Gianthold',
         'ToEE: Fire Node': 'The Temple of Elemental Evil',
         'Temple of Elemental Evil: Fire Node': 'The Temple of Elemental Evil',
+        'Korthos Village': FREE_TO_PLAY,
     }
 
 
-def test_get_quest_pack_map_from_level_page_leaves_free_to_play_quests_without_a_pack():
-    quest_packs = get_quest_pack_map_from_level_page(BeautifulSoup(LEVEL_PAGE, 'html.parser'))
+def test_free_to_play_from_the_level_page_overrides_an_older_source():
+    # The old Quests_by_Adventure_Pack page still gives some quests the wiki
+    # now calls Free to Play a pack.
+    quest_packs = merge_pack_layer(
+        canonicalise_pack_layer(get_quest_pack_map_from_level_page(BeautifulSoup(LEVEL_PAGE, 'html.parser')), {}),
+        {'Korthos Village': 'Stale Pack', 'Old Only Quest': 'Old Pack'},
+        'Quests_by_Adventure_Pack',
+    )
+
+    drop_free_to_play(quest_packs)
 
     assert 'Korthos Village' not in quest_packs
+    assert quest_packs['Old Only Quest'] == 'Old Pack'
 
 
 # Trimmed from the wiki's Wilderness_adventure_area page: a grouping header
@@ -300,7 +296,7 @@ def test_get_area_pack_map_from_wilderness_page_reads_pack_from_access_text():
     assert area_packs['The Darklake'] == 'Terror of Demogorgon'
     assert area_packs['Sands of Menechtarun'] == 'Demon Sands'
     assert area_packs['Ruins of Gianthold (heroic)'] == 'The Ruins of Gianthold'
-    assert 'Korthos Island' not in area_packs
+    assert area_packs['Korthos Island'] == FREE_TO_PLAY
 
 
 def test_merge_pack_layer_keeps_the_earlier_source_and_reports_conflicts(capsys):

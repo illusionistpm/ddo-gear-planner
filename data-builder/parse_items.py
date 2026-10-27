@@ -112,17 +112,13 @@ def infer_item_pack(quests_cell, quests: list[str], quest_pack_map: dict[str, st
         title = str(link.get('title') or link.getText()).replace('\xa0', ' ').strip()
         if title in known_pack_names:
             return title
-        if 'Myth Drannor' in title:
-            return title
         if 'Lamordia' in title:
             return 'The Chill of Ravenloft'
 
+    # Sources no wiki quest list names.
     source_hints = {
         'Lamordia:': 'The Chill of Ravenloft',
         'Viktranium Experiment': 'The Chill of Ravenloft',
-        'Isle of Dread:': 'The Isle of Dread',
-        'Dinosaur Bone crafting': 'The Isle of Dread',
-        'ToEE:': 'The Temple of Elemental Evil',
     }
     for hint, pack in source_hints.items():
         if hint in row_text:

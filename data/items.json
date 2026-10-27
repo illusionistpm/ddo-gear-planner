@@ -13357,29 +13357,6 @@
     {
         "affixes": [
             {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+1"
-            },
-            {
-                "name": "Ghost Touch",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Battleworn Sword",
-        "pack": "The Catacombs",
-        "quests": [
-            "The Crypt of Gerard Dryden"
-        ],
-        "slot": "Weapon",
-        "type": "Great Swords",
-        "url": "/page/Item:Battleworn_Sword"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Dodge",
                 "type": "Enhancement",
                 "value": "15"
@@ -106638,29 +106615,6 @@
         "slot": "Trinket",
         "type": "Trinket items",
         "url": "/page/Item:Gem_of_Many_Facets"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Enhancement Bonus (Weapon)",
-                "type": "Enhancement",
-                "value": "+1"
-            },
-            {
-                "name": "Undead Bane",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 2,
-        "name": "Gerard Dryden's Mace",
-        "pack": "The Catacombs",
-        "quests": [
-            "The Crypt of Gerard Dryden"
-        ],
-        "slot": "Weapon",
-        "type": "Heavy Maces",
-        "url": "/page/Item:Gerard_Dryden%27s_Mace"
     },
     {
         "affixes": [

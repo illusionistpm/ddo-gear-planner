@@ -118,6 +118,8 @@ describe('AffixPickerComponent', () => {
     expect(component.packages.get('Basic')).toContain('Will Save');
     expect(component.packages.get('Basic')).toContain('Physical Sheltering');
     expect(component.packages.get('Basic')).toContain('Magical Sheltering');
+    expect(component.packages.get('Basic')).toContain('Immunity to Fear');
+    expect(component.packages.get('Basic')).toContain('Undying');
     expect(component.packages.get('Basic')).not.toContain('Resistance');
     expect(component.packages.get('Basic')).not.toContain('Sheltering');
   });

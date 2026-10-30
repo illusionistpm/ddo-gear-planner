@@ -274,6 +274,10 @@ def test_free_to_play_from_the_level_page_overrides_an_older_source():
     assert quest_packs['Old Only Quest'] == 'Old Pack'
 
 
+def test_illithid_invasion_quests_are_free_to_play():
+    assert canonicalise_pack_layer({'Astral Ambush': 'Illithid Invasion'}, {}) == {'Astral Ambush': FREE_TO_PLAY}
+
+
 # Trimmed from the wiki's Wilderness_adventure_area page: a grouping header
 # row comes first, and the Access column's links aren't pack names.
 WILDERNESS_PAGE = '''

@@ -132,6 +132,9 @@ PACK_NAME_OVERRIDES = {
     "The Reaver's Reach": "Reaver's Reach",
     'The Ruins of Gianthold': 'Ruins of Gianthold',
     'Vault of Night': 'The Vault of Night',
+    # A free content series, not a store pack, that the level page lists in
+    # its Adventure Pack column.
+    'Illithid Invasion': FREE_TO_PLAY,
 }
 
 

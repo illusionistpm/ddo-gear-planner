@@ -13,3 +13,4 @@ data-builder/llm/compound_affix_candidates.json
 *:Zone.Identifier
 .angular/
 tools/visual-diff/shots/
+data-preview/

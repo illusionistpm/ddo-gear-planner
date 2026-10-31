@@ -20,6 +20,7 @@ import os
 from datetime import datetime, timezone
 
 from write_json import write_json
+from write_preview import write_preview
 
 DATA_BUILDER_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,7 +35,7 @@ def write_build_info():
     }, 'build-info')
 
 
-def build_data(clearCache, discordURL):
+def build_data(clearCache, discordURL, previewDir=None):
     ensure_data_builder_cwd()
 
     # Run unit tests first; fail the build if tests fail.
@@ -89,6 +90,11 @@ def build_data(clearCache, discordURL):
 
     diffStr = get_data_stats_description(newStats, diffStats)
 
+    # Before the threshold check, so a build it aborts still leaves its
+    # output to inspect.
+    if previewDir:
+        write_preview(previewDir, diffStr)
+
     thresholdViolations = check_stats_thresholds(newStats, oldStats)
     if thresholdViolations:
         print('Data stats dropped more than expected compared to the previous build:')
@@ -97,7 +103,8 @@ def build_data(clearCache, discordURL):
         print('Aborting data build. If this drop is expected, investigate the parser output before re-running.')
         raise SystemExit(1)
 
-    if discordURL:
+    # A preview is not a published data change.
+    if discordURL and not previewDir:
         message = "Data Changes:\n"
         message += diffStr
 
@@ -111,6 +118,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--clear-cache', default=False, action='store_true')
     parser.add_argument('--discord')
+    parser.add_argument('--preview-dir', help='write the build output, a diff and a summary here; skips Discord')
     args = parser.parse_args()
 
-    build_data(args.clear_cache, args.discord)
+    # build_data changes into data-builder/, so resolve this first.
+    previewDir = os.path.abspath(args.preview_dir) if args.preview_dir else None
+    build_data(args.clear_cache, args.discord, previewDir)

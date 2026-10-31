@@ -14,10 +14,17 @@ on:
   schedule:
     # Run at 5:18 UTC daily
     - cron: '18 5 * * *'
+  # Manual runs, on master or any branch. A run on another branch is a
+  # preview: it regenerates the data and uploads it with a diff as an
+  # artifact, but never commits and never posts to Discord, so scraper
+  # changes can be checked against real wiki data before they merge.
+  workflow_dispatch:
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
+    env:
+      IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
 
     steps:
       - name: Check out repository code
@@ -39,10 +46,13 @@ jobs:
         run: |
           python -m playwright install chromium
 
+      # Off master, build.py writes a preview to data-preview/ and skips
+      # Discord; the Commit step below is master-only too.
       - name: Run script
-        run: |
-          python data-builder/build.py \
-            --discord "${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}"
+        env:
+          DISCORD_HOOK: ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
+          PREVIEW_ARGS: ${{ env.IS_MASTER != 'true' && '--preview-dir data-preview' || '' }}
+        run: python data-builder/build.py --discord "$DISCORD_HOOK" $PREVIEW_ARGS
 
       - name: Check for substantive data changes
         id: data-changes
@@ -58,6 +68,20 @@ jobs:
             echo "Only build-info.json changed (or nothing changed)."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      # Only a branch run writes a preview. It is published before the site
+      # build and tests, and even when build.py aborted after writing it, so
+      # it is there to inspect when the new data is what broke something.
+      - name: Show data preview summary
+        if: ${{ !cancelled() && hashFiles('data-preview/summary.md') != '' }}
+        run: cat data-preview/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload data preview
+        if: ${{ !cancelled() && hashFiles('data-preview/summary.md') != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: data-preview
+          path: data-preview/
 
       # The site type-checks the generated JSON against game-data-types.ts, so
       # build it before committing: data the site can't compile against fails
@@ -93,7 +117,7 @@ jobs:
           fi
 
       - name: Commit
-        if: steps.data-changes.outputs.changed == 'true'
+        if: steps.data-changes.outputs.changed == 'true' && env.IS_MASTER == 'true'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "[auto-update] Latest data"

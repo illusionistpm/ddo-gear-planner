@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { CraftableOption } from '../gear/craftable-option';
+import { classifyCraftSelection } from '../gear/crafting-acquisition';
+
 
 export interface UserItemLocation {
   character: string;
@@ -113,6 +116,16 @@ export class UserGearService {
 
   getItemLocations(itemName: string): UserItemLocation[] | undefined {
     return this.userItems.get(troveNameKey(itemName))?.locations;
+  }
+
+  /**
+   * Where the trove has a crafting option chosen in `system`, when it is a thing
+   * in its own right (an augment or named upgrade) rather than crafting done to
+   * an item - whose name could otherwise match something else.
+   */
+  getCraftingOptionLocations(system: string, option: CraftableOption | null | undefined): UserItemLocation[] | undefined {
+    const kind = classifyCraftSelection(system, option);
+    return option?.name && (kind === 'augment' || kind === 'upgrade') ? this.getItemLocations(option.name) : undefined;
   }
 
   hasItem(itemName: string): boolean {

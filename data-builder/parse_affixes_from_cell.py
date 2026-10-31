@@ -233,6 +233,35 @@ def apply_known_affix_type_defaults(affix):
     return affix
 
 
+# Item effects that are each an Enhancement bonus to Concealment, so only the
+# highest applies (see https://ddowiki.com/page/Concealment). The wiki lists
+# most by name alone, at these fixed values; a few items (The Sixth Toe of
+# the Shadow King's Smoke Screen is 40%) give their own value, which wins.
+# affix_synonyms.json then files them all under Concealment.
+CONCEALMENT_FIXED_VALUES = {
+    'Dusk': 10,
+    'Blurry': 20,
+    'Smoke Screen': 20,
+    'Lesser Displacement': 25,
+}
+
+
+def apply_concealment_value(affix, tooltip=''):
+    if not isinstance(affix, dict) or affix.get('name') not in CONCEALMENT_FIXED_VALUES:
+        return affix
+
+    # A Bool's value is a presence flag, not a percentage.
+    if affix.get('type') == 'Bool':
+        affix.pop('value', None)
+
+    if 'value' not in affix:
+        tooltip_value = re.search(r'([0-9]+)%[^.]*\bconcealment\b', tooltip or '', re.IGNORECASE)
+        affix['value'] = tooltip_value.group(1) if tooltip_value else str(CONCEALMENT_FIXED_VALUES[affix['name']])
+
+    affix['type'] = 'Enhancement'
+    return affix
+
+
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
@@ -855,6 +884,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     aff = convert_weapon_damage_proc_to_bool(aff)
     aff = apply_known_affix_type_defaults(aff)
+    aff = apply_concealment_value(aff, source_tooltip)
 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'
@@ -1210,6 +1240,7 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     affixMap = convert_weapon_damage_proc_to_bool(affixMap)
     affixMap = apply_known_affix_type_defaults(affixMap)
+    affixMap = apply_concealment_value(affixMap, textMap.get('tooltip', ''))
 
     # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
     if ('type' not in affixMap) and ('value' not in affixMap):

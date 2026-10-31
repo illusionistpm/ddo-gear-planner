@@ -93,6 +93,15 @@
     ]
   },
   {
+    "name": "Concealment",
+    "synonyms": [
+      "Dusk",
+      "Blurry",
+      "Smoke Screen",
+      "Lesser Displacement"
+    ]
+  },
+  {
     "name": "Deadly",
     "synonyms": [
       "Damage",

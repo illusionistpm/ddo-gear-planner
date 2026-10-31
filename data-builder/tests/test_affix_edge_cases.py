@@ -389,3 +389,43 @@ def test_augment_upgrade_is_one_slot_offering_each_listed_colour(upgrade, colors
     aff = translate_list_tag_to_affix_map('Epic Test Item', augment_upgrade_li(upgrade, colors), {}, get_fake_bonuses(), 26, crafting_systems, {})
 
     assert aff == {'name': f'Upgradeable - {upgrade} Augment', 'type': 'Bool', 'value': 1, 'augmentColors': colors}
+
+
+@pytest.mark.parametrize(
+    'html,expected_value',
+    [
+        ('<li>Dusk</li>', '10'),
+        ('<li>Blurry</li>', '20'),
+        ('<li>Smoke Screen</li>', '20'),
+        ('<li>Lesser Displacement</li>', '25'),
+        # The Sixth Toe of the Shadow King: an item's own value beats the fixed one.
+        ('<li>Smoke Screen 40%</li>', '40'),
+        ('<li><span class="has_tooltip">Smoke Screen <span class="tooltip">+40% Enhancement bonus to Concealment</span></span></li>', '40'),
+    ],
+)
+def test_concealment_effects_parse_as_enhancement_concealment(html, expected_value):
+    from get_inverted_synonym_map import get_inverted_synonym_map
+
+    li = BeautifulSoup(html, 'html.parser').li
+    aff = translate_list_tag_to_affix_map('Test Item', li, get_inverted_synonym_map(), get_fake_bonuses(), 10, {}, {})
+    assert {key: aff[key] for key in ('name', 'type', 'value')} == {
+        'name': 'Concealment',
+        'type': 'Enhancement',
+        'value': expected_value,
+    }
+
+
+@pytest.mark.parametrize(
+    'text_map,expected_value',
+    [
+        ({'text': 'Blurry'}, '20'),
+        ({'text': 'Smoke Screen 39%'}, '39'),
+    ],
+)
+def test_concealment_effects_parse_from_text_map(text_map, expected_value):
+    am = convert_affix_text_map_to_affix_map(text_map)
+    assert {key: am[key] for key in ('name', 'type', 'value')} == {
+        'name': 'Concealment',
+        'type': 'Enhancement',
+        'value': expected_value,
+    }

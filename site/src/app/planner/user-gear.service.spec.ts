@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserGearService } from './user-gear.service';
+import { troveNameKey, UserGearService } from './user-gear.service';
 
 const STORAGE_KEY = 'ddo-user-gear';
 
@@ -29,7 +29,7 @@ describe('UserGearService', () => {
         'HASH,Khalarim,Inventory,6,Celestial Sapphire Ring,1,BtA',
       ), valid);
 
-      expect(count).toBe(2);
+      expect(count).toEqual({ items: 2, augments: 0 });
       expect(service.getItemLocations('Dinosaur Bone Light Crossbow'))
         .toEqual([{ character: '-', location: 'SharedBank', tab: 'Main', quantity: 1, binding: 'BtA' }]);
       expect(service.getItemLocations('Celestial Sapphire Ring'))
@@ -53,7 +53,7 @@ describe('UserGearService', () => {
     it('drops names that aren\'t known items, and the header', () => {
       const count = service.importFromTroveCsv(csv('HASH,Khalarim,Inventory,6,Diamond of Heal +20,1,None'), valid);
 
-      expect(count).toBe(0);
+      expect(count).toEqual({ items: 0, augments: 0 });
       expect(service.hasItem('Diamond of Heal +20')).toBe(false);
       expect(service.hasItem('Name')).toBe(false);
     });
@@ -64,10 +64,28 @@ describe('UserGearService', () => {
         'HASH,-,SharedBank,Main,"celestial sapphire ring",1,BtA',
       ), valid);
 
-      expect(count).toBe(2);
+      expect(count).toEqual({ items: 2, augments: 0 });
       expect(service.hasItem('CELESTIAL SAPPHIRE RING')).toBe(true);
       expect(service.getItemLocations('Celestial Sapphire Ring')?.map(location => location.character))
         .toEqual(['Khalarim', '-']);
+    });
+
+    it('keeps augments too when given their names, counting them apart', () => {
+      const count = service.importFromTroveCsv(csv(
+        'HASH,Khalarim,Inventory,6,Diamond of Heal +20,2,None',
+        'HASH,Khalarim,Inventory,6,Drow Scimitar,1,BtA',
+      ), valid, new Set(['diamond of heal +20']));
+
+      expect(count).toEqual({ items: 1, augments: 1 });
+      expect(service.getItemLocations('Diamond of Heal +20'))
+        .toEqual([{ character: 'Khalarim', location: 'Inventory', tab: '6', quantity: 2 }]);
+    });
+
+    it('matches names however their spaces are doubled', () => {
+      service.importFromTroveCsv(csv('HASH,A,Bank,Main,Spines of the Manticore:  Reflex (Rare),1,None'), valid,
+        new Set([troveNameKey('Spines of the Manticore: Reflex (Rare)')]));
+
+      expect(service.hasItem('Spines of the Manticore: Reflex (Rare)')).toBe(true);
     });
 
     it('reads a +N Drow item as its base name', () => {
@@ -77,7 +95,7 @@ describe('UserGearService', () => {
     });
 
     it('skips lines with too few fields', () => {
-      expect(service.importFromTroveCsv('just,three,fields\n\n', valid)).toBe(0);
+      expect(service.importFromTroveCsv('just,three,fields\n\n', valid)).toEqual({ items: 0, augments: 0 });
     });
 
     it('replaces what an earlier import loaded', () => {
@@ -109,6 +127,15 @@ describe('UserGearService', () => {
       const fresh = new UserGearService();
       fresh.loadFromStorage();
       expect(fresh.getItemLocations('drow scimitar')).toEqual(stored);
+    });
+
+    it('keeps an import for the visit when storage is full', () => {
+      vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+        throw new Error('QuotaExceededError');
+      });
+
+      expect(() => service.importFromTroveCsv(csv('HASH,A,Bank,Main,Drow Scimitar,1,BtA'), valid)).not.toThrow();
+      expect(service.hasItem('Drow Scimitar')).toBe(true);
     });
 
     it('ignores corrupt storage', () => {

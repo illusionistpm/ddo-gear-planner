@@ -6,7 +6,7 @@ import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
-import { UserGearService } from '../planner/user-gear.service';
+import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { FiltersService } from '../planner/filters.service';
@@ -712,12 +712,12 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     reader.onload = () => {
       // readAsText always yields a string.
       const text = reader.result as string;
-      const validNames = this.getValidItemNames();
-      const count = this.userGear.importFromTroveCsv(text, validNames);
+      const counts = this.userGear.importFromTroveCsv(text, this.getValidItemNames(), this.getTroveCraftingOptionNames());
       this.analytics.track('import_trove_csv', {
-        imported_item_count_bucket: this.getImportCountBucket(count)
+        imported_item_count_bucket: this.getImportCountBucket(counts.items),
+        imported_augment_count_bucket: this.getImportCountBucket(counts.augments)
       });
-      this.troveUploadStatus = `TroveExport.csv processed! ${count} items loaded.`;
+      this.troveUploadStatus = `TroveExport.csv processed! ${counts.items} items and ${counts.augments} augments loaded.`;
     };
     reader.onerror = () => {
       this.troveUploadStatus = 'Error reading file.';
@@ -726,7 +726,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getValidItemNames(): Set<string> {
-    return new Set(this.gearDb.getAllItemNames().map(name => name.trim().toLowerCase()));
+    return new Set(this.gearDb.getAllItemNames().map(troveNameKey));
+  }
+
+  private getTroveCraftingOptionNames(): Set<string> {
+    return new Set(this.gearDb.getTroveTrackableCraftingOptionNames().map(troveNameKey));
   }
 
   private getImportCountBucket(count: number): string {

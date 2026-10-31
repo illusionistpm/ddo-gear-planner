@@ -12,6 +12,20 @@ export interface UserItemLocation {
   binding?: string;
 }
 
+/** Rows of each kind an import kept. */
+export interface TroveImportCounts {
+  items: number;
+  augments: number;
+}
+
+/**
+ * How names are matched: case- and spacing-insensitively, as the export
+ * sometimes doubles a space ("Spines of the Manticore:  Reflex").
+ */
+export function troveNameKey(name: string): string {
+  return name.replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
 export interface UserGearEntry {
   itemName: string;
   locations: UserItemLocation[];
@@ -21,7 +35,8 @@ export interface UserGearEntry {
   providedIn: 'root'
 })
 export class UserGearService {
-  // Map of item name (lowercase) to UserGearEntry
+  // Map of troveNameKey(name) to UserGearEntry - items, and augments and other
+  // crafting pieces that are things in their own right.
   private userItems: Map<string, UserGearEntry> = new Map();
   private storageKey = 'ddo-user-gear';
   private userItemsChangedSubject = new Subject<void>();
@@ -30,7 +45,7 @@ export class UserGearService {
   setUserItems(items: { itemName: string, location: UserItemLocation }[], validNames: Set<string>) {
     this.userItems.clear();
     for (const entry of items) {
-      const key = entry.itemName.trim().toLowerCase();
+      const key = troveNameKey(entry.itemName);
       if (!validNames.has(key)) continue;
       if (!this.userItems.has(key)) {
         this.userItems.set(key, { itemName: entry.itemName, locations: [] });
@@ -44,11 +59,14 @@ export class UserGearService {
   /**
    * Import user gear from a TroveExport.csv file.
    * Parses, normalizes, deduplicates, aggregates, and persists user gear.
-   * Returns the number of items loaded.
+   * Keeps rows naming one of `itemNames` or `craftingOptionNames` (both as
+   * troveNameKey gives them) and returns how many of each it kept.
    */
-  importFromTroveCsv(csvText: string, validNames: Set<string>): number {
+  importFromTroveCsv(csvText: string, itemNames: ReadonlySet<string>,
+      craftingOptionNames: ReadonlySet<string> = new Set()): TroveImportCounts {
     const lines = csvText.split(/\r?\n/).filter(l => l.trim().length > 0);
     const userItems: { itemName: string, location: UserItemLocation }[] = [];
+    const counts: TroveImportCounts = { items: 0, augments: 0 };
     let quantityIndex = -1;
     let bindingIndex = -1;
 
@@ -69,9 +87,11 @@ export class UserGearService {
       // Normalize '+6Drow' or similar to 'Drow'
       itemName = itemName.replace(/^\+\d+Drow/, 'Drow');
 
-      // Only keep valid equipment
-      const key = itemName.trim().toLowerCase();
-      if (!validNames.has(key)) continue;
+      // Only keep equipment, augments and the like
+      const key = troveNameKey(itemName);
+      const isItem = itemNames.has(key);
+      if (!isItem && !craftingOptionNames.has(key)) continue;
+      counts[isItem ? 'items' : 'augments']++;
       const location: UserItemLocation = {
         character: fields[1],
         location: fields[2],
@@ -87,16 +107,16 @@ export class UserGearService {
       }
       userItems.push({ itemName, location });
     }
-    this.setUserItems(userItems, validNames);
-    return userItems.length;
+    this.setUserItems(userItems, new Set([...itemNames, ...craftingOptionNames]));
+    return counts;
   }
 
   getItemLocations(itemName: string): UserItemLocation[] | undefined {
-    return this.userItems.get(itemName.trim().toLowerCase())?.locations;
+    return this.userItems.get(troveNameKey(itemName))?.locations;
   }
 
   hasItem(itemName: string): boolean {
-    return this.userItems.has(itemName.trim().toLowerCase());
+    return this.userItems.has(troveNameKey(itemName));
   }
 
   clear() {
@@ -107,7 +127,11 @@ export class UserGearService {
 
   saveToStorage() {
     const arr = Array.from(this.userItems.values());
-    localStorage.setItem(this.storageKey, JSON.stringify(arr));
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(arr));
+    } catch {
+      // Storage full or unavailable: keep what was imported for this visit.
+    }
   }
 
   loadFromStorage() {
@@ -117,7 +141,7 @@ export class UserGearService {
       const arr: UserGearEntry[] = JSON.parse(data);
       this.userItems.clear();
       for (const entry of arr) {
-        this.userItems.set(entry.itemName.trim().toLowerCase(), entry);
+        this.userItems.set(troveNameKey(entry.itemName), entry);
       }
     } catch {
       // Corrupt or foreign data in storage: keep the empty collection.

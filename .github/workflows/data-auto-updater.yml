@@ -14,10 +14,17 @@ on:
   schedule:
     # Run at 5:18 UTC daily
     - cron: '18 5 * * *'
+  # Manual runs, on master or any branch. A run on another branch is a
+  # preview: it regenerates the data and uploads it with a diff as an
+  # artifact, but never commits and never posts to Discord, so scraper
+  # changes can be checked against real wiki data before they merge.
+  workflow_dispatch:
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
+    env:
+      IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
 
     steps:
       - name: Check out repository code
@@ -40,9 +47,15 @@ jobs:
           python -m playwright install chromium
 
       - name: Run script
+        env:
+          DISCORD_HOOK: ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
+        shell: bash
         run: |
-          python data-builder/build.py \
-            --discord "${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}"
+          if [ "$IS_MASTER" = "true" ]; then
+            python data-builder/build.py --discord "$DISCORD_HOOK"
+          else
+            python data-builder/build.py
+          fi
 
       - name: Check for substantive data changes
         id: data-changes
@@ -58,6 +71,33 @@ jobs:
             echo "Only build-info.json changed (or nothing changed)."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      # On a branch, publish what the scrapers produced before the site
+      # build and tests run, so a preview is still there to inspect when
+      # the new data is what breaks them.
+      - name: Write data diff for branch preview
+        if: env.IS_MASTER != 'true'
+        shell: bash
+        run: |
+          mkdir -p data-preview
+          git diff -- data data-builder/crafting_device_packs.json > data-preview/data.diff
+          cp data/*.json data-preview/
+          {
+            echo "## Data preview for \`${GITHUB_REF_NAME}\`"
+            echo
+            echo "Not committed. Full diff and regenerated JSON are in the \`data-preview\` artifact."
+            echo
+            echo '```'
+            git diff --stat -- data data-builder/crafting_device_packs.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload data preview
+        if: env.IS_MASTER != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: data-preview
+          path: data-preview/
 
       # The site type-checks the generated JSON against game-data-types.ts, so
       # build it before committing: data the site can't compile against fails
@@ -93,7 +133,7 @@ jobs:
           fi
 
       - name: Commit
-        if: steps.data-changes.outputs.changed == 'true'
+        if: steps.data-changes.outputs.changed == 'true' && env.IS_MASTER == 'true'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "[auto-update] Latest data"

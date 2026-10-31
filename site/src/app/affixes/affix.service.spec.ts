@@ -51,6 +51,21 @@ describe('AffixService', () => {
     ]);
   });
 
+  // Issue #180: Archmagi / Magi are the named Wizardry VIII / IV tiers. Without these groups a
+  // tracked Wizardry ignored them and the planner suggested redundant spell-point items.
+  it('treats Archmagi and Magi as Wizardry spell points from the real affix groups', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+
+    expect(service.resolvesToAffix('Archmagi', 'Wizardry')).toBe(true);
+    expect(service.resolvesToAffix('Magi', 'Wizardry')).toBe(true);
+    expect(service.flattenAffixGroups([new Affix({ name: 'Archmagi', type: 'Bool', value: 1 })])).toEqual([
+      new Affix({ name: 'Wizardry', type: 'Enhancement', value: 200 })
+    ]);
+    expect(service.flattenAffixGroups([new Affix({ name: 'Magi', type: 'Bool', value: 1 })])).toEqual([
+      new Affix({ name: 'Wizardry', type: 'Enhancement', value: 100 })
+    ]);
+  });
+
   it('preserves non-group affixes when flattening', () => {
     const service: AffixService = TestBed.inject(AffixService);
     const deadly = new Affix({ name: 'Deadly', type: 'Competence', value: 10 });

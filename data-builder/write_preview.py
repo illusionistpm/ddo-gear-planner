@@ -41,7 +41,7 @@ def write_preview(preview_dir, stats_description, title='Data preview'):
     diff_stat = _git(repo_root, 'diff', '--stat', '--', *relative).rstrip() or 'No changes to checked-in files.'
     summary = (
         f'## {title}\n\n'
-        'Not committed. The full diff (`data.diff`) and every regenerated file are in this folder.\n\n'
+        'Not committed. The regenerated files and their full diff (`data.diff`) are in the preview folder.\n\n'
         f'{stats_description.rstrip()}\n\n'
         f'```\n{diff_stat}\n```\n'
     )

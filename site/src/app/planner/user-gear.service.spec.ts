@@ -31,9 +31,23 @@ describe('UserGearService', () => {
 
       expect(count).toBe(2);
       expect(service.getItemLocations('Dinosaur Bone Light Crossbow'))
-        .toEqual([{ character: '-', location: 'SharedBank', tab: 'Main' }]);
+        .toEqual([{ character: '-', location: 'SharedBank', tab: 'Main', quantity: 1, binding: 'BtA' }]);
       expect(service.getItemLocations('Celestial Sapphire Ring'))
-        .toEqual([{ character: 'Khalarim', location: 'Inventory', tab: '6' }]);
+        .toEqual([{ character: 'Khalarim', location: 'Inventory', tab: '6', quantity: 1, binding: 'BtA' }]);
+    });
+
+    it('reads how many copies each spot holds, and leaves unbound copies unmarked', () => {
+      service.importFromTroveCsv(csv('HASH,Khalarim,Inventory,6,Drow Scimitar,3,None'), valid);
+
+      expect(service.getItemLocations('Drow Scimitar'))
+        .toEqual([{ character: 'Khalarim', location: 'Inventory', tab: '6', quantity: 3 }]);
+    });
+
+    it('reads an export without the Quantity and Binding columns', () => {
+      service.importFromTroveCsv(['SubscriptionHash,Character,Location,Tab,Name', 'HASH,A,Bank,Main,Drow Scimitar']
+        .join('\n'), valid);
+
+      expect(service.getItemLocations('Drow Scimitar')).toEqual([{ character: 'A', location: 'Bank', tab: 'Main' }]);
     });
 
     it('drops names that aren\'t known items, and the header', () => {
@@ -89,12 +103,12 @@ describe('UserGearService', () => {
     it('persists an import and loads it into a fresh service', () => {
       service.importFromTroveCsv(csv('HASH,A,Bank,Main,Drow Scimitar,1,BtA'), valid);
 
-      expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!))
-        .toEqual([{ itemName: 'Drow Scimitar', locations: [{ character: 'A', location: 'Bank', tab: 'Main' }] }]);
+      const stored = [{ character: 'A', location: 'Bank', tab: 'Main', quantity: 1, binding: 'BtA' }];
+      expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!)).toEqual([{ itemName: 'Drow Scimitar', locations: stored }]);
 
       const fresh = new UserGearService();
       fresh.loadFromStorage();
-      expect(fresh.getItemLocations('drow scimitar')).toEqual([{ character: 'A', location: 'Bank', tab: 'Main' }]);
+      expect(fresh.getItemLocations('drow scimitar')).toEqual(stored);
     });
 
     it('ignores corrupt storage', () => {

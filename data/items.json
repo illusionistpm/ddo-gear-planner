@@ -9072,9 +9072,9 @@
                 "value": "6"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Riposte",
@@ -14044,9 +14044,9 @@
                 "value": "35"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Acid Resistance",
@@ -18054,9 +18054,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Efficient Metamagic - Maximize",
@@ -19235,9 +19235,9 @@
     {
         "affixes": [
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -20265,9 +20265,9 @@
                 "value": "2"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Resistance",
@@ -20288,9 +20288,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Disable Device",
@@ -20326,9 +20326,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Disable Device",
@@ -20364,9 +20364,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Disable Device",
@@ -20402,9 +20402,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Disable Device",
@@ -20440,9 +20440,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Disable Device",
@@ -20522,9 +20522,9 @@
                 "value": "8"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": 3,
@@ -21098,9 +21098,9 @@
                 "value": "1"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Dexterity",
@@ -22067,9 +22067,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -22133,9 +22133,9 @@
                 "value": "33"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Parrying",
@@ -22852,9 +22852,9 @@
                 "value": "4"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -29043,9 +29043,9 @@
                 "value": "3"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -32892,9 +32892,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -33163,9 +33163,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Deathblock",
@@ -33235,9 +33235,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": 1,
@@ -33754,9 +33754,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Healing Amplification",
@@ -34847,9 +34847,9 @@
                 "value": "8"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Armor-Piercing",
@@ -34880,9 +34880,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Invisibility Guard",
@@ -36219,9 +36219,9 @@
                 "value": "4"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -37243,9 +37243,9 @@
                 "value": "4"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -41028,9 +41028,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dexterity",
@@ -53617,9 +53617,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -53673,9 +53673,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -53739,9 +53739,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -53912,9 +53912,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -53953,9 +53953,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -54030,9 +54030,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -56356,9 +56356,9 @@
                 "value": "84"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -56392,9 +56392,9 @@
                 "value": "97"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -56613,9 +56613,9 @@
                 "value": "56"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -56649,9 +56649,9 @@
                 "value": "70"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -57347,7 +57347,7 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "22"
             },
@@ -60885,9 +60885,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Improved Deception",
@@ -61410,9 +61410,9 @@
                 "value": "+5"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -61431,9 +61431,9 @@
     {
         "affixes": [
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "False Life",
@@ -68749,9 +68749,9 @@
                 "value": "11"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -70381,9 +70381,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Invisibility Guard",
@@ -70488,9 +70488,9 @@
                 "value": "11"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -70593,9 +70593,9 @@
                 "value": "11"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -70969,9 +70969,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dexterity",
@@ -73218,9 +73218,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "False Life",
@@ -76201,9 +76201,9 @@
                 "value": "10"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Intelligence",
@@ -78365,9 +78365,9 @@
                 "value": "11"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -81285,9 +81285,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dodge",
@@ -81639,9 +81639,9 @@
                 "value": "5"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Critical Weakening",
@@ -85486,9 +85486,9 @@
                 "value": "11"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -86924,9 +86924,9 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Air Guard",
@@ -91031,9 +91031,9 @@
                 "value": "150"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortitude Save",
@@ -91927,9 +91927,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Doublestrike",
@@ -92316,9 +92316,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Doublestrike",
@@ -92770,9 +92770,9 @@
                 "value": "10"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Ethereal",
@@ -110437,9 +110437,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Regeneration",
@@ -111790,9 +111790,9 @@
     {
         "affixes": [
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Diplomacy",
@@ -112017,7 +112017,7 @@
                 "value": "20"
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "21"
             }
@@ -114928,9 +114928,9 @@
                 "value": "2"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": 4,
@@ -117556,9 +117556,9 @@
                 "value": "5"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Guidance of Shar",
@@ -117586,9 +117586,9 @@
                 "value": "5"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Guidance of Shar",
@@ -117616,9 +117616,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Guidance of Shar",
@@ -119515,9 +119515,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -119660,9 +119660,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -119709,9 +119709,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -119758,9 +119758,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -123255,9 +123255,9 @@
                 "value": "162"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Stealth Strike",
@@ -124115,9 +124115,9 @@
                 "value": "4"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -131888,9 +131888,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -131954,9 +131954,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -132020,9 +132020,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -137914,9 +137914,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Efficient Metamagic - Maximize",
@@ -138569,9 +138569,9 @@
                 "value": "22"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -138595,9 +138595,9 @@
                 "value": "3"
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Speed",
@@ -138963,9 +138963,9 @@
                 "value": "35"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -139475,9 +139475,9 @@
                 "value": "3"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Dexterity",
@@ -143988,9 +143988,9 @@
                 "value": "6"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -144873,9 +144873,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -145123,9 +145123,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Healing Amplification",
@@ -145519,9 +145519,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Armor-Piercing",
@@ -145553,9 +145553,9 @@
                 "value": 1
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Invisibility Guard",
@@ -154694,9 +154694,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -154779,9 +154779,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -154820,9 +154820,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -154861,9 +154861,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -156029,7 +156029,7 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -158841,9 +158841,9 @@
                 "value": "6"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Improved Deception",
@@ -159301,9 +159301,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "False Life",
@@ -168982,9 +168982,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Strength of Purpose",
@@ -169875,7 +169875,7 @@
                 "value": "40"
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "39"
             }
@@ -174258,9 +174258,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -174356,9 +174356,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -174405,9 +174405,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -174454,9 +174454,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -176192,9 +176192,9 @@
                 "value": "269"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Stealth Strike",
@@ -180234,9 +180234,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -180332,9 +180332,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -180381,9 +180381,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -180430,9 +180430,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -184485,9 +184485,9 @@
                 "value": "36"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -184583,9 +184583,9 @@
                 "value": "36"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -184632,9 +184632,9 @@
                 "value": "36"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -184681,9 +184681,9 @@
                 "value": "36"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -184764,9 +184764,9 @@
                 "value": "39"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dodge",
@@ -187463,9 +187463,9 @@
                 "value": "6"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Armor Class",
@@ -187738,9 +187738,9 @@
                 "value": "12"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dodge",
@@ -191697,9 +191697,9 @@
                 "value": "3"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -191782,9 +191782,9 @@
                 "value": "14"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Speed",
@@ -194139,9 +194139,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -194188,9 +194188,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -194286,9 +194286,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -194335,9 +194335,9 @@
                 "value": "36"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -194914,9 +194914,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Intelligence",
@@ -195706,7 +195706,7 @@
                 "value": "15"
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "39"
             }
@@ -202359,9 +202359,9 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Legendary Air Guard",
@@ -204811,9 +204811,9 @@
                 "value": "3"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Improved Deception",
@@ -205915,9 +205915,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Potency",
@@ -206409,9 +206409,9 @@
                 "value": "6"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             }
         ],
         "crafting": [
@@ -209483,9 +209483,9 @@
                 "value": "14"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Reflex Save",
@@ -212167,9 +212167,9 @@
                 "value": "3"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -214697,9 +214697,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Doublestrike",
@@ -214922,9 +214922,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dodge",
@@ -215817,9 +215817,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Doublestrike",
@@ -216765,9 +216765,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -216910,9 +216910,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -216959,9 +216959,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -217008,9 +217008,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -227011,9 +227011,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -227156,9 +227156,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -227205,9 +227205,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -227254,9 +227254,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Fortification",
@@ -227449,9 +227449,9 @@
                 "value": "18"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Dodge",
@@ -241828,9 +241828,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -241894,9 +241894,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -242265,9 +242265,9 @@
                 "value": "1"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Armor Class",
@@ -243551,9 +243551,9 @@
     {
         "affixes": [
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Dodge",
@@ -247934,9 +247934,9 @@
                 "value": "33"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -248005,9 +248005,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -252997,9 +252997,9 @@
                 "value": "5"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -253740,9 +253740,9 @@
                 "value": "9"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Speed",
@@ -256420,9 +256420,9 @@
                 "value": "10"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "ml": 12,
@@ -256448,9 +256448,9 @@
                 "value": "11"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "ml": 13,
@@ -256476,9 +256476,9 @@
                 "value": "13"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -256507,9 +256507,9 @@
                 "value": "17"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ghostly",
@@ -256543,9 +256543,9 @@
                 "value": "20"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ghostly",
@@ -256579,9 +256579,9 @@
                 "value": "20"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Ghostly",
@@ -259951,9 +259951,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Deathblock",
@@ -260283,9 +260283,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -260332,9 +260332,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -260430,9 +260430,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -260479,9 +260479,9 @@
                 "value": "18"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Fortification",
@@ -262191,9 +262191,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Intelligence",
@@ -263887,9 +263887,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -263953,9 +263953,9 @@
                 "value": "6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Negative Energy Absorption",
@@ -264060,7 +264060,7 @@
                 "value": "6"
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "21"
             }
@@ -268763,9 +268763,9 @@
                 "value": "4"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Spell Resistance",
@@ -274811,9 +274811,9 @@
     {
         "affixes": [
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Immunity to Fear",
@@ -276915,9 +276915,9 @@
                 "value": "3"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Ghostly",
@@ -277549,9 +277549,9 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -285132,9 +285132,9 @@
                 "value": 1
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Parrying",
@@ -286334,9 +286334,9 @@
                 "value": "1"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Improved Deception",
@@ -286676,9 +286676,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -288487,9 +288487,9 @@
     {
         "affixes": [
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Potency",
@@ -291116,9 +291116,9 @@
                 "value": "2"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -302842,7 +302842,7 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
+                "name": "Concealment",
                 "type": "Enhancement",
                 "value": "40"
             },
@@ -304485,9 +304485,9 @@
                 "value": "3"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Reflex Save",
@@ -308329,9 +308329,9 @@
                 "value": "100"
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             }
         ],
         "crafting": [
@@ -311984,9 +311984,9 @@
                 "value": "2"
             },
             {
-                "name": "Lesser Displacement",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "25"
             },
             {
                 "name": "Spell Resistance",
@@ -312618,9 +312618,9 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -312674,9 +312674,9 @@
                 "value": 1
             },
             {
-                "name": "Smoke Screen",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
         ],
         "crafting": [
@@ -316641,9 +316641,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Doublestrike",
@@ -316711,9 +316711,9 @@
                 "value": "+4"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ethereal",
@@ -316759,9 +316759,9 @@
                 "value": "+5"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ethereal",
@@ -316807,9 +316807,9 @@
                 "value": "+5"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ethereal",
@@ -316855,9 +316855,9 @@
                 "value": "+6"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ghostly",
@@ -316903,9 +316903,9 @@
                 "value": "+7"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ghostly",
@@ -316951,9 +316951,9 @@
                 "value": "+7"
             },
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Ghostly",
@@ -317605,9 +317605,9 @@
     {
         "affixes": [
             {
-                "name": "Blurry",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             },
             {
                 "name": "Dodge",
@@ -319822,9 +319822,9 @@
                 "value": 1
             },
             {
-                "name": "Dusk",
-                "type": "Bool",
-                "value": 1
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "10"
             },
             {
                 "name": "Doublestrike",

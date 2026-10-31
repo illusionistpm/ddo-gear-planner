@@ -172,3 +172,10 @@
         white-space: normal;
     }
 }
+
+/* Inside a clickable entry, the trove badge is a label, not a tooltip target. */
+.crafting-picker-owned {
+    cursor: inherit;
+    flex: none;
+    margin-left: var(--space-4);
+}

@@ -13,6 +13,8 @@ export interface TierRow {
   name: string;
   className: string;
   tooltip: string;
+  /** Whether the trove has this option. */
+  owned: boolean;
 }
 
 /** One family, as the picker lists it. */
@@ -34,6 +36,8 @@ export interface FamilyRow {
   relevant: boolean;
   /** Whether "hide options that don't help" may hide it: the empty option has nothing to judge. */
   hideable: boolean;
+  /** Whether the trove has any of its tiers. */
+  owned: boolean;
 }
 
 /** The affix text the rows are written with; `AffixUiService` provides it. */
@@ -48,7 +52,8 @@ const IRRELEVANT = AffixRank[AffixRank.Irrelevant];
 export function buildFamilyRows(
   families: CraftingOptionFamily[],
   rank: (option: CraftableOption) => CraftingOptionRanking,
-  text: CraftingOptionText
+  text: CraftingOptionText,
+  isOwned: (option: CraftableOption) => boolean = () => false
 ): FamilyRow[] {
   return families.map(family => {
     const rankings = family.tiers.map(rank);
@@ -59,7 +64,8 @@ export function buildFamilyRows(
         label: value ? tierValueLabel(option, value, text) : option.describe(),
         name: value ? option.name : '',
         className: rankings[i].className,
-        tooltip: rankings[i].tooltip
+        tooltip: rankings[i].tooltip,
+        owned: isOwned(option)
       };
     });
     const first = family.tiers[0];
@@ -75,7 +81,8 @@ export function buildFamilyRows(
       tiers,
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
-      hideable: first.affixes.length > 0 || !!first.set
+      hideable: first.affixes.length > 0 || !!first.set,
+      owned: tiers.some(tier => tier.owned)
     };
   });
 }

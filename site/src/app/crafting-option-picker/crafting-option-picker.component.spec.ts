@@ -5,6 +5,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CraftingOptionPickerComponent } from './crafting-option-picker.component';
 import { CraftableOption } from '../gear/craftable-option';
 import { AffixUiService } from '../affixes/affix-ui.service';
+import { Craftable } from '../gear/craftable';
+import { Item } from '../gear/item';
+import { UserGearService } from '../planner/user-gear.service';
 
 const HIDE_KEY = 'ddo-gear-planner-hide-irrelevant-crafting-options';
 
@@ -128,6 +131,23 @@ describe('CraftingOptionPickerComponent', () => {
     expect(tierButtons()).toEqual([]);
     expect(hideCheckbox().checked).toBe(true);
     expect(document.body.querySelector('.crafting-picker-hide')!.textContent).toContain('(3)');
+  });
+
+  it('marks the augments the trove has, on the tier and its family', async () => {
+    const userGear = TestBed.inject(UserGearService);
+    userGear.importFromTroveCsv('SubscriptionHash,Character,Location,Tab,Name,Quantity,Binding' + String.fromCharCode(10)
+      + 'HASH,Khalarim,Inventory,6,Diamond of Charisma +3,1,None', new Set(), new Set(['diamond of charisma +3']));
+    fixture.componentRef.setInput('context', { item: new Item(null), craft: new Craftable('Colorless Augment Slot', []) });
+    await open();
+
+    const owned = (element: Element) => !!element.querySelector('.crafting-picker-owned');
+    expect(owned(familyButton('Charisma'))).toBe(true);
+    expect(owned(familyButton('Helpful set'))).toBe(false);
+
+    familyButton('Charisma').click();
+    fixture.detectChanges();
+    expect(tierButtons().map(owned)).toEqual([false, true, false, false]);
+    userGear.clear();
   });
 
   it('names every entry for its affix, with the bonus type beside it and the augment on the right', async () => {

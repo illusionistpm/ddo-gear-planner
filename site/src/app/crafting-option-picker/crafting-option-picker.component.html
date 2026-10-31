@@ -29,6 +29,9 @@
                 @if (tier.name) {
                   <span class="crafting-picker-entry-aside">{{tier.name}}</span>
                 }
+                @if (tier.owned) {
+                  <span class="owned-badge crafting-picker-owned">Owned</span>
+                }
               </button>
             } @else {
               @let family = entry.family;
@@ -47,6 +50,9 @@
                   <span class="crafting-picker-family-name" [ngClass]="family.className">{{family.label || 'Empty'}}</span>
                   @if (family.detail) {
                     <span class="crafting-picker-entry-detail">{{family.detail}}</span>
+                  }
+                  @if (family.owned) {
+                    <span class="owned-badge crafting-picker-owned">Owned</span>
                   }
                 </span>
                 @if (family.aside) {

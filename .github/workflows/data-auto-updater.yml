@@ -25,6 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
+      # Everything build.py writes. A build scrapes newly listed crafting
+      # devices into the checked-in cache, so it is an output too.
+      DATA_OUTPUTS: data data-builder/crafting_device_packs.json
 
     steps:
       - name: Check out repository code
@@ -61,7 +64,7 @@ jobs:
         id: data-changes
         shell: bash
         run: |
-          changes=$(git status --porcelain data data-builder/crafting_device_packs.json \
+          changes=$(git status --porcelain $DATA_OUTPUTS \
             | grep -v 'data/build-info.json' || true)
 
           if [ -n "$changes" ]; then
@@ -79,16 +82,14 @@ jobs:
         if: env.IS_MASTER != 'true'
         shell: bash
         run: |
-          mkdir -p data-preview
-          git diff -- data data-builder/crafting_device_packs.json > data-preview/data.diff
-          cp data/*.json data-preview/
+          git diff -- $DATA_OUTPUTS > data.diff
           {
             echo "## Data preview for \`${GITHUB_REF_NAME}\`"
             echo
             echo "Not committed. Full diff and regenerated JSON are in the \`data-preview\` artifact."
             echo
             echo '```'
-            git diff --stat -- data data-builder/crafting_device_packs.json
+            git diff --stat -- $DATA_OUTPUTS
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -97,7 +98,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: data-preview
-          path: data-preview/
+          path: |
+            data.diff
+            data/*.json
+            data-builder/crafting_device_packs.json
 
       # The site type-checks the generated JSON against game-data-types.ts, so
       # build it before committing: data the site can't compile against fails

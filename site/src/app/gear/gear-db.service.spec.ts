@@ -380,6 +380,18 @@ describe('GearDbService', () => {
     expect(service.getAllItemNames().sort()).toEqual(['Belt A', 'Trinket A', 'Trinket B']);
   });
 
+  it('lists the augments and named upgrades a trove can hold, once each', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const names = service.getTroveTrackableCraftingOptionNames();
+
+    // Real names, from the game data: an augment, a Moon augment, a Dolorous upgrade.
+    expect(names).toEqual(expect.arrayContaining(
+      ['Diamond of Intelligence +14', 'Lunar Gem of Charisma (Legendary)', 'Dolorous Acid (heroic)']));
+    expect(new Set(names).size).toBe(names.length);
+    // Crafting done to an item isn't something you'd find in a trove.
+    expect(names).not.toContain('Armaments of the Archons');
+  });
+
   it('filters items from hidden packs while default hidden pack set shows everything', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const packItem = new Item({

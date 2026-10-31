@@ -10,6 +10,7 @@ import { Affix } from '../affixes/affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { isHiddenByPacks, isOptionHiddenByPacks, NO_PACK_KEY } from './pack-filter';
+import { classifyCraftSelection } from './crafting-acquisition';
 
 import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
@@ -855,6 +856,25 @@ export class GearDbService {
       }
     }
     return names;
+  }
+
+  /**
+   * Names of crafting options that are things in their own right - augments and
+   * named upgrades - so a trove import can tell which of them you own.
+   */
+  getTroveTrackableCraftingOptionNames(): string[] {
+    const names = new Set<string>();
+    for (const [system, byItem] of this.craftingList) {
+      for (const craftable of byItem.values()) {
+        for (const option of craftable.options) {
+          const kind = classifyCraftSelection(system, option);
+          if (option.name && (kind === 'augment' || kind === 'upgrade')) {
+            names.add(option.name);
+          }
+        }
+      }
+    }
+    return Array.from(names);
   }
 
   private getSortIndex(slot: string) {

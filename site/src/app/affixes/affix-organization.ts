@@ -183,7 +183,7 @@ function getDirectAffixCategory(affixName: string): string {
   if (OFFENSE_AFFIXES.has(affixName) || /\b(Deadly|Accuracy|Armor-Piercing|Doublestrike|Doubleshot|Melee Power|Ranged Power|Alacrity|Assassinate|Stunning|Sundering|Vertigo|Seeker|Deception|Imbue Dice|Sneak Attack)\b/.test(affixName)) {
     return 'Offense';
   }
-  if (DEFENSE_AFFIXES.has(affixName) || /\b(Sheltering|Armor Class|Fortification|Resistance|Absorption|False Life|Dodge|Parrying|Ghostly|Blurry|Protection|Guard|Diversion)\b/.test(affixName)) {
+  if (DEFENSE_AFFIXES.has(affixName) || /\b(Sheltering|Armor Class|Fortification|Resistance|Absorption|False Life|Dodge|Parrying|Ghostly|Concealment|Protection|Guard|Diversion)\b/.test(affixName)) {
     return 'Defense';
   }
   if (UTILITY_CHECKLIST_AFFIXES.has(affixName) || /\b(Speed|Feather Falling|Freedom of Movement|Action Boost|Run Speed)\b/.test(affixName)) {

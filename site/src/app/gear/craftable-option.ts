@@ -2,6 +2,19 @@ import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { CraftableOptionInit } from './game-data-types';
 
+/**
+ * An unnamed option travels in build URLs as its affixes' names and values (see
+ * getParamDescription), so a data fix that rescales a value would orphan saved builds.
+ * These map each description a saved URL may still carry to the one the data emits now.
+ *
+ * - Wizardry tiers became spell points (Wizardry VI = 150, Wizardry X = 250) on the
+ *   Prismatic Cloak options. No option carries Wizardry 6 or 10 any more.
+ */
+const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
+    'Wizardry6': 'Wizardry150',
+    'Wizardry10': 'Wizardry250',
+};
+
 export class CraftableOption {
     affixes: Array<Affix> = new Array<Affix>();
     set: string = '';
@@ -40,7 +53,8 @@ export class CraftableOption {
     }
 
     matchesParamDescription(desc: string) {
-        return desc === this.getParamDescription();
+        const own = this.getParamDescription();
+        return desc === own || (Object.hasOwn(LEGACY_PARAM_DESCRIPTIONS, desc) && LEGACY_PARAM_DESCRIPTIONS[desc] === own);
     }
 
     getParamDescription() {

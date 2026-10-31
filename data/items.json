@@ -814,7 +814,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "50"
             }
         ],
         "crafting": [
@@ -3990,7 +3990,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -5338,7 +5338,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "5"
+                "value": "125"
             },
             {
                 "name": "Constitution",
@@ -26428,7 +26428,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -27316,7 +27316,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "9"
+                "value": "225"
             },
             {
                 "name": "Force Spell Power",
@@ -34981,7 +34981,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             },
             {
                 "name": "Spell Resistance",
@@ -40621,7 +40621,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "50"
             }
         ],
         "crafting": [
@@ -55525,7 +55525,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "3"
+                "value": "75"
             }
         ],
         "ml": 10,
@@ -55594,7 +55594,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "3"
+                "value": "75"
             }
         ],
         "ml": 10,
@@ -55626,7 +55626,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "3"
+                "value": "75"
             }
         ],
         "ml": 10,
@@ -66606,7 +66606,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "250"
             },
             {
                 "name": "Constitution",
@@ -76162,7 +76162,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "250"
             },
             {
                 "name": "Spell Save",
@@ -78496,7 +78496,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "11"
+                "value": "275"
             },
             {
                 "name": "Spell Penetration",
@@ -83996,7 +83996,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "11"
+                "value": "275"
             },
             {
                 "name": "Flametouched Iron",
@@ -108479,7 +108479,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "50"
             }
         ],
         "ml": 9,
@@ -121381,7 +121381,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "25"
             }
         ],
         "crafting": [
@@ -124148,7 +124148,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "5"
+                "value": "125"
             },
             {
                 "name": "Illusion Focus",
@@ -124801,7 +124801,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "5"
+                "value": "125"
             },
             {
                 "name": "Spell Penetration",
@@ -220000,7 +220000,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             },
             {
                 "name": "Efficient Metamagic - Empower Healing",
@@ -229763,7 +229763,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "50"
             },
             {
                 "name": "Efficient Metamagic - Enlarge",
@@ -230548,7 +230548,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "50"
             },
             {
                 "name": "Lesser Arcane Sigil",
@@ -234124,7 +234124,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -234534,7 +234534,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "250"
             },
             {
                 "name": "Constitution",
@@ -251873,7 +251873,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             },
             {
                 "name": "Spell Penetration",
@@ -256773,7 +256773,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "7"
+                "value": "175"
             },
             {
                 "name": "Spell Resistance",
@@ -260876,7 +260876,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "3"
+                "value": "75"
             },
             {
                 "name": "Flametouched Iron",
@@ -262653,7 +262653,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "250"
             },
             {
                 "name": "False Life",
@@ -266220,7 +266220,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "9"
+                "value": "225"
             }
         ],
         "crafting": [
@@ -268274,7 +268274,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "7"
+                "value": "175"
             },
             {
                 "name": "Spell Lore",
@@ -268397,7 +268397,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "9"
+                "value": "225"
             },
             {
                 "name": "Spell Lore",
@@ -268438,7 +268438,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "9"
+                "value": "225"
             },
             {
                 "name": "Spell Lore",
@@ -268479,7 +268479,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "10"
+                "value": "250"
             },
             {
                 "name": "Spell Lore",
@@ -273187,7 +273187,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -277137,7 +277137,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -279745,7 +279745,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -283755,7 +283755,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "9"
+                "value": "225"
             },
             {
                 "name": "Resistance",
@@ -293494,7 +293494,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -294427,7 +294427,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -308272,7 +308272,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -308475,7 +308475,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "6"
+                "value": "150"
             }
         ],
         "ml": 18,
@@ -313652,7 +313652,7 @@
             {
                 "name": "Wizardry",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "25"
             }
         ],
         "crafting": [

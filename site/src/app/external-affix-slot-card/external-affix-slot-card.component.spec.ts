@@ -163,6 +163,23 @@ describe('ExternalAffixSlotCardComponent', () => {
     });
   });
 
+  it('lists ignored entries after the others, each group by affix name and then bonus type', () => {
+    equipped.addExternalAffixIgnored('Wisdom', 'Quality', 'Skip');
+    equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
+    equipped.addExternalAffixIgnored('Charisma', 'Profane', 'Later');
+    equipped.addExternalAffixValue('Strength', 'Enhancement', 2, 'Belt');
+    equipped.addExternalAffixValue('Feather Falling', 'Bool', 1, 'Ring');
+    fixture.detectChanges();
+
+    expect(rowTexts()).toEqual([
+      'Feather Falling (Ring) | ',
+      'Strength (Belt) | +2 Enhancement',
+      'Strength (Spell) | +3 Insight',
+      'Charisma (Later) | Profane',
+      'Wisdom (Skip) | Quality',
+    ]);
+  });
+
   it('shows a checklist entry as a checked box instead of a value', () => {
     equipped.addExternalAffixValue('Feather Falling', 'Bool', 1, 'Ring');
     fixture.detectChanges();

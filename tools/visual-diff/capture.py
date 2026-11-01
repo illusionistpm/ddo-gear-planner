@@ -80,6 +80,16 @@ def click_slot(slot: str) -> Callable[[Page], None]:
                          .filter(has_text=slot).locator('.slot-select-button').first.click())
 
 
+def open_shopping_list(page: Page) -> None:
+    """The toolbar button, or on a phone the overflow menu's item."""
+    button = page.locator('.shopping-list-open').first
+    if button.is_visible():
+        button.click()
+    else:
+        page.locator('.build-overflow-toggle').first.click()
+        page.locator('.build-overflow-item', has_text='Shopping list').first.click()
+
+
 @dataclass
 class Scene:
     name: str
@@ -106,6 +116,8 @@ SCENES = [
     Scene('set-drawer', steps=[click('.set-link')]),
     Scene('set-preview', steps=[click('.set-link'), click('app-items-in-set .item-preview-link')]),
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
+    Scene('shopping-list', steps=[open_shopping_list]),
+    Scene('shopping-list-by-quest', steps=[open_shopping_list, click('.shopping-list-choice-option:has-text("Quest")')]),
 ]
 
 THEMES = ['light', 'dark']

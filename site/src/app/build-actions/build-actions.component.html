@@ -132,6 +132,8 @@
     </button>
 
     <div class="build-overflow-menu" [class.open]="isMenuOpen('overflow')">
+      <!-- A phone's toolbar has no room for the shopping list button, so it lives here. -->
+      <button type="button" class="build-overflow-item" (click)="openShoppingList()">Shopping list</button>
       @if (isAuthenticated) {
         <button type="button" class="build-overflow-item" (click)="onMyBuildsClick()">My builds</button>
         <button type="button" class="build-overflow-item" (click)="signOut()">Sign out</button>

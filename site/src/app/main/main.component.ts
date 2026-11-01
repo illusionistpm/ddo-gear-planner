@@ -19,6 +19,8 @@ import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 
 @Component({
     selector: 'app-main',
@@ -101,6 +103,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   private initialParamsAppliedSubscription?: Subscription;
   private ownershipMemoAuthSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
+  private shoppingListSubscription?: Subscription;
+  /** The shopping list takes the planner's place while open; the planner stays mounted underneath. */
+  shoppingListOpen = false;
 
   onSortOwnedToTopChanged(value: boolean) {
     this.sortOwnedToTop = value;
@@ -123,7 +128,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private buildUrlCodec: BuildUrlCodecService,
     private queryParams: QueryParamsService,
     private currentBuild: CurrentBuildService,
-    private auth: AuthService
+    private auth: AuthService,
+    private shoppingListView: ShoppingListViewService,
+    private suggestionDrawer: SuggestionDrawerService
   ) {
     this.supportPopoverUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       'https://www.buymeacoffee.com/widget/page/illusionistpm'
@@ -240,6 +247,16 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       this.closeFilters();
       this.refreshOnboardingState();
     });
+    this.shoppingListSubscription = this.shoppingListView.isOpen$.subscribe(open => {
+      this.shoppingListOpen = open;
+      if (open) {
+        // Nothing of the planner's stays floating over the list.
+        this.closeFilters();
+        this.closeSupportPopover();
+        this.suggestionDrawer.close();
+        this.affixBuilder.close();
+      }
+    });
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
@@ -282,6 +299,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.buildIdentitySubscription?.unsubscribe();
     this.initialParamsAppliedSubscription?.unsubscribe();
     this.ownershipMemoAuthSubscription?.unsubscribe();
+    this.shoppingListSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
     }
@@ -550,6 +568,10 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.equipped.setActiveMainTab(tab);
     this.closeFilters();
     this.refreshOnboardingState();
+  }
+
+  closeShoppingList() {
+    this.shoppingListView.close();
   }
 
   isActiveTab(tab: PlannerTab) {

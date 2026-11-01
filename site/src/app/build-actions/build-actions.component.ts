@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, QueryList, ViewChild,
+  ViewChildren
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -7,6 +8,7 @@ import { AuthService } from '../shared/auth.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 
 type DialogMode = 'create' | 'save-as';
 
@@ -94,6 +96,13 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly cdr: ChangeDetectorRef
   ) {}
+
+  private readonly shoppingListView = inject(ShoppingListViewService);
+
+  openShoppingList(): void {
+    this.closeMenu();
+    this.shoppingListView.open();
+  }
 
   // OnPush doesn't redraw on its own when state is mutated from inside an
   // async callback (an HTTP/observable subscription, not a template event) -

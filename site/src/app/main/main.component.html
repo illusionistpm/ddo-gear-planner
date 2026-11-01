@@ -33,7 +33,7 @@
             <span class="planner-brand-name">DDO Gear Planner</span>
         </div>
 
-        <app-planner-toolbar></app-planner-toolbar>
+        <app-planner-toolbar [hidden]="shoppingListOpen"></app-planner-toolbar>
 
         <div class="planner-chrome-spacer"></div>
 
@@ -76,9 +76,9 @@
         <app-admin-link></app-admin-link>
         </app-build-actions>
 
-        <div class="planner-chrome-break" aria-hidden="true"></div>
+        <div class="planner-chrome-break" aria-hidden="true" [hidden]="shoppingListOpen"></div>
 
-        <div class="planner-filter-control" [class.open]="filtersOpen">
+        <div class="planner-filter-control" [class.open]="filtersOpen" [hidden]="shoppingListOpen">
             <button type="button" class="planner-filter-toggle"
                 [class.open]="filtersOpen"
                 [attr.aria-expanded]="filtersOpen"
@@ -149,7 +149,7 @@
         }
     </header>
 
-    @if (shouldHighlightTrackedAffixes()) {
+    @if (shouldHighlightTrackedAffixes() && !shoppingListOpen) {
         <section class="planner-onboarding-hint onboarding-instruction-panel" aria-label="Tracked affixes next step">
             <div>
                 <div class="onboarding-step-label">Next step</div>
@@ -172,7 +172,11 @@
     }
 
 
-    <div class="planner-tab-panels" #tabPanels appPanelSwipe>
+    @if (shoppingListOpen) {
+        <app-shopping-list class="planner-shopping-list" (closed)="closeShoppingList()"></app-shopping-list>
+    }
+
+    <div class="planner-tab-panels" #tabPanels appPanelSwipe [hidden]="shoppingListOpen">
         <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
             <app-gear-list></app-gear-list>
         </section>

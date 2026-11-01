@@ -2,13 +2,11 @@ import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { CraftableOptionInit } from './game-data-types';
 
-/**
- * One choice in a crafting system. Immutable once built: the gear database shares each
- * option between every item and Craftable that offers it, rather than copying it per item
- * (copying was 2.5 million options and ~550MB for the full item list). State that changes -
- * which option is selected - lives on the Craftable.
- */
 export class CraftableOption {
+    // One choice in a crafting system. Immutable once built: the gear database shares each
+    // option between every item and Craftable that offers it, rather than copying it per item
+    // (copying was 2.5 million options and ~550MB for the full item list). State that changes -
+    // which option is selected - lives on the Craftable.
     readonly affixes: ReadonlyArray<Affix>;
     readonly set: string = '';
     readonly name: string = '';

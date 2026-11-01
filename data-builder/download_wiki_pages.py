@@ -8,6 +8,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 from parse_quests import get_expansion_pack_pages_from_category
 from crafting_device_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_device_packs
+from normalize_wiki_html import normalize_wiki_html
 from get_snapshot_path import get_snapshot_path
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
@@ -152,6 +153,12 @@ def _download_html(full_url, use_playwright=False, session=None, timeout=30):
     return _download_html_with_requests(full_url, session=session, timeout=timeout)
 
 
+def _write_snapshot_page(path, html):
+    # LF on every platform, so a page downloaded on Windows matches CI's.
+    with open(path, 'w', encoding='utf8', newline='\n') as fh:
+        fh.write(normalize_wiki_html(html))
+
+
 def download_page(url, pageDir, max_retries=3, retry_delay_seconds=10, session=None):
     filename = url.split(':')[-1].replace("/","_")
     path = os.path.join(pageDir, filename + '.html')
@@ -189,7 +196,7 @@ def download_page(url, pageDir, max_retries=3, retry_delay_seconds=10, session=N
                 continue
             raise
 
-        open(path, 'w', encoding='utf8').write(html)
+        _write_snapshot_page(path, html)
         return True
 
     return False
@@ -226,7 +233,7 @@ def download_paginated_category(title, pageDir, max_pages=50, session=None):
         else:
             print(f"Downloading {filename} from {url} using requests")
             html = _download_html(url, session=session, timeout=30)
-            open(path, 'w', encoding='utf8').write(html)
+            _write_snapshot_page(path, html)
             downloaded_any = True
 
         soup = BeautifulSoup(html, 'html.parser')

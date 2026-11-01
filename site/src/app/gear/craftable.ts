@@ -30,7 +30,7 @@ export class Craftable {
         this.allOptionsByCraftingSystem = new Map<string, CraftableOption[]>();
 
         for (const [systemName, options] of optionsByCraftingSystem.entries()) {
-            this.allOptionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
+            this.allOptionsByCraftingSystem.set(systemName, options.slice());
         }
 
         this.setAvailableCraftingSystemOptions(Array.from(optionsByCraftingSystem.keys()), selectedCraftingSystemName);
@@ -39,7 +39,7 @@ export class Craftable {
     getOptionsByCraftingSystem() {
         const copy = new Map<string, CraftableOption[]>();
         for (const [systemName, options] of this.allOptionsByCraftingSystem.entries()) {
-            copy.set(systemName, options.map(option => new CraftableOption(option)));
+            copy.set(systemName, options.slice());
         }
         return copy;
     }
@@ -70,7 +70,7 @@ export class Craftable {
             return;
         }
 
-        this.options = [emptyOption].concat(this.availableOptionsFor(systemName).map(option => new CraftableOption(option)));
+        this.options = [emptyOption].concat(this.availableOptionsFor(systemName));
         this.selected = emptyOption;
     }
 
@@ -87,9 +87,9 @@ export class Craftable {
 
     /** A copy holding the same options, availability and selection - no string round-trip. */
     clone(): Craftable {
-        const copy = new Craftable(this.name, this.options.map(option => new CraftableOption(option)), false);
+        const copy = new Craftable(this.name, this.options.slice(), false);
         for (const [systemName, options] of this.allOptionsByCraftingSystem.entries()) {
-            copy.allOptionsByCraftingSystem.set(systemName, options.map(option => new CraftableOption(option)));
+            copy.allOptionsByCraftingSystem.set(systemName, options.slice());
         }
         copy.craftingSystemOptions = this.craftingSystemOptions.slice();
         copy.selectedCraftingSystemName = this.selectedCraftingSystemName;

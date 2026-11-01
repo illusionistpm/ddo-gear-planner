@@ -108,7 +108,7 @@ export class EssenceCraftingService {
     
     const slotOptions: Array<CraftableOption> = [];
     for (const optionName of affixList) {
-      const option = new CraftableOption(null);
+      const affixes: Affix[] = [];
       const progression = essenceCraftingData.progression;
       const value = progression[optionName]?.[cappedMl - 1] ?? 0;
       const affixNames = essenceCraftingData.affixes ?? {};
@@ -129,9 +129,9 @@ export class EssenceCraftingService {
           }
         }
 
-        option.affixes.push(new Affix({ name: affix, value, type }));
+        affixes.push(new Affix({ name: affix, value, type }));
       }
-      slotOptions.push(new CraftableOption(option));
+      slotOptions.push(new CraftableOption({ affixes }));
     }
 
     return new Craftable(essenceCraftingSlot, slotOptions);

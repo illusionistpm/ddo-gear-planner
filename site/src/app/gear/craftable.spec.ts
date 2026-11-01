@@ -159,11 +159,13 @@ describe('Craftable', () => {
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
     });
 
-    it('hands out defensive copies of its per-system options', () => {
+    it('hands out its own per-system lists, sharing the immutable options', () => {
       const copy = craftable.getOptionsByCraftingSystem();
-      copy.get('Blue Augment Slot')![0].name = 'Mutated';
+      copy.get('Blue Augment Slot')!.splice(0);
 
-      expect(craftable.getOptionsByCraftingSystem().get('Blue Augment Slot')![0].name).toBe('Diamond');
+      const fresh = craftable.getOptionsByCraftingSystem().get('Blue Augment Slot')!;
+      expect(fresh[0].name).toBe('Diamond');
+      expect(fresh[0]).toBe(craftable.getOptionsByCraftingSystem().get('Blue Augment Slot')![0]);
     });
   });
 
@@ -244,10 +246,21 @@ describe('Craftable', () => {
 
       const copy = craftable.clone();
       copy.selectByParamDescription('Colorless Augment Slot: Topaz');
-      copy.options[1].name = 'Mutated';
+      copy.options.splice(1);
 
       expect(craftable.getSelectedParamDescription()).toBe('Blue Augment Slot: Sapphire');
-      expect(craftable.options[1].name).not.toBe('Mutated');
+      expect(craftable.options.length).toBeGreaterThan(1);
+    });
+
+    it('shares the immutable options with its source instead of copying them', () => {
+      const craftable = augmentSlot();
+      craftable.selectByParamDescription('Blue Augment Slot: Sapphire');
+
+      const copy = craftable.clone();
+
+      expect(copy.options).not.toBe(craftable.options);
+      expect(copy.options[1]).toBe(craftable.options[1]);
+      expect(copy.selected).toBe(craftable.selected);
     });
 
     it('copies a plain option list and its selection', () => {

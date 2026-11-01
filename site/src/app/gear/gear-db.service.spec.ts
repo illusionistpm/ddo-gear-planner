@@ -44,6 +44,24 @@ describe('GearDbService', () => {
     expect(slotOne?.craftingSystemOptions).not.toContain('Yellow Augment Slot');
   });
 
+  // Copying options per item made the full item list 2.5 million options (~550MB, ~2s to
+  // build). They are immutable, so every item that offers a system shares its options.
+  it('shares crafting options between items instead of copying them per item', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const colorless = (slot: string, name: string) => service.findGearBySlot(slot, name)
+      ?.getCraftingByName('Augment Slot 1')?.getOptionsByCraftingSystem().get('Colorless Augment Slot');
+    const melee = colorless('Weapon', 'Essence Crafting Melee');
+    const trinket = colorless('Trinket', 'Essence Crafting Trinket');
+
+    expect(melee?.length).toBeGreaterThan(1);
+    expect(trinket?.[1]).toBe(melee?.[1]);
+
+    const ring1 = service.getGearBySlot('Ring1').find(item => item.crafting.some(c => c.options.length > 1))!;
+    const ring2 = service.findGearBySlot('Ring2', ring1.name)!;
+    const craftable = ring1.crafting.find(c => c.options.length > 1)!;
+    expect(ring2.getCraftingByName(craftable.name)?.options[1]).toBe(craftable.options[1]);
+  });
+
   it('adds non-named accessory augment slot choices to generated Essence Crafting blanks', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const item = service.findGearBySlot('Trinket', 'Essence Crafting Trinket');

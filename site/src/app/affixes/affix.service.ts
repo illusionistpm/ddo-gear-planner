@@ -126,7 +126,7 @@ export class AffixService {
     return this.synonymsForAffix.has(affixName) ? (this.synonymsForAffix.get(affixName) || []) : [];
   }
 
-  flattenAffixGroups(affixes: Array<Affix>, includeOriginal: boolean = false) {
+  flattenAffixGroups(affixes: ReadonlyArray<Affix>, includeOriginal: boolean = false) {
     let flattened: Affix[] = [];
     for (const affix of affixes) {
       const ungroup = this.ungroupAffix(affix);

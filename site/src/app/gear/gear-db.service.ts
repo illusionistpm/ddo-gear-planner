@@ -591,7 +591,7 @@ export class GearDbService {
 
   private _addAffixesToMap(
     affixToBonusTypes: Map<string, Map<string, number>>,
-    affixes: Array<Affix>,
+    affixes: ReadonlyArray<Affix>,
     universalTracker?: UniversalCompanionContributionTracker
   ) {
     for (const affix of affixes) {
@@ -1023,11 +1023,12 @@ export class GearDbService {
       ) as CraftableOption[];
 
       // Simplify the remaining augments to only the affix name and type
-      filteredAugments = filteredAugments.map(aug => {
-        const newAug = new CraftableOption(aug);
-        newAug.affixes = aug.affixes.filter(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType);
-        return newAug;
-      });
+      filteredAugments = filteredAugments.map(aug => new CraftableOption({
+        name: aug.name,
+        set: aug.set,
+        ml: aug.ml,
+        affixes: aug.affixes.filter(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType),
+      }));
 
       //
       const groupsRecord = groupBy(filteredAugments, (aug => aug.affixes.map(aff => aff.name + aff.type).join(' ')));

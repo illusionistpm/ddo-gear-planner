@@ -33,14 +33,16 @@ function text(progress: Record<string, 0 | 1>, name: string | null = 'Tank') {
 }
 
 describe('formatShoppingListText', () => {
-  it('lists what is still needed by source, with counts, crafting and rolls', () => {
+  it('lists what is still needed by pack and quest, with counts, crafting and rolls', () => {
     expect(text({ [ring1.key]: 1 })).toBe([
       'Still needed for Tank (4):',
       '',
-      'The Raid (Raid Pack, raid)',
+      '== Raid Pack ==',
+      'The Raid (raid)',
       '- Sword (ML 32, roll: Strength +5 Enhancement)',
       '  - Lost Purpose: Armaments of the Archons',
       '',
+      '== Other sources ==',
       'The Snitch',
       '- Ring (ML 30)',
       '',
@@ -53,10 +55,12 @@ describe('formatShoppingListText', () => {
     expect(text({ [sword.key]: 1, [augment.key]: 1 }, null)).toBe([
       'Still needed for my build (3):',
       '',
-      'The Raid (Raid Pack, raid)',
+      '== Raid Pack ==',
+      'The Raid (raid)',
       '- Sword (have it, roll: Strength +5 Enhancement)',
       '  - Lost Purpose: Armaments of the Archons',
       '',
+      '== Other sources ==',
       'The Snitch',
       '- Ring x2 (ML 30)',
     ].join('\n'));

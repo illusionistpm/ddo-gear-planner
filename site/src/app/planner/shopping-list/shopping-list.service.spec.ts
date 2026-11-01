@@ -28,7 +28,8 @@ describe('ShoppingListService', () => {
   let equipped: EquippedService;
 
   const view = () => firstValueFrom(service.view$);
-  const labels = async () => (await view()).groups.flatMap(group => group.rows.flatMap(row =>
+  const groups = async () => (await view()).sections.flatMap(section => section.groups);
+  const labels = async () => (await groups()).flatMap(group => group.rows.flatMap(row =>
     [`${row.entry.label}:${row.state}`, ...row.children.map(child => `${child.entry.label}:${child.state}`)]));
 
   beforeEach(async () => {
@@ -63,7 +64,7 @@ describe('ShoppingListService', () => {
     const navigateByUrl = vi.spyOn(router, 'navigateByUrl');
     const dirtyBefore = currentBuild.value.isDirty;
 
-    service.toggle((await view()).groups[0].rows[0]);
+    service.toggle((await groups())[0].rows[0]);
     await TestBed.inject(ApplicationRef).whenStable();
 
     expect(await labels()).toEqual(['Ring of Tests:checked', 'Diamond of Tests:unchecked']);
@@ -83,7 +84,7 @@ describe('ShoppingListService', () => {
 
   it('remembers how the list is grouped, and writes the still-needed text grouped by quest', async () => {
     service.setGroupMode('source');
-    expect((await view()).groups.map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
+    expect((await groups()).map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
     expect(localStorage.getItem(GROUP_MODE_KEY)).toBe('source');
 
     service.setGroupMode('slot');

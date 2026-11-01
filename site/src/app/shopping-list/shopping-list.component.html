@@ -46,26 +46,33 @@
   @if (view) {
     @if (!view.total) {
       <p class="shopping-list-empty">Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.</p>
-    } @else if (!view.groups.length) {
+    } @else if (!view.sections.length) {
       <p class="shopping-list-empty">Everything is ticked off.</p>
     }
-    @for (group of view.groups; track group.id) {
-      <section class="shopping-group" [attr.aria-label]="group.label">
-        <h3 class="shopping-group-title">
-          <span class="shopping-group-name">{{group.label}}</span>
-          @if (group.sublabel) {
-            <span class="shopping-group-sublabel">{{group.sublabel}}</span>
-          }
-          @if (group.raid) {
-            <span class="loot-badge raid-loot-badge">Raid</span>
-          }
-          <span class="shopping-group-count">{{group.acquired}}/{{group.total}}</span>
-        </h3>
-        <ul class="shopping-rows">
-          @for (row of group.rows; track row.id) {
-            <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
-          }
-        </ul>
+    @for (section of view.sections; track section.id) {
+      <section class="shopping-section" [attr.aria-label]="section.label">
+        @if (section.label) {
+          <h3 class="shopping-section-title">
+            <span class="shopping-section-name">{{section.label}}</span>
+            <span class="shopping-section-count">{{section.acquired}}/{{section.total}}</span>
+          </h3>
+        }
+        @for (group of section.groups; track group.id) {
+          <section class="shopping-group" [attr.aria-label]="group.label">
+            <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
+              <span class="shopping-group-name">{{group.label}}</span>
+              @if (group.raid) {
+                <span class="loot-badge raid-loot-badge">Raid</span>
+              }
+              <span class="shopping-group-count">{{group.acquired}}/{{group.total}}</span>
+            </div>
+            <ul class="shopping-rows">
+              @for (row of group.rows; track row.id) {
+                <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
+              }
+            </ul>
+          </section>
+        }
       </section>
     }
   }

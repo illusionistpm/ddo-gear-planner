@@ -121,10 +121,22 @@ describe('ShoppingListComponent', () => {
     expect(service.toggle).toHaveBeenCalledWith(expect.objectContaining({ entryKeys: [augment.key] }));
   });
 
-  it('groups by quest without repeating the quest on each row', () => {
+  it('groups by quest under pack headings, without repeating the quest on each row', () => {
     show({}, 'source');
 
-    expect(groupTitles()).toEqual(['The Raid', 'The Snitch', 'Unknown source']);
+    const sections = Array.from(el().querySelectorAll('.shopping-section')).map(section => [
+      section.querySelector('.shopping-section-name')?.textContent?.trim(),
+      Array.from(section.querySelectorAll('.shopping-group-title')).map(title => [
+        title.querySelector('.shopping-group-name')?.textContent?.trim(),
+        title.querySelector('.shopping-group-count')?.textContent?.trim(),
+      ]),
+    ]);
+    expect(sections).toEqual([
+      ['Raid Pack', [['The Raid', '0/2']]],
+      ['Other sources', [['The Snitch', '1/2'], ['Unknown source', '0/1']]],
+    ]);
+    // The pack is the heading, so the quest card doesn't repeat it.
+    expect(el().querySelector('.shopping-group-title')?.textContent).not.toContain('Raid Pack');
     expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();
     expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).toContain('for Sword (Weapon)');
   });

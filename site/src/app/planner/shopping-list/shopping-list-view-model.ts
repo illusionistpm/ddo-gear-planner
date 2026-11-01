@@ -2,7 +2,7 @@ import { slotLabel } from '../../gear/slot-display';
 import type { UserItemLocation } from '../user-gear.service';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingGroupMode, ShoppingListView, ShoppingProgress,
-  ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingTroveLookup
+  ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingTroveLookup
 } from './shopping-list-types';
 
 /**
@@ -16,6 +16,8 @@ import type {
  */
 
 export const UNKNOWN_SOURCE_LABEL = 'Unknown source';
+/** The heading for quests that aren't in a pack, or that quests.json doesn't place. */
+export const OTHER_SOURCES_LABEL = 'Other sources';
 
 export interface ShoppingListViewOptions {
   groupMode: ShoppingGroupMode;
@@ -122,15 +124,45 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   }
   const context: RowContext = { progress, covered, trove, inBuild };
 
-  const allGroups = options.groupMode === 'slot'
-    ? groupBySlot(entries, context)
-    : groupBySource(entries, context);
-  const groups = options.filter === 'needed'
-    ? allGroups.map(group => ({ ...group, rows: neededRows(group.rows) })).filter(group => group.rows.length)
-    : allGroups;
+  const allSections = options.groupMode === 'slot'
+    ? [section('slots', null, groupBySlot(entries, context), context)]
+    : sectionsByPack(groupBySource(entries, context), context);
+  const sections = options.filter === 'needed'
+    ? allSections.map(({ groups, ...rest }) => ({
+      ...rest,
+      groups: groups.map(group => ({ ...group, rows: neededRows(group.rows) })).filter(group => group.rows.length),
+    })).filter(candidate => candidate.groups.length)
+    : allSections;
 
   const acquired = entries.filter(entry => isEntryAcquired(entry.key, progress, covered)).length;
-  return { groups, acquired, total: entries.length, groupMode: options.groupMode, filter: options.filter };
+  return { sections, acquired, total: entries.length, groupMode: options.groupMode, filter: options.filter };
+}
+
+/** Totals count each entry once, though by source it may be listed under several quests. */
+function section(id: string, label: string | null, groups: ShoppingGroup[], context: RowContext): ShoppingSection {
+  const keys = new Set<string>();
+  const collect = (rows: readonly ShoppingRow[]) => rows.forEach(row => {
+    row.entryKeys.forEach(key => keys.add(key));
+    collect(row.children);
+  });
+  groups.forEach(group => collect(group.rows));
+  const acquired = Array.from(keys).filter(key => isEntryAcquired(key, context.progress, context.covered)).length;
+  return { id, label, groups, acquired, total: keys.size };
+}
+
+/** A heading per pack, by name, then the quests not in one; each pack's quests by name, unknown last. */
+function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): ShoppingSection[] {
+  const byPack = new Map<string, SourceGroup[]>();
+  for (const group of groups) {
+    const pack = group.pack ?? '';
+    byPack.set(pack, [...(byPack.get(pack) ?? []), group]);
+  }
+  const packs = Array.from(byPack.keys()).sort((a, b) => !a !== !b ? (a ? -1 : 1) : a.localeCompare(b));
+  return packs.map(pack => {
+    const members = byPack.get(pack)!.sort((a, b) =>
+      a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));
+    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => member.group), context);
+  });
 }
 
 function neededRows(rows: ShoppingRow[]): ShoppingRow[] {
@@ -204,7 +236,6 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
     groups.push({
       id,
       label: slotLabel(gear.slot),
-      sublabel: null,
       slot: gear.slot,
       raid: gear.raid,
       rows: foldRows([gear], id, context, () => foldRows(crafted, `${id}|${gear.key}`, context, () => [], () => null),
@@ -221,7 +252,13 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
  * a source of its own is listed there, saying what it's for. Something that
  * comes from several quests is listed under each, as any of them will do.
  */
-function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): ShoppingGroup[] {
+interface SourceGroup {
+  group: ShoppingGroup;
+  pack: string | null;
+  unknown: boolean;
+}
+
+function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): SourceGroup[] {
   const parents = new Map(entries.filter(entry => entry.kind === 'gear').map(entry => [entry.key, entry]));
   const nestsUnderItem = (entry: ShoppingEntry) => entry.kind === 'step' && entry.sourceInherited;
   const bySource = new Map<string, ShoppingEntry[]>();
@@ -254,33 +291,24 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
     return parent ? `for ${parent.label} (${slotLabel(parent.slot)})` : null;
   };
 
-  const groups = Array.from(bySource.entries(), ([quest, members]): ShoppingGroup => {
+  return Array.from(bySource.entries(), ([quest, members]): SourceGroup => {
     const id = `source:${quest}`;
     const nested = entries.filter(entry => nestsUnderItem(entry) && members.some(member => member.key === entry.parentKey));
     const here = members.flatMap(member => member.sources.filter(source => source.quest === quest));
     return {
-      id,
-      label: quest || UNKNOWN_SOURCE_LABEL,
-      sublabel: here.find(source => source.pack)?.pack ?? null,
-      slot: null,
-      raid: here.some(source => source.raid),
-      rows: foldRows(members, id, context, folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
-        folded => folded[0].kind === 'gear' ? null : forWhat(folded),
-        folded => otherQuests(folded[0], quest)),
-      ...groupTotals([...members, ...nested], context),
+      pack: here.find(source => source.pack)?.pack ?? null,
+      unknown: !quest,
+      group: {
+        id,
+        label: quest || UNKNOWN_SOURCE_LABEL,
+        slot: null,
+        raid: here.some(source => source.raid),
+        rows: foldRows(members, id, context,
+          folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
+          folded => folded[0].kind === 'gear' ? null : forWhat(folded),
+          folded => otherQuests(folded[0], quest)),
+        ...groupTotals([...members, ...nested], context),
+      },
     };
-  });
-
-  // By pack then quest, so a pack's quests are together; unknown sources last.
-  return groups.sort((a, b) => {
-    const unknownA = a.id === 'source:';
-    const unknownB = b.id === 'source:';
-    if (unknownA !== unknownB) {
-      return unknownA ? 1 : -1;
-    }
-    if (!a.sublabel !== !b.sublabel) {
-      return a.sublabel ? -1 : 1;
-    }
-    return (a.sublabel ?? '').localeCompare(b.sublabel ?? '') || a.label.localeCompare(b.label);
   });
 }

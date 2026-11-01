@@ -82,10 +82,10 @@ export interface ShoppingRow {
   children: ShoppingRow[];
 }
 
+/** A card of the list: one slot's item, or one quest. */
 export interface ShoppingGroup {
   id: string;
   label: string;
-  sublabel: string | null;
   /** The slot, when grouping by slot (for its icon). */
   slot: string | null;
   raid: boolean;
@@ -94,8 +94,21 @@ export interface ShoppingGroup {
   total: number;
 }
 
-export interface ShoppingListView {
+/**
+ * Cards under one heading: by source, a pack's quests. By slot there is one
+ * section, without a heading.
+ */
+export interface ShoppingSection {
+  id: string;
+  label: string | null;
   groups: ShoppingGroup[];
+  /** Entries in the section, each counted once however many of its quests it's listed under. */
+  acquired: number;
+  total: number;
+}
+
+export interface ShoppingListView {
+  sections: ShoppingSection[];
   acquired: number;
   total: number;
   groupMode: ShoppingGroupMode;

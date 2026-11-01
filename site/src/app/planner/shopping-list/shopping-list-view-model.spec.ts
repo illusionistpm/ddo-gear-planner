@@ -1,8 +1,8 @@
 import type { UserItemLocation } from '../user-gear.service';
 import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
-  applyProgressPatch, buildShoppingListView, prunePatch, stillNeededKeys, togglePatch, troveCoveredKeys,
-  UNKNOWN_SOURCE_LABEL
+  applyProgressPatch, buildShoppingListView, OTHER_SOURCES_LABEL, prunePatch, stillNeededKeys, togglePatch,
+  troveCoveredKeys, UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
@@ -44,6 +44,10 @@ const mystery = entry({ key: 'a|Weapon|Colorless#0|Diamond', kind: 'augment', sl
 
 const entries = [sword, swordStep, mystery, ring1, aug1, ring2, aug2];
 
+function groupsOf(view: ReturnType<typeof buildShoppingListView>) {
+  return view.sections.flatMap(section => section.groups);
+}
+
 function rows(view: ReturnType<typeof buildShoppingListView>): Array<[string, string, number, string]> {
   const out: Array<[string, string, number, string]> = [];
   const walk = (group: string, list: ShoppingRow[], depth: string) => {
@@ -52,7 +56,7 @@ function rows(view: ReturnType<typeof buildShoppingListView>): Array<[string, st
       walk(group, row.children, depth + '  ');
     }
   };
-  for (const group of view.groups) {
+  for (const group of groupsOf(view)) {
     walk(group.label, group.rows, '');
   }
   return out;
@@ -92,28 +96,32 @@ describe('shopping list view model', () => {
         ['Ring 2', 'Ring', 1, 'unchecked'],
         ['Ring 2', '  Sapphire', 1, 'unchecked'],
       ]);
-      expect(view.groups.map(group => [group.slot, group.acquired, group.total]))
+      expect(groupsOf(view).map(group => [group.slot, group.acquired, group.total]))
         .toEqual([['Weapon', 1, 3], ['Ring1', 1, 2], ['Ring2', 0, 2]]);
       expect([view.acquired, view.total]).toEqual([2, 7]);
     });
 
     it('tells how many of the same thing the build needs, and where the trove has it', () => {
       const view = buildShoppingListView(entries, {}, trove({ Ring: 1 }), { groupMode: 'slot', filter: 'all' });
-      const ringRow = view.groups[1].rows[0];
+      const ringRow = groupsOf(view)[1].rows[0];
 
       expect(ringRow.quantityInBuild).toBe(2);
       expect(ringRow.ownedLocations).toEqual([expect.objectContaining({ character: 'Khalarim' })]);
-      expect(view.groups[0].rows[0].ownedLocations).toBeNull();
+      expect(groupsOf(view)[0].rows[0].ownedLocations).toBeNull();
     });
   });
 
   describe('by source', () => {
-    it('groups by source, sorted by pack then name with unknown last, folding the same thing together', () => {
+    it('groups by source under each pack, packs then quests by name, the rest last, folding the same thing together', () => {
       const view = buildShoppingListView(entries, {}, trove({ Sapphire: 1 }), { groupMode: 'source', filter: 'all' });
 
-      expect(view.groups.map(group => [group.label, group.sublabel, group.raid]))
-        .toEqual([['The Raid', 'Raid Pack', true], ['The Snitch', 'Sharn', false], ['Vendor', null, false],
-          [UNKNOWN_SOURCE_LABEL, null, false]]);
+      expect(view.sections.map(section => [section.label, section.groups.map(group => [group.label, group.raid])]))
+        .toEqual([
+          ['Raid Pack', [['The Raid', true]]],
+          ['Sharn', [['The Snitch', false]]],
+          [OTHER_SOURCES_LABEL, [['Vendor', false], [UNKNOWN_SOURCE_LABEL, false]]],
+        ]);
+      expect(view.sections.map(section => [section.acquired, section.total])).toEqual([[0, 2], [0, 2], [1, 3]]);
       expect(rows(view)).toEqual([
         ['The Raid', 'Sword', 1, 'unchecked'],
         ['The Raid', '  Set', 1, 'unchecked'],
@@ -125,7 +133,7 @@ describe('shopping list view model', () => {
 
     it('says what a separately sourced piece is for', () => {
       const view = buildShoppingListView(entries, {}, null, { groupMode: 'source', filter: 'all' });
-      const context = (label: string) => view.groups.flatMap(group => group.rows).find(row => row.entry.label === label)?.context;
+      const context = (label: string) => groupsOf(view).flatMap(group => group.rows).find(row => row.entry.label === label)?.context;
 
       expect(context('Diamond')).toBe('for Sword (Weapon)');
       expect(context('Sapphire')).toBe('for 2 items');
@@ -136,12 +144,15 @@ describe('shopping list view model', () => {
       const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
       const view = buildShoppingListView([sword, swordStep, anywhere, ring1], {}, null,
         { groupMode: 'source', filter: 'all' });
-      const rowsOf = (label: string) => view.groups.find(group => group.label === label)!.rows;
+      const rowsOf = (label: string) => groupsOf(view).find(group => group.label === label)!.rows;
 
       expect(rowsOf('The Raid').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sword', []], ['Sapphire', ['Vendor']]]);
       expect(rowsOf('Vendor').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sapphire', ['The Raid']]]);
-      expect(view.groups.find(group => group.label === 'The Raid')!.total).toBe(3);
+      expect(groupsOf(view).find(group => group.label === 'The Raid')!.total).toBe(3);
       expect(view.total).toBe(4);
+      // Listed under quests in two packs; each pack counts it.
+      expect(view.sections.map(section => [section.label, section.total]))
+        .toEqual([['Raid Pack', 3], ['Sharn', 1], [OTHER_SOURCES_LABEL, 1]]);
     });
   });
 
@@ -160,7 +171,7 @@ describe('shopping list view model', () => {
   describe('togglePatch', () => {
     const toggle = (label: string, progress: ShoppingProgress, holdings: Record<string, number> = {}) => {
       const view = buildShoppingListView(entries, progress, trove(holdings), { groupMode: 'source', filter: 'all' });
-      const row = view.groups.flatMap(group => group.rows).find(candidate => candidate.entry.label === label)!;
+      const row = groupsOf(view).flatMap(group => group.rows).find(candidate => candidate.entry.label === label)!;
       return togglePatch(row, entries, progress, trove(holdings));
     };
 

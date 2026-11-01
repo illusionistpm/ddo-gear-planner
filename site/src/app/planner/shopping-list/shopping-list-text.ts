@@ -13,12 +13,19 @@ export function formatShoppingListText(view: ShoppingListView, buildName: string
   }
 
   const lines = [`Still needed for ${name} (${needed}):`];
-  for (const group of view.groups) {
-    const notes = [group.sublabel, group.raid ? 'raid' : null].filter(Boolean);
-    lines.push('', notes.length ? `${group.label} (${notes.join(', ')})` : group.label);
-    for (const row of group.rows) {
-      pushRow(lines, row, '');
+  for (const section of view.sections) {
+    if (section.label) {
+      lines.push('', `== ${section.label} ==`);
     }
+    section.groups.forEach((group, index) => {
+      if (index > 0 || !section.label) {
+        lines.push('');
+      }
+      lines.push(group.raid ? `${group.label} (raid)` : group.label);
+      for (const row of group.rows) {
+        pushRow(lines, row, '');
+      }
+    });
   }
   return lines.join('\n');
 }

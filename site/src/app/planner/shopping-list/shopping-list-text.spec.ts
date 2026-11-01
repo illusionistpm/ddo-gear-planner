@@ -1,24 +1,28 @@
-import type { ShoppingEntry } from './shopping-list-types';
+import type { ShoppingEntry, ShoppingSource } from './shopping-list-types';
 import { formatShoppingListText } from './shopping-list-text';
 import { buildShoppingListView } from './shopping-list-view-model';
+
+function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
+  return { quest, pack, raid };
+}
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
     kind: 'gear', slot: 'Ring1', identity: init.key, label: init.key, system: null, itemName: init.key, ml: 0,
-    source: null, sourceInherited: false, pack: null, raid: false, rare: false, artifact: false,
+    sources: [], sourceInherited: false, raid: false, rare: false, artifact: false,
     wikiUrl: null, troveName: null, parentKey: null, details: [],
     ...init,
   };
 }
 
 const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword', ml: 32,
-  source: 'The Raid', pack: 'Raid Pack', raid: true, details: ['Strength +5 Enhancement'] });
+  sources: [from('The Raid', 'Raid Pack', true)], raid: true, details: ['Strength +5 Enhancement'] });
 const step = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step', slot: 'Weapon', identity: 'step|lp',
-  label: 'Armaments of the Archons', system: 'Lost Purpose', source: 'The Raid', sourceInherited: true,
+  label: 'Armaments of the Archons', system: 'Lost Purpose', sources: sword.sources, sourceInherited: true,
   parentKey: sword.key });
-const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', ml: 30, source: 'The Snitch' });
+const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', ml: 30, sources: [from('The Snitch')] });
 const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring', ml: 30,
-  source: 'The Snitch' });
+  sources: [from('The Snitch')] });
 const augment = entry({ key: 'a|Weapon|Red#0|Ruby', kind: 'augment', slot: 'Weapon', identity: 'augment|Ruby',
   label: 'Ruby of Frost', parentKey: sword.key });
 const entries = [sword, step, augment, ring1, ring2];
@@ -56,6 +60,17 @@ describe('formatShoppingListText', () => {
       'The Snitch',
       '- Ring x2 (ML 30)',
     ].join('\n'));
+  });
+
+  it('says where else something comes from, naming up to two quests', () => {
+    const twice = entry({ ...augment, sources: [from('The Raid', 'Raid Pack', true), from('Vendor')] });
+    const everywhere = entry({ ...augment, key: 'a|Weapon|Red#1|Ruby', sources: ['A', 'B', 'C', 'D'].map(quest => from(quest)) });
+    const listed = (list: ShoppingEntry[]) => formatShoppingListText(
+      buildShoppingListView(list, {}, null, { groupMode: 'source', filter: 'needed' }), 'Tank').split('\n');
+
+    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from Vendor)');
+    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from The Raid)');
+    expect(listed([sword, everywhere])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from 3 other quests)');
   });
 
   it('says when there is nothing left to get', () => {

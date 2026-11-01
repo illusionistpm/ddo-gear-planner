@@ -24,7 +24,7 @@ function chosen(name: string, options: CraftableOption[], selection: string): Cr
 }
 
 describe('deriveShoppingEntries', () => {
-  it('lists each equipped item with its source, in display order, skipping empty slots', () => {
+  it('lists each equipped item with its sources, in display order, skipping empty slots', () => {
     const entries = deriveShoppingEntries(slots({
       Ring1: item({ name: 'Ring of Things' }),
       Weapon: item({ name: 'Big Sword', slot: 'Weapon', quests: ['The Raid'], url: '/page/Item:Big_Sword' }),
@@ -33,15 +33,36 @@ describe('deriveShoppingEntries', () => {
 
     expect(entries.map(entry => entry.key)).toEqual(['g|Weapon|Big Sword', 'g|Ring1|Ring of Things']);
     expect(entries[0]).toEqual(expect.objectContaining({
-      kind: 'gear', label: 'Big Sword', source: 'The Raid', pack: 'Raid Pack', raid: true,
+      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true }], raid: true,
       wikiUrl: 'http://ddowiki.com/page/Item:Big_Sword', troveName: 'Big Sword', parentKey: null,
     }));
-    expect(entries[1]).toEqual(expect.objectContaining({ source: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: null }));
+    expect(entries[1]).toEqual(expect.objectContaining({
+      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false }], raid: false, wikiUrl: null,
+    }));
   });
 
-  it('prefers the item\'s own pack to the one its quest maps to', () => {
-    const [entry] = deriveShoppingEntries(slots({ Ring1: item({ name: 'Packed', pack: 'Own Pack' }) }), sources);
-    expect(entry.pack).toBe('Own Pack');
+  it('lists every quest an item comes from, each with its own pack', () => {
+    const [entry] = deriveShoppingEntries(slots({
+      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', 'The Raid', 'Augment Vendor'], pack: 'Own Pack' }),
+    }), sources);
+
+    // The item's own pack can't say which of several quests it belongs to.
+    expect(entry.sources).toEqual([
+      { quest: 'The Snitch', pack: 'Sharn Pack', raid: false },
+      { quest: 'The Raid', pack: 'Raid Pack', raid: true },
+      { quest: 'Augment Vendor', pack: null, raid: false },
+    ]);
+    expect(entry.raid).toBe(true);
+  });
+
+  it('falls back to the item\'s own pack when quests.json doesn\'t place its one quest', () => {
+    const [placed] = deriveShoppingEntries(slots({ Ring1: item({ name: 'Placed', pack: 'Own Pack' }) }), sources);
+    const [unplaced] = deriveShoppingEntries(slots({
+      Ring1: item({ name: 'Unplaced', quests: ['Augment Vendor'], pack: 'Own Pack' }),
+    }), sources);
+
+    expect(placed.sources[0].pack).toBe('Sharn Pack');
+    expect(unplaced.sources[0].pack).toBe('Own Pack');
   });
 
   it('gives the same item in two slots separate keys and one identity', () => {
@@ -72,12 +93,13 @@ describe('deriveShoppingEntries', () => {
       'a|Ring1|Colorless Augment Slot#1|Diamond of Balance',
     ]);
     expect(entries[1]).toEqual(expect.objectContaining({
-      kind: 'augment', label: 'Sapphire of Things', ml: 20, source: 'Augment Vendor', sourceInherited: false, pack: null,
+      kind: 'augment', label: 'Sapphire of Things', ml: 20, sourceInherited: false,
+      sources: [{ quest: 'Augment Vendor', pack: null, raid: false }],
       identity: 'augment|Sapphire of Things', troveName: 'Sapphire of Things', parentKey: 'g|Ring1|Ring of Things',
       wikiUrl: 'https://ddowiki.com/page/Item:Sapphire_of_Things',
     }));
     // No source in the data: unknown, not the item's quest.
-    expect(entries[2]).toEqual(expect.objectContaining({ source: null, sourceInherited: false }));
+    expect(entries[2]).toEqual(expect.objectContaining({ sources: [], sourceInherited: false }));
   });
 
   it('reads an augment chosen in a slot that picks its colour first', () => {
@@ -115,7 +137,7 @@ describe('deriveShoppingEntries', () => {
       }),
     }), sources);
 
-    expect(entries.slice(1).map(entry => [entry.key, entry.kind, entry.source, entry.sourceInherited])).toEqual([
+    expect(entries.slice(1).map(entry => [entry.key, entry.kind, entry.sources[0].quest, entry.sourceInherited])).toEqual([
       ['u|Ring1|Ring of Things|Dolorous (Accessory)#0|Dolorous Shard', 'upgrade', 'The Raid', false],
       ['s|Ring1|Ring of Things|Lost Purpose#0|Lost Purpose: Things', 'step', 'The Snitch', true],
       ['s|Ring1|Ring of Things|T1 (Equipment)#0|Fire1', 'step', 'Altar', false],
@@ -124,7 +146,8 @@ describe('deriveShoppingEntries', () => {
       raid: true, troveName: 'Dolorous Shard',
       wikiUrl: 'https://ddowiki.com/page/Special:Search?go=Go&search=Dolorous%20Shard',
     }));
-    expect(entries[2]).toEqual(expect.objectContaining({ pack: 'Sharn Pack', troveName: null, wikiUrl: null }));
+    expect(entries[2]).toEqual(expect.objectContaining({ troveName: null, wikiUrl: null }));
+    expect(entries[2].sources).toBe(entries[0].sources);
   });
 
   it('shows random properties on the item rather than as things to get', () => {
@@ -142,7 +165,7 @@ describe('deriveShoppingEntries', () => {
       Ring1: item({ name: 'Essence Crafting Ring', quests: [] }),
     }), sources);
 
-    expect(entry.source).toBe(CANNITH_CRAFTING_SOURCE);
+    expect(entry.sources.map(source => source.quest)).toEqual([CANNITH_CRAFTING_SOURCE]);
     expect(entry.troveName).toBeNull();
   });
 

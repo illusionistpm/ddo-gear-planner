@@ -102,12 +102,21 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** Where it comes from, unless the group heading or the item above already says. */
-  rowSource(row: ShoppingRow): string | null {
+  /**
+   * Where it comes from, unless the group heading or the item above already
+   * says: the first source, and the rest behind a "+N more".
+   */
+  rowSource(row: ShoppingRow): { first: string; others: string[] } | null {
     if (this.view?.groupMode === 'source' || row.entry.sourceInherited) {
       return null;
     }
-    return row.entry.source ?? 'Source unknown';
+    const [first, ...others] = row.entry.sources.map(source => source.quest);
+    return { first: first ?? 'Source unknown', others };
+  }
+
+  /** The tooltip listing the quests a row doesn't name. */
+  alsoFromTooltip(quests: readonly string[]): string {
+    return ['Also from:', ...quests].join('\n');
   }
 
   /** In source view a row for gear says which slot it's for. */

@@ -3,7 +3,7 @@ import { classifyCraftSelection, craftSystemName } from '../../gear/crafting-acq
 import type { Craftable } from '../../gear/craftable';
 import type { Item } from '../../gear/item';
 import { sortSlotsForDisplay } from '../../gear/slot-display';
-import type { ShoppingEntry, ShoppingEntryKind } from './shopping-list-types';
+import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shopping-list-types';
 
 /**
  * Turns the equipped gear into the list of things to get.
@@ -46,6 +46,19 @@ function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
     : WIKI_SEARCH_URL + encodeURIComponent(name);
 }
 
+/**
+ * Each quest's pack comes from quests.json. An item's own pack stands in for
+ * one quests.json doesn't place, but only when the item has a single quest:
+ * with several, there's no telling which of them it belongs to.
+ */
+function sourcesFor(quests: readonly string[], itemPack: string | null, lookup: ShoppingSourceLookup): ShoppingSource[] {
+  return quests.map(quest => ({
+    quest,
+    pack: lookup.packOf(quest) ?? (quests.length === 1 ? itemPack : null),
+    raid: lookup.isRaid(quest),
+  }));
+}
+
 export function shoppingGearKey(slot: string, itemName: string): string {
   return `g|${slot}|${itemName}`;
 }
@@ -64,7 +77,8 @@ export function deriveShoppingEntries(
 
 function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup): ShoppingEntry[] {
   const blank = item.isGeneratedEssenceCraftingBlank();
-  const itemSource = item.quests?.[0] ?? (blank ? CANNITH_CRAFTING_SOURCE : null);
+  const quests = item.quests?.length ? item.quests : blank ? [CANNITH_CRAFTING_SOURCE] : [];
+  const itemSources = sourcesFor(quests, item.pack || null, sources);
   const gearKey = shoppingGearKey(slot, item.name);
   const gear: ShoppingEntry = {
     key: gearKey,
@@ -75,10 +89,9 @@ function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup)
     system: null,
     itemName: item.name,
     ml: item.ml,
-    source: itemSource,
+    sources: itemSources,
     sourceInherited: false,
-    pack: item.pack || (itemSource ? sources.packOf(itemSource) : null),
-    raid: !!item.quests?.some(quest => sources.isRaid(quest)),
+    raid: itemSources.some(source => source.raid),
     rare: item.rare,
     artifact: item.artifact,
     wikiUrl: item.url ? item.getURL() : null,
@@ -114,10 +127,9 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
     craftable: Craftable, craftSlot: string, system: string, sources: ShoppingSourceLookup): ShoppingEntry {
   const option = craftable.selected;
   const selection = craftable.getSelectedParamDescription();
-  const ownSource = option.quests[0] ?? null;
   // An augment that names no source still doesn't drop where the item does.
-  const inherits = !ownSource && kind === 'step';
-  const source = inherits ? gear.source : ownSource;
+  const inherits = !option.quests.length && kind === 'step';
+  const optionSources = inherits ? gear.sources : sourcesFor(option.quests, null, sources);
   const fetchedAlone = kind === 'augment' || kind === 'upgrade';
 
   return {
@@ -133,10 +145,9 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
     system,
     itemName: item.name,
     ml: option.ml,
-    source,
+    sources: optionSources,
     sourceInherited: inherits,
-    pack: inherits ? gear.pack : (source ? sources.packOf(source) : null),
-    raid: inherits ? gear.raid : !!source && sources.isRaid(source),
+    raid: optionSources.some(source => source.raid),
     rare: false,
     artifact: false,
     wikiUrl: fetchedAlone && option.name ? craftedWikiUrl(kind, option.name) : null,

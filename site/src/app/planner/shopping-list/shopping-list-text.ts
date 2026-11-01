@@ -38,6 +38,9 @@ function pushRow(lines: string[], row: ShoppingRow, indent: string): void {
   if (row.context) {
     notes.push(row.context);
   }
+  if (row.alsoFrom.length) {
+    notes.push(`also from ${alsoFromText(row.alsoFrom)}`);
+  }
   if (row.entry.details.length) {
     notes.push(`roll: ${row.entry.details.join(', ')}`);
   }
@@ -48,4 +51,9 @@ function pushRow(lines: string[], row: ShoppingRow, indent: string): void {
   for (const child of row.children) {
     pushRow(lines, child, indent + '  ');
   }
+}
+
+/** Names a couple of other quests; past that, just how many, or the line runs on. */
+function alsoFromText(quests: readonly string[]): string {
+  return quests.length <= 2 ? quests.join(', ') : `${quests.length} other quests`;
 }

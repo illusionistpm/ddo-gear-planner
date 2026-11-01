@@ -8,6 +8,13 @@ import type { UserItemLocation } from '../user-gear.service';
  */
 export type ShoppingEntryKind = 'gear' | 'augment' | 'upgrade' | 'step';
 
+/** One place a thing comes from. */
+export interface ShoppingSource {
+  quest: string;
+  pack: string | null;
+  raid: boolean;
+}
+
 /** One thing to get for one slot: the unit a checkbox ticks off. */
 export interface ShoppingEntry {
   /** Stable progress key; see shopping-list-entries.ts for the scheme. */
@@ -22,11 +29,11 @@ export interface ShoppingEntry {
   /** The item the entry is for (for gear, its own name). */
   itemName: string;
   ml: number;
-  /** Where it drops or is crafted; null when the data doesn't say. */
-  source: string | null;
-  /** True when the source is the item's, because the option names none of its own. */
+  /** Where it drops or is crafted, as the data lists them; empty when it doesn't say. */
+  sources: readonly ShoppingSource[];
+  /** True when the sources are the item's, because the option names none of its own. */
   sourceInherited: boolean;
-  pack: string | null;
+  /** True when any source is a raid. */
   raid: boolean;
   rare: boolean;
   artifact: boolean;
@@ -68,8 +75,10 @@ export interface ShoppingRow {
   state: ShoppingRowState;
   /** Where the trove has it, or null when it doesn't. */
   ownedLocations: readonly UserItemLocation[] | null;
-  /** In source view, crafting rows listed under their item rather than on their own. */
+  /** In source view, what a crafting row is for: the item it goes in. */
   context: string | null;
+  /** In source view, the row's other sources, besides the one it's listed under. */
+  alsoFrom: string[];
   children: ShoppingRow[];
 }
 

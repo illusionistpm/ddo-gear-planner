@@ -147,7 +147,8 @@ function neededRows(rows: ShoppingRow[]): ShoppingRow[] {
 /** Folds entries into rows, one per identity, in first-seen order. */
 function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: RowContext,
     childrenOf: (folded: readonly ShoppingEntry[]) => ShoppingRow[],
-    contextOf: (folded: readonly ShoppingEntry[]) => string | null): ShoppingRow[] {
+    contextOf: (folded: readonly ShoppingEntry[]) => string | null,
+    alsoFromOf: (folded: readonly ShoppingEntry[]) => string[] = () => []): ShoppingRow[] {
   const byIdentity = new Map<string, ShoppingEntry[]>();
   for (const entry of entries) {
     const same = byIdentity.get(entry.identity);
@@ -172,9 +173,15 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
       state: rowState(acquired, folded.length),
       ownedLocations: locations?.length ? locations : null,
       context: contextOf(folded),
+      alsoFrom: alsoFromOf(folded),
       children: childrenOf(folded),
     };
   });
+}
+
+/** The quests an entry comes from besides this one. */
+function otherQuests(entry: ShoppingEntry, quest: string): string[] {
+  return Array.from(new Set(entry.sources.map(source => source.quest))).filter(other => other !== quest);
 }
 
 function rowState(acquired: number, total: number): ShoppingRowState {
@@ -211,7 +218,8 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
 /**
  * One group per source, so everything from one quest is together. Crafting
  * that happens where its item comes from stays under the item; anything with
- * a source of its own is listed there, saying what it's for.
+ * a source of its own is listed there, saying what it's for. Something that
+ * comes from several quests is listed under each, as any of them will do.
  */
 function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): ShoppingGroup[] {
   const parents = new Map(entries.filter(entry => entry.kind === 'gear').map(entry => [entry.key, entry]));
@@ -221,12 +229,14 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
     if (nestsUnderItem(entry)) {
       continue;
     }
-    const source = entry.source ?? '';
-    const same = bySource.get(source);
-    if (same) {
-      same.push(entry);
-    } else {
-      bySource.set(source, [entry]);
+    const quests = entry.sources.length ? new Set(entry.sources.map(source => source.quest)) : [''];
+    for (const quest of quests) {
+      const same = bySource.get(quest);
+      if (same) {
+        same.push(entry);
+      } else {
+        bySource.set(quest, [entry]);
+      }
     }
   }
 
@@ -244,17 +254,19 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
     return parent ? `for ${parent.label} (${slotLabel(parent.slot)})` : null;
   };
 
-  const groups = Array.from(bySource.entries(), ([source, members]): ShoppingGroup => {
-    const id = `source:${source}`;
+  const groups = Array.from(bySource.entries(), ([quest, members]): ShoppingGroup => {
+    const id = `source:${quest}`;
     const nested = entries.filter(entry => nestsUnderItem(entry) && members.some(member => member.key === entry.parentKey));
+    const here = members.flatMap(member => member.sources.filter(source => source.quest === quest));
     return {
       id,
-      label: source || UNKNOWN_SOURCE_LABEL,
-      sublabel: members.find(member => member.pack)?.pack ?? null,
+      label: quest || UNKNOWN_SOURCE_LABEL,
+      sublabel: here.find(source => source.pack)?.pack ?? null,
       slot: null,
-      raid: members.some(member => member.raid),
+      raid: here.some(source => source.raid),
       rows: foldRows(members, id, context, folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
-        folded => folded[0].kind === 'gear' ? null : forWhat(folded)),
+        folded => folded[0].kind === 'gear' ? null : forWhat(folded),
+        folded => otherQuests(folded[0], quest)),
       ...groupTotals([...members, ...nested], context),
     };
   });

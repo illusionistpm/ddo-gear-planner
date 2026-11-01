@@ -108,7 +108,19 @@
             <span>ML {{row.entry.ml}}</span>
           }
           @if (rowSource(row); as source) {
-            <span class="shopping-row-source">{{source}}</span>
+            <span class="shopping-row-source">{{source.first}}</span>
+            @if (source.others.length) {
+              <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
+                <span class="shopping-row-more">+{{source.others.length}} more</span>
+              </app-tap-tooltip>
+            }
+          }
+          @if (row.alsoFrom.length === 1) {
+            <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
+          } @else if (row.alsoFrom.length) {
+            <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
+              <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
+            </app-tap-tooltip>
           }
           @if (row.entry.raid && view?.groupMode !== 'source') {
             <span class="loot-badge raid-loot-badge">Raid</span>

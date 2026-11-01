@@ -1,14 +1,18 @@
 import type { UserItemLocation } from '../user-gear.service';
-import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingTroveLookup } from './shopping-list-types';
+import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
   applyProgressPatch, buildShoppingListView, prunePatch, stillNeededKeys, togglePatch, troveCoveredKeys,
   UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
+function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
+  return { quest, pack, raid };
+}
+
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
     kind: 'gear', slot: 'Ring1', identity: init.key, label: init.key, system: null, itemName: init.key, ml: 1,
-    source: 'The Snitch', sourceInherited: false, pack: null, raid: false, rare: false, artifact: false,
+    sources: [from('The Snitch')], sourceInherited: false, raid: false, rare: false, artifact: false,
     wikiUrl: null, troveName: null, parentKey: null, details: [],
     ...init,
   };
@@ -24,19 +28,19 @@ function trove(holdings: Record<string, number>): ShoppingTroveLookup {
 
 // A ring in both ring slots, each with the same augment; a sword with a crafting step.
 const ring1 = entry({ key: 'g|Ring1|Ring', slot: 'Ring1', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
-  pack: 'Sharn' });
+  sources: [from('The Snitch', 'Sharn')] });
 const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
-  pack: 'Sharn' });
+  sources: [from('The Snitch', 'Sharn')] });
 const aug1 = entry({ key: 'a|Ring1|Blue#0|Sapphire', kind: 'augment', slot: 'Ring1', identity: 'augment|Sapphire',
-  label: 'Sapphire', source: 'Vendor', troveName: 'Sapphire', parentKey: ring1.key });
+  label: 'Sapphire', sources: [from('Vendor')], troveName: 'Sapphire', parentKey: ring1.key });
 const aug2 = entry({ key: 'a|Ring2|Blue#0|Sapphire', kind: 'augment', slot: 'Ring2', identity: 'augment|Sapphire',
-  label: 'Sapphire', source: 'Vendor', troveName: 'Sapphire', parentKey: ring2.key });
-const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword', source: 'The Raid',
-  raid: true, pack: 'Raid Pack' });
+  label: 'Sapphire', sources: [from('Vendor')], troveName: 'Sapphire', parentKey: ring2.key });
+const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword',
+  sources: [from('The Raid', 'Raid Pack', true)], raid: true });
 const swordStep = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step', slot: 'Weapon',
-  identity: 'step|Lost Purpose|Set|Sword', label: 'Set', source: 'The Raid', sourceInherited: true, parentKey: sword.key });
+  identity: 'step|Lost Purpose|Set|Sword', label: 'Set', sources: sword.sources, sourceInherited: true, parentKey: sword.key });
 const mystery = entry({ key: 'a|Weapon|Colorless#0|Diamond', kind: 'augment', slot: 'Weapon', identity: 'augment|Diamond',
-  label: 'Diamond', source: null, parentKey: sword.key });
+  label: 'Diamond', sources: [], parentKey: sword.key });
 
 const entries = [sword, swordStep, mystery, ring1, aug1, ring2, aug2];
 
@@ -126,6 +130,18 @@ describe('shopping list view model', () => {
       expect(context('Diamond')).toBe('for Sword (Weapon)');
       expect(context('Sapphire')).toBe('for 2 items');
       expect(context('Ring')).toBeNull();
+    });
+
+    it('lists something from several quests under each, counting it once', () => {
+      const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
+      const view = buildShoppingListView([sword, swordStep, anywhere, ring1], {}, null,
+        { groupMode: 'source', filter: 'all' });
+      const rowsOf = (label: string) => view.groups.find(group => group.label === label)!.rows;
+
+      expect(rowsOf('The Raid').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sword', []], ['Sapphire', ['Vendor']]]);
+      expect(rowsOf('Vendor').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sapphire', ['The Raid']]]);
+      expect(view.groups.find(group => group.label === 'The Raid')!.total).toBe(3);
+      expect(view.total).toBe(4);
     });
   });
 

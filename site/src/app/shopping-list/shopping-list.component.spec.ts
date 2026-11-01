@@ -3,31 +3,37 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
-import type { ShoppingEntry, ShoppingListView, ShoppingProgress } from '../planner/shopping-list/shopping-list-types';
+import type {
+  ShoppingEntry, ShoppingListView, ShoppingProgress, ShoppingSource
+} from '../planner/shopping-list/shopping-list-types';
 import { buildShoppingListView } from '../planner/shopping-list/shopping-list-view-model';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 
+function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
+  return { quest, pack, raid };
+}
+
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
     kind: 'gear', slot: 'Ring1', identity: init.key, label: init.key, system: null, itemName: init.key, ml: 0,
-    source: null, sourceInherited: false, pack: null, raid: false, rare: false, artifact: false,
+    sources: [], sourceInherited: false, raid: false, rare: false, artifact: false,
     wikiUrl: null, troveName: null, parentKey: null, details: [],
     ...init,
   };
 }
 
 const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword', ml: 32,
-  source: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: 'http://ddowiki.com/page/Item:Sword',
+  sources: [from('The Raid', 'Raid Pack', true)], raid: true, wikiUrl: 'http://ddowiki.com/page/Item:Sword',
   details: ['Strength +5 Enhancement'] });
 const step = entry({ key: 's|Weapon|Sword|LP#0|Set', kind: 'step', slot: 'Weapon', identity: 'step|lp', label: 'Archons',
-  system: 'Lost Purpose', source: 'The Raid', sourceInherited: true, parentKey: sword.key });
-const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', source: 'The Snitch', troveName: 'Ring',
-  rare: true });
-const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring', source: 'The Snitch',
+  system: 'Lost Purpose', sources: sword.sources, sourceInherited: true, parentKey: sword.key });
+const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', sources: [from('The Snitch')],
   troveName: 'Ring', rare: true });
+const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring',
+  sources: [from('The Snitch')], troveName: 'Ring', rare: true });
 const augment = entry({ key: 'a|Weapon|Red#0|Ruby', kind: 'augment', slot: 'Weapon', identity: 'augment|Ruby',
   label: 'Ruby', parentKey: sword.key });
 const entries = [sword, step, augment, ring1, ring2];
@@ -121,6 +127,26 @@ describe('ShoppingListComponent', () => {
     expect(groupTitles()).toEqual(['The Raid', 'The Snitch', 'Unknown source']);
     expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();
     expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).toContain('for Sword (Weapon)');
+  });
+
+  it('names an item\'s first source and offers the rest, or in quest view where else it comes from', () => {
+    const anywhere = entry({ key: 'g|Neck|Amulet', slot: 'Neck', identity: 'gear|Amulet', label: 'Amulet',
+      sources: [from('The Snitch'), from('The Raid'), from('Vendor')] });
+    show({}, 'slot', 'all', [anywhere]);
+
+    const meta = () => rowByName('Amulet').querySelector('.shopping-row-meta')!;
+    expect(meta().querySelector('.shopping-row-source')?.textContent?.trim()).toBe('The Snitch');
+    expect(meta().querySelector('.shopping-row-more')?.textContent?.trim()).toBe('+2 more');
+    expect(meta().querySelector('.tap-tooltip-trigger')?.getAttribute('title')).toBe('Also from:\nThe Raid\nVendor');
+
+    show({}, 'source', 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
+    const snitch = Array.from(el().querySelectorAll('.shopping-group'))
+      .find(group => group.querySelector('.shopping-group-name')?.textContent?.trim() === 'The Snitch')!;
+    const alsoFrom = (name: string) => Array.from(snitch.querySelectorAll<HTMLElement>('.shopping-row'))
+      .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!
+      .querySelector('.shopping-row-also, .shopping-row-more')?.textContent?.trim();
+    expect(alsoFrom('Amulet')).toBe('also from 2 other quests');
+    expect(alsoFrom('Ring')).toBe('also from Vendor');
   });
 
   it('switches grouping and filter through the service', () => {

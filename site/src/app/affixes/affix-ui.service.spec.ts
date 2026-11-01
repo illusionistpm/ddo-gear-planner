@@ -101,7 +101,7 @@ describe('AffixUiService', () => {
     const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
 
     expect(service.getClassForAffix(universalLore)).toBe(AffixRank[AffixRank.Best]);
-    expect(service.getAffixTooltip(universalLore)).toBe('Best equipped value');
+    expect(service.getAffixTooltip(universalLore)).toBe('Force Lore: +5 Exceptional: Best equipped value');
   });
 
   it('preserves the source type and value when expanding universal spell effects', () => {
@@ -131,9 +131,13 @@ describe('AffixUiService', () => {
     const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
 
     function makeService(ranks: Record<string, AffixRank>) {
+      const sources: Record<string, unknown[]> = {
+        'Fire Lore': [{ kind: 'item', itemName: 'Flame Ring', slot: 'Ring1' }],
+        'Acid Lore': [{ kind: 'set', slot: 'Set', itemName: 'Corroder' }],
+      };
       const equipped = {
         getAffixRanking: (affix: Affix) => ranks[affix.name] ?? AffixRank.Irrelevant,
-        getSourcesForAffixType: (name: string) => name === 'Fire Lore' ? [{ kind: 'item', itemName: 'Flame Ring', slot: 'Ring1' }] : [],
+        getSourcesForAffixType: (name: string) => sources[name] ?? [],
       };
       return new AffixUiService(equipped as any, new AffixService(), {} as any);
     }
@@ -142,8 +146,6 @@ describe('AffixUiService', () => {
       const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
 
       expect(service.getClassForAffix(universalLore)).toBe('Best PartialRank');
-      expect(service.getAffixTooltip(universalLore))
-        .toBe('Best equipped value\nNo gain from Fire Lore: overpowered by Flame Ring (Ring1)');
     });
 
     it('rank as their most useful part, unmarked, when every relevant part helps', () => {
@@ -156,6 +158,37 @@ describe('AffixUiService', () => {
       const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Penalty });
 
       expect(service.getClassForAffix(universalLore)).toBe('Mixed');
+      expect(service.getAffixTooltip(universalLore)).toContain('Fire Lore: +5 Exceptional: Penalty/negative effect');
+    });
+
+    it('rank a tracked group as itself as well as its parts', () => {
+      const service = makeService({ 'Universal Spell Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best PartialRank');
+      expect(service.getAffixTooltip(universalLore)).toBe(
+        'Universal Spell Lore: +5 Exceptional: Best equipped value\n'
+        + 'Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)');
+    });
+
+    it('describe a tracked group alone as it would any affix', () => {
+      const service = makeService({ 'Universal Spell Lore': AffixRank.Best });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best');
+      expect(service.getAffixTooltip(universalLore)).toBe('Best equipped value');
+    });
+
+    it('describe each relevant part, with what it is tied with or overpowered by', () => {
+      const service = makeService({
+        'Force Lore': AffixRank.Best,
+        'Fire Lore': AffixRank.Outranked,
+        'Acid Lore': AffixRank.BestTied,
+      });
+
+      expect(service.getAffixTooltip(universalLore).split('\n').sort()).toEqual([
+        'Acid Lore: +5 Exceptional: Tied with Corroder set bonus',
+        'Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)',
+        'Force Lore: +5 Exceptional: Best equipped value',
+      ]);
     });
 
     it('carry the partial mark into an option with several affixes', () => {
@@ -166,7 +199,7 @@ describe('AffixUiService', () => {
       ] });
 
       expect(service.getClassForCraftingOption(option)).toBe('Best PartialRank');
-      expect(service.getCraftingOptionRankTooltip(option)).toContain('No gain from Fire Lore');
+      expect(service.getCraftingOptionRankTooltip(option)).toContain('Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)');
     });
   });
 

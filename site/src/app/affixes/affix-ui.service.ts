@@ -34,8 +34,13 @@ interface RankDetails {
   sourceAffix: Affix;
   /** The build's best value today, when choosing the affix would lower it. */
   downgradeFrom?: number;
-  /** For a compound rank that helps: the parts of it that are outranked, and so add nothing. */
-  outrankedParts?: Affix[];
+  /**
+   * For a compound - an affix group, an option with several affixes, a set augment's bonuses -
+   * each component's own ranking, in order. The compound's tooltip is one line per component.
+   */
+  parts?: RankDetails[];
+  /** A compound that helps, but with some components outranked (which add nothing). */
+  partial?: boolean;
 }
 
 @Injectable({
@@ -148,12 +153,12 @@ export class AffixUiService {
   }
 
   private classFor(details: RankDetails): string {
-    return rankClassName(details.rank, !!details.outrankedParts?.length);
+    return rankClassName(details.rank, !!details.partial);
   }
 
-  // Compound affixes (affix groups) get their rank from whichever component affix is
-  // responsible for it. We need to know which component that is, not just the overall
-  // rank, so tooltips can point at the specific competing item/set for that component.
+  // A compound affix (affix group) is ranked as itself - which counts when the group's own name
+  // is tracked - together with each of its components, and keeps each one's ranking, so its
+  // tooltip can point at the specific competing item/set for each component.
   private getAffixRankDetails(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): RankDetails {
     if (!affix) {
       return { rank: AffixRank.Irrelevant, sourceAffix: affix };
@@ -168,8 +173,8 @@ export class AffixUiService {
     }
 
     let details = this.rankOne(affix, candidate);
-    if (details.rank === AffixRank.Irrelevant && this.affixSvc?.isAffixGroup(affix)) {
-      details = this.getAffixGroupRankDetails(affix, candidate);
+    if (this.affixSvc?.isAffixGroup(affix)) {
+      details = this.getAffixGroupRankDetails(affix, details, candidate);
     }
     let affixRank = details.rank;
 
@@ -192,19 +197,36 @@ export class AffixUiService {
     perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
 
-    // Check if this is a set bonus from an augment
-    if (option?.set) {
-      const setReq = this.checkSetRequirements(option.set);
-      if (setReq && !setReq.meetsRequirements) {
-        return `Need ${setReq.requiredCount} set items (currently have ${setReq.currentCount})`;
-      }
-    }
-
-    return this.describeRank(this.getAffixRankDetails(affix, option, candidate), option, currentSlot);
+    return this.describeShortSet(option)
+      || this.describeRank(this.getAffixRankDetails(affix, option, candidate), option, currentSlot);
   }
 
+  /** For an option from a set augment whose set is short of pieces: why it does nothing yet. */
+  private describeShortSet(option?: CraftableOption | null): string {
+    const setReq = option?.set ? this.checkSetRequirements(option.set) : null;
+    return setReq && !setReq.meetsRequirements
+      ? `Need ${setReq.requiredCount} set items (currently have ${setReq.currentCount})`
+      : '';
+  }
+
+  /**
+   * Why something has its rank. A compound gets one line per relevant component, each named and
+   * described exactly as that component would be on its own.
+   */
   private describeRank(details: RankDetails, option?: CraftableOption, currentSlot?: string): string {
-    const { rank: affixRank, sourceAffix, downgradeFrom, outrankedParts } = details;
+    if (details.parts) {
+      const lines = details.parts
+        .map(part => ({ part, line: this.describeRank(part, option, currentSlot) }))
+        .filter(({ line }) => line);
+      // A line is named after its component - unless it is the only line and is about the whole.
+      return lines
+        .map(({ part, line }) => lines.length > 1 || part.sourceAffix !== details.sourceAffix
+          ? `${this.getAffixDescription(part.sourceAffix)}: ${line}`
+          : line)
+        .join('\n');
+    }
+
+    const { rank: affixRank, sourceAffix, downgradeFrom } = details;
     if (downgradeFrom !== undefined) {
       // The value it would lose comes from the slot being replaced, so that slot's source is named.
       const current = this.describeCompetingSources(sourceAffix);
@@ -225,9 +247,6 @@ export class AffixUiService {
       case AffixRank.Outranked:
         tooltip = 'Overpowered by';
         break;
-      case AffixRank.Mixed:
-        tooltip = 'Mixed: part of it is a penalty';
-        break;
       case AffixRank.Penalty:
         tooltip = option?.set ? 'Not yet active - need more set items' : 'Penalty/negative effect';
         break;
@@ -240,12 +259,6 @@ export class AffixUiService {
       if (competing) {
         tooltip += ` ${competing}`;
       }
-    }
-
-    // An outranked part takes nothing away, so the rank is the helpful parts'; say which don't help.
-    for (const part of outrankedParts || []) {
-      const competing = this.describeCompetingSources(part, currentSlot);
-      tooltip += `\nNo gain from ${part.name}` + (competing ? `: overpowered by ${competing}` : '');
     }
 
     return tooltip;
@@ -301,37 +314,23 @@ export class AffixUiService {
   }
 
   /**
+   * Why a crafting option has its rank colour, from the same ranking getClassForCraftingOption
+   * uses: one line per relevant affix, group component or (for a set augment) set bonus.
+   */
+  getCraftingOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate): string {
+    const details = this.getCraftingOptionRankDetails(option, candidate);
+    if (!details) {
+      return '';
+    }
+    // A set augment is ranked as if its set were complete, so it isn't described as short.
+    return (option!.affixes.length ? this.describeShortSet(option) : '')
+      || this.describeRank(details, option!.affixes.length ? option! : undefined, slot);
+  }
+
+  /**
    * Ranks a crafting option for a list of options. `alreadyEquipped` says the option is the
    * chosen one on an equipped item, so a set augment already counts as one of its set's pieces.
    */
-  /**
-   * Why a crafting option has its rank colour: its first affix's ranking tooltip or, for a set
-   * augment, each set bonus's, ranked the same way getClassForCraftingOption ranks them.
-   */
-  getCraftingOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate): string {
-    if (option?.affixes?.length === 1) {
-      return this.getAffixTooltip(option.affixes[0], option, slot, candidate);
-    }
-    if (option?.affixes?.length) {
-      const setReq = option.set ? this.checkSetRequirements(option.set) : null;
-      if (setReq && !setReq.meetsRequirements) {
-        return `Need ${setReq.requiredCount} set items (currently have ${setReq.currentCount})`;
-      }
-      return this.describeRank(this.getCraftingOptionRankDetails(option, candidate)!, option, slot);
-    }
-    if (!option?.set) {
-      return '';
-    }
-    const set = option.set;
-    const bonuses = this.getSetBonusAffixes(set);
-    const tooltips = bonuses.map(affix => {
-      const tooltip = this.getAffixTooltip(affix, undefined, slot, candidate && this.candidateForSetBonus(candidate, set, affix));
-      // With several bonuses, say which one each line is about.
-      return tooltip && bonuses.length > 1 ? `${this.getAffixDescription(affix)}: ${tooltip}` : tooltip;
-    });
-    return tooltips.filter(tooltip => tooltip).join('\n');
-  }
-
   rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false, context?: CraftingOptionContext): CraftingOptionRanking {
     // Ranked as if chosen: on its item, in place of whatever that crafting slot holds now.
     const candidate = context ? this.candidateFor(context.item, context.craft, option) : undefined;
@@ -388,29 +387,29 @@ export class AffixUiService {
   }
 
   /**
-   * One rank for several parts, ignoring irrelevant ones. Parts that all rank the same keep that
-   * rank. Otherwise, if any part helps, the whole ranks as its most useful part: an outranked part
-   * adds nothing but takes nothing away, so it is only noted, as `outrankedParts`. Only a penalty
-   * alongside other parts is Mixed. `whole` is the source affix when nothing is relevant or Mixed.
+   * One rank for several parts, ignoring irrelevant ones. Parts that all rank the same give that
+   * rank. Otherwise a penalty among them makes the whole Mixed; failing that, it ranks as its most
+   * useful part, since an outranked part adds nothing but takes nothing away - only marked
+   * `partial`. A single part is returned as it is; nested compounds are flattened into their parts.
    */
   private combineRankDetails(parts: RankDetails[], whole: Affix): RankDetails {
-    const relevant = parts.filter(part => part.rank !== AffixRank.Irrelevant);
-    if (!relevant.length) {
-      return { rank: AffixRank.Irrelevant, sourceAffix: whole };
+    if (parts.length === 1) {
+      return parts[0];
     }
-    const outrankedParts = relevant.flatMap(part => part.rank === AffixRank.Outranked ? [part.sourceAffix] : part.outrankedParts || []);
-    if (relevant.every(part => part.rank === relevant[0].rank)) {
-      return { ...relevant[0], outrankedParts: relevant[0].rank === AffixRank.Outranked ? undefined : this.orUndefined(outrankedParts) };
+    const leaves = parts.flatMap(part => part.parts ?? [part]);
+    const ranks: AffixRank[] = leaves.map(leaf => leaf.rank).filter(rank => rank !== AffixRank.Irrelevant);
+    let rank: AffixRank;
+    if (!ranks.length) {
+      rank = AffixRank.Irrelevant;
+    } else if (ranks.every(r => r === ranks[0])) {
+      rank = ranks[0];
+    } else if (ranks.includes(AffixRank.Penalty)) {
+      rank = AffixRank.Mixed;
+    } else {
+      rank = HELPFUL_RANKS.find(helpful => ranks.includes(helpful))!;
     }
-    if (relevant.some(part => part.rank === AffixRank.Penalty || part.rank === AffixRank.Mixed)) {
-      return { rank: AffixRank.Mixed, sourceAffix: whole };
-    }
-    const best = HELPFUL_RANKS.map(rank => relevant.find(part => part.rank === rank)).find(part => part)!;
-    return { ...best, downgradeFrom: undefined, outrankedParts: this.orUndefined(outrankedParts) };
-  }
-
-  private orUndefined<T>(list: T[]): T[] | undefined {
-    return list.length ? list : undefined;
+    const partial = HELPFUL_RANKS.includes(rank) && ranks.includes(AffixRank.Outranked);
+    return { rank, sourceAffix: whole, parts: leaves, partial };
   }
 
   /** Every bonus of a set, at any piece count. */
@@ -418,9 +417,10 @@ export class AffixUiService {
     return this.gearDb.getSetBonusThresholdDetails(set, 0).flatMap(tier => tier.affixes);
   }
 
-  private getAffixGroupRankDetails(affixGroup: Affix, candidate?: RankCandidate): RankDetails {
+  /** A group's own ranking, `asItself`, combined with its components'. */
+  private getAffixGroupRankDetails(affixGroup: Affix, asItself: RankDetails, candidate?: RankCandidate): RankDetails {
     const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
-    return this.combineRankDetails(affixes.map(aff => this.rankOne(aff, candidate)), affixGroup);
+    return this.combineRankDetails([asItself, ...affixes.map(aff => this.rankOne(aff, candidate))], affixGroup);
   }
 
   private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } | null {

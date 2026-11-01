@@ -98,3 +98,23 @@ describe('LocalShoppingProgressStore', () => {
     expect(seen.length).toBe(1);
   });
 });
+
+describe('LocalShoppingProgressStore with the real build state', () => {
+  beforeEach(() => localStorage.removeItem(SHOPPING_PROGRESS_STORAGE_KEY));
+  afterEach(() => localStorage.removeItem(SHOPPING_PROGRESS_STORAGE_KEY));
+
+  it('keeps a draft\'s ticks when it is saved, and keeps them apart from the next new build', () => {
+    TestBed.configureTestingModule({});
+    const store = TestBed.inject(ShoppingProgressStore);
+    const currentBuild = TestBed.inject(CurrentBuildService);
+
+    store.applyPatch({ 'g|Ring1|Ring': 1 });
+    currentBuild.markSaved({ savedBuildId: 'b1', shortId: 's1', name: 'Tank' });
+    expect(store.scope).toBe('saved:b1');
+    expect(store.progress).toEqual({ 'g|Ring1|Ring': 1 });
+
+    currentBuild.reset();
+    expect(store.scope).toBe('draft');
+    expect(store.progress).toEqual({});
+  });
+});

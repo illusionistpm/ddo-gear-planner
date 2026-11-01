@@ -11,6 +11,7 @@ from build_url_codec_dictionary import build_url_codec_dictionary
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds
 import argparse
 from get_output_path import get_output_path
+from get_snapshot_path import get_snapshot_path
 from parse_item_types import parse_item_types
 import requests
 from parse_quests import parse_quests
@@ -35,8 +36,12 @@ def write_build_info():
     }, 'build-info')
 
 
-def build_data(clearSnapshot, discordURL, previewDir=None):
+def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
     ensure_data_builder_cwd()
+
+    if offline and not os.path.isdir(get_snapshot_path()):
+        print(f"--offline needs the committed wiki snapshot, and '{get_snapshot_path()}' doesn't exist.")
+        raise SystemExit(1)
 
     # Run unit tests first; fail the build if tests fail.
     try:
@@ -56,12 +61,15 @@ def build_data(clearSnapshot, discordURL, previewDir=None):
 
     oldStats = get_data_stats()
 
-    if clearSnapshot:
-        clear_wiki_snapshot()
+    if offline:
+        print('#### Offline: building from the committed wiki snapshot')
+    else:
+        if clearSnapshot:
+            clear_wiki_snapshot()
 
-    download_wiki_pages()
+        download_wiki_pages()
 
-    print('#### Download complete. Beginning data build')
+        print('#### Download complete. Beginning data build')
     print(f"### Writing to '{get_output_path()}")
     build_synonyms()
 
@@ -82,7 +90,10 @@ def build_data(clearSnapshot, discordURL, previewDir=None):
     parse_item_types()
     build_url_codec_dictionary()
 
-    write_build_info()
+    # builtAt records when the snapshot was fetched. An offline rebuild of the
+    # same snapshot keeps it, so it reproduces data/ byte for byte.
+    if not offline:
+        write_build_info()
 
     newStats = get_data_stats()
 
@@ -116,11 +127,15 @@ def build_data(clearSnapshot, discordURL, previewDir=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--clear-snapshot', default=False, action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--clear-snapshot', default=False, action='store_true',
+                      help='delete wiki-snapshot/ and download every page again')
+    mode.add_argument('--offline', default=False, action='store_true',
+                      help='build from the committed wiki-snapshot/ without contacting the wiki')
     parser.add_argument('--discord')
     parser.add_argument('--preview-dir', help='write the build output, a diff and a summary here; skips Discord')
     args = parser.parse_args()
 
     # build_data changes into data-builder/, so resolve this first.
     previewDir = os.path.abspath(args.preview_dir) if args.preview_dir else None
-    build_data(args.clear_snapshot, args.discord, previewDir)
+    build_data(args.clear_snapshot, args.discord, previewDir, offline=args.offline)

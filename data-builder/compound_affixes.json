@@ -250,21 +250,21 @@
   "Creeping Dust Lore": {
     "components": [
       {
-        "name": "Cold Intensity",
-        "type": "Equipment",
+        "name": "Cold Lore",
+        "type": "<TypeAlreadyParsed>",
         "value": {
           "mode": "same_as_affix_number"
         }
       },
       {
-        "name": "Acid Intensity",
-        "type": "Equipment",
+        "name": "Acid Lore",
+        "type": "<TypeAlreadyParsed>",
         "value": {
           "mode": "same_as_affix_number"
         }
       }
     ],
-    "notes": "Creeping Dust Lore grants a permanent Equipment bonus to critical hit chance for Cold and Acid spells, decomposed into separate Cold and Acid spell critical chance affixes."
+    "notes": "Creeping Dust Lore is spell critical hit chance (Lore) for Cold and Acid spells, matching Power of Creeping Dust; decomposed into Cold Lore and Acid Lore."
   },
   "Crown of Summer": {
     "components": [
@@ -294,6 +294,32 @@
       }
     ],
     "notes": "The affix 'Crown of Summer' grants permanent enhancement bonus to Positive Healing Amplification, Melee Power, and Ranged Power, all always on. Decomposed into underlying permanent stat bonuses."
+  },
+  "Dark Restoration Lore": {
+    "components": [
+      {
+        "name": "Negative Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Healing Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Dark Restoration Lore is spell critical hit chance for Negative, Poison and Positive (Healing Lore) spells, matching Power of the Dark Restoration."
   },
   "Devil's Bones": {
     "components": [
@@ -478,6 +504,51 @@
       }
     ],
     "notes": "This affix grants two permanent stat bonuses: Enhancement Bonus to Fire Absorption and Enhancement Bonus to Cold Absorption, each scaling with the parsed value."
+  },
+  "Firestorm Lore": {
+    "components": [
+      {
+        "name": "Fire Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Lightning Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Firestorm Lore is spell critical hit chance for Fire and Electric spells, matching Power of the Firestorm."
+  },
+  "Frozen Thunderstorm Lore": {
+    "components": [
+      {
+        "name": "Cold Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sonic Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Lightning Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Frozen Thunderstorm Lore is spell critical hit chance for Cold, Sonic and Electric spells, matching Power of the Frozen Thunderstorm."
   },
   "Ghostbane": {
     "components": [
@@ -882,6 +953,32 @@
     ],
     "notes": "Compound affix with multiple permanent underlying bonuses all to Rust and Repair spells: Spell Power, Spell Crit Chance, and Spell Crit Damage."
   },
+  "Moonlit Haunt Lore": {
+    "components": [
+      {
+        "name": "Negative Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Force Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Moonlit Haunt Lore is spell critical hit chance for Negative, Force and Poison spells, matching Power of the Moonlit Haunt."
+  },
   "Nimble Skills Bonus": {
     "components": [
       {
@@ -996,6 +1093,18 @@
       }
     ],
     "notes": "Decomposed Permanent Nihil into separate Alchemical bonuses to Negative and Poison Spell Power as permanent stat bonuses."
+  },
+  "Power Store": {
+    "components": [
+      {
+        "name": "Magical Efficiency",
+        "type": "Enhancement",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      }
+    ]
   },
   "Power of Creeping Dust": {
     "components": [
@@ -1303,18 +1412,6 @@
     ],
     "notes": "The affix grants permanent Equipment bonus to both Sonic and Electric Spell Power. Decomposed into two components for Sonic and Electric Spell Power respectively."
   },
-  "Power Store": {
-    "components": [
-      {
-        "name": "Magical Efficiency",
-        "type": "Enhancement",
-        "value": {
-          "amount": 10,
-          "mode": "fixed"
-        }
-      }
-    ]
-  },  
   "Prudent Skills Bonus": {
     "components": [
       {
@@ -1444,6 +1541,32 @@
       }
     ]
   },
+  "Silver Flame Lore": {
+    "components": [
+      {
+        "name": "Healing Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Light Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Alignment Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Silver Flame Lore is spell critical hit chance for Positive (Healing Lore), Light and Alignment spells, matching Power of the Silver Flame."
+  },
   "Stability": {
     "components": [
       {
@@ -1543,6 +1666,25 @@
         }
       }
     ]
+  },
+  "Thunderstorm Lore": {
+    "components": [
+      {
+        "name": "Sonic Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Lightning Lore",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Thunderstorm Lore is spell critical hit chance for Sonic and Electric spells, matching Power of the Thunderstorm."
   },
   "Voice of Deceit": {
     "components": [

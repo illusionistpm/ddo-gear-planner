@@ -568,6 +568,163 @@
             {
                 "name": "Fortitude Save",
                 "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 2
+            }
+        ],
+        "name": "Heroism"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
                 "value": 4
             },
             {
@@ -695,53 +852,6 @@
     },
     {
         "affixes": [
-            "Cold Spell Power",
-            "Electric Spell Power"
-        ],
-        "name": "Power of the Frozen Storm"
-    },
-    {
-        "affixes": [
-            "Negative Spell Power",
-            "Cold Spell Power",
-            "Poison Spell Power"
-        ],
-        "components": [
-            {
-                "name": "Negative Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Cold Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Poison Spell Power",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            }
-        ],
-        "name": "Power of the Frozen Depths"
-    },
-    {
-        "affixes": [
-            "Fire Spell Power",
-            "Light Spell Power"
-        ],
-        "name": "Power of the Flames of Purity"
-    },
-    {
-        "affixes": [
-            "Positive Spell Power",
-            "Light Spell Power",
-            "Alignment Spell Power"
-        ],
-        "name": "Power of the Silver Flame"
-    },
-    {
-        "affixes": [
             "Light Spell Power",
             "Alignment Spell Power"
         ],
@@ -855,6 +965,19 @@
             }
         ],
         "name": "Occultation"
+    },
+    {
+        "affixes": [
+            "Dodge Bypass"
+        ],
+        "components": [
+            {
+                "name": "Dodge Bypass",
+                "type": "Enhancement",
+                "value": 5
+            }
+        ],
+        "name": "Sight Beyond Sight"
     },
     {
         "affixes": [
@@ -1001,20 +1124,8 @@
     },
     {
         "affixes": [
-            "Cold Intensity",
-            "Acid Intensity"
-        ],
-        "components": [
-            {
-                "name": "Cold Intensity",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            },
-            {
-                "name": "Acid Intensity",
-                "type": "Equipment",
-                "value": "<ValueAlreadyParsed>"
-            }
+            "Cold Lore",
+            "Acid Lore"
         ],
         "name": "Creeping Dust Lore"
     },
@@ -1042,6 +1153,14 @@
             }
         ],
         "name": "Crown of Summer"
+    },
+    {
+        "affixes": [
+            "Negative Lore",
+            "Poison Lore",
+            "Healing Lore"
+        ],
+        "name": "Dark Restoration Lore"
     },
     {
         "affixes": [
@@ -1155,6 +1274,21 @@
             "Cold Absorption"
         ],
         "name": "Fire and Cold Absorption"
+    },
+    {
+        "affixes": [
+            "Fire Lore",
+            "Lightning Lore"
+        ],
+        "name": "Firestorm Lore"
+    },
+    {
+        "affixes": [
+            "Cold Lore",
+            "Sonic Lore",
+            "Lightning Lore"
+        ],
+        "name": "Frozen Thunderstorm Lore"
     },
     {
         "affixes": [
@@ -1280,6 +1414,14 @@
             }
         ],
         "name": "Memory of Animated Objects"
+    },
+    {
+        "affixes": [
+            "Negative Lore",
+            "Force Lore",
+            "Poison Lore"
+        ],
+        "name": "Moonlit Haunt Lore"
     },
     {
         "affixes": [
@@ -1463,6 +1605,45 @@
     },
     {
         "affixes": [
+            "Fire Spell Power",
+            "Light Spell Power"
+        ],
+        "name": "Power of the Flames of Purity"
+    },
+    {
+        "affixes": [
+            "Negative Spell Power",
+            "Cold Spell Power",
+            "Poison Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Negative Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Equipment",
+                "value": "<ValueAlreadyParsed>"
+            }
+        ],
+        "name": "Power of the Frozen Depths"
+    },
+    {
+        "affixes": [
+            "Cold Spell Power",
+            "Electric Spell Power"
+        ],
+        "name": "Power of the Frozen Storm"
+    },
+    {
+        "affixes": [
             "Cold Spell Power",
             "Sonic Spell Power",
             "Electric Spell Power"
@@ -1538,6 +1719,14 @@
     },
     {
         "affixes": [
+            "Positive Spell Power",
+            "Light Spell Power",
+            "Alignment Spell Power"
+        ],
+        "name": "Power of the Silver Flame"
+    },
+    {
+        "affixes": [
             "Sonic Spell Power",
             "Electric Spell Power"
         ],
@@ -1565,6 +1754,14 @@
             "Alignment Lore"
         ],
         "name": "Sacred Ground Lore"
+    },
+    {
+        "affixes": [
+            "Healing Lore",
+            "Light Lore",
+            "Alignment Lore"
+        ],
+        "name": "Silver Flame Lore"
     },
     {
         "affixes": [
@@ -1652,6 +1849,13 @@
             }
         ],
         "name": "Swiftness"
+    },
+    {
+        "affixes": [
+            "Sonic Lore",
+            "Lightning Lore"
+        ],
+        "name": "Thunderstorm Lore"
     },
     {
         "affixes": [

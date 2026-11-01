@@ -21,9 +21,9 @@
     display: block;
     /* Keeps a blank toggle as tall as one with a label. */
     min-height: 1.3em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /* Long options wrap onto more lines, like the affix names beside them, rather than being cut off. */
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 /* Bootstrap's dropdown-toggle caret, placed where a select's chevron sits. */

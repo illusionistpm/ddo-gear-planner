@@ -1,12 +1,12 @@
 from bs4 import BeautifulSoup
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
-import os
 from parse_affixes_from_cell import canonicalize_affix_name
+from get_snapshot_path import get_snapshot_path
 
 
-ESSENCE_CRAFTING_SLOTS_PATH = f"{os.path.dirname(__file__)}/cache/crafting/Essence_Crafting_table_1b.html"
-ESSENCE_CRAFTING_TABLE_PATH = f"{os.path.dirname(__file__)}/cache/crafting/Essence_Crafting_table_3b.html"
+ESSENCE_CRAFTING_SLOTS_PATH = get_snapshot_path('crafting', 'Essence_Crafting_table_1b.html')
+ESSENCE_CRAFTING_TABLE_PATH = get_snapshot_path('crafting', 'Essence_Crafting_table_3b.html')
 
 
 ESSENCE_CRAFTING_ITEM_TYPES = {

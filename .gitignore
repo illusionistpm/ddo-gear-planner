@@ -4,7 +4,7 @@
 .pytest-tmp/
 data-builder/.pytest_cache/
 data-builder/.pytest-tmp/
-data-builder/cache/
+wiki-snapshot/
 data-builder/provenance/
 data-builder/reports/
 data-builder/llm/compound_affix_llm_results.json

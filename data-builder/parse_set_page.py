@@ -10,6 +10,7 @@ from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_affixes_from_cell import get_affix_map_list_from_tag
+from get_snapshot_path import get_snapshot_path
 
 # Since Update 81.4, a set bonus labelled "Universal" spell power / lore / crit damage
 # is applied to each element separately, so it no longer stacks with a same-type
@@ -37,7 +38,7 @@ def get_sets_from_page(soup):
     setTable = content_root.find('table', class_=lambda value: value and 'wikitable' in value)
     if setTable is None:
         raise RuntimeError('Could not locate the sets table in the downloaded page. ' \
-                           'Verify the cache file and the wiki page format.')
+                           'Verify the snapshot file and the wiki page format.')
 
     rows = setTable.find_all('tr')
     if not rows:
@@ -100,7 +101,7 @@ def get_sets_from_page(soup):
 
 
 def parse_set_page():
-    page = open('./cache/sets/Raw data_Sets v2.html', "r", encoding='utf-8').read()
+    page = open(get_snapshot_path('sets', 'Raw data_Sets v2.html'), "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

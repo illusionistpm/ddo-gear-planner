@@ -1,4 +1,4 @@
-from download_wiki_pages import download_wiki_pages, clear_wiki_cache
+from download_wiki_pages import download_wiki_pages, clear_wiki_snapshot
 from parse_set_page import parse_set_page
 from parse_item_augment_page import parse_item_augment_page
 from parse_items import parse_items
@@ -35,7 +35,7 @@ def write_build_info():
     }, 'build-info')
 
 
-def build_data(clearCache, discordURL, previewDir=None):
+def build_data(clearSnapshot, discordURL, previewDir=None):
     ensure_data_builder_cwd()
 
     # Run unit tests first; fail the build if tests fail.
@@ -56,8 +56,8 @@ def build_data(clearCache, discordURL, previewDir=None):
 
     oldStats = get_data_stats()
 
-    if clearCache:
-        clear_wiki_cache()
+    if clearSnapshot:
+        clear_wiki_snapshot()
 
     download_wiki_pages()
 
@@ -116,11 +116,11 @@ def build_data(clearCache, discordURL, previewDir=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--clear-cache', default=False, action='store_true')
+    parser.add_argument('--clear-snapshot', default=False, action='store_true')
     parser.add_argument('--discord')
     parser.add_argument('--preview-dir', help='write the build output, a diff and a summary here; skips Discord')
     args = parser.parse_args()
 
     # build_data changes into data-builder/, so resolve this first.
     previewDir = os.path.abspath(args.preview_dir) if args.preview_dir else None
-    build_data(args.clear_cache, args.discord, previewDir)
+    build_data(args.clear_snapshot, args.discord, previewDir)

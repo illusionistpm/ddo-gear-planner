@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import os
 import re
 from typing import TypedDict
 from build_affix_groups import get_all_skills
@@ -7,10 +6,11 @@ from compound_affixes import load_compound_affixes
 from get_inverted_synonym_map import get_inverted_synonym_map
 
 from typedefs import Affix, AffixesDict, SetDict
+from get_snapshot_path import get_snapshot_path
 
 SystemDict = TypedDict('SystemDict', { '*': list[AffixesDict|SetDict] })
 
-SLAVERS_CRAFTING_PATH = f"{os.path.dirname(__file__)}/cache/crafting/Slave_Lords_Crafting.html"
+SLAVERS_CRAFTING_PATH = get_snapshot_path('crafting', 'Slave_Lords_Crafting.html')
 
 SLAVERS_SPELL_LORE_AFFIXES = [
     'Acid Lore',

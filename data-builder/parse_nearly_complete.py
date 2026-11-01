@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 from parse_affixes_from_cell import get_item_property_map_from_tag, x_skills_exceptional_bonus
 from typedefs import AffixesDict, SetDict
+from get_snapshot_path import get_snapshot_path
 
 SystemDict = TypedDict('SystemDict', {'*': list[AffixesDict | SetDict]})
 
@@ -66,6 +67,6 @@ def get_nearly_complete_crafting_from_page(soup: BeautifulSoup) -> dict[str, Sys
 
 
 def parse_nearly_complete_crafting() -> dict[str, SystemDict]:
-    page = open('./cache/crafting/Nearly_Complete.html', 'r', encoding='utf-8').read()
+    page = open(get_snapshot_path('crafting', 'Nearly_Complete.html'), 'r', encoding='utf-8').read()
     soup = BeautifulSoup(page, 'html.parser')
     return get_nearly_complete_crafting_from_page(soup)

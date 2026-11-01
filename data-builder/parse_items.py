@@ -9,7 +9,8 @@ from read_json import read_json
 from parse_affixes_from_cell import canonicalize_affix_name, parse_affixes_from_cell, get_fake_bonuses
 from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
-from parse_rare_loot import get_rare_loot_from_cache
+from parse_rare_loot import get_rare_loot_from_snapshot
+from get_snapshot_path import get_snapshot_path
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
@@ -545,17 +546,17 @@ def get_items_from_page(
 def parse_items() -> None:
     crafting = read_json('crafting')
     sets     = read_json('sets')
-    rareItemNames = get_rare_loot_from_cache()
+    rareItemNames = get_rare_loot_from_snapshot()
     try:
         questPackMap = read_json('quests').get('packs', {})
     except FileNotFoundError:
         questPackMap = {}
     items    = []
 
-    cachePath            = './cache/items/'
+    itemsPath            = get_snapshot_path('items')
     itemAugmentsFilename = 'Raw_data_Item_augments.html'
 
-    fileList = os.listdir(cachePath)
+    fileList = os.listdir(itemsPath)
 
     # we reposition the Item_augments page to be at the beginning
     # so that proper crafting sets can be populuated
@@ -566,7 +567,7 @@ def parse_items() -> None:
 
     for file in fileList:
         if include_page(file):
-            items.extend(get_items_from_page(cachePath + file, crafting, sets, rareItemNames, questPackMap))
+            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, questPackMap))
 
     # Sort by name then slot (for a stable sort with Slaver's items, which have entries in multiple slots)
     items.sort(key=lambda x: (x['name'], x.get('slot', '')))

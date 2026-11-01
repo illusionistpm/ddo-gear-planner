@@ -1,23 +1,17 @@
 name: Data Auto Updater
 
 on:
-  # A push regenerates data only when the scrapers changed; anything else
-  # waits for the daily run. This workflow's own commits touch only data/
-  # and the crafting-device cache, which is excluded here, so they don't
-  # retrigger it.
-  push:
-    branches:
-      - master
-    paths:
-      - 'data-builder/**'
-      - '!data-builder/crafting_device_packs.json'
+  # Only to refresh the wiki snapshot. A parser change arrives with the data/
+  # it builds from the committed snapshot (PR Checks enforces it), so pushes
+  # have nothing to regenerate.
   schedule:
     # Run at 5:18 UTC daily
     - cron: '18 5 * * *'
   # Manual runs, on master or any branch. A run on another branch is a
-  # preview: it regenerates the data and uploads it with a diff as an
-  # artifact, but never commits and never posts to Discord, so scraper
-  # changes can be checked against real wiki data before they merge.
+  # preview: it regenerates the data from the current wiki and uploads it
+  # with a diff as an artifact, but never commits and never posts to
+  # Discord, so scraper changes can be checked against pages newer than
+  # the committed snapshot before they merge.
   workflow_dispatch:
 
 jobs:
@@ -47,12 +41,14 @@ jobs:
           python -m playwright install chromium
 
       # Off master, build.py writes a preview to data-preview/ and skips
-      # Discord; the Commit step below is master-only too.
+      # Discord; the Commit step below is master-only too. The checkout
+      # already holds the committed snapshot, and a page already on disk
+      # isn't downloaded again, so start from an empty one.
       - name: Run script
         env:
           DISCORD_HOOK: ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
           PREVIEW_ARGS: ${{ env.IS_MASTER != 'true' && '--preview-dir data-preview' || '' }}
-        run: python data-builder/build.py --discord "$DISCORD_HOOK" $PREVIEW_ARGS
+        run: python data-builder/build.py --clear-snapshot --discord "$DISCORD_HOOK" $PREVIEW_ARGS
 
       - name: Check for substantive data changes
         id: data-changes
@@ -122,6 +118,10 @@ jobs:
         with:
           commit_message: "[auto-update] Latest data"
           commit_user_name: Data Auto Updater
-          # A build scrapes newly listed crafting devices into this cache.
-          file_pattern: data/*.json data-builder/crafting_device_packs.json
+          # The snapshot lands in the same commit as the data built from it.
+          # It is committed only alongside a data change: a refresh that
+          # changes no data leaves the committed snapshot, which still
+          # reproduces the committed data. A build also scrapes newly listed
+          # crafting devices into crafting_device_packs.json.
+          file_pattern: data/*.json wiki-snapshot data-builder/crafting_device_packs.json
 

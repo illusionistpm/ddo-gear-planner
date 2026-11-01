@@ -1,7 +1,8 @@
 name: PR Checks
 
 # The local gate from CLAUDE.md, run on every PR and on every push to master
-# (which includes the Data Auto Updater's commits).
+# (which includes the Data Auto Updater's commits), plus a check that data/
+# is what the parsers build from wiki-snapshot/.
 on:
   pull_request:
   push:
@@ -93,3 +94,15 @@ jobs:
 
       - name: Test
         run: python -m pytest
+
+      # data/ must be exactly what the parsers build from the committed wiki
+      # snapshot, so a parser change has to ship with the data it produces.
+      # On master this also catches a parser PR that merged after a nightly
+      # snapshot refresh it wasn't rebuilt against.
+      - name: Check data/ matches the snapshot
+        run: |
+          python build.py --offline
+          if ! git diff --exit-code --stat -- ../data; then
+            echo "::error::data/ differs from what the parsers build from wiki-snapshot/. Run 'python data-builder/build.py --offline' and commit data/."
+            exit 1
+          fi

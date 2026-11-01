@@ -9,6 +9,7 @@ non-obvious or have caused real bugs - the rest is discoverable from the code.
 - `worker/` — Cloudflare Worker API: saved builds, short links, auth.
 - `data-builder/` — Python scrapers that regenerate `data/*.json`.
 - `data/` — the generated game-data JSON. Build-time input only: the site imports it via the `@data/*` alias (`site/tsconfig.json`) and it is bundled into JS chunks, never served as raw files.
+- `wiki-snapshot/` — the ddowiki pages `data/` is built from, committed. See "Game data" below.
 - `shared/constants.json` — values both the site and worker must agree on
   (blob size limits, per-user build caps). Change them **here**, not in either
   copy; see `shared/README.md`.
@@ -53,6 +54,26 @@ data-builder's tests) on every PR and push to master, and fails on those log
 lines as well as on the exit code. The Data Auto Updater runs the site build
 and tests before it commits new data. Neither replaces running the gate
 locally - a red check is just the backstop.
+
+## Game data
+
+`data/` is exactly what the parsers build from the committed `wiki-snapshot/`,
+and PR Checks fails when it isn't. So:
+
+- **A parser change ships with the `data/` it produces, in the same commit.**
+  Run `python data-builder/build.py --offline`. It needs no network and doesn't
+  touch `build-info.json`, so an unchanged parser reproduces `data/` byte for byte.
+- **Resolve a conflict in `data/*.json` by rebuilding** on the merged tree, not
+  by hand-merging.
+- **Only the nightly Data Auto Updater refreshes the snapshot** (`--clear-snapshot`),
+  committing it together with the data built from it. It commits only when
+  `data/` changes, so the snapshot can lag the wiki on content no parser reads
+  yet. A parser that needs that content waits for a run that commits, or a
+  manual `workflow_dispatch`.
+- **Never hand-edit `wiki-snapshot/`.** Pages are normalized on download
+  (`normalize_wiki_html.py`) to the heading, `#mw-content-text` and `#catlinks`,
+  which strips the per-request noise; a parser that reads anything else
+  on the page finds it gone.
 
 ## Invariants worth knowing before you refactor
 

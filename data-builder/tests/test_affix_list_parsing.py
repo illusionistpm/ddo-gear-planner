@@ -102,3 +102,40 @@ def test_get_affix_map_list_from_tag_canonicalizes_spell_power_name():
     assert get_affix_map_list_from_tag(ul) == [
         {'name': 'Cold Spell Power', 'value': '53', 'type': 'Equipment'},
     ]
+
+
+DICE_TOOLTIP_LI = '''
+<li>
+  <span class="has_tooltip">Freezing
+    <span class="tooltip">Freezing: This weapon deals cold damage on each hit.</span>
+  </span>
+  <span class="has_tooltip">6d6
+    <span class="tooltip">Average 21</span>
+  </span>
+  <span class="has_tooltip">7d20+72
+    <span class="tooltip">Average 145.5</span>
+  </span>
+</li>
+'''
+
+
+def test_get_affix_map_list_from_tag_drops_bare_dice_tooltips():
+    ul = BeautifulSoup(f'<ul>{DICE_TOOLTIP_LI}</ul>', 'html.parser').ul
+    assert [a['name'] for a in get_affix_map_list_from_tag(ul)] == ['Freezing']
+
+
+def test_translate_list_tag_drops_bare_dice_tooltips():
+    from parse_affixes_from_cell import translate_list_tag_to_affix_map, get_fake_bonuses
+
+    li = BeautifulSoup(DICE_TOOLTIP_LI, 'html.parser').li
+    res = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert [a['name'] for a in res] == ['Freezing']
+
+
+def test_is_bare_dice_text():
+    from parse_affixes_from_cell import is_bare_dice_text
+
+    for text in ['6d6', '+2d4', ' 17d10 ', '7d20+72', '3d4 + 3']:
+        assert is_bare_dice_text(text), text
+    for text in ['Freezing', 'Acidic 12d6', '12d120 Acid damage on vorpal hit', '', None]:
+        assert not is_bare_dice_text(text), text

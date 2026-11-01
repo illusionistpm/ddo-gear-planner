@@ -57,6 +57,29 @@
     margin-right: auto;
 }
 
+.shopping-list-copy {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.85rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-copy:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.shopping-list-copy-error {
+    color: var(--danger-color);
+    flex-basis: 100%;
+    font-size: 0.8rem;
+}
+
 .shopping-list-progress {
     background: var(--progress-track-color);
     border-radius: 999px;
@@ -272,6 +295,7 @@
     }
 
     .shopping-list-back,
+    .shopping-list-copy,
     .shopping-list-choice-option {
         min-height: 2.5rem;
     }

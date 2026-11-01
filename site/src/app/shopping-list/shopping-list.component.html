@@ -9,7 +9,16 @@
       @if (view) {
         <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
       }
-      <ng-content select="[shoppingListActions]"></ng-content>
+      @if (view?.total) {
+        <button type="button" class="shopping-list-copy" (click)="copyStillNeeded()"
+          title="Copy what's still needed, grouped by quest, to paste for friends">
+          <i class="fas" [class.fa-copy]="copyState !== 'copied'" [class.fa-check]="copyState === 'copied'" aria-hidden="true"></i>
+          <span>{{copyState === 'copied' ? 'Copied!' : 'Copy list'}}</span>
+        </button>
+      }
+      @if (copyState === 'failed') {
+        <span class="shopping-list-copy-error" role="alert">Could not copy to the clipboard. Please try again.</span>
+      }
     </div>
     @if (view?.total) {
       <div class="shopping-list-progress" role="presentation">

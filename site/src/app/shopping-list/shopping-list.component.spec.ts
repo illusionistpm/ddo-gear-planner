@@ -7,6 +7,8 @@ import type { ShoppingEntry, ShoppingListView, ShoppingProgress } from '../plann
 import { buildShoppingListView } from '../planner/shopping-list/shopping-list-view-model';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
+import { Clipboard } from '../shared/clipboard';
+import { AnalyticsService } from '../shared/analytics.service';
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
@@ -38,7 +40,7 @@ describe('ShoppingListComponent', () => {
   let fixture: ComponentFixture<ShoppingListComponent>;
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
-    setGroupMode: ReturnType<typeof vi.fn>; setFilter: ReturnType<typeof vi.fn> };
+    setGroupMode: ReturnType<typeof vi.fn>; setFilter: ReturnType<typeof vi.fn>; stillNeededText: () => string };
 
   const show = (progress: ShoppingProgress, groupMode: 'slot' | 'source' = 'slot', filter: 'all' | 'needed' = 'all',
     list = entries) => {
@@ -52,7 +54,8 @@ describe('ShoppingListComponent', () => {
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { groupMode: 'slot', filter: 'all' }));
-    service = { view$: views, toggle: vi.fn(), setGroupMode: vi.fn(), setFilter: vi.fn() };
+    service = { view$: views, toggle: vi.fn(), setGroupMode: vi.fn(), setFilter: vi.fn(),
+      stillNeededText: () => 'Still needed for my build (5):' };
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       providers: [{ provide: ShoppingListService, useValue: service }]
@@ -138,6 +141,39 @@ describe('ShoppingListComponent', () => {
 
     show(Object.fromEntries(entries.map(candidate => [candidate.key, 1 as const])), 'slot', 'needed');
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Everything is ticked off');
+  });
+
+  describe('copying the still-needed list', () => {
+    const copyButton = () => el().querySelector('.shopping-list-copy') as HTMLButtonElement;
+
+    it('copies the text within the click, and says so', () => {
+      const copy = vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+
+      copyButton().click();
+      fixture.detectChanges();
+
+      expect(copy).toHaveBeenCalledWith('Still needed for my build (5):');
+      expect(copyButton().textContent?.trim()).toBe('Copied!');
+      // Five things, less the ring the trove covers.
+      expect(track).toHaveBeenCalledWith('copy_shopping_list', { copy_kind: 'text', needed_count: 4 });
+    });
+
+    it('says when the clipboard refused', () => {
+      vi.spyOn(Clipboard, 'copy').mockReturnValue(false);
+
+      copyButton().click();
+      fixture.detectChanges();
+
+      expect(el().querySelector('.shopping-list-copy-error')?.textContent).toContain('Could not copy');
+      expect(copyButton().textContent?.trim()).toBe('Copy list');
+    });
+
+    it('is not offered with nothing to get', () => {
+      show({}, 'slot', 'all', []);
+
+      expect(copyButton()).toBeNull();
+    });
   });
 
   it('goes back to the planner', () => {

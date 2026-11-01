@@ -4,10 +4,14 @@ import {
 import { Subscription } from 'rxjs';
 
 import { slotLabel } from '../gear/slot-display';
+import { AnalyticsService } from '../shared/analytics.service';
+import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import type {
   ShoppingFilter, ShoppingGroupMode, ShoppingListView, ShoppingRow
 } from '../planner/shopping-list/shopping-list-types';
+
+const COPIED_CONFIRMATION_MS = 1500;
 
 /**
  * The shopping list: everything the build needs, where it comes from, and a
@@ -24,10 +28,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   @Output() closed = new EventEmitter<void>();
 
   view: ShoppingListView | null = null;
+  /** Feedback on the last Copy list click. */
+  copyState: 'idle' | 'copied' | 'failed' = 'idle';
   private subscription?: Subscription;
+  private copiedTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     readonly shoppingList: ShoppingListService,
+    private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef
   ) { }
 
@@ -40,6 +48,25 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    clearTimeout(this.copiedTimeout);
+  }
+
+  /** Synchronous inside the click, or the browser refuses the clipboard write (see clipboard.ts). */
+  copyStillNeeded(): void {
+    clearTimeout(this.copiedTimeout);
+    if (!Clipboard.copy(this.shoppingList.stillNeededText())) {
+      this.copyState = 'failed';
+      return;
+    }
+    this.analytics.track('copy_shopping_list', {
+      copy_kind: 'text',
+      needed_count: this.view ? this.view.total - this.view.acquired : 0
+    });
+    this.copyState = 'copied';
+    this.copiedTimeout = setTimeout(() => {
+      this.copyState = 'idle';
+      this.cdr.markForCheck();
+    }, COPIED_CONFIRMATION_MS);
   }
 
   get percentAcquired(): number {

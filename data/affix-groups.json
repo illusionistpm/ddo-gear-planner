@@ -186,13 +186,6 @@
     },
     {
         "affixes": [
-            "Negative Intensity",
-            "Poison Intensity"
-        ],
-        "name": "Void Intensity"
-    },
-    {
-        "affixes": [
             "Fortitude Save",
             "Reflex Save",
             "Will Save"

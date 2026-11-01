@@ -386,6 +386,12 @@
         ]
     },
     {
+        "name": "Spell Critical Damage",
+        "synonyms": [
+            "Spell Intensity"
+        ]
+    },
+    {
         "name": "Sonic Lore",
         "synonyms": [
             "Resonance Lore"

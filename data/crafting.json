@@ -45257,7 +45257,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Intensity",
+                        "name": "Spell Critical Damage",
                         "type": "Legendary",
                         "value": "5"
                     }
@@ -45271,7 +45271,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Spell Intensity",
+                        "name": "Spell Critical Damage",
                         "type": "Legendary",
                         "value": "15"
                     }

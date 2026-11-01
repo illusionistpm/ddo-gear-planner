@@ -145,7 +145,7 @@ def build_affix_groups() -> None:
     add(groups, 'All Saves', get_all_saves())
     add(groups, 'All Skills', get_all_skills())
     add(groups, 'Good Luck', get_all_saves() + get_all_skills())
-    add(groups, 'Void Intensity', ['Negative Intensity', 'Poison Intensity'])
+    # Void Intensity is one stat (Negative + Poison crit damage), like Kinetic and Radiance Intensity - not a group.
     add(groups, 'Resistance', get_all_saves())
     add(groups, 'Riposte', ['Armor Class'] + get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix

@@ -14,7 +14,6 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     module.build_affix_groups()
 
     groups = {entry['name']: entry['affixes'] for entry in written['affix-groups']}
-    assert groups['Void Intensity'] == ['Negative Intensity', 'Poison Intensity']
     assert 'Negative and Poison Intensity' not in groups
     assert 'Negative and Poison Spell Crit Damage' not in groups
     assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
@@ -234,3 +233,18 @@ def test_every_power_of_and_lore_compound_maps_to_known_element_affixes(monkeypa
             assert set(entry['affixes']) <= set(module.get_all_spell_power_types()), entry
         elif entry['name'].endswith(' Lore') and entry['name'] not in ('Spell Lore', 'Universal Spell Lore'):
             assert set(entry['affixes']) <= set(module.get_all_lore_types()), entry
+
+
+def test_every_intensity_group_member_is_a_real_intensity_affix(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    for entry in written['affix-groups']:
+        if entry['name'].endswith('Intensity') or entry['name'].endswith('Spell Critical Damage'):
+            assert set(entry['affixes']) <= set(module.get_all_spell_crit_damage_types()), entry

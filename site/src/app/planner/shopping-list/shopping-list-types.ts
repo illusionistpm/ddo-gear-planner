@@ -82,11 +82,16 @@ export interface ShoppingRow {
   children: ShoppingRow[];
 }
 
-/** A card of the list: one slot's item, or one quest. */
+/**
+ * A card of the list. By slot it is one item: `header` is the item's row and
+ * `rows` what goes into it. By source it is one quest, with everything from
+ * there in `rows` and no header.
+ */
 export interface ShoppingGroup {
   id: string;
   label: string;
-  /** The slot, when grouping by slot (for its icon). */
+  header: ShoppingRow | null;
+  /** The slot, when grouping by slot. */
   slot: string | null;
   raid: boolean;
   rows: ShoppingRow[];

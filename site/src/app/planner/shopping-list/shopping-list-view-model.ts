@@ -130,7 +130,8 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
       ...rest,
-      groups: groups.map(group => ({ ...group, rows: neededRows(group.rows) })).filter(group => group.rows.length),
+      groups: groups.map(group => ({ ...group, rows: neededRows(group.rows) }))
+        .filter(group => group.rows.length || (group.header && group.header.state !== 'checked')),
     })).filter(candidate => candidate.groups.length)
     : allSections;
 
@@ -145,7 +146,7 @@ function section(id: string, label: string | null, groups: ShoppingGroup[], cont
     row.entryKeys.forEach(key => keys.add(key));
     collect(row.children);
   });
-  groups.forEach(group => collect(group.rows));
+  groups.forEach(group => collect(group.header ? [group.header, ...group.rows] : group.rows));
   const acquired = Array.from(keys).filter(key => isEntryAcquired(key, context.progress, context.covered)).length;
   return { id, label, groups, acquired, total: keys.size };
 }
@@ -227,7 +228,7 @@ function groupTotals(entries: readonly ShoppingEntry[], context: RowContext): { 
   };
 }
 
-/** One group per slot: the item, with what goes into it listed beneath. */
+/** One card per slot, headed by its item, with what goes into it listed beneath. */
 function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): ShoppingGroup[] {
   const groups: ShoppingGroup[] = [];
   for (const gear of entries.filter(entry => entry.kind === 'gear')) {
@@ -236,10 +237,10 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
     groups.push({
       id,
       label: slotLabel(gear.slot),
+      header: foldRows([gear], id, context, () => [], () => null)[0],
       slot: gear.slot,
       raid: gear.raid,
-      rows: foldRows([gear], id, context, () => foldRows(crafted, `${id}|${gear.key}`, context, () => [], () => null),
-        () => null),
+      rows: foldRows(crafted, `${id}|${gear.key}`, context, () => [], () => null),
       ...groupTotals([gear, ...crafted], context),
     });
   }
@@ -301,6 +302,7 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
       group: {
         id,
         label: quest || UNKNOWN_SOURCE_LABEL,
+        header: null,
         slot: null,
         raid: here.some(source => source.raid),
         rows: foldRows(members, id, context,

@@ -22,8 +22,12 @@ export function formatShoppingListText(view: ShoppingListView, buildName: string
         lines.push('');
       }
       lines.push(group.raid ? `${group.label} (raid)` : group.label);
-      for (const row of group.rows) {
-        pushRow(lines, row, '');
+      if (group.header) {
+        pushRow(lines, { ...group.header, children: group.rows }, '');
+      } else {
+        for (const row of group.rows) {
+          pushRow(lines, row, '');
+        }
       }
     });
   }

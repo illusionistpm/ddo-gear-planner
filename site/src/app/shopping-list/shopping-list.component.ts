@@ -119,10 +119,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     return ['Also from:', ...quests].join('\n');
   }
 
-  /** In source view a row for gear says which slot it's for. */
+  /** A row for gear says which slot it's for, unless it folds the item for several. */
   rowSlot(row: ShoppingRow): string | null {
-    return this.view?.groupMode === 'source' && row.entry.kind === 'gear' && row.quantity === 1
-      ? slotLabel(row.entry.slot)
-      : null;
+    return row.entry.kind === 'gear' && row.quantity === 1 ? slotLabel(row.entry.slot) : null;
   }
 }

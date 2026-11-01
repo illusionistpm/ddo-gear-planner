@@ -70,8 +70,16 @@ describe('ShoppingListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('lists each slot\'s item with its source, badges and crafting beneath', () => {
-    expect(groupTitles()).toEqual(['Weapon', 'Ring 1', 'Ring 2']);
+  it('heads a card with each slot\'s item, its source and badges, and what goes into it beneath', () => {
+    const cards = Array.from(el().querySelectorAll('.shopping-item-card'));
+    expect(cards.map(card => [
+      card.querySelector('.shopping-item-header .shopping-row-name')?.textContent?.trim(),
+      card.querySelector('.shopping-item-header .shopping-row-slot')?.textContent?.trim(),
+      card.querySelector('.shopping-item-header .shopping-group-count')?.textContent?.trim() ?? null,
+    ])).toEqual([['Sword', 'Weapon', '0/3'], ['Ring', 'Ring 1', null], ['Ring', 'Ring 2', null]]);
+    // The item is the heading; there is no separate slot title.
+    expect(groupTitles()).toEqual([]);
+    expect(cards[0].querySelector('.shopping-item-header .shopping-row-label')?.getAttribute('role')).toBe('heading');
 
     const swordRow = rowByName('Sword');
     expect(swordRow.querySelector('a.shopping-row-name')?.getAttribute('href')).toBe('http://ddowiki.com/page/Item:Sword');
@@ -81,8 +89,8 @@ describe('ShoppingListComponent', () => {
     expect(swordRow.querySelector('.shopping-row-details')?.textContent?.trim()).toBe('Roll: Strength +5 Enhancement');
 
     // The step lives where the item does, so it doesn't repeat the source.
-    const nested = swordRow.parentElement!.querySelectorAll('.shopping-rows-nested .shopping-row');
-    expect(Array.from(nested).map(row => row.querySelector('.shopping-row-label')?.textContent?.replace(/\s+/g, ' ').trim()))
+    const crafting = cards[0].querySelectorAll('.shopping-item-crafting .shopping-row');
+    expect(Array.from(crafting).map(row => row.querySelector('.shopping-row-label')?.textContent?.replace(/\s+/g, ' ').trim()))
       .toEqual(['Lost Purpose: Archons', 'Ruby']);
     expect(rowByName('Archons').querySelector('.shopping-row-source')).toBeNull();
     expect(rowByName('Ruby').querySelector('.shopping-row-source')?.textContent?.trim()).toBe('Source unknown');

@@ -1,4 +1,6 @@
 :host {
+    /* The tick box, and what lines up with the label beside it. */
+    --shopping-check-size: 1.75rem;
     display: block;
 }
 
@@ -182,6 +184,7 @@
 
 .shopping-group-count {
     color: var(--text-secondary);
+    flex: none;
     font-size: 0.8rem;
     margin-left: auto;
 }
@@ -214,6 +217,24 @@
     background: var(--row-alt-bg);
 }
 
+/* By slot, the item heads its own card: its row, unboxed, in place of a title. */
+.shopping-row.shopping-item-header {
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.shopping-item-header .shopping-row-name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* What goes into the item, lined up under its name. */
+.shopping-rows.shopping-item-crafting {
+    margin-top: var(--space-8);
+    padding-left: calc(var(--shopping-check-size) + var(--space-8));
+}
+
 .shopping-check {
     align-items: center;
     background: transparent;
@@ -223,8 +244,8 @@
     flex: none;
     font-size: 1.15rem;
     justify-content: center;
-    min-height: 1.75rem;
-    min-width: 1.75rem;
+    min-height: var(--shopping-check-size);
+    min-width: var(--shopping-check-size);
     padding: 0;
 }
 
@@ -244,10 +265,10 @@
     min-width: 0;
 }
 
+/* A long name wraps within itself, keeping its count beside it. */
 .shopping-row-label {
     align-items: baseline;
     display: flex;
-    flex-wrap: wrap;
     gap: var(--space-4);
     overflow-wrap: anywhere;
 }
@@ -258,6 +279,7 @@
 
 .shopping-row-name {
     font-weight: 600;
+    min-width: 0;
 }
 
 .shopping-row.acquired .shopping-row-name {
@@ -266,9 +288,16 @@
 }
 
 .shopping-row-quantity {
+    flex: none;
     color: var(--text-secondary);
     font-size: 0.8rem;
     font-weight: 700;
+}
+
+.shopping-row-slot {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 .shopping-row-meta {
@@ -301,16 +330,16 @@
         display: none;
     }
 
-    .shopping-rows-nested {
+    .shopping-rows-nested,
+    .shopping-rows.shopping-item-crafting {
         padding-left: var(--space-12);
     }
 }
 
 /* Thumb-sized boxes on touch screens. */
 @media (pointer: coarse) {
-    .shopping-check {
-        min-height: 2.75rem;
-        min-width: 2.75rem;
+    :host {
+        --shopping-check-size: 2.75rem;
     }
 
     .shopping-list-back,

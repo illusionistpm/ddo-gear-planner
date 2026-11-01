@@ -57,7 +57,7 @@ function rows(view: ReturnType<typeof buildShoppingListView>): Array<[string, st
     }
   };
   for (const group of groupsOf(view)) {
-    walk(group.label, group.rows, '');
+    walk(group.label, group.header ? [{ ...group.header, children: group.rows }] : group.rows, '');
   }
   return out;
 }
@@ -103,11 +103,11 @@ describe('shopping list view model', () => {
 
     it('tells how many of the same thing the build needs, and where the trove has it', () => {
       const view = buildShoppingListView(entries, {}, trove({ Ring: 1 }), { groupMode: 'slot', filter: 'all' });
-      const ringRow = groupsOf(view)[1].rows[0];
+      const ringRow = groupsOf(view)[1].header!;
 
       expect(ringRow.quantityInBuild).toBe(2);
       expect(ringRow.ownedLocations).toEqual([expect.objectContaining({ character: 'Khalarim' })]);
-      expect(groupsOf(view)[0].rows[0].ownedLocations).toBeNull();
+      expect(groupsOf(view)[0].header!.ownedLocations).toBeNull();
     });
   });
 

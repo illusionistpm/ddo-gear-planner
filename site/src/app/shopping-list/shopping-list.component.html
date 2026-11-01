@@ -58,20 +58,34 @@
           </h3>
         }
         @for (group of section.groups; track group.id) {
-          <section class="shopping-group" [attr.aria-label]="group.label">
-            <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
-              <span class="shopping-group-name">{{group.label}}</span>
-              @if (group.raid) {
-                <span class="loot-badge raid-loot-badge">Raid</span>
+          @if (group.header; as header) {
+            <!-- By slot: the card is the item, with what goes into it beneath. -->
+            <section class="shopping-group shopping-item-card" [attr.aria-label]="group.label">
+              <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: header, group: group }"></ng-container>
+              @if (group.rows.length) {
+                <ul class="shopping-rows shopping-item-crafting">
+                  @for (row of group.rows; track row.id) {
+                    <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
+                  }
+                </ul>
               }
-              <span class="shopping-group-count">{{group.acquired}}/{{group.total}}</span>
-            </div>
-            <ul class="shopping-rows">
-              @for (row of group.rows; track row.id) {
-                <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
-              }
-            </ul>
-          </section>
+            </section>
+          } @else {
+            <section class="shopping-group" [attr.aria-label]="group.label">
+              <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
+                <span class="shopping-group-name">{{group.label}}</span>
+                @if (group.raid) {
+                  <span class="loot-badge raid-loot-badge">Raid</span>
+                }
+                <span class="shopping-group-count">{{group.acquired}}/{{group.total}}</span>
+              </div>
+              <ul class="shopping-rows">
+                @for (row of group.rows; track row.id) {
+                  <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
+                }
+              </ul>
+            </section>
+          }
         }
       </section>
     }
@@ -80,75 +94,7 @@
 
 <ng-template #rowTemplate let-row>
   <li class="shopping-row-item">
-    <div class="shopping-row" [class.acquired]="row.state === 'checked'">
-      <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
-        [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
-        <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
-      </button>
-      <div class="shopping-row-body">
-        <div class="shopping-row-label">
-          @if (row.entry.kind === 'step' && row.entry.system) {
-            <span class="shopping-row-system">{{row.entry.system}}: </span>
-          }
-          @if (row.entry.wikiUrl) {
-            <a class="shopping-row-name" [href]="row.entry.wikiUrl" target="_blank" rel="noopener noreferrer">{{row.entry.label}}</a>
-          } @else {
-            <span class="shopping-row-name">{{row.entry.label}}</span>
-          }
-          @if (row.quantity > 1) {
-            <span class="shopping-row-quantity">{{row.acquired}}/{{row.quantity}}</span>
-          } @else if (row.quantityInBuild > 1) {
-            <span class="shopping-row-quantity" title="The build needs this more than once">&times;{{row.quantityInBuild}}</span>
-          }
-        </div>
-        <div class="shopping-row-meta">
-          @if (kindLabel(row); as kind) {
-            <span>{{kind}}</span>
-          }
-          @if (rowSlot(row); as slot) {
-            <span>{{slot}}</span>
-          }
-          @if (row.context) {
-            <span>{{row.context}}</span>
-          }
-          @if (row.entry.ml) {
-            <span>ML {{row.entry.ml}}</span>
-          }
-          @if (rowSource(row); as source) {
-            <span class="shopping-row-source">{{source.first}}</span>
-            @if (source.others.length) {
-              <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
-                <span class="shopping-row-more">+{{source.others.length}} more</span>
-              </app-tap-tooltip>
-            }
-          }
-          @if (row.alsoFrom.length === 1) {
-            <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
-          } @else if (row.alsoFrom.length) {
-            <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
-              <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
-            </app-tap-tooltip>
-          }
-          @if (row.entry.raid && view?.groupMode !== 'source') {
-            <span class="loot-badge raid-loot-badge">Raid</span>
-          }
-          @if (row.entry.rare) {
-            <span class="loot-badge rare-loot-badge">Rare</span>
-          }
-          @if (row.entry.artifact) {
-            <span class="loot-badge artifact-loot-badge">Artifact</span>
-          }
-          @if (row.ownedLocations) {
-            <app-tap-tooltip [text]="row.ownedLocations | userItemLocationTooltip" label="Where you have it">
-              <span class="owned-badge">Owned</span>
-            </app-tap-tooltip>
-          }
-        </div>
-        @if (row.entry.details.length) {
-          <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
-        }
-      </div>
-    </div>
+    <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: row, group: null }"></ng-container>
     @if (row.children.length) {
       <ul class="shopping-rows shopping-rows-nested">
         @for (child of row.children; track child.id) {
@@ -157,4 +103,80 @@
       </ul>
     }
   </li>
+</ng-template>
+
+<!-- A row's box, label and details. Given the group it heads, it is an item card's header. -->
+<ng-template #rowContent let-row let-group="group">
+  <div class="shopping-row" [class.acquired]="row.state === 'checked'" [class.shopping-item-header]="group">
+    <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
+      [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
+      <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
+    </button>
+    <div class="shopping-row-body">
+      <div class="shopping-row-label" [attr.role]="group ? 'heading' : null" [attr.aria-level]="group ? 3 : null">
+        @if (row.entry.kind === 'step' && row.entry.system) {
+          <span class="shopping-row-system">{{row.entry.system}}: </span>
+        }
+        @if (row.entry.wikiUrl) {
+          <a class="shopping-row-name" [href]="row.entry.wikiUrl" target="_blank" rel="noopener noreferrer">{{row.entry.label}}</a>
+        } @else {
+          <span class="shopping-row-name">{{row.entry.label}}</span>
+        }
+        @if (row.quantity > 1) {
+          <span class="shopping-row-quantity">{{row.acquired}}/{{row.quantity}}</span>
+        } @else if (row.quantityInBuild > 1) {
+          <span class="shopping-row-quantity" title="The build needs this more than once">&times;{{row.quantityInBuild}}</span>
+        }
+        @if (group?.rows.length) {
+          <span class="shopping-group-count" title="Got so far, of the item and what goes into it">{{group.acquired}}/{{group.total}}</span>
+        }
+      </div>
+      <div class="shopping-row-meta">
+        @if (kindLabel(row); as kind) {
+          <span>{{kind}}</span>
+        }
+        @if (rowSlot(row); as slot) {
+          <span class="shopping-row-slot">{{slot}}</span>
+        }
+        @if (row.context) {
+          <span>{{row.context}}</span>
+        }
+        @if (row.entry.ml) {
+          <span>ML {{row.entry.ml}}</span>
+        }
+        @if (rowSource(row); as source) {
+          <span class="shopping-row-source">{{source.first}}</span>
+          @if (source.others.length) {
+            <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
+              <span class="shopping-row-more">+{{source.others.length}} more</span>
+            </app-tap-tooltip>
+          }
+        }
+        @if (row.alsoFrom.length === 1) {
+          <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
+        } @else if (row.alsoFrom.length) {
+          <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
+            <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
+          </app-tap-tooltip>
+        }
+        @if (row.entry.raid && view?.groupMode !== 'source') {
+          <span class="loot-badge raid-loot-badge">Raid</span>
+        }
+        @if (row.entry.rare) {
+          <span class="loot-badge rare-loot-badge">Rare</span>
+        }
+        @if (row.entry.artifact) {
+          <span class="loot-badge artifact-loot-badge">Artifact</span>
+        }
+        @if (row.ownedLocations) {
+          <app-tap-tooltip [text]="row.ownedLocations | userItemLocationTooltip" label="Where you have it">
+            <span class="owned-badge">Owned</span>
+          </app-tap-tooltip>
+        }
+      </div>
+      @if (row.entry.details.length) {
+        <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
+      }
+    </div>
+  </div>
 </ng-template>

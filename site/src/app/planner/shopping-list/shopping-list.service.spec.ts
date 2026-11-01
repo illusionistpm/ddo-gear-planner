@@ -29,8 +29,8 @@ describe('ShoppingListService', () => {
 
   const view = () => firstValueFrom(service.view$);
   const groups = async () => (await view()).sections.flatMap(section => section.groups);
-  const labels = async () => (await groups()).flatMap(group => group.rows.flatMap(row =>
-    [`${row.entry.label}:${row.state}`, ...row.children.map(child => `${child.entry.label}:${child.state}`)]));
+  const labels = async () => (await groups()).flatMap(group => [...(group.header ? [group.header] : []), ...group.rows]
+    .flatMap(row => [`${row.entry.label}:${row.state}`, ...row.children.map(child => `${child.entry.label}:${child.state}`)]));
 
   beforeEach(async () => {
     for (const key of [SHOPPING_PROGRESS_STORAGE_KEY, GROUP_MODE_KEY]) {
@@ -64,7 +64,7 @@ describe('ShoppingListService', () => {
     const navigateByUrl = vi.spyOn(router, 'navigateByUrl');
     const dirtyBefore = currentBuild.value.isDirty;
 
-    service.toggle((await groups())[0].rows[0]);
+    service.toggle((await groups())[0].header!);
     await TestBed.inject(ApplicationRef).whenStable();
 
     expect(await labels()).toEqual(['Ring of Tests:checked', 'Diamond of Tests:unchecked']);

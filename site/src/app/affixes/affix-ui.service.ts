@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Affix } from './affix';
-import { AffixRank } from './affix-rank.enum';
+import { AffixRank, HELPFUL_RANKS, rankClassName } from './affix-rank.enum';
 import { EquippedService, RankCandidate } from '../planner/equipped.service';
 import { AffixService } from './affix.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -34,6 +34,13 @@ interface RankDetails {
   sourceAffix: Affix;
   /** The build's best value today, when choosing the affix would lower it. */
   downgradeFrom?: number;
+  /**
+   * For a compound - an affix group, an option with several affixes, a set augment's bonuses -
+   * each component's own ranking, in order. The compound's tooltip is one line per component.
+   */
+  parts?: RankDetails[];
+  /** A compound that helps, but with some components outranked (which add nothing). */
+  partial?: boolean;
 }
 
 @Injectable({
@@ -89,7 +96,7 @@ export class AffixUiService {
    */
   getClassForAffix(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getClassForAffix');
-    return AffixRank[this.getAffixRank(affix, option, candidate)];
+    return this.classFor(this.getAffixRankDetails(affix, option, candidate));
   }
 
   /** What equipping `item` in its slot would contribute, with `option` chosen in `craft` when given. */
@@ -145,13 +152,13 @@ export class AffixUiService {
     return `Needs ${threshold} set items (currently have ${equippedPieces})`;
   }
 
-  private getAffixRank(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): AffixRank {
-    return this.getAffixRankDetails(affix, option, candidate).rank;
+  private classFor(details: RankDetails): string {
+    return rankClassName(details.rank, !!details.partial);
   }
 
-  // Compound affixes (affix groups) get their rank from whichever component affix is
-  // responsible for it. We need to know which component that is, not just the overall
-  // rank, so tooltips can point at the specific competing item/set for that component.
+  // A compound affix (affix group) is ranked as itself - which counts when the group's own name
+  // is tracked - together with each of its components, and keeps each one's ranking, so its
+  // tooltip can point at the specific competing item/set for each component.
   private getAffixRankDetails(affix: Affix, option?: CraftableOption, candidate?: RankCandidate): RankDetails {
     if (!affix) {
       return { rank: AffixRank.Irrelevant, sourceAffix: affix };
@@ -166,8 +173,8 @@ export class AffixUiService {
     }
 
     let details = this.rankOne(affix, candidate);
-    if (details.rank === AffixRank.Irrelevant && this.affixSvc?.isAffixGroup(affix)) {
-      details = this.getAffixGroupRankDetails(affix, candidate);
+    if (this.affixSvc?.isAffixGroup(affix)) {
+      details = this.getAffixGroupRankDetails(affix, details, candidate);
     }
     let affixRank = details.rank;
 
@@ -190,15 +197,36 @@ export class AffixUiService {
     perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
 
-    // Check if this is a set bonus from an augment
-    if (option?.set) {
-      const setReq = this.checkSetRequirements(option.set);
-      if (setReq && !setReq.meetsRequirements) {
-        return `Need ${setReq.requiredCount} set items (currently have ${setReq.currentCount})`;
-      }
+    return this.describeShortSet(option)
+      || this.describeRank(this.getAffixRankDetails(affix, option, candidate), option, currentSlot);
+  }
+
+  /** For an option from a set augment whose set is short of pieces: why it does nothing yet. */
+  private describeShortSet(option?: CraftableOption | null): string {
+    const setReq = option?.set ? this.checkSetRequirements(option.set) : null;
+    return setReq && !setReq.meetsRequirements
+      ? `Need ${setReq.requiredCount} set items (currently have ${setReq.currentCount})`
+      : '';
+  }
+
+  /**
+   * Why something has its rank. A compound gets one line per relevant component, each named and
+   * described exactly as that component would be on its own.
+   */
+  private describeRank(details: RankDetails, option?: CraftableOption, currentSlot?: string): string {
+    if (details.parts) {
+      const lines = details.parts
+        .map(part => ({ part, line: this.describeRank(part, option, currentSlot) }))
+        .filter(({ line }) => line);
+      // A line is named after its component - unless it is the only line and is about the whole.
+      return lines
+        .map(({ part, line }) => lines.length > 1 || part.sourceAffix !== details.sourceAffix
+          ? `${this.getAffixDescription(part.sourceAffix)}: ${line}`
+          : line)
+        .join('\n');
     }
 
-    const { rank: affixRank, sourceAffix, downgradeFrom } = this.getAffixRankDetails(affix, option, candidate);
+    const { rank: affixRank, sourceAffix, downgradeFrom } = details;
     if (downgradeFrom !== undefined) {
       // The value it would lose comes from the slot being replaced, so that slot's source is named.
       const current = this.describeCompetingSources(sourceAffix);
@@ -218,9 +246,6 @@ export class AffixUiService {
         break;
       case AffixRank.Outranked:
         tooltip = 'Overpowered by';
-        break;
-      case AffixRank.Mixed:
-        tooltip = 'Mixed effectiveness';
         break;
       case AffixRank.Penalty:
         tooltip = option?.set ? 'Not yet active - need more set items' : 'Penalty/negative effect';
@@ -289,30 +314,23 @@ export class AffixUiService {
   }
 
   /**
+   * Why a crafting option has its rank colour, from the same ranking getClassForCraftingOption
+   * uses: one line per relevant affix, group component or (for a set augment) set bonus.
+   */
+  getCraftingOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate): string {
+    const details = this.getCraftingOptionRankDetails(option, candidate);
+    if (!details) {
+      return '';
+    }
+    // A set augment is ranked as if its set were complete, so it isn't described as short.
+    return (option!.affixes.length ? this.describeShortSet(option) : '')
+      || this.describeRank(details, option!.affixes.length ? option! : undefined, slot);
+  }
+
+  /**
    * Ranks a crafting option for a list of options. `alreadyEquipped` says the option is the
    * chosen one on an equipped item, so a set augment already counts as one of its set's pieces.
    */
-  /**
-   * Why a crafting option has its rank colour: its first affix's ranking tooltip or, for a set
-   * augment, each set bonus's, ranked the same way getClassForCraftingOption ranks them.
-   */
-  getCraftingOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate): string {
-    if (option?.affixes?.[0]) {
-      return this.getAffixTooltip(option.affixes[0], option, slot, candidate);
-    }
-    if (!option?.set) {
-      return '';
-    }
-    const set = option.set;
-    const bonuses = this.getSetBonusAffixes(set);
-    const tooltips = bonuses.map(affix => {
-      const tooltip = this.getAffixTooltip(affix, undefined, slot, candidate && this.candidateForSetBonus(candidate, set, affix));
-      // With several bonuses, say which one each line is about.
-      return tooltip && bonuses.length > 1 ? `${this.getAffixDescription(affix)}: ${tooltip}` : tooltip;
-    });
-    return tooltips.filter(tooltip => tooltip).join('\n');
-  }
-
   rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false, context?: CraftingOptionContext): CraftingOptionRanking {
     // Ranked as if chosen: on its item, in place of whatever that crafting slot holds now.
     const candidate = context ? this.candidateFor(context.item, context.craft, option) : undefined;
@@ -345,34 +363,53 @@ export class AffixUiService {
 
   getClassForCraftingOption(option: CraftableOption, candidate?: RankCandidate): string {
     perfCount('AffixUiService.getClassForCraftingOption');
+    const details = this.getCraftingOptionRankDetails(option, candidate);
+    return details ? this.classFor(details) : AffixRank[AffixRank.Irrelevant];
+  }
+
+  private getCraftingOptionRankDetails(option: CraftableOption | null | undefined, candidate?: RankCandidate): RankDetails | null {
     if (option?.affixes?.length) {
-      return AffixRank[this.combineRanks(option.affixes.map(affix => this.getAffixRank(affix, option, candidate)))];
+      return this.combineRankDetails(option.affixes.map(affix => this.getAffixRankDetails(affix, option, candidate)), option.affixes[0]);
     }
     if (option?.set) {
       // A set augment has no affixes of its own, so it is ranked by its set's bonuses - as if
       // the set were complete, which is what choosing it is working towards. (Ranking them with
       // the option would make every set short of its pieces a Penalty.)
       const set = option.set;
-      return AffixRank[this.combineRanks(this.getSetBonusAffixes(set).map(affix =>
-        this.getAffixRank(affix, undefined, candidate && this.candidateForSetBonus(candidate, set, affix))))];
+      const bonuses = this.getSetBonusAffixes(set);
+      if (!bonuses.length) {
+        return null;
+      }
+      return this.combineRankDetails(bonuses.map(affix =>
+        this.getAffixRankDetails(affix, undefined, candidate && this.candidateForSetBonus(candidate, set, affix))), bonuses[0]);
     }
-    return AffixRank[AffixRank.Irrelevant];
+    return null;
   }
 
-  /** One rank for several affixes: the one rank they share, ignoring irrelevant ones, or Mixed. */
-  private combineRanks(ranks: AffixRank[]): AffixRank {
-    let combined = AffixRank.Irrelevant;
-    for (const rank of ranks) {
-      if (rank === AffixRank.Irrelevant) {
-        continue;
-      }
-      if (combined === AffixRank.Irrelevant) {
-        combined = rank;
-      } else if (combined !== rank) {
-        return AffixRank.Mixed;
-      }
+  /**
+   * One rank for several parts, ignoring irrelevant ones. Parts that all rank the same give that
+   * rank. Otherwise a penalty among them makes the whole Mixed; failing that, it ranks as its most
+   * useful part, since an outranked part adds nothing but takes nothing away - only marked
+   * `partial`. A single part is returned as it is; nested compounds are flattened into their parts.
+   */
+  private combineRankDetails(parts: RankDetails[], whole: Affix): RankDetails {
+    if (parts.length === 1) {
+      return parts[0];
     }
-    return combined;
+    const leaves = parts.flatMap(part => part.parts ?? [part]);
+    const ranks: AffixRank[] = leaves.map(leaf => leaf.rank).filter(rank => rank !== AffixRank.Irrelevant);
+    let rank: AffixRank;
+    if (!ranks.length) {
+      rank = AffixRank.Irrelevant;
+    } else if (ranks.every(r => r === ranks[0])) {
+      rank = ranks[0];
+    } else if (ranks.includes(AffixRank.Penalty)) {
+      rank = AffixRank.Mixed;
+    } else {
+      rank = HELPFUL_RANKS.find(helpful => ranks.includes(helpful))!;
+    }
+    const partial = HELPFUL_RANKS.includes(rank) && ranks.includes(AffixRank.Outranked);
+    return { rank, sourceAffix: whole, parts: leaves, partial };
   }
 
   /** Every bonus of a set, at any piece count. */
@@ -380,20 +417,10 @@ export class AffixUiService {
     return this.gearDb.getSetBonusThresholdDetails(set, 0).flatMap(tier => tier.affixes);
   }
 
-  private getAffixGroupRankDetails(affixGroup: Affix, candidate?: RankCandidate): RankDetails {
-    let details: RankDetails = { rank: AffixRank.Irrelevant, sourceAffix: affixGroup };
+  /** A group's own ranking, `asItself`, combined with its components'. */
+  private getAffixGroupRankDetails(affixGroup: Affix, asItself: RankDetails, candidate?: RankCandidate): RankDetails {
     const affixes = this.affixSvc.flattenAffixGroups([affixGroup]);
-    for (const aff of affixes) {
-      const cur = this.rankOne(aff, candidate);
-      if (details.rank === AffixRank.Irrelevant) {
-        details = cur;
-      } else if (cur.rank === AffixRank.Irrelevant) {
-        // Do nothing
-      } else if (details.rank !== cur.rank) {
-        return { rank: AffixRank.Mixed, sourceAffix: affixGroup };
-      }
-    }
-    return details;
+    return this.combineRankDetails([asItself, ...affixes.map(aff => this.rankOne(aff, candidate))], affixGroup);
   }
 
   private checkSetRequirements(setName: string): { meetsRequirements: boolean, currentCount: number, requiredCount: number } | null {

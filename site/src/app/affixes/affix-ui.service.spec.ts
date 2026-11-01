@@ -101,7 +101,7 @@ describe('AffixUiService', () => {
     const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
 
     expect(service.getClassForAffix(universalLore)).toBe(AffixRank[AffixRank.Best]);
-    expect(service.getAffixTooltip(universalLore)).toBe('Best equipped value');
+    expect(service.getAffixTooltip(universalLore)).toBe('Force Lore: +5 Exceptional: Best equipped value');
   });
 
   it('preserves the source type and value when expanding universal spell effects', () => {
@@ -125,6 +125,82 @@ describe('AffixUiService', () => {
       type: 'Exceptional',
       value: 5,
     }));
+  });
+
+  describe('compound affixes with parts ranked differently', () => {
+    const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
+
+    function makeService(ranks: Record<string, AffixRank>) {
+      const sources: Record<string, unknown[]> = {
+        'Fire Lore': [{ kind: 'item', itemName: 'Flame Ring', slot: 'Ring1' }],
+        'Acid Lore': [{ kind: 'set', slot: 'Set', itemName: 'Corroder' }],
+      };
+      const equipped = {
+        getAffixRanking: (affix: Affix) => ranks[affix.name] ?? AffixRank.Irrelevant,
+        getSourcesForAffixType: (name: string) => sources[name] ?? [],
+      };
+      return new AffixUiService(equipped as any, new AffixService(), {} as any);
+    }
+
+    it('rank as their most useful part, marked partial, when another part is outranked', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best PartialRank');
+    });
+
+    it('rank as their most useful part, unmarked, when every relevant part helps', () => {
+      const service = makeService({ 'Force Lore': AffixRank.BestTied, 'Fire Lore': AffixRank.BetterThanBest });
+
+      expect(service.getClassForAffix(universalLore)).toBe('BetterThanBest');
+    });
+
+    it('are Mixed when a part is a penalty', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Penalty });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Mixed');
+      expect(service.getAffixTooltip(universalLore)).toContain('Fire Lore: +5 Exceptional: Penalty/negative effect');
+    });
+
+    it('rank a tracked group as itself as well as its parts', () => {
+      const service = makeService({ 'Universal Spell Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best PartialRank');
+      expect(service.getAffixTooltip(universalLore)).toBe(
+        'Universal Spell Lore: +5 Exceptional: Best equipped value\n'
+        + 'Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)');
+    });
+
+    it('describe a tracked group alone as it would any affix', () => {
+      const service = makeService({ 'Universal Spell Lore': AffixRank.Best });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best');
+      expect(service.getAffixTooltip(universalLore)).toBe('Best equipped value');
+    });
+
+    it('describe each relevant part, with what it is tied with or overpowered by', () => {
+      const service = makeService({
+        'Force Lore': AffixRank.Best,
+        'Fire Lore': AffixRank.Outranked,
+        'Acid Lore': AffixRank.BestTied,
+      });
+
+      expect(service.getAffixTooltip(universalLore).split('\n').sort()).toEqual([
+        'Acid Lore: +5 Exceptional: Tied with Corroder set bonus',
+        'Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)',
+        'Force Lore: +5 Exceptional: Best equipped value',
+      ]);
+    });
+
+    it('carry the partial mark into an option with several affixes', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+      const option = new CraftableOption({ name: 'Lore', affixes: [
+        new Affix({ name: 'Evil Aligned', type: 'Bool', value: 1 }),
+        universalLore
+      ] });
+
+      expect(service.getClassForCraftingOption(option)).toBe('Best PartialRank');
+      expect(service.getCraftingOptionRankTooltip(option)).toContain('Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)');
+    });
   });
 
   describe('describeExternalAffix', () => {
@@ -177,8 +253,14 @@ describe('AffixUiService', () => {
       expect(makeService({ Doublestrike: AffixRank.Outranked }).getClassForCraftingOption(setAugment)).toBe('Outranked');
     });
 
-    it('are Mixed when their set bonuses rank differently', () => {
+    it('rank as their most useful bonus, marked partial, when another bonus is outranked', () => {
       const service = makeService({ Doublestrike: AffixRank.BetterThanBest, Doubleshot: AffixRank.Outranked });
+
+      expect(service.getClassForCraftingOption(setAugment)).toBe('BetterThanBest PartialRank');
+    });
+
+    it('are Mixed only when a bonus is a penalty', () => {
+      const service = makeService({ Doublestrike: AffixRank.Best, Doubleshot: AffixRank.Penalty });
 
       expect(service.getClassForCraftingOption(setAugment)).toBe('Mixed');
     });

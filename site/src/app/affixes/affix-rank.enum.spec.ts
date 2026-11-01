@@ -8,6 +8,13 @@ describe('rank class ordering', () => {
       .toEqual(['BetterThanBest', 'Best', 'BestTied', 'Mixed', 'Outranked', 'Penalty', 'Irrelevant']);
   });
 
+  it('sorts a partial rank just after the full one', () => {
+    const shuffled = ['Best PartialRank', 'BestTied', 'Best', 'BetterThanBest PartialRank'];
+
+    expect([...shuffled].sort(compareRankClasses))
+      .toEqual(['BetterThanBest PartialRank', 'Best', 'Best PartialRank', 'BestTied']);
+  });
+
   it('sorts unranked options last', () => {
     expect(compareRankClasses(undefined, 'Irrelevant')).toBeGreaterThan(0);
   });

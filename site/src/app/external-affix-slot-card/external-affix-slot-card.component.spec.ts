@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { AppModule } from '../app.module';
 import { GearDbService } from '../gear/gear-db.service';
+import { Item } from '../gear/item';
 import { EquippedService } from '../planner/equipped.service';
 import { TypeaheadComponent } from '../typeahead/typeahead.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card.component';
@@ -120,6 +121,46 @@ describe('ExternalAffixSlotCardComponent', () => {
       'Wisdom (Skip) | Quality',
     ]);
     expect(el().querySelector('.external-affix-empty')).toBeNull();
+  });
+
+  describe('tooltips', () => {
+    const rowTitles = () => Array.from<HTMLElement>(el().querySelectorAll('.external-affix-row'))
+      .map(row => row.getAttribute('title'));
+
+    it('explains an entry\'s rank the way gear affixes do', () => {
+      equipped.addImportantAffixes(['Strength']);
+      equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
+      fixture.detectChanges();
+
+      expect(rowTitles()).toEqual(['Best equipped value']);
+
+      equipped.set(new Item({
+        name: 'Strong Gloves', slot: 'Gloves', type: 'Gloves', ml: 1, url: '/page/Strong_Gloves',
+        affixes: [{ name: 'Strength', type: 'Insight', value: 3 }], sets: [], crafting: [], quests: [], artifact: false,
+      }));
+      fixture.detectChanges();
+
+      expect(rowTitles()).toEqual(['Tied with Strong Gloves (Gloves)']);
+    });
+
+    it('gives an ignored entry no rank tooltip', () => {
+      equipped.addImportantAffixes(['Strength']);
+      equipped.addExternalAffixIgnored('Strength', 'Insight', 'Skip');
+      fixture.detectChanges();
+
+      expect(rowTitles()).toEqual(['']);
+    });
+
+    it('lists what an affix-group entry is made of', () => {
+      equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+      equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
+      fixture.detectChanges();
+
+      const groupTooltips = Array.from(el().querySelectorAll('.external-affix-row'))
+        .map(row => row.querySelector('app-tap-tooltip button')?.getAttribute('title') ?? null);
+      expect(groupTooltips[0]).toMatch(/^Combat Mastery is:\n[\s\S]*Stunning/);
+      expect(groupTooltips[1]).toBeNull();
+    });
   });
 
   it('shows a checklist entry as a checked box instead of a value', () => {

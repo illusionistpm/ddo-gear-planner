@@ -27,7 +27,7 @@ import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { findAugmentUpgradeForLegacySlot } from '../gear/augment-slots';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
-import { ExternalAffixEntry, isExternalAffixEntry } from '../affixes/external-affix';
+import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affixes/external-affix';
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 
@@ -651,13 +651,21 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
-    for (const entry of this.externalAffixes) {
-      if (entry.kind === 'value' && entry.affixName === affixName && entry.bonusType === bonusType) {
-        values.push({ slot: 'Non-gear', value: entry.value });
-      }
+    for (const entry of this.getExternalValuesFor(affixName, bonusType)) {
+      values.push({ slot: NON_GEAR_SLOT, value: entry.value });
     }
 
     return values.sort((a, b) => b.value - a.value);
+  }
+
+  /**
+   * The non-gear values supplying `affixName` (of `bonusType`, when given). Like a set bonus, an entry
+   * for an affix group ("Combat Mastery") supplies each of its members ("Stunning", ...) at its value.
+   */
+  private getExternalValuesFor(affixName: string, bonusType?: string): ExternalAffixEntry[] {
+    return this.externalAffixes.filter(entry => entry.kind === 'value'
+      && (bonusType === undefined || entry.bonusType === bonusType)
+      && this.affixSvc.resolvesToAffix(entry.affixName, affixName));
   }
 
   /** The set bonuses the build would have once `candidate` replaced its slot. */
@@ -728,11 +736,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
-    for (const entry of this.externalAffixes) {
-      if (entry.kind === 'value' && entry.affixName === affixName && entry.bonusType === bonusType && entry.value === bestValue) {
+    for (const entry of this.getExternalValuesFor(affixName, bonusType)) {
+      if (entry.value === bestValue) {
         sources.push({
           kind: 'external',
-          slot: 'Non-gear',
+          slot: NON_GEAR_SLOT,
           itemName: entry.label,
           affixName: entry.affixName,
           bonusType: entry.bonusType,
@@ -744,27 +752,35 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return sources;
   }
 
-  /** The affix's total across all slots, with `testSlot` holding `testItem` (null for empty) instead of its real item. */
+  /**
+   * The affix's total across all slots and non-gear values, with `testSlot` holding `testItem` (null for
+   * empty) instead of its real item. Non-gear values are in the baseline so gear isn't credited for a
+   * bonus a spell or trance already gives, and a bonus type the player ignores adds nothing either way.
+   */
   private _getTotalValueForAffixTestingItem(affixName: string, testSlot: string, testItem: Item | null) {
-    const map = new Map<string, number>();
+    const bestByType = new Map<string, number>();
+    const offer = (bonusType: string, value: number) => {
+      if (!this.isAffixTypeIgnored(affixName, bonusType) && (bestByType.get(bonusType) ?? 0) < value) {
+        bestByType.set(bonusType, value);
+      }
+    };
 
     for (const slot of this.slots) {
       const item = slot[0] === testSlot ? testItem : slot[1].getValue();
       if (item) {
         for (const affix of this.affixSvc.getActiveAffixes(item)) {
           if (this.affixSvc.resolvesToAffix(affix.name, affixName)) {
-            const existing = map.get(affix.type) ?? 0;
-            if (existing < affix.value) {
-              map.set(affix.type, affix.value);
-            }
-            break;
+            offer(affix.type, affix.value);
           }
         }
       }
     }
 
-    const total = Array.from(map.values()).reduce((acc, val) => acc + val, 0);
-    return total;
+    for (const entry of this.getExternalValuesFor(affixName)) {
+      offer(entry.bonusType, entry.value);
+    }
+
+    return Array.from(bestByType.values()).reduce((acc, val) => acc + val, 0);
   }
 
   hasItem(slot: string): boolean {

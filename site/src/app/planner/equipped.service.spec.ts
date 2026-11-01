@@ -314,6 +314,38 @@ describe('EquippedService', () => {
     expect(service.getCurrentValueForAffixType('Deadly', 'Insightful')).toBe(5);
   });
 
+  it('counts an external affix-group entry towards each of its member affixes', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.set(makeItem('Stunning Gloves', 'Gloves', 'Gloves', [
+      { name: 'Stunning', type: 'Insight', value: 3 },
+    ]));
+    service.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+
+    expect(service.getCurrentValueForAffixType('Stunning', 'Insight')).toBe(5);
+    expect(service.getSourcesForAffixType('Stunning', 'Insight')).toEqual([{
+        kind: 'external',
+        slot: 'Non-gear',
+        itemName: 'Trance',
+        affixName: 'Combat Mastery',
+        bonusType: 'Insight',
+        value: 5,
+      }]);
+    // An entry only counts at its own bonus type.
+    expect(service.getCurrentValueForAffixType('Stunning', 'Enhancement')).toBe(0);
+  });
+
+  it('ranks an external affix-group entry against itself rather than as an upgrade', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    const affixUi = TestBed.inject(AffixUiService);
+    service.addImportantAffixes(['Stunning']);
+
+    service.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+
+    const entryAsAffix = new Affix({ name: 'Combat Mastery', type: 'Insight', value: 5 });
+    expect(affixUi.getClassForAffix(entryAsAffix)).toBe(AffixRank[AffixRank.Best]);
+  });
+
   it('replaces the existing external entry for a type instead of stacking a second one', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 
@@ -522,6 +554,41 @@ describe('EquippedService', () => {
     const scarceItem = makeItem('Scarce Belt', 'Belt', 'Belt', [{ name: 'Strength', type: 'Profane', value: 6 }]);
 
     expect(service.getScore(scarceItem)).toBeGreaterThan(service.getScore(commonItem));
+  });
+
+  describe('scoring against non-gear entries', () => {
+    let service: EquippedService;
+    const insightBelt = makeItem('Insight Belt', 'Belt', 'Belt', [{ name: 'Stunning', type: 'Insight', value: 5 }]);
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      vi.spyOn(TestBed.inject(AffixAvailabilityService), 'getScarcityWeight').mockReturnValue(1);
+      service.setImportantAffixes(['Stunning']);
+    });
+
+    it('gives no credit for a bonus a non-gear entry already supplies, including through an affix group', () => {
+      expect(service.getScore(insightBelt)).toBeGreaterThan(0);
+
+      service.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+
+      expect(service.getScore(insightBelt)).toBe(0);
+    });
+
+    it('gives no credit for a bonus type the player ignores', () => {
+      service.addExternalAffixIgnored('Stunning', 'Insight', 'Not chasing');
+
+      expect(service.getScore(insightBelt)).toBe(0);
+    });
+
+    it('credits every bonus type an item supplies for the affix, not just its first', () => {
+      const twoTypeBelt = makeItem('Two-type Belt', 'Belt', 'Belt', [
+        { name: 'Stunning', type: 'Insight', value: 5 },
+        { name: 'Stunning', type: 'Enhancement', value: 5 },
+      ]);
+      service.addExternalAffixValue('Stunning', 'Insight', 5, 'Trance');
+
+      expect(service.getScore(twoTypeBelt)).toBeGreaterThan(0);
+    });
   });
 
   it('stops applying scarcity once equipped gear covers the type to the moderate threshold', () => {

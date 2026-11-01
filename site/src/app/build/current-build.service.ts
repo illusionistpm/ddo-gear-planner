@@ -244,6 +244,18 @@ export class CurrentBuildService {
     );
   }
 
+  /**
+   * Treat whatever is applied right now as the starting point, not an edit -
+   * for something the app did on the user's behalf before they touched
+   * anything (first-run setup's Basic package). Identity is left alone.
+   * Without this a fresh visit was dirty from the start: Save enabled, and
+   * an unsaved-changes prompt on an untouched page.
+   */
+  acceptCurrentAsBaseline(): void {
+    this.resetBaseline();
+    this.setDirty(false);
+  }
+
   /** Null if nothing is cached for this shortId (e.g. a fresh session that never re-fetched it). */
   getCanonicalParamsCache(shortId: string): Record<string, string | Array<string>> | null {
     return this.canonicalParamsCache?.shortId === shortId ? this.canonicalParamsCache.params : null;

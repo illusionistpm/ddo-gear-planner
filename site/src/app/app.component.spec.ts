@@ -2,12 +2,18 @@ import type { Mock } from 'vitest';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, firstValueFrom } from 'rxjs';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { AuthService } from './shared/auth.service';
 import { CurrentBuildService } from './build/current-build.service';
 import { QueryParamsService } from './build/query-params.service';
+import { BuildUrlCodecService } from './build/build-url-codec.service';
+import { EquippedService } from './planner/equipped.service';
+import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 
 @Component({ selector: 'app-stub', template: '', standalone: false })
 class StubComponent {
@@ -128,6 +134,50 @@ describe('AppComponent', () => {
     });
   });
 
+  it('bypasses onboarding after following a long build link with gear in it', async () => {
+    const blob = TestBed.inject(BuildUrlCodecService).encode({ Armor: '+1 Starter Breastplate' });
+    const onboarding = TestBed.inject(PlannerOnboardingService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(onboarding.shouldShowOnboarding()).toBe(true);
+
+    await TestBed.inject(Router).navigateByUrl(`/?b=${blob}`);
+
+    expect(TestBed.inject(EquippedService).isBuildEmpty()).toBe(false);
+    expect(onboarding.shouldShowOnboarding()).toBe(false);
+  });
+
+  it('does not bypass onboarding for a long build link with no gear in it', async () => {
+    const blob = TestBed.inject(BuildUrlCodecService).encode({ tracked: ['Strength'] });
+    const onboarding = TestBed.inject(PlannerOnboardingService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    await TestBed.inject(Router).navigateByUrl(`/?b=${blob}`);
+
+    expect(onboarding.shouldShowOnboarding()).toBe(true);
+  });
+
+  it('does not bypass onboarding when browser back/forward lands on a URL with gear', async () => {
+    // Back/forward replays the user's own edit history, not a followed link -
+    // it mustn't switch the intro off part-way through it.
+    const blob = TestBed.inject(BuildUrlCodecService).encode({ Armor: '+1 Starter Breastplate' });
+    const onboarding = TestBed.inject(PlannerOnboardingService);
+    const router = TestBed.inject(Router);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await router.navigateByUrl('/');
+
+    router.setUpLocationChangeListener();
+    // The router handles a popstate on a timer, so wait for the navigation itself.
+    const landed = firstValueFrom(router.events.pipe(filter(event => event instanceof NavigationEnd)));
+    (TestBed.inject(Location) as SpyLocation).simulateUrlPop(`/?b=${blob}`);
+    await landed;
+
+    expect(TestBed.inject(EquippedService).isBuildEmpty()).toBe(false);
+    expect(onboarding.shouldShowOnboarding()).toBe(true);
+  });
+
   it('does not call updateFromParams when navigating to a /build/:shortId route', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
     vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
@@ -224,6 +274,7 @@ describe('AppComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
+    vi.spyOn(TestBed.inject(EquippedService), 'isBuildEmpty').mockReturnValue(false);
     const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
     fixture.componentInstance.warnOnUnload = true;
 
@@ -233,6 +284,25 @@ describe('AppComponent', () => {
     expect(event.returnValue).toBeTruthy();
   });
 
+  it('does not warn on window unload for a dirty build with no gear equipped', () => {
+    // A fresh visit is dirty before the user does anything (first-run setup
+    // adds the Basic affix package) - with no gear there's nothing to save.
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    Object.defineProperty(currentBuild, 'value', {
+      get: () => ({ savedBuildId: null, shortId: null, name: null, isDirty: true, ownership: 'other' })
+    });
+    expect(TestBed.inject(EquippedService).isBuildEmpty()).toBe(true);
+    fixture.componentInstance.warnOnUnload = true;
+
+    const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
+    fixture.componentInstance.warnOnUnsavedChanges(event as any);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(event.returnValue).toBeUndefined();
+  });
+
   it('does not warn on window unload for a dirty build in a dev build', () => {
     const currentBuild = TestBed.inject(CurrentBuildService);
     const fixture = TestBed.createComponent(AppComponent);
@@ -240,6 +310,7 @@ describe('AppComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
+    vi.spyOn(TestBed.inject(EquippedService), 'isBuildEmpty').mockReturnValue(false);
     fixture.componentInstance.warnOnUnload = false;
 
     const event = { preventDefault: vi.fn().mockName('preventDefault'), returnValue: undefined as any };
@@ -257,6 +328,7 @@ describe('AppComponent', () => {
     Object.defineProperty(currentBuild, 'value', {
       get: () => ({ savedBuildId: null, shortId: 'abc123', name: 'My Build', isDirty: true, ownership: 'other' })
     });
+    vi.spyOn(TestBed.inject(EquippedService), 'isBuildEmpty').mockReturnValue(false);
     authServiceStub.isRedirectingAwayForAuth = true;
     fixture.componentInstance.warnOnUnload = true;
 

@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CurrentBuildService } from './current-build.service';
+import { EquippedService } from '../planner/equipped.service';
 import { unsavedChangesGuard } from './unsaved-changes.guard';
 
 describe('unsavedChangesGuard', () => {
@@ -15,10 +16,16 @@ describe('unsavedChangesGuard', () => {
     return TestBed.runInInjectionContext(() => unsavedChangesGuard(null as any, null as any, null as any, nextState)) as boolean;
   }
 
+  let buildEmpty: boolean;
+
   beforeEach(() => {
     currentBuild = { value: { isDirty: false } };
+    buildEmpty = false;
     TestBed.configureTestingModule({
-      providers: [{ provide: CurrentBuildService, useValue: currentBuild }]
+      providers: [
+        { provide: CurrentBuildService, useValue: currentBuild },
+        { provide: EquippedService, useValue: { isBuildEmpty: () => buildEmpty } }
+      ]
     });
   });
 
@@ -32,6 +39,15 @@ describe('unsavedChangesGuard', () => {
 
     expect(run()).toBe(true);
     expect(window.confirm).toHaveBeenCalled();
+  });
+
+  it('does not confirm for a dirty build with no gear equipped - there is nothing to lose', () => {
+    currentBuild.value.isDirty = true;
+    buildEmpty = true;
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    expect(run()).toBe(true);
+    expect(window.confirm).not.toHaveBeenCalled();
   });
 
   it('blocks navigation if the user cancels the confirmation', () => {

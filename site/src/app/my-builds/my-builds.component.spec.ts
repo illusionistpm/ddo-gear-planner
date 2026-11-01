@@ -7,7 +7,12 @@ import { of, throwError } from 'rxjs';
 import { Build } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
+import { EquippedService } from '../planner/equipped.service';
 import { MyBuildsComponent } from './my-builds.component';
+
+// The confirm specs below are about dirtiness; a build with no gear never
+// prompts at all (see hasUnsavedWork), so give them some.
+const equippedWithGear = { isBuildEmpty: () => false } as unknown as EquippedService;
 
 function makeBuild(overrides: Partial<Build> = {}): Build {
   return {
@@ -51,7 +56,7 @@ describe('MyBuildsComponent', () => {
       ]
     });
 
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
     component.ngOnInit();
     return component;
   }
@@ -85,7 +90,7 @@ describe('MyBuildsComponent', () => {
     cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     } as unknown as MockedObject<ChangeDetectorRef>;
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
     component.ngOnInit();
 
     expect(component.builds).toBeNull();
@@ -164,6 +169,20 @@ describe('MyBuildsComponent', () => {
     component.newBuild();
 
     expect(currentBuild.reset).toHaveBeenCalled();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+  });
+
+  it('does not confirm leaving a dirty build that has no gear equipped', () => {
+    const component = create();
+    Object.defineProperty(currentBuild, 'value', {
+      value: { savedBuildId: null, shortId: null, name: null, isDirty: true, ownership: 'other' }
+    });
+    Object.defineProperty(component, 'equipped', { value: { isBuildEmpty: () => true } });
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    component.newBuild();
+
+    expect(window.confirm).not.toHaveBeenCalled();
     expect(router.navigateByUrl).toHaveBeenCalledWith('/');
   });
 
@@ -254,7 +273,7 @@ describe('MyBuildsComponent', () => {
     cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     } as unknown as MockedObject<ChangeDetectorRef>;
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
     component.ngOnInit();
     const event = {
       stopPropagation: vi.fn().mockName('Event.stopPropagation')

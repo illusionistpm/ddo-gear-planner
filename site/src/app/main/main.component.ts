@@ -299,12 +299,32 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private maybeOpenAffixBuilderOnLoad() {
+    if (!this.equipped.isBuildEmpty()) {
+      // Gear on screen at load only ever comes from a followed build link
+      // (long or short - a reload is the same thing), so show the build,
+      // not the setup screen, even when it tracks no affixes yet. Checked
+      // here directly rather than via PlannerOnboardingService's link
+      // bypass: for a long link this runs inside updateFromParams, before
+      // AppComponent has armed it. Closes a setup screen an earlier call
+      // opened against the pre-load empty state.
+      if (this.affixBuilder.mode === 'setup') {
+        this.affixBuilder.close();
+      }
+      return;
+    }
     const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
     if (firstRun) {
-      // A genuinely empty URL - start them on Basic rather than a blank page. A build that's already
-      // got gear (or a saved id) but nothing tracked is theirs to leave as it is.
-      if (!this.latestRouteShortId && this.equipped.isBuildEmpty()) {
+      // A genuinely empty URL - start them on Basic rather than a blank page. A saved build with
+      // no gear but nothing tracked is theirs to leave as it is.
+      if (!this.latestRouteShortId) {
         this.affixPackages.addDefaultPackage();
+        // The app picked Basic, not the user - it isn't an unsaved change.
+        // Only for a genuinely fresh build: browser back to an edited
+        // build's URL can land here too (with no gear), and its identity
+        // is still set at this point - its dirty state is real.
+        if (!this.currentBuild.value.shortId) {
+          this.currentBuild.acceptCurrentAsBaseline();
+        }
       }
       this.affixBuilder.open('setup');
     } else if (this.affixBuilder.mode === 'setup') {
@@ -382,6 +402,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.queryParams.applyDecodedBuildParams(decoded);
         this.currentBuild.markLoaded({ shortId, name, canonicalParams: decoded });
+        // A short link is someone showing you their gear: always open on
+        // it, whatever tab this browser last had, and keep the intro out of
+        // the way while there's gear to look at.
+        this.equipped.setActiveMainTab('equipment');
+        this.onboarding.bypassForBuildLink();
         this.confirmOwnershipIfSignedIn(shortId);
         this.isLoadingBuild = false;
         this.updateContentReady();

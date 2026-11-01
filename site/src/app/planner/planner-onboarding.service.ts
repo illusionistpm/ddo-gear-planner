@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subscription, merge } from 'rxjs';
+
+import { EquippedService } from './equipped.service';
 
 export interface PlannerOnboardingState {
   completed: boolean;
@@ -9,7 +11,7 @@ export interface PlannerOnboardingState {
 @Injectable({
   providedIn: 'root'
 })
-export class PlannerOnboardingService {
+export class PlannerOnboardingService implements OnDestroy {
   private readonly onboardingStateStorageKey = 'ddo-planner-onboarding-state-v1';
   private readonly legacyAffixTypeOpenedStorageKey = 'ddo-planner-onboarding-affix-type-opened';
   private readonly defaultState: PlannerOnboardingState = {
@@ -19,12 +21,51 @@ export class PlannerOnboardingService {
   private onboardingState = this.readOnboardingState();
   private onboardingStateSubject = new BehaviorSubject<PlannerOnboardingState>(this.onboardingState);
 
+  // Someone who followed a build link (long ?b= or short /build/:shortId)
+  // came to look at that build, not to be walked through starting one - so
+  // the intro stays out of the way while it has gear. Session-only, never
+  // stored: it latches off the first time the build has no gear at all
+  // (they cleared it, or started a new build), from which point the intro
+  // behaves exactly as it would for anyone else.
+  private bypassedForBuildLink = false;
+  private readonly slotsSubscription: Subscription;
+
+  constructor(private readonly equipped: EquippedService) {
+    this.slotsSubscription = merge(...equipped.getSlots().values()).subscribe(() => {
+      if (this.bypassedForBuildLink && this.equipped.isBuildEmpty()) {
+        this.bypassedForBuildLink = false;
+        this.onboardingStateSubject.next(this.onboardingState);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.slotsSubscription.unsubscribe();
+  }
+
   getOnboardingState() {
     return this.onboardingStateSubject.asObservable();
   }
 
   shouldShowOnboarding() {
-    return !this.onboardingState.completed && !this.onboardingState.dismissed;
+    return !this.onboardingState.completed && !this.onboardingState.dismissed && !this.bypassedForBuildLink;
+  }
+
+  /**
+   * Call once a followed build link's params have been applied. A no-op
+   * when that build has no gear - there is nothing to look at, so the intro
+   * is as useful there as on a blank page.
+   */
+  bypassForBuildLink() {
+    if (this.bypassedForBuildLink || this.equipped.isBuildEmpty()) {
+      return;
+    }
+    this.bypassedForBuildLink = true;
+    // Synchronous, unlike updateOnboardingSubject: both callers run outside
+    // change detection (a router event, an HTTP callback), and the build's
+    // gear is already on screen by the next render - a deferred emission
+    // would let the intro's hints flash over it for a frame.
+    this.onboardingStateSubject.next(this.onboardingState);
   }
 
   completeIntro() {

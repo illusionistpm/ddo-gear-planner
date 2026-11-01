@@ -3,6 +3,7 @@ import { CanDeactivateFn } from '@angular/router';
 
 import { isBuildShortIdRoute } from './build-route';
 import { CurrentBuildService } from './current-build.service';
+import { EquippedService } from '../planner/equipped.service';
 import { MainComponent } from '../main/main.component';
 
 // Single source of truth for the confirm text - MyBuildsComponent's
@@ -13,14 +14,26 @@ import { MainComponent } from '../main/main.component';
 export const UNSAVED_CHANGES_MESSAGE = 'You have unsaved changes. Leave without saving?';
 
 /**
+ * The one test for "leaving would lose something" - every unsaved-changes
+ * prompt (this guard, AppComponent's beforeunload, MyBuildsComponent) goes
+ * through it so they can't disagree. Dirty alone isn't enough: a fresh
+ * scratch build is dirty before the user does anything (the first-run
+ * setup adds the Basic affix package), and a build with no gear has
+ * nothing in it worth a "save first?" prompt.
+ */
+export function hasUnsavedWork(currentBuild: CurrentBuildService, equipped: EquippedService): boolean {
+  return currentBuild.value.isDirty && !equipped.isBuildEmpty();
+}
+
+/**
  * True if there's nothing unsaved to lose, or the user confirmed leaving
  * anyway. Shared by MyBuildsComponent's newBuild()/open() - see their
  * comments for why CanDeactivate itself doesn't fire for either of those
  * navigations, and unsavedChangesGuard below for the third case this
  * covers on the router's behalf.
  */
-export function confirmLeaveUnsavedChanges(currentBuild: CurrentBuildService): boolean {
-  return !currentBuild.value.isDirty || window.confirm(UNSAVED_CHANGES_MESSAGE);
+export function confirmLeaveUnsavedChanges(currentBuild: CurrentBuildService, equipped: EquippedService): boolean {
+  return !hasUnsavedWork(currentBuild, equipped) || window.confirm(UNSAVED_CHANGES_MESSAGE);
 }
 
 // Covers navigating in-app away from MainComponent to a different route.
@@ -36,8 +49,7 @@ export function confirmLeaveUnsavedChanges(currentBuild: CurrentBuildService): b
 // CanDeactivate never fires. That path checks isDirty itself instead - see
 // MyBuildsComponent.open().
 export const unsavedChangesGuard: CanDeactivateFn<MainComponent> = (_component, _currentRoute, _currentState, nextState) => {
-  const currentBuild = inject(CurrentBuildService);
-  if (!currentBuild.value.isDirty) {
+  if (!hasUnsavedWork(inject(CurrentBuildService), inject(EquippedService))) {
     return true;
   }
 

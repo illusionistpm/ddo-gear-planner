@@ -61,6 +61,19 @@ describe('CurrentBuildService', () => {
     expect(service.value.isDirty).toBe(true);
   });
 
+  it('acceptCurrentAsBaseline clears dirty and measures later edits from there, leaving identity alone', () => {
+    getCombinedParams.mockReturnValue({ tracked: ['Dodge'] });
+    combinedParamsChanges.next({ tracked: ['Dodge'] });
+    expect(service.value.isDirty).toBe(true);
+
+    service.acceptCurrentAsBaseline();
+
+    expect(service.value.isDirty).toBe(false);
+    expect(service.value.shortId).toBeNull();
+    combinedParamsChanges.next({ tracked: ['Dodge', 'Strength'] });
+    expect(service.value.isDirty).toBe(true);
+  });
+
   it('is not marked dirty by a change that round-trips back to the same params', () => {
     loadBuild({ shortId: 'abc123', name: 'My Build' });
 

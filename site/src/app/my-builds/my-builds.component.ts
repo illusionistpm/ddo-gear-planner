@@ -7,6 +7,7 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
 import { buildPath } from '../build/build-route';
+import { EquippedService } from '../planner/equipped.service';
 
 @Component({
   selector: 'app-my-builds',
@@ -29,7 +30,8 @@ export class MyBuildsComponent implements OnInit {
     private readonly buildsService: BuildsService,
     private readonly currentBuild: CurrentBuildService,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly equipped: EquippedService
   ) {}
 
   // Not fetched from the constructor: DI construction order isn't the same
@@ -72,7 +74,7 @@ export class MyBuildsComponent implements OnInit {
     // CanDeactivate (so genuine browser back/forward and the drop-to-root-
     // on-dirty-edit mechanism never get blocked by it), so it never shows a
     // confirm on its own here - this is the only thing that will.
-    if (!confirmLeaveUnsavedChanges(this.currentBuild)) {
+    if (!confirmLeaveUnsavedChanges(this.currentBuild, this.equipped)) {
       return;
     }
 
@@ -86,7 +88,7 @@ export class MyBuildsComponent implements OnInit {
     // here: this and the destination both match the same /build/:shortId
     // route config, so the router reuses MainComponent rather than
     // deactivating it. Check directly instead.
-    if (!confirmLeaveUnsavedChanges(this.currentBuild)) {
+    if (!confirmLeaveUnsavedChanges(this.currentBuild, this.equipped)) {
       return;
     }
 

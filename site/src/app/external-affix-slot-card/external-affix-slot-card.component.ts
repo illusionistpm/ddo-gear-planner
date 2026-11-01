@@ -11,6 +11,13 @@ import { EquippedService } from '../planner/equipped.service';
 import { externalAffixAsAffix, ExternalAffixEntry, NON_GEAR_DESCRIPTION, NON_GEAR_SLOT } from '../affixes/external-affix';
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
+/** Ignored bonus types sink to the bottom; within each group, by affix name and then bonus type. */
+function compareForDisplay(a: ExternalAffixEntry, b: ExternalAffixEntry): number {
+  return Number(a.kind === 'ignored') - Number(b.kind === 'ignored')
+    || a.affixName.localeCompare(b.affixName)
+    || a.bonusType.localeCompare(b.bonusType);
+}
+
 @Component({
   selector: 'app-external-affix-slot-card',
   templateUrl: './external-affix-slot-card.component.html',
@@ -46,7 +53,8 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
-      this.entries = entries;
+      // Display only - the stored order (and so the build URL) is untouched.
+      this.entries = [...entries].sort(compareForDisplay);
       this.changeDetector.markForCheck();
     });
   }

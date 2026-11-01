@@ -74,7 +74,7 @@ describe('deriveShoppingEntries', () => {
     expect(entries[1]).toEqual(expect.objectContaining({
       kind: 'augment', label: 'Sapphire of Things', ml: 20, source: 'Augment Vendor', sourceInherited: false, pack: null,
       identity: 'augment|Sapphire of Things', troveName: 'Sapphire of Things', parentKey: 'g|Ring1|Ring of Things',
-      wikiUrl: 'https://ddowiki.com/page/Special:Search?go=Go&search=Sapphire%20of%20Things',
+      wikiUrl: 'https://ddowiki.com/page/Item:Sapphire_of_Things',
     }));
     // No source in the data: unknown, not the item's quest.
     expect(entries[2]).toEqual(expect.objectContaining({ source: null, sourceInherited: false }));
@@ -89,6 +89,15 @@ describe('deriveShoppingEntries', () => {
 
     expect(entries[1].key).toBe('a|Ring1|Augment Slot 1#0|Blue Augment Slot: Sapphire');
     expect(entries[1].system).toBe('Blue Augment Slot');
+  });
+
+  it('links an augment to its page in the wiki\'s Item namespace', () => {
+    const plus = new CraftableOption({ name: 'Sapphire of Healing Amplification +50' });
+    const entries = deriveShoppingEntries(slots({
+      Ring1: item({ name: 'Ring of Things', crafting: [chosen('Blue Augment Slot', [plus], plus.name)] }),
+    }), sources);
+
+    expect(entries[1].wikiUrl).toBe('https://ddowiki.com/page/Item:Sapphire_of_Healing_Amplification_%2B50');
   });
 
   it('keys upgrades and steps to their item, and lets unsourced steps inherit the item\'s source', () => {
@@ -111,7 +120,10 @@ describe('deriveShoppingEntries', () => {
       ['s|Ring1|Ring of Things|Lost Purpose#0|Lost Purpose: Things', 'step', 'The Snitch', true],
       ['s|Ring1|Ring of Things|T1 (Equipment)#0|Fire1', 'step', 'Altar', false],
     ]);
-    expect(entries[1]).toEqual(expect.objectContaining({ raid: true, troveName: 'Dolorous Shard' }));
+    expect(entries[1]).toEqual(expect.objectContaining({
+      raid: true, troveName: 'Dolorous Shard',
+      wikiUrl: 'https://ddowiki.com/page/Special:Search?go=Go&search=Dolorous%20Shard',
+    }));
     expect(entries[2]).toEqual(expect.objectContaining({ pack: 'Sharn Pack', troveName: null, wikiUrl: null }));
   });
 

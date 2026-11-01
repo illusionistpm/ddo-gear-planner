@@ -33,6 +33,18 @@ export interface ShoppingSourceLookup {
 export const CANNITH_CRAFTING_SOURCE = 'Cannith Crafting';
 
 const WIKI_SEARCH_URL = 'https://ddowiki.com/page/Special:Search?go=Go&search=';
+const WIKI_ITEM_URL = 'https://ddowiki.com/page/Item:';
+
+/**
+ * Augments are items, with pages in the wiki's Item namespace, which its
+ * search doesn't look in. Upgrades are mostly crafted effects with no page of
+ * their own, so they get a search.
+ */
+function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
+  return kind === 'augment'
+    ? WIKI_ITEM_URL + encodeURIComponent(name.replace(/ /g, '_'))
+    : WIKI_SEARCH_URL + encodeURIComponent(name);
+}
 
 export function shoppingGearKey(slot: string, itemName: string): string {
   return `g|${slot}|${itemName}`;
@@ -127,7 +139,7 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
     raid: inherits ? gear.raid : !!source && sources.isRaid(source),
     rare: false,
     artifact: false,
-    wikiUrl: fetchedAlone && option.name ? WIKI_SEARCH_URL + encodeURIComponent(option.name) : null,
+    wikiUrl: fetchedAlone && option.name ? craftedWikiUrl(kind, option.name) : null,
     troveName: fetchedAlone && option.name ? option.name : null,
     parentKey: gear.key,
     details: [],

@@ -145,7 +145,7 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Wizardry II<span class="tooltip">Wizardry II: This item grants the wearer +50 maximum spell points. Sorcerers and Favored Souls gain up to double spell points from items.</span></span></li>',
-            {'name': 'Wizardry', 'type': 'Enhancement', 'value': '2'},
+            {'name': 'Wizardry', 'type': 'Enhancement', 'value': '50'},
         ),
         (
             '<li><span class="has_tooltip">Power I<span class="tooltip">Power I: This item grants the wearer +10 maximum spell points.</span></span></li>',
@@ -429,3 +429,26 @@ def test_concealment_effects_parse_from_text_map(text_map, expected_value):
         'type': 'Enhancement',
         'value': expected_value,
     }
+
+
+@pytest.mark.parametrize(
+    'html,expected_value',
+    [
+        # Older named items list the tier; Wizardry Y is +25*Y spell points.
+        ('<li>Wizardry VI</li>', '150'),
+        ('<li>Wizardry X</li>', '250'),
+        # Newer items list the spell points themselves, which stay as-is.
+        ('<li>Wizardry +60</li>', '60'),
+        ('<li>Wizardry +9</li>', '9'),
+    ],
+)
+def test_wizardry_tiers_are_converted_to_spell_points(html, expected_value):
+    li = BeautifulSoup(html, 'html.parser').li
+    aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert aff == {'name': 'Wizardry', 'type': 'Enhancement', 'value': expected_value}
+
+
+def test_insightful_wizardry_tier_is_not_scaled_as_enhancement():
+    li = BeautifulSoup('<li>Insightful Wizardry II</li>', 'html.parser').li
+    aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert aff['value'] == '2'

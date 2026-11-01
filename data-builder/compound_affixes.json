@@ -39,6 +39,19 @@
     ],
     "notes": "Grants multiple permanent skill bonuses of the same amount and bonus type to Bluff, Diplomacy, Haggle, Intimidate, and Perform."
   },
+  "Archmagi": {
+    "components": [
+      {
+        "name": "Wizardry",
+        "type": "Enhancement",
+        "value": {
+          "amount": 200,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Archmagi is the named form of Wizardry VIII: +200 Enhancement bonus to spell points. Does not stack with Wizardry."
+  },
   "Astute Skills Bonus": {
     "components": [
       {
@@ -802,6 +815,19 @@
       }
     ],
     "notes": "Grants +1 Profane bonus to all Abilities (Str, Con, Dex, Int, Wis, Cha)."
+  },
+  "Magi": {
+    "components": [
+      {
+        "name": "Wizardry",
+        "type": "Enhancement",
+        "value": {
+          "amount": 100,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Magi is the named form of Wizardry IV: +100 Enhancement bonus to spell points. Does not stack with Wizardry."
   },
   "Memory of Animated Objects": {
     "components": [

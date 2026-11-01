@@ -12,6 +12,15 @@ describe('CraftableOption', () => {
     expect(new CraftableOption({}).isWithinMaxLevel(1)).toBe(true);
   });
 
+  it('still matches the pre-rescale description of a Wizardry tier option from a saved build', () => {
+    const option = new CraftableOption({ affixes: [{ name: 'Wizardry', type: 'Enhancement', value: '150' }] });
+
+    expect(option.getParamDescription()).toBe('Wizardry150');
+    expect(option.matchesParamDescription('Wizardry150')).toBe(true);
+    expect(option.matchesParamDescription('Wizardry6')).toBe(true);
+    expect(option.matchesParamDescription('Wizardry10')).toBe(false);
+  });
+
   it('describes compound affix options', () => {
     const option = new CraftableOption({
       affixes: [

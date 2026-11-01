@@ -262,6 +262,24 @@ def apply_concealment_value(affix, tooltip=''):
     return affix
 
 
+def convert_wizardry_tier_to_spell_points(affix, label):
+    # Older named items list "Wizardry VI" and roman numerals parse as the tier (6), while newer
+    # items list the spell points themselves ("Wizardry +195"). Wizardry Y is a +25*Y Enhancement
+    # bonus to spell points (Magi and Archmagi are tiers IV and VIII; see compound_affixes.json),
+    # so convert tiers to the same scale. Insightful/Quality Wizardry use a different scale and
+    # keep the parsed value.
+    if (
+        affix.get('name') == 'Wizardry'
+        and affix.get('type') == 'Enhancement'
+        and 'value' in affix
+        # a tier, not a tooltip-sourced spell point amount that already landed on the right scale
+        and 0 < int(affix['value']) <= 20
+        and re.search(r'(?<!Insightful )(?<!Insight )(?<!Quality )\bWizardry [IVXL]+\b', label)
+    ):
+        affix['value'] = str(int(affix['value']) * 25)
+    return affix
+
+
 def get_fake_bonuses():
     return set(['dodge', 'attack', 'combat', 'strength', 'dex', 'skills', 'ability'])
 
@@ -885,6 +903,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     aff = convert_weapon_damage_proc_to_bool(aff)
     aff = apply_known_affix_type_defaults(aff)
     aff = apply_concealment_value(aff, source_tooltip)
+    aff = convert_wizardry_tier_to_spell_points(aff, affixLabel)
 
     if 'value' in aff and int(aff['value']) < 0:
         aff['type'] = 'Penalty'

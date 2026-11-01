@@ -890,6 +890,19 @@
     },
     {
         "affixes": [
+            "Wizardry"
+        ],
+        "components": [
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": 200
+            }
+        ],
+        "name": "Archmagi"
+    },
+    {
+        "affixes": [
             "Disable Device",
             "Repair",
             "Search"
@@ -1211,6 +1224,19 @@
             }
         ],
         "name": "Lifeblood of the Undead Prince"
+    },
+    {
+        "affixes": [
+            "Wizardry"
+        ],
+        "components": [
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": 100
+            }
+        ],
+        "name": "Magi"
     },
     {
         "affixes": [

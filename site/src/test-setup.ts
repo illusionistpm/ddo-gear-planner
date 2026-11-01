@@ -53,8 +53,8 @@ vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 //
 // Vitest 4 also keeps every mock it ever creates in a Set that is only added to, and each
 // `vi.spyOn` mock closes over the object it spied on. Our specs spy on TestBed-created
-// services, so one spy pins that test's whole service graph and game data (~500MB); a file
-// with 30 such tests dies of heap exhaustion. Vitest 5 fixed this, but @angular/build
+// services, so one spy pins that test's whole service graph and game data (~40MB; ~500MB
+// before crafting options were shared); a file with enough such tests dies of heap exhaustion. Vitest 5 fixed this, but @angular/build
 // doesn't support it yet. Until it does, method spies are built here from `vi.fn()`, which
 // keeps the restore step in an array we empty after every test instead of in that closure.
 // Delete this wrapper once the Vitest peer range allows a version with the fix.

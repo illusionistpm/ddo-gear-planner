@@ -14,7 +14,7 @@ export interface RawAffix {
 export type AffixInit = Partial<RawAffix>;
 
 export interface CraftableOptionInit {
-  affixes?: AffixInit[];
+  affixes?: ReadonlyArray<AffixInit>;
   set?: string;
   name?: string;
   ml?: number;

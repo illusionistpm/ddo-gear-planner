@@ -8235,11 +8235,6 @@
                         "name": "Freezing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -8290,11 +8285,6 @@
                     },
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -8737,11 +8727,6 @@
                         "name": "Freezing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -8792,11 +8777,6 @@
                     },
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -12059,11 +12039,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12086,11 +12061,6 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "16d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -12319,11 +12289,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -12346,11 +12311,6 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "16d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26137,11 +26097,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26203,11 +26158,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26215,21 +26165,6 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26241,11 +26176,6 @@
                         "name": "Humanoid Bane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26253,11 +26183,6 @@
                 "affixes": [
                     {
                         "name": "Improved Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26269,11 +26194,6 @@
                         "name": "Improved Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26283,11 +26203,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26316,11 +26231,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26382,11 +26292,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26394,21 +26299,6 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26420,11 +26310,6 @@
                         "name": "Humanoid Bane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26432,11 +26317,6 @@
                 "affixes": [
                     {
                         "name": "Improved Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26448,11 +26328,6 @@
                         "name": "Improved Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26462,11 +26337,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26495,11 +26365,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26561,11 +26426,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26573,21 +26433,6 @@
                 "affixes": [
                     {
                         "name": "Heartseeker",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "13d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26599,11 +26444,6 @@
                         "name": "Humanoid Bane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26611,11 +26451,6 @@
                 "affixes": [
                     {
                         "name": "Improved Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -26627,11 +26462,6 @@
                         "name": "Improved Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26641,11 +26471,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -26950,11 +26775,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27007,11 +26827,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27019,11 +26834,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27044,21 +26854,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "11d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27068,11 +26863,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27101,11 +26891,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27158,11 +26943,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27170,11 +26950,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27195,21 +26970,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "11d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27219,11 +26979,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27252,11 +27007,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27309,11 +27059,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27321,11 +27066,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27346,21 +27086,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "11d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "11d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27370,11 +27095,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "5"
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27403,11 +27123,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27460,11 +27175,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27472,11 +27182,6 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27488,11 +27193,6 @@
                         "name": "Greater Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27500,11 +27200,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27516,21 +27211,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "17d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27540,11 +27220,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27573,11 +27248,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27630,11 +27300,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27642,11 +27307,6 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27658,11 +27318,6 @@
                         "name": "Greater Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27670,11 +27325,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27686,21 +27336,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "17d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27710,11 +27345,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27743,11 +27373,6 @@
                         "name": "Bane",
                         "type": "Natural",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27800,11 +27425,6 @@
                         "name": "Ghostbane",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27812,11 +27432,6 @@
                 "affixes": [
                     {
                         "name": "Greater Disruption",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27828,11 +27443,6 @@
                         "name": "Greater Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27840,11 +27450,6 @@
                 "affixes": [
                     {
                         "name": "Humanoid Bane",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -27856,21 +27461,6 @@
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "17d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "17d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -27880,11 +27470,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "8"
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32035,11 +31620,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32047,26 +31627,6 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32096,11 +31656,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32108,26 +31663,6 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32139,11 +31674,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32153,26 +31683,6 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32180,16 +31690,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32210,11 +31710,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32224,26 +31719,6 @@
                         "name": "Shocking Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32251,11 +31726,6 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32269,11 +31739,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32281,26 +31746,6 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32330,11 +31775,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32342,26 +31782,6 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32373,11 +31793,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32387,26 +31802,6 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32414,16 +31809,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32444,11 +31829,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32458,26 +31838,6 @@
                         "name": "Shocking Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32485,11 +31845,6 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32503,11 +31858,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32515,26 +31865,6 @@
                 "affixes": [
                     {
                         "name": "Acid Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32564,11 +31894,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32576,26 +31901,6 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32607,11 +31912,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32621,26 +31921,6 @@
                         "name": "Icy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32648,16 +31928,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32678,11 +31948,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32692,26 +31957,6 @@
                         "name": "Shocking Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32719,11 +31964,6 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32737,11 +31977,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32769,11 +32004,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32783,11 +32013,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32795,11 +32020,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32818,11 +32038,6 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32852,16 +32067,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32869,11 +32074,6 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32885,11 +32085,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32897,11 +32092,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32915,11 +32105,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32947,11 +32132,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32961,11 +32141,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -32973,11 +32148,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -32996,11 +32166,6 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33030,16 +32195,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33047,11 +32202,6 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33063,11 +32213,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33075,11 +32220,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33093,11 +32233,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33125,11 +32260,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33139,11 +32269,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33151,11 +32276,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33174,11 +32294,6 @@
                 "affixes": [
                     {
                         "name": "Improved Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33208,16 +32323,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33225,11 +32330,6 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33241,11 +32341,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "5d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33253,11 +32348,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33832,11 +32922,6 @@
                         "name": "Bleed",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d8",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33844,11 +32929,6 @@
                 "affixes": [
                     {
                         "name": "Force",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -33869,11 +32949,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             }
@@ -33885,11 +32960,6 @@
                         "name": "Constitution Poison, Virulent",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33899,11 +32969,6 @@
                         "name": "Dexterity Poison, Virulent",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -33911,11 +32976,6 @@
                 "affixes": [
                     {
                         "name": "Strength Poison, Virulent",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -34587,11 +33647,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34633,11 +33688,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34667,11 +33717,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34713,11 +33758,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34747,11 +33787,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34793,11 +33828,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "4"
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34827,11 +33857,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34882,11 +33907,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "7"
-                    },
-                    {
-                        "name": "7d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34916,11 +33936,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -34971,11 +33986,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "7"
-                    },
-                    {
-                        "name": "7d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -35005,11 +34015,6 @@
                         "name": "Bashing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "+4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -35060,11 +34065,6 @@
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "7"
-                    },
-                    {
-                        "name": "7d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -35103,11 +34103,6 @@
                         "name": "Disruption",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -35115,26 +34110,6 @@
                 "affixes": [
                     {
                         "name": "Flaming Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
                         "type": "Bool",
                         "value": 1
                     }
@@ -35146,11 +34121,6 @@
                         "name": "Greater Good",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -35158,26 +34128,6 @@
                 "affixes": [
                     {
                         "name": "Holy Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37581,11 +36531,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37613,11 +36558,6 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37627,11 +36567,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "2"
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37641,11 +36576,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37653,11 +36583,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37678,26 +36603,6 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37707,11 +36612,6 @@
                         "name": "Improved Roaring",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37719,16 +36619,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37749,11 +36639,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37763,11 +36648,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "3d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37775,11 +36655,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37802,11 +36677,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37834,11 +36704,6 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37848,11 +36713,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "2"
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37862,11 +36722,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37874,11 +36729,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37899,26 +36749,6 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37928,11 +36758,6 @@
                         "name": "Improved Roaring",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37940,16 +36765,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -37970,11 +36785,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37984,11 +36794,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "3d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -37996,11 +36801,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38023,11 +36823,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38055,11 +36850,6 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38069,11 +36859,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "2"
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38083,11 +36868,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38095,11 +36875,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38120,26 +36895,6 @@
                         "name": "Holy Burst",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38149,11 +36904,6 @@
                         "name": "Improved Roaring",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38161,16 +36911,6 @@
                 "affixes": [
                     {
                         "name": "Poison",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38191,11 +36931,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38205,11 +36940,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "3d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38217,11 +36947,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38244,11 +36969,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38276,11 +36996,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38288,11 +37003,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38304,11 +37014,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38316,11 +37021,6 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38359,16 +37059,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38376,11 +37066,6 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38392,11 +37077,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "7d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38404,11 +37084,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38422,11 +37097,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38454,11 +37124,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38466,11 +37131,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38482,11 +37142,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38494,11 +37149,6 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38537,16 +37187,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38554,11 +37194,6 @@
                 "affixes": [
                     {
                         "name": "Shock",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38570,11 +37205,6 @@
                         "name": "Shrieking",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "7d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38582,11 +37212,6 @@
                 "affixes": [
                     {
                         "name": "Solar",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38600,11 +37225,6 @@
                         "name": "Acid",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38632,11 +37252,6 @@
                         "name": "Eldritch",
                         "type": "Untyped",
                         "value": "6"
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38644,11 +37259,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38660,11 +37270,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38672,11 +37277,6 @@
                 "affixes": [
                     {
                         "name": "Greater Banishing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -38715,16 +37315,6 @@
                         "name": "Poison",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d3",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38734,11 +37324,6 @@
                         "name": "Shock",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -38746,11 +37331,6 @@
                 "affixes": [
                     {
                         "name": "Shrieking",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "7d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39050,11 +37630,6 @@
                         "name": "Absolute Law",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -39091,11 +37666,6 @@
                         "name": "Banishing",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -39112,11 +37682,6 @@
                 "affixes": [
                     {
                         "name": "Cursespewing",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39234,11 +37799,6 @@
                 "affixes": [
                     {
                         "name": "Greater Good",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39367,11 +37927,6 @@
                         "name": "Pure Good",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -39399,11 +37954,6 @@
                         "name": "Smiting",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -39422,11 +37972,6 @@
                         "name": "True Law",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             },
@@ -39443,16 +37988,6 @@
                 "affixes": [
                     {
                         "name": "Vicious",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d3",
                         "type": "Bool",
                         "value": 1
                     }
@@ -39911,26 +38446,6 @@
                         "name": "Greater Acid Blast",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 30,
@@ -39945,26 +38460,6 @@
                         "name": "Greater Flaming Blast",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 30,
@@ -39977,26 +38472,6 @@
                 "affixes": [
                     {
                         "name": "Greater Icy Blast",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40101,26 +38576,6 @@
                 "affixes": [
                     {
                         "name": "Greater Shocking Blast",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "8d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "6d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40235,11 +38690,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "10d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 36,
@@ -40252,11 +38702,6 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40273,11 +38718,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -40290,11 +38730,6 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40311,11 +38746,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -40328,11 +38758,6 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40349,11 +38774,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -40366,11 +38786,6 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "7d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40387,11 +38802,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -40406,11 +38816,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "9d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 32,
@@ -40423,26 +38828,6 @@
                 "affixes": [
                     {
                         "name": "Acid Blast",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40957,11 +39342,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "10d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 36,
@@ -40971,11 +39351,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -40992,11 +39367,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -41009,11 +39379,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41030,11 +39395,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -41047,11 +39407,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41068,11 +39423,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -41085,11 +39435,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "7d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41106,11 +39451,6 @@
                         "name": "Flaming",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -41123,11 +39463,6 @@
                 "affixes": [
                     {
                         "name": "Flaming",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "9d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41144,26 +39479,6 @@
                         "name": "Flaming Blast",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -41178,11 +39493,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "10d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 36,
@@ -41192,11 +39502,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41213,11 +39518,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "2d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 4,
@@ -41230,11 +39530,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41251,11 +39546,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "4d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 12,
@@ -41268,11 +39558,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "5d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41289,11 +39574,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "6d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 20,
@@ -41306,11 +39586,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "7d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41327,11 +39602,6 @@
                         "name": "Frost",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "8d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 28,
@@ -41344,11 +39614,6 @@
                 "affixes": [
                     {
                         "name": "Frost",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "9d4",
                         "type": "Bool",
                         "value": 1
                     }
@@ -41533,26 +39798,6 @@
                 "affixes": [
                     {
                         "name": "Icy Blast",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -42663,26 +40908,6 @@
                         "name": "Shocking Blast",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "1d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d10",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "4d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 8,
@@ -42826,26 +41051,6 @@
                 "affixes": [
                     {
                         "name": "Tidal Burst",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d4",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "1d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "2d8",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "3d8",
                         "type": "Bool",
                         "value": 1
                     }
@@ -43732,11 +41937,6 @@
                         "name": "Acidic",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "15d6",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ],
                 "ml": 31,
@@ -43894,11 +42094,6 @@
                     },
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "15d6",
                         "type": "Bool",
                         "value": 1
                     }
@@ -47909,11 +46104,6 @@
                 "affixes": [
                     {
                         "name": "Acidic",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "12d6",
                         "type": "Bool",
                         "value": 1
                     }

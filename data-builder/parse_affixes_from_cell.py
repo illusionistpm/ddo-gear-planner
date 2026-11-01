@@ -40,10 +40,22 @@ def get_text_map_from_tooltip_span(span):
     return textMap
 
 
+# A dice expression on its own: "6d6", "+2d4", "7d20+72".
+BARE_DICE_PATTERN = re.compile(r'^\+?\d+d\d+(?:\s*[+-]\s*\d+)?$')
+
+
+def is_bare_dice_text(text):
+    return bool(BARE_DICE_PATTERN.match(cleanup_whitespace(text or '')))
+
+
 def get_affix_map_list_from_multi_tooltip_tag(tag):
+    # The wiki gives damage dice their own tooltip ("Freezing [6d6]"), so a line with a proc
+    # carries a second span that is only the dice. Parsed alone, that span became a Bool affix
+    # literally named "6d6", with nothing to say which proc or element it belonged to.
     return [
-        convert_affix_text_map_to_affix_map(get_text_map_from_tooltip_span(span))
-        for span in get_has_tooltip_spans(tag)
+        convert_affix_text_map_to_affix_map(text_map)
+        for text_map in (get_text_map_from_tooltip_span(span) for span in get_has_tooltip_spans(tag))
+        if not is_bare_dice_text(text_map.get('text'))
     ]
 
 

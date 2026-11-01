@@ -1,0 +1,278 @@
+:host {
+    display: block;
+}
+
+.shopping-list {
+    margin: 0 auto;
+    max-width: 64rem;
+    padding: 0 var(--space-8) var(--space-24);
+}
+
+/* Stays in view while the list scrolls under it. */
+.shopping-list-header {
+    background: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-8) 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.shopping-list-title-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-12);
+}
+
+.shopping-list-back {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.85rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-back:hover {
+    background: var(--surface-muted-color);
+}
+
+.shopping-list-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.shopping-list-progress-text {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.shopping-list-progress {
+    background: var(--progress-track-color);
+    border-radius: 999px;
+    height: 0.35rem;
+    overflow: hidden;
+}
+
+.shopping-list-progress-fill {
+    background: var(--success-color);
+    display: block;
+    height: 100%;
+    transition: width 0.2s ease;
+}
+
+.shopping-list-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-24);
+}
+
+/* The same pill choice as the tracked affixes' Group by. */
+.shopping-list-choice {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+}
+
+.shopping-list-choice-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.shopping-list-choice-option {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-choice-option.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.shopping-list-empty {
+    color: var(--text-secondary);
+    margin: var(--space-24) 0;
+    text-align: center;
+}
+
+/* A section like the tracked affixes' groups. */
+.shopping-group {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    margin: var(--space-12) 0;
+    padding: var(--space-8);
+}
+
+.shopping-group-title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    font-weight: 700;
+    gap: var(--space-8);
+    margin: 0 0 var(--space-4);
+}
+
+.shopping-group-name {
+    text-transform: uppercase;
+}
+
+.shopping-group-sublabel {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.shopping-group-count {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+.shopping-rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.shopping-rows-nested {
+    margin-top: var(--space-2);
+    padding-left: var(--space-24);
+}
+
+.shopping-row {
+    align-items: flex-start;
+    background: var(--row-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-4);
+}
+
+.shopping-rows > .shopping-row-item:nth-child(even) > .shopping-row {
+    background: var(--row-alt-bg);
+}
+
+.shopping-check {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--text-secondary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.15rem;
+    justify-content: center;
+    min-height: 1.75rem;
+    min-width: 1.75rem;
+    padding: 0;
+}
+
+.shopping-check:hover {
+    color: var(--primary-color);
+}
+
+.shopping-row.acquired .shopping-check {
+    color: var(--success-color);
+}
+
+.shopping-row-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+}
+
+.shopping-row-label {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    overflow-wrap: anywhere;
+}
+
+.shopping-row-system {
+    color: var(--text-secondary);
+}
+
+.shopping-row-name {
+    font-weight: 600;
+}
+
+.shopping-row.acquired .shopping-row-name {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.shopping-row-quantity {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.shopping-row-meta {
+    align-items: center;
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    gap: var(--space-2) var(--space-8);
+}
+
+.shopping-row-details {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+@media (max-width: 767.98px) {
+    .shopping-list {
+        padding: 0 var(--space-4) var(--space-16);
+    }
+
+    .shopping-list-back-label {
+        display: none;
+    }
+
+    .shopping-rows-nested {
+        padding-left: var(--space-12);
+    }
+}
+
+/* Thumb-sized boxes on touch screens. */
+@media (pointer: coarse) {
+    .shopping-check {
+        min-height: 2.75rem;
+        min-width: 2.75rem;
+    }
+
+    .shopping-list-back,
+    .shopping-list-choice-option {
+        min-height: 2.5rem;
+    }
+}

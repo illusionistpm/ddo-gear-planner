@@ -557,6 +557,15 @@ select.form-control {
   text-decoration-color: rgba(var(--danger-color-rgb), 0.5);
 }
 
+/*
+ * A compound affix where some parts help and others are outranked: coloured by the parts that
+ * help, since an outranked part takes nothing away, and italic to say not all of it counts.
+ */
+:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .PartialRank {
+  font-style: italic;
+}
+
+/* Parts that help alongside a penalty. */
 :is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu) .Mixed {
   font-style: italic;
   font-weight: 600;

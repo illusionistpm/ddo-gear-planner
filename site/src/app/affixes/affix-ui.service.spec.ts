@@ -127,6 +127,49 @@ describe('AffixUiService', () => {
     }));
   });
 
+  describe('compound affixes with parts ranked differently', () => {
+    const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
+
+    function makeService(ranks: Record<string, AffixRank>) {
+      const equipped = {
+        getAffixRanking: (affix: Affix) => ranks[affix.name] ?? AffixRank.Irrelevant,
+        getSourcesForAffixType: (name: string) => name === 'Fire Lore' ? [{ kind: 'item', itemName: 'Flame Ring', slot: 'Ring1' }] : [],
+      };
+      return new AffixUiService(equipped as any, new AffixService(), {} as any);
+    }
+
+    it('rank as their most useful part, marked partial, when another part is outranked', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Best PartialRank');
+      expect(service.getAffixTooltip(universalLore))
+        .toBe('Best equipped value\nNo gain from Fire Lore: overpowered by Flame Ring (Ring1)');
+    });
+
+    it('rank as their most useful part, unmarked, when every relevant part helps', () => {
+      const service = makeService({ 'Force Lore': AffixRank.BestTied, 'Fire Lore': AffixRank.BetterThanBest });
+
+      expect(service.getClassForAffix(universalLore)).toBe('BetterThanBest');
+    });
+
+    it('are Mixed when a part is a penalty', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Penalty });
+
+      expect(service.getClassForAffix(universalLore)).toBe('Mixed');
+    });
+
+    it('carry the partial mark into an option with several affixes', () => {
+      const service = makeService({ 'Force Lore': AffixRank.Best, 'Fire Lore': AffixRank.Outranked });
+      const option = new CraftableOption({ name: 'Lore', affixes: [
+        new Affix({ name: 'Evil Aligned', type: 'Bool', value: 1 }),
+        universalLore
+      ] });
+
+      expect(service.getClassForCraftingOption(option)).toBe('Best PartialRank');
+      expect(service.getCraftingOptionRankTooltip(option)).toContain('No gain from Fire Lore');
+    });
+  });
+
   describe('describeExternalAffix', () => {
     const service = new AffixUiService({} as any, {} as any, {} as any);
     const entry = (overrides: object) => ({
@@ -177,8 +220,14 @@ describe('AffixUiService', () => {
       expect(makeService({ Doublestrike: AffixRank.Outranked }).getClassForCraftingOption(setAugment)).toBe('Outranked');
     });
 
-    it('are Mixed when their set bonuses rank differently', () => {
+    it('rank as their most useful bonus, marked partial, when another bonus is outranked', () => {
       const service = makeService({ Doublestrike: AffixRank.BetterThanBest, Doubleshot: AffixRank.Outranked });
+
+      expect(service.getClassForCraftingOption(setAugment)).toBe('BetterThanBest PartialRank');
+    });
+
+    it('are Mixed only when a bonus is a penalty', () => {
+      const service = makeService({ Doublestrike: AffixRank.Best, Doubleshot: AffixRank.Penalty });
 
       expect(service.getClassForCraftingOption(setAugment)).toBe('Mixed');
     });

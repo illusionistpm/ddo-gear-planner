@@ -145,7 +145,7 @@ def build_affix_groups() -> None:
     add(groups, 'All Saves', get_all_saves())
     add(groups, 'All Skills', get_all_skills())
     add(groups, 'Good Luck', get_all_saves() + get_all_skills())
-    add(groups, 'Void Intensity', ['Negative Intensity', 'Poison Intensity'])
+    # Void Intensity is one stat (Negative + Poison crit damage), like Kinetic and Radiance Intensity - not a group.
     add(groups, 'Resistance', get_all_saves())
     add(groups, 'Riposte', ['Armor Class'] + get_all_saves())
     # special case exists where Litany of the Dead Ability Bonus is really well rounded affix
@@ -176,11 +176,10 @@ def build_affix_groups() -> None:
     add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
+    # Heroism and Greater Heroism as permanent item effects: a Morale bonus to attack, saves and skills
+    add_fixed(groups, 'Heroism', _fixed_affixes(get_all_saves() + get_all_skills() + ['Accuracy'], 'Morale', 2))
     add_fixed(groups, 'Greater Heroism', _fixed_affixes(get_all_saves() + get_all_skills() + ['Accuracy'], 'Morale', 4))
-    add(groups, 'Power of the Frozen Storm', ['Cold Spell Power', 'Electric Spell Power'])
-    add(groups, 'Power of the Frozen Depths', ['Cold Spell Power', 'Negative Spell Power', 'Poison'])
-    add(groups, 'Power of the Flames of Purity', ['Fire Spell Power', 'Light Spell Power'])
-    add(groups, 'Power of the Silver Flame', ['Positive Spell Power', 'Light Spell Power'])
+    # The "Power of the ..." multi-element spell power affixes live in compound_affixes.json
     add(groups, 'Radiance', ['Light Spell Power', 'Alignment Spell Power'])
     add(groups, 'Radiance Lore', ['Light Lore', 'Alignment Lore'])
     add(groups, 'Purifying Flame Lore', ['Fire Lore', 'Light Lore'])
@@ -199,6 +198,7 @@ def build_affix_groups() -> None:
         {'name': 'Distant Diversion', 'type': 'Enhancement', 'value': 20}, 
         {'name': 'Mystic Diversion', 'type': 'Enhancement', 'value': 20}
     ])
+    add_fixed(groups, 'Sight Beyond Sight', [{'name': 'Dodge Bypass', 'type': 'Enhancement', 'value': 5}])
     add_fixed(groups, 'Songblade', [{'name': 'Perform', 'type': 'Enhancement', 'value': 2}])
     add_fixed(groups, 'Lifesealed', [
         {'name': 'Negative Energy Absorption', 'type': '<TypeAlreadyParsed>', 'value': '<ValueAlreadyParsed>'},

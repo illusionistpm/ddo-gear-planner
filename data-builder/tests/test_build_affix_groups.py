@@ -14,7 +14,6 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     module.build_affix_groups()
 
     groups = {entry['name']: entry['affixes'] for entry in written['affix-groups']}
-    assert groups['Void Intensity'] == ['Negative Intensity', 'Poison Intensity']
     assert 'Negative and Poison Intensity' not in groups
     assert 'Negative and Poison Spell Crit Damage' not in groups
     assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
@@ -168,3 +167,84 @@ def test_build_affix_groups_riposte_components_from_the_real_compound_map(monkey
             {'name': 'Will Save', 'type': 'Insight', 'value': '<HalfValueRoundedDown>'},
         ],
     }
+
+
+def test_build_affix_groups_heroism_and_sight_beyond_sight(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+    monkeypatch.setattr(module, 'load_compound_affixes', lambda: {})
+
+    module.build_affix_groups()
+
+    groups = {entry['name']: entry for entry in written['affix-groups']}
+    heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
+    assert groups['Heroism'] == {
+        'name': 'Heroism',
+        'affixes': heroism_affixes,
+        'components': [{'name': name, 'type': 'Morale', 'value': 2} for name in heroism_affixes],
+    }
+    assert groups['Sight Beyond Sight'] == {
+        'name': 'Sight Beyond Sight',
+        'affixes': ['Dodge Bypass'],
+        'components': [{'name': 'Dodge Bypass', 'type': 'Enhancement', 'value': 5}],
+    }
+
+
+@pytest.mark.parametrize('name, lores', [
+    ('Firestorm Lore', ['Fire Lore', 'Lightning Lore']),
+    ('Thunderstorm Lore', ['Sonic Lore', 'Lightning Lore']),
+    ('Frozen Thunderstorm Lore', ['Cold Lore', 'Sonic Lore', 'Lightning Lore']),
+    ('Moonlit Haunt Lore', ['Negative Lore', 'Force Lore', 'Poison Lore']),
+    ('Dark Restoration Lore', ['Negative Lore', 'Poison Lore', 'Healing Lore']),
+    ('Silver Flame Lore', ['Healing Lore', 'Light Lore', 'Alignment Lore']),
+    ('Creeping Dust Lore', ['Cold Lore', 'Acid Lore']),
+])
+def test_multi_element_lore_affixes_from_the_real_compound_map(monkeypatch, name, lores):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group == {'name': name, 'affixes': lores}
+    assert set(lores) <= set(module.get_all_lore_types())
+
+
+def test_every_power_of_and_lore_compound_maps_to_known_element_affixes(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    for entry in written['affix-groups']:
+        if entry['name'].startswith('Power of the') or entry['name'].startswith('Power of Creeping'):
+            assert set(entry['affixes']) <= set(module.get_all_spell_power_types()), entry
+        elif entry['name'].endswith(' Lore') and entry['name'] not in ('Spell Lore', 'Universal Spell Lore'):
+            assert set(entry['affixes']) <= set(module.get_all_lore_types()), entry
+
+
+def test_every_intensity_group_member_is_a_real_intensity_affix(monkeypatch):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    for entry in written['affix-groups']:
+        if entry['name'].endswith('Intensity') or entry['name'].endswith('Spell Critical Damage'):
+            assert set(entry['affixes']) <= set(module.get_all_spell_crit_damage_types()), entry

@@ -14,6 +14,9 @@ export interface ExternalAffixEntry {
   label: string;
 }
 
+/** The slot name non-gear entries are reported under as affix sources. */
+export const NON_GEAR_SLOT = 'Non-gear';
+
 /** What the Non-gear card and the equipment sidebar's Non-gear entry are for. */
 export const NON_GEAR_DESCRIPTION = 'Bonuses gear could provide but you get elsewhere, like Greater Heroism or a trance.';
 

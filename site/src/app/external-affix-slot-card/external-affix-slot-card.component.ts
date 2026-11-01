@@ -8,7 +8,7 @@ import { isCountAffix } from '../affixes/count-affix';
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
-import { externalAffixAsAffix, ExternalAffixEntry, NON_GEAR_DESCRIPTION } from '../affixes/external-affix';
+import { externalAffixAsAffix, ExternalAffixEntry, NON_GEAR_DESCRIPTION, NON_GEAR_SLOT } from '../affixes/external-affix';
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
 @Component({
@@ -64,6 +64,19 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
       return '';
     }
     return this.affixUi.getClassForAffix(externalAffixAsAffix(entry));
+  }
+
+  /** The rank tooltip gear affixes get, naming whatever ties with or outranks this entry. */
+  getRowTooltip(entry: ExternalAffixEntry): string {
+    if (entry.kind === 'ignored') {
+      return '';
+    }
+    return this.affixUi.getAffixTooltip(externalAffixAsAffix(entry), undefined, NON_GEAR_SLOT);
+  }
+
+  /** What an affix-group entry is made of; empty for any other affix. */
+  getGroupTooltip(entry: ExternalAffixEntry): string {
+    return this.affixUi.getAffixGroupTooltip(externalAffixAsAffix(entry));
   }
 
   remove(id: string) {

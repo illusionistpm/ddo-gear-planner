@@ -14,6 +14,7 @@ import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -83,6 +84,17 @@ describe('MainComponent', () => {
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
     expect(TestBed.inject(AffixBuilderDrawerService).mode).toBe('setup');
+  });
+
+  it('does not count the Basic package it starts an empty URL on as an unsaved change', () => {
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Dodge')).toBe(true);
+    expect(currentBuild.value.isDirty).toBe(false);
+
+    // The user's own first edit still counts.
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+
+    expect(currentBuild.value.isDirty).toBe(true);
   });
 
   it('starts a new build (empty URL re-applied) on the Basic package, in the setup screen', () => {
@@ -288,6 +300,7 @@ describe('MainComponent - loading a build by shortId', () => {
       reset: vi.fn().mockName('CurrentBuildService.reset'),
       restoreIdentity: vi.fn().mockName('CurrentBuildService.restoreIdentity'),
       getCanonicalParamsCache: vi.fn().mockName('CurrentBuildService.getCanonicalParamsCache'),
+      acceptCurrentAsBaseline: vi.fn().mockName('CurrentBuildService.acceptCurrentAsBaseline'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
       // BuildActionsComponent (rendered inside MainComponent's template)
       // also injects CurrentBuildService and subscribes to state$.
@@ -341,6 +354,35 @@ describe('MainComponent - loading a build by shortId', () => {
     expect(currentBuild.markLoaded).toHaveBeenCalledWith({
       shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Calamitous Battle Axe' }
     });
+  });
+
+  it('opens a followed short link on the equipment tab, whatever tab was last open', () => {
+    configure('abc123');
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    const equipped = TestBed.inject(EquippedService);
+    equipped.setActiveMainTab('affixes');
+
+    const fixture = TestBed.createComponent(MainComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.activeTab).toBe('equipment');
+  });
+
+  it('shows a followed short link with gear instead of the setup screen, and keeps the intro out of the way', () => {
+    configure('abc123');
+    // configure() marks the intro done; this spec is about it not being.
+    localStorage.removeItem(onboardingStateKey);
+    buildsService.getByShortId.mockReturnValue(of({ name: 'My Build', blob: 'z1.xxx' }));
+    codec.decode.mockReturnValue({ Weapon: 'Calamitous Battle Axe' });
+    // queryParams is a mock here, so the decoded gear never reaches
+    // EquippedService - stand in for it having landed.
+    vi.spyOn(TestBed.inject(EquippedService), 'isBuildEmpty').mockReturnValue(false);
+
+    TestBed.createComponent(MainComponent).detectChanges();
+
+    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBeNull();
+    expect(TestBed.inject(PlannerOnboardingService).shouldShowOnboarding()).toBe(false);
   });
 
   it('shows an "outdated link" error, keeping the URL intact, if the blob fails to decode', () => {

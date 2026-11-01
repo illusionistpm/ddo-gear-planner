@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 
 import { environment } from '../environments/environment';
@@ -10,6 +10,8 @@ import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
 import { isBuildShortIdRoute } from './build/build-route';
+import { hasUnsavedWork } from './build/unsaved-changes.guard';
+import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
 
 @Component({
@@ -25,6 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private routerEventsSubscription?: Subscription;
   private buildNameSubscription?: Subscription;
+  // Browser back/forward replays the user's own edit history - not a link
+  // they followed - so it mustn't switch the intro off mid-way through it.
+  private navigationIsPopstate = false;
 
   constructor(
     private readonly router: Router,
@@ -33,13 +38,20 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly filters: FiltersService,
     private readonly currentBuild: CurrentBuildService,
     private readonly auth: AuthService,
+    private readonly onboarding: PlannerOnboardingService,
     private readonly titleService: Title
   ) {}
 
   ngOnInit() {
     this.routerEventsSubscription = this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe(() => this.updateFromLocation());
+      filter((event): event is NavigationStart | NavigationEnd => event instanceof NavigationStart || event instanceof NavigationEnd)
+    ).subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.navigationIsPopstate = event.navigationTrigger === 'popstate';
+      } else {
+        this.updateFromLocation();
+      }
+    });
 
     this.buildNameSubscription = this.currentBuild.state$.subscribe(state => {
       this.titleService.setTitle(state.name ? `${state.name} - ${this.title}` : this.title);
@@ -60,12 +72,13 @@ export class AppComponent implements OnInit, OnDestroy {
   // so the browser's generic warning there is a pure false alarm. Also off in
   // dev builds: ng serve's live reload triggers a full page reload on every
   // rebuild, and since the URL already carries the whole edit state nothing
-  // is lost across it - a pure false alarm there too.
+  // is lost across it - a pure false alarm there too. "Dirty" itself means
+  // hasUnsavedWork: a build with no gear never prompts.
   warnOnUnload = environment.production;
 
   @HostListener('window:beforeunload', ['$event'])
   warnOnUnsavedChanges(event: BeforeUnloadEvent) {
-    if (this.warnOnUnload && this.currentBuild.value.isDirty && !this.auth.isRedirectingAwayForAuth) {
+    if (this.warnOnUnload && hasUnsavedWork(this.currentBuild, this.equipped) && !this.auth.isRedirectingAwayForAuth) {
       event.preventDefault();
       event.returnValue = true;
     }
@@ -101,6 +114,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     this.queryParams.updateFromParams(queryParamMap);
+    // A long build link (?b=..., or legacy flat params) - including a reload
+    // of one, which is the same thing from here. A no-op when it carried no
+    // gear, so a bare '/' still gets the intro.
+    if (!this.navigationIsPopstate) {
+      this.onboarding.bypassForBuildLink();
+    }
     done({ applied: true });
     perfAfterFrames('paint after URL restore');
   }

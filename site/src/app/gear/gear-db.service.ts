@@ -400,7 +400,7 @@ export class GearDbService {
           const myItems = items.filter(i =>
             i.ml >= minLevel &&
             i.ml <= maxLevel &&
-            (showRaidItems || !this.quests.isRaidOnly(i)) &&
+            (showRaidItems || !this.quests.isRaidLoot(i)) &&
             (showRareItems || !i.rare) &&
             !hiddenItemTypes.has(i.type) &&
             !isHiddenByPacks(i.packKeys, hiddenPacks)

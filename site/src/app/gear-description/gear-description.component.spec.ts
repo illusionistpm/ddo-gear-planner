@@ -176,6 +176,14 @@ describe('GearDescriptionComponent', () => {
       expect(trigger.getAttribute('aria-label')).toBe('Show all 3 sources');
     });
 
+    it('marks an item as raid loot only when every source is a raid', () => {
+      showSources(['Too Hot to Handle']);
+      expect(fixture.nativeElement.querySelector('.raid-loot-badge')).not.toBeNull();
+
+      showSources(['Too Hot to Handle', 'Book Burning']);
+      expect(fixture.nativeElement.querySelector('.raid-loot-badge')).toBeNull();
+    });
+
     it('lists every source in the bubble when the badge is tapped', () => {
       const source = showSources(['Book Burning', 'Toil and Trouble']);
       (source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement).click();

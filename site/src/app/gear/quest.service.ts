@@ -21,16 +21,12 @@ export class QuestService {
     return this.raids.has(quest);
   }
 
-  /** Drops in at least one raid: what the "Raid" badge shows. */
-  isRaidLoot(item: Item | null | undefined): boolean {
-    return !!item?.quests?.some(quest => this.isRaid(quest));
-  }
-
   /**
-   * Drops only in raids: what "hide raid items" hides. An item that also drops in a
-   * normal quest can still be had without raiding.
+   * Drops only in raids: what the "Raid" badge marks and "hide raid items" hides. An
+   * item that also drops in a normal quest, or is sold by a vendor, can still be had
+   * without raiding.
    */
-  isRaidOnly(item: Item | null | undefined): boolean {
+  isRaidLoot(item: Item | null | undefined): boolean {
     return !!item?.quests?.length && item.quests.every(quest => this.isRaid(quest));
   }
 

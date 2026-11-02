@@ -73,16 +73,15 @@ describe('QuestService', () => {
     expect(service.getLootSourceLabel(item)).toBe('The Snitch');
   });
 
-  it('separates raid-only items from items that also drop outside raids', () => {
+  it('treats only items with every source a raid as raid loot', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const raidOnly = new Item({ slot: 'Trinket', ml: 1, name: 'Raid Only', quests: ['Too Hot to Handle'] });
     const raidOrQuest = new Item({ slot: 'Trinket', ml: 1, name: 'Raid Or Quest', quests: ['Too Hot to Handle', 'Book Burning'] });
     const noSource = new Item({ slot: 'Trinket', ml: 1, name: 'No Source' });
 
-    expect(service.isRaidOnly(raidOnly)).toBe(true);
-    expect(service.isRaidOnly(raidOrQuest)).toBe(false);
-    expect(service.isRaidLoot(raidOrQuest)).toBe(true);
-    expect(service.isRaidOnly(noSource)).toBe(false);
+    expect(service.isRaidLoot(raidOnly)).toBe(true);
+    expect(service.isRaidLoot(raidOrQuest)).toBe(false);
+    expect(service.isRaidLoot(noSource)).toBe(false);
   });
 
   it('looks up the pack of each source', () => {

@@ -29,8 +29,8 @@ export interface ShoppingListViewOptions {
   picks?: ShoppingSourcePicks;
   /**
    * The things got when the route was planned (settledIdentities), which it
-   * isn't planned around. Planned with the ticks of the moment, the route
-   * would move things about as they were ticked.
+   * isn't planned around; by default, those got now. Planned with the ticks
+   * of the moment, the route would move things about as they were ticked.
    */
   routeSettled?: ReadonlySet<string>;
   /** The colour each pack had last time (the last view's `packAccents`), so a pack keeps its colour. */
@@ -171,12 +171,18 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   const covered = troveCoveredKeys(entries, trove);
   const context: RowContext = { progress, covered, trove };
 
+  const settledNow = settledIdentities(entries, progress, trove);
   const route: ShoppingRouteOptions = {
     hiddenPacks: options.hiddenPacks ?? new Set<string>(),
     picks: options.picks ?? {},
-    settled: options.routeSettled,
+    settled: options.routeSettled ?? settledNow,
   };
-  const { sections: allSections, packAccents } = sectionsByPack(groupBySource(entries, route, context), context,
+  const things = thingsToRoute(entries);
+  // Ticks since the route was planned play no part, so ticking something off
+  // never moves anything: it stays under every quest it's listed under,
+  // where it was ticked.
+  const routed = routeSources(things, route);
+  const { sections: allSections, packAccents } = sectionsByPack(groupBySource(entries, route, routed, context), context,
     options.packAccents);
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
@@ -187,7 +193,27 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
 
   const acquired = entries.filter(entry => isEntryAcquired(entry.key, progress, covered)).length;
   const picked = allSections.some(candidate => candidate.groups.some(group => group.rows.some(row => row.picked)));
-  return { sections, acquired, total: entries.length, filter: options.filter, picked, packAccents };
+  const replanned = routeSources(things, { ...route, picks: {}, settled: settledNow });
+  const questsOf = (sources: readonly ShoppingSource[] | undefined) => (sources ?? []).map(source => source.quest).join('|');
+  const replannable = Array.from(things.keys())
+    .some(identity => !settledNow.has(identity) && questsOf(routed.get(identity)) !== questsOf(replanned.get(identity)));
+  return { sections, acquired, total: entries.length, filter: options.filter, picked, replannable, packAccents };
+}
+
+/** Crafting done where its item comes from is listed under the item, and goes wherever it goes. */
+function nestsUnderItem(entry: ShoppingEntry): boolean {
+  return entry.kind === 'step' && entry.sourceInherited;
+}
+
+/** What the route places, by identity: everything but what nests under its item. */
+function thingsToRoute(entries: readonly ShoppingEntry[]): Map<string, readonly ShoppingSource[]> {
+  const things = new Map<string, readonly ShoppingSource[]>();
+  for (const entry of entries) {
+    if (!nestsUnderItem(entry) && !things.has(entry.identity)) {
+      things.set(entry.identity, entry.sources);
+    }
+  }
+  return things;
 }
 
 /** Totals count each entry once, though it may be listed under several quests. */
@@ -302,20 +328,8 @@ interface SourceGroup {
 }
 
 function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOptions,
-    context: RowContext): SourceGroup[] {
-  const nestsUnderItem = (entry: ShoppingEntry) => entry.kind === 'step' && entry.sourceInherited;
+    routed: ReadonlyMap<string, readonly ShoppingSource[]>, context: RowContext): SourceGroup[] {
   const listed = entries.filter(entry => !nestsUnderItem(entry));
-  const things = new Map<string, readonly ShoppingSource[]>();
-  for (const entry of listed) {
-    if (!things.has(entry.identity)) {
-      things.set(entry.identity, entry.sources);
-    }
-  }
-  // Ticks since the route was planned play no part, so ticking something off
-  // never moves anything: it stays under every quest it's listed under,
-  // where it was ticked.
-  const routed = routeSources(things, route);
-
   const bySource = new Map<string, ShoppingEntry[]>();
   const thingsAt = new Map<string, Set<string>>();
   for (const entry of listed) {

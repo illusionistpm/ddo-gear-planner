@@ -141,7 +141,8 @@ describe('ShoppingListComponent', () => {
   it('says where else something comes from', () => {
     const anywhere = entry({ key: 'g|Neck|Amulet', identity: 'gear|Amulet', label: 'Amulet',
       sources: [from('The Snitch'), from('The Raid'), from('Vendor')] });
-    show({}, 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
+    // The ring still wanted, though the trove has one, so the amulet comes from The Snitch with it.
+    show({ [ring1.key]: 0 }, 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
     const snitch = Array.from(el().querySelectorAll('.shopping-group'))
       .find(group => group.querySelector('.shopping-group-name')?.textContent?.trim() === 'The Snitch')!;
     const toggle = (name: string) => Array.from(snitch.querySelectorAll<HTMLElement>('.shopping-row'))
@@ -247,6 +248,22 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-sources')).toBeNull();
     });
 
+    it('offers to reset the route when planning it again would list something elsewhere', () => {
+      const resetRoute = () => el().querySelector<HTMLButtonElement>('.shopping-list-reset-route');
+      const either = entry({ ...amulet, sources: [from('Abbot'), from('The Snitch')] });
+      const ringWanted = { [snitchRing.key]: 0 } as const;
+      const showPlanned = (routeSettled?: ReadonlySet<string>) => {
+        views.next(buildShoppingListView([either, snitchRing], ringWanted, trove, { filter: 'all', routeSettled }));
+        fixture.detectChanges();
+      };
+
+      showPlanned();
+      expect(resetRoute()).toBeNull();
+      // The ring wanted again, after the route was planned without it: the amulet could come from The Snitch with it.
+      showPlanned(new Set([snitchRing.identity]));
+      expect(resetRoute()?.textContent?.trim()).toBe('Reset route');
+    });
+
     it('says which quests the pack filter hides', () => {
       showWith({ hiddenPacks: new Set(['Raid Pack']) });
       open();
@@ -273,7 +290,7 @@ describe('ShoppingListComponent', () => {
         ['pick_shopping_source', { action: 'blocked', item_kind: 'gear' }],
         ['pick_shopping_source', { action: 'add', item_kind: 'gear', quest_count: 2 }],
         ['pick_shopping_source', { action: 'reset', item_kind: 'gear' }],
-        ['reset_shopping_route'],
+        ['reset_shopping_route', { has_picks: true }],
       ]);
     });
   });

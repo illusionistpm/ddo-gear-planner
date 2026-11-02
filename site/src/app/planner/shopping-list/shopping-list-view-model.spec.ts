@@ -187,17 +187,37 @@ describe('shopping list view model', () => {
 
     it('plans the route around what was still needed when it was planned, not ticks since', () => {
       const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
-      const questOf = (progress: ShoppingProgress, routeSettled?: ReadonlySet<string>) => groupsOf(
-        buildShoppingListView([sword, anywhere, ring1], progress, null, { filter: 'all', routeSettled }))
+      const viewOf = (progress: ShoppingProgress, routeSettled?: ReadonlySet<string>) =>
+        buildShoppingListView([sword, anywhere, ring1], progress, null, { filter: 'all', routeSettled });
+      const questOf = (view: ReturnType<typeof buildShoppingListView>) => groupsOf(view)
         .find(group => group.rows.some(row => row.entry === anywhere))!.label;
       const swordGot = { [sword.key]: 1 } as const;
 
       // Going to the raid for the sword, the sapphire comes from there too.
-      expect(questOf({})).toBe('The Raid');
+      expect(questOf(viewOf({}))).toBe('The Raid');
       // With the sword got, you go only for the ring, so the sapphire comes from there.
-      expect(questOf(swordGot, settledIdentities([sword, anywhere, ring1], swordGot, null))).toBe('The Snitch');
+      expect(questOf(viewOf(swordGot, settledIdentities([sword, anywhere, ring1], swordGot, null)))).toBe('The Snitch');
+      expect(questOf(viewOf(swordGot))).toBe('The Snitch');
       // Ticking the sword after the route was planned moves nothing.
-      expect(questOf(swordGot, new Set())).toBe('The Raid');
+      expect(questOf(viewOf(swordGot, new Set()))).toBe('The Raid');
+    });
+
+    it('says whether planning the route again would list anything still needed somewhere else', () => {
+      const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
+      const replannable = (progress: ShoppingProgress, routeSettled: ReadonlySet<string>, picks = {}) =>
+        buildShoppingListView([sword, anywhere, ring1], progress, null, { filter: 'all', routeSettled, picks }).replannable;
+      const swordGot = new Set([sword.identity]);
+
+      expect(replannable({}, new Set())).toBe(false);
+      // The sword got since the route was planned: the sapphire could come from The Snitch, with the ring.
+      expect(replannable({ [sword.key]: 1 }, new Set())).toBe(true);
+      expect(replannable({ [sword.key]: 1 }, swordGot)).toBe(false);
+      // The sword wanted again, after the route was planned without it.
+      expect(replannable({}, swordGot)).toBe(true);
+      // Ticking the sapphire itself changes nothing still needed.
+      expect(replannable({ [anywhere.key]: 1 }, new Set())).toBe(false);
+      // Reset route forgets picks too.
+      expect(replannable({}, new Set(), { [anywhere.identity]: ['The Snitch'] })).toBe(true);
     });
 
     it('sends things away from packs the pack filter hides', () => {

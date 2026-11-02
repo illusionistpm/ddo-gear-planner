@@ -1,11 +1,13 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+
+import type { ShoppingRoute } from '../../build/build-progress.service';
 
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
 import {
-  clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress, setScopePick,
-  SHOPPING_PROGRESS_STORAGE_KEY
+  clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress,
+  replaceScopeProgress, setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 /**
@@ -21,6 +23,22 @@ export function shoppingProgressScope(state: CurrentBuildState): string {
 
 export const SHOPPING_DRAFT_SCOPE = 'draft';
 
+/** What a friend's link to the build shows: the still-needed keys, and where the list sends you for each thing. */
+export interface ShoppingPublished {
+  needed: readonly string[];
+  route: ShoppingRoute;
+}
+
+/**
+ * Whether the current build's progress is kept beyond this browser:
+ * - off: it isn't - not a saved build of yours;
+ * - saving / synced: changes are on their way / all on the server;
+ * - offline: the server can't be reached, retrying;
+ * - local: syncing stopped for this build (signed out, or today's writes
+ *   used up), so changes stay on this device.
+ */
+export type ShoppingSyncState = 'off' | 'saving' | 'synced' | 'offline' | 'local';
+
 /** Holds the current build's shopping-list ticks, and the quests picked to get things from. */
 @Injectable({ providedIn: 'root', useFactory: () => inject(LocalShoppingProgressStore) })
 export abstract class ShoppingProgressStore {
@@ -34,6 +52,9 @@ export abstract class ShoppingProgressStore {
   abstract setPick(identity: string, quests: readonly string[] | null): void;
   /** Forgets every pick, so the list chooses where to get everything. */
   abstract clearPicks(): void;
+  abstract readonly syncState$: Observable<ShoppingSyncState>;
+  /** Sets what friends' links show, where the build has any. */
+  abstract publish(published: ShoppingPublished): void;
 }
 
 /**
@@ -48,6 +69,7 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
   private readonly picksSubject: BehaviorSubject<ShoppingSourcePicks>;
   readonly progress$: Observable<ShoppingProgress>;
   readonly picks$: Observable<ShoppingSourcePicks>;
+  readonly syncState$: Observable<ShoppingSyncState> = of('off');
   private currentScope: string;
   private readonly subscription: Subscription;
   private readonly onStorage = (event: StorageEvent) => {
@@ -92,6 +114,19 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
   clearPicks(): void {
     clearScopePicks(this.currentScope);
     this.picksSubject.next({});
+  }
+
+  /** Nothing to publish to: friends' links need the server. */
+  publish(): void {
+    // Intentionally empty.
+  }
+
+  /** Replaces a scope's ticks and picks, as when another copy of them wins. */
+  replaceScope(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks): void {
+    replaceScopeProgress(scope, entries, picks);
+    if (scope === this.currentScope) {
+      this.readScope();
+    }
   }
 
   ngOnDestroy(): void {

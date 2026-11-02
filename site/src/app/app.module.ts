@@ -46,6 +46,8 @@ import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
+import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
 @NgModule({
     declarations: [
@@ -125,6 +127,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
     ],
     providers: [
         provideHttpClient(withInterceptorsFromDi()),
+        // Saved builds' shopping-list progress syncs; the root default keeps
+        // it in this browser only, which is what specs without AppModule get.
+        { provide: ShoppingProgressStore, useExisting: ServerShoppingProgressStore },
         { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
         provideAppInitializer(() => {
             const injector = inject(Injector);

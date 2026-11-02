@@ -70,6 +70,13 @@ export function clearScopePicks(scope: string): void {
   writeAll(all);
 }
 
+/** Replaces a scope's ticks and picks, as when the server's copy arrives. */
+export function replaceScopeProgress(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks): void {
+  const all = readAll();
+  setScope(all, scope, entries, picks);
+  writeAll(all);
+}
+
 /**
  * Copies one scope's ticks and picks into another (the copy's own win),
  * dropping the source when `moveSource` is set.

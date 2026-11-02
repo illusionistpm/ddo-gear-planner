@@ -40,6 +40,18 @@ export interface FakeShortLinkRow {
   created_at: string;
 }
 
+export interface FakeBuildProgressRow {
+  build_id: string;
+  owner_user_id: string;
+  entries: string;
+  picks: string;
+  needed: string;
+  route: string;
+  updated_at: string;
+  write_day: string;
+  writes_today: number;
+}
+
 export interface FakeShortIdRow {
   short_id: string;
   kind: string;
@@ -51,6 +63,7 @@ interface FakeD1Snapshot {
   builds: FakeBuildRow[];
   shortlinks: FakeShortLinkRow[];
   shortIds: FakeShortIdRow[];
+  buildProgress: FakeBuildProgressRow[];
 }
 
 class FakeD1PreparedStatement {
@@ -82,6 +95,7 @@ export class FakeD1 {
   builds: FakeBuildRow[] = [];
   shortlinks: FakeShortLinkRow[] = [];
   shortIds: FakeShortIdRow[] = [];
+  buildProgress: FakeBuildProgressRow[] = [];
 
   prepare(sql: string): FakeD1PreparedStatement {
     return new FakeD1PreparedStatement(this, sql);
@@ -112,7 +126,8 @@ export class FakeD1 {
       users: [...this.users],
       builds: [...this.builds],
       shortlinks: [...this.shortlinks],
-      shortIds: [...this.shortIds]
+      shortIds: [...this.shortIds],
+      buildProgress: this.buildProgress.map(row => ({ ...row }))
     };
   }
 
@@ -121,6 +136,7 @@ export class FakeD1 {
     this.builds = snapshot.builds;
     this.shortlinks = snapshot.shortlinks;
     this.shortIds = snapshot.shortIds;
+    this.buildProgress = snapshot.buildProgress;
   }
 
   _first(sql: string, args: unknown[]): unknown {
@@ -272,6 +288,12 @@ export class FakeD1 {
       }
       build.updated_at = args[argIndex] as string;
       return { meta: { changes: 1 } };
+    }
+
+    if (sql.startsWith('DELETE FROM build_progress WHERE build_id')) {
+      const before = this.buildProgress.length;
+      this.buildProgress = this.buildProgress.filter(p => p.build_id !== args[0]);
+      return { meta: { changes: before - this.buildProgress.length } };
     }
 
     if (sql.startsWith('DELETE FROM builds')) {

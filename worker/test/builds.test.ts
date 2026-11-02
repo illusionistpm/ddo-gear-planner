@@ -230,6 +230,24 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     expect(db.builds).toHaveLength(0);
   });
 
+  it('deletes the build\'s shopping-list progress with it, and no other build\'s', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
+    seedBuild(db, { id: 'build-2', short_id: 'short02', owner_user_id: 'user-1', name: 'My Wizard' });
+    for (const buildId of ['build-1', 'build-2']) {
+      db.buildProgress.push({
+        build_id: buildId, owner_user_id: 'user-1', entries: '{}', picks: '{}', needed: '[]', route: '{}',
+        updated_at: 'now', write_day: '2026-11-02', writes_today: 1
+      });
+    }
+
+    const response = await handleDeleteBuild('build-1', user, env);
+
+    expect(response.status).toBe(204);
+    expect(db.buildProgress.map(p => p.build_id)).toEqual(['build-2']);
+  });
+
   it('404s an update or delete for a build id that does not exist', async () => {
     const { env } = makeEnv();
 

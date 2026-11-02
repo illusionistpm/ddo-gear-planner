@@ -30,6 +30,20 @@ export type BuildSummaryRow = Omit<BuildRow, 'blob'>;
 
 export type ShortIdKind = 'build' | 'shortlink';
 
+// A saved build's shopping-list progress - see migrations/0006. The four
+// JSON columns are stored as text and parsed by routes/progress.ts.
+export interface BuildProgressRow {
+  build_id: string;
+  owner_user_id: string;
+  entries: string;
+  picks: string;
+  needed: string;
+  route: string;
+  updated_at: string;
+  write_day: string;
+  writes_today: number;
+}
+
 export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promise<UserRow | null> {
   return await db.prepare('SELECT * FROM users WHERE auth0_sub = ?').bind(auth0Sub).first<UserRow>();
 }
@@ -279,8 +293,13 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
   await db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values).run();
 }
 
+// Progress first, in one batch: build_progress references builds, and its
+// ON DELETE CASCADE is only a backstop (see migrations/0006).
 export async function deleteBuild(db: D1Database, id: string): Promise<void> {
-  await db.prepare('DELETE FROM builds WHERE id = ?').bind(id).run();
+  await db.batch([
+    db.prepare('DELETE FROM build_progress WHERE build_id = ?').bind(id),
+    db.prepare('DELETE FROM builds WHERE id = ?').bind(id)
+  ]);
 }
 
 // blob here is the JSON envelope {"name": ..., "blob": ...} (see

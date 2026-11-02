@@ -17,6 +17,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { FiltersService } from '../planner/filters.service';
 import { ItemFilters } from '../gear/item-filters';
+import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
 
@@ -83,7 +84,10 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   private rankedCraftingOptions = new WeakSet<Craftable>();
   private loadedCraftingOptions = new WeakSet<Craftable>();
   private maxLevel = ItemFilters.MAX_LEVEL();
-  private optionsWithinMaxLevel = new WeakMap<CraftableOption[], { maxLevel: number, options: CraftableOption[] }>();
+  private hiddenPacks: ReadonlySet<string> = new Set<string>();
+  private optionsWithinMaxLevel = new WeakMap<CraftableOption[], {
+    maxLevel: number, hiddenPacks: ReadonlySet<string>, options: CraftableOption[]
+  }>();
 
   constructor(
     public equipped: EquippedService,
@@ -96,12 +100,13 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private suggestionDrawer: SuggestionDrawerService,
     filters: FiltersService
   ) {
-    // Subscribed here, not in ngOnInit, so the level is known before ngOnChanges first builds the rows.
+    // Subscribed here, not in ngOnInit, so the filters are known before ngOnChanges first builds the rows.
     this.subscriptions.add(filters.getItemFilters().pipe(
-      map(itemFilters => itemFilters.levelRange[1]),
-      distinctUntilChanged()
-    ).subscribe(maxLevel => {
+      map(itemFilters => ({ maxLevel: itemFilters.levelRange[1], hiddenPacks: itemFilters.hiddenPacks })),
+      distinctUntilChanged((a, b) => a.maxLevel === b.maxLevel && a.hiddenPacks === b.hiddenPacks)
+    ).subscribe(({ maxLevel, hiddenPacks }) => {
       this.maxLevel = maxLevel;
+      this.hiddenPacks = hiddenPacks;
       this.refreshDisplayRows();
       this.changeDetector.markForCheck();
     }));
@@ -251,23 +256,26 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * The options a character within the level filter can use. Only the maximum excludes one: an
-   * option below the minimum still slots in, and some effects only exist at low levels. The chosen
-   * option stays, even above the maximum, so the control can still show it.
+   * The options a character within the filters can use. Only the level maximum excludes one: an
+   * option below the minimum still slots in, and some effects only exist at low levels. An option
+   * only from hidden packs is left out too. The chosen option stays either way, so the control can
+   * still show it.
    */
   private visibleOptions(craft: Craftable): CraftableOption[] {
     const all = craft.options || [];
+    const isVisible = (option: CraftableOption) =>
+      option.isWithinMaxLevel(this.maxLevel) && !isOptionHiddenByPacks(option, this.hiddenPacks);
     let cached = this.optionsWithinMaxLevel.get(all);
-    if (!cached || cached.maxLevel !== this.maxLevel) {
-      const within = all.filter(option => option.isWithinMaxLevel(this.maxLevel));
+    if (!cached || cached.maxLevel !== this.maxLevel || cached.hiddenPacks !== this.hiddenPacks) {
+      const within = all.filter(isVisible);
       // The same array when nothing is left out, so the picker's grouping of it stays cached.
-      cached = { maxLevel: this.maxLevel, options: within.length === all.length ? all : within };
+      cached = { maxLevel: this.maxLevel, hiddenPacks: this.hiddenPacks, options: within.length === all.length ? all : within };
       this.optionsWithinMaxLevel.set(all, cached);
     }
     const selected = craft.selected;
-    return !selected || selected.isWithinMaxLevel(this.maxLevel)
+    return !selected || isVisible(selected)
       ? cached.options
-      : all.filter(option => option === selected || option.isWithinMaxLevel(this.maxLevel));
+      : all.filter(option => option === selected || isVisible(option));
   }
 
   private buildCraftingOptionRows(

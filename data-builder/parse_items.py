@@ -352,9 +352,9 @@ def get_items_from_page(
                 quests = ['Sharn quests']
                 item['quests'] = quests
 
-        packs = sourceResolver.resolve_item(quests)
-        if packs and packs[0]:
-            item['pack'] = packs[0]
+        # Resolved for the pack map and the unresolved-source report; the
+        # site derives an item's packs from its sources.
+        sourceResolver.resolve_item(quests)
 
         affixes = []
         if 'Enchantments' in cols or 'Special Abilities' in cols:

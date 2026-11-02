@@ -12,16 +12,21 @@ describe('Item', () => {
       affixes: [],
       sets: [],
       url: '/page/Test_Item',
-      pack: 'Test Pack',
       rare: true,
       crafting: [],
-      quests: [],
+      quests: ['Vecna Unleashed (quest)', 'Some Free Quest'],
       artifact: false,
     });
 
     expect(item).toBeTruthy();
-    expect(item.pack).toBe('Test Pack');
+    expect(item.packKeys).toEqual(['Vecna Unleashed', '__NO_PACK__']);
     expect(item.rare).toBe(true);
+  });
+
+  it('keeps its pack keys when copied', () => {
+    const item = new Item({ name: 'Test Item', slot: 'Trinket', ml: 1, quests: ['Vecna Unleashed (quest)'] });
+
+    expect(new Item(item).packKeys).toBe(item.packKeys);
   });
 
   it('preserves selected crafting options when cloning an item', () => {

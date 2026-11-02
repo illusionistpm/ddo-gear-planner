@@ -6,6 +6,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import { GameDataService } from '../gear/game-data.service';
+import { getPackKeys, NO_PACK_KEY, PSEUDO_PACKS } from '../gear/pack-filter';
 
 @Component({
     selector: 'app-filters',
@@ -147,27 +148,36 @@ export class FiltersComponent implements OnInit {
     this.sortOwnedToTopChanged.emit(this.sortOwnedToTop);
   }
 
+  /**
+   * Every pack an item or augment drops in: Free Quests, then the DDO Store and Events
+   * groups, then the real packs alphabetically. Augments with no source follow their host
+   * item, so only those with sources add packs.
+   */
   private getAllPackOptions(): Array<{name: string, value: boolean}> {
-    const packs = new Set<string>();
-    let hasNoPack = false;
+    const keys = new Set<string>();
 
     for (const item of this.gameData.items) {
-      if (item.pack) {
-        packs.add(item.pack);
-      } else {
-        hasNoPack = true;
+      getPackKeys(item.quests ?? []).forEach(key => keys.add(key));
+    }
+    for (const system of Object.values(this.gameData.crafting)) {
+      for (const options of Object.values(system)) {
+        for (const option of options) {
+          if (option.quests?.length) {
+            getPackKeys(option.quests).forEach(key => keys.add(key));
+          }
+        }
       }
     }
 
-    const options = Array.from(packs)
-      .sort((left, right) => left.localeCompare(right))
-      .map(pack => ({name: pack, value: true}));
+    const first = [NO_PACK_KEY, ...PSEUDO_PACKS].filter(key => keys.has(key));
+    const packs = Array.from(keys)
+      .filter(key => !first.includes(key))
+      .sort((left, right) => left.localeCompare(right));
 
-    if (hasNoPack) {
-      options.unshift({name: this.freeQuestsPackLabel, value: true});
-    }
-
-    return options;
+    return [...first, ...packs].map(key => ({
+      name: key === NO_PACK_KEY ? this.freeQuestsPackLabel : key,
+      value: true,
+    }));
   }
 
   private packFilterValue(packName: string): string {

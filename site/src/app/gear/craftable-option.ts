@@ -1,6 +1,7 @@
 import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { CraftableOptionInit } from './game-data-types';
+import { getPackKeys } from './pack-filter';
 
 /**
  * An unnamed option travels in build URLs as its affixes' names and values (see
@@ -24,9 +25,15 @@ export class CraftableOption {
     readonly set: string = '';
     readonly name: string = '';
     readonly ml: number = 0;
+    /** Where it drops, first source first. Empty for an option that follows its host item. */
+    readonly quests: ReadonlyArray<string>;
+    /** The pack filter keys of its sources (see pack-filter.ts). */
+    readonly packKeys: ReadonlyArray<string>;
 
     constructor(json: CraftableOptionInit | null) {
         this.affixes = (json?.affixes ?? []).map(affix => new Affix(affix));
+        this.quests = json?.quests ?? [];
+        this.packKeys = getPackKeys(this.quests);
 
         if (json) {
             this.set = json.set ?? '';

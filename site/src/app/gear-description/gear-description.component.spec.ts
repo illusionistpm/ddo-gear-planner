@@ -151,6 +151,48 @@ describe('GearDescriptionComponent', () => {
     });
   });
 
+  describe('crafting options from hidden packs', () => {
+    let filters: FiltersService;
+
+    beforeEach(() => {
+      filters = TestBed.inject(FiltersService);
+    });
+
+    function showItem(item: Item) {
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    function offeredOptions(): string[] {
+      const select = Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
+        .find(element => element.closest('.row')?.textContent?.includes('Colorless Augment Slot'));
+      expect(select).toBeTruthy();
+      select!.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(Boolean);
+    }
+
+    it('leaves out an augment only from hidden packs, keeping sourceless and partly-shown ones', () => {
+      showItem(makeItemWithSourcedOptions());
+      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
+
+      filters.setHiddenPacks(new Set(['Magic of Myth Drannor', FiltersService.NO_PACK_FILTER]));
+      fixture.detectChanges();
+
+      expect(offeredOptions()).toEqual(['Two Pack Augment', 'Sourceless Augment']);
+    });
+
+    it('still offers the slotted augment when its packs are hidden', () => {
+      const item = makeItemWithSourcedOptions();
+      const craft = item.crafting[0];
+      craft.selected = craft.options.find(option => option.name === 'Myth Drannor Augment')!;
+      filters.setHiddenPacks(new Set(['Magic of Myth Drannor']));
+      showItem(item);
+
+      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
+    });
+  });
+
   describe('choosing an option from a long crafting list', () => {
     it('equips the item with the chosen option', async () => {
       const item = makeItemWithLongCraftingList();
@@ -359,6 +401,21 @@ function makeItemWithLeveledOptions() {
     new CraftableOption({ name: 'Low Augment', ml: 5, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),
     new CraftableOption({ name: 'Mid Augment', ml: 20, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 5 }] }),
     new CraftableOption({ name: 'High Augment', ml: 30, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 9 }] }),
+  ];
+  const item = new Item(null);
+  item.name = 'Test Ring';
+  item.slot = 'Ring';
+  item.ml = 18;
+  item.crafting = [new Craftable('Colorless Augment Slot', options)];
+  return item;
+}
+
+/** An item with a short list of augments: one from a single pack, one from two, and one with no source. */
+function makeItemWithSourcedOptions() {
+  const options = [
+    new CraftableOption({ name: 'Myth Drannor Augment', ml: 1, quests: ['Book Burning'], affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),
+    new CraftableOption({ name: 'Two Pack Augment', ml: 1, quests: ['Book Burning', 'Toil and Trouble'], affixes: [{ name: 'Charisma', type: 'Enhancement', value: 2 }] }),
+    new CraftableOption({ name: 'Sourceless Augment', ml: 1, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 3 }] }),
   ];
   const item = new Item(null);
   item.name = 'Test Ring';

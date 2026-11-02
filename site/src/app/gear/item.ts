@@ -3,6 +3,7 @@ import { AffixService } from '../affixes/affix.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { CraftableInit, RawItem } from './game-data-types';
+import { getPackKeys } from './pack-filter';
 
 /** Raw item data, optionally with crafting slots given as objects rather than system names. */
 export type ItemInit = Omit<RawItem, 'crafting'> & { crafting?: Array<string | CraftableInit | Craftable> };
@@ -17,11 +18,12 @@ export class Item {
     ml!: number;
     affixes: Array<Affix> = Array<Affix>();
     url!: string;
-    pack!: string;
     rare!: boolean;
     private sets!: Array<string>;
     crafting!: Array<Craftable>;
     quests!: Array<string>;
+    /** The pack filter keys of its sources (see pack-filter.ts), worked out once. */
+    packKeys!: ReadonlyArray<string>;
     artifact!: boolean;
 
     rawCrafting: Array<string> = Array<string>();
@@ -45,9 +47,9 @@ export class Item {
         }
         this.sets = (json instanceof Item ? json.sets : json.sets) || [];
         this.url = json.url || '';
-        this.pack = json.pack || '';
         this.rare = !!json.rare;
         this.quests = json.quests || [];
+        this.packKeys = json instanceof Item ? json.packKeys : getPackKeys(this.quests);
         this.artifact = !!json.artifact;
         this.crafting = Array<Craftable>();
 

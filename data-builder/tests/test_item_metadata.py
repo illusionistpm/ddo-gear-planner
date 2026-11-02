@@ -1,4 +1,5 @@
 import parse_items
+from item_sources import SourceResolver
 from parse_items import get_items_from_page
 
 
@@ -21,13 +22,20 @@ def metadata_items(tmp_path, row_html, rare_names=None, quest_packs=None, monkey
         monkeypatch.setattr(parse_items, 'get_inverted_synonym_map', lambda: {})
         monkeypatch.setattr(parse_items, 'get_fake_bonuses', lambda: {})
         monkeypatch.setattr(parse_items, 'parse_affixes_from_cell', lambda *args, **kwargs: [])
+    metadata_items.resolver = SourceResolver(quest_packs or {})
     return get_items_from_page(
         write_item_page(tmp_path, row_html),
         {},
         {},
         rare_names or set(),
-        quest_packs or {},
+        metadata_items.resolver,
     )
+
+
+def first_source_pack(item):
+    # Items carry only their sources; the pack comes from the source map.
+    assert 'pack' not in item
+    return metadata_items.resolver.resolve(item['quests'][0])[1]
 
 
 def test_item_metadata_marks_rare_from_rare_loot_list(tmp_path, monkeypatch):
@@ -41,7 +49,7 @@ def test_item_metadata_marks_rare_from_rare_loot_list(tmp_path, monkeypatch):
     ''', {'Heartshard'}, {'Snowfall and Sunlight': 'The Chill of Ravenloft'}, monkeypatch)
 
     assert items[0]['rare'] is True
-    assert items[0]['pack'] == 'The Chill of Ravenloft'
+    assert first_source_pack(items[0]) == 'The Chill of Ravenloft'
 
 
 def test_item_metadata_marks_rare_from_explicit_rare_drop_text(tmp_path, monkeypatch):
@@ -55,7 +63,7 @@ def test_item_metadata_marks_rare_from_explicit_rare_drop_text(tmp_path, monkeyp
     ''', set(), {'Some Quest': 'Magic of Myth Drannor'}, monkeypatch)
 
     assert items[0]['rare'] is True
-    assert items[0]['pack'] == 'Magic of Myth Drannor'
+    assert first_source_pack(items[0]) == 'Magic of Myth Drannor'
 
 
 def test_item_metadata_marks_catalyst_crafting_locations_as_rare(tmp_path, monkeypatch):
@@ -114,7 +122,7 @@ def test_item_metadata_labels_sharn_rare_drop_artifacts_as_sharn_quests(tmp_path
     ''', set(), {'Too Hot to Handle': 'Masterminds of Sharn'}, monkeypatch)
 
     assert items[0]['rare'] is True
-    assert items[0]['pack'] == 'Masterminds of Sharn'
+    assert first_source_pack(items[0]) == 'Masterminds of Sharn'
     assert items[0]['quests'] == ['Sharn quests']
 
 
@@ -157,7 +165,7 @@ def test_item_metadata_names_the_row_hint_as_the_source_of_an_unlinked_row(tmp_p
     ''', set(), {}, monkeypatch)
 
     assert items[0]['quests'] == ['Lamordia']
-    assert items[0]['pack'] == 'The Chill of Ravenloft'
+    assert first_source_pack(items[0]) == 'The Chill of Ravenloft'
 
 
 def test_item_metadata_prefers_a_linked_source_to_the_row_hint(tmp_path, monkeypatch):
@@ -171,7 +179,7 @@ def test_item_metadata_prefers_a_linked_source_to_the_row_hint(tmp_path, monkeyp
     ''', set(), {'Ends and Means': 'The Chill of Ravenloft'}, monkeypatch)
 
     assert items[0]['quests'] == ['Ends and Means']
-    assert items[0]['pack'] == 'The Chill of Ravenloft'
+    assert first_source_pack(items[0]) == 'The Chill of Ravenloft'
 
 
 def test_item_metadata_keeps_every_source_and_the_first_ones_pack(tmp_path, monkeypatch):
@@ -188,7 +196,7 @@ def test_item_metadata_keeps_every_source_and_the_first_ones_pack(tmp_path, monk
     ''', set(), {'Quest A': 'Pack A', 'Quest B': 'Pack B'}, monkeypatch)
 
     assert items[0]['quests'] == ['Quest A', 'Quest B']
-    assert items[0]['pack'] == 'Pack A'
+    assert first_source_pack(items[0]) == 'Pack A'
 
 
 def test_item_metadata_marks_rare_only_when_every_source_is_a_rare_location(tmp_path, monkeypatch):

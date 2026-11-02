@@ -72,8 +72,8 @@ describe('formatShoppingListText', () => {
     const listed = (list: ShoppingEntry[]) => formatShoppingListText(
       buildShoppingListView(list, {}, null, { filter: 'needed' }), 'Tank').split('\n');
 
-    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from Vendor)');
-    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from The Raid)');
+    // Listed once, under the quest the route picks.
+    expect(listed([sword, twice]).filter(line => line.includes('Ruby'))).toEqual(['- Ruby of Frost (augment, also from Vendor)']);
     expect(listed([sword, everywhere])).toContain('- Ruby of Frost (augment, also from 3 other quests)');
   });
 

@@ -156,10 +156,7 @@ describe('ShoppingListComponent', () => {
 
     show({}, 'all', [sword, augment, anywhere]);
     const titles = Array.from(el().querySelectorAll('.shopping-group-name'), title => link(title));
-    expect(titles).toEqual([
-      ['A', 'wiki/The Raid', '_blank'], ['A', 'wiki/The Snitch', '_blank'], ['A', 'wiki/Vendor', '_blank'],
-      ['SPAN', null, null],
-    ]);
+    expect(titles).toEqual([['A', 'wiki/The Raid', '_blank'], ['A', 'wiki/The Snitch', '_blank'], ['SPAN', null, null]]);
     expect(link(el().querySelector('.shopping-row-also a'))).toEqual(['A', 'wiki/Vendor', '_blank']);
   });
 

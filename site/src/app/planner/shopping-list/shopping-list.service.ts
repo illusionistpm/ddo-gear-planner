@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, shareReplay, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { CurrentBuildService } from '../../build/current-build.service';
+import { GearDbService } from '../../gear/gear-db.service';
 import { QuestService } from '../../gear/quest.service';
 import { EquippedService } from '../equipped.service';
+import { FiltersService } from '../filters.service';
 import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { formatShoppingListText } from './shopping-list-text';
@@ -33,7 +35,9 @@ export class ShoppingListService {
     private readonly userGear: UserGearService,
     private readonly progressStore: ShoppingProgressStore,
     private readonly currentBuild: CurrentBuildService,
-    quests: QuestService
+    private readonly gearDb: GearDbService,
+    quests: QuestService,
+    filters: FiltersService
   ) {
     this.trove = { locationsFor: name => this.userGear.getItemLocations(name) };
     this.sources = { isRaid: quest => quests.isRaid(quest), packOf: quest => quests.getPack(quest) };
@@ -47,8 +51,10 @@ export class ShoppingListService {
       this.progressStore.progress$,
       this.userGear.userItemsChanged$.pipe(startWith(undefined)),
       this.filterSubject,
+      filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
     ]).pipe(
-      map(([entries, progress, , filter]) => buildShoppingListView(entries, progress, this.trove, { filter })),
+      map(([entries, progress, , filter, hiddenPacks]) =>
+        buildShoppingListView(entries, progress, this.trove, { filter, hiddenPacks })),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
@@ -78,7 +84,7 @@ export class ShoppingListService {
   /** The still-needed list as text, whatever the list on screen shows. */
   stillNeededText(): string {
     const view = buildShoppingListView(this.currentEntries(), this.progressStore.progress, this.trove,
-      { filter: 'needed' });
+      { filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks() });
     return formatShoppingListText(view, this.currentBuild.value.name);
   }
 

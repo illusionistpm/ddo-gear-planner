@@ -114,23 +114,38 @@ describe('shopping list view model', () => {
       expect(rowOf('Sword').ownedLocations).toBeNull();
     });
 
-    it('lists something from several quests under each, counting it once', () => {
+    it('lists something from several quests under the one the route picks, saying where else it comes from', () => {
       const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
       const view = buildShoppingListView([sword, swordStep, anywhere, ring1], {}, null, { filter: 'all' });
       const rowsOf = (label: string) => groupsOf(view).find(group => group.label === label)!.rows;
 
       const alsoFrom = (row: ShoppingRow) => row.alsoFrom.map(source => source.quest);
+      // A quest in a pack before one in none.
       expect(rowsOf('The Raid').map(row => [row.entry.label, alsoFrom(row)])).toEqual([['Sword', []], ['Sapphire', ['Vendor']]]);
-      expect(rowsOf('Vendor').map(row => [row.entry.label, alsoFrom(row)])).toEqual([['Sapphire', ['The Raid']]]);
-      expect(groupsOf(view).find(group => group.label === 'The Raid')!.total).toBe(3);
-      expect(view.total).toBe(4);
-      // Listed under quests in two packs; each pack counts it.
-      expect(view.sections.map(section => [section.label, section.total]))
-        .toEqual([['Raid Pack', 3], ['Sharn', 1], [OTHER_SOURCES_LABEL, 1]]);
+      expect(groupsOf(view).map(group => group.label)).toEqual(['The Raid', 'The Snitch']);
+      expect(view.sections.map(section => [section.label, section.total])).toEqual([['Raid Pack', 3], ['Sharn', 1]]);
+    });
+
+    it('lists something under each quest the user picked for it, counting it once', () => {
+      const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
+      const view = buildShoppingListView([sword, anywhere], {}, null,
+        { filter: 'all', picks: { [anywhere.identity]: ['Vendor', 'The Raid'] } });
+
+      expect(rows(view)).toEqual([['The Raid', 'Sword', 1, 'unchecked'], ['The Raid', 'Sapphire', 1, 'unchecked'],
+        ['Vendor', 'Sapphire', 1, 'unchecked']]);
+      expect(view.sections.map(section => [section.label, section.total])).toEqual([['Raid Pack', 2], [OTHER_SOURCES_LABEL, 1]]);
+      expect(view.total).toBe(2);
+    });
+
+    it('sends things away from packs the pack filter hides', () => {
+      const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
+      const view = buildShoppingListView([anywhere], {}, null, { filter: 'all', hiddenPacks: new Set(['Raid Pack']) });
+
+      expect(groupsOf(view).map(group => group.label)).toEqual(['The Snitch']);
     });
   });
 
-  it('gives each pack a colour, by name, and none to what has no pack', () => {
+  it('gives each pack listed a colour, in heading order, and none to what has no pack', () => {
     const view = buildShoppingListView(entries, {}, null, { filter: 'all' });
 
     expect(view.sections.map(section => [section.label, section.accent, section.groups.map(group => group.accent)]))

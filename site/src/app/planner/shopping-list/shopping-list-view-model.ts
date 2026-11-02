@@ -1,4 +1,5 @@
 import type { UserItemLocation } from '../user-gear.service';
+import { comparePacks, routeSources, ShoppingRouteOptions, ShoppingSourcePicks } from './shopping-list-routing';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress,
   ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingTroveLookup
@@ -22,6 +23,10 @@ export const PACK_ACCENT_COUNT = 8;
 
 export interface ShoppingListViewOptions {
   filter: ShoppingFilter;
+  /** The packs the planner's pack filter hides, whose quests the list sends you to only as a last resort. */
+  hiddenPacks?: ReadonlySet<string>;
+  /** The quests the user chose to get things from; see shopping-list-routing.ts. */
+  picks?: ShoppingSourcePicks;
 }
 
 /** How many copies of each name the trove holds. */
@@ -113,34 +118,6 @@ interface RowContext {
   covered: ReadonlySet<string>;
   trove: ShoppingTroveLookup | null;
   inBuild: ReadonlyMap<string, number>;
-  accents: ReadonlyMap<string, number>;
-}
-
-/**
- * What closes the list, after the real packs (by name): events, the quests in
- * no pack ('' here), and the store last of all. Events and the store are the
- * filter-only groups the pack map puts beside real packs (pack-filter.ts's
- * PSEUDO_PACKS); neither is somewhere you run.
- */
-const TRAILING_PACKS: readonly string[] = ['Events', '', 'DDO Store'];
-
-/** The order of pack headings. */
-function comparePacks(a: string, b: string): number {
-  const rank = (pack: string) => TRAILING_PACKS.indexOf(pack) + 1;
-  const [rankA, rankB] = [rank(a), rank(b)];
-  return rankA !== rankB ? rankA - rankB : a.localeCompare(b);
-}
-
-/** A colour for each pack in the build, in heading order, so packs listed next to each other differ. */
-function packAccents(entries: readonly ShoppingEntry[]): Map<string, number> {
-  const packs = new Set(entries.flatMap(entry => entry.sources.map(source => source.pack ?? '')));
-  packs.delete('');
-  return new Map(Array.from(packs).sort(comparePacks)
-    .map((pack, index) => [pack, index % PACK_ACCENT_COUNT]));
-}
-
-function accentOf(pack: string | null | undefined, context: RowContext): number | null {
-  return pack ? context.accents.get(pack) ?? null : null;
 }
 
 export function buildShoppingListView(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
@@ -150,9 +127,10 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   for (const entry of entries) {
     inBuild.set(entry.identity, (inBuild.get(entry.identity) ?? 0) + 1);
   }
-  const context: RowContext = { progress, covered, trove, inBuild, accents: packAccents(entries) };
+  const context: RowContext = { progress, covered, trove, inBuild };
 
-  const allSections = sectionsByPack(groupBySource(entries, context), context);
+  const route: ShoppingRouteOptions = { hiddenPacks: options.hiddenPacks ?? new Set<string>(), picks: options.picks ?? {} };
+  const allSections = sectionsByPack(groupBySource(entries, route, context), context);
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
       ...rest,
@@ -177,7 +155,11 @@ function section(id: string, label: string, groups: ShoppingGroup[], context: Ro
   return { id, label, accent, groups, acquired, total: keys.size };
 }
 
-/** A heading per pack, in comparePacks order; each pack's quests by name, unknown last. */
+/**
+ * A heading per pack, in comparePacks order; each pack's quests by name,
+ * unknown last. Each pack listed gets a colour, in heading order, so packs
+ * next to each other differ; quests in no pack get none.
+ */
 function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): ShoppingSection[] {
   const byPack = new Map<string, SourceGroup[]>();
   for (const group of groups) {
@@ -185,11 +167,13 @@ function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): Sh
     byPack.set(pack, [...(byPack.get(pack) ?? []), group]);
   }
   const packs = Array.from(byPack.keys()).sort(comparePacks);
+  const named = packs.filter(Boolean);
   return packs.map(pack => {
+    const accent = pack ? named.indexOf(pack) % PACK_ACCENT_COUNT : null;
     const members = byPack.get(pack)!.sort((a, b) =>
       a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));
-    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => member.group), context,
-      accentOf(pack, context));
+    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => ({ ...member.group, accent })),
+      context, accent);
   });
 }
 
@@ -264,7 +248,7 @@ function groupTotals(entries: readonly ShoppingEntry[], context: RowContext): { 
  * that happens where its item comes from stays under the item; anything with
  * a source of its own is listed there on its own: by now it's a piece to
  * collect, and which item it goes in doesn't matter. Something that comes
- * from several quests is listed under each, as any of them will do.
+ * from several quests is listed under the one the route picks for it.
  */
 interface SourceGroup {
   group: ShoppingGroup;
@@ -272,14 +256,22 @@ interface SourceGroup {
   unknown: boolean;
 }
 
-function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): SourceGroup[] {
+function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOptions,
+    context: RowContext): SourceGroup[] {
   const nestsUnderItem = (entry: ShoppingEntry) => entry.kind === 'step' && entry.sourceInherited;
-  const bySource = new Map<string, ShoppingEntry[]>();
-  for (const entry of entries) {
-    if (nestsUnderItem(entry)) {
-      continue;
+  const listed = entries.filter(entry => !nestsUnderItem(entry));
+  const things = new Map<string, readonly ShoppingSource[]>();
+  for (const entry of listed) {
+    if (!things.has(entry.identity)) {
+      things.set(entry.identity, entry.sources);
     }
-    const quests = entry.sources.length ? new Set(entry.sources.map(source => source.quest)) : [''];
+  }
+  const routed = routeSources(things, route);
+
+  const bySource = new Map<string, ShoppingEntry[]>();
+  for (const entry of listed) {
+    const chosen = routed.get(entry.identity) ?? [];
+    const quests = chosen.length ? chosen.map(source => source.quest) : [''];
     for (const quest of quests) {
       const same = bySource.get(quest);
       if (same) {
@@ -309,7 +301,8 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
         label: quest || UNKNOWN_SOURCE_LABEL,
         wikiUrl: here[0]?.wikiUrl ?? null,
         raid: here.some(source => source.raid),
-        accent: accentOf(pack, context),
+        // Set with its pack's heading.
+        accent: null,
         rows: foldRows(members, id, context,
           folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
           folded => otherSources(folded[0], quest)),

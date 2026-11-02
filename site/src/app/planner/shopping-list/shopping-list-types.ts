@@ -65,6 +65,17 @@ export interface ShoppingTroveLookup {
   locationsFor(name: string): readonly UserItemLocation[] | undefined;
 }
 
+/** One of the places a thing comes from, to pick where to get it. */
+export interface ShoppingSourceChoice {
+  source: ShoppingSource;
+  /** The list sends you there for it. */
+  chosen: boolean;
+  /** In a pack the planner's pack filter hides. */
+  hidden: boolean;
+  /** How many other things the list sends you there for. */
+  alsoThere: number;
+}
+
 /** One line of the list: one or more entries for the same thing. */
 export interface ShoppingRow {
   id: string;
@@ -81,6 +92,10 @@ export interface ShoppingRow {
   ownedLocations: readonly UserItemLocation[] | null;
   /** The row's other sources, besides the quest it's listed under. */
   alsoFrom: ShoppingSource[];
+  /** Every place the thing comes from, in heading order, when there's more than one; else empty. */
+  choices: ShoppingSourceChoice[];
+  /** True when the user picked where to get it, rather than the list. */
+  picked: boolean;
   children: ShoppingRow[];
 }
 

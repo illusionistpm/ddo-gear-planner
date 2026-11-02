@@ -77,6 +77,32 @@
 <ng-template #rowTemplate let-row>
   <li class="shopping-row-item">
     <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: row }"></ng-container>
+    @if (expandedRowId === row.id) {
+      <!-- Where to get it: tick each quest to list it under. -->
+      <div class="shopping-sources" role="group" [attr.aria-label]="'Where to get ' + row.entry.label">
+        <div class="shopping-sources-header">
+          <span class="shopping-sources-title">Get it from</span>
+          @if (row.picked) {
+            <button type="button" class="shopping-sources-reset" (click)="resetSources(row)">Pick for me</button>
+          }
+        </div>
+        <ul class="shopping-sources-list">
+          @for (choice of row.choices; track choice.source.quest) {
+            <li>
+              <label class="shopping-source-choice" [class.shopping-source-hidden]="choice.hidden"
+                [title]="choice.chosen && chosenCount(row) === 1 ? 'Tick another quest first: it has to come from somewhere' : ''">
+                <input type="checkbox" class="shopping-source-check" [checked]="choice.chosen"
+                  [disabled]="choice.chosen && chosenCount(row) === 1" (change)="toggleSource(row, choice)">
+                <span class="shopping-source-text">
+                  <span class="shopping-source-quest">{{choice.source.quest}}</span>
+                  <span class="shopping-source-note">{{choiceNote(choice)}}</span>
+                </span>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+    }
     @if (row.children.length) {
       <ul class="shopping-rows shopping-rows-nested">
         @for (child of row.children; track child.id) {
@@ -113,14 +139,13 @@
       <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
       <div class="shopping-row-meta">
         <div class="shopping-row-where">
-          @if (row.alsoFrom.length === 1) {
-            <span class="shopping-row-also">also from
-              <a class="shopping-quest-link" [href]="row.alsoFrom[0].wikiUrl" target="_blank"
-                rel="noopener noreferrer">{{row.alsoFrom[0].quest}}</a></span>
-          } @else if (row.alsoFrom.length) {
-            <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
-              <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
-            </app-tap-tooltip>
+          @if (row.choices.length) {
+            <button type="button" class="shopping-row-sources-toggle" [attr.aria-expanded]="expandedRowId === row.id"
+              [title]="alsoFromTooltip(row.alsoFrom)" (click)="toggleSources(row)">
+              <span>also from {{row.alsoFrom.length === 1 ? row.alsoFrom[0].quest : row.alsoFrom.length + ' other quests'}}</span>
+              <i class="fas" [class.fa-chevron-down]="expandedRowId !== row.id" [class.fa-chevron-up]="expandedRowId === row.id"
+                aria-hidden="true"></i>
+            </button>
           }
         </div>
         <div class="shopping-row-badges">

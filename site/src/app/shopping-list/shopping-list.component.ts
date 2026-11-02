@@ -6,7 +6,10 @@ import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
-import type { ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSource } from '../planner/shopping-list/shopping-list-types';
+import { OTHER_SOURCES_LABEL } from '../planner/shopping-list/shopping-list-view-model';
+import type {
+  ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSource, ShoppingSourceChoice
+} from '../planner/shopping-list/shopping-list-types';
 
 const COPIED_CONFIRMATION_MS = 1500;
 
@@ -27,6 +30,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   view: ShoppingListView | null = null;
   /** Feedback on the last Copy list click. */
   copyState: 'idle' | 'copied' | 'failed' = 'idle';
+  /** The row whose choice of where to get it is open, if any. */
+  expandedRowId: string | null = null;
   private subscription?: Subscription;
   private copiedTimeout?: ReturnType<typeof setTimeout>;
 
@@ -84,6 +89,46 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   checkIcon(row: ShoppingRow): string {
     return row.state === 'checked' ? 'fa-square-check' : row.state === 'mixed' ? 'fa-square-minus' : 'fa-square';
+  }
+
+  /** Opens or closes a row's choice of where to get it. */
+  toggleSources(row: ShoppingRow): void {
+    this.expandedRowId = this.expandedRowId === row.id ? null : row.id;
+  }
+
+  chosenCount(row: ShoppingRow): number {
+    return row.choices.filter(choice => choice.chosen).length;
+  }
+
+  /**
+   * Lists the thing under a quest too, or no longer there. The last quest
+   * can't be unticked: the thing has to be got somewhere.
+   */
+  toggleSource(row: ShoppingRow, toggled: ShoppingSourceChoice): void {
+    const quests = row.choices
+      .filter(choice => choice === toggled ? !choice.chosen : choice.chosen)
+      .map(choice => choice.source.quest);
+    if (quests.length) {
+      this.shoppingList.pickSources(row, quests);
+    }
+  }
+
+  /** Forgets the user's pick, so the list chooses again. */
+  resetSources(row: ShoppingRow): void {
+    this.shoppingList.pickSources(row, null);
+  }
+
+  /** What else picking a quest means: its pack, what else you'd get there, whether the pack filter hides it. */
+  choiceNote(choice: ShoppingSourceChoice): string {
+    const notes = [choice.source.pack ?? OTHER_SOURCES_LABEL];
+    if (choice.hidden) {
+      notes.push('hidden by your pack filter');
+    } else if (choice.alsoThere) {
+      notes.push(`${choice.alsoThere} other thing${choice.alsoThere === 1 ? '' : 's'} there`);
+    } else {
+      notes.push('nothing else there');
+    }
+    return notes.join(' · ');
   }
 
   /** The tooltip listing the quests a row doesn't name. */

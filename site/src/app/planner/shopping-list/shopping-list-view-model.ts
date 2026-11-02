@@ -1,5 +1,5 @@
 import type { UserItemLocation } from '../user-gear.service';
-import { comparePacks, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
+import { comparePacks, distinctSources, isSourceHidden, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress, ShoppingProgressPatch,
   ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks, ShoppingTroveLookup
@@ -188,10 +188,16 @@ function neededRows(rows: ShoppingRow[]): ShoppingRow[] {
   return kept;
 }
 
+/** Where a row's thing comes from besides where it's listed, and the choice of where to get it. */
+type RowSourcing = Pick<ShoppingRow, 'alsoFrom' | 'choices' | 'picked'>;
+
+/** For a row listed with its item, which says where it comes from. */
+const WITH_ITEM: RowSourcing = { alsoFrom: [], choices: [], picked: false };
+
 /** Folds entries into rows, one per identity, in first-seen order. */
 function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: RowContext,
     childrenOf: (folded: readonly ShoppingEntry[]) => ShoppingRow[],
-    alsoFromOf: (folded: readonly ShoppingEntry[]) => ShoppingSource[] = () => []): ShoppingRow[] {
+    sourcingOf: (folded: readonly ShoppingEntry[]) => RowSourcing = () => WITH_ITEM): ShoppingRow[] {
   const byIdentity = new Map<string, ShoppingEntry[]>();
   for (const entry of entries) {
     const same = byIdentity.get(entry.identity);
@@ -215,21 +221,10 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
       acquired,
       state: rowState(acquired, folded.length),
       ownedLocations: locations?.length ? locations : null,
-      alsoFrom: alsoFromOf(folded),
+      ...sourcingOf(folded),
       children: childrenOf(folded),
     };
   });
-}
-
-/** Where an entry comes from besides this quest, once each. */
-function otherSources(entry: ShoppingEntry, quest: string): ShoppingSource[] {
-  const others = new Map<string, ShoppingSource>();
-  for (const source of entry.sources) {
-    if (source.quest !== quest && !others.has(source.quest)) {
-      others.set(source.quest, source);
-    }
-  }
-  return Array.from(others.values());
 }
 
 function rowState(acquired: number, total: number): ShoppingRowState {
@@ -273,6 +268,7 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
     .map(entry => entry.identity));
 
   const bySource = new Map<string, ShoppingEntry[]>();
+  const thingsAt = new Map<string, Set<string>>();
   for (const entry of listed) {
     const routedTo = routed.get(entry.identity) ?? [];
     const chosen = pending.has(entry.identity) ? routedTo : routedTo.slice(0, 1);
@@ -284,8 +280,29 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
       } else {
         bySource.set(quest, [entry]);
       }
+      thingsAt.set(quest, (thingsAt.get(quest) ?? new Set()).add(entry.identity));
     }
   }
+
+  const sourcingOf = (entry: ShoppingEntry, quest: string): RowSourcing => {
+    const sources = distinctSources(entry.sources);
+    if (sources.length < 2) {
+      return WITH_ITEM;
+    }
+    const routedTo = new Set((routed.get(entry.identity) ?? []).map(source => source.quest));
+    const picks = route.picks[entry.identity] ?? [];
+    const inHeadingOrder = [...sources].sort((a, b) => comparePacks(a.pack ?? '', b.pack ?? '') || a.quest.localeCompare(b.quest));
+    return {
+      alsoFrom: sources.filter(source => source.quest !== quest),
+      choices: inHeadingOrder.map(source => ({
+        source,
+        chosen: routedTo.has(source.quest),
+        hidden: isSourceHidden(source, route.hiddenPacks),
+        alsoThere: Array.from(thingsAt.get(source.quest) ?? []).filter(identity => identity !== entry.identity).length,
+      })),
+      picked: sources.some(source => picks.includes(source.quest)),
+    };
+  };
 
   const nestedUnder = (gearEntries: readonly ShoppingEntry[], prefix: string) => {
     const keys = new Set(gearEntries.map(entry => entry.key));
@@ -310,7 +327,7 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
         accent: null,
         rows: foldRows(members, id, context,
           folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
-          folded => otherSources(folded[0], quest)),
+          folded => sourcingOf(folded[0], quest)),
         ...groupTotals([...members, ...nested], context),
       },
     };

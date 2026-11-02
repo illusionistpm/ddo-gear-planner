@@ -6,7 +6,7 @@ import { ShoppingListService } from '../planner/shopping-list/shopping-list.serv
 import type {
   ShoppingEntry, ShoppingListView, ShoppingProgress, ShoppingSource
 } from '../planner/shopping-list/shopping-list-types';
-import { buildShoppingListView } from '../planner/shopping-list/shopping-list-view-model';
+import { buildShoppingListView, ShoppingListViewOptions } from '../planner/shopping-list/shopping-list-view-model';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { Clipboard } from '../shared/clipboard';
@@ -46,7 +46,7 @@ describe('ShoppingListComponent', () => {
   let fixture: ComponentFixture<ShoppingListComponent>;
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
-    setFilter: ReturnType<typeof vi.fn>; stillNeededText: () => string };
+    setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; stillNeededText: () => string };
 
   const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
     views.next(buildShoppingListView(list, progress, trove, { filter }));
@@ -58,7 +58,8 @@ describe('ShoppingListComponent', () => {
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
-    service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), stillNeededText: () => 'Still needed for my build (5):' };
+    service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(),
+      stillNeededText: () => 'Still needed for my build (5):' };
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       providers: [{ provide: ShoppingListService, useValue: service }]
@@ -141,15 +142,87 @@ describe('ShoppingListComponent', () => {
     show({}, 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
     const snitch = Array.from(el().querySelectorAll('.shopping-group'))
       .find(group => group.querySelector('.shopping-group-name')?.textContent?.trim() === 'The Snitch')!;
-    const alsoFrom = (name: string) => Array.from(snitch.querySelectorAll<HTMLElement>('.shopping-row'))
+    const toggle = (name: string) => Array.from(snitch.querySelectorAll<HTMLElement>('.shopping-row'))
       .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!
-      .querySelector('.shopping-row-also, .shopping-row-more')?.textContent?.trim();
-    expect(alsoFrom('Amulet')).toBe('also from 2 other quests');
-    expect(alsoFrom('Ring')).toBe('also from Vendor');
-    expect(snitch.querySelector('.tap-tooltip-trigger')?.getAttribute('title')).toBe('Also from:\nThe Raid\nVendor');
+      .querySelector('.shopping-row-sources-toggle');
+    expect(toggle('Amulet')?.textContent?.trim()).toBe('also from 2 other quests');
+    expect(toggle('Ring')?.textContent?.trim()).toBe('also from Vendor');
+    expect(toggle('Amulet')?.getAttribute('title')).toBe('Also from:\nThe Raid\nVendor');
+    expect(toggle('Amulet')?.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('links each quest it names to the wiki, in a new tab', () => {
+  describe('picking where to get something', () => {
+    const amulet = entry({ key: 'g|Neck|Amulet', slot: 'Neck', identity: 'gear|Amulet', label: 'Amulet',
+      sources: [from('Vendor'), from('The Snitch'), from('The Raid', 'Raid Pack')] });
+    const snitchRing = entry({ ...ring1, sources: [from('The Snitch')] });
+    const showWith = (options: Partial<ShoppingListViewOptions> = {}) => {
+      views.next(buildShoppingListView([amulet, snitchRing], {}, trove, { filter: 'all', ...options }));
+      fixture.detectChanges();
+    };
+    const open = () => {
+      (rowByName('Amulet').querySelector('.shopping-row-sources-toggle') as HTMLButtonElement).click();
+      fixture.detectChanges();
+    };
+    const choices = () => Array.from(el().querySelectorAll('.shopping-source-choice'), choice => [
+      choice.querySelector('.shopping-source-quest')?.textContent?.trim(),
+      choice.querySelector('.shopping-source-note')?.textContent?.trim(),
+      (choice.querySelector('input') as HTMLInputElement).checked,
+      (choice.querySelector('input') as HTMLInputElement).disabled,
+    ]);
+    const check = (quest: string) => (Array.from(el().querySelectorAll('.shopping-source-choice'))
+      .find(choice => choice.querySelector('.shopping-source-quest')?.textContent?.trim() === quest)!
+      .querySelector('input') as HTMLInputElement).click();
+
+    it('opens under the row with every quest it comes from, in heading order, and what else is there', () => {
+      showWith();
+      expect(el().querySelector('.shopping-sources')).toBeNull();
+
+      open();
+      expect(rowByName('Amulet').querySelector('.shopping-row-sources-toggle')?.getAttribute('aria-expanded')).toBe('true');
+      // The list sent it to the quest in a pack; that one can't be unticked, as it's the only one.
+      expect(choices()).toEqual([
+        ['The Raid', 'Raid Pack · nothing else there', true, true],
+        ['The Snitch', 'Other sources · 1 other thing there', false, false],
+        ['Vendor', 'Other sources · nothing else there', false, false],
+      ]);
+      expect(el().querySelector('.shopping-sources-reset')).toBeNull();
+
+      open();
+      expect(el().querySelector('.shopping-sources')).toBeNull();
+    });
+
+    it('lists it under each quest ticked, through the service', () => {
+      showWith();
+      open();
+
+      check('The Snitch');
+      expect(service.pickSources).toHaveBeenCalledWith(expect.objectContaining({ id: 'source:The Raid|gear|Amulet' }),
+        ['The Raid', 'The Snitch']);
+    });
+
+    it('offers to let the list choose again once the user has picked', () => {
+      showWith({ picks: { [amulet.identity]: ['Vendor', 'The Snitch'] } });
+      open();
+
+      expect(choices().map(([quest, , checked, disabled]) => [quest, checked, disabled]))
+        .toEqual([['The Raid', false, false], ['The Snitch', true, false], ['Vendor', true, false]]);
+      check('Vendor');
+      expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), ['The Snitch']);
+
+      (el().querySelector('.shopping-sources-reset') as HTMLButtonElement).click();
+      expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), null);
+    });
+
+    it('says which quests the pack filter hides', () => {
+      showWith({ hiddenPacks: new Set(['Raid Pack']) });
+      open();
+
+      expect(choices()[0].slice(0, 3)).toEqual(['The Raid', 'Raid Pack · hidden by your pack filter', false]);
+      expect(el().querySelector('.shopping-source-hidden .shopping-source-quest')?.textContent?.trim()).toBe('The Raid');
+    });
+  });
+
+  it('links each quest card to the wiki, in a new tab', () => {
     const anywhere = entry({ key: 'g|Neck|Amulet', slot: 'Neck', identity: 'gear|Amulet', label: 'Amulet',
       sources: [from('The Snitch'), from('Vendor')] });
     const link = (node: Element | null | undefined) => [node?.tagName, node?.getAttribute('href'), node?.getAttribute('target')];
@@ -157,7 +230,6 @@ describe('ShoppingListComponent', () => {
     show({}, 'all', [sword, augment, anywhere]);
     const titles = Array.from(el().querySelectorAll('.shopping-group-name'), title => link(title));
     expect(titles).toEqual([['A', 'wiki/The Raid', '_blank'], ['A', 'wiki/The Snitch', '_blank'], ['SPAN', null, null]]);
-    expect(link(el().querySelector('.shopping-row-also a'))).toEqual(['A', 'wiki/Vendor', '_blank']);
   });
 
   it('switches the filter through the service', () => {

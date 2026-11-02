@@ -145,6 +145,27 @@ describe('shopping list view model', () => {
       expect(rows(view)).toEqual([['Vendor', 'Sapphire', 1, 'checked']]);
     });
 
+    it('offers every source of something from several, in heading order, with what else the list gets there', () => {
+      const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Snitch', 'Sharn'), from('The Raid', 'Raid Pack', true)] });
+      const choicesOf = (view: ReturnType<typeof buildShoppingListView>) => groupsOf(view).flatMap(group => group.rows)
+        .find(row => row.entry.label === 'Sapphire')!;
+      const routed = choicesOf(buildShoppingListView([sword, anywhere, ring1], {}, null,
+        { filter: 'all', hiddenPacks: new Set(['Sharn']) }));
+
+      expect(routed.choices.map(({ source, chosen, hidden, alsoThere }) => [source.quest, chosen, hidden, alsoThere])).toEqual([
+        ['The Raid', true, false, 1], ['The Snitch', false, true, 1], ['Vendor', false, false, 0],
+      ]);
+      expect(routed.picked).toBe(false);
+
+      const picked = choicesOf(buildShoppingListView([sword, anywhere, ring1], {}, null,
+        { filter: 'all', picks: { [anywhere.identity]: ['Vendor'] } }));
+      expect(picked.choices.filter(choice => choice.chosen).map(choice => choice.source.quest)).toEqual(['Vendor']);
+      expect(picked.picked).toBe(true);
+      // Something from one place, or crafting listed with its item, has no choice to offer.
+      expect(groupsOf(buildShoppingListView(entries, {}, null, { filter: 'all' }))
+        .flatMap(group => group.rows.flatMap(row => [row, ...row.children])).every(row => !row.choices.length)).toBe(true);
+    });
+
     it('sends things away from packs the pack filter hides', () => {
       const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
       const view = buildShoppingListView([anywhere], {}, null, { filter: 'all', hiddenPacks: new Set(['Raid Pack']) });

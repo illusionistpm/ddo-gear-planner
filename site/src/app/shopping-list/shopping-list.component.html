@@ -101,18 +101,21 @@
                   (click)="toggleSource($event, row, choice)">
                 <span class="shopping-source-text">
                   <span class="shopping-source-quest">{{choice.source.quest}}</span>
-                  <span class="shopping-source-note">{{choiceNote(choice)}}</span>
+                  <!-- Said when it happens, under the box just clicked, rather than greying the box out:
+                       a disabled box can't say why, least of all on a phone. -->
+                  @if (choice.chosen && lastQuestHintRowId === row.id) {
+                    <span class="shopping-source-warning" role="alert">
+                      <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                      It has to come from somewhere: tick another quest first.
+                    </span>
+                  } @else {
+                    <span class="shopping-source-note">{{choiceNote(choice)}}</span>
+                  }
                 </span>
               </label>
             </li>
           }
         </ul>
-        <!-- Said when it happens, rather than greying the box out: a disabled box can't say why, least of all on a phone. -->
-        <p class="shopping-sources-hint" role="status">
-          @if (lastQuestHintRowId === row.id) {
-            It has to come from somewhere: tick another quest first.
-          }
-        </p>
       </div>
     }
     @if (row.children.length) {

@@ -169,7 +169,7 @@ describe('ShoppingListComponent', () => {
       choice.querySelector('.shopping-source-note')?.textContent?.trim(),
       (choice.querySelector('input') as HTMLInputElement).checked,
     ]);
-    const hint = () => el().querySelector('.shopping-sources-hint')?.textContent?.trim();
+    const hint = () => el().querySelector('.shopping-source-warning')?.textContent?.trim();
     const check = (quest: string) => (Array.from(el().querySelectorAll('.shopping-source-choice'))
       .find(choice => choice.querySelector('.shopping-source-quest')?.textContent?.trim() === quest)!
       .querySelector('input') as HTMLInputElement).click();
@@ -186,7 +186,7 @@ describe('ShoppingListComponent', () => {
         ['The Snitch', 'Other sources · 1 other thing there', false],
         ['Vendor', 'Other sources · nothing else there', false],
       ]);
-      expect(hint()).toBe('');
+      expect(hint()).toBeUndefined();
       expect(el().querySelector('.shopping-sources-reset')).toBeNull();
 
       open();
@@ -202,20 +202,20 @@ describe('ShoppingListComponent', () => {
         ['The Raid', 'The Snitch']);
     });
 
-    it('keeps the last quest ticked, and says why', () => {
+    it('keeps the last quest ticked, and says why under it, in place of its note', () => {
       showWith();
       open();
 
       check('The Raid');
       fixture.detectChanges();
       expect(service.pickSources).not.toHaveBeenCalled();
-      expect(choices()[0][2]).toBe(true);
+      expect(choices()[0]).toEqual(['The Raid', undefined, true]);
       expect(hint()).toBe('It has to come from somewhere: tick another quest first.');
 
       check('Vendor');
       fixture.detectChanges();
       expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), ['The Raid', 'Vendor']);
-      expect(hint()).toBe('');
+      expect(hint()).toBeUndefined();
     });
 
     it('offers to let the list choose again once the user has picked', () => {

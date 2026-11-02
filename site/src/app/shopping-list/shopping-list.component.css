@@ -368,17 +368,6 @@
     color: var(--primary-color);
 }
 
-/* Empty, and taking no room, until there's something to say. */
-.shopping-sources-hint {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    margin: 0;
-}
-
-.shopping-sources-hint:not(:empty) {
-    margin-top: var(--space-4);
-}
-
 /* As many columns as fit, so a long list of quests stays short. */
 .shopping-sources-list {
     display: grid;
@@ -414,6 +403,13 @@
 .shopping-source-note {
     color: var(--text-secondary);
     font-size: 0.75rem;
+}
+
+/* In place of the note, under the box the user just tried to untick. */
+.shopping-source-warning {
+    color: var(--danger-color);
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
 /* Still there to pick, but faded: you'd have to own the pack. */

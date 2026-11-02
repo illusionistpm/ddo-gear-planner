@@ -7,6 +7,7 @@ import collections
 from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
+from get_snapshot_path import get_snapshot_path
 
 FILIGREE_AFFIX_NAME = 'Max Filigree Slots'
 FILIGREE_TIP_RE = re.compile(r'maximum\s+of\s+(\d+)\s+filigree\s+slots?', re.IGNORECASE)
@@ -75,7 +76,7 @@ def apply_artifacts(items, artifacts):
 def parse_minor_artifacts():
     items = read_json('items')
 
-    page = open('./cache/minor_artifacts/Minor_Artifacts.html', "r", encoding='utf-8').read()
+    page = open(get_snapshot_path('minor_artifacts', 'Minor_Artifacts.html'), "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

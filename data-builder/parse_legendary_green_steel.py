@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from pathlib import Path
 import re
+from get_snapshot_path import get_snapshot_path
 
 GREEN_STEEL_TIER_QUESTS = {
     1: 'Legendary Altar of Invasion',
@@ -171,7 +172,7 @@ def parse_legendary_green_steel_tier_options_from_soup(soup, tier):
 def parse_legendary_green_steel_tier_options():
     options = {}
     for tier in [1, 2, 3]:
-        page = Path(f'./cache/crafting/Legendary_Green_Steel_items_Tier_{tier}.html').read_text(encoding='utf-8')
+        page = Path(get_snapshot_path('crafting', f'Legendary_Green_Steel_items_Tier_{tier}.html')).read_text(encoding='utf-8')
         soup = BeautifulSoup(page, 'html.parser')
         options[f'T{tier} (Equipment)'] = {
             '*': parse_legendary_green_steel_tier_options_from_soup(soup, tier),

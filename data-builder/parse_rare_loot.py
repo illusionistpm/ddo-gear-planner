@@ -2,6 +2,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 from bs4 import BeautifulSoup
+from get_snapshot_path import get_snapshot_path
 
 
 def normalize_item_name(name: str) -> str:
@@ -23,11 +24,11 @@ def get_rare_loot_from_page(soup: BeautifulSoup) -> set[str]:
     return rare_items
 
 
-def get_rare_loot_from_cache(cache_path: Path = Path('./cache/rare_loot')) -> set[str]:
+def get_rare_loot_from_snapshot(snapshot_path: Path = Path(get_snapshot_path('rare_loot'))) -> set[str]:
     rare_items = set()
 
-    if cache_path.exists():
-        for page_path in sorted(cache_path.glob('*.html')):
+    if snapshot_path.exists():
+        for page_path in sorted(snapshot_path.glob('*.html')):
             page = page_path.read_text(encoding='utf-8')
             soup = BeautifulSoup(page, 'html.parser')
             rare_items.update(get_rare_loot_from_page(soup))
@@ -36,5 +37,5 @@ def get_rare_loot_from_cache(cache_path: Path = Path('./cache/rare_loot')) -> se
 
 
 if __name__ == "__main__":
-    for item_name in sorted(get_rare_loot_from_cache()):
+    for item_name in sorted(get_rare_loot_from_snapshot()):
         print(item_name)

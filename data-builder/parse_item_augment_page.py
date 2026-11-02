@@ -6,6 +6,7 @@ from parse_affixes_from_cell import replace_item_set_affixes
 from parse_legendary_green_steel import postprocess_legendary_green_steel_augments
 from read_json import read_json
 from write_json import write_json
+from get_snapshot_path import get_snapshot_path
 
 def convert_augment_type(augment_type):
     augmentTypeTransformMap = {
@@ -212,7 +213,7 @@ def get_item_augments_from_page(soup):
 
 
 def parse_item_augment_page():
-    page = open('./cache/item_augments/Raw data_Item augments.html', 'r', encoding='utf-8').read()
+    page = open(get_snapshot_path('item_augments', 'Raw data_Item augments.html'), 'r', encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

@@ -78,7 +78,8 @@ const DEFENSE_AFFIXES = new Set([
   'Enhancement Bonus (Armor)',
   'Healing Amplification',
   'Negative Amplification',
-  'Repair Amplification'
+  'Repair Amplification',
+  'Undying'
 ]);
 
 const UTILITY_CHECKLIST_AFFIXES = new Set([

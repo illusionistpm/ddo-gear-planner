@@ -42,7 +42,7 @@ export class AffixPackagesService {
     this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
       'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Ghostly',
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
-      'Heroic Inspiration']);
+      'Immunity to Fear', 'Heroic Inspiration', 'Undying']);
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
     this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing']);
     this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Concentration']);

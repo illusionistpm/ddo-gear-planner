@@ -5,7 +5,8 @@ from provenance_io import get_asset_json_path, get_provenance_json_path, include
 
 def _write_json_file(path: str, contents: str) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf8') as fh:
+    # LF on every platform, so data built on Windows matches CI's.
+    with open(path, 'w', encoding='utf8', newline='\n') as fh:
         fh.write(contents)
 
 

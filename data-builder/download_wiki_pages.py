@@ -7,7 +7,9 @@ from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
 from parse_quests import get_expansion_pack_pages_from_category
-from crafting_device_packs import DEVICE_PAGES_CACHE_DIR, get_crafting_devices_from_category, get_missing_devices, load_device_packs
+from crafting_device_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_device_packs
+from normalize_wiki_html import normalize_wiki_html
+from get_snapshot_path import get_snapshot_path
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
 DEFAULT_HEADERS = {
@@ -151,11 +153,17 @@ def _download_html(full_url, use_playwright=False, session=None, timeout=30):
     return _download_html_with_requests(full_url, session=session, timeout=timeout)
 
 
-def download_page(url, cacheDir, max_retries=3, retry_delay_seconds=10, session=None):
+def _write_snapshot_page(path, html):
+    # LF on every platform, so a page downloaded on Windows matches CI's.
+    with open(path, 'w', encoding='utf8', newline='\n') as fh:
+        fh.write(normalize_wiki_html(html))
+
+
+def download_page(url, pageDir, max_retries=3, retry_delay_seconds=10, session=None):
     filename = url.split(':')[-1].replace("/","_")
-    path = cacheDir + filename + '.html'
+    path = os.path.join(pageDir, filename + '.html')
     if os.path.exists(path):
-        print(f"Using cached {filename}.html")
+        print(f"Using snapshot {filename}.html")
         return False
 
     full_url = "https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=" + url
@@ -188,13 +196,13 @@ def download_page(url, cacheDir, max_retries=3, retry_delay_seconds=10, session=
                 continue
             raise
 
-        open(path, 'w', encoding='utf8').write(html)
+        _write_snapshot_page(path, html)
         return True
 
     return False
 
 
-def _safe_cache_filename_from_url(url):
+def _safe_filename_from_url(url):
     parsed = urlparse(url)
     params = parse_qs(parsed.query)
     title = params.get('title', ['page'])[0].split(':')[-1].replace('/', '_')
@@ -204,9 +212,9 @@ def _safe_cache_filename_from_url(url):
     return f"{title}.html"
 
 
-def download_paginated_category(title, cacheDir, max_pages=50, session=None):
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+def download_paginated_category(title, pageDir, max_pages=50, session=None):
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
     url = "https://ddowiki.com/index.php?title=" + title
     downloaded_any = False
@@ -217,15 +225,15 @@ def download_paginated_category(title, cacheDir, max_pages=50, session=None):
             break
         seen.add(url)
 
-        filename = _safe_cache_filename_from_url(url)
-        path = os.path.join(cacheDir, filename)
+        filename = _safe_filename_from_url(url)
+        path = os.path.join(pageDir, filename)
         if os.path.exists(path):
-            print(f"Using cached {filename}")
+            print(f"Using snapshot {filename}")
             html = open(path, 'r', encoding='utf8').read()
         else:
             print(f"Downloading {filename} from {url} using requests")
             html = _download_html(url, session=session, timeout=30)
-            open(path, 'w', encoding='utf8').write(html)
+            _write_snapshot_page(path, html)
             downloaded_any = True
 
         soup = BeautifulSoup(html, 'html.parser')
@@ -243,48 +251,48 @@ def download_paginated_category(title, cacheDir, max_pages=50, session=None):
 
 
 def download_item_pages(session=None):
-    cacheDir = 'cache/items/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('items')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
     itemPageURLs = get_item_page_urls(session=session)
     print(f'Found {len(itemPageURLs)} item page URLs to download')
     for url in sorted(set(itemPageURLs)):
-        download_page(url, cacheDir, session=session)
+        download_page(url, pageDir, session=session)
 
 
 def download_item_type_pages(session=None):
-    cacheDir = 'cache/item_types/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('item_types')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
     itemPageURLs = get_item_type_urls()
     for url in set(itemPageURLs):
-        download_page(url, cacheDir, session=session)
+        download_page(url, pageDir, session=session)
 
 
 def download_minor_artifacts_page(session=None):
-    cacheDir = 'cache/minor_artifacts/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('minor_artifacts')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
-    download_page('Category:Minor_Artifacts', cacheDir, session=session)
+    download_page('Category:Minor_Artifacts', pageDir, session=session)
 
 
 def download_set_page(session=None):
-    cacheDir = 'cache/sets/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('sets')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
-    download_page('Raw data/Sets v2', cacheDir, session=session)
+    download_page('Raw data/Sets v2', pageDir, session=session)
 
 
 def download_item_augments_page(session=None):
-    cacheDir = 'cache/item_augments/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('item_augments')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
-    download_page('Raw data/Item augments', cacheDir, session=session)
+    download_page('Raw data/Item augments', pageDir, session=session)
 
 
 def download_new_crafting_device_pages(category_path, session=None):
@@ -298,53 +306,53 @@ def download_new_crafting_device_pages(category_path, session=None):
     if not missing:
         return
 
-    if not os.path.exists(DEVICE_PAGES_CACHE_DIR):
-        os.makedirs(DEVICE_PAGES_CACHE_DIR)
+    if not os.path.exists(DEVICE_PAGES_DIR):
+        os.makedirs(DEVICE_PAGES_DIR)
     for page in missing:
-        download_page(page, DEVICE_PAGES_CACHE_DIR, session=session)
+        download_page(page, DEVICE_PAGES_DIR, session=session)
 
 
 def download_quest_pages(session=None):
-    cacheDir = 'cache/quests/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('quests')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
-    download_page('Raids', cacheDir, session=session)
-    download_page('Adventure_Pack', cacheDir, session=session)
-    download_page('Quests_by_level_and_XP', cacheDir, session=session)
-    download_page('Wilderness_adventure_area', cacheDir, session=session)
-    download_page('Category:Crafting_devices', cacheDir, session=session)
-    download_new_crafting_device_pages(os.path.join(cacheDir, 'Crafting_devices.html'), session=session)
-    download_page('Quests_by_Adventure_Pack', cacheDir, session=session)
-    download_page('Category:Expansion_Packs', cacheDir, session=session)
+    download_page('Raids', pageDir, session=session)
+    download_page('Adventure_Pack', pageDir, session=session)
+    download_page('Quests_by_level_and_XP', pageDir, session=session)
+    download_page('Wilderness_adventure_area', pageDir, session=session)
+    download_page('Category:Crafting_devices', pageDir, session=session)
+    download_new_crafting_device_pages(os.path.join(pageDir, 'Crafting_devices.html'), session=session)
+    download_page('Quests_by_Adventure_Pack', pageDir, session=session)
+    download_page('Category:Expansion_Packs', pageDir, session=session)
 
-    expansion_pack_category_path = os.path.join(cacheDir, 'Expansion_Packs.html')
+    expansion_pack_category_path = os.path.join(pageDir, 'Expansion_Packs.html')
     if not os.path.exists(expansion_pack_category_path):
         return
 
     expansion_pack_category_page = open(expansion_pack_category_path, 'r', encoding='utf-8').read()
     expansion_pack_pages = get_expansion_pack_pages_from_category(BeautifulSoup(expansion_pack_category_page, 'html.parser'))
     for pack_page in expansion_pack_pages:
-        download_page(pack_page, cacheDir, session=session)
+        download_page(pack_page, pageDir, session=session)
 
 
 def download_rare_loot_pages(session=None):
-    cacheDir = 'cache/rare_loot/'
-    download_paginated_category('Category:Rare_Loot_List_items', cacheDir, session=session)
+    pageDir = get_snapshot_path('rare_loot')
+    download_paginated_category('Category:Rare_Loot_List_items', pageDir, session=session)
 
 
 def download_crafting_pages(session=None):
-    cacheDir = 'cache/crafting/'
-    if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
+    pageDir = get_snapshot_path('crafting')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
 
-    download_page('Essence_Crafting/table_1b', cacheDir, session=session)
-    download_page('Essence_Crafting/table_3b', cacheDir, session=session)
-    download_page('Raw data/Item crafting enchantments', cacheDir, session=session)
-    download_page('Nearly_Complete', cacheDir, session=session)
-    download_page('Slave_Lords_Crafting', cacheDir, session=session)
+    download_page('Essence_Crafting/table_1b', pageDir, session=session)
+    download_page('Essence_Crafting/table_3b', pageDir, session=session)
+    download_page('Raw data/Item crafting enchantments', pageDir, session=session)
+    download_page('Nearly_Complete', pageDir, session=session)
+    download_page('Slave_Lords_Crafting', pageDir, session=session)
     for tier in [1, 2, 3]:
-        download_page(f'Legendary_Green_Steel_items/Tier_{tier}', cacheDir, session=session)
+        download_page(f'Legendary_Green_Steel_items/Tier_{tier}', pageDir, session=session)
 
 
 def download_wiki_pages():
@@ -361,10 +369,10 @@ def download_wiki_pages():
     download_crafting_pages(session=session)
 
 
-def clear_wiki_cache():
-    path = Path('cache')
+def clear_wiki_snapshot():
+    path = Path(get_snapshot_path())
     if path.exists() and path.is_dir():
-        shutil.rmtree('cache')
+        shutil.rmtree(path)
 
 
 if __name__ == "__main__":

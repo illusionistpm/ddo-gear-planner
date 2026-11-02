@@ -3,12 +3,13 @@ import os
 import re
 from write_json import write_json
 from crafting_device_packs import (
-    DEVICE_PAGES_CACHE_DIR,
+    DEVICE_PAGES_DIR,
     get_crafting_devices_from_category,
     load_device_packs,
     resolve_missing_device_packs,
     save_device_packs,
 )
+from get_snapshot_path import get_snapshot_path
 
 # What the wiki writes for content with no pack. The level and wilderness
 # pages' parsers keep it as a pack value while layers merge, so an older
@@ -386,7 +387,7 @@ def get_official_packs(pack_name_map, expansion_pack_titles):
     )
 
 
-def _read_cached_page(path):
+def _read_snapshot_page(path):
     if not os.path.exists(path):
         return None
     return BeautifulSoup(open(path, "r", encoding='utf-8').read(), 'html.parser')
@@ -395,7 +396,7 @@ def _read_cached_page(path):
 def add_crafting_device_packs(quest_packs, official_packs):
     """Items crafted at a device take the device's pack, via the same
     quest -> pack map items already look their source up in."""
-    soup = _read_cached_page('./cache/quests/Crafting_devices.html')
+    soup = _read_snapshot_page(get_snapshot_path('quests', 'Crafting_devices.html'))
     if soup is None:
         return quest_packs
 
@@ -405,7 +406,7 @@ def add_crafting_device_packs(quest_packs, official_packs):
         device_packs,
         quest_packs,
         official_packs,
-        lambda page: _read_cached_page(f'{DEVICE_PAGES_CACHE_DIR}{page}.html'),
+        lambda page: _read_snapshot_page(os.path.join(DEVICE_PAGES_DIR, f'{page}.html')),
     )
     if added:
         save_device_packs(device_packs)
@@ -421,7 +422,7 @@ def parse_quests():
     out = {}
     out['packs'] = {}
 
-    raids_path = './cache/quests/Raids.html'
+    raids_path = get_snapshot_path('quests', 'Raids.html')
     if os.path.exists(raids_path):
         page = open(raids_path, "r", encoding='utf-8').read()
 
@@ -433,39 +434,39 @@ def parse_quests():
     add_crafting_raid_sources(out['raids'])
 
     pack_name_map = {}
-    adventure_pack_path = './cache/quests/Adventure_Pack.html'
+    adventure_pack_path = get_snapshot_path('quests', 'Adventure_Pack.html')
     if os.path.exists(adventure_pack_path):
         page = open(adventure_pack_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         pack_name_map = get_adventure_pack_name_map_from_page(soup)
 
-    level_path = './cache/quests/Quests_by_level_and_XP.html'
+    level_path = get_snapshot_path('quests', 'Quests_by_level_and_XP.html')
     if os.path.exists(level_path):
         page = open(level_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         merge_pack_layer(out['packs'], canonicalise_pack_layer(get_quest_pack_map_from_level_page(soup), pack_name_map), 'Quests_by_level_and_XP')
 
-    wilderness_path = './cache/quests/Wilderness_adventure_area.html'
+    wilderness_path = get_snapshot_path('quests', 'Wilderness_adventure_area.html')
     if os.path.exists(wilderness_path):
         page = open(wilderness_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         merge_pack_layer(out['packs'], canonicalise_pack_layer(get_area_pack_map_from_wilderness_page(soup), pack_name_map), 'Wilderness_adventure_area')
 
     expansion_pack_pages = {}
-    expansion_pack_category_path = './cache/quests/Expansion_Packs.html'
+    expansion_pack_category_path = get_snapshot_path('quests', 'Expansion_Packs.html')
     if os.path.exists(expansion_pack_category_path):
         page = open(expansion_pack_category_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         expansion_pack_pages = get_expansion_pack_pages_from_category(soup)
 
     for page_name, pack in expansion_pack_pages.items():
-        pack_path = f'./cache/quests/{page_name}.html'
+        pack_path = get_snapshot_path('quests', f'{page_name}.html')
         if os.path.exists(pack_path):
             page = open(pack_path, "r", encoding='utf-8').read()
             soup = BeautifulSoup(page, 'html.parser')
             merge_pack_layer(out['packs'], canonicalise_pack_layer(get_quest_pack_map_from_pack_page(soup, pack), pack_name_map), page_name)
 
-    quests_path = './cache/quests/Quests_by_Adventure_Pack.html'
+    quests_path = get_snapshot_path('quests', 'Quests_by_Adventure_Pack.html')
     if os.path.exists(quests_path):
         page = open(quests_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')

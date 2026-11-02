@@ -10,8 +10,10 @@
 1. `python -m playwright install chromium`
 
 ## Build the data
-The latest assets are included in the repo; if you make changes, you can update them:
-* From `data-builder`, run `python build.py` (or `winpty python build.py` if using Git Bash)
+The latest assets are included in the repo, along with the wiki pages they were built from (`wiki-snapshot/`). If you change a parser, rebuild them from those pages and commit `data/` with your change:
+* From `data-builder`, run `python build.py --offline` (or `winpty python build.py --offline` if using Git Bash)
+
+To download the current wiki pages instead, run `python build.py --clear-snapshot`. The nightly Data Auto Updater does this, so you rarely need to.
 
 ## Start the debug server
 * From `site/`, run `ng serve`

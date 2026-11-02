@@ -7,9 +7,10 @@ device has no pack, or that scraping couldn't tell; fix those by hand.
 import json
 import os
 import re
+from get_snapshot_path import get_snapshot_path
 
 DEVICE_PACKS_PATH = os.path.join(os.path.dirname(__file__), 'crafting_device_packs.json')
-DEVICE_PAGES_CACHE_DIR = 'cache/crafting_devices/'
+DEVICE_PAGES_DIR = get_snapshot_path('crafting_devices')
 
 
 def load_device_packs():

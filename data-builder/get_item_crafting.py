@@ -8,6 +8,7 @@ from read_json import read_json
 from pprint import pprint
 
 from typedefs import AffixesDict, SetDict
+from get_snapshot_path import get_snapshot_path
 
 SystemDict = TypedDict('SystemDict', { '*': list[AffixesDict|SetDict] })
 
@@ -63,7 +64,7 @@ def get_systems_from_page(soup) -> dict[str, SystemDict]:
 
 
 def get_item_crafting() -> dict[str, SystemDict]:
-    page = open('./cache/crafting/Raw data_Item crafting enchantments.html', "r", encoding='utf-8').read()
+    page = open(get_snapshot_path('crafting', 'Raw data_Item crafting enchantments.html'), "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

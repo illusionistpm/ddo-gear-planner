@@ -3,6 +3,7 @@ import re
 from write_json import write_json
 from read_json import read_json
 from download_wiki_pages import get_item_type_urls
+from get_snapshot_path import get_snapshot_path
 
 def get_item_categories_from_page(soup):
 
@@ -39,7 +40,7 @@ def parse_item_types():
     types = {}
 
     for item_type_page in get_item_type_urls():
-        page = open(f'./cache/item_types/{item_type_page}.html', "r", encoding='utf-8').read()
+        page = open(get_snapshot_path('item_types', f'{item_type_page}.html'), "r", encoding='utf-8').read()
 
         attribute = re.search(r'Basic_([\-a-z]+)_weapons', item_type_page).group(1)
 

@@ -21,6 +21,20 @@ describe('CraftableOption', () => {
     expect(option.matchesParamDescription('Wizardry10')).toBe(false);
   });
 
+  it('carries the quests it comes from, sharing the data array', () => {
+    const quests = ['One Dame Thing After Another'];
+    const option = new CraftableOption({ name: 'Crystallized Unicorn Tear', quests });
+
+    expect(option.quests).toBe(quests);
+    expect(new CraftableOption(option).quests).toBe(quests);
+  });
+
+  it('has no quests when the data lists none', () => {
+    expect(new CraftableOption(null).quests).toEqual([]);
+    expect(new CraftableOption({ name: 'Diamond of Balance' }).quests).toEqual([]);
+    expect(new CraftableOption({ quests: [] }).quests).toEqual([]);
+  });
+
   it('describes compound affix options', () => {
     const option = new CraftableOption({
       affixes: [

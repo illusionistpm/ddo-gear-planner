@@ -1,7 +1,7 @@
 import type { UserItemLocation } from '../user-gear.service';
 import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
-  applyProgressPatch, assignPackAccents, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, stillNeededKeys, togglePatch,
+  applyProgressPatch, assignPackAccents, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, settledIdentities, stillNeededKeys, togglePatch,
   troveCoveredKeys, UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
@@ -80,6 +80,12 @@ describe('shopping list view model', () => {
     const progress: ShoppingProgress = { [ring1.key]: 0, [sword.key]: 1 };
     expect(stillNeededKeys(entries, progress, trove({ Ring: 2 })))
       .toEqual([swordStep.key, mystery.key, ring1.key, aug1.key, aug2.key]);
+  });
+
+  it('counts a thing as got once every entry for it is', () => {
+    const progress: ShoppingProgress = { [ring1.key]: 1, [sword.key]: 1 };
+    expect([...settledIdentities([sword, ring1, ring2], progress, null)]).toEqual([sword.identity]);
+    expect([...settledIdentities([sword, ring1, ring2], progress, trove({ Ring: 2 }))]).toEqual([sword.identity, ring1.identity]);
   });
 
   describe('by source', () => {
@@ -177,6 +183,21 @@ describe('shopping list view model', () => {
       // Something from one place, or crafting listed with its item, has no choice to offer.
       expect(groupsOf(buildShoppingListView(entries, {}, null, { filter: 'all' }))
         .flatMap(group => group.rows.flatMap(row => [row, ...row.children])).every(row => !row.choices.length)).toBe(true);
+    });
+
+    it('plans the route around what was still needed when it was planned, not ticks since', () => {
+      const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
+      const questOf = (progress: ShoppingProgress, routeSettled?: ReadonlySet<string>) => groupsOf(
+        buildShoppingListView([sword, anywhere, ring1], progress, null, { filter: 'all', routeSettled }))
+        .find(group => group.rows.some(row => row.entry === anywhere))!.label;
+      const swordGot = { [sword.key]: 1 } as const;
+
+      // Going to the raid for the sword, the sapphire comes from there too.
+      expect(questOf({})).toBe('The Raid');
+      // With the sword got, you go only for the ring, so the sapphire comes from there.
+      expect(questOf(swordGot, settledIdentities([sword, anywhere, ring1], swordGot, null))).toBe('The Snitch');
+      // Ticking the sword after the route was planned moves nothing.
+      expect(questOf(swordGot, new Set())).toBe('The Raid');
     });
 
     it('sends things away from packs the pack filter hides', () => {

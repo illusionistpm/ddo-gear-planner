@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, finalize, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { CurrentBuildService } from '../../build/current-build.service';
 import { GearDbService } from '../../gear/gear-db.service';
@@ -10,8 +10,10 @@ import { FiltersService } from '../filters.service';
 import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { formatShoppingListText } from './shopping-list-text';
-import type { ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingTroveLookup } from './shopping-list-types';
-import { buildShoppingListView, prunePatch, togglePatch } from './shopping-list-view-model';
+import type {
+  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingTroveLookup
+} from './shopping-list-types';
+import { buildShoppingListView, prunePatch, settledIdentities, togglePatch } from './shopping-list-view-model';
 import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress-store';
 
 /**
@@ -28,6 +30,12 @@ export class ShoppingListService {
   private readonly sources: ShoppingSourceLookup;
   /** Each pack's colour so far this session, so listing a new pack doesn't recolour the rest. */
   private packAccents: ReadonlyMap<string, number> = new Map();
+  /**
+   * The things got when the route was planned: when the list opened, or at
+   * the last Reset route. Null until it's planned.
+   */
+  private routeSettled: ReadonlySet<string> | null = null;
+  private readonly replanSubject = new BehaviorSubject<void>(undefined);
 
   readonly entries$: Observable<ShoppingEntry[]>;
   readonly view$: Observable<ShoppingListView>;
@@ -55,13 +63,16 @@ export class ShoppingListService {
       this.filterSubject,
       filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
       this.progressStore.picks$,
+      this.replanSubject,
     ]).pipe(
       map(([entries, progress, , filter, hiddenPacks, picks]) => {
         const view = buildShoppingListView(entries, progress, this.trove,
-          { filter, hiddenPacks, picks, packAccents: this.packAccents });
+          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled: this.settledForRoute(entries, progress) });
         this.packAccents = view.packAccents;
         return view;
       }),
+      // Closing the list forgets the route, so it's planned afresh next time it opens.
+      finalize(() => this.routeSettled = null),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
@@ -93,16 +104,28 @@ export class ShoppingListService {
     this.progressStore.setPick(row.entry.identity, quests);
   }
 
-  /** Forgets every quest the user picked, so the list routes everything again. */
+  /** Forgets every quest the user picked, and plans the route again around what's still needed now. */
   resetRoute(): void {
+    this.routeSettled = null;
     this.progressStore.clearPicks();
+    this.replanSubject.next();
   }
 
-  /** The still-needed list as text, whatever the list on screen shows. */
+  /** The still-needed list as text, whatever the list on screen shows, routed as it is. */
   stillNeededText(): string {
-    const view = buildShoppingListView(this.currentEntries(), this.progressStore.progress, this.trove,
-      { filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks });
+    const entries = this.currentEntries();
+    const progress = this.progressStore.progress;
+    const view = buildShoppingListView(entries, progress, this.trove, {
+      filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks,
+      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
+    });
     return formatShoppingListText(view, this.currentBuild.value.name);
+  }
+
+  /** The things got when the route was planned, planning it now if it isn't. */
+  private settledForRoute(entries: readonly ShoppingEntry[], progress: ShoppingProgress): ReadonlySet<string> {
+    this.routeSettled ??= settledIdentities(entries, progress, this.trove);
+    return this.routeSettled;
   }
 
   private currentEntries(): ShoppingEntry[] {

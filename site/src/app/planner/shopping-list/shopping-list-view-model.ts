@@ -27,6 +27,12 @@ export interface ShoppingListViewOptions {
   hiddenPacks?: ReadonlySet<string>;
   /** The quests the user chose to get things from; see shopping-list-routing.ts. */
   picks?: ShoppingSourcePicks;
+  /**
+   * The things got when the route was planned (settledIdentities), which it
+   * isn't planned around. Planned with the ticks of the moment, the route
+   * would move things about as they were ticked.
+   */
+  routeSettled?: ReadonlySet<string>;
   /** The colour each pack had last time (the last view's `packAccents`), so a pack keeps its colour. */
   packAccents?: ReadonlyMap<string, number>;
 }
@@ -93,6 +99,14 @@ export function isEntryAcquired(key: string, progress: ShoppingProgress, covered
   return value === undefined ? covered.has(key) : value === 1;
 }
 
+/** The things got, by identity: those with every entry acquired. */
+export function settledIdentities(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
+    trove: ShoppingTroveLookup | null): Set<string> {
+  const covered = troveCoveredKeys(entries, trove);
+  const needed = new Set(entries.filter(entry => !isEntryAcquired(entry.key, progress, covered)).map(entry => entry.identity));
+  return new Set(entries.map(entry => entry.identity).filter(identity => !needed.has(identity)));
+}
+
 /** Keys of the entries still needed. */
 export function stillNeededKeys(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
     trove: ShoppingTroveLookup | null): string[] {
@@ -157,7 +171,11 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   const covered = troveCoveredKeys(entries, trove);
   const context: RowContext = { progress, covered, trove };
 
-  const route: ShoppingRouteOptions = { hiddenPacks: options.hiddenPacks ?? new Set<string>(), picks: options.picks ?? {} };
+  const route: ShoppingRouteOptions = {
+    hiddenPacks: options.hiddenPacks ?? new Set<string>(),
+    picks: options.picks ?? {},
+    settled: options.routeSettled,
+  };
   const { sections: allSections, packAccents } = sectionsByPack(groupBySource(entries, route, context), context,
     options.packAccents);
   const sections = options.filter === 'needed'
@@ -293,8 +311,9 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
       things.set(entry.identity, entry.sources);
     }
   }
-  // Ticks play no part, so ticking something off never moves anything: it
-  // stays under every quest it's listed under, where it was ticked.
+  // Ticks since the route was planned play no part, so ticking something off
+  // never moves anything: it stays under every quest it's listed under,
+  // where it was ticked.
   const routed = routeSources(things, route);
 
   const bySource = new Map<string, ShoppingEntry[]>();

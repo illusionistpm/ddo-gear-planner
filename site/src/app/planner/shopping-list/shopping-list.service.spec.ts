@@ -100,6 +100,35 @@ describe('ShoppingListService', () => {
     expect(TestBed.inject(ShoppingProgressStore).picks).toEqual({});
   });
 
+  it('plans the route around what is still needed when the list opens, and keeps it while things are ticked', async () => {
+    vi.spyOn(TestBed.inject(QuestService), 'getPack').mockReturnValue('Sharn');
+    equipped.set(ring('Diamond of Tests', ['Augment Vendor', 'The Snitch']));
+    const titles = async () => (await groups()).map(group => [group.label, group.rows.map(row => row.entry.label)]);
+    const textQuests = () => service.stillNeededText().split(String.fromCharCode(10))
+      .filter(line => ['The Snitch', 'Augment Vendor'].includes(line));
+    const toggleRing = async () => service.toggle((await rowsOf()).find(row => row.entry.label === 'Ring of Tests')!);
+    const together = [['The Snitch', ['Ring of Tests', 'Diamond of Tests']]];
+    const apart = [['Augment Vendor', ['Diamond of Tests']], ['The Snitch', ['Ring of Tests']]];
+
+    let open = service.view$.subscribe();
+    expect(await titles()).toEqual(together);
+    await toggleRing();
+    // The diamond stays where you were going for the ring, and the text says so too.
+    expect(await titles()).toEqual(together);
+    expect(textQuests()).toEqual(['The Snitch']);
+    open.unsubscribe();
+
+    // Opened again, nothing sends you to The Snitch any more.
+    open = service.view$.subscribe();
+    expect(await titles()).toEqual(apart);
+    expect(textQuests()).toEqual(['Augment Vendor']);
+    await toggleRing();
+    expect(await titles()).toEqual(apart);
+    service.resetRoute();
+    expect(await titles()).toEqual(together);
+    open.unsubscribe();
+  });
+
   it('keeps each pack\'s colour when a pick lists a new pack before it', async () => {
     vi.spyOn(TestBed.inject(QuestService), 'getPack').mockImplementation(quest =>
       ({ 'The Snitch': 'Sharn', 'Augment Vendor': 'Amber Pack' })[quest] ?? null);

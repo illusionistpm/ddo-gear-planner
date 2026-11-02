@@ -213,8 +213,17 @@
     font-size: 0.9rem;
     gap: var(--space-4);
     line-height: 1.15;
-    min-height: 1.45rem;
-    padding: var(--space-2) var(--space-8);
+    /*
+     * The height comes from vertical padding, not min-height: the children
+     * are baseline-aligned, and a baseline-aligned flex row sits at the top
+     * of a box taller than it, so min-height's extra room all landed under
+     * the text. Padding splits it evenly. min-height stays as a floor for
+     * the rare chip with a taller child.
+     */
+    --tracked-bonus-chip-height: 1.45rem;
+    --tracked-bonus-chip-pad-y: calc((var(--tracked-bonus-chip-height) - 2px - 1.15em) / 2);
+    min-height: var(--tracked-bonus-chip-height);
+    padding: var(--tracked-bonus-chip-pad-y) var(--space-8);
     --tracked-bonus-pulse-rgb: 16, 185, 129;
     --tracked-bonus-rest-bg: var(--chip-bg);
     --tracked-bonus-rest-border: var(--chip-border-color);
@@ -460,7 +469,9 @@
     display: inline-flex;
     font: inherit;
     gap: var(--space-4);
-    padding: var(--space-2) var(--space-8);
+    /* The wrapper's own padding is 0, so the chip's vertical padding is this
+       button's - see .tracked-bonus-chip. */
+    padding: var(--tracked-bonus-chip-pad-y) var(--space-8);
 }
 
 /* The wrapper's strike-through doesn't reach into its button's label. */
@@ -507,6 +518,6 @@
  */
 @media (pointer: coarse) {
     .tracked-bonus-chip {
-        min-height: 1.75rem;
+        --tracked-bonus-chip-height: 1.75rem;
     }
 }

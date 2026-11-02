@@ -35,7 +35,7 @@
     @for (entry of entries; track entry.id) {
       <div class="row table-condensed small hover-helper external-affix-row" [ngClass]="getRowClass(entry)" [title]="getRowTooltip(entry)">
         <button type="button" class="show-on-hover icon-x-button external-affix-remove" aria-label="Remove" (mousedown)="preserveScrollOnMouseDown($event)" (click)="remove(entry.id)">
-          <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+          <span class="x-glyph" aria-hidden="true"></span>
         </button>
         <div class="col ps-1">{{getNameText(entry)}}
           @if (getGroupTooltip(entry); as groupTooltip) {

@@ -52,7 +52,7 @@
         @if (!isDerivedTrackedAffix(item.affixName)) {
             <button type="button" class="tracked-affix-remove checklist-chip-remove" aria-label="Remove {{item.affixName}}"
                 title="Remove {{item.affixName}}" (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(item.affixName)">
-                <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+                <span class="x-glyph" aria-hidden="true"></span>
             </button>
         }
         <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(item.affixName, item.bonusType)">Click</span>
@@ -81,7 +81,7 @@
             @if (!isDerivedTrackedAffix(affixName)) {
                 <button type="button" class="tracked-affix-remove" aria-label="Remove {{affixName}}"
                     (mousedown)="preserveScrollOnMouseDown($event)" (click)="removeAffix(affixName)" title="Remove {{affixName}}">
-                    <span class="glyph-center-fix" aria-hidden="true">&times;</span>
+                    <span class="x-glyph" aria-hidden="true"></span>
                 </button>
             }
         </span>

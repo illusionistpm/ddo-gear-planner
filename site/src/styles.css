@@ -833,31 +833,38 @@ select.form-control {
 }
 
 /*
- * Generic fix for an inline glyph (e.g. &times;) that renders slightly below
- * center inside a flex-centered button across every browser we support. Wrap
- * the glyph in <span aria-hidden="true"> and add this class to the span -
- * used by every circular "remove" button in the app (tracked-equipment-clear
- * included above) instead of each one redefining its own nudge.
+ * The "x" in every circular remove button: an SVG mask filled with
+ * currentColor. Use it as an empty <span class="x-glyph" aria-hidden="true">
+ * </span> inside the button.
+ *
+ * Not the &times; character: where a glyph sits in its line box depends on
+ * the font's ascent/descent metrics, so no single nudge centres it across
+ * fonts - one tuned on desktop fonts left it visibly high under Android's
+ * Roboto.
+ *
+ * And the span fills the button rather than being a small centred box: the
+ * circle and a separate 7.2px box inside its 14px interior are each snapped
+ * to the pixel grid on their own, and a 3.4px inset rounds differently from
+ * the circle whenever the button sits at a fractional position (the overlay
+ * buttons' top: 50% puts them there), leaving the x up to half a pixel off on
+ * each axis. Sharing the circle's interior box, it snaps with the circle, and
+ * the cross is centred inside the SVG's own geometry, which isn't snapped.
+ * The path is drawn for the 1rem buttons (14px interior, 0.75rem text): a
+ * 7.2px cross with a 1.8px stroke.
  */
-.glyph-center-fix {
+.x-glyph {
+  background-color: currentColor;
   display: block;
-  transform: translateY(-0.135em);
-}
-
-/*
- * The nudge above is tuned for the 1rem / 0.75rem buttons (measured: it lands
- * the glyph within 0.1px of centre). The larger sidebar clear button has a
- * different glyph size, where the same nudge overshoots, so it keeps its own.
- */
-.tracked-equipment-clear .glyph-center-fix {
-  transform: translateY(-0.05em);
+  flex: 0 0 auto;
+  height: 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.4 3.4 10.6 10.6M10.6 3.4 3.4 10.6' stroke='black' stroke-width='1.8'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  width: 100%;
 }
 
 /*
  * Generic circular "remove" (x) button used throughout the app for undoing a
  * quick action (dropping a tracked affix, removing a manual entry): a
- * bordered circle that fills solid red on hover/focus. Pair with
- * .glyph-center-fix on the inner <span> for a correctly centered glyph.
+ * bordered circle that fills solid red on hover/focus. Holds an .x-glyph.
  */
 .icon-x-button {
   align-items: center;

@@ -170,7 +170,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   private readonly shoppingListView = inject(ShoppingListViewService);
 
   openShoppingList() {
-    this.shoppingListView.open();
+    this.shoppingListView.open('toolbar');
   }
 
   getAllGear(): Item[] {

@@ -101,7 +101,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
 
   openShoppingList(): void {
     this.closeMenu();
-    this.shoppingListView.open();
+    this.shoppingListView.open('menu');
   }
 
   // OnPush doesn't redraw on its own when state is mutated from inside an

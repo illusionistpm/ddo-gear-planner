@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { OTHER_SOURCES_LABEL } from '../planner/shopping-list/shopping-list-view-model';
 import type {
   ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSource, ShoppingSourceChoice
@@ -39,12 +40,21 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   constructor(
     readonly shoppingList: ShoppingListService,
+    private readonly shoppingListView: ShoppingListViewService,
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.subscription = this.shoppingList.view$.subscribe(view => {
+      if (!this.view) {
+        this.analytics.track('open_shopping_list', {
+          entry_point: this.shoppingListView.openedFrom,
+          item_count: view.total,
+          acquired_count: view.acquired,
+          has_picks: view.picked
+        });
+      }
       this.view = view;
       this.cdr.markForCheck();
     });
@@ -78,10 +88,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   setFilter(filter: ShoppingFilter): void {
+    this.analytics.track('set_shopping_filter', { filter });
     this.shoppingList.setFilter(filter);
   }
 
   toggle(row: ShoppingRow): void {
+    this.analytics.track('toggle_shopping_item', { item_kind: row.entry.kind, checked: row.state !== 'checked' });
     this.shoppingList.toggle(row);
   }
 
@@ -111,20 +123,28 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     if (!quests.length) {
       event.preventDefault();
       this.lastQuestHintRowId = row.id;
+      this.analytics.track('pick_shopping_source', { action: 'blocked', item_kind: row.entry.kind });
       return;
     }
     this.lastQuestHintRowId = null;
+    this.analytics.track('pick_shopping_source', {
+      action: toggled.chosen ? 'remove' : 'add',
+      item_kind: row.entry.kind,
+      quest_count: quests.length
+    });
     this.shoppingList.pickSources(row, quests);
   }
 
   /** Forgets every pick, so the list chooses where to get everything again. */
   resetRoute(): void {
     this.expandedRowId = null;
+    this.analytics.track('reset_shopping_route');
     this.shoppingList.resetRoute();
   }
 
   /** Forgets the user's pick, so the list chooses again. */
   resetSources(row: ShoppingRow): void {
+    this.analytics.track('pick_shopping_source', { action: 'reset', item_kind: row.entry.kind });
     this.shoppingList.pickSources(row, null);
   }
 

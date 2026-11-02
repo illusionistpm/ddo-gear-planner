@@ -11,6 +11,7 @@ import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -253,6 +254,42 @@ describe('ShoppingListComponent', () => {
       expect(choices()[0].slice(0, 3)).toEqual(['The Raid', 'Raid Pack · hidden by your pack filter', false]);
       expect(el().querySelector('.shopping-source-hidden .shopping-source-quest')?.textContent?.trim()).toBe('The Raid');
     });
+
+    it('tracks ticks, the filter, picks and route resets', () => {
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+      showWith({ picks: { [amulet.identity]: ['Vendor'] } });
+
+      (rowByName('Amulet').querySelector('.shopping-check') as HTMLButtonElement).click();
+      el().querySelectorAll<HTMLButtonElement>('.shopping-list-choice-option')[1].click();
+      open();
+      check('Vendor');
+      check('The Snitch');
+      (el().querySelector('.shopping-sources-reset') as HTMLButtonElement).click();
+      (el().querySelector('.shopping-list-reset-route') as HTMLButtonElement).click();
+
+      expect(track.mock.calls).toEqual([
+        ['toggle_shopping_item', { item_kind: 'gear', checked: true }],
+        ['set_shopping_filter', { filter: 'needed' }],
+        ['pick_shopping_source', { action: 'blocked', item_kind: 'gear' }],
+        ['pick_shopping_source', { action: 'add', item_kind: 'gear', quest_count: 2 }],
+        ['pick_shopping_source', { action: 'reset', item_kind: 'gear' }],
+        ['reset_shopping_route'],
+      ]);
+    });
+  });
+
+  it('tracks opening the list once, with which button opened it and how big the list is', () => {
+    TestBed.inject(ShoppingListViewService).openedFrom = 'menu';
+    const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+    const opened = TestBed.createComponent(ShoppingListComponent);
+    opened.detectChanges();
+    show({ [sword.key]: 1 });
+    opened.detectChanges();
+
+    // The trove's ring covers one of the two ring slots.
+    expect(track.mock.calls).toEqual([
+      ['open_shopping_list', { entry_point: 'menu', item_count: 5, acquired_count: 1, has_picks: false }],
+    ]);
   });
 
   it('links each quest card to the wiki, in a new tab', () => {

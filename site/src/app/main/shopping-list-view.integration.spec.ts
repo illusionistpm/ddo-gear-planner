@@ -9,6 +9,7 @@ import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { AnalyticsService } from '../shared/analytics.service';
 
 // Kept out of main.component.spec.ts, which is already heavy enough to be near the heap limit.
 describe('MainComponent with the shopping list', () => {
@@ -62,6 +63,21 @@ describe('MainComponent with the shopping list', () => {
     fixture.detectChanges();
 
     expect(list()).toBeTruthy();
+  });
+
+  it('says which button opened the list', () => {
+    const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track');
+    const opened = () => track.mock.calls.filter(([name]) => name === 'open_shopping_list')
+      .map(([, params]) => params?.['entry_point']);
+
+    shoppingListButton().click();
+    fixture.detectChanges();
+    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    (el().querySelector('.build-overflow-item') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(opened()).toEqual(['toolbar', 'menu']);
   });
 
   it('goes back to the planner as it was', () => {

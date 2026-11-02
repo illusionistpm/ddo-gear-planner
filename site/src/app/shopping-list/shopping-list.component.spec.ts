@@ -95,7 +95,8 @@ describe('ShoppingListComponent', () => {
       .toEqual(['Lost Purpose: Archons', 'Ruby']);
     expect(rowByName('Archons').querySelector('.shopping-row-source')).toBeNull();
     expect(rowByName('Ruby').querySelector('.shopping-row-source')?.textContent?.trim()).toBe('Source unknown');
-    expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).toContain('Augment');
+    // Its name says what it is, without an "Augment" label.
+    expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).not.toContain('Augment');
   });
 
   it('says how many the build needs, and where the trove has it', () => {
@@ -152,7 +153,7 @@ describe('ShoppingListComponent', () => {
     expect(el().querySelector('.shopping-group-title')?.textContent).not.toContain('Raid Pack');
     expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();
     // A piece to collect; which item it goes in doesn't matter here.
-    expect(rowByName('Ruby').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('Augment');
+    expect(rowByName('Ruby').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('');
   });
 
   it('names an item\'s first source and offers the rest, or in quest view where else it comes from', () => {

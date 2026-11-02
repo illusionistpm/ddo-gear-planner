@@ -92,15 +92,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     return row.state === 'checked' ? 'fa-square-check' : row.state === 'mixed' ? 'fa-square-minus' : 'fa-square';
   }
 
-  /** What the row is, when its label alone doesn't say. */
-  kindLabel(row: ShoppingRow): string {
-    switch (row.entry.kind) {
-      case 'augment': return 'Augment';
-      case 'upgrade': return 'Upgrade';
-      default: return '';
-    }
-  }
-
   /**
    * Where it comes from, unless the group heading or the item above already
    * says: the first source, and the rest behind a "+N more".

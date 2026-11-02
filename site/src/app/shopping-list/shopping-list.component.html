@@ -136,9 +136,6 @@
       <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
       <div class="shopping-row-meta">
         <div class="shopping-row-where">
-          @if (kindLabel(row); as kind) {
-            <span>{{kind}}</span>
-          }
           @if (rowSource(row); as source) {
             @if (source.first; as first) {
               <a class="shopping-row-source shopping-quest-link" [href]="first.wikiUrl" target="_blank"

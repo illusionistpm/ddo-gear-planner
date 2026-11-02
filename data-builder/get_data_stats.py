@@ -1,5 +1,6 @@
 from read_json import read_json
 from functools import reduce
+from item_sources import SourceResolver
 
 
 def _count_affixes(entries):
@@ -28,7 +29,8 @@ def diff_data_stats(newStats, oldStats):
     for k,v in newStats.items():
         diff[k] = {}
         for field in v.keys():
-            diff[k][field] = newStats[k][field] - oldStats[k][field]
+            # A metric new in this build diffs against 0.
+            diff[k][field] = newStats[k][field] - oldStats.get(k, {}).get(field, 0)
 
     return diff
 
@@ -57,6 +59,29 @@ def check_stats_thresholds(newStats, oldStats, threshold=0.1):
     return violations
 
 
+
+
+def _crafting_options(crafting):
+    for system in crafting.values():
+        if isinstance(system, dict):
+            for options in system.values():
+                if isinstance(options, list):
+                    yield from (option for option in options if isinstance(option, dict))
+
+
+def get_unresolved_sources(quests, items, crafting):
+    resolver = SourceResolver.from_quests(quests)
+    sources = {source for entry in [*items, *_crafting_options(crafting)] for source in entry.get('quests', [])}
+    return sorted(source for source in sources if not resolver.knows(source))
+
+
+def get_unresolved_sources_in_data():
+    def read_or_empty(name, empty):
+        try:
+            return read_json(name)
+        except FileNotFoundError:
+            return empty
+    return get_unresolved_sources(read_or_empty('quests', {}), read_or_empty('items', []), read_or_empty('crafting', {}))
 
 
 def get_data_stats():
@@ -123,10 +148,18 @@ def get_data_stats():
         items = read_json('items')
     except FileNotFoundError:
         items = []
+    packs = quests.get('packs', {})
     stats['items'] = {
         'items': len(items),
         'affixes': _count_affixes(items),
-        'with pack': sum(1 for item in items if item.get('pack')),
+        'with pack': sum(1 for item in items if any(packs.get(source) for source in item.get('quests', []))),
+        'multi-source items': sum(1 for item in items if len(item.get('quests', [])) > 1),
+    }
+
+    # A source nothing names - not the wiki's lists, source_packs.json or the
+    # free list - is shown as free. The parser prints each one.
+    stats['sources'] = {
+        'unresolved sources': len(get_unresolved_sources(quests, items, crafting)),
     }
 
     return stats

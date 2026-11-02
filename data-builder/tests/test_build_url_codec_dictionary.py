@@ -20,11 +20,12 @@ def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(m
             'Existing Type': {}
         },
         'items': [
-            {'name': 'Pack Item', 'pack': 'New Pack'},
+            {'name': 'Pack Item', 'quests': ['Pack Quest']},
             {'name': 'Free Item'}
         ],
         'quests': {
             'packs': {
+                'Pack Quest': 'New Pack',
                 'Quest': 'Quest Pack'
             }
         },
@@ -76,10 +77,10 @@ def test_build_url_codec_dictionary_rejects_too_many_new_packs(monkeypatch):
         'url-codec-dictionary': {'packs': ['Existing Pack']},
         'item-types': {},
         'items': [
-            {'name': 'Item A', 'pack': 'New Pack A'},
-            {'name': 'Item B', 'pack': 'New Pack B'}
+            {'name': 'Item A', 'quests': ['Quest A']},
+            {'name': 'Item B', 'quests': ['Quest B']}
         ],
-        'quests': {'packs': {}},
+        'quests': {'packs': {'Quest A': 'New Pack A', 'Quest B': 'New Pack B'}},
         'crafting': {},
         'essence-crafting': {}
     }
@@ -94,8 +95,8 @@ def test_build_url_codec_dictionary_rejects_too_many_new_packs(monkeypatch):
 def test_build_url_codec_dictionary_creates_empty_alias_maps(monkeypatch):
     assets = {
         'item-types': {'Bastard Swords': {}},
-        'items': [{'name': 'Pack Item', 'pack': 'Masterminds of Sharn'}],
-        'quests': {'packs': {}},
+        'items': [{'name': 'Pack Item', 'quests': ['Sharn Quest']}],
+        'quests': {'packs': {'Sharn Quest': 'Masterminds of Sharn'}},
         'crafting': {'Blue Augment Slot': {}},
         'essence-crafting': {'itemTypes': {}}
     }
@@ -129,8 +130,8 @@ def alias_assets(existing_aliases=None):
             'aliases': existing_aliases or {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}}
         },
         'item-types': {},
-        'items': [{'name': 'Pack Item', 'pack': 'New Pack'}],
-        'quests': {'packs': {}},
+        'items': [{'name': 'Pack Item', 'quests': ['Pack Quest']}],
+        'quests': {'packs': {'Pack Quest': 'New Pack'}},
         'crafting': {},
         'essence-crafting': {}
     }
@@ -182,8 +183,8 @@ def new_pack_assets(item_packs, official_packs=None):
     return {
         'url-codec-dictionary': {'packs': ['The Vault of Night']},
         'item-types': {},
-        'items': [{'name': f'Item {pack}', 'pack': pack} for pack in item_packs],
-        'quests': {'packs': {}, 'officialPacks': official_packs or []},
+        'items': [{'name': f'Item {pack}', 'quests': [f'Quest {pack}']} for pack in item_packs],
+        'quests': {'packs': {f'Quest {pack}': pack for pack in item_packs}, 'officialPacks': official_packs or []},
         'crafting': {},
         'essence-crafting': {}
     }
@@ -232,3 +233,28 @@ def test_build_url_codec_dictionary_allows_near_duplicate_declared_by_an_alias(m
     dictionary = run_with(monkeypatch, assets, pack_aliases={'The Vault of Night': 'Vault of Night'})
 
     assert dictionary['packs'] == ['The Vault of Night', 'Vault of Night']
+
+
+def test_build_url_codec_dictionary_treats_the_filter_only_groups_as_known(monkeypatch):
+    # "DDO Store" and "Events" aren't adventure packs, so they're on no wiki
+    # pack list; arriving together they must not trip the new-pack guard.
+    dictionary = run_with(monkeypatch, new_pack_assets(['DDO Store', 'Events']))
+
+    assert dictionary['packs'] == ['The Vault of Night', 'DDO Store', 'Events']
+
+
+def test_build_url_codec_dictionary_reads_packs_from_the_source_map_not_items(monkeypatch):
+    # An item's second source's pack is a filter entry too.
+    assets = new_pack_assets([], official_packs=['Pack A', 'Pack B'])
+    assets['items'] = [{'name': 'Two Packs', 'quests': ['Quest A', 'Quest B']}]
+    assets['quests']['packs'] = {'Quest A': 'Pack A', 'Quest B': 'Pack B'}
+
+    assert run_with(monkeypatch, assets)['packs'] == ['The Vault of Night', 'Pack A', 'Pack B']
+
+
+def test_build_url_codec_dictionary_adds_the_free_entry_for_an_unmapped_source(monkeypatch):
+    assets = new_pack_assets([], official_packs=['Pack A'])
+    assets['items'] = [{'name': 'Mixed', 'quests': ['Quest A', 'Free Quest']}]
+    assets['quests']['packs'] = {'Quest A': 'Pack A'}
+
+    assert run_with(monkeypatch, assets)['packs'] == ['The Vault of Night', '__NO_PACK__', 'Pack A']

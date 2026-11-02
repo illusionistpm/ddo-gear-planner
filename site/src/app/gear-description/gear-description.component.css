@@ -92,6 +92,17 @@ a {
     overflow-wrap: anywhere;
 }
 
+/* The first source and its "+N" badge. Wraps so the badge's tap bubble (full width)
+   opens on its own line below rather than squeezing the row. */
+.item-source {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-4);
+    min-width: 0;
+}
+
 .loot-badge {
     display: inline-flex;
     align-items: center;
@@ -115,6 +126,13 @@ a {
     border: 1px solid var(--rare-badge-border-color);
     background: var(--rare-badge-bg);
     color: var(--rare-loot-text-color);
+}
+
+.more-sources-badge {
+    border: 1px solid var(--border-color);
+    background: var(--surface-muted-color);
+    color: var(--text-secondary);
+    cursor: pointer;
 }
 
 .artifact-loot-badge {

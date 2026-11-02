@@ -11,6 +11,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
 from parse_rare_loot import get_rare_loot_from_snapshot
 from get_snapshot_path import get_snapshot_path
+from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
@@ -87,12 +88,6 @@ def sort_item_crafting_systems(item: Item|SetAugment) -> None:
         item['crafting'].sort(key=crafting_system_sort_key)
 
 
-def canonicalize_quest_name(quest_name: str) -> str:
-    if quest_name == 'Cannith Crafting Tutorial':
-        return 'Essence Crafting Tutorial'
-    return quest_name
-
-
 def normalize_item_name_for_metadata(name: str) -> str:
     return name.replace('\xa0', ' ').strip()
 
@@ -100,32 +95,6 @@ def normalize_item_name_for_metadata(name: str) -> str:
 RARE_SOURCE_LOCATIONS = {
     'Catalyst Crafting',
 }
-
-
-def infer_item_pack(quests_cell, quests: list[str], quest_pack_map: dict[str, str], row_text: str = '') -> str|None:
-    for quest in quests:
-        pack = quest_pack_map.get(quest)
-        if pack:
-            return pack
-
-    known_pack_names = set(quest_pack_map.values())
-    for link in quests_cell.find_all('a'):
-        title = str(link.get('title') or link.getText()).replace('\xa0', ' ').strip()
-        if title in known_pack_names:
-            return title
-        if 'Lamordia' in title:
-            return 'The Chill of Ravenloft'
-
-    # Sources no wiki quest list names.
-    source_hints = {
-        'Lamordia:': 'The Chill of Ravenloft',
-        'Viktranium Experiment': 'The Chill of Ravenloft',
-    }
-    for hint, pack in source_hints.items():
-        if hint in row_text:
-            return pack
-
-    return None
 
 
 def get_legendary_green_steel_crafting_systems(item: Item|SetAugment) -> list[str]:
@@ -170,11 +139,12 @@ def get_items_from_page(
     craftingSystems: CraftingSystems,
     sets: Sets,
     rareItemNames: set[str]|None = None,
-    questPackMap: dict[str, str]|None = None,
+    sourceResolver: SourceResolver|None = None,
+    multiSourceEntries: list[list[str]]|None = None,
 ) -> Any:
     synonymMap = get_inverted_synonym_map()
     rareItemNames = rareItemNames or set()
-    questPackMap = questPackMap or {}
+    sourceResolver = sourceResolver or SourceResolver({})
 
     craftableAffixNames = (
         'Craftable',
@@ -255,7 +225,7 @@ def get_items_from_page(
             score += 100
         if 'Bind' in headers:
             score += 50
-        if {'Location', 'Locations', 'Quest', 'Quests'} & headers:
+        if set(LOCATION_HEADERS) & headers:
             score += 40
         if {'ML', 'Minimum level'} & headers:
             score += 20
@@ -289,10 +259,7 @@ def get_items_from_page(
         print(f"Skipping {itemPageURL}: no rows found")
         return items
 
-    questIdx = None
-    for q in ['Location', 'Locations', 'Quest', 'Quests']:
-        if q in cols:
-            questIdx = cols[q]
+    questIdx = find_location_column(cols)
     if questIdx is None:
         print(f"Skipping {itemPageURL}: missing quest/location column")
         return items
@@ -367,28 +334,23 @@ def get_items_from_page(
                     'type': 'Shield',
                 })
 
-        questsCell = fields[questIdx]
-        questsTooltipSpan = questsCell.find('a')
-        questsTooltip = questsTooltipSpan.get('title') if questsTooltipSpan else None
-        quests = []
-        if questsTooltip:
-            quest = canonicalize_quest_name(str(questsTooltip))
-            quests = [quest]
-            item['quests'] = quests
-
         row_text = row.getText(' ', strip=True)
-        pack = infer_item_pack(questsCell, quests, questPackMap, row_text)
-        if pack:
-            item['pack'] = pack
+        quests = sourceResolver.store_last(extract_sources(fields[questIdx], row_text, sourceResolver.knows, multiSourceEntries))
+        if quests:
+            item['quests'] = quests
 
         lowered_row_text = row_text.lower()
         is_rare_drop_row = 'rare drop' in lowered_row_text
-        is_rare_source_location = any(quest in RARE_SOURCE_LOCATIONS for quest in quests)
+        is_rare_source_location = bool(quests) and all(quest in RARE_SOURCE_LOCATIONS for quest in quests)
         if normalize_item_name_for_metadata(item['name']) in rareItemNames or is_rare_drop_row or is_rare_source_location:
             item['rare'] = True
             if 'rare drop in any legendary sharn quest' in lowered_row_text:
                 quests = ['Sharn quests']
                 item['quests'] = quests
+
+        # Resolved for the pack map and the unresolved-source report; the
+        # site derives an item's packs from its sources.
+        sourceResolver.resolve_item(quests)
 
         affixes = []
         if 'Enchantments' in cols or 'Special Abilities' in cols:
@@ -547,10 +509,8 @@ def parse_items() -> None:
     crafting = read_json('crafting')
     sets     = read_json('sets')
     rareItemNames = get_rare_loot_from_snapshot()
-    try:
-        questPackMap = read_json('quests').get('packs', {})
-    except FileNotFoundError:
-        questPackMap = {}
+    sourceResolver = load_source_resolver()
+    multiSourceEntries: list[list[str]] = []
     items    = []
 
     itemsPath            = get_snapshot_path('items')
@@ -567,7 +527,11 @@ def parse_items() -> None:
 
     for file in fileList:
         if include_page(file):
-            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, questPackMap))
+            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, sourceResolver, multiSourceEntries))
+
+    report_multi_source_entries(multiSourceEntries)
+    sourceResolver.report_unresolved()
+    merge_resolved_source_packs(sourceResolver.resolved_source_packs)
 
     # Sort by name then slot (for a stable sort with Slaver's items, which have entries in multiple slots)
     items.sort(key=lambda x: (x['name'], x.get('slot', '')))

@@ -54,8 +54,9 @@ class Item(TypedDict):
     slot: str
     type: str
     url: str
-    pack: NotRequired[str]
     rare: NotRequired[bool]
+    # Every source, in wiki order; the first is the primary. quests.json's
+    # 'packs' maps each to its pack.
     quests: NotRequired[list[str]]
     set: NotRequired[str]
     sets: NotRequired[list]

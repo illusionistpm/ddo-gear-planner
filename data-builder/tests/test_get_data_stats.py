@@ -42,8 +42,14 @@ def test_check_stats_thresholds_ignores_increase():
 
 def test_get_data_stats_counts_pack_map_and_items_with_a_pack(monkeypatch):
     assets = {
-        'quests': {'raids': ['A Raid'], 'packs': {'Quest A': 'Pack', 'Quest B': 'Pack'}},
-        'items': [{'name': 'Packed', 'pack': 'Pack'}, {'name': 'Free'}, {'name': 'Blank', 'pack': ''}],
+        'quests': {'raids': ['A Raid'], 'packs': {'Quest A': 'Pack', 'Quest B': 'Pack'}, 'freeSources': ['Free Quest']},
+        'items': [
+            {'name': 'Packed', 'quests': ['Quest A']},
+            {'name': 'Free', 'quests': ['Free Quest']},
+            {'name': 'Free first', 'quests': ['Free Quest', 'Quest B']},
+            {'name': 'No source'},
+            {'name': 'Unknown', 'quests': ['Nowhere']},
+        ],
     }
 
     def fake_read_json(name):
@@ -56,4 +62,6 @@ def test_get_data_stats_counts_pack_map_and_items_with_a_pack(monkeypatch):
     stats = module.get_data_stats()
 
     assert stats['quests'] == {'raids': 1, 'pack map entries': 2}
-    assert stats['items']['with pack'] == 1
+    assert stats['items']['with pack'] == 2
+    assert stats['items']['multi-source items'] == 1
+    assert stats['sources'] == {'unresolved sources': 1}

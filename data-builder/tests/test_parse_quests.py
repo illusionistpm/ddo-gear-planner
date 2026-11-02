@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import FREE_TO_PLAY, canonicalise_pack_layer, drop_free_to_play, merge_pack_layer, add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import FREE_TO_PLAY, canonicalise_pack_layer, drop_free_to_play, get_free_quests_from_category_page, get_free_sources, merge_pack_layer, add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
@@ -268,7 +268,7 @@ def test_free_to_play_from_the_level_page_overrides_an_older_source():
         'Quests_by_Adventure_Pack',
     )
 
-    drop_free_to_play(quest_packs)
+    assert drop_free_to_play(quest_packs) == ['Korthos Village']
 
     assert 'Korthos Village' not in quest_packs
     assert quest_packs['Old Only Quest'] == 'Old Pack'
@@ -358,3 +358,33 @@ def test_get_official_packs_uses_the_canonical_spelling():
     assert get_official_packs({'Haunted Halls of Eveningstar': 'Haunted Halls of Eveningstar'}, []) == [
         'The Haunted Halls of Eveningstar',
     ]
+
+
+# Trimmed from Category:Free_to_Play_quests: a quest table, and the category's
+# page list, which also names quests the table leaves out.
+FREE_CATEGORY_PAGE = '''
+<div id="mw-content-text">
+  <table class="mw-collapsible sortable sticky-header wikitable"><tbody>
+    <tr><th>Quest Name</th><th>Level</th><th>Patron</th></tr>
+    <tr><td><a href="/page/Made_to_Order" title="Made to Order">Made to Order</a></td><td>11</td><td><a href="/page/House_Kundarak" title="House Kundarak">House Kundarak</a></td></tr>
+    <tr><td><a href="/page/Redemption_(quest)" title="Redemption (quest)">Redemption</a></td><td>12</td><td></td></tr>
+  </tbody></table>
+  <div id="mw-pages"><h2>Pages in category "Free to Play quests"</h2>
+    <ul><li><a href="/page/Acid_Wit" title="Acid Wit">Acid Wit</a></li>
+    <li><a href="/page/Made_to_Order" title="Made to Order">Made to Order</a></li></ul>
+  </div>
+</div>
+'''
+
+
+def test_get_free_quests_from_category_page_reads_the_table_and_page_list():
+    free = get_free_quests_from_category_page(BeautifulSoup(FREE_CATEGORY_PAGE, 'html.parser'))
+
+    assert free == ['Acid Wit', 'Made to Order', 'Redemption', 'Redemption (quest)']
+
+
+def test_get_free_sources_lets_a_pack_win_and_reports_the_clash(capsys):
+    free = get_free_sources(['Acid Wit', 'Packed Quest', 'Acid Wit'], {'Packed Quest': 'Some Pack'})
+
+    assert free == ['Acid Wit']
+    assert "'Packed Quest' is also in pack 'Some Pack'" in capsys.readouterr().out

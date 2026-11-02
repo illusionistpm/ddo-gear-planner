@@ -11,6 +11,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
+import { NO_PACK_KEY } from '../gear/pack-filter';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
@@ -148,6 +149,90 @@ describe('GearDescriptionComponent', () => {
       fixture.detectChanges();
 
       expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
+    });
+  });
+
+  describe('loot sources', () => {
+    function showSources(quests: string[]) {
+      const item = new Item({ name: 'Test Trinket', slot: 'Trinket', ml: 5, quests });
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+      return fixture.nativeElement.querySelector('.item-source') as HTMLElement;
+    }
+
+    it('shows a single source with no badge', () => {
+      const source = showSources(['Book Burning']);
+
+      expect(source.textContent?.trim()).toBe('Book Burning');
+      expect(source.querySelector('.more-sources-badge')).toBeNull();
+    });
+
+    it('shows the first source and a +N badge listing every source', () => {
+      const source = showSources(['Book Burning', 'Toil and Trouble', 'Thrall of Duty']);
+      const trigger = source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement;
+
+      expect(source.querySelector('i')?.textContent?.trim()).toBe('Book Burning');
+      expect(source.querySelector('.more-sources-badge')?.textContent?.trim()).toBe('+2');
+      expect(trigger.title).toBe('Book Burning\nToil and Trouble\nThrall of Duty');
+      expect(trigger.getAttribute('aria-label')).toBe('Show all 3 sources');
+    });
+
+    it('marks an item as raid loot only when every source is a raid', () => {
+      showSources(['Too Hot to Handle']);
+      expect(fixture.nativeElement.querySelector('.raid-loot-badge')).not.toBeNull();
+
+      showSources(['Too Hot to Handle', 'Book Burning']);
+      expect(fixture.nativeElement.querySelector('.raid-loot-badge')).toBeNull();
+    });
+
+    it('lists every source in the bubble when the badge is tapped', () => {
+      const source = showSources(['Book Burning', 'Toil and Trouble']);
+      (source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement).click();
+      fixture.detectChanges();
+
+      expect(source.querySelector('.tap-tooltip-bubble')?.textContent).toBe('Book Burning\nToil and Trouble');
+    });
+  });
+
+  describe('crafting options from hidden packs', () => {
+    let filters: FiltersService;
+
+    beforeEach(() => {
+      filters = TestBed.inject(FiltersService);
+    });
+
+    function showItem(item: Item) {
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    function offeredOptions(): string[] {
+      const select = Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
+        .find(element => element.closest('.row')?.textContent?.includes('Colorless Augment Slot'));
+      expect(select).toBeTruthy();
+      select!.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(Boolean);
+    }
+
+    it('leaves out an augment only from hidden packs, keeping sourceless and partly-shown ones', () => {
+      showItem(makeItemWithSourcedOptions());
+      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
+
+      filters.setHiddenPacks(new Set(['Magic of Myth Drannor', NO_PACK_KEY]));
+      fixture.detectChanges();
+
+      expect(offeredOptions()).toEqual(['Two Pack Augment', 'Sourceless Augment']);
+    });
+
+    it('still offers the slotted augment when its packs are hidden', () => {
+      const item = makeItemWithSourcedOptions();
+      const craft = item.crafting[0];
+      craft.selected = craft.options.find(option => option.name === 'Myth Drannor Augment')!;
+      filters.setHiddenPacks(new Set(['Magic of Myth Drannor']));
+      showItem(item);
+
+      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
     });
   });
 
@@ -359,6 +444,21 @@ function makeItemWithLeveledOptions() {
     new CraftableOption({ name: 'Low Augment', ml: 5, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),
     new CraftableOption({ name: 'Mid Augment', ml: 20, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 5 }] }),
     new CraftableOption({ name: 'High Augment', ml: 30, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 9 }] }),
+  ];
+  const item = new Item(null);
+  item.name = 'Test Ring';
+  item.slot = 'Ring';
+  item.ml = 18;
+  item.crafting = [new Craftable('Colorless Augment Slot', options)];
+  return item;
+}
+
+/** An item with a short list of augments: one from a single pack, one from two, and one with no source. */
+function makeItemWithSourcedOptions() {
+  const options = [
+    new CraftableOption({ name: 'Myth Drannor Augment', ml: 1, quests: ['Book Burning'], affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),
+    new CraftableOption({ name: 'Two Pack Augment', ml: 1, quests: ['Book Burning', 'Toil and Trouble'], affixes: [{ name: 'Charisma', type: 'Enhancement', value: 2 }] }),
+    new CraftableOption({ name: 'Sourceless Augment', ml: 1, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 3 }] }),
   ];
   const item = new Item(null);
   item.name = 'Test Ring';

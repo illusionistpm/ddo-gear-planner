@@ -22,6 +22,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
+import { isOptionHiddenByPacks } from '../gear/pack-filter';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -254,6 +255,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     // option-list crafting tiers (Legendary Green Steel T1/T2/T3, etc.) so a
     // partly-crafted piece still offers its remaining tiers.
     const maxLevel = this.gearDB.getMaxLevelFilter();
+    const hiddenPacks = this.gearDB.getHiddenPacks();
     for (const item of this.equipped.getSlotsSnapshot().values()) {
       if (!item || !item.crafting) {
         continue;
@@ -268,7 +270,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
 
         for (const option of craftable.options) {
-          if (!option.isWithinMaxLevel(maxLevel)) {
+          if (!option.isWithinMaxLevel(maxLevel) || isOptionHiddenByPacks(option, hiddenPacks)) {
             continue;
           }
           if (option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) == null) {

@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { canonicalizeCraftingSystemName, canonicalizeGeneratedCraftedItemName, GearDbService, } from './gear-db.service';
-import { Item } from './item';
+import { Item, ItemInit } from './item';
 import { ItemFilters } from './item-filters';
 import { FiltersService } from '../planner/filters.service';
 import { AffixService } from '../affixes/affix.service';
 import { Affix } from '../affixes/affix';
+import { NO_PACK_KEY } from './pack-filter';
 
 describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -389,9 +390,8 @@ describe('GearDbService', () => {
       affixes: [],
       sets: [],
       url: '/page/Pack_Item',
-      pack: 'Test Pack',
       crafting: [],
-      quests: [],
+      quests: ['Vecna Unleashed (quest)'],
       artifact: false,
     });
     const noPackItem = new Item({
@@ -414,7 +414,7 @@ describe('GearDbService', () => {
       .toEqual(expect.arrayContaining(['Pack Item', 'No Pack Item']));
 
     const filters = new ItemFilters();
-    filters.hiddenPacks = new Set(['Test Pack', FiltersService.NO_PACK_FILTER]);
+    filters.hiddenPacks = new Set(['Vecna Unleashed', NO_PACK_KEY]);
 
     expect(service.applyItemFilters(filters).get('Trinket')?.map(item => item.name)).toEqual([]);
   });
@@ -429,7 +429,6 @@ describe('GearDbService', () => {
       affixes: [],
       sets: [],
       url: '/page/Regular_Sharn_Raid_Item',
-      pack: 'Masterminds of Sharn',
       crafting: [],
       quests: ['Too Hot to Handle'],
       artifact: false,
@@ -442,7 +441,6 @@ describe('GearDbService', () => {
       affixes: [],
       sets: [],
       url: '/page/Sigil_of_Regalport',
-      pack: 'Masterminds of Sharn',
       rare: true,
       crafting: [],
       quests: ['Sharn quests'],
@@ -489,6 +487,124 @@ describe('GearDbService', () => {
     (service as any)._addAffixesToMap(map, [new Affix({ name: 'Test Components', type: 'Bool', value: 1 })]);
 
     expect(Array.from(map.keys())).toEqual(['Test Components', 'Perform']);
+  });
+
+  // Pins pack filtering of single-source items from real game data, so the
+  // move from an item's own pack to packs derived from its sources keeps it.
+  describe('pack filtering of single-source items (real data)', () => {
+    const trinketNames = (service: GearDbService, hiddenPacks: string[]) => {
+      const filters = new ItemFilters();
+      filters.hiddenPacks = new Set(hiddenPacks);
+      return service.applyItemFilters(filters).get('Trinket')?.map(item => item.name) ?? [];
+    };
+
+    it("hides an item from a quest only when that quest's pack is hidden", () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+
+      expect(trinketNames(service, [])).toContain('Library Card');
+      expect(trinketNames(service, ['Vecna Unleashed'])).not.toContain('Library Card');
+      expect(trinketNames(service, ['The Isle of Dread'])).toContain('Library Card');
+    });
+
+    it('hides an item with no source only when free quests are hidden', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+
+      expect(trinketNames(service, ['Vecna Unleashed'])).toContain('Epic Dusk Heart');
+      expect(trinketNames(service, [NO_PACK_KEY])).not.toContain('Epic Dusk Heart');
+    });
+  });
+
+  describe('pack filtering of multi-source items and augments', () => {
+    const lunarGemSources = ['Book Burning', 'Toil and Trouble', 'A Light in the Attic', 'Thrall of Duty', 'Flocked Together', 'Stealing from Sorcere'];
+    const lunarGemPacks = ['Magic of Myth Drannor', 'Tavern Tales', 'The Chill of Ravenloft', "The Dragons' Hand", 'Terror of Demogorgon'];
+
+    const trinket = (name: string, quests: string[], crafting: ItemInit['crafting'] = []) => new Item({
+      name, slot: 'Trinket', type: '', ml: 10, affixes: [], sets: [], url: '/page/' + name, crafting, quests, artifact: false,
+    });
+
+    // Leaves out the generated Essence Crafting blank, shown while free quests are.
+    const filteredNames = (service: GearDbService, filters: ItemFilters) =>
+      (service.applyItemFilters(filters).get('Trinket') ?? [])
+        .filter(item => !item.isGeneratedEssenceCraftingBlank())
+        .map(item => item.name);
+
+    const hiding = (...packs: string[]) => {
+      const filters = new ItemFilters();
+      filters.hiddenPacks = new Set(packs);
+      return filters;
+    };
+
+    it('keeps an item while any of its packs is shown', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      service['allGear'] = new Map([['Trinket', [trinket('Two Packs', ['Book Burning', 'Toil and Trouble'])]]]);
+
+      expect(filteredNames(service, hiding('Tavern Tales'))).toEqual(['Two Packs']);
+      expect(filteredNames(service, hiding('Tavern Tales', 'Magic of Myth Drannor'))).toEqual([]);
+    });
+
+    it('counts a free source as the free quests entry', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      service['allGear'] = new Map([['Trinket', [trinket('Pack Or Free', ['Book Burning', 'Not A Mapped Source'])]]]);
+
+      expect(filteredNames(service, hiding('Magic of Myth Drannor'))).toEqual(['Pack Or Free']);
+      expect(filteredNames(service, hiding('Magic of Myth Drannor', NO_PACK_KEY))).toEqual([]);
+    });
+
+    it('hides raid items only when every source is a raid', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      service['allGear'] = new Map([['Trinket', [
+        trinket('Raid Only', ['Too Hot to Handle']),
+        trinket('Raid Or Quest', ['Too Hot to Handle', 'Book Burning']),
+      ]]]);
+      const filters = new ItemFilters();
+      filters.showRaidItems = false;
+
+      expect(filteredNames(service, filters)).toEqual(['Raid Or Quest']);
+    });
+
+    it('offers the Lunar Gem until every one of its packs is hidden', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      const filters = TestBed.inject(FiltersService);
+      const lunarGems = () => service.findAugmentsWithAffixAndType('Magical Sheltering', 'Profane')
+        .flatMap(craftable => craftable.options.map(option => option.name))
+        .filter(name => name.startsWith('Lunar Gem of Magical Protection'));
+
+      expect(lunarGems()).toContain('Lunar Gem of Magical Protection (Heroic)');
+
+      // The Epic one drops only in Toil and Trouble (Tavern Tales).
+      filters.setHiddenPacks(new Set(['Terror of Demogorgon', 'Tavern Tales']));
+      expect(lunarGems()).toContain('Lunar Gem of Magical Protection (Heroic)');
+      expect(lunarGems()).not.toContain('Lunar Gem of Magical Protection (Epic)');
+
+      filters.setHiddenPacks(new Set(lunarGemPacks));
+      expect(lunarGems()).toEqual([]);
+    });
+
+    it('keeps the sources on the trimmed augment copies it returns', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      const heroic = service.findAugmentsWithAffixAndType('Magical Sheltering', 'Profane')
+        .flatMap(craftable => craftable.options)
+        .find(option => option.name === 'Lunar Gem of Magical Protection (Heroic)');
+
+      expect(heroic?.quests).toEqual(lunarGemSources);
+    });
+
+    it('leaves a hidden-pack augment out of affix availability, but not one with no source', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      const gear = new Map([['Trinket', [trinket('Host', [], [{
+        name: 'Test Augment Slot',
+        options: [
+          { name: 'Pack Augment', affixes: [{ name: 'Pack Only Affix', type: 'Profane', value: 5 }], quests: ['Book Burning'] },
+          { name: 'Hostless Augment', affixes: [{ name: 'Sourceless Affix', type: 'Profane', value: 5 }] },
+        ],
+      }])]]]);
+      const affixes = (hiddenPacks: string[]) =>
+        service['_buildAffixToBonusTypes'](gear, 1, 30, new Set(hiddenPacks)) as Map<string, Map<string, number>>;
+
+      expect(affixes([]).has('Pack Only Affix')).toBe(true);
+      expect(affixes(['Magic of Myth Drannor']).has('Pack Only Affix')).toBe(false);
+      expect(affixes(['Magic of Myth Drannor', NO_PACK_KEY]).has('Sourceless Affix')).toBe(true);
+    });
   });
 
 });

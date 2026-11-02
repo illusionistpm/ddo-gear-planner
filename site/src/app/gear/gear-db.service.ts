@@ -9,6 +9,7 @@ import { ItemFilters } from './item-filters';
 import { Affix } from '../affixes/affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
+import { isHiddenByPacks, isOptionHiddenByPacks, NO_PACK_KEY } from './pack-filter';
 
 import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
@@ -310,7 +311,7 @@ export class GearDbService {
       fromLiteral: new Map<string, Set<string>>(),
     };
     this.allLevelAffixToBonusTypes = perfMeasure('GearDbService.loadAllItems.buildAllLevelAffixToBonusTypes', () =>
-      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel, universalTracker)
+      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel, new Set<string>(), universalTracker)
     );
     this.allLevelUniversalCompanionOnlyAffixTypes = this._buildUniversalCompanionOnlyAffixTypes(universalTracker);
 
@@ -374,6 +375,11 @@ export class GearDbService {
     return this.currentItemFilters.levelRange[1];
   }
 
+  /** The packs the current filter hides (see pack-filter.ts). */
+  getHiddenPacks(): ReadonlySet<string> {
+    return this.currentItemFilters.hiddenPacks;
+  }
+
   applyItemFilters(filters: ItemFilters) {
     return perfMeasure('GearDbService.applyItemFilters', () => {
       const minLevel = filters.levelRange[0];
@@ -397,14 +403,14 @@ export class GearDbService {
             (showRaidItems || !this.quests.isRaidLoot(i)) &&
             (showRareItems || !i.rare) &&
             !hiddenItemTypes.has(i.type) &&
-            !hiddenPacks.has(i.pack || FiltersService.NO_PACK_FILTER)
+            !isHiddenByPacks(i.packKeys, hiddenPacks)
           );
           gear.set(slot, myItems);
         }
       });
 
       perfMeasure('GearDbService.applyItemFilters.buildEssenceCraftingItems', () => {
-        if (!hiddenPacks.has(FiltersService.NO_PACK_FILTER)) {
+        if (!hiddenPacks.has(NO_PACK_KEY)) {
           this._buildEssenceCraftingItems(gear, maxLevel);
         }
       });
@@ -414,7 +420,7 @@ export class GearDbService {
           return this.allLevelAffixToBonusTypes;
         }
 
-        return this._buildAffixToBonusTypes(gear, minLevel, maxLevel);
+        return this._buildAffixToBonusTypes(gear, minLevel, maxLevel, hiddenPacks);
       });
 
       return gear;
@@ -441,6 +447,7 @@ export class GearDbService {
     gear: Map<string, Array<Item>>,
     minLevel: number,
     maxLevel: number,
+    hiddenPacks: ReadonlySet<string>,
     universalTracker?: UniversalCompanionContributionTracker
   ) {
     const affixToBonusTypes = new Map<string, Map<string, number>>();
@@ -459,7 +466,7 @@ export class GearDbService {
         craftingOptionCount += item.crafting
           ?.reduce((count, craftable) => count + craftable.options.length, 0) || 0;
         this._addAffixesToMap(affixToBonusTypes, item.affixes, universalTracker);
-        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, maxLevel, processedCraftingOptionLists, universalTracker);
+        this._addCraftingAffixesToMap(affixToBonusTypes, item.crafting, maxLevel, hiddenPacks, processedCraftingOptionLists, universalTracker);
       }
     }
     itemsDone({
@@ -702,7 +709,8 @@ export class GearDbService {
    * share it - mirroring the sharing _buildAffixToBonusTypes already exploits
    * via processedCraftingOptionLists. Options above the level filter's
    * maximum are left out; one below its minimum still counts, as it slots in
-   * just the same. The cache must not outlive one `maxLevel`.
+   * just the same, and options only from hidden packs are left out. The cache
+   * must not outlive one `maxLevel` and hidden pack set.
    */
   private _getCraftingOptionListPairs(
     options: Array<CraftableOption>,
@@ -728,8 +736,9 @@ export class GearDbService {
       pairs.push([name, type]);
     };
 
+    const hiddenPacks = this.currentItemFilters.hiddenPacks;
     for (const option of options) {
-      if (!option.isWithinMaxLevel(maxLevel)) {
+      if (!option.isWithinMaxLevel(maxLevel) || isOptionHiddenByPacks(option, hiddenPacks)) {
         continue;
       }
       for (const affix of option.affixes) {
@@ -777,6 +786,7 @@ export class GearDbService {
     affixToBonusTypes: Map<string, Map<string, number>>,
     crafting: Array<Craftable> | undefined,
     maxLevel: number,
+    hiddenPacks: ReadonlySet<string>,
     processedCraftingOptionLists?: Set<Array<CraftableOption>>,
     universalTracker?: UniversalCompanionContributionTracker
   ) {
@@ -791,7 +801,7 @@ export class GearDbService {
 
       processedCraftingOptionLists?.add(craftable.options);
       for (const option of craftable.options) {
-        if (!option.isWithinMaxLevel(maxLevel)) {
+        if (!option.isWithinMaxLevel(maxLevel) || isOptionHiddenByPacks(option, hiddenPacks)) {
           continue;
         }
 
@@ -1008,6 +1018,7 @@ export class GearDbService {
   findAugmentsWithAffixAndType(affixName: string, bonusType: string): Array<Craftable> {
     let results: Craftable[] = [];
     const maxLevel = this.currentItemFilters.levelRange[1];
+    const hiddenPacks = this.currentItemFilters.hiddenPacks;
     const augmentTypes = Array.from(this.craftingList.keys()).filter(isAugmentSystemName);
     for (const augmentType of augmentTypes) {
       const craftable = this.craftingList.get(augmentType);
@@ -1019,6 +1030,7 @@ export class GearDbService {
       // Filter the augments to only those that have the affix and type we are looking for
       let filteredAugments = augments.filter(aug =>
         aug.isWithinMaxLevel(maxLevel) &&
+        !isOptionHiddenByPacks(aug, hiddenPacks) &&
         aug.affixes.some(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType)
       ) as CraftableOption[];
 
@@ -1027,6 +1039,7 @@ export class GearDbService {
         name: aug.name,
         set: aug.set,
         ml: aug.ml,
+        quests: aug.quests,
         affixes: aug.affixes.filter(aff => this.affixSvc.resolvesToAffix(aff.name, affixName) && aff.type === bonusType),
       }));
 

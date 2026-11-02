@@ -6,7 +6,13 @@
 /** An affix as it appears in the data. Values are often strings like "+1". */
 export interface RawAffix {
   name: string;
-  type: string;
+  /**
+   * Missing on a few dozen affixes the parser couldn't type (requirement text such as
+   * "Required Trait: Lawful (UMD"). TypeScript only noticed once items lost 'pack',
+   * which changed how it unifies the items.json literal; the Affix constructor already
+   * copes.
+   */
+  type?: string;
   value: number | string;
 }
 
@@ -18,7 +24,7 @@ export interface CraftableOptionInit {
   set?: string;
   name?: string;
   ml?: number;
-  quests?: string[];
+  quests?: ReadonlyArray<string>;
 }
 
 /** A crafting slot passed to the Item constructor as a plain object (tests do this). */
@@ -40,7 +46,6 @@ export interface RawItem {
   sets?: string[];
   quests?: string[];
   url?: string;
-  pack?: string;
   rare?: boolean;
   artifact?: boolean;
 }

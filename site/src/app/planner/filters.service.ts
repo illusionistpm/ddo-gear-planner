@@ -16,7 +16,6 @@ import { perfMeasure } from '../shared/perf-trace';
   providedIn: 'root'
 })
 export class FiltersService implements QueryParamsListener {
-  static readonly NO_PACK_FILTER = '__NO_PACK__';
 
   private params: BehaviorSubject<QueryParamRecord | null>;
 

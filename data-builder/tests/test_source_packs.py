@@ -1,9 +1,10 @@
 import json
+import os
 
 from bs4 import BeautifulSoup
 
-import crafting_device_packs as module
-from crafting_device_packs import get_crafting_devices_from_category, get_device_pack_from_page, resolve_missing_device_packs
+import source_packs as module
+from source_packs import get_crafting_devices_from_category, get_device_pack_from_page, resolve_missing_device_packs
 
 
 QUEST_PACKS = {'Morgrave University - Upper Commons': 'Vecna Unleashed', 'Research Facility': 'Secrets of the Artificers'}
@@ -83,18 +84,24 @@ def test_resolve_missing_device_packs_scrapes_only_devices_not_in_the_cache(caps
     assert "'Undownloaded' has no pack entry and no downloaded page" in capsys.readouterr().out
 
 
-def test_save_device_packs_writes_sorted_json(tmp_path, monkeypatch):
-    path = tmp_path / 'crafting_device_packs.json'
-    monkeypatch.setattr(module, 'DEVICE_PACKS_PATH', str(path))
+def test_save_source_packs_writes_sorted_json(tmp_path, monkeypatch):
+    path = tmp_path / 'source_packs.json'
+    monkeypatch.setattr(module, 'SOURCE_PACKS_PATH', str(path))
 
-    module.save_device_packs({'b Device': None, 'A Device': 'Pack'})
+    module.save_source_packs({'b Device': None, 'A Device': 'Pack'})
 
     assert path.read_text(encoding='utf-8') == '{\n  "A Device": "Pack",\n  "b Device": null\n}\n'
-    assert module.load_device_packs() == {'A Device': 'Pack', 'b Device': None}
+    assert module.load_source_packs() == {'A Device': 'Pack', 'b Device': None}
 
 
-def test_checked_in_device_packs_map_names_to_a_pack_or_null():
-    device_packs = json.load(open(module.DEVICE_PACKS_PATH, encoding='utf-8'))
+def test_checked_in_source_packs_map_names_to_a_pack_a_group_or_null():
+    from item_sources import PSEUDO_PACKS
 
-    assert device_packs
-    assert all(isinstance(pack, (str, type(None))) for pack in device_packs.values())
+    source_packs = json.load(open(module.SOURCE_PACKS_PATH, encoding='utf-8'))
+    quests = json.load(open(os.path.join(os.path.dirname(module.SOURCE_PACKS_PATH), '..', 'data', 'quests.json'), encoding='utf-8'))
+    known = set(quests['officialPacks']) | set(quests['packs'].values()) | set(PSEUDO_PACKS)
+
+    assert source_packs
+    assert {pack for pack in source_packs.values() if pack} <= known
+    # Free quests are scraped into freeSources, never listed by hand.
+    assert not set(source_packs) & set(quests['freeSources'])

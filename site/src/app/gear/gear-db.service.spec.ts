@@ -491,4 +491,29 @@ describe('GearDbService', () => {
     expect(Array.from(map.keys())).toEqual(['Test Components', 'Perform']);
   });
 
+  // Pins pack filtering of single-source items from real game data, so the
+  // move from an item's own pack to packs derived from its sources keeps it.
+  describe('pack filtering of single-source items (real data)', () => {
+    const trinketNames = (service: GearDbService, hiddenPacks: string[]) => {
+      const filters = new ItemFilters();
+      filters.hiddenPacks = new Set(hiddenPacks);
+      return service.applyItemFilters(filters).get('Trinket')?.map(item => item.name) ?? [];
+    };
+
+    it("hides an item from a quest only when that quest's pack is hidden", () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+
+      expect(trinketNames(service, [])).toContain('Library Card');
+      expect(trinketNames(service, ['Vecna Unleashed'])).not.toContain('Library Card');
+      expect(trinketNames(service, ['The Isle of Dread'])).toContain('Library Card');
+    });
+
+    it('hides an item with no source only when free quests are hidden', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+
+      expect(trinketNames(service, ['Vecna Unleashed'])).toContain('Epic Dusk Heart');
+      expect(trinketNames(service, [FiltersService.NO_PACK_FILTER])).not.toContain('Epic Dusk Heart');
+    });
+  });
+
 });

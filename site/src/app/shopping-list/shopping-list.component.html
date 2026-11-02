@@ -71,7 +71,8 @@
               }
             </section>
           } @else {
-            <section class="shopping-group" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
+            <!-- By quest: the quest, and what to get there; side by side on desktop. -->
+            <section class="shopping-group shopping-quest-card" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
               <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
                 @if (group.wikiUrl) {
                   <a class="shopping-group-name shopping-quest-link" [href]="group.wikiUrl" target="_blank"
@@ -82,7 +83,6 @@
                 @if (group.raid) {
                   <span class="loot-badge raid-loot-badge">Raid</span>
                 }
-                <span class="shopping-group-count">{{group.acquired}}/{{group.total}}</span>
               </div>
               <ul class="shopping-rows">
                 @for (row of group.rows; track row.id) {

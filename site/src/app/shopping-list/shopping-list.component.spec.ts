@@ -136,15 +136,16 @@ describe('ShoppingListComponent', () => {
 
     const sections = Array.from(el().querySelectorAll('.shopping-section')).map(section => [
       section.querySelector('.shopping-section-name')?.textContent?.trim(),
-      Array.from(section.querySelectorAll('.shopping-group-title')).map(title => [
-        title.querySelector('.shopping-group-name')?.textContent?.trim(),
-        title.querySelector('.shopping-group-count')?.textContent?.trim(),
-      ]),
+      section.querySelector('.shopping-section-count')?.textContent?.trim(),
+      Array.from(section.querySelectorAll('.shopping-group-title'), title =>
+        title.querySelector('.shopping-group-name')?.textContent?.trim()),
     ]);
     expect(sections).toEqual([
-      ['Raid Pack', [['The Raid', '0/2']]],
-      ['Other sources', [['The Snitch', '1/2'], ['Unknown source', '0/1']]],
+      ['Raid Pack', '0/2', ['The Raid']],
+      ['Other sources', '1/3', ['The Snitch', 'Unknown source']],
     ]);
+    // The pack counts; a quest card doesn't, to stay one line when it has one thing to get.
+    expect(el().querySelector('.shopping-quest-card .shopping-group-count')).toBeNull();
     // A pack's heading and its cards share its colour; quests with no pack have none.
     expect(Array.from(el().querySelectorAll('.shopping-section, .shopping-group'), node =>
       Array.from(node.classList).find(name => name.startsWith('shopping-accent-'))))

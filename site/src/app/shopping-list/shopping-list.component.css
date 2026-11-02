@@ -305,12 +305,6 @@
     font-weight: 700;
 }
 
-.shopping-row-slot {
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-}
-
 .shopping-row-meta {
     align-items: center;
     color: var(--text-secondary);
@@ -318,6 +312,12 @@
     flex-wrap: wrap;
     font-size: 0.8rem;
     gap: var(--space-2) var(--space-8);
+}
+
+/* Narrow screens run where it's from and the badges together, as one line under the name. */
+.shopping-row-where,
+.shopping-row-badges {
+    display: contents;
 }
 
 /* Hover or tap for the full list. */
@@ -330,6 +330,50 @@
     color: var(--text-secondary);
     font-size: 0.8rem;
     font-style: italic;
+}
+
+/*
+ * Desktop: a table, one line per row - the name, then where it comes from and
+ * its badges in columns of their own, lined up down the page. The list fills
+ * the page, so the viewport is its width.
+ */
+@media (min-width: 992px) {
+    .shopping-row-body {
+        align-items: baseline;
+        column-gap: var(--space-16);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 17rem 10rem;
+    }
+
+    .shopping-row-meta {
+        display: contents;
+    }
+
+    .shopping-row-where,
+    .shopping-row-badges {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2) var(--space-8);
+    }
+
+    .shopping-row-badges {
+        justify-content: flex-end;
+    }
+
+    /* Already at the end; pushed apart, it would drag the badges to the column's start. */
+    .shopping-row-badges .shopping-group-count {
+        margin-left: 0;
+    }
+
+    .shopping-row-details {
+        grid-column: 1 / -1;
+    }
+
+    /* Its columns end where the boxed rows' beneath it do. */
+    .shopping-row.shopping-item-header {
+        padding-right: calc(var(--space-4) + 1px);
+    }
 }
 
 @media (max-width: 767.98px) {

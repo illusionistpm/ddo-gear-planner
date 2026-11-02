@@ -127,52 +127,51 @@
         } @else if (row.quantityInBuild > 1) {
           <span class="shopping-row-quantity" title="The build needs this more than once">&times;{{row.quantityInBuild}}</span>
         }
-        @if (group?.rows.length) {
-          <span class="shopping-group-count" title="Got so far, of the item and what goes into it">{{group.acquired}}/{{group.total}}</span>
-        }
       </div>
+      <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
       <div class="shopping-row-meta">
-        @if (kindLabel(row); as kind) {
-          <span>{{kind}}</span>
-        }
-        @if (rowSlot(row); as slot) {
-          <span class="shopping-row-slot">{{slot}}</span>
-        }
-        @if (row.context) {
-          <span>{{row.context}}</span>
-        }
-        @if (row.entry.ml) {
-          <span>ML {{row.entry.ml}}</span>
-        }
-        @if (rowSource(row); as source) {
-          <span class="shopping-row-source">{{source.first}}</span>
-          @if (source.others.length) {
-            <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
-              <span class="shopping-row-more">+{{source.others.length}} more</span>
+        <div class="shopping-row-where">
+          @if (kindLabel(row); as kind) {
+            <span>{{kind}}</span>
+          }
+          @if (row.context) {
+            <span>{{row.context}}</span>
+          }
+          @if (rowSource(row); as source) {
+            <span class="shopping-row-source">{{source.first}}</span>
+            @if (source.others.length) {
+              <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
+                <span class="shopping-row-more">+{{source.others.length}} more</span>
+              </app-tap-tooltip>
+            }
+          }
+          @if (row.alsoFrom.length === 1) {
+            <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
+          } @else if (row.alsoFrom.length) {
+            <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
+              <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
             </app-tap-tooltip>
           }
-        }
-        @if (row.alsoFrom.length === 1) {
-          <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
-        } @else if (row.alsoFrom.length) {
-          <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
-            <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>
-          </app-tap-tooltip>
-        }
-        @if (row.entry.raid && view?.groupMode !== 'source') {
-          <span class="loot-badge raid-loot-badge">Raid</span>
-        }
-        @if (row.entry.rare) {
-          <span class="loot-badge rare-loot-badge">Rare</span>
-        }
-        @if (row.entry.artifact) {
-          <span class="loot-badge artifact-loot-badge">Artifact</span>
-        }
-        @if (row.ownedLocations) {
-          <app-tap-tooltip [text]="row.ownedLocations | userItemLocationTooltip" label="Where you have it">
-            <span class="owned-badge">Owned</span>
-          </app-tap-tooltip>
-        }
+        </div>
+        <div class="shopping-row-badges">
+          @if (row.entry.raid && view?.groupMode !== 'source') {
+            <span class="loot-badge raid-loot-badge">Raid</span>
+          }
+          @if (row.entry.rare) {
+            <span class="loot-badge rare-loot-badge">Rare</span>
+          }
+          @if (row.entry.artifact) {
+            <span class="loot-badge artifact-loot-badge">Artifact</span>
+          }
+          @if (row.ownedLocations) {
+            <app-tap-tooltip [text]="row.ownedLocations | userItemLocationTooltip" label="Where you have it">
+              <span class="owned-badge">Owned</span>
+            </app-tap-tooltip>
+          }
+          @if (group?.rows.length) {
+            <span class="shopping-group-count" title="Got so far, of the item and what goes into it">{{group.acquired}}/{{group.total}}</span>
+          }
+        </div>
       </div>
       @if (row.entry.details.length) {
         <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>

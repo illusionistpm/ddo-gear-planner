@@ -74,18 +74,19 @@ describe('ShoppingListComponent', () => {
     const cards = Array.from(el().querySelectorAll('.shopping-item-card'));
     expect(cards.map(card => [
       card.querySelector('.shopping-item-header .shopping-row-name')?.textContent?.trim(),
-      card.querySelector('.shopping-item-header .shopping-row-slot')?.textContent?.trim(),
       card.querySelector('.shopping-item-header .shopping-group-count')?.textContent?.trim() ?? null,
-    ])).toEqual([['Sword', 'Weapon', '0/3'], ['Ring', 'Ring 1', null], ['Ring', 'Ring 2', null]]);
+    ])).toEqual([['Sword', '0/3'], ['Ring', null], ['Ring', null]]);
     // The item is the heading; there is no separate slot title.
     expect(groupTitles()).toEqual([]);
     expect(cards[0].querySelector('.shopping-item-header .shopping-row-label')?.getAttribute('role')).toBe('heading');
 
     const swordRow = rowByName('Sword');
     expect(swordRow.querySelector('a.shopping-row-name')?.getAttribute('href')).toBe('http://ddowiki.com/page/Item:Sword');
-    expect(swordRow.querySelector('.shopping-row-meta')?.textContent).toContain('ML 32');
-    expect(swordRow.querySelector('.shopping-row-source')?.textContent?.trim()).toBe('The Raid');
-    expect(swordRow.querySelector('.raid-loot-badge')).toBeTruthy();
+    // Where it comes from, then its badges; no ML or slot, to keep the row to one line on desktop.
+    expect(swordRow.querySelector('.shopping-row-where')?.textContent?.trim()).toBe('The Raid');
+    expect(swordRow.querySelector('.shopping-row-badges .raid-loot-badge')).toBeTruthy();
+    expect(swordRow.querySelector('.shopping-row-meta')?.textContent).not.toContain('ML');
+    expect(swordRow.querySelector('.shopping-row-meta')?.textContent).not.toContain('Weapon');
     expect(swordRow.querySelector('.shopping-row-details')?.textContent?.trim()).toBe('Roll: Strength +5 Enhancement');
 
     // The step lives where the item does, so it doesn't repeat the source.

@@ -3,7 +3,6 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { slotLabel } from '../gear/slot-display';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -122,10 +121,5 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   /** The class giving a card or pack heading its pack's colour. */
   accentClass(accent: number | null): string {
     return accent === null ? 'shopping-accent-none' : `shopping-accent-${accent}`;
-  }
-
-  /** A row for gear says which slot it's for, unless it folds the item for several. */
-  rowSlot(row: ShoppingRow): string | null {
-    return row.entry.kind === 'gear' && row.quantity === 1 ? slotLabel(row.entry.slot) : null;
   }
 }

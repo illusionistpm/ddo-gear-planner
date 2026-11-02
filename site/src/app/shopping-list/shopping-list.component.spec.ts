@@ -138,6 +138,46 @@ describe('ShoppingListComponent', () => {
     expect(rowByName('Ruby').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('');
   });
 
+  describe('the pack nav', () => {
+    const links = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.shopping-pack-nav-link'));
+
+    it('lists the packs on the route in heading order, in their colours, striking off those got', () => {
+      show({ [sword.key]: 1, [step.key]: 1 });
+
+      expect(links().map(link => [
+        link.querySelector('.shopping-pack-nav-name')?.textContent?.trim(),
+        link.querySelector('.shopping-pack-nav-count')?.textContent?.trim(),
+        Array.from(link.classList).find(name => name.startsWith('shopping-accent-')),
+        link.classList.contains('done'),
+      ])).toEqual([
+        ['Raid Pack', '2/2', 'shopping-accent-0', true],
+        ['Other sources', '1/3', 'shopping-accent-none', false],
+      ]);
+    });
+
+    it('is not shown with nothing listed', () => {
+      show({}, 'all', []);
+
+      expect(el().querySelector('.shopping-pack-nav')).toBeNull();
+    });
+
+    it('scrolls the pack heading up to just under the sticky header, and moves focus to it', () => {
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+      const host = el();
+      Object.defineProperty(host, 'scrollTop', { value: 50, writable: true });
+      const header = el().querySelector<HTMLElement>('.shopping-list-header')!;
+      const title = el().querySelectorAll<HTMLElement>('.shopping-section-title')[1];
+      header.getBoundingClientRect = () => ({ bottom: 100 }) as DOMRect;
+      title.getBoundingClientRect = () => ({ top: 600 }) as DOMRect;
+
+      links()[1].click();
+
+      expect(host.scrollTop).toBe(50 + 500 - 8);
+      expect(document.activeElement).toBe(title);
+      expect(track).toHaveBeenCalledWith('jump_to_shopping_pack', { pack_index: 1, pack_count: 2 });
+    });
+  });
+
   it('says where else something comes from', () => {
     const anywhere = entry({ key: 'g|Neck|Amulet', identity: 'gear|Amulet', label: 'Amulet',
       sources: [from('The Snitch'), from('The Raid'), from('Vendor')] });

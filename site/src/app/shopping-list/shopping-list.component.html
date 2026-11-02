@@ -1,5 +1,22 @@
+<!-- The route's packs, to jump to one: wide screens only, beside the list. -->
+@if (view && view.sections.length) {
+  <nav class="shopping-pack-nav" aria-label="Packs on the route">
+    <div class="shopping-pack-nav-title">Route</div>
+    <ul class="shopping-pack-nav-list">
+      @for (section of view.sections; track section.id; let i = $index) {
+        <li>
+          <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
+            [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
+            <span class="shopping-pack-nav-name">{{section.label}}</span>
+            <span class="shopping-pack-nav-count">{{section.acquired}}/{{section.total}}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+}
 <section class="shopping-list" aria-labelledby="shoppingListTitle">
-  <header class="shopping-list-header">
+  <header class="shopping-list-header" #header>
     <div class="shopping-list-title-row">
       <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -51,7 +68,7 @@
     }
     @for (section of view.sections; track section.id) {
       <section class="shopping-section" [ngClass]="accentClass(section.accent)" [attr.aria-label]="section.label">
-        <h3 class="shopping-section-title">
+        <h3 class="shopping-section-title" #sectionTitle tabindex="-1">
           <span class="shopping-section-name">{{section.label}}</span>
           <span class="shopping-section-count">{{section.acquired}}/{{section.total}}</span>
         </h3>

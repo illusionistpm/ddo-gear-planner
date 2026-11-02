@@ -112,7 +112,8 @@
     gap: var(--space-8);
 }
 
-.shopping-list-choice-label {
+.shopping-list-choice-label,
+.shopping-pack-nav-title {
     color: var(--text-secondary);
     font-size: 0.8rem;
     font-weight: 700;
@@ -133,6 +134,63 @@
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: var(--on-accent-text-color);
+}
+
+/* Only beside the list on wide screens; see the 1200px block. */
+.shopping-pack-nav {
+    display: none;
+}
+
+.shopping-pack-nav-title {
+    margin-bottom: var(--space-8);
+}
+
+.shopping-pack-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Striped in the pack's colour, as its heading and cards are. */
+.shopping-pack-nav-link {
+    align-items: baseline;
+    background: transparent;
+    border: 0;
+    border-left: 4px solid var(--shopping-accent, var(--border-color));
+    border-radius: 0 6px 6px 0;
+    color: var(--text-primary);
+    display: flex;
+    font-size: 0.85rem;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-8);
+    text-align: left;
+    width: 100%;
+}
+
+.shopping-pack-nav-link:hover {
+    background: var(--surface-muted-color);
+}
+
+.shopping-pack-nav-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.shopping-pack-nav-count {
+    color: var(--text-secondary);
+    flex: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Struck through like a row that's got. */
+.shopping-pack-nav-link.done .shopping-pack-nav-name {
+    color: var(--text-secondary);
+    text-decoration: line-through;
 }
 
 .shopping-list-empty {
@@ -427,7 +485,8 @@
  * Desktop: one line per row - the name, then where else it comes from and its
  * badges beside it. The name gets the room it needs first and "also from"
  * follows it, in whatever the badges, at the right edge, leave. The list fills
- * the page, so the viewport is its width.
+ * the page, so the viewport is its width - until the pack nav joins it at
+ * 1200px, which leaves it a little narrower than here at 992px.
  */
 @media (min-width: 992px) {
     .shopping-row-body {
@@ -474,6 +533,48 @@
     .shopping-quest-card > .shopping-group-title {
         margin: 0;
         min-height: calc(var(--shopping-check-size) + 2 * (var(--space-4) + 1px));
+    }
+}
+
+/*
+ * Wide screens: the route's packs in a column beside the list, staying in view
+ * as it scrolls. The list keeps its column with or without the nav, so it
+ * doesn't jump sideways when the last pack is ticked off. The host is the
+ * scroll container (see main.component.css), so it's also the size the nav
+ * may grow to before it scrolls on its own.
+ */
+@media (min-width: 1200px) {
+    :host {
+        align-items: start;
+        column-gap: var(--space-24);
+        container-type: size;
+        display: grid;
+        grid-template-columns: 13rem minmax(0, 64rem);
+        justify-content: center;
+    }
+
+    .shopping-pack-nav {
+        display: block;
+        grid-column: 1;
+        grid-row: 1;
+        max-height: 100cqh;
+        overflow-y: auto;
+        padding: var(--space-12) 0;
+        position: sticky;
+        top: 0;
+    }
+
+    .shopping-list {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        max-width: none;
+    }
+}
+
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+    :host {
+        scroll-behavior: smooth;
     }
 }
 

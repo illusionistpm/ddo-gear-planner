@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output,
+  QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -13,6 +14,8 @@ import type {
 } from '../planner/shopping-list/shopping-list-types';
 
 const COPIED_CONFIRMATION_MS = 1500;
+/** Room left between the sticky header and a pack's heading scrolled up to it. */
+const SECTION_SCROLL_GAP_PX = 8;
 
 /**
  * The shopping list: everything the build needs, where it comes from, and a
@@ -27,6 +30,8 @@ const COPIED_CONFIRMATION_MS = 1500;
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   @Output() closed = new EventEmitter<void>();
+  @ViewChild('header') private header?: ElementRef<HTMLElement>;
+  @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
 
   view: ShoppingListView | null = null;
   /** Feedback on the last Copy list click. */
@@ -42,7 +47,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     readonly shoppingList: ShoppingListService,
     private readonly shoppingListView: ShoppingListViewService,
     private readonly analytics: AnalyticsService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly elementRef: ElementRef<HTMLElement>
   ) { }
 
   ngOnInit(): void {
@@ -164,6 +170,22 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   /** The tooltip listing the quests a row doesn't name. */
   alsoFromTooltip(sources: readonly ShoppingSource[]): string {
     return ['Also from:', ...sources.map(source => source.quest)].join('\n');
+  }
+
+  /**
+   * Scrolls a pack's heading up to just under the sticky header, and moves
+   * focus there so the keyboard carries on from it. The host is what scrolls.
+   */
+  scrollToSection(index: number): void {
+    const title = this.sectionTitles?.get(index)?.nativeElement;
+    if (!title || !this.header) {
+      return;
+    }
+    this.analytics.track('jump_to_shopping_pack', { pack_index: index, pack_count: this.view?.sections.length ?? 0 });
+    const host = this.elementRef.nativeElement;
+    const offset = title.getBoundingClientRect().top - this.header.nativeElement.getBoundingClientRect().bottom;
+    host.scrollTop += offset - SECTION_SCROLL_GAP_PX;
+    title.focus({ preventScroll: true });
   }
 
   /** The class giving a card or pack heading its pack's colour. */

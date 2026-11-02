@@ -141,6 +141,31 @@ describe('ShoppingListService', () => {
     expect(await accents()).toEqual([['Amber Pack', 1], ['Sharn', 0]]);
   });
 
+  it('publishes what friends see while the build is as saved, routed as the list is', async () => {
+    const publish = vi.spyOn(TestBed.inject(ShoppingProgressStore), 'publish');
+    TestBed.inject(CurrentBuildService).acceptCurrentAsBaseline();
+
+    service.toggle((await rowsOf())[0]);
+    await view();
+
+    expect(publish).toHaveBeenLastCalledWith({
+      needed: ['a|Ring1|Colorless Augment Slot#0|Diamond of Tests'],
+      route: { 'augment|Diamond of Tests': ['Augment Vendor'] }
+    });
+  });
+
+  it('publishes nothing while the build has unsaved changes', async () => {
+    const publish = vi.spyOn(TestBed.inject(ShoppingProgressStore), 'publish');
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const clean = currentBuild.value;
+    Object.defineProperty(currentBuild, 'value', { get: () => ({ ...clean, isDirty: true }) });
+
+    service.toggle((await rowsOf())[0]);
+    await view();
+
+    expect(publish).not.toHaveBeenCalled();
+  });
+
   it('groups the list by quest, and writes the still-needed text', async () => {
     expect((await groups()).map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
     expect(service.stillNeededText()).toContain('Augment Vendor');

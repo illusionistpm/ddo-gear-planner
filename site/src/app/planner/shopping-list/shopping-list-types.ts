@@ -52,6 +52,16 @@ export type ShoppingProgressPatch = Record<string, ShoppingProgressValue | null>
 /** The quests the user chose to get a thing from, by the thing's identity. */
 export type ShoppingSourcePicks = Readonly<Record<string, readonly string[]>>;
 
+/**
+ * What a friend's link to the build shows: the keys of the entries still
+ * needed, and for each thing still needed the quests the owner's list sends
+ * them to - in the shape of picks, so a friend's list routes it the same way.
+ */
+export interface ShoppingPublished {
+  needed: readonly string[];
+  route: ShoppingSourcePicks;
+}
+
 export type ShoppingFilter = 'all' | 'needed';
 export type ShoppingRowState = 'checked' | 'mixed' | 'unchecked';
 

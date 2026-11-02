@@ -1,10 +1,8 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
-import type { ShoppingRoute } from '../../build/build-progress.service';
-
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
-import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
+import type { ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingSourcePicks } from './shopping-list-types';
 import {
   clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress,
   replaceScopeProgress, setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
@@ -22,12 +20,6 @@ export function shoppingProgressScope(state: CurrentBuildState): string {
 }
 
 export const SHOPPING_DRAFT_SCOPE = 'draft';
-
-/** What a friend's link to the build shows: the still-needed keys, and where the list sends you for each thing. */
-export interface ShoppingPublished {
-  needed: readonly string[];
-  route: ShoppingRoute;
-}
 
 /**
  * Whether the current build's progress is kept beyond this browser:

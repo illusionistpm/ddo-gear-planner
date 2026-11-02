@@ -1,7 +1,7 @@
 import type { UserItemLocation } from '../user-gear.service';
 import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
-  applyProgressPatch, assignPackAccents, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, settledIdentities, stillNeededKeys, togglePatch,
+  applyProgressPatch, assignPackAccents, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, publishedProgress, settledIdentities, stillNeededKeys, togglePatch,
   troveCoveredKeys, UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
@@ -330,5 +330,51 @@ describe('shopping list view model', () => {
     expect(patch).toEqual({ 'g|Helm|Gone': null });
     expect(applyProgressPatch(progress, patch)).toEqual({ [sword.key]: 1 });
     expect(applyProgressPatch(progress, { [ring1.key]: 0 })).toEqual({ [sword.key]: 1, 'g|Helm|Gone': 1, [ring1.key]: 0 });
+  });
+});
+
+describe('publishedProgress', () => {
+  // A cloak from two quests in different packs, and a belt from one of them.
+  const cloak = entry({ key: 'g|Cloak|Cloak', identity: 'gear|Cloak', label: 'Cloak',
+    sources: [from('Quest North', 'North Pack'), from('Quest South', 'South Pack')] });
+  const belt = entry({ key: 'g|Belt|Belt', identity: 'gear|Belt', label: 'Belt', sources: [from('Quest South', 'South Pack')] });
+  const boots = entry({ key: 'g|Feet|Boots', identity: 'gear|Boots', label: 'Boots', sources: [from('Quest North', 'North Pack')] });
+  const routeEntries = [cloak, belt, boots, mystery];
+
+  function questsListedUnder(view: ReturnType<typeof buildShoppingListView>): Record<string, string[]> {
+    const listed: Record<string, string[]> = {};
+    for (const group of groupsOf(view)) {
+      for (const row of group.rows) {
+        (listed[row.entry.label] ??= []).push(group.label);
+      }
+    }
+    return listed;
+  }
+
+  it('lists the keys still needed, and routes only the things still needed', () => {
+    const published = publishedProgress(routeEntries, { [boots.key]: 1 }, null, {});
+
+    expect(published.needed).toEqual([cloak.key, belt.key, mystery.key]);
+    // The cloak goes where the belt already sends you; got boots and the
+    // sourceless diamond aren't routed at all.
+    expect(published.route).toEqual({ 'gear|Cloak': ['Quest South'], 'gear|Belt': ['Quest South'] });
+  });
+
+  it('routes as the owner\'s list does: with their picks and their pack filter', () => {
+    const published = publishedProgress(routeEntries, {}, null,
+      { hiddenPacks: new Set(['South Pack']), picks: { 'gear|Belt': ['Quest South'] } });
+
+    expect(published.route['gear|Cloak']).toEqual(['Quest North']);
+  });
+
+  it('lets a friend\'s list, given the route as picks, list things where the owner\'s does', () => {
+    const owner = { hiddenPacks: new Set(['South Pack']), picks: {} };
+    const published = publishedProgress(routeEntries, {}, null, owner);
+
+    const ownersView = buildShoppingListView(routeEntries, {}, null, { filter: 'needed', ...owner });
+    const friendsView = buildShoppingListView(routeEntries, {}, null,
+      { filter: 'needed', hiddenPacks: new Set(['North Pack']), picks: published.route });
+
+    expect(questsListedUnder(friendsView)).toEqual(questsListedUnder(ownersView));
   });
 });

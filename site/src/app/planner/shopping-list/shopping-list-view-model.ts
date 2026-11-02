@@ -2,7 +2,7 @@ import type { UserItemLocation } from '../user-gear.service';
 import { comparePacks, distinctSources, isSourceHidden, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress, ShoppingProgressPatch,
-  ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks, ShoppingTroveLookup
+  ShoppingPublished, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks, ShoppingTroveLookup
 } from './shopping-list-types';
 
 /**
@@ -112,6 +112,29 @@ export function stillNeededKeys(entries: readonly ShoppingEntry[], progress: Sho
     trove: ShoppingTroveLookup | null): string[] {
   const covered = troveCoveredKeys(entries, trove);
   return entries.filter(entry => !isEntryAcquired(entry.key, progress, covered)).map(entry => entry.key);
+}
+
+/**
+ * What a friend's link shows of this list: the entries still needed, and the
+ * quests the list sends you to for each thing still needed, routed with the
+ * same options as the list on screen.
+ */
+export function publishedProgress(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
+    trove: ShoppingTroveLookup | null, options: Omit<ShoppingListViewOptions, 'filter' | 'packAccents'>): ShoppingPublished {
+  const needed = stillNeededKeys(entries, progress, trove);
+  const neededIdentities = new Set(entries.filter(entry => needed.includes(entry.key)).map(entry => entry.identity));
+  const routed = routeSources(thingsToRoute(entries), {
+    hiddenPacks: options.hiddenPacks ?? new Set<string>(),
+    picks: options.picks ?? {},
+    settled: options.routeSettled ?? settledIdentities(entries, progress, trove),
+  });
+  const route: Record<string, readonly string[]> = {};
+  for (const [identity, sources] of routed) {
+    if (neededIdentities.has(identity) && sources.length) {
+      route[identity] = sources.map(source => source.quest);
+    }
+  }
+  return { needed, route };
 }
 
 /**

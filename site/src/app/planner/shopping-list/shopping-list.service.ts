@@ -13,7 +13,7 @@ import { formatShoppingListText } from './shopping-list-text';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingTroveLookup
 } from './shopping-list-types';
-import { buildShoppingListView, prunePatch, settledIdentities, togglePatch } from './shopping-list-view-model';
+import { buildShoppingListView, prunePatch, publishedProgress, settledIdentities, togglePatch } from './shopping-list-view-model';
 import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress-store';
 
 /**
@@ -66,9 +66,16 @@ export class ShoppingListService {
       this.replanSubject,
     ]).pipe(
       map(([entries, progress, , filter, hiddenPacks, picks]) => {
+        const routeSettled = this.settledForRoute(entries, progress);
         const view = buildShoppingListView(entries, progress, this.trove,
-          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled: this.settledForRoute(entries, progress) });
+          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled });
         this.packAccents = view.packAccents;
+        // Only while the build is as saved, so a friend's link (which loads
+        // the saved build) lists the same things. So friends see changes
+        // the next time the list is worked out, not in the background.
+        if (!this.currentBuild.value.isDirty) {
+          this.progressStore.publish(publishedProgress(entries, progress, this.trove, { hiddenPacks, picks, routeSettled }));
+        }
         return view;
       }),
       // Closing the list forgets the route, so it's planned afresh next time it opens.

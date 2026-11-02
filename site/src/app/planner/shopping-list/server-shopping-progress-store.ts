@@ -6,14 +6,14 @@ import { BuildProgressService, buildProgressFailureOf, OwnBuildProgress } from '
 import { CurrentBuildService } from '../../build/current-build.service';
 import { AuthService } from '../../shared/auth.service';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks
+  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingSourcePicks
 } from './shopping-list-types';
 import { applyProgressPatch } from './shopping-list-view-model';
 import {
   addToOutbox, dropOutbox, isEmptyWrite, outboxRequestBody, OutboxWrite, readOutbox, settleOutbox
 } from './shopping-progress-outbox';
 import {
-  LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore, ShoppingPublished, ShoppingSyncState
+  LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore, ShoppingSyncState
 } from './shopping-progress-store';
 
 export interface ShoppingSyncTiming {

@@ -45,7 +45,9 @@ const SAVED_SCOPE_PREFIX = 'saved:';
  * the local copy, with anything still queued laid over it.
  *
  * Nothing runs on a timer while idle. Reads happen when a saved build
- * becomes current and on window focus when the last read is stale.
+ * becomes current and on window focus when the last read is stale. Hiding
+ * the page sends what's queued without waiting out the quiet spell, and
+ * closing it sends it once more with keepalive, in case that didn't land.
  * Failures:
  * - too soon after the last write: retry when the server says;
  * - unreachable: retry after a growing wait;
@@ -79,6 +81,8 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   private flushTimer: ReturnType<typeof setTimeout> | null = null;
   private retryTimer: ReturnType<typeof setTimeout> | null = null;
   private destroyed = false;
+  /** The token the last request went with, for a keepalive flush that can't wait for one. */
+  private lastToken: string | null = null;
   private readonly subscription: Subscription;
   private readonly onFocus = () => {
     if (this.buildId && Date.now() - this.lastFetchAt >= this.timing.refetchAfterMs) {
@@ -86,11 +90,29 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       this.pump();
     }
   };
+  private readonly onVisibilityChange = () => {
+    if (document.visibilityState === 'hidden' && this.flushTimer) {
+      clearTimeout(this.flushTimer);
+      this.flushTimer = null;
+      this.flushDue = true;
+      this.pump();
+    }
+  };
+  private readonly onPageHide = () => {
+    const queued = this.buildId && !this.halted ? readOutbox(this.buildId) : null;
+    if (this.buildId && this.lastToken && queued && !isEmptyWrite(queued)) {
+      // Not settled: nothing will see the answer. The outbox sends it again
+      // next visit, which is harmless - every write is "set this to that".
+      this.api.flushWithKeepalive(this.buildId, outboxRequestBody(queued), this.lastToken);
+    }
+  };
 
   constructor() {
     super();
     this.subscription = inject(CurrentBuildService).state$.subscribe(state => this.changeBuild(shoppingProgressScope(state)));
     window.addEventListener('focus', this.onFocus);
+    document.addEventListener('visibilitychange', this.onVisibilityChange);
+    window.addEventListener('pagehide', this.onPageHide);
   }
 
   get progress(): ShoppingProgress {
@@ -139,6 +161,8 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     this.destroyed = true;
     this.subscription.unsubscribe();
     window.removeEventListener('focus', this.onFocus);
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    window.removeEventListener('pagehide', this.onPageHide);
     this.clearTimers();
   }
 
@@ -221,6 +245,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       if (this.isStale(buildId)) {
         return;
       }
+      this.lastToken = token;
       if (!token) {
         this.halted = 'local';
         return;

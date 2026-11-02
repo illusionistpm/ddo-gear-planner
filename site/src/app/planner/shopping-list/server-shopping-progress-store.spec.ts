@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting, TestRequest } from '@a
 import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { OwnBuildProgress } from '../../build/build-progress.service';
+import { BuildProgressService, OwnBuildProgress } from '../../build/build-progress.service';
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import { AuthService } from '../../shared/auth.service';
 import { SHOPPING_SYNC_TIMING, ServerShoppingProgressStore, ShoppingSyncTiming } from './server-shopping-progress-store';
@@ -313,5 +313,70 @@ describe('ServerShoppingProgressStore', () => {
     await settle();
 
     http.expectNone(() => true);
+  });
+
+  describe('leaving the page', () => {
+    function setVisibility(visibility: DocumentVisibilityState): void {
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => visibility });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }
+
+    afterEach(() => {
+      delete (document as { visibilityState?: unknown }).visibilityState;
+    });
+
+    it('sends what\'s queued as soon as the page is hidden, without waiting out the quiet spell', async () => {
+      timing.debounceMs = 60000;
+      const store = create();
+      await openOwned();
+
+      store.applyPatch({ a: 1 });
+      await settle();
+      http.expectNone(() => true);
+
+      setVisibility('hidden');
+      const put = await expectRequest('PUT');
+      expect(put.request.body).toEqual({ patch: { a: 1 } });
+      put.flush(doc({ entries: { a: 1 } }));
+      await settle();
+    });
+
+    it('waits as usual while the page stays visible', async () => {
+      timing.debounceMs = 60000;
+      const store = create();
+      await openOwned();
+
+      store.applyPatch({ a: 1 });
+      setVisibility('visible');
+      await settle();
+
+      http.expectNone(() => true);
+    });
+
+    it('sends what\'s still queued with keepalive when the page goes away, and keeps it queued', async () => {
+      timing.debounceMs = 60000;
+      const keepalive = vi.spyOn(TestBed.inject(BuildProgressService), 'flushWithKeepalive').mockReturnValue(true);
+      const store = create();
+      await openOwned();
+
+      store.applyPatch({ a: 1 });
+      window.dispatchEvent(new Event('pagehide'));
+
+      expect(keepalive).toHaveBeenCalledWith('b1', { patch: { a: 1 } }, 'token');
+      expect(readOutbox('b1')?.patch).toEqual({ a: 1 });
+    });
+
+    it('sends nothing with keepalive without a token from an earlier request', async () => {
+      const keepalive = vi.spyOn(TestBed.inject(BuildProgressService), 'flushWithKeepalive').mockReturnValue(true);
+      getAccessToken.mockResolvedValue(null);
+      addToOutbox('b1', { patch: { a: 1 } });
+      create();
+      state.next(OWNED);
+      await settle();
+
+      window.dispatchEvent(new Event('pagehide'));
+
+      expect(keepalive).not.toHaveBeenCalled();
+    });
   });
 });

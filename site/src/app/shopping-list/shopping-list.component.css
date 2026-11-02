@@ -193,6 +193,19 @@
     text-transform: uppercase;
 }
 
+/* A quest's wiki page: the text keeps its colour, so the item links stay the ones that stand out. */
+.shopping-quest-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+}
+
+.shopping-quest-link:hover,
+.shopping-quest-link:focus {
+    color: var(--link-hover-color);
+}
+
 .shopping-group-count {
     color: var(--text-secondary);
     flex: none;

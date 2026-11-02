@@ -47,7 +47,7 @@ function pushRow(lines: string[], row: ShoppingRow, indent: string): void {
     notes.push('augment');
   }
   if (row.alsoFrom.length) {
-    notes.push(`also from ${alsoFromText(row.alsoFrom)}`);
+    notes.push(`also from ${alsoFromText(row.alsoFrom.map(source => source.quest))}`);
   }
   if (row.entry.details.length) {
     notes.push(`roll: ${row.entry.details.join(', ')}`);

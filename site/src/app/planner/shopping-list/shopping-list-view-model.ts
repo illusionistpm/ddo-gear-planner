@@ -2,7 +2,7 @@ import { slotLabel } from '../../gear/slot-display';
 import type { UserItemLocation } from '../user-gear.service';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingGroupMode, ShoppingListView, ShoppingProgress,
-  ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingTroveLookup
+  ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingTroveLookup
 } from './shopping-list-types';
 
 /**
@@ -200,7 +200,7 @@ function neededRows(rows: ShoppingRow[]): ShoppingRow[] {
 /** Folds entries into rows, one per identity, in first-seen order. */
 function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: RowContext,
     childrenOf: (folded: readonly ShoppingEntry[]) => ShoppingRow[],
-    alsoFromOf: (folded: readonly ShoppingEntry[]) => string[] = () => []): ShoppingRow[] {
+    alsoFromOf: (folded: readonly ShoppingEntry[]) => ShoppingSource[] = () => []): ShoppingRow[] {
   const byIdentity = new Map<string, ShoppingEntry[]>();
   for (const entry of entries) {
     const same = byIdentity.get(entry.identity);
@@ -230,9 +230,15 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
   });
 }
 
-/** The quests an entry comes from besides this one. */
-function otherQuests(entry: ShoppingEntry, quest: string): string[] {
-  return Array.from(new Set(entry.sources.map(source => source.quest))).filter(other => other !== quest);
+/** Where an entry comes from besides this quest, once each. */
+function otherSources(entry: ShoppingEntry, quest: string): ShoppingSource[] {
+  const others = new Map<string, ShoppingSource>();
+  for (const source of entry.sources) {
+    if (source.quest !== quest && !others.has(source.quest)) {
+      others.set(source.quest, source);
+    }
+  }
+  return Array.from(others.values());
 }
 
 function rowState(acquired: number, total: number): ShoppingRowState {
@@ -257,6 +263,7 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
       label: slotLabel(gear.slot),
       header: foldRows([gear], id, context, () => [])[0],
       slot: gear.slot,
+      wikiUrl: null,
       raid: gear.raid,
       accent: accentOf(gear.sources.find(source => source.pack)?.pack, context),
       rows: foldRows(crafted, `${id}|${gear.key}`, context, () => []),
@@ -316,11 +323,12 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
         label: quest || UNKNOWN_SOURCE_LABEL,
         header: null,
         slot: null,
+        wikiUrl: here[0]?.wikiUrl ?? null,
         raid: here.some(source => source.raid),
         accent: accentOf(pack, context),
         rows: foldRows(members, id, context,
           folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
-          folded => otherQuests(folded[0], quest)),
+          folded => otherSources(folded[0], quest)),
         ...groupTotals([...members, ...nested], context),
       },
     };

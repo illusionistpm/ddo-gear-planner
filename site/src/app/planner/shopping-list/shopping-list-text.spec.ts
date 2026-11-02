@@ -3,7 +3,7 @@ import { formatShoppingListText } from './shopping-list-text';
 import { buildShoppingListView } from './shopping-list-view-model';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
-  return { quest, pack, raid };
+  return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
 }
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {

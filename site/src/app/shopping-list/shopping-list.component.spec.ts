@@ -13,7 +13,7 @@ import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
-  return { quest, pack, raid };
+  return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
 }
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
@@ -173,6 +173,24 @@ describe('ShoppingListComponent', () => {
       .querySelector('.shopping-row-also, .shopping-row-more')?.textContent?.trim();
     expect(alsoFrom('Amulet')).toBe('also from 2 other quests');
     expect(alsoFrom('Ring')).toBe('also from Vendor');
+  });
+
+  it('links each quest it names to the wiki, in a new tab', () => {
+    const anywhere = entry({ key: 'g|Neck|Amulet', slot: 'Neck', identity: 'gear|Amulet', label: 'Amulet',
+      sources: [from('The Snitch'), from('Vendor')] });
+    const link = (node: Element | null | undefined) => [node?.tagName, node?.getAttribute('href'), node?.getAttribute('target')];
+
+    show({}, 'slot', 'all', [sword, augment, anywhere]);
+    expect(link(rowByName('Amulet').querySelector('.shopping-row-source'))).toEqual(['A', 'wiki/The Snitch', '_blank']);
+    expect(link(rowByName('Ruby').querySelector('.shopping-row-source'))[0]).toBe('SPAN');
+
+    show({}, 'source', 'all', [sword, augment, anywhere]);
+    const titles = Array.from(el().querySelectorAll('.shopping-group-name'), title => link(title));
+    expect(titles).toEqual([
+      ['A', 'wiki/The Raid', '_blank'], ['A', 'wiki/The Snitch', '_blank'], ['A', 'wiki/Vendor', '_blank'],
+      ['SPAN', null, null],
+    ]);
+    expect(link(el().querySelector('.shopping-row-also a'))).toEqual(['A', 'wiki/Vendor', '_blank']);
   });
 
   it('switches grouping and filter through the service', () => {

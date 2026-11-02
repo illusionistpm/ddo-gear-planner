@@ -13,6 +13,8 @@ export interface ShoppingSource {
   quest: string;
   pack: string | null;
   raid: boolean;
+  /** Its wiki page, or a wiki search for it where there may be no page by that name. */
+  wikiUrl: string;
 }
 
 /** One thing to get for one slot: the unit a checkbox ticks off. */
@@ -76,7 +78,7 @@ export interface ShoppingRow {
   /** Where the trove has it, or null when it doesn't. */
   ownedLocations: readonly UserItemLocation[] | null;
   /** In source view, the row's other sources, besides the one it's listed under. */
-  alsoFrom: string[];
+  alsoFrom: ShoppingSource[];
   children: ShoppingRow[];
 }
 
@@ -91,6 +93,8 @@ export interface ShoppingGroup {
   header: ShoppingRow | null;
   /** The slot, when grouping by slot. */
   slot: string | null;
+  /** By source, the quest's wiki page; null by slot, and for an unknown source. */
+  wikiUrl: string | null;
   raid: boolean;
   /**
    * Which pack colour the card is marked with, by its pack: the quest's by

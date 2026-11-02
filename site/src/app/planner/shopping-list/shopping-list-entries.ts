@@ -32,8 +32,13 @@ export interface ShoppingSourceLookup {
 /** Essence-crafted blanks are made at the Cannith stations, not dropped anywhere. */
 export const CANNITH_CRAFTING_SOURCE = 'Cannith Crafting';
 
+const WIKI_PAGE_URL = 'https://ddowiki.com/page/';
 const WIKI_SEARCH_URL = 'https://ddowiki.com/page/Special:Search?go=Go&search=';
 const WIKI_ITEM_URL = 'https://ddowiki.com/page/Item:';
+
+function wikiPageUrl(prefix: string, title: string): string {
+  return prefix + encodeURIComponent(title.replace(/ /g, '_'));
+}
 
 /**
  * Augments are items, with pages in the wiki's Item namespace, which its
@@ -42,8 +47,18 @@ const WIKI_ITEM_URL = 'https://ddowiki.com/page/Item:';
  */
 function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
   return kind === 'augment'
-    ? WIKI_ITEM_URL + encodeURIComponent(name.replace(/ /g, '_'))
+    ? wikiPageUrl(WIKI_ITEM_URL, name)
     : WIKI_SEARCH_URL + encodeURIComponent(name);
+}
+
+/**
+ * A quest quests.json knows - it has a pack, or is a raid - links to its page:
+ * the name is the one the wiki's quest lists give it. Other sources (vendors,
+ * crafting, NPCs, events) may have no page by that name, so they get the
+ * wiki's Go search, which still opens the page when there is one.
+ */
+function questWikiUrl(quest: string, known: boolean): string {
+  return known ? wikiPageUrl(WIKI_PAGE_URL, quest) : WIKI_SEARCH_URL + encodeURIComponent(quest);
 }
 
 /**
@@ -52,11 +67,16 @@ function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
  * with several, there's no telling which of them it belongs to.
  */
 function sourcesFor(quests: readonly string[], itemPack: string | null, lookup: ShoppingSourceLookup): ShoppingSource[] {
-  return quests.map(quest => ({
-    quest,
-    pack: lookup.packOf(quest) ?? (quests.length === 1 ? itemPack : null),
-    raid: lookup.isRaid(quest),
-  }));
+  return quests.map(quest => {
+    const pack = lookup.packOf(quest);
+    const raid = lookup.isRaid(quest);
+    return {
+      quest,
+      pack: pack ?? (quests.length === 1 ? itemPack : null),
+      raid,
+      wikiUrl: questWikiUrl(quest, pack !== null || raid),
+    };
+  });
 }
 
 export function shoppingGearKey(slot: string, itemName: string): string {

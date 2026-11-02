@@ -6,7 +6,7 @@ import {
 } from './shopping-list-view-model';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
-  return { quest, pack, raid };
+  return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
 }
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
@@ -137,8 +137,9 @@ describe('shopping list view model', () => {
         { groupMode: 'source', filter: 'all' });
       const rowsOf = (label: string) => groupsOf(view).find(group => group.label === label)!.rows;
 
-      expect(rowsOf('The Raid').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sword', []], ['Sapphire', ['Vendor']]]);
-      expect(rowsOf('Vendor').map(row => [row.entry.label, row.alsoFrom])).toEqual([['Sapphire', ['The Raid']]]);
+      const alsoFrom = (row: ShoppingRow) => row.alsoFrom.map(source => source.quest);
+      expect(rowsOf('The Raid').map(row => [row.entry.label, alsoFrom(row)])).toEqual([['Sword', []], ['Sapphire', ['Vendor']]]);
+      expect(rowsOf('Vendor').map(row => [row.entry.label, alsoFrom(row)])).toEqual([['Sapphire', ['The Raid']]]);
       expect(groupsOf(view).find(group => group.label === 'The Raid')!.total).toBe(3);
       expect(view.total).toBe(4);
       // Listed under quests in two packs; each pack counts it.

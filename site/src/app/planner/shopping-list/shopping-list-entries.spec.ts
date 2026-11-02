@@ -9,6 +9,9 @@ const sources: ShoppingSourceLookup = {
     Record<string, string | null>)[quest] ?? null,
 };
 
+const page = (title: string) => `https://ddowiki.com/page/${title}`;
+const search = (name: string) => `https://ddowiki.com/page/Special:Search?go=Go&search=${name}`;
+
 function item(init: Partial<ItemInit> & { name: string }): Item {
   return new Item({ slot: 'Ring1', ml: 30, quests: ['The Snitch'], ...init } as ItemInit);
 }
@@ -33,11 +36,12 @@ describe('deriveShoppingEntries', () => {
 
     expect(entries.map(entry => entry.key)).toEqual(['g|Weapon|Big Sword', 'g|Ring1|Ring of Things']);
     expect(entries[0]).toEqual(expect.objectContaining({
-      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true }], raid: true,
+      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: page('The_Raid') }], raid: true,
       wikiUrl: 'http://ddowiki.com/page/Item:Big_Sword', troveName: 'Big Sword', parentKey: null,
     }));
     expect(entries[1]).toEqual(expect.objectContaining({
-      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false }], raid: false, wikiUrl: null,
+      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: page('The_Snitch') }], raid: false,
+      wikiUrl: null,
     }));
   });
 
@@ -47,12 +51,23 @@ describe('deriveShoppingEntries', () => {
     }), sources);
 
     // The item's own pack can't say which of several quests it belongs to.
-    expect(entry.sources).toEqual([
+    expect(entry.sources.map(({ quest, pack, raid }) => ({ quest, pack, raid }))).toEqual([
       { quest: 'The Snitch', pack: 'Sharn Pack', raid: false },
       { quest: 'The Raid', pack: 'Raid Pack', raid: true },
       { quest: 'Augment Vendor', pack: null, raid: false },
     ]);
     expect(entry.raid).toBe(true);
+  });
+
+  it('links a quest quests.json knows to its wiki page, and searches the wiki for any other source', () => {
+    const [entry] = deriveShoppingEntries(slots({
+      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', 'The Raid', "Augment Vendor's Stall"] }),
+    }), sources);
+
+    // Known by its pack, or as a raid; the rest may have no page by that name.
+    expect(entry.sources.map(source => source.wikiUrl)).toEqual([
+      page('The_Snitch'), page('The_Raid'), search("Augment%20Vendor's%20Stall"),
+    ]);
   });
 
   it('falls back to the item\'s own pack when quests.json doesn\'t place its one quest', () => {
@@ -94,7 +109,7 @@ describe('deriveShoppingEntries', () => {
     ]);
     expect(entries[1]).toEqual(expect.objectContaining({
       kind: 'augment', label: 'Sapphire of Things', ml: 20, sourceInherited: false,
-      sources: [{ quest: 'Augment Vendor', pack: null, raid: false }],
+      sources: [{ quest: 'Augment Vendor', pack: null, raid: false, wikiUrl: search('Augment%20Vendor') }],
       identity: 'augment|Sapphire of Things', troveName: 'Sapphire of Things', parentKey: 'g|Ring1|Ring of Things',
       wikiUrl: 'https://ddowiki.com/page/Item:Sapphire_of_Things',
     }));

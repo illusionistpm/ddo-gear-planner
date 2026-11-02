@@ -7,7 +7,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import type {
-  ShoppingFilter, ShoppingGroupMode, ShoppingListView, ShoppingRow
+  ShoppingFilter, ShoppingGroupMode, ShoppingListView, ShoppingRow, ShoppingSource
 } from '../planner/shopping-list/shopping-list-types';
 
 const COPIED_CONFIRMATION_MS = 1500;
@@ -105,17 +105,17 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
    * Where it comes from, unless the group heading or the item above already
    * says: the first source, and the rest behind a "+N more".
    */
-  rowSource(row: ShoppingRow): { first: string; others: string[] } | null {
+  rowSource(row: ShoppingRow): { first: ShoppingSource | null; others: readonly ShoppingSource[] } | null {
     if (this.view?.groupMode === 'source' || row.entry.sourceInherited) {
       return null;
     }
-    const [first, ...others] = row.entry.sources.map(source => source.quest);
-    return { first: first ?? 'Source unknown', others };
+    const [first, ...others] = row.entry.sources;
+    return { first: first ?? null, others };
   }
 
   /** The tooltip listing the quests a row doesn't name. */
-  alsoFromTooltip(quests: readonly string[]): string {
-    return ['Also from:', ...quests].join('\n');
+  alsoFromTooltip(sources: readonly ShoppingSource[]): string {
+    return ['Also from:', ...sources.map(source => source.quest)].join('\n');
   }
 
   /** The class giving a card or pack heading its pack's colour. */

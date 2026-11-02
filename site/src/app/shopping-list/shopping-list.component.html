@@ -73,7 +73,12 @@
           } @else {
             <section class="shopping-group" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
               <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
-                <span class="shopping-group-name">{{group.label}}</span>
+                @if (group.wikiUrl) {
+                  <a class="shopping-group-name shopping-quest-link" [href]="group.wikiUrl" target="_blank"
+                    rel="noopener noreferrer">{{group.label}}</a>
+                } @else {
+                  <span class="shopping-group-name">{{group.label}}</span>
+                }
                 @if (group.raid) {
                   <span class="loot-badge raid-loot-badge">Raid</span>
                 }
@@ -135,7 +140,12 @@
             <span>{{kind}}</span>
           }
           @if (rowSource(row); as source) {
-            <span class="shopping-row-source">{{source.first}}</span>
+            @if (source.first; as first) {
+              <a class="shopping-row-source shopping-quest-link" [href]="first.wikiUrl" target="_blank"
+                rel="noopener noreferrer">{{first.quest}}</a>
+            } @else {
+              <span class="shopping-row-source">Source unknown</span>
+            }
             @if (source.others.length) {
               <app-tap-tooltip [text]="alsoFromTooltip(source.others)" label="Where else it comes from">
                 <span class="shopping-row-more">+{{source.others.length}} more</span>
@@ -143,7 +153,9 @@
             }
           }
           @if (row.alsoFrom.length === 1) {
-            <span class="shopping-row-also">also from {{row.alsoFrom[0]}}</span>
+            <span class="shopping-row-also">also from
+              <a class="shopping-quest-link" [href]="row.alsoFrom[0].wikiUrl" target="_blank"
+                rel="noopener noreferrer">{{row.alsoFrom[0].quest}}</a></span>
           } @else if (row.alsoFrom.length) {
             <app-tap-tooltip [text]="alsoFromTooltip(row.alsoFrom)" label="Where else it comes from">
               <span class="shopping-row-more">also from {{row.alsoFrom.length}} other quests</span>

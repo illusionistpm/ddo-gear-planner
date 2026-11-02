@@ -65,6 +65,13 @@ describe('router', () => {
     expect(response.status).toBe(204);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://ddo-gear-planner.com');
     expect(response.headers.get('Access-Control-Allow-Methods')).toContain('POST');
+    expect(response.headers.get('Access-Control-Max-Age')).toBe('86400');
+  });
+
+  it('does not put a preflight max-age on ordinary responses', async () => {
+    const response = await worker.fetch(request('GET', '/api/nonexistent'), makeEnv());
+
+    expect(response.headers.get('Access-Control-Max-Age')).toBeNull();
   });
 
   it('attaches CORS headers to every response, including a 404', async () => {

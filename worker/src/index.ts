@@ -14,6 +14,7 @@ import { handleCreateShortLink } from './routes/shortlinks';
 
 const BUILD_SHORT_ID_PATH = /^\/api\/build\/([^/]+)$/;
 const BUILD_ID_PATH = /^\/api\/builds\/([^/]+)$/;
+const PREFLIGHT_MAX_AGE_SECONDS = 86400;
 
 function corsHeaders(request: Request, env: Env): HeadersInit {
   const allowedOrigin = resolveAllowedOrigin(request.headers.get('Origin'), parseAllowedOrigins(env.ALLOWED_ORIGINS));
@@ -42,7 +43,12 @@ export default {
     // case here since curl doesn't send preflights; this needs verifying
     // from an actual browser.
     if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: corsHeaders(request, env) });
+      // Without a max-age every authenticated request pays a preflight
+      // round trip - two Worker requests instead of one. Browsers clamp the
+      // value (Chrome to 2 hours), so a day is just "as long as allowed".
+      const headers = new Headers(corsHeaders(request, env));
+      headers.set('Access-Control-Max-Age', String(PREFLIGHT_MAX_AGE_SECONDS));
+      return new Response(null, { status: 204, headers });
     }
 
     const response = await route(request, env);

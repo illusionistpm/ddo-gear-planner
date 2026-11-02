@@ -47,10 +47,9 @@ describe('deriveShoppingEntries', () => {
 
   it('lists every quest an item comes from, each with its own pack', () => {
     const [entry] = deriveShoppingEntries(slots({
-      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', 'The Raid', 'Augment Vendor'], pack: 'Own Pack' }),
+      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', 'The Raid', 'Augment Vendor'] }),
     }), sources);
 
-    // The item's own pack can't say which of several quests it belongs to.
     expect(entry.sources.map(({ quest, pack, raid }) => ({ quest, pack, raid }))).toEqual([
       { quest: 'The Snitch', pack: 'Sharn Pack', raid: false },
       { quest: 'The Raid', pack: 'Raid Pack', raid: true },
@@ -68,16 +67,6 @@ describe('deriveShoppingEntries', () => {
     expect(entry.sources.map(source => source.wikiUrl)).toEqual([
       page('The_Snitch'), page('The_Raid'), search("Augment%20Vendor's%20Stall"),
     ]);
-  });
-
-  it('falls back to the item\'s own pack when quests.json doesn\'t place its one quest', () => {
-    const [placed] = deriveShoppingEntries(slots({ Ring1: item({ name: 'Placed', pack: 'Own Pack' }) }), sources);
-    const [unplaced] = deriveShoppingEntries(slots({
-      Ring1: item({ name: 'Unplaced', quests: ['Augment Vendor'], pack: 'Own Pack' }),
-    }), sources);
-
-    expect(placed.sources[0].pack).toBe('Sharn Pack');
-    expect(unplaced.sources[0].pack).toBe('Own Pack');
   });
 
   it('gives the same item in two slots separate keys and one identity', () => {

@@ -61,18 +61,14 @@ function questWikiUrl(quest: string, known: boolean): string {
   return known ? wikiPageUrl(WIKI_PAGE_URL, quest) : WIKI_SEARCH_URL + encodeURIComponent(quest);
 }
 
-/**
- * Each quest's pack comes from quests.json. An item's own pack stands in for
- * one quests.json doesn't place, but only when the item has a single quest:
- * with several, there's no telling which of them it belongs to.
- */
-function sourcesFor(quests: readonly string[], itemPack: string | null, lookup: ShoppingSourceLookup): ShoppingSource[] {
+/** Each source's pack comes from quests.json's pack map, which names every source the data emits. */
+function sourcesFor(quests: readonly string[], lookup: ShoppingSourceLookup): ShoppingSource[] {
   return quests.map(quest => {
     const pack = lookup.packOf(quest);
     const raid = lookup.isRaid(quest);
     return {
       quest,
-      pack: pack ?? (quests.length === 1 ? itemPack : null),
+      pack,
       raid,
       wikiUrl: questWikiUrl(quest, pack !== null || raid),
     };
@@ -98,7 +94,7 @@ export function deriveShoppingEntries(
 function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup): ShoppingEntry[] {
   const blank = item.isGeneratedEssenceCraftingBlank();
   const quests = item.quests?.length ? item.quests : blank ? [CANNITH_CRAFTING_SOURCE] : [];
-  const itemSources = sourcesFor(quests, item.pack || null, sources);
+  const itemSources = sourcesFor(quests, sources);
   const gearKey = shoppingGearKey(slot, item.name);
   const gear: ShoppingEntry = {
     key: gearKey,
@@ -149,7 +145,7 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
   const selection = craftable.getSelectedParamDescription();
   // An augment that names no source still doesn't drop where the item does.
   const inherits = !option.quests.length && kind === 'step';
-  const optionSources = inherits ? gear.sources : sourcesFor(option.quests, null, sources);
+  const optionSources = inherits ? gear.sources : sourcesFor(option.quests, sources);
   const fetchedAlone = kind === 'augment' || kind === 'upgrade';
 
   return {

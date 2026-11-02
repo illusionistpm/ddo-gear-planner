@@ -32,12 +32,11 @@ export interface ShoppingSourceLookup {
 /** Essence-crafted blanks are made at the Cannith stations, not dropped anywhere. */
 export const CANNITH_CRAFTING_SOURCE = 'Cannith Crafting';
 
-const WIKI_PAGE_URL = 'https://ddowiki.com/page/';
 const WIKI_SEARCH_URL = 'https://ddowiki.com/page/Special:Search?go=Go&search=';
 const WIKI_ITEM_URL = 'https://ddowiki.com/page/Item:';
 
-function wikiPageUrl(prefix: string, title: string): string {
-  return prefix + encodeURIComponent(title.replace(/ /g, '_'));
+function wikiItemUrl(name: string): string {
+  return WIKI_ITEM_URL + encodeURIComponent(name.replace(/ /g, '_'));
 }
 
 /**
@@ -47,32 +46,28 @@ function wikiPageUrl(prefix: string, title: string): string {
  */
 function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
   return kind === 'augment'
-    ? wikiPageUrl(WIKI_ITEM_URL, name)
+    ? wikiItemUrl(name)
     : WIKI_SEARCH_URL + encodeURIComponent(name);
 }
 
 /**
- * A quest quests.json knows - it has a pack, or is a raid - links to its page:
- * the name is the one the wiki's quest lists give it. Other sources (vendors,
- * crafting, NPCs, events) may have no page by that name, so they get the
- * wiki's Go search, which still opens the page when there is one.
+ * The wiki's Go search, which opens the page of that name when there is one.
+ * Most sources are quests, NPCs or vendors with a page, but the pack map also
+ * names placeholders with none ("Sharn quests", "Special event items"); those
+ * land on search results rather than a missing page.
  */
-function questWikiUrl(quest: string, known: boolean): string {
-  return known ? wikiPageUrl(WIKI_PAGE_URL, quest) : WIKI_SEARCH_URL + encodeURIComponent(quest);
+function sourceWikiUrl(source: string): string {
+  return WIKI_SEARCH_URL + encodeURIComponent(source);
 }
 
 /** Each source's pack comes from quests.json's pack map, which names every source the data emits. */
 function sourcesFor(quests: readonly string[], lookup: ShoppingSourceLookup): ShoppingSource[] {
-  return quests.map(quest => {
-    const pack = lookup.packOf(quest);
-    const raid = lookup.isRaid(quest);
-    return {
-      quest,
-      pack,
-      raid,
-      wikiUrl: questWikiUrl(quest, pack !== null || raid),
-    };
-  });
+  return quests.map(quest => ({
+    quest,
+    pack: lookup.packOf(quest),
+    raid: lookup.isRaid(quest),
+    wikiUrl: sourceWikiUrl(quest),
+  }));
 }
 
 export function shoppingGearKey(slot: string, itemName: string): string {

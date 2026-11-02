@@ -9,7 +9,6 @@ const sources: ShoppingSourceLookup = {
     Record<string, string | null>)[quest] ?? null,
 };
 
-const page = (title: string) => `https://ddowiki.com/page/${title}`;
 const search = (name: string) => `https://ddowiki.com/page/Special:Search?go=Go&search=${name}`;
 
 function item(init: Partial<ItemInit> & { name: string }): Item {
@@ -36,11 +35,11 @@ describe('deriveShoppingEntries', () => {
 
     expect(entries.map(entry => entry.key)).toEqual(['g|Weapon|Big Sword', 'g|Ring1|Ring of Things']);
     expect(entries[0]).toEqual(expect.objectContaining({
-      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: page('The_Raid') }], raid: true,
+      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: search('The%20Raid') }], raid: true,
       wikiUrl: 'http://ddowiki.com/page/Item:Big_Sword', troveName: 'Big Sword', parentKey: null,
     }));
     expect(entries[1]).toEqual(expect.objectContaining({
-      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: page('The_Snitch') }], raid: false,
+      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: search('The%20Snitch') }], raid: false,
       wikiUrl: null,
     }));
   });
@@ -58,14 +57,13 @@ describe('deriveShoppingEntries', () => {
     expect(entry.raid).toBe(true);
   });
 
-  it('links a quest quests.json knows to its wiki page, and searches the wiki for any other source', () => {
+  it('links every source through the wiki\'s Go search, which opens its page when there is one', () => {
     const [entry] = deriveShoppingEntries(slots({
-      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', 'The Raid', "Augment Vendor's Stall"] }),
+      Ring1: item({ name: 'Common Ring', quests: ['The Snitch', "Augment Vendor's Stall", 'Sharn quests'] }),
     }), sources);
 
-    // Known by its pack, or as a raid; the rest may have no page by that name.
     expect(entry.sources.map(source => source.wikiUrl)).toEqual([
-      page('The_Snitch'), page('The_Raid'), search("Augment%20Vendor's%20Stall"),
+      search('The%20Snitch'), search("Augment%20Vendor's%20Stall"), search('Sharn%20quests'),
     ]);
   });
 

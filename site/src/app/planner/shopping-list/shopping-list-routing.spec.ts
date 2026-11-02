@@ -68,6 +68,26 @@ describe('routeSources', () => {
     expect(route({ gem: [from('A'), from('B')] }, { picks: { gem: ['Gone'] } })).toEqual({ gem: ['A'] });
   });
 
+  it('plans the route around only what is still needed, then lists what has been got where the route goes', () => {
+    const settled = { settled: new Set(['got', 'gotOnlyAtC', 'pickedGot', 'gotElsewhere']) };
+    const things = {
+      // Got, so neither sends you to A or C, though both are listed there: the gem goes to B with the sword.
+      gotOnlyAtC: [from('C')],
+      pickedGot: [from('A'), from('D')],
+      gem: [from('A'), from('B'), from('C')],
+      sword: [from('B')],
+      // Listed where something else is, rather than where most of what's got is.
+      got: [from('C'), from('E')],
+      gotElsewhere: [from('E'), from('F')],
+    };
+    const picks = { picks: { pickedGot: ['A'] } };
+    expect(route(things, { ...settled, ...picks })).toEqual({
+      gotOnlyAtC: ['C'], pickedGot: ['A'], gem: ['B'], sword: ['B'], got: ['C'], gotElsewhere: ['E'],
+    });
+    // Planned around everything, the gem goes to C, for the two things got there.
+    expect(route(things, picks).gem).toEqual(['C']);
+  });
+
   it('names each quest once', () => {
     expect(route({ gem: [from('A'), from('A')] })).toEqual({ gem: ['A'] });
   });

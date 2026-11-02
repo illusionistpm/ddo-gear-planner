@@ -14,6 +14,8 @@ import type { ShoppingSource, ShoppingSourcePicks } from './shopping-list-types'
  *   better has it.
  * - Of what's left, a quest you're going to anyway comes first, then the
  *   quest that has the most of what's still to place.
+ * - Things already got are placed last, so they never send you anywhere:
+ *   each goes where something else is listed, if it can.
  */
 
 /**
@@ -38,6 +40,8 @@ export function comparePacks(a: string, b: string): number {
 export interface ShoppingRouteOptions {
   hiddenPacks: ReadonlySet<string>;
   picks: ShoppingSourcePicks;
+  /** The things already got, by identity, which the route is not planned around. */
+  settled?: ReadonlySet<string>;
 }
 
 /** Whether the pack filter hides a source's pack. */
@@ -72,8 +76,10 @@ function candidates(sources: readonly ShoppingSource[], hiddenPacks: ReadonlySet
  */
 export function routeSources(things: ReadonlyMap<string, readonly ShoppingSource[]>,
     options: ShoppingRouteOptions): Map<string, ShoppingSource[]> {
+  const settled = options.settled ?? new Set<string>();
   const routed = new Map<string, ShoppingSource[]>();
   const open = new Map<string, ShoppingSource[]>();
+  const openSettled = new Map<string, ShoppingSource[]>();
   for (const [identity, sources] of things) {
     const picked = options.picks[identity] ?? [];
     const chosen = distinctSources(sources).filter(source => picked.includes(source.quest));
@@ -83,13 +89,26 @@ export function routeSources(things: ReadonlyMap<string, readonly ShoppingSource
     }
     const choices = candidates(sources, options.hiddenPacks);
     if (choices.length > 1) {
-      open.set(identity, choices);
+      (settled.has(identity) ? openSettled : open).set(identity, choices);
     } else {
       routed.set(identity, choices);
     }
   }
 
-  const going = new Set(Array.from(routed.values()).flatMap(sources => sources.map(source => source.quest)));
+  const going = new Set(Array.from(routed).filter(([identity]) => !settled.has(identity))
+    .flatMap(([, sources]) => sources.map(source => source.quest)));
+  placeEach(open, routed, going);
+  // Things got go wherever anything is already listed, if they can, so they add as few cards as they can.
+  placeEach(openSettled, routed, new Set(Array.from(routed.values()).flatMap(sources => sources.map(source => source.quest))));
+  return routed;
+}
+
+/**
+ * Routes each open thing, one quest at a time: one you're going to anyway,
+ * then the one with the most of them. Adds each quest chosen to `going`.
+ */
+function placeEach(open: Map<string, ShoppingSource[]>, routed: Map<string, ShoppingSource[]>,
+    going: Set<string>): void {
   while (open.size) {
     const counts = new Map<string, number>();
     for (const choices of open.values()) {
@@ -108,5 +127,4 @@ export function routeSources(things: ReadonlyMap<string, readonly ShoppingSource
       }
     }
   }
-  return routed;
 }

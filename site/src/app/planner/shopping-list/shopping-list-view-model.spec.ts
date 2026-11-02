@@ -131,15 +131,6 @@ describe('shopping list view model', () => {
       ]);
     });
 
-    it('says what a separately sourced piece is for', () => {
-      const view = buildShoppingListView(entries, {}, null, { groupMode: 'source', filter: 'all' });
-      const context = (label: string) => groupsOf(view).flatMap(group => group.rows).find(row => row.entry.label === label)?.context;
-
-      expect(context('Diamond')).toBe('for Sword (Weapon)');
-      expect(context('Sapphire')).toBe('for 2 items');
-      expect(context('Ring')).toBeNull();
-    });
-
     it('lists something from several quests under each, counting it once', () => {
       const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
       const view = buildShoppingListView([sword, swordStep, anywhere, ring1], {}, null,

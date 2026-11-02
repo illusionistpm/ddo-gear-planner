@@ -200,7 +200,6 @@ function neededRows(rows: ShoppingRow[]): ShoppingRow[] {
 /** Folds entries into rows, one per identity, in first-seen order. */
 function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: RowContext,
     childrenOf: (folded: readonly ShoppingEntry[]) => ShoppingRow[],
-    contextOf: (folded: readonly ShoppingEntry[]) => string | null,
     alsoFromOf: (folded: readonly ShoppingEntry[]) => string[] = () => []): ShoppingRow[] {
   const byIdentity = new Map<string, ShoppingEntry[]>();
   for (const entry of entries) {
@@ -225,7 +224,6 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
       acquired,
       state: rowState(acquired, folded.length),
       ownedLocations: locations?.length ? locations : null,
-      context: contextOf(folded),
       alsoFrom: alsoFromOf(folded),
       children: childrenOf(folded),
     };
@@ -257,11 +255,11 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
     groups.push({
       id,
       label: slotLabel(gear.slot),
-      header: foldRows([gear], id, context, () => [], () => null)[0],
+      header: foldRows([gear], id, context, () => [])[0],
       slot: gear.slot,
       raid: gear.raid,
       accent: accentOf(gear.sources.find(source => source.pack)?.pack, context),
-      rows: foldRows(crafted, `${id}|${gear.key}`, context, () => [], () => null),
+      rows: foldRows(crafted, `${id}|${gear.key}`, context, () => []),
       ...groupTotals([gear, ...crafted], context),
     });
   }
@@ -271,8 +269,9 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
 /**
  * One group per source, so everything from one quest is together. Crafting
  * that happens where its item comes from stays under the item; anything with
- * a source of its own is listed there, saying what it's for. Something that
- * comes from several quests is listed under each, as any of them will do.
+ * a source of its own is listed there on its own: by now it's a piece to
+ * collect, and which item it goes in doesn't matter. Something that comes
+ * from several quests is listed under each, as any of them will do.
  */
 interface SourceGroup {
   group: ShoppingGroup;
@@ -281,7 +280,6 @@ interface SourceGroup {
 }
 
 function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): SourceGroup[] {
-  const parents = new Map(entries.filter(entry => entry.kind === 'gear').map(entry => [entry.key, entry]));
   const nestsUnderItem = (entry: ShoppingEntry) => entry.kind === 'step' && entry.sourceInherited;
   const bySource = new Map<string, ShoppingEntry[]>();
   for (const entry of entries) {
@@ -302,15 +300,7 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
   const nestedUnder = (gearEntries: readonly ShoppingEntry[], prefix: string) => {
     const keys = new Set(gearEntries.map(entry => entry.key));
     return foldRows(entries.filter(entry => nestsUnderItem(entry) && keys.has(entry.parentKey ?? '')), prefix, context,
-      () => [], () => null);
-  };
-  const forWhat = (folded: readonly ShoppingEntry[]) => {
-    const forItems = new Set(folded.map(entry => entry.parentKey));
-    if (forItems.size > 1) {
-      return `for ${forItems.size} items`;
-    }
-    const parent = parents.get(folded[0].parentKey ?? '');
-    return parent ? `for ${parent.label} (${slotLabel(parent.slot)})` : null;
+      () => []);
   };
 
   return Array.from(bySource.entries(), ([quest, members]): SourceGroup => {
@@ -330,7 +320,6 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
         accent: accentOf(pack, context),
         rows: foldRows(members, id, context,
           folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
-          folded => folded[0].kind === 'gear' ? null : forWhat(folded),
           folded => otherQuests(folded[0], quest)),
         ...groupTotals([...members, ...nested], context),
       },

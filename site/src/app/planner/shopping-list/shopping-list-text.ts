@@ -46,9 +46,6 @@ function pushRow(lines: string[], row: ShoppingRow, indent: string): void {
   if (row.entry.kind === 'augment') {
     notes.push('augment');
   }
-  if (row.context) {
-    notes.push(row.context);
-  }
   if (row.alsoFrom.length) {
     notes.push(`also from ${alsoFromText(row.alsoFrom)}`);
   }

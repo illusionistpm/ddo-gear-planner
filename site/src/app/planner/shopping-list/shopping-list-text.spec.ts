@@ -47,7 +47,7 @@ describe('formatShoppingListText', () => {
       '- Ring (ML 30)',
       '',
       'Unknown source',
-      '- Ruby of Frost (augment, for Sword (Weapon))',
+      '- Ruby of Frost (augment)',
     ].join('\n'));
   });
 
@@ -72,9 +72,9 @@ describe('formatShoppingListText', () => {
     const listed = (list: ShoppingEntry[]) => formatShoppingListText(
       buildShoppingListView(list, {}, null, { groupMode: 'source', filter: 'needed' }), 'Tank').split('\n');
 
-    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from Vendor)');
-    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from The Raid)');
-    expect(listed([sword, everywhere])).toContain('- Ruby of Frost (augment, for Sword (Weapon), also from 3 other quests)');
+    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from Vendor)');
+    expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from The Raid)');
+    expect(listed([sword, everywhere])).toContain('- Ruby of Frost (augment, also from 3 other quests)');
   });
 
   it('says when there is nothing left to get', () => {

@@ -134,9 +134,6 @@
           @if (kindLabel(row); as kind) {
             <span>{{kind}}</span>
           }
-          @if (row.context) {
-            <span>{{row.context}}</span>
-          }
           @if (rowSource(row); as source) {
             <span class="shopping-row-source">{{source.first}}</span>
             @if (source.others.length) {

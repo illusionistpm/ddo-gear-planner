@@ -151,7 +151,8 @@ describe('ShoppingListComponent', () => {
     // The pack is the heading, so the quest card doesn't repeat it.
     expect(el().querySelector('.shopping-group-title')?.textContent).not.toContain('Raid Pack');
     expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();
-    expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).toContain('for Sword (Weapon)');
+    // A piece to collect; which item it goes in doesn't matter here.
+    expect(rowByName('Ruby').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('Augment');
   });
 
   it('names an item\'s first source and offers the rest, or in quest view where else it comes from', () => {

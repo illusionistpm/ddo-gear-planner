@@ -75,8 +75,6 @@ export interface ShoppingRow {
   state: ShoppingRowState;
   /** Where the trove has it, or null when it doesn't. */
   ownedLocations: readonly UserItemLocation[] | null;
-  /** In source view, what a crafting row is for: the item it goes in. */
-  context: string | null;
   /** In source view, the row's other sources, besides the one it's listed under. */
   alsoFrom: string[];
   children: ShoppingRow[];

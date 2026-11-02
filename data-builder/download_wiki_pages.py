@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
 from parse_quests import get_expansion_pack_pages_from_category
-from crafting_device_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_device_packs
+from source_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_source_packs
 from normalize_wiki_html import normalize_wiki_html
 from get_snapshot_path import get_snapshot_path
 
@@ -296,13 +296,13 @@ def download_item_augments_page(session=None):
 
 
 def download_new_crafting_device_pages(category_path, session=None):
-    # Only devices missing from crafting_device_packs.json need their page.
+    # Only devices missing from source_packs.json need their page.
     if not os.path.exists(category_path):
         return
 
     category_page = open(category_path, 'r', encoding='utf-8').read()
     devices = get_crafting_devices_from_category(BeautifulSoup(category_page, 'html.parser'))
-    missing = get_missing_devices(devices, load_device_packs())
+    missing = get_missing_devices(devices, load_source_packs())
     if not missing:
         return
 
@@ -321,6 +321,7 @@ def download_quest_pages(session=None):
     download_page('Adventure_Pack', pageDir, session=session)
     download_page('Quests_by_level_and_XP', pageDir, session=session)
     download_page('Wilderness_adventure_area', pageDir, session=session)
+    download_page('Category:Free_to_Play_quests', pageDir, session=session)
     download_page('Category:Crafting_devices', pageDir, session=session)
     download_new_crafting_device_pages(os.path.join(pageDir, 'Crafting_devices.html'), session=session)
     download_page('Quests_by_Adventure_Pack', pageDir, session=session)

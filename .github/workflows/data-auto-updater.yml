@@ -54,7 +54,7 @@ jobs:
         id: data-changes
         shell: bash
         run: |
-          changes=$(git status --porcelain data data-builder/crafting_device_packs.json \
+          changes=$(git status --porcelain data data-builder/source_packs.json \
             | grep -v 'data/build-info.json' || true)
 
           if [ -n "$changes" ]; then
@@ -122,6 +122,6 @@ jobs:
           # It is committed only alongside a data change: a refresh that
           # changes no data leaves the committed snapshot, which still
           # reproduces the committed data. A build also scrapes newly listed
-          # crafting devices into crafting_device_packs.json.
-          file_pattern: data/*.json wiki-snapshot data-builder/crafting_device_packs.json
+          # crafting devices into source_packs.json.
+          file_pattern: data/*.json wiki-snapshot data-builder/source_packs.json
 

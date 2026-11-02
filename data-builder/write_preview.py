@@ -10,14 +10,14 @@ import os
 import shutil
 import subprocess
 
-from crafting_device_packs import DEVICE_PACKS_PATH
+from source_packs import SOURCE_PACKS_PATH
 from get_output_path import get_output_path
 
 
 def get_build_outputs():
     """Every file a build writes, as absolute paths."""
     data_files = sorted(glob.glob(os.path.join(get_output_path(), '*.json')))
-    return [os.path.abspath(path) for path in data_files + [DEVICE_PACKS_PATH]]
+    return [os.path.abspath(path) for path in data_files + [SOURCE_PACKS_PATH]]
 
 
 def _git(repo_root, *args):
@@ -26,7 +26,7 @@ def _git(repo_root, *args):
 
 def write_preview(preview_dir, stats_description, title='Data preview'):
     outputs = get_build_outputs()
-    repo_root = _git(os.path.dirname(DEVICE_PACKS_PATH), 'rev-parse', '--show-toplevel').strip()
+    repo_root = _git(os.path.dirname(SOURCE_PACKS_PATH), 'rev-parse', '--show-toplevel').strip()
     relative = [os.path.relpath(path, repo_root) for path in outputs]
 
     os.makedirs(preview_dir, exist_ok=True)

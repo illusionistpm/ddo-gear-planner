@@ -144,7 +144,23 @@ def test_item_metadata_marks_rare_drop_from_rare_encounter_text_as_rare(tmp_path
     assert items[0]['rare'] is True
 
 
-def test_item_metadata_infers_lamordia_pack_from_row_source_text(tmp_path, monkeypatch):
+def test_item_metadata_names_the_row_hint_as_the_source_of_an_unlinked_row(tmp_path, monkeypatch):
+    # The Cataclysmic shields: an empty location cell, and only an augment
+    # slot's name to say where they're from.
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Lamordian_Armor" title="Item:Lamordian Armor">Lamordian Armor</a></td>
+        <td>Lamordia: Melancholic Slot (Armor)</td><td>8</td><td>Bound to Account on Acquire</td>
+        <td></td>
+        <td>optional chest</td>
+      </tr>
+    ''', set(), {}, monkeypatch)
+
+    assert items[0]['quests'] == ['Lamordia']
+    assert items[0]['pack'] == 'The Chill of Ravenloft'
+
+
+def test_item_metadata_prefers_a_linked_source_to_the_row_hint(tmp_path, monkeypatch):
     items = metadata_items(tmp_path, '''
       <tr>
         <td><a href="/page/Item:Lamordian_Armor" title="Item:Lamordian Armor">Lamordian Armor</a></td>
@@ -152,9 +168,44 @@ def test_item_metadata_infers_lamordia_pack_from_row_source_text(tmp_path, monke
         <td><a href="/page/Ends_and_Means" title="Ends and Means">Ends and Means</a></td>
         <td>optional chest</td>
       </tr>
-    ''', set(), {}, monkeypatch)
+    ''', set(), {'Ends and Means': 'The Chill of Ravenloft'}, monkeypatch)
 
+    assert items[0]['quests'] == ['Ends and Means']
     assert items[0]['pack'] == 'The Chill of Ravenloft'
+
+
+def test_item_metadata_keeps_every_source_and_the_first_ones_pack(tmp_path, monkeypatch):
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Two_Drop" title="Item:Two Drop">Two Drop</a></td>
+        <td></td><td>8</td><td>Bound to Account on Acquire</td>
+        <td><ul>
+          <li><a href="/page/Quest_A" title="Quest A">Quest A</a>, end chest</li>
+          <li><a href="/page/Quest_B" title="Quest B">Quest B</a>, end chest</li>
+        </ul></td>
+        <td></td>
+      </tr>
+    ''', set(), {'Quest A': 'Pack A', 'Quest B': 'Pack B'}, monkeypatch)
+
+    assert items[0]['quests'] == ['Quest A', 'Quest B']
+    assert items[0]['pack'] == 'Pack A'
+
+
+def test_item_metadata_marks_rare_only_when_every_source_is_a_rare_location(tmp_path, monkeypatch):
+    items = metadata_items(tmp_path, '''
+      <tr>
+        <td><a href="/page/Item:Mixed" title="Item:Mixed">Mixed</a></td>
+        <td></td><td>8</td><td>Bound to Account on Acquire</td>
+        <td><ul>
+          <li><a href="/page/Catalyst_Crafting" title="Catalyst Crafting">Catalyst Crafting</a></li>
+          <li><a href="/page/Quest_A" title="Quest A">Quest A</a>, end chest</li>
+        </ul></td>
+        <td></td>
+      </tr>
+    ''', set(), {'Quest A': 'Pack A'}, monkeypatch)
+
+    assert items[0]['quests'] == ['Catalyst Crafting', 'Quest A']
+    assert 'rare' not in items[0]
 
 
 def test_item_with_non_numeric_ml_is_skipped_not_fatal(tmp_path, monkeypatch):

@@ -2,6 +2,7 @@ import json
 import os
 import re
 
+from item_sources import PSEUDO_PACKS
 from read_json import read_json
 from write_json import write_json
 
@@ -18,7 +19,8 @@ DICTIONARY_KEYS = ('itemTypes', 'packs', 'craftingSystems')
 # many new pack names that aren't on the wiki's own pack list, in a single
 # build, almost always means a reformat produced bogus names. Names that are
 # on that list (quests.json's 'officialPacks') don't count, so a backfill of
-# real packs can land at once. If this fires for real packs, check why they
+# real packs can land at once, and neither do the filter-only groups in
+# item_sources.PSEUDO_PACKS. If this fires for real packs, check why they
 # aren't on the official list; if it fires because of a rename, add an alias
 # in url_codec_aliases.json instead.
 MAX_NEW_PACKS_PER_BUILD = 1
@@ -84,22 +86,16 @@ def _discover_item_types():
 
 
 def _discover_packs():
-    packs = set()
-    saw_item_without_pack = False
+    # quests.json's pack map holds the pack of every source the data emits.
+    # A source it leaves out is free, as is an item with no source.
+    source_packs = _read_json_or_empty('quests').get('packs') or {}
+    packs = {pack for pack in source_packs.values() if pack}
 
     for item in _read_json_or_empty('items') or []:
-        pack = item.get('pack')
-        if pack:
-            packs.add(pack)
-        else:
-            saw_item_without_pack = True
-
-    for pack in (_read_json_or_empty('quests').get('packs') or {}).values():
-        if pack:
-            packs.add(pack)
-
-    if saw_item_without_pack:
-        packs.add(NO_PACK_FILTER)
+        sources = item.get('quests') or []
+        if not sources or any(not source_packs.get(source) for source in sources):
+            packs.add(NO_PACK_FILTER)
+            break
 
     return packs
 
@@ -148,7 +144,7 @@ def _check_new_packs(existing_packs, discovered_packs, official_packs, aliases):
             "resolve to the new one."
         )
 
-    official_set = set(official_packs)
+    official_set = set(official_packs) | set(PSEUDO_PACKS)
     unofficial = [pack for pack in new_packs if pack not in official_set and pack != NO_PACK_FILTER]
     if len(unofficial) > MAX_NEW_PACKS_PER_BUILD:
         raise TooManyNewPacksError(

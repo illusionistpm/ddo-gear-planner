@@ -7,6 +7,7 @@ from parse_legendary_green_steel import postprocess_legendary_green_steel_augmen
 from read_json import read_json
 from write_json import write_json
 from get_snapshot_path import get_snapshot_path
+from item_sources import SourceResolver, extract_sources, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
 def convert_augment_type(augment_type):
     augmentTypeTransformMap = {
@@ -60,8 +61,9 @@ def expand_compound_affixes_from_augment_name(crafting_entry):
     }
 
 
-def get_item_augments_from_page(soup):
+def get_item_augments_from_page(soup, sourceResolver=None, multiSourceEntries=None):
     itemAugmentMap = {}
+    sourceResolver = sourceResolver or SourceResolver({})
 
     dataTable = soup.find(id='bodyContent').find(id='mw-content-text').contents[0].find('table', class_="wikitable")
 
@@ -128,11 +130,10 @@ def get_item_augments_from_page(soup):
         craftingEntry['affixes'] = affixMap
         expand_compound_affixes_from_augment_name(craftingEntry)
 
-        itemQuestsTooltipSpan = cells[dataTableLocationCellIndex].find('a')
-        itemQuestsTooltip     = itemQuestsTooltipSpan.get('title') if itemQuestsTooltipSpan else None
-        if (itemQuestsTooltip):
-            quests = str(itemQuestsTooltip)
-            craftingEntry['quests'] = [quests]
+        quests = extract_sources(cells[dataTableLocationCellIndex], row.get_text(' ', strip=True), sourceResolver.knows, multiSourceEntries)
+        if quests:
+            craftingEntry['quests'] = quests
+            sourceResolver.resolve_item(quests)
 
         itemAugmentType = convert_augment_type(cells[dataTableAugmentTypeCellIndex].get_text(strip=True))
 
@@ -144,7 +145,7 @@ def get_item_augments_from_page(soup):
         # *** it may be helpful to leave these data points in
         if (craftingEntry['name'].startswith('Set Bonus: ')):
             del craftingEntry['ml']
-            del craftingEntry['quests']
+            craftingEntry.pop('quests', None)
             craftingEntry['name'] = craftingEntry['name'].replace('Set Bonus: ', '')
 
         itemAugmentMap[itemAugmentType]['*'][craftingEntry['name']] = craftingEntry
@@ -160,7 +161,7 @@ def get_item_augments_from_page(soup):
                 'affixes' : affixMapArtifactVariant,
                 'ml'      : craftingEntry['ml'],
                 'name'    : craftingEntry['name'],
-                'quests'  : craftingEntry['quests'],
+                **({'quests': list(craftingEntry['quests'])} if 'quests' in craftingEntry else {}),
             }
 
         if (affixMapQuarterstaffVariant):
@@ -174,7 +175,7 @@ def get_item_augments_from_page(soup):
                 'affixes' : affixMapQuarterstaffVariant,
                 'ml'      : craftingEntry['ml'],
                 'name'    : craftingEntry['name'],
-                'quests'  : craftingEntry['quests'],
+                **({'quests': list(craftingEntry['quests'])} if 'quests' in craftingEntry else {}),
             }
 
 
@@ -217,7 +218,12 @@ def parse_item_augment_page():
 
     soup = BeautifulSoup(page, 'html.parser')
 
-    item_augments = get_item_augments_from_page(soup)
+    sourceResolver = load_source_resolver()
+    multiSourceEntries = []
+    item_augments = get_item_augments_from_page(soup, sourceResolver, multiSourceEntries)
+    report_multi_source_entries(multiSourceEntries)
+    sourceResolver.report_unresolved()
+    merge_resolved_source_packs(sourceResolver.resolved_source_packs)
 
     item_augments = replace_item_set_affixes(item_augments)
     postprocess_legendary_green_steel_augments(item_augments)

@@ -2,12 +2,12 @@ from bs4 import BeautifulSoup
 import os
 import re
 from write_json import write_json
-from crafting_device_packs import (
+from source_packs import (
     DEVICE_PAGES_DIR,
     get_crafting_devices_from_category,
-    load_device_packs,
+    load_source_packs,
     resolve_missing_device_packs,
-    save_device_packs,
+    save_source_packs,
 )
 from get_snapshot_path import get_snapshot_path
 
@@ -60,9 +60,62 @@ def add_crafting_raid_sources(raids):
 
 
 def drop_free_to_play(quest_packs):
-    for quest in [quest for quest, pack in quest_packs.items() if pack == FREE_TO_PLAY]:
+    """Removes the free-to-play quests from the pack map and returns them."""
+    free = [quest for quest, pack in quest_packs.items() if pack == FREE_TO_PLAY]
+    for quest in free:
         del quest_packs[quest]
-    return quest_packs
+    return free
+
+
+def _name_order(name):
+    # Casefolded, then exact, so names differing only in case ("Durk's Got A
+    # Secret", "Durk's Got a Secret") keep one order from build to build.
+    return (name.casefold(), name)
+
+
+def get_free_quests_from_category_page(soup):
+    """Category:Free_to_Play_quests: its quest table, and the category's own
+    page list, which also has the quests the table leaves out. Under 200
+    pages, so the list fits on one page."""
+    free = {}
+    for table in soup.find_all('table', class_='wikitable'):
+        table_body = table.find('tbody') or table
+        header_row = table_body.find('tr')
+        if header_row is None:
+            continue
+
+        headers = [_cell_text(cell) for cell in header_row.find_all(['th', 'td'])]
+        name_header = next((header for header in ('Quest Name', 'Name') if header in headers), None)
+        if name_header is None:
+            continue
+
+        name_idx = headers.index(name_header)
+        for row in table_body.find_all('tr', recursive=False)[1:]:
+            cells = row.find_all(['td', 'th'], recursive=False)
+            if len(cells) > name_idx:
+                _add_linked_name(free, cells[name_idx], FREE_TO_PLAY)
+
+    pages = soup.find(id='mw-pages')
+    if pages is not None:
+        for link in pages.find_all('a', href=True):
+            title = str(link.get('title') or '').replace('\xa0', ' ').strip()
+            if not str(link['href']).startswith('/page/'):
+                continue
+            if _is_real_quest_name(title) and not title.startswith('Category:'):
+                free[title] = FREE_TO_PLAY
+
+    return sorted(free, key=_name_order)
+
+
+def get_free_sources(free_quests, quest_packs):
+    """The free quests, less any a pack claims - the pack wins."""
+    free = set()
+    for quest in free_quests:
+        if quest in quest_packs:
+            print(f"Free-to-play quest '{quest}' is also in pack '{quest_packs[quest]}'; keeping the pack")
+            continue
+        free.add(quest)
+    return sorted(free, key=_name_order)
 
 
 # The wiki's reference table column has been observed under both names -
@@ -393,28 +446,27 @@ def _read_snapshot_page(path):
     return BeautifulSoup(open(path, "r", encoding='utf-8').read(), 'html.parser')
 
 
-def add_crafting_device_packs(quest_packs, official_packs):
-    """Items crafted at a device take the device's pack, via the same
-    quest -> pack map items already look their source up in."""
+def add_source_packs(quest_packs, official_packs):
+    """source_packs.json's entries with a pack, as the last layer: items from
+    a device, the store or an event look them up in the same map as quests.
+    Newly listed crafting devices are scraped into the file first."""
+    source_packs = load_source_packs()
     soup = _read_snapshot_page(get_snapshot_path('quests', 'Crafting_devices.html'))
-    if soup is None:
-        return quest_packs
-
-    device_packs = load_device_packs()
-    added = resolve_missing_device_packs(
-        get_crafting_devices_from_category(soup),
-        device_packs,
-        quest_packs,
-        official_packs,
-        lambda page: _read_snapshot_page(os.path.join(DEVICE_PAGES_DIR, f'{page}.html')),
-    )
-    if added:
-        save_device_packs(device_packs)
+    if soup is not None:
+        added = resolve_missing_device_packs(
+            get_crafting_devices_from_category(soup),
+            source_packs,
+            quest_packs,
+            official_packs,
+            lambda page: _read_snapshot_page(os.path.join(DEVICE_PAGES_DIR, f'{page}.html')),
+        )
+        if added:
+            save_source_packs(source_packs)
 
     return merge_pack_layer(
         quest_packs,
-        {device: pack for device, pack in device_packs.items() if pack},
-        'crafting_device_packs.json',
+        {source: pack for source, pack in source_packs.items() if pack},
+        'source_packs.json',
     )
 
 
@@ -472,11 +524,19 @@ def parse_quests():
         soup = BeautifulSoup(page, 'html.parser')
         merge_pack_layer(out['packs'], get_quest_pack_map_from_sectioned_page(soup, pack_name_map), 'Quests_by_Adventure_Pack')
 
-    drop_free_to_play(out['packs'])
+    free_quests = drop_free_to_play(out['packs'])
+
+    free_category_path = get_snapshot_path('quests', 'Free_to_Play_quests.html')
+    if os.path.exists(free_category_path):
+        page = open(free_category_path, "r", encoding='utf-8').read()
+        soup = BeautifulSoup(page, 'html.parser')
+        free_quests += get_free_quests_from_category_page(soup)
 
     out['officialPacks'] = get_official_packs(pack_name_map, expansion_pack_pages.values())
 
-    add_crafting_device_packs(out['packs'], set(out['officialPacks']))
+    add_source_packs(out['packs'], set(out['officialPacks']))
+
+    out['freeSources'] = get_free_sources(free_quests, out['packs'])
 
     write_json(out, 'quests')
 

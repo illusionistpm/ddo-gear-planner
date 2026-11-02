@@ -8,7 +8,7 @@ from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
 from build_url_codec_dictionary import build_url_codec_dictionary
-from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds
+from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds, get_unresolved_sources_in_data
 import argparse
 from get_output_path import get_output_path
 from get_snapshot_path import get_snapshot_path
@@ -49,7 +49,10 @@ def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
         tests_dir = os.path.join(DATA_BUILDER_DIR, 'tests')
         test_env = os.environ.copy()
         test_env.pop('DDO_AFFIX_PROVENANCE', None)
-        result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q'], env=test_env)
+        # The committed-data checks run in PR Checks. Here they'd judge the
+        # previous build's data, and an unresolved source - a new vendor or
+        # event the wiki added - would stop every later update.
+        result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q', '-m', 'not committed_data'], env=test_env)
         if result.returncode != 0:
             print('Unit tests failed. Aborting data build.')
             raise SystemExit(result.returncode)
@@ -100,6 +103,13 @@ def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
     diffStats = diff_data_stats(newStats, oldStats)
 
     diffStr = get_data_stats_description(newStats, diffStats)
+
+    # Not a failure: the site shows these as free until source_packs.json
+    # names their pack.
+    unresolved = get_unresolved_sources_in_data()
+    if unresolved:
+        diffStr += 'Unresolved sources (add them to data-builder/source_packs.json):\n'
+        diffStr += ''.join(f" - {source}\n" for source in unresolved)
 
     # Before the threshold check, so a build it aborts still leaves its
     # output to inspect.

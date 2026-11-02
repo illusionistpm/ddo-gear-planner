@@ -1,25 +1,30 @@
-"""Crafting devices (Category:Crafting_devices) are item sources, not quests, so
-no quest list gives them a pack. Their packs are cached in
-crafting_device_packs.json - checked in, hand-correctable - and only a device
-missing from it has its page downloaded and scraped. A null entry means the
-device has no pack, or that scraping couldn't tell; fix those by hand.
+"""source_packs.json: the pack of each item source that isn't a quest, so no
+quest list gives it one - crafting devices, the DDO Store, events, vendors,
+crafting systems and placeholders. Hand-maintained and checked in. A value is
+a real pack, one of the filter-only groups "DDO Store" and "Events"
+(item_sources.PSEUDO_PACKS), or null for free. Free quests never go here: they
+are scraped into quests.json's freeSources.
+
+Crafting devices (Category:Crafting_devices) are the one scraped part: a device
+missing from the file has its page downloaded and its pack read from it. A null
+device means it has no pack, or that scraping couldn't tell; fix those by hand.
 """
 import json
 import os
 import re
 from get_snapshot_path import get_snapshot_path
 
-DEVICE_PACKS_PATH = os.path.join(os.path.dirname(__file__), 'crafting_device_packs.json')
+SOURCE_PACKS_PATH = os.path.join(os.path.dirname(__file__), 'source_packs.json')
 DEVICE_PAGES_DIR = get_snapshot_path('crafting_devices')
 
 
-def load_device_packs():
-    with open(DEVICE_PACKS_PATH, 'r', encoding='utf-8') as file:
+def load_source_packs():
+    with open(SOURCE_PACKS_PATH, 'r', encoding='utf-8') as file:
         return json.load(file)
 
 
-def save_device_packs(device_packs):
-    with open(DEVICE_PACKS_PATH, 'w', encoding='utf-8', newline='\n') as file:
+def save_source_packs(device_packs):
+    with open(SOURCE_PACKS_PATH, 'w', encoding='utf-8', newline='\n') as file:
         json.dump(dict(sorted(device_packs.items(), key=lambda entry: entry[0].casefold())), file, indent=2, ensure_ascii=False)
         file.write('\n')
 
@@ -79,14 +84,14 @@ def resolve_missing_device_packs(devices, device_packs, quest_packs, official_pa
     for page, name in get_missing_devices(devices, device_packs).items():
         soup = read_page(page)
         if soup is None:
-            print(f"Crafting device '{name}' has no pack entry and no downloaded page; add it to crafting_device_packs.json")
+            print(f"Crafting device '{name}' has no pack entry and no downloaded page; add it to source_packs.json")
             continue
 
         pack = get_device_pack_from_page(soup, quest_packs, official_packs)
         device_packs[name] = pack
         added.append(name)
         if pack is None:
-            print(f"Crafting device '{name}' added with no pack - couldn't tell from its page. Set it in crafting_device_packs.json if it has one.")
+            print(f"Crafting device '{name}' added with no pack - couldn't tell from its page. Set it in source_packs.json if it has one.")
         else:
-            print(f"Crafting device '{name}' added with pack '{pack}' from its page - check it in crafting_device_packs.json.")
+            print(f"Crafting device '{name}' added with pack '{pack}' from its page - check it in source_packs.json.")
     return added

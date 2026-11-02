@@ -54,14 +54,27 @@ class Item(TypedDict):
     slot: str
     type: str
     url: str
+    # The first source's pack. Superseded by quests.json's pack map.
     pack: NotRequired[str]
     rare: NotRequired[bool]
+    # Every source, in wiki order; the first is the primary. quests.json's
+    # 'packs' maps each to its pack.
     quests: NotRequired[list[str]]
     set: NotRequired[str]
     sets: NotRequired[list]
     crafting: NotRequired[list]
     # Upgrade crafting system -> the augment colours it can become, e.g. {"Upgradeable - Primary Augment": ["Yellow", "Blue"]}.
     augmentUpgrades: NotRequired[dict[str, list[str]]]
+
+class Quests(TypedDict):
+    raids: list[str]
+    # Every item source -> its pack: a real adventure pack, or one of the
+    # filter-only groups in item_sources.PSEUDO_PACKS. A source missing from
+    # it is free.
+    packs: dict[str, str]
+    officialPacks: list[str]
+    # Free-to-play quests, scraped from the wiki.
+    freeSources: list[str]
 
 class SetAugment(TypedDict):
     name: str

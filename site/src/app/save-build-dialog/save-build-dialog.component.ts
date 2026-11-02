@@ -1,6 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 
 import sharedConstants from '../../../../shared/constants.json';
+import { CloseRequestService } from '../shared/close-request.service';
 
 // From shared/constants.json (see its README) - the same value worker/src/
 // routes/builds.ts's validateName() enforces, read directly rather than
@@ -25,7 +26,7 @@ export function validateBuildName(name: string): string | null {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class SaveBuildDialogComponent implements OnChanges, AfterViewInit {
+export class SaveBuildDialogComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() mode: 'create' | 'rename' | 'save-as' = 'create';
   @Input() initialName = '';
   @Input() saving = false;
@@ -39,6 +40,15 @@ export class SaveBuildDialogComponent implements OnChanges, AfterViewInit {
   name = '';
 
   readonly maxLength = MAX_BUILD_NAME_LENGTH;
+
+  // Back gesture / Escape cancels, like the backdrop - refused mid-save.
+  private readonly releaseCloseRequest = inject(CloseRequestService).listen(() => {
+    if (this.saving) {
+      return false;
+    }
+    this.cancelled.emit();
+    return true;
+  });
 
   ngOnChanges(changes: SimpleChanges): void {
     // Only reseed from initialName when it actually changes (opening the
@@ -91,6 +101,10 @@ export class SaveBuildDialogComponent implements OnChanges, AfterViewInit {
     // ngModel writes the name into the input on a later tick, so selecting
     // now would select an empty field - wait for the value to land.
     setTimeout(() => this.focusInput());
+  }
+
+  ngOnDestroy(): void {
+    this.releaseCloseRequest();
   }
 
   /** Focuses the name field with the whole name selected, so typing replaces it. */

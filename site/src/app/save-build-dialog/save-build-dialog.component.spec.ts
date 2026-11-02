@@ -139,4 +139,33 @@ describe('SaveBuildDialogComponent', () => {
 
     expect(spy).toHaveBeenCalled();
   });
+
+  it('cancels on Escape (the back gesture, where supported)', () => {
+    const spy = vi.fn().mockName('cancelled');
+    component.cancelled.subscribe(spy);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not cancel on Escape while saving', () => {
+    const spy = vi.fn().mockName('cancelled');
+    component.cancelled.subscribe(spy);
+    component.saving = true;
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('stops handling Escape once destroyed', () => {
+    const spy = vi.fn().mockName('cancelled');
+    component.cancelled.subscribe(spy);
+    fixture.destroy();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(spy).not.toHaveBeenCalled();
+  });
 });

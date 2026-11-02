@@ -84,8 +84,6 @@ export interface ShoppingRow {
   entryKeys: string[];
   /** Entries folded into this row. */
   quantity: number;
-  /** Entries for the same thing anywhere in the build. */
-  quantityInBuild: number;
   acquired: number;
   state: ShoppingRowState;
   /** Where the trove has it, or null when it doesn't. */

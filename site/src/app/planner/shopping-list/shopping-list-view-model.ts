@@ -117,17 +117,12 @@ interface RowContext {
   progress: ShoppingProgress;
   covered: ReadonlySet<string>;
   trove: ShoppingTroveLookup | null;
-  inBuild: ReadonlyMap<string, number>;
 }
 
 export function buildShoppingListView(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
     trove: ShoppingTroveLookup | null, options: ShoppingListViewOptions): ShoppingListView {
   const covered = troveCoveredKeys(entries, trove);
-  const inBuild = new Map<string, number>();
-  for (const entry of entries) {
-    inBuild.set(entry.identity, (inBuild.get(entry.identity) ?? 0) + 1);
-  }
-  const context: RowContext = { progress, covered, trove, inBuild };
+  const context: RowContext = { progress, covered, trove };
 
   const route: ShoppingRouteOptions = { hiddenPacks: options.hiddenPacks ?? new Set<string>(), picks: options.picks ?? {} };
   const allSections = sectionsByPack(groupBySource(entries, route, context), context);
@@ -218,7 +213,6 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
       entry: first,
       entryKeys: folded.map(entry => entry.key),
       quantity: folded.length,
-      quantityInBuild: context.inBuild.get(identity) ?? folded.length,
       acquired,
       state: rowState(acquired, folded.length),
       ownedLocations: locations?.length ? locations : null,

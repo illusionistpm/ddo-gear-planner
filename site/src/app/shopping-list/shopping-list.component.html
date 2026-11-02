@@ -144,8 +144,6 @@
         }
         @if (row.quantity > 1) {
           <span class="shopping-row-quantity">{{row.acquired}}/{{row.quantity}}</span>
-        } @else if (row.quantityInBuild > 1) {
-          <span class="shopping-row-quantity" title="The build needs this more than once">&times;{{row.quantityInBuild}}</span>
         }
       </div>
       <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->

@@ -109,7 +109,7 @@ describe('shopping list view model', () => {
       const view = buildShoppingListView(entries, {}, trove({ Ring: 1 }), { filter: 'all' });
       const rowOf = (label: string) => groupsOf(view).flatMap(group => group.rows).find(row => row.entry.label === label)!;
 
-      expect([rowOf('Ring').quantity, rowOf('Ring').quantityInBuild]).toEqual([2, 2]);
+      expect(rowOf('Ring').quantity).toBe(2);
       expect(rowOf('Ring').ownedLocations).toEqual([expect.objectContaining({ character: 'Khalarim' })]);
       expect(rowOf('Sword').ownedLocations).toBeNull();
     });

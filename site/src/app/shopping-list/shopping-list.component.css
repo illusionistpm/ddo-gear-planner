@@ -142,7 +142,7 @@
 /* By quest, a pack's heading over its quests' cards. */
 .shopping-section-title {
     align-items: baseline;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--shopping-accent, var(--border-color));
     display: flex;
     font-size: 1rem;
     font-weight: 700;
@@ -162,11 +162,22 @@
 .shopping-group {
     background: var(--panel-bg);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--shopping-accent, var(--primary-color));
     border-radius: var(--border-radius);
     margin: var(--space-12) 0;
     padding: var(--space-8);
 }
+
+/* A pack's colour, on its heading and the stripe of each of its cards. */
+.shopping-accent-none { --shopping-accent: var(--pack-accent-none); }
+.shopping-accent-0 { --shopping-accent: var(--pack-accent-0); }
+.shopping-accent-1 { --shopping-accent: var(--pack-accent-1); }
+.shopping-accent-2 { --shopping-accent: var(--pack-accent-2); }
+.shopping-accent-3 { --shopping-accent: var(--pack-accent-3); }
+.shopping-accent-4 { --shopping-accent: var(--pack-accent-4); }
+.shopping-accent-5 { --shopping-accent: var(--pack-accent-5); }
+.shopping-accent-6 { --shopping-accent: var(--pack-accent-6); }
+.shopping-accent-7 { --shopping-accent: var(--pack-accent-7); }
 
 .shopping-group-title {
     align-items: center;

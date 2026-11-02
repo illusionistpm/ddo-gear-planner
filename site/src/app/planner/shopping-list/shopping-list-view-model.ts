@@ -18,6 +18,8 @@ import type {
 export const UNKNOWN_SOURCE_LABEL = 'Unknown source';
 /** The heading for quests that aren't in a pack, or that quests.json doesn't place. */
 export const OTHER_SOURCES_LABEL = 'Other sources';
+/** How many pack colours the list has (`--pack-accent-*` in styles.css); past that they repeat. */
+export const PACK_ACCENT_COUNT = 8;
 
 export interface ShoppingListViewOptions {
   groupMode: ShoppingGroupMode;
@@ -113,6 +115,22 @@ interface RowContext {
   covered: ReadonlySet<string>;
   trove: ShoppingTroveLookup | null;
   inBuild: ReadonlyMap<string, number>;
+  accents: ReadonlyMap<string, number>;
+}
+
+/**
+ * A colour for each pack in the build, in name order, so packs listed next to
+ * each other differ and a pack keeps its colour in both views.
+ */
+function packAccents(entries: readonly ShoppingEntry[]): Map<string, number> {
+  const packs = new Set(entries.flatMap(entry => entry.sources.map(source => source.pack ?? '')));
+  packs.delete('');
+  return new Map(Array.from(packs).sort((a, b) => a.localeCompare(b))
+    .map((pack, index) => [pack, index % PACK_ACCENT_COUNT]));
+}
+
+function accentOf(pack: string | null | undefined, context: RowContext): number | null {
+  return pack ? context.accents.get(pack) ?? null : null;
 }
 
 export function buildShoppingListView(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
@@ -122,7 +140,7 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   for (const entry of entries) {
     inBuild.set(entry.identity, (inBuild.get(entry.identity) ?? 0) + 1);
   }
-  const context: RowContext = { progress, covered, trove, inBuild };
+  const context: RowContext = { progress, covered, trove, inBuild, accents: packAccents(entries) };
 
   const allSections = options.groupMode === 'slot'
     ? [section('slots', null, groupBySlot(entries, context), context)]
@@ -140,7 +158,8 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
 }
 
 /** Totals count each entry once, though by source it may be listed under several quests. */
-function section(id: string, label: string | null, groups: ShoppingGroup[], context: RowContext): ShoppingSection {
+function section(id: string, label: string | null, groups: ShoppingGroup[], context: RowContext,
+    accent: number | null = null): ShoppingSection {
   const keys = new Set<string>();
   const collect = (rows: readonly ShoppingRow[]) => rows.forEach(row => {
     row.entryKeys.forEach(key => keys.add(key));
@@ -148,7 +167,7 @@ function section(id: string, label: string | null, groups: ShoppingGroup[], cont
   });
   groups.forEach(group => collect(group.header ? [group.header, ...group.rows] : group.rows));
   const acquired = Array.from(keys).filter(key => isEntryAcquired(key, context.progress, context.covered)).length;
-  return { id, label, groups, acquired, total: keys.size };
+  return { id, label, accent, groups, acquired, total: keys.size };
 }
 
 /** A heading per pack, by name, then the quests not in one; each pack's quests by name, unknown last. */
@@ -162,7 +181,8 @@ function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): Sh
   return packs.map(pack => {
     const members = byPack.get(pack)!.sort((a, b) =>
       a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));
-    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => member.group), context);
+    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => member.group), context,
+      accentOf(pack, context));
   });
 }
 
@@ -240,6 +260,7 @@ function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): Sh
       header: foldRows([gear], id, context, () => [], () => null)[0],
       slot: gear.slot,
       raid: gear.raid,
+      accent: accentOf(gear.sources.find(source => source.pack)?.pack, context),
       rows: foldRows(crafted, `${id}|${gear.key}`, context, () => [], () => null),
       ...groupTotals([gear, ...crafted], context),
     });
@@ -296,8 +317,9 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
     const id = `source:${quest}`;
     const nested = entries.filter(entry => nestsUnderItem(entry) && members.some(member => member.key === entry.parentKey));
     const here = members.flatMap(member => member.sources.filter(source => source.quest === quest));
+    const pack = here.find(source => source.pack)?.pack ?? null;
     return {
-      pack: here.find(source => source.pack)?.pack ?? null,
+      pack,
       unknown: !quest,
       group: {
         id,
@@ -305,6 +327,7 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
         header: null,
         slot: null,
         raid: here.some(source => source.raid),
+        accent: accentOf(pack, context),
         rows: foldRows(members, id, context,
           folded => folded[0].kind === 'gear' ? nestedUnder(folded, `${id}|${folded[0].identity}`) : [],
           folded => folded[0].kind === 'gear' ? null : forWhat(folded),

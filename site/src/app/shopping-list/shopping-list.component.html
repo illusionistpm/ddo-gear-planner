@@ -50,7 +50,7 @@
       <p class="shopping-list-empty">Everything is ticked off.</p>
     }
     @for (section of view.sections; track section.id) {
-      <section class="shopping-section" [attr.aria-label]="section.label">
+      <section class="shopping-section" [ngClass]="accentClass(section.accent)" [attr.aria-label]="section.label">
         @if (section.label) {
           <h3 class="shopping-section-title">
             <span class="shopping-section-name">{{section.label}}</span>
@@ -60,7 +60,7 @@
         @for (group of section.groups; track group.id) {
           @if (group.header; as header) {
             <!-- By slot: the card is the item, with what goes into it beneath. -->
-            <section class="shopping-group shopping-item-card" [attr.aria-label]="group.label">
+            <section class="shopping-group shopping-item-card" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
               <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: header, group: group }"></ng-container>
               @if (group.rows.length) {
                 <ul class="shopping-rows shopping-item-crafting">
@@ -71,7 +71,7 @@
               }
             </section>
           } @else {
-            <section class="shopping-group" [attr.aria-label]="group.label">
+            <section class="shopping-group" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
               <div class="shopping-group-title" role="heading" [attr.aria-level]="section.label ? 4 : 3">
                 <span class="shopping-group-name">{{group.label}}</span>
                 @if (group.raid) {

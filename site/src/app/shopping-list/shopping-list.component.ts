@@ -119,6 +119,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     return ['Also from:', ...quests].join('\n');
   }
 
+  /** The class giving a card or pack heading its pack's colour. */
+  accentClass(accent: number | null): string {
+    return accent === null ? 'shopping-accent-none' : `shopping-accent-${accent}`;
+  }
+
   /** A row for gear says which slot it's for, unless it folds the item for several. */
   rowSlot(row: ShoppingRow): string | null {
     return row.entry.kind === 'gear' && row.quantity === 1 ? slotLabel(row.entry.slot) : null;

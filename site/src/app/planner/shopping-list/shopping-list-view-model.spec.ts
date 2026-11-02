@@ -1,7 +1,7 @@
 import type { UserItemLocation } from '../user-gear.service';
 import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
-  applyProgressPatch, buildShoppingListView, OTHER_SOURCES_LABEL, prunePatch, stillNeededKeys, togglePatch,
+  applyProgressPatch, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, stillNeededKeys, togglePatch,
   troveCoveredKeys, UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
@@ -154,6 +154,23 @@ describe('shopping list view model', () => {
       expect(view.sections.map(section => [section.label, section.total]))
         .toEqual([['Raid Pack', 3], ['Sharn', 1], [OTHER_SOURCES_LABEL, 1]]);
     });
+  });
+
+  it('gives each pack a colour, by name, the same in both views, and none to what has no pack', () => {
+    const bySource = buildShoppingListView(entries, {}, null, { groupMode: 'source', filter: 'all' });
+    const bySlot = buildShoppingListView(entries, {}, null, { groupMode: 'slot', filter: 'all' });
+
+    expect(bySource.sections.map(section => [section.label, section.accent, section.groups.map(group => group.accent)]))
+      .toEqual([['Raid Pack', 0, [0]], ['Sharn', 1, [1]], [OTHER_SOURCES_LABEL, null, [null, null]]]);
+    expect(groupsOf(bySlot).map(group => [group.label, group.accent])).toEqual([['Weapon', 0], ['Ring 1', 1], ['Ring 2', 1]]);
+  });
+
+  it('reuses pack colours once there are more packs than colours', () => {
+    const many = Array.from({ length: PACK_ACCENT_COUNT + 1 }, (_, index) =>
+      entry({ key: `g|Ring1|${index}`, sources: [from(`Quest ${index}`, `Pack ${String.fromCharCode(65 + index)}`)] }));
+    const view = buildShoppingListView(many, {}, null, { groupMode: 'source', filter: 'all' });
+
+    expect(view.sections.map(section => section.accent)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 0]);
   });
 
   it('hides what has been got when showing only what is still needed, keeping an item with needed crafting', () => {

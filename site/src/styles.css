@@ -44,6 +44,17 @@
   --rare-loot-text-color: #5b21b6;
   --owned-badge-text-color: #166534;
   --owned-badge-bg: #dcfce7;
+  /* The shopping list's pack colours: a stripe per card, alike for one pack.
+     Ordered so neighbours differ. */
+  --pack-accent-0: #7c3aed;
+  --pack-accent-1: #d97706;
+  --pack-accent-2: #0891b2;
+  --pack-accent-3: #db2777;
+  --pack-accent-4: #0d9488;
+  --pack-accent-5: #ea580c;
+  --pack-accent-6: #2563eb;
+  --pack-accent-7: #65a30d;
+  --pack-accent-none: #94a3b8;
   --raid-badge-bg: #fef3c7;
   --raid-badge-border-color: #b45309;
   --rare-badge-border-color: #7c3aed;
@@ -188,6 +199,15 @@
   --rare-loot-text-color: #c4b5fd;
   --owned-badge-text-color: #86efac;
   --owned-badge-bg: rgba(34, 197, 94, 0.16);
+  --pack-accent-0: #a78bfa;
+  --pack-accent-1: #fbbf24;
+  --pack-accent-2: #22d3ee;
+  --pack-accent-3: #f472b6;
+  --pack-accent-4: #2dd4bf;
+  --pack-accent-5: #fb923c;
+  --pack-accent-6: #60a5fa;
+  --pack-accent-7: #a3e635;
+  --pack-accent-none: #64748b;
   --raid-badge-bg: rgba(245, 158, 11, 0.16);
   --rare-badge-bg: rgba(124, 58, 237, 0.16);
   --artifact-badge-text-color: #fbbf24;

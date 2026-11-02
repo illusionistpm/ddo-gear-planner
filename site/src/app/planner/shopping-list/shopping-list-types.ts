@@ -94,6 +94,11 @@ export interface ShoppingGroup {
   /** The slot, when grouping by slot. */
   slot: string | null;
   raid: boolean;
+  /**
+   * Which pack colour the card is marked with, by its pack: the quest's by
+   * source, the item's by slot. Null when it has none.
+   */
+  accent: number | null;
   rows: ShoppingRow[];
   acquired: number;
   total: number;
@@ -106,6 +111,8 @@ export interface ShoppingGroup {
 export interface ShoppingSection {
   id: string;
   label: string | null;
+  /** The pack's colour, as its cards have; null for no pack. */
+  accent: number | null;
   groups: ShoppingGroup[];
   /** Entries in the section, each counted once however many of its quests it's listed under. */
   acquired: number;

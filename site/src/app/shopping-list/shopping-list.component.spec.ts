@@ -143,6 +143,10 @@ describe('ShoppingListComponent', () => {
       ['Raid Pack', [['The Raid', '0/2']]],
       ['Other sources', [['The Snitch', '1/2'], ['Unknown source', '0/1']]],
     ]);
+    // A pack's heading and its cards share its colour; quests with no pack have none.
+    expect(Array.from(el().querySelectorAll('.shopping-section, .shopping-group'), node =>
+      Array.from(node.classList).find(name => name.startsWith('shopping-accent-'))))
+      .toEqual(['shopping-accent-0', 'shopping-accent-0', 'shopping-accent-none', 'shopping-accent-none', 'shopping-accent-none']);
     // The pack is the heading, so the quest card doesn't repeat it.
     expect(el().querySelector('.shopping-group-title')?.textContent).not.toContain('Raid Pack');
     expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();

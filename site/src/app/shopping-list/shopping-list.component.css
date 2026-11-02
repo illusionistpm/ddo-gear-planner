@@ -184,13 +184,9 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 600;
     gap: var(--space-8);
     margin: 0 0 var(--space-4);
-}
-
-.shopping-group-name {
-    text-transform: uppercase;
 }
 
 /* A quest's wiki page: the text keeps its colour, so the item links stay the ones that stand out. */

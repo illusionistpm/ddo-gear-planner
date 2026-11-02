@@ -107,7 +107,7 @@ function toBuildSummaryResponse(row: BuildSummaryRow) {
 
 // The read-only lookup list/update/delete use - see db.ts's resolveUserId
 // for why it falls back to the verified email.
-async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string | null> {
+export async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string | null> {
   return resolveUserId(env.DB, {
     auth0Sub: user.sub,
     email: user.email ?? null,

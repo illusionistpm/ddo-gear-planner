@@ -37,7 +37,9 @@ describe('router', () => {
       ['GET', '/api/builds/mine'],
       ['PUT', '/api/builds/some-id'],
       ['DELETE', '/api/builds/some-id'],
-      ['POST', '/api/shortlinks']
+      ['POST', '/api/shortlinks'],
+      ['GET', '/api/builds/some-id/progress'],
+      ['PUT', '/api/builds/some-id/progress']
     ];
 
     for (const [method, path] of cases) {

@@ -37,8 +37,8 @@ export interface BuildProgressRow {
   owner_user_id: string;
   entries: string;
   picks: string;
-  needed: string;
-  route: string;
+  needed: string | null;
+  route: string | null;
   updated_at: string;
   write_day: string;
   writes_today: number;
@@ -310,6 +310,52 @@ export async function getPublicBuildProgressByShortId(db: D1Database, shortId: s
      LEFT JOIN build_progress p ON p.build_id = b.id
      WHERE b.short_id = ? AND b.visibility = 'public'`
   ).bind(shortId).first();
+}
+
+export async function getBuildProgress(db: D1Database, buildId: string): Promise<BuildProgressRow | null> {
+  return await db.prepare('SELECT * FROM build_progress WHERE build_id = ?').bind(buildId).first<BuildProgressRow>();
+}
+
+// Summed over all of an owner's builds - the daily write cap is per user.
+export async function countProgressWritesOnDay(db: D1Database, ownerUserId: string, day: string): Promise<number> {
+  const row = await db.prepare(
+    'SELECT COALESCE(SUM(writes_today), 0) as count FROM build_progress WHERE owner_user_id = ? AND write_day = ?'
+  ).bind(ownerUserId, day).first<{ count: number }>();
+  return row?.count ?? 0;
+}
+
+/**
+ * Inserts or replaces a build's progress, counting the write against
+ * `row.write_day`, but only if the stored row is still the one the caller
+ * read (`baseUpdatedAt`) and was last written no later than `notAfter`.
+ *
+ * That one condition is both the write throttle and the lock: routes/
+ * progress.ts merges a patch into the row it read, so a write that raced
+ * another one would otherwise drop that one's changes. Here it simply
+ * changes nothing. Returns whether the row was written.
+ */
+export async function upsertBuildProgressIfUnchanged(
+  db: D1Database,
+  row: Omit<BuildProgressRow, 'writes_today'>,
+  condition: { baseUpdatedAt: string | null; notAfter: string }
+): Promise<boolean> {
+  const result = await db.prepare(
+    `INSERT INTO build_progress (build_id, owner_user_id, entries, picks, needed, route, updated_at, write_day, writes_today)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+     ON CONFLICT(build_id) DO UPDATE SET
+       entries = excluded.entries,
+       picks = excluded.picks,
+       needed = excluded.needed,
+       route = excluded.route,
+       updated_at = excluded.updated_at,
+       writes_today = CASE WHEN build_progress.write_day = excluded.write_day THEN build_progress.writes_today + 1 ELSE 1 END,
+       write_day = excluded.write_day
+     WHERE build_progress.updated_at = ? AND build_progress.updated_at <= ?`
+  ).bind(
+    row.build_id, row.owner_user_id, row.entries, row.picks, row.needed, row.route, row.updated_at, row.write_day,
+    condition.baseUpdatedAt, condition.notAfter
+  ).run();
+  return (result.meta.changes ?? 0) > 0;
 }
 
 // Progress first, in one batch: build_progress references builds, and its

@@ -8,6 +8,9 @@
 -- may see: the still-needed keys, and for each still-needed thing the
 -- quests the owner's list sends them to. The client works out both; the
 -- Worker stores them as given (routes/progress.ts). All four are JSON text.
+-- needed and route are NULL until the owner first publishes them - the
+-- client sends them only while the build has no unsaved changes - so a
+-- friend can tell "nothing shared yet" from "nothing left to get".
 --
 -- write_day/writes_today count the row's writes on one UTC day, for the
 -- per-user daily cap (summed over owner_user_id). owner_user_id copies
@@ -21,8 +24,8 @@ CREATE TABLE build_progress (
   owner_user_id TEXT NOT NULL REFERENCES users(id),
   entries TEXT NOT NULL DEFAULT '{}',
   picks TEXT NOT NULL DEFAULT '{}',
-  needed TEXT NOT NULL DEFAULT '[]',
-  route TEXT NOT NULL DEFAULT '{}',
+  needed TEXT,
+  route TEXT,
   updated_at TEXT NOT NULL,
   write_day TEXT NOT NULL,
   writes_today INTEGER NOT NULL DEFAULT 0

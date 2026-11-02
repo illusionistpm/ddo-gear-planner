@@ -10,12 +10,13 @@ import {
   handleListMine,
   handleUpdateBuild
 } from './routes/builds';
-import { handleGetPublicProgress } from './routes/progress';
+import { handleGetOwnProgress, handleGetPublicProgress, handlePutProgress } from './routes/progress';
 import { handleCreateShortLink } from './routes/shortlinks';
 
 const BUILD_SHORT_ID_PATH = /^\/api\/build\/([^/]+)$/;
 const BUILD_SHORT_ID_PROGRESS_PATH = /^\/api\/build\/([^/]+)\/progress$/;
 const BUILD_ID_PATH = /^\/api\/builds\/([^/]+)$/;
+const BUILD_ID_PROGRESS_PATH = /^\/api\/builds\/([^/]+)\/progress$/;
 const PREFLIGHT_MAX_AGE_SECONDS = 86400;
 
 function corsHeaders(request: Request, env: Env): HeadersInit {
@@ -98,6 +99,17 @@ async function route(request: Request, env: Env): Promise<Response> {
   const progressShortIdMatch = BUILD_SHORT_ID_PROGRESS_PATH.exec(pathname);
   if (method === 'GET' && progressShortIdMatch) {
     return handleGetPublicProgress(progressShortIdMatch[1], env);
+  }
+
+  // Not behind checkMutationRateLimit: it costs a KV write per request, and
+  // progress writes are throttled in D1 instead - see routes/progress.ts.
+  const progressBuildIdMatch = BUILD_ID_PROGRESS_PATH.exec(pathname);
+  if (progressBuildIdMatch && (method === 'GET' || method === 'PUT')) {
+    const authResult = await requireAuth(request, env);
+    if (authResult instanceof Response) return authResult;
+    return method === 'GET'
+      ? handleGetOwnProgress(progressBuildIdMatch[1], authResult, env)
+      : handlePutProgress(request, progressBuildIdMatch[1], authResult, env);
   }
 
   const buildIdMatch = BUILD_ID_PATH.exec(pathname);

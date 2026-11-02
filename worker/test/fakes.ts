@@ -45,8 +45,8 @@ export interface FakeBuildProgressRow {
   owner_user_id: string;
   entries: string;
   picks: string;
-  needed: string;
-  route: string;
+  needed: string | null;
+  route: string | null;
   updated_at: string;
   write_day: string;
   writes_today: number;
@@ -149,6 +149,18 @@ export class FakeD1 {
     }
     if (sql.includes('FROM users WHERE email') && sql.includes('email_verified = 1')) {
       return this.users.find(u => u.email === args[0] && u.email_verified === 1) ?? null;
+    }
+    if (sql.includes('SELECT * FROM build_progress WHERE build_id')) {
+      const row = this.buildProgress.find(p => p.build_id === args[0]);
+      return row ? { ...row } : null;
+    }
+    if (sql.includes('SUM(writes_today)') && sql.includes('FROM build_progress')) {
+      const [ownerUserId, day] = args as [string, string];
+      return {
+        count: this.buildProgress
+          .filter(p => p.owner_user_id === ownerUserId && p.write_day === day)
+          .reduce((sum, p) => sum + p.writes_today, 0)
+      };
     }
     // getPublicBuildProgressByShortId: builds LEFT JOIN build_progress,
     // public builds only, and only the public columns.
@@ -297,6 +309,30 @@ export class FakeD1 {
         build.blob = args[argIndex++] as string;
       }
       build.updated_at = args[argIndex] as string;
+      return { meta: { changes: 1 } };
+    }
+
+    // upsertBuildProgressIfUnchanged: insert, or on a build_id conflict
+    // update only while the stored row is the caller's base and old enough.
+    if (sql.startsWith('INSERT INTO build_progress') && sql.includes('ON CONFLICT(build_id)')) {
+      const [buildId, ownerUserId, entries, picks, needed, route, updatedAt, writeDay, baseUpdatedAt, notAfter] =
+        args as [string, string, string, string, string | null, string | null, string, string, string | null, string];
+      if (!this.builds.some(b => b.id === buildId)) {
+        throw new Error('D1_ERROR: FOREIGN KEY constraint failed');
+      }
+      const existing = this.buildProgress.find(p => p.build_id === buildId);
+      if (!existing) {
+        this.buildProgress.push({
+          build_id: buildId, owner_user_id: ownerUserId, entries, picks, needed, route,
+          updated_at: updatedAt, write_day: writeDay, writes_today: 1
+        });
+        return { meta: { changes: 1 } };
+      }
+      if (existing.updated_at !== baseUpdatedAt || existing.updated_at > notAfter) {
+        return { meta: { changes: 0 } };
+      }
+      existing.writes_today = existing.write_day === writeDay ? existing.writes_today + 1 : 1;
+      Object.assign(existing, { entries, picks, needed, route, updated_at: updatedAt, write_day: writeDay });
       return { meta: { changes: 1 } };
     }
 

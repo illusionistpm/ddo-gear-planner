@@ -61,6 +61,14 @@ describe('QuestService', () => {
     expect(service.getLootSourceLabel(item)).toBe('Sharn quests');
   });
 
+  it('looks up the pack a quest belongs to', () => {
+    const service: QuestService = TestBed.inject(QuestService);
+
+    expect(service.getPack('A Blood Pact')).toBe('Terror of Demogorgon');
+    expect(service.getPack('No Such Quest')).toBeNull();
+    expect(service.getPack('constructor')).toBeNull();
+  });
+
   it('uses the first quest as the default loot source label', () => {
     const service: QuestService = TestBed.inject(QuestService);
     const item = new Item({

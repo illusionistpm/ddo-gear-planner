@@ -1,0 +1,200 @@
+<!-- The route's packs, to jump to one: wide screens only, beside the list. -->
+@if (view && view.sections.length) {
+  <nav class="shopping-pack-nav" aria-label="Packs on the route">
+    <div class="shopping-pack-nav-title">Route</div>
+    <ul class="shopping-pack-nav-list">
+      @for (section of view.sections; track section.id; let i = $index) {
+        <li>
+          <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
+            [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
+            <span class="shopping-pack-nav-name">{{section.label}}</span>
+            <span class="shopping-pack-nav-count">{{section.acquired}}/{{section.total}}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+}
+<section class="shopping-list" aria-labelledby="shoppingListTitle">
+  <header class="shopping-list-header" #header>
+    <div class="shopping-list-title-row">
+      <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span class="shopping-list-back-label">Planner</span>
+      </button>
+      <h2 id="shoppingListTitle" class="shopping-list-title">Shopping list</h2>
+      @if (view) {
+        <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
+      }
+      @if (view?.total) {
+        <button type="button" class="shopping-list-copy" (click)="copyStillNeeded()"
+          title="Copy what's still needed, grouped by quest, to paste for friends">
+          <i class="fas" [class.fa-copy]="copyState !== 'copied'" [class.fa-check]="copyState === 'copied'" aria-hidden="true"></i>
+          <span>{{copyState === 'copied' ? 'Copied!' : 'Copy list'}}</span>
+        </button>
+      }
+      @if (copyState === 'failed') {
+        <span class="shopping-list-copy-error" role="alert">Could not copy to the clipboard. Please try again.</span>
+      }
+    </div>
+    @if (view?.total) {
+      <div class="shopping-list-progress" role="presentation">
+        <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
+      </div>
+    }
+    <div class="shopping-list-controls">
+      <div class="shopping-list-choice" role="group" aria-label="Show">
+        <span class="shopping-list-choice-label">Show</span>
+        <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
+          [attr.aria-pressed]="view?.filter === 'all'" (click)="setFilter('all')">All</button>
+        <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
+          [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
+      </div>
+      @if (view?.picked || view?.replannable) {
+        <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
+          title="Plan the route again around what's still needed, forgetting any quests you picked">
+          <i class="fas fa-route" aria-hidden="true"></i>
+          <span>Reset route</span>
+        </button>
+      }
+    </div>
+  </header>
+
+  @if (view) {
+    @if (!view.total) {
+      <p class="shopping-list-empty">Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.</p>
+    } @else if (!view.sections.length) {
+      <p class="shopping-list-empty">Everything is ticked off.</p>
+    }
+    @for (section of view.sections; track section.id) {
+      <section class="shopping-section" [ngClass]="accentClass(section.accent)" [attr.aria-label]="section.label">
+        <h3 class="shopping-section-title" #sectionTitle tabindex="-1">
+          <span class="shopping-section-name">{{section.label}}</span>
+          <span class="shopping-section-count">{{section.acquired}}/{{section.total}}</span>
+        </h3>
+        @for (group of section.groups; track group.id) {
+          <!-- The quest, and what to get there; side by side on desktop. -->
+          <section class="shopping-group shopping-quest-card" [ngClass]="accentClass(group.accent)" [attr.aria-label]="group.label">
+            <div class="shopping-group-title" role="heading" aria-level="4">
+              @if (group.wikiUrl) {
+                <a class="shopping-group-name shopping-quest-link" [href]="group.wikiUrl" target="_blank"
+                  rel="noopener noreferrer">{{group.label}}</a>
+              } @else {
+                <span class="shopping-group-name">{{group.label}}</span>
+              }
+              @if (group.raid) {
+                <span class="loot-badge raid-loot-badge">Raid</span>
+              }
+            </div>
+            <ul class="shopping-rows">
+              @for (row of group.rows; track row.id) {
+                <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row }"></ng-container>
+              }
+            </ul>
+          </section>
+        }
+      </section>
+    }
+  }
+</section>
+
+<ng-template #rowTemplate let-row>
+  <li class="shopping-row-item">
+    <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: row }"></ng-container>
+    @if (expandedRowId === row.id) {
+      <!-- Where to get it: tick each quest to list it under. -->
+      <div class="shopping-sources" role="group" [attr.aria-label]="'Where to get ' + row.entry.label">
+        <div class="shopping-sources-header">
+          <span class="shopping-sources-title">Get it from</span>
+          @if (row.picked) {
+            <button type="button" class="shopping-sources-reset" (click)="resetSources(row)">Pick for me</button>
+          }
+        </div>
+        <ul class="shopping-sources-list">
+          @for (choice of row.choices; track choice.source.quest) {
+            <li>
+              <label class="shopping-source-choice" [class.shopping-source-hidden]="choice.hidden">
+                <input type="checkbox" class="shopping-source-check" [checked]="choice.chosen"
+                  (click)="toggleSource($event, row, choice)">
+                <span class="shopping-source-text">
+                  <span class="shopping-source-quest">{{choice.source.quest}}</span>
+                  <!-- Said when it happens, under the box just clicked, rather than greying the box out:
+                       a disabled box can't say why, least of all on a phone. -->
+                  @if (choice.chosen && lastQuestHintRowId === row.id) {
+                    <span class="shopping-source-warning" role="alert">
+                      <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                      It has to come from somewhere: tick another quest first.
+                    </span>
+                  } @else {
+                    <span class="shopping-source-note">{{choiceNote(choice)}}</span>
+                  }
+                </span>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+    @if (row.children.length) {
+      <ul class="shopping-rows shopping-rows-nested">
+        @for (child of row.children; track child.id) {
+          <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: child }"></ng-container>
+        }
+      </ul>
+    }
+  </li>
+</ng-template>
+
+<!-- A row's box, label and details. -->
+<ng-template #rowContent let-row>
+  <div class="shopping-row" [class.acquired]="row.state === 'checked'">
+    <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
+      [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
+      <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
+    </button>
+    <div class="shopping-row-body">
+      <div class="shopping-row-label">
+        @if (row.entry.kind === 'step' && row.entry.system) {
+          <span class="shopping-row-system">{{row.entry.system}}: </span>
+        }
+        @if (row.entry.wikiUrl) {
+          <a class="shopping-row-name" [href]="row.entry.wikiUrl" target="_blank" rel="noopener noreferrer">{{row.entry.label}}</a>
+        } @else {
+          <span class="shopping-row-name">{{row.entry.label}}</span>
+        }
+        @if (row.quantity > 1) {
+          <span class="shopping-row-quantity">{{row.acquired}}/{{row.quantity}}</span>
+        }
+      </div>
+      <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
+      <div class="shopping-row-meta">
+        <div class="shopping-row-where">
+          @if (row.choices.length) {
+            <button type="button" class="shopping-row-sources-toggle" [attr.aria-expanded]="expandedRowId === row.id"
+              [title]="alsoFromTooltip(row.alsoFrom)" (click)="toggleSources(row)">
+              <span>also from {{row.alsoFrom.length === 1 ? row.alsoFrom[0].quest : row.alsoFrom.length + ' other quests'}}</span>
+              <i class="fas" [class.fa-chevron-down]="expandedRowId !== row.id" [class.fa-chevron-up]="expandedRowId === row.id"
+                aria-hidden="true"></i>
+            </button>
+          }
+        </div>
+        <div class="shopping-row-badges">
+          @if (row.entry.rare) {
+            <span class="loot-badge rare-loot-badge">Rare</span>
+          }
+          @if (row.entry.artifact) {
+            <span class="loot-badge artifact-loot-badge">Artifact</span>
+          }
+          @if (row.ownedLocations) {
+            <app-tap-tooltip [text]="row.ownedLocations | userItemLocationTooltip" label="Where you have it">
+              <span class="owned-badge">Owned</span>
+            </app-tap-tooltip>
+          }
+        </div>
+      </div>
+      @if (row.entry.details.length) {
+        <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
+      }
+    </div>
+  </div>
+</ng-template>

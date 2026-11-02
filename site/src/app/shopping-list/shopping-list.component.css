@@ -1,0 +1,629 @@
+:host {
+    /* The tick box, and what lines up with the label beside it. */
+    --shopping-check-size: 1.75rem;
+    display: block;
+}
+
+.shopping-list {
+    margin: 0 auto;
+    max-width: 64rem;
+    padding: 0 var(--space-8) var(--space-24);
+}
+
+/* Stays in view while the list scrolls under it. */
+.shopping-list-header {
+    background: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-8) 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.shopping-list-title-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-12);
+}
+
+.shopping-list-back {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.85rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-back:hover {
+    background: var(--surface-muted-color);
+}
+
+.shopping-list-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.shopping-list-progress-text {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.shopping-list-copy,
+.shopping-list-reset-route {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.85rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-copy:hover,
+.shopping-list-reset-route:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.shopping-list-copy-error {
+    color: var(--danger-color);
+    flex-basis: 100%;
+    font-size: 0.8rem;
+}
+
+.shopping-list-progress {
+    background: var(--progress-track-color);
+    border-radius: 999px;
+    height: 0.35rem;
+    overflow: hidden;
+}
+
+.shopping-list-progress-fill {
+    background: var(--success-color);
+    display: block;
+    height: 100%;
+    transition: width 0.2s ease;
+}
+
+.shopping-list-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-24);
+}
+
+/* The same pill choice as the tracked affixes' Group by. */
+.shopping-list-choice {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+}
+
+.shopping-list-choice-label,
+.shopping-pack-nav-title {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.shopping-list-choice-option {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-list-choice-option.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+/* Only beside the list on wide screens; see the 1200px block. */
+.shopping-pack-nav {
+    display: none;
+}
+
+.shopping-pack-nav-title {
+    margin-bottom: var(--space-8);
+}
+
+.shopping-pack-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Striped in the pack's colour, as its heading and cards are. */
+.shopping-pack-nav-link {
+    align-items: baseline;
+    background: transparent;
+    border: 0;
+    border-left: 4px solid var(--shopping-accent, var(--border-color));
+    border-radius: 0 6px 6px 0;
+    color: var(--text-primary);
+    display: flex;
+    font-size: 0.85rem;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-8);
+    text-align: left;
+    width: 100%;
+}
+
+.shopping-pack-nav-link:hover {
+    background: var(--surface-muted-color);
+}
+
+.shopping-pack-nav-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.shopping-pack-nav-count {
+    color: var(--text-secondary);
+    flex: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Struck through like a row that's got. */
+.shopping-pack-nav-link.done .shopping-pack-nav-name {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.shopping-list-empty {
+    color: var(--text-secondary);
+    margin: var(--space-24) 0;
+    text-align: center;
+}
+
+/* A pack's heading over its quests' cards. */
+.shopping-section-title {
+    align-items: baseline;
+    border-bottom: 2px solid var(--shopping-accent, var(--border-color));
+    display: flex;
+    font-size: 1rem;
+    font-weight: 700;
+    gap: var(--space-8);
+    margin: var(--space-24) 0 var(--space-8);
+    padding-bottom: var(--space-4);
+}
+
+.shopping-section-count {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+/* A section like the tracked affixes' groups. */
+.shopping-group {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--shopping-accent, var(--primary-color));
+    border-radius: var(--border-radius);
+    margin: var(--space-12) 0;
+    padding: var(--space-8);
+}
+
+/* A pack's colour, on its heading and the stripe of each of its cards. */
+.shopping-accent-none { --shopping-accent: var(--pack-accent-none); }
+.shopping-accent-0 { --shopping-accent: var(--pack-accent-0); }
+.shopping-accent-1 { --shopping-accent: var(--pack-accent-1); }
+.shopping-accent-2 { --shopping-accent: var(--pack-accent-2); }
+.shopping-accent-3 { --shopping-accent: var(--pack-accent-3); }
+.shopping-accent-4 { --shopping-accent: var(--pack-accent-4); }
+.shopping-accent-5 { --shopping-accent: var(--pack-accent-5); }
+.shopping-accent-6 { --shopping-accent: var(--pack-accent-6); }
+.shopping-accent-7 { --shopping-accent: var(--pack-accent-7); }
+
+.shopping-group-title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    font-weight: 600;
+    gap: var(--space-8);
+    margin: 0 0 var(--space-4);
+}
+
+/* A quest's wiki page: the text keeps its colour, so the item links stay the ones that stand out. */
+.shopping-quest-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+}
+
+.shopping-quest-link:hover,
+.shopping-quest-link:focus {
+    color: var(--link-hover-color);
+}
+
+.shopping-rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.shopping-rows-nested {
+    margin-top: var(--space-2);
+    padding-left: var(--space-24);
+}
+
+/* The box and the text beside it centred on each other, however many lines the text runs to. */
+.shopping-row {
+    align-items: center;
+    background: var(--row-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-4);
+}
+
+.shopping-rows > .shopping-row-item:nth-child(even) > .shopping-row {
+    background: var(--row-alt-bg);
+}
+
+.shopping-check {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--text-secondary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.15rem;
+    justify-content: center;
+    min-height: var(--shopping-check-size);
+    min-width: var(--shopping-check-size);
+    padding: 0;
+}
+
+.shopping-check:hover {
+    color: var(--primary-color);
+}
+
+.shopping-row.acquired .shopping-check {
+    color: var(--success-color);
+}
+
+.shopping-row-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+}
+
+/* A long name wraps within itself, keeping its count beside it. */
+.shopping-row-label {
+    align-items: baseline;
+    display: flex;
+    gap: var(--space-4);
+    overflow-wrap: anywhere;
+}
+
+.shopping-row-system {
+    color: var(--text-secondary);
+}
+
+.shopping-row-name {
+    font-weight: 600;
+    min-width: 0;
+}
+
+.shopping-row.acquired .shopping-row-name {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.shopping-row-quantity {
+    flex: none;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.shopping-row-meta {
+    align-items: center;
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    gap: var(--space-2) var(--space-8);
+}
+
+/* Narrow screens run where it's from and the badges together, as one line under the name. */
+.shopping-row-where,
+.shopping-row-badges {
+    display: contents;
+}
+
+/* Opens the choice of where to get it. */
+.shopping-row-sources-toggle {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dotted currentColor;
+    color: inherit;
+    display: inline-flex;
+    font-size: inherit;
+    gap: var(--space-4);
+    padding: 0;
+    text-align: left;
+}
+
+.shopping-row-sources-toggle:hover,
+.shopping-row-sources-toggle[aria-expanded="true"] {
+    color: var(--primary-color);
+}
+
+.shopping-row-sources-toggle .fas {
+    font-size: 0.65em;
+}
+
+/* Under its row, lined up with the name. */
+.shopping-sources {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin: var(--space-2) 0 var(--space-4) calc(var(--shopping-check-size) + var(--space-8));
+    padding: var(--space-8) var(--space-12);
+}
+
+.shopping-sources-header {
+    align-items: center;
+    display: flex;
+    gap: var(--space-8);
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+}
+
+.shopping-sources-title {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.shopping-sources-reset {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    padding: 0 var(--space-12);
+}
+
+.shopping-sources-reset:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* As many columns as fit, so a long list of quests stays short. */
+.shopping-sources-list {
+    display: grid;
+    gap: var(--space-4) var(--space-12);
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.shopping-source-choice {
+    align-items: baseline;
+    cursor: pointer;
+    display: flex;
+    gap: var(--space-8);
+    margin: 0;
+}
+
+.shopping-source-check {
+    flex: none;
+}
+
+.shopping-source-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.shopping-source-quest {
+    font-weight: 600;
+}
+
+.shopping-source-note {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* In place of the note, under the box the user just tried to untick. */
+.shopping-source-warning {
+    color: var(--danger-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Still there to pick, but faded: you'd have to own the pack. */
+.shopping-source-hidden {
+    opacity: 0.6;
+}
+
+.shopping-row-details {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/*
+ * Desktop: one line per row - the name, then where else it comes from and its
+ * badges beside it. The name gets the room it needs first and "also from"
+ * follows it, in whatever the badges, at the right edge, leave. The list fills
+ * the page, so the viewport is its width - until the pack nav joins it at
+ * 1200px, which leaves it a little narrower than here at 992px.
+ */
+@media (min-width: 992px) {
+    .shopping-row-body {
+        align-items: baseline;
+        column-gap: var(--space-16);
+        display: grid;
+        grid-template-columns: minmax(0, max-content) minmax(0, 1fr) auto;
+    }
+
+    .shopping-row-meta {
+        display: contents;
+    }
+
+    .shopping-row-where,
+    .shopping-row-badges {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2) var(--space-8);
+    }
+
+    .shopping-row-badges {
+        justify-content: flex-end;
+    }
+
+    .shopping-row-details {
+        grid-column: 1 / -1;
+    }
+
+    /*
+     * The quest's name beside what to get there, so a quest with one thing to
+     * get is one line. The name column is the same on every card, so the rows
+     * line up down the page.
+     */
+    .shopping-quest-card {
+        align-items: start;
+        column-gap: var(--space-12);
+        display: grid;
+        grid-template-columns: 16rem minmax(0, 1fr);
+        padding: var(--space-4) var(--space-8);
+    }
+
+    /* Level with the first row's name: the height of a boxed row. */
+    .shopping-quest-card > .shopping-group-title {
+        margin: 0;
+        min-height: calc(var(--shopping-check-size) + 2 * (var(--space-4) + 1px));
+    }
+}
+
+/*
+ * Wide screens: the route's packs in a column beside the list, staying in view
+ * as it scrolls. The list keeps its column with or without the nav, so it
+ * doesn't jump sideways when the last pack is ticked off. The host is the
+ * scroll container (see main.component.css), so it's also the size the nav
+ * may grow to before it scrolls on its own.
+ */
+@media (min-width: 1200px) {
+    :host {
+        align-items: start;
+        column-gap: var(--space-24);
+        container-type: size;
+        display: grid;
+        grid-template-columns: 13rem minmax(0, 64rem);
+        justify-content: center;
+    }
+
+    .shopping-pack-nav {
+        display: block;
+        grid-column: 1;
+        grid-row: 1;
+        max-height: 100cqh;
+        overflow-y: auto;
+        padding: var(--space-12) 0;
+        position: sticky;
+        top: 0;
+    }
+
+    .shopping-list {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        max-width: none;
+    }
+}
+
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+    :host {
+        scroll-behavior: smooth;
+    }
+}
+
+/* With nothing under the name, no empty line to pull it off centre. */
+@media (max-width: 991.98px) {
+    .shopping-row-meta:has(> .shopping-row-where:empty):has(> .shopping-row-badges:empty) {
+        display: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .shopping-list {
+        padding: 0 var(--space-4) var(--space-16);
+    }
+
+    .shopping-sources {
+        margin-left: 0;
+    }
+
+    .shopping-list-back-label {
+        display: none;
+    }
+
+    .shopping-rows-nested {
+        padding-left: var(--space-12);
+    }
+}
+
+/* Thumb-sized boxes on touch screens. */
+@media (pointer: coarse) {
+    :host {
+        --shopping-check-size: 2.75rem;
+    }
+
+    .shopping-list-back,
+    .shopping-list-copy,
+    .shopping-list-reset-route,
+    .shopping-list-choice-option,
+    .shopping-sources-reset {
+        min-height: 2.5rem;
+    }
+
+    .shopping-source-choice {
+        align-items: center;
+        min-height: 2.75rem;
+    }
+
+    .shopping-source-check {
+        height: 1.25rem;
+        width: 1.25rem;
+    }
+}

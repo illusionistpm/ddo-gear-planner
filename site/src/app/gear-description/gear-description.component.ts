@@ -20,6 +20,7 @@ import { ItemFilters } from '../gear/item-filters';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
+import { craftSystemName } from '../gear/crafting-acquisition';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -394,6 +395,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
   getUserItemLocations(item: Item | null): UserItemLocation[] | undefined {
     return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
+  }
+
+  /** Where the trove has the augment or upgrade chosen in a crafting slot, if anywhere. */
+  getCraftLocations(craft: Craftable): UserItemLocation[] | undefined {
+    return this.userGear.getCraftingOptionLocations(craftSystemName(craft), craft.selected);
   }
 
   isRaidLoot(item: Item | null): boolean {

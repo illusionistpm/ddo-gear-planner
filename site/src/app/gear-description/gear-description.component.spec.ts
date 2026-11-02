@@ -12,6 +12,8 @@ import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
+import { UserGearService } from '../planner/user-gear.service';
+import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
@@ -19,7 +21,7 @@ describe('GearDescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GearDescriptionComponent, TapTooltipComponent, CraftingOptionPickerComponent ],
+      declarations: [ GearDescriptionComponent, TapTooltipComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
       imports: [ FormsModule, NgbModule ]
     })
     .compileComponents();
@@ -266,6 +268,40 @@ describe('GearDescriptionComponent', () => {
         .find(button => button.textContent?.includes('Quickblade set'));
       // Nothing of the set is equipped, so this augment would be its first of three pieces.
       expect(quickblade?.querySelector('.crafting-picker-entry-note')?.textContent?.trim()).toBe('1 of 3 set pieces');
+    });
+  });
+
+  describe('owned augments', () => {
+    const importTrove = (...names: string[]) => TestBed.inject(UserGearService).importFromTroveCsv(
+      ['SubscriptionHash,Character,Location,Tab,Name,Quantity,Binding',
+        ...names.map(name => `HASH,Khalarim,Inventory,6,${name},2,None`)].join('\n'),
+      new Set(), new Set(names.map(name => name.toLowerCase())));
+
+    afterEach(() => TestBed.inject(UserGearService).clear());
+
+    function showRing(selection: string, readonly: boolean) {
+      const item = makeItemWithLeveledOptions();
+      item.crafting[0].selectByParamDescription(selection);
+      fixture.componentRef.setInput('readonly', readonly);
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+      return fixture.nativeElement.querySelector('.crafting-owned-badge') as HTMLElement | null;
+    }
+
+    it('marks a chosen augment the trove has, saying where', () => {
+      importTrove('Mid Augment');
+
+      for (const readonly of [false, true]) {
+        const badge = showRing('Mid Augment', readonly);
+        expect(badge?.textContent?.trim()).toBe('Owned');
+        expect(badge?.title).toBe('Khalarim: Inventory (Tab: 6) ×2');
+      }
+    });
+
+    it('marks nothing when the chosen augment is not in the trove', () => {
+      importTrove('Low Augment');
+
+      expect(showRing('Mid Augment', false)).toBeNull();
     });
   });
 

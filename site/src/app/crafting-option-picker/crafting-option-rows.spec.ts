@@ -26,6 +26,16 @@ describe('buildFamilyRows', () => {
   }
   const byLabel = (label: string, list: ReturnType<typeof rows>) => list.find(row => row.label === label)!;
 
+  it('marks the tiers the trove has, and their family', () => {
+    const list = buildFamilyRows(groupCraftingOptions([...charisma, acid]),
+      () => ({ className: 'Irrelevant', tooltip: '', note: '' }), text, opt => opt === charisma[1]);
+
+    expect(byLabel('Charisma', list).owned).toBe(true);
+    expect(byLabel('Charisma', list).tiers.map(tier => tier.owned)).toEqual([false, true, false]);
+    expect(byLabel('Acid Absorption', list).owned).toBe(false);
+    expect(byLabel('Acid Absorption', rows([acid])).owned).toBe(false);
+  });
+
   it('gives a family of tiers its bonus type beside it and its value range on the right', () => {
     const row = byLabel('Charisma', rows(charisma));
 

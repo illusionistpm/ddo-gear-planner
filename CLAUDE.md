@@ -161,6 +161,12 @@ Things that behave differently from the Jasmine/Chrome days, and cost real time:
   root service that starts one must cancel it in `ngOnDestroy`, which TestBed
   teardown calls, as `EquippedService`'s availability warmup does. Symptom: a
   spec file dies of heap exhaustion only once it has enough specs.
+- **A focused run (`ng test --include <spec>`) of a component spec fails to
+  compile** with "is not a known element" / "No pipe found" unless the run
+  also includes a spec that imports `AppModule` (`credits.component.spec.ts`
+  is a cheap one): the NgModule otherwise isn't in the program, and the
+  build type-checks every NgModule component against nothing. Pure specs
+  don't need it.
 - `vi.spyOn` calls through by default, where Jasmine's `spyOn` stubbed
   (returned `undefined`). A spy that must not run the real method needs
   `.mockReturnValue(...)`.

@@ -273,6 +273,19 @@ describe('Craftable', () => {
       expect(copy.getSelectedParamDescription()).toBe('Iridescent Claw');
       expect(copy.hasCraftingSystemOptions()).toBe(false);
     });
+
+    it('keeps each option\'s quests, in plain and per-system options', () => {
+      const plain = new Craftable('Prefix', [new CraftableOption({ name: 'Meltfang', quests: ['The Shroud'] })]);
+      plain.selectByParamDescription('Meltfang');
+      expect(plain.clone().selected.quests).toEqual(['The Shroud']);
+
+      const slot = new Craftable('Augment Slot 1', []);
+      slot.setCraftingSystemOptions(new Map([
+        ['Blue Augment Slot', [new CraftableOption({ name: 'Sapphire', quests: ['Vendor'] })]],
+      ]));
+      slot.selectByParamDescription('Blue Augment Slot: Sapphire');
+      expect(slot.clone().selected.quests).toEqual(['Vendor']);
+    });
   });
 
   describe('matching a tracked bonus type', () => {

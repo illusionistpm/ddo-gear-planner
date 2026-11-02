@@ -526,6 +526,16 @@ app-admin-link {
   overflow: hidden;
 }
 
+/* In the panels' place while open, scrolling the same way they do. */
+.planner-shopping-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: var(--space-16);
+  scrollbar-gutter: stable;
+}
+
 /* Same values as index.html's pre-bootstrap app-boot-splash (same class
    names too, deliberately not reused verbatim - that one has to be
    self-contained inline CSS since it renders before styles.css loads,
@@ -655,7 +665,8 @@ app-admin-link {
     padding-right: 0;
   }
 
-  .planner-tab-panel {
+  .planner-tab-panel,
+  .planner-shopping-list {
     padding-left: 0;
     padding-right: var(--space-8);
   }

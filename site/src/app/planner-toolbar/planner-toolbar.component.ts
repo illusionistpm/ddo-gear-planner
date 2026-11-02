@@ -1,10 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, ViewChild
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService, PlannerTab, TrackedAffixGroupMode } from '../planner/equipped.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { TypeaheadResult } from '../typeahead/typeahead.component';
 
@@ -162,6 +165,12 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
 
   openBuilder() {
     this.affixBuilder.open('edit');
+  }
+
+  private readonly shoppingListView = inject(ShoppingListViewService);
+
+  openShoppingList() {
+    this.shoppingListView.open('toolbar');
   }
 
   getAllGear(): Item[] {

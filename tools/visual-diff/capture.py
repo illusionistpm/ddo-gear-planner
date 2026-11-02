@@ -67,6 +67,24 @@ RICH_BUILD = urlencode([
 ])
 
 
+# The rich build with augments in it, so the shopping list has crafting rows
+# under its items, one augment the build needs twice, and one from the store.
+SHOPPING_BUILD = RICH_BUILD + '&' + urlencode([
+    ('craft_0_slot', 'Ring1'),
+    ('craft_0_system', 'Blue Augment Slot'),
+    ('craft_0_selected', 'Sapphire of Healing Amplification +50'),
+    ('craft_1_slot', 'Ring1'),
+    ('craft_1_system', 'Yellow Augment Slot'),
+    ('craft_1_selected', 'Crystallized Drop of Tea'),
+    ('craft_2_slot', 'Belt'),
+    ('craft_2_system', 'Green Augment Slot'),
+    ('craft_2_selected', 'Emerald of Arcane Empowerment'),
+    ('craft_3_slot', 'Bracers'),
+    ('craft_3_system', 'Green Augment Slot'),
+    ('craft_3_selected', 'Emerald of Arcane Empowerment'),
+])
+
+
 def click(selector: str) -> Callable[[Page], None]:
     return lambda page: page.locator(selector).first.click()
 
@@ -78,6 +96,16 @@ def hover(selector: str) -> Callable[[Page], None]:
 def click_slot(slot: str) -> Callable[[Page], None]:
     return lambda page: (page.locator('app-equipment-slot-card')
                          .filter(has_text=slot).locator('.slot-select-button').first.click())
+
+
+def open_shopping_list(page: Page) -> None:
+    """The toolbar button, or on a phone the overflow menu's item."""
+    button = page.locator('.shopping-list-open').first
+    if button.is_visible():
+        button.click()
+    else:
+        page.locator('.build-overflow-toggle').first.click()
+        page.locator('.build-overflow-item', has_text='Shopping list').first.click()
 
 
 @dataclass
@@ -106,6 +134,7 @@ SCENES = [
     Scene('set-drawer', steps=[click('.set-link')]),
     Scene('set-preview', steps=[click('.set-link'), click('app-items-in-set .item-preview-link')]),
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
+    Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
 ]
 
 THEMES = ['light', 'dark']

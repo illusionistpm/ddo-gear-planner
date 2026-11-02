@@ -45,6 +45,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
 import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting
         BuildActionsComponent,
         ShrinkToFitDirective,
         AutofocusDirective,
-        PanelSwipeDirective
+        PanelSwipeDirective,
+        ShoppingListComponent
     ],
     imports: [
         AppRoutingModule,

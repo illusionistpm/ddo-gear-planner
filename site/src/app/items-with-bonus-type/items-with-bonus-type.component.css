@@ -86,36 +86,12 @@
     width: 0.75rem;
 }
 
+/* Base styles are global (styles.css); this list's badges sit apart from the name and can wrap. */
 .loot-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 0.25rem;
-    padding: var(--space-2) var(--space-4);
     margin-left: var(--space-4);
-    font-size: 0.65rem;
-    font-weight: 700;
-    line-height: 1.2;
-    text-transform: uppercase;
     letter-spacing: 0;
     vertical-align: middle;
-}
-
-.raid-loot-badge {
-    border: 1px solid var(--raid-badge-border-color);
-    background: var(--raid-badge-bg);
-    color: var(--raid-loot-text-color);
-}
-
-.rare-loot-badge {
-    border: 1px solid var(--rare-badge-border-color);
-    background: var(--rare-badge-bg);
-    color: var(--rare-loot-text-color);
-}
-
-.artifact-loot-badge {
-    border: 1px solid var(--artifact-badge-border-color);
-    background: var(--artifact-badge-bg);
-    color: var(--artifact-badge-text-color);
+    white-space: normal;
 }
 
 /* This connector points at app-item-preview, which only floats beside the

@@ -9,6 +9,8 @@ import { CraftingOptionFamily, groupCraftingOptions } from '../gear/crafting-opt
 import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOptions } from '../planner/planner-view-state-storage';
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
+import { craftSystemName } from '../gear/crafting-acquisition';
+import { UserGearService } from '../planner/user-gear.service';
 
 /** Lists shorter than this stay a native select; see gear-description. */
 export const CRAFTING_PICKER_MIN_OPTIONS = 16;
@@ -76,6 +78,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
 
   constructor(
     private affixUi: AffixUiService,
+    private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector
   ) { }
@@ -168,7 +171,8 @@ export class CraftingOptionPickerComponent implements OnChanges {
     }
     this.families = buildFamilyRows(this.groups,
       option => this.affixUi.rankCraftingOption(option, this.slot, this.itemIsEquipped && option === this.selected, this.context),
-      this.affixUi);
+      this.affixUi,
+      option => !!this.userGear.getCraftingOptionLocations(this.context ? craftSystemName(this.context.craft) : '', option));
     this.selectedFamily = this.families.find(family => family.tiers.some(tier => tier.option === this.selected)) ?? null;
     this.expandedFamily = this.selectedFamily && this.selectedFamily.tiers.length > 1 ? this.selectedFamily : null;
     this.applyFilter();

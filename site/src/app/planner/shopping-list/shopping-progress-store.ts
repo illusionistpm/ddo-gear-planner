@@ -2,9 +2,10 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
-import type { ShoppingProgress, ShoppingProgressPatch } from './shopping-list-types';
+import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
 import {
-  copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY
+  copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress, setScopePick,
+  SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 /**
@@ -20,29 +21,36 @@ export function shoppingProgressScope(state: CurrentBuildState): string {
 
 export const SHOPPING_DRAFT_SCOPE = 'draft';
 
-/** Holds the current build's shopping-list ticks. */
+/** Holds the current build's shopping-list ticks, and the quests picked to get things from. */
 @Injectable({ providedIn: 'root', useFactory: () => inject(LocalShoppingProgressStore) })
 export abstract class ShoppingProgressStore {
   abstract readonly progress$: Observable<ShoppingProgress>;
+  abstract readonly picks$: Observable<ShoppingSourcePicks>;
   abstract get progress(): ShoppingProgress;
+  abstract get picks(): ShoppingSourcePicks;
   abstract get scope(): string;
   abstract applyPatch(patch: ShoppingProgressPatch): void;
+  /** Sets the quests to get a thing from, or forgets the pick (null) so the list chooses. */
+  abstract setPick(identity: string, quests: readonly string[] | null): void;
 }
 
 /**
- * Keeps ticks in this browser's storage. When a build becomes a saved build
- * of yours - saving a draft, saving a copy, or confirming a loaded build is
- * yours - the ticks made so far come along, so nothing is lost by saving.
+ * Keeps ticks and picks in this browser's storage. When a build becomes a
+ * saved build of yours - saving a draft, saving a copy, or confirming a
+ * loaded build is yours - those made so far come along, so nothing is lost
+ * by saving.
  */
 @Injectable({ providedIn: 'root' })
 export class LocalShoppingProgressStore extends ShoppingProgressStore implements OnDestroy {
   private readonly progressSubject: BehaviorSubject<ShoppingProgress>;
+  private readonly picksSubject: BehaviorSubject<ShoppingSourcePicks>;
   readonly progress$: Observable<ShoppingProgress>;
+  readonly picks$: Observable<ShoppingSourcePicks>;
   private currentScope: string;
   private readonly subscription: Subscription;
   private readonly onStorage = (event: StorageEvent) => {
     if (event.key === SHOPPING_PROGRESS_STORAGE_KEY || event.key === null) {
-      this.progressSubject.next(readScopeProgress(this.currentScope));
+      this.readScope();
     }
   };
 
@@ -50,13 +58,19 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
     super();
     this.currentScope = shoppingProgressScope(currentBuild.value);
     this.progressSubject = new BehaviorSubject(readScopeProgress(this.currentScope));
+    this.picksSubject = new BehaviorSubject(readScopePicks(this.currentScope));
     this.progress$ = this.progressSubject.asObservable();
+    this.picks$ = this.picksSubject.asObservable();
     this.subscription = currentBuild.state$.subscribe(state => this.changeScope(shoppingProgressScope(state)));
     window.addEventListener('storage', this.onStorage);
   }
 
   get progress(): ShoppingProgress {
     return this.progressSubject.value;
+  }
+
+  get picks(): ShoppingSourcePicks {
+    return this.picksSubject.value;
   }
 
   get scope(): string {
@@ -67,6 +81,10 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
     if (Object.keys(patch).length) {
       this.progressSubject.next(patchScopeProgress(this.currentScope, patch));
     }
+  }
+
+  setPick(identity: string, quests: readonly string[] | null): void {
+    this.picksSubject.next(setScopePick(this.currentScope, identity, quests));
   }
 
   ngOnDestroy(): void {
@@ -86,6 +104,11 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
     if (scope.startsWith('saved:') && !hasScopeProgress(scope)) {
       copyScopeProgress(previous, scope, previous === SHOPPING_DRAFT_SCOPE);
     }
-    this.progressSubject.next(readScopeProgress(scope));
+    this.readScope();
+  }
+
+  private readScope(): void {
+    this.progressSubject.next(readScopeProgress(this.currentScope));
+    this.picksSubject.next(readScopePicks(this.currentScope));
   }
 }

@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import { LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore } from './shopping-progress-store';
-import { patchScopeProgress, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY } from './shopping-progress-storage';
+import {
+  patchScopeProgress, readScopePicks, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY
+} from './shopping-progress-storage';
 
 const UNSAVED: CurrentBuildState = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
 
@@ -46,6 +48,24 @@ describe('LocalShoppingProgressStore', () => {
 
     expect(seen).toEqual([{}, { a: 1 }, {}, { b: 1 }, { a: 1 }]);
     expect(readScopeProgress('build:other')).toEqual({ b: 1 });
+  });
+
+  it('stores picks for the current build, swapping them with the build and bringing them along on save', () => {
+    const seen: object[] = [];
+    store.picks$.subscribe(picks => seen.push(picks));
+
+    store.setPick('augment|Ruby', ['Lahar']);
+    state.next({ ...UNSAVED, shortId: 'other', ownership: 'other' });
+    state.next(UNSAVED);
+    store.setPick('augment|Topaz', ['Vendor']);
+    store.setPick('augment|Ruby', null);
+    state.next({ ...UNSAVED, savedBuildId: 'b1', shortId: 's1', ownership: 'owned' });
+
+    expect(seen).toEqual([{}, { 'augment|Ruby': ['Lahar'] }, {}, { 'augment|Ruby': ['Lahar'] },
+      { 'augment|Ruby': ['Lahar'], 'augment|Topaz': ['Vendor'] }, { 'augment|Topaz': ['Vendor'] },
+      { 'augment|Topaz': ['Vendor'] }]);
+    expect(store.picks).toEqual({ 'augment|Topaz': ['Vendor'] });
+    expect(readScopePicks('draft')).toEqual({});
   });
 
   it('moves a draft\'s ticks into the build it is saved as', () => {

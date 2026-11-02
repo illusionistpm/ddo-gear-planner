@@ -54,6 +54,9 @@ export type ShoppingProgress = Readonly<Record<string, ShoppingProgressValue>>;
 /** Changes to progress; null removes a key. */
 export type ShoppingProgressPatch = Record<string, ShoppingProgressValue | null>;
 
+/** The quests the user chose to get a thing from, by the thing's identity. */
+export type ShoppingSourcePicks = Readonly<Record<string, readonly string[]>>;
+
 export type ShoppingFilter = 'all' | 'needed';
 export type ShoppingRowState = 'checked' | 'mixed' | 'unchecked';
 

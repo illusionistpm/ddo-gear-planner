@@ -52,9 +52,10 @@ export class ShoppingListService {
       this.userGear.userItemsChanged$.pipe(startWith(undefined)),
       this.filterSubject,
       filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
+      this.progressStore.picks$,
     ]).pipe(
-      map(([entries, progress, , filter, hiddenPacks]) =>
-        buildShoppingListView(entries, progress, this.trove, { filter, hiddenPacks })),
+      map(([entries, progress, , filter, hiddenPacks, picks]) =>
+        buildShoppingListView(entries, progress, this.trove, { filter, hiddenPacks, picks })),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
@@ -81,10 +82,15 @@ export class ShoppingListService {
     this.progressStore.applyPatch({ ...prune, ...togglePatch(row, entries, progress, this.trove) });
   }
 
+  /** Lists a row's thing under these of its quests, or (null) lets the list choose again. */
+  pickSources(row: ShoppingRow, quests: readonly string[] | null): void {
+    this.progressStore.setPick(row.entry.identity, quests);
+  }
+
   /** The still-needed list as text, whatever the list on screen shows. */
   stillNeededText(): string {
     const view = buildShoppingListView(this.currentEntries(), this.progressStore.progress, this.trove,
-      { filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks() });
+      { filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks });
     return formatShoppingListText(view, this.currentBuild.value.name);
   }
 

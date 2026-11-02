@@ -11,10 +11,11 @@ import { EquippedService } from '../equipped.service';
 import { UserGearService } from '../user-gear.service';
 import { ShoppingListService } from './shopping-list.service';
 import { SHOPPING_PROGRESS_STORAGE_KEY } from './shopping-progress-storage';
+import { ShoppingProgressStore } from './shopping-progress-store';
 
-function ring(augment: string): Item {
+function ring(augment: string, diamondFrom = ['Augment Vendor']): Item {
   const slot = new Craftable('Colorless Augment Slot', [
-    new CraftableOption({ name: 'Diamond of Tests', quests: ['Augment Vendor'] }),
+    new CraftableOption({ name: 'Diamond of Tests', quests: diamondFrom }),
     new CraftableOption({ name: 'Topaz of Tests' }),
   ]);
   slot.selectByParamDescription(augment);
@@ -75,6 +76,22 @@ describe('ShoppingListService', () => {
       new Set(), new Set(['diamond of tests']));
 
     expect(await labels()).toEqual(['Ring of Tests:unchecked', 'Diamond of Tests:checked']);
+  });
+
+  it('lists a thing under the quests picked for it, remembering the pick for the build', async () => {
+    equipped.set(ring('Diamond of Tests', ['Augment Vendor', 'The Snitch']));
+    const titles = async () => (await groups()).map(group => [group.label, group.rows.map(row => row.entry.label)]);
+    // The ring drops in The Snitch, so the diamond is got there too.
+    expect(await titles()).toEqual([['The Snitch', ['Ring of Tests', 'Diamond of Tests']]]);
+
+    const diamond = (await rowsOf()).find(row => row.entry.label === 'Diamond of Tests')!;
+    service.pickSources(diamond, ['Augment Vendor']);
+    expect(await titles()).toEqual([['The Snitch', ['Ring of Tests']], ['Augment Vendor', ['Diamond of Tests']]]);
+    expect(TestBed.inject(ShoppingProgressStore).picks).toEqual({ 'augment|Diamond of Tests': ['Augment Vendor'] });
+    expect(service.stillNeededText()).toContain('Augment Vendor');
+
+    service.pickSources(diamond, null);
+    expect(await titles()).toEqual([['The Snitch', ['Ring of Tests', 'Diamond of Tests']]]);
   });
 
   it('groups the list by quest, and writes the still-needed text', async () => {

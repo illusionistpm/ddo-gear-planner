@@ -1,5 +1,5 @@
 import { NO_PACK_KEY } from '../../gear/pack-filter';
-import type { ShoppingSource } from './shopping-list-types';
+import type { ShoppingSource, ShoppingSourcePicks } from './shopping-list-types';
 
 /**
  * Where to get each thing that comes from several places, so the list names
@@ -34,9 +34,6 @@ export function comparePacks(a: string, b: string): number {
   const [rankA, rankB] = [packRank(a), packRank(b)];
   return rankA !== rankB ? rankA - rankB : a.localeCompare(b);
 }
-
-/** The quests the user chose to get a thing from, by its identity. */
-export type ShoppingSourcePicks = Readonly<Record<string, readonly string[]>>;
 
 export interface ShoppingRouteOptions {
   hiddenPacks: ReadonlySet<string>;

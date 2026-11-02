@@ -1,6 +1,6 @@
 import {
-  copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopeProgress,
-  SHOPPING_PROGRESS_STORAGE_KEY
+  copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopePicks, readScopeProgress,
+  setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 describe('shopping progress storage', () => {
@@ -40,6 +40,29 @@ describe('shopping progress storage', () => {
     expect(hasScopeProgress('saved:0')).toBe(false);
     expect(hasScopeProgress('saved:1')).toBe(true);
     expect(hasScopeProgress(`saved:${MAX_STORED_SCOPES}`)).toBe(true);
+  });
+
+  it('keeps each build\'s picks beside its ticks, and forgets a build only when it has neither', () => {
+    setScopePick('draft', 'augment|Ruby', ['Lahar', 'Vendor']);
+    patchScopeProgress('draft', { a: 1 });
+    patchScopeProgress('draft', { a: null });
+
+    expect(readScopePicks('draft')).toEqual({ 'augment|Ruby': ['Lahar', 'Vendor'] });
+    expect(readScopeProgress('draft')).toEqual({});
+    expect(readScopePicks('saved:a')).toEqual({});
+
+    expect(setScopePick('draft', 'augment|Ruby', null)).toEqual({});
+    expect(hasScopeProgress('draft')).toBe(false);
+  });
+
+  it('copies ticks and picks to another build, the copy\'s own winning', () => {
+    setScopePick('draft', 'augment|Ruby', ['Lahar']);
+    setScopePick('draft', 'augment|Topaz', ['Vendor']);
+    setScopePick('saved:x', 'augment|Topaz', ['Lahar']);
+
+    copyScopeProgress('draft', 'saved:x', true);
+    expect(readScopePicks('saved:x')).toEqual({ 'augment|Ruby': ['Lahar'], 'augment|Topaz': ['Lahar'] });
+    expect(hasScopeProgress('draft')).toBe(false);
   });
 
   it('copies ticks to another build, the copy\'s own winning, optionally moving them', () => {

@@ -1,8 +1,8 @@
 import type { UserItemLocation } from '../user-gear.service';
-import { comparePacks, routeSources, ShoppingRouteOptions, ShoppingSourcePicks } from './shopping-list-routing';
+import { comparePacks, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 import type {
-  ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress,
-  ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingTroveLookup
+  ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress, ShoppingProgressPatch,
+  ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks, ShoppingTroveLookup
 } from './shopping-list-types';
 
 /**
@@ -248,7 +248,8 @@ function groupTotals(entries: readonly ShoppingEntry[], context: RowContext): { 
  * that happens where its item comes from stays under the item; anything with
  * a source of its own is listed there on its own: by now it's a piece to
  * collect, and which item it goes in doesn't matter. Something that comes
- * from several quests is listed under the one the route picks for it.
+ * from several quests is listed under the one the route picks for it, or
+ * each the user picked.
  */
 interface SourceGroup {
   group: ShoppingGroup;
@@ -267,10 +268,14 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
     }
   }
   const routed = routeSources(things, route);
+  // Once got, a thing picked from several quests is listed at the first only.
+  const pending = new Set(listed.filter(entry => !isEntryAcquired(entry.key, context.progress, context.covered))
+    .map(entry => entry.identity));
 
   const bySource = new Map<string, ShoppingEntry[]>();
   for (const entry of listed) {
-    const chosen = routed.get(entry.identity) ?? [];
+    const routedTo = routed.get(entry.identity) ?? [];
+    const chosen = pending.has(entry.identity) ? routedTo : routedTo.slice(0, 1);
     const quests = chosen.length ? chosen.map(source => source.quest) : [''];
     for (const quest of quests) {
       const same = bySource.get(quest);

@@ -137,6 +137,14 @@ describe('shopping list view model', () => {
       expect(view.total).toBe(2);
     });
 
+    it('lists something picked from several quests at the first only, once it is got', () => {
+      const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
+      const view = buildShoppingListView([anywhere], { [anywhere.key]: 1 }, null,
+        { filter: 'all', picks: { [anywhere.identity]: ['Vendor', 'The Raid'] } });
+
+      expect(rows(view)).toEqual([['Vendor', 'Sapphire', 1, 'checked']]);
+    });
+
     it('sends things away from packs the pack filter hides', () => {
       const anywhere = entry({ ...aug1, sources: [from('The Raid', 'Raid Pack', true), from('The Snitch', 'Sharn')] });
       const view = buildShoppingListView([anywhere], {}, null, { filter: 'all', hiddenPacks: new Set(['Raid Pack']) });

@@ -35,7 +35,7 @@ export interface ShoppingEntry {
   sources: readonly ShoppingSource[];
   /** True when the sources are the item's, because the option names none of its own. */
   sourceInherited: boolean;
-  /** True when any source is a raid. */
+  /** True when every source is a raid, as the planner's Raid badge has it. */
   raid: boolean;
   rare: boolean;
   artifact: boolean;

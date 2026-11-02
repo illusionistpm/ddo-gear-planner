@@ -70,6 +70,15 @@ function sourcesFor(quests: readonly string[], lookup: ShoppingSourceLookup): Sh
   }));
 }
 
+/**
+ * Raid loot only when every source is a raid, as the planner's Raid badge and
+ * its "hide raid items" filter judge it (QuestService.isRaidLoot): with a
+ * normal quest or a vendor among them, it can be had without raiding.
+ */
+function onlyFromRaids(sources: readonly ShoppingSource[]): boolean {
+  return sources.length > 0 && sources.every(source => source.raid);
+}
+
 export function shoppingGearKey(slot: string, itemName: string): string {
   return `g|${slot}|${itemName}`;
 }
@@ -102,7 +111,7 @@ function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup)
     ml: item.ml,
     sources: itemSources,
     sourceInherited: false,
-    raid: itemSources.some(source => source.raid),
+    raid: onlyFromRaids(itemSources),
     rare: item.rare,
     artifact: item.artifact,
     wikiUrl: item.url ? item.getURL() : null,
@@ -158,7 +167,7 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
     ml: option.ml,
     sources: optionSources,
     sourceInherited: inherits,
-    raid: optionSources.some(source => source.raid),
+    raid: onlyFromRaids(optionSources),
     rare: false,
     artifact: false,
     wikiUrl: fetchedAlone && option.name ? craftedWikiUrl(kind, option.name) : null,

@@ -54,7 +54,8 @@ describe('deriveShoppingEntries', () => {
       { quest: 'The Raid', pack: 'Raid Pack', raid: true },
       { quest: 'Augment Vendor', pack: null, raid: false },
     ]);
-    expect(entry.raid).toBe(true);
+    // It drops outside raids too, so it isn't raid loot.
+    expect(entry.raid).toBe(false);
   });
 
   it('links every source through the wiki\'s Go search, which opens its page when there is one', () => {

@@ -404,9 +404,13 @@
         min-height: calc(var(--shopping-check-size) + 2 * (var(--space-4) + 1px));
     }
 
-    /* Only "also from" is left beside the name here, so it takes just the room it needs. */
+    /*
+     * Only "also from" is left beside the name here. The name gets the room it
+     * needs first and "also from" follows it, in whatever the badges - still
+     * at the right edge, but few rows here have any - leave.
+     */
     .shopping-quest-card .shopping-row-body {
-        grid-template-columns: minmax(0, 1fr) auto 10rem;
+        grid-template-columns: minmax(0, max-content) minmax(0, 1fr) auto;
     }
 }
 

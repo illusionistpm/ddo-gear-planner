@@ -167,8 +167,8 @@ describe('ShoppingListComponent', () => {
       choice.querySelector('.shopping-source-quest')?.textContent?.trim(),
       choice.querySelector('.shopping-source-note')?.textContent?.trim(),
       (choice.querySelector('input') as HTMLInputElement).checked,
-      (choice.querySelector('input') as HTMLInputElement).disabled,
     ]);
+    const hint = () => el().querySelector('.shopping-sources-hint')?.textContent?.trim();
     const check = (quest: string) => (Array.from(el().querySelectorAll('.shopping-source-choice'))
       .find(choice => choice.querySelector('.shopping-source-quest')?.textContent?.trim() === quest)!
       .querySelector('input') as HTMLInputElement).click();
@@ -179,12 +179,13 @@ describe('ShoppingListComponent', () => {
 
       open();
       expect(rowByName('Amulet').querySelector('.shopping-row-sources-toggle')?.getAttribute('aria-expanded')).toBe('true');
-      // The list sent it to the quest in a pack; that one can't be unticked, as it's the only one.
+      // The list sent it to the quest in a pack.
       expect(choices()).toEqual([
-        ['The Raid', 'Raid Pack · nothing else there', true, true],
-        ['The Snitch', 'Other sources · 1 other thing there', false, false],
-        ['Vendor', 'Other sources · nothing else there', false, false],
+        ['The Raid', 'Raid Pack · nothing else there', true],
+        ['The Snitch', 'Other sources · 1 other thing there', false],
+        ['Vendor', 'Other sources · nothing else there', false],
       ]);
+      expect(hint()).toBe('');
       expect(el().querySelector('.shopping-sources-reset')).toBeNull();
 
       open();
@@ -200,12 +201,28 @@ describe('ShoppingListComponent', () => {
         ['The Raid', 'The Snitch']);
     });
 
+    it('keeps the last quest ticked, and says why', () => {
+      showWith();
+      open();
+
+      check('The Raid');
+      fixture.detectChanges();
+      expect(service.pickSources).not.toHaveBeenCalled();
+      expect(choices()[0][2]).toBe(true);
+      expect(hint()).toBe('It has to come from somewhere: tick another quest first.');
+
+      check('Vendor');
+      fixture.detectChanges();
+      expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), ['The Raid', 'Vendor']);
+      expect(hint()).toBe('');
+    });
+
     it('offers to let the list choose again once the user has picked', () => {
       showWith({ picks: { [amulet.identity]: ['Vendor', 'The Snitch'] } });
       open();
 
-      expect(choices().map(([quest, , checked, disabled]) => [quest, checked, disabled]))
-        .toEqual([['The Raid', false, false], ['The Snitch', true, false], ['Vendor', true, false]]);
+      expect(choices().map(([quest, , checked]) => [quest, checked]))
+        .toEqual([['The Raid', false], ['The Snitch', true], ['Vendor', true]]);
       check('Vendor');
       expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), ['The Snitch']);
 

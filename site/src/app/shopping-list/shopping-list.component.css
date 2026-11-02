@@ -366,6 +366,17 @@
     color: var(--primary-color);
 }
 
+/* Empty, and taking no room, until there's something to say. */
+.shopping-sources-hint {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.shopping-sources-hint:not(:empty) {
+    margin-top: var(--space-4);
+}
+
 /* As many columns as fit, so a long list of quests stays short. */
 .shopping-sources-list {
     display: grid;

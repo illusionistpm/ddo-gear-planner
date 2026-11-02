@@ -89,10 +89,9 @@
         <ul class="shopping-sources-list">
           @for (choice of row.choices; track choice.source.quest) {
             <li>
-              <label class="shopping-source-choice" [class.shopping-source-hidden]="choice.hidden"
-                [title]="choice.chosen && chosenCount(row) === 1 ? 'Tick another quest first: it has to come from somewhere' : ''">
+              <label class="shopping-source-choice" [class.shopping-source-hidden]="choice.hidden">
                 <input type="checkbox" class="shopping-source-check" [checked]="choice.chosen"
-                  [disabled]="choice.chosen && chosenCount(row) === 1" (change)="toggleSource(row, choice)">
+                  (click)="toggleSource($event, row, choice)">
                 <span class="shopping-source-text">
                   <span class="shopping-source-quest">{{choice.source.quest}}</span>
                   <span class="shopping-source-note">{{choiceNote(choice)}}</span>
@@ -101,6 +100,12 @@
             </li>
           }
         </ul>
+        <!-- Said when it happens, rather than greying the box out: a disabled box can't say why, least of all on a phone. -->
+        <p class="shopping-sources-hint" role="status">
+          @if (lastQuestHintRowId === row.id) {
+            It has to come from somewhere: tick another quest first.
+          }
+        </p>
       </div>
     }
     @if (row.children.length) {

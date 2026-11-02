@@ -32,6 +32,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   copyState: 'idle' | 'copied' | 'failed' = 'idle';
   /** The row whose choice of where to get it is open, if any. */
   expandedRowId: string | null = null;
+  /** The row whose last quest the user just tried to untick, to say why it stays. */
+  lastQuestHintRowId: string | null = null;
   private subscription?: Subscription;
   private copiedTimeout?: ReturnType<typeof setTimeout>;
 
@@ -94,23 +96,25 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   /** Opens or closes a row's choice of where to get it. */
   toggleSources(row: ShoppingRow): void {
     this.expandedRowId = this.expandedRowId === row.id ? null : row.id;
-  }
-
-  chosenCount(row: ShoppingRow): number {
-    return row.choices.filter(choice => choice.chosen).length;
+    this.lastQuestHintRowId = null;
   }
 
   /**
    * Lists the thing under a quest too, or no longer there. The last quest
-   * can't be unticked: the thing has to be got somewhere.
+   * can't be unticked, as the thing has to be got somewhere: the click is
+   * undone, and the panel says why.
    */
-  toggleSource(row: ShoppingRow, toggled: ShoppingSourceChoice): void {
+  toggleSource(event: Event, row: ShoppingRow, toggled: ShoppingSourceChoice): void {
     const quests = row.choices
       .filter(choice => choice === toggled ? !choice.chosen : choice.chosen)
       .map(choice => choice.source.quest);
-    if (quests.length) {
-      this.shoppingList.pickSources(row, quests);
+    if (!quests.length) {
+      event.preventDefault();
+      this.lastQuestHintRowId = row.id;
+      return;
     }
+    this.lastQuestHintRowId = null;
+    this.shoppingList.pickSources(row, quests);
   }
 
   /** Forgets the user's pick, so the list chooses again. */

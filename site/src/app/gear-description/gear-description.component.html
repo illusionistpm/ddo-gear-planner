@@ -18,7 +18,15 @@
               <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
             }
           }
-          <i>{{getLootSourceLabel(curItem)}}</i>
+          <span class="item-source">
+            <i>{{getLootSourceLabel(curItem)}}</i>
+            @let sources = getLootSources(curItem);
+            @if (sources.length > 1) {
+              <app-tap-tooltip [text]="sources.join('\n')" [label]="'Show all ' + sources.length + ' sources'">
+                <span class="loot-badge more-sources-badge">+{{sources.length - 1}}</span>
+              </app-tap-tooltip>
+            }
+          </span>
         </div>
       </div>
     } @else {

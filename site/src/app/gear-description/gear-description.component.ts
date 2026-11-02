@@ -400,6 +400,10 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     return this.questService.isRaidLoot(item);
   }
 
+  getLootSources(item: Item | null): ReadonlyArray<string> {
+    return this.questService.getLootSources(item);
+  }
+
   getLootSourceLabel(item: Item | null): string {
     return this.questService.getLootSourceLabel(item);
   }

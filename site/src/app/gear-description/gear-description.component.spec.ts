@@ -151,6 +151,40 @@ describe('GearDescriptionComponent', () => {
     });
   });
 
+  describe('loot sources', () => {
+    function showSources(quests: string[]) {
+      const item = new Item({ name: 'Test Trinket', slot: 'Trinket', ml: 5, quests });
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+      return fixture.nativeElement.querySelector('.item-source') as HTMLElement;
+    }
+
+    it('shows a single source with no badge', () => {
+      const source = showSources(['Book Burning']);
+
+      expect(source.textContent?.trim()).toBe('Book Burning');
+      expect(source.querySelector('.more-sources-badge')).toBeNull();
+    });
+
+    it('shows the first source and a +N badge listing every source', () => {
+      const source = showSources(['Book Burning', 'Toil and Trouble', 'Thrall of Duty']);
+      const trigger = source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement;
+
+      expect(source.querySelector('i')?.textContent?.trim()).toBe('Book Burning');
+      expect(source.querySelector('.more-sources-badge')?.textContent?.trim()).toBe('+2');
+      expect(trigger.title).toBe('Book Burning\nToil and Trouble\nThrall of Duty');
+      expect(trigger.getAttribute('aria-label')).toBe('Show all 3 sources');
+    });
+
+    it('lists every source in the bubble when the badge is tapped', () => {
+      const source = showSources(['Book Burning', 'Toil and Trouble']);
+      (source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement).click();
+      fixture.detectChanges();
+
+      expect(source.querySelector('.tap-tooltip-bubble')?.textContent).toBe('Book Burning\nToil and Trouble');
+    });
+  });
+
   describe('crafting options from hidden packs', () => {
     let filters: FiltersService;
 

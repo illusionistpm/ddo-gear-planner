@@ -25,3 +25,19 @@
   overflow-wrap: anywhere;
   text-align: left;
 }
+
+/*
+ * Sized to its label, not a grid column. As `col-2` it was a sixth of the
+ * row - 56px on a phone - minus the column's 12px padding each side, which
+ * left 32px for "Equip": the label overflowed to the right and was clipped,
+ * and the button stretched to the full height of a wrapped item name. The
+ * `.row > *` rules (width, padding) are Bootstrap's and are overridden here.
+ * The right margin keeps its edge in line with the description below.
+ */
+.suggestion-equip-button {
+  align-self: center;
+  flex: 0 0 auto;
+  margin-right: calc(var(--bs-gutter-x) * 0.5);
+  padding: var(--space-4) var(--space-12);
+  width: auto;
+}

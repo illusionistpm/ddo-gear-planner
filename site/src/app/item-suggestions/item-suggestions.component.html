@@ -42,7 +42,7 @@
         <div class="container">
           <div class="row">
             <span class="col">{{item.name}}</span>
-            <button class="col-2 equip-button" (click)="equipItem(item)">Equip</button>
+            <button class="equip-button suggestion-equip-button" (click)="equipItem(item)">Equip</button>
           </div>
           <div class="row">
             <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>

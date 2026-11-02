@@ -818,8 +818,8 @@
                 "ml": 12,
                 "name": "Sapphire of Accuracy +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -833,8 +833,8 @@
                 "ml": 16,
                 "name": "Sapphire of Accuracy +12",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -848,8 +848,8 @@
                 "ml": 20,
                 "name": "Sapphire of Accuracy +15",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -863,8 +863,8 @@
                 "ml": 24,
                 "name": "Sapphire of Accuracy +17",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -878,8 +878,8 @@
                 "ml": 1,
                 "name": "Sapphire of Accuracy +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -893,8 +893,8 @@
                 "ml": 28,
                 "name": "Sapphire of Accuracy +20",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -933,8 +933,8 @@
                 "ml": 4,
                 "name": "Sapphire of Accuracy +5",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -948,8 +948,8 @@
                 "ml": 8,
                 "name": "Sapphire of Accuracy +8",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -977,8 +977,8 @@
                 "ml": 20,
                 "name": "Sapphire of Armored Agility +2",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -1007,10 +1007,10 @@
                 "name": "Sapphire of Defense +12",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Monster Hunter",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -1024,9 +1024,9 @@
                 "ml": 12,
                 "name": "Sapphire of Defense +16",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -1040,9 +1040,9 @@
                 "ml": 16,
                 "name": "Sapphire of Defense +20",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -1057,8 +1057,8 @@
                 "name": "Sapphire of Defense +24",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -1087,9 +1087,9 @@
                 "ml": 1,
                 "name": "Sapphire of Defense +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -1103,8 +1103,8 @@
                 "ml": 28,
                 "name": "Sapphire of Defense +32",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1144,9 +1144,9 @@
                 "name": "Sapphire of Defense +8",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
                     "Loura Jotun",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -1160,8 +1160,8 @@
                 "ml": 1,
                 "name": "Sapphire of Dodge +1%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1175,8 +1175,8 @@
                 "ml": 24,
                 "name": "Sapphire of Dodge +11%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1190,8 +1190,8 @@
                 "ml": 28,
                 "name": "Sapphire of Dodge +12%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1230,8 +1230,8 @@
                 "ml": 4,
                 "name": "Sapphire of Dodge +3%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1245,8 +1245,8 @@
                 "ml": 8,
                 "name": "Sapphire of Dodge +5%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1260,8 +1260,8 @@
                 "ml": 12,
                 "name": "Sapphire of Dodge +6%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1275,8 +1275,8 @@
                 "ml": 16,
                 "name": "Sapphire of Dodge +8%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1290,8 +1290,8 @@
                 "ml": 20,
                 "name": "Sapphire of Dodge +9%",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1306,8 +1306,8 @@
                 "name": "Sapphire of False Life +12",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
-                    "Loura Jotun"
+                    "Loura Jotun",
+                    "DDO Store"
                 ]
             },
             {
@@ -1322,9 +1322,9 @@
                 "name": "Sapphire of False Life +18",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -1338,8 +1338,8 @@
                 "ml": 12,
                 "name": "Sapphire of False Life +24",
                 "quests": [
-                    "DDO Store",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -1353,8 +1353,8 @@
                 "ml": 16,
                 "name": "Sapphire of False Life +30",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -1369,8 +1369,8 @@
                 "name": "Sapphire of False Life +36",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -1384,8 +1384,8 @@
                 "ml": 1,
                 "name": "Sapphire of False Life +4",
                 "quests": [
-                    "DDO Store",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -1414,8 +1414,8 @@
                 "ml": 28,
                 "name": "Sapphire of False Life +48",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1487,8 +1487,8 @@
                 "name": "Sapphire of Good Luck +2",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -1530,8 +1530,8 @@
                 "ml": 4,
                 "name": "Sapphire of Healing Amplification +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1545,8 +1545,8 @@
                 "ml": 8,
                 "name": "Sapphire of Healing Amplification +18",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1560,8 +1560,8 @@
                 "ml": 12,
                 "name": "Sapphire of Healing Amplification +24",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1575,8 +1575,8 @@
                 "ml": 1,
                 "name": "Sapphire of Healing Amplification +3",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1590,8 +1590,8 @@
                 "ml": 16,
                 "name": "Sapphire of Healing Amplification +31",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1605,8 +1605,8 @@
                 "ml": 20,
                 "name": "Sapphire of Healing Amplification +37",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1620,8 +1620,8 @@
                 "ml": 24,
                 "name": "Sapphire of Healing Amplification +44",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1635,8 +1635,8 @@
                 "ml": 28,
                 "name": "Sapphire of Healing Amplification +50",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1676,10 +1676,10 @@
                 "name": "Sapphire of Heavy Fortification",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Lahar",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -1707,8 +1707,8 @@
                 "ml": 1,
                 "name": "Sapphire of Light Fortification",
                 "quests": [
-                    "DDO Store",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -1723,8 +1723,8 @@
                 "name": "Sapphire of Moderate Fortification",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
-                    "Loura Jotun"
+                    "Loura Jotun",
+                    "DDO Store"
                 ]
             },
             {
@@ -1738,8 +1738,8 @@
                 "ml": 1,
                 "name": "Sapphire of Natural Armor +1",
                 "quests": [
-                    "DDO Store",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -1768,8 +1768,8 @@
                 "ml": 28,
                 "name": "Sapphire of Natural Armor +12",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1812,8 +1812,8 @@
                 "name": "Sapphire of Natural Armor +3",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
-                    "Loura Jotun"
+                    "Loura Jotun",
+                    "DDO Store"
                 ]
             },
             {
@@ -1828,9 +1828,9 @@
                 "name": "Sapphire of Natural Armor +5",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -1844,8 +1844,8 @@
                 "ml": 12,
                 "name": "Sapphire of Natural Armor +6",
                 "quests": [
-                    "DDO Store",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -1859,8 +1859,8 @@
                 "ml": 16,
                 "name": "Sapphire of Natural Armor +8",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -1875,8 +1875,8 @@
                 "name": "Sapphire of Natural Armor +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -1890,8 +1890,8 @@
                 "ml": 4,
                 "name": "Sapphire of Negative Amplification +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1905,8 +1905,8 @@
                 "ml": 8,
                 "name": "Sapphire of Negative Amplification +18",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1920,8 +1920,8 @@
                 "ml": 12,
                 "name": "Sapphire of Negative Amplification +24",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1935,8 +1935,8 @@
                 "ml": 1,
                 "name": "Sapphire of Negative Amplification +3",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1950,8 +1950,8 @@
                 "ml": 16,
                 "name": "Sapphire of Negative Amplification +31",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1965,8 +1965,8 @@
                 "ml": 20,
                 "name": "Sapphire of Negative Amplification +37",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1980,8 +1980,8 @@
                 "ml": 24,
                 "name": "Sapphire of Negative Amplification +44",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -1995,8 +1995,8 @@
                 "ml": 28,
                 "name": "Sapphire of Negative Amplification +50",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2038,8 +2038,8 @@
                 "ml": 1,
                 "name": "Sapphire of Protection +1",
                 "quests": [
-                    "DDO Store",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -2053,8 +2053,8 @@
                 "ml": 28,
                 "name": "Sapphire of Protection +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2094,8 +2094,8 @@
                 "name": "Sapphire of Protection +3",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
-                    "Loura Jotun"
+                    "Loura Jotun",
+                    "DDO Store"
                 ]
             },
             {
@@ -2110,9 +2110,9 @@
                 "name": "Sapphire of Protection +4",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -2126,8 +2126,8 @@
                 "ml": 12,
                 "name": "Sapphire of Protection +5",
                 "quests": [
-                    "DDO Store",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -2141,8 +2141,8 @@
                 "ml": 16,
                 "name": "Sapphire of Protection +6",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -2157,8 +2157,8 @@
                 "name": "Sapphire of Protection +8",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -2187,8 +2187,8 @@
                 "ml": 4,
                 "name": "Sapphire of Repair Amplification +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2202,8 +2202,8 @@
                 "ml": 8,
                 "name": "Sapphire of Repair Amplification +18",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2217,8 +2217,8 @@
                 "ml": 12,
                 "name": "Sapphire of Repair Amplification +24",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2232,8 +2232,8 @@
                 "ml": 1,
                 "name": "Sapphire of Repair Amplification +3",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2247,8 +2247,8 @@
                 "ml": 16,
                 "name": "Sapphire of Repair Amplification +31",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2262,8 +2262,8 @@
                 "ml": 20,
                 "name": "Sapphire of Repair Amplification +37",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2277,8 +2277,8 @@
                 "ml": 24,
                 "name": "Sapphire of Repair Amplification +44",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2292,8 +2292,8 @@
                 "ml": 28,
                 "name": "Sapphire of Repair Amplification +50",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2332,9 +2332,9 @@
                 "ml": 1,
                 "name": "Sapphire of Resistance +1",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Wash Pynoptis"
+                    "Wash Pynoptis",
+                    "DDO Store"
                 ]
             },
             {
@@ -2348,8 +2348,8 @@
                 "ml": 28,
                 "name": "Sapphire of Resistance +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2389,9 +2389,9 @@
                 "name": "Sapphire of Resistance +3",
                 "quests": [
                     "Clarice Roden",
-                    "DDO Store",
                     "Loura Jotun",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -2406,10 +2406,10 @@
                 "name": "Sapphire of Resistance +4",
                 "quests": [
                     "Chirugeon Laj'Amal",
-                    "DDO Store",
                     "Monster Hunter",
                     "Seld the Gray Sister",
-                    "Verisgante"
+                    "Verisgante",
+                    "DDO Store"
                 ]
             },
             {
@@ -2423,9 +2423,9 @@
                 "ml": 12,
                 "name": "Sapphire of Resistance +5",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -2439,9 +2439,9 @@
                 "ml": 16,
                 "name": "Sapphire of Resistance +6",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -2456,9 +2456,9 @@
                 "name": "Sapphire of Resistance +8",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -2503,8 +2503,8 @@
                 "ml": 20,
                 "name": "Sapphire of Shatter +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2518,8 +2518,8 @@
                 "ml": 24,
                 "name": "Sapphire of Shatter +12",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2533,8 +2533,8 @@
                 "ml": 28,
                 "name": "Sapphire of Shatter +14",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2573,8 +2573,8 @@
                 "ml": 1,
                 "name": "Sapphire of Shatter +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2588,8 +2588,8 @@
                 "ml": 4,
                 "name": "Sapphire of Shatter +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2603,8 +2603,8 @@
                 "ml": 8,
                 "name": "Sapphire of Shatter +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2618,8 +2618,8 @@
                 "ml": 12,
                 "name": "Sapphire of Shatter +7",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2633,8 +2633,8 @@
                 "ml": 16,
                 "name": "Sapphire of Shatter +9",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2677,8 +2677,8 @@
                 "ml": 20,
                 "name": "Sapphire of Spell Agility +15%",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -2706,8 +2706,8 @@
                 "ml": 20,
                 "name": "Sapphire of Stunning +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2721,8 +2721,8 @@
                 "ml": 24,
                 "name": "Sapphire of Stunning +12",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2736,8 +2736,8 @@
                 "ml": 28,
                 "name": "Sapphire of Stunning +14",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2776,8 +2776,8 @@
                 "ml": 1,
                 "name": "Sapphire of Stunning +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2791,8 +2791,8 @@
                 "ml": 4,
                 "name": "Sapphire of Stunning +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2806,8 +2806,8 @@
                 "ml": 8,
                 "name": "Sapphire of Stunning +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2821,8 +2821,8 @@
                 "ml": 12,
                 "name": "Sapphire of Stunning +7",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2836,8 +2836,8 @@
                 "ml": 16,
                 "name": "Sapphire of Stunning +9",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2851,8 +2851,8 @@
                 "ml": 20,
                 "name": "Sapphire of Vertigo +11",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2866,8 +2866,8 @@
                 "ml": 24,
                 "name": "Sapphire of Vertigo +12",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2881,8 +2881,8 @@
                 "ml": 28,
                 "name": "Sapphire of Vertigo +14",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2921,8 +2921,8 @@
                 "ml": 1,
                 "name": "Sapphire of Vertigo +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2936,8 +2936,8 @@
                 "ml": 4,
                 "name": "Sapphire of Vertigo +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2951,8 +2951,8 @@
                 "ml": 8,
                 "name": "Sapphire of Vertigo +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2966,8 +2966,8 @@
                 "ml": 12,
                 "name": "Sapphire of Vertigo +7",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -2981,8 +2981,8 @@
                 "ml": 16,
                 "name": "Sapphire of Vertigo +9",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -4048,9 +4048,9 @@
                 "ml": 1,
                 "name": "Diamond of Charisma +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4115,10 +4115,10 @@
                 "ml": 4,
                 "name": "Diamond of Charisma +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -4132,12 +4132,12 @@
                 "ml": 8,
                 "name": "Diamond of Charisma +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -4151,9 +4151,9 @@
                 "ml": 12,
                 "name": "Diamond of Charisma +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -4167,9 +4167,9 @@
                 "ml": 16,
                 "name": "Diamond of Charisma +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4184,9 +4184,9 @@
                 "name": "Diamond of Charisma +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4299,9 +4299,9 @@
                 "ml": 1,
                 "name": "Diamond of Constitution +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4366,10 +4366,10 @@
                 "ml": 4,
                 "name": "Diamond of Constitution +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -4383,12 +4383,12 @@
                 "ml": 8,
                 "name": "Diamond of Constitution +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -4402,9 +4402,9 @@
                 "ml": 12,
                 "name": "Diamond of Constitution +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -4418,9 +4418,9 @@
                 "ml": 16,
                 "name": "Diamond of Constitution +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4435,9 +4435,9 @@
                 "name": "Diamond of Constitution +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4451,9 +4451,9 @@
                 "ml": 1,
                 "name": "Diamond of Dexterity +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4518,10 +4518,10 @@
                 "ml": 4,
                 "name": "Diamond of Dexterity +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -4535,12 +4535,12 @@
                 "ml": 8,
                 "name": "Diamond of Dexterity +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -4554,9 +4554,9 @@
                 "ml": 12,
                 "name": "Diamond of Dexterity +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -4570,9 +4570,9 @@
                 "ml": 16,
                 "name": "Diamond of Dexterity +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4587,9 +4587,9 @@
                 "name": "Diamond of Dexterity +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4816,9 +4816,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Charisma +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4832,9 +4832,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Constitution +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4848,9 +4848,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Dexterity +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4864,9 +4864,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Intelligence +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4880,9 +4880,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Strength +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -4896,9 +4896,9 @@
                 "ml": 20,
                 "name": "Diamond of Exceptional Wisdom +1",
                 "quests": [
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -5380,9 +5380,9 @@
                 "ml": 1,
                 "name": "Diamond of Intelligence +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -5447,10 +5447,10 @@
                 "ml": 4,
                 "name": "Diamond of Intelligence +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -5464,12 +5464,12 @@
                 "ml": 8,
                 "name": "Diamond of Intelligence +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -5483,9 +5483,9 @@
                 "ml": 12,
                 "name": "Diamond of Intelligence +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -5499,9 +5499,9 @@
                 "ml": 16,
                 "name": "Diamond of Intelligence +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -5516,9 +5516,9 @@
                 "name": "Diamond of Intelligence +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -6552,9 +6552,9 @@
                 "ml": 1,
                 "name": "Diamond of Strength +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -6619,10 +6619,10 @@
                 "ml": 4,
                 "name": "Diamond of Strength +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -6636,12 +6636,12 @@
                 "ml": 8,
                 "name": "Diamond of Strength +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -6655,9 +6655,9 @@
                 "ml": 12,
                 "name": "Diamond of Strength +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -6671,9 +6671,9 @@
                 "ml": 16,
                 "name": "Diamond of Strength +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -6688,9 +6688,9 @@
                 "name": "Diamond of Strength +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -6918,9 +6918,9 @@
                 "ml": 1,
                 "name": "Diamond of Wisdom +1",
                 "quests": [
-                    "DDO Store",
                     "Goldscuttle",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -6985,10 +6985,10 @@
                 "ml": 4,
                 "name": "Diamond of Wisdom +3",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
                     "Rudolf Rightman",
-                    "Xovun Chalk"
+                    "Xovun Chalk",
+                    "DDO Store"
                 ]
             },
             {
@@ -7002,12 +7002,12 @@
                 "ml": 8,
                 "name": "Diamond of Wisdom +5",
                 "quests": [
-                    "DDO Store",
                     "Farrik Foe-Cleaver",
                     "Husk",
                     "Kayla Skywhisper",
                     "Monster Hunter",
-                    "Tara Wightraven"
+                    "Tara Wightraven",
+                    "DDO Store"
                 ]
             },
             {
@@ -7021,9 +7021,9 @@
                 "ml": 12,
                 "name": "Diamond of Wisdom +6",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -7037,9 +7037,9 @@
                 "ml": 16,
                 "name": "Diamond of Wisdom +8",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -7054,9 +7054,9 @@
                 "name": "Diamond of Wisdom +9",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
                     "Lahar",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39123,10 +39123,10 @@
                 "ml": 1,
                 "name": "Ruby Eye of Erosion",
                 "quests": [
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39140,10 +39140,10 @@
                 "ml": 1,
                 "name": "Ruby Eye of Force",
                 "quests": [
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39157,10 +39157,10 @@
                 "ml": 1,
                 "name": "Ruby Eye of Righteousness",
                 "quests": [
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39175,14 +39175,14 @@
                 "name": "Ruby Eye of the Glacier",
                 "quests": [
                     "Anniversary Card Collection",
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Flurry (NPC)",
                     "Snowpeaks Festival",
                     "Special event items",
                     "Taj",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39197,10 +39197,10 @@
                 "name": "Ruby Eye of the Inferno",
                 "quests": [
                     "Anniversary Card Collection",
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39214,10 +39214,10 @@
                 "ml": 1,
                 "name": "Ruby Eye of the Tempest",
                 "quests": [
-                    "DDO Store",
                     "Fire on Thunder Peak",
                     "Temple of the Deathwyrm",
-                    "The Haunted Halls of Eveningstar"
+                    "The Haunted Halls of Eveningstar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39246,8 +39246,8 @@
                 "name": "Ruby of Acid (1d6)",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39262,9 +39262,9 @@
                 "name": "Ruby of Acid (2d6)",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -39279,10 +39279,10 @@
                 "name": "Ruby of Acid (3d6)",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39296,9 +39296,9 @@
                 "ml": 12,
                 "name": "Ruby of Acid (4d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -39312,9 +39312,9 @@
                 "ml": 16,
                 "name": "Ruby of Acid (5d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -39329,8 +39329,8 @@
                 "name": "Ruby of Acid (6d6)",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39359,8 +39359,8 @@
                 "ml": 28,
                 "name": "Ruby of Acid (8d6)",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -39404,8 +39404,8 @@
                 "ml": 8,
                 "name": "Ruby of Adamantine Arms",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39433,8 +39433,8 @@
                 "ml": 4,
                 "name": "Ruby of Chaos",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39449,8 +39449,8 @@
                 "name": "Ruby of Combustion 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39479,8 +39479,8 @@
                 "ml": 28,
                 "name": "Ruby of Combustion 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -39520,8 +39520,8 @@
                 "name": "Ruby of Combustion 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39536,9 +39536,9 @@
                 "name": "Ruby of Combustion 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -39553,10 +39553,10 @@
                 "name": "Ruby of Combustion 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39570,9 +39570,9 @@
                 "ml": 12,
                 "name": "Ruby of Combustion 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -39586,9 +39586,9 @@
                 "ml": 16,
                 "name": "Ruby of Combustion 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -39603,8 +39603,8 @@
                 "name": "Ruby of Corrosion 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39633,8 +39633,8 @@
                 "ml": 28,
                 "name": "Ruby of Corrosion 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -39677,8 +39677,8 @@
                 "name": "Ruby of Corrosion 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39693,9 +39693,9 @@
                 "name": "Ruby of Corrosion 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -39710,10 +39710,10 @@
                 "name": "Ruby of Corrosion 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39727,9 +39727,9 @@
                 "ml": 12,
                 "name": "Ruby of Corrosion 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -39743,9 +39743,9 @@
                 "ml": 16,
                 "name": "Ruby of Corrosion 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -39760,8 +39760,8 @@
                 "name": "Ruby of Devotion 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39790,8 +39790,8 @@
                 "ml": 28,
                 "name": "Ruby of Devotion 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -39831,8 +39831,8 @@
                 "name": "Ruby of Devotion 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39847,9 +39847,9 @@
                 "name": "Ruby of Devotion 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -39864,10 +39864,10 @@
                 "name": "Ruby of Devotion 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39881,9 +39881,9 @@
                 "ml": 12,
                 "name": "Ruby of Devotion 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -39897,9 +39897,9 @@
                 "ml": 16,
                 "name": "Ruby of Devotion 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -39927,8 +39927,8 @@
                 "ml": 4,
                 "name": "Ruby of Evil",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -39968,8 +39968,8 @@
                 "name": "Ruby of Flame (1d6)",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -39984,9 +39984,9 @@
                 "name": "Ruby of Flame (2d6)",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -40001,10 +40001,10 @@
                 "name": "Ruby of Flame (3d6)",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40018,9 +40018,9 @@
                 "ml": 12,
                 "name": "Ruby of Flame (4d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -40034,9 +40034,9 @@
                 "ml": 16,
                 "name": "Ruby of Flame (5d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -40051,8 +40051,8 @@
                 "name": "Ruby of Flame (6d6)",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40081,8 +40081,8 @@
                 "ml": 28,
                 "name": "Ruby of Flame (8d6)",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40138,8 +40138,8 @@
                 "name": "Ruby of Frost (1d6)",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40154,9 +40154,9 @@
                 "name": "Ruby of Frost (2d6)",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -40171,10 +40171,10 @@
                 "name": "Ruby of Frost (3d6)",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40188,9 +40188,9 @@
                 "ml": 12,
                 "name": "Ruby of Frost (4d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -40204,9 +40204,9 @@
                 "ml": 16,
                 "name": "Ruby of Frost (5d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -40221,8 +40221,8 @@
                 "name": "Ruby of Frost (6d6)",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40251,8 +40251,8 @@
                 "ml": 28,
                 "name": "Ruby of Frost (8d6)",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40300,8 +40300,8 @@
                 "name": "Ruby of Glaciation 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40330,8 +40330,8 @@
                 "ml": 28,
                 "name": "Ruby of Glaciation 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40371,8 +40371,8 @@
                 "name": "Ruby of Glaciation 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40387,9 +40387,9 @@
                 "name": "Ruby of Glaciation 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -40404,10 +40404,10 @@
                 "name": "Ruby of Glaciation 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40421,9 +40421,9 @@
                 "ml": 12,
                 "name": "Ruby of Glaciation 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -40437,9 +40437,9 @@
                 "ml": 16,
                 "name": "Ruby of Glaciation 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -40453,8 +40453,8 @@
                 "ml": 4,
                 "name": "Ruby of Good",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -40569,8 +40569,8 @@
                 "name": "Ruby of Impulse 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40599,8 +40599,8 @@
                 "ml": 28,
                 "name": "Ruby of Impulse 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40640,8 +40640,8 @@
                 "name": "Ruby of Impulse 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40656,9 +40656,9 @@
                 "name": "Ruby of Impulse 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -40673,10 +40673,10 @@
                 "name": "Ruby of Impulse 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40690,9 +40690,9 @@
                 "ml": 12,
                 "name": "Ruby of Impulse 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -40706,9 +40706,9 @@
                 "ml": 16,
                 "name": "Ruby of Impulse 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -40722,8 +40722,8 @@
                 "ml": 8,
                 "name": "Ruby of Iron Blows",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -40738,8 +40738,8 @@
                 "name": "Ruby of Magnetism 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40768,8 +40768,8 @@
                 "ml": 28,
                 "name": "Ruby of Magnetism 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40809,8 +40809,8 @@
                 "name": "Ruby of Magnetism 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40825,9 +40825,9 @@
                 "name": "Ruby of Magnetism 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -40842,10 +40842,10 @@
                 "name": "Ruby of Magnetism 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40859,9 +40859,9 @@
                 "ml": 12,
                 "name": "Ruby of Magnetism 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -40875,9 +40875,9 @@
                 "ml": 16,
                 "name": "Ruby of Magnetism 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -40908,8 +40908,8 @@
                 "name": "Ruby of Nullification 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40938,8 +40938,8 @@
                 "ml": 28,
                 "name": "Ruby of Nullification 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -40979,8 +40979,8 @@
                 "name": "Ruby of Nullification 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -40995,9 +40995,9 @@
                 "name": "Ruby of Nullification 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -41012,10 +41012,10 @@
                 "name": "Ruby of Nullification 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41029,9 +41029,9 @@
                 "ml": 12,
                 "name": "Ruby of Nullification 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -41045,9 +41045,9 @@
                 "ml": 16,
                 "name": "Ruby of Nullification 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -41061,8 +41061,8 @@
                 "ml": 4,
                 "name": "Ruby of Order",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -41091,8 +41091,8 @@
                 "name": "Ruby of Radiance 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41121,8 +41121,8 @@
                 "ml": 28,
                 "name": "Ruby of Radiance 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -41165,8 +41165,8 @@
                 "name": "Ruby of Radiance 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41181,9 +41181,9 @@
                 "name": "Ruby of Radiance 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -41198,10 +41198,10 @@
                 "name": "Ruby of Radiance 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41215,9 +41215,9 @@
                 "ml": 12,
                 "name": "Ruby of Radiance 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -41231,9 +41231,9 @@
                 "ml": 16,
                 "name": "Ruby of Radiance 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -41248,8 +41248,8 @@
                 "name": "Ruby of Reconstruction 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41278,8 +41278,8 @@
                 "ml": 28,
                 "name": "Ruby of Reconstruction 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -41319,8 +41319,8 @@
                 "name": "Ruby of Reconstruction 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41335,9 +41335,9 @@
                 "name": "Ruby of Reconstruction 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -41352,10 +41352,10 @@
                 "name": "Ruby of Reconstruction 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41369,9 +41369,9 @@
                 "ml": 12,
                 "name": "Ruby of Reconstruction 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -41385,9 +41385,9 @@
                 "ml": 16,
                 "name": "Ruby of Reconstruction 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -41402,8 +41402,8 @@
                 "name": "Ruby of Resonance 111",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41432,8 +41432,8 @@
                 "ml": 28,
                 "name": "Ruby of Resonance 139",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -41473,8 +41473,8 @@
                 "name": "Ruby of Resonance 38",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41489,9 +41489,9 @@
                 "name": "Ruby of Resonance 55",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -41506,10 +41506,10 @@
                 "name": "Ruby of Resonance 70",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41523,9 +41523,9 @@
                 "ml": 12,
                 "name": "Ruby of Resonance 84",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -41539,9 +41539,9 @@
                 "ml": 16,
                 "name": "Ruby of Resonance 97",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -41567,8 +41567,8 @@
                 "name": "Ruby of Shock (1d6)",
                 "quests": [
                     "Celaeno Kelle",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41583,9 +41583,9 @@
                 "name": "Ruby of Shock (2d6)",
                 "quests": [
                     "Davyd Turner",
-                    "DDO Store",
                     "Monster Hunter",
-                    "Yannick Drumdoom"
+                    "Yannick Drumdoom",
+                    "DDO Store"
                 ]
             },
             {
@@ -41600,10 +41600,10 @@
                 "name": "Ruby of Shock (3d6)",
                 "quests": [
                     "Bowdlin",
-                    "DDO Store",
                     "Flintchip Fireson",
                     "Leif Lightman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41617,9 +41617,9 @@
                 "ml": 12,
                 "name": "Ruby of Shock (4d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -41633,9 +41633,9 @@
                 "ml": 16,
                 "name": "Ruby of Shock (5d6)",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -41650,8 +41650,8 @@
                 "name": "Ruby of Shock (6d6)",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -41680,8 +41680,8 @@
                 "ml": 28,
                 "name": "Ruby of Shock (8d6)",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -41725,8 +41725,8 @@
                 "ml": 8,
                 "name": "Ruby of Silvered Strikes",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -41797,8 +41797,8 @@
                 "ml": 8,
                 "name": "Ruby of the Gatekeepers",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -50239,8 +50239,8 @@
                 "ml": 16,
                 "name": "Topaz of Abjuration",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -50268,10 +50268,10 @@
                 "ml": 4,
                 "name": "Topaz of Acid Resistance 10",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Monster Hunter",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -50286,9 +50286,9 @@
                 "name": "Topaz of Acid Resistance 15",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Mantakhan",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50302,9 +50302,9 @@
                 "ml": 12,
                 "name": "Topaz of Acid Resistance 20",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -50318,9 +50318,9 @@
                 "ml": 16,
                 "name": "Topaz of Acid Resistance 25",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50335,8 +50335,8 @@
                 "name": "Topaz of Acid Resistance 30",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50365,8 +50365,8 @@
                 "ml": 28,
                 "name": "Topaz of Acid Resistance 40",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50394,9 +50394,9 @@
                 "ml": 1,
                 "name": "Topaz of Acid Resistance 5",
                 "quests": [
-                    "DDO Store",
                     "Giles Goodman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50450,9 +50450,9 @@
                 "name": "Topaz of Blindness Immunity",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Lahar",
-                    "Mantakhan"
+                    "Mantakhan",
+                    "DDO Store"
                 ]
             },
             {
@@ -50466,10 +50466,10 @@
                 "ml": 4,
                 "name": "Topaz of Cold Resistance 10",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Monster Hunter",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -50484,9 +50484,9 @@
                 "name": "Topaz of Cold Resistance 15",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Mantakhan",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50500,9 +50500,9 @@
                 "ml": 12,
                 "name": "Topaz of Cold Resistance 20",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -50516,9 +50516,9 @@
                 "ml": 16,
                 "name": "Topaz of Cold Resistance 25",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50533,8 +50533,8 @@
                 "name": "Topaz of Cold Resistance 30",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50563,8 +50563,8 @@
                 "ml": 28,
                 "name": "Topaz of Cold Resistance 40",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50592,9 +50592,9 @@
                 "ml": 1,
                 "name": "Topaz of Cold Resistance 5",
                 "quests": [
-                    "DDO Store",
                     "Giles Goodman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50619,8 +50619,8 @@
                 "ml": 16,
                 "name": "Topaz of Conjuration",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -50648,8 +50648,8 @@
                 "ml": 1,
                 "name": "Topaz of Damage +1",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50663,8 +50663,8 @@
                 "ml": 28,
                 "name": "Topaz of Damage +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50703,8 +50703,8 @@
                 "ml": 4,
                 "name": "Topaz of Damage +3",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50718,8 +50718,8 @@
                 "ml": 8,
                 "name": "Topaz of Damage +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Village of Tanaroa)"
+                    "Randall Lyric (Village of Tanaroa)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50733,8 +50733,8 @@
                 "ml": 12,
                 "name": "Topaz of Damage +5",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50748,8 +50748,8 @@
                 "ml": 16,
                 "name": "Topaz of Damage +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50763,8 +50763,8 @@
                 "ml": 20,
                 "name": "Topaz of Damage +8",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50778,8 +50778,8 @@
                 "ml": 24,
                 "name": "Topaz of Damage +9",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50807,10 +50807,10 @@
                 "ml": 4,
                 "name": "Topaz of Electric Resistance 10",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Monster Hunter",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -50825,9 +50825,9 @@
                 "name": "Topaz of Electric Resistance 15",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Mantakhan",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50841,9 +50841,9 @@
                 "ml": 12,
                 "name": "Topaz of Electric Resistance 20",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -50857,9 +50857,9 @@
                 "ml": 16,
                 "name": "Topaz of Electric Resistance 25",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50874,8 +50874,8 @@
                 "name": "Topaz of Electric Resistance 30",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50904,8 +50904,8 @@
                 "ml": 28,
                 "name": "Topaz of Electric Resistance 40",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -50933,9 +50933,9 @@
                 "ml": 1,
                 "name": "Topaz of Electric Resistance 5",
                 "quests": [
-                    "DDO Store",
                     "Giles Goodman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -50974,8 +50974,8 @@
                 "ml": 16,
                 "name": "Topaz of Enchantment",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -50989,8 +50989,8 @@
                 "ml": 16,
                 "name": "Topaz of Evocation",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -51032,10 +51032,10 @@
                 "ml": 4,
                 "name": "Topaz of Feather Falling",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Lahar",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -51049,10 +51049,10 @@
                 "ml": 4,
                 "name": "Topaz of Fire Resistance 10",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Monster Hunter",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -51067,9 +51067,9 @@
                 "name": "Topaz of Fire Resistance 15",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Mantakhan",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51083,9 +51083,9 @@
                 "ml": 12,
                 "name": "Topaz of Fire Resistance 20",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -51099,9 +51099,9 @@
                 "ml": 16,
                 "name": "Topaz of Fire Resistance 25",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51116,8 +51116,8 @@
                 "name": "Topaz of Fire Resistance 30",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51146,8 +51146,8 @@
                 "ml": 28,
                 "name": "Topaz of Fire Resistance 40",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51175,9 +51175,9 @@
                 "ml": 1,
                 "name": "Topaz of Fire Resistance 5",
                 "quests": [
-                    "DDO Store",
                     "Giles Goodman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51310,8 +51310,8 @@
                 "ml": 16,
                 "name": "Topaz of Illusion",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -51353,8 +51353,8 @@
                 "ml": 28,
                 "name": "Topaz of Melee Power +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51393,8 +51393,8 @@
                 "ml": 12,
                 "name": "Topaz of Melee Power +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51408,8 +51408,8 @@
                 "ml": 16,
                 "name": "Topaz of Melee Power +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51423,8 +51423,8 @@
                 "ml": 20,
                 "name": "Topaz of Melee Power +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51438,8 +51438,8 @@
                 "ml": 24,
                 "name": "Topaz of Melee Power +8",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51481,8 +51481,8 @@
                 "ml": 16,
                 "name": "Topaz of Necromancy",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -51525,8 +51525,8 @@
                 "name": "Topaz of Proof Against Disease +4",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
-                    "Mantakhan"
+                    "Mantakhan",
+                    "DDO Store"
                 ]
             },
             {
@@ -51554,8 +51554,8 @@
                 "ml": 16,
                 "name": "Topaz of Proof Against Disease +6",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -51599,8 +51599,8 @@
                 "name": "Topaz of Proof Against Poison +4",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
-                    "Mantakhan"
+                    "Mantakhan",
+                    "DDO Store"
                 ]
             },
             {
@@ -51628,8 +51628,8 @@
                 "ml": 16,
                 "name": "Topaz of Proof Against Poison +6",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -51672,8 +51672,8 @@
                 "ml": 28,
                 "name": "Topaz of Ranged Power +10",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51715,8 +51715,8 @@
                 "ml": 12,
                 "name": "Topaz of Ranged Power +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51730,8 +51730,8 @@
                 "ml": 16,
                 "name": "Topaz of Ranged Power +4",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Sharn - Clifftop Tower District)"
+                    "Randall Lyric (Sharn - Clifftop Tower District)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51745,8 +51745,8 @@
                 "ml": 20,
                 "name": "Topaz of Ranged Power +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51760,8 +51760,8 @@
                 "ml": 24,
                 "name": "Topaz of Ranged Power +8",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51775,10 +51775,10 @@
                 "ml": 4,
                 "name": "Topaz of Sonic Resistance 10",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Monster Hunter",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -51793,9 +51793,9 @@
                 "name": "Topaz of Sonic Resistance 15",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
                     "Mantakhan",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51809,9 +51809,9 @@
                 "ml": 12,
                 "name": "Topaz of Sonic Resistance 20",
                 "quests": [
-                    "DDO Store",
                     "Monster Hunter",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -51825,9 +51825,9 @@
                 "ml": 16,
                 "name": "Topaz of Sonic Resistance 25",
                 "quests": [
-                    "DDO Store",
                     "Meliager Ei'n",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51842,8 +51842,8 @@
                 "name": "Topaz of Sonic Resistance 30",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51872,8 +51872,8 @@
                 "ml": 28,
                 "name": "Topaz of Sonic Resistance 40",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51901,9 +51901,9 @@
                 "ml": 1,
                 "name": "Topaz of Sonic Resistance 5",
                 "quests": [
-                    "DDO Store",
                     "Giles Goodman",
-                    "Monster Hunter"
+                    "Monster Hunter",
+                    "DDO Store"
                 ]
             },
             {
@@ -51931,8 +51931,8 @@
                 "ml": 1,
                 "name": "Topaz of Spell Penetration +1",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Snapping Line Inn)"
+                    "Randall Lyric (The Snapping Line Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51957,8 +51957,8 @@
                 "ml": 4,
                 "name": "Topaz of Spell Penetration +2",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -51972,8 +51972,8 @@
                 "ml": 8,
                 "name": "Topaz of Spell Penetration +3",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Blue Water Inn)"
+                    "Randall Lyric (Blue Water Inn)",
+                    "DDO Store"
                 ]
             },
             {
@@ -52015,8 +52015,8 @@
                 "ml": 20,
                 "name": "Topaz of Spell Penetration +6",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Eveningstar)"
+                    "Randall Lyric (Eveningstar)",
+                    "DDO Store"
                 ]
             },
             {
@@ -52030,8 +52030,8 @@
                 "ml": 24,
                 "name": "Topaz of Spell Penetration +7",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (The Ball and Chain Tavern)"
+                    "Randall Lyric (The Ball and Chain Tavern)",
+                    "DDO Store"
                 ]
             },
             {
@@ -52056,8 +52056,8 @@
                 "ml": 1,
                 "name": "Topaz of Striding 10%",
                 "quests": [
-                    "DDO Store",
-                    "Giles Goodman"
+                    "Giles Goodman",
+                    "DDO Store"
                 ]
             },
             {
@@ -52071,9 +52071,9 @@
                 "ml": 4,
                 "name": "Topaz of Striding 20%",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -52088,8 +52088,8 @@
                 "name": "Topaz of Striding 30%",
                 "quests": [
                     "Chor Blast-Horn",
-                    "DDO Store",
-                    "Mantakhan"
+                    "Mantakhan",
+                    "DDO Store"
                 ]
             },
             {
@@ -52142,8 +52142,8 @@
                 "ml": 16,
                 "name": "Topaz of Transmutation",
                 "quests": [
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -52171,10 +52171,10 @@
                 "ml": 4,
                 "name": "Topaz of Water Breathing",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
                     "Lahar",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {
@@ -52188,8 +52188,8 @@
                 "ml": 12,
                 "name": "Topaz of Wizardry +129",
                 "quests": [
-                    "DDO Store",
-                    "Ruskin Blackboot"
+                    "Ruskin Blackboot",
+                    "DDO Store"
                 ]
             },
             {
@@ -52203,8 +52203,8 @@
                 "ml": 16,
                 "name": "Topaz of Wizardry +162",
                 "quests": [
-                    "DDO Store",
-                    "Meliager Ei'n"
+                    "Meliager Ei'n",
+                    "DDO Store"
                 ]
             },
             {
@@ -52233,8 +52233,8 @@
                 "name": "Topaz of Wizardry +195",
                 "quests": [
                     "Broag Umber",
-                    "DDO Store",
-                    "Lahar"
+                    "Lahar",
+                    "DDO Store"
                 ]
             },
             {
@@ -52263,8 +52263,8 @@
                 "ml": 28,
                 "name": "Topaz of Wizardry +261",
                 "quests": [
-                    "DDO Store",
-                    "Randall Lyric (Wynwood Hall)"
+                    "Randall Lyric (Wynwood Hall)",
+                    "DDO Store"
                 ]
             },
             {
@@ -52303,9 +52303,9 @@
                 "ml": 4,
                 "name": "Topaz of Wizardry +60",
                 "quests": [
-                    "DDO Store",
                     "Kipling Vranch",
-                    "Peta Flashpin"
+                    "Peta Flashpin",
+                    "DDO Store"
                 ]
             },
             {

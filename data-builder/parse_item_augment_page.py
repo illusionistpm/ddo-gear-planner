@@ -130,7 +130,7 @@ def get_item_augments_from_page(soup, sourceResolver=None, multiSourceEntries=No
         craftingEntry['affixes'] = affixMap
         expand_compound_affixes_from_augment_name(craftingEntry)
 
-        quests = extract_sources(cells[dataTableLocationCellIndex], row.get_text(' ', strip=True), sourceResolver.knows, multiSourceEntries)
+        quests = sourceResolver.store_last(extract_sources(cells[dataTableLocationCellIndex], row.get_text(' ', strip=True), sourceResolver.knows, multiSourceEntries))
         if quests:
             craftingEntry['quests'] = quests
             sourceResolver.resolve_item(quests)

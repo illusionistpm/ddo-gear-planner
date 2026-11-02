@@ -203,3 +203,12 @@ def test_committed_data_has_no_unresolved_sources():
             return json.load(file)
 
     assert get_unresolved_sources(load('quests'), load('items'), load('crafting')) == []
+
+
+def test_store_last_moves_store_sources_to_the_end_and_keeps_the_rest_in_order():
+    resolver = SourceResolver({'Quest A': 'Pack A'}, source_packs={'Stone of Experience': 'DDO Store', 'Lahar': None})
+
+    assert resolver.store_last(['DDO Store', 'Lahar', 'Stone of Experience', 'Quest A']) == [
+        'Lahar', 'Quest A', 'DDO Store', 'Stone of Experience',
+    ]
+    assert resolver.store_last(['Quest A']) == ['Quest A']

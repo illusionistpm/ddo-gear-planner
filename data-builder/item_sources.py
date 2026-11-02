@@ -24,7 +24,8 @@ from write_json import write_json
 # Filter-only groups, not adventure packs. source_packs.json puts the DDO
 # Store and limited-time events in them; the URL codec dictionary treats them
 # as known packs.
-PSEUDO_PACKS = ('DDO Store', 'Events')
+STORE_PACK = 'DDO Store'
+PSEUDO_PACKS = (STORE_PACK, 'Events')
 
 # Rows with no linked source, where the row text still says where it's from.
 # The hint becomes the item's source, named by the value.
@@ -254,6 +255,13 @@ class SourceResolver:
         if fallback and pack:
             self.resolved_source_packs[name] = pack
         return known, pack
+
+    def store_last(self, sources):
+        """The sources in wiki order, except that any from the DDO Store go last:
+        the first is the one an item card shows, and buying is the source of
+        last resort."""
+        in_store = [source for source in sources if self._lookup(source)[1] == STORE_PACK]
+        return [source for source in sources if source not in in_store] + in_store
 
     def resolve_item(self, sources):
         """The pack of each source, recording any the resolver doesn't know."""

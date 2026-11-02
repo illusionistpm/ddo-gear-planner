@@ -335,7 +335,7 @@ def get_items_from_page(
                 })
 
         row_text = row.getText(' ', strip=True)
-        quests = extract_sources(fields[questIdx], row_text, sourceResolver.knows, multiSourceEntries)
+        quests = sourceResolver.store_last(extract_sources(fields[questIdx], row_text, sourceResolver.knows, multiSourceEntries))
         if quests:
             item['quests'] = quests
 

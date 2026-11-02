@@ -130,3 +130,14 @@ def test_get_item_augments_from_page_leaves_quests_off_a_sourceless_augment(monk
     augments = get_item_augments_from_page(augment_page('<td>Random loot</td>'))
 
     assert 'quests' not in augments['Moon Augment Slot']['*'][0]
+
+
+def test_get_item_augments_from_page_lists_the_store_last(monkeypatch):
+    monkeypatch.setattr(parse_item_augment_page, 'get_affix_map_list_from_tag', lambda tag: [{'name': 'Fortitude Save', 'type': 'Resistance', 'value': '1'}])
+
+    augments = get_item_augments_from_page(augment_page('''<td><ul>
+        <li><a href="/page/DDO_Store" title="DDO Store">DDO Store</a></li>
+        <li><a href="/page/Lahar" title="Lahar">Lahar</a></li>
+    </ul></td>'''), SourceResolver({}, source_packs={'Lahar': None}))
+
+    assert augments['Moon Augment Slot']['*'][0]['quests'] == ['Lahar', 'DDO Store']

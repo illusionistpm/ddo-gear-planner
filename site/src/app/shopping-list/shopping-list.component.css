@@ -227,8 +227,9 @@
     padding-left: var(--space-24);
 }
 
+/* The box and the text beside it centred on each other, however many lines the text runs to. */
 .shopping-row {
-    align-items: flex-start;
+    align-items: center;
     background: var(--row-bg);
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -410,6 +411,13 @@
     /* Only "also from" is left beside the name here, so it takes just the room it needs. */
     .shopping-quest-card .shopping-row-body {
         grid-template-columns: minmax(0, 1fr) auto 10rem;
+    }
+}
+
+/* With nothing under the name, no empty line to pull it off centre. */
+@media (max-width: 991.98px) {
+    .shopping-row-meta:has(> .shopping-row-where:empty):has(> .shopping-row-badges:empty) {
+        display: none;
     }
 }
 

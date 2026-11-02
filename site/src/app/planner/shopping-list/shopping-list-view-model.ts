@@ -119,13 +119,28 @@ interface RowContext {
 }
 
 /**
- * A colour for each pack in the build, in name order, so packs listed next to
- * each other differ and a pack keeps its colour in both views.
+ * What closes the list, after the real packs (by name): events, the quests in
+ * no pack ('' here), and the store last of all. Events and the store are the
+ * filter-only groups the pack map puts beside real packs (pack-filter.ts's
+ * PSEUDO_PACKS); neither is somewhere you run.
+ */
+const TRAILING_PACKS: readonly string[] = ['Events', '', 'DDO Store'];
+
+/** The order of pack headings. */
+function comparePacks(a: string, b: string): number {
+  const rank = (pack: string) => TRAILING_PACKS.indexOf(pack) + 1;
+  const [rankA, rankB] = [rank(a), rank(b)];
+  return rankA !== rankB ? rankA - rankB : a.localeCompare(b);
+}
+
+/**
+ * A colour for each pack in the build, in heading order, so packs listed next
+ * to each other differ and a pack keeps its colour in both views.
  */
 function packAccents(entries: readonly ShoppingEntry[]): Map<string, number> {
   const packs = new Set(entries.flatMap(entry => entry.sources.map(source => source.pack ?? '')));
   packs.delete('');
-  return new Map(Array.from(packs).sort((a, b) => a.localeCompare(b))
+  return new Map(Array.from(packs).sort(comparePacks)
     .map((pack, index) => [pack, index % PACK_ACCENT_COUNT]));
 }
 
@@ -170,14 +185,14 @@ function section(id: string, label: string | null, groups: ShoppingGroup[], cont
   return { id, label, accent, groups, acquired, total: keys.size };
 }
 
-/** A heading per pack, by name, then the quests not in one; each pack's quests by name, unknown last. */
+/** A heading per pack, in comparePacks order; each pack's quests by name, unknown last. */
 function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): ShoppingSection[] {
   const byPack = new Map<string, SourceGroup[]>();
   for (const group of groups) {
     const pack = group.pack ?? '';
     byPack.set(pack, [...(byPack.get(pack) ?? []), group]);
   }
-  const packs = Array.from(byPack.keys()).sort((a, b) => !a !== !b ? (a ? -1 : 1) : a.localeCompare(b));
+  const packs = Array.from(byPack.keys()).sort(comparePacks);
   return packs.map(pack => {
     const members = byPack.get(pack)!.sort((a, b) =>
       a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));

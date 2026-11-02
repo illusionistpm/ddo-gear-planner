@@ -157,6 +157,18 @@ describe('shopping list view model', () => {
     expect(groupsOf(bySlot).map(group => [group.label, group.accent])).toEqual([['Weapon', 0], ['Ring 1', 1], ['Ring 2', 1]]);
   });
 
+  it('lists the packs, then events, then the quests in no pack, then the store last', () => {
+    const fromEach = [
+      from('Anniversary Party', 'Events'), from('DDO Store', 'DDO Store'), from('Vendor'),
+      from('The Snitch', 'Sharn'), from('The Raid', 'Raid Pack', true),
+    ].map((source, index) => entry({ key: `g|Ring1|${index}`, sources: [source] }));
+    const view = buildShoppingListView(fromEach, {}, null, { groupMode: 'source', filter: 'all' });
+
+    expect(view.sections.map(section => [section.label, section.accent])).toEqual([
+      ['Raid Pack', 0], ['Sharn', 1], ['Events', 2], [OTHER_SOURCES_LABEL, null], ['DDO Store', 3],
+    ]);
+  });
+
   it('reuses pack colours once there are more packs than colours', () => {
     const many = Array.from({ length: PACK_ACCENT_COUNT + 1 }, (_, index) =>
       entry({ key: `g|Ring1|${index}`, sources: [from(`Quest ${index}`, `Pack ${String.fromCharCode(65 + index)}`)] }));

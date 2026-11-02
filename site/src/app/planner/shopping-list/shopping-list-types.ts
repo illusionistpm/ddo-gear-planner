@@ -125,4 +125,6 @@ export interface ShoppingListView {
   filter: ShoppingFilter;
   /** True when the user picked where to get something in the list, whatever the filter shows. */
   picked: boolean;
+  /** Each pack's colour, to hand to the next view so packs keep theirs. */
+  packAccents: ReadonlyMap<string, number>;
 }

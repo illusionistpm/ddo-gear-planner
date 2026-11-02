@@ -7,6 +7,7 @@ import { CurrentBuildService } from '../../build/current-build.service';
 import { Craftable } from '../../gear/craftable';
 import { CraftableOption } from '../../gear/craftable-option';
 import { Item } from '../../gear/item';
+import { QuestService } from '../../gear/quest.service';
 import { EquippedService } from '../equipped.service';
 import { UserGearService } from '../user-gear.service';
 import { ShoppingListService } from './shopping-list.service';
@@ -97,6 +98,18 @@ describe('ShoppingListService', () => {
     service.resetRoute();
     expect(await titles()).toEqual([['The Snitch', ['Ring of Tests', 'Diamond of Tests']]]);
     expect(TestBed.inject(ShoppingProgressStore).picks).toEqual({});
+  });
+
+  it('keeps each pack\'s colour when a pick lists a new pack before it', async () => {
+    vi.spyOn(TestBed.inject(QuestService), 'getPack').mockImplementation(quest =>
+      ({ 'The Snitch': 'Sharn', 'Augment Vendor': 'Amber Pack' })[quest] ?? null);
+    equipped.set(ring('Diamond of Tests', ['Augment Vendor', 'The Snitch']));
+    const accents = async () => (await view()).sections.map(section => [section.label, section.accent]);
+    expect(await accents()).toEqual([['Sharn', 0]]);
+
+    const diamond = (await rowsOf()).find(row => row.entry.label === 'Diamond of Tests')!;
+    service.pickSources(diamond, ['Augment Vendor']);
+    expect(await accents()).toEqual([['Amber Pack', 1], ['Sharn', 0]]);
   });
 
   it('groups the list by quest, and writes the still-needed text', async () => {

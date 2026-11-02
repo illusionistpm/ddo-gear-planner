@@ -1,7 +1,7 @@
 import type { UserItemLocation } from '../user-gear.service';
 import type { ShoppingEntry, ShoppingProgress, ShoppingRow, ShoppingSource, ShoppingTroveLookup } from './shopping-list-types';
 import {
-  applyProgressPatch, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, stillNeededKeys, togglePatch,
+  applyProgressPatch, assignPackAccents, buildShoppingListView, OTHER_SOURCES_LABEL, PACK_ACCENT_COUNT, prunePatch, stillNeededKeys, togglePatch,
   troveCoveredKeys, UNKNOWN_SOURCE_LABEL
 } from './shopping-list-view-model';
 
@@ -212,6 +212,39 @@ describe('shopping list view model', () => {
     const view = buildShoppingListView(many, {}, null, { filter: 'all' });
 
     expect(view.sections.map(section => section.accent)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 0]);
+  });
+
+  describe('keeping pack colours', () => {
+    it('keeps each pack\'s colour when a new one is listed before it, giving the new one the least used', () => {
+      const first = assignPackAccents(['Bravo', 'Delta']);
+      expect(Object.fromEntries(first)).toEqual({ Bravo: 0, Delta: 1 });
+
+      expect(Object.fromEntries(assignPackAccents(['Alpha', 'Bravo', 'Charlie', 'Delta'], first)))
+        .toEqual({ Bravo: 0, Delta: 1, Alpha: 2, Charlie: 3 });
+    });
+
+    it('gives a new pack a colour its neighbours don\'t have', () => {
+      const packs = Array.from({ length: PACK_ACCENT_COUNT }, (_, accent) => `Pack ${accent}`);
+      const previous = new Map(packs.map((pack, accent) => [pack, accent]));
+      // Every colour is in use once, so the first would do, but Pack 0 and Pack 1 sit either side of it.
+      expect(assignPackAccents([packs[0], 'Pack 0a', ...packs.slice(1)], previous).get('Pack 0a')).toBe(2);
+    });
+
+    it('gives a pack that comes back the colour it had', () => {
+      const first = assignPackAccents(['Alpha', 'Bravo']);
+      const without = assignPackAccents(['Bravo'], first);
+
+      expect(assignPackAccents(['Alpha', 'Bravo'], without).get('Alpha')).toBe(0);
+    });
+
+    it('takes the colours from the last view', () => {
+      const raid = entry({ key: 'g|Neck|Amulet', identity: 'gear|Amulet', sources: [from('The Raid', 'Raid Pack')] });
+      const first = buildShoppingListView([raid], {}, null, { filter: 'all' });
+      const anchor = entry({ key: 'g|Back|Cloak', identity: 'gear|Cloak', sources: [from('Anchor', 'Anchor Pack')] });
+      const next = buildShoppingListView([raid, anchor], {}, null, { filter: 'all', packAccents: first.packAccents });
+
+      expect(next.sections.map(section => [section.label, section.accent])).toEqual([['Anchor Pack', 1], ['Raid Pack', 0]]);
+    });
   });
 
   it('hides what has been got when showing only what is still needed, keeping an item with needed crafting', () => {

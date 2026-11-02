@@ -26,6 +26,8 @@ export class ShoppingListService {
   private readonly filterSubject = new BehaviorSubject<ShoppingFilter>('all');
   private readonly trove: ShoppingTroveLookup;
   private readonly sources: ShoppingSourceLookup;
+  /** Each pack's colour so far this session, so listing a new pack doesn't recolour the rest. */
+  private packAccents: ReadonlyMap<string, number> = new Map();
 
   readonly entries$: Observable<ShoppingEntry[]>;
   readonly view$: Observable<ShoppingListView>;
@@ -54,8 +56,12 @@ export class ShoppingListService {
       filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
       this.progressStore.picks$,
     ]).pipe(
-      map(([entries, progress, , filter, hiddenPacks, picks]) =>
-        buildShoppingListView(entries, progress, this.trove, { filter, hiddenPacks, picks })),
+      map(([entries, progress, , filter, hiddenPacks, picks]) => {
+        const view = buildShoppingListView(entries, progress, this.trove,
+          { filter, hiddenPacks, picks, packAccents: this.packAccents });
+        this.packAccents = view.packAccents;
+        return view;
+      }),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }

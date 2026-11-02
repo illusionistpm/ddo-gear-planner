@@ -27,6 +27,39 @@ export interface ShoppingListViewOptions {
   hiddenPacks?: ReadonlySet<string>;
   /** The quests the user chose to get things from; see shopping-list-routing.ts. */
   picks?: ShoppingSourcePicks;
+  /** The colour each pack had last time (the last view's `packAccents`), so a pack keeps its colour. */
+  packAccents?: ReadonlyMap<string, number>;
+}
+
+/**
+ * A colour for each pack listed, given them in heading order. A pack that
+ * had one keeps it, so listing a new pack doesn't recolour the rest; a new
+ * pack gets the least-used colour its neighbours don't have. With none
+ * before, that's each colour in turn. Packs no longer listed keep theirs,
+ * for when they come back.
+ */
+export function assignPackAccents(packs: readonly string[],
+    previous: ReadonlyMap<string, number> = new Map()): Map<string, number> {
+  const accents = new Map(previous);
+  const uses = new Array<number>(PACK_ACCENT_COUNT).fill(0);
+  packs.forEach(pack => {
+    const accent = previous.get(pack);
+    if (accent !== undefined) {
+      uses[accent]++;
+    }
+  });
+  packs.forEach((pack, index) => {
+    if (previous.has(pack)) {
+      return;
+    }
+    const neighbours = [packs[index - 1], packs[index + 1]]
+      .map(neighbour => neighbour === undefined ? undefined : accents.get(neighbour));
+    const candidates = uses.map((_, accent) => accent).filter(accent => !neighbours.includes(accent));
+    const accent = candidates.reduce((best, candidate) => uses[candidate] < uses[best] ? candidate : best);
+    accents.set(pack, accent);
+    uses[accent]++;
+  });
+  return accents;
 }
 
 /** How many copies of each name the trove holds. */
@@ -125,7 +158,8 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   const context: RowContext = { progress, covered, trove };
 
   const route: ShoppingRouteOptions = { hiddenPacks: options.hiddenPacks ?? new Set<string>(), picks: options.picks ?? {} };
-  const allSections = sectionsByPack(groupBySource(entries, route, context), context);
+  const { sections: allSections, packAccents } = sectionsByPack(groupBySource(entries, route, context), context,
+    options.packAccents);
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
       ...rest,
@@ -135,7 +169,7 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
 
   const acquired = entries.filter(entry => isEntryAcquired(entry.key, progress, covered)).length;
   const picked = allSections.some(candidate => candidate.groups.some(group => group.rows.some(row => row.picked)));
-  return { sections, acquired, total: entries.length, filter: options.filter, picked };
+  return { sections, acquired, total: entries.length, filter: options.filter, picked, packAccents };
 }
 
 /** Totals count each entry once, though it may be listed under several quests. */
@@ -153,24 +187,26 @@ function section(id: string, label: string, groups: ShoppingGroup[], context: Ro
 
 /**
  * A heading per pack, in comparePacks order; each pack's quests by name,
- * unknown last. Each pack listed gets a colour, in heading order, so packs
- * next to each other differ; quests in no pack get none.
+ * unknown last. Each pack listed gets a colour (assignPackAccents); quests
+ * in no pack get none.
  */
-function sectionsByPack(groups: readonly SourceGroup[], context: RowContext): ShoppingSection[] {
+function sectionsByPack(groups: readonly SourceGroup[], context: RowContext,
+    previousAccents: ReadonlyMap<string, number> | undefined): { sections: ShoppingSection[]; packAccents: Map<string, number> } {
   const byPack = new Map<string, SourceGroup[]>();
   for (const group of groups) {
     const pack = group.pack ?? '';
     byPack.set(pack, [...(byPack.get(pack) ?? []), group]);
   }
   const packs = Array.from(byPack.keys()).sort(comparePacks);
-  const named = packs.filter(Boolean);
-  return packs.map(pack => {
-    const accent = pack ? named.indexOf(pack) % PACK_ACCENT_COUNT : null;
+  const packAccents = assignPackAccents(packs.filter(Boolean), previousAccents);
+  const sections = packs.map(pack => {
+    const accent = pack ? packAccents.get(pack)! : null;
     const members = byPack.get(pack)!.sort((a, b) =>
       a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));
     return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => ({ ...member.group, accent })),
       context, accent);
   });
+  return { sections, packAccents };
 }
 
 function neededRows(rows: ShoppingRow[]): ShoppingRow[] {

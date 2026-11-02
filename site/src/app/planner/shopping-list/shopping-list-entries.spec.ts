@@ -35,11 +35,11 @@ describe('deriveShoppingEntries', () => {
 
     expect(entries.map(entry => entry.key)).toEqual(['g|Weapon|Big Sword', 'g|Ring1|Ring of Things']);
     expect(entries[0]).toEqual(expect.objectContaining({
-      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: search('The%20Raid') }], raid: true,
+      kind: 'gear', label: 'Big Sword', sources: [{ quest: 'The Raid', pack: 'Raid Pack', raid: true, wikiUrl: search('The%20Raid') }],
       wikiUrl: 'http://ddowiki.com/page/Item:Big_Sword', troveName: 'Big Sword', parentKey: null,
     }));
     expect(entries[1]).toEqual(expect.objectContaining({
-      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: search('The%20Snitch') }], raid: false,
+      sources: [{ quest: 'The Snitch', pack: 'Sharn Pack', raid: false, wikiUrl: search('The%20Snitch') }],
       wikiUrl: null,
     }));
   });
@@ -54,8 +54,6 @@ describe('deriveShoppingEntries', () => {
       { quest: 'The Raid', pack: 'Raid Pack', raid: true },
       { quest: 'Augment Vendor', pack: null, raid: false },
     ]);
-    // It drops outside raids too, so it isn't raid loot.
-    expect(entry.raid).toBe(false);
   });
 
   it('links every source through the wiki\'s Go search, which opens its page when there is one', () => {
@@ -146,7 +144,7 @@ describe('deriveShoppingEntries', () => {
       ['s|Ring1|Ring of Things|T1 (Equipment)#0|Fire1', 'step', 'Altar', false],
     ]);
     expect(entries[1]).toEqual(expect.objectContaining({
-      raid: true, troveName: 'Dolorous Shard',
+      troveName: 'Dolorous Shard',
       wikiUrl: 'https://ddowiki.com/page/Special:Search?go=Go&search=Dolorous%20Shard',
     }));
     expect(entries[2]).toEqual(expect.objectContaining({ troveName: null, wikiUrl: null }));

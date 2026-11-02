@@ -22,21 +22,16 @@ export interface ShoppingEntry {
   /** Stable progress key; see shopping-list-entries.ts for the scheme. */
   key: string;
   kind: ShoppingEntryKind;
-  slot: string;
   /** What counts as "the same thing" across slots, for quantities. */
   identity: string;
   label: string;
   /** The crafting system a non-gear entry was chosen in, else null. */
   system: string | null;
-  /** The item the entry is for (for gear, its own name). */
-  itemName: string;
   ml: number;
   /** Where it drops or is crafted, as the data lists them; empty when it doesn't say. */
   sources: readonly ShoppingSource[];
   /** True when the sources are the item's, because the option names none of its own. */
   sourceInherited: boolean;
-  /** True when every source is a raid, as the planner's Raid badge has it. */
-  raid: boolean;
   rare: boolean;
   artifact: boolean;
   wikiUrl: string | null;

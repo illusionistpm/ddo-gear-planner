@@ -11,8 +11,8 @@ function from(quest: string, pack: string | null = null, raid = false): Shopping
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
-    kind: 'gear', slot: 'Ring1', identity: init.key, label: init.key, system: null, itemName: init.key, ml: 1,
-    sources: [from('The Snitch')], sourceInherited: false, raid: false, rare: false, artifact: false,
+    kind: 'gear', identity: init.key, label: init.key, system: null, ml: 1,
+    sources: [from('The Snitch')], sourceInherited: false, rare: false, artifact: false,
     wikiUrl: null, troveName: null, parentKey: null, details: [],
     ...init,
   };
@@ -27,19 +27,19 @@ function trove(holdings: Record<string, number>): ShoppingTroveLookup {
 }
 
 // A ring in both ring slots, each with the same augment; a sword with a crafting step.
-const ring1 = entry({ key: 'g|Ring1|Ring', slot: 'Ring1', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
+const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
   sources: [from('The Snitch', 'Sharn')] });
-const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
+const ring2 = entry({ key: 'g|Ring2|Ring', identity: 'gear|Ring', label: 'Ring', troveName: 'Ring',
   sources: [from('The Snitch', 'Sharn')] });
-const aug1 = entry({ key: 'a|Ring1|Blue#0|Sapphire', kind: 'augment', slot: 'Ring1', identity: 'augment|Sapphire',
+const aug1 = entry({ key: 'a|Ring1|Blue#0|Sapphire', kind: 'augment', identity: 'augment|Sapphire',
   label: 'Sapphire', sources: [from('Vendor')], troveName: 'Sapphire', parentKey: ring1.key });
-const aug2 = entry({ key: 'a|Ring2|Blue#0|Sapphire', kind: 'augment', slot: 'Ring2', identity: 'augment|Sapphire',
+const aug2 = entry({ key: 'a|Ring2|Blue#0|Sapphire', kind: 'augment', identity: 'augment|Sapphire',
   label: 'Sapphire', sources: [from('Vendor')], troveName: 'Sapphire', parentKey: ring2.key });
-const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword',
-  sources: [from('The Raid', 'Raid Pack', true)], raid: true });
-const swordStep = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step', slot: 'Weapon',
+const sword = entry({ key: 'g|Weapon|Sword', identity: 'gear|Sword', label: 'Sword',
+  sources: [from('The Raid', 'Raid Pack', true)] });
+const swordStep = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step',
   identity: 'step|Lost Purpose|Set|Sword', label: 'Set', sources: sword.sources, sourceInherited: true, parentKey: sword.key });
-const mystery = entry({ key: 'a|Weapon|Colorless#0|Diamond', kind: 'augment', slot: 'Weapon', identity: 'augment|Diamond',
+const mystery = entry({ key: 'a|Weapon|Colorless#0|Diamond', kind: 'augment', identity: 'augment|Diamond',
   label: 'Diamond', sources: [], parentKey: sword.key });
 
 const entries = [sword, swordStep, mystery, ring1, aug1, ring2, aug2];

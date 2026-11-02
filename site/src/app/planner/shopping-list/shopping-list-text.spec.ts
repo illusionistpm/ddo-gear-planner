@@ -8,22 +8,22 @@ function from(quest: string, pack: string | null = null, raid = false): Shopping
 
 function entry(init: Partial<ShoppingEntry> & { key: string }): ShoppingEntry {
   return {
-    kind: 'gear', slot: 'Ring1', identity: init.key, label: init.key, system: null, itemName: init.key, ml: 0,
-    sources: [], sourceInherited: false, raid: false, rare: false, artifact: false,
+    kind: 'gear', identity: init.key, label: init.key, system: null, ml: 0,
+    sources: [], sourceInherited: false, rare: false, artifact: false,
     wikiUrl: null, troveName: null, parentKey: null, details: [],
     ...init,
   };
 }
 
-const sword = entry({ key: 'g|Weapon|Sword', slot: 'Weapon', identity: 'gear|Sword', label: 'Sword', ml: 32,
-  sources: [from('The Raid', 'Raid Pack', true)], raid: true, details: ['Strength +5 Enhancement'] });
-const step = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step', slot: 'Weapon', identity: 'step|lp',
+const sword = entry({ key: 'g|Weapon|Sword', identity: 'gear|Sword', label: 'Sword', ml: 32,
+  sources: [from('The Raid', 'Raid Pack', true)], details: ['Strength +5 Enhancement'] });
+const step = entry({ key: 's|Weapon|Sword|Lost Purpose#0|Set', kind: 'step', identity: 'step|lp',
   label: 'Armaments of the Archons', system: 'Lost Purpose', sources: sword.sources, sourceInherited: true,
   parentKey: sword.key });
 const ring1 = entry({ key: 'g|Ring1|Ring', identity: 'gear|Ring', label: 'Ring', ml: 30, sources: [from('The Snitch')] });
-const ring2 = entry({ key: 'g|Ring2|Ring', slot: 'Ring2', identity: 'gear|Ring', label: 'Ring', ml: 30,
+const ring2 = entry({ key: 'g|Ring2|Ring', identity: 'gear|Ring', label: 'Ring', ml: 30,
   sources: [from('The Snitch')] });
-const augment = entry({ key: 'a|Weapon|Red#0|Ruby', kind: 'augment', slot: 'Weapon', identity: 'augment|Ruby',
+const augment = entry({ key: 'a|Weapon|Red#0|Ruby', kind: 'augment', identity: 'augment|Ruby',
   label: 'Ruby of Frost', parentKey: sword.key });
 const entries = [sword, step, augment, ring1, ring2];
 

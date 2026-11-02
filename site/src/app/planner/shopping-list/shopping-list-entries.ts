@@ -70,15 +70,6 @@ function sourcesFor(quests: readonly string[], lookup: ShoppingSourceLookup): Sh
   }));
 }
 
-/**
- * Raid loot only when every source is a raid, as the planner's Raid badge and
- * its "hide raid items" filter judge it (QuestService.isRaidLoot): with a
- * normal quest or a vendor among them, it can be had without raiding.
- */
-function onlyFromRaids(sources: readonly ShoppingSource[]): boolean {
-  return sources.length > 0 && sources.every(source => source.raid);
-}
-
 export function shoppingGearKey(slot: string, itemName: string): string {
   return `g|${slot}|${itemName}`;
 }
@@ -103,15 +94,12 @@ function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup)
   const gear: ShoppingEntry = {
     key: gearKey,
     kind: 'gear',
-    slot,
     identity: `gear|${item.name}`,
     label: item.name,
     system: null,
-    itemName: item.name,
     ml: item.ml,
     sources: itemSources,
     sourceInherited: false,
-    raid: onlyFromRaids(itemSources),
     rare: item.rare,
     artifact: item.artifact,
     wikiUrl: item.url ? item.getURL() : null,
@@ -157,17 +145,14 @@ function craftedEntry(kind: Exclude<ShoppingEntryKind, 'gear'>, slot: string, it
       ? `a|${slot}|${craftSlot}|${selection}`
       : `${kind === 'upgrade' ? 'u' : 's'}|${slot}|${item.name}|${craftSlot}|${selection}`,
     kind,
-    slot,
     identity: fetchedAlone && option.name
       ? `${kind}|${option.name}`
       : `${kind}|${system}|${selection}${kind === 'step' ? `|${item.name}` : ''}`,
     label: option.describe(),
     system,
-    itemName: item.name,
     ml: option.ml,
     sources: optionSources,
     sourceInherited: inherits,
-    raid: onlyFromRaids(optionSources),
     rare: false,
     artifact: false,
     wikiUrl: fetchedAlone && option.name ? craftedWikiUrl(kind, option.name) : null,

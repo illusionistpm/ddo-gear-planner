@@ -46,7 +46,8 @@ describe('ShoppingListComponent', () => {
   let fixture: ComponentFixture<ShoppingListComponent>;
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
-    setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; stillNeededText: () => string };
+    setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; resetRoute: ReturnType<typeof vi.fn>;
+    stillNeededText: () => string; };
 
   const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
     views.next(buildShoppingListView(list, progress, trove, { filter }));
@@ -58,7 +59,7 @@ describe('ShoppingListComponent', () => {
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
-    service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(),
+    service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):' };
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
@@ -228,6 +229,21 @@ describe('ShoppingListComponent', () => {
 
       (el().querySelector('.shopping-sources-reset') as HTMLButtonElement).click();
       expect(service.pickSources).toHaveBeenCalledWith(expect.anything(), null);
+    });
+
+    it('offers to reset the whole route once the user has picked anything, closing the open panel', () => {
+      const resetRoute = () => el().querySelector<HTMLButtonElement>('.shopping-list-reset-route');
+      showWith();
+      expect(resetRoute()).toBeNull();
+
+      showWith({ picks: { [amulet.identity]: ['Vendor'] } });
+      open();
+      expect(resetRoute()?.textContent?.trim()).toBe('Reset route');
+      resetRoute()!.click();
+      fixture.detectChanges();
+
+      expect(service.resetRoute).toHaveBeenCalled();
+      expect(el().querySelector('.shopping-sources')).toBeNull();
     });
 
     it('says which quests the pack filter hides', () => {

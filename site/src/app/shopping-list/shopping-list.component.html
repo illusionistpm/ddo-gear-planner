@@ -33,6 +33,13 @@
         <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
           [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
       </div>
+      @if (view?.picked) {
+        <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
+          title="Forget the quests you picked, and let the list choose where to get everything">
+          <i class="fas fa-route" aria-hidden="true"></i>
+          <span>Reset route</span>
+        </button>
+      }
     </div>
   </header>
 

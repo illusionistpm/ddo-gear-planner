@@ -92,6 +92,11 @@ describe('ShoppingListService', () => {
 
     service.pickSources(diamond, null);
     expect(await titles()).toEqual([['The Snitch', ['Ring of Tests', 'Diamond of Tests']]]);
+
+    service.pickSources(diamond, ['Augment Vendor']);
+    service.resetRoute();
+    expect(await titles()).toEqual([['The Snitch', ['Ring of Tests', 'Diamond of Tests']]]);
+    expect(TestBed.inject(ShoppingProgressStore).picks).toEqual({});
   });
 
   it('groups the list by quest, and writes the still-needed text', async () => {

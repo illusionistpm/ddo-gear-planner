@@ -117,6 +117,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.shoppingList.pickSources(row, quests);
   }
 
+  /** Forgets every pick, so the list chooses where to get everything again. */
+  resetRoute(): void {
+    this.expandedRowId = null;
+    this.shoppingList.resetRoute();
+  }
+
   /** Forgets the user's pick, so the list chooses again. */
   resetSources(row: ShoppingRow): void {
     this.shoppingList.pickSources(row, null);

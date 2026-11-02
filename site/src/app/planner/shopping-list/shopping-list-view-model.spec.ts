@@ -135,6 +135,18 @@ describe('shopping list view model', () => {
         ['Vendor', 'Sapphire', 1, 'unchecked']]);
       expect(view.sections.map(section => [section.label, section.total])).toEqual([['Raid Pack', 2], [OTHER_SOURCES_LABEL, 1]]);
       expect(view.total).toBe(2);
+      expect(view.picked).toBe(true);
+    });
+
+    it('says whether the user picked where to get anything still in the list, whatever the filter shows', () => {
+      const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
+      const picked = (picks: Record<string, string[]>, progress = {}) =>
+        buildShoppingListView([sword, anywhere], progress, null, { filter: 'needed', picks }).picked;
+
+      expect(picked({})).toBe(false);
+      // Left over from gear no longer in the build.
+      expect(picked({ 'augment|Gone': ['Vendor'] })).toBe(false);
+      expect(picked({ [anywhere.identity]: ['Vendor'] }, { [anywhere.key]: 1 })).toBe(true);
     });
 
     it('keeps something picked from several quests under each once it is got, so it stays where it was ticked', () => {

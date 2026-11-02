@@ -87,6 +87,11 @@ export class ShoppingListService {
     this.progressStore.setPick(row.entry.identity, quests);
   }
 
+  /** Forgets every quest the user picked, so the list routes everything again. */
+  resetRoute(): void {
+    this.progressStore.clearPicks();
+  }
+
   /** The still-needed list as text, whatever the list on screen shows. */
   stillNeededText(): string {
     const view = buildShoppingListView(this.currentEntries(), this.progressStore.progress, this.trove,

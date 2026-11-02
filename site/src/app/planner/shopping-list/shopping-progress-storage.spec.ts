@@ -1,5 +1,5 @@
 import {
-  copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopePicks, readScopeProgress,
+  clearScopePicks, copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopePicks, readScopeProgress,
   setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
@@ -53,6 +53,16 @@ describe('shopping progress storage', () => {
 
     expect(setScopePick('draft', 'augment|Ruby', null)).toEqual({});
     expect(hasScopeProgress('draft')).toBe(false);
+  });
+
+  it('forgets every pick in a build at once, keeping its ticks', () => {
+    setScopePick('draft', 'augment|Ruby', ['Lahar']);
+    setScopePick('draft', 'augment|Topaz', ['Vendor']);
+    patchScopeProgress('draft', { a: 1 });
+
+    clearScopePicks('draft');
+    expect(readScopePicks('draft')).toEqual({});
+    expect(readScopeProgress('draft')).toEqual({ a: 1 });
   });
 
   it('copies ticks and picks to another build, the copy\'s own winning', () => {

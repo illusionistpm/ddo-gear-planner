@@ -130,4 +130,6 @@ export interface ShoppingListView {
   acquired: number;
   total: number;
   filter: ShoppingFilter;
+  /** True when the user picked where to get something in the list, whatever the filter shows. */
+  picked: boolean;
 }

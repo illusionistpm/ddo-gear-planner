@@ -139,7 +139,8 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
     : allSections;
 
   const acquired = entries.filter(entry => isEntryAcquired(entry.key, progress, covered)).length;
-  return { sections, acquired, total: entries.length, filter: options.filter };
+  const picked = allSections.some(candidate => candidate.groups.some(group => group.rows.some(row => row.picked)));
+  return { sections, acquired, total: entries.length, filter: options.filter, picked };
 }
 
 /** Totals count each entry once, though it may be listed under several quests. */

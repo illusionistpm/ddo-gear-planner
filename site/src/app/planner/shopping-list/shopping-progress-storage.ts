@@ -63,6 +63,13 @@ export function setScopePick(scope: string, identity: string, quests: readonly s
   return picks;
 }
 
+/** Forgets every pick in a scope, keeping its ticks. */
+export function clearScopePicks(scope: string): void {
+  const all = readAll();
+  setScope(all, scope, all.scopes[scope]?.entries ?? {}, {});
+  writeAll(all);
+}
+
 /**
  * Copies one scope's ticks and picks into another (the copy's own win),
  * dropping the source when `moveSource` is set.

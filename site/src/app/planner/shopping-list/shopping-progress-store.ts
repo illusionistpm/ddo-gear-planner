@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
 import {
-  copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress, setScopePick,
+  clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress, setScopePick,
   SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
@@ -32,6 +32,8 @@ export abstract class ShoppingProgressStore {
   abstract applyPatch(patch: ShoppingProgressPatch): void;
   /** Sets the quests to get a thing from, or forgets the pick (null) so the list chooses. */
   abstract setPick(identity: string, quests: readonly string[] | null): void;
+  /** Forgets every pick, so the list chooses where to get everything. */
+  abstract clearPicks(): void;
 }
 
 /**
@@ -85,6 +87,11 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
 
   setPick(identity: string, quests: readonly string[] | null): void {
     this.picksSubject.next(setScopePick(this.currentScope, identity, quests));
+  }
+
+  clearPicks(): void {
+    clearScopePicks(this.currentScope);
+    this.picksSubject.next({});
   }
 
   ngOnDestroy(): void {

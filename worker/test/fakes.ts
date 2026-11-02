@@ -150,6 +150,16 @@ export class FakeD1 {
     if (sql.includes('FROM users WHERE email') && sql.includes('email_verified = 1')) {
       return this.users.find(u => u.email === args[0] && u.email_verified === 1) ?? null;
     }
+    // getPublicBuildProgressByShortId: builds LEFT JOIN build_progress,
+    // public builds only, and only the public columns.
+    if (sql.includes('FROM builds b') && sql.includes('LEFT JOIN build_progress p')) {
+      const build = this.builds.find(b => b.short_id === args[0] && b.visibility === 'public');
+      if (!build) {
+        return null;
+      }
+      const progress = this.buildProgress.find(p => p.build_id === build.id);
+      return { needed: progress?.needed ?? null, route: progress?.route ?? null, updated_at: progress?.updated_at ?? null };
+    }
     if (sql.includes('SELECT kind FROM short_ids WHERE short_id')) {
       const row = this.shortIds.find(s => s.short_id === args[0]);
       return row ? { kind: row.kind } : null;

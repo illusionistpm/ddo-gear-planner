@@ -293,6 +293,25 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
   await db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values).run();
 }
 
+// What a friend's link may see of a build's progress. Selects only the
+// public columns, so the private ones can't leak through a careless
+// response mapping. Null when there's no public build by that shortId (a
+// private build, a short link, or nothing at all); all-null columns when
+// the build exists but its owner has never synced a list.
+export interface PublicBuildProgressRow {
+  needed: string | null;
+  route: string | null;
+  updated_at: string | null;
+}
+
+export async function getPublicBuildProgressByShortId(db: D1Database, shortId: string): Promise<PublicBuildProgressRow | null> {
+  return await db.prepare(
+    `SELECT p.needed, p.route, p.updated_at FROM builds b
+     LEFT JOIN build_progress p ON p.build_id = b.id
+     WHERE b.short_id = ? AND b.visibility = 'public'`
+  ).bind(shortId).first();
+}
+
 // Progress first, in one batch: build_progress references builds, and its
 // ON DELETE CASCADE is only a backstop (see migrations/0006).
 export async function deleteBuild(db: D1Database, id: string): Promise<void> {

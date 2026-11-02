@@ -5,7 +5,6 @@ from collections import defaultdict
 from typing import Any, Optional
 
 from allowed_bonus_types import get_allowed_bonus_types
-from source_packs import load_source_packs
 from provenance_io import get_asset_json_path, get_provenance_json_path, include_affix_provenance
 
 REPORT_OUTPUT_PATH = os.path.join(os.path.dirname(__file__), 'reports')
@@ -195,20 +194,6 @@ def audit_augment_upgrades(items: list[dict[str, Any]]) -> list[dict[str, str]]:
     ]
 
 
-def audit_source_packs(items: list[dict[str, Any]], quests: dict[str, Any], source_packs: dict[str, str | None]) -> list[dict[str, str]]:
-    """A pack or source_packs.json name the data cites but quests.json's pack
-    map leaves out shows as free on the site."""
-    packs = quests.get('packs', {})
-    official = set(quests.get('officialPacks', []))
-    issues = []
-    for name, pack in sorted(source_packs.items()):
-        if pack and packs.get(name) != pack:
-            issues.append(_issue('source-pack-missing', 'warning', {'name': name}, {'name': '<source>'}, f"source_packs.json says '{pack}', the pack map says '{packs.get(name)}'"))
-    for source in sorted({source for item in items for source in item.get('quests', []) if source in official and source not in packs}):
-        issues.append(_issue('source-pack-missing', 'warning', {'name': source}, {'name': '<source>'}, 'pack cited as a source, but missing from the pack map'))
-    return issues
-
-
 def write_report(issues: list[dict[str, str]], report_basename: str | None = None) -> None:
     os.makedirs(REPORT_OUTPUT_PATH, exist_ok=True)
     base = report_basename or 'validation_report'
@@ -240,7 +225,6 @@ def audit_generated_assets(report_basename: str | None = None) -> list[str]:
         }]
     else:
         issues = audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {}) + audit_augment_upgrades(items)
-        issues += audit_source_packs(items, _load_json('quests') or {}, load_source_packs())
 
     write_report(issues, report_basename)
     return [f"{issue['severity'].upper()} {issue['category']}: Item '{issue['item']}' affix '{issue['affix']}': {issue['issue']}" for issue in issues]

@@ -181,6 +181,6 @@ export class FiltersComponent implements OnInit {
   }
 
   private packFilterValue(packName: string): string {
-    return packName === this.freeQuestsPackLabel ? FiltersService.NO_PACK_FILTER : packName;
+    return packName === this.freeQuestsPackLabel ? NO_PACK_KEY : packName;
   }
 }

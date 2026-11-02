@@ -11,7 +11,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
 from parse_rare_loot import get_rare_loot_from_snapshot
 from get_snapshot_path import get_snapshot_path
-from item_sources import SourceResolver, extract_sources, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
+from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
@@ -139,13 +139,12 @@ def get_items_from_page(
     craftingSystems: CraftingSystems,
     sets: Sets,
     rareItemNames: set[str]|None = None,
-    sourceResolver: SourceResolver|dict[str, str]|None = None,
+    sourceResolver: SourceResolver|None = None,
     multiSourceEntries: list[list[str]]|None = None,
 ) -> Any:
     synonymMap = get_inverted_synonym_map()
     rareItemNames = rareItemNames or set()
-    if not isinstance(sourceResolver, SourceResolver):
-        sourceResolver = SourceResolver(sourceResolver or {})
+    sourceResolver = sourceResolver or SourceResolver({})
 
     craftableAffixNames = (
         'Craftable',
@@ -226,7 +225,7 @@ def get_items_from_page(
             score += 100
         if 'Bind' in headers:
             score += 50
-        if {'Location', 'Locations', 'Quest', 'Quests'} & headers:
+        if set(LOCATION_HEADERS) & headers:
             score += 40
         if {'ML', 'Minimum level'} & headers:
             score += 20
@@ -260,10 +259,7 @@ def get_items_from_page(
         print(f"Skipping {itemPageURL}: no rows found")
         return items
 
-    questIdx = None
-    for q in ['Location', 'Locations', 'Quest', 'Quests']:
-        if q in cols:
-            questIdx = cols[q]
+    questIdx = find_location_column(cols)
     if questIdx is None:
         print(f"Skipping {itemPageURL}: missing quest/location column")
         return items

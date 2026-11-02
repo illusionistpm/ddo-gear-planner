@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { FiltersComponent } from './filters.component';
-import { FiltersService } from '../planner/filters.service';
+import { NO_PACK_KEY } from '../gear/pack-filter';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -61,7 +61,7 @@ describe('FiltersComponent', () => {
     component.onChangePacks(component.packOptions, 'subgroup');
 
     component.filters.getItemFilters().subscribe(filters => {
-      expect(filters.hiddenPacks.has(firstPack.name === 'Free Quests' ? FiltersService.NO_PACK_FILTER : firstPack.name)).toBe(true);
+      expect(filters.hiddenPacks.has(firstPack.name === 'Free Quests' ? NO_PACK_KEY : firstPack.name)).toBe(true);
     });
   });
 });

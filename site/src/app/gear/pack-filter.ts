@@ -2,8 +2,8 @@ import questList from '@data/quests.json';
 
 /**
  * The pack filter's key for free content: a source the pack map doesn't name, or
- * something with no source at all. FiltersService.NO_PACK_FILTER is this value, and
- * it travels in build URLs, so it must not change.
+ * something with no source at all. It travels in build URLs' hiddenpacks, and the
+ * data builder's URL codec dictionary holds it too, so it must not change.
  */
 export const NO_PACK_KEY = '__NO_PACK__';
 

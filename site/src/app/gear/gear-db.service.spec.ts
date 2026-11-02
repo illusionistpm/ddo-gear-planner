@@ -6,6 +6,7 @@ import { ItemFilters } from './item-filters';
 import { FiltersService } from '../planner/filters.service';
 import { AffixService } from '../affixes/affix.service';
 import { Affix } from '../affixes/affix';
+import { NO_PACK_KEY } from './pack-filter';
 
 describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -413,7 +414,7 @@ describe('GearDbService', () => {
       .toEqual(expect.arrayContaining(['Pack Item', 'No Pack Item']));
 
     const filters = new ItemFilters();
-    filters.hiddenPacks = new Set(['Vecna Unleashed', FiltersService.NO_PACK_FILTER]);
+    filters.hiddenPacks = new Set(['Vecna Unleashed', NO_PACK_KEY]);
 
     expect(service.applyItemFilters(filters).get('Trinket')?.map(item => item.name)).toEqual([]);
   });
@@ -509,7 +510,7 @@ describe('GearDbService', () => {
       const service: GearDbService = TestBed.inject(GearDbService);
 
       expect(trinketNames(service, ['Vecna Unleashed'])).toContain('Epic Dusk Heart');
-      expect(trinketNames(service, [FiltersService.NO_PACK_FILTER])).not.toContain('Epic Dusk Heart');
+      expect(trinketNames(service, [NO_PACK_KEY])).not.toContain('Epic Dusk Heart');
     });
   });
 
@@ -546,7 +547,7 @@ describe('GearDbService', () => {
       service['allGear'] = new Map([['Trinket', [trinket('Pack Or Free', ['Book Burning', 'Not A Mapped Source'])]]]);
 
       expect(filteredNames(service, hiding('Magic of Myth Drannor'))).toEqual(['Pack Or Free']);
-      expect(filteredNames(service, hiding('Magic of Myth Drannor', FiltersService.NO_PACK_FILTER))).toEqual([]);
+      expect(filteredNames(service, hiding('Magic of Myth Drannor', NO_PACK_KEY))).toEqual([]);
     });
 
     it('hides raid items only when every source is a raid', () => {
@@ -602,7 +603,7 @@ describe('GearDbService', () => {
 
       expect(affixes([]).has('Pack Only Affix')).toBe(true);
       expect(affixes(['Magic of Myth Drannor']).has('Pack Only Affix')).toBe(false);
-      expect(affixes(['Magic of Myth Drannor', FiltersService.NO_PACK_FILTER]).has('Sourceless Affix')).toBe(true);
+      expect(affixes(['Magic of Myth Drannor', NO_PACK_KEY]).has('Sourceless Affix')).toBe(true);
     });
   });
 

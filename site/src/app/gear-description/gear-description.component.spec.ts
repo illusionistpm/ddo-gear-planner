@@ -11,6 +11,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
+import { NO_PACK_KEY } from '../gear/pack-filter';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
@@ -218,7 +219,7 @@ describe('GearDescriptionComponent', () => {
       showItem(makeItemWithSourcedOptions());
       expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
 
-      filters.setHiddenPacks(new Set(['Magic of Myth Drannor', FiltersService.NO_PACK_FILTER]));
+      filters.setHiddenPacks(new Set(['Magic of Myth Drannor', NO_PACK_KEY]));
       fixture.detectChanges();
 
       expect(offeredOptions()).toEqual(['Two Pack Augment', 'Sourceless Augment']);

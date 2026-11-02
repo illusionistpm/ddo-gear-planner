@@ -1,7 +1,6 @@
 from read_json import read_json
 from functools import reduce
 from item_sources import SourceResolver
-from source_packs import load_source_packs
 
 
 def _count_affixes(entries):
@@ -71,12 +70,7 @@ def _crafting_options(crafting):
 
 
 def get_unresolved_sources(quests, items, crafting):
-    resolver = SourceResolver(
-        quests.get('packs', {}),
-        quests.get('officialPacks', []),
-        load_source_packs(),
-        quests.get('freeSources', []),
-    )
+    resolver = SourceResolver.from_quests(quests)
     sources = {source for entry in [*items, *_crafting_options(crafting)] for source in entry.get('quests', [])}
     return sorted(source for source in sources if not resolver.knows(source))
 

@@ -33,12 +33,16 @@ ROW_SOURCE_HINTS = {
     'Viktranium Experiment': 'Viktranium Experiment',
 }
 
-# Fallback pairings no wiki list or source_packs.json entry gives.
+# Fallback pairings no wiki list or source_packs.json entry gives. Anything
+# named "Lamordia..." is The Chill of Ravenloft too (SourceResolver._lookup).
+LAMORDIA_PACK = 'The Chill of Ravenloft'
 SOURCE_PACK_HINTS = {
-    'Lamordia': 'The Chill of Ravenloft',
-    'Viktranium Experiment': 'The Chill of Ravenloft',
+    'Viktranium Experiment': LAMORDIA_PACK,
     'Sharn quests': 'Masterminds of Sharn',
 }
+
+# The location column's header, by page. When a table has several, the last wins.
+LOCATION_HEADERS = ('Location', 'Locations', 'Quest', 'Quests')
 
 # Upgrades of an item from the entry's own source, so never a second source.
 UPGRADE_SOURCES = ('Epic Crafting', 'Legendary Crafting')
@@ -180,6 +184,16 @@ class SourceResolver:
     can be merged into quests.json.
     """
 
+    @classmethod
+    def from_quests(cls, quests, source_packs=None):
+        """Over a quests.json dict and source_packs.json (read from disk unless given)."""
+        return cls(
+            quests.get('packs', {}),
+            quests.get('officialPacks', []),
+            load_source_packs() if source_packs is None else source_packs,
+            quests.get('freeSources', []),
+        )
+
     def __init__(self, quest_packs, official_packs=(), source_packs=None, free_sources=()):
         self.quest_packs = dict(quest_packs)
         self.source_packs = dict(source_packs or {})
@@ -192,7 +206,7 @@ class SourceResolver:
         self._packs_by_key = {normalize_source_name(pack): pack for pack in self.known_packs}
         self._source_packs_by_key = {}
         for name, pack in self.source_packs.items():
-            self._source_packs_by_key.setdefault(normalize_source_name(name), (name, pack))
+            self._source_packs_by_key.setdefault(normalize_source_name(name), pack)
         self._free_keys = {normalize_source_name(name) for name in self.free_sources}
 
         self._hints_by_key = {normalize_source_name(name): pack for name, pack in SOURCE_PACK_HINTS.items()}
@@ -224,10 +238,10 @@ class SourceResolver:
         if key in self._hints_by_key:
             return True, self._hints_by_key[key], True
         if key.startswith('lamordia'):
-            return True, SOURCE_PACK_HINTS['Lamordia'], True
+            return True, LAMORDIA_PACK, True
         for source_key in (key, _vendor_key(name)):
             if source_key in self._source_packs_by_key:
-                return True, self._source_packs_by_key[source_key][1], True
+                return True, self._source_packs_by_key[source_key], True
         if key in self._free_keys:
             return True, None, False
         return False, None, False
@@ -262,12 +276,16 @@ def load_source_resolver():
         quests = read_json('quests')
     except FileNotFoundError:
         quests = {}
-    return SourceResolver(
-        quests.get('packs', {}),
-        quests.get('officialPacks', []),
-        load_source_packs(),
-        quests.get('freeSources', []),
-    )
+    return SourceResolver.from_quests(quests)
+
+
+def find_location_column(columns):
+    """The index of a table's location column, given {header: index}, or None."""
+    index = None
+    for header in LOCATION_HEADERS:
+        if header in columns:
+            index = columns[header]
+    return index
 
 
 def merge_resolved_source_packs(resolved_source_packs):

@@ -10,14 +10,12 @@ import {
   HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY, LEVEL_RANGE_KEY, RAIDS_KEY, RARE_KEY
 } from '../build/build-param-keys';
 import { perfMeasure } from '../shared/perf-trace';
-import { NO_PACK_KEY } from '../gear/pack-filter';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltersService implements QueryParamsListener {
-  static readonly NO_PACK_FILTER = NO_PACK_KEY;
 
   private params: BehaviorSubject<QueryParamRecord | null>;
 

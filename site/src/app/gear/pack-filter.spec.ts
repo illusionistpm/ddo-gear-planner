@@ -1,5 +1,4 @@
 import { getPackKeys, getSourcePack, isHiddenByPacks, isOptionHiddenByPacks, NO_PACK_KEY } from './pack-filter';
-import { FiltersService } from '../planner/filters.service';
 
 describe('pack-filter', () => {
   it("reads a source's pack from the pack map, and treats an unmapped one as free", () => {
@@ -13,10 +12,6 @@ describe('pack-filter', () => {
       .toEqual(['Terror of Demogorgon', 'Magic of Myth Drannor']);
     expect(getPackKeys(['Book Burning', 'Not A Mapped Source'])).toEqual(['Magic of Myth Drannor', NO_PACK_KEY]);
     expect(getPackKeys([])).toEqual([NO_PACK_KEY]);
-  });
-
-  it('uses the same free key the filter stores', () => {
-    expect(NO_PACK_KEY).toBe(FiltersService.NO_PACK_FILTER);
   });
 
   it('hides something only when every one of its packs is hidden', () => {

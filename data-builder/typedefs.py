@@ -64,16 +64,6 @@ class Item(TypedDict):
     # Upgrade crafting system -> the augment colours it can become, e.g. {"Upgradeable - Primary Augment": ["Yellow", "Blue"]}.
     augmentUpgrades: NotRequired[dict[str, list[str]]]
 
-class Quests(TypedDict):
-    raids: list[str]
-    # Every item source -> its pack: a real adventure pack, or one of the
-    # filter-only groups in item_sources.PSEUDO_PACKS. A source missing from
-    # it is free.
-    packs: dict[str, str]
-    officialPacks: list[str]
-    # Free-to-play quests, scraped from the wiki.
-    freeSources: list[str]
-
 class SetAugment(TypedDict):
     name: str
     set: NotRequired[str]

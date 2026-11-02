@@ -35,12 +35,6 @@ export class QuestService {
     return getSourcePack(source);
   }
 
-  /** The distinct packs of these sources, in source order; free sources are left out. */
-  getPacks(sources: ReadonlyArray<string>): string[] {
-    const packs = sources.map(source => this.getPack(source)).filter((pack): pack is string => !!pack);
-    return Array.from(new Set(packs));
-  }
-
   /** Every source of the item, first (the one its card shows) first. */
   getLootSources(item: Item | null | undefined): ReadonlyArray<string> {
     return item?.quests ?? [];

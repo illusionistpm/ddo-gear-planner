@@ -1,20 +1,24 @@
 """Lists every item source that resolves to nothing, with its row count and a
 guess at its group, for seeding source_packs.json by hand. Also lists the
 entries that gained more than one source, to catch a prerequisite quest
-written without parentheses. Reads the committed snapshot and data/.
+written without parentheses. Runs the item and augment parsers over the
+committed snapshot, against data/, without writing anything.
 
     python triage_sources.py
 """
 import collections
+import contextlib
+import io
 import os
 import re
 
 from bs4 import BeautifulSoup
 
 from get_snapshot_path import get_snapshot_path
-from item_sources import SourceResolver, extract_sources
+from item_sources import SourceResolver
+from parse_item_augment_page import get_item_augments_from_page
+from parse_items import get_items_from_page, include_page
 from read_json import read_json
-from source_packs import load_source_packs
 
 GROUP_GUESSES = (
     (r'ddo store|store', 'DDO Store'),
@@ -32,34 +36,35 @@ def guess_group(name):
     return 'vendor/other -> ?'
 
 
-def location_cells():
-    """(cell, row text) for every item and augment row with a location column."""
-    pages = [os.path.join(get_snapshot_path('items'), name) for name in sorted(os.listdir(get_snapshot_path('items')))]
-    pages.append(get_snapshot_path('item_augments', 'Raw data_Item augments.html'))
-    for page in pages:
-        soup = BeautifulSoup(open(page, encoding='utf-8').read(), 'html.parser')
-        for table in soup.find_all('table', class_='wikitable'):
-            header = table.find('tr')
-            headers = [cell.get_text(strip=True) for cell in header.find_all(['th', 'td'])] if header else []
-            column = next((headers.index(name) for name in ('Location', 'Locations', 'Quest', 'Quests') if name in headers), None)
-            if column is None:
-                continue
-            for row in table.find_all('tr')[1:]:
-                cells = row.find_all('td', recursive=False)
-                if len(cells) > column:
-                    yield cells[column], row.get_text(' ', strip=True)
+def parse_everything(resolver, multi):
+    """{source: an item or augment from it}, from the same rows the build reads."""
+    examples = {}
+    augments_page = get_snapshot_path('item_augments', 'Raw data_Item augments.html')
+    augments = get_item_augments_from_page(BeautifulSoup(open(augments_page, encoding='utf-8').read(), 'html.parser'), resolver, multi)
+    for system in augments.values():
+        for option in system.get('*', []):
+            for source in option.get('quests', []):
+                examples.setdefault(source, option['name'])
+
+    crafting = read_json('crafting')
+    sets = read_json('sets')
+    items_dir = get_snapshot_path('items')
+    for page in sorted(os.listdir(items_dir)):
+        if not include_page(page):
+            continue
+        # The parser announces every page; only the summary matters here.
+        with contextlib.redirect_stdout(io.StringIO()):
+            items = get_items_from_page(os.path.join(items_dir, page), crafting, sets, set(), resolver, multi)
+        for item in items:
+            for source in item.get('quests', []):
+                examples.setdefault(source, item['name'])
+    return examples
 
 
 def main():
-    quests = read_json('quests')
-    resolver = SourceResolver(quests['packs'], quests.get('officialPacks', []), load_source_packs(), quests.get('freeSources', []))
-    examples = {}
+    resolver = SourceResolver.from_quests(read_json('quests'))
     multi = []
-    for cell, row_text in location_cells():
-        sources = extract_sources(cell, row_text, resolver.knows, multi)
-        resolver.resolve_item(sources)
-        for source in sources:
-            examples.setdefault(source, cell.get_text(' ', strip=True)[:110])
+    examples = parse_everything(resolver, multi)
 
     print(f'{len(resolver.unresolved)} unresolved sources, {sum(resolver.unresolved.values())} rows\n')
     by_group = collections.defaultdict(list)
@@ -68,7 +73,7 @@ def main():
     for group, entries in sorted(by_group.items()):
         print(f'## {group}')
         for count, source in sorted(entries, reverse=True):
-            print(f'  {count:5}  {source}    | {examples[source]}')
+            print(f'  {count:5}  {source}    | e.g. {examples[source]}')
         print()
 
     print('## Entries with more than one source')

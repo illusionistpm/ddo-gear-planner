@@ -84,13 +84,11 @@ describe('QuestService', () => {
     expect(service.isRaidLoot(noSource)).toBe(false);
   });
 
-  it('looks up the pack of each source', () => {
+  it('looks up the pack of a source', () => {
     const service: QuestService = TestBed.inject(QuestService);
 
     expect(service.getPack('Book Burning')).toBe('Magic of Myth Drannor');
     expect(service.getPack('Not A Mapped Source')).toBeNull();
-    expect(service.getPacks(['Flocked Together', 'Book Burning', 'Stealing from Sorcere', 'Not A Mapped Source']))
-      .toEqual(['Terror of Demogorgon', 'Magic of Myth Drannor']);
   });
 
   it('lists every loot source in order', () => {

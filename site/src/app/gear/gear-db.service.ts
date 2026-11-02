@@ -9,7 +9,7 @@ import { ItemFilters } from './item-filters';
 import { Affix } from '../affixes/affix';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
-import { isHiddenByPacks, isOptionHiddenByPacks } from './pack-filter';
+import { isHiddenByPacks, isOptionHiddenByPacks, NO_PACK_KEY } from './pack-filter';
 
 import { GameDataService } from './game-data.service';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
@@ -410,7 +410,7 @@ export class GearDbService {
       });
 
       perfMeasure('GearDbService.applyItemFilters.buildEssenceCraftingItems', () => {
-        if (!hiddenPacks.has(FiltersService.NO_PACK_FILTER)) {
+        if (!hiddenPacks.has(NO_PACK_KEY)) {
           this._buildEssenceCraftingItems(gear, maxLevel);
         }
       });

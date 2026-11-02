@@ -137,12 +137,13 @@ describe('shopping list view model', () => {
       expect(view.total).toBe(2);
     });
 
-    it('lists something picked from several quests at the first only, once it is got', () => {
+    it('keeps something picked from several quests under each once it is got, so it stays where it was ticked', () => {
       const anywhere = entry({ ...aug1, sources: [from('Vendor'), from('The Raid', 'Raid Pack', true)] });
       const view = buildShoppingListView([anywhere], { [anywhere.key]: 1 }, null,
         { filter: 'all', picks: { [anywhere.identity]: ['Vendor', 'The Raid'] } });
 
-      expect(rows(view)).toEqual([['Vendor', 'Sapphire', 1, 'checked']]);
+      expect(rows(view)).toEqual([['The Raid', 'Sapphire', 1, 'checked'], ['Vendor', 'Sapphire', 1, 'checked']]);
+      expect(view.acquired).toBe(1);
     });
 
     it('offers every source of something from several, in heading order, with what else the list gets there', () => {

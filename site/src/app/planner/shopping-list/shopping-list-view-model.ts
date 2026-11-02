@@ -262,17 +262,15 @@ function groupBySource(entries: readonly ShoppingEntry[], route: ShoppingRouteOp
       things.set(entry.identity, entry.sources);
     }
   }
+  // Ticks play no part, so ticking something off never moves anything: it
+  // stays under every quest it's listed under, where it was ticked.
   const routed = routeSources(things, route);
-  // Once got, a thing picked from several quests is listed at the first only.
-  const pending = new Set(listed.filter(entry => !isEntryAcquired(entry.key, context.progress, context.covered))
-    .map(entry => entry.identity));
 
   const bySource = new Map<string, ShoppingEntry[]>();
   const thingsAt = new Map<string, Set<string>>();
   for (const entry of listed) {
     const routedTo = routed.get(entry.identity) ?? [];
-    const chosen = pending.has(entry.identity) ? routedTo : routedTo.slice(0, 1);
-    const quests = chosen.length ? chosen.map(source => source.quest) : [''];
+    const quests = routedTo.length ? routedTo.map(source => source.quest) : [''];
     for (const quest of quests) {
       const same = bySource.get(quest);
       if (same) {

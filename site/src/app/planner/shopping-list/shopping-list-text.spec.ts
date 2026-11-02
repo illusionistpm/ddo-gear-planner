@@ -29,7 +29,7 @@ const entries = [sword, step, augment, ring1, ring2];
 
 function text(progress: Record<string, 0 | 1>, name: string | null = 'Tank') {
   return formatShoppingListText(
-    buildShoppingListView(entries, progress, null, { groupMode: 'source', filter: 'needed' }), name);
+    buildShoppingListView(entries, progress, null, { filter: 'needed' }), name);
 }
 
 describe('formatShoppingListText', () => {
@@ -70,7 +70,7 @@ describe('formatShoppingListText', () => {
     const twice = entry({ ...augment, sources: [from('The Raid', 'Raid Pack', true), from('Vendor')] });
     const everywhere = entry({ ...augment, key: 'a|Weapon|Red#1|Ruby', sources: ['A', 'B', 'C', 'D'].map(quest => from(quest)) });
     const listed = (list: ShoppingEntry[]) => formatShoppingListText(
-      buildShoppingListView(list, {}, null, { groupMode: 'source', filter: 'needed' }), 'Tank').split('\n');
+      buildShoppingListView(list, {}, null, { filter: 'needed' }), 'Tank').split('\n');
 
     expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from Vendor)');
     expect(listed([sword, twice])).toContain('- Ruby of Frost (augment, also from The Raid)');

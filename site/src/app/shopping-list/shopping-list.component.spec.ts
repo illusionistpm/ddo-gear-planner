@@ -46,22 +46,19 @@ describe('ShoppingListComponent', () => {
   let fixture: ComponentFixture<ShoppingListComponent>;
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
-    setGroupMode: ReturnType<typeof vi.fn>; setFilter: ReturnType<typeof vi.fn>; stillNeededText: () => string };
+    setFilter: ReturnType<typeof vi.fn>; stillNeededText: () => string };
 
-  const show = (progress: ShoppingProgress, groupMode: 'slot' | 'source' = 'slot', filter: 'all' | 'needed' = 'all',
-    list = entries) => {
-    views.next(buildShoppingListView(list, progress, trove, { groupMode, filter }));
+  const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
+    views.next(buildShoppingListView(list, progress, trove, { filter }));
     fixture.detectChanges();
   };
   const el = () => fixture.nativeElement as HTMLElement;
   const rowByName = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.shopping-row'))
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
-  const groupTitles = () => Array.from(el().querySelectorAll('.shopping-group-name')).map(title => title.textContent?.trim());
 
   beforeEach(async () => {
-    views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { groupMode: 'slot', filter: 'all' }));
-    service = { view$: views, toggle: vi.fn(), setGroupMode: vi.fn(), setFilter: vi.fn(),
-      stillNeededText: () => 'Still needed for my build (5):' };
+    views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
+    service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), stillNeededText: () => 'Still needed for my build (5):' };
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       providers: [{ provide: ShoppingListService, useValue: service }]
@@ -70,39 +67,25 @@ describe('ShoppingListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('heads a card with each slot\'s item, its source and badges, and what goes into it beneath', () => {
-    const cards = Array.from(el().querySelectorAll('.shopping-item-card'));
-    expect(cards.map(card => [
-      card.querySelector('.shopping-item-header .shopping-row-name')?.textContent?.trim(),
-      card.querySelector('.shopping-item-header .shopping-group-count')?.textContent?.trim() ?? null,
-    ])).toEqual([['Sword', '0/3'], ['Ring', null], ['Ring', null]]);
-    // The item is the heading; there is no separate slot title.
-    expect(groupTitles()).toEqual([]);
-    expect(cards[0].querySelector('.shopping-item-header .shopping-row-label')?.getAttribute('role')).toBe('heading');
-
+  it('shows each thing with its wiki link and roll, and crafting done where the item drops beneath it', () => {
     const swordRow = rowByName('Sword');
     expect(swordRow.querySelector('a.shopping-row-name')?.getAttribute('href')).toBe('http://ddowiki.com/page/Item:Sword');
-    // Where it comes from, then its badges; no ML or slot, to keep the row to one line on desktop.
-    expect(swordRow.querySelector('.shopping-row-where')?.textContent?.trim()).toBe('The Raid');
-    expect(swordRow.querySelector('.shopping-row-badges .raid-loot-badge')).toBeTruthy();
+    // No ML or slot, to keep the row to one line on desktop.
     expect(swordRow.querySelector('.shopping-row-meta')?.textContent).not.toContain('ML');
     expect(swordRow.querySelector('.shopping-row-meta')?.textContent).not.toContain('Weapon');
     expect(swordRow.querySelector('.shopping-row-details')?.textContent?.trim()).toBe('Roll: Strength +5 Enhancement');
 
-    // The step lives where the item does, so it doesn't repeat the source.
-    const crafting = cards[0].querySelectorAll('.shopping-item-crafting .shopping-row');
-    expect(Array.from(crafting).map(row => row.querySelector('.shopping-row-label')?.textContent?.replace(/\s+/g, ' ').trim()))
-      .toEqual(['Lost Purpose: Archons', 'Ruby']);
-    expect(rowByName('Archons').querySelector('.shopping-row-source')).toBeNull();
-    expect(rowByName('Ruby').querySelector('.shopping-row-source')?.textContent?.trim()).toBe('Source unknown');
+    const nested = swordRow.closest('.shopping-row-item')!.querySelectorAll('.shopping-rows-nested .shopping-row-label');
+    expect(Array.from(nested, label => label.textContent?.replace(/\s+/g, ' ').trim())).toEqual(['Lost Purpose: Archons']);
     // Its name says what it is, without an "Augment" label.
     expect(rowByName('Ruby').querySelector('.shopping-row-meta')?.textContent).not.toContain('Augment');
   });
 
   it('says how many the build needs, and where the trove has it', () => {
-    const ringRow = el().querySelectorAll('.shopping-group')[1].querySelector('.shopping-row') as HTMLElement;
+    const ringRow = rowByName('Ring');
 
-    expect(ringRow.querySelector('.shopping-row-quantity')?.textContent?.trim()).toBe('×2');
+    // The trove's one ring covers one of the two ring slots.
+    expect(ringRow.querySelector('.shopping-row-quantity')?.textContent?.trim()).toBe('1/2');
     expect(ringRow.querySelector('.rare-loot-badge')).toBeTruthy();
     expect(ringRow.querySelector('.owned-badge')?.textContent?.trim()).toBe('Owned');
     expect(ringRow.querySelector('.tap-tooltip-trigger')?.getAttribute('title')).toBe('Khalarim: Inventory (Tab: 6)');
@@ -117,8 +100,7 @@ describe('ShoppingListComponent', () => {
   });
 
   it('ticks a row off through the service, showing checked, part-done and unchecked rows', () => {
-    // The trove's one ring covers one of the two ring slots.
-    show({ [sword.key]: 1 }, 'source');
+    show({ [sword.key]: 1 });
     const box = (name: string) => rowByName(name).querySelector('.shopping-check') as HTMLButtonElement;
 
     expect(box('Sword').getAttribute('aria-checked')).toBe('true');
@@ -132,8 +114,6 @@ describe('ShoppingListComponent', () => {
   });
 
   it('groups by quest under pack headings, without repeating the quest on each row', () => {
-    show({}, 'source');
-
     const sections = Array.from(el().querySelectorAll('.shopping-section')).map(section => [
       section.querySelector('.shopping-section-name')?.textContent?.trim(),
       section.querySelector('.shopping-section-count')?.textContent?.trim(),
@@ -144,30 +124,21 @@ describe('ShoppingListComponent', () => {
       ['Raid Pack', '0/2', ['The Raid']],
       ['Other sources', '1/3', ['The Snitch', 'Unknown source']],
     ]);
-    // The pack counts; a quest card doesn't, to stay one line when it has one thing to get.
-    expect(el().querySelector('.shopping-quest-card .shopping-group-count')).toBeNull();
     // A pack's heading and its cards share its colour; quests with no pack have none.
     expect(Array.from(el().querySelectorAll('.shopping-section, .shopping-group'), node =>
       Array.from(node.classList).find(name => name.startsWith('shopping-accent-'))))
       .toEqual(['shopping-accent-0', 'shopping-accent-0', 'shopping-accent-none', 'shopping-accent-none', 'shopping-accent-none']);
     // The pack is the heading, so the quest card doesn't repeat it.
     expect(el().querySelector('.shopping-group-title')?.textContent).not.toContain('Raid Pack');
-    expect(rowByName('Sword').querySelector('.shopping-row-source')).toBeNull();
+    expect(rowByName('Sword').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('');
     // A piece to collect; which item it goes in doesn't matter here.
     expect(rowByName('Ruby').querySelector('.shopping-row-where')?.textContent?.trim()).toBe('');
   });
 
-  it('names an item\'s first source and offers the rest, or in quest view where else it comes from', () => {
+  it('says where else something comes from', () => {
     const anywhere = entry({ key: 'g|Neck|Amulet', slot: 'Neck', identity: 'gear|Amulet', label: 'Amulet',
       sources: [from('The Snitch'), from('The Raid'), from('Vendor')] });
-    show({}, 'slot', 'all', [anywhere]);
-
-    const meta = () => rowByName('Amulet').querySelector('.shopping-row-meta')!;
-    expect(meta().querySelector('.shopping-row-source')?.textContent?.trim()).toBe('The Snitch');
-    expect(meta().querySelector('.shopping-row-more')?.textContent?.trim()).toBe('+2 more');
-    expect(meta().querySelector('.tap-tooltip-trigger')?.getAttribute('title')).toBe('Also from:\nThe Raid\nVendor');
-
-    show({}, 'source', 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
+    show({}, 'all', [anywhere, entry({ ...ring1, sources: [from('The Snitch'), from('Vendor')] })]);
     const snitch = Array.from(el().querySelectorAll('.shopping-group'))
       .find(group => group.querySelector('.shopping-group-name')?.textContent?.trim() === 'The Snitch')!;
     const alsoFrom = (name: string) => Array.from(snitch.querySelectorAll<HTMLElement>('.shopping-row'))
@@ -175,6 +146,7 @@ describe('ShoppingListComponent', () => {
       .querySelector('.shopping-row-also, .shopping-row-more')?.textContent?.trim();
     expect(alsoFrom('Amulet')).toBe('also from 2 other quests');
     expect(alsoFrom('Ring')).toBe('also from Vendor');
+    expect(snitch.querySelector('.tap-tooltip-trigger')?.getAttribute('title')).toBe('Also from:\nThe Raid\nVendor');
   });
 
   it('links each quest it names to the wiki, in a new tab', () => {
@@ -182,11 +154,7 @@ describe('ShoppingListComponent', () => {
       sources: [from('The Snitch'), from('Vendor')] });
     const link = (node: Element | null | undefined) => [node?.tagName, node?.getAttribute('href'), node?.getAttribute('target')];
 
-    show({}, 'slot', 'all', [sword, augment, anywhere]);
-    expect(link(rowByName('Amulet').querySelector('.shopping-row-source'))).toEqual(['A', 'wiki/The Snitch', '_blank']);
-    expect(link(rowByName('Ruby').querySelector('.shopping-row-source'))[0]).toBe('SPAN');
-
-    show({}, 'source', 'all', [sword, augment, anywhere]);
+    show({}, 'all', [sword, augment, anywhere]);
     const titles = Array.from(el().querySelectorAll('.shopping-group-name'), title => link(title));
     expect(titles).toEqual([
       ['A', 'wiki/The Raid', '_blank'], ['A', 'wiki/The Snitch', '_blank'], ['A', 'wiki/Vendor', '_blank'],
@@ -195,23 +163,22 @@ describe('ShoppingListComponent', () => {
     expect(link(el().querySelector('.shopping-row-also a'))).toEqual(['A', 'wiki/Vendor', '_blank']);
   });
 
-  it('switches grouping and filter through the service', () => {
-    const option = (label: string) => Array.from(el().querySelectorAll<HTMLButtonElement>('.shopping-list-choice-option'))
-      .find(button => button.textContent?.trim() === label)!;
+  it('switches the filter through the service', () => {
+    const options = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.shopping-list-choice-option'));
 
-    expect(option('Slot').getAttribute('aria-pressed')).toBe('true');
-    option('Quest').click();
-    option('Still needed').click();
+    // Always by quest: no choice of grouping.
+    expect(options().map(button => button.textContent?.trim())).toEqual(['All', 'Still needed']);
+    expect(options()[0].getAttribute('aria-pressed')).toBe('true');
+    options()[1].click();
 
-    expect(service.setGroupMode).toHaveBeenCalledWith('source');
     expect(service.setFilter).toHaveBeenCalledWith('needed');
   });
 
   it('says when there is nothing to get, and when everything is ticked off', () => {
-    show({}, 'slot', 'all', []);
+    show({}, 'all', []);
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Nothing to get yet');
 
-    show(Object.fromEntries(entries.map(candidate => [candidate.key, 1 as const])), 'slot', 'needed');
+    show(Object.fromEntries(entries.map(candidate => [candidate.key, 1 as const])), 'needed');
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Everything is ticked off');
   });
 
@@ -242,7 +209,7 @@ describe('ShoppingListComponent', () => {
     });
 
     it('is not offered with nothing to get', () => {
-      show({}, 'slot', 'all', []);
+      show({}, 'all', []);
 
       expect(copyButton()).toBeNull();
     });

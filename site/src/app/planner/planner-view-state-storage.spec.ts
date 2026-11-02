@@ -2,12 +2,10 @@ import {
   getStoredActiveTab,
   getStoredCollapsedTrackedAffixGroups,
   getStoredHideIrrelevantCraftingOptions,
-  getStoredShoppingListGroupMode,
   getStoredTrackedAffixGroupMode,
   storeActiveTab,
   storeCollapsedTrackedAffixGroups,
   storeHideIrrelevantCraftingOptions,
-  storeShoppingListGroupMode,
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 
@@ -16,8 +14,7 @@ describe('planner-view-state-storage', () => {
     'ddo-gear-planner-active-tab',
     'ddo-gear-planner-tracked-affix-group-mode',
     'ddo-gear-planner-tracked-affix-collapsed',
-    'ddo-gear-planner-hide-irrelevant-crafting-options',
-    'ddo-gear-planner-shopping-list-group-mode'
+    'ddo-gear-planner-hide-irrelevant-crafting-options'
   ];
 
   beforeEach(() => {
@@ -41,14 +38,6 @@ describe('planner-view-state-storage', () => {
     expect(getStoredHideIrrelevantCraftingOptions()).toBe(false);
     storeHideIrrelevantCraftingOptions(true);
     expect(getStoredHideIrrelevantCraftingOptions()).toBe(true);
-  });
-
-  it('groups the shopping list by slot until told otherwise, and remembers the choice', () => {
-    expect(getStoredShoppingListGroupMode()).toBe('slot');
-    storeShoppingListGroupMode('source');
-    expect(getStoredShoppingListGroupMode()).toBe('source');
-    storeShoppingListGroupMode('slot');
-    expect(getStoredShoppingListGroupMode()).toBe('slot');
   });
 
   it('defaults active tab to equipment when nothing is stored', () => {

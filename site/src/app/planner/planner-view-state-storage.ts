@@ -1,5 +1,4 @@
 import type { PlannerTab, TrackedAffixGroupMode } from './equipped.service';
-import type { ShoppingGroupMode } from './shopping-list/shopping-list-types';
 
 // The active planner tab and tracked-affix grouping/collapse state used to
 // round-trip through the URL (tab/taGroup/taCollapsed) solely so a reload
@@ -13,7 +12,6 @@ const ACTIVE_TAB_KEY = 'ddo-gear-planner-active-tab';
 const TRACKED_AFFIX_GROUP_MODE_KEY = 'ddo-gear-planner-tracked-affix-group-mode';
 const TRACKED_AFFIX_COLLAPSED_KEY = 'ddo-gear-planner-tracked-affix-collapsed';
 const HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY = 'ddo-gear-planner-hide-irrelevant-crafting-options';
-const SHOPPING_LIST_GROUP_MODE_KEY = 'ddo-gear-planner-shopping-list-group-mode';
 
 export function getStoredActiveTab(): PlannerTab {
   return readValue(ACTIVE_TAB_KEY) === 'affixes' ? 'affixes' : 'equipment';
@@ -47,15 +45,6 @@ export function getStoredHideIrrelevantCraftingOptions(): boolean {
 
 export function storeHideIrrelevantCraftingOptions(hide: boolean): void {
   writeValue(HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY, hide ? 'on' : 'off');
-}
-
-// By slot unless the user picked by quest.
-export function getStoredShoppingListGroupMode(): ShoppingGroupMode {
-  return readValue(SHOPPING_LIST_GROUP_MODE_KEY) === 'source' ? 'source' : 'slot';
-}
-
-export function storeShoppingListGroupMode(mode: ShoppingGroupMode): void {
-  writeValue(SHOPPING_LIST_GROUP_MODE_KEY, mode);
 }
 
 function readValue(key: string): string | null {

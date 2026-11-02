@@ -1,7 +1,6 @@
-import { slotLabel } from '../../gear/slot-display';
 import type { UserItemLocation } from '../user-gear.service';
 import type {
-  ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingGroupMode, ShoppingListView, ShoppingProgress,
+  ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress,
   ShoppingProgressPatch, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingTroveLookup
 } from './shopping-list-types';
 
@@ -22,7 +21,6 @@ export const OTHER_SOURCES_LABEL = 'Other sources';
 export const PACK_ACCENT_COUNT = 8;
 
 export interface ShoppingListViewOptions {
-  groupMode: ShoppingGroupMode;
   filter: ShoppingFilter;
 }
 
@@ -133,10 +131,7 @@ function comparePacks(a: string, b: string): number {
   return rankA !== rankB ? rankA - rankB : a.localeCompare(b);
 }
 
-/**
- * A colour for each pack in the build, in heading order, so packs listed next
- * to each other differ and a pack keeps its colour in both views.
- */
+/** A colour for each pack in the build, in heading order, so packs listed next to each other differ. */
 function packAccents(entries: readonly ShoppingEntry[]): Map<string, number> {
   const packs = new Set(entries.flatMap(entry => entry.sources.map(source => source.pack ?? '')));
   packs.delete('');
@@ -157,30 +152,27 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   }
   const context: RowContext = { progress, covered, trove, inBuild, accents: packAccents(entries) };
 
-  const allSections = options.groupMode === 'slot'
-    ? [section('slots', null, groupBySlot(entries, context), context)]
-    : sectionsByPack(groupBySource(entries, context), context);
+  const allSections = sectionsByPack(groupBySource(entries, context), context);
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
       ...rest,
-      groups: groups.map(group => ({ ...group, rows: neededRows(group.rows) }))
-        .filter(group => group.rows.length || (group.header && group.header.state !== 'checked')),
+      groups: groups.map(group => ({ ...group, rows: neededRows(group.rows) })).filter(group => group.rows.length),
     })).filter(candidate => candidate.groups.length)
     : allSections;
 
   const acquired = entries.filter(entry => isEntryAcquired(entry.key, progress, covered)).length;
-  return { sections, acquired, total: entries.length, groupMode: options.groupMode, filter: options.filter };
+  return { sections, acquired, total: entries.length, filter: options.filter };
 }
 
-/** Totals count each entry once, though by source it may be listed under several quests. */
-function section(id: string, label: string | null, groups: ShoppingGroup[], context: RowContext,
-    accent: number | null = null): ShoppingSection {
+/** Totals count each entry once, though it may be listed under several quests. */
+function section(id: string, label: string, groups: ShoppingGroup[], context: RowContext,
+    accent: number | null): ShoppingSection {
   const keys = new Set<string>();
   const collect = (rows: readonly ShoppingRow[]) => rows.forEach(row => {
     row.entryKeys.forEach(key => keys.add(key));
     collect(row.children);
   });
-  groups.forEach(group => collect(group.header ? [group.header, ...group.rows] : group.rows));
+  groups.forEach(group => collect(group.rows));
   const acquired = Array.from(keys).filter(key => isEntryAcquired(key, context.progress, context.covered)).length;
   return { id, label, accent, groups, acquired, total: keys.size };
 }
@@ -267,27 +259,6 @@ function groupTotals(entries: readonly ShoppingEntry[], context: RowContext): { 
   };
 }
 
-/** One card per slot, headed by its item, with what goes into it listed beneath. */
-function groupBySlot(entries: readonly ShoppingEntry[], context: RowContext): ShoppingGroup[] {
-  const groups: ShoppingGroup[] = [];
-  for (const gear of entries.filter(entry => entry.kind === 'gear')) {
-    const crafted = entries.filter(entry => entry.parentKey === gear.key);
-    const id = `slot:${gear.slot}`;
-    groups.push({
-      id,
-      label: slotLabel(gear.slot),
-      header: foldRows([gear], id, context, () => [])[0],
-      slot: gear.slot,
-      wikiUrl: null,
-      raid: gear.raid,
-      accent: accentOf(gear.sources.find(source => source.pack)?.pack, context),
-      rows: foldRows(crafted, `${id}|${gear.key}`, context, () => []),
-      ...groupTotals([gear, ...crafted], context),
-    });
-  }
-  return groups;
-}
-
 /**
  * One group per source, so everything from one quest is together. Crafting
  * that happens where its item comes from stays under the item; anything with
@@ -336,8 +307,6 @@ function groupBySource(entries: readonly ShoppingEntry[], context: RowContext): 
       group: {
         id,
         label: quest || UNKNOWN_SOURCE_LABEL,
-        header: null,
-        slot: null,
         wikiUrl: here[0]?.wikiUrl ?? null,
         raid: here.some(source => source.raid),
         accent: accentOf(pack, context),

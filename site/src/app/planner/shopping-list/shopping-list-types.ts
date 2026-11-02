@@ -54,7 +54,6 @@ export type ShoppingProgress = Readonly<Record<string, ShoppingProgressValue>>;
 /** Changes to progress; null removes a key. */
 export type ShoppingProgressPatch = Record<string, ShoppingProgressValue | null>;
 
-export type ShoppingGroupMode = 'slot' | 'source';
 export type ShoppingFilter = 'all' | 'needed';
 export type ShoppingRowState = 'checked' | 'mixed' | 'unchecked';
 
@@ -77,42 +76,29 @@ export interface ShoppingRow {
   state: ShoppingRowState;
   /** Where the trove has it, or null when it doesn't. */
   ownedLocations: readonly UserItemLocation[] | null;
-  /** In source view, the row's other sources, besides the one it's listed under. */
+  /** The row's other sources, besides the quest it's listed under. */
   alsoFrom: ShoppingSource[];
   children: ShoppingRow[];
 }
 
-/**
- * A card of the list. By slot it is one item: `header` is the item's row and
- * `rows` what goes into it. By source it is one quest, with everything from
- * there in `rows` and no header.
- */
+/** A card of the list: one quest, with everything to get there. */
 export interface ShoppingGroup {
   id: string;
   label: string;
-  header: ShoppingRow | null;
-  /** The slot, when grouping by slot. */
-  slot: string | null;
-  /** By source, the quest's wiki page; null by slot, and for an unknown source. */
+  /** The quest's wiki page; null for an unknown source. */
   wikiUrl: string | null;
   raid: boolean;
-  /**
-   * Which pack colour the card is marked with, by its pack: the quest's by
-   * source, the item's by slot. Null when it has none.
-   */
+  /** Which pack colour the card is marked with, by the quest's pack; null when it has none. */
   accent: number | null;
   rows: ShoppingRow[];
   acquired: number;
   total: number;
 }
 
-/**
- * Cards under one heading: by source, a pack's quests. By slot there is one
- * section, without a heading.
- */
+/** Cards under one heading: a pack's quests. */
 export interface ShoppingSection {
   id: string;
-  label: string | null;
+  label: string;
   /** The pack's colour, as its cards have; null for no pack. */
   accent: number | null;
   groups: ShoppingGroup[];
@@ -125,6 +111,5 @@ export interface ShoppingListView {
   sections: ShoppingSection[];
   acquired: number;
   total: number;
-  groupMode: ShoppingGroupMode;
   filter: ShoppingFilter;
 }

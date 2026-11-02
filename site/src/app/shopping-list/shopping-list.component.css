@@ -139,7 +139,7 @@
     text-align: center;
 }
 
-/* By quest, a pack's heading over its quests' cards. */
+/* A pack's heading over its quests' cards. */
 .shopping-section-title {
     align-items: baseline;
     border-bottom: 2px solid var(--shopping-accent, var(--border-color));
@@ -202,13 +202,6 @@
     color: var(--link-hover-color);
 }
 
-.shopping-group-count {
-    color: var(--text-secondary);
-    flex: none;
-    font-size: 0.8rem;
-    margin-left: auto;
-}
-
 .shopping-rows {
     display: flex;
     flex-direction: column;
@@ -236,24 +229,6 @@
 
 .shopping-rows > .shopping-row-item:nth-child(even) > .shopping-row {
     background: var(--row-alt-bg);
-}
-
-/* By slot, the item heads its own card: its row, unboxed, in place of a title. */
-.shopping-row.shopping-item-header {
-    background: transparent;
-    border: 0;
-    padding: 0;
-}
-
-.shopping-item-header .shopping-row-name {
-    font-size: 1rem;
-    font-weight: 700;
-}
-
-/* What goes into the item, lined up under its name. */
-.shopping-rows.shopping-item-crafting {
-    margin-top: var(--space-8);
-    padding-left: calc(var(--shopping-check-size) + var(--space-8));
 }
 
 .shopping-check {
@@ -343,8 +318,9 @@
 }
 
 /*
- * Desktop: a table, one line per row - the name, then where it comes from and
- * its badges in columns of their own, lined up down the page. The list fills
+ * Desktop: one line per row - the name, then where else it comes from and its
+ * badges beside it. The name gets the room it needs first and "also from"
+ * follows it, in whatever the badges, at the right edge, leave. The list fills
  * the page, so the viewport is its width.
  */
 @media (min-width: 992px) {
@@ -352,7 +328,7 @@
         align-items: baseline;
         column-gap: var(--space-16);
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 17rem 10rem;
+        grid-template-columns: minmax(0, max-content) minmax(0, 1fr) auto;
     }
 
     .shopping-row-meta {
@@ -371,24 +347,14 @@
         justify-content: flex-end;
     }
 
-    /* Already at the end; pushed apart, it would drag the badges to the column's start. */
-    .shopping-row-badges .shopping-group-count {
-        margin-left: 0;
-    }
-
     .shopping-row-details {
         grid-column: 1 / -1;
     }
 
-    /* Its columns end where the boxed rows' beneath it do. */
-    .shopping-row.shopping-item-header {
-        padding-right: calc(var(--space-4) + 1px);
-    }
-
     /*
-     * By quest, the quest's name beside what to get there, so a quest with one
-     * thing to get is one line. The name column is the same on every card, so
-     * the rows line up down the page.
+     * The quest's name beside what to get there, so a quest with one thing to
+     * get is one line. The name column is the same on every card, so the rows
+     * line up down the page.
      */
     .shopping-quest-card {
         align-items: start;
@@ -402,15 +368,6 @@
     .shopping-quest-card > .shopping-group-title {
         margin: 0;
         min-height: calc(var(--shopping-check-size) + 2 * (var(--space-4) + 1px));
-    }
-
-    /*
-     * Only "also from" is left beside the name here. The name gets the room it
-     * needs first and "also from" follows it, in whatever the badges - still
-     * at the right edge, but few rows here have any - leave.
-     */
-    .shopping-quest-card .shopping-row-body {
-        grid-template-columns: minmax(0, max-content) minmax(0, 1fr) auto;
     }
 }
 
@@ -430,8 +387,7 @@
         display: none;
     }
 
-    .shopping-rows-nested,
-    .shopping-rows.shopping-item-crafting {
+    .shopping-rows-nested {
         padding-left: var(--space-12);
     }
 }

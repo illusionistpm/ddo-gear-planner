@@ -5,13 +5,10 @@ import { map, shareReplay, startWith } from 'rxjs/operators';
 import { CurrentBuildService } from '../../build/current-build.service';
 import { QuestService } from '../../gear/quest.service';
 import { EquippedService } from '../equipped.service';
-import { getStoredShoppingListGroupMode, storeShoppingListGroupMode } from '../planner-view-state-storage';
 import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { formatShoppingListText } from './shopping-list-text';
-import type {
-  ShoppingEntry, ShoppingFilter, ShoppingGroupMode, ShoppingListView, ShoppingRow, ShoppingTroveLookup
-} from './shopping-list-types';
+import type { ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingTroveLookup } from './shopping-list-types';
 import { buildShoppingListView, prunePatch, togglePatch } from './shopping-list-view-model';
 import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress-store';
 
@@ -24,7 +21,6 @@ import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress
  */
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
-  private readonly groupModeSubject = new BehaviorSubject<ShoppingGroupMode>(getStoredShoppingListGroupMode());
   private readonly filterSubject = new BehaviorSubject<ShoppingFilter>('all');
   private readonly trove: ShoppingTroveLookup;
   private readonly sources: ShoppingSourceLookup;
@@ -50,26 +46,15 @@ export class ShoppingListService {
       this.entries$,
       this.progressStore.progress$,
       this.userGear.userItemsChanged$.pipe(startWith(undefined)),
-      this.groupModeSubject,
       this.filterSubject,
     ]).pipe(
-      map(([entries, progress, , groupMode, filter]) =>
-        buildShoppingListView(entries, progress, this.trove, { groupMode, filter })),
+      map(([entries, progress, , filter]) => buildShoppingListView(entries, progress, this.trove, { filter })),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
 
-  get groupMode(): ShoppingGroupMode {
-    return this.groupModeSubject.value;
-  }
-
   get filter(): ShoppingFilter {
     return this.filterSubject.value;
-  }
-
-  setGroupMode(mode: ShoppingGroupMode): void {
-    storeShoppingListGroupMode(mode);
-    this.groupModeSubject.next(mode);
   }
 
   setFilter(filter: ShoppingFilter): void {
@@ -90,10 +75,10 @@ export class ShoppingListService {
     this.progressStore.applyPatch({ ...prune, ...togglePatch(row, entries, progress, this.trove) });
   }
 
-  /** The still-needed list as text, grouped by quest whatever the list on screen shows. */
+  /** The still-needed list as text, whatever the list on screen shows. */
   stillNeededText(): string {
     const view = buildShoppingListView(this.currentEntries(), this.progressStore.progress, this.trove,
-      { groupMode: 'source', filter: 'needed' });
+      { filter: 'needed' });
     return formatShoppingListText(view, this.currentBuild.value.name);
   }
 

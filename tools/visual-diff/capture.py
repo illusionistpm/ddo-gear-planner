@@ -135,8 +135,6 @@ SCENES = [
     Scene('set-preview', steps=[click('.set-link'), click('app-items-in-set .item-preview-link')]),
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
     Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
-    Scene('shopping-list-by-quest', build=SHOPPING_BUILD,
-          steps=[open_shopping_list, click('.shopping-list-choice-option:has-text("Quest")')]),
 ]
 
 THEMES = ['light', 'dark']

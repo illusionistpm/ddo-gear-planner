@@ -6,9 +6,7 @@ import { Subscription } from 'rxjs';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
-import type {
-  ShoppingFilter, ShoppingGroupMode, ShoppingListView, ShoppingRow, ShoppingSource
-} from '../planner/shopping-list/shopping-list-types';
+import type { ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSource } from '../planner/shopping-list/shopping-list-types';
 
 const COPIED_CONFIRMATION_MS = 1500;
 
@@ -72,10 +70,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     return this.view?.total ? Math.round(100 * this.view.acquired / this.view.total) : 0;
   }
 
-  setGroupMode(mode: ShoppingGroupMode): void {
-    this.shoppingList.setGroupMode(mode);
-  }
-
   setFilter(filter: ShoppingFilter): void {
     this.shoppingList.setFilter(filter);
   }
@@ -90,18 +84,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   checkIcon(row: ShoppingRow): string {
     return row.state === 'checked' ? 'fa-square-check' : row.state === 'mixed' ? 'fa-square-minus' : 'fa-square';
-  }
-
-  /**
-   * Where it comes from, unless the group heading or the item above already
-   * says: the first source, and the rest behind a "+N more".
-   */
-  rowSource(row: ShoppingRow): { first: ShoppingSource | null; others: readonly ShoppingSource[] } | null {
-    if (this.view?.groupMode === 'source' || row.entry.sourceInherited) {
-      return null;
-    }
-    const [first, ...others] = row.entry.sources;
-    return { first: first ?? null, others };
   }
 
   /** The tooltip listing the quests a row doesn't name. */

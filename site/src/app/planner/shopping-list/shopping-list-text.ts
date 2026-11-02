@@ -2,8 +2,7 @@ import type { ShoppingListView, ShoppingRow } from './shopping-list-types';
 
 /**
  * The still-needed list as plain text, to paste into Discord or in-game mail.
- * Expects a view filtered to what's still needed; grouping by source reads best,
- * as it says which quests to run.
+ * Expects a view filtered to what's still needed.
  */
 export function formatShoppingListText(view: ShoppingListView, buildName: string | null): string {
   const name = buildName?.trim() || 'my build';
@@ -14,20 +13,14 @@ export function formatShoppingListText(view: ShoppingListView, buildName: string
 
   const lines = [`Still needed for ${name} (${needed}):`];
   for (const section of view.sections) {
-    if (section.label) {
-      lines.push('', `== ${section.label} ==`);
-    }
+    lines.push('', `== ${section.label} ==`);
     section.groups.forEach((group, index) => {
-      if (index > 0 || !section.label) {
+      if (index > 0) {
         lines.push('');
       }
       lines.push(group.raid ? `${group.label} (raid)` : group.label);
-      if (group.header) {
-        pushRow(lines, { ...group.header, children: group.rows }, '');
-      } else {
-        for (const row of group.rows) {
-          pushRow(lines, row, '');
-        }
+      for (const row of group.rows) {
+        pushRow(lines, row, '');
       }
     });
   }

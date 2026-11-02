@@ -36,10 +36,10 @@ differing pixels.** A diff is a defect to explain, not noise to triage.
 
 ## What it captures
 
-17 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
+16 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
 viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
-preview, the affix builder, and the shopping list grouped both ways (from a
+preview, the affix builder, and the shopping list (from a
 build with augments, so it has crafting rows). Add a scene there when a state
 isn't covered.
 

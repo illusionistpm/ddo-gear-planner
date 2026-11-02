@@ -12,8 +12,6 @@ import { UserGearService } from '../user-gear.service';
 import { ShoppingListService } from './shopping-list.service';
 import { SHOPPING_PROGRESS_STORAGE_KEY } from './shopping-progress-storage';
 
-const GROUP_MODE_KEY = 'ddo-gear-planner-shopping-list-group-mode';
-
 function ring(augment: string): Item {
   const slot = new Craftable('Colorless Augment Slot', [
     new CraftableOption({ name: 'Diamond of Tests', quests: ['Augment Vendor'] }),
@@ -29,13 +27,12 @@ describe('ShoppingListService', () => {
 
   const view = () => firstValueFrom(service.view$);
   const groups = async () => (await view()).sections.flatMap(section => section.groups);
-  const labels = async () => (await groups()).flatMap(group => [...(group.header ? [group.header] : []), ...group.rows]
-    .flatMap(row => [`${row.entry.label}:${row.state}`, ...row.children.map(child => `${child.entry.label}:${child.state}`)]));
+  const rowsOf = async () => (await groups()).flatMap(group => group.rows);
+  const labels = async () => (await rowsOf())
+    .flatMap(row => [`${row.entry.label}:${row.state}`, ...row.children.map(child => `${child.entry.label}:${child.state}`)]);
 
   beforeEach(async () => {
-    for (const key of [SHOPPING_PROGRESS_STORAGE_KEY, GROUP_MODE_KEY]) {
-      localStorage.removeItem(key);
-    }
+    localStorage.removeItem(SHOPPING_PROGRESS_STORAGE_KEY);
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShoppingListService);
     equipped = TestBed.inject(EquippedService);
@@ -45,9 +42,7 @@ describe('ShoppingListService', () => {
 
   afterEach(() => {
     TestBed.inject(UserGearService).clear();
-    for (const key of [SHOPPING_PROGRESS_STORAGE_KEY, GROUP_MODE_KEY]) {
-      localStorage.removeItem(key);
-    }
+    localStorage.removeItem(SHOPPING_PROGRESS_STORAGE_KEY);
   });
 
   it('lists the equipped gear and what goes into it, following crafting changes', async () => {
@@ -64,7 +59,7 @@ describe('ShoppingListService', () => {
     const navigateByUrl = vi.spyOn(router, 'navigateByUrl');
     const dirtyBefore = currentBuild.value.isDirty;
 
-    service.toggle((await groups())[0].header!);
+    service.toggle((await rowsOf())[0]);
     await TestBed.inject(ApplicationRef).whenStable();
 
     expect(await labels()).toEqual(['Ring of Tests:checked', 'Diamond of Tests:unchecked']);
@@ -82,12 +77,8 @@ describe('ShoppingListService', () => {
     expect(await labels()).toEqual(['Ring of Tests:unchecked', 'Diamond of Tests:checked']);
   });
 
-  it('remembers how the list is grouped, and writes the still-needed text grouped by quest', async () => {
-    service.setGroupMode('source');
+  it('groups the list by quest, and writes the still-needed text', async () => {
     expect((await groups()).map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
-    expect(localStorage.getItem(GROUP_MODE_KEY)).toBe('source');
-
-    service.setGroupMode('slot');
     expect(service.stillNeededText()).toContain('Augment Vendor');
     expect(service.stillNeededText().split(String.fromCharCode(10))[0]).toBe('Still needed for my build (2):');
   });

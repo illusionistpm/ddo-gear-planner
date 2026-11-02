@@ -12,6 +12,7 @@ import { applyProgressPatch } from './shopping-list-view-model';
 import {
   addToOutbox, dropOutbox, isEmptyWrite, outboxRequestBody, OutboxWrite, readOutbox, settleOutbox
 } from './shopping-progress-outbox';
+import { readScopePicks, readScopeProgress } from './shopping-progress-storage';
 import {
   LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore, ShoppingSyncState
 } from './shopping-progress-store';
@@ -68,6 +69,12 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
 
   /** The saved build being synced, or null when the current build isn't one of yours. */
   private buildId: string | null = null;
+  private lastScope: string | null = null;
+  /**
+   * The scope this build was known by before it turned out to be yours, if
+   * any: its ticks there are merged into the server's copy on the first read.
+   */
+  private carriedFrom: string | null = null;
   /** Why syncing stopped for this build, if it has. */
   private halted: 'local' | null = null;
   private busy = false;
@@ -167,10 +174,13 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   }
 
   private changeBuild(scope: string): void {
+    const previous = this.lastScope;
+    this.lastScope = scope;
     const buildId = scope.startsWith(SAVED_SCOPE_PREFIX) ? scope.slice(SAVED_SCOPE_PREFIX.length) : null;
     if (buildId === this.buildId) {
       return;
     }
+    this.carriedFrom = buildId && previous?.startsWith('build:') ? previous : null;
     this.clearTimers();
     this.buildId = buildId;
     this.halted = null;
@@ -220,7 +230,16 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       if (doc.updatedAt === null && (Object.keys(this.local.progress).length || Object.keys(this.local.picks).length)) {
         // Nothing on the server yet: this device's ticks are the first copy.
         addToOutbox(buildId, { patch: { ...this.local.progress }, picksPatch: { ...this.local.picks } });
+      } else if (doc.updatedAt !== null && this.carriedFrom) {
+        // Ticked before it turned out to be yours (signed out, say): bring
+        // those along, the server's copy winning where both have a key.
+        const patch = Object.fromEntries(Object.entries(readScopeProgress(this.carriedFrom)).filter(([key]) => !(key in doc.entries)));
+        const picksPatch = Object.fromEntries(Object.entries(readScopePicks(this.carriedFrom)).filter(([key]) => !(key in doc.picks)));
+        if (Object.keys(patch).length || Object.keys(picksPatch).length) {
+          addToOutbox(buildId, { patch, picksPatch });
+        }
       }
+      this.carriedFrom = null;
       // Sends whatever is queued, including changes left from an earlier visit.
       this.flushDue = true;
     });

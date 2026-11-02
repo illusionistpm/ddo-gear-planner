@@ -244,6 +244,40 @@ describe('ServerShoppingProgressStore', () => {
     expect(syncStates.at(-1)).toBe('local');
   });
 
+  it('uploads a draft\'s ticks and picks when it\'s saved', async () => {
+    const store = create();
+    store.applyPatch({ a: 1 });
+    store.setPick('Ring', ['Quest A']);
+
+    state.next(OWNED);
+    (await expectRequest('GET')).flush(doc({ updatedAt: null }));
+    const put = await expectRequest('PUT');
+
+    expect(put.request.body).toEqual({ patch: { a: 1 }, picksPatch: { Ring: ['Quest A'] } });
+    put.flush(doc({ entries: { a: 1 }, picks: { Ring: ['Quest A'] } }));
+    await settle();
+    expect(readScopeProgress('draft')).toEqual({});
+  });
+
+  it('merges ticks made before the build turned out to be yours into the server\'s copy, the server winning', async () => {
+    const store = create();
+    state.next({ ...OWNED, savedBuildId: null, ownership: 'unknown' });
+    store.applyPatch({ a: 0, b: 1 });
+    store.setPick('Ring', ['Quest A']);
+    await settle();
+    http.expectNone(() => true);
+
+    state.next(OWNED);
+    (await expectRequest('GET')).flush(doc({ entries: { a: 1 } }));
+    await settle();
+
+    expect(store.progress).toEqual({ a: 1, b: 1 });
+    const put = await expectRequest('PUT');
+    expect(put.request.body).toEqual({ patch: { b: 1 }, picksPatch: { Ring: ['Quest A'] } });
+    put.flush(doc({ entries: { a: 1, b: 1 }, picks: { Ring: ['Quest A'] } }));
+    await settle();
+  });
+
   it('sends changes queued on an earlier visit once the build opens', async () => {
     addToOutbox('b1', { patch: { a: 1 } });
     const store = create();

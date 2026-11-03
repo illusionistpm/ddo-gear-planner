@@ -19,6 +19,8 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
     assert groups['Dazing'] == ['Stunning']
     assert groups['Sundering'] == ['Shatter']
+    assert groups['Combat Mastery'] == ['Vertigo', 'Stunning', 'Shatter']
+    assert groups['Dexterity Skills'] == ['Balance', 'Hide', 'Move Silently', 'Open Lock', 'Tumble']
     assert groups['Improved Deception'] == ['Bluff']
     assert 'Armor Class (%)' not in groups
     assert 'False Life (%)' not in groups

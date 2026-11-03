@@ -161,7 +161,9 @@ def build_affix_groups() -> None:
     # Universal Spell Critical Damage stacks with the individual Intensity affixes, same as the Universal Spell Power / Lore flavors
     add(groups, 'Spell Critical Damage', get_all_spell_crit_damage_types())
     add(groups, 'Universal Spell Critical Damage', get_all_spell_crit_damage_types())
-    add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Dazing', 'Sundering', 'Shatter'])
+    # Trip, Sunder and Stunning DCs. Dazing and Sundering are themselves groups (onto Stunning and Shatter), and groups only
+    # ungroup one level deep, so listing them here counted toward nothing.
+    add(groups, 'Combat Mastery', ['Vertigo', 'Stunning', 'Shatter'])
     add(groups, 'Dazing', ['Stunning'])
     add(groups, 'Sundering', ['Shatter'])
     add(groups, 'Improved Deception', ['Bluff'])
@@ -171,7 +173,7 @@ def build_affix_groups() -> None:
     add(groups, 'Frozen Storm Lore', ['Cold Lore', 'Lightning Lore'])
     add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
-    add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
+    add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Lock', 'Tumble'])
     # The Heroism family (Lesser through Superior) lives in compound_affixes.json
     # The "Power of the ..." multi-element spell power affixes live in compound_affixes.json
     add(groups, 'Radiance', ['Light Spell Power', 'Alignment Spell Power'])

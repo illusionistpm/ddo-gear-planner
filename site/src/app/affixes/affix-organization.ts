@@ -50,7 +50,6 @@ const SKILL_AFFIXES = new Set([
   'Listen',
   'Move Silently',
   'Open Lock',
-  'Open Locks',
   'Perform',
   'Repair',
   'Search',

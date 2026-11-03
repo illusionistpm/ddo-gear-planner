@@ -442,8 +442,6 @@
         "affixes": [
             "Vertigo",
             "Stunning",
-            "Dazing",
-            "Sundering",
             "Shatter"
         ],
         "name": "Combat Mastery"
@@ -524,7 +522,7 @@
             "Balance",
             "Hide",
             "Move Silently",
-            "Open Locks",
+            "Open Lock",
             "Tumble"
         ],
         "name": "Dexterity Skills"

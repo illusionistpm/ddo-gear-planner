@@ -73,7 +73,9 @@ describe('BuildActionsComponent', () => {
 
     router = {
       url: '/',
-      navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl'),
+      // ShoppingListViewService follows the URL's fragment through these.
+      events: new Subject()
     } as unknown as MockedObject<Router>;
     const cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')

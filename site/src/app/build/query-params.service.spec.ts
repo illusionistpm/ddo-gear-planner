@@ -390,6 +390,34 @@ describe('QueryParamsService', () => {
     });
   });
 
+  describe('writeViewFragment', () => {
+    function write(url: string, fragment: string | null): MockedObject<Router> {
+      const router = TestBed.inject(Router) as MockedObject<Router>;
+      (router as any).url = url;
+      TestBed.inject(QueryParamsService).writeViewFragment(fragment, true);
+      return router;
+    }
+
+    it('sets the fragment, staying on the route and keeping the query string, as an app write', () => {
+      const router = write('/build/ab12cd34/my-build?b=z1.test', 'shopping-list');
+
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParamsHandling: 'preserve', fragment: 'shopping-list', replaceUrl: true });
+      expect(TestBed.inject(QueryParamsService).consumeAppUrlWrite()).toBe(true);
+    });
+
+    it('takes the fragment out for null', () => {
+      const router = write('/?b=z1.test#shopping-list', null);
+
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParamsHandling: 'preserve', fragment: undefined, replaceUrl: true });
+    });
+
+    it('does nothing when the URL already says so', () => {
+      expect(write('/?b=z1.test#shopping-list', 'shopping-list').navigate).not.toHaveBeenCalled();
+      expect(write('/?b=z1.test', null).navigate).not.toHaveBeenCalled();
+      expect(TestBed.inject(QueryParamsService).consumeAppUrlWrite()).toBe(false);
+    });
+  });
+
   it('restores a build identity decoded from the URL and keeps it out of gear/filter params handed to listeners', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);

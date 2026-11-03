@@ -314,7 +314,9 @@ describe('MainComponent - loading a build by shortId', () => {
     router = {
       navigateByUrl: vi.fn().mockName('Router.navigateByUrl'),
       parseUrl: vi.fn().mockName('Router.parseUrl'),
-      url: '/'
+      url: '/',
+      // ShoppingListViewService follows the URL's fragment through these.
+      events: new Subject()
     } as unknown as MockedObject<Router>;
     // Real Router.parseUrl(url).queryParamMap is what isOnAuthRedirectCallbackUrl()
     // reads to detect Auth0's transient code/state callback URL - none of

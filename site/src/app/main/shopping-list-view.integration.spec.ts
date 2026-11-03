@@ -1,5 +1,8 @@
+import { ApplicationRef } from '@angular/core';
+import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { convertToParamMap } from '@angular/router';
+import { convertToParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
@@ -20,7 +23,7 @@ describe('MainComponent with the shopping list', () => {
     for (const key of storageKeys) {
       localStorage.removeItem(key);
     }
-    await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
+    await TestBed.configureTestingModule({ imports: [AppModule], providers: [provideLocationMocks()] }).compileComponents();
     TestBed.overrideProvider(AuthService, {
       useValue: { isAuthenticated$: of(false), user$: of(null), isLoading$: of(false), signIn: () => { }, signOut: () => { } }
     });
@@ -78,6 +81,27 @@ describe('MainComponent with the shopping list', () => {
     fixture.detectChanges();
 
     expect(opened()).toEqual(['toolbar', 'menu']);
+  });
+
+  it('says it\'s open in the URL\'s fragment, and takes that out again on close', async () => {
+    const path = () => TestBed.inject(Location).path(true);
+
+    shoppingListButton().click();
+    await TestBed.inject(ApplicationRef).whenStable();
+    expect(path()).toBe('/#shopping-list');
+
+    fixture.detectChanges();
+    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    await TestBed.inject(ApplicationRef).whenStable();
+    expect(path()).toBe('/');
+  });
+
+  it('opens the list when the URL says it\'s open, as a reload does', async () => {
+    await TestBed.inject(Router).navigateByUrl('/#shopping-list');
+    fixture.detectChanges();
+
+    expect(list()).toBeTruthy();
+    expect(panels().hidden).toBe(true);
   });
 
   it('goes back to the planner as it was', () => {

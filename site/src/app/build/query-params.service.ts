@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { BuildUrlCodecService } from './build-url-codec.service';
 import { isBuildParamKey } from './build-param-keys';
-import { isBuildShortIdRoute, routePathOf, routeSegmentsOf } from './build-route';
+import { isBuildShortIdRoute, routePathOf, routeSegmentsOf, urlFragmentOf } from './build-route';
 import { perfMark, perfStart } from '../shared/perf-trace';
 import { QueryParamRecord } from './query-param-types';
 
@@ -525,15 +525,38 @@ export class QueryParamsService {
       compactChars: compactParam.length
     });
 
-    this.appUrlWritesToIgnore++;
     const navigateDone = perfStart('Router.navigate');
-    this.router.navigate(routeSegments, {
+    this.navigateAsAppWrite(routeSegments, {
       queryParams,
       // The fragment is the view (the shopping list, say), not build state.
       preserveFragment: true,
       replaceUrl
     }).finally(() => {
       navigateDone({ route: routeSegments.join('/'), keys: Object.keys(queryParams).length, replaceUrl });
+    });
+  }
+
+  /**
+   * Puts the view on screen into the URL's fragment - '#shopping-list', say -
+   * or takes it out (null), keeping the path and query string. View state
+   * rides in the fragment, never in query keys: the codec never sees it, so
+   * build URLs are untouched. AppComponent skips it as an app write.
+   */
+  writeViewFragment(fragment: string | null, replaceUrl: boolean) {
+    if (urlFragmentOf(this.router.url) === (fragment === null ? '' : `#${fragment}`)) {
+      return;
+    }
+    // [] with no relativeTo stays on the current route (see navigateWithParams).
+    this.navigateAsAppWrite([], { queryParamsHandling: 'preserve', fragment: fragment ?? undefined, replaceUrl });
+  }
+
+  // A navigation of the app's own making, which AppComponent's
+  // consumeAppUrlWrite() skips rather than reapplying the URL's params.
+  // Settled on a timer as well, in case the router drops the navigation
+  // and AppComponent never sees it.
+  private navigateAsAppWrite(commands: string[], extras: NavigationExtras): Promise<boolean> {
+    this.appUrlWritesToIgnore++;
+    return this.router.navigate(commands, extras).finally(() => {
       setTimeout(() => {
         if (this.appUrlWritesToIgnore > 0) {
           this.appUrlWritesToIgnore--;

@@ -208,6 +208,25 @@ describe('AppComponent', () => {
     expect(queryParams.updateFromParams).not.toHaveBeenCalled();
   });
 
+  it('treats a /build/:shortId route with a fragment as the bare route, and one with b= and a fragment as carrying b=', async () => {
+    const queryParams = TestBed.inject(QueryParamsService);
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    (queryParams.updateFromParams as Mock).mockClear();
+
+    await router.navigateByUrl('/build/abc123/my-build#shopping-list');
+    await router.navigateByUrl('/build/abc123#shopping-list');
+    expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+
+    await router.navigateByUrl('/build/abc123/my-build?b=z1.test#shopping-list');
+    const params = vi.mocked((queryParams.updateFromParams as Mock)).mock.lastCall![0];
+    expect(params.get('b')).toBe('z1.test');
+  });
+
   it('does call updateFromParams on a /build/:shortId route once it carries a b= param', async () => {
     // Regression test: editing a loaded build accumulates a b= param on
     // this same route shape as you go (see BuildActionsComponent's comment

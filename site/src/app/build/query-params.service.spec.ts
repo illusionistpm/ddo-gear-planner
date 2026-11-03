@@ -355,6 +355,42 @@ describe('QueryParamsService', () => {
     expect(router.navigate).toHaveBeenCalledWith(['build', 'ab12cd34', 'my-build'], expect.objectContaining({ replaceUrl: false }));
   });
 
+  describe('with a fragment in the current URL', () => {
+    // Nothing in the app sets a fragment yet. These pin how a live-edit
+    // write reads the route path when one is there: the path is everything
+    // before '?', so a fragment with no query string ahead of it is read as
+    // part of the last segment, and the write never carries it over.
+    function writeFrom(url: string, identity?: { shortId: string; name: string }): Parameters<Router['navigate']> {
+      const router = TestBed.inject(Router) as MockedObject<Router>;
+      (router as any).url = url;
+      const service: QueryParamsService = TestBed.inject(QueryParamsService);
+      if (identity) {
+        service.setBuildIdentityForUrl(identity);
+      }
+      (service as any)._makeNavigateFn(['source', new BehaviorSubject<any>({})])({ levelrange: '1,36' });
+      return vi.mocked(router.navigate).mock.lastCall!;
+    }
+
+    it('reads a fragment after the query string as no part of the path, and drops it', () => {
+      const [commands, extras] = writeFrom('/build/ab12cd34/my-build?b=z1.test#shopping-list');
+
+      expect(commands).toEqual(['build', 'ab12cd34', 'my-build']);
+      expect(extras).toEqual({ queryParams: { b: expect.stringMatching(/^z1\./) }, replaceUrl: false });
+    });
+
+    it('reads a fragment with no query string ahead of it as part of the last segment', () => {
+      expect(writeFrom('/build/ab12cd34/my-build#shopping-list')[0]).toEqual(['build', 'ab12cd34', 'my-build#shopping-list']);
+      expect(writeFrom('/#shopping-list')[0]).toEqual(['#shopping-list']);
+    });
+
+    it('still goes to root once a build identity is set, dropping the fragment', () => {
+      const [commands, extras] = writeFrom('/build/ab12cd34/my-build#shopping-list', { shortId: 'ab12cd34', name: 'My Build' });
+
+      expect(commands).toEqual(['/']);
+      expect(extras).toEqual({ queryParams: { b: expect.stringMatching(/^z1\./) }, replaceUrl: false });
+    });
+  });
+
   it('restores a build identity decoded from the URL and keeps it out of gear/filter params handed to listeners', () => {
     const service: QueryParamsService = TestBed.inject(QueryParamsService);
     const codec = TestBed.inject(BuildUrlCodecService);

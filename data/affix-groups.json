@@ -1468,6 +1468,13 @@
     },
     {
         "affixes": [
+            "Acid Absorption",
+            "Evil Absorption"
+        ],
+        "name": "Hound's Bones"
+    },
+    {
+        "affixes": [
             "Fortitude Save",
             "Reflex Save",
             "Will Save",
@@ -1863,6 +1870,13 @@
     },
     {
         "affixes": [
+            "Jump",
+            "Swim"
+        ],
+        "name": "Mighty Skills Bonus"
+    },
+    {
+        "affixes": [
             "Incorporeal Bypass"
         ],
         "components": [
@@ -1910,6 +1924,109 @@
             }
         ],
         "name": "Overfocus"
+    },
+    {
+        "affixes": [
+            "Acid Spell Power",
+            "Alignment Spell Power",
+            "Cold Spell Power",
+            "Electric Spell Power",
+            "Evil Spell Power",
+            "Fire Spell Power",
+            "Force Spell Power",
+            "Light Spell Power",
+            "Negative Spell Power",
+            "Physical Spell Power",
+            "Poison Spell Power",
+            "Positive Spell Power",
+            "Repair Spell Power",
+            "Rust Spell Power",
+            "Sonic Spell Power",
+            "Untyped Spell Power"
+        ],
+        "components": [
+            {
+                "name": "Acid Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Alignment Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Electric Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Evil Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Fire Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Force Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Light Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Negative Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Physical Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Poison Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Positive Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Repair Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Rust Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            },
+            {
+                "name": "Untyped Spell Power",
+                "type": "Alchemical",
+                "value": 20
+            }
+        ],
+        "name": "Permanent Efficacy"
     },
     {
         "affixes": [
@@ -2201,6 +2318,19 @@
     },
     {
         "affixes": [
+            "Chaos Absorption"
+        ],
+        "components": [
+            {
+                "name": "Chaos Absorption",
+                "type": "Enhancement",
+                "value": 23
+            }
+        ],
+        "name": "Quori Mind Shield"
+    },
+    {
+        "affixes": [
             "Repair Spell Power",
             "Rust Spell Power"
         ],
@@ -2213,6 +2343,37 @@
             "Alignment Lore"
         ],
         "name": "Sacred Ground Lore"
+    },
+    {
+        "affixes": [
+            "Doublestrike",
+            "Doubleshot",
+            "Melee Alacrity",
+            "Ranged Alacrity"
+        ],
+        "components": [
+            {
+                "name": "Doublestrike",
+                "type": "Profane",
+                "value": 3
+            },
+            {
+                "name": "Doubleshot",
+                "type": "Profane",
+                "value": 3
+            },
+            {
+                "name": "Melee Alacrity",
+                "type": "Enhancement",
+                "value": 15
+            },
+            {
+                "name": "Ranged Alacrity",
+                "type": "Enhancement",
+                "value": 20
+            }
+        ],
+        "name": "Shadow Striker"
     },
     {
         "affixes": [
@@ -2265,6 +2426,38 @@
             }
         ],
         "name": "Stability"
+    },
+    {
+        "affixes": [
+            "Undying"
+        ],
+        "components": [
+            {
+                "name": "Undying",
+                "type": "Enhancement",
+                "value": 128
+            }
+        ],
+        "name": "Strength of Purpose"
+    },
+    {
+        "affixes": [
+            "Fire Intensity",
+            "Radiance Intensity"
+        ],
+        "components": [
+            {
+                "name": "Fire Intensity",
+                "type": "Enhancement",
+                "value": 20
+            },
+            {
+                "name": "Radiance Intensity",
+                "type": "Enhancement",
+                "value": 20
+            }
+        ],
+        "name": "Summer's Impertenence"
     },
     {
         "affixes": [
@@ -2501,6 +2694,25 @@
     },
     {
         "affixes": [
+            "Heal",
+            "Repair"
+        ],
+        "components": [
+            {
+                "name": "Heal",
+                "type": "Competence",
+                "value": 20
+            },
+            {
+                "name": "Repair",
+                "type": "Competence",
+                "value": 20
+            }
+        ],
+        "name": "Touch of Immortality"
+    },
+    {
+        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",
@@ -2529,5 +2741,24 @@
             }
         ],
         "name": "Voice of Deceit"
+    },
+    {
+        "affixes": [
+            "Kinetic Intensity",
+            "Void Intensity"
+        ],
+        "components": [
+            {
+                "name": "Kinetic Intensity",
+                "type": "Enhancement",
+                "value": 20
+            },
+            {
+                "name": "Void Intensity",
+                "type": "Enhancement",
+                "value": 20
+            }
+        ],
+        "name": "Winter's Impertenence"
     }
 ]

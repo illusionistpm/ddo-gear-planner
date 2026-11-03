@@ -1328,6 +1328,25 @@
     ],
     "notes": "Passive +2 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
   },
+  "Hound's Bones": {
+    "components": [
+      {
+        "name": "Acid Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Enhancement bonus to Acid and Evil Absorption."
+  },
   "Improved Heroism": {
     "components": [
       {
@@ -1919,6 +1938,25 @@
     ],
     "notes": "Compound affix with multiple permanent underlying bonuses all to Rust and Repair spells: Spell Power, Spell Crit Chance, and Spell Crit Damage."
   },
+  "Mighty Skills Bonus": {
+    "components": [
+      {
+        "name": "Jump",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Bonus to Jump and Swim."
+  },
   "Mindcleaver": {
     "components": [
       {
@@ -2050,6 +2088,139 @@
       }
     ],
     "notes": "Parrying grants multiple permanent Insight bonuses: to AC, and to Fortitude, Reflex, and Will saves. These are permanent and not conditional on combat states, so the affix is compound."
+  },
+  "Permanent Efficacy": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Evil Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fire Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Force Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Negative Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Physical Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Positive Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Rust Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Sonic Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Untyped Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +20 Alchemical bonus to each Spell Power."
   },
   "Permanent Nihil": {
     "components": [
@@ -2416,6 +2587,19 @@
     ],
     "notes": "Prudent Skills Bonus is a compound affix representing multiple permanent Exceptional bonuses to Heal, Listen, and Spot skills."
   },
+  "Quori Mind Shield": {
+    "components": [
+      {
+        "name": "Chaos Absorption",
+        "type": "Enhancement",
+        "value": {
+          "amount": 23,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+23% Enhancement Chaos Absorption. The Confusion and Domination immunity is not tracked."
+  },
   "Reconstruction": {
     "components": [
       {
@@ -2519,6 +2703,43 @@
       }
     ]
   },
+  "Shadow Striker": {
+    "components": [
+      {
+        "name": "Doublestrike",
+        "type": "Profane",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Doubleshot",
+        "type": "Profane",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Melee Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 15,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Ranged Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+3% Profane Doublestrike and Doubleshot, +15% Enhancement melee and +20% Enhancement ranged attack speed."
+  },
   "Shadowblade": {
     "components": [
       {
@@ -2593,6 +2814,40 @@
       }
     ],
     "notes": "Permanent +2 Deflection bonus to AC and +2 Resistance bonus to saving throws for True Neutral alignment characters."
+  },
+  "Strength of Purpose": {
+    "components": [
+      {
+        "name": "Undying",
+        "type": "Enhancement",
+        "value": {
+          "amount": 128,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+128 Enhancement Unconsciousness Range. The 16 HP regeneration every 10 seconds is not tracked."
+  },
+  "Summer's Impertenence": {
+    "components": [
+      {
+        "name": "Fire Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Radiance Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20% Enhancement critical damage with fire and light spells. Radiance Intensity is the light stat (it also covers alignment)."
   },
   "Superior Heroism": {
     "components": [
@@ -2893,6 +3148,27 @@
     ],
     "notes": "Thunderstorm Lore is spell critical hit chance for Sonic and Electric spells, matching Power of the Thunderstorm."
   },
+  "Touch of Immortality": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20 Competence to Heal and Repair. The 2-4 HP regeneration every 15 seconds is not tracked."
+  },
   "Voice of Deceit": {
     "components": [
       {
@@ -2976,6 +3252,27 @@
       }
     ],
     "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  },
+  "Winter's Impertenence": {
+    "components": [
+      {
+        "name": "Kinetic Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Void Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20% Enhancement critical damage with force and negative spells. Kinetic and Void Intensity are the nearest stats; they also cover physical and poison."
   },
   "Wisdom Skills": {
     "components": [

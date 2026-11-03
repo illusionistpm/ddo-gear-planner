@@ -225,6 +225,31 @@ def test_incorporeal_miss_chance_bypass_sources(monkeypatch, name):
     assert {'name': 'Incorporeal Bypass', 'type': 'Bool', 'value': 1} in group['components']
 
 
+@pytest.mark.parametrize('name, affixes', [
+    ("Hound's Bones", ['Acid Absorption', 'Evil Absorption']),
+    ('Mighty Skills Bonus', ['Jump', 'Swim']),
+    ('Touch of Immortality', ['Heal', 'Repair']),
+    ('Shadow Striker', ['Doublestrike', 'Doubleshot', 'Melee Alacrity', 'Ranged Alacrity']),
+    ('Permanent Efficacy', module.get_all_spell_power_types()),
+    ("Summer's Impertenence", ['Fire Intensity', 'Radiance Intensity']),
+    ("Winter's Impertenence", ['Kinetic Intensity', 'Void Intensity']),
+    ('Quori Mind Shield', ['Chaos Absorption']),
+    ('Strength of Purpose', ['Undying']),
+])
+def test_named_multi_stat_affixes_from_the_real_compound_map(monkeypatch, name, affixes):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group['affixes'] == affixes
+
+
 def test_build_affix_groups_sight_beyond_sight(monkeypatch):
     written = {}
 

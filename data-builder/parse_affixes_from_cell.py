@@ -234,7 +234,6 @@ def apply_known_affix_type_defaults(affix):
         'Smite Evil Charges',
         'Tendon Slice',
         'Craftable Rune Arm',
-        'Upgradeable - Tier',
         'Axeblock',
         'Hammerblock',
         'Spearblock',

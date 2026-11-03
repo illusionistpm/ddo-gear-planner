@@ -10,6 +10,8 @@ from parse_affixes_from_cell import canonicalize_affix_name, parse_affixes_from_
 from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
 from parse_rare_loot import get_rare_loot_from_snapshot
+from parse_vota_items import get_vota_enchantment_cells, is_vota_placeholder
+from upgrade_tiers import UPGRADE_TIER_SYSTEM, as_cell, get_upgrade_entry, has_tier_markers, split_upgrade_tiers
 from get_snapshot_path import get_snapshot_path
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
@@ -134,6 +136,71 @@ def expand_affix_names_with_compounds(affixNames: list[str]) -> set[str]:
     return expandedAffixNames
 
 
+def rename_enhancement_bonus(affix: Affix, item: Item|SetAugment) -> None:
+    """An Enhancement Bonus is to the weapon's or the armor's, by what the item is."""
+    if affix['name'] == 'Enhancement Bonus':
+
+        # create some booleans to reduce duplication and increase readability
+        isArmor = False
+        isShield = False
+
+        # assume that all item types that go in to the armor slot are armors
+        if item['slot'] == 'Armor':
+            isArmor = True
+
+        # identify shield items based on item type
+        if item['type'] in ('Bucklers', 'Large shields', 'Small shields', 'Tower shields'):
+            isShield = True
+
+        # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
+        # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
+        if isArmor or isShield:
+            affix['name'] = 'Enhancement Bonus (Armor)'
+
+        # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
+        # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
+        # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
+        if item['slot'] in ('Weapon', 'Offhand') and not (isShield or item['type'] == 'Orbs'):
+            affix['name'] = 'Enhancement Bonus (Weapon)'
+
+
+def keep_best_of_each_bonus(affixes: list[Affix]) -> list[Affix]:
+    """Drops an affix another one of the same name and bonus type outvalues, keeping order."""
+    def value(affix: Affix) -> float:
+        try:
+            return float(affix.get('value'))
+        except (TypeError, ValueError):
+            return 0
+
+    kept: list[Affix] = []
+    for affix in affixes:
+        same = next((k for k in kept if k['name'] == affix['name'] and k.get('type') == affix.get('type')), None)
+        if same is None:
+            kept.append(affix)
+        elif value(affix) > value(same):
+            kept[kept.index(same)] = affix
+    return kept
+
+
+def add_upgrade_tier_options(craftingSystems: CraftingSystems, item: Item|SetAugment, upgradeAffixes: list[tuple[int, list[Affix]]]) -> None:
+    """An 'Upgrade Tier' choice for an item that upgrades in place: one option per tier
+    above the first, holding everything gained up to it. A replaced effect stays in the
+    item's own affixes, since the planner takes the best value of a bonus type."""
+    gained: list[Affix] = []
+    options = []
+    for tier, tierAffixes in upgradeAffixes:
+        for affix in tierAffixes:
+            change_lost_purpose_affix_name(affix, item)
+            rename_enhancement_bonus(affix, item)
+        gained = keep_best_of_each_bonus(gained + tierAffixes)
+        if gained:
+            options.append({'name': f'Tier {tier}', 'affixes': gained})
+
+    if options:
+        craftingSystems.setdefault(UPGRADE_TIER_SYSTEM, {})[item['name']] = options
+        add_item_crafting_systems(item, [UPGRADE_TIER_SYSTEM])
+
+
 def get_items_from_page(
     itemPageURL: str,
     craftingSystems: CraftingSystems,
@@ -141,8 +208,10 @@ def get_items_from_page(
     rareItemNames: set[str]|None = None,
     sourceResolver: SourceResolver|None = None,
     multiSourceEntries: list[list[str]]|None = None,
+    votaCells: dict[str, Any]|None = None,
 ) -> Any:
     synonymMap = get_inverted_synonym_map()
+    votaCells = votaCells or {}
     rareItemNames = rareItemNames or set()
     sourceResolver = sourceResolver or SourceResolver({})
 
@@ -353,10 +422,34 @@ def get_items_from_page(
         sourceResolver.resolve_item(quests)
 
         affixes = []
+        # Per upgrade tier, the effects it gains over the item as it drops.
+        upgradeAffixes: list[tuple[int, list[Affix]]] = []
         if 'Enchantments' in cols or 'Special Abilities' in cols:
             affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
             cell = fields[affixesIdx]
-            affixes = parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
+            if is_vota_placeholder(cell):
+                cell = votaCells.get(item['name'])
+                if cell is None:
+                    print(f"No enchantments for {item['name']}: its row says VotAU and the VotA category page doesn't list it")
+
+            def parse_cell(cell):
+                return parse_affixes_from_cell(item['name'], cell, synonymMap, fakeBonuses, item['ml'], craftingSystems, sets)
+
+            if cell is not None and has_tier_markers(cell):
+                baseEntries, tiers = split_upgrade_tiers(cell)
+                affixes = parse_cell(as_cell(baseEntries))
+                for tier, entries in tiers:
+                    tierAffixes = []
+                    for affix in parse_cell(as_cell([get_upgrade_entry(entry) for entry in entries])):
+                        # An added augment slot or set belongs to the item itself:
+                        # a crafting option can't add a slot, and sets aren't affixes.
+                        if affix['name'] in craftingSystems or affix['name'] in sets:
+                            affixes.append(affix)
+                        else:
+                            tierAffixes.append(affix)
+                    upgradeAffixes.append((tier, tierAffixes))
+            elif cell is not None:
+                affixes = parse_cell(cell)
 
         # Detect all the sets that we picked up as affixes
         set_names_in_affixes = []
@@ -428,35 +521,12 @@ def get_items_from_page(
                 specialize_nearly_complete_crafting_for_item(craftingSystems, affix['name'], item)
                 remove.append(affix)
 
-            # if enhancement bonus found on item we may need to translate that enhancement bonus to something else
-            if affix['name'] == 'Enhancement Bonus':
-
-                # create some booleans to reduce duplication and increase readability
-                isArmor = False
-                isShield = False
-                isWeapon = False
-
-                # assume that all item types that go in to the armor slot are armors
-                if item['slot'] == 'Armor':
-                    isArmor = True
-
-                # identify shield items based on item type
-                if item['type'] in ('Bucklers', 'Large shields', 'Small shields', 'Tower shields'):
-                    isShield = True
-
-                # for armor and shield items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Armor)
-                # Enhancement Bonus (Armor) is then bubbled up as enhancement bonus to Armor Class via affix groups
-                if isArmor or isShield:
-                    affix['name'] = 'Enhancement Bonus (Armor)'
-
-                # assume that every item in your weapon slot that is not a shield and is not an orb is a weapon
-                # for weapon items - enhancement bonus becomes an enhancement type bonus to Enhancement Bonus (Weapon)
-                # Enhancement Bonus (Weapon is then bubbled up as an enhancement bonus to Accuracy and Damage via affix groups
-                if item['slot'] in ('Weapon', 'Offhand') and not (isShield or item['type'] == 'Orbs'):
-                    affix['name'] = 'Enhancement Bonus (Weapon)'
+            rename_enhancement_bonus(affix, item)
 
         for affix in remove:
             item['affixes'].remove(affix)
+
+        add_upgrade_tier_options(craftingSystems, item, upgradeAffixes)
 
         add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
 
@@ -510,6 +580,7 @@ def parse_items() -> None:
     sets     = read_json('sets')
     rareItemNames = get_rare_loot_from_snapshot()
     sourceResolver = load_source_resolver()
+    votaCells = get_vota_enchantment_cells()
     multiSourceEntries: list[list[str]] = []
     items    = []
 
@@ -527,7 +598,7 @@ def parse_items() -> None:
 
     for file in fileList:
         if include_page(file):
-            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, sourceResolver, multiSourceEntries))
+            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, sourceResolver, multiSourceEntries, votaCells))
 
     report_multi_source_entries(multiSourceEntries)
     sourceResolver.report_unresolved()

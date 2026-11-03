@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -14,6 +14,10 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import type { ShoppingListLink } from '../build/shopping-list-link';
+import { ShareLinkResolverService } from '../build/share-link-resolver.service';
+import { AuthService } from '../shared/auth.service';
+import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
+import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -50,7 +54,7 @@ describe('ShoppingListComponent', () => {
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
     setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; resetRoute: ReturnType<typeof vi.fn>;
-    stillNeededText: () => string; };
+    stillNeededText: () => string; stillNeededKeys: () => string[]; };
 
   const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
     views.next(buildShoppingListView(list, progress, trove, { filter }));
@@ -63,20 +67,26 @@ describe('ShoppingListComponent', () => {
   let link: BehaviorSubject<ShoppingListLink | null>;
   let friendLists: BehaviorSubject<FriendShoppingList>;
   let friendService: { listFor: ReturnType<typeof vi.fn>; refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
+  let syncStates: BehaviorSubject<ShoppingSyncState>;
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
-      stillNeededText: () => 'Still needed for my build (5):' };
+      stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     link = new BehaviorSubject<ShoppingListLink | null>({ kind: 'own' });
     friendLists = new BehaviorSubject<FriendShoppingList>({ view: null, needed: 0, live: true, notShared: false, failed: false });
     friendService = { listFor: vi.fn(() => friendLists), refresh: vi.fn(() => true), nextRefreshAt: 0 };
+    syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
-      declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
+      declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       providers: [
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { link$: link, openedFrom: null } },
-        { provide: FriendShoppingListService, useValue: friendService }
+        { provide: FriendShoppingListService, useValue: friendService },
+        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } },
+        // The Share menu's link: its own spec covers how it's made.
+        { provide: ShareLinkResolverService, useValue: { resolve: () => of({ status: 'pending' }) } },
+        { provide: AuthService, useValue: { isAuthenticated$: of(true) } }
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
@@ -391,36 +401,80 @@ describe('ShoppingListComponent', () => {
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Everything is ticked off');
   });
 
-  describe('copying the still-needed list', () => {
-    const copyButton = () => el().querySelector('.shopping-list-copy') as HTMLButtonElement;
+  describe('sharing the list', () => {
+    const shareButton = () => el().querySelector('.shopping-list-share') as HTMLButtonElement;
+    const menu = () => el().querySelector('app-shopping-list-share-menu');
+    const copyListItem = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.share-menu-item'))[2];
+    const openMenu = () => {
+      shareButton().click();
+      fixture.detectChanges();
+    };
 
-    it('copies the text within the click, and says so', () => {
+    it('opens a Share menu, closed again by clicking away or Escape', () => {
+      openMenu();
+      expect(menu()).toBeTruthy();
+      expect(shareButton().getAttribute('aria-expanded')).toBe('true');
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+      expect(menu()).toBeNull();
+
+      openMenu();
+      (el().querySelector('.share-menu-backdrop') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(menu()).toBeNull();
+    });
+
+    it('copies the list as text from the menu, within the click, and says so', () => {
       const copy = vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
       const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+      openMenu();
 
-      copyButton().click();
+      copyListItem().click();
       fixture.detectChanges();
 
       expect(copy).toHaveBeenCalledWith('Still needed for my build (5):');
-      expect(copyButton().textContent?.trim()).toBe('Copied!');
+      expect(copyListItem().textContent?.trim()).toBe('Copied!');
       // Five things, less the ring the trove covers.
       expect(track).toHaveBeenCalledWith('copy_shopping_list', { copy_kind: 'text', needed_count: 4 });
     });
 
     it('says when the clipboard refused', () => {
       vi.spyOn(Clipboard, 'copy').mockReturnValue(false);
+      openMenu();
 
-      copyButton().click();
+      copyListItem().click();
       fixture.detectChanges();
 
-      expect(el().querySelector('.shopping-list-copy-error')?.textContent).toContain('Could not copy');
-      expect(copyButton().textContent?.trim()).toBe('Copy list');
+      expect(el().querySelector('.share-menu-error')?.textContent).toContain('Could not copy');
+      expect(copyListItem().textContent?.trim()).toBe('Copy list');
     });
 
     it('is not offered with nothing to get', () => {
       show({}, 'all', []);
 
-      expect(copyButton()).toBeNull();
+      expect(shareButton()).toBeNull();
+    });
+  });
+
+  describe('where ticks are kept', () => {
+    const sync = () => el().querySelector('.shopping-list-sync');
+
+    it('says whether they\'re saved with the build or only on this device', () => {
+      const said = (['saving', 'synced', 'offline', 'local'] as const).map(state => {
+        syncStates.next(state);
+        fixture.detectChanges();
+        return [sync()?.textContent?.trim(), sync()?.classList.contains('local')];
+      });
+
+      expect(said).toEqual([['Saving…', false], ['Saved', false], ['Offline', true], ['Saved on this device', true]]);
+    });
+
+    it('says nothing when only this device could keep them anyway', () => {
+      syncStates.next('off');
+      fixture.detectChanges();
+
+      expect(sync()).toBeNull();
     });
   });
 
@@ -453,7 +507,9 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('2 things still needed');
       expect(Array.from(el().querySelectorAll('.shopping-row:not(.acquired) .shopping-row-name'), name => name.textContent))
         .toEqual(['Ring', 'Ruby']);
-      for (const selector of ['.shopping-check', '.shopping-list-choice', '.shopping-list-copy', '.shopping-list-progress',
+      syncStates.next('synced');
+      fixture.detectChanges();
+      for (const selector of ['.shopping-check', '.shopping-list-choice', '.shopping-list-share', '.shopping-list-sync', '.shopping-list-progress',
         '.shopping-list-reset-route', '.shopping-row-sources-toggle', '.owned-badge']) {
         expect(el().querySelector(selector), selector).toBeNull();
       }

@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output,
   QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
@@ -7,16 +7,15 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import type { ShoppingListLink } from '../build/shopping-list-link';
 import { AnalyticsService } from '../shared/analytics.service';
-import { Clipboard } from '../shared/clipboard';
 import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { OTHER_SOURCES_LABEL } from '../planner/shopping-list/shopping-list-view-model';
+import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
 import type {
   ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSection, ShoppingSource, ShoppingSourceChoice
 } from '../planner/shopping-list/shopping-list-types';
 
-const COPIED_CONFIRMATION_MS = 1500;
 /** Room left between the sticky header and a pack's heading scrolled up to it. */
 const SECTION_SCROLL_GAP_PX = 8;
 
@@ -45,27 +44,29 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   friend: FriendShoppingList | null = null;
   /** A friend's live list can be fetched again (not more than every 30 s). */
   canRefresh = false;
-  /** Feedback on the last Copy list click. */
-  copyState: 'idle' | 'copied' | 'failed' = 'idle';
+  /** The Share menu is open. */
+  shareOpen = false;
+  /** Whether your ticks are on the server too, or only on this device. */
+  syncState: ShoppingSyncState = 'off';
   /** The row whose choice of where to get it is open, if any. */
   expandedRowId: string | null = null;
   /** The row whose last quest the user just tried to untick, to say why it stays. */
   lastQuestHintRowId: string | null = null;
-  private subscription?: Subscription;
-  private copiedTimeout?: ReturnType<typeof setTimeout>;
+  private readonly subscriptions = new Subscription();
   private refreshTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     readonly shoppingList: ShoppingListService,
     private readonly shoppingListView: ShoppingListViewService,
     private readonly friendList: FriendShoppingListService,
+    private readonly progressStore: ShoppingProgressStore,
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef,
     private readonly elementRef: ElementRef<HTMLElement>
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.shoppingListView.link$.pipe(
+    this.subscriptions.add(this.shoppingListView.link$.pipe(
       // Closed: this component is on its way out.
       filter((link): link is ShoppingListLink => link !== null),
       switchMap((link): Observable<FriendShoppingList | ShoppingListView> => {
@@ -91,13 +92,42 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       }
       this.view = view;
       this.cdr.markForCheck();
-    });
+    }));
+    this.subscriptions.add(this.progressStore.syncState$.subscribe(syncState => {
+      this.syncState = syncState;
+      this.cdr.markForCheck();
+    }));
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-    clearTimeout(this.copiedTimeout);
+    this.subscriptions.unsubscribe();
     clearTimeout(this.refreshTimeout);
+  }
+
+  toggleShare(): void {
+    this.shareOpen = !this.shareOpen;
+  }
+
+  @HostListener('document:keydown.escape')
+  closeShare(): void {
+    this.shareOpen = false;
+    this.cdr.markForCheck();
+  }
+
+  /** Where your ticks are kept, when that's worth saying; null to say nothing. */
+  get syncLabel(): { text: string; title: string } | null {
+    switch (this.syncState) {
+      case 'saving':
+        return { text: 'Saving…', title: "Saving your ticks with the build, for your other devices and friends' links" };
+      case 'synced':
+        return { text: 'Saved', title: "Your ticks are saved with the build, for your other devices and friends' links" };
+      case 'offline':
+        return { text: 'Offline', title: "Saved on this device. They'll be saved with the build once it's back online." };
+      case 'local':
+        return { text: 'Saved on this device', title: "Couldn't save your ticks with the build for now, so they're only on this device" };
+      default:
+        return null;
+    }
   }
 
   /** Fetches a friend's live list again. */
@@ -122,24 +152,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       this.refreshTimeout = setTimeout(() => this.scheduleRefresh(), wait);
     }
     this.cdr.markForCheck();
-  }
-
-  /** Synchronous inside the click, or the browser refuses the clipboard write (see clipboard.ts). */
-  copyStillNeeded(): void {
-    clearTimeout(this.copiedTimeout);
-    if (!Clipboard.copy(this.shoppingList.stillNeededText())) {
-      this.copyState = 'failed';
-      return;
-    }
-    this.analytics.track('copy_shopping_list', {
-      copy_kind: 'text',
-      needed_count: this.view ? this.view.total - this.view.acquired : 0
-    });
-    this.copyState = 'copied';
-    this.copiedTimeout = setTimeout(() => {
-      this.copyState = 'idle';
-      this.cdr.markForCheck();
-    }, COPIED_CONFIRMATION_MS);
   }
 
   get percentAcquired(): number {

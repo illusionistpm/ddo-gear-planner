@@ -41,16 +41,23 @@
         @if (view) {
           <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
         }
-      }
-      @if (!friend && view?.total) {
-        <button type="button" class="shopping-list-copy" (click)="copyStillNeeded()"
-          title="Copy what's still needed, grouped by quest, to paste for friends">
-          <i class="fas" [class.fa-copy]="copyState !== 'copied'" [class.fa-check]="copyState === 'copied'" aria-hidden="true"></i>
-          <span>{{copyState === 'copied' ? 'Copied!' : 'Copy list'}}</span>
-        </button>
-      }
-      @if (copyState === 'failed') {
-        <span class="shopping-list-copy-error" role="alert">Could not copy to the clipboard. Please try again.</span>
+        @if (syncLabel; as sync) {
+          <span class="shopping-list-sync" [class.local]="syncState === 'local' || syncState === 'offline'" [title]="sync.title">
+            {{sync.text}}
+          </span>
+        }
+        @if (view?.total) {
+          <div class="shopping-list-share-wrap">
+            <button type="button" class="shopping-list-share" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
+              title="Share what's still needed with friends">
+              <i class="fas fa-share-nodes" aria-hidden="true"></i>
+              <span>Share</span>
+            </button>
+            @if (shareOpen) {
+              <app-shopping-list-share-menu (closed)="closeShare()"></app-shopping-list-share-menu>
+            }
+          </div>
+        }
       }
     </div>
     @if (friend) {

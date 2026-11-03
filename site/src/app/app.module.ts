@@ -46,6 +46,7 @@ import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
 import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
@@ -85,7 +86,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         ShrinkToFitDirective,
         AutofocusDirective,
         PanelSwipeDirective,
-        ShoppingListComponent
+        ShoppingListComponent,
+        ShoppingListShareMenuComponent
     ],
     imports: [
         AppRoutingModule,

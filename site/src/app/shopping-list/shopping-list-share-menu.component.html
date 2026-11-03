@@ -1,0 +1,12 @@
+<div class="share-menu">
+  <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : linkLabel }}</button>
+  <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyTextAndLink()">{{ justCopied === 'text_and_link' ? 'Copied!' : textAndLinkLabel }}</button>
+  <button type="button" class="share-menu-item" (click)="copyText()">{{ justCopied === 'text' ? 'Copied!' : 'Copy list' }}</button>
+  @if (shareLink.status === 'error') {
+    <span class="share-menu-error" role="alert">{{ shareLink.message }}</span>
+  }
+  @if (copyError) {
+    <span class="share-menu-error" role="alert">{{ copyError }}</span>
+  }
+</div>
+<button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closed.emit()"></button>

@@ -166,6 +166,14 @@ describe('ShoppingListService', () => {
     expect(publish).not.toHaveBeenCalled();
   });
 
+  it('gives the keys of what\'s still needed, for a snapshot link', async () => {
+    expect(service.stillNeededKeys()).toHaveLength(2);
+
+    service.toggle((await rowsOf()).find(row => row.entry.label === 'Ring of Tests')!);
+
+    expect(service.stillNeededKeys()).toEqual(['a|Ring1|Colorless Augment Slot#0|Diamond of Tests']);
+  });
+
   it('groups the list by quest, and writes the still-needed text', async () => {
     expect((await groups()).map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
     expect(service.stillNeededText()).toContain('Augment Vendor');

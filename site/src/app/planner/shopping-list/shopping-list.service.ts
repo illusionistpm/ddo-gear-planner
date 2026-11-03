@@ -13,7 +13,9 @@ import { formatShoppingListText } from './shopping-list-text';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingTroveLookup
 } from './shopping-list-types';
-import { buildShoppingListView, prunePatch, publishedProgress, settledIdentities, togglePatch } from './shopping-list-view-model';
+import {
+  buildShoppingListView, prunePatch, publishedProgress, settledIdentities, stillNeededKeys, togglePatch
+} from './shopping-list-view-model';
 import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress-store';
 
 /**
@@ -127,6 +129,11 @@ export class ShoppingListService {
       routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
     });
     return formatShoppingListText(view, this.currentBuild.value.name);
+  }
+
+  /** Keys of the entries still needed, for a snapshot link (see shopping-list-link.ts). */
+  stillNeededKeys(): string[] {
+    return stillNeededKeys(this.currentEntries(), this.progressStore.progress, this.trove);
   }
 
   /** The things got when the route was planned, planning it now if it isn't. */

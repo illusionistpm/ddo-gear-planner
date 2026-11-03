@@ -62,7 +62,7 @@ describe('classifyCraftSelection', () => {
         'Nearly Finished',
         'Sealed in Fire', 'Sealed in Gloom', 'Sealed in Mist', 'Sealed in Undeath',
         'T1 (Equipment)', 'T1 (Weapon)', 'T2 (Equipment)', 'T2 (Weapon)', 'T3 (Equipment)', 'T3 (Weapon)',
-        'Upgradeable Item',
+        'Upgrade Tier', 'Upgradeable Item',
       ],
       augment: [
         'Blue Augment Slot', 'Colorless Augment Slot', 'Green Augment Slot', 'Moon Augment Slot', 'Orange Augment Slot',

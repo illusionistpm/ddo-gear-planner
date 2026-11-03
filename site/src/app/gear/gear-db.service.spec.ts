@@ -142,6 +142,24 @@ describe('GearDbService', () => {
       .toEqual([[], [['Speed', 'Enhancement', 30]]]);
   });
 
+  it('offers a Vaults of the Artificers item its upgrade tiers, each adding to what it drops with (issue #51)', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const ring = service.findGearBySlot('Ring1', 'Epic Ring of the Stalker');
+    const tiers = ring?.getCraftingByName('Upgrade Tier');
+    const seeker = () => ring?.getActiveAffixes()
+      .filter(affix => affix.name === 'Seeker' && affix.type === 'Enhancement')
+      .map(affix => Number(affix.value));
+
+    expect(tiers?.options.map(option => option.getParamDescription())).toEqual(['', 'Tier 2', 'Tier 3']);
+    expect(tiers?.options.map(option => option.describe())).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
+    expect(seeker()).toEqual([9]);
+
+    expect(tiers?.selectByParamDescription('Tier 3')).toBe(true);
+
+    expect(tiers?.getSelectedParamDescription()).toBe('Tier 3');
+    expect(Math.max(...(seeker() ?? []))).toBe(11);
+  });
+
   it('gives an augment upgrade one slot that can become any colour the item lists for it', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const diadem = service.findGearBySlot('Helm', 'Epic Deific Diadem');

@@ -209,10 +209,6 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Extra Smites', 'type': 'Untyped', 'value': '2'},
         ),
         (
-            '<li><span class="has_tooltip">Upgradeable - Tier 2<span class="tooltip">Upgradeable - Tier 2: This is a tier 2 upgradeable item.</span></span></li>',
-            {'name': 'Upgradeable - Tier', 'type': 'Untyped', 'value': '2'},
-        ),
-        (
             '<li><span class="has_tooltip">Lesser Arcane Casting Dexterity<span class="tooltip">Lesser Arcane Casting Dexterity: This ability reduces the arcane spell failure chance by -5%.</span></span></li>',
             {'name': 'Lesser Arcane Casting Dexterity', 'type': 'Untyped', 'value': '5'},
         ),

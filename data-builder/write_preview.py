@@ -2,7 +2,9 @@
 
 Collects everything the build wrote - the site's data/*.json and the
 crafting-device cache - into one folder, with a git diff against the
-checked-in versions and a Markdown summary. The Data Auto Updater uploads
+checked-in versions and a Markdown summary. Wiki pages the build downloaded
+that the committed snapshot doesn't have yet are copied in too, so a scraper
+that fetches a new page can be checked against what it fetched. The Data Auto Updater uploads
 that folder when it runs on a branch instead of committing.
 """
 import glob
@@ -12,12 +14,20 @@ import subprocess
 
 from source_packs import SOURCE_PACKS_PATH
 from get_output_path import get_output_path
+from get_snapshot_path import SNAPSHOT_DIR
 
 
 def get_build_outputs():
     """Every file a build writes, as absolute paths."""
     data_files = sorted(glob.glob(os.path.join(get_output_path(), '*.json')))
     return [os.path.abspath(path) for path in data_files + [SOURCE_PACKS_PATH]]
+
+
+def get_new_snapshot_pages(repo_root):
+    """Snapshot pages not in the committed snapshot, relative to the repo root."""
+    snapshot = os.path.relpath(SNAPSHOT_DIR, repo_root)
+    listing = _git(repo_root, 'ls-files', '--others', '--exclude-standard', '--', snapshot)
+    return sorted(line for line in listing.splitlines() if line)
 
 
 def _git(repo_root, *args):
@@ -35,6 +45,12 @@ def write_preview(preview_dir, stats_description, title='Data preview'):
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         shutil.copyfile(path, destination)
 
+    new_pages = get_new_snapshot_pages(repo_root)
+    for rel in new_pages:
+        destination = os.path.join(preview_dir, rel)
+        os.makedirs(os.path.dirname(destination), exist_ok=True)
+        shutil.copyfile(os.path.join(repo_root, rel), destination)
+
     with open(os.path.join(preview_dir, 'data.diff'), 'w', encoding='utf8') as fh:
         fh.write(_git(repo_root, 'diff', '--', *relative))
 
@@ -45,6 +61,8 @@ def write_preview(preview_dir, stats_description, title='Data preview'):
         f'{stats_description.rstrip()}\n\n'
         f'```\n{diff_stat}\n```\n'
     )
+    if new_pages:
+        summary += '\nNew wiki snapshot pages, copied into the preview:\n\n' + ''.join(f'- `{rel}`\n' for rel in new_pages)
     with open(os.path.join(preview_dir, 'summary.md'), 'w', encoding='utf8') as fh:
         fh.write(summary)
 

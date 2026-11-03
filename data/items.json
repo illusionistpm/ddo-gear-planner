@@ -15656,10 +15656,33 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Weaken Construct",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Sonic Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Sonic Guard",
+                "value": "3"
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Equipment",
+                "value": "1"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Blasting Chime (level 11)",
@@ -15673,10 +15696,39 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Weaken Construct",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sonic Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Cacophonic Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Equipment",
+                "value": "1"
+            },
+            {
+                "name": "Anthem",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Blasting Chime (level 15)",
@@ -15717,10 +15769,28 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Weaken Construct",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Sonic Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Sonic Guard",
+                "value": "2"
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Equipment",
+                "value": "69"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Blasting Chime (level 7)",
@@ -17348,11 +17418,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
-            },
             {
                 "name": "Deadly",
                 "type": "Competence",
@@ -19567,10 +19632,29 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "6"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Bracers of Wind (level 11)",
@@ -19584,10 +19668,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Air Guard",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Bracers of Wind (level 15)",
@@ -19628,10 +19736,24 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "69"
+            },
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Bracers of Wind (level 7)",
@@ -21293,11 +21415,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+3"
@@ -21316,17 +21433,10 @@
                 "name": "Mortal Strike",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 12,
         "name": "Brigand's Cutlass (legacy) (level 12)",
@@ -21340,20 +21450,33 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "13"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Anarchic Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "15"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 16,
         "name": "Brigand's Cutlass (legacy) (level 16)",
@@ -21367,20 +21490,23 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+1"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Anarchic",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 4,
         "name": "Brigand's Cutlass (legacy) (level 4)",
@@ -21394,20 +21520,23 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "7"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Anarchic",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Brigand's Cutlass (legacy) (level 8)",
@@ -25265,20 +25394,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Banded Heavy Repeater (level 12)",
@@ -25292,20 +25425,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Banded Heavy Repeater (level 16)",
@@ -25346,20 +25488,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Banded Light Repeater (level 8)",
@@ -25373,20 +25519,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Falchion (level 12)",
@@ -25400,20 +25550,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Falchion (level 16)",
@@ -25454,20 +25613,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Falchion (level 8)",
@@ -25481,20 +25644,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Rapier (level 12)",
@@ -25508,20 +25675,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Rapier (level 16)",
@@ -25562,20 +25738,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Rapier (level 8)",
@@ -25589,20 +25769,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Scimitar (level 12)",
@@ -25616,20 +25800,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Scimitar (level 16)",
@@ -25670,20 +25863,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Scimitar (level 8)",
@@ -25697,20 +25894,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Strung Long Bow (level 12)",
@@ -25724,20 +25925,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Strung Long Bow (level 12)",
@@ -25751,20 +25956,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Strung Long Bow (level 16)",
@@ -25778,20 +25992,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Strung Long Bow (level 16)",
@@ -25859,20 +26082,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Strung Long Bow (level 8)",
@@ -25886,20 +26113,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Strung Long Bow (level 8)",
@@ -25913,20 +26144,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Calomel Studded Handwraps (level 12)",
@@ -25940,20 +26175,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Calomel Studded Handwraps (level 16)",
@@ -25994,20 +26238,24 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Calomel Studded Handwraps (level 8)",
@@ -27079,11 +27327,6 @@
                 "value": "15"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+3"
@@ -27109,6 +27352,9 @@
                 "value": "3"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 12,
         "name": "Cavalry Plate (legacy) (level 12)",
         "quests": [
@@ -27124,11 +27370,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "20"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -27161,6 +27402,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 16,
         "name": "Cavalry Plate (legacy) (level 16)",
         "quests": [
@@ -27176,11 +27420,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "9"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -27203,6 +27442,9 @@
                 "value": "1"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 4,
         "name": "Cavalry Plate (legacy) (level 4)",
         "quests": [
@@ -27218,11 +27460,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "14"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -27244,6 +27481,9 @@
                 "type": "Resistance",
                 "value": "2"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Cavalry Plate (legacy) (level 8)",
@@ -31555,10 +31795,29 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Fire Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "21"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Cloak of Flames (level 11)",
@@ -31572,10 +31831,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Fire Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "24"
+            },
+            {
+                "name": "Fire Shield (Hot)",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Cloak of Flames (level 15)",
@@ -31616,10 +31899,24 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "69"
+            },
+            {
+                "name": "Fire Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "1"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Cloak of Flames (level 7)",
@@ -40955,11 +41252,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
-            },
-            {
                 "name": "Pirate Cleverness",
                 "type": "Bool",
                 "value": 1
@@ -41241,11 +41533,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+3"
@@ -41276,6 +41563,9 @@
                 "value": "11"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 12,
         "name": "Cutthroat's Smallblade (legacy) (level 12)",
         "quests": [
@@ -41287,11 +41577,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -41323,6 +41608,9 @@
                 "value": "13"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 16,
         "name": "Cutthroat's Smallblade (legacy) (level 16)",
         "quests": [
@@ -41334,11 +41622,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -41355,6 +41638,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 4,
         "name": "Cutthroat's Smallblade (legacy) (level 4)",
         "quests": [
@@ -41366,11 +41652,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -41396,6 +41677,9 @@
                 "type": "Competence",
                 "value": "7"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Cutthroat's Smallblade (legacy) (level 8)",
@@ -55341,11 +55625,6 @@
                 "value": "7"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+3"
@@ -55376,6 +55655,9 @@
                 "value": "1"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 12,
         "name": "Duelist's Leathers (legacy) (level 12)",
         "quests": [
@@ -55391,11 +55673,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "9"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -55428,6 +55705,9 @@
                 "value": "1"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 16,
         "name": "Duelist's Leathers (legacy) (level 16)",
         "quests": [
@@ -55445,11 +55725,6 @@
                 "value": "4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+1"
@@ -55464,6 +55739,9 @@
                 "type": "Competence",
                 "value": "5"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 4,
         "name": "Duelist's Leathers (legacy) (level 4)",
@@ -55480,11 +55758,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "6"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -55506,6 +55779,9 @@
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Duelist's Leathers (legacy) (level 8)",
@@ -59906,20 +60182,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Flaming Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Metalline",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "24"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Elemental Greataxe of Fire (level 12)",
@@ -59933,20 +60223,39 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Flaming Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Metalline",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incineration",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Elemental Greataxe of Fire (level 16)",
@@ -59987,20 +60296,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Flaming",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Elemental Greataxe of Fire (level 8)",
@@ -60014,20 +60332,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Icy Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "24"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Elemental Khopesh of Water (level 12)",
@@ -60041,20 +60373,39 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Icy Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Slowburst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Elemental Khopesh of Water (level 16)",
@@ -60095,20 +60446,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Frost",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Slowburst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Elemental Khopesh of Water (level 8)",
@@ -60122,20 +60482,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "24"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Elemental Longbow of Earth (level 12)",
@@ -60149,20 +60523,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "24"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Elemental Longbow of Earth (level 12)",
@@ -60176,20 +60564,39 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Stone Prison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Elemental Longbow of Earth (level 16)",
@@ -60203,20 +60610,39 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Stone Prison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Elemental Longbow of Earth (level 16)",
@@ -60284,20 +60710,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Elemental Longbow of Earth (level 8)",
@@ -60311,20 +60746,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Elemental Longbow of Earth (level 8)",
@@ -60369,20 +60813,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Shocking Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Screaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Roaring",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "24"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Elemental Rapier of Air (level 12)",
@@ -60396,20 +60854,39 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Shocking Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Screaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Roaring",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sirocco",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "30"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Elemental Rapier of Air (level 16)",
@@ -60450,20 +60927,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Shock",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Screaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "18"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Elemental Rapier of Air (level 8)",
@@ -63677,10 +64163,40 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Weaken Construct",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sonic Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Cacophonic Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Sonic Spell Power",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Evocation Focus",
+                "type": "Equipment",
+                "value": "2"
+            },
+            {
+                "name": "Anthem",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Blasting Chime",
@@ -64380,10 +64896,35 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Lightning Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Concealment",
+                "type": "Enhancement",
+                "value": "20"
+            },
+            {
+                "name": "Dodge",
+                "type": "Enhancement",
+                "value": "9"
+            },
+            {
+                "name": "Air Guard",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Bracers of Wind",
@@ -64709,20 +65250,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "15"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Anarchic Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "15"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Brigand's Cutlass (legacy) (level 20)",
@@ -64736,20 +65291,34 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+6"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
+                "name": "Intimidate",
+                "type": "Competence",
+                "value": "17"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Anarchic Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Vorpal",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incite",
+                "type": "Enhancement",
+                "value": "20"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Brigand's Cutlass (legacy) (level 24)",
@@ -65154,20 +65723,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Banded Heavy Repeater",
@@ -65181,20 +65765,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Falchion",
@@ -65208,20 +65807,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Long Bow",
@@ -65235,20 +65849,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Long Bow",
@@ -65262,20 +65891,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Rapier",
@@ -65289,20 +65933,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Scimitar",
@@ -65316,20 +65975,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Dragon Bane",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Tidal Burst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Corrosive Salt",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Calomel Studded Handwraps",
@@ -65604,11 +66278,6 @@
                 "value": "26"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+6"
@@ -65639,6 +66308,10 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
+        ],
         "ml": 20,
         "name": "Epic Cavalry Plate (legacy) (level 20)",
         "quests": [
@@ -65654,11 +66327,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "30"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -65690,6 +66358,10 @@
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Cavalry Plate (legacy) (level 24)",
@@ -66212,10 +66884,35 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Fire Spell Power",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Fire Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Heightened Awareness",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Fire Absorption",
+                "type": "Enhancement",
+                "value": "27"
+            },
+            {
+                "name": "Fire Shield (Hot)",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Cloak of Flames",
@@ -67540,11 +68237,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
@@ -67575,6 +68267,10 @@
                 "value": "15"
             }
         ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
+        ],
         "ml": 20,
         "name": "Epic Cutthroat's Smallblade (legacy) (level 20)",
         "quests": [
@@ -67586,11 +68282,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -67621,6 +68312,10 @@
                 "type": "Competence",
                 "value": "17"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Cutthroat's Smallblade (legacy) (level 24)",
@@ -68942,11 +69637,6 @@
                 "value": "13"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+6"
@@ -68977,6 +69667,10 @@
                 "value": "2"
             }
         ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
+        ],
         "ml": 20,
         "name": "Epic Duelist's Leathers (legacy) (level 20)",
         "quests": [
@@ -68992,11 +69686,6 @@
                 "name": "Armor Class",
                 "type": "Armor",
                 "value": "14"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -69028,6 +69717,10 @@
                 "type": "Competence",
                 "value": "3"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Duelist's Leathers (legacy) (level 24)",
@@ -69476,20 +70169,45 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Flaming Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Metalline",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Incineration",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Magma Surge",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Cold Resistance",
+                "type": "Enhancement",
+                "value": "36"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Elemental Greataxe of Fire",
@@ -69503,20 +70221,45 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Icy Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Improved Paralyzing",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Crushing Wave",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Slowburst",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Freezing Ice",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Fire Resistance",
+                "type": "Enhancement",
+                "value": "36"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Elemental Khopesh of Water",
@@ -69530,20 +70273,45 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Stone Prison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegration",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "36"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Elemental Longbow of Earth",
@@ -69557,20 +70325,45 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Acid Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Greater Acid Arrow",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Stone Prison",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Destruction",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Disintegration",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Acid Resistance",
+                "type": "Enhancement",
+                "value": "36"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Elemental Longbow of Earth",
@@ -69584,20 +70377,45 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Shocking Burst",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Screaming",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Improved Roaring",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Greater Sirocco",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Slicing Winds",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Electric Resistance",
+                "type": "Enhancement",
+                "value": "36"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Elemental Rapier of Air",
@@ -72349,10 +73167,40 @@
                 "value": "7"
             },
             {
-                "name": "VotAU",
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "7"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Cold Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Freezing Ice",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Fire Shield (Cold)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Enhanced Ki",
+                "type": "Untyped",
+                "value": "1"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Frozen Tunic",
@@ -75967,10 +76815,39 @@
                 "value": "19"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "8"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "8"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Energy Absorption clicky",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Breastplate",
@@ -75989,10 +76866,39 @@
                 "value": "14"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "8"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "8"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Weaken Undead",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Chain",
@@ -76006,10 +76912,39 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "8"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "8"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Weaken Undead",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Docent",
@@ -76028,10 +76963,39 @@
                 "value": "29"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+5"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "8"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "8"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Healers Bounty",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Fullplate",
@@ -76045,20 +77009,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Greataxe",
@@ -76072,20 +77051,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Light Mace",
@@ -76099,20 +77093,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Longsword",
@@ -76126,20 +77135,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Maul",
@@ -76153,20 +77177,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Shortsword",
@@ -76180,20 +77219,35 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Radiant Blast",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Mournlode Warhammer",
@@ -76519,11 +77573,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Universal Spell Power",
                 "type": "Implement",
                 "value": "15"
@@ -76554,6 +77603,10 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier",
+            "Yellow Augment Slot"
+        ],
         "ml": 20,
         "name": "Epic Ornamented Dagger (legacy) (level 20)",
         "quests": [
@@ -76565,11 +77618,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Universal Spell Power",
                 "type": "Implement",
@@ -76605,6 +77653,10 @@
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Orange Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Ornamented Dagger (legacy) (level 24)",
@@ -77513,11 +78565,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
@@ -77543,6 +78590,10 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
+        ],
         "ml": 20,
         "name": "Epic Ratkiller (legacy) (level 20)",
         "quests": [
@@ -77554,11 +78605,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -77584,6 +78630,10 @@
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Red Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Ratkiller (legacy) (level 24)",
@@ -78358,10 +79408,35 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Reconstruct clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "192"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Greater Auto-Repair",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Ring of Master Artifice",
@@ -78858,10 +79933,30 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Manslayer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "9"
+            },
+            {
+                "name": "Ethereal",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Ring of the Stalker",
@@ -79208,10 +80303,35 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "110"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "16"
+            },
+            {
+                "name": "Stone Prison Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Earthgrab Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Immunity to Slippery Surfaces",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Rock Boots",
@@ -82454,10 +83574,35 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Riposte",
+                "type": "Insight",
+                "value": "8"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Staggering Blow",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Disable Device",
+                "type": "Competence",
+                "value": "17"
+            },
+            {
+                "name": "Open Lock",
+                "type": "Competence",
+                "value": "17"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot",
+            "Colorless Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Spare Hand",
@@ -83368,20 +84513,34 @@
                 "value": "7"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+5"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
+                "name": "Parrying",
                 "type": "Insight",
-                "value": "3"
+                "value": "4"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Riposte",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
         ],
         "ml": 20,
         "name": "Epic Swashbuckler (legacy) (level 20)",
@@ -83400,20 +84559,34 @@
                 "value": "8"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+6"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
+                "name": "Riposte",
                 "type": "Insight",
-                "value": "3"
+                "value": "8"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "7"
+            },
+            {
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Riposte",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Blue Augment Slot"
         ],
         "ml": 24,
         "name": "Epic Swashbuckler (legacy) (level 24)",
@@ -100041,10 +101214,29 @@
                 "value": "5"
             },
             {
-                "name": "VotAU",
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "5"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Cold Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Lesser Freezing Ice",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 12,
         "name": "Frozen Tunic (level 12)",
@@ -100063,10 +101255,39 @@
                 "value": "6"
             },
             {
-                "name": "VotAU",
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "6"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Cold Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Lesser Freezing Ice",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Fire Shield (Cold)",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Enhanced Ki",
+                "type": "Untyped",
+                "value": "1"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 16,
         "name": "Frozen Tunic (level 16)",
@@ -100122,10 +101343,29 @@
                 "value": "4"
             },
             {
-                "name": "VotAU",
+                "name": "Armor Class",
+                "type": "Armor",
+                "value": "4"
+            },
+            {
+                "name": "Cold Spell Power",
+                "type": "Equipment",
+                "value": "69"
+            },
+            {
+                "name": "Cold Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Minor Freezing Ice",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 8,
         "name": "Frozen Tunic (level 8)",
@@ -103304,11 +104544,6 @@
                 "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Fortification",
                 "type": "Penalty",
                 "value": "-25"
@@ -103339,11 +104574,6 @@
                 "name": "Exploding Cannon Shot",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
             },
             {
                 "name": "Force Spell Power",
@@ -103381,11 +104611,6 @@
                 "name": "Exploding Cannon Shot",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
             },
             {
                 "name": "Force Spell Power",
@@ -108476,11 +109701,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
-            },
-            {
                 "name": "Deadly",
                 "type": "Competence",
                 "value": "1"
@@ -108524,11 +109744,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
-            },
             {
                 "name": "Pirate Cleverness",
                 "type": "Bool",
@@ -108690,11 +109905,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
-            },
-            {
                 "name": "Accuracy",
                 "type": "Competence",
                 "value": "1"
@@ -108753,11 +109963,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
-            },
             {
                 "name": "Pirate Vitality",
                 "type": "Bool",
@@ -203098,11 +204303,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Deadly",
                 "type": "Competence",
                 "value": "1"
@@ -203145,11 +204345,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Pirate Cleverness",
                 "type": "Bool",
                 "value": 1
@@ -203166,11 +204361,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Accuracy",
                 "type": "Competence",
@@ -203251,11 +204441,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Pirate Vitality",
                 "type": "Bool",
@@ -218366,9 +219551,23 @@
                 "value": "7"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "3"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "3"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
         ],
         "ml": 4,
@@ -218388,10 +219587,33 @@
                 "value": "11"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+3"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "5"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "5"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "3"
+            },
+            {
+                "name": "Protection from Evil",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Breastplate (level 12)",
@@ -218410,10 +219632,38 @@
                 "value": "15"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "6"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "6"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Negative Energy Absorption clicky",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Breastplate (level 16)",
@@ -218432,10 +219682,28 @@
                 "value": "10"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "4"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "4"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Breastplate (level 8)",
@@ -218454,10 +219722,33 @@
                 "value": "8"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+3"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "5"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "5"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "3"
+            },
+            {
+                "name": "Protection from Evil",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Chain (level 12)",
@@ -218476,10 +219767,38 @@
                 "value": "11"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "6"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "6"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Weaken Undead",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Chain (level 16)",
@@ -218498,9 +219817,23 @@
                 "value": "5"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "3"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "3"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
         ],
         "ml": 4,
@@ -218520,10 +219853,28 @@
                 "value": "7"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "4"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "4"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Chain (level 8)",
@@ -218537,10 +219888,33 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+3"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "5"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "5"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "3"
+            },
+            {
+                "name": "Protection from Evil",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Docent (level 12)",
@@ -218554,10 +219928,38 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "6"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "6"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Weaken Undead",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Docent (level 16)",
@@ -218571,9 +219973,23 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "3"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "3"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
         ],
         "ml": 4,
@@ -218588,10 +220004,28 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "4"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "4"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Docent (level 8)",
@@ -218610,10 +220044,33 @@
                 "value": "19"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+3"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "5"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "5"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "3"
+            },
+            {
+                "name": "Protection from Evil",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Fullplate (level 12)",
@@ -218632,10 +220089,38 @@
                 "value": "24"
             },
             {
-                "name": "VotAU",
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+4"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "6"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "6"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "4"
+            },
+            {
+                "name": "Protection from Evil",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Healers Bounty",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Fullplate (level 16)",
@@ -218654,9 +220139,23 @@
                 "value": "9"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "3"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "3"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
         ],
         "ml": 4,
@@ -218676,10 +220175,28 @@
                 "value": "14"
             },
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Enhancement Bonus (Armor)",
+                "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": "4"
+            },
+            {
+                "name": "Resistance",
+                "type": "Resistance",
+                "value": "4"
+            },
+            {
+                "name": "Undead Guard",
+                "value": "2"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Fullplate (level 8)",
@@ -218693,20 +220210,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Greataxe (level 12)",
@@ -218720,20 +220246,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Greataxe (level 16)",
@@ -218774,20 +220309,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Greataxe (level 8)",
@@ -218801,20 +220345,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Light Mace (level 12)",
@@ -218828,20 +220381,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Light Mace (level 16)",
@@ -218882,20 +220444,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Light Mace (level 8)",
@@ -218909,20 +220480,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Longsword (level 12)",
@@ -218936,20 +220516,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Longsword (level 16)",
@@ -218990,20 +220579,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Longsword (level 8)",
@@ -219017,20 +220615,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Maul (level 12)",
@@ -219044,20 +220651,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Maul (level 16)",
@@ -219098,20 +220714,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Maul (level 8)",
@@ -219125,20 +220750,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Shortsword (level 12)",
@@ -219152,20 +220786,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Shortsword (level 16)",
@@ -219206,20 +220849,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Shortsword (level 8)",
@@ -219233,20 +220885,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 12,
         "name": "Mournlode Warhammer (level 12)",
@@ -219260,20 +220921,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Brilliance",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 16,
         "name": "Mournlode Warhammer (level 16)",
@@ -219314,20 +220984,29 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
+                "name": "Enhancement Bonus (Weapon)",
+                "type": "Enhancement",
+                "value": "+2"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
+                "name": "Righteous",
+                "type": "Bool",
+                "value": 1
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Undead Bane",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Incandescence",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Purple Augment Slot"
         ],
         "ml": 8,
         "name": "Mournlode Warhammer (level 8)",
@@ -224638,11 +226317,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
-            },
-            {
                 "name": "Accuracy",
                 "type": "Competence",
                 "value": "1"
@@ -226446,11 +228120,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Universal Spell Power",
                 "type": "Implement",
                 "value": "9"
@@ -226471,6 +228140,9 @@
                 "value": "36"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 12,
         "name": "Ornamented Dagger (legacy) (level 12)",
         "quests": [
@@ -226482,11 +228154,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Universal Spell Power",
                 "type": "Implement",
@@ -226513,6 +228180,9 @@
                 "value": "5"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 16,
         "name": "Ornamented Dagger (legacy) (level 16)",
         "quests": [
@@ -226524,11 +228194,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Universal Spell Power",
                 "type": "Implement",
@@ -226555,6 +228220,9 @@
                 "value": "36"
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 4,
         "name": "Ornamented Dagger (legacy) (level 4)",
         "quests": [
@@ -226566,11 +228234,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Universal Spell Power",
                 "type": "Implement",
@@ -226606,6 +228269,9 @@
                 "type": "Equipment",
                 "value": "48"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Ornamented Dagger (legacy) (level 8)",
@@ -236890,11 +238556,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
-            {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+3"
@@ -236915,6 +238576,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 12,
         "name": "Ratkiller (legacy) (level 12)",
         "quests": [
@@ -236926,11 +238590,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -236957,6 +238616,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 16,
         "name": "Ratkiller (legacy) (level 16)",
         "quests": [
@@ -236968,11 +238630,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -236989,6 +238646,9 @@
                 "value": 1
             }
         ],
+        "crafting": [
+            "Upgrade Tier"
+        ],
         "ml": 4,
         "name": "Ratkiller (legacy) (level 4)",
         "quests": [
@@ -237000,11 +238660,6 @@
     },
     {
         "affixes": [
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "1"
-            },
             {
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
@@ -237020,6 +238675,9 @@
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Ratkiller (legacy) (level 8)",
@@ -240308,10 +241966,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Repair Moderate Damage clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "126"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Improved Auto-Repair",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Ring of Master Artifice (level 11)",
@@ -240325,10 +242007,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Reconstruct clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "159"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Improved Auto-Repair",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Ring of Master Artifice (level 15)",
@@ -240379,10 +242085,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Repair Moderate Damage clicky",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Wizardry",
+                "type": "Enhancement",
+                "value": "93"
+            },
+            {
+                "name": "Reconstruction",
+                "type": "Equipment",
+                "value": "69"
+            },
+            {
+                "name": "Repair Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Auto-Repair",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Ring of Master Artifice (level 7)",
@@ -242090,10 +243820,24 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Manslayer",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "6"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Ring of the Stalker (level 11)",
@@ -242107,10 +243851,29 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Manslayer",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Deception",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "8"
+            },
+            {
+                "name": "Ethereal",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Ring of the Stalker (level 15)",
@@ -242146,10 +243909,19 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Deception",
+                "type": "Enhancement",
+                "value": "3"
+            },
+            {
+                "name": "Seeker",
+                "type": "Enhancement",
+                "value": "5"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Ring of the Stalker (level 7)",
@@ -244571,10 +246343,24 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "82"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "12"
+            },
+            {
+                "name": "Stone Prison Guard",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Rock Boots (level 11)",
@@ -244588,10 +246374,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "96"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "14"
+            },
+            {
+                "name": "Stone Prison Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Earthgrab Guard",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Immunity to Slippery Surfaces",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Rock Boots (level 15)",
@@ -244632,10 +246442,24 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Acid Spell Power",
+                "type": "Equipment",
+                "value": "69"
+            },
+            {
+                "name": "Acid Lore",
+                "type": "Equipment",
+                "value": "10"
+            },
+            {
+                "name": "Lesser Stone Prison Guard",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Rock Boots (level 7)",
@@ -262895,10 +264719,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Riposte",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Staggering Blow",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Disable Device",
+                "type": "Competence",
+                "value": "14"
+            },
+            {
+                "name": "Open Lock",
+                "type": "Competence",
+                "value": "14"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 11,
         "name": "Spare Hand (level 11)",
@@ -262912,10 +264760,34 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
+                "name": "Riposte",
+                "type": "Insight",
+                "value": "6"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Insight",
+                "value": "3"
+            },
+            {
+                "name": "Staggering Blow",
                 "type": "Bool",
                 "value": 1
+            },
+            {
+                "name": "Disable Device",
+                "type": "Competence",
+                "value": "16"
+            },
+            {
+                "name": "Open Lock",
+                "type": "Competence",
+                "value": "16"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 15,
         "name": "Spare Hand (level 15)",
@@ -262961,10 +264833,29 @@
     {
         "affixes": [
             {
-                "name": "VotAU",
-                "type": "Bool",
-                "value": 1
+                "name": "Riposte",
+                "type": "Insight",
+                "value": "4"
+            },
+            {
+                "name": "Combat Mastery",
+                "type": "Insight",
+                "value": "2"
+            },
+            {
+                "name": "Disable Device",
+                "type": "Competence",
+                "value": "10"
+            },
+            {
+                "name": "Open Lock",
+                "type": "Competence",
+                "value": "10"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier",
+            "Green Augment Slot"
         ],
         "ml": 7,
         "name": "Spare Hand (level 7)",
@@ -267408,11 +269299,6 @@
     {
         "affixes": [
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "2"
-            },
-            {
                 "name": "Pirate Vitality",
                 "type": "Bool",
                 "value": 1
@@ -271304,20 +273190,33 @@
                 "value": "4"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
+                "value": "+3"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
                 "value": "1"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
+                "name": "Doublestrike",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Riposte",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 12,
         "name": "Swashbuckler (legacy) (level 12)",
@@ -271336,20 +273235,33 @@
                 "value": "6"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
-                "value": "1"
+                "value": "+4"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
+                "name": "Parrying",
                 "type": "Insight",
-                "value": "3"
+                "value": "4"
+            },
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": "6"
+            },
+            {
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
+            },
+            {
+                "name": "Riposte",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 16,
         "name": "Swashbuckler (legacy) (level 16)",
@@ -271368,20 +273280,23 @@
                 "value": "2"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
+                "value": "+1"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
                 "value": "1"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Doublestrike",
                 "type": "Enhancement",
-                "value": "2"
-            },
-            {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
                 "value": "3"
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 4,
         "name": "Swashbuckler (legacy) (level 4)",
@@ -271400,20 +273315,28 @@
                 "value": "3"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
+                "value": "+2"
+            },
+            {
+                "name": "Parrying",
+                "type": "Insight",
                 "value": "1"
             },
             {
-                "name": "Upgradeable - Tier",
+                "name": "Doublestrike",
                 "type": "Enhancement",
-                "value": "2"
+                "value": "3"
             },
             {
-                "name": "Upgradeable - Tier",
-                "type": "Untyped",
-                "value": "3"
+                "name": "Guardbreaking",
+                "type": "Bool",
+                "value": 1
             }
+        ],
+        "crafting": [
+            "Upgrade Tier"
         ],
         "ml": 8,
         "name": "Swashbuckler (legacy) (level 8)",

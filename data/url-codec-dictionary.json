@@ -141,7 +141,8 @@
         "Active",
         "Upgradeable Item",
         "Upgradeable - Primary Augment",
-        "Upgradeable - Secondary Augment"
+        "Upgradeable - Secondary Augment",
+        "Upgrade Tier"
     ],
     "itemTypes": [
         "Back items",

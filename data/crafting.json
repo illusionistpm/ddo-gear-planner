@@ -48983,6 +48983,5148 @@
             }
         ]
     },
+    "Upgrade Tier": {
+        "Blasting Chime (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Anthem",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Anthem",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Blasting Chime (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Blasting Chime (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    },
+                    {
+                        "name": "Sonic Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "74"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    },
+                    {
+                        "name": "Sonic Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "79"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Bracers of Wind (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Bracers of Wind (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Bracers of Wind (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "74"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "79"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Brigand's Cutlass (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "True Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Brigand's Cutlass (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Absolute Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Brigand's Cutlass (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "True Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Brigand's Cutlass (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "True Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Banded Heavy Repeater (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Banded Heavy Repeater (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Banded Light Repeater (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Falchion (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Falchion (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Falchion (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Rapier (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Rapier (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Rapier (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Scimitar (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Scimitar (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Scimitar (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Strung Long Bow (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Strung Long Bow (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Strung Long Bow (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Studded Handwraps (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Studded Handwraps (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Calomel Studded Handwraps (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cavalry Plate (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cavalry Plate (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "DR",
+                        "type": "Chaotic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cavalry Plate (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cavalry Plate (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "DR",
+                        "type": "Chaotic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cloak of Flames (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "22"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "24"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cloak of Flames (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "25"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "27"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cloak of Flames (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "74"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "79"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cutthroat's Smallblade (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cutthroat's Smallblade (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cutthroat's Smallblade (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "Bleed",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Cutthroat's Smallblade (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Slicing",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Duelist's Leathers (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": "13"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Duelist's Leathers (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Duelist's Leathers (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "Balance",
+                        "type": "Competence",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Duelist's Leathers (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Superior Nimbleness",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Greataxe of Fire (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "26"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "29"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Greataxe of Fire (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "32"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Greataxe of Fire (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "22"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Khopesh of Water (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "26"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "29"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Khopesh of Water (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "32"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Khopesh of Water (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "22"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Longbow of Earth (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "26"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "29"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Longbow of Earth (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "32"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Longbow of Earth (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "22"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Rapier of Air (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "26"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "29"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Rapier of Air (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "32"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Elemental Rapier of Air (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "22"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Blasting Chime": [
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "116"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "122"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Bracers of Wind": [
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "116"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "122"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Brigand's Cutlass (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Incite",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Incite",
+                        "type": "Enhancement",
+                        "value": "20"
+                    },
+                    {
+                        "name": "Absolute Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Brigand's Cutlass (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Incite",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Incite",
+                        "type": "Enhancement",
+                        "value": "30"
+                    },
+                    {
+                        "name": "Absolute Chaos",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Banded Heavy Repeater": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Falchion": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Long Bow": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Rapier": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Scimitar": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Calomel Studded Handwraps": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Dragon Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Lifedrinker",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Cavalry Plate (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "40"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "40"
+                    },
+                    {
+                        "name": "DR",
+                        "type": "Chaotic",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Cavalry Plate (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "40"
+                    },
+                    {
+                        "name": "DR",
+                        "type": "Chaotic",
+                        "value": "14"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "False Life",
+                        "type": "Enhancement",
+                        "value": "40"
+                    },
+                    {
+                        "name": "DR",
+                        "type": "Chaotic",
+                        "value": "14"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Cloak of Flames": [
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "116"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "28"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "122"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Fire Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Cutthroat's Smallblade (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Cutthroat's Smallblade (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Duelist's Leathers (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Epic Nimbleness",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Epic Nimbleness",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Duelist's Leathers (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Dodge",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Elemental Greataxe of Fire": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "38"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Enhancement",
+                        "value": "41"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Elemental Khopesh of Water": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "38"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Fire Resistance",
+                        "type": "Enhancement",
+                        "value": "41"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Elemental Longbow of Earth": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "38"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Acid Resistance",
+                        "type": "Enhancement",
+                        "value": "41"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Elemental Rapier of Air": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "38"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Enhancement",
+                        "value": "41"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Frozen Tunic": [
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "8"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "116"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "8"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "122"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Breastplate": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Negative Energy Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Chain": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Negative Energy Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Docent": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Negative Energy Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Fullplate": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "9"
+                    },
+                    {
+                        "name": "Negative Energy Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Greataxe": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Light Mace": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Longsword": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Maul": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Shortsword": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Mournlode Warhammer": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Blinding Flash",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ornamented Dagger (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Equipment",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Equipment",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "52"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ornamented Dagger (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Equipment",
+                        "value": "8"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Lore",
+                        "type": "Equipment",
+                        "value": "8"
+                    },
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "76"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ratkiller (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Earthgrab",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ratkiller (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Earthgrab",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ring of Master Artifice": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "206"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "116"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "220"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "122"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Repair Systems",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Ring of the Stalker": [
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostly",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Deception",
+                        "type": "Insight",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Ghostly",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Deception",
+                        "type": "Insight",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "11"
+                    },
+                    {
+                        "name": "Deception",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Rock Boots": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "116"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "17"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "122"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Acid Absorption",
+                        "type": "Enhancement",
+                        "value": "30"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Spare Hand": [
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Competence",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "18"
+                    },
+                    {
+                        "name": "Use Magic Device",
+                        "type": "Competence",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Insight",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Swashbuckler (legacy) (level 20)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Parrying",
+                        "type": "Insight",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Parrying",
+                        "type": "Insight",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "2"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Epic Swashbuckler (legacy) (level 24)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "1"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+7"
+                    },
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Dexterity",
+                        "type": "Insight",
+                        "value": "2"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Frozen Tunic (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Frozen Tunic (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Frozen Tunic (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "74"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class",
+                        "type": "Armor",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "79"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Breastplate (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Breastplate (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Breastplate (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Chain (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Chain (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Chain (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Docent (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Docent (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Docent (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Fullplate (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Fullplate (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "7"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Fullplate (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Guard",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Armor Class",
+                        "type": "Deflection",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Greataxe (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Greataxe (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Greataxe (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Light Mace (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Light Mace (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Light Mace (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Longsword (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Longsword (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Longsword (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Maul (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Maul (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Maul (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Shortsword (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Shortsword (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Shortsword (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Warhammer (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Warhammer (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Mournlode Warhammer (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Undead Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ornamented Dagger (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "36"
+                    },
+                    {
+                        "name": "each Spell Power. becomes Potency +36Potency +36: Passive: +36 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
+                        "type": "Equipment",
+                        "value": "36"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "44"
+                    },
+                    {
+                        "name": "each Spell Power. becomes Potency +36Potency +36: Passive: +36 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
+                        "type": "Equipment",
+                        "value": "36"
+                    },
+                    {
+                        "name": "each Spell Power. becomes Potency +44Potency +44: Passive: +44 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
+                        "type": "Equipment",
+                        "value": "36"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ornamented Dagger (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "5"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ornamented Dagger (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ornamented Dagger (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "32"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "48"
+                    },
+                    {
+                        "name": "Potency",
+                        "type": "Equipment",
+                        "value": "36"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ratkiller (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Staggering Blow",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ratkiller (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Earthgrab",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ratkiller (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ratkiller (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of Master Artifice (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "140"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "154"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of Master Artifice (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "173"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "187"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of Master Artifice (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "107"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "74"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wizardry",
+                        "type": "Enhancement",
+                        "value": "118"
+                    },
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "79"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of the Stalker (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "7"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "8"
+                    },
+                    {
+                        "name": "Deception",
+                        "type": "Insight",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of the Stalker (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "BUG: No change",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "BUG: No change",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "9"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Ring of the Stalker (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Insight",
+                        "value": "2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Deception",
+                        "type": "Insight",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Rock Boots (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "88"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Immunity to Slippery Surfaces",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "94"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "14"
+                    },
+                    {
+                        "name": "Immunity to Slippery Surfaces",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Rock Boots (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "102"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "108"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Rock Boots (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "74"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "79"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "12"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Spare Hand (level 11)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "15"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "16"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Spare Hand (level 15)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Insight",
+                        "value": "4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Insight",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Riposte",
+                        "type": "Insight",
+                        "value": "8"
+                    },
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "17"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "17"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Spare Hand (level 7)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "11"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "11"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Disable Device",
+                        "type": "Competence",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Open Lock",
+                        "type": "Competence",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Insight",
+                        "value": "3"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Swashbuckler (legacy) (level 12)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+4"
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Swashbuckler (legacy) (level 16)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+5"
+                    },
+                    {
+                        "name": "Parrying",
+                        "type": "Insight",
+                        "value": "8"
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Swashbuckler (legacy) (level 4)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+2"
+                    },
+                    {
+                        "name": "Guardbreaking",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ],
+        "Swashbuckler (legacy) (level 8)": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    }
+                ],
+                "name": "Tier 2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Armor)",
+                        "type": "Enhancement",
+                        "value": "+3"
+                    },
+                    {
+                        "name": "Riposte",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "name": "Tier 3"
+            }
+        ]
+    },
     "Upgradeable - Primary Augment": {
         "*": []
     },

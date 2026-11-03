@@ -36,12 +36,16 @@ differing pixels.** A diff is a defect to explain, not noise to triage.
 
 ## What it captures
 
-16 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
+18 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
 viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
 preview, the affix builder, and the shopping list (from a
-build with augments, so it has crafting rows). Add a scene there when a state
-isn't covered.
+build with augments, so it has crafting rows) with its share menu open and as a
+friend's snapshot link shows it. Add a scene there when a state isn't covered.
+
+A friend's *live* link reads the owner's list from the API, which nothing
+pins, so it isn't captured; it renders the same view as the snapshot, plus a
+Refresh button.
 
 Each scene gets a fresh browser context with localStorage seeded (theme,
 active tab, onboarding), animations disabled, and the data-build timestamp
@@ -52,7 +56,7 @@ URL, so a pinned URL pins the content.
 
 `desktop` 1440x900, `tablet` 768x1024, `mobile` 360x800 - the last two with
 touch emulated, or the `(pointer: coarse)` rules that size tap targets don't
-apply. All three by default, 102 screenshots; narrow it while iterating with
+apply. All three by default, 108 screenshots; narrow it while iterating with
 `--viewport desktop`.
 
 They aren't three sizes of the same layout. The page chrome restacks below

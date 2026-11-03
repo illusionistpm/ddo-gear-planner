@@ -88,6 +88,14 @@ key names, the `ml_<slot>` / `craft_<n>_<field>` builders and parsers, and the
 list that decides whether a URL key is build data at all. A new param that
 skips it will be dropped by the codec or leak into view state.
 
+**View state rides in the URL fragment, never in query keys.** The shopping
+list's `#shopping-list` / `#still-needed…` (`build/shopping-list-link.ts`) live
+there because the codec never sees a fragment, so build URLs stay as they were.
+The app's own URL writes keep it (`preserveFragment`, `urlFragmentOf`); a new
+one must too. And never read the route path with `router.url.split('?')` - a
+fragment with no query string lands in the last segment. Use `routePathOf` /
+`routeSegmentsOf` (`build/build-route.ts`).
+
 **`Craftable`'s selection strings travel in those URLs**: `"System: Option"`, or
 `"System (empty)"` for a system chosen with nothing in it yet. `craftable.spec.ts`
 pins every shape. Item copies use `Craftable.clone()` - don't route copies back

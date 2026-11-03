@@ -203,6 +203,32 @@ def test_build_compound_affix_candidates_keeps_type_prefixed_tooltip_names_canon
     assert candidates[0]['candidatePriority'] == 'high'
 
 
+def test_build_compound_affix_candidates_keeps_names_the_parser_canonicalized(monkeypatch):
+    monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
+    monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: set())
+
+    candidates = build_compound_affix_candidates.build_compound_affix_candidates([
+        {
+            'name': 'Mantle',
+            'url': '/page/Item:Mantle',
+            'affixes': [
+                {
+                    'name': 'Negative Lore',
+                    'type': 'Insight',
+                    'value': '8',
+                    'sourceText': 'Insightful Void Lore +8',
+                    'sourceTooltip': (
+                        'Insightful Void Lore +8: Passive: Your Negative Energy and Poison spells gain a 8% '
+                        'Insightful bonus to their chance to critical hit.'
+                    ),
+                },
+            ],
+        },
+    ])
+
+    assert [candidate['affixName'] for candidate in candidates] == ['Negative Lore']
+
+
 def test_build_compound_affix_candidates_prefers_tooltip_label_over_glued_source_text(monkeypatch):
     monkeypatch.setattr(build_compound_affix_candidates, 'load_compound_affixes', lambda: {})
     monkeypatch.setattr(build_compound_affix_candidates, '_load_existing_affix_groups', lambda: {'Sheltering'})

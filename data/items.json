@@ -4767,7 +4767,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -4794,7 +4794,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -4824,7 +4824,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -4859,7 +4859,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -4894,7 +4894,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -4929,7 +4929,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -6882,9 +6882,9 @@
                 "value": 1
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Greater Dispelling",
@@ -8612,8 +8612,8 @@
             },
             {
                 "name": "Finesse",
-                "type": "Bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "2"
             },
             {
                 "name": "True Chaos",
@@ -8955,9 +8955,9 @@
                 "value": "3"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": 12,
@@ -8982,9 +8982,9 @@
                 "value": "4"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "ml": 13,
@@ -9009,9 +9009,9 @@
                 "value": "4"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -13660,7 +13660,7 @@
         "affixes": [
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -15667,7 +15667,8 @@
             },
             {
                 "name": "Sonic Guard",
-                "value": "3"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Sonic Spell Power",
@@ -15780,7 +15781,8 @@
             },
             {
                 "name": "Sonic Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Sonic Spell Power",
@@ -18325,7 +18327,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -18433,7 +18435,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -18455,7 +18457,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             }
@@ -22923,7 +22925,7 @@
                 "value": 1
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -27719,7 +27721,7 @@
                 "value": 1
             },
             {
-                "name": "Radiance",
+                "name": "Radiance (enchantment)",
                 "type": "Bool",
                 "value": 1
             },
@@ -33168,6 +33170,7 @@
             },
             {
                 "name": "Distant Incite",
+                "type": "Enhancement",
                 "value": "23"
             },
             {
@@ -33236,7 +33239,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -33272,7 +33275,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -37529,11 +37532,6 @@
     {
         "affixes": [
             {
-                "name": "Maximum Charge Tier",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Rune Arm Imbue: Light",
                 "type": "Untyped",
                 "value": "2"
@@ -40891,7 +40889,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -40925,7 +40923,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -40959,7 +40957,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -40993,7 +40991,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -41027,7 +41025,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "10"
             },
             {
@@ -41061,7 +41059,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "11"
             },
             {
@@ -41095,7 +41093,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "12"
             },
             {
@@ -41129,7 +41127,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -41163,7 +41161,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -50509,6 +50507,7 @@
             },
             {
                 "name": "Deception",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -52707,9 +52706,9 @@
     {
         "affixes": [
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Deception",
@@ -55600,9 +55599,9 @@
                 "value": 1
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -59281,7 +59280,7 @@
                 "value": "73"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -64638,7 +64637,7 @@
                 "value": "17"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             }
@@ -69140,6 +69139,7 @@
             },
             {
                 "name": "Deception",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -70592,7 +70592,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             }
         ],
@@ -76516,7 +76516,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -76651,6 +76651,7 @@
             },
             {
                 "name": "Finesse",
+                "type": "Enhancement",
                 "value": "9"
             },
             {
@@ -76831,12 +76832,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Negative Energy Absorption clicky",
@@ -76882,12 +76884,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Weaken Undead",
@@ -76928,12 +76931,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Weaken Undead",
@@ -76979,12 +76983,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Healers Bounty",
@@ -79683,7 +79688,7 @@
                 "value": "3"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -79718,7 +79723,7 @@
                 "value": "3"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -79753,7 +79758,7 @@
                 "value": "4"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -83773,8 +83778,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -83810,8 +83815,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -83847,8 +83852,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -84533,7 +84538,7 @@
                 "value": 1
             },
             {
-                "name": "Riposte",
+                "name": "Riposte (enchantment)",
                 "type": "Bool",
                 "value": 1
             }
@@ -84579,7 +84584,7 @@
                 "value": 1
             },
             {
-                "name": "Riposte",
+                "name": "Riposte (enchantment)",
                 "type": "Bool",
                 "value": 1
             }
@@ -90061,7 +90066,7 @@
                 "value": "37"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             }
@@ -93737,9 +93742,9 @@
                 "value": "+1"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Unraveling Enchantments",
@@ -100175,8 +100180,8 @@
         "affixes": [
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -123338,7 +123343,8 @@
         "affixes": [
             {
                 "name": "Thorn Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Armor-Piercing",
@@ -129793,7 +129799,7 @@
         "affixes": [
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "11"
             },
             {
@@ -131966,7 +131972,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "11"
             }
         ],
@@ -138505,6 +138511,7 @@
             },
             {
                 "name": "Distant Incite",
+                "type": "Enhancement",
                 "value": "44"
             },
             {
@@ -138552,7 +138559,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "12"
             },
             {
@@ -138589,7 +138596,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "12"
             },
             {
@@ -151514,7 +151521,7 @@
                 "value": 1
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -169253,7 +169260,8 @@
         "affixes": [
             {
                 "name": "Thorn Guard",
-                "value": "6"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Armor-Piercing",
@@ -172588,7 +172596,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "12"
             }
         ],
@@ -172772,7 +172780,8 @@
             },
             {
                 "name": "Wild Frenzy",
-                "value": "122"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Revel in Blood (Slashing)",
@@ -175247,6 +175256,7 @@
             },
             {
                 "name": "Finesse",
+                "type": "Enhancement",
                 "value": "13"
             }
         ],
@@ -182930,7 +182940,7 @@
                 "value": "4"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -182965,7 +182975,7 @@
                 "value": "4"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -202201,7 +202211,7 @@
         "affixes": [
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "10"
             },
             {
@@ -207949,7 +207959,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],
@@ -210252,7 +210262,8 @@
             },
             {
                 "name": "Wild Frenzy",
-                "value": "50"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Bleeding",
@@ -214923,7 +214934,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -215335,9 +215346,9 @@
                 "value": "1"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -215370,9 +215381,9 @@
                 "value": "2"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             }
         ],
         "crafting": [
@@ -216297,9 +216308,9 @@
                 "value": "+5"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Ghost Touch",
@@ -219567,7 +219578,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 4,
@@ -219603,12 +219615,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "3"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -219648,12 +219661,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Negative Energy Absorption clicky",
@@ -219698,7 +219712,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -219738,12 +219753,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "3"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -219783,12 +219799,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Weaken Undead",
@@ -219833,7 +219850,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 4,
@@ -219869,7 +219887,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -219904,12 +219923,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "3"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -219944,12 +219964,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Weaken Undead",
@@ -219989,7 +220010,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 4,
@@ -220020,7 +220042,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -220060,12 +220083,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "3"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "crafting": [
@@ -220105,12 +220129,13 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "4"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Healers Bounty",
@@ -220155,7 +220180,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 4,
@@ -220191,7 +220217,8 @@
             },
             {
                 "name": "Undead Guard",
-                "value": "2"
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -223572,7 +223599,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -230235,7 +230262,7 @@
     {
         "affixes": [
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -234217,7 +234244,7 @@
                 "value": "+3"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -234935,9 +234962,9 @@
                 "value": "3"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Curse Vector",
@@ -236934,8 +236961,8 @@
             },
             {
                 "name": "Improved Bashing",
-                "type": "Untyped",
-                "value": "5"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Sovereign Vorpal",
@@ -238140,9 +238167,9 @@
                 "value": 1
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Increases all threat generated by",
@@ -239061,7 +239088,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "10"
             }
         ],
@@ -239560,7 +239587,7 @@
                 "value": 1
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -239918,7 +239945,7 @@
                 "value": 1
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -241921,9 +241948,9 @@
                 "value": "10"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Increases spellcasting, melee, and ranged threat by 15%\u2714",
@@ -243183,7 +243210,7 @@
                 "value": "2"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -243218,7 +243245,7 @@
                 "value": "2"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -243253,7 +243280,7 @@
                 "value": "1"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -243288,7 +243315,7 @@
                 "value": "1"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -253160,9 +253187,9 @@
                 "value": "+2"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Returning",
@@ -255674,7 +255701,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -260903,8 +260930,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             }
         ],
         "ml": 11,
@@ -264067,7 +264094,7 @@
                 "value": "3"
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             }
@@ -267391,8 +267418,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -267428,8 +267455,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -267465,8 +267492,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -267497,8 +267524,8 @@
             },
             {
                 "name": "Protection from Evil",
-                "type": "Bool",
-                "value": 1
+                "type": "Deflection",
+                "value": "2"
             },
             {
                 "name": "Ghostbane",
@@ -267528,9 +267555,9 @@
                 "value": "+3"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Ghost Touch",
@@ -271669,6 +271696,7 @@
             },
             {
                 "name": "Deception",
+                "type": "Enhancement",
                 "value": "8"
             },
             {
@@ -273210,7 +273238,7 @@
                 "value": 1
             },
             {
-                "name": "Riposte",
+                "name": "Riposte (enchantment)",
                 "type": "Bool",
                 "value": 1
             }
@@ -273255,7 +273283,7 @@
                 "value": 1
             },
             {
-                "name": "Riposte",
+                "name": "Riposte (enchantment)",
                 "type": "Bool",
                 "value": 1
             }
@@ -277697,9 +277725,9 @@
                 "value": 1
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Adamantine",
@@ -279241,7 +279269,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "11"
             }
         ],
@@ -290482,7 +290510,7 @@
                 "value": 1
             },
             {
-                "name": "Underwater Action",
+                "name": "Water Breathing",
                 "type": "Bool",
                 "value": 1
             },
@@ -292522,9 +292550,9 @@
                 "value": "+5"
             },
             {
-                "name": "Deception",
-                "type": "Bool",
-                "value": 1
+                "name": "Improved Deception",
+                "type": "Enhancement",
+                "value": "3"
             },
             {
                 "name": "Deception",
@@ -293549,8 +293577,8 @@
             },
             {
                 "name": "Improved Bashing",
-                "type": "Untyped",
-                "value": "5"
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Holy",
@@ -297384,7 +297412,7 @@
         "affixes": [
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "6"
             },
             {
@@ -299777,7 +299805,7 @@
             },
             {
                 "name": "Tendon Slice",
-                "type": "Untyped",
+                "type": "Enhancement",
                 "value": "11"
             }
         ],

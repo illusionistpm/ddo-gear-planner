@@ -1,4 +1,7 @@
 {
+    "affixes": {
+        "Underwater Action": "Water Breathing"
+    },
     "bonusTypes": {
         "Abjuration Focus": "Equipment",
         "Accuracy": "Competence",
@@ -110,15 +113,15 @@
         "Strength": "Enhancement",
         "Stunning": "Enhancement",
         "Swim": "Competence",
-        "Tendon Slice": "Untyped",
+        "Tendon Slice": "Enhancement",
         "Transmutation Focus": "Equipment",
         "True Seeing": "Bool",
         "Tumble": "Competence",
         "Unbalancing": "Bool",
-        "Underwater Action": "Bool",
         "Vampirism": "Bool",
         "Vengeful": "Bool",
         "Vertigo": "Enhancement",
+        "Water Breathing": "Bool",
         "Wisdom": "Enhancement",
         "Wizardry": "Enhancement"
     },

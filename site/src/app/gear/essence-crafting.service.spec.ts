@@ -13,6 +13,16 @@ describe('EssenceCraftingService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('offers the Underwater Action option as the Water Breathing items carry, still matching old links', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const options = service.getValuesForML('Ring', 20).flatMap(craftable => craftable.options);
+    const option = options.find(candidate => candidate.affixes.some(affix => affix.name === 'Water Breathing'));
+
+    expect(option?.affixes.map(affix => [affix.name, affix.type])).toEqual([['Water Breathing', 'Bool']]);
+    expect(option?.matchesParamDescription('Underwater Action1')).toBe(true);
+    expect(options.some(candidate => candidate.affixes.some(affix => affix.name === 'Underwater Action'))).toBe(false);
+  });
+
   it('uses the generated Essence Crafting max level for selectable levels', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
     expect(service.maxLevel).toBe(36);

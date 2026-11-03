@@ -650,7 +650,7 @@
         {
             "affixes": [
                 {
-                    "name": "Underwater Action",
+                    "name": "Water Breathing",
                     "type": "Bool",
                     "value": 1
                 }

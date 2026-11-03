@@ -26052,7 +26052,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26099,7 +26099,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26146,7 +26146,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26193,7 +26193,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26240,7 +26240,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26287,7 +26287,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26334,7 +26334,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26381,7 +26381,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26428,7 +26428,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26475,7 +26475,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26522,7 +26522,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26569,7 +26569,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -26616,6 +26616,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -26750,6 +26751,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -26884,6 +26886,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "6"
                     }
                 ]
@@ -27285,6 +27288,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "5"
                     }
                 ]
@@ -27401,6 +27405,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "5"
                     }
                 ]
@@ -27517,6 +27522,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "5"
                     }
                 ]
@@ -27633,6 +27639,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "8"
                     }
                 ]
@@ -27758,6 +27765,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "8"
                     }
                 ]
@@ -27883,6 +27891,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
+                        "type": "Enhancement",
                         "value": "8"
                     }
                 ]
@@ -33546,7 +33555,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -37890,7 +37899,7 @@
                 "affixes": [
                     {
                         "name": "Tendon Slice",
-                        "type": "Untyped",
+                        "type": "Enhancement",
                         "value": "10"
                     }
                 ]
@@ -38184,15 +38193,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Deception",
-                        "type": "Bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Destruction",
                         "type": "Bool",
                         "value": 1
@@ -38248,8 +38248,8 @@
                 "affixes": [
                     {
                         "name": "Finesse",
-                        "type": "Bool",
-                        "value": 1
+                        "type": "Enhancement",
+                        "value": "2"
                     }
                 ]
             },
@@ -38331,6 +38331,15 @@
                         "name": "Healing Amplification",
                         "type": "Competence",
                         "value": "60"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Deception",
+                        "type": "Enhancement",
+                        "value": "3"
                     }
                 ]
             },
@@ -38472,15 +38481,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Underwater Action",
-                        "type": "Bool",
-                        "value": 1
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Vicious",
                         "type": "Bool",
                         "value": 1
@@ -38491,6 +38491,15 @@
                 "affixes": [
                     {
                         "name": "Vorpal",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Water Breathing",
                         "type": "Bool",
                         "value": 1
                     }
@@ -49024,7 +49033,8 @@
                     },
                     {
                         "name": "Sonic Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 3"
@@ -49072,7 +49082,8 @@
                     },
                     {
                         "name": "Sonic Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Sonic Spell Power",
@@ -49091,7 +49102,8 @@
                     },
                     {
                         "name": "Sonic Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Sonic Spell Power",
@@ -51425,7 +51437,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -51439,7 +51452,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -51470,7 +51484,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -51484,7 +51499,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -51515,7 +51531,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -51529,7 +51546,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "5"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -51560,7 +51578,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -51574,7 +51593,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -52368,7 +52388,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 3"
@@ -52426,7 +52447,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -52440,7 +52462,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -52496,7 +52519,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 3"
@@ -52554,7 +52578,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -52568,7 +52593,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -52624,7 +52650,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 3"
@@ -52682,7 +52709,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -52696,7 +52724,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -52752,7 +52781,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "4"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 3"
@@ -52810,7 +52840,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     }
                 ],
                 "name": "Tier 2"
@@ -52824,7 +52855,8 @@
                     },
                     {
                         "name": "Undead Guard",
-                        "value": "3"
+                        "type": "Bool",
+                        "value": 1
                     },
                     {
                         "name": "Armor Class",
@@ -54116,7 +54148,7 @@
                         "value": "+3"
                     },
                     {
-                        "name": "Riposte",
+                        "name": "Riposte (enchantment)",
                         "type": "Bool",
                         "value": 1
                     }
@@ -57305,7 +57337,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Underwater Action",
+                        "name": "Water Breathing",
                         "type": "Bool",
                         "value": 1
                     }

@@ -5,11 +5,10 @@ import { distinctUntilChanged, filter } from 'rxjs/operators';
 
 import { urlFragmentOf } from '../../build/build-route';
 import { QueryParamsService } from '../../build/query-params.service';
+import { parseShoppingListFragment, shoppingListFragment } from '../../build/shopping-list-link';
 
 /** What opened the list: a button, or a URL saying it's open (a reload, say). */
 export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url';
-
-const SHOPPING_LIST_FRAGMENT = 'shopping-list';
 
 /**
  * Whether the shopping list has taken the planner's place on screen. The
@@ -39,7 +38,7 @@ export class ShoppingListViewService implements OnDestroy {
   open(from: ShoppingListEntryPoint): void {
     this.openedFrom = from;
     this.openSubject.next(true);
-    this.queryParams.writeViewFragment(SHOPPING_LIST_FRAGMENT, true);
+    this.queryParams.writeViewFragment(shoppingListFragment({ kind: 'own' }), true);
   }
 
   close(): void {
@@ -52,7 +51,7 @@ export class ShoppingListViewService implements OnDestroy {
   }
 
   private followUrl(): void {
-    const open = urlFragmentOf(this.router.url) === `#${SHOPPING_LIST_FRAGMENT}`;
+    const open = parseShoppingListFragment(urlFragmentOf(this.router.url))?.kind === 'own';
     if (open && !this.isOpen) {
       this.openedFrom = 'url';
     }

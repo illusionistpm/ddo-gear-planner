@@ -19,6 +19,8 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert groups['Kinetic Lore'] == ['Force Lore', 'Physical Lore', 'Untyped Lore']
     assert groups['Dazing'] == ['Stunning']
     assert groups['Sundering'] == ['Shatter']
+    assert groups['Combat Mastery'] == ['Vertigo', 'Stunning', 'Shatter']
+    assert groups['Dexterity Skills'] == ['Balance', 'Hide', 'Move Silently', 'Open Lock', 'Tumble']
     assert groups['Improved Deception'] == ['Bluff']
     assert 'Armor Class (%)' not in groups
     assert 'False Life (%)' not in groups
@@ -38,19 +40,6 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert not set(module.get_all_saves()).intersection(module.get_all_skills())
     assert 'Resistance' not in module.get_all_skills()
     assert len(module.get_all_skills()) == len(set(module.get_all_skills()))
-    greater_heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
-    assert groups['Greater Heroism'] == greater_heroism_affixes
-    assert all(isinstance(affix, str) for affix in groups['Greater Heroism'])
-
-    greater_heroism = next(entry for entry in written['affix-groups'] if entry['name'] == 'Greater Heroism')
-    assert greater_heroism == {
-        'name': 'Greater Heroism',
-        'affixes': greater_heroism_affixes,
-        'components': [
-            {'name': name, 'type': 'Morale', 'value': 4}
-            for name in greater_heroism_affixes
-        ],
-    }
 
     songblade = next(entry for entry in written['affix-groups'] if entry['name'] == 'Songblade')
     assert songblade == {
@@ -169,7 +158,101 @@ def test_build_affix_groups_riposte_components_from_the_real_compound_map(monkey
     }
 
 
-def test_build_affix_groups_heroism_and_sight_beyond_sight(monkeypatch):
+@pytest.mark.parametrize('name, value', [
+    ('Lesser Heroism', 1),
+    ('Heroism', 2),
+    ('Improved Heroism', 3),
+    ('Greater Heroism', 4),
+    ('Superior Heroism', 5),
+])
+def test_heroism_family_from_the_real_compound_map(monkeypatch, name, value):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group == {
+        'name': name,
+        'affixes': heroism_affixes,
+        'components': [{'name': affix, 'type': 'Morale', 'value': value} for affix in heroism_affixes],
+    }
+
+
+@pytest.mark.parametrize('name, incorporeality', [('Ghostly', 10), ('Enhanced Ghostly', 15)])
+def test_ghostly_splits_into_incorporeality_stealth_and_bypass(monkeypatch, name, incorporeality):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group == {
+        'name': name,
+        'affixes': ['Incorporeality', 'Hide', 'Move Silently', 'Incorporeal Bypass'],
+        'components': [
+            {'name': 'Incorporeality', 'type': 'Enhancement', 'value': incorporeality},
+            {'name': 'Hide', 'type': 'Enhancement', 'value': 5},
+            {'name': 'Move Silently', 'type': 'Enhancement', 'value': 5},
+            {'name': 'Incorporeal Bypass', 'type': 'Bool', 'value': 1},
+        ],
+    }
+
+
+@pytest.mark.parametrize('name', [
+    'Ethereal', 'Ghost Touch', 'Ghostbane', 'Dream Vision',
+    'Flameblade', 'Frostblade', 'Mindcleaver', 'Shadowblade', 'Thornblade',
+])
+def test_incorporeal_miss_chance_bypass_sources(monkeypatch, name):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    # Groups ungroup one level deep, so the bypass must be a direct component (not via Ghost Touch)
+    assert {'name': 'Incorporeal Bypass', 'type': 'Bool', 'value': 1} in group['components']
+
+
+@pytest.mark.parametrize('name, affixes', [
+    ("Hound's Bones", ['Acid Absorption', 'Evil Absorption']),
+    ('Mighty Skills Bonus', ['Jump', 'Swim']),
+    ('Touch of Immortality', ['Heal', 'Repair']),
+    ('Shadow Striker', ['Doublestrike', 'Doubleshot', 'Melee Alacrity', 'Ranged Alacrity']),
+    ('Permanent Efficacy', module.get_all_spell_power_types()),
+    ("Summer's Impertenence", ['Fire Intensity', 'Radiance Intensity']),
+    ("Winter's Impertenence", ['Kinetic Intensity', 'Void Intensity']),
+    ('Quori Mind Shield', ['Chaos Absorption']),
+    ('Strength of Purpose', ['Undying']),
+])
+def test_named_multi_stat_affixes_from_the_real_compound_map(monkeypatch, name, affixes):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group['affixes'] == affixes
+
+
+def test_build_affix_groups_sight_beyond_sight(monkeypatch):
     written = {}
 
     def capture(data, name):
@@ -181,12 +264,6 @@ def test_build_affix_groups_heroism_and_sight_beyond_sight(monkeypatch):
     module.build_affix_groups()
 
     groups = {entry['name']: entry for entry in written['affix-groups']}
-    heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
-    assert groups['Heroism'] == {
-        'name': 'Heroism',
-        'affixes': heroism_affixes,
-        'components': [{'name': name, 'type': 'Morale', 'value': 2} for name in heroism_affixes],
-    }
     assert groups['Sight Beyond Sight'] == {
         'name': 'Sight Beyond Sight',
         'affixes': ['Dodge Bypass'],

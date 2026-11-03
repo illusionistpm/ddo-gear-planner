@@ -50,7 +50,6 @@ const SKILL_AFFIXES = new Set([
   'Listen',
   'Move Silently',
   'Open Lock',
-  'Open Locks',
   'Perform',
   'Repair',
   'Search',
@@ -71,7 +70,8 @@ const OFFENSE_AFFIXES = new Set([
   'Adamantine',
   'Silver',
   'Keen',
-  'Chilling'
+  'Chilling',
+  'Incorporeal Bypass'
 ]);
 
 const DEFENSE_AFFIXES = new Set([
@@ -79,7 +79,8 @@ const DEFENSE_AFFIXES = new Set([
   'Healing Amplification',
   'Negative Amplification',
   'Repair Amplification',
-  'Undying'
+  'Undying',
+  'Incorporeality'
 ]);
 
 const UTILITY_CHECKLIST_AFFIXES = new Set([

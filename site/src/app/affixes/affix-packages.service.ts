@@ -40,11 +40,11 @@ export class AffixPackagesService {
     private equipped: EquippedService
   ) {
     this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Ghostly',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Incorporeality',
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
       'Immunity to Fear', 'Heroic Inspiration', 'Undying']);
-    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Armor Class']);
-    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing']);
+    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Incorporeal Bypass', 'Armor Class']);
+    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Incorporeal Bypass']);
     this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Concentration']);
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());

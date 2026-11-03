@@ -4,9 +4,10 @@ import os
 import re
 from typing import Any
 
-from compound_affix_names import is_source_label_only_type_prefixed
+from compound_affix_names import is_source_label_only_type_prefixed, strip_leading_parser_bonus_type
 from compound_affixes import load_compound_affixes
 from llm_io import write_llm_json
+from parse_affixes_from_cell import canonicalize_affix_name
 from provenance_io import get_provenance_json_path
 from read_json import read_json
 from typedefs import Affix, Item
@@ -45,6 +46,12 @@ def _should_repair_candidate_name(parsed_name: str, source_label: str) -> bool:
     return bool(parsed_words and source_words and parsed_words[-1] == source_words[-1] and len(parsed_words) < len(source_words))
 
 
+def _is_source_label_a_canonical_spelling(parsed_name: str, source_label: str, parsed_type: object) -> bool:
+    """The parser already resolved the label: "Insightful Void Lore" is Void Lore, which is Negative Lore."""
+    stripped_label = strip_leading_parser_bonus_type(source_label)
+    return canonicalize_affix_name(stripped_label, parsed_type) == parsed_name
+
+
 def get_candidate_affix_name(affix: Affix) -> str | None:
     name = affix.get('name')
     if not isinstance(name, str) or not name:
@@ -52,6 +59,8 @@ def get_candidate_affix_name(affix: Affix) -> str | None:
 
     source_label = _extract_source_affix_label(affix)
     if source_label and is_source_label_only_type_prefixed(name, source_label, affix.get('type')):
+        return name
+    if source_label and _is_source_label_a_canonical_spelling(name, source_label, affix.get('type')):
         return name
     if source_label and _should_repair_candidate_name(name, source_label):
         return source_label

@@ -340,6 +340,32 @@
     ],
     "notes": "Decomposed +23% Enhancement bonus to Fire and Evil Absorption into separate components as permanent stat bonuses."
   },
+  "Dream Vision": {
+    "components": [
+      {
+        "name": "Accuracy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Deadly",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Passive Competence bonus to attack and damage rolls, and melee and ranged attacks bypass incorporeal miss chance as if they had Ghost Touch."
+  },
   "Elemental Absorption": {
     "components": [
       {
@@ -486,6 +512,54 @@
     ],
     "notes": "Elemental Resonance grants equal permanent Equipment Spell Power bonuses to Acid, Fire, Electric and Cold; decomposed into four components."
   },
+  "Enhanced Ghostly": {
+    "components": [
+      {
+        "name": "Incorporeality",
+        "type": "Enhancement",
+        "value": {
+          "amount": 15,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "As Ghostly, but enemies have a 15% chance to miss you."
+  },
+  "Ethereal": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Your melee attacks do not roll a miss chance for incorporeal targets."
+  },
   "Fire and Cold Absorption": {
     "components": [
       {
@@ -524,6 +598,30 @@
     ],
     "notes": "Firestorm Lore is spell critical hit chance for Fire and Electric spells, matching Power of the Firestorm."
   },
+  "Flameblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
+  "Frostblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Frozen Thunderstorm Lore": {
     "components": [
       {
@@ -550,17 +648,65 @@
     ],
     "notes": "Frozen Thunderstorm Lore is spell critical hit chance for Cold, Sonic and Electric spells, matching Power of the Frozen Thunderstorm."
   },
-  "Ghostbane": {
+  "Ghost Touch": {
     "components": [
       {
-        "name": "Ghost Touch",
+        "name": "Incorporeal Bypass",
         "type": "Bool",
         "value": {
           "mode": "boolean_one"
         }
       }
     ],
-    "notes": "This affix grants a permanent weapon bonus: extra bane damage vs. Undead scaling with affix rank and a fixed Ghost Touch effect that bypasses ethereal monster evade chance. Both are passive and always active, so the affix is decomposed into permanent bonus components."
+    "notes": "An incorporeal creature's 50% chance to avoid damage does not apply to this weapon."
+  },
+  "Ghostbane": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Passive: the weapon has Ghost Touch. The bane damage against undead is an on-hit proc and is not tracked."
+  },
+  "Ghostly": {
+    "components": [
+      {
+        "name": "Incorporeality",
+        "type": "Enhancement",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Partially incorporeal: enemies have a 10% chance to miss you, your melee attacks ignore incorporeal miss chance, and +5 Enhancement to Hide and Move Silently."
   },
   "Good Luck": {
     "components": [
@@ -735,6 +881,211 @@
     ],
     "notes": "Grants a Luck bonus to all saves and skill checks equal to the affix number."
   },
+  "Greater Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +4 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
   "Greater Stability": {
     "components": [
       {
@@ -772,6 +1123,435 @@
     ],
     "notes": "Bonuses apply only for characters of True Neutral alignment but are permanent while the item is equipped."
   },
+  "Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +2 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
+  "Hound's Bones": {
+    "components": [
+      {
+        "name": "Acid Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Enhancement bonus to Acid and Evil Absorption."
+  },
+  "Improved Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +3 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
   "Intelligence Skills": {
     "components": [
       {
@@ -804,6 +1584,211 @@
       }
     ],
     "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
+  },
+  "Lesser Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +1 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
   },
   "Lifeblood of the Undead Prince": {
     "components": [
@@ -953,6 +1938,37 @@
     ],
     "notes": "Compound affix with multiple permanent underlying bonuses all to Rust and Repair spells: Spell Power, Spell Crit Chance, and Spell Crit Damage."
   },
+  "Mighty Skills Bonus": {
+    "components": [
+      {
+        "name": "Jump",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Bonus to Jump and Swim."
+  },
+  "Mindcleaver": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Moonlit Haunt Lore": {
     "components": [
       {
@@ -1072,6 +2088,139 @@
       }
     ],
     "notes": "Parrying grants multiple permanent Insight bonuses: to AC, and to Fortitude, Reflex, and Will saves. These are permanent and not conditional on combat states, so the affix is compound."
+  },
+  "Permanent Efficacy": {
+    "components": [
+      {
+        "name": "Acid Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Alignment Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Cold Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Electric Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Evil Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fire Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Force Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Light Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Negative Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Physical Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Positive Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Rust Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Sonic Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Untyped Spell Power",
+        "type": "Alchemical",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +20 Alchemical bonus to each Spell Power."
   },
   "Permanent Nihil": {
     "components": [
@@ -1438,6 +2587,19 @@
     ],
     "notes": "Prudent Skills Bonus is a compound affix representing multiple permanent Exceptional bonuses to Heal, Listen, and Spot skills."
   },
+  "Quori Mind Shield": {
+    "components": [
+      {
+        "name": "Chaos Absorption",
+        "type": "Enhancement",
+        "value": {
+          "amount": 23,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+23% Enhancement Chaos Absorption. The Confusion and Domination immunity is not tracked."
+  },
   "Reconstruction": {
     "components": [
       {
@@ -1541,6 +2703,55 @@
       }
     ]
   },
+  "Shadow Striker": {
+    "components": [
+      {
+        "name": "Doublestrike",
+        "type": "Profane",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Doubleshot",
+        "type": "Profane",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Melee Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 15,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Ranged Alacrity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+3% Profane Doublestrike and Doubleshot, +15% Enhancement melee and +20% Enhancement ranged attack speed."
+  },
+  "Shadowblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Silver Flame Lore": {
     "components": [
       {
@@ -1603,6 +2814,245 @@
       }
     ],
     "notes": "Permanent +2 Deflection bonus to AC and +2 Resistance bonus to saving throws for True Neutral alignment characters."
+  },
+  "Strength of Purpose": {
+    "components": [
+      {
+        "name": "Undying",
+        "type": "Enhancement",
+        "value": {
+          "amount": 128,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+128 Enhancement Unconsciousness Range. The 16 HP regeneration every 10 seconds is not tracked."
+  },
+  "Summer's Impertenence": {
+    "components": [
+      {
+        "name": "Fire Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Radiance Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20% Enhancement critical damage with fire and light spells. Radiance Intensity is the light stat (it also covers alignment)."
+  },
+  "Superior Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +5 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
   },
   "Superior Stability": {
     "components": [
@@ -1667,6 +3117,18 @@
       }
     ]
   },
+  "Thornblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Thunderstorm Lore": {
     "components": [
       {
@@ -1685,6 +3147,27 @@
       }
     ],
     "notes": "Thunderstorm Lore is spell critical hit chance for Sonic and Electric spells, matching Power of the Thunderstorm."
+  },
+  "Touch of Immortality": {
+    "components": [
+      {
+        "name": "Heal",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Competence",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20 Competence to Heal and Repair. The 2-4 HP regeneration every 15 seconds is not tracked."
   },
   "Voice of Deceit": {
     "components": [
@@ -1769,6 +3252,27 @@
       }
     ],
     "notes": "Grants a Profane bonus to all six ability scores; thus it is a compound affix with multiple permanent stat bonuses."
+  },
+  "Winter's Impertenence": {
+    "components": [
+      {
+        "name": "Kinetic Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Void Intensity",
+        "type": "Enhancement",
+        "value": {
+          "amount": 20,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+20% Enhancement critical damage with force and negative spells. Kinetic and Void Intensity are the nearest stats; they also cover physical and poison."
   },
   "Wisdom Skills": {
     "components": [

@@ -40,6 +40,13 @@ describe('AffixPackagesService', () => {
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(false);
   });
 
+  it('tracks Ghostly through its parts: incorporeality in Basic, the miss-chance bypass in Melee and Ranged', () => {
+    expect(service.packages.get('Basic')).toContain('Incorporeality');
+    expect(service.packages.get('Basic')).not.toContain('Ghostly');
+    expect(service.packages.get('Melee')).toContain('Incorporeal Bypass');
+    expect(service.packages.get('Ranged')).toContain('Incorporeal Bypass');
+  });
+
   it('never treats an empty list as selected', () => {
     expect(service.isSelected([], new Set())).toBe(false);
     expect(service.isSelected(undefined, new Set(['Strength']))).toBe(false);

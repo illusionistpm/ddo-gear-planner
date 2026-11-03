@@ -227,6 +227,10 @@
     --tracked-bonus-pulse-rgb: 16, 185, 129;
     --tracked-bonus-rest-bg: var(--chip-bg);
     --tracked-bonus-rest-border: var(--chip-border-color);
+    /* nowrap keeps a short chip on one line; the cap plus the label's own
+       wrapping lets a name longer than the row (a checklist affix like
+       "Alchemical Earth Attunement" on a phone) wrap instead of overflowing. */
+    max-width: 100%;
     white-space: nowrap;
 }
 
@@ -266,6 +270,9 @@
 
 .tracked-bonus-label {
     min-width: 0;
+    overflow-wrap: break-word;
+    text-align: start;
+    white-space: normal;
 }
 
 .tracked-bonus-value {
@@ -469,6 +476,8 @@
     display: inline-flex;
     font: inherit;
     gap: var(--space-4);
+    max-width: 100%;
+    min-width: 0;
     /* The wrapper's own padding is 0, so the chip's vertical padding is this
        button's - see .tracked-bonus-chip. */
     padding: var(--tracked-bonus-chip-pad-y) var(--space-8);

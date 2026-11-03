@@ -1,5 +1,5 @@
-import type { BuildProgressPut, ShoppingRoute } from '../../build/build-progress.service';
-import type { ShoppingProgressPatch } from './shopping-list-types';
+import type { BuildProgressPut } from '../../build/build-progress.service';
+import type { ShoppingProgressPatch, ShoppingPublished } from './shopping-list-types';
 
 /**
  * Progress changes made on this device and not yet confirmed by the server,
@@ -15,7 +15,7 @@ export interface OutboxWrite {
   patch: ShoppingProgressPatch;
   picksPatch: Record<string, readonly string[] | null>;
   /** What friends should see now; absent when it hasn't changed. */
-  published?: { needed: readonly string[]; route: ShoppingRoute };
+  published?: ShoppingPublished;
 }
 
 interface StoredOutbox {

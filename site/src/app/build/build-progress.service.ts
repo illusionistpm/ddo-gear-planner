@@ -7,14 +7,12 @@ import type {
   ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks
 } from '../planner/shopping-list/shopping-list-types';
 
-/** For each still-needed thing, the quests the owner's list sends them to. */
-export type ShoppingRoute = Readonly<Record<string, readonly string[]>>;
-
 /** What a friend's link may see of a saved build's shopping list. */
 export interface PublicBuildProgress {
   /** Still-needed entry keys; null when the owner has never shared a list. */
   needed: readonly string[] | null;
-  route: ShoppingRoute;
+  /** For each still-needed thing, the quests the owner's list sends them to. */
+  route: ShoppingSourcePicks;
   updatedAt: string | null;
 }
 
@@ -30,7 +28,7 @@ export interface BuildProgressPut {
   /** The quests to get a thing from; null forgets the pick. */
   picksPatch?: Record<string, readonly string[] | null>;
   needed?: readonly string[];
-  route?: ShoppingRoute;
+  route?: ShoppingSourcePicks;
 }
 
 /** Why a progress request failed, as far as a caller has to act on it. */

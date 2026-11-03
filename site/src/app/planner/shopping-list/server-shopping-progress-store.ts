@@ -82,8 +82,8 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
    * any: its ticks there are merged into the server's copy on the first read.
    */
   private carriedFrom: string | null = null;
-  /** Why syncing stopped for this build, if it has. */
-  private halted: 'local' | null = null;
+  /** Syncing stopped for this build until it's opened again; everything stays on this device. */
+  private halted = false;
   private busy = false;
   private fetchWanted = false;
   /** The quiet spell after the last change has passed. */
@@ -199,7 +199,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     this.carriedFrom = buildId && previous?.startsWith('build:') ? previous : null;
     this.clearTimers();
     this.buildId = buildId;
-    this.halted = null;
+    this.halted = false;
     this.failures = 0;
     this.flushDue = false;
     this.publishedJson = null;
@@ -282,7 +282,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       }
       this.lastToken = token;
       if (!token) {
-        this.halted = 'local';
+        this.halted = true;
         return;
       }
       const doc = await firstValueFrom(call());
@@ -341,13 +341,13 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       case 'unauthorized':
         // Kept queued for the next visit. A refused token stays refused:
         // trying again with it would only fail the same way.
-        this.halted = 'local';
+        this.halted = true;
         return;
       case 'not-owned':
       case 'rejected':
         // Sending these again can only fail the same way.
         dropOutbox(buildId);
-        this.halted = 'local';
+        this.halted = true;
         return;
     }
   }

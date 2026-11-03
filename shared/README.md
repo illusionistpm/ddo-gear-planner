@@ -20,8 +20,9 @@ no separate value to remember to update.
 ## Shopping-list progress
 
 The `*Progress*` values bound what `PUT /api/builds/:id/progress` stores
-(`worker/src/routes/progress.ts`), and the site's sync uses the write
-interval to pace itself:
+(`worker/src/routes/progress.ts`). The site doesn't read them: its sync
+waits out a quiet spell after the last change before writing (2 s, set in
+`SHOPPING_SYNC_TIMING`), which keeps it above the write interval.
 
 | Key | Bounds |
 |---|---|
@@ -34,4 +35,4 @@ interval to pace itself:
 
 They are ceilings against a runaway or scripted client, not limits a real
 build gets near: the longest key data/ can produce is about 230 characters,
-and the client debounces its writes to a few per minute.
+and the client sends one write per burst of changes, one at a time.

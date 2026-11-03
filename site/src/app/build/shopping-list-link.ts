@@ -37,7 +37,7 @@ export function shoppingListFragment(link: ShoppingListLink): string {
 }
 
 /** A snapshot link of these still-needed entry keys. */
-export function snapshotLink(neededKeys: Iterable<string>): ShoppingListLink {
+export function snapshotLink(neededKeys: Iterable<string>): Extract<ShoppingListLink, { kind: 'snapshot' }> {
   return { kind: 'snapshot', hashes: new Set([...neededKeys].map(hashNeededKey)) };
 }
 

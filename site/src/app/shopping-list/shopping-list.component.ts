@@ -2,15 +2,18 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output,
   QueryList, ViewChild, ViewChildren
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 
+import type { ShoppingListLink } from '../build/shopping-list-link';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
+import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { OTHER_SOURCES_LABEL } from '../planner/shopping-list/shopping-list-view-model';
 import type {
-  ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSource, ShoppingSourceChoice
+  ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSection, ShoppingSource, ShoppingSourceChoice
 } from '../planner/shopping-list/shopping-list-types';
 
 const COPIED_CONFIRMATION_MS = 1500;
@@ -20,6 +23,10 @@ const SECTION_SCROLL_GAP_PX = 8;
 /**
  * The shopping list: everything the build needs, where it comes from, and a
  * box to tick each off. It takes the planner's place on screen while open.
+ *
+ * Opened from a friend's link (see shopping-list-link.ts) it's read only:
+ * just what's still needed and where to get it, without boxes, picks or
+ * anything from your own trove.
  */
 @Component({
   selector: 'app-shopping-list',
@@ -34,6 +41,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
 
   view: ShoppingListView | null = null;
+  /** A friend's view of the list, or null for your own. */
+  friend: FriendShoppingList | null = null;
+  /** A friend's live list can be fetched again (not more than every 30 s). */
+  canRefresh = false;
   /** Feedback on the last Copy list click. */
   copyState: 'idle' | 'copied' | 'failed' = 'idle';
   /** The row whose choice of where to get it is open, if any. */
@@ -42,18 +53,35 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   lastQuestHintRowId: string | null = null;
   private subscription?: Subscription;
   private copiedTimeout?: ReturnType<typeof setTimeout>;
+  private refreshTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     readonly shoppingList: ShoppingListService,
     private readonly shoppingListView: ShoppingListViewService,
+    private readonly friendList: FriendShoppingListService,
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef,
     private readonly elementRef: ElementRef<HTMLElement>
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.shoppingList.view$.subscribe(view => {
-      if (!this.view) {
+    this.subscription = this.shoppingListView.link$.pipe(
+      // Closed: this component is on its way out.
+      filter((link): link is ShoppingListLink => link !== null),
+      switchMap((link): Observable<FriendShoppingList | ShoppingListView> => {
+        // Opened again, as your own list or a friend's: say so once its view arrives.
+        this.view = null;
+        this.friend = null;
+        return link.kind === 'own' ? this.shoppingList.view$ : this.friendList.listFor(link).pipe(
+          map(friend => {
+            this.friend = friend;
+            this.scheduleRefresh();
+            return friend;
+          }));
+      }),
+      map(viewOrFriend => 'sections' in viewOrFriend ? viewOrFriend : viewOrFriend.view)
+    ).subscribe(view => {
+      if (view && !this.view) {
         this.analytics.track('open_shopping_list', {
           entry_point: this.shoppingListView.openedFrom,
           item_count: view.total,
@@ -69,6 +97,31 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     clearTimeout(this.copiedTimeout);
+    clearTimeout(this.refreshTimeout);
+  }
+
+  /** Fetches a friend's live list again. */
+  refresh(): void {
+    if (this.friendList.refresh()) {
+      this.analytics.track('refresh_shopping_list', { needed_count: this.friend?.needed ?? 0 });
+    }
+    this.scheduleRefresh();
+  }
+
+  /** How many of a section's things are still needed, or for your own list how many are got. */
+  sectionCount(section: ShoppingSection): string {
+    return this.friend ? `${section.total - section.acquired}` : `${section.acquired}/${section.total}`;
+  }
+
+  /** Enables Refresh once it may fetch again. */
+  private scheduleRefresh(): void {
+    clearTimeout(this.refreshTimeout);
+    const wait = this.friendList.nextRefreshAt - Date.now();
+    this.canRefresh = !!this.friend?.live && wait <= 0;
+    if (this.friend?.live && wait > 0) {
+      this.refreshTimeout = setTimeout(() => this.scheduleRefresh(), wait);
+    }
+    this.cdr.markForCheck();
   }
 
   /** Synchronous inside the click, or the browser refuses the clipboard write (see clipboard.ts). */

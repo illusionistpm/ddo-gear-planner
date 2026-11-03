@@ -1,60 +1,94 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { urlFragmentOf } from '../../build/build-route';
+import { CurrentBuildService } from '../../build/current-build.service';
 import { QueryParamsService } from '../../build/query-params.service';
-import { parseShoppingListFragment, shoppingListFragment } from '../../build/shopping-list-link';
+import { parseShoppingListFragment, ShoppingListLink, shoppingListFragment } from '../../build/shopping-list-link';
 
-/** What opened the list: a button, or a URL saying it's open (a reload, say). */
-export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url';
+/** What opened the list: a button, a URL saying it's open (a reload, say), or a friend's link. */
+export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url' | 'friend_link';
+
+/** A friend's view of the list: live from the server, or a snapshot carried in the link. */
+export type FriendShoppingListLink = Exclude<ShoppingListLink, { kind: 'own' }>;
 
 /**
- * Whether the shopping list has taken the planner's place on screen. The
- * URL's fragment says so - '#shopping-list' - so a reload comes back to the
- * list, and the app's own URL writes (edits, saves, signing in) keep it.
+ * Whether the shopping list has taken the planner's place on screen, and
+ * whose: your own, or a friend's view of what's still needed. The URL's
+ * fragment says which (see shopping-list-link.ts), so a reload comes back
+ * to it, a friend's link opens it, and the app's own URL writes (edits,
+ * saves, signing in) keep it.
+ *
+ * A friend's link to a build of yours opens your own list instead, which
+ * says more: opened by its owner, or once a friend saves a copy.
  */
 @Injectable({ providedIn: 'root' })
 export class ShoppingListViewService implements OnDestroy {
   private readonly router = inject(Router);
   private readonly queryParams = inject(QueryParamsService);
-  private readonly openSubject = new BehaviorSubject(false);
-  readonly isOpen$: Observable<boolean> = this.openSubject.pipe(distinctUntilChanged());
+  private readonly currentBuild = inject(CurrentBuildService);
+  private readonly linkSubject = new BehaviorSubject<ShoppingListLink | null>(null);
+  /** The list on screen, or null for the planner. */
+  readonly link$: Observable<ShoppingListLink | null> = this.linkSubject.pipe(distinctUntilChanged(sameLink));
+  readonly isOpen$: Observable<boolean> = this.link$.pipe(map(link => link !== null), distinctUntilChanged());
   /** What opened the list last, for analytics. */
   openedFrom: ShoppingListEntryPoint | null = null;
-  private readonly subscription: Subscription;
+  private readonly subscriptions = new Subscription();
 
   constructor() {
     this.followUrl();
-    this.subscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => this.followUrl());
+    this.subscriptions.add(this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.followUrl()));
+    this.subscriptions.add(this.currentBuild.state$.subscribe(() => this.collapseFriendLinkIfYours()));
   }
 
   get isOpen(): boolean {
-    return this.openSubject.value;
+    return this.linkSubject.value !== null;
   }
 
+  get link(): ShoppingListLink | null {
+    return this.linkSubject.value;
+  }
+
+  /** Opens your own list. */
   open(from: ShoppingListEntryPoint): void {
     this.openedFrom = from;
-    this.openSubject.next(true);
-    this.queryParams.writeViewFragment(shoppingListFragment({ kind: 'own' }), true);
+    this.show({ kind: 'own' });
   }
 
   close(): void {
-    this.openSubject.next(false);
+    this.linkSubject.next(null);
     this.queryParams.writeViewFragment(null, true);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
+  }
+
+  private show(link: ShoppingListLink): void {
+    this.linkSubject.next(link);
+    this.queryParams.writeViewFragment(shoppingListFragment(link), true);
   }
 
   private followUrl(): void {
-    const open = parseShoppingListFragment(urlFragmentOf(this.router.url))?.kind === 'own';
-    if (open && !this.isOpen) {
-      this.openedFrom = 'url';
+    const link = parseShoppingListFragment(urlFragmentOf(this.router.url));
+    if (link && !sameLink(link, this.linkSubject.value)) {
+      this.openedFrom = link.kind === 'own' ? 'url' : 'friend_link';
     }
-    this.openSubject.next(open);
+    this.linkSubject.next(link);
+    this.collapseFriendLinkIfYours();
   }
+
+  private collapseFriendLinkIfYours(): void {
+    const link = this.linkSubject.value;
+    if (link && link.kind !== 'own' && this.currentBuild.value.ownership === 'owned') {
+      this.show({ kind: 'own' });
+    }
+  }
+}
+
+function sameLink(a: ShoppingListLink | null, b: ShoppingListLink | null): boolean {
+  return a === b || (a !== null && b !== null && shoppingListFragment(a) === shoppingListFragment(b));
 }

@@ -8,7 +8,7 @@
           <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
             [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
             <span class="shopping-pack-nav-name">{{section.label}}</span>
-            <span class="shopping-pack-nav-count">{{section.acquired}}/{{section.total}}</span>
+            <span class="shopping-pack-nav-count">{{sectionCount(section)}}</span>
           </button>
         </li>
       }
@@ -22,11 +22,27 @@
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
         <span class="shopping-list-back-label">Planner</span>
       </button>
-      <h2 id="shoppingListTitle" class="shopping-list-title">Shopping list</h2>
-      @if (view) {
-        <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
+      @if (friend) {
+        <h2 id="shoppingListTitle" class="shopping-list-title">Still needed</h2>
+        <span class="shopping-list-progress-text" aria-live="polite">
+          @if (view) {
+            {{friend.needed}} thing{{friend.needed === 1 ? '' : 's'}} still needed
+          }
+        </span>
+        @if (friend.live) {
+          <button type="button" class="shopping-list-refresh" (click)="refresh()" [disabled]="!canRefresh"
+            title="Fetch what's still needed again">
+            <i class="fas fa-rotate" aria-hidden="true"></i>
+            <span>Refresh</span>
+          </button>
+        }
+      } @else {
+        <h2 id="shoppingListTitle" class="shopping-list-title">Shopping list</h2>
+        @if (view) {
+          <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
+        }
       }
-      @if (view?.total) {
+      @if (!friend && view?.total) {
         <button type="button" class="shopping-list-copy" (click)="copyStillNeeded()"
           title="Copy what's still needed, grouped by quest, to paste for friends">
           <i class="fas" [class.fa-copy]="copyState !== 'copied'" [class.fa-check]="copyState === 'copied'" aria-hidden="true"></i>
@@ -37,40 +53,56 @@
         <span class="shopping-list-copy-error" role="alert">Could not copy to the clipboard. Please try again.</span>
       }
     </div>
-    @if (view?.total) {
-      <div class="shopping-list-progress" role="presentation">
-        <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
+    @if (friend) {
+      @if (friend.failed) {
+        <p class="shopping-list-note" role="alert">
+          {{view ? 'Could not update the list, so this is what was shared before.' : "Could not load what's still needed."}}
+          Try Refresh in a moment.
+        </p>
+      } @else if (friend.notShared) {
+        <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
+      }
+    } @else {
+      @if (view?.total) {
+        <div class="shopping-list-progress" role="presentation">
+          <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
+        </div>
+      }
+      <div class="shopping-list-controls">
+        <div class="shopping-list-choice" role="group" aria-label="Show">
+          <span class="shopping-list-choice-label">Show</span>
+          <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
+            [attr.aria-pressed]="view?.filter === 'all'" (click)="setFilter('all')">All</button>
+          <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
+            [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
+        </div>
+        @if (view?.picked || view?.replannable) {
+          <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
+            title="Plan the route again around what's still needed, forgetting any quests you picked">
+            <i class="fas fa-route" aria-hidden="true"></i>
+            <span>Reset route</span>
+          </button>
+        }
       </div>
     }
-    <div class="shopping-list-controls">
-      <div class="shopping-list-choice" role="group" aria-label="Show">
-        <span class="shopping-list-choice-label">Show</span>
-        <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
-          [attr.aria-pressed]="view?.filter === 'all'" (click)="setFilter('all')">All</button>
-        <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
-          [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
-      </div>
-      @if (view?.picked || view?.replannable) {
-        <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
-          title="Plan the route again around what's still needed, forgetting any quests you picked">
-          <i class="fas fa-route" aria-hidden="true"></i>
-          <span>Reset route</span>
-        </button>
-      }
-    </div>
   </header>
 
+  @if (friend && !view && !friend.failed) {
+    <p class="shopping-list-empty">Loading what's still needed…</p>
+  }
   @if (view) {
     @if (!view.total) {
-      <p class="shopping-list-empty">Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.</p>
+      <p class="shopping-list-empty">
+        {{friend ? 'This build has no gear yet.' : 'Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.'}}
+      </p>
     } @else if (!view.sections.length) {
-      <p class="shopping-list-empty">Everything is ticked off.</p>
+      <p class="shopping-list-empty">{{friend ? 'Nothing left to get: everything is ticked off.' : 'Everything is ticked off.'}}</p>
     }
     @for (section of view.sections; track section.id) {
       <section class="shopping-section" [ngClass]="accentClass(section.accent)" [attr.aria-label]="section.label">
         <h3 class="shopping-section-title" #sectionTitle tabindex="-1">
           <span class="shopping-section-name">{{section.label}}</span>
-          <span class="shopping-section-count">{{section.acquired}}/{{section.total}}</span>
+          <span class="shopping-section-count">{{sectionCount(section)}}</span>
         </h3>
         @for (group of section.groups; track group.id) {
           <!-- The quest, and what to get there; side by side on desktop. -->
@@ -147,11 +179,13 @@
 
 <!-- A row's box, label and details. -->
 <ng-template #rowContent let-row>
-  <div class="shopping-row" [class.acquired]="row.state === 'checked'">
-    <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
-      [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
-      <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
-    </button>
+  <div class="shopping-row" [class.acquired]="row.state === 'checked'" [class.read-only]="friend">
+    @if (!friend) {
+      <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
+        [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
+        <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
+      </button>
+    }
     <div class="shopping-row-body">
       <div class="shopping-row-label">
         @if (row.entry.kind === 'step' && row.entry.system) {
@@ -162,14 +196,24 @@
         } @else {
           <span class="shopping-row-name">{{row.entry.label}}</span>
         }
-        @if (row.quantity > 1) {
+        @if (friend) {
+          @if (row.quantity - row.acquired > 1) {
+            <span class="shopping-row-quantity">×{{row.quantity - row.acquired}}</span>
+          }
+        } @else if (row.quantity > 1) {
           <span class="shopping-row-quantity">{{row.acquired}}/{{row.quantity}}</span>
         }
       </div>
       <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
       <div class="shopping-row-meta">
         <div class="shopping-row-where">
-          @if (row.choices.length) {
+          @if (friend) {
+            @if (row.alsoFrom.length) {
+              <span class="shopping-row-also-from" [title]="alsoFromTooltip(row.alsoFrom)">
+                also from {{row.alsoFrom.length === 1 ? row.alsoFrom[0].quest : row.alsoFrom.length + ' other quests'}}
+              </span>
+            }
+          } @else if (row.choices.length) {
             <button type="button" class="shopping-row-sources-toggle" [attr.aria-expanded]="expandedRowId === row.id"
               [title]="alsoFromTooltip(row.alsoFrom)" (click)="toggleSources(row)">
               <span>also from {{row.alsoFrom.length === 1 ? row.alsoFrom[0].quest : row.alsoFrom.length + ' other quests'}}</span>

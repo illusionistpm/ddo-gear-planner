@@ -12,6 +12,8 @@ import { UserItemLocationTooltipPipe } from '../shared/user-item-location-toolti
 import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
+import type { ShoppingListLink } from '../build/shopping-list-link';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -58,13 +60,24 @@ describe('ShoppingListComponent', () => {
   const rowByName = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.shopping-row'))
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
+  let link: BehaviorSubject<ShoppingListLink | null>;
+  let friendLists: BehaviorSubject<FriendShoppingList>;
+  let friendService: { listFor: ReturnType<typeof vi.fn>; refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
+
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):' };
+    link = new BehaviorSubject<ShoppingListLink | null>({ kind: 'own' });
+    friendLists = new BehaviorSubject<FriendShoppingList>({ view: null, needed: 0, live: true, notShared: false, failed: false });
+    friendService = { listFor: vi.fn(() => friendLists), refresh: vi.fn(() => true), nextRefreshAt: 0 };
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
-      providers: [{ provide: ShoppingListService, useValue: service }]
+      providers: [
+        { provide: ShoppingListService, useValue: service },
+        { provide: ShoppingListViewService, useValue: { link$: link, openedFrom: null } },
+        { provide: FriendShoppingListService, useValue: friendService }
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
     fixture.detectChanges();
@@ -418,5 +431,104 @@ describe('ShoppingListComponent', () => {
     (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
 
     expect(closed).toHaveBeenCalled();
+  });
+
+  describe('opened from a friend\'s link', () => {
+    // Everything got but the augment and one ring: what the friend service would make of a link saying so.
+    const stillNeeded = () => buildShoppingListView(entries, { [sword.key]: 1, [step.key]: 1, [ring1.key]: 1 }, null,
+      { filter: 'needed' });
+    const showFriend = (list: Partial<FriendShoppingList>, kind: 'live' | 'snapshot' = 'live') => {
+      link.next(kind === 'live' ? { kind } : { kind, hashes: new Set() });
+      friendLists.next({ view: stillNeeded(), needed: 2, live: kind === 'live', notShared: false, failed: false, ...list });
+      fixture.detectChanges();
+    };
+    const text = () => el().textContent!.replace(/\s+/g, ' ');
+    const refreshButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-refresh');
+
+    it('shows only what\'s still needed and where to get it, with nothing to tick, pick or copy', () => {
+      showFriend({});
+
+      expect(friendService.listFor).toHaveBeenCalledWith({ kind: 'live' });
+      expect(el().querySelector('.shopping-list-title')?.textContent).toBe('Still needed');
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('2 things still needed');
+      expect(Array.from(el().querySelectorAll('.shopping-row:not(.acquired) .shopping-row-name'), name => name.textContent))
+        .toEqual(['Ring', 'Ruby']);
+      for (const selector of ['.shopping-check', '.shopping-list-choice', '.shopping-list-copy', '.shopping-list-progress',
+        '.shopping-list-reset-route', '.shopping-row-sources-toggle', '.owned-badge']) {
+        expect(el().querySelector(selector), selector).toBeNull();
+      }
+    });
+
+    it('counts what\'s still needed in each pack, not what\'s got', () => {
+      showFriend({});
+
+      // One ring of two, and the ruby; the sword's pack has nothing left, so isn't listed.
+      expect(Array.from(el().querySelectorAll('.shopping-section-count'), count => count.textContent)).toEqual(['2']);
+    });
+
+    it('says where else something comes from as plain text', () => {
+      const both = entry({ ...augment, sources: [from('Quest A'), from('Quest B')] });
+      link.next({ kind: 'live' });
+      friendLists.next({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1, live: true,
+        notShared: false, failed: false });
+      fixture.detectChanges();
+
+      const listedUnder = el().querySelector('.shopping-group-name')?.textContent?.trim();
+      const other = listedUnder === 'Quest A' ? 'Quest B' : 'Quest A';
+      expect(el().querySelector('.shopping-row-also-from')?.textContent?.trim()).toBe(`also from ${other}`);
+      expect(el().querySelector('button.shopping-row-also-from')).toBeNull();
+    });
+
+    it('fetches a live list again on Refresh, once the service allows', () => {
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+      friendService.nextRefreshAt = Date.now() + 60000;
+      showFriend({});
+      expect(refreshButton()?.disabled).toBe(true);
+
+      friendService.nextRefreshAt = 0;
+      showFriend({});
+      refreshButton()!.click();
+
+      expect(friendService.refresh).toHaveBeenCalled();
+      expect(track).toHaveBeenCalledWith('refresh_shopping_list', { needed_count: 2 });
+    });
+
+    it('has no Refresh for a snapshot, which can\'t change', () => {
+      showFriend({}, 'snapshot');
+
+      expect(refreshButton()).toBeNull();
+    });
+
+    it('says while it loads, when nothing has been shared, and when it couldn\'t be fetched', () => {
+      showFriend({ view: null });
+      expect(text()).toContain('Loading what\'s still needed');
+
+      showFriend({ notShared: true });
+      expect(text()).toContain('Nothing ticked off has been shared for this build yet');
+
+      showFriend({ view: null, failed: true });
+      expect(text()).toContain('Could not load what\'s still needed.');
+
+      showFriend({ failed: true });
+      expect(text()).toContain('Could not update the list, so this is what was shared before.');
+    });
+
+    it('says when there\'s nothing left to get', () => {
+      showFriend({ view: buildShoppingListView(entries, Object.fromEntries(entries.map(e => [e.key, 1 as const])), null,
+        { filter: 'needed' }), needed: 0 });
+
+      expect(text()).toContain('Nothing left to get');
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('0 things still needed');
+    });
+
+    it('tracks opening it as a friend\'s link', () => {
+      TestBed.inject(ShoppingListViewService).openedFrom = 'friend_link';
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+
+      showFriend({});
+
+      expect(track).toHaveBeenCalledWith('open_shopping_list',
+        { entry_point: 'friend_link', item_count: 5, acquired_count: 3, has_picks: false });
+    });
   });
 });

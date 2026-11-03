@@ -60,6 +60,7 @@
 }
 
 .shopping-list-copy,
+.shopping-list-refresh,
 .shopping-list-reset-route {
     align-items: center;
     background: var(--surface-color);
@@ -73,9 +74,23 @@
 }
 
 .shopping-list-copy:hover,
+.shopping-list-refresh:not(:disabled):hover,
 .shopping-list-reset-route:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+/* Fetched not long ago: the server would answer the same. */
+.shopping-list-refresh:disabled {
+    color: var(--text-secondary);
+    cursor: default;
+}
+
+/* Why a friend's list shows what it does. */
+.shopping-list-note {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
 }
 
 .shopping-list-copy-error {
@@ -382,6 +397,11 @@
 .shopping-row-sources-toggle:hover,
 .shopping-row-sources-toggle[aria-expanded="true"] {
     color: var(--primary-color);
+}
+
+/* A friend's list has no box to tick, so the label starts where the box would be. */
+.shopping-row.read-only {
+    padding-left: var(--space-8);
 }
 
 .shopping-row-sources-toggle .fas {

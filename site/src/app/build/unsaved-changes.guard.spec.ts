@@ -87,17 +87,8 @@ describe('unsavedChangesGuard', () => {
     expect(run('/build/abc123/my-build#shopping-list')).toBe(true);
     expect(run('/build/abc123#shopping-list')).toBe(true);
     expect(run('/?b=z1.test#shopping-list')).toBe(true);
-    expect(window.confirm).not.toHaveBeenCalled();
-  });
-
-  it('confirms for the root route with a fragment and no query string, reading the fragment as part of the path', () => {
-    // Pins today's behaviour: the path is everything before '?'. No such
-    // URL is reachable with unsaved work yet - a dirty build always has b=.
-    currentBuild.value.isDirty = true;
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
-
     expect(run('/#shopping-list')).toBe(true);
-    expect(window.confirm).toHaveBeenCalled();
+    expect(window.confirm).not.toHaveBeenCalled();
   });
 
   it('still confirms when the destination is genuinely outside the build editor', () => {

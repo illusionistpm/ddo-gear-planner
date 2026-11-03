@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { BuildUrlCodecService } from './build-url-codec.service';
 import { isBuildParamKey } from './build-param-keys';
-import { isBuildShortIdRoute } from './build-route';
+import { isBuildShortIdRoute, routePathOf, routeSegmentsOf } from './build-route';
 import { perfMark, perfStart } from '../shared/perf-trace';
 import { QueryParamRecord } from './query-param-types';
 
@@ -496,7 +496,7 @@ export class QueryParamsService {
   }
 
   private navigateWithParams(params: QueryParamRecord, replaceUrl: boolean) {
-    const routePath = this.router.url.split('?')[0];
+    const routePath = routePathOf(this.router.url);
     // Once a loaded build has unsaved edits, drop its /build/:shortId path
     // segment rather than pile live-edit state onto a route that's supposed
     // to mean "the canonical saved build" - AppComponent deliberately
@@ -515,7 +515,7 @@ export class QueryParamsService {
     // did nothing). ['/'] forces an absolute navigation to root.
     const routeSegments = this.buildIdentityForUrl && isBuildShortIdRoute(routePath)
       ? ['/']
-      : routePath.split('/').filter(Boolean);
+      : routeSegmentsOf(this.router.url);
     const compactParam = this.buildUrlCodec.encode(params);
     const queryParams = { b: compactParam };
 

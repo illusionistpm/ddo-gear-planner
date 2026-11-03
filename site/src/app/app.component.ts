@@ -9,7 +9,7 @@ import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
-import { isBuildShortIdRoute } from './build/build-route';
+import { isBuildShortIdRoute, routePathOf } from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
@@ -92,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const routePath = this.router.url.split('?')[0];
+    const routePath = routePathOf(this.router.url);
     const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;
     if (isBuildShortIdRoute(routePath) && !queryParamMap.has('b')) {
       // A bare /build/:shortId(/:slug) URL (no b= at all) is a fresh load -

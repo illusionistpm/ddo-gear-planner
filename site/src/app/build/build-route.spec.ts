@@ -1,4 +1,23 @@
-import { isBuildShortIdRoute } from './build-route';
+import { isBuildShortIdRoute, routePathOf, routeSegmentsOf } from './build-route';
+
+describe('routeSegmentsOf and routePathOf', () => {
+  it('read the path without its query string or fragment', () => {
+    expect(routeSegmentsOf('/build/abc123/my-build?b=z1.test#shopping-list')).toEqual(['build', 'abc123', 'my-build']);
+    expect(routeSegmentsOf('/build/abc123/my-build#shopping-list')).toEqual(['build', 'abc123', 'my-build']);
+    expect(routePathOf('/build/abc123#still-needed:1.a.b')).toBe('/build/abc123');
+  });
+
+  it('read the root as no segments and \'/\'', () => {
+    for (const url of ['', '/', '/?b=z1.test', '/#shopping-list', '/?b=z1.test#shopping-list']) {
+      expect(routeSegmentsOf(url)).toEqual([]);
+      expect(routePathOf(url)).toBe('/');
+    }
+  });
+
+  it('decode each segment', () => {
+    expect(routeSegmentsOf('/build/abc123/my%20build')).toEqual(['build', 'abc123', 'my build']);
+  });
+});
 
 describe('isBuildShortIdRoute', () => {
   it('matches /build/:shortId', () => {

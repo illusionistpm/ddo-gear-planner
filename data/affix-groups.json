@@ -466,6 +466,12 @@
     },
     {
         "affixes": [
+            "Dexterity"
+        ],
+        "name": "Finesse"
+    },
+    {
+        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",

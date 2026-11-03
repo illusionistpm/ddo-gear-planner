@@ -21,6 +21,17 @@ describe('CraftableOption', () => {
     expect(option.matchesParamDescription('Wizardry10')).toBe(false);
   });
 
+  it.each([
+    ['Deception1', 'Improved Deception', 'Enhancement', '3'],
+    ['Finesse1', 'Finesse', 'Enhancement', '2'],
+    ['Underwater Action1', 'Water Breathing', 'Bool', 1],
+  ])('still matches the old Bool description %s of an option a saved build chose', (legacy, name, type, value) => {
+    const option = new CraftableOption({ affixes: [{ name, type, value }] });
+
+    expect(option.getParamDescription()).toBe(`${name}${value}`);
+    expect(option.matchesParamDescription(legacy)).toBe(true);
+  });
+
   it('carries the quests it comes from, sharing the data array', () => {
     const quests = ['One Dame Thing After Another'];
     const option = new CraftableOption({ name: 'Crystallized Unicorn Tear', quests });

@@ -144,6 +144,7 @@ def is_weapon_damage_proc_affix(name):
         'Holy Blast',
         'Holy Burst',
         'Impactful',
+        'Improved Bashing',
         'Icy Blast',
         'Jolting',
         'Maiming',
@@ -166,6 +167,7 @@ def is_weapon_damage_proc_affix(name):
         'Smashing',
         'Solar',
         'Solar Guard',
+        'Sonic Guard',
         'Sonic Blast',
         'Stabbing',
         'Staggering',
@@ -173,13 +175,16 @@ def is_weapon_damage_proc_affix(name):
         'Sirocco',
         'Telekinetic',
         'The Dragging of the Depths',
+        'Thorn Guard',
         'Thorny Crown of Madness',
         'Tidal',
         'Toxic',
         'Unholy',
         'Unholy Burst',
+        'Undead Guard',
         'Vampirism',
         'Weakening',
+        'Wild Frenzy',
         'Wind Frenzy',
         'Wounding',
     }
@@ -225,7 +230,11 @@ def apply_known_affix_type_defaults(affix):
         affix['type'] = 'Equipment'
     elif name == 'Hardened Exterior':
         affix['type'] = 'Profane'
-    elif name == 'Mystic Incite':
+    elif name in {'Mystic Incite', 'Distant Incite'}:
+        affix['type'] = 'Enhancement'
+    # The tooltip names no type, but Essence Crafting's Insightful Tendon Slice
+    # is the Insight counterpart, and Slavers' recipe lists it as Enhancement.
+    elif name == 'Tendon Slice':
         affix['type'] = 'Enhancement'
     elif name == 'Improved Deception':
         affix['type'] = 'Enhancement'
@@ -239,7 +248,6 @@ def apply_known_affix_type_defaults(affix):
         'Maximum Charge Tier',
         'Raging Strength',
         'Smite Evil Charges',
-        'Tendon Slice',
         'Craftable Rune Arm',
         'Axeblock',
         'Hammerblock',
@@ -278,6 +286,64 @@ def apply_concealment_value(affix, tooltip=''):
         affix['value'] = tooltip_value.group(1) if tooltip_value else str(CONCEALMENT_FIXED_VALUES[affix['name']])
 
     affix['type'] = 'Enhancement'
+    return affix
+
+
+# Unnumbered or untyped variants of affixes that elsewhere carry a type and a
+# value. Left alone, the Bool catch-all (or a missing type, which the planner
+# shows as Untyped) puts them in the same list as the typed versions.
+def apply_variant_type_and_value(affix, tooltip=''):
+    if not isinstance(affix, dict):
+        return affix
+
+    name = affix.get('name')
+    tooltip = tooltip or ''
+
+    # Plain Deception is Improved Deception at +3: the same "hard to focus upon"
+    # Bluff bonus and darkness proc, word for word. The Deception affix proper
+    # is the sneak attack bonus, which this enchantment doesn't give.
+    bluff = re.search(r'provides a \+([0-9]+) enhancement bonus to Bluff checks', tooltip)
+    if name in ('Deception', 'Improved Deception') and bluff:
+        affix['name'] = 'Improved Deception'
+        affix['type'] = 'Enhancement'
+        affix['value'] = bluff.group(1)
+
+    # Deception III to IX ("On sneak attack: +N to Attack Rolls") name no bonus
+    # type. Deception +N says Enhancement, as does the Slavers recipe; the other
+    # types are the Insightful, Quality and set-bonus flavours.
+    elif name == 'Deception' and 'value' in affix and 'type' not in affix:
+        affix['type'] = 'Enhancement'
+
+    elif name == 'Finesse':
+        dexterity = re.search(r"grants a \+([0-9]+) enhancement bonus to the wielder's Dexterity", tooltip)
+        if dexterity:
+            affix['type'] = 'Enhancement'
+            affix['value'] = dexterity.group(1)
+
+    # "Passive: You gain the benefit of the spell Protection from Evil", which
+    # is the +2 Deflection bonus Protection from Evil +2 spells out.
+    elif name == 'Protection from Evil' and 'value' not in affix:
+        affix['type'] = 'Deflection'
+        affix['value'] = '2'
+
+    return affix
+
+
+# Unnumbered enchantments that are a different effect from the typed affix of
+# the same name, so they get a name of their own rather than a value.
+BOOL_VARIANT_NAMES = {
+    # Celestia's light damage and blinding on a crit, not the spell power
+    'Radiance': 'Radiance (enchantment)',
+    # the old counterattack proc, not the AC and saves tiers
+    'Riposte': 'Riposte (enchantment)',
+    # breathing only; Underwater Action +N is a Competence bonus to Swim
+    'Underwater Action': 'Water Breathing',
+}
+
+
+def rename_bool_variant(affix):
+    if isinstance(affix, dict) and affix.get('type') == 'Bool' and affix.get('name') in BOOL_VARIANT_NAMES:
+        affix['name'] = BOOL_VARIANT_NAMES[affix['name']]
     return affix
 
 
@@ -932,12 +998,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] == 'Riposte' and 'value' in aff and re.search(r'Riposte \+[0-9]+$', affixLabel):
         aff['value'] = str(int(aff['value']) * 2)
 
-    tooltipSearch = re.search(r'^.*?provides a \+([0-9]+) enhancement bonus to Bluff checks.*$', words)
-    if aff['name'] == 'Improved Deception' and tooltipSearch:
-        aff['type'] = 'Enhancement'
-        aff['value'] = tooltipSearch.group(1)
-
     aff = convert_weapon_damage_proc_to_bool(aff)
+    aff = apply_variant_type_and_value(aff, source_tooltip)
     aff = apply_known_affix_type_defaults(aff)
     aff = apply_concealment_value(aff, source_tooltip)
     aff = convert_wizardry_tier_to_spell_points(aff, affixLabel)
@@ -990,9 +1052,12 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['type'] = 'Bool'
         aff['value'] = 1
 
-    # Radiance (on Celestia, for example) is a different affix than the more common spellpower-boosting Radiance
-    if aff['name'] == 'Radiance' and aff['type'] == 'Bool':
-        aff['name'] = 'Radiance (enchantment)'
+    aff = rename_bool_variant(aff)
+
+    # Coronach (historic) lists "Maximum Charge Tier:" with no tier. A tier
+    # that's only present or absent means nothing, so leave it out.
+    if aff['name'] == 'Maximum Charge Tier' and aff['type'] == 'Bool':
+        return []
 
     if aff['name'] in ['AC', 'Armor Class', 'Conditioning', 'Maximum Spell Points'] and '%' in source_text:
         aff['name'] = aff['name'] + ' (%)'
@@ -1295,6 +1360,7 @@ def convert_affix_text_map_to_affix_map(textMap):
         affixMap['name'] = textMap['text']
 
     affixMap = convert_weapon_damage_proc_to_bool(affixMap)
+    affixMap = apply_variant_type_and_value(affixMap, textMap.get('tooltip', ''))
     affixMap = apply_known_affix_type_defaults(affixMap)
     affixMap = apply_concealment_value(affixMap, textMap.get('tooltip', ''))
 
@@ -1302,6 +1368,8 @@ def convert_affix_text_map_to_affix_map(textMap):
     if ('type' not in affixMap) and ('value' not in affixMap):
         affixMap['type'] = 'Bool'
         affixMap['value'] = 1
+
+    affixMap = rename_bool_variant(affixMap)
 
     if ('type' not in affixMap):
         affixMap['type'] = 'Untyped'

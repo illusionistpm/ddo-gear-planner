@@ -10,10 +10,18 @@ import { getPackKeys } from './pack-filter';
  *
  * - Wizardry tiers became spell points (Wizardry VI = 150, Wizardry X = 250) on the
  *   Prismatic Cloak options. No option carries Wizardry 6 or 10 any more.
+ * - Unnumbered enchantments stopped being Bool next to typed affixes of the same name:
+ *   plain Deception is Improved Deception +3, plain Finesse is Finesse +2, and plain
+ *   Underwater Action (breathing only) is Water Breathing. Dream Edge's random effects
+ *   and the Underwater Action Essence Crafting option carried the old names. Nothing
+ *   carries Deception 1, Finesse 1 or Underwater Action 1 any more.
  */
 const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
     'Wizardry6': 'Wizardry150',
     'Wizardry10': 'Wizardry250',
+    'Deception1': 'Improved Deception3',
+    'Finesse1': 'Finesse2',
+    'Underwater Action1': 'Water Breathing1',
 };
 
 export class CraftableOption {

@@ -65,6 +65,10 @@ and PR Checks fails when it isn't. So:
   touch `build-info.json`, so an unchanged parser reproduces `data/` byte for byte.
 - **Resolve a conflict in `data/*.json` by rebuilding** on the merged tree, not
   by hand-merging.
+- **A change to an affix's most common type needs two offline builds.** Essence
+  Crafting takes its bonus types from the `data/items.json` already on disk,
+  before the build rewrites it, so the first build leaves `essence-crafting.json`
+  one step behind and PR Checks fails on the diff. Build until `data/` stops changing.
 - **Only the nightly Data Auto Updater refreshes the snapshot** (`--clear-snapshot`),
   committing it together with the data built from it. It commits only when
   `data/` changes, so the snapshot can lag the wiki on content no parser reads
@@ -87,6 +91,11 @@ for every saved build and lives in every shared link. Changing what
 `BuildUrlCodecService.encode` emits breaks links that already exist.
 `build-url-codec.property.spec.ts` round-trips a few hundred generated param
 records to catch that; treat a failure there as "you changed the wire format".
+Game data is part of it too: a crafting option with no `name` travels as its
+affixes' names and values (`CraftableOption.getParamDescription`), so a parser
+fix that renames or revalues one orphans the builds that chose it unless it adds
+a `LEGACY_PARAM_DESCRIPTIONS` entry. No spec catches that; diff the unnamed
+options' descriptions before and after.
 
 **Query-param keys belong to `build/build-param-keys.ts`.** It owns the fixed
 key names, the `ml_<slot>` / `craft_<n>_<field>` builders and parsers, and the

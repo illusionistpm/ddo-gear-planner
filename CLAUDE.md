@@ -68,8 +68,13 @@ and PR Checks fails when it isn't. So:
 - **Only the nightly Data Auto Updater refreshes the snapshot** (`--clear-snapshot`),
   committing it together with the data built from it. It commits only when
   `data/` changes, so the snapshot can lag the wiki on content no parser reads
-  yet. A parser that needs that content waits for a run that commits, or a
-  manual `workflow_dispatch`.
+  yet. A parser that needs content already on a downloaded page waits for a run
+  that commits. A parser for a page the snapshot doesn't download yet can't
+  wait: the nightly never commits a page nothing reads. Add the download, run
+  the Data Auto Updater with `workflow_dispatch` on your branch (off master it
+  never commits), and take the page from the run's `data-preview` artifact,
+  which carries snapshot pages the committed snapshot lacks. Commit it
+  unchanged, with the parser and its `data/`.
 - **Never hand-edit `wiki-snapshot/`.** Pages are normalized on download
   (`normalize_wiki_html.py`) to the heading, `#mw-content-text` and `#catlinks`,
   which strips the per-request noise; a parser that reads anything else

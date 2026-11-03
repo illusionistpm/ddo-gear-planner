@@ -151,6 +151,7 @@ describe('GearDbService', () => {
       .map(affix => Number(affix.value));
 
     expect(tiers?.options.map(option => option.getParamDescription())).toEqual(['', 'Tier 2', 'Tier 3']);
+    expect(tiers?.options.map(option => option.describe())).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
     expect(seeker()).toEqual([9]);
 
     expect(tiers?.selectByParamDescription('Tier 3')).toBe(true);

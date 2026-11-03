@@ -14,6 +14,7 @@ import { CraftingOptionPickerComponent } from '../crafting-option-picker/craftin
 import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
+import { GearDbService } from '../gear/gear-db.service';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
@@ -83,6 +84,21 @@ describe('GearDescriptionComponent', () => {
 
     expect(item.getCraftingByName('Augment Slot 2')?.selectedCraftingSystemName).toBe('');
     expect(component.craftingRows.map(row => row.craft.name)).toEqual(['Augment Slot 1']);
+  });
+
+  it('names an upgrade-tier item\'s unupgraded state Tier 1 rather than leaving it blank', () => {
+    const ring = TestBed.inject(GearDbService).findGearBySlot('Ring1', 'Epic Ring of the Stalker')!;
+    fixture.componentRef.setInput('item', ring);
+    fixture.detectChanges();
+
+    const row = Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+      .find(element => element.textContent?.includes('Upgrade Tier'))!;
+    const select = row.querySelector('select')!;
+    expect(select.selectedOptions[0].textContent!.trim()).toBe('Tier 1');
+
+    select.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+    expect(Array.from(select.options).map(option => option.textContent!.trim())).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
   });
 
   describe('crafting options with minimum levels', () => {

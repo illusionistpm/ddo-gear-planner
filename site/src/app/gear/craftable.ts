@@ -2,6 +2,11 @@ import { CraftableOption } from './craftable-option';
 import { AffixService } from '../affixes/affix.service';
 import { isAugmentSystemName } from './augment-slots';
 
+// The empty option of these systems isn't "nothing": it's the item as it drops.
+const EMPTY_OPTION_LABELS: ReadonlyMap<string, string> = new Map([
+    ['Upgrade Tier', 'Tier 1'],
+]);
+
 export class Craftable {
     name!: string;
     options!: Array<CraftableOption>;
@@ -17,7 +22,7 @@ export class Craftable {
 
         this.name = name;
         if (addEmptyOption) {
-            const emptyOption = new CraftableOption(null);
+            const emptyOption = new CraftableOption(null, EMPTY_OPTION_LABELS.get(name));
             this.options = [emptyOption].concat(options);
             this.selected = emptyOption;
         } else {

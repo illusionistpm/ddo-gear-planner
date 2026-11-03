@@ -29,8 +29,15 @@ export class CraftableOption {
     readonly quests: ReadonlyArray<string>;
     /** The pack filter keys of its sources (see pack-filter.ts). */
     readonly packKeys: ReadonlyArray<string>;
+    /**
+     * What a system's "nothing selected" option shows as, when that isn't simply empty
+     * (an upgrade-tier item with no upgrade is at Tier 1). Display only: the option
+     * still travels in URLs as the empty selection.
+     */
+    readonly emptyLabel: string;
 
-    constructor(json: CraftableOptionInit | null) {
+    constructor(json: CraftableOptionInit | null, emptyLabel: string = '') {
+        this.emptyLabel = emptyLabel;
         this.affixes = (json?.affixes ?? []).map(affix => new Affix(affix));
         this.quests = json?.quests ?? [];
         this.packKeys = getPackKeys(this.quests);
@@ -102,7 +109,7 @@ export class CraftableOption {
             }
             return str;
         } else {
-            return '';
+            return this.emptyLabel;
         }
     }
 

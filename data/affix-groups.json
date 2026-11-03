@@ -531,320 +531,6 @@
     },
     {
         "affixes": [
-            "Fortitude Save",
-            "Reflex Save",
-            "Will Save",
-            "Balance",
-            "Bluff",
-            "Concentration",
-            "Diplomacy",
-            "Disable Device",
-            "Haggle",
-            "Heal",
-            "Hide",
-            "Intimidate",
-            "Jump",
-            "Listen",
-            "Move Silently",
-            "Open Lock",
-            "Perform",
-            "Repair",
-            "Search",
-            "Spellcraft",
-            "Spot",
-            "Swim",
-            "Tumble",
-            "Use Magic Device",
-            "Accuracy"
-        ],
-        "components": [
-            {
-                "name": "Fortitude Save",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Will Save",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Balance",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Bluff",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Concentration",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Diplomacy",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Disable Device",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Haggle",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Heal",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Hide",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Intimidate",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Jump",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Listen",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Move Silently",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Open Lock",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Perform",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Repair",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Search",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Spellcraft",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Spot",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Swim",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Tumble",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Use Magic Device",
-                "type": "Morale",
-                "value": 2
-            },
-            {
-                "name": "Accuracy",
-                "type": "Morale",
-                "value": 2
-            }
-        ],
-        "name": "Heroism"
-    },
-    {
-        "affixes": [
-            "Fortitude Save",
-            "Reflex Save",
-            "Will Save",
-            "Balance",
-            "Bluff",
-            "Concentration",
-            "Diplomacy",
-            "Disable Device",
-            "Haggle",
-            "Heal",
-            "Hide",
-            "Intimidate",
-            "Jump",
-            "Listen",
-            "Move Silently",
-            "Open Lock",
-            "Perform",
-            "Repair",
-            "Search",
-            "Spellcraft",
-            "Spot",
-            "Swim",
-            "Tumble",
-            "Use Magic Device",
-            "Accuracy"
-        ],
-        "components": [
-            {
-                "name": "Fortitude Save",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Reflex Save",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Will Save",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Balance",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Bluff",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Concentration",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Diplomacy",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Disable Device",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Haggle",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Heal",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Hide",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Intimidate",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Jump",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Listen",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Move Silently",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Open Lock",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Perform",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Repair",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Search",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Spellcraft",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Spot",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Swim",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Tumble",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Use Magic Device",
-                "type": "Morale",
-                "value": 4
-            },
-            {
-                "name": "Accuracy",
-                "type": "Morale",
-                "value": 4
-            }
-        ],
-        "name": "Greater Heroism"
-    },
-    {
-        "affixes": [
             "Light Spell Power",
             "Alignment Spell Power"
         ],
@@ -1298,6 +984,163 @@
     },
     {
         "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 4
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 4
+            }
+        ],
+        "name": "Greater Heroism"
+    },
+    {
+        "affixes": [
             "Armor Class",
             "Fortitude Save",
             "Reflex Save",
@@ -1326,6 +1169,477 @@
             }
         ],
         "name": "Greater Stability"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 2
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 2
+            }
+        ],
+        "name": "Heroism"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 3
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 3
+            }
+        ],
+        "name": "Improved Heroism"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 1
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 1
+            }
+        ],
+        "name": "Lesser Heroism"
     },
     {
         "affixes": [
@@ -1786,6 +2100,163 @@
             }
         ],
         "name": "Stability"
+    },
+    {
+        "affixes": [
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save",
+            "Balance",
+            "Bluff",
+            "Concentration",
+            "Diplomacy",
+            "Disable Device",
+            "Haggle",
+            "Heal",
+            "Hide",
+            "Intimidate",
+            "Jump",
+            "Listen",
+            "Move Silently",
+            "Open Lock",
+            "Perform",
+            "Repair",
+            "Search",
+            "Spellcraft",
+            "Spot",
+            "Swim",
+            "Tumble",
+            "Use Magic Device",
+            "Accuracy"
+        ],
+        "components": [
+            {
+                "name": "Fortitude Save",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Will Save",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Balance",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Bluff",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Concentration",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Diplomacy",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Disable Device",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Haggle",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Heal",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Hide",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Intimidate",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Jump",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Listen",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Move Silently",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Open Lock",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Perform",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Repair",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Search",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Spellcraft",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Spot",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Swim",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Tumble",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Use Magic Device",
+                "type": "Morale",
+                "value": 5
+            },
+            {
+                "name": "Accuracy",
+                "type": "Morale",
+                "value": 5
+            }
+        ],
+        "name": "Superior Heroism"
     },
     {
         "affixes": [

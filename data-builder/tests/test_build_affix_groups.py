@@ -38,19 +38,6 @@ def test_build_affix_groups_includes_kinetic_lore_components(monkeypatch):
     assert not set(module.get_all_saves()).intersection(module.get_all_skills())
     assert 'Resistance' not in module.get_all_skills()
     assert len(module.get_all_skills()) == len(set(module.get_all_skills()))
-    greater_heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
-    assert groups['Greater Heroism'] == greater_heroism_affixes
-    assert all(isinstance(affix, str) for affix in groups['Greater Heroism'])
-
-    greater_heroism = next(entry for entry in written['affix-groups'] if entry['name'] == 'Greater Heroism')
-    assert greater_heroism == {
-        'name': 'Greater Heroism',
-        'affixes': greater_heroism_affixes,
-        'components': [
-            {'name': name, 'type': 'Morale', 'value': 4}
-            for name in greater_heroism_affixes
-        ],
-    }
 
     songblade = next(entry for entry in written['affix-groups'] if entry['name'] == 'Songblade')
     assert songblade == {
@@ -169,7 +156,33 @@ def test_build_affix_groups_riposte_components_from_the_real_compound_map(monkey
     }
 
 
-def test_build_affix_groups_heroism_and_sight_beyond_sight(monkeypatch):
+@pytest.mark.parametrize('name, value', [
+    ('Lesser Heroism', 1),
+    ('Heroism', 2),
+    ('Improved Heroism', 3),
+    ('Greater Heroism', 4),
+    ('Superior Heroism', 5),
+])
+def test_heroism_family_from_the_real_compound_map(monkeypatch, name, value):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group == {
+        'name': name,
+        'affixes': heroism_affixes,
+        'components': [{'name': affix, 'type': 'Morale', 'value': value} for affix in heroism_affixes],
+    }
+
+
+def test_build_affix_groups_sight_beyond_sight(monkeypatch):
     written = {}
 
     def capture(data, name):
@@ -181,12 +194,6 @@ def test_build_affix_groups_heroism_and_sight_beyond_sight(monkeypatch):
     module.build_affix_groups()
 
     groups = {entry['name']: entry for entry in written['affix-groups']}
-    heroism_affixes = module.get_all_saves() + module.get_all_skills() + ['Accuracy']
-    assert groups['Heroism'] == {
-        'name': 'Heroism',
-        'affixes': heroism_affixes,
-        'components': [{'name': name, 'type': 'Morale', 'value': 2} for name in heroism_affixes],
-    }
     assert groups['Sight Beyond Sight'] == {
         'name': 'Sight Beyond Sight',
         'affixes': ['Dodge Bypass'],

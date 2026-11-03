@@ -14,6 +14,7 @@ ALLOWED_BONUS_TYPES = {
     "Insight Natural",
     "Legendary",
     "Luck",
+    "Morale",
     "Natural",
     "Orb",
     "Penalty",

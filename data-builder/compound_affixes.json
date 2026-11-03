@@ -735,6 +735,211 @@
     ],
     "notes": "Grants a Luck bonus to all saves and skill checks equal to the affix number."
   },
+  "Greater Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 4,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +4 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
   "Greater Stability": {
     "components": [
       {
@@ -772,6 +977,416 @@
     ],
     "notes": "Bonuses apply only for characters of True Neutral alignment but are permanent while the item is equipped."
   },
+  "Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +2 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
+  "Improved Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 3,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +3 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
+  },
   "Intelligence Skills": {
     "components": [
       {
@@ -804,6 +1419,211 @@
       }
     ],
     "notes": "Grants an Exceptional bonus to four Intelligence-based skills: Disable Device, Repair, Search, and Spellcraft, each scaling with affix value."
+  },
+  "Lesser Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +1 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
   },
   "Lifeblood of the Undead Prince": {
     "components": [
@@ -1603,6 +2423,211 @@
       }
     ],
     "notes": "Permanent +2 Deflection bonus to AC and +2 Resistance bonus to saving throws for True Neutral alignment characters."
+  },
+  "Superior Heroism": {
+    "components": [
+      {
+        "name": "Fortitude Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Balance",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Bluff",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Concentration",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Diplomacy",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Haggle",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Heal",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Intimidate",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Jump",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Open Lock",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Perform",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Repair",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spellcraft",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Swim",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Tumble",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Use Magic Device",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Accuracy",
+        "type": "Morale",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Passive +5 Morale bonus to attack rolls, saving throws and skill checks: all saves, all skills and Accuracy."
   },
   "Superior Stability": {
     "components": [

@@ -62,10 +62,6 @@ def _validate_affix_names(group_name: str, affixes: list[str]) -> None:
         raise TypeError(f'Affix group "{group_name}" contains non-string affixes: {invalid_affixes}')
 
 
-def _fixed_affixes(names: list[str], bonus_type: str, value: int) -> list[Affix]:
-    return [{'name': name, 'type': bonus_type, 'value': value} for name in names]
-
-
 def _unique_affix_names(names: list[str]) -> list[str]:
     return list(dict.fromkeys(names))
 
@@ -176,9 +172,7 @@ def build_affix_groups() -> None:
     add(groups, 'Kinetic Lore', ['Force Lore', 'Physical Lore', 'Untyped Lore'])
     add(groups, 'Intelligence Skills', ['Disable Device', 'Repair', 'Search', 'Spellcraft'])
     add(groups, 'Dexterity Skills', ['Balance', 'Hide', 'Move Silently', 'Open Locks', 'Tumble'])
-    # Heroism and Greater Heroism as permanent item effects: a Morale bonus to attack, saves and skills
-    add_fixed(groups, 'Heroism', _fixed_affixes(get_all_saves() + get_all_skills() + ['Accuracy'], 'Morale', 2))
-    add_fixed(groups, 'Greater Heroism', _fixed_affixes(get_all_saves() + get_all_skills() + ['Accuracy'], 'Morale', 4))
+    # The Heroism family (Lesser through Superior) lives in compound_affixes.json
     # The "Power of the ..." multi-element spell power affixes live in compound_affixes.json
     add(groups, 'Radiance', ['Light Spell Power', 'Alignment Spell Power'])
     add(groups, 'Radiance Lore', ['Light Lore', 'Alignment Lore'])

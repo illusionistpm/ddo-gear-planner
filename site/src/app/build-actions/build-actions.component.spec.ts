@@ -72,6 +72,7 @@ describe('BuildActionsComponent', () => {
     }, { isAuthenticated$, user$ }) as any;
 
     router = {
+      url: '/',
       navigateByUrl: vi.fn().mockName('Router.navigateByUrl')
     } as unknown as MockedObject<Router>;
     const cdr = {
@@ -220,6 +221,17 @@ describe('BuildActionsComponent', () => {
     // saving in place must strip it back off, not leave a stale non-clean
     // URL showing for an already-clean, just-saved build.
     expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/my-build', { replaceUrl: true });
+  });
+
+  it('keeps the view open across a save, carrying the URL fragment to the saved build\'s URL', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
+    (router as { url: string }).url = '/?b=z1.edited#shopping-list';
+
+    component.onSaveControlPrimaryClick();
+
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/my-build#shopping-list', { replaceUrl: true });
   });
 
   it('shows a "Saving…" indicator on the primary button while an in-place save is in flight', () => {

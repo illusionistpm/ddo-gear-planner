@@ -96,16 +96,19 @@ describe('AuthService', () => {
   });
 
   describe('signOut', () => {
-    it('stashes the current path/query and logs out with a bare-origin returnTo', () => {
-      // window.location isn't configurable in this test environment, so
-      // this asserts against whatever it actually is (the test page's URL)
-      // rather than a mocked build URL - still exercises the real
-      // pathname+search/origin plumbing signOut() does.
+    const originalUrl = window.location.pathname + window.location.search;
+
+    afterEach(() => {
+      window.history.replaceState(null, '', originalUrl);
+    });
+
+    it('stashes the current path, query and fragment and logs out with a bare-origin returnTo', () => {
       const service = create();
+      window.history.replaceState(null, '', '/build/abc123/my-build?b=z1.test#shopping-list');
 
       service.signOut();
 
-      expect(sessionStorage.getItem(POST_LOGOUT_RETURN_TO_KEY)).toBe(window.location.pathname + window.location.search);
+      expect(sessionStorage.getItem(POST_LOGOUT_RETURN_TO_KEY)).toBe('/build/abc123/my-build?b=z1.test#shopping-list');
       expect(auth0.logout).toHaveBeenCalledWith({
         logoutParams: { returnTo: window.location.origin }
       });
@@ -147,12 +150,13 @@ describe('AuthService', () => {
       window.history.replaceState(null, '', originalUrl);
     });
 
-    it('signIn stashes the current path/query alongside appState', () => {
+    it('signIn stashes the current path, query and fragment alongside appState', () => {
       const service = create();
+      window.history.replaceState(null, '', '/build/abc123/my-build?b=z1.test#shopping-list');
 
       service.signIn();
 
-      const target = window.location.pathname + window.location.search;
+      const target = '/build/abc123/my-build?b=z1.test#shopping-list';
       expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBe(target);
       expect(auth0.loginWithRedirect).toHaveBeenCalledWith({ appState: { target } });
     });

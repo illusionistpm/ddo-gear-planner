@@ -529,6 +529,8 @@ export class QueryParamsService {
     const navigateDone = perfStart('Router.navigate');
     this.router.navigate(routeSegments, {
       queryParams,
+      // The fragment is the view (the shopping list, say), not build state.
+      preserveFragment: true,
       replaceUrl
     }).finally(() => {
       navigateDone({ route: routeSegments.join('/'), keys: Object.keys(queryParams).length, replaceUrl });

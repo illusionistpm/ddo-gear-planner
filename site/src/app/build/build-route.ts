@@ -19,6 +19,15 @@ export function routePathOf(url: string): string {
   return `/${routeSegmentsOf(url).join('/')}`;
 }
 
+/**
+ * A URL's fragment with its '#', exactly as written, or '' when it has
+ * none - for carrying a view (the shopping list, say) over to a new URL.
+ */
+export function urlFragmentOf(url: string): string {
+  const hash = url.indexOf('#');
+  return hash < 0 ? '' : url.slice(hash);
+}
+
 // A build loaded by shortId (`/build/:shortId(/:slug)`) carries no query
 // string at all - its state comes from a server fetch + decode
 // (MainComponent's own logic), not from AppComponent's generic

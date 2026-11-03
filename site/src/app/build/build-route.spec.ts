@@ -1,4 +1,4 @@
-import { isBuildShortIdRoute, routePathOf, routeSegmentsOf } from './build-route';
+import { isBuildShortIdRoute, routePathOf, routeSegmentsOf, urlFragmentOf } from './build-route';
 
 describe('routeSegmentsOf and routePathOf', () => {
   it('read the path without its query string or fragment', () => {
@@ -16,6 +16,17 @@ describe('routeSegmentsOf and routePathOf', () => {
 
   it('decode each segment', () => {
     expect(routeSegmentsOf('/build/abc123/my%20build')).toEqual(['build', 'abc123', 'my build']);
+  });
+});
+
+describe('urlFragmentOf', () => {
+  it('reads the fragment with its #, as written, after a path or a query string', () => {
+    expect(urlFragmentOf('/build/abc123/my-build#shopping-list')).toBe('#shopping-list');
+    expect(urlFragmentOf('/?b=z1.test#still-needed:1.a.b')).toBe('#still-needed:1.a.b');
+  });
+
+  it('reads no fragment as an empty string', () => {
+    expect(urlFragmentOf('/build/abc123/my-build?b=z1.test')).toBe('');
   });
 });
 

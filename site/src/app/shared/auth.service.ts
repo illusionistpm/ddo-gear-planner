@@ -155,14 +155,21 @@ export class AuthService {
 
   signIn(): void {
     this.redirectingAwayForAuth = true;
-    sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, window.location.pathname + window.location.search);
+    const returnTo = AuthService.currentAppUrl();
+    sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, returnTo);
     // appState.target is the field the SDK actually reads to decide where to
     // land after the redirect callback (defaults to '/' otherwise, wiping
     // whatever build was in progress) - since build state already lives in
     // the URL, nothing unsaved is lost across the redirect.
     this.auth0.loginWithRedirect({
-      appState: { target: window.location.pathname + window.location.search }
+      appState: { target: returnTo }
     });
+  }
+
+  // Where to come back to after an Auth0 redirect: the build (path and
+  // query) and the view open on it (the fragment).
+  private static currentAppUrl(): string {
+    return window.location.pathname + window.location.search + window.location.hash;
   }
 
   // The SDK's own test (auth0-angular's shouldHandleCallback): Auth0
@@ -182,7 +189,7 @@ export class AuthService {
     // confusingly). So the actual build path/query has to survive some
     // other way: stash it here and restore it in the constructor once the
     // post-logout redirect lands back at the origin.
-    sessionStorage.setItem(POST_LOGOUT_RETURN_TO_KEY, window.location.pathname + window.location.search);
+    sessionStorage.setItem(POST_LOGOUT_RETURN_TO_KEY, AuthService.currentAppUrl());
     this.auth0.logout({
       logoutParams: { returnTo: window.location.origin }
     });

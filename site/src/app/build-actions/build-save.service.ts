@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
 import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build/build';
-import { buildPath } from '../build/build-route';
+import { buildPath, urlFragmentOf } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
@@ -107,7 +107,8 @@ export class BuildSaveService {
    * `cacheContent`: a content save also caches the params locally, so browser
    * back to this build's bare URL after further edits reapplies them without a
    * network fetch (see CurrentBuildService.getCanonicalParamsCache). Then
-   * leave the ?b= edit URL for the now-clean /build/:shortId/:slug one.
+   * leave the ?b= edit URL for the now-clean /build/:shortId/:slug one,
+   * keeping its fragment - the view on screen stays open.
    */
   private recordSaved(build: Build, cacheContent: boolean) {
     this.currentBuild.markSaved({
@@ -118,6 +119,6 @@ export class BuildSaveService {
         ? { canonicalParams: this.queryParams.getCombinedParams() as Record<string, string | string[]> }
         : {})
     });
-    this.router.navigateByUrl(buildPath(build.shortId, build.name), { replaceUrl: true });
+    this.router.navigateByUrl(buildPath(build.shortId, build.name) + urlFragmentOf(this.router.url), { replaceUrl: true });
   }
 }

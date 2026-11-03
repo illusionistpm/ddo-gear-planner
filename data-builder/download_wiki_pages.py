@@ -337,6 +337,13 @@ def download_quest_pages(session=None):
         download_page(pack_page, pageDir, session=session)
 
 
+# The Vaults of the Artificers upgrade tiers say only "VotAU" in the item list
+# tables; their enchantments are listed on this category page.
+def download_vota_pages(session=None):
+    pageDir = get_snapshot_path('vota_items')
+    download_paginated_category('Category:Vaults_of_the_Artificers_upgradeable_items', pageDir, session=session)
+
+
 def download_rare_loot_pages(session=None):
     pageDir = get_snapshot_path('rare_loot')
     download_paginated_category('Category:Rare_Loot_List_items', pageDir, session=session)
@@ -363,6 +370,7 @@ def download_wiki_pages():
     download_item_pages(session=session)
     download_item_type_pages(session=session)
     download_rare_loot_pages(session=session)
+    download_vota_pages(session=session)
     download_minor_artifacts_page(session=session)
     download_set_page(session=session)
     download_item_augments_page(session=session)
